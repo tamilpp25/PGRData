@@ -1,0 +1,191 @@
+[
+    {
+        "Id":1,
+        "Name":"Support Healing",
+        "Type":1,
+        "FightEvent":110503,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22080.png",
+        "Description":"HP+1000, ATK+200.\\nTrigger QTE to add one continuous buff to yourself, lasting for 4s, restoring HP equal to 1.5% of max HP per second. Buff duration refreshes on repeated triggers.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":2,
+        "Name":"Rapid Signature",
+        "Type":1,
+        "FightEvent":110505,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32141.png",
+        "Description":"HP+1000, ATK+200.\\nPing 1 Orb to obtain 1 extra Energy. Signature DMG increases by 45%.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":3,
+        "Name":"Matrix Protect",
+        "Type":1,
+        "FightEvent":110618,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32091.png",
+        "Description":"HP+1000, ATK+200.\\nCD time of Matrix reduces by 2s. Obtain 1 random Signal Orb when entering it.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":4,
+        "Name":"Switch Traps",
+        "Type":1,
+        "FightEvent":110616,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22090.png",
+        "Description":"HP+1000, ATK+200.\\nEach substitution will add Curse effect to all enemies around, dealing damage equal to 120% ATK per second for 8s. Buff duration refreshes on repeated triggers.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":5,
+        "Name":"Signature Buff",
+        "Type":1,
+        "FightEvent":110608,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22041.png",
+        "Description":"HP+1000, ATK+200.\\nAfter casting Signature, gain a shield that absorbs damage equal to 15% of max HP, 20% Extra Damage, and Super Armor for 8s.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":6,
+        "Name":"Intensity Response",
+        "Type":1,
+        "FightEvent":110501,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22001.png",
+        "Description":"HP+1000, ATK+200.\\nHealing effect increases by 15%. Increases the Extra Damage Bonus of targets healed by 20% for 5s.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":7,
+        "Name":"Switch Buff",
+        "Type":1,
+        "FightEvent":110509,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22060.png",
+        "Description":"Health +1000, HP +200.\\nReduces the cooldown of switching between members by 3s, and immediately gains 3 same-colored Signal Orbs after switching to another member.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":8,
+        "Name":"Memory Chip: Hanna",
+        "Type":1,
+        "FightEvent":110511,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32101.png",
+        "Description":"HP+1000, ATK+200.\\nIncreases Extra DMG Bonus by 25% upon a 3-Ping. For every 30s, enters Matrix upon a 3-Ping and gains 1 random Signal Orb.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":9,
+        "Name":"Signal Buff",
+        "Type":1,
+        "FightEvent":110617,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon13011.png",
+        "Description":"HP+1000, ATK+200.\\nAutomatically adds 3 Signal Orbs of the same color to the character every 3s.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":101,
+        "Name":"Support Shield",
+        "Type":1,
+        "FightEvent":110601,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22120.png",
+        "Description":"HP+1000, ATK+200.\\nAdds a shield equal to 10% of max HP for 3s in QTE. The shield cannot be stacked. Can repeatedly trigger refresh duration.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":102,
+        "Name":"Matrix Protect",
+        "Type":1,
+        "FightEvent":110618,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32091.png",
+        "Description":"HP+1000, ATK+200.\\nCD time of Matrix reduces by 2s, and give 1 random Signal Orb when entering it.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":103,
+        "Name":"Dodge Buff",
+        "Type":1,
+        "FightEvent":110507,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22031.png",
+        "Description":"HP+1000, ATK+200.\\nDodge Gauge limit increases to 400, and obtain 1 signal orb when dodge is complete.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":104,
+        "Name":"Intensity Shield",
+        "Type":1,
+        "FightEvent":110612,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32161.png",
+        "Description":"HP+1000, ATK+200.\\nAdds a shield equal to 1%\/2%\/4% of max HP for 8s upon a 1-Ping\/2-Ping\/3-Ping. This shield cannot be stacked, but can provide Super Armor in whole course.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":105,
+        "Name":"Switch Buff",
+        "Type":1,
+        "FightEvent":110509,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22060.png",
+        "Description":"Health +1000, HP +200.\\nReduces the cooldown of switching between members by 3s, and immediately gains 3 same-colored Signal Orbs after switching to another member.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":106,
+        "Name":"Shield Activization",
+        "Type":1,
+        "FightEvent":110605,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerNewBookIcon7.png",
+        "Description":"HP+1000, ATK+200.\\nFor every 1000 shields, three orbs of the same color can be obtained.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":107,
+        "Name":"Follow-Up",
+        "Type":1,
+        "FightEvent":110611,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon22050.png",
+        "Description":"HP+1000, ATK+200.\\nEvery damage dealt will deal 1 extra damage, equal to 20% of the original attack. This damage will also be counted toward the total combo.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":108,
+        "Name":"Super Shield",
+        "Type":1,
+        "FightEvent":110609,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon32131.png",
+        "Description":"HP+1000, ATK+200.\\nThe number of shield is doubled, and gain 100% Extra DMG Bonus.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":109,
+        "Name":"Anchor Mark",
+        "Type":1,
+        "FightEvent":110516,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon21101.png",
+        "Description":"HP+1000, ATK+200.\\nCombo hits up to 200 will add a marked buff to the enemy for 8s. The marked buff will record the damage taken by the enemies during this period, and at the end of the buff, it will deal \"damage taken x2\" damage to the enemies during the duration of the buff.",
+        "AbilityBonus":600
+    },
+    {
+        "Id":1001,
+        "Name":"Abandoned function",
+        "Type":2,
+        "FightEvent":110113,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon13021.png",
+        "Description":"Gains 1 Red Orb in every 3s.",
+        "AbilityBonus":0
+    },
+    {
+        "Id":1002,
+        "Name":"Abandoned function",
+        "Type":2,
+        "FightEvent":110114,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon11011.png",
+        "Description":"Gains 1 Yellow Orb in every 3s.",
+        "AbilityBonus":0
+    },
+    {
+        "Id":1003,
+        "Name":"Abandoned function",
+        "Type":2,
+        "FightEvent":110115,
+        "Icon":"Assets\/Product\/Texture\/Image\/UiBabelTower\/UiBabelTowerChallengeIcon21151.png",
+        "Description":"Gains 1 Blue Orb in every 3s.",
+        "AbilityBonus":0
+    }
+]
