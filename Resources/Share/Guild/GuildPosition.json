@@ -3,40 +3,37 @@
         "Id": 1,
         "Name": "Commander-in-Chief",
         "Priority": 1,
-        "Authority[1]": 1.0,
-        "Authority[2]": 2.0,
-        "Authority[3]": 3.0,
-        "Authority[4]": 4.0,
-        "Authority[5]": 5.0
+        "Authority": [
+            1.0,
+            2.0,
+            3.0,
+            4.0,
+            5.0
+        ]
     },
     {
         "Id": 2,
         "Name": "Deputy Commander",
         "Priority": 2,
-        "Authority[1]": 1.0,
-        "Authority[2]": 2.0,
-        "Authority[3]": 3.0,
-        "Authority[4]": null,
-        "Authority[5]": null
+        "Authority": [
+            1.0,
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 3,
         "Name": "Chief Adviser",
         "Priority": 3,
-        "Authority[1]": 1.0,
-        "Authority[2]": 3.0,
-        "Authority[3]": null,
-        "Authority[4]": null,
-        "Authority[5]": null
+        "Authority": [
+            1.0,
+            3.0
+        ]
     },
     {
         "Id": 4,
         "Name": "Chief Elite",
         "Priority": 4,
-        "Authority[1]": null,
-        "Authority[2]": null,
-        "Authority[3]": null,
-        "Authority[4]": null,
-        "Authority[5]": null
+        "Authority": []
     }
 ]

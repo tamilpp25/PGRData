@@ -1,23 +1,27 @@
 [
     {
         "Id": 1,
-        "SkillTitle[1]": "Shooting Star",
-        "SkillDesc[1]": "Gabriel launches a sweeping attack and hurls his weapon. All basic attacks can alter the weapon's moving direction. Each time Gabriel picks up his weapon, he will launch another sweeping attack.",
-        "SkillTitle[2]": "Red Giant",
-        "SkillDesc[2]": "Gabriel summons the projection of dying stars.",
-        "SkillTitle[3]": "Meteorite",
-        "SkillDesc[3]": "Meteorites fall from the sky randomly after the red giant appears.",
-        "SkillTitle[4]": "Supernova Burst",
-        "SkillDesc[4]": "The red giant launches a short burst, melting anything that it faces directly.",
-        "SkillTitle[5]": "Fragile Meteorite",
-        "SkillDesc[5]": "Meteorite is no longer invincible",
-        "SkillTitle[6]": "Apophis",
-        "SkillDesc[6]": "When the red giant is hit by a shooting star, it has a chance to burst in advance. Shooting stars will damage the meteorites.",
-        "SkillTitle[7]": "Habitable Zone",
-        "SkillDesc[7]": "All creatures outside the safe zone will take damage.",
-        "SkillTitle[8]": "Star Ring",
-        "SkillDesc[8]": "The tiles on the observatory form a circle under gravity.",
-        "SkillTitle[9]": "Three Body Problem",
-        "SkillDesc[9]": "Gabriel hurls three shooting stars"
+        "SkillTitle": [
+            "Shooting Star",
+            "Red Giant",
+            "Meteorite",
+            "Supernova Burst",
+            "Fragile Meteorite",
+            "Apophis",
+            "Habitable Zone",
+            "Star Ring",
+            "Three Body Problem"
+        ],
+        "SkillDesc": [
+            "Gabriel launches a sweeping attack and hurls his weapon. All basic attacks can alter the weapon's moving direction. Each time Gabriel picks up his weapon, he will launch another sweeping attack.",
+            "Gabriel summons the projection of dying stars.",
+            "Meteorites fall from the sky randomly after the red giant appears.",
+            "The red giant launches a short burst, melting anything that it faces directly.",
+            "Meteorite is no longer invincible",
+            "When the red giant is hit by a shooting star, it has a chance to burst in advance. Shooting stars will damage the meteorites.",
+            "All creatures outside the safe zone will take damage.",
+            "The tiles on the observatory form a circle under gravity.",
+            "Gabriel hurls three shooting stars"
+        ]
     }
 ]

@@ -7,11 +7,12 @@
         "MaxLevel": 84,
         "InitElectricEnergy": 800,
         "InitEndurance": 18,
-        "Chapter[1]": 1,
-        "Chapter[2]": 2,
-        "Chapter[3]": 3,
-        "Chapter[4]": 4,
-        "Chapter[5]": null
+        "Chapter": [
+            1,
+            2,
+            3,
+            4
+        ]
     },
     {
         "Id": 2,
@@ -21,11 +22,13 @@
         "MaxLevel": 120,
         "InitElectricEnergy": 800,
         "InitEndurance": 18,
-        "Chapter[1]": 1,
-        "Chapter[2]": 2,
-        "Chapter[3]": 3,
-        "Chapter[4]": 4,
-        "Chapter[5]": 5.0
+        "Chapter": [
+            1,
+            2,
+            3,
+            4,
+            5.0
+        ]
     },
     {
         "Id": 3,
@@ -35,10 +38,12 @@
         "MaxLevel": 120,
         "InitElectricEnergy": 30,
         "InitEndurance": 18,
-        "Chapter[1]": 1,
-        "Chapter[2]": 2,
-        "Chapter[3]": 3,
-        "Chapter[4]": 4,
-        "Chapter[5]": 5.0
+        "Chapter": [
+            1,
+            2,
+            3,
+            4,
+            5.0
+        ]
     }
 ]

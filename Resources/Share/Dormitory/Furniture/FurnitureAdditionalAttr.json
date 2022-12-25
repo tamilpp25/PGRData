@@ -4,13 +4,13 @@
         "GroupId": 1,
         "Weight": 45,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 15,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            15,
+            0
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Comfort +15",
         "QualityType": 2
     },
@@ -19,13 +19,13 @@
         "GroupId": 1,
         "Weight": 45,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 15,
-        "AddValue[2]": 15,
+        "AddValue": [
+            0,
+            15,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +15, Utility +15",
         "QualityType": 2
     },
@@ -34,13 +34,13 @@
         "GroupId": 1,
         "Weight": 45,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 15,
+        "AddValue": [
+            15,
+            0,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Utility +15",
         "QualityType": 2
     },
@@ -49,13 +49,13 @@
         "GroupId": 1,
         "Weight": 45,
         "AddType": 2,
-        "AddValue[0]": 10,
-        "AddValue[1]": 10,
-        "AddValue[2]": 10,
+        "AddValue": [
+            10,
+            10,
+            10
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +10, Comfort +10, Utility +10",
         "QualityType": 2
     },
@@ -64,13 +64,13 @@
         "GroupId": 1,
         "Weight": 37,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 0,
+        "AddValue": [
+            30,
+            30,
+            0
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30",
         "QualityType": 3
     },
@@ -79,13 +79,13 @@
         "GroupId": 1,
         "Weight": 37,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            0,
+            30,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +30, Utility +30",
         "QualityType": 3
     },
@@ -94,13 +94,13 @@
         "GroupId": 1,
         "Weight": 37,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 0,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            0,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Utility +30",
         "QualityType": 3
     },
@@ -109,13 +109,13 @@
         "GroupId": 1,
         "Weight": 39,
         "AddType": 2,
-        "AddValue[0]": 20,
-        "AddValue[1]": 20,
-        "AddValue[2]": 20,
+        "AddValue": [
+            20,
+            20,
+            20
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +20, Comfort +20, Utility +20",
         "QualityType": 3
     },
@@ -124,13 +124,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 0,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -139,13 +139,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 1,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -154,13 +154,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 45,
-        "AddValue[2]": 0,
+        "AddValue": [
+            45,
+            45,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Comfort +45",
         "QualityType": 4
     },
@@ -169,13 +169,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 45,
-        "AddValue[2]": 45,
+        "AddValue": [
+            0,
+            45,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +45, Utility +45",
         "QualityType": 4
     },
@@ -184,13 +184,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 0,
-        "AddValue[2]": 45,
+        "AddValue": [
+            45,
+            0,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Utility +45",
         "QualityType": 4
     },
@@ -199,13 +199,13 @@
         "GroupId": 1,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            30,
+            30
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30, Utility +30",
         "QualityType": 4
     },
@@ -214,13 +214,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 0,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -229,13 +229,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 1,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -244,13 +244,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 60,
-        "AddValue[2]": 0,
+        "AddValue": [
+            60,
+            60,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Comfort +60",
         "QualityType": 4
     },
@@ -259,13 +259,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 60,
-        "AddValue[2]": 60,
+        "AddValue": [
+            0,
+            60,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +60, Utility +60",
         "QualityType": 4
     },
@@ -274,13 +274,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 0,
-        "AddValue[2]": 60,
+        "AddValue": [
+            60,
+            0,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Utility +60",
         "QualityType": 4
     },
@@ -289,13 +289,13 @@
         "GroupId": 1,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 40,
-        "AddValue[1]": 40,
-        "AddValue[2]": 40,
+        "AddValue": [
+            40,
+            40,
+            40
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +40, Comfort +40, Utility +40",
         "QualityType": 4
     },
@@ -304,13 +304,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 0,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -319,13 +319,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 1,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -334,13 +334,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 75,
-        "AddValue[2]": 0,
+        "AddValue": [
+            75,
+            75,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Comfort +75",
         "QualityType": 5
     },
@@ -349,13 +349,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 75,
-        "AddValue[2]": 75,
+        "AddValue": [
+            0,
+            75,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +75, Utility +75",
         "QualityType": 5
     },
@@ -364,13 +364,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 0,
-        "AddValue[2]": 75,
+        "AddValue": [
+            75,
+            0,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Utility +75",
         "QualityType": 5
     },
@@ -379,13 +379,13 @@
         "GroupId": 1,
         "Weight": 10,
         "AddType": 2,
-        "AddValue[0]": 50,
-        "AddValue[1]": 50,
-        "AddValue[2]": 50,
+        "AddValue": [
+            50,
+            50,
+            50
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +50, Comfort +50, Utility +50",
         "QualityType": 5
     },
@@ -394,13 +394,13 @@
         "GroupId": 2,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 15,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            15,
+            0
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Comfort +15",
         "QualityType": 2
     },
@@ -409,13 +409,13 @@
         "GroupId": 2,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 15,
-        "AddValue[2]": 15,
+        "AddValue": [
+            0,
+            15,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +15, Utility +15",
         "QualityType": 2
     },
@@ -424,13 +424,13 @@
         "GroupId": 2,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 15,
+        "AddValue": [
+            15,
+            0,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Utility +15",
         "QualityType": 2
     },
@@ -439,13 +439,13 @@
         "GroupId": 2,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 10,
-        "AddValue[1]": 10,
-        "AddValue[2]": 10,
+        "AddValue": [
+            10,
+            10,
+            10
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +10, Comfort +10, Utility +10",
         "QualityType": 2
     },
@@ -454,13 +454,13 @@
         "GroupId": 2,
         "Weight": 35,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 0,
+        "AddValue": [
+            30,
+            30,
+            0
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30",
         "QualityType": 3
     },
@@ -469,13 +469,13 @@
         "GroupId": 2,
         "Weight": 35,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            0,
+            30,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +30, Utility +30",
         "QualityType": 3
     },
@@ -484,13 +484,13 @@
         "GroupId": 2,
         "Weight": 35,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 0,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            0,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Utility +30",
         "QualityType": 3
     },
@@ -499,13 +499,13 @@
         "GroupId": 2,
         "Weight": 35,
         "AddType": 2,
-        "AddValue[0]": 20,
-        "AddValue[1]": 20,
-        "AddValue[2]": 20,
+        "AddValue": [
+            20,
+            20,
+            20
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +20, Comfort +20, Utility +20",
         "QualityType": 3
     },
@@ -514,13 +514,13 @@
         "GroupId": 2,
         "Weight": 80,
         "AddType": 0,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -529,13 +529,13 @@
         "GroupId": 2,
         "Weight": 80,
         "AddType": 1,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -544,13 +544,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 45,
-        "AddValue[2]": 0,
+        "AddValue": [
+            45,
+            45,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Comfort +45",
         "QualityType": 4
     },
@@ -559,13 +559,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 45,
-        "AddValue[2]": 45,
+        "AddValue": [
+            0,
+            45,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +45, Utility +45",
         "QualityType": 4
     },
@@ -574,13 +574,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 0,
-        "AddValue[2]": 45,
+        "AddValue": [
+            45,
+            0,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Utility +45",
         "QualityType": 4
     },
@@ -589,13 +589,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            30,
+            30
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30, Utility +30",
         "QualityType": 4
     },
@@ -604,13 +604,13 @@
         "GroupId": 2,
         "Weight": 70,
         "AddType": 0,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -619,13 +619,13 @@
         "GroupId": 2,
         "Weight": 70,
         "AddType": 1,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -634,13 +634,13 @@
         "GroupId": 2,
         "Weight": 70,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 60,
-        "AddValue[2]": 0,
+        "AddValue": [
+            60,
+            60,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Comfort +60",
         "QualityType": 4
     },
@@ -649,13 +649,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 60,
-        "AddValue[2]": 60,
+        "AddValue": [
+            0,
+            60,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +60, Utility +60",
         "QualityType": 4
     },
@@ -664,13 +664,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 0,
-        "AddValue[2]": 60,
+        "AddValue": [
+            60,
+            0,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Utility +60",
         "QualityType": 4
     },
@@ -679,13 +679,13 @@
         "GroupId": 2,
         "Weight": 30,
         "AddType": 2,
-        "AddValue[0]": 40,
-        "AddValue[1]": 40,
-        "AddValue[2]": 40,
+        "AddValue": [
+            40,
+            40,
+            40
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +40, Comfort +40, Utility +40",
         "QualityType": 4
     },
@@ -694,13 +694,13 @@
         "GroupId": 2,
         "Weight": 50,
         "AddType": 0,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -709,13 +709,13 @@
         "GroupId": 2,
         "Weight": 50,
         "AddType": 1,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -724,13 +724,13 @@
         "GroupId": 2,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 75,
-        "AddValue[2]": 0,
+        "AddValue": [
+            75,
+            75,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Comfort +75",
         "QualityType": 5
     },
@@ -739,13 +739,13 @@
         "GroupId": 2,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 75,
-        "AddValue[2]": 75,
+        "AddValue": [
+            0,
+            75,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +75, Utility +75",
         "QualityType": 5
     },
@@ -754,13 +754,13 @@
         "GroupId": 2,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 0,
-        "AddValue[2]": 75,
+        "AddValue": [
+            75,
+            0,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Utility +75",
         "QualityType": 5
     },
@@ -769,13 +769,13 @@
         "GroupId": 2,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 50,
-        "AddValue[1]": 50,
-        "AddValue[2]": 50,
+        "AddValue": [
+            50,
+            50,
+            50
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +50, Comfort +50, Utility +50",
         "QualityType": 5
     },
@@ -784,13 +784,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 15,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            15,
+            0
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Comfort +15",
         "QualityType": 2
     },
@@ -799,13 +799,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 15,
-        "AddValue[2]": 15,
+        "AddValue": [
+            0,
+            15,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +15, Utility +15",
         "QualityType": 2
     },
@@ -814,13 +814,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 15,
+        "AddValue": [
+            15,
+            0,
+            15
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +15, Utility +15",
         "QualityType": 2
     },
@@ -829,13 +829,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 10,
-        "AddValue[1]": 10,
-        "AddValue[2]": 10,
+        "AddValue": [
+            10,
+            10,
+            10
+        ],
         "AddScore": 30,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +10, Comfort +10, Utility +10",
         "QualityType": 2
     },
@@ -844,13 +844,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 0,
+        "AddValue": [
+            30,
+            30,
+            0
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30",
         "QualityType": 3
     },
@@ -859,13 +859,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            0,
+            30,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +30, Utility +30",
         "QualityType": 3
     },
@@ -874,13 +874,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 0,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            0,
+            30
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Utility +30",
         "QualityType": 3
     },
@@ -889,13 +889,13 @@
         "GroupId": 3,
         "Weight": 0,
         "AddType": 2,
-        "AddValue[0]": 20,
-        "AddValue[1]": 20,
-        "AddValue[2]": 20,
+        "AddValue": [
+            20,
+            20,
+            20
+        ],
         "AddScore": 60,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +20, Comfort +20, Utility +20",
         "QualityType": 3
     },
@@ -904,13 +904,13 @@
         "GroupId": 3,
         "Weight": 50,
         "AddType": 0,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -919,13 +919,13 @@
         "GroupId": 3,
         "Weight": 50,
         "AddType": 1,
-        "AddValue[0]": 5,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            5,
+            0,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +5%",
         "QualityType": 4
     },
@@ -934,13 +934,13 @@
         "GroupId": 3,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 45,
-        "AddValue[2]": 0,
+        "AddValue": [
+            45,
+            45,
+            0
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Comfort +45",
         "QualityType": 4
     },
@@ -949,13 +949,13 @@
         "GroupId": 3,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 45,
-        "AddValue[2]": 45,
+        "AddValue": [
+            0,
+            45,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +45, Utility +45",
         "QualityType": 4
     },
@@ -964,13 +964,13 @@
         "GroupId": 3,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 45,
-        "AddValue[1]": 0,
-        "AddValue[2]": 45,
+        "AddValue": [
+            45,
+            0,
+            45
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +45, Utility +45",
         "QualityType": 4
     },
@@ -979,13 +979,13 @@
         "GroupId": 3,
         "Weight": 25,
         "AddType": 2,
-        "AddValue[0]": 30,
-        "AddValue[1]": 30,
-        "AddValue[2]": 30,
+        "AddValue": [
+            30,
+            30,
+            30
+        ],
         "AddScore": 90,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +30, Comfort +30, Utility +30",
         "QualityType": 4
     },
@@ -994,13 +994,13 @@
         "GroupId": 3,
         "Weight": 45,
         "AddType": 0,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -1009,13 +1009,13 @@
         "GroupId": 3,
         "Weight": 45,
         "AddType": 1,
-        "AddValue[0]": 10,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            10,
+            0,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +10%",
         "QualityType": 4
     },
@@ -1024,13 +1024,13 @@
         "GroupId": 3,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 60,
-        "AddValue[2]": 0,
+        "AddValue": [
+            60,
+            60,
+            0
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Comfort +60",
         "QualityType": 4
     },
@@ -1039,13 +1039,13 @@
         "GroupId": 3,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 60,
-        "AddValue[2]": 60,
+        "AddValue": [
+            0,
+            60,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +60, Utility +60",
         "QualityType": 4
     },
@@ -1054,13 +1054,13 @@
         "GroupId": 3,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 60,
-        "AddValue[1]": 0,
-        "AddValue[2]": 60,
+        "AddValue": [
+            60,
+            0,
+            60
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +60, Utility +60",
         "QualityType": 4
     },
@@ -1069,13 +1069,13 @@
         "GroupId": 3,
         "Weight": 20,
         "AddType": 2,
-        "AddValue[0]": 40,
-        "AddValue[1]": 40,
-        "AddValue[2]": 40,
+        "AddValue": [
+            40,
+            40,
+            40
+        ],
         "AddScore": 120,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +40, Comfort +40, Utility +40",
         "QualityType": 4
     },
@@ -1084,13 +1084,13 @@
         "GroupId": 3,
         "Weight": 35,
         "AddType": 0,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Mood recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -1099,13 +1099,13 @@
         "GroupId": 3,
         "Weight": 35,
         "AddType": 1,
-        "AddValue[0]": 15,
-        "AddValue[1]": 0,
-        "AddValue[2]": 0,
+        "AddValue": [
+            15,
+            0,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Stamina recovery rate of all residents in the Dorm +15%",
         "QualityType": 5
     },
@@ -1114,13 +1114,13 @@
         "GroupId": 3,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 75,
-        "AddValue[2]": 0,
+        "AddValue": [
+            75,
+            75,
+            0
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Comfort +75",
         "QualityType": 5
     },
@@ -1129,13 +1129,13 @@
         "GroupId": 3,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 0,
-        "AddValue[1]": 75,
-        "AddValue[2]": 75,
+        "AddValue": [
+            0,
+            75,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Comfort +75, Utility +75",
         "QualityType": 5
     },
@@ -1144,13 +1144,13 @@
         "GroupId": 3,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 75,
-        "AddValue[1]": 0,
-        "AddValue[2]": 75,
+        "AddValue": [
+            75,
+            0,
+            75
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +75, Utility +75",
         "QualityType": 5
     },
@@ -1159,13 +1159,13 @@
         "GroupId": 3,
         "Weight": 15,
         "AddType": 2,
-        "AddValue[0]": 50,
-        "AddValue[1]": 50,
-        "AddValue[2]": 50,
+        "AddValue": [
+            50,
+            50,
+            50
+        ],
         "AddScore": 150,
-        "RestrictedRole[0]": null,
-        "RestrictedRole[1]": null,
-        "RestrictedRole[2]": null,
+        "RestrictedRole": [],
         "Introduce": "Beauty +50, Comfort +50, Utility +50",
         "QualityType": 5
     }

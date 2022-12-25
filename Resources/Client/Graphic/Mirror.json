@@ -5,11 +5,7 @@
         "Enable": 0,
         "Blur": null,
         "TextureSize": null,
-        "Layers[0]": null,
-        "Layers[1]": null,
-        "Layers[2]": null,
-        "Layers[3]": null,
-        "Layers[4]": null,
+        "Layers": [],
         "BlurIteration": null,
         "BlurLerp": null
     },
@@ -19,11 +15,12 @@
         "Enable": 1,
         "Blur": 1.0,
         "TextureSize": 128.0,
-        "Layers[0]": 0.0,
-        "Layers[1]": 8.0,
-        "Layers[2]": 9.0,
-        "Layers[3]": 10.0,
-        "Layers[4]": null,
+        "Layers": [
+            0.0,
+            8.0,
+            9.0,
+            10.0
+        ],
         "BlurIteration": 1.0,
         "BlurLerp": 1.0
     },
@@ -33,11 +30,12 @@
         "Enable": 2,
         "Blur": 1.0,
         "TextureSize": 256.0,
-        "Layers[0]": 0.0,
-        "Layers[1]": 8.0,
-        "Layers[2]": 9.0,
-        "Layers[3]": 10.0,
-        "Layers[4]": null,
+        "Layers": [
+            0.0,
+            8.0,
+            9.0,
+            10.0
+        ],
         "BlurIteration": 3.0,
         "BlurLerp": 0.5
     }

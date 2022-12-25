@@ -1,59 +1,53 @@
 [
     {
         "Type": 1,
-        "Activeness[1]": 20,
-        "RewardId[1]": 1001,
-        "Activeness[2]": 40,
-        "RewardId[2]": 1002,
-        "Activeness[3]": 60.0,
-        "RewardId[3]": 1003.0,
-        "Activeness[4]": 80.0,
-        "RewardId[4]": 1004.0,
-        "Activeness[5]": 100.0,
-        "RewardId[5]": 1005.0,
-        "Activeness[6]": null,
-        "RewardId[6]": null,
-        "Activeness[7]": null,
-        "RewardId[7]": null,
-        "Activeness[8]": null,
-        "RewardId[8]": null
+        "Activeness": [
+            20,
+            40,
+            60.0,
+            80.0,
+            100.0
+        ],
+        "RewardId": [
+            1001,
+            1002,
+            1003.0,
+            1004.0,
+            1005.0
+        ]
     },
     {
         "Type": 2,
-        "Activeness[1]": 400,
-        "RewardId[1]": 1010,
-        "Activeness[2]": 700,
-        "RewardId[2]": 1011,
-        "Activeness[3]": null,
-        "RewardId[3]": null,
-        "Activeness[4]": null,
-        "RewardId[4]": null,
-        "Activeness[5]": null,
-        "RewardId[5]": null,
-        "Activeness[6]": null,
-        "RewardId[6]": null,
-        "Activeness[7]": null,
-        "RewardId[7]": null,
-        "Activeness[8]": null,
-        "RewardId[8]": null
+        "Activeness": [
+            400,
+            700
+        ],
+        "RewardId": [
+            1010,
+            1011
+        ]
     },
     {
         "Type": 3,
-        "Activeness[1]": 20,
-        "RewardId[1]": 1201,
-        "Activeness[2]": 40,
-        "RewardId[2]": 1202,
-        "Activeness[3]": 60.0,
-        "RewardId[3]": 1203.0,
-        "Activeness[4]": 80.0,
-        "RewardId[4]": 1204.0,
-        "Activeness[5]": 100.0,
-        "RewardId[5]": 1205.0,
-        "Activeness[6]": 120.0,
-        "RewardId[6]": 1206.0,
-        "Activeness[7]": 140.0,
-        "RewardId[7]": 1207.0,
-        "Activeness[8]": 160.0,
-        "RewardId[8]": 5000000.0
+        "Activeness": [
+            20,
+            40,
+            60.0,
+            80.0,
+            100.0,
+            120.0,
+            140.0,
+            160.0
+        ],
+        "RewardId": [
+            1201,
+            1202,
+            1203.0,
+            1204.0,
+            1205.0,
+            1206.0,
+            1207.0,
+            5000000.0
+        ]
     }
 ]

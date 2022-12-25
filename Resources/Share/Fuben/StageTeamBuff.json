@@ -1,11 +1,15 @@
 [
     {
         "Id": 1,
-        "Quality[1]": 1,
-        "Quality[2]": 2,
-        "BuffId[1]": 80001,
-        "BuffId[2]": 80001,
-        "BuffId[3]": 80001,
+        "Quality": [
+            1,
+            2
+        ],
+        "BuffId": [
+            80001,
+            80001,
+            80001
+        ],
         "OnIcon": "Assets/Product/Texture/Image/UiArenaOnline/ArenaOnlineIcon02.png",
         "OffIcon": "Assets/Product/Texture/Image/UiArenaOnline/ArenaOnlineIcon01.png",
         "Title": "Inver-Sync",
@@ -13,11 +17,15 @@
     },
     {
         "Id": 2,
-        "Quality[1]": 1,
-        "Quality[2]": 2,
-        "BuffId[1]": 80001,
-        "BuffId[2]": 80001,
-        "BuffId[3]": 80001,
+        "Quality": [
+            1,
+            2
+        ],
+        "BuffId": [
+            80001,
+            80001,
+            80001
+        ],
         "OnIcon": "Assets/Product/Texture/Image/UiArenaOnline/ArenaOnlineIcon02.png",
         "OffIcon": "Assets/Product/Texture/Image/UiArenaOnline/ArenaOnlineIcon01.png",
         "Title": "Inver-Sync",

@@ -5,9 +5,9 @@
         "Name": "/F Lobby",
         "CostId": null,
         "CostCount": null,
-        "ConditionId[1]": 30001,
-        "ConditionId[2]": null,
-        "ConditionId[3]": null
+        "ConditionId": [
+            30001
+        ]
     },
     {
         "Id": 2,
@@ -15,9 +15,9 @@
         "Name": "/F Lobby",
         "CostId": 30100.0,
         "CostCount": 10.0,
-        "ConditionId[1]": 30002,
-        "ConditionId[2]": null,
-        "ConditionId[3]": null
+        "ConditionId": [
+            30002
+        ]
     },
     {
         "Id": 3,
@@ -25,8 +25,8 @@
         "Name": "/F Lobby",
         "CostId": 30100.0,
         "CostCount": 50.0,
-        "ConditionId[1]": 30003,
-        "ConditionId[2]": null,
-        "ConditionId[3]": null
+        "ConditionId": [
+            30003
+        ]
     }
 ]

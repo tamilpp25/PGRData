@@ -5,9 +5,7 @@
         "NpcState": 1,
         "StateText": "Basic",
         "StandAnime": null,
-        "HideNodeName[1]": null,
-        "HideNodeName[2]": null,
-        "HideNodeName[3]": null
+        "HideNodeName": []
     },
     {
         "Id": 2,
@@ -15,9 +13,9 @@
         "NpcState": 2,
         "StateText": "Burst",
         "StandAnime": "Assets/Product/Role/Animation/Mb1JiabailieMd000001/Mb1JiabailieMd000001/Layer1/Stand1.anim",
-        "HideNodeName[1]": "Mb1JiabailieMd000001Cloak",
-        "HideNodeName[2]": null,
-        "HideNodeName[3]": null
+        "HideNodeName": [
+            "Mb1JiabailieMd000001Cloak"
+        ]
     },
     {
         "Id": 3,
@@ -25,9 +23,7 @@
         "NpcState": 1,
         "StateText": "Basic",
         "StandAnime": null,
-        "HideNodeName[1]": null,
-        "HideNodeName[2]": null,
-        "HideNodeName[3]": null
+        "HideNodeName": []
     },
     {
         "Id": 4,
@@ -35,8 +31,9 @@
         "NpcState": 2,
         "StateText": "Burst",
         "StandAnime": null,
-        "HideNodeName[1]": "Mb1LunaMd010001Mask",
-        "HideNodeName[2]": "Mb1LunaMd010001Glass",
-        "HideNodeName[3]": null
+        "HideNodeName": [
+            "Mb1LunaMd010001Mask",
+            "Mb1LunaMd010001Glass"
+        ]
     }
 ]
