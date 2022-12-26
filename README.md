@@ -3,6 +3,7 @@
 
 - Client
 - Share
+- Scripts
 - Sha1
 
 ## Known Issue 
@@ -13,3 +14,7 @@ Share\Fight\Map\Info\Scene01103\PathArea
 Share\Fight\Map\Info\Scene01207\PathArea
 Share\Fight\Map\Info\Scene01306\PathArea
 ```
+
+## Dump progress
+Lua Scripts :  dumped **3126/4096** with success rate **76%** \
+Data :  dumped **3513/4095** with success rate **85%**
