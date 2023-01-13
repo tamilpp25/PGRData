@@ -16,5 +16,5 @@ Share\Fight\Map\Info\Scene01306\PathArea
 ```
 
 ## Dump progress
-Lua Scripts :  dumped **3126/4096** with success rate **76%** \
+Lua Scripts :  dumped **3126/3134** with success rate **99%** \
 Data :  dumped **3513/4095** with success rate **85%**
