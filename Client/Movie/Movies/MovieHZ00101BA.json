@@ -1,0 +1,862 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory45.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "12"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500001",
+            -400.0
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500011",
+            400.0
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Celica",
+            "Here is a summary of recent reports, President Hassen.",
+            1.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "Thank you.",
+            2.0
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "...Just as I thought.",
+            2.0
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "What's going on?",
+            1.0
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "The Corrupted are becoming more active. Is it because of the polymer materials that have fallen to Earth...? Or something else...",
+            2.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500004"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "Whatever it is, we have to deal with them.",
+            1.0
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 100,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1515"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As Hassen and Celica talk, Asimov enters from the side. Extracting the map from Hassen's file, he projects it on-screen."
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "Just as the Science Council predicted. The Corrupted are becoming more active, with even the tendency to congregate into makeshift armies.",
+            1.0
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "It used to be that they followed instinct towards the same place. Now, they seem to be massing for coordinated attacks.",
+            1.0
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500001"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Celica",
+            "Did our operations to regain lost ground affect the Corrupted's movement patterns?",
+            1.0
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500004"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "Maybe, maybe not. After all, Corrupted don't think like wild beasts.",
+            1.0
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500011"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Hassen",
+            "By your being here, Asimov, I take it that your department has already come up with a solution for this situation?",
+            1.0
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 101,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1515"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "In answer, Asimov pulls up blueprints for a Construct module on-screen."
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "What's this?",
+            1.0
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 24,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500004"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 25,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "A Construct expansion module, named \"Inver-Sync\".",
+            1.0
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "To fight an army of Corrupted, we need an army of our own, which we realistically cannot field.",
+            1.0
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "That's why we must unite the few Elite-level Constructs we have, and use them to elevate our entire force.",
+            1.0
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500011"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Hassen",
+            "So this module... can turn everyone into elite combatants?",
+            1.0
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500004"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "Yes. Once Inver-Sync is activated, all Constructs in the area of operations can be linked, sharing each other's thoughts and connections.",
+            1.0
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "And achieve the \"All Are One\" combat doctrine.",
+            1.0
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500011"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Hassen",
+            "...How's the module production going?",
+            1.0
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500004"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "We can ensure a certain usable amount, but the assembly line is unstable. Babylonia has many more pressing projects, after all.",
+            1.0
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 37,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500011"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 38,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Hassen",
+            "Is that so... But as you said, my original intent was to meet the Corrupted, pound for pound.",
+            1.0
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 39,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "After all, there's no way we're letting the Corrupted congregate unchecked. It would spell disaster if they were allowed to expand.",
+            1.0
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 40,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "Celica.",
+            1.0
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500001"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 42,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Celica",
+            "Yes, sir. What are your orders?",
+            1.0
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 43,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500011",
+            -400.0
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 44,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500004",
+            400.0
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 45,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Hassen",
+            "Recall all units available back to Babylonia. Asimov, you will coordinate efforts to install these modules on all Class 2 combatants.",
+            1.0
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 46,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "Class 2... why not Class 1? Advanced Constructs would coordinate teams better.",
+            2.0
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 47,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "We'll hold the advanced Constructs back, in case anything unexpected happens. It'd be trouble if the commanding Construct had to face powerful Corrupted alone. Better leave this to Class 1 Constructs.",
+            1.0
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 48,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "...It's just as well. I'm just the one who makes the tools. How you wield them is up to you.",
+            2.0
+        ]
+    },
+    {
+        "Id": 51,
+        "ActionId": 49,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hassen",
+            "It's settled then. Broadcast the orders, Celica. It is time for Joint Warfare.",
+            1.0
+        ]
+    }
+]

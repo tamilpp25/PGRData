@@ -1,0 +1,850 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory170.png"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "17"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500101"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Golden Jegan",
+            "Gargh... I, Golden Jegan, have fallen so easily... What a shame...",
+            "1"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "After Golden Jegan was defeated, he took out the artifact fragment that he had been protecting just like other Demon Generals. This was probably a system setting.",
+            "1"
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 1001,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 1002,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166",
+            "1",
+            "-400"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "The battle is over.",
+            "2"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The Demon General closed his eyes, but Lucia pulled her blade back."
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Um, aren't you going to finish me off?",
+            "1"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Like I said, I didn't want to use violence. Plus, there's still something we want to know from you.",
+            "2"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Hmph. As heroes of revelation, you are quite different...",
+            "1"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Just like Karenina said... Have you been watching us all along?",
+            "2"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Of course... That's why I also know who you are looking for.",
+            "1"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 1003,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Do you mean Liv?",
+            "13",
+            "Is she nearby?",
+            14.0
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 13,
+        "NextActionId": 1004.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Indeed... That's how His Majesty calls her.",
+            "1"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 14,
+        "NextActionId": 1004.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "She's further away, with His Majesty. They didn't go past here.",
+            "1"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 1004,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500173",
+            "-400"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lee",
+            "Wait a sec. Are you suggesting Liv is with the Demon King?",
+            "2"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Correct. She met His Majesty ever since she arrived in this world, and they have been moving together.",
+            "1"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 1005,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 1006,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1081001"
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Kamui",
+            "...But the stone monument said the Demon King was already killed by the heroes. Did he come back to life again?",
+            "1"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 1007,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500101"
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Golden Jegan",
+            "Before the last Demon King was destroyed, he separated a small potion of his power, which became the Demon King now...",
+            "1"
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "He also realized his mistake and asked us to never harm humans again. But we never thought the humans would come at us this time.",
+            "1"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "So he decided to start his plan after you arrived here...",
+            "1"
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 1008,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 1009,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500173",
+            "-400"
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lee",
+            "You call Liv the Holy Maiden. Does she have anything to do with that plan?",
+            "2"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Of course... Only she can save us Demons.",
+            "1"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "And this world.",
+            "1"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 1010,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "How can she save you?",
+            "24",
+            "Where are they now?",
+            25.0
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 24,
+        "NextActionId": 1011.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "By going to the Demon King's Castle.",
+            "1"
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 25,
+        "NextActionId": 1011.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "On their way to the Demon King's Castle.",
+            "1"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 1011,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 1012,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1081001"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Kamui",
+            "The Demon King's Castle?",
+            "1"
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 1013,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 1014,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500180",
+            "-400"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Karenina",
+            "But the gate can only be opened after all artifact fragments are collected!",
+            "2"
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 1015,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500101",
+            "400"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Golden Jegan",
+            "It's called the \"Demon King's Castle.\" Do you think a castle will not respond to its owner?",
+            "1"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Not to mention the Goddess' artifact was originally... Wait, what's this...?",
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Karenina",
+            "What's wrong?",
+            "2"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The conversation was interrupted as Golden Jegan became very anxious. He looked very shocked, then started to panic."
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Heroes from afar, I am going to use my magic to launch the artifact away. Please follow it.",
+            "1"
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Karenina",
+            "Hah? Are you eating your words already?",
+            "2"
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "No, but His Majesty and the Holy Maiden are in danger. As a Demon General, I cannot go out!",
+            "1"
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Golden Jegan",
+            "Please, go help them!",
+            "1"
+        ]
+    }
+]

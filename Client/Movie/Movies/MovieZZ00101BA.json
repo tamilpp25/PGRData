@@ -1,0 +1,517 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory45.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "208"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 100,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500012"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Nikola",
+            "It's 16:33. You're late by three minutes.",
+            "1"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 101,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Sorry, Chief...",
+            "4"
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "Hah... Maybe I should make an appointment the next time I want to see you, hmm?",
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "Forget it. Let's make haste. Asimov, are the equipment ready?",
+            "1"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 102,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 103,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500004",
+            "-400"
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Asimov",
+            "Well, the energy system and safety release valves are slightly different from Babylonia standards, but they're all based off of our tech, so it wasn't that hard to fix.",
+            "2"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "Just give me your conclusions.",
+            "1"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "It's ready for use. It just needs to be tested for us to know for sure.",
+            "2"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "I'm sure you know why you're summoned here. You're here today to test the team formation system developed by the ARU.",
+            "1"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 104,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Why me?",
+            "10",
+            "Team formation system?",
+            11.0
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 10,
+        "NextActionId": 13.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "You're the F.O.S. top graduate. You're the most ideal candidate for testing the system's limits. That's all.",
+            "1"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 11,
+        "NextActionId": 12.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "We found a program framework located in the Niflheim labs in the Arctic. It's old stuff, but the design direction is revolutionary and of great reference value.",
+            "2"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 12,
+        "NextActionId": 13.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "After all, when it comes to war, people at that time were much more experienced than us.",
+            "2"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "Enough chit-chat. Any other questions?",
+            "1"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 105,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nope... Not that the moment.",
+            "14"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "Alright. Then come here and put on this headset.",
+            "2"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "It's not a deep dive kinda deal?",
+            "1"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "The ARU didn't have that sorta tech back then. This is just an audiovisual simulation program.",
+            "2"
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Nikola",
+            "It doesn't matter. Or maybe we can test your true mettle more accurately this way. Let's begin.",
+            "1"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Asimov",
+            "Okay. Here goes...",
+            "2"
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As Asimov presses the start button, you hear the unstable electronic voice of a female AI."
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 106,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 107,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1515"
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 108,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "-AI-",
+            "Construct data upload\u2014complete."
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "-AI-",
+            "Tactical framework simulation generation\u2014complete."
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "-AI-",
+            "Virtual Horizon loaded. Welcome, Commandant."
+        ]
+    }
+]

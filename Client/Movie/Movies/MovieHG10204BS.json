@@ -1,0 +1,1181 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory45.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "208"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500009"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Celica",
+            "Perfect timing, \u3010kuroname\u3011. Could you help me with something?",
+            "1"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 100,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "What thing?",
+            "6",
+            "Of course.",
+            7.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 6,
+        "NextActionId": 8.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "Just something simple. If you're not saying yes or no out loud, then I'll take it as a yes!",
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 7,
+        "NextActionId": 8.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "Huzzah, I knew you'd say yes!",
+            "1"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Before you utter a single clarifying question, Celica pushes the towering stack of documents on her desk over to you."
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "There's quite a stack of files here, and it's all piled kinda haphazardly, so you'll have to watch where you're going!",
+            "1"
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "I just need these delivered to R&D Section 2, okay? Okay, Gray Raven\u2014green to deploy!",
+            "1"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 101,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "...The light is green.",
+            "11",
+            "Can't you deliver them yourself?",
+            12.0
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 11,
+        "NextActionId": 102.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "Yep! That's the way to do it!",
+            "1"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 12,
+        "NextActionId": 102.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Celica",
+            "I'm rushing to prepare the documents for the next Council meeting, but these are urgent too. So please, and thank you!",
+            "1"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 102,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 700,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1516"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 103,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory17.jpg"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Somewhere near R&D Section 2"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You see the entrance to Section 2 at the end of the hallway. You know that it answers directly to the Science Council and handles Babylonia's operations from propulsion systems to even menial repairs."
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "...!"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 6844,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "102"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The closer you get to the entrance, the stronger you feel that something horribly wrong is happening."
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 8942,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "10007502"
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "While not deafening, the explosions still send small shockwaves nearby. Wisps of smoke trail from the entrance, just faint enough to slip past the notice of the fire alarms. You have a bad feeling about this."
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "???",
+            "Whoa!"
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Then you hear a cry from inside the room, though you are unsure if it was one in shock or in need of help. Whatever it is, you set down the stack of documents and run in."
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 104,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory21.jpg"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 105,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500166"
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "Cough cough... cough... Hey, Commandant, what brings you down here?",
+            "1"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 106,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "I'd sooner ask you that question.",
+            "21",
+            "What happened here?",
+            22.0
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 21,
+        "NextActionId": 23.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Um... I was just trying to cook here.",
+            "1"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 22,
+        "NextActionId": 23.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Oh... you mean that little accident... and the smoke? I was just cooking.",
+            "1"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Entering the room, you are confronted with a scene of utter chaos. Utensils and containers are scattered all over the floor and the tables, while black marks decorate the unlikeliest of places."
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 24,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia barely pays the carnage any mind. Calmly, she collects the damaged utensils, organizes them, then deposits them in the garbage disposal."
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 544,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "208"
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 25,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "But... as to \"why\" I'm cooking, that's simple. This is part of my re-acclimatization process.",
+            "1"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 107,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1"
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "I never was good at cooking. That's something I would like to change as I reacclimatize. Though warfare remains my prime directive, there's nothing wrong with mastering another art.",
+            "1"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 108,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Any final products?",
+            "27",
+            "Say, where did all the S2 people get off to?",
+            28.0
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 27,
+        "NextActionId": 30.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "I have many batches of final products. Everyone, and you, Commandant, will be pleasantly surprised.",
+            "1"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 28,
+        "NextActionId": 29.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Did you have business with Section 2? They just moved to a new workspace a few weeks ago.",
+            "1"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 29,
+        "NextActionId": 30.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "This workspace will stay unused until the next department settles in, so I repurposed it into a temporary kitchen.",
+            "1"
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Now that you're here, would you care to try the fruits of my labor?",
+            "1"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 109,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Color me intrigued.",
+            "31",
+            "(Accept fate)",
+            32.0
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 31,
+        "NextActionId": 34.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Excellent! I thought you would refuse. I'll be just a moment.",
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 32,
+        "NextActionId": 33.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Why the long face, Commandant? Has past experiences soured your expectations? Not to worry, everything will be all right this time.",
+            "1"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 33,
+        "NextActionId": 34.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As she says this, Lucia suddenly grabs hold of your arm, the thin smile on her face radiating paralyzing authority."
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You acquiesce. Lucia darts to the oven in the back and retrieves a lavishly decorated platter."
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You are first struck by the sheer amount of food on the platter. Then, by the surprisingly artistic presentation. Finally, the aroma reaches your nose from far away\u2014a singular, one-note aroma."
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 110,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You put this platter together yourself?",
+            "36",
+            "This... smell...",
+            37.0
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 36,
+        "NextActionId": 40.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "I followed the instructions in the database to the letter. It took me a while, but I'd say the end result is pretty good, no?",
+            "1"
+        ]
+    },
+    {
+        "Id": 51,
+        "ActionId": 37,
+        "NextActionId": 38.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Sharp nose, Commandant... I did add a touch of Section 2's chemical aromatics.",
+            "1"
+        ]
+    },
+    {
+        "Id": 52,
+        "ActionId": 38,
+        "NextActionId": 39.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "I know it sounds... hazardous, but the S2 researcher told me that it's non-poisonous and harmless. Just a normal non-nutritional additive, he said.",
+            "1"
+        ]
+    },
+    {
+        "Id": 53,
+        "ActionId": 39,
+        "NextActionId": 40.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "They told me that they used to lather a bit of it on their ration cakes. It didn't change the way it went down, but the aroma was enough to whet their appetite. So I took the liberty of adding it to every dish.",
+            "1"
+        ]
+    },
+    {
+        "Id": 54,
+        "ActionId": 40,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Anyway, let's have you try the dessert first, Commandant. Seeing as there's no place to sit around here, I'll feed you.",
+            "1"
+        ]
+    },
+    {
+        "Id": 55,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia brings over a dish with the outward appearance of pudding. She spoons a mouthful and brings it to your mouth."
+        ]
+    },
+    {
+        "Id": 56,
+        "ActionId": 111,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "I can eat on my own.",
+            "42",
+            "(Open wide)",
+            43.0
+        ]
+    },
+    {
+        "Id": 57,
+        "ActionId": 42,
+        "NextActionId": 43.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "It doesn't matter if you eat it or if I feed you, as long as it goes down, right? No need to argue. Open up, now. Ahhhh...",
+            "1"
+        ]
+    },
+    {
+        "Id": 58,
+        "ActionId": 43,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "And so, the smooth spoonful of pudding slides onto your tongue with a plop. True to Lucia's word, the aromatics only improve one dimension of the food."
+        ]
+    },
+    {
+        "Id": 59,
+        "ActionId": 44,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The other dimensions, as it slithers across your taste buds, is nothing like the first. The intense experience hearkens you to a deep, dark, forgotten past."
+        ]
+    },
+    {
+        "Id": 60,
+        "ActionId": 45,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "This \"pudding\" tastes just like a black substance Lucia has offered you before. The look may deceive, and the smell certainly masks it, but you are positive that the two are mostly, if not exactly, the same thing."
+        ]
+    },
+    {
+        "Id": 61,
+        "ActionId": 46,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Ah... Ah..."
+        ]
+    },
+    {
+        "Id": 62,
+        "ActionId": 47,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "What's with the open mouth, Commandant...? Ah, I see! You want more? Here, I'll feed you something else.",
+            "1"
+        ]
+    },
+    {
+        "Id": 63,
+        "ActionId": 112,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 64,
+        "ActionId": 48,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "A single, subdued, torturous sound slips unbidden from your lips, but Lucia seems to be living in her own world. She feeds you bite after bite of her \"creations.\""
+        ]
+    },
+    {
+        "Id": 65,
+        "ActionId": 49,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As morsel after morsel of Lucia's culinary masterpieces fill the cavity of your slackened jaws, the paradoxical sensations it brings roil and swirl, until finally, they implode as a microcosm of a new world."
+        ]
+    },
+    {
+        "Id": 66,
+        "ActionId": 113,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory00.png"
+        ]
+    },
+    {
+        "Id": 67,
+        "ActionId": 50,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Let there be light."
+        ]
+    },
+    {
+        "Id": 68,
+        "ActionId": 51,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "And\u2014"
+        ]
+    },
+    {
+        "Id": 69,
+        "ActionId": 114,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png"
+        ]
+    },
+    {
+        "Id": 70,
+        "ActionId": 52,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Let there be night."
+        ]
+    },
+    {
+        "Id": 71,
+        "ActionId": 53,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You suddenly come to a sickening realization that you have not ascended into omnipotence. You fall."
+        ]
+    },
+    {
+        "Id": 72,
+        "ActionId": 115,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1506"
+        ]
+    },
+    {
+        "Id": 73,
+        "ActionId": 54,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Commandant? Commandant, why are you falling over all of a sudden?"
+        ]
+    }
+]

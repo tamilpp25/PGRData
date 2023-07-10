@@ -1,0 +1,433 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory79.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "209"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "System",
+            "This way to the palace."
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "There was a wooden sign on the side of the road. The direction on the sign pointed to a castle-like building."
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 1001,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500181",
+            "1"
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Vera",
+            "So are we going there to find the King and pick up quests from him?",
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 1002,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500176",
+            "600"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Camu",
+            "So much hassle. Why don't they just tell me who to kill.",
+            "2"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 1003,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "3",
+            "500180",
+            "-600"
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Karenina",
+            "I agree.",
+            "3"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Perhaps we don't have to kill anyone.",
+            "9",
+            "Perhaps there will be some enemy we can't beat.",
+            10.0
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 9,
+        "NextActionId": 11.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Camu",
+            "I'm going to kill the King if he gives us those weird errands quests.",
+            "2"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 10,
+        "NextActionId": 11.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera",
+            "Oh really? I'm keen to meet that enemy.",
+            "1"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "No matter what, all three of them seemed to be the \"bold\" type."
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera",
+            "Why are you sighing? Are you tired, \u3010kuroname\u3011?",
+            "1"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera turned to me, pretending to be caring. But I still saw that same mocking smile on her face."
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera",
+            "If \u3010kuroname\u3011 is tired, we'll just leave you. The system never forced us to move together.",
+            "1"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Karenina",
+            "Oh, right. I went quite far away when I was scouting on my own.",
+            "3"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "I hadn't said anything, but they were already thinking of abandoning their teammates."
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 1004,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Wait, I can walk!",
+            "17",
+            "Don't you know teammates are extremely important in role-playing games?",
+            19.0
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 17,
+        "NextActionId": 18.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera",
+            "Good. I don't want to lose such a good shield yet.",
+            "1"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 18,
+        "NextActionId": 21.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "She said shield, but I decided to just pretend as if I heard nothing."
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 19,
+        "NextActionId": 20.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Camu",
+            "Teammates? Do you mean yourself, or the other two useless Constructs?",
+            "2"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 20,
+        "NextActionId": 21.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "I wanted to argue back, but Camu was right. This team was just too imbalanced."
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Vera",
+            "Anyway, \u3010kuroname\u3011 seems to be in good spirits. Let's get to the palace before night comes.",
+            "1"
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Camu",
+            "I agree. Let's go, hmph.",
+            "2"
+        ]
+    }
+]

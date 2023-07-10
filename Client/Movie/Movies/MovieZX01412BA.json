@@ -1,0 +1,818 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory222.png"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "10"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500088",
+            "4"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Diana",
+            "I can't believe there's such a large cave here...",
+            "1"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Walking into the entrance, everyone arrives at a strange underground world."
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Diana",
+            "There's a production line over there...",
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 1000,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 1001,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500214",
+            "4",
+            "-400"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Rosetta",
+            "That must be the where our enemies came from... No wonder the numbers don't match up.",
+            "2"
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Diana",
+            "That doesn't make sense, though. Why would such a large cave go undiscovered for this long...?",
+            "1"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Must be some sort of interference. Look up there\u2014the strange lights. They must be some sort of signal jammer.",
+            "2"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Diana",
+            "They'd put so much effort into burying their past mistakes and building this military base, instead of trying to rebuild the ARU...",
+            "1"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 1002,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Because they had war in mind.",
+            "12",
+            "That's all in the past.",
+            14.0
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 12,
+        "NextActionId": 13.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Diana",
+            "Yeah... The captain said that Amberia and the bionics were built for war from the start.",
+            "1"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 13,
+        "NextActionId": 16.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "From the looks of this cave, you can see the true intent of the ARU's leadership. They never swayed from their belief that war was the final solution.",
+            "2"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 14,
+        "NextActionId": 15.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Yeah, Diana. All in the past.",
+            "2"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 15,
+        "NextActionId": 16.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Whatever the past mistakes, let's try our best to make amends.",
+            "2"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "???",
+            "Oh, how very deep and all, Forest Guards. Ah, \u3010kuroname\u3011, you as well."
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 1003,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Who are you?",
+            "17",
+            "Who's there?!",
+            18.0
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 17,
+        "NextActionId": 19.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "???",
+            "Oh, wha... Oh. Wait. I don't think we ever met."
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "???",
+            "Well, well."
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "An unfamiliar female voice warbles through the air, nauseous and muffled like noise."
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Self-intros are annoooyiiing, but I guess I'll still go through with it... My name is Lamia, an Ascendant."
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "First Alpha, now Lamia? Do you Ascendants think you can stroll in and out of the ARU, just as you please?",
+            "2"
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Well, we just needed something here... That's all."
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 1004,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Are you the one behind all of this?",
+            "23",
+            "Where is Atiel?",
+            26.0
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 23,
+        "NextActionId": 24.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Oh, you are such a funny little tart... Didn't you just arrive at your answer? It's all the ARU's fault."
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 24,
+        "NextActionId": 25.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Whether it's the bionics that are attacking the ARU,or the Amberia buried in this place\u2014I've got nothing to do with 'em."
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 25,
+        "NextActionId": 28.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "I'm just a little spectator. That's all."
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 26,
+        "NextActionId": 27.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Oh come on, little pumpkin, you know the answer."
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 27,
+        "NextActionId": 28.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Which means... you have Atiel.",
+            "2"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "I'm only here for Amberia. We've got enough juice, so after she's fully charged, we can make her go beep-boop with the code, and... voila!"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "Then Amberia will be under my control. After which..."
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 1005,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You're just telling us that?",
+            "30",
+            "Can't you just use the virus to control her?",
+            31.0
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 30,
+        "NextActionId": 32.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "...I'm not tryna tell you, you're the brutes who barged in on me talking to myself! Hmph!"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 31,
+        "NextActionId": 32.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia",
+            "...Asks all the wrong questions\u2014check."
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lamia cuts the broadcast. Bionics begin pouring out of the dark recesses of the cavern."
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 1006,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 1007,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500208"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 1008,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1508"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Bionic Machine",
+            "Urgh\u2014",
+            "1"
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 1009,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500088",
+            "4",
+            "400"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 1010,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500214",
+            "-400"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Diana",
+            "Wait, these bionics... They've been corrupted!",
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Diana",
+            "Corrupted and Ascendants... Is that Lamia trying to turn the ARU into Kowloong...?",
+            "1"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "We're here to prevent that from happening. Let's break through their forces and continue downward, Commandant.",
+            "2"
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 500,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1506"
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 37,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As you are about to move, the ice cave begins to rumble."
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 38,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Diana",
+            "It's a trap?!",
+            "1"
+        ]
+    }
+]

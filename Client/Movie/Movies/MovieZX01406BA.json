@@ -1,0 +1,776 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory217.png"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 1000,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "12"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "It was a perilous battle, but it ended in victory for the Arctic Route Union."
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Civilians rushed in to see if the residential regions were intact. Simon also left with the crowd, saying that he needed to look into something with Atiel."
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Leaving only you, and the Forest Guards, all lost in contemplation."
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 1001,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500088",
+            "4"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Diana",
+            "...",
+            "1"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 1002,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500214",
+            "14"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Rosetta",
+            "...",
+            "1"
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 1003,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "What's wrong?",
+            "9",
+            "Who's Amberia?",
+            10.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 9,
+        "NextActionId": 1004.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Just a name I never thought I'd hear again\u2014Amberia...",
+            "1"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 10,
+        "NextActionId": 1004.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "She is the sin borne by the Forest Guard...",
+            "1"
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 1004,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "4"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "I originally planned on keeping you out of this, but seeing as the bionics mentioned her name, I think you should know who we're up against.",
+            "1"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Before the Punishing Virus, the ARU was also a prosperous metropolis.",
+            "1"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Even at the start of the outbreak, it remained untouched just as life was before. There were no cases in the city.",
+            "1"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Some people even had no idea what the virus was. Amidst our naivety, the ARU conducted one foolish experiment after another.",
+            "1"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "...The ARU applied the Construct tech given by the World Government to military science.",
+            "1"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "They believed that the Punishing Virus would soon come to an end, and then the balance of the world would be shuffled anew.",
+            "1"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "To get an edge in the new world, some of the decision makers and engineers decided to create a humanoid-hybrid Construct by the name of \"Amberia\".",
+            "1"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Not only a dreadnought on its own, Amberia can also command the bionic series that came with her conception.",
+            "1"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 1005,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The bionics serve Amberia?",
+            "19",
+            "So who is Amberia...?",
+            20.0
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 19,
+        "NextActionId": 1006.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Yeah. The bionics were developed as Amberia's sub-units.",
+            "1"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 20,
+        "NextActionId": 1006.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "We don't know much about Amberia. Only that she was eighteen before she became a Construct.",
+            "1"
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 1006,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "8"
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "The ARU wanted Amberia and the bionics to be their perfect weapons. But they never knew humanoid-hybrids could turn out to be such monsters.",
+            "1"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "The bionics wielded immense power, but the ARU never thought that Amberia would go berserk upon her activation.",
+            "1"
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "The ARU became hell on earth in an instant. Amberia and her bionics ravaged the land, killing countless people in a sea of fire and brimstone.",
+            "1"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 1007,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "14"
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 24,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "To contain Amberia, the ARU dispatched an innumerable amount of ships and narwhals, like Derek. The sacrifices were countless...",
+            "1"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 1008,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Did they win?",
+            "Did Amberia die?"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 25,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Yes. Amberia was vaporized in a barrage of explosives, and we lost her signal. The battle was finally over.",
+            "1"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "But the ARU also lost it all. Even before the ravages of the virus, this land was already in ruins because of Amberia.",
+            "1"
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Afterwards, all engineers involved in creating her were either executed or imprisoned for life. As for their family and closest friends...",
+            "1"
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "They were branded as sinners.",
+            "1"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 5000,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The Forest Guards...",
+            "29",
+            "Are you the descendants of those engineers?",
+            30.0
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 29,
+        "NextActionId": 1009.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Yes. They were later modified and labeled as traitors of the ARU\u2014the Forest Guards.",
+            "1"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 30,
+        "NextActionId": 1009.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Some yes\u2014others no. Regardless, we are all seen as sinners.",
+            "1"
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 1009,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "4"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "...But as I said, Amberia should've been killed long ago, but the bionics just mentioned her name.",
+            "1"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 1010,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Could it be just a bug?",
+            "32",
+            "Amberia must be alive.",
+            34.0
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 32,
+        "NextActionId": 33.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Whether it's a bug or not, the number of bionics we've been seeing is already suspicious. There shouldn't have been so many left after that battle.",
+            "1"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 33,
+        "NextActionId": 35.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "It's possible that Amberia is still alive.",
+            "1"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 34,
+        "NextActionId": 35.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "That's what I was thinking, Commandant.",
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "But that would mean we've been fighting the bionics under her control and mistook them for the \"tide\" this whole time.",
+            "1"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "I can't say for sure about the past tides, but this one... I think we should confirm this with the captain.",
+            "1"
+        ]
+    }
+]

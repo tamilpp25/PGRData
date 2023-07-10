@@ -1,0 +1,154 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            209.0
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The storyline always has twists and turns. No one ever wants a dull life. Our protagonist will always go through a perilous journey with wits and agility. The evil villains are like faithful followers. Each of them carries important responsibilities that no one else can bear for them."
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The deadly vipers always reveal themselves at the exact right moment, just like how pigeons timely come out of a magician's hat. Calamity always bides its time, and it will agonize its prey until fear grips the audience's hearts, tears roll down their cheeks, and rounds of applause burst out."
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            11301702.0
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory533.jpg"
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Upon realizing this ridiculous thought in your head, you let out a wry smile, put down the raft that you are making, and look in the direction where the sound is coming from."
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u2014This is the destiny of a champion."
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You feel something is amiss."
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "You notice the subtle difference in the sound. The dragon roar is there before you hear the pipe."
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "But shortly afterward, the pipe becomes \"guidance.\""
+        ]
+    }
+]

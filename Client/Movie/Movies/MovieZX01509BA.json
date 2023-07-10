@@ -1,0 +1,3183 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 504,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory176.png"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "208"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220",
+            "1",
+            -400.0
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500221",
+            400.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "Is anyone willing to carry out this mission?",
+            1.0
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "I'll go. Bai Gui has been busy doing business with Akdilek recently.",
+            2.0
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 601,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500243",
+            -400.0
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 602,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500241",
+            400.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Bai Gui",
+            "Indeed, Moyuan would be more suitable. Sending others over to the World Government would turn exchanging words into exchanging blows.",
+            1.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lianshan",
+            "Hey, that was ages ago. Stop bringing it up.",
+            2.0
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bai Gui",
+            "You have yourself to blame for fighting with Cosmos Industries for three straight days and nights, Lianshan. Something like that is going down in history.",
+            1.0
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lianshan",
+            "I would prefer if you call it civilized discussion. We were merely debating over horizontal and vertical urban development!",
+            2.0
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 603,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 604,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500221"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Moyuan",
+            "Haha, Bai Gui, don't tease Lianshan. He might just ignore you when the time comes.",
+            1.0
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 605,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500243",
+            -400.0
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 606,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500241",
+            400.0
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Bai Gui",
+            "As long as we have sufficient funds here at the Chiwen Crew, we won't have to worry about Lianshan's attitude issue.",
+            1.0
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lianshan",
+            "Screw you. That's an insult to our professionalism as members of the Baxia Crew.",
+            2.0
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Bai Gui",
+            "Funds for the next project will be tripled.",
+            1.0
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lianshan",
+            "...Deal, then.",
+            2.0
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 607,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220",
+            "1",
+            -400.0
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 608,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500221",
+            400.0
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Moyuan",
+            "Uhm, is it really alright to spend money so wantonly, Bai Gui?",
+            2.0
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Qu",
+            "No matter. She'll earn it all back.",
+            1.0
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "If you say so, Lady Qu. Well then, I'll go back and get ready to leave.",
+            2.0
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 609,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500244",
+            -400.0
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Heng Ji",
+            "Wait, take this.",
+            1.0
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 701,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1509"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Heng Ji throws a micro bot blinking in blue to Moyuan. The probe above the machine spins in the air."
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Heng Ji",
+            "It's a long way to go. This gadget can replace me in giving your periodic maintenance for your prosthesis.",
+            1.0
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "Oh, it's this thing again.",
+            2.0
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 24,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Heng Ji",
+            "Don't worry. I've improved it. It won't burden your external humanoid brain any more. I've also reduced the power consumed by the nerve link with your prosthesis. It should perform better than last time.",
+            1.0
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 25,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Listening to Heng Ji, Moyuan tosses the micro bot into the air beside her. Surprisingly, it hovers in the air. A young mechanical doll with small hands firmly catches the device."
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "Alright, fine.",
+            2.0
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan reaches out and gently strokes the doll's hair. A moment later, the doll disappears with the gadget and hides nearby."
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "My prosthesis may have cured my disease, but it sure is a pain to repair.",
+            2.0
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Heng Ji",
+            "That's the price you have to pay.",
+            1.0
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 610,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 611,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220"
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "Alright, you're dismissed. Have a safe trip, Moyuan.",
+            1.0
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory58.jpg"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "201"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500221"
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryTongxunNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Moyuan",
+            "Check, 123. Check, 123. Okay, I can hear you. Communication established.",
+            1.0
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 37,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "I've finished negotiating with the World Government. The mission went according to plan.",
+            1.0
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 38,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "But there's one thing they haven't made public.",
+            1.0
+        ]
+    },
+    {
+        "Id": 51,
+        "ActionId": 39,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "And that's the failure of the zero-point reactor experiment.",
+            1.0
+        ]
+    },
+    {
+        "Id": 52,
+        "ActionId": 40,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "I've got a bad feeling about this...",
+            1.0
+        ]
+    },
+    {
+        "Id": 53,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "No cause for alarm, though. My hunches are known to be wrong on occasion!",
+            1.0
+        ]
+    },
+    {
+        "Id": 54,
+        "ActionId": 42,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "I'll return to Kowloong once I get more detailed information. Wait for me.",
+            1.0
+        ]
+    },
+    {
+        "Id": 55,
+        "ActionId": 700,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500237"
+        ]
+    },
+    {
+        "Id": 56,
+        "ActionId": 43,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Moyuan",
+            "Lady Qu... The zero-point reactor is more dangerous than we all thought.",
+            1.0
+        ]
+    },
+    {
+        "Id": 57,
+        "ActionId": 44,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "Its failure gave birth to a strange virus, which is being referred to as the \"Punishing Virus\" by the World Government.",
+            1.0
+        ]
+    },
+    {
+        "Id": 58,
+        "ActionId": 45,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "Namely\u2014mankind's punishment...",
+            1.0
+        ]
+    },
+    {
+        "Id": 59,
+        "ActionId": 46,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "This virus infects machines, turning them into monsters. I'm not sure if it will affect my mechanical functions.",
+            1.0
+        ]
+    },
+    {
+        "Id": 60,
+        "ActionId": 47,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "Don't worry. I'm on my way back now.",
+            1.0
+        ]
+    },
+    {
+        "Id": 61,
+        "ActionId": 48,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Moyuan",
+            "But before I return, be sure to\u2014",
+            1.0
+        ]
+    },
+    {
+        "Id": 62,
+        "ActionId": 49,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "PanelActor1Shake",
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Moyuan",
+            "\u2014\u2014\u2014\u2014",
+            1.0
+        ]
+    },
+    {
+        "Id": 63,
+        "ActionId": 50,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory176.png"
+        ]
+    },
+    {
+        "Id": 64,
+        "ActionId": 51,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "202"
+        ]
+    },
+    {
+        "Id": 65,
+        "ActionId": 52,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 66,
+        "ActionId": 53,
+        "NextActionId": null,
+        "Type": 505,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryTongxunNew.prefab"
+        ]
+    },
+    {
+        "Id": 67,
+        "ActionId": 54,
+        "NextActionId": null,
+        "Type": 504,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "0"
+        ]
+    },
+    {
+        "Id": 68,
+        "ActionId": 57,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu awakens from her memory and opens her eyes to eight officers standing before her."
+        ]
+    },
+    {
+        "Id": 69,
+        "ActionId": 55,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500241"
+        ]
+    },
+    {
+        "Id": 70,
+        "ActionId": 58,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lianshan",
+            "The defense turrets have been installed.",
+            1.0
+        ]
+    },
+    {
+        "Id": 71,
+        "ActionId": 612,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220"
+        ]
+    },
+    {
+        "Id": 72,
+        "ActionId": 59,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "Alright. Chi Ling, transfer 50 people from the Pulao Crew to replace the Baxia Crew and let Zhao Lun lead the team. He's from Shenjiu Street in the outer city, so he should be more familiar with the area.",
+            1.0
+        ]
+    },
+    {
+        "Id": 73,
+        "ActionId": 613,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500224"
+        ]
+    },
+    {
+        "Id": 74,
+        "ActionId": 60,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Chi Ling",
+            "Understood.",
+            1.0
+        ]
+    },
+    {
+        "Id": 75,
+        "ActionId": 614,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500244"
+        ]
+    },
+    {
+        "Id": 76,
+        "ActionId": 61,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Heng Ji",
+            "The virus filter supported by Huaxu's computational power has entered the final stage. It's expected to be completed 3 hours before the Corrupted's arrival.",
+            1.0
+        ]
+    },
+    {
+        "Id": 77,
+        "ActionId": 615,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220"
+        ]
+    },
+    {
+        "Id": 78,
+        "ActionId": 62,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "To ensure safety, give priority to ensuring that the people in the city will not be infected by the airborne Punishing Virus.",
+            1.0
+        ]
+    },
+    {
+        "Id": 79,
+        "ActionId": 616,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500244"
+        ]
+    },
+    {
+        "Id": 80,
+        "ActionId": 63,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Heng Ji",
+            "Understood.",
+            1.0
+        ]
+    },
+    {
+        "Id": 81,
+        "ActionId": 617,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500243"
+        ]
+    },
+    {
+        "Id": 82,
+        "ActionId": 64,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Bai Gui",
+            "The supplies that will be distributed to each city district have been prepared.",
+            1.0
+        ]
+    },
+    {
+        "Id": 83,
+        "ActionId": 618,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220",
+            "4"
+        ]
+    },
+    {
+        "Id": 84,
+        "ActionId": 65,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "Lianshan, send twenty of the Baxia Crew from West City District to the South City District. The network of old streets from Dingwu to Dingjiu in the South City District needs more manpower.",
+            1.0
+        ]
+    },
+    {
+        "Id": 85,
+        "ActionId": 619,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500241"
+        ]
+    },
+    {
+        "Id": 86,
+        "ActionId": 66,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lianshan",
+            "Alright.",
+            1.0
+        ]
+    },
+    {
+        "Id": 87,
+        "ActionId": 620,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 88,
+        "ActionId": 67,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Qu quickly flips through each report in the data panel and issues orders. After all the reports are processed, Qu closes the panel."
+        ]
+    },
+    {
+        "Id": 89,
+        "ActionId": 68,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Qu's officials serve as the backbone of the Kowloong Chamber of Commerce. Their individual personalities work like gears in a machine, performing their respective duties and supporting the operation of the city with Qu."
+        ]
+    },
+    {
+        "Id": 90,
+        "ActionId": 69,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Qu glances at everyone in the conference room and finally stops at an empty seat."
+        ]
+    },
+    {
+        "Id": 91,
+        "ActionId": 621,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220"
+        ]
+    },
+    {
+        "Id": 92,
+        "ActionId": 70,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "...Moyuan's comms are still offline?",
+            1.0
+        ]
+    },
+    {
+        "Id": 93,
+        "ActionId": 622,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500224"
+        ]
+    },
+    {
+        "Id": 94,
+        "ActionId": 71,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Chi Ling",
+            "Correct. She's been MIA ever since an outbreak occurred at her location.",
+            1.0
+        ]
+    },
+    {
+        "Id": 95,
+        "ActionId": 72,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hearing this, everyone falls silent. They all know what would happen to Moyuan with her modifications and the lack of protection in the outside world."
+        ]
+    },
+    {
+        "Id": 96,
+        "ActionId": 623,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500242"
+        ]
+    },
+    {
+        "Id": 97,
+        "ActionId": 73,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Danhao",
+            "There's no reason to be distraught. Moyuan likes going off grid, then appearing the next day. She's a brash and reckless child, even the Chaofeng Crew doesn't bother restraining her.",
+            1.0
+        ]
+    },
+    {
+        "Id": 98,
+        "ActionId": 624,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500241"
+        ]
+    },
+    {
+        "Id": 99,
+        "ActionId": 74,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lianshan",
+            "The situation is different.",
+            1.0
+        ]
+    },
+    {
+        "Id": 100,
+        "ActionId": 625,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500220"
+        ]
+    },
+    {
+        "Id": 101,
+        "ActionId": 75,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Qu",
+            "Lianshan is right\u2014the situation is different. I have sent the frontline battle reports to all of you. This is the reality we are about to face.",
+            1.0
+        ]
+    },
+    {
+        "Id": 102,
+        "ActionId": 76,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Seeing the escalating disaster report, the officials give up on their unrealistic fantasies."
+        ]
+    },
+    {
+        "Id": 103,
+        "ActionId": 77,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Qu",
+            "However, as Danhao said, being distraught won't solve any problems. As KCC officials from various departments, now, we shall determine the fate of Kowloong.",
+            1.0
+        ]
+    },
+    {
+        "Id": 104,
+        "ActionId": 78,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "102"
+        ]
+    },
+    {
+        "Id": 105,
+        "ActionId": 79,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 106,
+        "ActionId": 80,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory237.png"
+        ]
+    },
+    {
+        "Id": 107,
+        "ActionId": 81,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Broadcast",
+            "Up next, an emergency statement from the World Government on the Punishing Virus."
+        ]
+    },
+    {
+        "Id": 108,
+        "ActionId": 82,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Broadcast",
+            "We face an unprecedented disaster in human history. The Science Council has launched a comprehensive investigation, and the Star of Life is actively seeking a cure."
+        ]
+    },
+    {
+        "Id": 109,
+        "ActionId": 83,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The progress made by the World Government on the Punishing Virus will be broadcasted throughout the streets in real-time."
+        ]
+    },
+    {
+        "Id": 110,
+        "ActionId": 84,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Androids and mechanic servants seen throughout the KCC have all been recycled."
+        ]
+    },
+    {
+        "Id": 111,
+        "ActionId": 85,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "In a state of panic, people have destroyed all of the machines around them, leaving them to deteriorate in deserted alleys."
+        ]
+    },
+    {
+        "Id": 112,
+        "ActionId": 86,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Those who learned of the destruction caused by the Corrupted locked themselves in dark and narrow rooms in an attempt to save themselves. Others packed up and fled to port to board ships and leave Kowloong."
+        ]
+    },
+    {
+        "Id": 113,
+        "ActionId": 87,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The property abandoned by refugees became hotbeds for crime. Thugs plundered abandoned houses of their leftover supplies and used them as gathering points to plan their next robbery."
+        ]
+    },
+    {
+        "Id": 114,
+        "ActionId": 88,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Locked doors and windows for businesses had been pried open by thugs. People no longer communicated with words, only violence."
+        ]
+    },
+    {
+        "Id": 115,
+        "ActionId": 89,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Every member of the Kowloong Crew sets out to maintain order in Kowloong. Never have they felt so arduous in waiting for the leaders to announce the next step. Even so, they still had their own mission to complete."
+        ]
+    },
+    {
+        "Id": 116,
+        "ActionId": 90,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The once prosperous KCC is now long gone. A few pedestrians gather near the broadcast on the street."
+        ]
+    },
+    {
+        "Id": 117,
+        "ActionId": 91,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "Pardon me. Have you seen my daughter? She's about this tall, with black hair tied into pigtails."
+        ]
+    },
+    {
+        "Id": 118,
+        "ActionId": 92,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "A distraught man suddenly runs onto the road, waving his hands at every passer-by."
+        ]
+    },
+    {
+        "Id": 119,
+        "ActionId": 93,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident A",
+            "No, the city's in chaos! I ain't got time for others!"
+        ]
+    },
+    {
+        "Id": 120,
+        "ActionId": 94,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "B-but..."
+        ]
+    },
+    {
+        "Id": 121,
+        "ActionId": 95,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500236"
+        ]
+    },
+    {
+        "Id": 122,
+        "ActionId": 96,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Resident B",
+            "Hey! C'mere.",
+            1.0
+        ]
+    },
+    {
+        "Id": 123,
+        "ActionId": 97,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "A man shouts at him from afar. Thinking someone would finally help him, he rushes over. As he approaches, the man knocks him on the ground."
+        ]
+    },
+    {
+        "Id": 124,
+        "ActionId": 98,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "W-what do you want from me?!"
+        ]
+    },
+    {
+        "Id": 125,
+        "ActionId": 99,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Hand over y'er valuables.",
+            1.0
+        ]
+    },
+    {
+        "Id": 126,
+        "ActionId": 100,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The man pats him down as he speaks."
+        ]
+    },
+    {
+        "Id": 127,
+        "ActionId": 101,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Hmph, broke ***. That's all you got on your card? Wait a minute, what's that in your hand?",
+            1.0
+        ]
+    },
+    {
+        "Id": 128,
+        "ActionId": 102,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "No, please..."
+        ]
+    },
+    {
+        "Id": 129,
+        "ActionId": 103,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Hand it over, punk ***.",
+            1.0
+        ]
+    },
+    {
+        "Id": 130,
+        "ActionId": 104,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1512"
+        ]
+    },
+    {
+        "Id": 131,
+        "ActionId": 105,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "He steps on the man's wrist. The man opens his hand out of pain and stress. In the man's palm is a silver wedding ring."
+        ]
+    },
+    {
+        "Id": 132,
+        "ActionId": 106,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Looks like ya do have a lil' somethin'. Dont'cha?",
+            1.0
+        ]
+    },
+    {
+        "Id": 133,
+        "ActionId": 107,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "I beg of you. I'll give you everything else. Leave this ring to me... This is the only memento I have..."
+        ]
+    },
+    {
+        "Id": 134,
+        "ActionId": 108,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Like I care!",
+            1.0
+        ]
+    },
+    {
+        "Id": 135,
+        "ActionId": 109,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1512"
+        ]
+    },
+    {
+        "Id": 136,
+        "ActionId": 110,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "He takes the ring away and kicks the man in the stomach."
+        ]
+    },
+    {
+        "Id": 137,
+        "ActionId": 111,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "???",
+            "Stop!"
+        ]
+    },
+    {
+        "Id": 138,
+        "ActionId": 112,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Just as he was about to continue beating the man up, two soldiers approach from a distance. The words \"Pulao Crew\" appear on their masks intermittently, signaling their identity as guardians of Kowloong."
+        ]
+    },
+    {
+        "Id": 139,
+        "ActionId": 113,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Resident B",
+            "Outta the way, punk!",
+            1.0
+        ]
+    },
+    {
+        "Id": 140,
+        "ActionId": 114,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 141,
+        "ActionId": 115,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1512"
+        ]
+    },
+    {
+        "Id": 142,
+        "ActionId": 116,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The violent man runs the other way after seeing the Pulao Crew block his escape, knocking down miscellanies from the road to slow down his pursuers."
+        ]
+    },
+    {
+        "Id": 143,
+        "ActionId": 117,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As he knocks a child out of the way, others begin to gather on the street, but no one bothers to stop him, let alone help the child up."
+        ]
+    },
+    {
+        "Id": 144,
+        "ActionId": 118,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "A Pulao soldier keeps up chasing for a few steps, but the perpetrator has long disappeared in the maze of streets."
+        ]
+    },
+    {
+        "Id": 145,
+        "ActionId": 500,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500223"
+        ]
+    },
+    {
+        "Id": 146,
+        "ActionId": 121,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Pulao Crew B",
+            "There is a robbery in Guisi Street, South City... Call the headquarters for support.",
+            1.0
+        ]
+    },
+    {
+        "Id": 147,
+        "ActionId": 501,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 148,
+        "ActionId": 122,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "System",
+            "Copy."
+        ]
+    },
+    {
+        "Id": 149,
+        "ActionId": 123,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "After reporting the situation on the block, the Pulao soldier returns to the child and helps him up."
+        ]
+    },
+    {
+        "Id": 150,
+        "ActionId": 124,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Child",
+            "Thank... Thank you..."
+        ]
+    },
+    {
+        "Id": 151,
+        "ActionId": 502,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500223"
+        ]
+    },
+    {
+        "Id": 152,
+        "ActionId": 125,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Pulao Crew B",
+            "You're welcome. Hurry on home.",
+            1.0
+        ]
+    },
+    {
+        "Id": 153,
+        "ActionId": 503,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 154,
+        "ActionId": 126,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "A little farther away, the Pulao soldier approaches the frail man."
+        ]
+    },
+    {
+        "Id": 155,
+        "ActionId": 504,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500223"
+        ]
+    },
+    {
+        "Id": 156,
+        "ActionId": 127,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Pulao Crew A",
+            "Please give me a detailed description of your child.",
+            1.0
+        ]
+    },
+    {
+        "Id": 157,
+        "ActionId": 505,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 158,
+        "ActionId": 128,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The man squeezes through the crowd as if he was finally thrown a lifeline and almost falls before the Pulao Crew. The soldiers hurry to catch him."
+        ]
+    },
+    {
+        "Id": 159,
+        "ActionId": 129,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Frail Man",
+            "Th-Thank you. If I can't find her, I won't be able live up to the promise I made to my late wife."
+        ]
+    },
+    {
+        "Id": 160,
+        "ActionId": 130,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The man holds back tears as he spoke. He is weak from hunger and his shoes are tattered from a long journey."
+        ]
+    },
+    {
+        "Id": 161,
+        "ActionId": 131,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The Pulao soldier that picked up the child walks up to the radio tower. He picks up a receiver and broadcasts to the bystanders on the street."
+        ]
+    },
+    {
+        "Id": 162,
+        "ActionId": 506,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500223"
+        ]
+    },
+    {
+        "Id": 163,
+        "ActionId": 132,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Pulao Crew B",
+            "It is very dangerous outside. Please return home and wait for further notice. Please cooperate for the sake of your safety.",
+            1.0
+        ]
+    },
+    {
+        "Id": 164,
+        "ActionId": 507,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 165,
+        "ActionId": 133,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The broadcast amplifies the Pulao Crew's voice as it rings throughout the street."
+        ]
+    },
+    {
+        "Id": 166,
+        "ActionId": 134,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "After hearing this, the crowd disperses one after another, cursing at the Pulao Crew."
+        ]
+    },
+    {
+        "Id": 167,
+        "ActionId": 119,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500223",
+            -400.0,
+            -50.0
+        ]
+    },
+    {
+        "Id": 168,
+        "ActionId": 120,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500223",
+            400.0
+        ]
+    },
+    {
+        "Id": 169,
+        "ActionId": 135,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Pulao Crew A",
+            "Are you finished up here?",
+            2.0
+        ]
+    },
+    {
+        "Id": 170,
+        "ActionId": 136,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew B",
+            "They've all been sent home.",
+            1.0
+        ]
+    },
+    {
+        "Id": 171,
+        "ActionId": 137,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew A",
+            "Apparently, there is a small-scale riot on Renwu street in the East City.",
+            2.0
+        ]
+    },
+    {
+        "Id": 172,
+        "ActionId": 138,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew B",
+            "What about the man?",
+            1.0
+        ]
+    },
+    {
+        "Id": 173,
+        "ActionId": 139,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew A",
+            "I promised to help find his child, which put his mind at ease. The medics will take him to get medical attention when they arrive shortly.",
+            2.0
+        ]
+    },
+    {
+        "Id": 174,
+        "ActionId": 140,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew B",
+            "I see... Good...",
+            1.0
+        ]
+    },
+    {
+        "Id": 175,
+        "ActionId": 141,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "The shorter Pulao soldier feels a little relieved hearing this, and slings his rifle on his back."
+        ]
+    },
+    {
+        "Id": 176,
+        "ActionId": 142,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew B",
+            "Any new orders from up top?",
+            1.0
+        ]
+    },
+    {
+        "Id": 177,
+        "ActionId": 143,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew A",
+            "...Not yet.",
+            2.0
+        ]
+    },
+    {
+        "Id": 178,
+        "ActionId": 144,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew B",
+            "People are at their breaking point... If officials don't sort this out, I'm afraid Kowloong will destroy itself before the Corrupted arrive.",
+            1.0
+        ]
+    },
+    {
+        "Id": 179,
+        "ActionId": 145,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Pulao Crew A",
+            "Put your faith in them. Lady Qu will guide us through this.",
+            2.0
+        ]
+    },
+    {
+        "Id": 180,
+        "ActionId": 146,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "While the two soldiers are talking, an electronic buzzing sound broadcasts on the radio overhead followed by a soft female voice."
+        ]
+    },
+    {
+        "Id": 181,
+        "ActionId": 147,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Broadcast",
+            "People of the KCC, upon hearing this broadcast, please gather in the Commerce Plaza in an orderly fashion for an important decision. People of the KCC, upon hearing this broadcast..."
+        ]
+    },
+    {
+        "Id": 182,
+        "ActionId": 148,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Hearing the broadcast, the two soldiers exchange glances and then walk toward the Commerce Plaza."
+        ]
+    },
+    {
+        "Id": 183,
+        "ActionId": 149,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/Bgstory152.png"
+        ]
+    },
+    {
+        "Id": 184,
+        "ActionId": 150,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 185,
+        "ActionId": 151,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500215",
+            "5"
+        ]
+    },
+    {
+        "Id": 186,
+        "ActionId": 152,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "12"
+        ]
+    },
+    {
+        "Id": 187,
+        "ActionId": 153,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Villier",
+            "Damn it! I didn't expect that Heng Ji to have this trick up his sleeve.",
+            1.0
+        ]
+    },
+    {
+        "Id": 188,
+        "ActionId": 154,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Huaxu",
+            "\u2014\u2014"
+        ]
+    },
+    {
+        "Id": 189,
+        "ActionId": 155,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Villier clenches his lips upon hearing the city-wide broadcast calling for citizens to gather in the plaza."
+        ]
+    },
+    {
+        "Id": 190,
+        "ActionId": 156,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Villier",
+            "Tsk, there's no time to slowly decipher it.",
+            1.0
+        ]
+    },
+    {
+        "Id": 191,
+        "ActionId": 157,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Villier",
+            "Fortunately, I left a backup command during your development.",
+            1.0
+        ]
+    },
+    {
+        "Id": 192,
+        "ActionId": 158,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Saying this, Villier's fingers quickly dance on Huaxu's control panel, causing the supercomputer to rumble violently shortly. Villier recovers the chip and turns to leave through the dark doorway."
+        ]
+    },
+    {
+        "Id": 193,
+        "ActionId": 159,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Villier",
+            "I'm sorry. I can't bring the original you with me...",
+            1.0
+        ]
+    },
+    {
+        "Id": 194,
+        "ActionId": 160,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Villier",
+            "But no matter. I'll make good use of this backup.",
+            1.0
+        ]
+    }
+]

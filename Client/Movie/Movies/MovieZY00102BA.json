@@ -1,0 +1,1456 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory68.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "210"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1031001",
+            "600"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 1001,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 1002,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "3",
+            "500026",
+            "-600"
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Liv",
+            "This area is bigger than I thought, now that we've got a map from Foreman...",
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "It's also divided into clearly-defined zones. I wonder how many mechanoids have gathered here.",
+            "2"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lee",
+            "My initial estimation is over a thousand of them. After all, maintaining a hologram of this scale must involve an enormous amount of recon drones.",
+            "3"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Who organizes this?",
+            "8",
+            "Can't believe there's so many mechanoid here.",
+            10.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 8,
+        "NextActionId": 9.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lee",
+            "It could be Foreman, it could be others, but from my experience, a convention of this nature is usually run collectively by the fans.",
+            "3"
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 9,
+        "NextActionId": 1003.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Liv",
+            "Foreman did say they all enjoy Ghost Expert here.",
+            "1"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 1353,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lee",
+            "Even with the results from our database, it's still difficult to determine what this Ghost Expert is..."
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 10,
+        "NextActionId": 1003.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lee",
+            "Anyway, we should definitely look into a group this size. We might just get our hands on some useful intel.",
+            "3"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 1003,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            "3"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 1004,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500142",
+            "400"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 1005,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500142",
+            "-400"
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Mechanoid A",
+            "Ugh, why is the first trial so damn difficult already? What the hell?",
+            "1"
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Mechanoid B",
+            "We can always give it another go later. Let's try the other trials first to liven things up.",
+            "2"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Mechanoid A",
+            "I'm gonna give that East General a taste of my fist after the event's over. Just you wait!",
+            "1"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 1006,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1031001",
+            "7",
+            "400"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 1007,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166",
+            "-400"
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Liv",
+            "Those mechanoids...",
+            "2"
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Looks like they're contestants who did the trial before us. Should we ask them how it went, Commandant?",
+            "2"
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 1008,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "That's not necessary.",
+            "16",
+            "Let's ask them.",
+            17.0
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 16,
+        "NextActionId": 1013.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Copy. Then let's keep going.",
+            "2"
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 17,
+        "NextActionId": 18.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Understood.",
+            "2"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 18,
+        "NextActionId": 1009.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia walks up to the two mechanoids as you instructed and greets them."
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 1009,
+        "NextActionId": 1010.0,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 1010,
+        "NextActionId": 1011.0,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500166",
+            "-600"
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 1011,
+        "NextActionId": 1012.0,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500142",
+            "600"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 1012,
+        "NextActionId": 19.0,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "3",
+            "500142"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 19,
+        "NextActionId": 20.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Mechanoid A",
+            "Babylonia... Nah, never heard of it. What can I do for you?",
+            "2"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 20,
+        "NextActionId": 21.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "We're also participants in this competition. We're just wondering if you can tell us a little bit about the content of the trial?",
+            "1"
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 21,
+        "NextActionId": 22.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Mechanoid A",
+            "Won't hurt to tell you what it is, I suppose. Basically, it's a game of riddles.",
+            "2"
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 22,
+        "NextActionId": 23.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "Are they riddles that challenge our knowledge base?",
+            "1"
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 23,
+        "NextActionId": 24.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Mechanoid A",
+            "It's a challenge on how well you know your companions. Speaking of which\u2014how the hell did you not notice that guy's a fake?",
+            "2"
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 24,
+        "NextActionId": 25.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Mechanoid B",
+            "Hey, stop hitting me!",
+            "3"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 25,
+        "NextActionId": 26.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Halfway through your conversation, one of the mechanoids starts smacking the other one, and you feel like this is as much information as you can get from them."
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 26,
+        "NextActionId": 1013.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Lucia",
+            "How well we know our companions, is it...?",
+            "1"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 1013,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2",
+            "3"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 1014,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory68.jpg"
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 1015,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500170"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u2014\u2014"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "So you're the Babylonian contestants Foreman mentioned, aren't you? I'm East General, the guardian of the Eastern trial!",
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 1016,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 1017,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166",
+            "-400"
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "Did Foreman mention us specifically?",
+            "2"
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "This ghost-hunting event is for fun, after all. We wouldn't want bad eggs among us, would we?",
+            "1"
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Despite how silly this event is, this East General in front of you seems to be quite a knowledgeable individual."
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 1018,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2"
+        ]
+    },
+    {
+        "Id": 51,
+        "ActionId": 1019,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "0"
+        ]
+    },
+    {
+        "Id": 52,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Regardless, I should provide you with a little more information before you begin.",
+            "1"
+        ]
+    },
+    {
+        "Id": 53,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Apart from the Northern trial, all the other trials only permit one participant each time, and those who have taken part in a previous trial cannot join another one.",
+            "1"
+        ]
+    },
+    {
+        "Id": 54,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Considering that you're a group of Constructs with a commandant, I'll allow your commandant to assist you through your comms.",
+            "1"
+        ]
+    },
+    {
+        "Id": 55,
+        "ActionId": 1020,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Thanks.",
+            "35",
+            "Wouldn't that be unfair?",
+            36.0
+        ]
+    },
+    {
+        "Id": 56,
+        "ActionId": 35,
+        "NextActionId": 1023.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Sure.",
+            "1"
+        ]
+    },
+    {
+        "Id": 57,
+        "ActionId": 36,
+        "NextActionId": 1021.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Given that you Constructs only work well with a commandant and that you're all new to this... Consider this a newcomer gift.",
+            "1"
+        ]
+    },
+    {
+        "Id": 58,
+        "ActionId": 1021,
+        "NextActionId": 1022.0,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 59,
+        "ActionId": 1022,
+        "NextActionId": 37.0,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500026",
+            "10",
+            "-400"
+        ]
+    },
+    {
+        "Id": 60,
+        "ActionId": 37,
+        "NextActionId": 1023.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lee",
+            "Newcomers... So you've hosted this event here multiple times...",
+            "2"
+        ]
+    },
+    {
+        "Id": 61,
+        "ActionId": 1023,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 62,
+        "ActionId": 1024,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500170"
+        ]
+    },
+    {
+        "Id": 63,
+        "ActionId": 38,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "East General",
+            "Now, onto the instruction of the trial itself. As contestants, you must know that ghosts are inclined to disguise themselves as others to trick innocent people.",
+            "1"
+        ]
+    },
+    {
+        "Id": 64,
+        "ActionId": 39,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "But you certainly won't be fooled by such trickery as outstanding Taoists yourselves! Therefore, I, East General, shall test your perception!",
+            "1"
+        ]
+    },
+    {
+        "Id": 65,
+        "ActionId": 40,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "So, send in the one who knows your group best!",
+            "1"
+        ]
+    },
+    {
+        "Id": 66,
+        "ActionId": 5000,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 67,
+        "ActionId": 5001,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166",
+            "-400"
+        ]
+    },
+    {
+        "Id": 68,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "The one who knows us best... Commandant, who should we send?",
+            "2"
+        ]
+    },
+    {
+        "Id": 69,
+        "ActionId": 1025,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "How about me?",
+            "42",
+            "Any one of you will do, right?",
+            5002.0
+        ]
+    },
+    {
+        "Id": 70,
+        "ActionId": 42,
+        "NextActionId": 1026.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "East General",
+            "Better keep the human out of this, I reckon. Unexpected dangers lurk within!",
+            "1"
+        ]
+    },
+    {
+        "Id": 71,
+        "ActionId": 5002,
+        "NextActionId": 4000.0,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 72,
+        "ActionId": 4000,
+        "NextActionId": 43.0,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500166",
+            "1"
+        ]
+    },
+    {
+        "Id": 73,
+        "ActionId": 43,
+        "NextActionId": 1026.0,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "Right. Any one of us would easily pass this trial.",
+            "1"
+        ]
+    },
+    {
+        "Id": 74,
+        "ActionId": 1026,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 75,
+        "ActionId": 1027,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "1031001",
+            "1"
+        ]
+    },
+    {
+        "Id": 76,
+        "ActionId": 44,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Liv",
+            "In that case... can I do it?",
+            "1"
+        ]
+    },
+    {
+        "Id": 77,
+        "ActionId": 45,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "As you wrestle with deciding who to send in, Liv raises her hand, her cheeks slightly blushing."
+        ]
+    },
+    {
+        "Id": 78,
+        "ActionId": 46,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Liv",
+            "It's always been Lucia or Lee who leads the charge in the past, therefore... if I could...",
+            "1"
+        ]
+    },
+    {
+        "Id": 79,
+        "ActionId": 47,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Liv",
+            "And I've always been watching over everyone on the battlefield! That's why I won't fail when it comes to knowing my companions!",
+            "1"
+        ]
+    },
+    {
+        "Id": 80,
+        "ActionId": 1028,
+        "NextActionId": null,
+        "Type": 203,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "0.25",
+            "400"
+        ]
+    },
+    {
+        "Id": 81,
+        "ActionId": 1029,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500166",
+            "1",
+            "-400"
+        ]
+    },
+    {
+        "Id": 82,
+        "ActionId": 48,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Lucia",
+            "I don't see why not, Commandant. Let's send Liv in.",
+            "2"
+        ]
+    },
+    {
+        "Id": 83,
+        "ActionId": 1030,
+        "NextActionId": null,
+        "Type": 302,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "(Nod)",
+            "1031",
+            "Let's do it!",
+            1031.0
+        ]
+    },
+    {
+        "Id": 84,
+        "ActionId": 1031,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 85,
+        "ActionId": 1032,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500170"
+        ]
+    },
+    {
+        "Id": 86,
+        "ActionId": 49,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "East General",
+            "Very well... Let the trial begin! Scene change!",
+            "1"
+        ]
+    }
+]

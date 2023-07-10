@@ -1,0 +1,102 @@
+[
+    {
+        "Id": 1,
+        "Type": 1,
+        "Name": "Basic Battle",
+        "Description": "Can learn the basic combat controls.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg01B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesBasics.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle.prefab",
+        "SubTag": null
+    },
+    {
+        "Id": 2,
+        "Type": 2,
+        "Name": "Advanced Battle",
+        "Description": "Advanced Battle Info",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg02B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesAdvanced.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeSquare.prefab",
+        "SubTag": null
+    },
+    {
+        "Id": 3,
+        "Type": 3,
+        "Name": "Member Battle",
+        "Description": null,
+        "BgPath": null,
+        "PracticeContentPrefab": null,
+        "PracticeGridPrefab": null,
+        "SubTag": null
+    },
+    {
+        "Id": 4,
+        "Type": 3,
+        "Name": "S-Rank Omniframe",
+        "Description": "Learn the basic control of each character. Uniframes are only unlocked after Lv.52.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle2.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 5,
+        "Type": 3,
+        "Name": "A/B-Rank Omniframe",
+        "Description": "Learn the basic control of each character. Uniframes are only unlocked after Lv.52.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle2.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 6,
+        "Type": 3,
+        "Name": "Uniframe",
+        "Description": "Learn the basic control of each character. Uniframes are only unlocked after Lv.52.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle2.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 7,
+        "Type": 3,
+        "Name": "Collab Frame",
+        "Description": "Learn the basic control of each character. Uniframes are only unlocked after Lv.52.",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle2.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 8,
+        "Type": 4,
+        "Name": "Simulated Trial",
+        "Description": null,
+        "BgPath": null,
+        "PracticeContentPrefab": null,
+        "PracticeGridPrefab": null,
+        "SubTag": null
+    },
+    {
+        "Id": 9,
+        "Type": 4,
+        "Name": "Boss",
+        "Description": "Each stage can be challenged repeatedly with customizable difficulty levels.",
+        "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingBoss.prefab",
+        "SubTag": 8.0
+    },
+    {
+        "Id": 10,
+        "Type": 4,
+        "Name": "Elite",
+        "Description": "Each stage can be challenged repeatedly with customizable difficulty levels.",
+        "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingInfernalMobs.prefab",
+        "SubTag": 8.0
+    }
+]

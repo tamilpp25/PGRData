@@ -1,0 +1,187 @@
+[
+    {
+        "Key": "CollisionEffect",
+        "Type": "string",
+        "Value": "FxAirwallActivated"
+    },
+    {
+        "Key": "CollisionEffectInterval",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "RebootContaminationColor",
+        "Type": "string",
+        "Value": "ff3f3fff"
+    },
+    {
+        "Key": "RebootRescuingColor",
+        "Type": "string",
+        "Value": "34aff9ff"
+    },
+    {
+        "Key": "RebootRecontaminationTransitionTime",
+        "Type": "float",
+        "Value": "0.3"
+    },
+    {
+        "Key": "HpTransitionDuration",
+        "Type": "float",
+        "Value": "0.8"
+    },
+    {
+        "Key": "EnergyTransitionDuration",
+        "Type": "float",
+        "Value": "0.3"
+    },
+    {
+        "Key": "HpShakeDuration",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "HpShakeRange",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "BallTemplate",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/BallTemplate.prefab"
+    },
+    {
+        "Key": "UiPolygonSprite",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightSekuai.png"
+    },
+    {
+        "Key": "AffixLevel2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/2.png"
+    },
+    {
+        "Key": "AffixLevel3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/3.png"
+    },
+    {
+        "Key": "FightOnlineMsgTime",
+        "Type": "float",
+        "Value": "10"
+    },
+    {
+        "Key": "FightOnlineMsgSendCdTime",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "FightOnlineMsgAutoCloseTime",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "UiFighMarkMoving",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMoving.png"
+    },
+    {
+        "Key": "UiFighMarkMovingBg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMovingBg.png"
+    },
+    {
+        "Key": "UiFighMarkMovingBtn",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMovingBtn.png"
+    },
+    {
+        "Key": "UiFighMarkMovingPoint1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMovingPoint1.png"
+    },
+    {
+        "Key": "UiFighMarkMovingPoint2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMovingPoint2.png"
+    },
+    {
+        "Key": "UiFighMarkMovingPoint3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighMarkMovingPoint3.png"
+    },
+    {
+        "Key": "UiFighTeachingRyq",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightRyq.png"
+    },
+    {
+        "Key": "UiFighTeachingArrows",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightTypeUp.png"
+    },
+    {
+        "Key": "SceneRollNumber",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/SceneRollNumber.prefab"
+    },
+    {
+        "Key": "Used3DRollNumber",
+        "Type": "bool",
+        "Value": "0"
+    },
+    {
+        "Key": "HackTransitionDuration",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "DefaultViewDuration",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultViewNoMouseMoveMaxTime",
+        "Type": "float",
+        "Value": "15"
+    },
+    {
+        "Key": "FreeViewNoMouseMoveMaxTime",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "DefaultFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitNor.png"
+    },
+    {
+        "Key": "PCFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitPCNor.png"
+    },
+    {
+        "Key": "XboxFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitXBOXNor.png"
+    },
+    {
+        "Key": "PsFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitPSNor.png"
+    },
+    {
+        "Key": "ControlCameraByDragTip",
+        "Type": "string",
+        "Value": "Switched to Classic Mode: Hold the left mouse button to control camera movement"
+    },
+    {
+        "Key": "ControlCameraByMoveTip",
+        "Type": "string",
+        "Value": "Switched to Free Mode: Camera will automatically follow your mouse"
+    },
+    {
+        "Key": "OccupiedKeyCode",
+        "Type": "string",
+        "Value": "This button is already occupied and cannot be used."
+    }
+]

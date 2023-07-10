@@ -1,0 +1,1958 @@
+[
+    {
+        "Id": 100001,
+        "Priority": 1,
+        "Ignore": 0,
+        "Desc": "Novice Stage 1",
+        "GuideType": 2,
+        "ConditionId": [
+            850000
+        ],
+        "CompleteId": 100001,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 1
+    },
+    {
+        "Id": 100002,
+        "Priority": 2,
+        "Ignore": 0,
+        "Desc": "Novice Stage 2",
+        "GuideType": 2,
+        "ConditionId": [
+            850000
+        ],
+        "CompleteId": 100002,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 1
+    },
+    {
+        "Id": 100003,
+        "Priority": 3,
+        "Ignore": 0,
+        "Desc": "Novice Stage 3",
+        "GuideType": 2,
+        "ConditionId": [
+            850000
+        ],
+        "CompleteId": 100003,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 1
+    },
+    {
+        "Id": 50000,
+        "Priority": 50000,
+        "Ignore": 0,
+        "Desc": "Guide to 1-1",
+        "GuideType": 1,
+        "ConditionId": [
+            850000
+        ],
+        "CompleteId": 50000,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50000
+    },
+    {
+        "Id": 50101,
+        "Priority": 50101,
+        "Ignore": 0,
+        "Desc": "Claim Mission 1-2 reward",
+        "GuideType": 1,
+        "ConditionId": [
+            850101
+        ],
+        "CompleteId": 50101,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50101
+    },
+    {
+        "Id": 50102,
+        "Priority": 50102,
+        "Ignore": 0,
+        "Desc": "Equip your 1st Memory",
+        "GuideType": 1,
+        "ConditionId": [
+            850102
+        ],
+        "CompleteId": 50102,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50101
+    },
+    {
+        "Id": 50103,
+        "Priority": 50103,
+        "Ignore": 0,
+        "Desc": "Equipment your 2nd Memory",
+        "GuideType": 1,
+        "ConditionId": [
+            850103
+        ],
+        "CompleteId": 50103,
+        "ActiveUi": "UiEquipAwarenessReplace|UiMain",
+        "RewardId": 0,
+        "GroupId": 50101
+    },
+    {
+        "Id": 50201,
+        "Priority": 50201,
+        "Ignore": 0,
+        "Desc": "Claim reward: Liv",
+        "GuideType": 1,
+        "ConditionId": [
+            850201
+        ],
+        "CompleteId": 50201,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50201
+    },
+    {
+        "Id": 50202,
+        "Priority": 50202,
+        "Ignore": 0,
+        "Desc": "Guide to upgrade Liv",
+        "GuideType": 1,
+        "ConditionId": [
+            850202
+        ],
+        "CompleteId": 50202,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50201
+    },
+    {
+        "Id": 50203,
+        "Priority": 50203,
+        "Ignore": 0,
+        "Desc": "Guide to deploy Liv",
+        "GuideType": 1,
+        "ConditionId": [
+            850203
+        ],
+        "CompleteId": 50203,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50201
+    },
+    {
+        "Id": 50301,
+        "Priority": 50301,
+        "Ignore": 0,
+        "Desc": "Lucia Red Orb upgrade",
+        "GuideType": 1,
+        "ConditionId": [
+            850301
+        ],
+        "CompleteId": 50301,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50301
+    },
+    {
+        "Id": 50401,
+        "Priority": 50401,
+        "Ignore": 0,
+        "Desc": "Guide to Novice Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            850401
+        ],
+        "CompleteId": 50401,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50401
+    },
+    {
+        "Id": 50501,
+        "Priority": 50501,
+        "Ignore": 0,
+        "Desc": "Guide to Promote",
+        "GuideType": 1,
+        "ConditionId": [
+            850501
+        ],
+        "CompleteId": 50501,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50501
+    },
+    {
+        "Id": 50602,
+        "Priority": 50602,
+        "Ignore": 0,
+        "Desc": "Equip 4\u2605 katana",
+        "GuideType": 1,
+        "ConditionId": [
+            850602
+        ],
+        "CompleteId": 50602,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50602
+    },
+    {
+        "Id": 50603,
+        "Priority": 50603,
+        "Ignore": 0,
+        "Desc": "Upgrade 4\u2605 katana",
+        "GuideType": 1,
+        "ConditionId": [
+            850603
+        ],
+        "CompleteId": 50603,
+        "ActiveUi": "UiEquipReplaceNew|UiMain",
+        "RewardId": 0,
+        "GroupId": 50602
+    },
+    {
+        "Id": 50701,
+        "Priority": 50701,
+        "Ignore": 0,
+        "Desc": "Daily Story Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            850701
+        ],
+        "CompleteId": 50701,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50701
+    },
+    {
+        "Id": 50800,
+        "Priority": 50800,
+        "Ignore": 0,
+        "Desc": "Unlock Research to get R&D Tickets",
+        "GuideType": 1,
+        "ConditionId": [
+            850800
+        ],
+        "CompleteId": 50800,
+        "ActiveUi": "UiMain",
+        "RewardId": 1300,
+        "GroupId": 50800
+    },
+    {
+        "Id": 50801,
+        "Priority": 50801,
+        "Ignore": 0,
+        "Desc": "Research Nanami",
+        "GuideType": 1,
+        "ConditionId": [
+            850801
+        ],
+        "CompleteId": 50801,
+        "ActiveUi": "UiMain|UiNewDrawMain",
+        "RewardId": 0,
+        "GroupId": 50801
+    },
+    {
+        "Id": 50803,
+        "Priority": 50803,
+        "Ignore": 1,
+        "Desc": "Deploy Nanami",
+        "GuideType": 1,
+        "ConditionId": [
+            850803
+        ],
+        "CompleteId": 50803,
+        "ActiveUi": "UiNewRoomSingle",
+        "RewardId": 0,
+        "GroupId": 50801
+    },
+    {
+        "Id": 50901,
+        "Priority": 50901,
+        "Ignore": 0,
+        "Desc": "Return to Main Quest Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            850901
+        ],
+        "CompleteId": 50901,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50901
+    },
+    {
+        "Id": 50931,
+        "Priority": 50931,
+        "Ignore": 0,
+        "Desc": "Daily",
+        "GuideType": 1,
+        "ConditionId": [
+            850931
+        ],
+        "CompleteId": 50931,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 50931
+    },
+    {
+        "Id": 51001,
+        "Priority": 51001,
+        "Ignore": 0,
+        "Desc": "Learn about Shop and currency",
+        "GuideType": 1,
+        "ConditionId": [
+            851001
+        ],
+        "CompleteId": 51001,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51001
+    },
+    {
+        "Id": 51101,
+        "Priority": 51101,
+        "Ignore": 0,
+        "Desc": "Learn about Tutorial Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            851101
+        ],
+        "CompleteId": 51101,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51101
+    },
+    {
+        "Id": 51201,
+        "Priority": 51201,
+        "Ignore": 0,
+        "Desc": "Learn about Skill Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            851201
+        ],
+        "CompleteId": 51201,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51201
+    },
+    {
+        "Id": 51301,
+        "Priority": 51301,
+        "Ignore": 0,
+        "Desc": "Learn about Coin Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            851301
+        ],
+        "CompleteId": 51301,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51301
+    },
+    {
+        "Id": 51401,
+        "Priority": 51401,
+        "Ignore": 0,
+        "Desc": "Learn about equipment EXP",
+        "GuideType": 1,
+        "ConditionId": [
+            851401
+        ],
+        "CompleteId": 51401,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51401
+    },
+    {
+        "Id": 51501,
+        "Priority": 51501,
+        "Ignore": 0,
+        "Desc": "Learn about equipment Overclock",
+        "GuideType": 1,
+        "ConditionId": [
+            851501
+        ],
+        "CompleteId": 51501,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51501
+    },
+    {
+        "Id": 51601,
+        "Priority": 51601,
+        "Ignore": 0,
+        "Desc": "Learn about Trial Quest",
+        "GuideType": 1,
+        "ConditionId": [
+            851601
+        ],
+        "CompleteId": 51601,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51601
+    },
+    {
+        "Id": 51701,
+        "Priority": 51701,
+        "Ignore": 0,
+        "Desc": "Guide to Hard",
+        "GuideType": 1,
+        "ConditionId": [
+            851701
+        ],
+        "CompleteId": 51701,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51701
+    },
+    {
+        "Id": 51801,
+        "Priority": 51801,
+        "Ignore": 1,
+        "Desc": "(Abandoned) Guide to Blitz",
+        "GuideType": 1,
+        "ConditionId": [
+            851801
+        ],
+        "CompleteId": 51801,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51801
+    },
+    {
+        "Id": 51901,
+        "Priority": 51901,
+        "Ignore": 0,
+        "Desc": "Guide to high-rank equipment stage",
+        "GuideType": 1,
+        "ConditionId": [
+            851901
+        ],
+        "CompleteId": 51901,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 51901
+    },
+    {
+        "Id": 52001,
+        "Priority": 52001,
+        "Ignore": 0,
+        "Desc": "Guide to Construct details",
+        "GuideType": 1,
+        "ConditionId": [
+            852001
+        ],
+        "CompleteId": 52001,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52001
+    },
+    {
+        "Id": 52031,
+        "Priority": 52031,
+        "Ignore": 0,
+        "Desc": "Guide to Test Area",
+        "GuideType": 1,
+        "ConditionId": [
+            852031
+        ],
+        "CompleteId": 52031,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52031
+    },
+    {
+        "Id": 52101,
+        "Priority": 52101,
+        "Ignore": 0,
+        "Desc": "Learn about Construct collection",
+        "GuideType": 1,
+        "ConditionId": [
+            852101
+        ],
+        "CompleteId": 52101,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52101
+    },
+    {
+        "Id": 52301,
+        "Priority": 52301,
+        "Ignore": 0,
+        "Desc": "Use Assist",
+        "GuideType": 1,
+        "ConditionId": [
+            852301
+        ],
+        "CompleteId": 52301,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52301
+    },
+    {
+        "Id": 52401,
+        "Priority": 52401,
+        "Ignore": 0,
+        "Desc": "Guide to Side Story",
+        "GuideType": 1,
+        "ConditionId": [
+            852401
+        ],
+        "CompleteId": 52401,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52401
+    },
+    {
+        "Id": 52501,
+        "Priority": 52501,
+        "Ignore": 0,
+        "Desc": "Learn about outfits",
+        "GuideType": 1,
+        "ConditionId": [
+            852501
+        ],
+        "CompleteId": 52501,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52501
+    },
+    {
+        "Id": 52601,
+        "Priority": 52601,
+        "Ignore": 1,
+        "Desc": "Guide to Bounty Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            852601
+        ],
+        "CompleteId": 52601,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52601
+    },
+    {
+        "Id": 52602,
+        "Priority": 52602,
+        "Ignore": 0,
+        "Desc": "Guide Operation Guardians",
+        "GuideType": 1,
+        "ConditionId": [
+            852601,
+            870002.0
+        ],
+        "CompleteId": 52602,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52602
+    },
+    {
+        "Id": 52701,
+        "Priority": 52701,
+        "Ignore": 0,
+        "Desc": "Learn about Dormitory and open Image Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852701
+        ],
+        "CompleteId": 52701,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52701
+    },
+    {
+        "Id": 52731,
+        "Priority": 500000,
+        "Ignore": 0,
+        "Desc": "Guild System Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852731
+        ],
+        "CompleteId": 52731,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52731
+    },
+    {
+        "Id": 52801,
+        "Priority": 52801,
+        "Ignore": 0,
+        "Desc": "Guide to Arena",
+        "GuideType": 1,
+        "ConditionId": [
+            852801
+        ],
+        "CompleteId": 52801,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52801
+    },
+    {
+        "Id": 52901,
+        "Priority": 52901,
+        "Ignore": 0,
+        "Desc": "Guide to Solo Boss",
+        "GuideType": 1,
+        "ConditionId": [
+            852901
+        ],
+        "CompleteId": 52901,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52901
+    },
+    {
+        "Id": 52931,
+        "Priority": 52931,
+        "Ignore": 0,
+        "Desc": "Guide to Medals",
+        "GuideType": 1,
+        "ConditionId": [
+            852931
+        ],
+        "CompleteId": 52931,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52931
+    },
+    {
+        "Id": 52961,
+        "Priority": 52961,
+        "Ignore": 0,
+        "Desc": "Autopoiesis Maze Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852961
+        ],
+        "CompleteId": 52961,
+        "ActiveUi": "UiMain|UiTask|UiPlayerUp",
+        "RewardId": 0,
+        "GroupId": 52961
+    },
+    {
+        "Id": 52962,
+        "Priority": 52962,
+        "Ignore": 0,
+        "Desc": "Guide - SP Character Tutorial Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            852961
+        ],
+        "CompleteId": 52962,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52961
+    },
+    {
+        "Id": 52991,
+        "Priority": 52991,
+        "Ignore": 0,
+        "Desc": "Resource Shop Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852991
+        ],
+        "CompleteId": 52991,
+        "ActiveUi": "UiMain|UiFubenDaily",
+        "RewardId": 0,
+        "GroupId": 52991
+    },
+    {
+        "Id": 52201,
+        "Priority": 53100,
+        "Ignore": 1,
+        "Desc": "(Abandoned) Join Co-op Boss",
+        "GuideType": 1,
+        "ConditionId": [
+            852201
+        ],
+        "CompleteId": 52201,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 52201
+    },
+    {
+        "Id": 53101,
+        "Priority": 53101,
+        "Ignore": 0,
+        "Desc": "Guide to Stronghold",
+        "GuideType": 1,
+        "ConditionId": [
+            771500
+        ],
+        "CompleteId": 53101,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 53101
+    },
+    {
+        "Id": 53001,
+        "Priority": 53102,
+        "Ignore": 0,
+        "Desc": "Guide to Exploration",
+        "GuideType": 1,
+        "ConditionId": [
+            774300
+        ],
+        "CompleteId": 53001,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 53001
+    },
+    {
+        "Id": 53002,
+        "Priority": 53002,
+        "Ignore": 1,
+        "Desc": "Guide Virtual Horizon",
+        "GuideType": 1,
+        "ConditionId": [
+            775100
+        ],
+        "CompleteId": 53002,
+        "ActiveUi": "UiExpeditionMain",
+        "RewardId": 0,
+        "GroupId": 53002
+    },
+    {
+        "Id": 53003,
+        "Priority": 53003,
+        "Ignore": 1,
+        "Desc": "Guide Chapter 13 Main Story",
+        "GuideType": 1,
+        "ConditionId": [
+            601000,
+            603910.0
+        ],
+        "CompleteId": 53003,
+        "ActiveUi": "UiTRPGExploreRegion",
+        "RewardId": 0,
+        "GroupId": 53003
+    },
+    {
+        "Id": 53004,
+        "Priority": 53004,
+        "Ignore": 1,
+        "Desc": "Guide - Photo Mode",
+        "GuideType": 1,
+        "ConditionId": [
+            775200
+        ],
+        "CompleteId": 53004,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 53004
+    },
+    {
+        "Id": 53005,
+        "Priority": 53005,
+        "Ignore": 0,
+        "Desc": "Guide - Mentorship System",
+        "GuideType": 1,
+        "ConditionId": [
+            870003
+        ],
+        "CompleteId": 53005,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 53005
+    },
+    {
+        "Id": 53006,
+        "Priority": 53006,
+        "Ignore": 0,
+        "Desc": "Guide - Horizon Phase 2",
+        "GuideType": 1,
+        "ConditionId": [
+            775100
+        ],
+        "CompleteId": 53006,
+        "ActiveUi": "UiExpeditionMain",
+        "RewardId": 0,
+        "GroupId": 53006
+    },
+    {
+        "Id": 53007,
+        "Priority": 53007,
+        "Ignore": 0,
+        "Desc": "Nier Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            601000
+        ],
+        "CompleteId": 53007,
+        "ActiveUi": "UiFubenNierEnter",
+        "RewardId": 0,
+        "GroupId": 53007
+    },
+    {
+        "Id": 53008,
+        "Priority": 53008,
+        "Ignore": 1,
+        "Desc": "(Abandoned) Pocket Punishing Event",
+        "GuideType": 1,
+        "ConditionId": [
+            601000
+        ],
+        "CompleteId": 53008,
+        "ActiveUi": "UiPokemonMain",
+        "RewardId": 0,
+        "GroupId": 53008
+    },
+    {
+        "Id": 53009,
+        "Priority": 53009,
+        "Ignore": 1,
+        "Desc": "Chestlefield Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            860016
+        ],
+        "CompleteId": 53009,
+        "ActiveUi": "UiChessPursuitMain",
+        "RewardId": 0,
+        "GroupId": 53009
+    },
+    {
+        "Id": 53010,
+        "Priority": 53010,
+        "Ignore": 0,
+        "Desc": "Nier Mode Training Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            880510
+        ],
+        "CompleteId": 53010,
+        "ActiveUi": "UiFubenNierEnter|UiFubenNierLineChapter",
+        "RewardId": 0,
+        "GroupId": 53010
+    },
+    {
+        "Id": 53011,
+        "Priority": 53011,
+        "Ignore": 0,
+        "Desc": "Nier Mode Stage Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            880511
+        ],
+        "CompleteId": 53011,
+        "ActiveUi": "UiFubenNierRepeat",
+        "RewardId": 0,
+        "GroupId": 53011
+    },
+    {
+        "Id": 53012,
+        "Priority": 53012,
+        "Ignore": 0,
+        "Desc": "Simulated Battle Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            601000
+        ],
+        "CompleteId": 53012,
+        "ActiveUi": "UiSimulatedCombatMain",
+        "RewardId": 0,
+        "GroupId": 53012
+    },
+    {
+        "Id": 53013,
+        "Priority": 53013,
+        "Ignore": 0,
+        "Desc": "Simulated Battle Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            930001
+        ],
+        "CompleteId": 53013,
+        "ActiveUi": "UiSimulatedCombatMain",
+        "RewardId": 0,
+        "GroupId": 53013
+    },
+    {
+        "Id": 54020,
+        "Priority": 54020,
+        "Ignore": 0,
+        "Desc": "Super Stronghold Guide Grouping",
+        "GuideType": 1,
+        "ConditionId": [
+            870006
+        ],
+        "CompleteId": 54020,
+        "ActiveUi": "UiStrongholdChooseLevelType",
+        "RewardId": 0,
+        "GroupId": 54020
+    },
+    {
+        "Id": 54021,
+        "Priority": 54021,
+        "Ignore": 0,
+        "Desc": "Super Stronghold Guide 1",
+        "GuideType": 1,
+        "ConditionId": [
+            870006
+        ],
+        "CompleteId": 54021,
+        "ActiveUi": "UiStrongholdMain",
+        "RewardId": 0,
+        "GroupId": 54021
+    },
+    {
+        "Id": 54022,
+        "Priority": 54022,
+        "Ignore": 0,
+        "Desc": "Super Stronghold Guide 2",
+        "GuideType": 1,
+        "ConditionId": [
+            94031,
+            94032.0
+        ],
+        "CompleteId": 54022,
+        "ActiveUi": "UiStrongholdFightMain",
+        "RewardId": 0,
+        "GroupId": 54022
+    },
+    {
+        "Id": 54023,
+        "Priority": 54023,
+        "Ignore": 0,
+        "Desc": "Super Stronghold Guide 3",
+        "GuideType": 1,
+        "ConditionId": [
+            94031,
+            94033.0,
+            94034.0
+        ],
+        "CompleteId": 54023,
+        "ActiveUi": "UiStrongholdFightMain",
+        "RewardId": 0,
+        "GroupId": 54023
+    },
+    {
+        "Id": 54024,
+        "Priority": 54024,
+        "Ignore": 0,
+        "Desc": "Super Stronghold Guide 4",
+        "GuideType": 1,
+        "ConditionId": [
+            94035,
+            94036.0
+        ],
+        "CompleteId": 54024,
+        "ActiveUi": "UiStrongholdMain",
+        "RewardId": 0,
+        "GroupId": 54024
+    },
+    {
+        "Id": 54031,
+        "Priority": 54031,
+        "Ignore": 0,
+        "Desc": "Guide Pet",
+        "GuideType": 1,
+        "ConditionId": [
+            8006
+        ],
+        "CompleteId": 54031,
+        "ActiveUi": "UiMain|UiTask|UiPlayerUp",
+        "RewardId": 0,
+        "GroupId": 54031
+    },
+    {
+        "Id": 54032,
+        "Priority": 54032,
+        "Ignore": 0,
+        "Desc": "Guide Pet Material Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            8006
+        ],
+        "CompleteId": 54032,
+        "ActiveUi": "UiMain",
+        "RewardId": 0,
+        "GroupId": 54032
+    },
+    {
+        "Id": 54041,
+        "Priority": 54041,
+        "Ignore": 1,
+        "Desc": "Guide White Day Event",
+        "GuideType": 1,
+        "ConditionId": [
+            10014
+        ],
+        "CompleteId": 54041,
+        "ActiveUi": "UiWhitedayMain",
+        "RewardId": 0,
+        "GroupId": 54041
+    },
+    {
+        "Id": 54042,
+        "Priority": 54042,
+        "Ignore": 1,
+        "Desc": "Guide RPG Mode",
+        "GuideType": 1,
+        "ConditionId": [
+            84600203
+        ],
+        "CompleteId": 54042,
+        "ActiveUi": "UiRpgTowerMain",
+        "RewardId": 0,
+        "GroupId": 54042
+    },
+    {
+        "Id": 54051,
+        "Priority": 54051,
+        "Ignore": 0,
+        "Desc": "Guide the Festival Foundation",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 54051,
+        "ActiveUi": "UiMoeWarMain",
+        "RewardId": 0,
+        "GroupId": 54051
+    },
+    {
+        "Id": 54052,
+        "Priority": 54052,
+        "Ignore": 0,
+        "Desc": "Guide the Festival Daily Tasks",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 54051,
+        "ActiveUi": "UiMoeWarPreparation",
+        "RewardId": 0,
+        "GroupId": 54052
+    },
+    {
+        "Id": 54053,
+        "Priority": 54053,
+        "Ignore": 0,
+        "Desc": "Festival Mission Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601209
+        ],
+        "CompleteId": 54051,
+        "ActiveUi": "UiMoeWarPreparation",
+        "RewardId": 0,
+        "GroupId": 54053
+    },
+    {
+        "Id": 54054,
+        "Priority": 54054,
+        "Ignore": 0,
+        "Desc": "Guide the Festival Lottery Event",
+        "GuideType": 1,
+        "ConditionId": [
+            84601210
+        ],
+        "CompleteId": 54051,
+        "ActiveUi": "UiMoeWarMain",
+        "RewardId": 0,
+        "GroupId": 54054
+    },
+    {
+        "Id": 55011,
+        "Priority": 55011,
+        "Ignore": 1,
+        "Desc": "Guide Limit Break Basics",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 55011,
+        "ActiveUi": "UiReform",
+        "RewardId": 0,
+        "GroupId": 55011
+    },
+    {
+        "Id": 55012,
+        "Priority": 55012,
+        "Ignore": 1,
+        "Desc": "Guide Boundary Modification Interaction",
+        "GuideType": 1,
+        "ConditionId": [
+            84600390
+        ],
+        "CompleteId": 55012,
+        "ActiveUi": "UiReform",
+        "RewardId": 0,
+        "GroupId": 55012
+    },
+    {
+        "Id": 55021,
+        "Priority": 55021,
+        "Ignore": 0,
+        "Desc": "Guide Hacking Mode",
+        "GuideType": 1,
+        "ConditionId": [
+            5001
+        ],
+        "CompleteId": 55012,
+        "ActiveUi": "UiFubenHack",
+        "RewardId": 0,
+        "GroupId": 55021
+    },
+    {
+        "Id": 55031,
+        "Priority": 55031,
+        "Ignore": 1,
+        "Desc": "(Scrapped) Guide Zongzi Winning Event",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 55031,
+        "ActiveUi": "UiRpgMakerGameMain",
+        "RewardId": 0,
+        "GroupId": 55031
+    },
+    {
+        "Id": 55032,
+        "Priority": 55032,
+        "Ignore": 1,
+        "Desc": "(Scrapped) Guide Zongzi Winning gameplay",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 55032,
+        "ActiveUi": "UiRpgMakerGamePlayMain",
+        "RewardId": 0,
+        "GroupId": 55032
+    },
+    {
+        "Id": 55041,
+        "Priority": 55041,
+        "Ignore": 0,
+        "Desc": "Super Tower Climb Home Screen Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601500
+        ],
+        "CompleteId": 55041,
+        "ActiveUi": "UiSuperTowerMain",
+        "RewardId": 0,
+        "GroupId": 55041
+    },
+    {
+        "Id": 55042,
+        "Priority": 55042,
+        "Ignore": 0,
+        "Desc": "Infinite Tower Climb Home Screen Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601500
+        ],
+        "CompleteId": 55042,
+        "ActiveUi": "UiSuperTowerStageDetail04",
+        "RewardId": 0,
+        "GroupId": 55042
+    },
+    {
+        "Id": 55043,
+        "Priority": 55043,
+        "Ignore": 0,
+        "Desc": "Super Tower Climb Lucky Draw Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601506
+        ],
+        "CompleteId": 55043,
+        "ActiveUi": "UiSuperTowerMain",
+        "RewardId": 0,
+        "GroupId": 55043
+    },
+    {
+        "Id": 55044,
+        "Priority": 55044,
+        "Ignore": 0,
+        "Desc": "Super Tower Climb Shop Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601501
+        ],
+        "CompleteId": 55044,
+        "ActiveUi": "UiSuperTowerMain",
+        "RewardId": 0,
+        "GroupId": 55044
+    },
+    {
+        "Id": 55045,
+        "Priority": 55045,
+        "Ignore": 0,
+        "Desc": "Super Tower Climb Character Ultralimit Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601502
+        ],
+        "CompleteId": 55045,
+        "ActiveUi": "UiSuperTowerMain",
+        "RewardId": 0,
+        "GroupId": 55045
+    },
+    {
+        "Id": 55046,
+        "Priority": 55046,
+        "Ignore": 0,
+        "Desc": "Super Tower Climb Special Enhancement Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601505
+        ],
+        "CompleteId": 55046,
+        "ActiveUi": "UiSuperTowerMain",
+        "RewardId": 0,
+        "GroupId": 55046
+    },
+    {
+        "Id": 56011,
+        "Priority": 56011,
+        "Ignore": 1,
+        "Desc": "Rabbit Hunt gameplay guide",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 56011,
+        "ActiveUi": "UiRpgMakerGameMain",
+        "RewardId": 0,
+        "GroupId": 56011
+    },
+    {
+        "Id": 56012,
+        "Priority": 56012,
+        "Ignore": 1,
+        "Desc": "Rabbit Hunt Event",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 56012,
+        "ActiveUi": "UiRpgMakerGamePlayMain",
+        "RewardId": 0,
+        "GroupId": 56012
+    },
+    {
+        "Id": 56021,
+        "Priority": 56021,
+        "Ignore": 1,
+        "Desc": "Circuit Connect gameplay guide",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 56021,
+        "ActiveUi": "UiSameColorGameBoss",
+        "RewardId": 0,
+        "GroupId": 56021
+    },
+    {
+        "Id": 56022,
+        "Priority": 56022,
+        "Ignore": 1,
+        "Desc": "Circuit Connect event guide",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 56022,
+        "ActiveUi": "UiSameColorGameBattle",
+        "RewardId": 0,
+        "GroupId": 56022
+    },
+    {
+        "Id": 57011,
+        "Priority": 57011,
+        "Ignore": 0,
+        "Desc": "Babel Tower Nocturnal Path Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            772280
+        ],
+        "CompleteId": 57011,
+        "ActiveUi": "UiBabelTowerMainNew",
+        "RewardId": 0,
+        "GroupId": 57011
+    },
+    {
+        "Id": 57012,
+        "Priority": 57012,
+        "Ignore": 0,
+        "Desc": "Babel Tower Nocturnal Path Event Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            772280
+        ],
+        "CompleteId": 57012,
+        "ActiveUi": "UiBabelTowerChildSupport",
+        "RewardId": 0,
+        "GroupId": 57012
+    },
+    {
+        "Id": 57021,
+        "Priority": 57021,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 57021,
+        "ActiveUi": "UiSuperSmashBrosMain",
+        "RewardId": 0,
+        "GroupId": 57021
+    },
+    {
+        "Id": 57022,
+        "Priority": 57022,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl Interface Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 57022,
+        "ActiveUi": "UiSuperSmashBrosMain",
+        "RewardId": 0,
+        "GroupId": 57022
+    },
+    {
+        "Id": 57023,
+        "Priority": 57023,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl Event Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 57023,
+        "ActiveUi": "UiSuperSmashBrosSelectStage",
+        "RewardId": 0,
+        "GroupId": 57023
+    },
+    {
+        "Id": 57024,
+        "Priority": 57024,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl Formation Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 57024,
+        "ActiveUi": "UiSuperSmashBrosPick",
+        "RewardId": 0,
+        "GroupId": 57024
+    },
+    {
+        "Id": 57025,
+        "Priority": 57025,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl Member Preparation Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 57025,
+        "ActiveUi": "UiSuperSmashBrosCharacter",
+        "RewardId": 0,
+        "GroupId": 57025
+    },
+    {
+        "Id": 57031,
+        "Priority": 57031,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57031,
+        "ActiveUi": "UiAreaWarMain",
+        "RewardId": 0,
+        "GroupId": 57031
+    },
+    {
+        "Id": 57032,
+        "Priority": 57032,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Progress Interface Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57032,
+        "ActiveUi": "UiAreaWarInformation",
+        "RewardId": 0,
+        "GroupId": 57032
+    },
+    {
+        "Id": 57033,
+        "Priority": 57033,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Details Interface Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57033,
+        "ActiveUi": "UiAreaWarStageDetail",
+        "RewardId": 0,
+        "GroupId": 57033
+    },
+    {
+        "Id": 57034,
+        "Priority": 57034,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Special Character Interface Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57034,
+        "ActiveUi": "UiAreaWarSpecialRole",
+        "RewardId": 0,
+        "GroupId": 57034
+    },
+    {
+        "Id": 57035,
+        "Priority": 57035,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Tactical Amplification Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57035,
+        "ActiveUi": "UiAreaWarJingHua",
+        "RewardId": 0,
+        "GroupId": 57035
+    },
+    {
+        "Id": 57036,
+        "Priority": 57036,
+        "Ignore": 0,
+        "Desc": "Server Final Battle Phase Results Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 57036,
+        "ActiveUi": "UiAreaWarHangUp",
+        "RewardId": 0,
+        "GroupId": 57036
+    },
+    {
+        "Id": 57041,
+        "Priority": 57041,
+        "Ignore": 0,
+        "Desc": "Limit Break Phase 2 Basics Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 57041,
+        "ActiveUi": "UiReform",
+        "RewardId": 0,
+        "GroupId": 57041
+    },
+    {
+        "Id": 57042,
+        "Priority": 57042,
+        "Ignore": 0,
+        "Desc": "Boundary Modification Interaction Phase 2 Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84600391
+        ],
+        "CompleteId": 57042,
+        "ActiveUi": "UiReform",
+        "RewardId": 0,
+        "GroupId": 57042
+    },
+    {
+        "Id": 58011,
+        "Priority": 58011,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58011,
+        "ActiveUi": "UiTheatreMain",
+        "RewardId": 0,
+        "GroupId": 58011
+    },
+    {
+        "Id": 58012,
+        "Priority": 58012,
+        "Ignore": 1,
+        "Desc": "(Scrapped) Guide - Roguelike Character Recruitment",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58012,
+        "ActiveUi": "UiTheatreRecruit",
+        "RewardId": 0,
+        "GroupId": 58012
+    },
+    {
+        "Id": 58013,
+        "Priority": 58013,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Mission Selection",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58013,
+        "ActiveUi": "UiTheatrePlayMain",
+        "RewardId": 0,
+        "GroupId": 58013
+    },
+    {
+        "Id": 58014,
+        "Priority": 58014,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Team Level Upgrade",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58014,
+        "ActiveUi": "UiTheatreTeamUp",
+        "RewardId": 0,
+        "GroupId": 58014
+    },
+    {
+        "Id": 58015,
+        "Priority": 58015,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Faction Selection",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58015,
+        "ActiveUi": "UiTheatreChooseBuff",
+        "RewardId": 0,
+        "GroupId": 58015
+    },
+    {
+        "Id": 58016,
+        "Priority": 58016,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Affection System",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58016,
+        "ActiveUi": "UiTheatreFavorability",
+        "RewardId": 0,
+        "GroupId": 58016
+    },
+    {
+        "Id": 58017,
+        "Priority": 58017,
+        "Ignore": 0,
+        "Desc": "Guide - Roguelike Curtain Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            1002036
+        ],
+        "CompleteId": 58017,
+        "ActiveUi": "UiTheatreDecoration",
+        "RewardId": 0,
+        "GroupId": 58017
+    },
+    {
+        "Id": 58021,
+        "Priority": 58021,
+        "Ignore": 0,
+        "Desc": "Guide - Corrupted Battlefront Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 58021,
+        "ActiveUi": "UiFubenMaverickMain",
+        "RewardId": 0,
+        "GroupId": 58021
+    },
+    {
+        "Id": 58031,
+        "Priority": 58031,
+        "Ignore": 0,
+        "Desc": "Guide - Doomsday Survival Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 58031,
+        "ActiveUi": "UiDoomsdayChapter",
+        "RewardId": 0,
+        "GroupId": 58031
+    },
+    {
+        "Id": 58032,
+        "Priority": 58032,
+        "Ignore": 0,
+        "Desc": "Guide - Doomsday Survival Exercise Description",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 58032,
+        "ActiveUi": "UiDoomsdayFubenMain",
+        "RewardId": 0,
+        "GroupId": 58032
+    },
+    {
+        "Id": 58033,
+        "Priority": 58033,
+        "Ignore": 0,
+        "Desc": "Guide - Doomsday Survival Exploration Team",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 58033,
+        "ActiveUi": "UiDoomsdayExplore",
+        "RewardId": 0,
+        "GroupId": 58033
+    },
+    {
+        "Id": 58034,
+        "Priority": 58034,
+        "Ignore": 0,
+        "Desc": "Guide - Doomsday Survival Exploration Location",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 58034,
+        "ActiveUi": "UiDoomsdayExplore",
+        "RewardId": 0,
+        "GroupId": 58034
+    },
+    {
+        "Id": 59011,
+        "Priority": 59011,
+        "Ignore": 0,
+        "Desc": "3-Ping Phase 2 Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 59011,
+        "ActiveUi": "UiSameColorGameBattle",
+        "RewardId": 0,
+        "GroupId": 59011
+    },
+    {
+        "Id": 59021,
+        "Priority": 59021,
+        "Ignore": 0,
+        "Desc": "Guide - Punishing: Gray Raven Battle Royale",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 59021,
+        "ActiveUi": "UiEscapeMain",
+        "RewardId": 0,
+        "GroupId": 59021
+    },
+    {
+        "Id": 59022,
+        "Priority": 59022,
+        "Ignore": 0,
+        "Desc": "Guide - Punishing: Gray Raven Battle Royale Team Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 59022,
+        "ActiveUi": "UiEscapeTeamTips",
+        "RewardId": 0,
+        "GroupId": 59022
+    },
+    {
+        "Id": 59031,
+        "Priority": 59031,
+        "Ignore": 1,
+        "Desc": "Operation Uniframe Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 59031,
+        "ActiveUi": "UiPivotCombatMain",
+        "RewardId": 0,
+        "GroupId": 59031
+    },
+    {
+        "Id": 59032,
+        "Priority": 59032,
+        "Ignore": 0,
+        "Desc": "Guide - Operation Uniframe Energy Supply Effect",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800,
+            1002094.0
+        ],
+        "CompleteId": 59032,
+        "ActiveUi": "UiPivotCombatSecondary",
+        "RewardId": 0,
+        "GroupId": 59032
+    },
+    {
+        "Id": 59033,
+        "Priority": 59033,
+        "Ignore": 0,
+        "Desc": "Operation Uniframe Central Area Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 59033,
+        "ActiveUi": "UiPivotCombatNormalDetail",
+        "RewardId": 0,
+        "GroupId": 59033
+    },
+    {
+        "Id": 60001,
+        "Priority": 60001,
+        "Ignore": 0,
+        "Desc": "Guide - Plum Snow Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60001,
+        "ActiveUi": "UiRpgMakerGameMain",
+        "RewardId": 0,
+        "GroupId": 60001
+    },
+    {
+        "Id": 60011,
+        "Priority": 60011,
+        "Ignore": 0,
+        "Desc": "Guide - Winter Sequence Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60011,
+        "ActiveUi": "UiDoubleTowers",
+        "RewardId": 0,
+        "GroupId": 60011
+    },
+    {
+        "Id": 60012,
+        "Priority": 60012,
+        "Ignore": 0,
+        "Desc": "Winter Sequence Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60012,
+        "ActiveUi": "UiDoubleTowersDeploy",
+        "RewardId": 0,
+        "GroupId": 60012
+    },
+    {
+        "Id": 60021,
+        "Priority": 60021,
+        "Ignore": 0,
+        "Desc": "Guide - RPG Phase 4 Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            774800
+        ],
+        "CompleteId": 60021,
+        "ActiveUi": "UiRpgTowerMain",
+        "RewardId": 0,
+        "GroupId": 60021
+    },
+    {
+        "Id": 60022,
+        "Priority": 60022,
+        "Ignore": 0,
+        "Desc": "RPG Phase 4 Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84600203
+        ],
+        "CompleteId": 60022,
+        "ActiveUi": "UiRpgTowerMain",
+        "RewardId": 0,
+        "GroupId": 60022
+    },
+    {
+        "Id": 60031,
+        "Priority": 60031,
+        "Ignore": 0,
+        "Desc": "Guide - Guild War Interface Access",
+        "GuideType": 1,
+        "ConditionId": [
+            852731,
+            1002104.0
+        ],
+        "CompleteId": 60031,
+        "ActiveUi": "UiGuildMain",
+        "RewardId": 0,
+        "GroupId": 60031
+    },
+    {
+        "Id": 60032,
+        "Priority": 60032,
+        "Ignore": 0,
+        "Desc": "Guide - Guild War Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            852731,
+            1002100.0
+        ],
+        "CompleteId": 60032,
+        "ActiveUi": "UiGuildWarStageDetail",
+        "RewardId": 0,
+        "GroupId": 60032
+    },
+    {
+        "Id": 60101,
+        "Priority": 60101,
+        "Ignore": 0,
+        "Desc": "Guide - Spectroscopic Binary Star Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            8005
+        ],
+        "CompleteId": 60101,
+        "ActiveUi": "UiCoupleCombatChapter",
+        "RewardId": 0,
+        "GroupId": 60101
+    },
+    {
+        "Id": 60111,
+        "Priority": 60111,
+        "Ignore": 0,
+        "Desc": "Guide - Music Game Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            8005
+        ],
+        "CompleteId": 60111,
+        "ActiveUi": "UiTaikoMasterMain",
+        "RewardId": 0,
+        "GroupId": 60111
+    },
+    {
+        "Id": 60112,
+        "Priority": 60112,
+        "Ignore": 0,
+        "Desc": "Guide - Music Game Calibration Stage",
+        "GuideType": 1,
+        "ConditionId": [
+            8005
+        ],
+        "CompleteId": 60112,
+        "ActiveUi": "UiTaikoMasterMain",
+        "RewardId": 0,
+        "GroupId": 60111
+    },
+    {
+        "Id": 60121,
+        "Priority": 60121,
+        "Ignore": 0,
+        "Desc": "Guide - Extremis Collaboration Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60121,
+        "ActiveUi": "UiMultiDimMain",
+        "RewardId": 0,
+        "GroupId": 60121
+    },
+    {
+        "Id": 60122,
+        "Priority": 60122,
+        "Ignore": 0,
+        "Desc": "Guide - Extremis Collaboration Talent Skill",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60122,
+        "ActiveUi": "UiMultiDimTalent",
+        "RewardId": 0,
+        "GroupId": 60122
+    },
+    {
+        "Id": 60123,
+        "Priority": 60123,
+        "Ignore": 0,
+        "Desc": "Guide - Extremis Collaboration Solo Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            30406
+        ],
+        "CompleteId": 60123,
+        "ActiveUi": "UiMultiDimSingleCopyTips",
+        "RewardId": 0,
+        "GroupId": 60123
+    },
+    {
+        "Id": 60124,
+        "Priority": 60124,
+        "Ignore": 0,
+        "Desc": "Guide - Extremis Collaboration Multiplayer Mission",
+        "GuideType": 1,
+        "ConditionId": [
+            30406,
+            1002202.0
+        ],
+        "CompleteId": 60124,
+        "ActiveUi": "UiMultiDimMain",
+        "RewardId": 0,
+        "GroupId": 60124
+    },
+    {
+        "Id": 60131,
+        "Priority": 60131,
+        "Ignore": 0,
+        "Desc": "Guide - Operation Uniframe Season 2 Main Interface",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60131,
+        "ActiveUi": "UiPivotCombatMain",
+        "RewardId": 0,
+        "GroupId": 60131
+    },
+    {
+        "Id": 60132,
+        "Priority": 60132,
+        "Ignore": 0,
+        "Desc": "Guide - Operation Uniframe Season 2",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60132,
+        "ActiveUi": "UiPivotCombatSecondary",
+        "RewardId": 0,
+        "GroupId": 60132
+    }
+]
