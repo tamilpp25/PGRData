@@ -1,0 +1,407 @@
+[
+    {
+        "Key": "CollisionEffect",
+        "Type": "string",
+        "Value": "FxAirwallActivated"
+    },
+    {
+        "Key": "CollisionEffectInterval",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "RebootContaminationColor",
+        "Type": "string",
+        "Value": "ff3f3fff"
+    },
+    {
+        "Key": "RebootRescuingColor",
+        "Type": "string",
+        "Value": "34aff9ff"
+    },
+    {
+        "Key": "RebootRecontaminationTransitionTime",
+        "Type": "float",
+        "Value": "0.3"
+    },
+    {
+        "Key": "HpTransitionDuration",
+        "Type": "float",
+        "Value": "0.8"
+    },
+    {
+        "Key": "EnergyTransitionDuration",
+        "Type": "float",
+        "Value": "0.3"
+    },
+    {
+        "Key": "HpShakeDuration",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "HpShakeRange",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "BallTemplate",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/BallTemplate.prefab"
+    },
+    {
+        "Key": "UiPolygonSprite",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightSekuai.png"
+    },
+    {
+        "Key": "AffixLevel2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/2.png"
+    },
+    {
+        "Key": "AffixLevel3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/3.png"
+    },
+    {
+        "Key": "AffixLevel4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/4.png"
+    },
+    {
+        "Key": "AffixLevel5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/5.png"
+    },
+    {
+        "Key": "AffixLevel6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/6.png"
+    },
+    {
+        "Key": "AffixLevel7",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/7.png"
+    },
+    {
+        "Key": "AffixLevel8",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/8.png"
+    },
+    {
+        "Key": "AffixLevel9",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/9.png"
+    },
+    {
+        "Key": "AffixLevel10",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconAffix/9.png"
+    },
+    {
+        "Key": "FightOnlineMsgTime",
+        "Type": "float",
+        "Value": "10"
+    },
+    {
+        "Key": "FightOnlineMsgSendCdTime",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "FightOnlineMsgAutoCloseTime",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "SceneRollNumber",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/SceneRollNumber.prefab"
+    },
+    {
+        "Key": "Used3DRollNumber",
+        "Type": "bool",
+        "Value": "0"
+    },
+    {
+        "Key": "HackTransitionDuration",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "BallOneSound",
+        "Type": "int",
+        "Value": "1001"
+    },
+    {
+        "Key": "BallTwoSound",
+        "Type": "int",
+        "Value": "1002"
+    },
+    {
+        "Key": "BallThreeSound",
+        "Type": "int",
+        "Value": "1003"
+    },
+    {
+        "Key": "DefaultAttackButtonImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightBtnAttack.png"
+    },
+    {
+        "Key": "DefaultDodgeButtonImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightIconDoge1.png"
+    },
+    {
+        "Key": "DefaultExSkillButtonImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightSkillIconRLuxiya51.png"
+    },
+    {
+        "Key": "DefaultPartnerSkillIconImage0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightSkillIconCustom.png"
+    },
+    {
+        "Key": "DefaultPartnerSkillIconImage1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightSkillIconCustom.png"
+    },
+    {
+        "Key": "IndicatorToLocation",
+        "Type": "string",
+        "Value": "FxZhishi01"
+    },
+    {
+        "Key": "IndicatorToNpc",
+        "Type": "string",
+        "Value": "FxZhishi02"
+    },
+    {
+        "Key": "IndicatorRing",
+        "Type": "string",
+        "Value": "FxZhishiyuan"
+    },
+    {
+        "Key": "QteActivateEffect1",
+        "Type": "string",
+        "Value": "FxUiQTE0301"
+    },
+    {
+        "Key": "QteActivateEffect2",
+        "Type": "string",
+        "Value": "FxUiQTE0303"
+    },
+    {
+        "Key": "QteActivateEffect3",
+        "Type": "string",
+        "Value": "FxUiQTE0302"
+    },
+    {
+        "Key": "QteRunningEffect",
+        "Type": "string",
+        "Value": "FxUiQTE04"
+    },
+    {
+        "Key": "QteCoolDownEffect1",
+        "Type": "string",
+        "Value": "FxUiQTE0201"
+    },
+    {
+        "Key": "QteCoolDownEffect2",
+        "Type": "string",
+        "Value": "FxUiQTE0203"
+    },
+    {
+        "Key": "QteCoolDownEffect3",
+        "Type": "string",
+        "Value": "FxUiQTE0202"
+    },
+    {
+        "Key": "FlashLightEffect",
+        "Type": "string",
+        "Value": "FxUi008"
+    },
+    {
+        "Key": "SpEffect",
+        "Type": "string",
+        "Value": "FxUiQTE01"
+    },
+    {
+        "Key": "RebootRing",
+        "Type": "string",
+        "Value": "FxFuhuokuang01"
+    },
+    {
+        "Key": "RebootRingActive",
+        "Type": "string",
+        "Value": "FxFuhuokuang02"
+    },
+    {
+        "Key": "BallLayerHeight",
+        "Type": "float",
+        "Value": "80"
+    },
+    {
+        "Key": "JoystickTouchRange",
+        "Type": "int",
+        "Value": "107"
+    },
+    {
+        "Key": "HpBarShowTime",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "ComboShakeDuration",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "ComboShakeRange",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "CameraPerspectiveAlpha",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "CameraPerspectiveDurationTime",
+        "Type": "float",
+        "Value": "0.4"
+    },
+    {
+        "Key": "CameraPerspectiveEaseTime",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "CameraPerspectiveNpcDefaultHeight",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "RunTiltBufferCoefficient",
+        "Type": "float",
+        "Value": "0.93"
+    },
+    {
+        "Key": "RunTiltGravity",
+        "Type": "float",
+        "Value": "85"
+    },
+    {
+        "Key": "DefaultAnimationTransition",
+        "Type": "float",
+        "Value": "0.1"
+    },
+    {
+        "Key": "FightLowHpPercent",
+        "Type": "float",
+        "Value": "0.25"
+    },
+    {
+        "Key": "HpNormalDis",
+        "Type": "float",
+        "Value": "4"
+    },
+    {
+        "Key": "HpMinScale",
+        "Type": "float",
+        "Value": "0.7"
+    },
+    {
+        "Key": "HpMaxScale",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "FightLowHpScreenEffect",
+        "Type": "int",
+        "Value": "100002"
+    },
+    {
+        "Key": "FightHurtScreenEffect",
+        "Type": "int",
+        "Value": "100001"
+    },
+    {
+        "Key": "FightHurtPercent",
+        "Type": "float",
+        "Value": "0.05"
+    },
+    {
+        "Key": "OperationMinInterval",
+        "Type": "float",
+        "Value": "0.01"
+    },
+    {
+        "Key": "DelayRate",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "DelayFix",
+        "Type": "float",
+        "Value": "0"
+    },
+    {
+        "Key": "ReceiveRecordCount",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "DefaultViewDuration",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "DefaultViewNoMouseMoveMaxTime",
+        "Type": "float",
+        "Value": "15"
+    },
+    {
+        "Key": "FreeViewNoMouseMoveMaxTime",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "DefaultFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitNor.png"
+    },
+    {
+        "Key": "PCFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitPCNor.png"
+    },
+    {
+        "Key": "XboxFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitXBOXNor.png"
+    },
+    {
+        "Key": "PsFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitPSNor.png"
+    },
+    {
+        "Key": "ControlCameraByDragTip",
+        "Type": "string",
+        "Value": "\u5df2\u5207\u6362\u81f3\u4f20\u7edf\u6a21\u5f0f\uff1a\u6309\u4f4f\u9f20\u6807\u5de6\u952e\u64cd\u63a7\u89c6\u89d2\u79fb\u52a8"
+    },
+    {
+        "Key": "ControlCameraByMoveTip",
+        "Type": "string",
+        "Value": "\u5df2\u5207\u6362\u81f3\u81ea\u7531\u6a21\u5f0f\uff1a\u89c6\u89d2\u5c06\u81ea\u52a8\u8ddf\u968f\u9f20\u6807\u79fb\u52a8"
+    },
+    {
+        "Key": "OccupiedKeyCode",
+        "Type": "string",
+        "Value": "\u8be5\u952e\u503c\u88ab\u5360\u7528\u65e0\u6cd5\u81ea\u5b9a\u4e49"
+    }
+]

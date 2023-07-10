@@ -1,0 +1,805 @@
+[
+    {
+        "Id": 1,
+        "UiName": [],
+        "Name": "\u76ee\u6807"
+    },
+    {
+        "Id": 2,
+        "UiName": [],
+        "Name": "\u9884\u7559"
+    },
+    {
+        "Id": 3,
+        "UiName": [],
+        "Name": "\u5145\u503c"
+    },
+    {
+        "Id": 4,
+        "UiName": [],
+        "Name": "\u8bbe\u7f6e"
+    },
+    {
+        "Id": 5,
+        "UiName": [],
+        "Name": "\u7b7e\u5230"
+    },
+    {
+        "Id": 6,
+        "UiName": [],
+        "Name": "\u53cd\u9988"
+    },
+    {
+        "Id": 7,
+        "UiName": [],
+        "Name": "\u798f\u5229"
+    },
+    {
+        "Id": 8,
+        "UiName": [],
+        "Name": "\u5151\u6362\u7801"
+    },
+    {
+        "Id": 101,
+        "UiName": [],
+        "Name": "\u6cdb\u7528\u673a\u4f53"
+    },
+    {
+        "Id": 102,
+        "UiName": [],
+        "Name": "\u6210\u5458-\u664b\u5347"
+    },
+    {
+        "Id": 103,
+        "UiName": [],
+        "Name": "\u6210\u5458-\u8fdb\u5316"
+    },
+    {
+        "Id": 104,
+        "UiName": [],
+        "Name": "\u6210\u5458-\u6280\u80fd"
+    },
+    {
+        "Id": 106,
+        "UiName": [],
+        "Name": "\u6210\u5458-\u72ec\u57df\u673a\u4f53"
+    },
+    {
+        "Id": 201,
+        "UiName": [],
+        "Name": "\u88c5\u5907"
+    },
+    {
+        "Id": 202,
+        "UiName": [],
+        "Name": "\u88c5\u5907-\u5f3a\u5316"
+    },
+    {
+        "Id": 203,
+        "UiName": [],
+        "Name": "\u88c5\u5907-\u5171\u9e23"
+    },
+    {
+        "Id": 204,
+        "UiName": [],
+        "Name": "\u88c5\u5907-\u4e00\u952e\u5f3a\u5316"
+    },
+    {
+        "Id": 301,
+        "UiName": [],
+        "Name": "\u4ed3\u5e93"
+    },
+    {
+        "Id": 401,
+        "UiName": [],
+        "Name": "\u7814\u53d1"
+    },
+    {
+        "Id": 402,
+        "UiName": [],
+        "Name": "\u7814\u53d1-\u88c5\u5907"
+    },
+    {
+        "Id": 403,
+        "UiName": [],
+        "Name": "\u7814\u53d1-\u6d3b\u52a8"
+    },
+    {
+        "Id": 501,
+        "UiName": [],
+        "Name": "\u4efb\u52a1"
+    },
+    {
+        "Id": 502,
+        "UiName": [],
+        "Name": "\u4efb\u52a1-\u5267\u60c5"
+    },
+    {
+        "Id": 503,
+        "UiName": [],
+        "Name": "\u4efb\u52a1-\u6bcf\u65e5"
+    },
+    {
+        "Id": 504,
+        "UiName": [],
+        "Name": "\u4efb\u52a1-\u6d3b\u52a8"
+    },
+    {
+        "Id": 505,
+        "UiName": [],
+        "Name": "\u4efb\u52a1-\u6bcf\u5468"
+    },
+    {
+        "Id": 601,
+        "UiName": [],
+        "Name": "\u6218\u961f"
+    },
+    {
+        "Id": 602,
+        "UiName": [],
+        "Name": "\u6218\u961f-\u70d9\u5370"
+    },
+    {
+        "Id": 603,
+        "UiName": [],
+        "Name": "\u6218\u961f-\u6210\u5c31"
+    },
+    {
+        "Id": 701,
+        "UiName": [],
+        "Name": "\u90ae\u4ef6"
+    },
+    {
+        "Id": 801,
+        "UiName": [],
+        "Name": "\u597d\u53cb"
+    },
+    {
+        "Id": 802,
+        "UiName": [],
+        "Name": "\u9891\u9053\u804a\u5929"
+    },
+    {
+        "Id": 901,
+        "UiName": [],
+        "Name": "\u57fa\u5efa-\u57fa\u5730\u88c5\u5907"
+    },
+    {
+        "Id": 902,
+        "UiName": [],
+        "Name": "\u5bbf\u820d"
+    },
+    {
+        "Id": 1001,
+        "UiName": [],
+        "Name": "\u5e38\u89c4\u5546\u5e97"
+    },
+    {
+        "Id": 1002,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u5546\u5e97"
+    },
+    {
+        "Id": 1201,
+        "UiName": [],
+        "Name": "\u6d3e\u9063"
+    },
+    {
+        "Id": 1901,
+        "UiName": [],
+        "Name": "\u516c\u4f1a"
+    },
+    {
+        "Id": 1902,
+        "UiName": [],
+        "Name": "\u516c\u4f1a-\u521b\u5efa"
+    },
+    {
+        "Id": 1903,
+        "UiName": [],
+        "Name": "\u516c\u4f1a-\u52a0\u5165"
+    },
+    {
+        "Id": 1904,
+        "UiName": [],
+        "Name": "\u516c\u4f1aBOSS"
+    },
+    {
+        "Id": 2001,
+        "UiName": [],
+        "Name": "\u652f\u63f4\u7cfb\u7edf"
+    },
+    {
+        "Id": 10101,
+        "UiName": [],
+        "Name": "\u666e\u901a\u5267\u60c5"
+    },
+    {
+        "Id": 10102,
+        "UiName": [],
+        "Name": "\u9690\u85cf\u5267\u60c5"
+    },
+    {
+        "Id": 10103,
+        "UiName": [],
+        "Name": "\u636e\u70b9\u6a21\u5f0f"
+    },
+    {
+        "Id": 10201,
+        "UiName": [],
+        "Name": "\u6311\u6218\u526f\u672c"
+    },
+    {
+        "Id": 10202,
+        "UiName": [],
+        "Name": "\u6311\u6218-\u96f7\u8499\u76d6\u987f\u4e4b\u4e66"
+    },
+    {
+        "Id": 10203,
+        "UiName": [],
+        "Name": "\u6311\u6218-\u5e7b\u75db\u56da\u7b3c"
+    },
+    {
+        "Id": 10204,
+        "UiName": [],
+        "Name": "\u6311\u6218-\u7eb7\u4e89\u6218\u533a"
+    },
+    {
+        "Id": 10311,
+        "UiName": [],
+        "Name": "\u6311\u6218-\u8fb9\u754c\u516c\u7ea6"
+    },
+    {
+        "Id": 10300,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u7b80\u4ecb"
+    },
+    {
+        "Id": 10301,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u526f\u672c"
+    },
+    {
+        "Id": 10302,
+        "UiName": [],
+        "Name": "\u534f\u540c\u4f5c\u6218"
+    },
+    {
+        "Id": 10303,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u3010\u8d28\u91cf\u6d41\u5931\u3011"
+    },
+    {
+        "Id": 10304,
+        "UiName": [],
+        "Name": "\u8d85\u96be\u5173"
+    },
+    {
+        "Id": 10305,
+        "UiName": [],
+        "Name": "\u8bd5\u9a8c\u533a"
+    },
+    {
+        "Id": 10306,
+        "UiName": [],
+        "Name": "\u8282\u65e5\u526f\u672c\u6d3b\u52a8"
+    },
+    {
+        "Id": 10307,
+        "UiName": [],
+        "Name": "\u5df4\u522b\u5854"
+    },
+    {
+        "Id": 10308,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u4e3b\u7ebf"
+    },
+    {
+        "Id": 10309,
+        "UiName": [],
+        "Name": "\u6d3b\u52a8\u590d\u5237\u672c"
+    },
+    {
+        "Id": 10310,
+        "UiName": [],
+        "Name": "\u722c\u5854\u6d3b\u52a8"
+    },
+    {
+        "Id": 10312,
+        "UiName": [],
+        "Name": "\u5408\u4f17\u6218\u5c40"
+    },
+    {
+        "Id": 10313,
+        "UiName": [],
+        "Name": "\u5217\u9635"
+    },
+    {
+        "Id": 10314,
+        "UiName": [],
+        "Name": "\u5916\u7bc7\u5267\u60c5"
+    },
+    {
+        "Id": 10315,
+        "UiName": [],
+        "Name": "\u5f02\u805a\u8ff7\u5bab"
+    },
+    {
+        "Id": 10316,
+        "UiName": [],
+        "Name": "\u7279\u8bad\u5173"
+    },
+    {
+        "Id": 10317,
+        "UiName": [],
+        "Name": "\u7279\u8bad\u5173\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10318,
+        "UiName": [],
+        "Name": "\u865a\u50cf\u5730\u5e73\u7ebf"
+    },
+    {
+        "Id": 10319,
+        "UiName": [],
+        "Name": "\u4e2d\u5143\u8282\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10323,
+        "UiName": [],
+        "Name": "\u4e2d\u5143\u8282\u526f\u672c"
+    },
+    {
+        "Id": 10324,
+        "UiName": [],
+        "Name": "\u62fc\u56fe\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10325,
+        "UiName": [],
+        "Name": "S\u89d2\u8272\u6559\u5b66\u5173"
+    },
+    {
+        "Id": 10326,
+        "UiName": [],
+        "Name": "\u5723\u8bde\u8282\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10327,
+        "UiName": [],
+        "Name": "\u5143\u65e6\u8282\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10328,
+        "UiName": [],
+        "Name": "\u5bf9\u8054\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10329,
+        "UiName": [],
+        "Name": "\u731c\u62f3\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10330,
+        "UiName": [],
+        "Name": "\u6a21\u62df\u4f5c\u6218"
+    },
+    {
+        "Id": 10331,
+        "UiName": [],
+        "Name": "\u7ffb\u724c\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10338,
+        "UiName": [],
+        "Name": "\u4e94\u4e00\u522e\u522e\u4e50"
+    },
+    {
+        "Id": 10333,
+        "UiName": [],
+        "Name": "\u6251\u514b\u724c\u731c\u5927\u5c0f"
+    },
+    {
+        "Id": 10334,
+        "UiName": [],
+        "Name": "\u5267\u60c5\u6295\u653e-\u6668\u661f\u526a\u8f91"
+    },
+    {
+        "Id": 10335,
+        "UiName": [],
+        "Name": "\u626b\u96f7\u5c0f\u6e38\u620f"
+    },
+    {
+        "Id": 10336,
+        "UiName": [
+            "UiFubenHack",
+            "UiFubenHackSection",
+            "UiHackCharInfo",
+            "UiHackDevelop",
+            "UiHackLevelUpTips",
+            "UiFubenHackDetails"
+        ],
+        "Name": "\u9a87\u5165\u73a9\u6cd5"
+    },
+    {
+        "Id": 10337,
+        "UiName": [],
+        "Name": "\u6539\u9020\u73a9\u6cd5"
+    },
+    {
+        "Id": 10339,
+        "UiName": [],
+        "Name": "\u6740\u622e\u65e0\u53cc"
+    },
+    {
+        "Id": 10401,
+        "UiName": [],
+        "Name": "\u8d44\u6e90\u526f\u672c"
+    },
+    {
+        "Id": 10402,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u65e01"
+    },
+    {
+        "Id": 10403,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u65e02"
+    },
+    {
+        "Id": 10404,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u65e03"
+    },
+    {
+        "Id": 10406,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u6210\u5458\u7279\u8bad"
+    },
+    {
+        "Id": 10407,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u4f5c\u6218\u8865\u7ed9"
+    },
+    {
+        "Id": 10408,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u519b\u5907\u7a81\u7834"
+    },
+    {
+        "Id": 10409,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u540e\u52e4\u4fdd\u517b"
+    },
+    {
+        "Id": 10410,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u87ba\u6bcd\u5927\u4f5c\u6218"
+    },
+    {
+        "Id": 10411,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u6218\u6280\u6f14\u4e60"
+    },
+    {
+        "Id": 10412,
+        "UiName": [],
+        "Name": "\u8d44\u6e90-\u8f85\u52a9\u52a0\u88c5"
+    },
+    {
+        "Id": 1301,
+        "UiName": [],
+        "Name": "\u8d4f\u91d1\u4efb\u52a1"
+    },
+    {
+        "Id": 1400,
+        "UiName": [],
+        "Name": "\u4fe1\u8d56\u5ea6"
+    },
+    {
+        "Id": 1401,
+        "UiName": [],
+        "Name": "\u4fe1\u8d56\u5ea6-\u6863\u6848"
+    },
+    {
+        "Id": 1402,
+        "UiName": [],
+        "Name": "\u4fe1\u8d56\u5ea6-\u5267\u60c5"
+    },
+    {
+        "Id": 1403,
+        "UiName": [],
+        "Name": "\u4fe1\u8d56\u5ea6-\u793c\u7269"
+    },
+    {
+        "Id": 1404,
+        "UiName": [],
+        "Name": "\u4fe1\u8d56\u5ea6-\u5076\u9047"
+    },
+    {
+        "Id": 1501,
+        "UiName": [],
+        "Name": "\u81ea\u5b9a\u4e49\u63a7\u4ef6"
+    },
+    {
+        "Id": 1601,
+        "UiName": [],
+        "Name": "\u610f\u8bc6\u8425\u6551\u6218"
+    },
+    {
+        "Id": 1701,
+        "UiName": [],
+        "Name": "\u95f4\u7ae0"
+    },
+    {
+        "Id": 10405,
+        "UiName": [],
+        "Name": "\u9ec4\u91d1\u4e4b\u6da1"
+    },
+    {
+        "Id": 105,
+        "UiName": [],
+        "Name": "\u6210\u5458\u519b\u56e2"
+    },
+    {
+        "Id": 1800,
+        "UiName": [],
+        "Name": "\u8d5b\u5229\u5361\u8865\u4e60\u73ed"
+    },
+    {
+        "Id": 1801,
+        "UiName": [
+            "UiPartnerTeachingBanner",
+            "UiPartnerTeachingChapter",
+            "UiPartnerTeachingFightDetail",
+            "UiPartnerTeachingStoryDetail"
+        ],
+        "Name": "\u8f85\u52a9\u673a\u6559\u5b66"
+    },
+    {
+        "Id": 109001,
+        "UiName": [],
+        "Name": "\u6210\u5458\u7279\u8bad RS-2"
+    },
+    {
+        "Id": 109002,
+        "UiName": [],
+        "Name": "\u6210\u5458\u7279\u8bad RS-3"
+    },
+    {
+        "Id": 109003,
+        "UiName": [],
+        "Name": "\u6210\u5458\u7279\u8bad RS-4"
+    },
+    {
+        "Id": 109101,
+        "UiName": [],
+        "Name": "\u4f5c\u6218\u8865\u7ed9 AE-2"
+    },
+    {
+        "Id": 109102,
+        "UiName": [],
+        "Name": "\u4f5c\u6218\u8865\u7ed9 AE-3"
+    },
+    {
+        "Id": 109103,
+        "UiName": [],
+        "Name": "\u4f5c\u6218\u8865\u7ed9 AE-4"
+    },
+    {
+        "Id": 109201,
+        "UiName": [],
+        "Name": "\u519b\u5907\u7a81\u7834 AB-2"
+    },
+    {
+        "Id": 109202,
+        "UiName": [],
+        "Name": "\u519b\u5907\u7a81\u7834 AB-3"
+    },
+    {
+        "Id": 109203,
+        "UiName": [],
+        "Name": "\u519b\u5907\u7a81\u7834 AB-4"
+    },
+    {
+        "Id": 109301,
+        "UiName": [],
+        "Name": "\u540e\u52e4\u4fdd\u517b LM-2"
+    },
+    {
+        "Id": 109302,
+        "UiName": [],
+        "Name": "\u540e\u52e4\u4fdd\u517b LM-3"
+    },
+    {
+        "Id": 109303,
+        "UiName": [],
+        "Name": "\u540e\u52e4\u4fdd\u517b LM-4"
+    },
+    {
+        "Id": 109401,
+        "UiName": [],
+        "Name": "\u87ba\u6bcd\u5927\u4f5c\u6218 NF-2"
+    },
+    {
+        "Id": 109402,
+        "UiName": [],
+        "Name": "\u87ba\u6bcd\u5927\u4f5c\u6218 NF-3"
+    },
+    {
+        "Id": 109403,
+        "UiName": [],
+        "Name": "\u87ba\u6bcd\u5927\u4f5c\u6218 NF-4"
+    },
+    {
+        "Id": 109501,
+        "UiName": [],
+        "Name": "\u6218\u6280\u6f14\u4e60 BE-2"
+    },
+    {
+        "Id": 109502,
+        "UiName": [],
+        "Name": "\u6218\u6280\u6f14\u4e60 BE-3"
+    },
+    {
+        "Id": 109503,
+        "UiName": [],
+        "Name": "\u6218\u6280\u6f14\u4e60 BE-4"
+    },
+    {
+        "Id": 2100,
+        "UiName": [],
+        "Name": "\u6536\u85cf\u7cfb\u7edf"
+    },
+    {
+        "Id": 2101,
+        "UiName": [],
+        "Name": "\u52cb\u7ae0\u5899"
+    },
+    {
+        "Id": 2102,
+        "UiName": [],
+        "Name": "\u804a\u5929\u94ed\u724c\u7cfb\u7edf"
+    },
+    {
+        "Id": 2200,
+        "UiName": [],
+        "Name": "\u56fe\u9274\u7cfb\u7edf"
+    },
+    {
+        "Id": 3000,
+        "UiName": [],
+        "Name": "\u7d2f\u8ba1\u5145\u503c"
+    },
+    {
+        "Id": 4000,
+        "UiName": [],
+        "Name": "\u4f0a\u7538\u4e8c\u578b"
+    },
+    {
+        "Id": 4001,
+        "UiName": [],
+        "Name": "\u6295\u7968"
+    },
+    {
+        "Id": 8001,
+        "UiName": [],
+        "Name": "\u9080\u8bf7\u7801\u5206\u4eab"
+    },
+    {
+        "Id": 10450,
+        "UiName": [],
+        "Name": "\u8d44\u6e90\u5546\u5e97"
+    },
+    {
+        "Id": 10320,
+        "UiName": [],
+        "Name": "\u4e16\u754cBoss"
+    },
+    {
+        "Id": 10321,
+        "UiName": [
+            "UiRpgTowerMain",
+            "UiRpgTowerRoleList",
+            "UiRpgTowerSkillDetails",
+            "UiRpgTowerNature",
+            "UiRpgTowerCollect",
+            "UiRpgTowerRoomCharacter",
+            "UiRpgTowerSettleWin",
+            "UiRpgTowerTask",
+            "UiRpgTowerLevelUp"
+        ],
+        "Name": "RPG\u73a9\u6cd5"
+    },
+    {
+        "Id": 10322,
+        "UiName": [],
+        "Name": "\u8363\u8000\u52cb\u9636"
+    },
+    {
+        "Id": 1302,
+        "UiName": [],
+        "Name": "\u7ef4\u7cfb\u8005\u884c\u52a8"
+    },
+    {
+        "Id": 1303,
+        "UiName": [],
+        "Name": "\u6307\u5bfc"
+    },
+    {
+        "Id": 1304,
+        "UiName": [],
+        "Name": "\u7ec8\u7109\u798f\u97f3"
+    },
+    {
+        "Id": 1305,
+        "UiName": [],
+        "Name": "\u5c3c\u5c14\u526f\u672c"
+    },
+    {
+        "Id": 1306,
+        "UiName": [],
+        "Name": "\u7a7a\u60f3\u73af\u5eca"
+    },
+    {
+        "Id": 1307,
+        "UiName": [],
+        "Name": "\u8ffd\u51fb\u73a9\u6cd5"
+    },
+    {
+        "Id": 1308,
+        "UiName": [],
+        "Name": "\u8282\u65e5\u526f\u672c\u6d3b\u52a8"
+    },
+    {
+        "Id": 2300,
+        "UiName": [],
+        "Name": "2\u7ea7\u83dc\u5355"
+    },
+    {
+        "Id": 2400,
+        "UiName": [],
+        "Name": "\u62cd\u7167\u7cfb\u7edf"
+    },
+    {
+        "Id": 10205,
+        "UiName": [
+            "UiStrongholdMain",
+            "UiStrongholdActivityResult",
+            "UiStrongholdRewardTip",
+            "UiStrongholdMining",
+            "UiStrongholdJournal",
+            "UiStrongholdHelp",
+            "UiStrongholdPower",
+            "UiStrongholdMainLineBanner",
+            "UiStrongholdFightMain",
+            "UiStrongholdDetail"
+        ],
+        "Name": "\u8bfa\u66fc\u590d\u5174\u6218"
+    },
+    {
+        "Id": 10206,
+        "UiName": [],
+        "Name": "\u8bfa\u66fc\u590d\u5174\u6218\u4f9b\u7535\u7ad9"
+    },
+    {
+        "Id": 5001,
+        "UiName": [],
+        "Name": "\u8f85\u52a9\u673a"
+    },
+    {
+        "Id": 1309,
+        "UiName": [],
+        "Name": "\u767d\u8272\u60c5\u4eba\u8282\u7ea6\u4f1a\u6d3b\u52a8"
+    },
+    {
+        "Id": 1310,
+        "UiName": [],
+        "Name": "\u4f0a\u7538\u6587\u5316\u7eaa"
+    },
+    {
+        "Id": 10340,
+        "UiName": [],
+        "Name": "\u8d85\u7ea7\u722c\u5854"
+    }
+]
