@@ -4,6 +4,7 @@
 
 - Client
 - Share
+- Sha1
 
 ## Known Issue 
 Maybe a huge amount of files are still broken that they can't be dumped, especially .lua files
