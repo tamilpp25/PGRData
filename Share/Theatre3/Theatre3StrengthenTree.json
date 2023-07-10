@@ -1,0 +1,420 @@
+[
+    {
+        "Id": 1,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30001.0,
+        "Condition": null,
+        "PreId": [],
+        "Name": "\u8282\u70b91",
+        "Desc": "\u751f\u547d\u503c+5%",
+        "Icon": null
+    },
+    {
+        "Id": 2,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30003.0,
+        "Condition": null,
+        "PreId": [
+            1.0
+        ],
+        "Name": "\u8282\u70b92",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 3,
+        "NeedStrengthenPoint": 24,
+        "Note": "\u5927\u8282\u70b9",
+        "PointType": 3,
+        "EffectGroupId": 30015.0,
+        "Condition": null,
+        "PreId": [
+            2.0
+        ],
+        "Name": "\u8282\u70b93",
+        "Desc": "\u5546\u5e97\u5546\u54c1\u6298\u626315%",
+        "Icon": null
+    },
+    {
+        "Id": 4,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30002.0,
+        "Condition": null,
+        "PreId": [
+            1.0
+        ],
+        "Name": "\u8282\u70b94",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 5,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30007.0,
+        "Condition": null,
+        "PreId": [
+            4.0
+        ],
+        "Name": "\u8282\u70b95",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 6,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30004.0,
+        "Condition": null,
+        "PreId": [
+            5.0
+        ],
+        "Name": "\u8282\u70b96",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 7,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30005.0,
+        "Condition": null,
+        "PreId": [
+            6.0
+        ],
+        "Name": "\u8282\u70b97",
+        "Desc": "\u9632\u5fa1+500",
+        "Icon": null
+    },
+    {
+        "Id": 8,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30006.0,
+        "Condition": null,
+        "PreId": [
+            7.0
+        ],
+        "Name": "\u8282\u70b98",
+        "Desc": "\u521d\u59cb\u62db\u52df\u80fd\u91cf+1",
+        "Icon": null
+    },
+    {
+        "Id": 9,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30008.0,
+        "Condition": null,
+        "PreId": [
+            2.0
+        ],
+        "Name": "\u8282\u70b99",
+        "Desc": "\u751f\u547d\u503c+500",
+        "Icon": null
+    },
+    {
+        "Id": 10,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30009.0,
+        "Condition": null,
+        "PreId": [
+            9.0
+        ],
+        "Name": "\u8282\u70b910",
+        "Desc": "\u9632\u5fa1+500",
+        "Icon": null
+    },
+    {
+        "Id": 11,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30010.0,
+        "Condition": null,
+        "PreId": [
+            10.0
+        ],
+        "Name": "\u8282\u70b911",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 12,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30011.0,
+        "Condition": null,
+        "PreId": [
+            11.0
+        ],
+        "Name": "\u8282\u70b912",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 13,
+        "NeedStrengthenPoint": 9999,
+        "Note": "\u5927\u8282\u70b9",
+        "PointType": 3,
+        "EffectGroupId": null,
+        "Condition": null,
+        "PreId": [
+            12.0
+        ],
+        "Name": "\u8282\u70b913",
+        "Desc": "\u6682\u672a\u5f00\u653e\uff0c\u656c\u8bf7\u671f\u5f85",
+        "Icon": null
+    },
+    {
+        "Id": 14,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30013.0,
+        "Condition": null,
+        "PreId": [
+            2.0
+        ],
+        "Name": "\u8282\u70b914",
+        "Desc": "\u751f\u547d\u503c+5%",
+        "Icon": null
+    },
+    {
+        "Id": 15,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30014.0,
+        "Condition": null,
+        "PreId": [
+            14.0
+        ],
+        "Name": "\u8282\u70b915",
+        "Desc": "\u653b\u51fb\u529b+5%",
+        "Icon": null
+    },
+    {
+        "Id": 16,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30016.0,
+        "Condition": null,
+        "PreId": [
+            1.0
+        ],
+        "Name": "\u8282\u70b916",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 17,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30018.0,
+        "Condition": null,
+        "PreId": [
+            16.0
+        ],
+        "Name": "\u8282\u70b917",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 18,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30019.0,
+        "Condition": null,
+        "PreId": [
+            16.0
+        ],
+        "Name": "\u8282\u70b918",
+        "Desc": "\u9632\u5fa1+500",
+        "Icon": null
+    },
+    {
+        "Id": 19,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30020.0,
+        "Condition": null,
+        "PreId": [
+            18.0
+        ],
+        "Name": "\u8282\u70b919",
+        "Desc": "\u751f\u547d\u503c+500",
+        "Icon": null
+    },
+    {
+        "Id": 20,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30021.0,
+        "Condition": null,
+        "PreId": [
+            19.0
+        ],
+        "Name": "\u8282\u70b920",
+        "Desc": "\u5168\u5c5e\u6027\u4f24\u5bb3+15%",
+        "Icon": null
+    },
+    {
+        "Id": 21,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30022.0,
+        "Condition": null,
+        "PreId": [
+            20.0
+        ],
+        "Name": "\u8282\u70b921",
+        "Desc": "\u751f\u547d\u503c+5%",
+        "Icon": null
+    },
+    {
+        "Id": 22,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30023.0,
+        "Condition": null,
+        "PreId": [
+            21.0
+        ],
+        "Name": "\u8282\u70b922",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 23,
+        "NeedStrengthenPoint": 9999,
+        "Note": "\u5927\u8282\u70b9",
+        "PointType": 3,
+        "EffectGroupId": null,
+        "Condition": null,
+        "PreId": [
+            22.0
+        ],
+        "Name": "\u8282\u70b923",
+        "Desc": "\u6682\u672a\u5f00\u653e\uff0c\u656c\u8bf7\u671f\u5f85",
+        "Icon": null
+    },
+    {
+        "Id": 24,
+        "NeedStrengthenPoint": 24,
+        "Note": "\u5927\u8282\u70b9",
+        "PointType": 3,
+        "EffectGroupId": 30017.0,
+        "Condition": null,
+        "PreId": [
+            16.0
+        ],
+        "Name": "\u8282\u70b924",
+        "Desc": "\u6240\u6709\u6210\u5458\u88c5\u5907\u8d1f\u91cd+1",
+        "Icon": null
+    },
+    {
+        "Id": 25,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30025.0,
+        "Condition": null,
+        "PreId": [
+            24.0
+        ],
+        "Name": "\u8282\u70b925",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 26,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30026.0,
+        "Condition": null,
+        "PreId": [
+            25.0
+        ],
+        "Name": "\u8282\u70b926",
+        "Desc": "\u989d\u5916\u4f24\u5bb3\u52a0\u6210+5%",
+        "Icon": null
+    },
+    {
+        "Id": 27,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30027.0,
+        "Condition": null,
+        "PreId": [
+            1.0
+        ],
+        "Name": "\u8282\u70b927",
+        "Desc": "\u653b\u51fb\u529b+50",
+        "Icon": null
+    },
+    {
+        "Id": 28,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30028.0,
+        "Condition": null,
+        "PreId": [
+            27.0
+        ],
+        "Name": "\u8282\u70b928",
+        "Desc": "\u521d\u59cb\u91d1\u5e01+50",
+        "Icon": null
+    },
+    {
+        "Id": 29,
+        "NeedStrengthenPoint": 8,
+        "Note": "\u5c0f\u8282\u70b9",
+        "PointType": 1,
+        "EffectGroupId": 30029.0,
+        "Condition": null,
+        "PreId": [
+            28.0
+        ],
+        "Name": "\u8282\u70b929",
+        "Desc": "\u751f\u547d\u503c+500",
+        "Icon": null
+    },
+    {
+        "Id": 30,
+        "NeedStrengthenPoint": 16,
+        "Note": "\u4e2d\u8282\u70b9",
+        "PointType": 2,
+        "EffectGroupId": 30030.0,
+        "Condition": null,
+        "PreId": [
+            29.0
+        ],
+        "Name": "\u8282\u70b930",
+        "Desc": "\u521d\u59cb\u62db\u52df\u80fd\u91cf+1",
+        "Icon": null
+    }
+]

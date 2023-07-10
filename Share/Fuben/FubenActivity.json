@@ -1,0 +1,483 @@
+[
+    {
+        "Id": 1,
+        "Name": "\u62fe\u53f6\u8f7d\u68a6",
+        "ManagerName": "RpgTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner21.png",
+        "TimeId": null,
+        "FunctionNameId": 10321.0,
+        "SkipId": 11736.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RPGTOWER_TASK_RED",
+            "CONDITION_RPGTOWER_DAILYREWARD_RED"
+        ],
+        "Note": "RPG\u73a9\u6cd5"
+    },
+    {
+        "Id": 2,
+        "Name": "\u5df4\u522b\u5854\u00b7\u5e7d\u754c\u6797\u6d77",
+        "ManagerName": "FubenBabelTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
+        "TimeId": null,
+        "FunctionNameId": 10307.0,
+        "SkipId": 20015.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
+        ],
+        "Note": "\u5df4\u522b\u5854"
+    },
+    {
+        "Id": 3,
+        "Name": "\u6e38\u8fb0\u7275\u661f",
+        "ManagerName": "PokerGuessingManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner81.png",
+        "TimeId": null,
+        "FunctionNameId": 10333.0,
+        "SkipId": 11761.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_POKER_GUESSING_RED"
+        ],
+        "Note": "\u4e03\u5915\u7ffb\u724c"
+    },
+    {
+        "Id": 4,
+        "Name": "\u8be1\u8c23\u6c89\u5f71",
+        "ManagerName": "FubenRepeatChallengeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
+        "TimeId": null,
+        "FunctionNameId": 10309.0,
+        "SkipId": 20017.0,
+        "Order": 1.0,
+        "RedPointConditions": [
+            "CONDITION_REPEAT_CHALLENGE_REWARD"
+        ],
+        "Note": "\u590d\u5237\u5173"
+    },
+    {
+        "Id": 5,
+        "Name": "\u6df1\u6d77\u9057\u6b4c",
+        "ManagerName": "FubenActivityBossSingleManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner105.png",
+        "TimeId": null,
+        "FunctionNameId": 10304.0,
+        "SkipId": 11724.0,
+        "Order": 4.0,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
+        ],
+        "Note": "\u8d85\u96be\u5173"
+    },
+    {
+        "Id": 6,
+        "Name": "\u72ec\u57df\u7279\u653b",
+        "ManagerName": "PivotCombatManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner60.png",
+        "TimeId": null,
+        "FunctionNameId": 10422.0,
+        "SkipId": 82070.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_PIVOTCOMBAT_ALL_RED_POINT"
+        ],
+        "Note": "\u72ec\u57df\u7279\u653b"
+    },
+    {
+        "Id": 7,
+        "Name": "\u94fe\u5408\u56de\u8def\u00b7\u5e7d\u6797\u7ade\u72e9",
+        "ManagerName": "SameColorActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner109.png",
+        "TimeId": null,
+        "FunctionNameId": 10413.0,
+        "SkipId": 82010.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_SAMECOLOR_TASK"
+        ],
+        "Note": "\u4e09\u6d88\u73a9\u6cd5"
+    },
+    {
+        "Id": 8,
+        "Name": "\u6620\u50cf\u6f5c\u6e0a",
+        "ManagerName": "RiftManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner88.png",
+        "TimeId": null,
+        "FunctionNameId": 10437.0,
+        "SkipId": 88003.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RIFT_ENTRANCE"
+        ],
+        "Note": "\u6df1\u84dd2.0"
+    },
+    {
+        "Id": 9,
+        "Name": "\u8054\u673a\u73a9\u6cd5",
+        "ManagerName": "DlcHuntManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBannerDlcHunt.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": 87001.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "\u72e9\u730eDLC"
+    },
+    {
+        "Id": 10,
+        "Name": "\u55b5\u661f\u6dd8\u91d1",
+        "ManagerName": "GoldenMinerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner64.png",
+        "TimeId": null,
+        "FunctionNameId": 10426.0,
+        "SkipId": 20122.0,
+        "Order": 6.0,
+        "RedPointConditions": [
+            "CONDITION_GOLDEN_MINER_REWARD"
+        ],
+        "Note": "\u9ec4\u91d1\u77ff\u5de5"
+    },
+    {
+        "Id": 11,
+        "Name": "\u5206\u5149\u53cc\u661f",
+        "ManagerName": "FubenCoupleCombatManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner68.png",
+        "TimeId": null,
+        "FunctionNameId": 10343.0,
+        "SkipId": 82001.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_COUPLE_COMBAT_TASK_REWARD"
+        ],
+        "Note": "\u53cc\u4eba\u6210\u884c"
+    },
+    {
+        "Id": 12,
+        "Name": "\u82cd\u84dd\u65e0\u5c3d\u590f",
+        "ManagerName": "FashionStoryManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner86.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": 11773.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_FASHION_STORY_HAVE_STAGE"
+        ],
+        "Note": "\u6d82\u88c5\u5267\u60c5"
+    },
+    {
+        "Id": 13,
+        "Name": "\u8c03\u8272\u677f\u6218\u4e89",
+        "ManagerName": "ColorTableManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner94.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": null,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_COLORTABLE_ENTRANCE"
+        ],
+        "Note": "\u8c03\u8272\u677f\u6218\u4e89"
+    },
+    {
+        "Id": 14,
+        "Name": "\u5149\u8f89\u540c\u884c",
+        "ManagerName": "BrilliantWalkManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner92.png",
+        "TimeId": null,
+        "FunctionNameId": 10439.0,
+        "SkipId": 89001.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_BRILLIANTWALK_ENTRANCE"
+        ],
+        "Note": "\u5c0f\u8f89\u8f89\u6d3b\u52a8"
+    },
+    {
+        "Id": 15,
+        "Name": "\u610f\u8bc6\u8425\u6551\u6218\u00b7\u7ed8\u5386",
+        "ManagerName": "MemorySaveManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner91.png",
+        "TimeId": null,
+        "FunctionNameId": 10351.0,
+        "SkipId": 88005.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MEMORYSAVE_ALL_RED_POINT"
+        ],
+        "Note": "\u610f\u8bc6\u8425\u6551\u6218"
+    },
+    {
+        "Id": 16,
+        "Name": "\u5ba1\u5224\u8005\u6b63\u8a00",
+        "ManagerName": "FubenNewCharActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner117.png",
+        "TimeId": null,
+        "FunctionNameId": 10325.0,
+        "SkipId": 20071.0,
+        "Order": 2.0,
+        "RedPointConditions": [
+            "CONDITION_KOROMCHARACTIVITYMAINRED"
+        ],
+        "Note": "\u89d2\u8272\u8bd5\u73a9\u5173"
+    },
+    {
+        "Id": 17,
+        "Name": "\u8d85\u9650\u4e71\u6597-\u7f1a\u56da\u6b7b\u6218",
+        "ManagerName": "SuperSmashBrosManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner99.png",
+        "TimeId": null,
+        "FunctionNameId": 10350.0,
+        "SkipId": 20104.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "\u8d85\u9650\u4e71\u6597"
+    },
+    {
+        "Id": 18,
+        "Name": "\u9732\u8bb0\u51b0\u57ce",
+        "ManagerName": "RestaurantManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner120.png",
+        "TimeId": 20203.0,
+        "FunctionNameId": 10443.0,
+        "SkipId": 89008.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RESTAURANT_ENTRANCE"
+        ],
+        "Note": "\u6a21\u62df\u9910\u5385"
+    },
+    {
+        "Id": 19,
+        "Name": "\u672c\u6211\u56de\u5eca\u00b7\u5361\u5217\u5c3c\u5a1c",
+        "ManagerName": "CharacterTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner107.png",
+        "TimeId": null,
+        "FunctionNameId": 10436.0,
+        "SkipId": 11790.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "\u672c\u6211\u56de\u5eca"
+    },
+    {
+        "Id": 20,
+        "Name": "\u5f02\u6784\u9635\u7ebf",
+        "ManagerName": "Maverick2Manager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner98.png",
+        "TimeId": null,
+        "FunctionNameId": 10445.0,
+        "SkipId": 89011.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MAVERICK2"
+        ],
+        "Note": "\u5f02\u6784\u9635\u7ebf"
+    },
+    {
+        "Id": 21,
+        "Name": "\u767d\u68a6\u6e38\u5f0b",
+        "ManagerName": "TwoSideTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner102.png",
+        "TimeId": null,
+        "FunctionNameId": 403.0,
+        "SkipId": 89012.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "\u6d82\u88c5\u5267\u60c5"
+    },
+    {
+        "Id": 22,
+        "Name": "\u89c5\u8ff9\u5bfb\u8e2a",
+        "ManagerName": "RpgMakerGameManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner65.png",
+        "TimeId": null,
+        "FunctionNameId": 10345.0,
+        "SkipId": 20128.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_RPG_MAKER_GAME_RED"
+        ],
+        "Note": "\u63a8\u7bb1\u5b50"
+    },
+    {
+        "Id": 23,
+        "Name": "\u5fc3\u8c61\u98ce\u666f",
+        "ManagerName": "TwoSideTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner103.png",
+        "TimeId": null,
+        "FunctionNameId": 10431.0,
+        "SkipId": 85013.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_TWO_SIDE_TOWER_TASK"
+        ],
+        "Note": "\u6b63\u9006\u5854"
+    },
+    {
+        "Id": 24,
+        "Name": "\u4e91\u96c0\u6b4c\u672a\u7720",
+        "ManagerName": "MazeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner104.png",
+        "TimeId": null,
+        "FunctionNameId": 10445.0,
+        "SkipId": 89013.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MAZE"
+        ],
+        "Note": "\u60c5\u4eba\u8282\u8ff7\u5bab"
+    },
+    {
+        "Id": 25,
+        "Name": "\u884c\u661f\u73af\u6e38\u8bb0",
+        "ManagerName": "PlanetManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner108.png",
+        "TimeId": null,
+        "FunctionNameId": 10446.0,
+        "SkipId": 89015.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_PLANET_RUNNING_ACTIVITY"
+        ],
+        "Note": "\u884c\u661f\u73af\u6e38\u8bb0"
+    },
+    {
+        "Id": 26,
+        "Name": "\u62df\u805a\u7eb7\u4e89",
+        "ManagerName": "MonsterCombatManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner110.png",
+        "TimeId": null,
+        "FunctionNameId": 10447.0,
+        "SkipId": 89016.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_MONSTER_COMBAT_ACTIVITY"
+        ],
+        "Note": "BVB"
+    },
+    {
+        "Id": 27,
+        "Name": "\u754c\u9650\u6784\u89e3",
+        "ManagerName": "Reform2ndManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner115.png",
+        "TimeId": null,
+        "FunctionNameId": 10337.0,
+        "SkipId": 81104.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_REFORM_All_RED_POINT"
+        ],
+        "Note": "\u754c\u9650\u6784\u89e3"
+    },
+    {
+        "Id": 28,
+        "Name": "\u5168\u5883\u7279\u9063\u00b7\u6c99\u76d8\u62df\u7b97",
+        "ManagerName": "AreaWarManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner118.png",
+        "TimeId": null,
+        "FunctionNameId": 10349.0,
+        "SkipId": 20102.0,
+        "Order": 3.0,
+        "RedPointConditions": [
+            "XRedPointConditionAreaWarActivity"
+        ],
+        "Note": "\u5168\u5883\u7279\u9063"
+    },
+    {
+        "Id": 29,
+        "Name": "\u8fdc\u6b4c\u6df1\u6f5c",
+        "ManagerName": "KillZoneManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner116.png",
+        "TimeId": null,
+        "FunctionNameId": 10339.0,
+        "SkipId": 20083.0,
+        "Order": 5.0,
+        "RedPointConditions": [
+            "XRedPointConditionKillZoneActivity"
+        ],
+        "Note": "\u6740\u622e\u65e0\u53cc"
+    },
+    {
+        "Id": 30,
+        "Name": "\u4f59\u5c18\u4e09\u91cd\u594f",
+        "ManagerName": "CerberusGameManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner114.png",
+        "TimeId": null,
+        "FunctionNameId": 10448.0,
+        "SkipId": 89018.0,
+        "Order": null,
+        "RedPointConditions": [],
+        "Note": "\u4e09\u5934\u72ac\u5c0f\u961f"
+    },
+    {
+        "Id": 31,
+        "Name": "\u566c\u6f6e\u9003\u751f:\u65f6\u9699\u4e4b\u6f6e",
+        "ManagerName": "EscapeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner58.png",
+        "TimeId": null,
+        "FunctionNameId": 10423.0,
+        "SkipId": 82080.0,
+        "Order": null,
+        "RedPointConditions": [
+            "XRedPointConditionEscapeTask"
+        ],
+        "Note": "\u5927\u9003\u6740"
+    },
+    {
+        "Id": 32,
+        "Name": "\u76db\u590f\u6d04\u5f71\u7eaa",
+        "ManagerName": "FubenSpecialTrainManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner80.png",
+        "TimeId": 20301.0,
+        "FunctionNameId": 10316.0,
+        "SkipId": 89025.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_SPECIALTRAIN_RED"
+        ],
+        "Note": "\u8054\u673a\u4f11\u95f2"
+    },
+    {
+        "Id": 33,
+        "Name": "\u5df4\u522b\u5854\u00b7\u65e0\u9699\u661f\u6cca",
+        "ManagerName": "FubenBabelTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
+        "TimeId": 20001.0,
+        "FunctionNameId": 10307.0,
+        "SkipId": 20015.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
+        ],
+        "Note": "\u5df4\u522b\u5854"
+    },
+    {
+        "Id": 34,
+        "Name": "\u4f17\u5fd7\u884c\u5f81\u2163",
+        "ManagerName": "GuildWarManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner119.png",
+        "TimeId": 20101.0,
+        "FunctionNameId": 10425.0,
+        "SkipId": 85016.0,
+        "Order": 6.0,
+        "RedPointConditions": [
+            "CONDITION_GUILD_WAR"
+        ],
+        "Note": "\u4f17\u5fd7\u884c\u5f81\u2163"
+    },
+    {
+        "Id": 35,
+        "Name": "\u957f\u590f\u6563\u8bb0",
+        "ManagerName": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner15.png",
+        "TimeId": null,
+        "FunctionNameId": null,
+        "SkipId": 89029.0,
+        "Order": null,
+        "RedPointConditions": [
+            "CONDITION_FASHION_STORY_ENTRANCE"
+        ],
+        "Note": "\u957f\u590f\u6563\u8bb0"
+    }
+]

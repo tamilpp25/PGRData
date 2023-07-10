@@ -1,0 +1,212 @@
+[
+    {
+        "Key": "DamageRandomMin",
+        "Type": "int",
+        "Value": "9500"
+    },
+    {
+        "Key": "DamageRandomMax",
+        "Type": "int",
+        "Value": "10500"
+    },
+    {
+        "Key": "DamageFormulaParam",
+        "Type": "int",
+        "Value": "3000"
+    },
+    {
+        "Key": "CritFormulaParam1",
+        "Type": "int",
+        "Value": "1980"
+    },
+    {
+        "Key": "CritFormulaParam2",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "RestStandWaitTime",
+        "Type": "fix",
+        "Value": "0"
+    },
+    {
+        "Key": "ComboDuration",
+        "Type": "fix",
+        "Value": "3"
+    },
+    {
+        "Key": "DefaultNpcMaxHitValue",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "BallMoveSpeed",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "BallWidth",
+        "Type": "int",
+        "Value": "1000"
+    },
+    {
+        "Key": "BallBoxLength",
+        "Type": "int",
+        "Value": "7000"
+    },
+    {
+        "Key": "ThreatAttenuationCoefficient",
+        "Type": "fix",
+        "Value": "0.995"
+    },
+    {
+        "Key": "MaxBallReserve",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "DodgeLimitMagicToMe",
+        "Type": "string",
+        "Value": "100081"
+    },
+    {
+        "Key": "DodgeLimitMagicToTarget",
+        "Type": "string",
+        "Value": "100082"
+    },
+    {
+        "Key": "DodgeLimitMagicToMeEx",
+        "Type": "string",
+        "Value": "100083"
+    },
+    {
+        "Key": "DodgeLimitMagicToTargetEx",
+        "Type": "string",
+        "Value": "100084"
+    },
+    {
+        "Key": "DodgeLimitInterval",
+        "Type": "fix",
+        "Value": "1"
+    },
+    {
+        "Key": "SwitchInvincibleMagicIds",
+        "Type": "string",
+        "Value": "100039"
+    },
+    {
+        "Key": "RunStartIncludedAngle",
+        "Type": "fix",
+        "Value": "170"
+    },
+    {
+        "Key": "MaxBuffAccumulation",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "FindPathInterval",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "CheckStateChangeInterval",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "EnterPathFindLimit",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "ExitPathFindLimit",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "PathFinderMaxNodes",
+        "Type": "int",
+        "Value": "512"
+    },
+    {
+        "Key": "PathFinderMaxCheckCount",
+        "Type": "int",
+        "Value": "350"
+    },
+    {
+        "Key": "AreaFinderMaxNodes",
+        "Type": "int",
+        "Value": "512"
+    },
+    {
+        "Key": "AreaFinderMaxCheckCount",
+        "Type": "int",
+        "Value": "256"
+    },
+    {
+        "Key": "HitFlyUpAccelerationSpeed",
+        "Type": "fix",
+        "Value": "-15"
+    },
+    {
+        "Key": "HitFlyDownAccelerationSpeed",
+        "Type": "fix",
+        "Value": "30"
+    },
+    {
+        "Key": "MaxHitFlyHeight",
+        "Type": "fix",
+        "Value": "3"
+    },
+    {
+        "Key": "HitFlyHeightDamping",
+        "Type": "fix",
+        "Value": "0.8"
+    },
+    {
+        "Key": "HookRopeSpeed",
+        "Type": "fix",
+        "Value": "30"
+    },
+    {
+        "Key": "PeripheralCollision",
+        "Type": "fix",
+        "Value": "3"
+    },
+    {
+        "Key": "ExecuteKind",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "DynamicScoringBreakthroughPercentage",
+        "Type": "fix",
+        "Value": "0"
+    },
+    {
+        "Key": "DynamicScoringExecuteEffectScore",
+        "Type": "fix",
+        "Value": "2500"
+    },
+    {
+        "Key": "DynamicScoringNormalEffectScore",
+        "Type": "fix",
+        "Value": "1250"
+    },
+    {
+        "Key": "NpcQuadTreeEnable",
+        "Type": "bool",
+        "Value": "1"
+    },
+    {
+        "Key": "HackChangePExcludeKinds",
+        "Type": "string",
+        "Value": "102|104"
+    },
+    {
+        "Key": "AntiHackChangePExcludeKinds",
+        "Type": "string",
+        "Value": "0"
+    }
+]

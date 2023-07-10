@@ -1,0 +1,888 @@
+[
+    {
+        "Id": 101,
+        "Name": "\u5267\u60c5\u4efb\u52a1",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 1,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 101,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 102,
+        "Name": "\u83b7\u5f97\u89d2\u8272\u4e3d\u8299",
+        "ConditionIds": [
+            70102
+        ],
+        "Priority": 2,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 113,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 103,
+        "Name": "\u6280\u80fd\u5347\u7ea7",
+        "ConditionIds": [
+            70103
+        ],
+        "Priority": 3,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 103,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 104,
+        "Name": "\u65b0\u624b\u76ee\u6807",
+        "ConditionIds": [
+            70104
+        ],
+        "Priority": 4,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 104,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 105,
+        "Name": "\u89d2\u8272\u664b\u5347",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 5,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 105,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 1,
+        "Name": "\u7b7e\u5230",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 6,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 1,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 2,
+        "Name": "\u88c5\u5907\u4e0e\u57f9\u517b\u6b66\u5668",
+        "ConditionIds": [
+            84100109
+        ],
+        "Priority": 7,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 114,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 3,
+        "Name": "\u7814\u53d1\u7cfb\u7edf",
+        "ConditionIds": [
+            70105
+        ],
+        "Priority": 8,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\uff1f\uff1f\uff1f",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadYongyechao1.png",
+        "ContentsGroupId": 3,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 111,
+        "Name": "\u5f15\u5bfc\u4e3b\u7ebf\u4efb\u52a1",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 9,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 111,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 106,
+        "Name": "\u5f15\u5bfc\u5f00\u653e\u6240\u6709\u8d44\u6e90\u5173",
+        "ConditionIds": [
+            70111
+        ],
+        "Priority": 10,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 115,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 4,
+        "Name": "\u666e\u901a\u5546\u5e97",
+        "ConditionIds": [
+            70004
+        ],
+        "Priority": 11,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 4,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 5,
+        "Name": "\u5f00\u542f\u8d5b\u5229\u5361\u8003\u7ea7",
+        "ConditionIds": [
+            70005
+        ],
+        "Priority": 12,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 5,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 107,
+        "Name": "\u5f15\u5bfc\u5e08\u5f92\u7cfb\u7edf",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 13,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 117,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 108,
+        "Name": "\u5f15\u5bfc\u5de5\u4f1a\u7cfb\u7edf",
+        "ConditionIds": [
+            84100405
+        ],
+        "Priority": 14,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 118,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 6,
+        "Name": "\u5f15\u5bfc\u8f85\u52a9\u673a",
+        "ConditionIds": [
+            8006
+        ],
+        "Priority": 15,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 116,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 7,
+        "Name": "\u88c5\u5907\u7a81\u7834\u672c",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 16,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u91cc",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
+        "ContentsGroupId": 7,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 8,
+        "Name": "\u6311\u6218-\u8bd5\u70bc\u526f\u672c",
+        "ConditionIds": [
+            70008
+        ],
+        "Priority": 17,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u963f\u897f\u83ab\u592b",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 8,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 9,
+        "Name": "\u5267\u60c5\u526f\u672c-\u56f0\u96be",
+        "ConditionIds": [
+            70009
+        ],
+        "Priority": 18,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 9,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 109,
+        "Name": "\u81ea\u52a8\u4f5c\u6218",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 19,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 109,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 10,
+        "Name": "\u9ad8\u7ea7\u88c5\u5907\u6389\u843d\u672c",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 20,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 10,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 11,
+        "Name": "\u89d2\u8272-\u8be6\u60c5",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 21,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u795e\u5a01",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadShenwei1.png",
+        "ContentsGroupId": 11,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 112,
+        "Name": "\u8bd5\u73a9\u533a",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 22,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 112,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 12,
+        "Name": "\u6784\u9020\u4f53\u519b\u56e2",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 23,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 12,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 13,
+        "Name": "\u534f\u540c\u4f5c\u6218",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 24,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 13,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 110,
+        "Name": "\u652f\u63f4",
+        "ConditionIds": [
+            70110
+        ],
+        "Priority": 25,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 110,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 14,
+        "Name": "\u524d\u4f20\u526f\u672c",
+        "ConditionIds": [
+            70014
+        ],
+        "Priority": 26,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 14,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 15,
+        "Name": "\u89d2\u8272-\u65f6\u88c5",
+        "ConditionIds": [
+            200000
+        ],
+        "Priority": 27,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 15,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 17,
+        "Name": "\u4e66\u623f",
+        "ConditionIds": [
+            70017
+        ],
+        "Priority": 29,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 17,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 18,
+        "Name": "\u57fa\u5efa\u4e0e\u5bbf\u820d",
+        "ConditionIds": [
+            70018
+        ],
+        "Priority": 30,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 18,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 19,
+        "Name": "\u6311\u6218-\u7eb7\u4e89\u6218\u533a",
+        "ConditionIds": [
+            771801
+        ],
+        "Priority": 31,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u963f\u897f\u83ab\u592b",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 19,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 20,
+        "Name": "\u6311\u6218-\u5e7b\u75db\u56da\u7b3c",
+        "ConditionIds": [
+            70020
+        ],
+        "Priority": 32,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u5c3c\u79d1\u62c9",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 20,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 21,
+        "Name": "\u63a2\u7d22\u73a9\u6cd5",
+        "ConditionIds": [
+            774300
+        ],
+        "Priority": 33,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u963f\u897f\u83ab\u592b",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 21,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 22,
+        "Name": "\u52cb\u7ae0\u7cfb\u7edf",
+        "ConditionIds": [
+            852931
+        ],
+        "Priority": 34,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 22,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 23,
+        "Name": "\u6311\u6218-\u8fb9\u754c\u516c\u7ea6",
+        "ConditionIds": [
+            774900
+        ],
+        "Priority": 35,
+        "SkipId": 21.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 23,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 555,
+        "Name": "\u52cb\u7ae01",
+        "ConditionIds": [
+            555
+        ],
+        "Priority": 35,
+        "SkipId": 500.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u5c3c\u79d1\u62c9",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 555,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 556,
+        "Name": "\u52cb\u7ae02",
+        "ConditionIds": [
+            556
+        ],
+        "Priority": 36,
+        "SkipId": 500.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 556,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 557,
+        "Name": "\u52cb\u7ae03",
+        "ConditionIds": [
+            557
+        ],
+        "Priority": 37,
+        "SkipId": 500.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u5c3c\u79d1\u62c9",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 557,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 558,
+        "Name": "\u52cb\u7ae04",
+        "ConditionIds": [
+            558
+        ],
+        "Priority": 38,
+        "SkipId": 500.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 558,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 559,
+        "Name": "\u52cb\u7ae05",
+        "ConditionIds": [
+            559
+        ],
+        "Priority": 39,
+        "SkipId": 500.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 559,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 599,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c1\u7ae0",
+        "ConditionIds": [
+            70119
+        ],
+        "Priority": 40,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 599,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 600,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c2\u7ae0",
+        "ConditionIds": [
+            70113
+        ],
+        "Priority": 41,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 600,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 601,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c3\u7ae0",
+        "ConditionIds": [
+            70114
+        ],
+        "Priority": 42,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 601,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 602,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c4\u7ae0",
+        "ConditionIds": [
+            70115
+        ],
+        "Priority": 43,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 602,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 603,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c5\u7ae0",
+        "ConditionIds": [
+            70116
+        ],
+        "Priority": 44,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u963f\u897f\u83ab\u592b",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 603,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 604,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c6\u7ae0",
+        "ConditionIds": [
+            70117
+        ],
+        "Priority": 45,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 604,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 605,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c7\u7ae0",
+        "ConditionIds": [
+            70118
+        ],
+        "Priority": 46,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u963f\u897f\u83ab\u592b",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 605,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 606,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c9\u7ae0",
+        "ConditionIds": [
+            70120
+        ],
+        "Priority": 47,
+        "SkipId": null,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 606,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 607,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c10\u7ae0",
+        "ConditionIds": [
+            70121
+        ],
+        "Priority": 48,
+        "SkipId": null,
+        "BtnContent": "\u2026\u2026\u5012\u4e5f\u4e0d\u5fc5\u3002",
+        "NpcName": "\u8d3e\u7c73\u62c9",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/JiamilaNormal01.png",
+        "ContentsGroupId": 607,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 608,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c11\u7ae0",
+        "ConditionIds": [
+            70122
+        ],
+        "Priority": 49,
+        "SkipId": null,
+        "BtnContent": "\u4e0d\u5ba2\u6c14\u3002",
+        "NpcName": "\u84b2\u7262",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/PulaoNormal01.png",
+        "ContentsGroupId": 608,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 609,
+        "Name": "\u901a\u5173\u636e\u70b9\u6218\u7b2c12\u7ae0",
+        "ConditionIds": [
+            70123
+        ],
+        "Priority": 50,
+        "SkipId": null,
+        "BtnContent": "\u55ef\u3002",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 609,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 700,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u91cc",
+        "ConditionIds": [
+            400000
+        ],
+        "Priority": 51,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u91cc",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
+        "ContentsGroupId": 700,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 701,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u4e3d\u8299",
+        "ConditionIds": [
+            400001
+        ],
+        "Priority": 52,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e3d\u8299",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 701,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 702,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u795e\u5a01",
+        "ConditionIds": [
+            400002
+        ],
+        "Priority": 53,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u795e\u5a01",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadShenwei1.png",
+        "ContentsGroupId": 702,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 703,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u9732\u897f\u4e9a",
+        "ConditionIds": [
+            400003
+        ],
+        "Priority": 54,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u9732\u897f\u4e9a",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 703,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 704,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u4e03\u5b9e",
+        "ConditionIds": [
+            400004
+        ],
+        "Priority": 55,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u4e03\u5b9e",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadYongyechao1.png",
+        "ContentsGroupId": 704,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 705,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u8d5b\u5229\u5361",
+        "ConditionIds": [
+            400005
+        ],
+        "Priority": 56,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 705,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 706,
+        "Name": "\u7ea2\u5305\u4efb\u52a1\u5361\u5217",
+        "ConditionIds": [
+            400006
+        ],
+        "Priority": 57,
+        "SkipId": 8002.0,
+        "BtnContent": "\u597d\u7684\uff0c\u6211\u77e5\u9053\u4e86",
+        "NpcName": "\u5361\u5217\u5c3c\u5a1c",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadKalienina1.png",
+        "ContentsGroupId": 706,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 24,
+        "Name": "\u6311\u6218-\u5f02\u805a\u8ff7\u5bab",
+        "ConditionIds": [
+            84700201
+        ],
+        "Priority": 36,
+        "SkipId": 21.0,
+        "BtnContent": "\u660e\u767d",
+        "NpcName": "\u54c8\u6851",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 24,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 25,
+        "Name": "\u7ef4\u7cfb\u8005\u884c\u52a8",
+        "ConditionIds": [
+            870002,
+            773400.0
+        ],
+        "Priority": 28,
+        "SkipId": 21.0,
+        "BtnContent": "\u6211\u660e\u767d\u4e86\u3002",
+        "NpcName": "\u8d5b\u5229\u5361",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 25,
+        "Type": 1,
+        "UiType": 1
+    }
+]
