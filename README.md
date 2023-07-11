@@ -1,6 +1,6 @@
 # PGRData
 > Game Version: 2.6.0 <br/>
-> Document Version: 2.6.0 <br/>
+> Document Version: 2.6.8 <br/>
 
 - Client
 - Share
