@@ -1,0 +1,380 @@
+[
+    {
+        "Id": 1,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 1,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 600,
+        "LayerIds": [
+            1001,
+            1002,
+            1003,
+            1004,
+            1005,
+            1006
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u65f6\u7a7a\u6f14\u4e60",
+        "EnName": "STAGE1",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u73a9\u6cd5\u63a8\u8350<color=#55D0F0>5000\u6218\u529b</color>\u4ee5\u4e0a\u7684\u961f\u4f0d\u6311\u6218",
+            "\u73a9\u6cd5\u63d0\u4f9b<color=#55D0F0>\u8bd5\u7528\u89d2\u8272</color>\uff0c\u63a8\u8350\u5728<color=#55D0F0>\u666e\u901a\u96be\u5ea6\u4f7f\u7528</color>"
+        ]
+    },
+    {
+        "Id": 2,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 2,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 600,
+        "LayerIds": [
+            2001,
+            2002,
+            2003,
+            2004,
+            2005,
+            2006,
+            2007.0,
+            2008.0,
+            2009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u4ee3\u7801\u91cd\u7f16",
+        "EnName": "STAGE2",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u5269\u4f59<color=#55D0F0>\u65f6\u95f4\u8d8a\u591a</color>\uff0c\u6218\u672f<color=#55D0F0>\u52a0\u6210\u8d8a\u5f3a</color>",
+            "\u63a8\u8350\u56e4\u79ef\u66f4\u591a\u65f6\u95f4\uff0c\u83b7\u53d6\u66f4\u591a\u6218\u672f\u6536\u76ca"
+        ]
+    },
+    {
+        "Id": 3,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 3,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 600,
+        "LayerIds": [
+            3001,
+            3002,
+            3003,
+            3004,
+            3005,
+            3006,
+            3007.0,
+            3008.0,
+            3009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u8d85\u9891\u52a0\u901f",
+        "EnName": "STAGE3",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6218\u672f\u5c06<color=#FF0000>\u52a0\u901f\u65f6\u95f4</color>\u5e76\u63d0\u4f9b<color=#55D0F0>\u66f4\u5f3a\u589e\u76ca</color>",
+            "\u63a8\u8350\u4e13\u4e00\u589e\u76ca\u65b9\u5411\uff0c\u6700\u5927\u5316\u6218\u672f\u6536\u76ca"
+        ]
+    },
+    {
+        "Id": 4,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 4,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 600,
+        "LayerIds": [
+            4001,
+            4002,
+            4003,
+            4004,
+            4005,
+            4006,
+            4007.0,
+            4008.0,
+            4009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u6570\u636e\u4fb5\u67d3",
+        "EnName": "STAGE4",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6218\u672f\u4f1a\u5f71\u54cd<color=#55D0F0>\u4e0d\u540c\u884c\u4e3a</color>\u5bf9<color=#55D0F0>\u65f6\u95f4\u7684\u53d8\u5316</color>",
+            "\u63a8\u8350\u9488\u5bf9\u89d2\u8272\u7279\u6027\uff0c\u9009\u62e9\u5408\u9002\u7684\u6218\u672f\u65b9\u5411"
+        ]
+    },
+    {
+        "Id": 5,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 5,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 300,
+        "LayerIds": [
+            5001,
+            5002,
+            5003,
+            5004,
+            5005,
+            5006,
+            5007.0,
+            5008.0,
+            5009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u7b97\u529b\u8fc7\u8f7d",
+        "EnName": "STAGE5",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u5269\u4f59<color=#FF0000>\u65f6\u95f4\u8d8a\u5c11</color>\uff0c\u6218\u672f<color=#55D0F0>\u52a0\u6210\u8d8a\u5f3a</color>",
+            "\u63a8\u8350\u7075\u6d3b\u8fd0\u7528\u673a\u5236\uff0c\u63a7\u5236\u65f6\u95f4\u5728\u5408\u9002\u7a7a\u95f4"
+        ]
+    },
+    {
+        "Id": 6,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 6,
+        "Difficulty": 1,
+        "InitialTime": 120,
+        "MaxTime": 600,
+        "LayerIds": [
+            6001,
+            6002,
+            6003,
+            6004,
+            6005,
+            6006,
+            6007.0,
+            6008.0,
+            6009.0,
+            6010.0,
+            6011.0,
+            6012.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u6df7\u6c8c\u65f6\u7a7a",
+        "EnName": "STAGE6",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240397
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6240\u6709\u6218\u672f\u90fd\u5c06<color=#55D0F0>\u6df7\u5408\u51fa\u73b0</color>",
+            "\u63a8\u8350\u786e\u5b9a\u589e\u76ca\u65b9\u5411\uff0c\u56f4\u7ed5\u6b64\u65b9\u5411\u8fdb\u884c\u6784\u5efa"
+        ]
+    },
+    {
+        "Id": 7,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 7,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 600,
+        "LayerIds": [
+            11001,
+            11002,
+            11003,
+            11004,
+            11005,
+            11006
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u65f6\u7a7a\u6f14\u4e60H",
+        "EnName": "STAGE1",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u5669\u68a6\u96be\u5ea6\u63a8\u8350<color=#FF0000>6000\u6218\u529b\u4ee5\u4e0a</color>\u961f\u4f0d\u6311\u6218",
+            "<color=#FF0000>\u8bd5\u7528\u89d2\u8272</color>\u5728\u5669\u68a6\u96be\u5ea6\u4e2d<color=#FF0000>\u96be\u5ea6\u8f83\u9ad8</color>\uff0c\u8bf7\u8c28\u614e"
+        ]
+    },
+    {
+        "Id": 8,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 8,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 600,
+        "LayerIds": [
+            12001,
+            12002,
+            12003,
+            12004,
+            12005,
+            12006,
+            12007.0,
+            12008.0,
+            12009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u4ee3\u7801\u91cd\u7f16H",
+        "EnName": "STAGE2",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u5269\u4f59<color=#55D0F0>\u65f6\u95f4\u8d8a\u591a</color>\uff0c\u6218\u672f<color=#55D0F0>\u52a0\u6210\u8d8a\u5f3a</color>",
+            "\u63a8\u8350\u56e4\u79ef\u66f4\u591a\u65f6\u95f4\uff0c\u83b7\u53d6\u66f4\u591a\u6218\u672f\u6536\u76ca"
+        ]
+    },
+    {
+        "Id": 9,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 9,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 600,
+        "LayerIds": [
+            13001,
+            13002,
+            13003,
+            13004,
+            13005,
+            13006,
+            13007.0,
+            13008.0,
+            13009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u8d85\u9891\u52a0\u901fH",
+        "EnName": "STAGE3",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6218\u672f\u5c06<color=#FF0000>\u52a0\u901f\u65f6\u95f4</color>\u5e76\u63d0\u4f9b<color=#55D0F0>\u66f4\u5f3a\u589e\u76ca</color>",
+            "\u63a8\u8350\u4e13\u4e00\u589e\u76ca\u65b9\u5411\uff0c\u6700\u5927\u5316\u6218\u672f\u6536\u76ca"
+        ]
+    },
+    {
+        "Id": 10,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 10,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 600,
+        "LayerIds": [
+            14001,
+            14002,
+            14003,
+            14004,
+            14005,
+            14006,
+            14007.0,
+            14008.0,
+            14009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u6570\u636e\u4fb5\u67d3H",
+        "EnName": "STAGE4",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6218\u672f\u4f1a\u5f71\u54cd<color=#55D0F0>\u4e0d\u540c\u884c\u4e3a</color>\u5bf9<color=#55D0F0>\u65f6\u95f4\u7684\u53d8\u5316</color>",
+            "\u63a8\u8350\u9488\u5bf9\u89d2\u8272\u7279\u6027\uff0c\u9009\u62e9\u5408\u9002\u7684\u6218\u672f\u65b9\u5411"
+        ]
+    },
+    {
+        "Id": 11,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 11,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 300,
+        "LayerIds": [
+            15001,
+            15002,
+            15003,
+            15004,
+            15005,
+            15006,
+            15007.0,
+            15008.0,
+            15009.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u7b97\u529b\u8fc7\u8f7dH",
+        "EnName": "STAGE5",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u5269\u4f59<color=#FF0000>\u65f6\u95f4\u8d8a\u5c11</color>\uff0c\u6218\u672f<color=#55D0F0>\u52a0\u6210\u8d8a\u5f3a</color>",
+            "\u63a8\u8350\u7075\u6d3b\u8fd0\u7528\u673a\u5236\uff0c\u63a7\u5236\u65f6\u95f4\u5728\u5408\u9002\u7a7a\u95f4"
+        ]
+    },
+    {
+        "Id": 12,
+        "TimeId": 28,
+        "OpenCondition": null,
+        "GroupId": 12,
+        "Difficulty": 2,
+        "InitialTime": 100,
+        "MaxTime": 600,
+        "LayerIds": [
+            16001,
+            16002,
+            16003,
+            16004,
+            16005,
+            16006,
+            16007.0,
+            16008.0,
+            16009.0,
+            16010.0,
+            16011.0,
+            16012.0
+        ],
+        "ScoreRatio": 1,
+        "Name": "\u6df7\u6c8c\u65f6\u7a7aH",
+        "EnName": "STAGE6",
+        "BuffDesc": "1.\u901a\u5173\u5173\u5361\u53ef\u83b7<color=#55D0F0>\u5012\u8ba1\u65f6</color>\uff0c<color=#55D0F0>\u5012\u8ba1\u65f6\u5f52\u96f6</color>\u5c06\u5bfc\u81f4<color=#55D0F0>\u5173\u5361\u5931\u8d25</color> 2.\u5173\u5361\u5931\u8d25\u540e\uff0c\u5c06<color=#55D0F0>\u56de\u5230\u6311\u6218\u524d\u7684\u65f6\u95f4\u72b6\u6001</color>\uff0c\u53ef\u7ee7\u7eed\u5c1d\u8bd5\u6311\u6218",
+        "ShowFightEventIds": [
+            2240398,
+            2240399.0
+        ],
+        "EnvironmentDesc": [
+            "\u672c\u7ae0\u4e2d\uff1a\u6240\u6709\u6218\u672f\u90fd\u5c06<color=#55D0F0>\u6df7\u5408\u51fa\u73b0</color>",
+            "\u63a8\u8350\u786e\u5b9a\u589e\u76ca\u65b9\u5411\uff0c\u56f4\u7ed5\u6b64\u65b9\u5411\u8fdb\u884c\u6784\u5efa"
+        ]
+    }
+]

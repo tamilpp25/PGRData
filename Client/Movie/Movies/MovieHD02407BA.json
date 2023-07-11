@@ -1,0 +1,420 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": []
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "208"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "2768"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5468\u4e00   \u4eba\u9020\u5929\u5e55\uff1a\u6674",
+            "ffffffff",
+            1.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4eca\u5929\u8bd5\u7740\u6311\u6218\u4e86\u4e00\u4e0b\u65e0\u4eba\u8e0f\u8db3\u7684\u65b0\u533a\u57df\uff0c\u5982\u679c\u80fd\u4e00\u4e2a\u4eba\u62ff\u4e0b\u5b83\uff0c\u60f3\u5fc5\u6392\u540d\u79ef\u5206\u4f1a\u4e0a\u5347\u5f88\u591a\u5427\uff1f",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u867d\u7136\u8fd9\u6b21\u5931\u8d25\u4e86\uff0c\u4f46\u662f\u4e0d\u8981\u7d27\uff0c\u6211\u8fd8\u6709\u5927\u628a\u7684\u65f6\u95f4\u53ef\u4ee5\u5c1d\u8bd5\u3002",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "2768"
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5468\u4e8c  \u4eba\u9020\u5929\u5e55\uff1a\u6674",
+            "ffffffff",
+            1.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4eca\u5929\u4f9d\u7136\u662f\u6311\u6218\u5931\u8d25\u7684\u4e00\u5929\uff0c\u4e0d\u8fc7\u7ecf\u8fc7\u4e24\u6b21\u5931\u8d25\uff0c\u6211\u5df2\u7ecf\u603b\u7ed3\u51fa\u4e86\u654c\u65b9\u7279\u6027\u548c\u8fd0\u52a8\u8f68\u8ff9\uff0c",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e0b\u4e00\u6b21\u53ea\u9700\u8981\u6839\u636e\u65f6\u95f4\u8f74\u8fdb\u884c\u5e94\u5bf9\u5c31\u53ef\u4ee5\u4e86\u3002",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "2768"
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5468\u4e09  \u4eba\u9020\u5929\u5e55\uff1a\u9634",
+            "ffffffff",
+            1.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5351\u9119\u7684\u51fa\u9898\u4eba\uff0c\u5c45\u7136\u8fd8\u8bbe\u8ba1\u4e86\u52a8\u6001\u4f0f\u5175\uff01",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e0d\u8fc7\u6211\u5df2\u7ecf\u770b\u7a7f\u4e86\u8001\u5e08\u4eec\u7684\u5168\u90e8\u628a\u620f\uff0c\u53ea\u8981\u53d1\u8d77\u4e0b\u6b21\u8fdb\u653b\uff0c\u4e00\u5207\u90fd\u4f1a\u597d\u8d77\u6765\u7684\u3002",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "2768"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5468\u56db  \u4eba\u9020\u5929\u5e55\uff1a\u9634",
+            "ffffffff",
+            1.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6ca1\u6253\u8fc7\u5bf9\u65b9\u4e8c\u9636\u6bb5\u2026\u2026\u8bdd\u8bf4\u600e\u4e48\u8fd8\u6709\u4e8c\u9636\u6bb5\u554a\uff1f\uff01\uff01",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6bd4\u4f2f\u554a\u6bd4\u4f2f\uff0c\u4f60\u53ef\u662f\u7acb\u5fd7\u6210\u4e3a\u2018\u9996\u5e2d\u2019\u7684\u4eba\uff0c\u4e0d\u80fd\u518d\u8fd9\u4e48\u8f93\u4e0b\u53bb\u4e86\u3002",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e8b\u4e0d\u8fc7\u56db\uff0c\u660e\u5929\u4e00\u5b9a\u8981\u8d62\uff01",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "2768"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5468\u4e94 \u4eba\u9020\u5929\u5e55\uff1a\u6674",
+            "ffffffff",
+            1.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6ca1\u6253\u8fc7\u2026\u2026",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 304,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6211\u8fd8\u662f\u542c\u4ece\u5f17\u96f7\u66fc\u7684\u5efa\u8bae\u5427\u3002",
+            "ffffffff",
+            2.0,
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
+        ]
+    }
+]

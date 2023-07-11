@@ -1,0 +1,462 @@
+[
+    {
+        "Index": 1,
+        "Attrib": "Life",
+        "Name": "\u751f\u547d"
+    },
+    {
+        "Index": 2,
+        "Attrib": "Energy",
+        "Name": "\u5fc5\u6740\u80fd\u91cf"
+    },
+    {
+        "Index": 3,
+        "Attrib": "RunSpeed",
+        "Name": "\u8dd1\u901f\u5ea6"
+    },
+    {
+        "Index": 4,
+        "Attrib": "WalkSpeed",
+        "Name": "\u8d70\u901f\u5ea6"
+    },
+    {
+        "Index": 5,
+        "Attrib": "TurnRoundSpeed",
+        "Name": "\u8f6c\u8eab\u89d2\u901f\u5ea6"
+    },
+    {
+        "Index": 6,
+        "Attrib": "BallInterval",
+        "Name": "\u51fa\u7403\u95f4\u9694"
+    },
+    {
+        "Index": 7,
+        "Attrib": "DamageNormalImmunity",
+        "Name": "\u7269\u7406\u4f24\u5bb3\u514d\u75ab"
+    },
+    {
+        "Index": 8,
+        "Attrib": "DamageMagicImmunity",
+        "Name": "\u5143\u7d20\u4f24\u5bb3\u514d\u75ab"
+    },
+    {
+        "Index": 9,
+        "Attrib": "AntiDamageNormalImmunity",
+        "Name": "\u53cd\u7269\u7406\u4f24\u5bb3\u514d\u75ab"
+    },
+    {
+        "Index": 10,
+        "Attrib": "AntiDamageMagicImmunity",
+        "Name": "\u53cd\u5143\u7d20\u4f24\u5bb3\u514d\u75ab"
+    },
+    {
+        "Index": 11,
+        "Attrib": "AttackNormal",
+        "Name": "\u653b\u51fb"
+    },
+    {
+        "Index": 12,
+        "Attrib": "AttackMagic1",
+        "Name": "\u706b\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 13,
+        "Attrib": "AttackMagic2",
+        "Name": "\u96f7\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 14,
+        "Attrib": "AttackMagic3",
+        "Name": "\u51b0\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 15,
+        "Attrib": "AttackMagic4",
+        "Name": "\u6697\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 16,
+        "Attrib": "AttackMagicEnd",
+        "Name": "\u5143\u7d20\u653b\u51fb\u7ed3\u675f-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 17,
+        "Attrib": "AntiAttackNormal",
+        "Name": "\u53cd\u7269\u7406\u653b\u51fb"
+    },
+    {
+        "Index": 18,
+        "Attrib": "AntiAttackMagic1",
+        "Name": "\u53cd\u706b\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 19,
+        "Attrib": "AntiAttackMagic2",
+        "Name": "\u53cd\u96f7\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 20,
+        "Attrib": "AntiAttackMagic3",
+        "Name": "\u53cd\u51b0\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 21,
+        "Attrib": "AntiAttackMagic4",
+        "Name": "\u53cd\u6697\u5143\u7d20\u653b\u51fb"
+    },
+    {
+        "Index": 22,
+        "Attrib": "AntiAttackMagicEnd",
+        "Name": "\u53cd\u5143\u7d20\u653b\u51fb\u7ed3\u675f-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 23,
+        "Attrib": "DefenseNormal",
+        "Name": "\u9632\u5fa1"
+    },
+    {
+        "Index": 24,
+        "Attrib": "AntiDefenseNormal",
+        "Name": "\u53cd\u9632\u5fa1"
+    },
+    {
+        "Index": 25,
+        "Attrib": "DamageChangeP",
+        "Name": "\u989d\u5916\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 26,
+        "Attrib": "DamageNormalChangeP",
+        "Name": "\u7269\u7406\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 27,
+        "Attrib": "DamageMagic1ChangeP",
+        "Name": "\u706b\u5c5e\u6027\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 28,
+        "Attrib": "DamageMagic2ChangeP",
+        "Name": "\u96f7\u5c5e\u6027\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 29,
+        "Attrib": "DamageMagic3ChangeP",
+        "Name": "\u51b0\u5c5e\u6027\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 30,
+        "Attrib": "DamageMagic4ChangeP",
+        "Name": "\u6697\u5c5e\u6027\u4f24\u5bb3\u52a0\u6210"
+    },
+    {
+        "Index": 31,
+        "Attrib": "DamageMagicChangePEnd",
+        "Name": "\u5143\u7d20\u4f24\u5bb3\u52a0\u6210\u7ed3\u675f-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 32,
+        "Attrib": "AntiDamageChangeP",
+        "Name": "\u989d\u5916\u4f24\u5bb3\u51cf\u514d"
+    },
+    {
+        "Index": 33,
+        "Attrib": "AntiDamageNormalChangeP",
+        "Name": "\u7269\u7406\u6297\u6027"
+    },
+    {
+        "Index": 34,
+        "Attrib": "AntiDamageMagic1ChangeP",
+        "Name": "\u706b\u5c5e\u6027\u6297\u6027"
+    },
+    {
+        "Index": 35,
+        "Attrib": "AntiDamageMagic2ChangeP",
+        "Name": "\u96f7\u5c5e\u6027\u6297\u6027"
+    },
+    {
+        "Index": 36,
+        "Attrib": "AntiDamageMagic3ChangeP",
+        "Name": "\u51b0\u5c5e\u6027\u6297\u6027"
+    },
+    {
+        "Index": 37,
+        "Attrib": "AntiDamageMagic4ChangeP",
+        "Name": "\u6697\u5c5e\u6027\u6297\u6027"
+    },
+    {
+        "Index": 38,
+        "Attrib": "AntiDamageMagicChangePEnd",
+        "Name": "\u5143\u7d20\u6297\u6027\u7ed3\u675f-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 39,
+        "Attrib": "DamagePBegin",
+        "Name": "\u7c7b\u578b\u4f24\u5bb3\u8d77\u59cb-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 40,
+        "Attrib": "Damage1P",
+        "Name": "\u673a\u68b0\u4f24\u5bb3\u7387"
+    },
+    {
+        "Index": 41,
+        "Attrib": "Damage2P",
+        "Name": "\u5f02\u80fd\u4f24\u5bb3\u7387"
+    },
+    {
+        "Index": 42,
+        "Attrib": "Damage3P",
+        "Name": "\u751f\u7269\u4f24\u5bb3\u7387"
+    },
+    {
+        "Index": 43,
+        "Attrib": "DamagePEnd",
+        "Name": "\u7c7b\u578b\u4f24\u5bb3\u7ed3\u675f-\u4ec5\u6807\u8bb0"
+    },
+    {
+        "Index": 44,
+        "Attrib": "Crit",
+        "Name": "\u4f1a\u5fc3"
+    },
+    {
+        "Index": 45,
+        "Attrib": "CritP",
+        "Name": "\u66b4\u51fb\u7387"
+    },
+    {
+        "Index": 46,
+        "Attrib": "CritDamageP",
+        "Name": "\u66b4\u51fb\u4f24\u5bb3\u7387"
+    },
+    {
+        "Index": 47,
+        "Attrib": "AntiCritP",
+        "Name": "\u53cd\u66b4\u51fb\u7387"
+    },
+    {
+        "Index": 48,
+        "Attrib": "AntiCritDamageP",
+        "Name": "\u53cd\u66b4\u51fb\u4f24\u5bb3\u7387"
+    },
+    {
+        "Index": 49,
+        "Attrib": "Lifesteal",
+        "Name": "\u5438\u8840"
+    },
+    {
+        "Index": 50,
+        "Attrib": "LifestealP",
+        "Name": "\u5438\u8840\u7387"
+    },
+    {
+        "Index": 51,
+        "Attrib": "CureChangeP",
+        "Name": "\u6cbb\u7597\u52a0\u6df1\u7387"
+    },
+    {
+        "Index": 52,
+        "Attrib": "AntiCureChangeP",
+        "Name": "\u53cd\u6cbb\u7597\u52a0\u6df1\u7387"
+    },
+    {
+        "Index": 53,
+        "Attrib": "Endure",
+        "Name": "\u9738\u4f53\u503c-\u9ec4\u6761"
+    },
+    {
+        "Index": 54,
+        "Attrib": "ThreatRateP",
+        "Name": "\u4ec7\u6068\u751f\u6210\u901f\u7387"
+    },
+    {
+        "Index": 55,
+        "Attrib": "DodgeEnergy",
+        "Name": "\u95ea\u907f\u80fd\u91cf\u503c"
+    },
+    {
+        "Index": 56,
+        "Attrib": "DodgeEnergyAutoRecovery",
+        "Name": "\u95ea\u907f\u80fd\u91cf\u81ea\u52a8\u56de\u590d\uff08\u80fd\u91cf\u503c/\u79d2\uff09"
+    },
+    {
+        "Index": 57,
+        "Attrib": "CustomEnergy",
+        "Name": "\u81ea\u5b9a\u4e49\u80fd\u91cf\u503c"
+    },
+    {
+        "Index": 58,
+        "Attrib": "AccuResistance1",
+        "Name": "\u79ef\u84c4\u6297\u60271"
+    },
+    {
+        "Index": 59,
+        "Attrib": "AccuResistance2",
+        "Name": "\u79ef\u84c4\u6297\u60272"
+    },
+    {
+        "Index": 60,
+        "Attrib": "AccuResistance3",
+        "Name": "\u79ef\u84c4\u6297\u60273"
+    },
+    {
+        "Index": 61,
+        "Attrib": "AccuResistance4",
+        "Name": "\u79ef\u84c4\u6297\u60274"
+    },
+    {
+        "Index": 62,
+        "Attrib": "AccuResistance5",
+        "Name": "\u79ef\u84c4\u6297\u60275"
+    },
+    {
+        "Index": 63,
+        "Attrib": "AccuResistance6",
+        "Name": "\u79ef\u84c4\u6297\u60276"
+    },
+    {
+        "Index": 64,
+        "Attrib": "AccuResistance7",
+        "Name": "\u79ef\u84c4\u6297\u60277"
+    },
+    {
+        "Index": 65,
+        "Attrib": "AccuResistance8",
+        "Name": "\u79ef\u84c4\u6297\u60278"
+    },
+    {
+        "Index": 66,
+        "Attrib": "AccuResistance9",
+        "Name": "\u79ef\u84c4\u6297\u60279"
+    },
+    {
+        "Index": 67,
+        "Attrib": "AccuResistance10",
+        "Name": "\u79ef\u84c4\u6297\u602710"
+    },
+    {
+        "Index": 68,
+        "Attrib": "SquatSpeed",
+        "Name": "\u8e72\u8d70\u901f\u5ea6"
+    },
+    {
+        "Index": 69,
+        "Attrib": "NormalWeaknessP",
+        "Name": "\u7269\u7406\u5f31\u70b9"
+    },
+    {
+        "Index": 70,
+        "Attrib": "Magic1WeaknessP",
+        "Name": "\u706b\u5c5e\u6027\u5f31\u70b9"
+    },
+    {
+        "Index": 71,
+        "Attrib": "Magic2WeaknessP",
+        "Name": "\u96f7\u5c5e\u6027\u5f31\u70b9"
+    },
+    {
+        "Index": 72,
+        "Attrib": "Magic3WeaknessP",
+        "Name": "\u51b0\u5c5e\u6027\u5f31\u70b9"
+    },
+    {
+        "Index": 73,
+        "Attrib": "Magic4WeaknessP",
+        "Name": "\u6697\u5c5e\u6027\u5f31\u70b9"
+    },
+    {
+        "Index": 74,
+        "Attrib": "SprintSpeed",
+        "Name": "\u75be\u8dd1\u901f\u5ea6\uff08\u903b\u8f91\u5355\u4f4d/\u5e27\uff09"
+    },
+    {
+        "Index": 75,
+        "Attrib": "CustomEnergyGroup1",
+        "Name": "\u81ea\u5b9a\u4e49\u80fd\u91cf\u7ec41"
+    },
+    {
+        "Index": 76,
+        "Attrib": "CustomEnergyGroup2",
+        "Name": "\u81ea\u5b9a\u4e49\u80fd\u91cf\u7ec42"
+    },
+    {
+        "Index": 77,
+        "Attrib": "CustomEnergyGroup3",
+        "Name": "\u81ea\u5b9a\u4e49\u80fd\u91cf\u7ec43"
+    },
+    {
+        "Index": 78,
+        "Attrib": "CustomEnergyGroup4",
+        "Name": "\u81ea\u5b9a\u4e49\u80fd\u91cf\u7ec44"
+    },
+    {
+        "Index": 79,
+        "Attrib": "Hack",
+        "Name": "\u5904\u51b3\u503c"
+    },
+    {
+        "Index": 80,
+        "Attrib": "HackChangeP",
+        "Name": "\u5904\u51b3\u52a0\u6df1\u7387"
+    },
+    {
+        "Index": 81,
+        "Attrib": "AntiHackChangeP",
+        "Name": "\u5904\u51b3\u62b5\u6297\u7387"
+    },
+    {
+        "Index": 82,
+        "Attrib": "HackExecuteSkillTriggerP",
+        "Name": "\u53ef\u89e6\u53d1\u7ec8\u7ed3\u6280\u7684\u5904\u51b3\u503c\u5269\u4f59\u6bd4\u4f8b"
+    },
+    {
+        "Index": 83,
+        "Attrib": "SkillDamageChangeP",
+        "Name": "\u6280\u80fd\u500d\u7387\u52a0\u6df1\u7387"
+    },
+    {
+        "Index": 84,
+        "Attrib": "ReduceHackDynamicScoringCoe",
+        "Name": "\u602a\u7269\u5904\u51b3\u503c\u51cf\u5c11\u65f6\u7684\u52a8\u6001\u8bc4\u5206\u7cfb\u6570"
+    },
+    {
+        "Index": 85,
+        "Attrib": "BeExecutedDynamicScoringCoe",
+        "Name": "\u602a\u7269\u53d7\u5230\u5904\u51b3\u7684\u52a8\u6001\u8bc4\u5206\u7cfb\u6570"
+    },
+    {
+        "Index": 86,
+        "Attrib": "DynamicScoringScoreChangeP",
+        "Name": "\u52a8\u6001\u8bc4\u5206\u70b9\u6570\u83b7\u53d6\u63d0\u5347\u7387"
+    },
+    {
+        "Index": 87,
+        "Attrib": "DynamicScoringScoreChangeV",
+        "Name": "\u52a8\u6001\u8bc4\u5206\u70b9\u6570\u83b7\u53d6\u63d0\u5347\u503c"
+    },
+    {
+        "Index": 88,
+        "Attrib": "ReduceDynamicScoringScorePerSecondChangeP",
+        "Name": "\u52a8\u6001\u8bc4\u5206\u6bcf\u79d2\u56fa\u5b9a\u70b9\u6570\u4e0b\u964d\u63d0\u5347\u7387"
+    },
+    {
+        "Index": 89,
+        "Attrib": "ReduceDynamicScoringScorePerSecondChangeV",
+        "Name": "\u52a8\u6001\u8bc4\u5206\u6bcf\u79d2\u56fa\u5b9a\u70b9\u6570\u4e0b\u964d\u63d0\u5347\u503c"
+    },
+    {
+        "Index": 90,
+        "Attrib": "ReduceDynamicScoringScoreWhenBeDamagedChangeP",
+        "Name": "\u53d7\u4f24\u65f6\u52a8\u6001\u8bc4\u5206\u70b9\u6570\u4e0b\u964d\u63d0\u5347\u7387"
+    },
+    {
+        "Index": 91,
+        "Attrib": "ReduceDynamicScoringScoreWhenBeDamagedChangeV",
+        "Name": "\u53d7\u4f24\u65f6\u52a8\u6001\u8bc4\u5206\u70b9\u6570\u4e0b\u964d\u63d0\u5347\u503c"
+    },
+    {
+        "Index": 92,
+        "Attrib": "DamageAmplificationFactorP",
+        "Name": "\u4f24\u5bb3\u589e\u5e45"
+    }
+]

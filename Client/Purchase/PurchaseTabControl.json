@@ -1,0 +1,95 @@
+[
+    {
+        "Id": 1,
+        "Name": "\u5151\u6362",
+        "GroupId": 4,
+        "GroupName": "\u9ed1\u5361\u5151\u6362",
+        "GroupIcon": "UiChange",
+        "GroupOrder": 5,
+        "UiType": 3,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 2,
+        "Name": "\u9650\u8d2d\u8865\u7ed9\u5305",
+        "GroupId": 2,
+        "GroupName": "\u8865\u7ed9\u5305",
+        "GroupIcon": "UiPurchase",
+        "GroupOrder": 1,
+        "UiType": 5,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 3,
+        "Name": "\u65e5\u5e38\u8865\u7ed9\u5305",
+        "GroupId": 2,
+        "GroupName": "\u8865\u7ed9\u5305",
+        "GroupIcon": "UiPurchase",
+        "GroupOrder": 2,
+        "UiType": 6,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 4,
+        "Name": "\u5176\u4ed6\u8865\u7ed9\u5305",
+        "GroupId": 2,
+        "GroupName": "\u8865\u7ed9\u5305",
+        "GroupIcon": "UiPurchase",
+        "GroupOrder": 7,
+        "UiType": 7,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 5,
+        "Name": "\u6708\u5361",
+        "GroupId": 3,
+        "GroupName": "\u6708\u5361",
+        "GroupIcon": "UICard",
+        "GroupOrder": 4,
+        "UiType": 2,
+        "IsOpen": 1,
+        "ReqUiTypes": [
+            6.0
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "\u5145\u503c",
+        "GroupId": 1,
+        "GroupName": "\u5145\u503c",
+        "GroupIcon": "UiPay",
+        "GroupOrder": 6,
+        "UiType": 1,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 7,
+        "Name": "\u6d82\u88c5\u8865\u7ed9\u5305",
+        "GroupId": 2,
+        "GroupName": "\u8865\u7ed9\u5305",
+        "GroupIcon": "UiPurchase",
+        "GroupOrder": 3,
+        "UiType": 8,
+        "IsOpen": 1,
+        "ReqUiTypes": []
+    },
+    {
+        "Id": 8,
+        "Name": "\u70ed\u95e8\u63a8\u8350",
+        "GroupId": 5,
+        "GroupName": "\u70ed\u95e8\u63a8\u8350",
+        "GroupIcon": "UiRecommend",
+        "GroupOrder": 0,
+        "UiType": 0,
+        "IsOpen": 1,
+        "ReqUiTypes": [
+            5.0,
+            6.0
+        ]
+    }
+]

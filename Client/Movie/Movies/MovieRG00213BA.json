@@ -1,0 +1,81 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory11.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 55,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            201.0
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u4e00\u8def\u62a4\u9001\u7740\u5de8\u5854\u4e4b\u6c11\u7a7f\u8fc7\u57ce\u5e02\u2026"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u8d5b\u5229\u5361\u4e3a\u6b64\u4e13\u95e8\u8c03\u914d\u4e86\u8fd0\u8f93\u673a\u4e2d\u961f\uff0c\u4f46\u662f\u80fd\u8ba9\u8fd0\u8f93\u673a\u8d77\u964d\u7684\u673a\u573a\u79bb\u805a\u5c45\u70b9\u6709\u76f8\u5f53\u7684\u8ddd\u79bb\u3002"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u4e5f\u5c31\u662f\u8bf4\uff0c\u4f60\u4eec\u552f\u4e00\u7684\u9009\u62e9\u5c31\u662f\u7a7f\u8fc7\u773c\u524d\u7684\u5e9f\u5f03\u57ce\u533a\u3002"
+        ]
+    }
+]

@@ -1,0 +1,99 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory18.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 1000,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "203"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500005"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u519b\u5b98",
+            "\u2026\u2026\u5168\u7ebf\u64a4\u9000\uff0c\u653e\u5f03\u5f53\u524d\u6218\u533a\uff0c\u91cd\u590d\uff0c\u5730\u9762\u90e8\u961f\u5168\u7ebf\u64a4\u9000\uff0c\u653e\u5f03\u5f53\u524d\u6218\u533a\u3002"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u58eb\u5175",
+            "\u2026\u2026\u53ef\u662f\u2026\u2026\u64a4\u9000\u7684\u65f6\u95f4\u6839\u672c\u4e0d\u591f\uff0c\u8fd8\u6709\u5927\u91cf\u4f24\u5458\u6ca1\u6709\u8fd0\u9001\u56de\u6765\u2026\u2026",
+            1.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u519b\u5b98",
+            "\u2026\u2026\u8c01\u4e0d\u77e5\u9053\u8fd8\u6709\u4eba\uff01\u2026\u2026\u53ef\u662f\u6211\u4eec\u53ea\u80fd\u653e\u5f03\u4e86\uff0c\u8fd9\u6b21\u7684\u611f\u67d3\u4f53\u7684\u89c4\u6a21\u662f\u519b\u56e2\uff01\u5e38\u89c4\u90e8\u961f\u7559\u5728\u8fd9\u91cc\u7684\u65f6\u95f4\u8d8a\u591a\uff0c\u6b7b\u4ea1\u4eba\u6570\u5c31\u8d8a\u591a\uff01"
+        ]
+    }
+]

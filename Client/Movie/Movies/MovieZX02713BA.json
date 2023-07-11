@@ -1,0 +1,1590 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory545.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "201"
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6ca1\u6709\u5e73\u65f6\u57cb\u5934\u7814\u7a76\u7684\u7814\u7a76\u5458\uff0c\u79d1\u5b66\u7406\u4e8b\u4f1a\u4e8c\u90e8\u7684\u5b9e\u9a8c\u5ba4\u786e\u5b9e\u7565\u663e\u7a7a\u65f7\uff0c\u4f46\u4e0e\u4e4b\u76f8\u5bf9\u7684\uff0c\u4e0e\u8fd9\u91cc\u4f3c\u4e4e\u683c\u683c\u4e0d\u5165\u7684\u4e24\u540d\u5973\u6027\u7a81\u5140\u5730\u51fa\u73b0\u5728\u8fd9\u91cc\u3002"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u7a0d\u663e\u5e74\u957f\u7684\u5973\u6027\u70b9\u4e86\u70b9\u5934\uff0c\u7b11\u4e86\u7b11\u5c06\u624b\u642d\u5728\u4e86\u684c\u9762\u4e0a\uff0c\u90a3\u4e0a\u9762\u663e\u73b0\u7684\u5168\u606f\u6295\u5f71\u7684\u6619\u82b1\u4fbf\u6e10\u6e10\u6d88\u5931\u4e0d\u89c1\u3002"
+        ]
+    },
+    {
+        "Id": 5,
+        "ActionId": 5,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474",
+            "1",
+            400.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ActionId": 6,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "500380",
+            -400.0
+        ]
+    },
+    {
+        "Id": 7,
+        "ActionId": 7,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u4f0a\u4ec0\u6885\u5c14",
+            "\u8fd9\u5c31\u662f\u4f60\u7684\u613f\u671b\u5417\u2026\u2026",
+            2.0
+        ]
+    },
+    {
+        "Id": 8,
+        "ActionId": 8,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u867d\u7136\u4ee5\u7591\u95ee\u7ed3\u5c3e\uff0c\u4f46\u4f0a\u4ec0\u6885\u5c14\u5e76\u6ca1\u6709\u8be2\u95ee\u7684\u610f\u601d\uff0c\u50cf\u662f\u5728\u79f0\u8ff0\u65e9\u5df2\u77e5\u6653\u7684\u4e8b\u5b9e\u3002"
+        ]
+    },
+    {
+        "Id": 9,
+        "ActionId": 9,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e03\u5b9e",
+            "\u6ca1\u9519\uff0c\u8fd9\u4e5f\u662f\u4e03\u5b9e\u5b9a\u4e0b\u7684\u7ea6\u5b9a\uff01",
+            1.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ActionId": 10,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4f0a\u4ec0\u6885\u5c14",
+            "\u7ea6\u5b9a\u2026\u2026",
+            2.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ActionId": 11,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4f0a\u4ec0\u6885\u5c14",
+            "\u55ef\u2026\u2026\u6211\u4f1a\u5b9e\u73b0\u4f60\u4e0e\u5979\u7684\u7ea6\u5b9a\u3002",
+            2.0
+        ]
+    },
+    {
+        "Id": 12,
+        "ActionId": 12,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e03\u5b9e",
+            "\u90a3\u4e48\u6307\u6325\u5b98\u5c31\u62dc\u6258\u4f60\u4e86\u2026\u2026",
+            1.0
+        ]
+    },
+    {
+        "Id": 13,
+        "ActionId": 13,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1"
+        ]
+    },
+    {
+        "Id": 14,
+        "ActionId": 14,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e03\u5b9e\u6536\u8d77\u4e86\u7b11\u5bb9\uff0c\u5c06\u624b\u653e\u5728\u4e86\u80f8\u524d\uff0c\u50cf\u662f\u4e0b\u5b9a\u4e86\u6240\u6709\u7684\u51b3\u5fc3\u4e00\u822c\u3002"
+        ]
+    },
+    {
+        "Id": 15,
+        "ActionId": 15,
+        "NextActionId": null,
+        "Type": 204,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "4"
+        ]
+    },
+    {
+        "Id": 16,
+        "ActionId": 16,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e03\u5b9e",
+            "\u4e03\u5b9e\u2026\u2026\u8fd8\u6709\u975e\u5e38\u91cd\u8981\u7684\u4e8b\u60c5\u9700\u8981\u53bb\u505a\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 17,
+        "ActionId": 17,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            1.0
+        ]
+    },
+    {
+        "Id": 18,
+        "ActionId": 18,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgStory/BgStory583.jpg"
+        ]
+    },
+    {
+        "Id": 19,
+        "ActionId": 19,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 20,
+        "ActionId": 20,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005\u4f9d\u65e7\u77d7\u7acb\u5728\u62a4\u536b\u8230\u7684\u8230\u9996\uff0c\u770b\u4e0d\u51fa\u8868\u60c5\u7684\u8138\u5e9e\u76f4\u89c6\u7740\u4eff\u4f5b\u8fd1\u5728\u54ab\u5c3a\u7684\u7a7a\u4e2d\u82b1\u56ed\u3002"
+        ]
+    },
+    {
+        "Id": 21,
+        "ActionId": 21,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u8ddd\u79bb\u54c8\u5361\u739b\u5165\u4fb5\u2026\u2026\u5df2\u7ecf\u8fc7\u53bb300\u79d2\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 22,
+        "ActionId": 22,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4ed6\u4fa7\u773c\u770b\u4e86\u770b\u5904\u4e8e\u62a4\u536b\u8230\u5b89\u5168\u533a\u57df\u7684\u54c8\u5361\u739b\uff0c\u5979\u7684\u610f\u8bc6\u4f9d\u65e7\u5904\u4e8e\u6df1\u5ea6\u6f5c\u5165\u7684\u72b6\u6001\u4e4b\u4e2d\u3002"
+        ]
+    },
+    {
+        "Id": 23,
+        "ActionId": 23,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u6309\u7167\u65b9\u821f\u8ba1\u5212\u4f5c\u6218\u89c4\u5b9a\u2026\u2026\u54c8\u5361\u739b\u7684\u5165\u4fb5\u5224\u5b9a\u4e3a\u5931\u8d25\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 24,
+        "ActionId": 24,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u62a4\u536b\u8230\u5b9a\u65f6\u822a\u884c\u8bbe\u5b9a\u5b8c\u6bd5\u2014\u2014\u76ee\u7684\u5730\u4e3a\u7a7a\u4e2d\u82b1\u56ed\uff0c\u5982\u679c1800\u79d2\u540e\u6211\u672a\u80fd\u8fd4\u822a\u7684\u8bdd\uff0c\u5c31\u7528\u6574\u8258\u62a4\u536b\u8230\u649e\u5411\u7a7a\u4e2d\u82b1\u56ed\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 25,
+        "ActionId": 25,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u867d\u7136\u672a\u5fc5\u80fd\u591f\u6210\u529f\uff0c\u4f46\u8d77\u7801\u53ef\u4ee5\u91cd\u521b\u8fd9\u4e9b\u4eba\u7c7b\uff0c\u4e3a\u4e86\u6559\u4f1a\u7ec4\u7ec7\u4e0b\u4e00\u6ce2\u8fdb\u653b\u4e89\u53d6\u8db3\u591f\u7684\u65f6\u95f4\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 26,
+        "ActionId": 26,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1226"
+        ]
+    },
+    {
+        "Id": 27,
+        "ActionId": 27,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryFallNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 28,
+        "ActionId": 28,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5b8c\u6210\u4e86\u8fd9\u4e00\u5207\u4e4b\u540e\uff0c\u5149\u8f89\u884c\u8fdb\u8005\u542f\u52a8\u4e86\u63a8\u8fdb\u5668\uff0c\u5b9b\u82e5\u5149\u8f89\u7684\u63a8\u8fdb\u55b7\u7130\u8ba9\u4ed6\u8131\u79bb\u4e86\u62a4\u536b\u8230\u7684\u6a21\u62df\u91cd\u529b\uff0c\u7f13\u7f13\u6f02\u6d6e\u4e86\u8d77\u6765\uff0c\u53cc\u624b\u7684\u5149\u5203\u4ea7\u751f\u5668\u5f00\u59cb\u8986\u76d6\u70bd\u70ed\u7684\u5149\u8292\u3002"
+        ]
+    },
+    {
+        "Id": 29,
+        "ActionId": 29,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u65b9\u821f\u8ba1\u5212\u8fdb\u5165\u4e0b\u4e00\u9636\u6bb5\uff0c\u2018\u6218\u8f66\u2019\u2014\u2014\u5149\u8f89\u884c\u8fdb\u8005\uff0c\u5f00\u59cb\u7a81\u88ad\u7a7a\u4e2d\u82b1\u56ed\u2026\u2026\uff01",
+            1.0
+        ]
+    },
+    {
+        "Id": 30,
+        "ActionId": 30,
+        "NextActionId": null,
+        "Type": 402,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1226"
+        ]
+    },
+    {
+        "Id": 31,
+        "ActionId": 31,
+        "NextActionId": null,
+        "Type": 505,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryFallNew.prefab"
+        ]
+    },
+    {
+        "Id": 32,
+        "ActionId": 32,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryError.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 33,
+        "ActionId": 33,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1501"
+        ]
+    },
+    {
+        "Id": 34,
+        "ActionId": 34,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4f46\u5c31\u5728\u6b64\u65f6\uff0c\u62a4\u536b\u8230\u4e0a\u53d1\u51fa\u4e86\u5de8\u5927\u7684\u8b66\u62a5\u58f0\uff0c\u7cfb\u7edf\u793a\u610f\u6709\u67d0\u4e2a\u7269\u4f53\u6b63\u5728\u4ee5\u6781\u9ad8\u7684\u901f\u5ea6\u5411\u7740\u6b64\u5904\u98de\u884c\u3002"
+        ]
+    },
+    {
+        "Id": 35,
+        "ActionId": 35,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u88ab\u7a7a\u4e2d\u82b1\u56ed\u7684\u4eba\u7c7b\u53d1\u73b0\u4e86\u5417\u2026\u2026\u62e6\u622a\u4ed6\uff01",
+            1.0
+        ]
+    },
+    {
+        "Id": 36,
+        "ActionId": 36,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "869"
+        ]
+    },
+    {
+        "Id": 37,
+        "ActionId": 37,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "801"
+        ]
+    },
+    {
+        "Id": 38,
+        "ActionId": 38,
+        "NextActionId": null,
+        "Type": 505,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryError.prefab"
+        ]
+    },
+    {
+        "Id": 39,
+        "ActionId": 39,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u62a4\u536b\u8230\u7684\u62e6\u622a\u673a\u70ae\u53d1\u5c04\uff0c\u4f46\u662f\u90a3\u8001\u65e7\u7684\u70ae\u5f39\u5374\u5b8c\u5168\u6355\u6349\u4e0d\u5230\u90a3\u62b9\u5982\u540c\u6d41\u661f\u4e00\u822c\u7684\u5149\u8292\uff0c\u751a\u81f3\u5b83\u8fd8\u5728\u7ee7\u7eed\u52a0\u901f\u3002"
+        ]
+    },
+    {
+        "Id": 40,
+        "ActionId": 40,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryGoldDustLightWall.prefab",
+            "1"
+        ]
+    },
+    {
+        "Id": 41,
+        "ActionId": 41,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u8981\u6765\u4e86\uff0c\u6765\u4e0d\u53ca\u8eb2\u907f\uff01\u51c6\u5907\u9632\u5fa1\u51b2\u51fb\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 42,
+        "ActionId": 42,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 43,
+        "ActionId": 43,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "36"
+        ]
+    },
+    {
+        "Id": 44,
+        "ActionId": 44,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 45,
+        "ActionId": 45,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "781"
+        ]
+    },
+    {
+        "Id": 46,
+        "ActionId": 46,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": 2800.0,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "10007502"
+        ]
+    },
+    {
+        "Id": 47,
+        "ActionId": 47,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "778"
+        ]
+    },
+    {
+        "Id": 48,
+        "ActionId": 48,
+        "NextActionId": null,
+        "Type": 505,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryGoldDustLightWall.prefab"
+        ]
+    },
+    {
+        "Id": 49,
+        "ActionId": 49,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 50,
+        "ActionId": 50,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryGoldDustBrokenLightWall.prefab",
+            "1"
+        ]
+    },
+    {
+        "Id": 51,
+        "ActionId": 51,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "RImgBg1Shake",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u6d41\u661f\u523a\u7a7f\u4e86\u62a4\u536b\u8230\u7684\u5916\u5c42\uff0c\u91cd\u91cd\u5760\u843d\u5728\u62a4\u536b\u8230\u7684\u7532\u677f\u4e4b\u4e0a\u3002"
+        ]
+    },
+    {
+        "Id": 52,
+        "ActionId": 52,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "142"
+        ]
+    },
+    {
+        "Id": 53,
+        "ActionId": 53,
+        "NextActionId": null,
+        "Type": 505,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryGoldDustBrokenLightWall.prefab"
+        ]
+    },
+    {
+        "Id": 54,
+        "ActionId": 54,
+        "NextActionId": null,
+        "Type": 402,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1501"
+        ]
+    },
+    {
+        "Id": 55,
+        "ActionId": 55,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005\u51dd\u89c6\u7740\u8fd9\u4e2a\u4e0d\u901f\u4e4b\u5ba2\uff0c\u90a3\u662f\u548c\u81ea\u5df1\u8eab\u6750\u76f8\u5f53\u7684\u673a\u68b0\u9020\u7269\uff0c\u800c\u5728\u6b64\u4e4b\u4e0a\u2026\u2026\u7adf\u7136\u8fd8\u4e58\u5750\u7740\u4e00\u4e2a\u5c11\u5973\u3002"
+        ]
+    },
+    {
+        "Id": 56,
+        "ActionId": 56,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 57,
+        "ActionId": 57,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u5728\u5173\u4e8e\u7a7a\u4e2d\u82b1\u56ed\u7684\u6570\u636e\u5e93\u91cc\uff0c\u4ece\u6765\u6ca1\u6709\u8fc7\u8fd9\u4e2a\u6784\u9020\u4f53\u7684\u8d44\u6599\u2026\u2026\u4e0d\uff0c\u4f60\u4e0d\u662f\u6784\u9020\u4f53\uff0c\u4f60\u662f\u548c\u6211\u4eec\u4e00\u6837\u7684\u673a\u68b0\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 58,
+        "ActionId": 58,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u773c\u524d\u7684\u5c11\u5973\u5e76\u6ca1\u6709\u8fdb\u4e00\u6b65\u7684\u653b\u51fb\uff0c\u800c\u662f\u4ece\u4e58\u5750\u7684\u673a\u68b0\u4e0a\u8df3\u4e0b\uff0c\u76ee\u5149\u843d\u5728\u4e86\u8fdc\u5904\u7684\u54c8\u5361\u739b\u8eab\u4e0a\u3002"
+        ]
+    },
+    {
+        "Id": 59,
+        "ActionId": 59,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474",
+            "14"
+        ]
+    },
+    {
+        "Id": 60,
+        "ActionId": 60,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\uff1f\uff1f\uff1f",
+            "\u54c8\u5361\u739b\u2026\u2026\u548c\u6211\u5728\u672a\u6765\u91cc\u770b\u5230\u7684\u4e00\u6837\uff0c\u673a\u68b0\u6559\u4f1a\u7684\u5927\u5bb6\uff0c\u679c\u7136\u8fd8\u662f\u5728\u9519\u8bef\u7684\u65b9\u5411\u4e0a\u4e0d\u65ad\u8ff7\u8def\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 61,
+        "ActionId": 61,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\uff1f\uff1f\uff1f",
+            "\u5982\u679c\u672a\u6765\u6ca1\u6709\u88ab\u6539\u53d8\u7684\u8bdd\uff0c\u90a3\u4e48\u76f4\u5230\u6700\u540e\uff0c\u673a\u68b0\u548c\u4eba\u7c7b\u4e00\u5b9a\u4e5f\u548c\u65e0\u6570\u4e2a\u7ed3\u5c40\u90a3\u6837\uff0c\u4e0d\u53ef\u80fd\u4f1a\u6210\u4e3a\u5f7c\u6b64\u7684\u670b\u53cb\u5427\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 62,
+        "ActionId": 62,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5c11\u5973\u9732\u51fa\u4e86\u65e0\u6bd4\u5bc2\u5bde\u7684\u8868\u60c5\uff0c\u4f46\u662f\u8fd9\u5728\u5149\u8f89\u884c\u8fdb\u8005\u770b\u6765\uff0c\u5374\u5b8c\u5168\u65e0\u6cd5\u7406\u89e3\u3002"
+        ]
+    },
+    {
+        "Id": 63,
+        "ActionId": 63,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 64,
+        "ActionId": 64,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u548c\u4eba\u7c7b\u6210\u4e3a\u670b\u53cb\uff1f\u65e2\u7136\u4f60\u4e5f\u662f\u673a\u68b0\u4f53\uff0c\u5e94\u8be5\u5f88\u6e05\u695a\u4eba\u7c7b\u4ece\u6765\u6ca1\u6709\u628a\u6211\u4eec\u5f53\u6210\u662f\u80fd\u591f\u516c\u5e73\u5bf9\u8bdd\u7684\u5b58\u5728\uff0c\u673a\u68b0\u4e0d\u8fc7\u662f\u4ed6\u4eec\u7684\u5de5\u5177\u548c\u624b\u6bb5\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 65,
+        "ActionId": 65,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u800c\u5728\u5e15\u5f25\u4ec0\u7684\u5a01\u80c1\u4e0b\u2026\u2026\u6211\u4eec\u7684\u540c\u80de\u5931\u53bb\u4e86\u751f\u547d\u5931\u53bb\u4e86\u81ea\u6211\uff0c\u800c\u5f15\u8d77\u8fd9\u4e00\u5207\u707e\u96be\u7684\u5143\u51f6\uff0c\u90a3\u4e9b\u4eba\u7c7b\u5462\uff1f\u5374\u53ea\u662f\u628a\u6211\u4eec\u5f53\u6210\u662f\u602a\u7269\u4e88\u4ee5\u8bdb\u6740\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 66,
+        "ActionId": 66,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u90a3\u4f4d\u5c11\u5973\u5374\u5e76\u6ca1\u6709\u53cd\u9a73\u4ed6\u7684\u8bdd\uff0c\u53cd\u800c\u662f\u90d1\u91cd\u5730\u70b9\u4e86\u70b9\u5934\u3002"
+        ]
+    },
+    {
+        "Id": 67,
+        "ActionId": 67,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474"
+        ]
+    },
+    {
+        "Id": 68,
+        "ActionId": 68,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\uff1f\uff1f\uff1f",
+            "\u55ef\uff0c\u662f\u7684\uff0c\u800c\u8fd9\u5728\u672a\u6765\u7ec8\u5c06\u53d1\u5c55\u6210\u4eba\u4e0e\u673a\u68b0\u7684\u5168\u9762\u6218\u4e89\uff0c\u5982\u679c\u5927\u5bb6\u7684\u624b\u5f7c\u6b64\u63e1\u7d27\u6b66\u5668\u2026\u2026\u90a3\u4f38\u624b\u4ea4\u63e1\u7684\u65f6\u523b\u6c38\u8fdc\u90fd\u4e0d\u4f1a\u5230\u6765\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 69,
+        "ActionId": 69,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\uff1f\uff1f\uff1f",
+            "\u4f46\u662f\u73b0\u5728\u7684\u8bdd\uff0c\u6211\u4eec\u5927\u5bb6\u90fd\u8fd8\u6709\u9009\u62e9\u7684\u673a\u4f1a\uff0c\u53bb\u6539\u53d8\u8fd9\u6837\u7684\u672a\u6765\u2026\u2026",
+            1.0
+        ]
+    },
+    {
+        "Id": 70,
+        "ActionId": 70,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 71,
+        "ActionId": 71,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u4e0d\u7528\u4f60\u8bf4\u2026\u2026\u673a\u68b0\u6559\u4f1a\u5728\u505a\u7684\u6b63\u662f\u6539\u53d8\u8fd9\u6837\u7684\u672a\u6765\uff0c\u5982\u679c\u673a\u68b0\u6ce8\u5b9a\u4f1a\u5728\u672a\u6765\u4e0e\u4eba\u7c7b\u6218\u6597\uff0c\u90a3\u53ea\u8981\u5728\u73b0\u5728\u5c31\u5c06\u4eba\u7c7b\u8fd9\u4e2a\u5a01\u80c1\u5b8c\u5168\u6d88\u706d\u5373\u53ef\uff0c\u7136\u540e\u6211\u4eec\u5c06\u5e26\u9886\u6240\u6709\u7684\u540c\u80de\u79bb\u5f00\u8fd9\u4e2a\u5730\u7403\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 72,
+        "ActionId": 72,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "960"
+        ]
+    },
+    {
+        "Id": 73,
+        "ActionId": 73,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005\u5f20\u5f00\u4e86\u5168\u8eab\u7684\u6b66\u88c5\uff0c\u90a3\u5168\u662f\u4e3a\u4e86\u6740\u622e\u800c\u5b58\u5728\u7684\u7360\u7259\u3002"
+        ]
+    },
+    {
+        "Id": 74,
+        "ActionId": 74,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u6211\u7684\u4eba\u7c7b\u5236\u9020\u8005\u5c06\u6211\u5236\u9020\u51fa\u6765\u7684\u76ee\u7684\u5c31\u662f\u4e3a\u4e86\u6740\u6b7b\u53e6\u5916\u7684\u4eba\u7c7b\uff0c\u6211\u6700\u521d\u7684\u4f7f\u547d\u5c31\u662f\u5982\u6b64\u7684\u5355\u7eaf\u2026\u2026\u5c31\u8fde\u4eba\u7c7b\u4e4b\u95f4\u90fd\u6ca1\u6709\u529e\u6cd5\u6210\u4e3a\u2018\u670b\u53cb\u2019\uff0c\u4f60\u7684\u8bbe\u60f3\u4e0d\u8fc7\u53ea\u662f\u5929\u65b9\u591c\u8c2d\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 75,
+        "ActionId": 75,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474"
+        ]
+    },
+    {
+        "Id": 76,
+        "ActionId": 76,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\uff1f\uff1f\uff1f",
+            "\u6b63\u5982\u6211\u4eec\u5728\u4e0d\u65ad\u5730\u89c9\u9192\uff0c\u4eba\u7c7b\u4e5f\u5728\u52aa\u529b\u5730\u4e0d\u65ad\u6539\u53d8\u7740\u81ea\u5df1\u51dd\u805a\u7740\u5927\u5bb6\u8bd5\u56fe\u6539\u53d8\u4e00\u5207\uff0c\u8fd9\u4efd\u529b\u91cf\u7684\u672a\u6765\uff0c\u6211\u60f3\u5c31\u8fde\u683c\u5f0f\u5854\u90fd\u6ca1\u6709\u529e\u6cd5\u8ba1\u7b97\u51fa\u6765\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 77,
+        "ActionId": 77,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 78,
+        "ActionId": 78,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u8fd9\u5c31\u662f\u4f60\u7684\u8ba1\u7b97\u7ed3\u679c\u5417\u2026\u2026",
+            1.0
+        ]
+    },
+    {
+        "Id": 79,
+        "ActionId": 79,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5c11\u5973\u6709\u70b9\u8c03\u76ae\u5730\u6447\u4e86\u6447\u5934\uff0c\u5fae\u7b11\u7740\u56de\u7b54\u3002"
+        ]
+    },
+    {
+        "Id": 80,
+        "ActionId": 80,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474",
+            "1"
+        ]
+    },
+    {
+        "Id": 81,
+        "ActionId": 81,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\uff1f\uff1f\uff1f",
+            "\u4e0d\u662f\u7684\uff0c\u8fd9\u662f\u4e03\u5b9e\u7684\u2018\u4fe1\u5ff5\u2019\u54e6\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 82,
+        "ActionId": 82,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500485"
+        ]
+    },
+    {
+        "Id": 83,
+        "ActionId": 83,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u2018\u4fe1\u5ff5\u2019\uff0c\u4e0d\u9519\u7684\u540d\u8bcd\uff0c\u6211\u4f1a\u8bb0\u5f55\u4e0b\u6765\u7684\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 84,
+        "ActionId": 84,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u800c\u4e03\u5b9e\u2026\u2026\u90a3\u662f\u4f60\u7684\u540d\u5b57\u5417\uff0c\u5982\u679c\u4f60\u4e0e\u6211\u90fd\u6709\u5404\u81ea\u76f8\u4fe1\u7684\u672a\u6765\uff0c\u90a3\u4e48\u5c31\u9700\u8981\u8fdb\u884c\u5b9e\u9a8c\uff0c\u6765\u5224\u65ad\u8c01\u6709\u8db3\u591f\u652f\u6491\u672a\u6765\u7684\u529b\u91cf\u4e86\u3002",
+            1.0
+        ]
+    },
+    {
+        "Id": 85,
+        "ActionId": 85,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "36"
+        ]
+    },
+    {
+        "Id": 86,
+        "ActionId": 86,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u5149\u8f89\u884c\u8fdb\u8005\u4e0d\u518d\u8bf4\u8bdd\uff0c\u5c06\u5168\u90e8\u7684\u7b97\u529b\u96c6\u4e2d\u5230\u6218\u672f\u56de\u8def\u4e2d\uff0c\u867d\u7136\u773c\u524d\u7684\u5c11\u5973\u5a07\u5c0f\u5355\u8584\uff0c\u5ea7\u4e0b\u7684\u673a\u68b0\u4e5f\u4e0d\u50cf\u81ea\u5df1\u4e00\u6837\u6709\u7740\u5f3a\u5927\u7684\u6b66\u88c5\uff0c\u4f46\u4e0d\u77e5\u4e3a\u4f55\uff0c\u4ed6\u5374\u6ca1\u6709\u529e\u6cd5\u8f7b\u89c6\u6765\u81ea\u5979\u7684\u5a01\u80c1\u3002"
+        ]
+    },
+    {
+        "Id": 87,
+        "ActionId": 87,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "140"
+        ]
+    },
+    {
+        "Id": 88,
+        "ActionId": 88,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryLineSpreadNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 89,
+        "ActionId": 89,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u5149\u8f89\u884c\u8fdb\u8005",
+            "\u6211\u4f1a\u5c3d\u5168\u529b\u5c06\u4f60\u51fb\u6e83\uff01",
+            1.0
+        ]
+    },
+    {
+        "Id": 90,
+        "ActionId": 90,
+        "NextActionId": null,
+        "Type": 201,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "500474",
+            "4"
+        ]
+    },
+    {
+        "Id": 91,
+        "ActionId": 91,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "\u4e03\u5b9e",
+            "\u4e03\u5b9e\u4e5f\u4f1a\u5c3d\u5168\u529b\u53bb\u963b\u6b62\u4f60\uff01",
+            1.0
+        ]
+    },
+    {
+        "Id": 92,
+        "ActionId": 92,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 93,
+        "ActionId": 93,
+        "NextActionId": null,
+        "Type": 202,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 94,
+        "ActionId": 94,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "1226"
+        ]
+    },
+    {
+        "Id": 95,
+        "ActionId": 95,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": 500.0,
+        "EndDelay": null,
+        "Params": [
+            "2",
+            "819004"
+        ]
+    },
+    {
+        "Id": 96,
+        "ActionId": 96,
+        "NextActionId": null,
+        "Type": 501,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStoryNew/FxUiStoryWhiteNew.prefab",
+            "2"
+        ]
+    },
+    {
+        "Id": 97,
+        "ActionId": 97,
+        "NextActionId": null,
+        "Type": 502,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "RImgBg1Shake"
+        ]
+    },
+    {
+        "Id": 98,
+        "ActionId": 98,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e24\u53f0\u673a\u68b0\u7684\u63a8\u8fdb\u5668\u540c\u65f6\u53d1\u52a8\uff0c\u5149\u8292\u4e0e\u5149\u8292\u4ea4\u7ec7\u5728\u4e86\u4e00\u8d77\u3002"
+        ]
+    }
+]

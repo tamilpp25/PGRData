@@ -1,0 +1,422 @@
+[
+    {
+        "Id": 1,
+        "Name": "\u67e0\u4e03",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood26.png",
+        "Quality": 1,
+        "ConsumeIngredientIds": [
+            1
+        ],
+        "ConsumeIngredientCounts": [
+            1
+        ],
+        "ProduceNeedTime": 240,
+        "Price": 24,
+        "SaleNeedTime": 240,
+        "Priority": 1,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 2,
+        "Name": "\u897f\u74dc\u6c41",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood27.png",
+        "Quality": 1,
+        "ConsumeIngredientIds": [
+            1
+        ],
+        "ConsumeIngredientCounts": [
+            1
+        ],
+        "ProduceNeedTime": 200,
+        "Price": 23,
+        "SaleNeedTime": 200,
+        "Priority": 2,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 3,
+        "Name": "\u51b0\u725b\u5976",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood28.png",
+        "Quality": 1,
+        "ConsumeIngredientIds": [
+            2
+        ],
+        "ConsumeIngredientCounts": [
+            2
+        ],
+        "ProduceNeedTime": 210,
+        "Price": 30,
+        "SaleNeedTime": 200,
+        "Priority": 3,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 4,
+        "Name": "\u6e2f\u5f0f\u5976\u8336",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood29.png",
+        "Quality": 2,
+        "ConsumeIngredientIds": [
+            2,
+            3.0
+        ],
+        "ConsumeIngredientCounts": [
+            1,
+            1.0
+        ],
+        "ProduceNeedTime": 210,
+        "Price": 33,
+        "SaleNeedTime": 200,
+        "Priority": 4,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63454.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "\u7eff\u8c46\u6c99",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood30.png",
+        "Quality": 1,
+        "ConsumeIngredientIds": [
+            4
+        ],
+        "ConsumeIngredientCounts": [
+            3
+        ],
+        "ProduceNeedTime": 440,
+        "Price": 47,
+        "SaleNeedTime": 200,
+        "Priority": 5,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 6,
+        "Name": "\u6c34\u679c\u8c46\u82b1",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood31.png",
+        "Quality": 2,
+        "ConsumeIngredientIds": [
+            1,
+            4.0
+        ],
+        "ConsumeIngredientCounts": [
+            1,
+            2.0
+        ],
+        "ProduceNeedTime": 480,
+        "Price": 55,
+        "SaleNeedTime": 240,
+        "Priority": 6,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63455.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "\u7f8e\u5f0f\u5496\u5561",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood32.png",
+        "Quality": 2,
+        "ConsumeIngredientIds": [
+            3
+        ],
+        "ConsumeIngredientCounts": [
+            3
+        ],
+        "ProduceNeedTime": 540,
+        "Price": 61,
+        "SaleNeedTime": 360,
+        "Priority": 7,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 8,
+        "Name": "\u78b1\u6c34\u9762\u5305",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood33.png",
+        "Quality": 2,
+        "ConsumeIngredientIds": [
+            4,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            1.0
+        ],
+        "ProduceNeedTime": 640,
+        "Price": 73,
+        "SaleNeedTime": 400,
+        "Priority": 8,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 9,
+        "Name": "\u6fb3\u745e\u767d",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood34.png",
+        "Quality": 3,
+        "ConsumeIngredientIds": [
+            2,
+            3.0
+        ],
+        "ConsumeIngredientCounts": [
+            1,
+            2.0
+        ],
+        "ProduceNeedTime": 480,
+        "Price": 75,
+        "SaleNeedTime": 400,
+        "Priority": 9,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63456.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "\u8292\u679c\u7ef5\u7ef5\u51b0",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood35.png",
+        "Quality": 3,
+        "ConsumeIngredientIds": [
+            1,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 960,
+        "Price": 144,
+        "SaleNeedTime": 600,
+        "Priority": 10,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 11,
+        "Name": "\u5976\u6cb9\u6ce1\u8299",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood36.png",
+        "Quality": 3,
+        "ConsumeIngredientIds": [
+            2,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 720,
+        "Price": 132,
+        "SaleNeedTime": 660,
+        "Priority": 11,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 12,
+        "Name": "\u62b9\u8336\u7ea2\u8c46\u51b0",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood37.png",
+        "Quality": 3,
+        "ConsumeIngredientIds": [
+            3,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 800,
+        "Price": 132,
+        "SaleNeedTime": 600,
+        "Priority": 12,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63457.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "\u67ab\u7cd6\u677e\u997c",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood38.png",
+        "Quality": 3,
+        "ConsumeIngredientIds": [
+            2,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            3,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 960,
+        "Price": 150,
+        "SaleNeedTime": 600,
+        "Priority": 13,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 14,
+        "Name": "\u751c\u871c\u66b4\u51fb\u6ce1\u8299",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood39.png",
+        "Quality": 4,
+        "ConsumeIngredientIds": [
+            1,
+            2.0,
+            3.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 720,
+        "Price": 188,
+        "SaleNeedTime": 600,
+        "Priority": 14,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63458.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "\u590f\u65e5\u8393\u8393\u677e\u997c",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood40.png",
+        "Quality": 4,
+        "ConsumeIngredientIds": [
+            1,
+            2.0,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            1,
+            2.0,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 800,
+        "Price": 200,
+        "SaleNeedTime": 660,
+        "Priority": 15,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63459.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    },
+    {
+        "Id": 16,
+        "Name": "\u9ca8\u78a7\u6c7d\u6c34",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood41.png",
+        "Quality": 4,
+        "ConsumeIngredientIds": [
+            3,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            4,
+            1.0
+        ],
+        "ProduceNeedTime": 900,
+        "Price": 195,
+        "SaleNeedTime": 600,
+        "Priority": 16,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 17,
+        "Name": "\u58eb\u591a\u5564\u68a8\u82ad\u83f2",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood42.png",
+        "Quality": 4,
+        "ConsumeIngredientIds": [
+            1,
+            2.0,
+            4.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            1,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "ProduceNeedTime": 750,
+        "Price": 225,
+        "SaleNeedTime": 600,
+        "Priority": 17,
+        "IsDefault": 1,
+        "UnlockItemIds": [],
+        "UnlockItemCounts": []
+    },
+    {
+        "Id": 18,
+        "Name": "\u8c6a\u534e\u82ad\u83f2\u676f",
+        "Icon": "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantFood43.png",
+        "Quality": 4,
+        "ConsumeIngredientIds": [
+            1,
+            2.0,
+            3.0,
+            5.0
+        ],
+        "ConsumeIngredientCounts": [
+            2,
+            2.0,
+            1.0,
+            1.0
+        ],
+        "ProduceNeedTime": 750,
+        "Price": 280,
+        "SaleNeedTime": 600,
+        "Priority": 18,
+        "IsDefault": 0,
+        "UnlockItemIds": [
+            63460.0
+        ],
+        "UnlockItemCounts": [
+            1.0
+        ]
+    }
+]

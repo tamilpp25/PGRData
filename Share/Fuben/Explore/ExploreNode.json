@@ -1,0 +1,2354 @@
+[
+    {
+        "Id": 1,
+        "ChapterId": 1,
+        "Name": "M-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00101BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "6:11",
+        "Posision": [],
+        "Title": "\u6380\u5f00\u9ec4\u91d1\u9762\u7eb1",
+        "Explain": "\u7070\u9e26\u9690\u533f\u4e8e\u9ece\u660e\u524d\u7684\u9ed1\u6697\uff0c\u7a7f\u8fc7\u91cd\u91cd\u6c99\u5c18\u66b4\uff0c\u5728\u65e5\u51fa\u4e4b\u65f6\u8e0f\u5165\u540d\u4e3a\u201c\u9ec4\u91d1\u4e4b\u6da1\u201d\u7684\u65e0\u4eba\u8352\u6f20\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 2,
+        "ChapterId": 1,
+        "Name": "M-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020101",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            1.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020101.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "6:22",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9996\u6b21\u51b2\u7a81",
+        "Explain": "\u548c\u4e3d\u8299\u5206\u5f00\u540e\uff0c\u7070\u9e26\u548c\u9ec4\u91d1\u4e4b\u6da1\u7684\u5b88\u536b\u9996\u6b21\u7206\u53d1\u51b2\u7a81\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 3,
+        "ChapterId": 1,
+        "Name": "M-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00102BA",
+        "Icon": null,
+        "PreShowId": [
+            2.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "6:36",
+        "Posision": [],
+        "Title": "\u5149\u67f1\u4e4b\u8c1c",
+        "Explain": "\u9ec4\u91d1\u4e4b\u6da1\u4e2d\u5fc3\u6709\u4e00\u5ea7\u55b7\u6d8c\u7740\u201c\u9ec4\u91d1\u5149\u67f1\u201d\u7684\u5efa\u7b51\u7fa4\uff0c\u7070\u9e26\u65e0\u4ece\u77e5\u6653\u5b83\u7684\u6765\u5386\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 4,
+        "ChapterId": 1,
+        "Name": "M-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020102",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            3.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020102.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "6:47",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5149\u67f1\u4e4b\u8c1c",
+        "Explain": "\u4e3d\u8299\u79bb\u961f\u7ea6\u4e09\u5341\u5206\u949f\u540e\uff0c\u9732\u897f\u4e9a\u53d1\u73b0\u6c99\u96c0\u961f\u5458\u7684\u9057\u4f53\uff0c\u5979\u51b3\u5fc3\u8981\u63ea\u51fa\u6b8b\u6740\u6c99\u96c0\u7684\u51f6\u624b\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 5,
+        "ChapterId": 1,
+        "Name": "B II-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00103BA",
+        "Icon": null,
+        "PreShowId": [
+            4.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadSandSparrow.png",
+        "TimeDesc": "\u6628\u65e512\uff1a45",
+        "Posision": [],
+        "Title": "\u5b58\u5728\u7684\u4ef7\u503c",
+        "Explain": "\u6628\u5929\u6b63\u5348\u65f6\u5206\uff0c\u6c99\u96c0\u4e34\u65f6\u66f4\u6539\u4efb\u52a1\u76ee\u6807\uff0c\u5168\u4f53\u5411\u9ec4\u91d1\u4e4b\u6da1\u4e2d\u5fc3\u5730\u5e26\u8f6c\u79fb\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 6,
+        "ChapterId": 1,
+        "Name": "B II-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020103",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            5.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020103.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadSandSparrow.png",
+        "TimeDesc": "\u6628\u65e515\uff1a55",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u8e52\u8dda",
+        "Explain": "\u6c99\u96c0\u5728\u9ec4\u6c99\u4e0a\u8017\u4e86\u8fd1\u4e09\u4e2a\u5c0f\u65f6\uff0c\u603b\u7b97\u62b5\u8fbe\u4e2d\u5fc3\u5730\u5e26\u5916\u56f4\u56f4\u5899\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 7,
+        "ChapterId": 1,
+        "Name": "B II-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020104",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            6.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020104.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/EGouliangI01001Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadSandSparrow.png",
+        "TimeDesc": "\u6628\u65e517\uff1a33",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u593a\u547d\u6865",
+        "Explain": "\u6c99\u96c0\u906d\u5230\u5b88\u536b\u56f4\u8ffd\u5835\u622a\uff0c\u76f4\u5230\u508d\u665a\uff0c\u4ed6\u4eec\u624d\u610f\u8bc6\u5230\u81ea\u5df1\u65e0\u529b\u7ee7\u7eed\u5411\u524d\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 8,
+        "ChapterId": 1,
+        "Name": "B II-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00104BA",
+        "Icon": null,
+        "PreShowId": [
+            7.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadSandSparrow.png",
+        "TimeDesc": "\u6628\u65e518\uff1a42",
+        "Posision": [],
+        "Title": "\u8d21\u732e",
+        "Explain": "\u591c\u5e55\u5373\u5c06\u6765\u4e34\uff0c\u6c99\u96c0\u5168\u4f53\u6210\u5458\u4f3c\u4e4e\u90fd\u9884\u77e5\u4e86\u5373\u5c06\u5230\u6765\u7684\u547d\u8fd0\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 9,
+        "ChapterId": 1,
+        "Name": "M-5",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00105BA",
+        "Icon": null,
+        "PreShowId": [
+            4.0
+        ],
+        "PreOpenId": [
+            7.0,
+            21.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "6:58",
+        "Posision": [],
+        "Title": "\u5b64\u9e26",
+        "Explain": "\u4e0e\u4e3d\u8299\u7684\u901a\u8baf\u95ea\u65ad\u540e\uff0c\u91cc\u79bb\u961f\u5bfb\u627e\u4e3d\u8299\uff0c\u800c\u9732\u897f\u4e9a\u7559\u5728\u6307\u6325\u5b98\u8eab\u8fb9\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 10,
+        "ChapterId": 1,
+        "Name": "M-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020105",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            9.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020105.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "7:15",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5bc6\u9053",
+        "Explain": "\u5728\u9ec4\u91d1\u4e4b\u6da1\u5ea6\u8fc7\u7b2c\u4e00\u4e2a\u5c0f\u65f6\uff0c\u961f\u4f0d\u53ea\u5269\u4e0b\u9732\u897f\u4e9a\u548c\u6307\u6325\u5b98\uff0c\u6b64\u65f6\u4ed6\u4eec\u88ab\u8feb\u9000\u5b88\u5730\u4e0b\u5bc6\u9053\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 11,
+        "ChapterId": 1,
+        "Name": "M-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020106",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            10.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020106.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "7:30",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5973\u738b\u4e0e\u5e0c\u671b",
+        "Explain": "\u5728\u5730\u4e0b\u5bc6\u9053\u85cf\u4e86\u5341\u4e94\u5206\u949f\u540e\u2026\u2026\u4e00\u5177\u884c\u5982\u8d70\u5c38\u7684\u6784\u9020\u4f53\u5f15\u8d77\u9732\u897f\u4e9a\u7684\u8b66\u89c9\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 12,
+        "ChapterId": 1,
+        "Name": "M-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00106BA",
+        "Icon": null,
+        "PreShowId": [
+            11.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "7:48",
+        "Posision": [],
+        "Title": "\u738b\u4e4b\u7981\u536b",
+        "Explain": "\u5973\u738b\u7981\u536b\u643a\u5927\u6279\u5b88\u536b\u8ffd\u6355\u9732\u897f\u4e9a\u548c\u6307\u6325\u5b98\uff0c\u4ed6\u4eec\u8fde\u7eed\u9003\u4ea1\u6570\u5341\u5206\u949f\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 13,
+        "ChapterId": 1,
+        "Name": "B III-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00107BA",
+        "Icon": null,
+        "PreShowId": [
+            9.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLi3.png",
+        "TimeDesc": "7:07",
+        "Posision": [],
+        "Title": "\u4e00\u4e8c\u4e09\u6728\u5934\u4eba",
+        "Explain": "\u79bb\u961f\u8fd8\u6ca1\u6709\u5341\u5206\u949f\uff0c\u91cc\u5c31\u88ab\u4e00\u7fa4\u884c\u4e3a\u602a\u5f02\u7684\u5b88\u536b\u56f0\u4f4f\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 14,
+        "ChapterId": 1,
+        "Name": "B III-2",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020107",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            13.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020107.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/E1GouliangMd010011Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLi3.png",
+        "TimeDesc": "7:30",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u5df7\u6218",
+        "Explain": "\u548c\u5b88\u536b\u5468\u65cb\u8fd1\u534a\u5c0f\u65f6\uff0c\u91cc\u4e3e\u6b65\u7ef4\u8270\u3002\u6700\u540e\u4ed6\u4f01\u56fe\u501f\u52a9\u5730\u4e0b\u5bc6\u9053\uff0c\u6446\u8131\u5b88\u536b\u7684\u7ea0\u7f20\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 15,
+        "ChapterId": 1,
+        "Name": "B III-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00108BA",
+        "Icon": null,
+        "PreShowId": [
+            14.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLi3.png",
+        "TimeDesc": "7:42",
+        "Posision": [],
+        "Title": "\u8c6a\u8d4c",
+        "Explain": "\u91cc\u5728\u5730\u4e0b\u5bc6\u9053\u93d6\u6218\u5341\u591a\u5206\u949f\uff0c\u5b88\u536b\u91c7\u7528\u56f0\u517d\u6218\u672f\uff0c\u6253\u7b97\u5c06\u91cc\u56f4\u56f0\u81f3\u6b7b\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 16,
+        "ChapterId": 1,
+        "Name": "M-9",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00109BA",
+        "Icon": null,
+        "PreShowId": [
+            12.0,
+            15.0
+        ],
+        "PreOpenId": [
+            12.0,
+            24.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "8:10",
+        "Posision": [],
+        "Title": "\u9080\u8bf7\u51fd",
+        "Explain": "\u9732\u897f\u4e9a\u9677\u5165\u82e6\u6218\u4e4b\u65f6\uff0c\u4e00\u76f4\u672a\u9732\u9762\u7684\u5973\u738b\u901a\u8fc7\u7981\u536b\uff0c\u9080\u8bf7\u6307\u6325\u5b98\u524d\u5f80\u5bdd\u5bab\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 17,
+        "ChapterId": 1,
+        "Name": "M-10",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020108",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            16.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020108.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeGemSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "8:20",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u68a6\u9192",
+        "Explain": "\u540d\u4e49\u4e0a\u7684\u9080\u8bf7\u5b9e\u4e3a\u80c1\u8feb\uff0c\u9732\u897f\u4e9a\u62d2\u7edd\u4e86\u5973\u738b\uff0c\u7070\u9e26\u548c\u5973\u738b\u7981\u536b\u7206\u53d1\u5168\u9762\u51b2\u7a81\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 18,
+        "ChapterId": 1,
+        "Name": "M-11",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00110BA",
+        "Icon": null,
+        "PreShowId": [
+            17.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "8:44",
+        "Posision": [],
+        "Title": "\u541b\u4e34",
+        "Explain": "\u65f6\u95f4\u63a5\u8fd1\u4e0a\u5348\uff0c\u70c8\u9633\u7167\u8000\u9ec4\u91d1\u4e4b\u6da1\uff0c\u201c\u9ec4\u91d1\u5973\u738b\u201d\u7ec8\u4e8e\u73b0\u8eab\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 19,
+        "ChapterId": 1,
+        "Name": "B I-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020109",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            1.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020109.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "6:41",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u540c\u884c",
+        "Explain": "\u4e3d\u8299\u548c\u6c99\u96c0\u961f\u957f\u5e03\u6717\u5b81\u642d\u6863\uff0c\u5728\u6668\u66e6\u7684\u8352\u6f20\u91cc\u627e\u5bfb\u6c99\u96c0\u9057\u7559\u7684\u6218\u7565\u88c5\u7f6e\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 20,
+        "ChapterId": 1,
+        "Name": "B I-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00111BA",
+        "Icon": null,
+        "PreShowId": [
+            19.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:20",
+        "Posision": [],
+        "Title": "\u6316\u6398\u5730",
+        "Explain": "\u5728\u8352\u6f20\u4e2d\u6478\u7d22\u4e86\u5c06\u8fd1\u56db\u5341\u5206\u949f\uff0c\u5e03\u6717\u5b81\u624d\u5bfb\u83b7\u88c5\u7f6e\uff0c\u53ef\u662f\u88c5\u7f6e\u5df2\u88ab\u9ec4\u91d1\u7c89\u672b\u63a9\u57cb\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 21,
+        "ChapterId": 1,
+        "Name": "B I-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020110",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            20.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020110.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/EGouliangI01001Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:22",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5b88\u62a4",
+        "Explain": "\u88c5\u7f6e\u4f3c\u4e4e\u5438\u5f15\u4e86\u5927\u91cf\u5b88\u536b\uff0c\u5b83\u4eec\u8fc5\u901f\u805a\u62e2\uff0c\u4e3d\u8299\u8a93\u8981\u4fdd\u62a4\u5e03\u6717\u5b81\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 22,
+        "ChapterId": 1,
+        "Name": "B I-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00112BA",
+        "Icon": null,
+        "PreShowId": [
+            21.0
+        ],
+        "PreOpenId": [
+            9.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:40",
+        "Posision": [],
+        "Title": "\u52ab\u540e\u4f59\u751f",
+        "Explain": "\u6316\u6398\u88c5\u7f6e\u8017\u8d39\u4e86\u5341\u4f59\u5206\u949f\uff0c\u51e0\u4e4e\u5c31\u8981\u6210\u529f\uff0c\u5e03\u6717\u5b81\u5374\u8bef\u89e6\u88c5\u7f6e\u4e0b\u65b9\u7684\u5730\u96f7\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 23,
+        "ChapterId": 1,
+        "Name": "B I-5",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020111",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            22.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 4,
+        "RewardId": 30020111.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI190020Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:41",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u7279\u6d1b\u4f0a",
+        "Explain": "\u4e3a\u4e86\u907f\u514d\u641c\u5bfb\u4efb\u52a1\u529f\u4e8f\u4e00\u7bd1\uff0c\u4e3d\u8299\u51b3\u5b9a\u4fb5\u5165\u88c5\u7f6e\u7684\u64cd\u4f5c\u7cfb\u7edf\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a3000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab01.png"
+    },
+    {
+        "Id": 24,
+        "ChapterId": 1,
+        "Name": "B I-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00113BA",
+        "Icon": null,
+        "PreShowId": [
+            23.0
+        ],
+        "PreOpenId": [
+            12.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:46",
+        "Posision": [],
+        "Title": "\u51b7\u67aa",
+        "Explain": "\u5165\u4fb5\u7cfb\u7edf\u7ea6\u4e94\u5206\u949f\u540e\uff0c\u4e3d\u8299\u8fd4\u56de\u81ea\u5df1\u673a\u4f53\uff0c\u53ef\u662f\u5e03\u6717\u5b81\u7adf\u7136\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 25,
+        "ChapterId": 1,
+        "Name": "B I-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00114BA",
+        "Icon": null,
+        "PreShowId": [
+            24.0
+        ],
+        "PreOpenId": [
+            18.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLifu3.png",
+        "TimeDesc": "7:47",
+        "Posision": [],
+        "Title": "\u7834\u788e\u76f8\u9022",
+        "Explain": "\u5371\u673a\u5f53\u524d\uff0c\u4e3d\u8299\u6293\u4f4f\u8f6c\u77ac\u800c\u901d\u7684\u673a\u4f1a\uff0c\u4e0e\u5e03\u6717\u5b81\u201c\u7389\u77f3\u4ff1\u711a\u201d\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab01.png"
+    },
+    {
+        "Id": 51,
+        "ChapterId": 2,
+        "Name": "M I-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00115BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "9:08",
+        "Posision": [],
+        "Title": "\u72ec\u884c\u4fa0",
+        "Explain": "\u4e0a\u5348\u4f0a\u59cb\uff0c\u6e21\u8fb9\u62b5\u8fbe\u9ec4\u91d1\u4e4b\u6da1\uff0c\u4ed6\u9762\u5bf9\u8ff7\u96fe\u822c\u7684\u654c\u60c5\uff0c\u5b64\u8eab\u95ef\u5165\u654c\u9635\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 52,
+        "ChapterId": 2,
+        "Name": "M I-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020201",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            51.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020201.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "9:15",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5ba1\u8baf",
+        "Explain": "\u6e21\u8fb9\u82b1\u4e86\u51e0\u5206\u949f\u89c2\u5bdf\u5b88\u536b\uff0c\u6700\u7ec8\u4ed6\u5c1d\u8bd5\u6293\u4e2a\u51fa\u6765\uff0c\u5ba1\u8baf\u4e00\u756a\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 53,
+        "ChapterId": 2,
+        "Name": "M I-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00116BA",
+        "Icon": null,
+        "PreShowId": [
+            52.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "9:21",
+        "Posision": [],
+        "Title": "\u8fc7\u7ee7\u98ce\u9669",
+        "Explain": "\u62b5\u8fbe\u9ec4\u91d1\u4e4b\u6da1\u5341\u6765\u5206\u949f\u540e\uff0c\u6e21\u8fb9\u78b0\u89c1\u6bd4\u5b89\u5361\u5e76\u51b3\u5b9a\u8ddf\u968f\u5979\u524d\u8fdb\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 54,
+        "ChapterId": 2,
+        "Name": "M II-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00117BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "8:25",
+        "Posision": [],
+        "Title": "\u8db3\u4ee5\u62ef\u6551\u5730\u7403",
+        "Explain": "\u628a\u4e3d\u8299\u9001\u8d70\u540e\uff0c\u6bd4\u5b89\u5361\u82b1\u4e86\u534a\u5c0f\u65f6\u5728\u9ec4\u6c99\u4e2d\u63a2\u7d22\uff0c\u53ea\u56e0\u5979\u63a8\u6d4b\u51fa\u7a7a\u4e2d\u82b1\u56ed\u7684\u771f\u5b9e\u76ee\u7684\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 55,
+        "ChapterId": 2,
+        "Name": "M II-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020202",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            54.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020202.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "8:37",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u6b7b\u800c\u590d\u751f",
+        "Explain": "\u6bd4\u5b89\u5361\u5728\u641c\u96c6\u6837\u672c\u7684\u8def\u4e0a\uff0c\u610f\u5916\u53d1\u73b0\u6c99\u96c0\u7684\u5e78\u5b58\u8005\u2026\u2026\u4ed6\u4eec\uff0c\u8fd8\u6d3b\u7740\uff01<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 56,
+        "ChapterId": 2,
+        "Name": "M I-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00118BA",
+        "Icon": null,
+        "PreShowId": [
+            53.0,
+            55.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "9:32",
+        "Posision": [],
+        "Title": "\u8001\u89c4\u77e9",
+        "Explain": "\u8ddf\u8e2a\u53ea\u6301\u7eed\u4e86\u5c0f\u4f1a\u513f\uff0c\u6e21\u8fb9\u5c31\u88ab\u8feb\u73b0\u8eab\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 57,
+        "ChapterId": 2,
+        "Name": "M I-5",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020203",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            56.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020203.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/E1GouliangMd010011Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "9:34",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u4e89\u950b",
+        "Explain": "\u53cc\u65b9\u8c08\u5224\u5f88\u5feb\u7834\u88c2\uff0c\u6e21\u8fb9\u548c\u6bd4\u5b89\u5361\u4e3a\u4e86\u634d\u536b\u5404\u81ea\u7684\u5229\u76ca\uff0c\u4f7f\u77db\u76fe\u5347\u7ea7\u4e3a\u66b4\u529b\u51b2\u7a81\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 58,
+        "ChapterId": 2,
+        "Name": "M I-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00119BA",
+        "Icon": null,
+        "PreShowId": [
+            57.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "9:49",
+        "Posision": [],
+        "Title": "\u6289\u62e9",
+        "Explain": "\u521a\u521a\u6323\u8131\u6bd4\u5b89\u5361\u7684\u80c1\u8feb\uff0c\u6e21\u8fb9\u7684\u8425\u6551\u8ba1\u5212\u7acb\u523b\u53d7\u5230\u8003\u9a8c\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 59,
+        "ChapterId": 2,
+        "Name": "M I-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020204",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            58.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020204.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "10:00",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u6c99\u66b4\u5143\u51f6",
+        "Explain": "\u63a2\u7d22\u9ec4\u91d1\u4e4b\u6da1\u8fd8\u4e0d\u5230\u4e00\u4e2a\u5c0f\u65f6\uff0c\u6e21\u8fb9\u627e\u5230\u4e86\u5236\u9020\u6c99\u5c18\u66b4\u7684\u5929\u6c14\u5f15\u64ce\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 60,
+        "ChapterId": 2,
+        "Name": "M I-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00120BA",
+        "Icon": null,
+        "PreShowId": [
+            59.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "10:14",
+        "Posision": [],
+        "Title": "\u9057\u00b7\u7269",
+        "Explain": "\u79bb\u5f00\u5929\u6c14\u5f15\u64ce\u540e\uff0c\u6e21\u8fb9\u5728\u5b88\u536b\u8eab\u4e0a\uff0c\u627e\u5230\u9057\u5fd8\u8005\u7684\u6302\u4ef6\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 61,
+        "ChapterId": 2,
+        "Name": "M II-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00121BA",
+        "Icon": null,
+        "PreShowId": [
+            57.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "9:39",
+        "Posision": [],
+        "Title": "\u5973\u738b\u6b3e\u5f85",
+        "Explain": "\u9ec4\u91d1\u5973\u738b\u5411\u7070\u9e26\u516c\u5f00\u4e86\u771f\u5bb9\u3002\u4e0e\u6b64\u540c\u65f6\uff0c\u6bd4\u5b89\u5361\u63a2\u7d22\u9ec4\u91d1\u4e4b\u6da1\u6570\u4e2a\u5c0f\u65f6\uff0c\u53ef\u6837\u672c\u5206\u6790\u4f9d\u7136\u5931\u8d25\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 62,
+        "ChapterId": 2,
+        "Name": "M II-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020205",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            61.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020205.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "9:56",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u6ef4\u00b7\u54d2",
+        "Explain": "\u7b49\u5f85\u6837\u672c\u5206\u6790\u7ed3\u679c\u7684\u6bd4\u5b89\u5361\u5bfb\u7740\u4e00\u9635\u8be1\u5f02\u58f0\u54cd\uff0c\u6765\u5230\u4e00\u7fa4\u201c\u5bc2\u9759\u5b88\u536b\u201d\u7684\u4e2d\u95f4\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 63,
+        "ChapterId": 2,
+        "Name": "M I-12",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00122BA",
+        "Icon": null,
+        "PreShowId": [
+            68.0
+        ],
+        "PreOpenId": [
+            73.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "11:55",
+        "Posision": [],
+        "Title": "\u5973\u738b\u7684\u8981\u6c42",
+        "Explain": "\u4e34\u8fd1\u6b63\u5348\uff0c\u9ec4\u91d1\u5973\u738b\u5728\u5bdd\u5bab\u4e2d\u516c\u5f00\u4e86\u81ea\u5df1\u5bf9\u6307\u6325\u5b98\u3001\u5bf9\u7a7a\u4e2d\u82b1\u56ed\u7684\u4e00\u7cfb\u5217\u8981\u6c42\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 64,
+        "ChapterId": 2,
+        "Name": "M I-9",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020206",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            60.0,
+            71.0
+        ],
+        "PreOpenId": [
+            60.0,
+            71.0
+        ],
+        "CostEndurance": 6,
+        "RewardId": 30020206.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItFinalI020030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "10:22",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u5bbf\u547d",
+        "Explain": "\u518d\u9047\u6bd4\u5b89\u5361\uff0c\u6e21\u8fb9\u4e0d\u613f\u653e\u5f03\u4efb\u4f55\u4e00\u4e2a\u9057\u5fd8\u8005\uff0c\u53cc\u65b9\u518d\u6b21\u7528\u66b4\u529b\u624b\u6bb5\u89e3\u51b3\u4e89\u7aef\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 65,
+        "ChapterId": 2,
+        "Name": "M I-10",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00123BA",
+        "Icon": null,
+        "PreShowId": [
+            64.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "10:32",
+        "Posision": [],
+        "Title": "\u627f\u8bfa",
+        "Explain": "\u6e21\u8fb9\u548c\u6bd4\u5b89\u5361\u4e89\u6597\u4e86\u8fd1\u5341\u5206\u949f\uff0c\u4ecd\u6ca1\u6709\u5206\u51fa\u80dc\u8d1f\uff0c\u5b88\u536b\u5927\u519b\u4f01\u56fe\u8d81\u4e71\u56f4\u527f\u4ed6\u4eec\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 66,
+        "ChapterId": 2,
+        "Name": "B-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00124BA",
+        "Icon": null,
+        "PreShowId": [
+            57.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadShenwei3.png",
+        "TimeDesc": "9:51",
+        "Posision": [],
+        "Title": "\u9893\u9761",
+        "Explain": "\u795e\u5a01\u548c\u7f57\u5170\u4e00\u8def\u6253\u5230\u9ec4\u91d1\u4e4b\u6da1\u897f\u5317\u7aef\uff0c\u8fd9\u65f6\u795e\u5a01\u53d1\u73b0\u7f57\u5170\u7684\u673a\u4f53\u51fa\u73b0\u4e86\u5f02\u5e38\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 67,
+        "ChapterId": 2,
+        "Name": "B-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020207",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            66.0
+        ],
+        "PreOpenId": [
+            64.0
+        ],
+        "CostEndurance": 6,
+        "RewardId": 30020207.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "10:24",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u65e0\u654c",
+        "Explain": "\u795e\u5a01\u548c\u611f\u67d3\u4f53\u640f\u6597\u4e86\u5c06\u8fd1\u534a\u5c0f\u65f6\uff0c\u7f57\u5170\u8d81\u673a\u9003\u5165\u5efa\u7b51\u5185\u90e8\u2026\u2026\u53ef\u795e\u5a01\u7d27\u8ffd\u4e0d\u820d\uff01<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 68,
+        "ChapterId": 2,
+        "Name": "M I-11",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00125BA",
+        "Icon": null,
+        "PreShowId": [
+            65.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadDubian3.png",
+        "TimeDesc": "11:30",
+        "Posision": [],
+        "Title": "\u5b88\u7ea6\u4e4b\u4eba",
+        "Explain": "\u6e21\u8fb9\u7528\u4e86\u4e00\u4e2a\u5c0f\u65f6\u786e\u4fdd\u9057\u5fd8\u8005\u5b89\u5168\u64a4\u79bb\uff0c\u90e8\u4e0b\u529d\u8bf4\u6e21\u8fb9\u4e0d\u8981\u8fd4\u56de\u534f\u52a9\u6bd4\u5b89\u5361\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 69,
+        "ChapterId": 2,
+        "Name": "M II-5",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00126BA",
+        "Icon": null,
+        "PreShowId": [
+            62.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "10:10",
+        "Posision": [],
+        "Title": "\u4eba\u8d28",
+        "Explain": "\u6253\u5012\u201c\u5bc2\u9759\u5b88\u536b\u201d\u540e\uff0c\u6bd4\u5b89\u5361\u53c8\u5bfb\u7740\u602a\u58f0\uff0c\u6f5c\u5165\u4e00\u4e2a\u56da\u7981\u4eba\u7c7b\u7684\u5bc6\u5ba4\u91cc\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 70,
+        "ChapterId": 2,
+        "Name": "M II-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020208",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            69.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020208.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "10:13",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9b3c\u9b45\u76f8\u52a9",
+        "Explain": "\u77ed\u6682\u6743\u8861\u4e2a\u4e2d\u5229\u76ca\u4e4b\u540e\uff0c\u6bd4\u5b89\u5361\u51b3\u5b9a\u8425\u6551\u4eba\u8d28\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 71,
+        "ChapterId": 2,
+        "Name": "M II-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00127BA",
+        "Icon": null,
+        "PreShowId": [
+            70.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "10:19",
+        "Posision": [],
+        "Title": "\u4e24\u79cd\u8425\u6551",
+        "Explain": "\u6bd4\u5b89\u5361\u6253\u8d25\u72f1\u957f\uff0c\u89e3\u6551\u51fa\u6240\u6709\u4eba\u8d28\u3002\u6e21\u8fb9\u62e6\u4f4f\u6bd4\u5b89\u5361\uff0c\u5e76\u60f3\u8981\u5e26\u8d70\u81ea\u5df1\u7684\u4eba\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 72,
+        "ChapterId": 2,
+        "Name": "M II-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00128BA",
+        "Icon": null,
+        "PreShowId": [
+            65.0
+        ],
+        "PreOpenId": [
+            74.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "11:04",
+        "Posision": [],
+        "Title": "\u9ec4\u91d1\u6297\u4f53",
+        "Explain": "\u5373\u4fbf\u653e\u8d70\u4eba\u8d28\uff0c\u6bd4\u5b89\u5361\u4ecd\u7136\u5f97\u5230\u9ec4\u91d1\u6297\u4f53\u2026\u2026\u8fd9\u65f6\u5973\u738b\u7981\u536b\u5411\u6bd4\u5b89\u5361\u53d1\u52a8\u7a81\u88ad\uff01",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 73,
+        "ChapterId": 2,
+        "Name": "M II-9",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020209",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            72.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020209.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeGemSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "12:00",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u7edd\u547d\u8fde\u51fb",
+        "Explain": "\u6b63\u5348\uff0c\u6e21\u8fb9\u643a\u9057\u5fd8\u8005\u7d27\u6025\u63f4\u52a9\u4e86\u6bd4\u5b89\u5361\u2026\u2026\u5973\u738b\u7981\u536b\u796d\u51fa\u81f4\u547d\u706b\u529b\uff01<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a4000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab02.png"
+    },
+    {
+        "Id": 74,
+        "ChapterId": 2,
+        "Name": "B-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00129BA",
+        "Icon": null,
+        "PreShowId": [
+            67.0
+        ],
+        "PreOpenId": [
+            65.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "10:32",
+        "Posision": [],
+        "Title": "\u8bae\u548c",
+        "Explain": "\u53cc\u65b9\u5bf9\u5cd9\u8fd1\u5341\u5206\u949f\uff0c\u7f57\u5170\u51e0\u4e4e\u88ab\u795e\u5a01\u903c\u5230\u7edd\u5883\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 75,
+        "ChapterId": 2,
+        "Name": "M I-13",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00130BA",
+        "Icon": null,
+        "PreShowId": [
+            63.0,
+            73.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "12:10",
+        "Posision": [],
+        "Title": "\u4e3a\u4e86\u6307\u6325\u5b98",
+        "Explain": "\u548c\u9057\u5fd8\u8005\u8054\u624b\u6253\u8d25\u5973\u738b\u7981\u536b\uff0c\u6bd4\u5b89\u5361\u518d\u4e00\u6b21\u7ad9\u5728\u6289\u62e9\u7684\u5341\u5b57\u8def\u53e3\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab02.png"
+    },
+    {
+        "Id": 101,
+        "ChapterId": 3,
+        "Name": "M I-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00131BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "12:15",
+        "Posision": [],
+        "Title": "\u8ffd\u968f",
+        "Explain": "\u6b63\u5348\u7684\u9ec4\u91d1\u4e4b\u6da1\uff0c\u5361\u5217\u5c3c\u5a1c\u4ece\u5357\u9762\u6f5c\u5165\uff0c\u5979\u4e0d\u77e5\u9053\u81ea\u5df1\u88ab\u8ddf\u8e2a\u4e86\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 102,
+        "ChapterId": 3,
+        "Name": "M l-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020302",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            101.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020302.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "12:16",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5b88\u62a4\u4e4b\u76fe",
+        "Explain": "\u81ea\u5361\u5217\u5c3c\u5a1c\u8e0f\u5165\u9ec4\u91d1\u4e4b\u6da1\u90a3\u4e00\u523b\u8d77\uff0c\u5c31\u88ab\u5b88\u536b\u76ef\u4e0a\u4e86\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 103,
+        "ChapterId": 3,
+        "Name": "M l-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020303",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            102.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020303.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "12:48",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5de5\u5177\u7bb1",
+        "Explain": "\u7ecf\u8fc7\u534a\u5c0f\u65f6\u7684\u9ad8\u901f\u884c\u519b\uff0c\u5361\u5217\u5c3c\u5a1c\u603b\u7b97\u5f97\u5230\u5927\u5c55\u8eab\u624b\u7684\u673a\u4f1a\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 104,
+        "ChapterId": 3,
+        "Name": "M l-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00132BA",
+        "Icon": null,
+        "PreShowId": [
+            103.0
+        ],
+        "PreOpenId": [
+            118.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "12:53",
+        "Posision": [],
+        "Title": "\u4eba\u4f53\u5b9e\u9a8c",
+        "Explain": "\u548c\u5361\u5217\u5c3c\u5a1c\u4e00\u8d77\u51fb\u8d25\u4e3b\u5efa\u7b51\u7684\u5b88\u536b\uff0c\u4ec5\u8fc7\u4e94\u5206\u949f\uff0c\u4e03\u5b9e\u5c31\u6d88\u5931\u5f97\u65e0\u5f71\u65e0\u8e2a\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 105,
+        "ChapterId": 3,
+        "Name": "M l-5",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020305",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            104.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020305.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "13:01",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u91cd\u6784",
+        "Explain": "\u77ed\u65f6\u95f4\u5185\u5361\u5217\u5c3c\u5a1c\u5f97\u5230\u6297\u4f53\u7684\u5206\u6790\u62a5\u544a\uff0c\u5979\u5fc5\u987b\u91cd\u5efa\u7f51\u7edc\u901a\u4fe1\uff0c\u4e0a\u4f20\u62a5\u544a\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 106,
+        "ChapterId": 3,
+        "Name": "M l-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00133BA",
+        "Icon": null,
+        "PreShowId": [
+            105.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "13:15",
+        "Posision": [],
+        "Title": "\u4e8c\u6b21\u51fa\u53d1",
+        "Explain": "\u901a\u4fe1\u6062\u590d\u7684\u90a3\u51e0\u5206\u949f\uff0c\u5361\u5217\u5c3c\u5a1c\u51fa\u8272\u5b8c\u6210\u4e86\u4efb\u52a1\uff0c\u73b0\u5728\u5979\u8981\u81ea\u884c\u51b3\u5b9a\u53bb\u7559\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 107,
+        "ChapterId": 3,
+        "Name": "M l-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00134BA",
+        "Icon": null,
+        "PreShowId": [
+            106.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadShenwei3.png",
+        "TimeDesc": "13:25",
+        "Posision": [],
+        "Title": "\u6297\u6027",
+        "Explain": "\u8fd1\u5341\u5206\u949f\u7684\u7206\u7834\uff0c\u51e0\u5341\u5835\u5899\u8f70\u7136\u5012\u584c\uff0c\u5361\u5217\u5c3c\u5a1c\u7528\u81ea\u5df1\u7684\u65b9\u5f0f\u63a2\u7d22\u9ec4\u91d1\u4e4b\u6da1\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 108,
+        "ChapterId": 3,
+        "Name": "M l-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020307",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            107.0
+        ],
+        "PreOpenId": [
+            115.0
+        ],
+        "CostEndurance": 6,
+        "RewardId": 30020307.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadShenwei3.png",
+        "TimeDesc": "13:33",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5efa\u9020\u8005\u8c1c\u56fe",
+        "Explain": "\u5899\u4f53\u88ab\u7834\u574f\uff0c\u8ba9\u4ed6\u4eec\u7684\u884c\u7ecf\u8def\u7ebf\u66f4\u76f4\u63a5\u4e86\u3002\u53ea\u8fc7\u4e86\u51e0\u5206\u949f\uff0c\u4ed6\u4eec\u5c31\u95ef\u5165\u4e86\u7981\u5730\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 109,
+        "ChapterId": 3,
+        "Name": "M l-9",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00135BA",
+        "Icon": null,
+        "PreShowId": [
+            122.0,
+            108.0
+        ],
+        "PreOpenId": [
+            107.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "13:41",
+        "Posision": [],
+        "Title": "\u5408\u6d41",
+        "Explain": "\u5355\u72ec\u884c\u52a8\u7684\u4e03\u5b9e\u5f52\u961f\uff0c\u5e26\u6765\u4e86\u5173\u4e8e\u5347\u683c\u8005\u00b7\u7f57\u5170\u7684\u574f\u6d88\u606f\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 110,
+        "ChapterId": 3,
+        "Name": "M l-10",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020310",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            109.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020310.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/EGouliangI01001Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "13:43",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9006\u5411\u5165\u4fb5",
+        "Explain": "\u4e3a\u4e86\u83b7\u53d6\u7f57\u5170\u7684\u52a8\u5411\uff0c\u4e03\u5b9e\u5165\u4fb5\u4e86\u5b88\u536b\u7684\u5185\u90e8\u7f51\u7edc\uff0c\u8fd9\u4e00\u5207\uff0c\u59ae\u7279\u90fd\u770b\u5728\u773c\u91cc\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 111,
+        "ChapterId": 3,
+        "Name": "M l-11",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00136BA",
+        "Icon": null,
+        "PreShowId": [
+            110.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "13:50",
+        "Posision": [],
+        "Title": "\u89c6\u91ce",
+        "Explain": "\u5165\u4fb5\u6301\u7eed\u51e0\u5206\u949f\uff0c\u4e03\u5b9e\u5728\u5185\u90e8\u7f51\u7edc\u6ca1\u627e\u51fa\u7f57\u5170\u7684\u53bb\u5411\uff0c\u5374\u53d1\u73b0\u7070\u9e26\u6307\u6325\u5b98\u5728\u59ae\u7279\u624b\u4e2d\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 112,
+        "ChapterId": 3,
+        "Name": "M l-12",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020311",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            111.0
+        ],
+        "PreOpenId": [
+            125.0
+        ],
+        "CostEndurance": 6,
+        "RewardId": 30020311.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeGemSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "14:05",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9690\u79d8\u5165\u53e3",
+        "Explain": "\u624b\u6301\u5efa\u9020\u84dd\u56fe\uff0c\u4ed6\u4eec\u5f97\u4ee5\u5728\u6570\u5341\u5206\u949f\u5185\uff0c\u5feb\u901f\u62b5\u8fbe\u5973\u738b\u5bdd\u5bab\u7684\u5165\u53e3\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 113,
+        "ChapterId": 3,
+        "Name": "M l-13",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00137BA",
+        "Icon": null,
+        "PreShowId": [
+            112.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "14:09",
+        "Posision": [],
+        "Title": "\u5bfb\u58f0",
+        "Explain": "\u63a5\u8fde\u51fb\u8d25\u9ec4\u91d1\u5b88\u536b\u3001\u5973\u738b\u7981\u536b\uff0c\u5206\u9694\u4ed6\u4eec\u548c\u6307\u6325\u5b98\u7684\u969c\u788d\uff0c\u53ea\u5269\u4e0b\u4e00\u6247\u95e8\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 114,
+        "ChapterId": 3,
+        "Name": "B ll-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00138BA",
+        "Icon": null,
+        "PreShowId": [
+            104.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadShenwei3.png",
+        "TimeDesc": "13:16",
+        "Posision": [],
+        "Title": "\u5a01\u6151",
+        "Explain": "\u611f\u67d3\u4f53\u6267\u884c\u7f57\u5170\u7684\u547d\u4ee4\uff0c\u62d6\u4f4f\u795e\u5a01\u8d85\u8fc7\u4e24\u4e2a\u5c0f\u65f6\uff0c\u795e\u5a01\u5374\u8d8a\u6218\u8d8a\u52c7\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 115,
+        "ChapterId": 3,
+        "Name": "B ll-2",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020308",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            114.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020308.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI180020Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadShenwei3.png",
+        "TimeDesc": "13:20",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u6298\u5251",
+        "Explain": "\u795e\u5a01\u5fc3\u91cc\u6e05\u695a\uff0c\u53ea\u8981\u51fb\u8d25\u7cbe\u82f1\u611f\u67d3\u4f53\uff0c\u5c31\u80fd\u91cd\u65b0\u5f00\u59cb\u8ffd\u51fb\u7f57\u5170\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 116,
+        "ChapterId": 3,
+        "Name": "M ll-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00139BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "10:40",
+        "Posision": [],
+        "Title": "\u6b3e\u5f85",
+        "Explain": "\u4e0a\u5348\u65f6\u5206\uff0c\u7f57\u5170\u6446\u8131\u795e\u5a01\u540e\uff0c\u8ba4\u771f\u8bc4\u4f30\u4e86\u9ec4\u91d1\u6297\u4f53\u7684\u5a01\u80c1\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 117,
+        "ChapterId": 3,
+        "Name": "M ll-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020301",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            116.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020301.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "10:43",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u7f81\u62bc",
+        "Explain": "\u7f57\u5170\u8fc8\u5165\u59ae\u7279\u7684\u9677\u9631\uff0c\u5728\u6297\u4f53\u4f5c\u7528\u4e0b\uff0c\u5e15\u5f25\u4ec0\u7684\u529b\u91cf\u6025\u901f\u8870\u5f31\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 118,
+        "ChapterId": 3,
+        "Name": "M ll-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00140BA",
+        "Icon": null,
+        "PreShowId": [
+            117.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "12:13",
+        "Posision": [],
+        "Title": "\u6c42\u63f4",
+        "Explain": "\u4e0d\u614e\u6ca6\u4e3a\u59ae\u7279\u7684\u9636\u4e0b\u56da\uff0c\u7f57\u5170\u88ab\u6297\u4f53\u8986\u76d6\uff0c\u5ea6\u8fc7\u714e\u71ac\u7684\u4e5d\u5341\u5206\u949f\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 119,
+        "ChapterId": 3,
+        "Name": "B l-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00141BA",
+        "Icon": null,
+        "PreShowId": [
+            103.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "12:55",
+        "Posision": [],
+        "Title": "\u4ea4\u6d41\u969c\u788d",
+        "Explain": "\u629b\u4e0b\u5361\u5217\u5c3c\u5a1c\uff0c\u4e03\u5b9e\u603b\u7b97\u627e\u5230\u5438\u5f15\u81ea\u5df1\u6ce8\u610f\u529b\u7684\u90a3\u4ef6\u4e1c\u897f\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 120,
+        "ChapterId": 3,
+        "Name": "B l-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020304",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            119.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020304.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/EGouliangI01001Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadYongyechao3.png",
+        "TimeDesc": "13:05",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9519\u4f4d\u8b66\u62a5",
+        "Explain": "\u7531\u4e8e\u89e6\u53d1\u611f\u67d3\u4f53\u533a\u57df\u8b66\u62a5\uff0c\u4e03\u5b9e\u6210\u4e3a\u611f\u67d3\u4f53\u6025\u9700\u6b7c\u706d\u7684\u76ee\u6807\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 121,
+        "ChapterId": 3,
+        "Name": "M ll-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00142BA",
+        "Icon": null,
+        "PreShowId": [
+            118.0,
+            120.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "13:10",
+        "Posision": [],
+        "Title": "\u5835\u585e\u7269",
+        "Explain": "\u547c\u6551\u4e86\u5c06\u8fd1\u4e00\u4e2a\u5c0f\u65f6\u4ee5\u540e\uff0c\u7f57\u5170\u6ca1\u6709\u7b49\u6765\u610f\u6599\u4e2d\u7684\u652f\u63f4\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 122,
+        "ChapterId": 3,
+        "Name": "M ll-5",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020306",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            121.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020306.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/E1GouliangMd010011Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "13:13",
+        "Posision": [
+            2.0
+        ],
+        "Title": "\u5c01\u5408",
+        "Explain": "\u4e03\u5b9e\u8bef\u6253\u8bef\u649e\u95ef\u8fdb\u9677\u9631\uff0c\u610f\u5916\u5e2e\u7f57\u5170\u89e3\u51b3\u4e86\u5fc3\u5934\u5927\u60a3\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a2\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 123,
+        "ChapterId": 3,
+        "Name": "M ll-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00143BA",
+        "Icon": null,
+        "PreShowId": [
+            122.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "13:30",
+        "Posision": [],
+        "Title": "\u4ff1\u711a",
+        "Explain": "\u53d7\u6297\u4f53\u5f71\u54cd\uff0c\u7f57\u5170\u88ab\u4e03\u5b9e\u5168\u9762\u538b\u5236\uff0c\u4ed6\u5fc5\u987b\u7528\u66f4\u6fc0\u8fdb\u7684\u65b9\u5f0f\u62ef\u6551\u81ea\u5df1\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 124,
+        "ChapterId": 3,
+        "Name": "M ll-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00144BA",
+        "Icon": null,
+        "PreShowId": [
+            123.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "13:35",
+        "Posision": [],
+        "Title": "\u9664\u6839",
+        "Explain": "\u697c\u4f53\u574d\u584c\uff0c\u7f57\u5170\u5760\u5165\u5e9f\u589f\uff0c\u91cd\u65b0\u83b7\u5f97\u8bc1\u660e\u81ea\u5df1\u5b9e\u529b\u7684\u673a\u4f1a\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab03.png"
+    },
+    {
+        "Id": 125,
+        "ChapterId": 3,
+        "Name": "M ll-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020309",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            124.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 6,
+        "RewardId": 30020309.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "14:00",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5185\u60a3",
+        "Explain": "\u6062\u590d\u529b\u91cf\u540e\uff0c\u7f57\u5170\u7792\u8fc7\u59ae\u7279\u7684\u76d1\u63a7\u7f51\u7edc\uff0c\u79d8\u5bc6\u6f5c\u5165\u9ec4\u91d1\u4e4b\u6da1\u7684\u6838\u5fc3\u52a8\u529b\u5ba4\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a5000             \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab03.png"
+    },
+    {
+        "Id": 151,
+        "ChapterId": 4,
+        "Name": "M-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00145BA",
+        "Icon": null,
+        "PreShowId": [],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "14:14",
+        "Posision": [],
+        "Title": "\u72ac\u6216\u9e70",
+        "Explain": "\u7a7a\u4e2d\u82b1\u56ed\u7684\u58eb\u5175\u4e8e\u5348\u540e\u9996\u6b21\u96c6\u7ed3\uff0c\u9ec4\u91d1\u6297\u4f53\u7684\u771f\u76f8\u968f\u4e4b\u88ab\u516c\u4e4b\u4e8e\u4f17\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 152,
+        "ChapterId": 4,
+        "Name": "M-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020401",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            151.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020401.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "14:30",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u738b\u4e4b\u6012",
+        "Explain": "\u906d\u5230\u6307\u63a7\uff0c\u9ec4\u91d1\u5973\u738b\u6012\u4e0d\u53ef\u904f\uff0c\u5979\u51b3\u5b9a\u4e0d\u518d\u987e\u53ca\u6307\u6325\u5b98\u5b89\u5371\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 153,
+        "ChapterId": 4,
+        "Name": "M-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020402",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            152.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020402.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "14:50",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u53db\u5f92",
+        "Explain": "\u4e00\u4e2a\u53db\u5f92\u3001\u4e00\u628a\u5bc6\u5319\uff0c\u9ec4\u91d1\u5973\u738b\u548c\u7070\u9e26\u7684\u51b2\u7a81\u88ab\u63a8\u81f3\u767d\u70ed\u5316\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 154,
+        "ChapterId": 4,
+        "Name": "M-4",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00146BA",
+        "Icon": null,
+        "PreShowId": [
+            153.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "15:01",
+        "Posision": [],
+        "Title": "\u9f50\u5fc3",
+        "Explain": "\u5973\u738b\u7981\u536b\u6089\u6570\u767b\u573a\uff0c\u7070\u9e26\u7b49\u6784\u9020\u4f53\u7684\u64a4\u79bb\u884c\u52a8\u518d\u906d\u6253\u51fb\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 155,
+        "ChapterId": 4,
+        "Name": "M-5",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00147BA",
+        "Icon": null,
+        "PreShowId": [
+            154.0
+        ],
+        "PreOpenId": [
+            168.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "15:11",
+        "Posision": [],
+        "Title": "\u5168\u9762\u8b66\u6212",
+        "Explain": "\u72d9\u51fb\u7070\u9e26\u5c06\u8fd1\u516d\u5341\u5206\u949f\uff0c\u9ec4\u91d1\u5973\u738b\u518d\u6b21\u5316\u6574\u4e3a\u96f6\uff0c\u6253\u6563\u4e00\u4f17\u6784\u9020\u4f53\u7684\u9635\u5f62\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 156,
+        "ChapterId": 4,
+        "Name": "M-6",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 1,
+        "TypeValue": "30020404",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            155.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020404.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeMoneySp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "15:22",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u4e8c\u91cd\u594f",
+        "Explain": "\u7070\u9e26\u672c\u6765\u5df2\u7ecf\u7528\u673a\u5173\u5bc6\u9053\u7529\u6389\u7981\u536b\uff0c\u5374\u9677\u5165\u548c\u4e03\u5b9e\u5206\u5f00\u4f5c\u6218\u7684\u7a98\u5883\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 157,
+        "ChapterId": 4,
+        "Name": "M-7",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00148BA",
+        "Icon": null,
+        "PreShowId": [
+            156.0
+        ],
+        "PreOpenId": [
+            160.0,
+            162.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "15:33",
+        "Posision": [],
+        "Title": "\u75ab\u60c5\u524d\u5146",
+        "Explain": "\u9ec4\u91d1\u4e4b\u6da1\u52a8\u529b\u7cfb\u7edf\u5d29\u6e83\uff0c\u7a7a\u4e2d\u82b1\u56ed\u7684\u8fdc\u7a0b\u901a\u8baf\u91cd\u65b0\u8fde\u63a5\uff0c\u7070\u9e26\u548c\u54c8\u6851\u8bae\u957f\u53d6\u5f97\u8054\u7cfb\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 158,
+        "ChapterId": 4,
+        "Name": "M-8",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00149BA",
+        "Icon": null,
+        "PreShowId": [
+            157.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "15:55",
+        "Posision": [],
+        "Title": "\u6500\u767b",
+        "Explain": "\u64a4\u79bb\u884c\u52a8\u6301\u7eed\u7ea6\u4e94\u5341\u5206\u949f\u540e\uff0c\u7070\u9e26\u548c\u5176\u4ed6\u6784\u9020\u4f53\u7ec8\u4e8e\u627e\u51fa\u786e\u7684\u64a4\u79bb\u8def\u7ebf\u3002",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 159,
+        "ChapterId": 4,
+        "Name": "B ll-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00150BA",
+        "Icon": null,
+        "PreShowId": [
+            155.0
+        ],
+        "PreOpenId": [
+            161.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "15:20",
+        "Posision": [],
+        "Title": "\u6269\u519b",
+        "Explain": "\u9677\u5165\u673a\u5173\u6570\u5206\u949f\u540e\uff0c\u5361\u5217\u5c3c\u5a1c\u610f\u5916\u53d1\u73b0\u9ec4\u91d1\u5b88\u536b\u6570\u91cf\u6269\u5145\u7684\u79d8\u5bc6\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 160,
+        "ChapterId": 4,
+        "Name": "B ll-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020403",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            159.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020403.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI010030Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadKalie3.png",
+        "TimeDesc": "15:22",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u5080\u5121\u672f",
+        "Explain": "\u4e3a\u4e86\u91cd\u56de\u6307\u6325\u5b98\u8eab\u8fb9\uff0c\u5361\u5217\u5c3c\u5a1c\u987b\u4fdd\u8bc1\u4e0d\u8017\u8d39\u8fc7\u591a\u6218\u6597\u80fd\u6e90\uff0c\u540c\u65f6\u7a81\u7834\u5b88\u536b\u7684\u5305\u56f4\u3002<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 161,
+        "ChapterId": 4,
+        "Name": "B lll-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020405",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            155.0
+        ],
+        "PreOpenId": [
+            156.0
+        ],
+        "CostEndurance": 12,
+        "RewardId": 30020405.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "15:23",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u91d1\u5c5e\u6495\u88c2",
+        "Explain": "\u9ec4\u91d1\u5973\u738b\u9488\u5bf9\u6bd4\u5b89\u5361\u7684\u6784\u9020\u4f53\u7279\u6027\uff0c\u4e3a\u843d\u5355\u7684\u5979\u51c6\u5907\u4e86\u7279\u6b8a\u7684\u5b88\u536b\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 162,
+        "ChapterId": 4,
+        "Name": "B lll-2",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00151BA",
+        "Icon": null,
+        "PreShowId": [
+            161.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadAolisuo3.png",
+        "TimeDesc": "15:30",
+        "Posision": [],
+        "Title": "\u70bd\u70ed",
+        "Explain": "\u6210\u529f\u51fb\u8d25\u5b88\u536b\u4e03\u5206\u949f\u540e\uff0c\u6bd4\u5b89\u5361\u906d\u9047\u4e86\u4e00\u4e2a\u5931\u63a7\u7684\u5b88\u536b\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 163,
+        "ChapterId": 4,
+        "Name": "M-9",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00152BA",
+        "Icon": null,
+        "PreShowId": [
+            160.0,
+            158.0,
+            162.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "16:20",
+        "Posision": [],
+        "Title": "\u535a\u5f08",
+        "Explain": "\u8fdc\u5728\u592a\u7a7a\uff0c\u7a7a\u4e2d\u82b1\u56ed\u8230\u8239\u4e4b\u4e0a\uff0c\u4e00\u573a\u7d27\u6025\u6218\u7565\u4f1a\u8bae\u6b63\u5728\u79d8\u5bc6\u53ec\u5f00\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 164,
+        "ChapterId": 4,
+        "Name": "M-10",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020407",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenNormal1.png",
+        "PreShowId": [
+            163.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020407.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeSPSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "16:44",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u53cc\u751f\u95e8",
+        "Explain": "\u64a4\u79bb\u884c\u52a8\u6301\u7eed\u7ea6\u4e24\u5c0f\u65f6\uff0c\u5361\u5217\u5c3c\u5a1c\u548c\u91cc\u7684\u8de8\u90e8\u961f\u5408\u4f5c\uff0c\u5c06\u4f1a\u51b3\u5b9a\u6240\u6709\u6784\u9020\u4f53\u7684\u547d\u8fd0\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 165,
+        "ChapterId": 4,
+        "Name": "M-11",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020408",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            164.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020408.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/ItExpI180020Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "17:07",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9876\u70b9\u6b7c\u706d",
+        "Explain": "\u52a8\u529b\u7cfb\u7edf\u5df2\u5d29\u6e83\u4e5d\u5341\u5206\u949f\uff0c\u7070\u9e26\u7b49\u6784\u9020\u4f53\u987a\u5229\u62b5\u8fbe\u64a4\u79bb\u5730\u70b9\uff0c\u53ef\u662f\u9ec4\u91d1\u5973\u738b\u4e5f\u5c3e\u968f\u800c\u81f3\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 166,
+        "ChapterId": 4,
+        "Name": "M-12",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00153BA",
+        "Icon": null,
+        "PreShowId": [
+            165.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "17:17",
+        "Posision": [],
+        "Title": "\u738b\u671d",
+        "Explain": "\u5973\u738b\u7981\u536b\u88ab\u7070\u9e26\u6210\u529f\u62b5\u5fa1\uff0c\u9ec4\u91d1\u5973\u738b\u5728\u6012\u706b\u52a9\u63a8\u4e0b\uff0c\u66b4\u9732\u51fa\u6700\u5927\u7684\u8f6f\u808b\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 167,
+        "ChapterId": 4,
+        "Name": "B l-1",
+        "IsBossNode": 0,
+        "IsKeyNode": 1,
+        "Type": 2,
+        "TypeValue": "TS00154BA",
+        "Icon": null,
+        "PreShowId": [
+            152.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "14:35",
+        "Posision": [],
+        "Title": "\u7535\u73a9\u9ad8\u624b",
+        "Explain": "\u7531\u4e8e\u81ea\u8eab\u6218\u529b\u8fc7\u4e8e\u5f3a\u5927\uff0c\u9ec4\u91d1\u5973\u738b\u5fc5\u987b\u52a8\u7528\u673a\u5173\uff0c\u628a\u795e\u5a01\u5355\u72ec\u5206\u79bb\u51fa\u53bb\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 168,
+        "ChapterId": 4,
+        "Name": "B l-2",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020406",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            167.0
+        ],
+        "PreOpenId": [
+            154.0
+        ],
+        "CostEndurance": 12,
+        "RewardId": 30020406.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconToolsSp/E1GouliangMd010011Sp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "14:40",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u53cd\u75c5\u6bd2",
+        "Explain": "\u4e3a\u4e86\u5ef6\u7f13\u5e15\u5f25\u4ec0\u5728\u52a8\u529b\u7cfb\u7edf\u7684\u8513\u5ef6\u901f\u7387\uff0c\u795e\u5a01\u987b\u4f18\u5148\u6267\u884c\u53cd\u75c5\u6bd2\u7a0b\u5e8f\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 169,
+        "ChapterId": 4,
+        "Name": "B l-3",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00155BA",
+        "Icon": null,
+        "PreShowId": [
+            168.0
+        ],
+        "PreOpenId": [
+            166.0
+        ],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuolan.png",
+        "TimeDesc": "15:35",
+        "Posision": [],
+        "Title": "\u9000\u573a",
+        "Explain": "\u7f57\u5170\u5b8c\u6210\u5bf9\u52a8\u529b\u7cfb\u7edf\u7684\u611f\u67d3\uff0c\u5e26\u7740\u53d7\u4f24\u7684\u673a\u4f53\u79bb\u5f00\u9ec4\u91d1\u4e4b\u6da1\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 170,
+        "ChapterId": 4,
+        "Name": "M-13",
+        "IsBossNode": 1,
+        "IsKeyNode": 0,
+        "Type": 1,
+        "TypeValue": "30020409",
+        "Icon": "Assets/Product/Texture/Image/UiExplore/UiExploreFubenBoss1.png",
+        "PreShowId": [
+            166.0,
+            169.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 12,
+        "RewardId": 30020409.0,
+        "RewardIcon": "Assets/Product/Texture/Image/IconcurrencySp/IconConsumeGemSp.png",
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "17:35",
+        "Posision": [
+            1.0
+        ],
+        "Title": "\u9ec4\u91d1\u4e4b\u5dc5",
+        "Explain": "\u65f6\u81f3\u508d\u665a\uff0c\u7070\u9e26\u7b49\u6784\u9020\u4f53\u5728\u9ec4\u91d1\u4e4b\u6da1\u7684\u9876\u5cf0\uff0c\u5bf9\u6297\u7740\u9ec4\u91d1\u5973\u738b\u6700\u540e\u7684\u624b\u6bb5\u2026\u2026<color=#0e70bd>\\n\u00b7\u9650\u5236\u5168\u961f\u6218\u529b\uff1a6000            \u00b7\u672c\u5173\u5361\u6240\u9700\u4e0a\u9635\u4eba\u6570\uff1a1\u4eba</color>",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExploreBattleTab04.png"
+    },
+    {
+        "Id": 171,
+        "ChapterId": 4,
+        "Name": "M-14",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00156BA",
+        "Icon": null,
+        "PreShowId": [
+            170.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "17:50",
+        "Posision": [],
+        "Title": "\u503e\u8986",
+        "Explain": "\u9ec4\u91d1\u5973\u738b\u65e0\u529b\u633d\u56de\u8d25\u5c40\uff0c\u673a\u4f53\u5265\u843d\uff0c\u9ec4\u91d1\u4e4b\u6da1\u5d29\u584c\uff0c\u201c\u738b\u671d\u201d\u6bc1\u4e8e\u4e00\u65e5\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    },
+    {
+        "Id": 172,
+        "ChapterId": 4,
+        "Name": "M-15",
+        "IsBossNode": 0,
+        "IsKeyNode": 0,
+        "Type": 2,
+        "TypeValue": "TS00157BA",
+        "Icon": null,
+        "PreShowId": [
+            171.0
+        ],
+        "PreOpenId": [],
+        "CostEndurance": 0,
+        "RewardId": null,
+        "RewardIcon": null,
+        "CharacterIcon": "Assets/Product/Texture/Image/Role/RoleHeadGrayRaven.png",
+        "TimeDesc": "18:08",
+        "Posision": [],
+        "Title": "\u707e\u6e90",
+        "Explain": "\u65e5\u843d\u524d\uff0c\u65e0\u6570\u88ab\u6253\u5012\u7684\u5b88\u536b\u88ab\u5e15\u5f25\u4ec0\u8f6c\u5316\u4e3a\u611f\u67d3\u4f53\uff0c\u4ece\u9ec4\u91d1\u4e4b\u6da1\u5e9f\u589f\u4e2d\u201c\u91cd\u83b7\u65b0\u751f\u201d\u2026\u2026",
+        "EnterIco": "Assets/Product/Texture/Image/UiExplore/UiExplorePlotTab04.png"
+    }
+]

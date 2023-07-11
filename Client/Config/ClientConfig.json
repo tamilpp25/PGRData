@@ -1,0 +1,4142 @@
+[
+    {
+        "Key": "ConnectTimeout",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "ReconnectInterval",
+        "Type": "int",
+        "Value": "3000"
+    },
+    {
+        "Key": "GameServerPingInterval",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "ServerFullNRestTime",
+        "Type": "int",
+        "Value": "86400"
+    },
+    {
+        "Key": "SyncServerListInterval",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "VerificationWaitInterval",
+        "Type": "int",
+        "Value": "30000"
+    },
+    {
+        "Key": "FriendRecommendationInterval",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "RemoveChatRecordOfDay",
+        "Type": "int",
+        "Value": "7"
+    },
+    {
+        "Key": "WorldChatMaxSize",
+        "Type": "int",
+        "Value": "200"
+    },
+    {
+        "Key": "RoomChatMaxSize",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "EquipBreakThoughTipId",
+        "Type": "int",
+        "Value": "1001"
+    },
+    {
+        "Key": "GraphicDefaultLevel",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "GraphicLowFps",
+        "Type": "int",
+        "Value": "40"
+    },
+    {
+        "Key": "GraphicHighFps",
+        "Type": "int",
+        "Value": "58"
+    },
+    {
+        "Key": "GraphicCheckFpsInterval",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "GraphicDefaultMode",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "BossSingleMaxRanCount",
+        "Type": "int",
+        "Value": "99"
+    },
+    {
+        "Key": "BossSingleAnimaTime",
+        "Type": "float",
+        "Value": "2.2"
+    },
+    {
+        "Key": "BossOnlineInvadeDelay",
+        "Type": "int",
+        "Value": "5500"
+    },
+    {
+        "Key": "BossOnlineInvadeInterval",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "BossOnlineInvadeWait",
+        "Type": "int",
+        "Value": "1500"
+    },
+    {
+        "Key": "BossOnlineInvadeDescCount",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "BossOnlineInvadeEffectUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiOnlineBoss/Donghua.prefab"
+    },
+    {
+        "Key": "PrivateChatTextLimit",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "WorldChatTextLimit",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "MultiplayerRoomRowMaxWorld",
+        "Type": "int",
+        "Value": "17"
+    },
+    {
+        "Key": "MultiplayerRoomWorldTime",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "UiGridFurnitureControlLimit",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "UiFurnitureReformDefaultBaseType",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "UiFubenCoinSkillDuration",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "UiFubenPanelTabDuration",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "FxUiKeJinHua",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCharacter/FxUiKeJinHua.prefab"
+    },
+    {
+        "Key": "FxUiJihuo",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCharacter/FxUiJihuo.prefab"
+    },
+    {
+        "Key": "FxUiEquipReform",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCharacter/FxUiEquipReform.prefab"
+    },
+    {
+        "Key": "FxUi008",
+        "Type": "string",
+        "Value": "FxUi008"
+    },
+    {
+        "Key": "KcpNoDelay",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "KcpInterval",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "KcpResend",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "KcpNc",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "KcpSndWndSize",
+        "Type": "int",
+        "Value": "256"
+    },
+    {
+        "Key": "KcpRcvWndSize",
+        "Type": "int",
+        "Value": "256"
+    },
+    {
+        "Key": "KcpMtu",
+        "Type": "int",
+        "Value": "470"
+    },
+    {
+        "Key": "SignBoardPlayInterval",
+        "Type": "int",
+        "Value": "600"
+    },
+    {
+        "Key": "SignBoardWaitInterval",
+        "Type": "int",
+        "Value": "600"
+    },
+    {
+        "Key": "SignBoardClickInterval",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "SignBoardDelayInterval",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "SignBoardMultClickCountLimit",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "NewPlayerTaskExpId",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "NewPlayerTaskSmallSize",
+        "Type": "int",
+        "Value": "90"
+    },
+    {
+        "Key": "NewPlayerTaskBigSize",
+        "Type": "int",
+        "Value": "95"
+    },
+    {
+        "Key": "UiGridChapterMoveMinX",
+        "Type": "int",
+        "Value": "-500"
+    },
+    {
+        "Key": "UiGridChapterMoveMaxX",
+        "Type": "int",
+        "Value": "-300"
+    },
+    {
+        "Key": "UiGridChapterMoveTargetX",
+        "Type": "int",
+        "Value": "-400"
+    },
+    {
+        "Key": "UiGridChapterMoveDuration",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "RebootFree",
+        "Type": "string",
+        "Value": "<size=60>\u514d\u8d39</size>"
+    },
+    {
+        "Key": "SettleRewardAnimationDelay",
+        "Type": "int",
+        "Value": "1500"
+    },
+    {
+        "Key": "SettleRewardAnimationInterval",
+        "Type": "int",
+        "Value": "250"
+    },
+    {
+        "Key": "DormCourseJumpIndex",
+        "Type": "int",
+        "Value": "7"
+    },
+    {
+        "Key": "DormDraftShopId",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "FurnitureDefaultIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconTools/IconDormBasisAll.png"
+    },
+    {
+        "Key": "FurnitureDefaultName",
+        "Type": "string",
+        "Value": "\u5bb6\u5177\u5236\u4f5c"
+    },
+    {
+        "Key": "FurnitureDefaultResetName",
+        "Type": "string",
+        "Value": "\u5bb6\u5177\u91cd\u5236"
+    },
+    {
+        "Key": "FurnitureInvestmentIncreaseStep",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "FurnitureCostEnough",
+        "Type": "string",
+        "Value": "#26BFFF"
+    },
+    {
+        "Key": "FurnitureCostNotEnough",
+        "Type": "string",
+        "Value": "#ff0000"
+    },
+    {
+        "Key": "DormCharacterTouchLength",
+        "Type": "int",
+        "Value": "120000"
+    },
+    {
+        "Key": "DormCharacterWaterGunTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "DormCharacterPlayTime",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "DormPutOnAnimaTime",
+        "Type": "float",
+        "Value": "0.6"
+    },
+    {
+        "Key": "DormDetailDisppearTime",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "DormDraftDistance",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "DormTemplateCaptureAngleX",
+        "Type": "float",
+        "Value": "270"
+    },
+    {
+        "Key": "DormTemplateCaptureAngleY",
+        "Type": "float",
+        "Value": "23"
+    },
+    {
+        "Key": "DormTemplateCaptureDistance",
+        "Type": "float",
+        "Value": "9"
+    },
+    {
+        "Key": "DormProvisionalMaxCount",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "DormTemplateShareName",
+        "Type": "string",
+        "Value": "share"
+    },
+    {
+        "Key": "DormLoadThresholdTotal",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "DormLoadThresholdSingle",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "DormLoadCacheCount",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "ExhibitionShowDetailMinScale",
+        "Type": "float",
+        "Value": "0.7"
+    },
+    {
+        "Key": "ExhibitionDetailFadeTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "ExhibitionDetailZoomTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "DefaultDormTargetAngle",
+        "Type": "int",
+        "Value": "45"
+    },
+    {
+        "Key": "DefaultAllowYAxis",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ExploreShowDetailMinScale",
+        "Type": "float",
+        "Value": "0.7"
+    },
+    {
+        "Key": "ExploreDetailFadeTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "DormFurnitureInteractCD",
+        "Type": "int",
+        "Value": "180"
+    },
+    {
+        "Key": "DormFurnitureInteractDistance",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "DormCharacterInteractCD",
+        "Type": "int",
+        "Value": "180"
+    },
+    {
+        "Key": "DormCharacterInteractDistance",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "DormCharacterInteractMinDistance",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "DormCharacterTouchCD",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "DormCharacterTouchProportion",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "AreanShopId",
+        "Type": "int",
+        "Value": "2001"
+    },
+    {
+        "Key": "ArenaOnlineInviteShowTime",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "ArenaOnlineDefualtChapterId",
+        "Type": "int",
+        "Value": "1001"
+    },
+    {
+        "Key": "PurYKContinueBuyDays",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "PurChaseGiftTips",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "FavorabilityDelaySecond",
+        "Type": "int",
+        "Value": "400"
+    },
+    {
+        "Key": "AudioManagerAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Common/AudioManager.prefab"
+    },
+    {
+        "Key": "MovieSettingAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Movie/Data/MovieSetting.asset"
+    },
+    {
+        "Key": "HomeMapAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Common/HomeMapManager.prefab"
+    },
+    {
+        "Key": "HomeGridColorDefaultAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/GridColorSO/XDefaultGridColor.asset"
+    },
+    {
+        "Key": "HomeGridColorGreenAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/GridColorSO/XGreenGridColor.asset"
+    },
+    {
+        "Key": "HomeGridColorRedAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/GridColorSO/XRedGridColor.asset"
+    },
+    {
+        "Key": "HomeGridColorInteractAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/GridColorSO/XInteractGridColor.asset"
+    },
+    {
+        "Key": "HomeGridColorBlueAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/GridColorSO/XBlueGridColor.asset"
+    },
+    {
+        "Key": "HomeSceneSoAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/IlluminationSO/GlobalIllumSOsushe003.asset"
+    },
+    {
+        "Key": "SuShe003",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/ScenePrefab/sushe003.prefab"
+    },
+    {
+        "Key": "EquipResonanceIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipResonanceIcon.png"
+    },
+    {
+        "Key": "EquipAwakenIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipResonanceIcon2.png"
+    },
+    {
+        "Key": "EquipBreakThroughBig0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughBig0.png"
+    },
+    {
+        "Key": "EquipBreakThroughBig1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughBig1.png"
+    },
+    {
+        "Key": "EquipBreakThroughBig2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughBig2.png"
+    },
+    {
+        "Key": "EquipBreakThroughBig3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughBig3.png"
+    },
+    {
+        "Key": "EquipBreakThroughBig4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughBig4.png"
+    },
+    {
+        "Key": "EquipBreakThroughSmall1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough1.png"
+    },
+    {
+        "Key": "EquipBreakThroughSmall2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughSmall2.png"
+    },
+    {
+        "Key": "EquipBreakThroughSmall3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough3.png"
+    },
+    {
+        "Key": "EquipBreakThroughSmall4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughSmall4.png"
+    },
+    {
+        "Key": "EquipBreakThrough0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough0.png"
+    },
+    {
+        "Key": "EquipBreakThrough1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough1.png"
+    },
+    {
+        "Key": "EquipBreakThrough2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough2.png"
+    },
+    {
+        "Key": "EquipBreakThrough3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThrough3.png"
+    },
+    {
+        "Key": "EquipBreakThrough4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipBreakThroughSmall4.png"
+    },
+    {
+        "Key": "CommonBagWhite",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagWhite.png"
+    },
+    {
+        "Key": "CommonBagGreed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagGreed.png"
+    },
+    {
+        "Key": "CommonBagBlue",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagBlue.png"
+    },
+    {
+        "Key": "CommonBagPurple",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagPurple.png"
+    },
+    {
+        "Key": "CommonBagGold",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagGold.png"
+    },
+    {
+        "Key": "CommonBagRed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonBagRed.png"
+    },
+    {
+        "Key": "QualityIconColor1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipWhite.png"
+    },
+    {
+        "Key": "QualityIconColor2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipGreen.png"
+    },
+    {
+        "Key": "QualityIconColor3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipBlue.png"
+    },
+    {
+        "Key": "QualityIconColor4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipPurple.png"
+    },
+    {
+        "Key": "QualityIconColor5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipGold.png"
+    },
+    {
+        "Key": "QualityIconColor6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipRed.png"
+    },
+    {
+        "Key": "QualityIconColor7",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonEquipRed.png"
+    },
+    {
+        "Key": "UiMainPitchOn",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiMain/MainPoint1.png"
+    },
+    {
+        "Key": "UiMainPitchOff",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiMain/MainPoint2.png"
+    },
+    {
+        "Key": "UiBagItemRed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiBag/BagTag5Days.png"
+    },
+    {
+        "Key": "UiBagItemYellow",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiBag/BagTagHangse.png"
+    },
+    {
+        "Key": "UiBagItemBlue",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiBag/BagTagHuishou.png"
+    },
+    {
+        "Key": "UiBagItemGreen",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiBag/BagTagMax.png"
+    },
+    {
+        "Key": "DefaultPortraitImagePath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/RoleCharacter/TongyonggouzaotiUnknown01.png"
+    },
+    {
+        "Key": "RoomDefaultSoPath",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/SuShe/IlluminationSO/GlobalIllumSOsushe003DormDefault.asset"
+    },
+    {
+        "Key": "MissionQuality1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/IconMissionQuality/MissionQuality1.png"
+    },
+    {
+        "Key": "MissionQuality2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/IconMissionQuality/MissionQuality2.png"
+    },
+    {
+        "Key": "MissionQuality3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/IconMissionQuality/MissionQuality3.png"
+    },
+    {
+        "Key": "MissionQuality4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/IconMissionQuality/MissionQuality4.png"
+    },
+    {
+        "Key": "MissionQuality5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/IconMissionQuality/MissionQuality5.png"
+    },
+    {
+        "Key": "TaskDailyActiveReach1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveReach1.png"
+    },
+    {
+        "Key": "TaskDailyActiveReach2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveReach2.png"
+    },
+    {
+        "Key": "TaskDailyActiveReach3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveReach3.png"
+    },
+    {
+        "Key": "TaskDailyActiveReach4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveReach4.png"
+    },
+    {
+        "Key": "TaskDailyActiveReach5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveReach5.png"
+    },
+    {
+        "Key": "TaskDailyActiveNotReach1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveNotReach1.png"
+    },
+    {
+        "Key": "TaskDailyActiveNotReach2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveNotReach1.png"
+    },
+    {
+        "Key": "TaskDailyActiveNotReach3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveNotReach1.png"
+    },
+    {
+        "Key": "TaskDailyActiveNotReach4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveNotReach1.png"
+    },
+    {
+        "Key": "TaskDailyActiveNotReach5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskDailyActiveNotReach1.png"
+    },
+    {
+        "Key": "GuildContributeRankFlag1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiGuild/UiGuildRank1.png"
+    },
+    {
+        "Key": "GuildContributeRankFlag2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiGuild/UiGuildRank2.png"
+    },
+    {
+        "Key": "GuildContributeRankFlag3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiGuild/UiGuildRank3.png"
+    },
+    {
+        "Key": "GuildContributeRankFlag4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiGuild/UiGuildRank4.png"
+    },
+    {
+        "Key": "GuildContributeRankFlag5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiGuild/UiGuildRank5.png"
+    },
+    {
+        "Key": "GridRepeatChallengeStage",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridRepeatChallengeStage.prefab"
+    },
+    {
+        "Key": "GridRepeatChallengeStageSquare",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridRepeatChallengeStageSquare.prefab"
+    },
+    {
+        "Key": "GridBranchStageChallengeVertical",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridBranchStageChallengeVertical.prefab"
+    },
+    {
+        "Key": "GridBranchStageSquare",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridBranchStageSquare.prefab"
+    },
+    {
+        "Key": "GridBranchStageRectangle",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridBranchStageRectangle.prefab"
+    },
+    {
+        "Key": "GridStageSquare",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageSquare.prefab"
+    },
+    {
+        "Key": "GridStageRectangle",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRectangle.prefab"
+    },
+    {
+        "Key": "GridStageSquareMW",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageSquareMW.prefab"
+    },
+    {
+        "Key": "GridStageRectangleMW",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRectangleMW.prefab"
+    },
+    {
+        "Key": "GridPrequelStage",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridPrequelStage.prefab"
+    },
+    {
+        "Key": "GridAssignChapter",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenAssign/GridAssignChapter.prefab"
+    },
+    {
+        "Key": "PanelCharacterOwnedInfo",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelCharacterOwnedInfo.prefab"
+    },
+    {
+        "Key": "GridAwarenessChapter",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiAwarenessMain/GridAwarenessChapter.prefab"
+    },
+    {
+        "Key": "GridAssignStage",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenAssign/GridAssignStage.prefab"
+    },
+    {
+        "Key": "GridActivityBossSingleStage",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridActivityBossSingleStage.prefab"
+    },
+    {
+        "Key": "GuideData",
+        "Type": "string",
+        "Value": "Assets/Product/Behavior/Guide/GuideData.bytes"
+    },
+    {
+        "Key": "DormitoryCharData",
+        "Type": "string",
+        "Value": "Assets/Product/Behavior/Dormitory/Character/CharacterData.bytes"
+    },
+    {
+        "Key": "DormitoryFurniData",
+        "Type": "string",
+        "Value": "Assets/Product/Behavior/Dormitory/Furniture/FurnitureData.bytes"
+    },
+    {
+        "Key": "RestaurantData",
+        "Type": "string",
+        "Value": "Assets/Product/Behavior/Restaurant/Restaurant.bytes"
+    },
+    {
+        "Key": "UiFightTopInfectionPrefab",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/UiFightTopNoiseBar.prefab"
+    },
+    {
+        "Key": "UiDebuggerBehaviourTree",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerBehaviourTree.prefab"
+    },
+    {
+        "Key": "UiDebuggerCheat",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerCheat.prefab"
+    },
+    {
+        "Key": "UiDebuggerConsole",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerConsole.prefab"
+    },
+    {
+        "Key": "UiDebuggerDps",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerDps.prefab"
+    },
+    {
+        "Key": "UiDebuggerFubenList",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerFubenList.prefab"
+    },
+    {
+        "Key": "UiDebuggerGm",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerGm.prefab"
+    },
+    {
+        "Key": "UiDebuggerGraphic",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerGraphic.prefab"
+    },
+    {
+        "Key": "UiDebuggerMissile",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerMissile.prefab"
+    },
+    {
+        "Key": "UiDebuggerMultiplayerFightLagLossPacket",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerMultiplayerFightLagLossPacket.prefab"
+    },
+    {
+        "Key": "UiDebuggerMultiplayerFight",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerMultiplayerFight.prefab"
+    },
+    {
+        "Key": "UiDebuggerNpcCustom",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerNpcCustom.prefab"
+    },
+    {
+        "Key": "UiDebuggerNpcFight",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerNpcFight.prefab"
+    },
+    {
+        "Key": "UiDebuggerNpcList",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerNpcList.prefab"
+    },
+    {
+        "Key": "UiDebuggerReplay",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerReplay.prefab"
+    },
+    {
+        "Key": "UiDebuggerStoryList",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerStoryList.prefab"
+    },
+    {
+        "Key": "UiDebuggerDormTemplate",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerDormTemplate.prefab"
+    },
+    {
+        "Key": "UiDamageNumericalRecordPanel",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDamageNumericalRecordPanel.prefab"
+    },
+    {
+        "Key": "UiDebuggerDamageStatisticsPanel",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerDamageStatisticsPanel.prefab"
+    },
+    {
+        "Key": "UiDebuggerDamageContext",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerDamageContext.prefab"
+    },
+    {
+        "Key": "UiXDebuggerCureContext",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerDamageContext.prefab"
+    },
+    {
+        "Key": "UiDebuggerFightNumerical",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerFightNumerical.prefab"
+    },
+    {
+        "Key": "UiDebuggerFightShortcut",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerFightShortcut.prefab"
+    },
+    {
+        "Key": "UiDebuggerFightBuff",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerFightBuff.prefab"
+    },
+    {
+        "Key": "UiDebuggerResolution",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerResolution.prefab"
+    },
+    {
+        "Key": "UiVideoDebug",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiVideoDebug.prefab"
+    },
+    {
+        "Key": "UiDebuggerGyro",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerGyro.prefab"
+    },
+    {
+        "Key": "UiDebuggerFightSwitchUiActive",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerFightSwitchUiActive.prefab"
+    },
+    {
+        "Key": "IceTex",
+        "Type": "string",
+        "Value": "Assets/Product/Common/IceTex.png"
+    },
+    {
+        "Key": "Noise",
+        "Type": "string",
+        "Value": "Assets/Product/Common/Noise.png"
+    },
+    {
+        "Key": "ComponentDebuggerSwitch",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Debuger/BtnDebugSwitch.prefab"
+    },
+    {
+        "Key": "UiDebugger",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebugger.prefab"
+    },
+    {
+        "Key": "XGridMatPath",
+        "Type": "string",
+        "Value": "Assets/Product/Common/XRoomGrid.mat"
+    },
+    {
+        "Key": "RenderConst",
+        "Type": "string",
+        "Value": "Assets/Product/Common/RenderConst.asset"
+    },
+    {
+        "Key": "FightWallCameraDitherDetector",
+        "Type": "string",
+        "Value": "Assets/Product/Common/FightWallCameraDitherDetector.prefab"
+    },
+    {
+        "Key": "FogNoiseTex",
+        "Type": "string",
+        "Value": "Assets/Product/Common/FogNoiseTex.png"
+    },
+    {
+        "Key": "CameraBlends",
+        "Type": "string",
+        "Value": "Assets/Product/Common/CameraBlends.asset"
+    },
+    {
+        "Key": "XShadowVolume",
+        "Type": "string",
+        "Value": "Assets/Product/Common/XShadowVolume.mat"
+    },
+    {
+        "Key": "UiRoot",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiRoot.prefab"
+    },
+    {
+        "Key": "UiMask",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiMask.prefab"
+    },
+    {
+        "Key": "PurchaseYKTotalCount",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "PurchaseYKLimtCount",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "DormDrawGroudId",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "DormDrawGroudPath",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab"
+    },
+    {
+        "Key": "DormComfortTime",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "FurnitureImgS10",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS10.png"
+    },
+    {
+        "Key": "FurnitureImgS20",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS20.png"
+    },
+    {
+        "Key": "FurnitureImgS5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS5.png"
+    },
+    {
+        "Key": "FurnitureImgS21",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS21.png"
+    },
+    {
+        "Key": "FurnitureImgS22",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS22.png"
+    },
+    {
+        "Key": "FurnitureImgS6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS6.png"
+    },
+    {
+        "Key": "FurnitureImgS23",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS23.png"
+    },
+    {
+        "Key": "DormMainAnimationMoveTime",
+        "Type": "int",
+        "Value": "600"
+    },
+    {
+        "Key": "DormMainAnimationStaicTime",
+        "Type": "int",
+        "Value": "200"
+    },
+    {
+        "Key": "DormGroundGridMeshHighOffset",
+        "Type": "float",
+        "Value": "0.05"
+    },
+    {
+        "Key": "DormSecondAnimationDelayTime",
+        "Type": "int",
+        "Value": "600"
+    },
+    {
+        "Key": "PurchaseCardId",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "CustomerServiceUrl",
+        "Type": "string",
+        "Value": "http://kf.yingxiong.com/kf2.0/user-center?game_id=186"
+    },
+    {
+        "Key": "FurnitureImgS8",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS8.png"
+    },
+    {
+        "Key": "FightPreloadRate",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "FurnitureImgS11",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS11.png"
+    },
+    {
+        "Key": "FurnitureImgSTemplate01",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgSTemplate01.png"
+    },
+    {
+        "Key": "FurnitureImgSRemake01",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgSRemake01.png"
+    },
+    {
+        "Key": "FavorabilitySkipSize",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "FavorabilitySkip1",
+        "Type": "int",
+        "Value": "10027"
+    },
+    {
+        "Key": "FavorabilitySkip2",
+        "Type": "int",
+        "Value": "10028"
+    },
+    {
+        "Key": "FavorabilitySkip3",
+        "Type": "int",
+        "Value": "4002"
+    },
+    {
+        "Key": "FavorabilitySkip4",
+        "Type": "int",
+        "Value": "4000"
+    },
+    {
+        "Key": "FightQualityStageId",
+        "Type": "int",
+        "Value": "10010001"
+    },
+    {
+        "Key": "FightKeyStageId",
+        "Type": "int",
+        "Value": "10010101"
+    },
+    {
+        "Key": "SpecialScreenOff",
+        "Type": "float",
+        "Value": "50"
+    },
+    {
+        "Key": "SelfNumSmall",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "SelfNumMiddle",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "SelfNumBig",
+        "Type": "int",
+        "Value": "45"
+    },
+    {
+        "Key": "ChannelInfoRefreshMin",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ChannelChangeFadeTime",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "NewUserMovieId",
+        "Type": "string",
+        "Value": "ZX00000BA"
+    },
+    {
+        "Key": "IsShowChannelNumber",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "MedalStoryId",
+        "Type": "int",
+        "Value": "1100145"
+    },
+    {
+        "Key": "DrawLogLimit",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "NoticePathPrefix",
+        "Type": "string",
+        "Value": "client/notice/config/"
+    },
+    {
+        "Key": "UnloadNpcTime",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "UnloadWeaponTime",
+        "Type": "int",
+        "Value": "5000"
+    },
+    {
+        "Key": "SelfNumDefault",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "GameLogo",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/Logo/CommonGameLogo.png"
+    },
+    {
+        "Key": "DormAttrFormat",
+        "Type": "string",
+        "Value": "<color=%s><size=30> %s%d</size></color>"
+    },
+    {
+        "Key": "DormSuitBgmDesc",
+        "Type": "string",
+        "Value": "\u623f\u95f4\u5185\u6446\u653e\u5957\u88c5\u4e0d\u540c\u5bb6\u5177\u8fbe<color=#0E70BDFF>%s</color>\u4ef6%s\u89e3\u9501bgm<color=#0E70BDFF>\u3010%s\u3011</color>"
+    },
+    {
+        "Key": "DormSuitBgmTitleDesc",
+        "Type": "string",
+        "Value": "<size=30><color=#0E70BDFF>\u5957\u88c5\u6548\u679c</color></size>"
+    },
+    {
+        "Key": "MaxNameLength",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "MaxSignLength",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "ExhibitionLevelPoint_01",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ExhibitionLevelPoint_02",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ExhibitionLevelPoint_03",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ExhibitionLevelPoint_04",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "ExhibitionLevelPoint_05",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultDynamicJoystick",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "DefaultFocusType",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "DefaultFocusButton",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultFocusTypeDlcHunt",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultFocusButtonDlcHunt",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultInviteButton",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DefaultWeaponTransType",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "DefaultRechargeType",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "FubenBabelTowerBannerBg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png"
+    },
+    {
+        "Key": "TipBatteryLeftTime",
+        "Type": "int",
+        "Value": "259200"
+    },
+    {
+        "Key": "TipTimeLimitItemsLeftTime",
+        "Type": "int",
+        "Value": "1728000"
+    },
+    {
+        "Key": "BabelTowerBuffShowTime",
+        "Type": "int",
+        "Value": "300"
+    },
+    {
+        "Key": "BabelTowerBuffShowRate",
+        "Type": "int",
+        "Value": "9"
+    },
+    {
+        "Key": "BabelTowerBuffDisappearTime",
+        "Type": "int",
+        "Value": "1500"
+    },
+    {
+        "Key": "BabelTowerMaxChallengeBuff",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "BabelTowerMaxSupportBuff",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "FightCoLoadRate",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "FightCoLoadMaxDT",
+        "Type": "float",
+        "Value": "0.0666667"
+    },
+    {
+        "Key": "FightCoLoadMinDT",
+        "Type": "float",
+        "Value": "0.04"
+    },
+    {
+        "Key": "MailWillFullCount",
+        "Type": "int",
+        "Value": "70"
+    },
+    {
+        "Key": "GuildNameMinLen",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "GuildNameMaxLen",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "GuildDeclarMaxLen",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "GuildVistorCountMax",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "GuildDormMapGridAssetUrl",
+        "Type": "string",
+        "Value": "Assets/Product/Common/HomeMapManager.prefab"
+    },
+    {
+        "Key": "GuildDormMainSceneName",
+        "Type": "string",
+        "Value": "Guild01"
+    },
+    {
+        "Key": "GuildDormMainScenePrefabPath",
+        "Type": "string",
+        "Value": "Assets/Product/Scene/ScenePrefab/Guild01.prefab"
+    },
+    {
+        "Key": "LovelCommunicateStartTime",
+        "Type": "string",
+        "Value": "0"
+    },
+    {
+        "Key": "LovelCommunicateEndTime",
+        "Type": "string",
+        "Value": "1581868740"
+    },
+    {
+        "Key": "CommunicateReplaceStr",
+        "Type": "string",
+        "Value": "KURONAME"
+    },
+    {
+        "Key": "UIRepeatChallengeNewChapterNumIconPath1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num1.png"
+    },
+    {
+        "Key": "UIRepeatChallengeNewChapterNumIconPath2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num2.png"
+    },
+    {
+        "Key": "UIRepeatChallengeNewChapterNumIconPath3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num3.png"
+    },
+    {
+        "Key": "UIRepeatChallengeNewChapterNumIconPath4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num4.png"
+    },
+    {
+        "Key": "UIRepeatChallengeNewChapterNumIconPath5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num5.png"
+    },
+    {
+        "Key": "SelectReplicatedGiftMinusBtnLongClickTime",
+        "Type": "int",
+        "Value": "250"
+    },
+    {
+        "Key": "GuildFiltrateCount",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "GuildFiltrateShowCount",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "WeaponResonanceShowDelay",
+        "Type": "int",
+        "Value": "200"
+    },
+    {
+        "Key": "RogueLikeTeamMemberCount",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "RogueLikeUnknowRobot",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeIconZyjs.png"
+    },
+    {
+        "Key": "RogueLikeNormalNode",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenRogueLike/FubenRogueLikeLevel.prefab"
+    },
+    {
+        "Key": "RogueLikeBossNode",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenRogueLike/FubenRogueLikeBossLevel.prefab"
+    },
+    {
+        "Key": "RogueLikeChallengeCoin",
+        "Type": "int",
+        "Value": "60300"
+    },
+    {
+        "Key": "RogueLikePumpkinCoin",
+        "Type": "int",
+        "Value": "60301"
+    },
+    {
+        "Key": "RogueLikeKeepsakeCoin",
+        "Type": "int",
+        "Value": "60302"
+    },
+    {
+        "Key": "RogueLikeCheckLineSwitch",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "FubenRogueLikeBannerBg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner08.png"
+    },
+    {
+        "Key": "RogueLikeTabFightNor",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor01.png"
+    },
+    {
+        "Key": "RogueLikeTabFightElite",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor02.png"
+    },
+    {
+        "Key": "RogueLikeTabFightBoss",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor03.png"
+    },
+    {
+        "Key": "RogueLikeTabBox",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor05.png"
+    },
+    {
+        "Key": "RogueLikeTabRest",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor06.png"
+    },
+    {
+        "Key": "RogueLikeTabShop",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor04.png"
+    },
+    {
+        "Key": "RogueLikeTabEvent",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTabNor07.png"
+    },
+    {
+        "Key": "RogueLikeDisTabNor",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab01.png"
+    },
+    {
+        "Key": "RogueLikeDisTabElite",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab02.png"
+    },
+    {
+        "Key": "RogueLikeDisTabBoss",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab03.png"
+    },
+    {
+        "Key": "RogueLikeDisTabShop",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab04.png"
+    },
+    {
+        "Key": "RogueLikeDisTabBox",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab05.png"
+    },
+    {
+        "Key": "RogueLikeDisTabRest",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab06.png"
+    },
+    {
+        "Key": "RogueLikeDisTabEvent",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRogueLike/UiRogueLikeTab07.png"
+    },
+    {
+        "Key": "ActivityShopItemTextCanBuyColor",
+        "Type": "string",
+        "Value": "270045"
+    },
+    {
+        "Key": "ActivityShopItemTextCanNotBuyColor",
+        "Type": "string",
+        "Value": "d23131"
+    },
+    {
+        "Key": "NierShopItemTextCanBuyColor",
+        "Type": "string",
+        "Value": "ffffffff"
+    },
+    {
+        "Key": "NierShopItemTextCanNotBuyColor",
+        "Type": "string",
+        "Value": "ff8f75ff"
+    },
+    {
+        "Key": "ActivityBriefMovie",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "RogueLikeNodeAnimTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "ArchiveAwarenessShowDelayTime",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "ArchiveWeaponShowDelayTime",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num1.png"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num2.png"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num3.png"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num4.png"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFushuaguan/Num5.png"
+    },
+    {
+        "Key": "ArchiveAwarenessSiteBgPath6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiArchive/UiArchiveNum6.png"
+    },
+    {
+        "Key": "ArchiveEvaluateOnForAll",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "GuildChannelMaxCount",
+        "Type": "int",
+        "Value": "500"
+    },
+    {
+        "Key": "BabelTowerRankIcon1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo1.png"
+    },
+    {
+        "Key": "BabelTowerRankIcon2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo2.png"
+    },
+    {
+        "Key": "BabelTowerRankIcon3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo3.png"
+    },
+    {
+        "Key": "MoeWarScheduleIcon1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiMoeWar/UiMoeWarScheduleRoleIcon01.png"
+    },
+    {
+        "Key": "MoeWarScheduleIcon2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiMoeWar/UiMoeWarScheduleRoleIcon02.png"
+    },
+    {
+        "Key": "MoeWarScheduleIcon3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiMoeWar/UiMoeWarScheduleRoleIcon03.png"
+    },
+    {
+        "Key": "MoeWarScheduleSupportIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconTools/IconMoeWarSupport.png"
+    },
+    {
+        "Key": "MoeWarVoteReawrdIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconTools/IconMoeWarWhistle.png"
+    },
+    {
+        "Key": "MoeWarVoteEndShiftTime",
+        "Type": "int",
+        "Value": "300"
+    },
+    {
+        "Key": "MoeWarGachaItem",
+        "Type": "int",
+        "Value": "62514"
+    },
+    {
+        "Key": "MoeWarGachaItemNum",
+        "Type": "int",
+        "Value": "700"
+    },
+    {
+        "Key": "WindowsInlayAddress",
+        "Type": "string",
+        "Value": "https://www.bilibili.com/blackboard/activity-zsxc.html"
+    },
+    {
+        "Key": "RegressionTaskScheduleProgressAnimTime",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "RegressionRequestInvitationMsgInternalTime",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "RegressionRequestUseInvitationCodeInternalTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "RegressionMainViewFreshTimeInterval",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "UiMainLowPowerValue",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "PicCompositionEditIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/Role/RoleHeadJiaru.png"
+    },
+    {
+        "Key": "PicCompositionMemoMax",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "PicCompositionErrorKey",
+        "Type": "string",
+        "Value": "ProductCommentContentIllegal"
+    },
+    {
+        "Key": "StealthRoleIndicator",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/UiFightWatching.prefab"
+    },
+    {
+        "Key": "StealthTargetIndicator1",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/FightWatchingTip1.prefab"
+    },
+    {
+        "Key": "StealthTargetIndicator2",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiFightPrefab/FightWatchingTip2.prefab"
+    },
+    {
+        "Key": "StealthRoleTypeGOName1",
+        "Type": "string",
+        "Value": "Watching"
+    },
+    {
+        "Key": "StealthRoleTypeGOName2",
+        "Type": "string",
+        "Value": "Found"
+    },
+    {
+        "Key": "StealthTargetFillBarName",
+        "Type": "string",
+        "Value": "Watching"
+    },
+    {
+        "Key": "StealthTargetMarkCase",
+        "Type": "string",
+        "Value": "MarkCase"
+    },
+    {
+        "Key": "StealthTargetAssetScale",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "StealthTargetOffsetY",
+        "Type": "float",
+        "Value": "1.3"
+    },
+    {
+        "Key": "PicCompositionGetMaxCount",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "FubenRepeatChallengeExCostItemId",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "LockStoryIconAspectRatio",
+        "Type": "float",
+        "Value": "1.778"
+    },
+    {
+        "Key": "GuildRefreshRecruitTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "GuildNewsMaxCount",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "GuildAnnouncementMaxLen",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "GuildInterComMaxLen",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "ShopCanBuyColor",
+        "Type": "string",
+        "Value": "000000ff"
+    },
+    {
+        "Key": "ShopCanNotBuyColor",
+        "Type": "string",
+        "Value": "ff0000ff"
+    },
+    {
+        "Key": "MusicPlayerSpectrumIntervalTime",
+        "Type": "int",
+        "Value": "60"
+    },
+    {
+        "Key": "MusicPlayerSpectrumBandNum",
+        "Type": "int",
+        "Value": "64"
+    },
+    {
+        "Key": "MusicPlayerSpectrumLogBandNum",
+        "Type": "int",
+        "Value": "60"
+    },
+    {
+        "Key": "MusicPlayerSpectrumBaseHeight",
+        "Type": "float",
+        "Value": "6"
+    },
+    {
+        "Key": "MusicPlayerSpectrumMinHeight",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "MusicPlayerSpectrumMaxHeight",
+        "Type": "float",
+        "Value": "84"
+    },
+    {
+        "Key": "MusicPlayerSpectrumIgnoreFrequencyCount",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "MusicPlayerMainViewTextMoveSpeed",
+        "Type": "float",
+        "Value": "70"
+    },
+    {
+        "Key": "MusicPlayerMainViewTextMovePauseInterval",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "MusicPlayerMainViewTextScheduleInterval",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "MusicPlayerMainViewNeedPlayedAlbumId",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "MusicPlayerTextScrollSpeed",
+        "Type": "float",
+        "Value": "0.3"
+    },
+    {
+        "Key": "MusicPlayerIconRotateSpeed",
+        "Type": "float",
+        "Value": "10"
+    },
+    {
+        "Key": "TipsMainViewTextMoveSpeed",
+        "Type": "float",
+        "Value": "80"
+    },
+    {
+        "Key": "TipsMainViewTextMovePauseInterval",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "NoticeMediumFontSize",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "MainLineStageMaxCount",
+        "Type": "int",
+        "Value": "40"
+    },
+    {
+        "Key": "MainLineExploreStageMaxCount",
+        "Type": "int",
+        "Value": "40"
+    },
+    {
+        "Key": "GuildMainInfoRefreshTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "GridStageSquareEx",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageSquareEx.prefab"
+    },
+    {
+        "Key": "GridStageRectangleEx",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRectangleEx.prefab"
+    },
+    {
+        "Key": "GridStageFwSquare",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFwSquare.prefab"
+    },
+    {
+        "Key": "GridStageFwRectangle",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFwRectangle.prefab"
+    },
+    {
+        "Key": "GridStageFwRectangleZx",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFwRectangleZx.prefab"
+    },
+    {
+        "Key": "GridStageFwSquareEx",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFwSquareEx.prefab"
+    },
+    {
+        "Key": "GridStageFwRectangleEx",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFwRectangleEx.prefab"
+    },
+    {
+        "Key": "CommunicationGiftMaxCount",
+        "Type": "int",
+        "Value": "999"
+    },
+    {
+        "Key": "UnionPraiseInterval",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "UnionRankRequestInterval",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "UnionAllReadyInterval",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "UiActivityBriefBaseSpineAnimPath",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Spine/ActivitySpineLogin.prefab"
+    },
+    {
+        "Key": "UiLoginSpineAnimPath",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Spine/SpineLogin.prefab"
+    },
+    {
+        "Key": "GuildRankIcon1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerIconLv1.png"
+    },
+    {
+        "Key": "GuildRankIcon2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerIconLv1.png"
+    },
+    {
+        "Key": "GuildRankIcon3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerIconLv1.png"
+    },
+    {
+        "Key": "GuildRankIcon4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerIconLv1.png"
+    },
+    {
+        "Key": "GuildRankIcon5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerIconLv1.png"
+    },
+    {
+        "Key": "GuildRankName1",
+        "Type": "string",
+        "Value": "\u4f1a\u957f"
+    },
+    {
+        "Key": "GuildRankName2",
+        "Type": "string",
+        "Value": "\u526f\u4f1a\u957f"
+    },
+    {
+        "Key": "GuildRankName3",
+        "Type": "string",
+        "Value": "\u6838\u5fc3\u6210\u5458"
+    },
+    {
+        "Key": "GuildRankName4",
+        "Type": "string",
+        "Value": "\u666e\u901a\u6210\u5458"
+    },
+    {
+        "Key": "GuildRankName5",
+        "Type": "string",
+        "Value": "\u6e38\u5ba2"
+    },
+    {
+        "Key": "GuildCustomNameLimit",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "GuildReqRecommandCdTime",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "GridFubenInfestorExploreStageFog",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreStageFog.prefab"
+    },
+    {
+        "Key": "GridFubenInfestorExploreStagePassed",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreStagePassed.prefab"
+    },
+    {
+        "Key": "GridFubenInfestorExploreStageReach",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreStageReach.prefab"
+    },
+    {
+        "Key": "GridFubenInfestorExploreStageCurrent",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreStageCurrent.prefab"
+    },
+    {
+        "Key": "GridFubenInfestorExploreStageUnReach",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreStageUnReach.prefab"
+    },
+    {
+        "Key": "GridFubenInfestorExploreOccupiedPlayerPreafab",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenInfestorExplore/GridFubenInfestorExploreRole.prefab"
+    },
+    {
+        "Key": "UiInfestorExploreCoreGold",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreCoreGold.png"
+    },
+    {
+        "Key": "UiInfestorExploreCorePurple",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreCorePurple.png"
+    },
+    {
+        "Key": "UiInfestorExploreCoreRed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreCoreRed.png"
+    },
+    {
+        "Key": "FightInfestorPanelScoreGap",
+        "Type": "float",
+        "Value": "10000"
+    },
+    {
+        "Key": "FightInfestorPlayerScoreLimit",
+        "Type": "float",
+        "Value": "10000"
+    },
+    {
+        "Key": "ArenaOnlineShowTime",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "GuildChatCacheCount",
+        "Type": "int",
+        "Value": "500"
+    },
+    {
+        "Key": "GuildGlobalRequestMember",
+        "Type": "int",
+        "Value": "300"
+    },
+    {
+        "Key": "DefaultGroupExhibitionImagePath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCharacterExhibitionImage/UiCharacterExhibitionImageTeamIcon005.png"
+    },
+    {
+        "Key": "GuildBossRewardEnableIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiGuild/UiGuildBossXZbaoxiang02.png"
+    },
+    {
+        "Key": "GuildBossRewardDisableIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiGuild/UiGuildBossXZbaoxiang01.png"
+    },
+    {
+        "Key": "ActivityBriefDayBeginHour",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "ActivityBriefNightBeginHour",
+        "Type": "int",
+        "Value": "19"
+    },
+    {
+        "Key": "ActivityBriefAolajiangModelPath",
+        "Type": "string",
+        "Value": "Assets/Product/Role/CharaterPrefab/Mb1AolajiangMd010001UI.prefab"
+    },
+    {
+        "Key": "FightInfestorScoreRulerMinCount",
+        "Type": "int",
+        "Value": "200"
+    },
+    {
+        "Key": "GuildBossHpAnimTime",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "GuildBossHpEffectTime",
+        "Type": "float",
+        "Value": "0.8"
+    },
+    {
+        "Key": "CollectionHintColor",
+        "Type": "string",
+        "Value": "000000ff"
+    },
+    {
+        "Key": "SceneUnloadTime",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "SceneUnloadCacheMaxCount",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "TeamRequireCharacterNormalImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreEasyNor.png"
+    },
+    {
+        "Key": "TeamRequireCharacterIsomerImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreHardNor.png"
+    },
+    {
+        "Key": "TeamRequireCharacterIsomerDebuffImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreEasyNor.png"
+    },
+    {
+        "Key": "TeamRequireCharacterNormalDebuffImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiInfestorExplore/UiInfestorExploreHardNor.png"
+    },
+    {
+        "Key": "TeamCharacterTypeNormalLimitImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFuben/FubenIconGouzaoti.png"
+    },
+    {
+        "Key": "TeamCharacterTypeIsomerLimitImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFuben/FubenIconShougezhe.png"
+    },
+    {
+        "Key": "TeamCharacterTypeIsomerDebuffLimitImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFuben/FubenIconGouzaoti.png"
+    },
+    {
+        "Key": "TeamCharacterTypeNormalDebuffLimitImage",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFuben/FubenIconShougezhe.png"
+    },
+    {
+        "Key": "DormShareWaitTime",
+        "Type": "int",
+        "Value": "15"
+    },
+    {
+        "Key": "DormMaxShareCount",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "ExpeditionNoMember",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/RoleCharacter/TongyonggouzaotiUnknown01.png"
+    },
+    {
+        "Key": "ExpeditionDefaultStoryCover",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiExpedition/UiExpeditionStageIcon01.png"
+    },
+    {
+        "Key": "ExpeditionDefaultBattleCover",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiExpedition/UiExpeditionStageIcon02.png"
+    },
+    {
+        "Key": "WorldBossBuffLockColor",
+        "Type": "string",
+        "Value": "FF4E4Eff"
+    },
+    {
+        "Key": "WorldBossBuffUnLockColor",
+        "Type": "string",
+        "Value": "188649ff"
+    },
+    {
+        "Key": "WorldBossBuffLowColor",
+        "Type": "string",
+        "Value": "989898ff"
+    },
+    {
+        "Key": "WorldBossReportHead",
+        "Type": "int",
+        "Value": "9090007"
+    },
+    {
+        "Key": "GridWorldBossStageNewNor",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridWorldBossStageNewNor.prefab"
+    },
+    {
+        "Key": "GridWorldBossStageNewHard",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridWorldBossStageNewHard.prefab"
+    },
+    {
+        "Key": "WorldBossUnLockInfoColor",
+        "Type": "string",
+        "Value": "000000ff"
+    },
+    {
+        "Key": "WorldBossLockInfoColor",
+        "Type": "string",
+        "Value": "989898ff"
+    },
+    {
+        "Key": "RpgTowerStageBgNormal",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerStageBg00.png"
+    },
+    {
+        "Key": "RpgTowerStageBgSelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerStageBg01.png"
+    },
+    {
+        "Key": "RpgTowerStageIconNormal",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerEasy.png"
+    },
+    {
+        "Key": "RpgTowerStageIconHard",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerNormal.png"
+    },
+    {
+        "Key": "RpgTowerStageIconChallenge",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerHard.png"
+    },
+    {
+        "Key": "UiRpgTowerEasy",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerEasy.png"
+    },
+    {
+        "Key": "UiRpgTowerEasySelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerEasySelect.png"
+    },
+    {
+        "Key": "UiRpgTowerEasyDisable",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerEasyDisable.png"
+    },
+    {
+        "Key": "UiRpgTowerNormal",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerNormal.png"
+    },
+    {
+        "Key": "UiRpgTowerNormalSelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerNormalSelect.png"
+    },
+    {
+        "Key": "UiRpgTowerNormalDisable",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerNormalDisable.png"
+    },
+    {
+        "Key": "UiRpgTowerHard",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerHard.png"
+    },
+    {
+        "Key": "UiRpgTowerHardSelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerHardSelect.png"
+    },
+    {
+        "Key": "UiRpgTowerHardDisable",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiRpgTower/UiRpgTowerHardDisable.png"
+    },
+    {
+        "Key": "CollectionScoreTextSize1",
+        "Type": "int",
+        "Value": "36"
+    },
+    {
+        "Key": "CollectionScoreTextSize2",
+        "Type": "int",
+        "Value": "36"
+    },
+    {
+        "Key": "CollectionScoreTextSize3",
+        "Type": "int",
+        "Value": "36"
+    },
+    {
+        "Key": "CollectionScoreTextSize4",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "CollectionScoreTextSize5",
+        "Type": "int",
+        "Value": "25"
+    },
+    {
+        "Key": "RogueLikeTrialPointAnimaTime",
+        "Type": "float",
+        "Value": "2.2"
+    },
+    {
+        "Key": "MaintainerActionIconInTaskUI",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTask/TaskBtn3.png"
+    },
+    {
+        "Key": "TRPGNotPreTargetId",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "NieRFubenBannerBg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png"
+    },
+    {
+        "Key": "TRPGFirstOpenFunctionGroupId",
+        "Type": "int",
+        "Value": "11000"
+    },
+    {
+        "Key": "TRPGChapterId",
+        "Type": "int",
+        "Value": "1013"
+    },
+    {
+        "Key": "TRPGTruthRoadStageMaxCount",
+        "Type": "int",
+        "Value": "30"
+    },
+    {
+        "Key": "UserAgreementUrl",
+        "Type": "string",
+        "Value": "https://pns.kurogame.com/p/agreement_public.html"
+    },
+    {
+        "Key": "PrivacyPolicyUrl",
+        "Type": "string",
+        "Value": "https://pns.kurogame.com/p/personal_privacy"
+    },
+    {
+        "Key": "ChildArgUrl",
+        "Type": "string",
+        "Value": "https://pns.kurogame.com/p/child_privacy"
+    },
+    {
+        "Key": "CollectionWallDefaultIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCollectionWall/UiCollectionWallBg.png"
+    },
+    {
+        "Key": "TRPGNotTargetDefaultRoleIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/RoleCharacter/TongyonggouzaotiUnknown02.png"
+    },
+    {
+        "Key": "TRPGTaskPanelNewShowTime",
+        "Type": "float",
+        "Value": "15"
+    },
+    {
+        "Key": "TRPGPanelTaskEnableTime",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "TRPGPanelTaskDisableTime",
+        "Type": "float",
+        "Value": "0.1"
+    },
+    {
+        "Key": "NieREasterEggBulletChatDelayTime",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "NieREasterEggBulletChatShowTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "PokemonAllCareerIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiPokemon/UiPokemonIconAll.png"
+    },
+    {
+        "Key": "ChessPursuitBuffStartEffect",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxTongyong/FxQRPursuitBuffStart.prefab"
+    },
+    {
+        "Key": "ChessPursuitBuffStartEffectTime",
+        "Type": "float",
+        "Value": "1.1"
+    },
+    {
+        "Key": "ChessPursuitStartStoryId",
+        "Type": "string",
+        "Value": "KD00102BA"
+    },
+    {
+        "Key": "LoginUidShowLongClickOffset",
+        "Type": "int",
+        "Value": "5000"
+    },
+    {
+        "Key": "ChessPursuitArrowEffect",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxTongyong/FxQRPursuitJiantou.prefab"
+    },
+    {
+        "Key": "ChessPursuitUseCardEffect",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCommon/FxUiHuanRen.prefab"
+    },
+    {
+        "Key": "FingerGuessingLoseIcon2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFingerGuessing/UiFingerGuessingImg10.png"
+    },
+    {
+        "Key": "FingerGuessingLoseIcon0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFingerGuessing/UiFingerGuessingImg11.png"
+    },
+    {
+        "Key": "FingerGuessingLoseIcon1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiFingerGuessing/UiFingerGuessingImg12.png"
+    },
+    {
+        "Key": "ShieldedProtocol",
+        "Type": "string",
+        "Value": "\u8be5\u529f\u80fd\u5df2\u5c4f\u853d\uff0c\u8be6\u60c5\u67e5\u9605\u516c\u544a"
+    },
+    {
+        "Key": "StrongholdElectricIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconToolsSp/IconStronghold004Sp.png"
+    },
+    {
+        "Key": "PurchaseLJCZDefaultLookState",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "MoeWarSceneAnimationPlayEndAnimDistance",
+        "Type": "float",
+        "Value": "95"
+    },
+    {
+        "Key": "MoeWarSceneAnimationGoalDistance",
+        "Type": "float",
+        "Value": "96"
+    },
+    {
+        "Key": "MoeWarSceneAnimationRestoreDistance",
+        "Type": "float",
+        "Value": "97"
+    },
+    {
+        "Key": "MoeWarPreparaHeadMoveAnimaTime",
+        "Type": "float",
+        "Value": "2.2"
+    },
+    {
+        "Key": "MoeWarSceneAnimationSlowdownPercent",
+        "Type": "int",
+        "Value": "20"
+    },
+    {
+        "Key": "MoeWarSceneAnimationTotalTime",
+        "Type": "int",
+        "Value": "4"
+    },
+    {
+        "Key": "PartnerBreakThrough0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/PartnerBreakBig0.png"
+    },
+    {
+        "Key": "PartnerBreakThrough1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/PartnerBreakBig1.png"
+    },
+    {
+        "Key": "PartnerBreakThrough2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/PartnerBreakBig2.png"
+    },
+    {
+        "Key": "PartnerBreakThrough3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/PartnerBreakBig3.png"
+    },
+    {
+        "Key": "MowWarSceneAnimationFxGoalEffectPath",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxMengZhanPrefab/FxRunWayGoal.prefab"
+    },
+    {
+        "Key": "MowWarSceneAnimationFxVictoryEffectPath",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxMengZhanPrefab/FxRunWayVictory.prefab"
+    },
+    {
+        "Key": "MoeWarPlayerScreenRecordSize",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "MoeWarPlayerScreenRecordShowNumber",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "MoeWarPlayerScreenRecordAnimationCD",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "TopWaterMarkStatus",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "SuperWaterMarkStatus",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "MoeWarRecruitAnimaContentShowTime",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "NameplatePanelPath",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiNameplate/PanelNameplate.prefab"
+    },
+    {
+        "Key": "RpgMakerGameRandomDialogBoxIntervalSecond",
+        "Type": "float",
+        "Value": "5"
+    },
+    {
+        "Key": "RpgMakerGameRoleUnLockHeadPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameRole02.png"
+    },
+    {
+        "Key": "RpgMakerGameLoadingDelayClose",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "RpgMakerGamePlayBeAtkEffectDelayCallbackTime",
+        "Type": "int",
+        "Value": "500"
+    },
+    {
+        "Key": "MovieReviewHighlightColor",
+        "Type": "string",
+        "Value": "ff8f75ff"
+    },
+    {
+        "Key": "RpgMakerPlayScreenUiCameraEffect",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiPuzzle/FxUiPuzzleBackspace.prefab"
+    },
+    {
+        "Key": "RpgMakerPlayScreenPlayUiCameraEffectTime",
+        "Type": "int",
+        "Value": "700"
+    },
+    {
+        "Key": "SocialBlackAnimationContentShowTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "SocialHintDisableTime",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "RpgMakeGameMoveSpeed",
+        "Type": "int",
+        "Value": "4"
+    },
+    {
+        "Key": "StageNormalIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconType/IconTypeNormal.png"
+    },
+    {
+        "Key": "StageHardIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconType/IconTypeHard.png"
+    },
+    {
+        "Key": "StageFortress",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconType/IconTypeFortress.png"
+    },
+    {
+        "Key": "StageResourceIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconType/IconTypesingle.png"
+    },
+    {
+        "Key": "StageDailyIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconType/IconTypesingle.png"
+    },
+    {
+        "Key": "SuperTowerItemQuality1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerGreen.png"
+    },
+    {
+        "Key": "SuperTowerItemQuality2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerBlue.png"
+    },
+    {
+        "Key": "SuperTowerItemQuality3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerPurple.png"
+    },
+    {
+        "Key": "SuperTowerItemQuality4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerGold.png"
+    },
+    {
+        "Key": "SuperTowerItemQuality5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerRed.png"
+    },
+    {
+        "Key": "SuperTowerItemQualityBg1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerGreenBg.png"
+    },
+    {
+        "Key": "SuperTowerItemQualityBg2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerBlueBg.png"
+    },
+    {
+        "Key": "SuperTowerItemQualityBg3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerPurpleBg.png"
+    },
+    {
+        "Key": "SuperTowerItemQualityBg4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerGoldBg.png"
+    },
+    {
+        "Key": "SuperTowerItemQualityBg5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerRedBg.png"
+    },
+    {
+        "Key": "SuperTowerTierSettleAnimeTime",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "SuperTowerThemeIndexLogo1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerIconLogo1.png"
+    },
+    {
+        "Key": "SuperTowerThemeIndexLogo2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerIconLogo2.png"
+    },
+    {
+        "Key": "SuperTowerThemeIndexLogo3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerIconLogo3.png"
+    },
+    {
+        "Key": "SuperTowerThemeIndexLogo4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerIconLogo4.png"
+    },
+    {
+        "Key": "SuperTowerThemeIndexLogo5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperTower/UiSuperTowerIconLogo5.png"
+    },
+    {
+        "Key": "LongPressPerLevelUp",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "RpgMakerGamePlayMainDownHintStayTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "RpgMakerGamePlayMainShowObjectTipsStayTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "PassportSingleAnimaTime",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "CalendarTimeId",
+        "Type": "int",
+        "Value": "510"
+    },
+    {
+        "Key": "WeiLaStoryFace",
+        "Type": "string",
+        "Value": "Assets/Product/Role/StoryFace/R3WeilaMd010011FaceStoryVC.asset"
+    },
+    {
+        "Key": "RpgMakerGameMapTipMoveSpeed",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "RpgMakerGameDieByTrapTime",
+        "Type": "int",
+        "Value": "1000"
+    },
+    {
+        "Key": "RpgMakerGameMoveRoleAngleOffset",
+        "Type": "int",
+        "Value": "-30"
+    },
+    {
+        "Key": "SmashBrosPickPrefabLine",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiSuperSmashBros/GridSuperSmashBrosPick1v1.prefab"
+    },
+    {
+        "Key": "SmashBrosPickPrefabNormal",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiSuperSmashBros/GridSuperSmashBrosPickNormal.prefab"
+    },
+    {
+        "Key": "SmashBrosReadyPrefabLine",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiSuperSmashBros/GridSuperSmashBrosReady1v1.prefab"
+    },
+    {
+        "Key": "SmashBrosReadyPrefabNormal",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiSuperSmashBros/GridSuperSmashBrosReadyNormal.prefab"
+    },
+    {
+        "Key": "SmashBrosCharaHeadRandom",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSuperSmashBros/UiSuperSmashBrosRandomHead.png"
+    },
+    {
+        "Key": "LivWarmSoundsActivityProgressSpeed",
+        "Type": "int",
+        "Value": "100"
+    },
+    {
+        "Key": "LivWarmRaceLastStageNotOpenModelEffectPath",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxTongyong/FxTongyongShihua.prefab"
+    },
+    {
+        "Key": "LivExtBtnInterval",
+        "Type": "int",
+        "Value": "60000"
+    },
+    {
+        "Key": "UiLoginMovieId",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "AreaWarToChallengeActionPoint",
+        "Type": "int",
+        "Value": "10"
+    },
+    {
+        "Key": "AreaWarCanBuyCoin",
+        "Type": "int",
+        "Value": "1000"
+    },
+    {
+        "Key": "AreaWarBlock3DGridHeightMin",
+        "Type": "float",
+        "Value": "-2.5"
+    },
+    {
+        "Key": "AreaWarBlock3DGridHeightMax",
+        "Type": "float",
+        "Value": "0.55"
+    },
+    {
+        "Key": "AreaWarBlock3DGridAnimTime",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "MainLine3DId",
+        "Type": "int",
+        "Value": "1017"
+    },
+    {
+        "Key": "FxBase",
+        "Type": "string",
+        "Value": "Assets/Product/EffectEx/Prefab/FxBase/FxBase.prefab"
+    },
+    {
+        "Key": "FxBaseColorSpace",
+        "Type": "string",
+        "Value": "Assets/Product/EffectEx/Prefab/FxBase/FxBaseColorSpace.prefab"
+    },
+    {
+        "Key": "FxBaseVertexStream",
+        "Type": "string",
+        "Value": "Assets/Product/EffectEx/Prefab/FxBase/FxBaseVertexStream.prefab"
+    },
+    {
+        "Key": "FxBaseColorAndVertex",
+        "Type": "string",
+        "Value": "Assets/Product/EffectEx/Prefab/FxBase/FxBaseColorAndVertex.prefab"
+    },
+    {
+        "Key": "UiVideoPlayerDisplayTime",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "TheatreTxtStartPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTheatre/UiTheatreTxtStart.png"
+    },
+    {
+        "Key": "TheatreTxtContinuePath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiTheatre/UiTheatreTxtStart2.png"
+    },
+    {
+        "Key": "DrawQualityEffect3",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaJiguangLevel1.prefab"
+    },
+    {
+        "Key": "DrawQualityEffect4",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaJiguangLevel2.prefab"
+    },
+    {
+        "Key": "DrawQualityEffect5",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaJiguangLevel3.prefab"
+    },
+    {
+        "Key": "DrawQualityEffect6",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaJiguangLevel4.prefab"
+    },
+    {
+        "Key": "DrawRingQualityEffect3",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaRingOrdinary.prefab"
+    },
+    {
+        "Key": "DrawRingQualityEffect4",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaRingPurple.prefab"
+    },
+    {
+        "Key": "DrawRingQualityEffect5",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaRingOrange.prefab"
+    },
+    {
+        "Key": "DrawRingQualityEffect6",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaRingRed.prefab"
+    },
+    {
+        "Key": "DrawQualityEffect0",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaJiguangLevel1.prefab"
+    },
+    {
+        "Key": "DrawRingQualityEffect0",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiDraw01/FxUiDraw01ChoukaRingOrdinary.prefab"
+    },
+    {
+        "Key": "DrawDefaultUpImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconTools/leijichongzhi05.png"
+    },
+    {
+        "Key": "DoomsdayBuildingIconEmpty",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild01.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconWorking",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState02.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconWaiting",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState01.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconBuilding",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState05.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconUnderstaffed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState04.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconPending",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState03.png"
+    },
+    {
+        "Key": "AchievementRareIconQuality1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIAchievement/UIAchievementIcon07.png"
+    },
+    {
+        "Key": "AchievementRareIconQuality2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIAchievement/UIAchievementIcon08.png"
+    },
+    {
+        "Key": "AchievementRareIconQuality3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIAchievement/UIAchievementIcon06.png"
+    },
+    {
+        "Key": "AchievementRareIconQuality4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIAchievement/UIAchievementIcon05.png"
+    },
+    {
+        "Key": "GuideShowGroup",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DrawCompleteCueId",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "DrawMusicVolumePercent",
+        "Type": "int",
+        "Value": "50"
+    },
+    {
+        "Key": "PivotCombatTeachStageId",
+        "Type": "int",
+        "Value": "30062317"
+    },
+    {
+        "Key": "PivotCombatDynamicScoreTeachStageId",
+        "Type": "int",
+        "Value": "30062318"
+    },
+    {
+        "Key": "PracticeStageMaxCount",
+        "Type": "int",
+        "Value": "7"
+    },
+    {
+        "Key": "GridStagePracticeCharacterFight",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeCharacterFight.prefab"
+    },
+    {
+        "Key": "GridStagePracticeCharacterReward",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeCharacterReward.prefab"
+    },
+    {
+        "Key": "UiGridPracticeCharacterMoveTargetX",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "UiGridPracticeCharacterMoveMinX",
+        "Type": "int",
+        "Value": "-600"
+    },
+    {
+        "Key": "UiGridPracticeCharacterMoveMaxX",
+        "Type": "int",
+        "Value": "-200"
+    },
+    {
+        "Key": "RpgMakerGameExhibitItemId",
+        "Type": "int",
+        "Value": "63301"
+    },
+    {
+        "Key": "PivotCombatAbilityLimit",
+        "Type": "int",
+        "Value": "6000"
+    },
+    {
+        "Key": "AprilFoolsDayStartTime",
+        "Type": "string",
+        "Value": "2022/4/1 0:00"
+    },
+    {
+        "Key": "AprilFoolsDayEndTime",
+        "Type": "string",
+        "Value": "2022/4/2 0:00"
+    },
+    {
+        "Key": "AprilFoolsDayTitleStartTime",
+        "Type": "string",
+        "Value": "2023/4/1 0:00"
+    },
+    {
+        "Key": "AprilFoolsDayTitleEndTime",
+        "Type": "string",
+        "Value": "2023/4/2 0:00"
+    },
+    {
+        "Key": "AprilFoolsDayCuteModeltartTime",
+        "Type": "string",
+        "Value": "2023/4/1 0:00"
+    },
+    {
+        "Key": "AprilFoolsDayCuteModelEndTime",
+        "Type": "string",
+        "Value": "2023/4/2 0:00"
+    },
+    {
+        "Key": "CharSkillQualityNor",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianNor2.png"
+    },
+    {
+        "Key": "CharSkillQualitySelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianSlect2.png"
+    },
+    {
+        "Key": "CharSkillQualityOn",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianOn2.png"
+    },
+    {
+        "Key": "CharNormalQualityNor",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianNor.png"
+    },
+    {
+        "Key": "CharNormalQualitySelect",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianSlect.png"
+    },
+    {
+        "Key": "CharNormalQualityOn",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharQlDianOn.png"
+    },
+    {
+        "Key": "PurchaseBuyPayCD",
+        "Type": "int",
+        "Value": "1500"
+    },
+    {
+        "Key": "ExpeditionStageMaxCount",
+        "Type": "int",
+        "Value": "35"
+    },
+    {
+        "Key": "MoeWarSceneAnimationAddSupportDistance",
+        "Type": "float",
+        "Value": "1"
+    },
+    {
+        "Key": "ActivityCalendarBeforeOpenTime",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "ActivityCalendarBeforeEndTime",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "BackgroundChangeTimeStr",
+        "Type": "string",
+        "Value": "18:00:00"
+    },
+    {
+        "Key": "BackgroundChangeTimeEnd",
+        "Type": "string",
+        "Value": "6:00:00"
+    },
+    {
+        "Key": "ScenePreviewUiHideCD",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "ScenePreviewUiHideDelay",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "WaferScreenShopID",
+        "Type": "string",
+        "Value": "404/405/406"
+    },
+    {
+        "Key": "TwoSideTowerPositiveIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage01.png"
+    },
+    {
+        "Key": "TwoSideTowerNegativeIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage02.png"
+    },
+    {
+        "Key": "ActivityBriefBaseModel",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiModel/UiActivityBriefBase3D/UiActivityBriefBase.prefab"
+    },
+    {
+        "Key": "UiLoginMovieTimeStr",
+        "Type": "string",
+        "Value": "2022/4/29 0:00"
+    },
+    {
+        "Key": "UiLoginMovieTimeEnd",
+        "Type": "string",
+        "Value": "2022/5/10 0:00"
+    },
+    {
+        "Key": "CourseLessonStagePrfab",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FuBenNor/UiCourseActivity.prefab"
+    },
+    {
+        "Key": "CourseSettleLevelSImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorS.png"
+    },
+    {
+        "Key": "CourseSettleLevelAImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorA.png"
+    },
+    {
+        "Key": "CourseSettleLevelBImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorB.png"
+    },
+    {
+        "Key": "NewbieTaskAnimClickInterval",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "NewbieTaskAnimMultClickCountLimit",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "NewbieTaskAnimDelayInterval",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "UiNewbieTaskSailika01",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Spine/UiSpine/UiNewbieTaskSailika/UiNewbieTaskSailika01.prefab"
+    },
+    {
+        "Key": "UiSpecialFashionShopSkipId",
+        "Type": "int",
+        "Value": "20158"
+    },
+    {
+        "Key": "UiShopOthers",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconToolsSp/CLkindicon.png"
+    },
+    {
+        "Key": "BiancaTheatreTxtStartPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaTheatreBtnTxt3.png"
+    },
+    {
+        "Key": "BiancaTheatreTxtContinuePath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaTheatreBtnTxt4.png"
+    },
+    {
+        "Key": "LottoDrawGround",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/BgUi/BgFight3.png"
+    },
+    {
+        "Key": "AutoPlayDelay",
+        "Type": "int",
+        "Value": "2000"
+    },
+    {
+        "Key": "MoviePerWordDelay",
+        "Type": "int",
+        "Value": "150"
+    },
+    {
+        "Key": "MovieWriterSpeed",
+        "Type": "float",
+        "Value": "0.04"
+    },
+    {
+        "Key": "FriendRefreshCD",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "SCGameBallDragLimit",
+        "Type": "float",
+        "Value": "30"
+    },
+    {
+        "Key": "SCEnoughEnergyTextColor",
+        "Type": "string",
+        "Value": "#f798ff"
+    },
+    {
+        "Key": "SCNoEnoughEnergyTextColor",
+        "Type": "string",
+        "Value": "#d5a2da"
+    },
+    {
+        "Key": "Interactionbuttonshowtime",
+        "Type": "int",
+        "Value": "10000"
+    },
+    {
+        "Key": "CharacterTowerBattleStageMaxCount",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "CharacterTowerPlotStageMaxCount",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "CharacterTowerFetterProgressDuration",
+        "Type": "float",
+        "Value": "1.2"
+    },
+    {
+        "Key": "CharacterTowerFetterTotemPlayEffectTime",
+        "Type": "float",
+        "Value": "0.8"
+    },
+    {
+        "Key": "CharacterTowerFetterTotemPathAnimTime",
+        "Type": "float",
+        "Value": "2"
+    },
+    {
+        "Key": "ParticleVertexStream",
+        "Type": "string",
+        "Value": "0-3-4-5-34-38"
+    },
+    {
+        "Key": "PluginUnlockIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiInfestorExplore/Equip052.png"
+    },
+    {
+        "Key": "PanelStageActiveSkip",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/PanelStageActiveSkip.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossStageGrid1",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBoss01.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossStageGrid2",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBoss02.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossStageGrid3",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBoss03.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossHardStageGrid1",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBossH01.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossHardStageGrid2",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBossH02.prefab"
+    },
+    {
+        "Key": "BrilliantWalkBossHardStageGrid3",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkBossH03.prefab"
+    },
+    {
+        "Key": "BrilliantWalkStageGrid1",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkStage01.prefab"
+    },
+    {
+        "Key": "BrilliantWalkStageGrid2",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkStage02.prefab"
+    },
+    {
+        "Key": "BrilliantWalkStageGrid3",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageBrilliantwalkStoy01.prefab"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringC1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringB1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringA1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringS1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringSS1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringSSS1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDetailRankRImg7",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/UiFighDynamicScoringSSSPlus1.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDefaultModuleRImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/lanse001.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDefaultModuleLockRImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkLock.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDefaultModuleUnActiveRImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkUnActive.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDefaultSkillRImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png"
+    },
+    {
+        "Key": "BrilliantWalkStageDefaultPerkRImg",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png"
+    },
+    {
+        "Key": "BrilliantWalkStageChapterGridMoveMinX",
+        "Type": "int",
+        "Value": "-500"
+    },
+    {
+        "Key": "BrilliantWalkStageChapterGridMoveMaxX",
+        "Type": "int",
+        "Value": "-300"
+    },
+    {
+        "Key": "BrilliantWalkStageChapterGridMoveTargetX",
+        "Type": "int",
+        "Value": "-400"
+    },
+    {
+        "Key": "BrilliantWalkStageChapterGridMoveDuration",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "BrilliantWalkStageBossChapterGridMoveMinX",
+        "Type": "int",
+        "Value": "-500"
+    },
+    {
+        "Key": "BrilliantWalkStageBossChapterGridMoveMaxX",
+        "Type": "int",
+        "Value": "-300"
+    },
+    {
+        "Key": "BrilliantWalkStageBossChapterGridMoveTargetX",
+        "Type": "int",
+        "Value": "-400"
+    },
+    {
+        "Key": "BrilliantWalkStageBossChapterGridMoveDuration",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "BrilliantWalkBossGameSetAnimeTime",
+        "Type": "float",
+        "Value": "4.9"
+    },
+    {
+        "Key": "BrilliantWalkBossGameSetPerfectAnimeTime",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "BrilliantWalkEnergyIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon42.png"
+    },
+    {
+        "Key": "BrilliantWalkEnergyName",
+        "Type": "string",
+        "Value": "\u63a5\u53e3"
+    },
+    {
+        "Key": "BrilliantWalkEnergyItem",
+        "Type": "int",
+        "Value": "96140"
+    },
+    {
+        "Key": "BrilliantWalkResultIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/RoleCharacter/GaodaNormal01.png"
+    },
+    {
+        "Key": "BrilliantWalkWeaponModule",
+        "Type": "int",
+        "Value": "1032"
+    },
+    {
+        "Key": "UiLoginTimeLineAnim",
+        "Type": "string",
+        "Value": null
+    },
+    {
+        "Key": "UiLoginSpineStartAnim",
+        "Type": "string",
+        "Value": "enable"
+    },
+    {
+        "Key": "UiLoginSpineLoopAnim",
+        "Type": "string",
+        "Value": "idle"
+    },
+    {
+        "Key": "UiLoginScreenOffect_H_1.33",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "DormQuestTerminalTipDelayTime",
+        "Type": "int",
+        "Value": "4"
+    },
+    {
+        "Key": "DormQuestTerminalTeamRegressIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS26.png"
+    },
+    {
+        "Key": "DormQuestTerminalTeamFreeIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDorm/FurnitureImgS25.png"
+    },
+    {
+        "Key": "DormQuestTerminalShopId",
+        "Type": "int",
+        "Value": "950"
+    },
+    {
+        "Key": "DormQuestTerminalFragment",
+        "Type": "string",
+        "Value": "564|559"
+    },
+    {
+        "Key": "UiGridQuestMoveMinX",
+        "Type": "int",
+        "Value": "-700"
+    },
+    {
+        "Key": "UiGridQuestMoveMaxX",
+        "Type": "int",
+        "Value": "-500"
+    },
+    {
+        "Key": "UiGridQuestMoveTargetX",
+        "Type": "int",
+        "Value": "-600"
+    },
+    {
+        "Key": "UiGridDormSceneMinY",
+        "Type": "int",
+        "Value": "-300"
+    },
+    {
+        "Key": "UiGridDormSceneTargetY",
+        "Type": "int",
+        "Value": "0"
+    },
+    {
+        "Key": "ExhibitionSuperBallRed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/hongse.png"
+    },
+    {
+        "Key": "ExhibitionSuperBallYellow",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/huangse.png"
+    },
+    {
+        "Key": "ExhibitionSuperBallBlue",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconSkill/lanse.png"
+    },
+    {
+        "Key": "MinDragYDistance",
+        "Type": "float",
+        "Value": "100"
+    },
+    {
+        "Key": "AwarenessOcuupyActiveResonanced",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipResonanceIcon002.png"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffect2d1",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUi2DXuxian256.prefab"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffect2d4",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUi2DXuxian1141.prefab"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffect2d15",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUi2DXuxian256.prefab"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffect3d",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUiMain3dQishiXuxian.prefab"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffectWq3d",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUiMain3dQishiXuxianWq.prefab"
+    },
+    {
+        "Key": "DrawShowLineCommunicationEffect2d7",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUiMain3dQishiXuxian.prefab"
+    },
+    {
+        "Key": "BtnOccupyJoinImg3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiAssign/UiAssignCharacterBtn03.png"
+    },
+    {
+        "Key": "CharacterTowerLeftTipDelayTime",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "EpicGachaLayer0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiEpicFashionGacha/UiEpicFashionGachaJiangliDecorate5.png"
+    },
+    {
+        "Key": "EpicGachaLayer1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiEpicFashionGacha/UiEpicFashionGachaJiangliDecorate4.png"
+    },
+    {
+        "Key": "EpicGachaLayer2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiEpicFashionGacha/UiEpicFashionGachaJiangliDecorate2.png"
+    },
+    {
+        "Key": "EpicGahcaSoundClose",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/EpicFashionGacha/SoundClose.prefab"
+    },
+    {
+        "Key": "EpicGahcaSoundPingmuIce",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/EpicFashionGacha/SoundPingmuIce.prefab"
+    },
+    {
+        "Key": "SuperSmashCareerIcon1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperSmashBros/UiSuperSmashBrosIcon4.png"
+    },
+    {
+        "Key": "SuperSmashCareerIcon2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperSmashBros/UiSuperSmashBrosIcon3.png"
+    },
+    {
+        "Key": "SuperSmashCareerIcon3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperSmashBros/UiSuperSmashBrosIcon1.png"
+    },
+    {
+        "Key": "SuperSmashCareerIcon4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiSuperSmashBros/UiSuperSmashBrosIcon2.png"
+    },
+    {
+        "Key": "UiPlanet2DObj",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/UiPlanet/UiPlanet2DObj.prefab"
+    },
+    {
+        "Key": "StoryJumpPopupTipsDelayTime",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "KujiequUrl",
+        "Type": "string",
+        "Value": "https://www.kurobbs.com/"
+    },
+    {
+        "Key": "KujiequTimeId",
+        "Type": "int",
+        "Value": "17304"
+    },
+    {
+        "Key": "KujiequSkipId",
+        "Type": "int",
+        "Value": "89014"
+    },
+    {
+        "Key": "KujiequTaskId",
+        "Type": "int",
+        "Value": "97300"
+    },
+    {
+        "Key": "CharacterSkillLevelUpCvTimeLimit",
+        "Type": "float",
+        "Value": "60"
+    },
+    {
+        "Key": "MonsterCombatStageMaxCount",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "PcCombatControllerTypePollingInterval",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "PcBtnMainUiPosition",
+        "Type": "string",
+        "Value": "386|1030"
+    },
+    {
+        "Key": "UiCerberusGameRoomZd",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FubenCerberusGame/UiCerberusGameRoomZd.prefab"
+    },
+    {
+        "Key": "CerberusGameChallengeStageStar0",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCerberus/UiCerberusGameChallengeZs4.png"
+    },
+    {
+        "Key": "CerberusGameChallengeStageStar1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCerberus/UiCerberusGameChallengeZs3.png"
+    },
+    {
+        "Key": "CerberusGameChallengeStageStar2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCerberus/UiCerberusGameChallengeZs2.png"
+    },
+    {
+        "Key": "CerberusGameChallengeStageStar3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiCerberus/UiCerberusGameChallengeZs1.png"
+    },
+    {
+        "Key": "UiSceneSettingMainBtnBackLockTime",
+        "Type": "float",
+        "Value": "0.6"
+    },
+    {
+        "Key": "CharacterListDefaultV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListDefaultV2P6.prefab"
+    },
+    {
+        "Key": "UiPanelCommonCharacterFilterV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/UiPanelCommonCharacterFilterV2P6.prefab"
+    },
+    {
+        "Key": "PanelEquipV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelEquipV2P6.prefab"
+    },
+    {
+        "Key": "PanelQualityWholeV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelQualityWholeV2P6.prefab"
+    },
+    {
+        "Key": "PanelQualitySingleV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelQualitySingleV2P6.prefab"
+    },
+    {
+        "Key": "PanelQualityUpgradeDetailV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelQualityUpgradeDetailV2P6.prefab"
+    },
+    {
+        "Key": "PanelCharLevelV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelCharLevelV2P6.prefab"
+    },
+    {
+        "Key": "PanelCharGradeV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelCharGradeV2P6.prefab"
+    },
+    {
+        "Key": "PanelCharSkillV2P6",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelCharSkillV2P6.prefab"
+    },
+    {
+        "Key": "PanelCharacterLevelSkipIds",
+        "Type": "string",
+        "Value": "89024|10013"
+    },
+    {
+        "Key": "EquipResonanceRandomSkillIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UIEquipNew/EquipResonanceRandomSkill.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonSekuai1.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/Common/CommonSekuai1.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar3",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipProgress01.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar4",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipProgress02.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar5",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipProgress03.png"
+    },
+    {
+        "Key": "EquipStrengthenProgressStar6",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipProgress03.png"
+    },
+    {
+        "Key": "PanelEffectBallSmall",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelEffectBallSmall.prefab"
+    },
+    {
+        "Key": "PanelEffectBallBig",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelEffectBallBig.prefab"
+    },
+    {
+        "Key": "PcHandleScale",
+        "Type": "float",
+        "Value": "0.65"
+    },
+    {
+        "Key": "EquipOverrunGuideId",
+        "Type": "int",
+        "Value": "61210"
+    },
+    {
+        "Key": "WeaponHelpStrength",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "WeaponHelpResonance",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "WeaponHelpOverrun",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "AwarenessHelpStrength",
+        "Type": "int",
+        "Value": "3"
+    },
+    {
+        "Key": "AwarenessHelpResonance",
+        "Type": "int",
+        "Value": "6"
+    },
+    {
+        "Key": "AwarenessHelpOverclocking",
+        "Type": "int",
+        "Value": "8"
+    },
+    {
+        "Key": "PanelCharBigBallBgNormal1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharBigBallBgNormal1.png"
+    },
+    {
+        "Key": "PanelCharBigBallBgNormal2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharBigBallBgNormal2.png"
+    },
+    {
+        "Key": "PanelCharBigBallBgSpecial1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharBigBallBgSpecial1.png"
+    },
+    {
+        "Key": "PanelCharBigBallBgSpecial2",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiCharacter/PanelCharBigBallBgSpecial2.png"
+    },
+    {
+        "Key": "TurntableAngleOffset",
+        "Type": "int",
+        "Value": "1"
+    },
+    {
+        "Key": "FxUiCharacterV2Sanjiao1",
+        "Type": "string",
+        "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCharacterV2Prefab/FxUiCharacterV2Sanjiao1.prefab"
+    }
+]

@@ -1,0 +1,252 @@
+[
+    {
+        "Key": "BeMentorLv",
+        "Comment": "\u6210\u4e3a\u5e08\u5085\u7684\u7b49\u7ea7",
+        "Value": 80
+    },
+    {
+        "Key": "GraduateLv",
+        "Comment": "\u5f92\u5f1f\u6bd5\u4e1a\u7b49\u7ea7",
+        "Value": 80
+    },
+    {
+        "Key": "BeStudentLv",
+        "Comment": "\u6210\u4e3a\u5f92\u5f1f\u7684\u7b49\u7ea7",
+        "Value": 20
+    },
+    {
+        "Key": "MaxStudentCount",
+        "Comment": "\u5e08\u5085\u53ef\u4ee5\u5e26\u51e0\u4e2a\u5f92\u5f1f",
+        "Value": 3
+    },
+    {
+        "Key": "JudgeFailPassTime",
+        "Comment": "\u591a\u5c11\u5206\u949f\u4e0d\u767b\u5f55\u4e3a\u4e0d\u53ca\u683c",
+        "Value": 4320
+    },
+    {
+        "Key": "TickPunishTime",
+        "Comment": "\u9000\u5e08\u6216\u5f00\u9664\u5f92\u5f1f\uff0c\u591a\u5c11\u5206\u949f\u4e0d\u80fd\u518d\u62dc\u5e08\u6216\u8005\u62db\u52df",
+        "Value": 720
+    },
+    {
+        "Key": "CompleteTaskCount",
+        "Comment": "\u5f92\u5f1f\u6bcf\u5468\u53ef\u5b8c\u6210\u51e0\u4e2a\u4efb\u52a1",
+        "Value": 6
+    },
+    {
+        "Key": "SysReleaseTaskCount",
+        "Comment": "\u7cfb\u7edf\u6bcf\u65e5\u53d1\u5e03\u51e0\u4e2a\u4efb\u52a1",
+        "Value": 5
+    },
+    {
+        "Key": "GetTaskCount",
+        "Comment": "\u5f92\u5f1f\u6bcf\u5929\u53ef\u4ee5\u9886\u53d6\u51e0\u4e2a\u4efb\u52a1",
+        "Value": 3
+    },
+    {
+        "Key": "ChangeTaskCount",
+        "Comment": "\u5e08\u5085\u6bcf\u5929\u53ef\u4ee5\u66f4\u6362\u51e0\u6b21\u4efb\u52a1",
+        "Value": 9
+    },
+    {
+        "Key": "MaxApplyCount",
+        "Comment": "\u7533\u8bf7\u5217\u8868\u6700\u591a\u6709\u591a\u5c11\u6761\u6d88\u606f",
+        "Value": 6
+    },
+    {
+        "Key": "ApplyTimeout",
+        "Comment": "\u7533\u8bf7\u6d88\u606f\u5b58\u653e\u65f6\u957f\uff08\u5206\u949f\uff09",
+        "Value": 1440
+    },
+    {
+        "Key": "MaxRecommendCount",
+        "Comment": "\u754c\u9762\u4e0a\u5c55\u793a\u7684\u63a8\u8350\u6570\u91cf",
+        "Value": 6
+    },
+    {
+        "Key": "ApplyCd",
+        "Comment": "\u7533\u8bf7\u88ab\u62d2\u7edd\u540ex\u5206\u949f\u5185\u8be5\u5e08\u5085\u4e0d\u4f1a\u518d\u6536\u5230\u6b64\u73a9\u5bb6\u7684\u7533\u8bf7\uff08\u914d\u62100\u4f1a\u62a5\u9519\uff09",
+        "Value": 5
+    },
+    {
+        "Key": "MaxRecommendRecordCount",
+        "Comment": "\u670d\u52a1\u5668\u5b58\u50a8\u7684\u6700\u5927\u63a8\u8350\u8bb0\u5f55\u6570",
+        "Value": 100
+    },
+    {
+        "Key": "StudentRefuseApplyInterval",
+        "Comment": "\u7533\u8bf7\u88ab\u62d2\u7edd\u540ex\u5206\u949f\u5185\u8be5\u5b66\u751f\u4e0d\u4f1a\u518d\u6536\u5230\u6b64\u73a9\u5bb6\u7684\u7533\u8bf7\uff08\u914d\u62100\u4f1a\u62a5\u9519\uff09",
+        "Value": 5
+    },
+    {
+        "Key": "RecommendIntervalTime",
+        "Comment": "\u83b7\u53d6\u63a8\u8350\u5217\u8868\u51b7\u5374\u65f6\u95f4\uff08\u5206\u949f\uff09,\u8b6c\u5982\u8fde\u7eed\u70b9\u4e86N\u6b21\u4e4b\u540e\uff0c\u5e76\u4e14\u6bcf\u6b21\u4e24\u6b21\u70b9\u51fb\u4e4b\u95f4\u7684\u65f6\u95f4\u95f4\u9694\u5c11\u4e8eX\uff0c\u4f1a\u8fdb\u5165\u51b7\u5374CD\uff0c\u83b7\u53d6\u63a8\u8350\u5217\u8868\u548c\u641c\u7d22\u901a\u7528",
+        "Value": 1
+    },
+    {
+        "Key": "MaxContinuousClickCount",
+        "Comment": "\u83b7\u53d6\u63a8\u8350\u5217\u8868\u6700\u591a\u8fde\u7eed\u70b9\u51fb\u6b21\u6570",
+        "Value": 10
+    },
+    {
+        "Key": "MaxContinuousClickIntervalTime",
+        "Comment": "\u83b7\u53d6\u63a8\u8350\u5217\u8868\u4e24\u6b21\u70b9\u51fb\u95f4\u9694\uff08\u79d2\uff09",
+        "Value": 10
+    },
+    {
+        "Key": "MaxDailyApply",
+        "Comment": "\u6bcf\u5929\u6700\u591a\u7533\u8bf7\u6b21\u6570",
+        "Value": 100
+    },
+    {
+        "Key": "KickTeacherMailId",
+        "Comment": "\u9000\u5e08\u53d1\u7ed9\u5e08\u5085\u7684\u90ae\u4ef6ID",
+        "Value": 60004
+    },
+    {
+        "Key": "KickStudentMailId",
+        "Comment": "\u8e22\u5f92\u5f1f\u53d1\u7ed9\u5f92\u5f1f\u7684\u90ae\u4ef6ID",
+        "Value": 60003
+    },
+    {
+        "Key": "AnnouncementMaxLength",
+        "Comment": "\u5ba3\u8a00\u7684\u6700\u5927\u957f\u5ea6",
+        "Value": 20
+    },
+    {
+        "Key": "AddMentorTeacherMailId",
+        "Comment": "\u6536\u5f92\u65f6\u53d1\u7ed9\u5e08\u5085\u7684\u90ae\u4ef6ID",
+        "Value": 60002
+    },
+    {
+        "Key": "AddMentorStudentMailId",
+        "Comment": "\u6536\u5f92\u65f6\u53d1\u7ed9\u5b66\u751f\u7684\u90ae\u4ef6ID",
+        "Value": 60001
+    },
+    {
+        "Key": "MentorChatMaxCount",
+        "Comment": "\u5e08\u5f92\u804a\u5929\u6d88\u606f\u7684\u6700\u5927\u4fdd\u5b58\u6570\uff08\u6700\u65b0\uff09",
+        "Value": 50
+    },
+    {
+        "Key": "GraduateRewardId",
+        "Comment": "\u6bd5\u4e1a\u5956\u52b1\uff08\u5956\u52b1\u8868ID\uff09",
+        "Value": 40750
+    },
+    {
+        "Key": "GraduateStudentRetainDay",
+        "Comment": "\u5df2\u6bd5\u4e1a\u5b66\u751f\u4fdd\u7559\u51e0\u5929\uff0c\u7ed9\u5e08\u5085\u9886\u6311\u6218\u4efb\u52a1\u5956\u52b1",
+        "Value": 7
+    },
+    {
+        "Key": "GraduateMailId",
+        "Comment": "\u5b66\u751f\u70b9\u6bd5\u4e1a\u65f6\uff0c\u5982\u679c\u6709\u672a\u5b8c\u6210\u7684\u6210\u957f\u4efb\u52a1\uff0c\u81ea\u52a8\u5b8c\u6210\u4efb\u52a1\uff0c\u5e76\u4e14\u901a\u8fc7\u90ae\u4ef6\u53d1\u653e\u5956\u52b1\uff0c\u90ae\u4ef6ID",
+        "Value": 60007
+    },
+    {
+        "Key": "NormalLabelMaxCount",
+        "Comment": "\u6700\u5927\u53ef\u9009\u62e9\u4e2a\u6027\u6807\u7b7e\u6570",
+        "Value": 2
+    },
+    {
+        "Key": "TimeLabelMaxCount",
+        "Comment": "\u6700\u5927\u53ef\u9009\u62e9\u65f6\u95f4\u6807\u7b7e\u6570",
+        "Value": 1
+    },
+    {
+        "Key": "MentorChangeTaskDisplayCount",
+        "Comment": "\u5e08\u5085\u6253\u5f00\u66f4\u6362\u4efb\u52a1\u754c\u9762\u65f6\u663e\u793a\u51e0\u6761\u4efb\u52a1",
+        "Value": 5
+    },
+    {
+        "Key": "MentorGiveEquipCount",
+        "Comment": "\u4e00\u4e2a\u4efb\u52a1\u53ef\u4ee5\u8d60\u9001\u51e0\u4e2a\u610f\u8bc6",
+        "Value": 2
+    },
+    {
+        "Key": "MentorGiveEquipMaxLevel",
+        "Comment": "\u53ef\u4ee5\u8d60\u9001\u7684\u610f\u8bc6\u6700\u5927\u7b49\u7ea7",
+        "Value": 1
+    },
+    {
+        "Key": "MentorGiveEquipMaxStar",
+        "Comment": "\u53ef\u4ee5\u8d60\u9001\u7684\u610f\u8bc6\u6700\u5927\u661f\u7ea7",
+        "Value": 5
+    },
+    {
+        "Key": "StudentWeeklyResetSendEquipMailId",
+        "Comment": "\u6bcf\u5468\u91cd\u7f6e\u65f6\uff0c\u5982\u679c\u5b66\u751f\u6ca1\u6709\u9886\u53d6\u5e08\u5085\u8d60\u9001\u7684\u610f\u8bc6\uff0c\u901a\u8fc7\u90ae\u4ef6\u53d1\u9001\u7ed9\u5b66\u751f\uff0c\u90ae\u4ef6ID",
+        "Value": 60005
+    },
+    {
+        "Key": "GraduateStudentCount",
+        "Comment": "\u5e08\u5f92\u540d\u5f55\u6700\u591a\u663e\u793a\u51e0\u4e2a\u5df2\u6bd5\u4e1a\u7684\u5b66\u751f",
+        "Value": 4
+    },
+    {
+        "Key": "GraduateTaskMailId",
+        "Comment": "\u5b66\u751f\u70b9\u6bd5\u4e1a\u65f6\uff0c\u5982\u679c\u6709\u672a\u9886\u53d6\u7684\u6311\u6218\u4efb\u52a1\uff0c\u901a\u8fc7\u90ae\u4ef6\u53d1\u653e\u5956\u52b1\uff0c\u90ae\u4ef6ID",
+        "Value": 60006
+    },
+    {
+        "Key": "FirstMentorMailId",
+        "Comment": "\u7b2c\u4e00\u6279\u6559\u5b98\u90ae\u4ef6ID",
+        "Value": 60008
+    },
+    {
+        "Key": "FirstMentorRewardDeadline",
+        "Comment": "\u8ddd\u79bb11\u670826\u53f70\u70b9\u591a\u5c11\u5929\u540e\u4e0d\u518d\u53d1\u6559\u5b98\u90ae\u4ef6",
+        "Value": 29
+    },
+    {
+        "Key": "MonthlyStudentCount",
+        "Comment": "\u6bcf\u6708\u6700\u591a\u6536\u5f92\u6570\u91cf",
+        "Value": 6
+    },
+    {
+        "Key": "GraduateCollectionId",
+        "Comment": "\u8001\u5e08\u5956\u52b1\u754c\u9762\u5c55\u793a\u7528\u6bd5\u4e1a\u6536\u85cf\u54c1ID",
+        "Value": 13000800
+    },
+    {
+        "Key": "AutoGraduateLv",
+        "Comment": "\u81ea\u52a8\u6bd5\u4e1a\u7b49\u7ea7",
+        "Value": 83
+    },
+    {
+        "Key": "MessageBoardMaxLen",
+        "Comment": "\u7559\u8a00\u6700\u5927\u957f\u5ea6",
+        "Value": 100
+    },
+    {
+        "Key": "ActivationCount",
+        "Comment": "\u8fbe\u5230\u591a\u5c11\u6d3b\u8dc3\u5ea6\u7b97\u6ee1\u4eca\u65e5\u6d3b\u8dc3\u5ea6",
+        "Value": 100
+    },
+    {
+        "Key": "ActivationItemId",
+        "Comment": "\u6559\u5e08\u8fbe\u5230\u6d3b\u8dc3\u5ea6\u663e\u793a\u7684\u793c\u7269ID",
+        "Value": 96006
+    },
+    {
+        "Key": "ActivationRewardId",
+        "Comment": "\u6559\u5e08\u5b9e\u9645\u9001\u7ed9\u5b66\u5458\u7684rewardid",
+        "Value": 40802
+    },
+    {
+        "Key": "ActivationRewardCount",
+        "Comment": "\u8fbe\u5230\u6d3b\u8dc3\u5ea6\u5956\u52b1\u51e0\u4efd\u793c\u7269",
+        "Value": 3
+    },
+    {
+        "Key": "GiftMailId",
+        "Comment": "\u9001\u6559\u5e08\u7684\u793c\u7269\u90ae\u4ef6ID",
+        "Value": 60010
+    },
+    {
+        "Key": "GuidePlayerSearchCD",
+        "Comment": "\u641c\u7d22\u5e08\u5f92CD",
+        "Value": 3
+    }
+]
