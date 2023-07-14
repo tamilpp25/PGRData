@@ -4,7 +4,7 @@
 
 - Client
 - Share
-- Scripts (soon)
+- Scripts
 - Sha1
 
 ## Known Issue 
