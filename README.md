@@ -1,10 +1,11 @@
 # PGRData
 > Game Version: 2.6.0 <br/>
-> Document Version: 2.6.8 <br/>
+> Document Version: 2.6.10 <br/>
 
 - Client
 - Share
+- Script
 - Sha1
 
 ## Known Issue 
-Maybe a huge amount of files are still broken that they can't be dumped, especially .lua files
+0
