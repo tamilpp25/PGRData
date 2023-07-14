@@ -301,7 +301,7 @@
     },
     {
         "Key": "CharacterUnowenedIntroduce",
-        "Text": "<size=40>{0}</size>\u00b7<size=40>{1}</size><size=24>   {2}</size>"
+        "Text": "<size=40>{0}</size>:<size=40>{1}</size><size=24>   {2}</size>"
     },
     {
         "Key": "CharacterLackDps",
@@ -2213,7 +2213,7 @@
     },
     {
         "Key": "FavorabilityCast",
-        "Text": "Voice: {0}"
+        "Text": "CV: "
     },
     {
         "Key": "FavorabilityAudioUnlock",
@@ -4805,7 +4805,7 @@
     },
     {
         "Key": "ActivityBriefShopLeftTime",
-        "Text": "Remaining  <color=#ffffff>{0}</color>"
+        "Text": "Remaining: <color=#74c3f3>{0}</color>"
     },
     {
         "Key": "ActivityBriefTaskLeftTime",
@@ -6556,6 +6556,14 @@
         "Text": "Only one Special Communication will be triggered no matter how many gifts are given. Proceed anyway?"
     },
     {
+        "Key": "GivenAndOverGiftText",
+        "Text": "Already sent a special gift to the character and Affection is full"
+    },
+    {
+        "Key": "SelectMultiSpecialGiftText",
+        "Text": "You can only sent one special gift at a time"
+    },
+    {
         "Key": "WeaponFashionNotOwn",
         "Text": "Weapon Coating expired"
     },
@@ -7969,15 +7977,15 @@
     },
     {
         "Key": "ExpeditionRecruitTimes",
-        "Text": "Recruit x{0}"
+        "Text": "Refresh Attempt \u00d7{0}"
     },
     {
         "Key": "ExpeditionEntryBannerProcessStr",
-        "Text": "Stages completed: {0}"
+        "Text": "Stage Progress: {0}"
     },
     {
         "Key": "ExpeditionOnClose",
-        "Text": "Heterosoil Grown chapter is closed"
+        "Text": "Event ended"
     },
     {
         "Key": "ExpeditionCoinNotEnoughBuyDraw",
@@ -7997,15 +8005,15 @@
     },
     {
         "Key": "ExpeditionActivityEnd",
-        "Text": "Heterosoil Grown event is over"
+        "Text": "Event is over"
     },
     {
         "Key": "ExpeditionRecruitTimeCountDown",
-        "Text": " until next <color=#0E70BD>1</color> refresh attempt"
+        "Text": " Refresh attempts afterward <color=#0E70BD>+1</color>"
     },
     {
         "Key": "ExpeditionNoRecruitTime",
-        "Text": "No recruit attempts left"
+        "Text": "No refresh attempts"
     },
     {
         "Key": "ExpeditionCharaRecruited",
@@ -8029,23 +8037,31 @@
     },
     {
         "Key": "ExpeditionIsPicked",
-        "Text": "Max number of recruits reached"
+        "Text": "Recruitment limit per round exceeded"
     },
     {
         "Key": "ExpeditionFullMember",
-        "Text": "Max number of recruits reached. Cannot recruit new members."
+        "Text": "Recruitment slots are full. Unable to recruit more members."
     },
     {
         "Key": "ExpeditionFireConfirmTitle",
-        "Text": "Confirm Dismissal"
+        "Text": "Warning"
     },
     {
         "Key": "ExpeditionFireConfirmContent",
-        "Text": "Confirm to dismiss this member?\\nOnce you dismiss members, you will lose them and no recruit attempts will be returned."
+        "Text": "Dismiss the member?\\nThis will <color=#ff3f3f>remove and reset</color> the member\\nand <color=#ff3f3f>not refund Recruitment Attempts</color>."
+    },
+    {
+        "Key": "ExpeditionDefaultTeamConfirmTitle",
+        "Text": "Warning"
+    },
+    {
+        "Key": "ExpeditionDefaultTeamConfirmContent",
+        "Text": "<size=36>Replace\\n<color=#ff3f3f>{0} and {1}</color>\\nwith \\n<color=#0E70BD>{2} and {3}</color>?\\nThe core members will be <color=#ff3f3f>dismissed and reset (without refunding Recruitment Attempts)</color>.\\n<color=#0E70BD>Trained new members will inherit the trained members' Stars.</color></size>"
     },
     {
         "Key": "ExpeditionComboTipsPhaseTitle",
-        "Text": "Rank {0}"
+        "Text": "Phase - {0}"
     },
     {
         "Key": "ExpeditionDrawPRRecruitTimes",
@@ -8057,7 +8073,7 @@
     },
     {
         "Key": "ExpeditionNoRanking",
-        "Text": "100%"
+        "Text": null
     },
     {
         "Key": "ExpeditionPBTitle",
@@ -8065,7 +8081,7 @@
     },
     {
         "Key": "ExpeditionDrawPRTitle",
-        "Text": "Recruit Lv.{0}"
+        "Text": "Recruitment Level: {0}"
     },
     {
         "Key": "ExpeditionDrawPRPercent",
@@ -8073,7 +8089,7 @@
     },
     {
         "Key": "ExpeditionResetCountDown",
-        "Text": "<size=32><color=#000000>Time until reset: </color></size>{0}"
+        "Text": "<size=32><color=#000000>Remaining Event Time:</color></size> {0}"
     },
     {
         "Key": "ExpeditionRankingWaveStr",
@@ -8085,7 +8101,7 @@
     },
     {
         "Key": "ExpeditionWarningCurNumText",
-        "Text": "(Current Members' Average Rank: {0}\u2605)"
+        "Text": "Average Stars of Current Members: {0}\u2605"
     },
     {
         "Key": "ExpeditionInfiDetail",
@@ -8105,7 +8121,7 @@
     },
     {
         "Key": "ExpeditionTierLock",
-        "Text": "The stage is not available yet. Complete the previous stages first."
+        "Text": "Clear the prerequisite stage first"
     },
     {
         "Key": "ExpeditionCantReset",
@@ -8113,11 +8129,11 @@
     },
     {
         "Key": "ExpeditionNormalNameFontColor",
-        "Text": "<color=#000000>{0}</color>"
+        "Text": "{0}"
     },
     {
         "Key": "ExpeditionNormalTierFontColor",
-        "Text": "<color=#9C9C9C>{0}</color>"
+        "Text": "{0}"
     },
     {
         "Key": "ExpeditionNightmareFontColor",
@@ -8133,11 +8149,19 @@
     },
     {
         "Key": "ExpeditionMaxLevel",
-        "Text": "Max Lv. reached for this member"
+        "Text": "Max Stars reached for this member"
     },
     {
         "Key": "ExpeditionDefaultTeamTips",
-        "Text": "Preset team has an exclusive skill that can be used in this stage (with an additional skill button). Preset team members cannot be dismissed, but members can be reselected after reset."
+        "Text": "Core members have exclusive skills, <color=#0E70BD>which can be activated by deploying at least 1 member. Exclusive skills cannot be active at the same time. (Tap the icon to view details.)</color>\\n Preset team can be switched at any time after being unlocked. <color=#ff3f3f>This will dismiss the current core members</color>, and <color=#0E70BD>the new members will inherit the trained members' Stars</color>."
+    },
+    {
+        "Key": "ExpeditionDefaultTeamIsUnlock",
+        "Text": "Rest Point {0} reached"
+    },
+    {
+        "Key": "ExpeditionStageNotOpenTip",
+        "Text": "Please wait for the countdown to be over to start the stage"
     },
     {
         "Key": "PlayerInfoCharacterEmpty",
@@ -9593,11 +9617,11 @@
     },
     {
         "Key": "GuardCampSupportTipsDesc",
-        "Text": "Select [{0}] Faction\\nTo add Glowsticks"
+        "Text": "Add Cheering Sticks for [{0}]"
     },
     {
         "Key": "GuardCampUnOpenTitle",
-        "Text": "Faction selection starting time"
+        "Text": "Team Selection Start Time"
     },
     {
         "Key": "GuardCampSupportOpenTitle",
@@ -9605,7 +9629,7 @@
     },
     {
         "Key": "GuardCampSupportCloseTitle",
-        "Text": "Prize announcement time"
+        "Text": "Result Announcement:"
     },
     {
         "Key": "GuardCampCloseTitle",
@@ -9613,11 +9637,11 @@
     },
     {
         "Key": "GuardCampCardPoolCaption",
-        "Text": "The total number of Glowsticks in the overall pool equals to the sum of Glowsticks used by players and bonus Glowsticks unlocked by the official team."
+        "Text": "The total number of Cheering Sticks in the reward pool equals to the number of Cheering Sticks invested by the participants + the number of Cheering Sticks in the extra reward pools unlocked"
     },
     {
         "Key": "GuardCampCardPoolDrawLotteryCaption",
-        "Text": "Black Card rewards for the winning faction =\\nNumber of the Glowsticks for the winning faction*2 + Total Prize Pool*0.8/Players in faction\\nBlack Card rewards for the losing faction = Total Prize Pool*0.2/Players in Faction\\nThe number of Black Cards/Players will round up to the next integer\\nExample: If Black Cards per player is 1234.1, every player will receive 1235 Black Cards instead."
+        "Text": "\u203bWinning Team's Black Cards = Cheering Sticks Rewarded for Supporting the Correct Team \u00d72 + Reward Pool \u00d70.6 \u00f7 Team Size\\n\u203bLosing Team's Black Cards = Reward Pool \u00d70.4 \u00f7 Team Size\\n\u203bIf the result of (Black Cards \u00f7 Team Size) is not a whole number, then the final result will be the next lowest whole number higher than the number.\\n\u2014 For example, if the number you get is 1234.1, then 1235 Black Cards will be rewarded to everyone."
     },
     {
         "Key": "GuardCampSupportCloseTipDesc",
@@ -9625,7 +9649,7 @@
     },
     {
         "Key": "GuardCampSelectCampSuccess",
-        "Text": "Faction selected"
+        "Text": "Team selected"
     },
     {
         "Key": "GuardCampSupportCampSuccess",
@@ -9633,7 +9657,7 @@
     },
     {
         "Key": "GuardCampSupportCampMax",
-        "Text": "Cheering limit reached"
+        "Text": "Personal Cheer limit reached"
     },
     {
         "Key": "NotPurchaseData",
@@ -9645,15 +9669,15 @@
     },
     {
         "Key": "GuardCampSelectCampTipDesc",
-        "Text": "Use {0}{1} to join [{2}] faction?\\nOnce joined, you cannot change your faction again."
+        "Text": "Spend <color=#0E70BD>[{1}] \u00d7{0}</color>\\nto join [{2}].\\nYou cannot change your decision after joining the team."
     },
     {
         "Key": "GuardCampMaxSupport",
-        "Text": "You can add up to {0} {1}"
+        "Text": "A maximum of <color=#0E70BD>[{1}] \u00d7{0}</color> can be added during the event"
     },
     {
         "Key": "GuardCampMinSupport",
-        "Text": "Minimum {0} {1} required"
+        "Text": "A minimum of <color=#0E70BD>[{1}] \u00d7{0}</color> can be added"
     },
     {
         "Key": "GuardCampSupportInsufficientQuantity",
@@ -11129,15 +11153,15 @@
     },
     {
         "Key": "MoeWarMatchVoteRefreshTimeSplit",
-        "Text": "."
+        "Text": " & "
     },
     {
         "Key": "MoeWarMatchVoteRefreshTimeUnit",
-        "Text": "{0}"
+        "Text": "{0}:00 (UTC)"
     },
     {
         "Key": "MoeWarMatchVoteRefresh",
-        "Text": "Total Cheer Points are refreshed at {0} daily"
+        "Text": "Total Cheer Points refreshed at {0} "
     },
     {
         "Key": "MoeWarMatchVoteNoResult",
@@ -11161,7 +11185,7 @@
     },
     {
         "Key": "MoeWarSkipGift",
-        "Text": "Block Gift"
+        "Text": "Block Comment"
     },
     {
         "Key": "MoeWarSupportTitle",
@@ -11214,6 +11238,10 @@
     {
         "Key": "MoeWarDailyVoteItemNotEnoughTip",
         "Text": "Insufficient {0}"
+    },
+    {
+        "Key": "MoeWarParkourQuit",
+        "Text": "You have left \"Speed Racer\""
     },
     {
         "Key": "MoeWarNotOpen",
@@ -11492,12 +11520,16 @@
         "Text": "Select contestants from the left"
     },
     {
+        "Key": "MoeWarParkourFightNotCharacter",
+        "Text": "Please select your racer first"
+    },
+    {
         "Key": "MoeWarPrepareNotHelpter",
         "Text": "No Helpers available. Please contact a Helper first"
     },
     {
         "Key": "MoeWarRecruitTipsDesc",
-        "Text": "Use {0} terminals to connect to {1}?"
+        "Text": "Start communication?"
     },
     {
         "Key": "MoeWarGrandTotal",
@@ -11573,11 +11605,11 @@
     },
     {
         "Key": "GachaOrganizeDrawNotEnoughError",
-        "Text": "Insufficient Data Track items. Challenge stages and Infinite Abyss to get more."
+        "Text": "Insufficient items. Participate in the Festival and vote with Festival Stamps to replenish."
     },
     {
         "Key": "GachaOrganizeNotEnoughSkipHint",
-        "Text": "Insufficient Data Track items. You may get more through challenge. Proceed now?"
+        "Text": "Insufficient items. Participate in the Festival and vote with Festival Stamps to replenish. Advance?"
     },
     {
         "Key": "GachaOrganizeRankTip",
@@ -11637,7 +11669,7 @@
     },
     {
         "Key": "MoeWarRewardName",
-        "Text": "Special Pack"
+        "Text": "Remembrance Parlor"
     },
     {
         "Key": "MoeWarRewardNameEng",
@@ -12241,11 +12273,11 @@
     },
     {
         "Key": "MineSweepingStageLoseHint",
-        "Text": "Loss: Open \"Surprise\" for {0} times ({1}/{2})"
+        "Text": "Failure Condition: Get frozen by \"Snowball\" {0} time(s) ({1}/{2})"
     },
     {
         "Key": "MineSweepingChapterWinHint",
-        "Text": "Aha, you are as good as I thought. Only took you <color=#fff21f>{0} times</color> to clear my little present."
+        "Text": "???: The fireflies will lead the way for us even if the dark clouds cover the sky."
     },
     {
         "Key": "MineStageUnLockHint",
@@ -12381,7 +12413,7 @@
     },
     {
         "Key": "MineSweepingNotCoinHint",
-        "Text": "Insufficient tokens"
+        "Text": "You do not have sufficient [Crumpled Paper]."
     },
     {
         "Key": "STOverTimeHint",
@@ -12533,7 +12565,7 @@
     },
     {
         "Key": "StrongholdTeamAutoRuneConfirmTitle",
-        "Text": "<size=85>Energy Field auto configuration notice</size>"
+        "Text": "Energy Field configuration notice"
     },
     {
         "Key": "StrongholdTeamAutoRuneConfirmContent",
@@ -12654,6 +12686,26 @@
     {
         "Key": "SuperTowerShopOwnerText",
         "Text": "Owned {0}"
+    },
+    {
+        "Key": "SuperSmashProgressText",
+        "Text": "First Opponent\\n<color=#ff8e43>{0}/{1}</color>"
+    },
+    {
+        "Key": "SuperSmashTeamLevel",
+        "Text": "Team Level: {0}"
+    },
+    {
+        "Key": "SuperSmashModeLock",
+        "Text": "Unlocks after [{0}] is available"
+    },
+    {
+        "Key": "SuperSmashTeamLevelMax",
+        "Text": "Max level reached"
+    },
+    {
+        "Key": "SuperSmashTeamLV",
+        "Text": "LV.{0}"
     },
     {
         "Key": "STPluginCountNotEnough",
@@ -13142,6 +13194,14 @@
     {
         "Key": "SSBRobotCantEditEquip",
         "Text": "Cannot change trial character's equipment"
+    },
+    {
+        "Key": "SSBEggRobotCantEditCore",
+        "Text": "Easter egg character cannot edit Super Cores"
+    },
+    {
+        "Key": "SSBCoreNotOpen",
+        "Text": "Super Core is not available"
     },
     {
         "Key": "SSBNeedRoleMinPosition",
@@ -14648,6 +14708,10 @@
         "Text": "Host Only"
     },
     {
+        "Key": "RoomTeamPrefabNotSupport",
+        "Text": "Mode does not support overwriting teams"
+    },
+    {
         "Key": "RoomTeamPrefabEmpty",
         "Text": "The deployed team doesn't have members. Overwrite and the members in the selected preset team will be cleared. Overwrite?"
     },
@@ -14662,6 +14726,38 @@
     {
         "Key": "RoomTeamPrefabRoleEmptyTips",
         "Text": "Please set the member of this position"
+    },
+    {
+        "Key": "PartnerTeamPrefabEquipTips",
+        "Text": "Equipped"
+    },
+    {
+        "Key": "PartnerTeamPrefabUnloadTips",
+        "Text": "Removed"
+    },
+    {
+        "Key": "PartnerTeamPrefabExchangeTips",
+        "Text": "Changed"
+    },
+    {
+        "Key": "PartnerTeamPrefabSkillSaveTips",
+        "Text": "Skill preset"
+    },
+    {
+        "Key": "PartnerTeamPrefabSkillNotSaveTips",
+        "Text": "[{0}]'s preset skill is not saved"
+    },
+    {
+        "Key": "PartnerTeamPrefabCoverTips",
+        "Text": "[Overwrite] and the deployed team will be replaced by the preset lineup"
+    },
+    {
+        "Key": "PartnerTeamPrefabChooseTips",
+        "Text": "Preset [CUB] already equipped or had skill change(s). Deploy?"
+    },
+    {
+        "Key": "PartnerTeamPrefabNotCharacter",
+        "Text": "Members not set. Cannot set CUB."
     },
     {
         "Key": "TheatreDecorationCanLvUpTips",
@@ -14829,7 +14925,7 @@
     },
     {
         "Key": "TeamPrefabHasRobotTips",
-        "Text": "Trial member(s) on the team. Unable to overwrite."
+        "Text": "Trial frame(s) on the team. Unable to overwrite."
     },
     {
         "Key": "EscapeCurLayerClear",
@@ -15014,6 +15110,70 @@
     {
         "Key": "GuildWarEliteNodeRankingTitle",
         "Text": "Ambusher Attack Ranking"
+    },
+    {
+        "Key": "GuildDormMainTopChannelName",
+        "Text": "Channel {0} "
+    },
+    {
+        "Key": "GuildDormGiftInfoCurrentContribution",
+        "Text": "Current Contribution: {0}"
+    },
+    {
+        "Key": "GuildDormGiftButtonNormal",
+        "Text": "<color=#FFFFFF>{0}</color>"
+    },
+    {
+        "Key": "GuildDormGiftButtonCanReceive",
+        "Text": "<color=#34AFF8>{0}</color>"
+    },
+    {
+        "Key": "GuildDormRoleInteracting",
+        "Text": "Character is in interaction. Unable to perform the action."
+    },
+    {
+        "Key": "GuildDormRolePlayingAction",
+        "Text": "Playing actions. Unable to switch characters."
+    },
+    {
+        "Key": "GuildDormChannelName1",
+        "Text": "Channel 1"
+    },
+    {
+        "Key": "GuildDormChannelName2",
+        "Text": "Channel 2"
+    },
+    {
+        "Key": "GuildDormChannelName3",
+        "Text": "Channel 3"
+    },
+    {
+        "Key": "GuildDormChannelName4",
+        "Text": "Channel 4"
+    },
+    {
+        "Key": "GuildDormSwitchChannelTitle",
+        "Text": "Switching to {0}"
+    },
+    {
+        "Key": "GuildDormSwitchChannelContent",
+        "Text": "Switch channel?"
+    },
+    {
+        "Key": "GuildDormDefaultInteractButtonText",
+        "Text": "Interact"
+    },
+    {
+        "Key": "GuildDormActionCDTip",
+        "Text": "Interaction is on cooldown"
+    },
+    {
+        "Key": "GuildDormSwitchSameChannelTip",
+        "Text": "Already in the channel"
+    },
+    {
+        "Key": "GuildDormNetworkTimeOutTip",
+        "Text": "Requesting to enter the Command Bureau Hall has timed out. Closing the access to the new Command Bureau and entering the old one.\\nIf you still want to enter the new Command Bureau, please log in and try again."
     },
     {
         "Key": "BabelTowerAffixLevelInadequateTitle",
@@ -15436,10 +15596,6 @@
         "Text": "Unlock Progress"
     },
     {
-        "Key": "MultiDimFightExitTipTitle",
-        "Text": "Dead Characters"
-    },
-    {
         "Key": "MultiDimFightExitTipContent",
         "Text": "Support-type characters can revive teammates. You may be able to continue your fight with your teammate's assistance!\\nAre you sure you want to exit? (Return to the battlefield to check the battle progress.)"
     },
@@ -15640,6 +15796,30 @@
         "Text": "Support Talent"
     },
     {
+        "Key": "CharacterQualityStar",
+        "Text": "Phase {0}"
+    },
+    {
+        "Key": "CharacterQualityTip",
+        "Text": "{0}   {1}"
+    },
+    {
+        "Key": "CharacterQualitySkillTipText",
+        "Text": "{0}Lv{1}"
+    },
+    {
+        "Key": "CharacterSkillNameText",
+        "Text": "{0}{1}\uff1a{2}Lv{3}"
+    },
+    {
+        "Key": "CharacterQualitySkillText",
+        "Text": "Skill Growth"
+    },
+    {
+        "Key": "CharacterQualityAttributeText",
+        "Text": "Stat Growth"
+    },
+    {
         "Key": "MultiDimAddLike",
         "Text": "Like +{0}"
     },
@@ -15652,8 +15832,84 @@
         "Text": "No available guild members"
     },
     {
+        "Key": "PurchaseYKIsOnBuyLimt",
+        "Text": "Monthly Pass purchase limit reached"
+    },
+    {
+        "Key": "YuanXiaoText1",
+        "Text": "Ranking"
+    },
+    {
+        "Key": "YuanXiaoText2",
+        "Text": "Completed"
+    },
+    {
+        "Key": "YuanXiaoText3",
+        "Text": "Trophy"
+    },
+    {
+        "Key": "YuanXiaoText4",
+        "Text": "Score"
+    },
+    {
+        "Key": "MoeWarGiftTipsDesc",
+        "Text": "Sending             can restore <color=#197dcb>{0}</color> Mood to the Helper.\\nConfirm to proceed?"
+    },
+    {
+        "Key": "MoeWarWinnerGroup",
+        "Text": "Champions"
+    },
+    {
+        "Key": "MoeWarFailGroup",
+        "Text": "Underdogs"
+    },
+    {
+        "Key": "MoeWarRecruitReplyAgain",
+        "Text": "Challenge Again"
+    },
+    {
+        "Key": "MoeWarRecruitNotContact",
+        "Text": "No need to contact default members"
+    },
+    {
+        "Key": "MoeWarPrepareOver",
+        "Text": "Competition has ended"
+    },
+    {
+        "Key": "MoeWarPrepareNotOpen",
+        "Text": "Event is not available yet"
+    },
+    {
+        "Key": "MoeWarPrepareOverEn",
+        "Text": "END OF THE GAME"
+    },
+    {
+        "Key": "MoeWarPrepareNotOpenEn",
+        "Text": "START OF THE GAME"
+    },
+    {
+        "Key": "MoeWarVoteGainTitle",
+        "Text": "Grants Golden Days"
+    },
+    {
         "Key": "DormSelectTooMuch",
         "Text": "Recycle up to {0} Decor(s) at a time"
+    },
+    {
+        "Key": "AlreadyInNewGuild",
+        "Text": "Already in the new guild"
+    },
+    {
+        "Key": "AlreadyInOldGuild",
+        "Text": "Already in the old guild"
+    },
+    {
+        "Key": "MoeWarDispatchMoodLack",
+        "Text": "Insufficient Mood of the character. Advance to restore?"
+    },
+    {
+        "Key": "MultiDimFightExitTipTitle",
+        "Text": "Dead Characters"
     },
     {
         "Key": "ActivityRepeatChallengeChapterLockBtn",
@@ -16049,11 +16305,11 @@
     },
     {
         "Key": "JPReviewActivityButtonText",
-        "Text": "2\u5468\u5e74\u5b9f\u7e3e\u8a18\u5ff5"
+        "Text": "2nd Anniversary Review"
     },
     {
         "Key": "JPReviewActivityButton",
-        "Text": "\u53d7\u53d6"
+        "Text": "Claim"
     },
     {
         "Key": "Draw01",
@@ -16262,5 +16518,29 @@
     {
         "Key": "PcMouseButtonDodge",
         "Text": "Dodge"
+    },
+    {
+        "Key": "FavorabilityDropDownJPNCV",
+        "Text": "Japanese: "
+    },
+    {
+        "Key": "FavorabilityDropDownCNCV",
+        "Text": "Putonghua: "
+    },
+    {
+        "Key": "FavorabilityDropDownENCV",
+        "Text": "English: "
+    },
+    {
+        "Key": "FavorabilityDropDownHKCV",
+        "Text": "Cantonese: "
+    },
+    {
+        "Key": "ThousandEN",
+        "Text": "K"
+    },
+    {
+        "Key": "MillionEN",
+        "Text": "M"
     }
 ]

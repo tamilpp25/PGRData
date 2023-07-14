@@ -72,7 +72,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100103,
@@ -147,7 +149,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100104,
@@ -225,7 +229,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100105,
@@ -304,7 +310,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100106,
@@ -379,7 +387,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100107,
@@ -458,7 +468,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100108,
@@ -535,7 +547,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100109,
@@ -610,7 +624,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100204,
@@ -689,7 +705,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100205,
@@ -771,7 +789,88 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
+    },
+    {
+        "Id": 85100213,
+        "Name": "\u9501\u5b9a\u7528\u5b50\u5b50\u5f39",
+        "Shape": 2,
+        "SizeX": 999.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.1,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [
+            199933.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": 0,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100313,
@@ -851,7 +950,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100406,
@@ -930,7 +1031,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100407,
@@ -1012,7 +1115,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100408,
@@ -1094,7 +1199,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100409,
@@ -1176,7 +1283,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100410,
@@ -1258,7 +1367,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100411,
@@ -1340,7 +1451,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100412,
@@ -1422,7 +1535,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100413,
@@ -1504,7 +1619,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100414,
@@ -1586,7 +1703,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100415,
@@ -1668,7 +1787,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100416,
@@ -1749,7 +1870,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100417,
@@ -1831,7 +1954,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100504,
@@ -1910,7 +2035,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100507,
@@ -1985,7 +2112,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100509,
@@ -2060,7 +2189,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100518,
@@ -2139,7 +2270,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100519,
@@ -2218,7 +2351,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100623,
@@ -2293,7 +2428,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100626,
@@ -2368,7 +2505,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100632,
@@ -2443,7 +2582,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100639,
@@ -2518,7 +2659,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100649,
@@ -2597,7 +2740,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100650,
@@ -2676,7 +2821,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100705,
@@ -2751,7 +2898,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100707,
@@ -2830,7 +2979,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100802,
@@ -2909,7 +3060,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85100911,
@@ -2988,7 +3141,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101401,
@@ -3065,7 +3220,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101408,
@@ -3144,7 +3301,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101421,
@@ -3169,7 +3328,7 @@
         "HitCount": -1,
         "RepeatDamage": null,
         "HitEffect": [
-            "FxMb1Lamiya02Atk06Hit01"
+            "FxMb1StarknightMd010001Atk2301Hit"
         ],
         "DamageInterval": null,
         "StartJoint": null,
@@ -3223,7 +3382,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101601,
@@ -3298,7 +3459,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101605,
@@ -3377,7 +3540,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101709,
@@ -3452,7 +3617,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101714,
@@ -3531,7 +3698,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101809,
@@ -3606,7 +3775,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101813,
@@ -3685,7 +3856,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101909,
@@ -3760,7 +3933,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85101913,
@@ -3839,7 +4014,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102009,
@@ -3914,7 +4091,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102013,
@@ -3993,7 +4172,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102115,
@@ -4072,7 +4253,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102116,
@@ -4151,7 +4334,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102219,
@@ -4226,7 +4411,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102220,
@@ -4301,7 +4488,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102221,
@@ -4376,7 +4565,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102226,
@@ -4455,7 +4646,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102227,
@@ -4534,7 +4727,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102228,
@@ -4613,7 +4808,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102229,
@@ -4692,7 +4889,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102318,
@@ -4767,7 +4966,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102328,
@@ -4846,7 +5047,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102406,
@@ -4925,7 +5128,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102407,
@@ -5004,7 +5209,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102408,
@@ -5083,7 +5290,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102505,
@@ -5158,7 +5367,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102510,
@@ -5238,7 +5449,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102511,
@@ -5318,7 +5531,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102512,
@@ -5398,7 +5613,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102513,
@@ -5478,7 +5695,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102514,
@@ -5558,7 +5777,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102515,
@@ -5638,7 +5859,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102516,
@@ -5718,7 +5941,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102517,
@@ -5798,7 +6023,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102518,
@@ -5878,7 +6105,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102519,
@@ -5958,7 +6187,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102520,
@@ -6038,7 +6269,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102521,
@@ -6118,7 +6351,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102522,
@@ -6198,7 +6433,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102523,
@@ -6278,7 +6515,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102524,
@@ -6358,7 +6597,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102525,
@@ -6438,7 +6679,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102603,
@@ -6513,7 +6756,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102611,
@@ -6590,7 +6835,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102616,
@@ -6670,7 +6917,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102617,
@@ -6750,7 +6999,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102618,
@@ -6830,7 +7081,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102619,
@@ -6910,7 +7163,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102620,
@@ -6990,7 +7245,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102621,
@@ -7070,7 +7327,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102622,
@@ -7150,7 +7409,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102623,
@@ -7230,7 +7491,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102624,
@@ -7310,7 +7573,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102625,
@@ -7390,7 +7655,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102626,
@@ -7470,7 +7737,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102627,
@@ -7550,7 +7819,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102628,
@@ -7630,7 +7901,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102629,
@@ -7710,7 +7983,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102630,
@@ -7790,7 +8065,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102631,
@@ -7870,7 +8147,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102719,
@@ -7945,7 +8224,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102720,
@@ -8020,7 +8301,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102721,
@@ -8095,7 +8378,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102724,
@@ -8174,7 +8459,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102726,
@@ -8253,7 +8540,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102727,
@@ -8332,7 +8621,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102807,
@@ -8407,7 +8698,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102816,
@@ -8486,7 +8779,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102911,
@@ -8561,7 +8856,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102912,
@@ -8636,7 +8933,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102913,
@@ -8711,7 +9010,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102914,
@@ -8786,7 +9087,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102922,
@@ -8865,7 +9168,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102923,
@@ -8944,7 +9249,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102924,
@@ -9023,7 +9330,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85102925,
@@ -9102,7 +9411,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103003,
@@ -9177,7 +9488,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103009,
@@ -9254,7 +9567,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103010,
@@ -9332,7 +9647,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103011,
@@ -9412,7 +9729,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103105,
@@ -9491,7 +9810,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103210,
@@ -9569,7 +9890,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103212,
@@ -9644,7 +9967,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103216,
@@ -9721,7 +10046,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103219,
@@ -9800,7 +10127,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103408,
@@ -9880,7 +10209,9 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     },
     {
         "Id": 85103409,
@@ -9960,6 +10291,8 @@
         "TimeScaleDuration": null,
         "ReboundTimes": null,
         "ReboundType": null,
-        "CollideFilterType": null
+        "CollideFilterType": null,
+        "TargetExcludeBuffId": null,
+        "NpcHitCount": null
     }
 ]

@@ -1,0 +1,1040 @@
+[
+    {
+        "GroupId": 101,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": null,
+        "ChallengeNum": 3,
+        "BaseStage": 12010102,
+        "StageId": [
+            12010101,
+            12010102
+        ],
+        "FightInfoId": [
+            12010101,
+            12010102
+        ],
+        "TeamFightSeq": "1|2",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 102,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 101.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12010202,
+        "StageId": [
+            12010201,
+            12010202
+        ],
+        "FightInfoId": [
+            12010201,
+            12010202
+        ],
+        "TeamFightSeq": "1|2",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 103,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 102.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12010302,
+        "StageId": [
+            12010301,
+            12010302
+        ],
+        "FightInfoId": [
+            12010301,
+            12010302
+        ],
+        "TeamFightSeq": "1|2",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 201,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 103.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12020103,
+        "StageId": [
+            12020101,
+            12020102,
+            12020103.0
+        ],
+        "FightInfoId": [
+            12020101,
+            12020102,
+            12020103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 202,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 201.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12020203,
+        "StageId": [
+            12020201,
+            12020202,
+            12020203.0
+        ],
+        "FightInfoId": [
+            12020201,
+            12020202,
+            12020203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 203,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 202.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12020303,
+        "StageId": [
+            12020301,
+            12020302,
+            12020303.0
+        ],
+        "FightInfoId": [
+            12020301,
+            12020302,
+            12020303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 301,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 203.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12030103,
+        "StageId": [
+            12030101,
+            12030102,
+            12030103.0
+        ],
+        "FightInfoId": [
+            12030101,
+            12030102,
+            12030103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 302,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 301.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12030203,
+        "StageId": [
+            12030201,
+            12030202,
+            12030203.0
+        ],
+        "FightInfoId": [
+            12030201,
+            12030202,
+            12030203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 303,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 302.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12030303,
+        "StageId": [
+            12030301,
+            12030302,
+            12030303.0
+        ],
+        "FightInfoId": [
+            12030301,
+            12030302,
+            12030303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 401,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 303.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12040103,
+        "StageId": [
+            12040101,
+            12040102,
+            12040103.0
+        ],
+        "FightInfoId": [
+            12040101,
+            12040102,
+            12040103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 402,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 401.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12040203,
+        "StageId": [
+            12040201,
+            12040202,
+            12040203.0
+        ],
+        "FightInfoId": [
+            12040201,
+            12040202,
+            12040203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 403,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 402.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12040303,
+        "StageId": [
+            12040301,
+            12040302,
+            12040303.0
+        ],
+        "FightInfoId": [
+            12040301,
+            12040302,
+            12040303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 501,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 403.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12050103,
+        "StageId": [
+            12050101,
+            12050102,
+            12050103.0
+        ],
+        "FightInfoId": [
+            12050101,
+            12050102,
+            12050103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 502,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 501.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12050203,
+        "StageId": [
+            12050201,
+            12050202,
+            12050203.0
+        ],
+        "FightInfoId": [
+            12050201,
+            12050202,
+            12050203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 503,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 502.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12050303,
+        "StageId": [
+            12050301,
+            12050302,
+            12050303.0
+        ],
+        "FightInfoId": [
+            12050301,
+            12050302,
+            12050303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 601,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 503.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12060103,
+        "StageId": [
+            12060101,
+            12060102,
+            12060103.0
+        ],
+        "FightInfoId": [
+            12060101,
+            12060102,
+            12060103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 602,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 601.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12060203,
+        "StageId": [
+            12060201,
+            12060202,
+            12060203.0
+        ],
+        "FightInfoId": [
+            12060201,
+            12060202,
+            12060203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 603,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 602.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12060303,
+        "StageId": [
+            12060301,
+            12060302,
+            12060303.0
+        ],
+        "FightInfoId": [
+            12060301,
+            12060302,
+            12060303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 701,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 603.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12070103,
+        "StageId": [
+            12070101,
+            12070102,
+            12070103.0
+        ],
+        "FightInfoId": [
+            12070101,
+            12070102,
+            12070103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 702,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 701.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12070203,
+        "StageId": [
+            12070201,
+            12070202,
+            12070203.0
+        ],
+        "FightInfoId": [
+            12070201,
+            12070202,
+            12070203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 703,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 702.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12070303,
+        "StageId": [
+            12070301,
+            12070302,
+            12070303.0
+        ],
+        "FightInfoId": [
+            12070301,
+            12070302,
+            12070303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 801,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 703.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12080103,
+        "StageId": [
+            12080101,
+            12080102,
+            12080103.0
+        ],
+        "FightInfoId": [
+            12080101,
+            12080102,
+            12080103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 802,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 801.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12080203,
+        "StageId": [
+            12080201,
+            12080202,
+            12080203.0
+        ],
+        "FightInfoId": [
+            12080201,
+            12080202,
+            12080203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 803,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 802.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12080303,
+        "StageId": [
+            12080301,
+            12080302,
+            12080303.0
+        ],
+        "FightInfoId": [
+            12080301,
+            12080302,
+            12080303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 901,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 803.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12090103,
+        "StageId": [
+            12090101,
+            12090102,
+            12090103.0
+        ],
+        "FightInfoId": [
+            12090101,
+            12090102,
+            12090103.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 902,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 901.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12090203,
+        "StageId": [
+            12090201,
+            12090202,
+            12090203.0
+        ],
+        "FightInfoId": [
+            12090201,
+            12090202,
+            12090203.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 903,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 902.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12090303,
+        "StageId": [
+            12090301,
+            12090302,
+            12090303.0
+        ],
+        "FightInfoId": [
+            12090301,
+            12090302,
+            12090303.0
+        ],
+        "TeamFightSeq": "1|2|3",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1001,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 903.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12100104,
+        "StageId": [
+            12100101,
+            12100102,
+            12100103.0,
+            12100104.0
+        ],
+        "FightInfoId": [
+            12100101,
+            12100102,
+            12100103.0,
+            12100104.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1002,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1001.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12100204,
+        "StageId": [
+            12100201,
+            12100202,
+            12100203.0,
+            12100204.0
+        ],
+        "FightInfoId": [
+            12100201,
+            12100202,
+            12100203.0,
+            12100204.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1003,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1002.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12100304,
+        "StageId": [
+            12100301,
+            12100302,
+            12100303.0,
+            12100304.0
+        ],
+        "FightInfoId": [
+            12100301,
+            12100302,
+            12100303.0,
+            12100304.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1101,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1003.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12110104,
+        "StageId": [
+            12110101,
+            12110102,
+            12110103.0,
+            12110104.0
+        ],
+        "FightInfoId": [
+            12110101,
+            12110102,
+            12110103.0,
+            12110104.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1102,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1101.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12110204,
+        "StageId": [
+            12110201,
+            12110202,
+            12110203.0,
+            12110204.0
+        ],
+        "FightInfoId": [
+            12110201,
+            12110202,
+            12110203.0,
+            12110204.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1103,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1102.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12110304,
+        "StageId": [
+            12110301,
+            12110302,
+            12110303.0,
+            12110304.0
+        ],
+        "FightInfoId": [
+            12110301,
+            12110302,
+            12110303.0,
+            12110304.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1201,
+        "GroupName": "1st",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1103.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12120104,
+        "StageId": [
+            12120101,
+            12120102,
+            12120103.0,
+            12120104.0
+        ],
+        "FightInfoId": [
+            12120101,
+            12120102,
+            12120103.0,
+            12120104.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1202,
+        "GroupName": "2nd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1201.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12120204,
+        "StageId": [
+            12120201,
+            12120202,
+            12120203.0,
+            12120204.0
+        ],
+        "FightInfoId": [
+            12120201,
+            12120202,
+            12120203.0,
+            12120204.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1203,
+        "GroupName": "3rd",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1202.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12120304,
+        "StageId": [
+            12120301,
+            12120302,
+            12120303.0,
+            12120304.0
+        ],
+        "FightInfoId": [
+            12120301,
+            12120302,
+            12120303.0,
+            12120304.0
+        ],
+        "TeamFightSeq": "1|2|3|4",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1301,
+        "GroupName": "1st Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1203.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12130105,
+        "StageId": [
+            12130101,
+            12130102,
+            12130103.0,
+            12130104.0,
+            12130105.0
+        ],
+        "FightInfoId": [
+            12130101,
+            12130102,
+            12130103.0,
+            12130104.0,
+            12130105.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1302,
+        "GroupName": "2nd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1301.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12130205,
+        "StageId": [
+            12130201,
+            12130202,
+            12130203.0,
+            12130204.0,
+            12130205.0
+        ],
+        "FightInfoId": [
+            12130201,
+            12130202,
+            12130203.0,
+            12130204.0,
+            12130205.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1303,
+        "GroupName": "3rd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1302.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12130305,
+        "StageId": [
+            12130301,
+            12130302,
+            12130303.0,
+            12130304.0,
+            12130305.0
+        ],
+        "FightInfoId": [
+            12130301,
+            12130302,
+            12130303.0,
+            12130304.0,
+            12130305.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1401,
+        "GroupName": "1st Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1303.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12140105,
+        "StageId": [
+            12140101,
+            12140102,
+            12140103.0,
+            12140104.0,
+            12140105.0
+        ],
+        "FightInfoId": [
+            12140101,
+            12140102,
+            12140103.0,
+            12140104.0,
+            12140105.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1402,
+        "GroupName": "2nd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1401.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12140205,
+        "StageId": [
+            12140201,
+            12140202,
+            12140203.0,
+            12140204.0,
+            12140205.0
+        ],
+        "FightInfoId": [
+            12140201,
+            12140202,
+            12140203.0,
+            12140204.0,
+            12140205.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1403,
+        "GroupName": "3rd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1402.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12140305,
+        "StageId": [
+            12140301,
+            12140302,
+            12140303.0,
+            12140304.0,
+            12140305.0
+        ],
+        "FightInfoId": [
+            12140301,
+            12140302,
+            12140303.0,
+            12140304.0,
+            12140305.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    },
+    {
+        "GroupId": 1501,
+        "GroupName": "1st Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1403.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12150105,
+        "StageId": [
+            12150101,
+            12150102,
+            12150103.0,
+            12150104.0,
+            12150105.0
+        ],
+        "FightInfoId": [
+            12150101,
+            12150102,
+            12150103.0,
+            12150104.0,
+            12150105.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 1
+    },
+    {
+        "GroupId": 1502,
+        "GroupName": "2nd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1501.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12150205,
+        "StageId": [
+            12150201,
+            12150202,
+            12150203.0,
+            12150204.0,
+            12150205.0
+        ],
+        "FightInfoId": [
+            12150201,
+            12150202,
+            12150203.0,
+            12150204.0,
+            12150205.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 2
+    },
+    {
+        "GroupId": 1503,
+        "GroupName": "3rd Battle",
+        "Icon": null,
+        "Desc": "Description",
+        "PreGroupId": 1502.0,
+        "ChallengeNum": 3,
+        "BaseStage": 12150305,
+        "StageId": [
+            12150301,
+            12150302,
+            12150303.0,
+            12150304.0,
+            12150305.0
+        ],
+        "FightInfoId": [
+            12150301,
+            12150302,
+            12150303.0,
+            12150304.0,
+            12150305.0
+        ],
+        "TeamFightSeq": "1|2|3|4|5",
+        "LogisticsInfoId": [],
+        "GroupOrderId": 3
+    }
+]

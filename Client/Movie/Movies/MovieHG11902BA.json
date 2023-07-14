@@ -31,7 +31,6 @@
             "0000ffff",
             "1",
             "Assets/Product/Texture/Image/BgStory/BgStory00.png",
-            1.0,
             1.0
         ]
     },
@@ -673,15 +672,19 @@
         "Id": 37,
         "ActionId": 37,
         "NextActionId": null,
-        "Type": 101,
+        "Type": 304,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": null,
+        "BeginAnim": "AniZhuanchangEnd",
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory14.png"
+            "Iris:",
+            "ffffffff",
+            "0.5",
+            "Assets/Product/Texture/Image/BgStory/BgStory0.png",
+            1.0
         ]
     },
     {

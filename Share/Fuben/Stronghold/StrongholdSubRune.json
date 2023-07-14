@@ -1,0 +1,170 @@
+[
+    {
+        "Id": 1,
+        "FightEventId": 200071,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "Deals <color=#2f93e3>20%</color> more DMG against stunned enemies."
+    },
+    {
+        "Id": 2,
+        "FightEventId": 200072,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Every 20s, sets an enemy's <color=#2f93e3>left/right/back</color> side as a weak point. DMG dealt to that weak point will increase by <color=#2f93e3>50%</color> for <color=#2f93e3>10</color>s."
+    },
+    {
+        "Id": 3,
+        "FightEventId": 200073,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "Extends Stun duration inflicted by Constrict to <color=#2f93e3>5</color>s, during which <color=#2f93e3>25%</color> of the DMG dealt to the stunned enemy will be accumulated. After you switch the member and land an attack (except for QTE), the accumulated DMG will be dealt to the target and reset."
+    },
+    {
+        "Id": 4,
+        "FightEventId": 200075,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "When receiving lethal DMG, removes a \"Persist\" mark to <color=#2f93e3>negate the lethal DMG</color>. When the mark exists, gains a DMG bonus based on current HP (<color=#2f93e3>18%</color> up at <color=#2f93e3>100%</color> HP)."
+    },
+    {
+        "Id": 5,
+        "FightEventId": 200076,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Deployed members gain an Extra DMG bonus based on current HP (<color=#2f93e3>26%</color> up at <color=#2f93e3>100%</color> HP)."
+    },
+    {
+        "Id": 6,
+        "FightEventId": 200077,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "Deployed members gain a <color=#2f93e3>30%</color> Extra DMG bonus and lose HP per second. The longer they are on the field, the <color=#b84e50>more</color> HP they will lose per second. Switching members will reset this effect."
+    },
+    {
+        "Id": 7,
+        "FightEventId": 200080,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "Gains an <color=#2f93e3>8%/18%/25%</color> Extra DMG bonus for <color=#2f93e3>8</color>s when moving more than <color=#2f93e3>10/15/20</color>m. Cannot be stacked. Switching members will reset the effect."
+    },
+    {
+        "Id": 8,
+        "FightEventId": 200079,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Deployed members gain a <color=#2f93e3>2%</color> Extra DMG and DMG Reduction bonus for every <color=#2f93e3>0.2s</color> they stand still. Stacks up to <color=#2f93e3>15</color> times. Moving will reset all stacks."
+    },
+    {
+        "Id": 9,
+        "FightEventId": 200081,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "When a member is on the battlefield, use an electromagnetic line to link with them and a random enemy. When at <color=#2f93e3>mid-range</color>, our members take reduced DMG and the enemy takes increased DMG. At <color=#b84e50>long-range</color>, our members take increased DMG and the enemy takes reduced DMG. Vulnerability effect will fluctuate between <color=#2f93e3>+25%</color> and <color=#b84e50>-20%</color>."
+    },
+    {
+        "Id": 10,
+        "FightEventId": 200084,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "<color=#2f93e3>35%</color> of DMG dealt in Matrix will be inflicted on the target when Matrix ends. (Damage Reduction available)"
+    },
+    {
+        "Id": 11,
+        "FightEventId": 200083,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Pinging Signal Orbs in Matrix grants <color=#2f93e3>(number of Signal Orbs x 2)%</color> (up to <color=#2f93e3>24%</color>) Extra DMG bonus to the whole team for <color=#2f93e3>5</color>s."
+    },
+    {
+        "Id": 12,
+        "FightEventId": 200085,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "Swapping members will explode all \"Freeze\" effects on enemies. Based on the number of stacks, deal <color=#2f93e3>700%/850%/1100%/1400%/1800%</color> Stat DMG equal to the entering member's ATK."
+    },
+    {
+        "Id": 13,
+        "FightEventId": 200087,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "Each dodge grants an <color=#2f93e3>18%</color> Extra DMG bonus for <color=#2f93e3>5</color>s. Cannot be stacked. Duration will reset every time it is triggered."
+    },
+    {
+        "Id": 14,
+        "FightEventId": 200088,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Each successful dodge grants a permanent <color=#2f93e3>8%</color> Extra DMG bonus. Stacks up to <color=#2f93e3>3</color> times. All stacks reset when being hit."
+    },
+    {
+        "Id": 15,
+        "FightEventId": 200089,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "Switching members will fully restore the Dodge Gauge and grant an Extra DMG bonus of up to <color=#2f93e3>25%</color> based on the Dodge Gauge percentage for <color=#2f93e3>10</color>s."
+    },
+    {
+        "Id": 16,
+        "FightEventId": 200091,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "When dealing DMG, the DMG will fluctuate between <color=#b84e50>80%</color> and <color=#2f93e3>130%</color>."
+    },
+    {
+        "Id": 17,
+        "FightEventId": 200092,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Upon entering battle, the first three Turbulence effects will provide <color=#2f93e3>buffs</color> and increase the effect to the original <color=#2f93e3>150%</color>."
+    },
+    {
+        "Id": 18,
+        "FightEventId": 200093,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "During battle, use a special form a buff calculation for switching members. Upon switching members, randomly receive 1-6 and increase the incoming member's DMG accordingly by up to <color=#2f93e3>40%</color>, resetting once it hits <color=#b84e50>21</color>. The total number increases by 1 every 10s (switching members resets the timer)."
+    },
+    {
+        "Id": 19,
+        "FightEventId": 200095,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "Gains a bonus by reaching a certain combo count:\\n50: Deals 500% area DMG.\\n75: Gains 30 Energy.\\n100: All members gain 3 Signal Orbs of the same color.\\n150: Gains \"Immovable\".\\n200: Increases DMG by 40% for 8s.\\nSwitching members will reset the combo count."
+    },
+    {
+        "Id": 20,
+        "FightEventId": 200096,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Switching members will reset the combo count when it is greater than <color=#2f93e3>100</color>. Gains a <color=#2f93e3>4%</color> (up to <color=#2f93e3>36%</color>) Extra DMG bonus for <color=#2f93e3>8</color>s for every <color=#2f93e3>20</color> combo counts."
+    },
+    {
+        "Id": 21,
+        "FightEventId": 200097,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "When the combo count is lower than <color=#2f93e3>30</color>, Extra DMG bonus increases by <color=#2f93e3>40%</color>. When lower than <color=#2f93e3>60</color>, Extra DMG bonus increases by <color=#2f93e3>25%</color>. When lower than <color=#2f93e3>90</color>, Extra DMG bonus increases by <color=#2f93e3>15%</color>."
+    },
+    {
+        "Id": 22,
+        "FightEventId": 200099,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconJifa.png",
+        "Name": "Stimulation",
+        "Desc": "<color=#2f93e3>1/3</color> of the total number of Signal Orbs pinged by the current member will be granted to the next character switched in (rounded up)."
+    },
+    {
+        "Id": 23,
+        "FightEventId": 200100,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconShoushu.png",
+        "Name": "Convergent",
+        "Desc": "Switching members will increase Extra DMG bonus by <color=#2f93e3>25%</color> for <color=#2f93e3>6</color>s."
+    },
+    {
+        "Id": 24,
+        "FightEventId": 200101,
+        "Icon": "Assets/Product/Texture/Atlas/UiStronghold/UiStrongholdIconDaoliu.png",
+        "Name": "Diversion",
+        "Desc": "When DMG dealt reaches <color=#2f93e3>50k/80k/100k</color>, the next member switched in will earn a <color=#2f93e3>10%/20%/30%</color> Extra DMG bonus for <color=#2f93e3>5/8/10</color>s."
+    }
+]

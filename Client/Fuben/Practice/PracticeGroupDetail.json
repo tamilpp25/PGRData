@@ -292,7 +292,7 @@
         "CharacterId": 1521003,
         "Name": "Pavo",
         "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadQu1.png",
-        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassA.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
         "ActivityTimeId": null,
         "ActivityCondition": [],
         "OpenCondition": [
@@ -469,7 +469,7 @@
     {
         "GroupId": 1561003,
         "CharacterId": 1561003,
-        "Name": "Haicma",
+        "Name": "Starveil",
         "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadHakama1.png",
         "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
         "ActivityTimeId": 8003.0,
@@ -479,6 +479,19 @@
         "OpenCondition": [
             8005.0
         ],
+        "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
+    },
+    {
+        "GroupId": 1071004,
+        "CharacterId": 1071004,
+        "Name": "Scire",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR4Kalienina1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
+        "ActivityTimeId": 9003.0,
+        "ActivityCondition": [
+            774500.0
+        ],
+        "OpenCondition": [],
         "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
     }
 ]

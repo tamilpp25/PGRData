@@ -1,10 +1,11 @@
 # PGRData
-> Game Version: 1.27.0 <br/>
-> Document Version: 1.27.4 <br/>
+> Game Version: 1.28.0 <br/>
+> Document Version: 1.27.1 <br/>
 
 - Client
 - Share
+- Scripts (soon)
 - Sha1
 
 ## Known Issue 
-Maybe a huge amount of lua can't be dumped
+0

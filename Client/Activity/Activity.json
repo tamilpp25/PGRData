@@ -80,6 +80,333 @@
         "ConditionId": null
     },
     {
+        "Id": 92,
+        "Name": "Voiceless Self",
+        "GroupId": 12,
+        "SortId": 1,
+        "TimeId": 9002.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseMineSweepingV128.png",
+        "ActivityTitle": "Voiceless Self",
+        "ActivityDes": "Instructions: Complete event missions to obtain [Crumpled Paper].",
+        "ActivityPrefabPath": null,
+        "Params": [
+            127,
+            20140.0
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 93,
+        "Name": "Character Leap - Luminance",
+        "GroupId": 13,
+        "SortId": 1,
+        "TimeId": 9005.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBase6OtherHuigui.png",
+        "ActivityTitle": "Character Leap",
+        "ActivityDes": "Instructions: Experience the new powers brought about by Leap in the tutorial stage.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            132
+        ],
+        "ConditionId": 8006.0
+    },
+    {
+        "Id": 97,
+        "Name": "A New Divide",
+        "GroupId": 22,
+        "SortId": 1,
+        "TimeId": 9501.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseMainLineV128.png",
+        "ActivityTitle": "A New Divide",
+        "ActivityDes": "Event Info: Play through the new event story \"A New Divide\" and complete missions.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            136
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 98,
+        "Name": "Eden Festival",
+        "GroupId": 22,
+        "SortId": 2,
+        "TimeId": 9101.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseMoeWarV128.png",
+        "ActivityTitle": "Eden Festival",
+        "ActivityDes": "Requirements: Commandant Lv.52\\n\\n[Event Info]:\\n1. Each session is divided into the Voting Period where you can vote for your favorite characters and the Notice Period where the voting results will be announced. The stamps for voting can be obtained in Festival Preparation and Speed Racer.\\n2. If you have cast a certain number of votes for a character, you will be rewarded a corresponding [Character Nameplate]. Voting also gives you the item, Golden Days, which can be exchanged in Remembrance Parlor for the [Character Nameplate] of the previous festival.\\n3. You can use the Mystery Box Machine at the Tea Stall to get a random mystery box containing rewards such as Coating [Mandala Dancer] (Sophia: Silverfang exclusive), limited Decor Set [Mysterious Teaparty], Target Weapon R&D Ticket, CUB R&D Ticket, Event Construct R&D Ticket, character training materials, and CUB training materials.\\n4. Special attention: The event [Festival Battleground - The Legendary Battle Between Red and Blue!] will be available concurrently. Join the battle for even more rewards!",
+        "ActivityPrefabPath": null,
+        "Params": [
+            11756
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 99,
+        "Name": "Ultimate Brawl",
+        "GroupId": 22,
+        "SortId": 3,
+        "TimeId": 9301.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseChaoXianV128.png",
+        "ActivityTitle": "Ultimate Brawl: Core Reignition",
+        "ActivityDes": "[Requirements]: Commandant Lv. 52\\n\\n [Event Info]:\\n1. There are 4 divisions with each one having a different set of modes and rules.\\n2. In each division, you can select the characters you play as and opponents you play against. Defeat all the opponents to be the winner.\\n3. Unlocking divisions will grant Super Cores. Equip them on the characters to grant them powerful Core Skills. Each core can be simultaneously equipped by multiple characters.\\n4. The first 3 divisions will grant Leap Blueprints and Remnant Data Vaults for defeating each opponent for the first time. Rewards are only given out after defeating all opponents of a session.\\n5. Leap Blueprints can be used to enhance the effects of the Super Cores. And Remnant Data Vaults can be used to upgrade team level, which will provide stat enhancement to all characters (including trial characters).",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20104
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 100,
+        "Name": "KI.GAL Archives",
+        "GroupId": 22,
+        "SortId": 4,
+        "TimeId": 9201.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseChessV128.png",
+        "ActivityTitle": "KI.GAL Archives - Dark Moon Corridor",
+        "ActivityDes": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. KI.GAL Archives - Dark Moon Corridor consists of two routes, with one route available each week.\\n2. You will engage in battle with the members you recruit and the Bonds you form.\\n3. Choose your preset team and form the Bonds in accordance with the battle situation to maximize your advantages.\\n4. You can switch to the other route if you find a stage too difficult for the time being.\\n5. Don't forget to check your stage progress and claim your rewards!",
+        "ActivityPrefabPath": null,
+        "Params": [
+            11734
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 101,
+        "Name": "Magic Square Funfair",
+        "GroupId": 22,
+        "SortId": 5,
+        "TimeId": 9004.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseXiuXianV128.png",
+        "ActivityTitle": "Magic Square Funfair",
+        "ActivityDes": "Requirements: Commandant Lv.52\\n\\n[Event Info]:\\n1. This event requires a team of three players, each controlling one character.\\n2. This stage consists of several rounds, and each round is divided into the Action Phase and the Aftermath Phase. During the Action Phase, each character will be randomly assigned a bomb of a different color and will be free to move around. During the Aftermath Phase, you are not allowed to move, and different colors of bombs will produce different explosion patterns. (Characters are immune to damage dealt by their bombs.)\\n3. The new season of Clash Wonderland is now available. Get Training Star to improve your grade in this season by completing daily missions and claiming battle rewards.\\n4. Your progress will be reset at the end of this season, and the rewards will be determined by your grade.\\n5. Get the victory by strategically positioning your team based on the colors of the bombs!",
+        "ActivityPrefabPath": null,
+        "Params": [
+            85010
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 102,
+        "Name": "Condensate Lab",
+        "GroupId": 22,
+        "SortId": 6,
+        "TimeId": 9401.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseReLootV128.png",
+        "ActivityTitle": "Condensate Lab",
+        "ActivityDes": "Requirements: Commandant Lv.40.\\n\\nEvent Info:\\n1. You can obtain event tokens by clearing a stage. Some stages may drop random Memories.\\n2. Event tokens can be used to purchase items from the event shop.\\n3. Clearing a stage will earn you Challenge EXP. Your Authority Level will be increased when you earn a certain amount of Challenge EXP. Increased Authority Level will grant Battle bonuses including damage increase.\\n(Note: Those bonuses can be applied to Condensate Lab stages only.)",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20017
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 103,
+        "Name": "Love Letters",
+        "GroupId": 22,
+        "SortId": 7,
+        "TimeId": 9001.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivity520V128.png",
+        "ActivityTitle": "Love Letters",
+        "ActivityDes": "\u203bExchange gifts to express your true feelings and create beautiful memories on this special day.\\n\\nEvent Info:\\n1. During the event, you can get a special gift item [Radiant Comradery] from event mails or by buying the Purchase Supply Pack.\\n2. On the [Members - Communication] interface, send special gifts to members to trigger 520 Comms and receive gift mails from the corresponding members.\\n3. Each character's 520 Comm can only be triggered once.\\n\u2014For example, sending a special gift to [Liv: Lux] after sending one to [Liv: Eclipse] will not trigger a Comm again.\\n4. Gift mails from the characters contain a special item [Voice of Thoughts]. Collect it to unlock and upgrade the corresponding collectibles.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20146
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 104,
+        "Name": "Omniframe Target",
+        "GroupId": 22,
+        "SortId": 8,
+        "TimeId": 9703.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseDrawKaLieV128.png",
+        "ActivityTitle": "Scire - Target",
+        "ActivityDes": "New Omniframe:\\n\u203bS-Rank Dark Tank [Karenina: Scire]\\nNew Weapon:\\n\u203b6\u2605 [Illuminare] (Blast Hammer)\\n\\nInfo:\\n1. Construct Research:\\n\u203b[Karenina: Scire] will be available in the [Themed Construct] Research Pool. \\nThere is a 100% chance to get [Karenina: Scire] upon getting an S-Rank Construct.\\n2. Weapon Research:\\n\u203b[Illuminare] will be available in the [Target Weapon] Research Pool\\nwith the same rules and rates as other weapons.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            7209
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 105,
+        "Name": "CUB Target",
+        "GroupId": 22,
+        "SortId": 9,
+        "TimeId": 9704.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseDrawRabbitV128.png",
+        "ActivityTitle": "Moonhopper - Target",
+        "ActivityDes": "New CUB:\\n\u203bS-Rank CUB [Moonhopper]\\n\u203bRecommended partner: [Karenina: Scire]\\n\\nInfo:\\n1. CUB Description:\\n(Active Skill) [Supergravity Eclipse: Physical]: The CUB button will be activated after pinging 6 basic Signal Orbs. Upon casting, Moonhopper will teleport into the air and smash to the ground, interrupting enemy skills, dealing DMG, and creating an Anti-gravity Field that deals DMG to all enemies inside every 0.5s for 4s. Enemies inside the Anti-gravity field will be slowed down and unable to use their skills.\\n\\n(Active Skill) [Super Moonfall Field: Physical]: The CUB button will be activated after pinging 6 basic Signal Orbs. Upon casting, Moonhopper will teleport into the air and smash to the ground, interrupting enemy skills, dealing DMG, and creating an Anti-gravity Field that deals DMG upon its creation. The Anti-gravity Field lasts 2s, in which enemies will be slowed down and unable to use their skills.\\n\\n(Special Passive) [\"Smashing\"]: Each time Moonhopper casts an Active Skill, the Extra DMG Bonus of the carrier's Signature Move increases. Can be stacked up to 3 times.\\n\\n(Special Passive) [\"Bye-bye Home Run\"]: When [Karenina: Scire] performs her Signature Move while carrying Moonhopper, Moonhopper will be swung to the enemy, increasing the Signature Move's Base DMG. While [Karenina: Scire] is charging up by holding the Basic Attack button, Moonhopper will pull in surrounding enemies and unleash Super Moonfall Field.\\n2. CUB Research:\\n\u203b[Moonhopper] will enter the [CUB Target] pool.\\nYou may select an S-Rank CUB as the target in CUB Research.\\nDuring the event, if you select [Moonhopper] as the target, it will be guaranteed when you draw an S-Rank CUB.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            7212
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 106,
+        "Name": "New Coating - Scire",
+        "GroupId": 22,
+        "SortId": 10,
+        "TimeId": 9705.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseSkinBanShenV128.png",
+        "ActivityTitle": "Scire: Maleficent",
+        "ActivityDes": "New Coating:\\nOmniframe [Karenina: Scire] Coating: [Maleficent]\\n\\nInfo:\\n[Maleficent] will be on sale at \"30% off\" in \"Top-up - Coating Supply Pack\"\\nduring the event.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20020
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 107,
+        "Name": "Tactical Assessment Manual",
+        "GroupId": 22,
+        "SortId": 11,
+        "TimeId": 9901.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBasePassportV128.png",
+        "ActivityTitle": "Tactical Assessment Manual - Lunar Maria File",
+        "ActivityDes": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. Accumulate Intel Value by completing the Rate Missions of the Daily, the Weekly, and the current Intel Manual.\\n2. Raise the Rating Level by reaching the required Intel Value.\\n3. You will obtain the corresponding reward upon reaching the required Rating Level.\\n4. You can also purchase additional Intel to get better rewards.\\n",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20145
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 108,
+        "Name": "Nuclear Darkness",
+        "GroupId": 23,
+        "SortId": 1,
+        "TimeId": 9003.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseTryKaLieV128.png",
+        "ActivityTitle": "Nuclear Darkness",
+        "ActivityDes": "Requirements: Clear Normal Story 2-4",
+        "ActivityPrefabPath": null,
+        "Params": [
+            137,
+            20071.0
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 110,
+        "Name": "Adaptation Fitting: Moonhopper",
+        "GroupId": 24,
+        "SortId": 1,
+        "TimeId": 9706.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseShiwanTu.png",
+        "ActivityTitle": "Adaptation Fitting: Moonhopper",
+        "ActivityDes": "Requirements: Commandant Lv.80",
+        "ActivityPrefabPath": null,
+        "Params": [
+            138,
+            7113.0
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 1001,
+        "Name": "Oath of Purity",
+        "GroupId": 21,
+        "SortId": 1,
+        "TimeId": 100004.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseBgEnKr03.png",
+        "ActivityTitle": "Oath of Purity",
+        "ActivityDes": "Instructions: Consume a certain amount of Serum to complete missions and claim rewards.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            3000
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 111,
+        "Name": "New Coating - Starfarer",
+        "GroupId": 18,
+        "SortId": 1,
+        "TimeId": 8005.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestHKMLeeshiwan.png",
+        "ActivityTitle": "Starfarer: Night Navigator",
+        "ActivityDes": "New Coating:\\nOmniframe [Nanami: Starfarer] Coating: [Night Navigator]\\n\\nInfo:\\nDuring the event, [Night Navigator] will be on sale for \"30% off\" via \\n\"Purchase - Coating Supply Pack\".",
+        "ActivityPrefabPath": null,
+        "Params": [
+            126,
+            10035.0
+        ],
+        "ConditionId": null
+    },
+    {
         "Id": 95,
         "Name": "Fortune's Favor",
         "GroupId": 12,
@@ -119,234 +446,6 @@
         "ConditionId": null
     },
     {
-        "Id": 97,
-        "Name": "The Ark Beyond",
-        "GroupId": 1,
-        "SortId": 1,
-        "TimeId": 8301.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 1,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseMainLine.png",
-        "ActivityTitle": "The Ark Beyond",
-        "ActivityDes": "Event Info: Play through new event story \"The Ark Beyond\" and complete missions",
-        "ActivityPrefabPath": null,
-        "Params": [
-            124
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 98,
-        "Name": "Extremis Collaboration",
-        "GroupId": 1,
-        "SortId": 2,
-        "TimeId": 8105.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseCooperate.png",
-        "ActivityTitle": "Extremis Collaboration",
-        "ActivityDes": "Requirements: Commandant Lv.40\\n\\n[Event Info]:\\n1. In this mode, there are solo stages and team stages. You are recommended to try solo stages before proceeding to team stages.\\n2. In solo stages, you can familiarize yourself with the mechanics. After which, you can clear the 3-star requirements to obtain materials and enhance talents.\\n3. In team stages, a boss will shuttle between team members every 30s. Members not facing the boss will have to deal with the mechanics same as the solo stage while providing support for the other members.\\n4. While in a team stage, maintain the Fever status to kill the boss quickly and receive a high score.\\n5. A new theme will be released each week. The most outstanding commandants will receive a limited nameplate from Babylonia.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            84020
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 99,
-        "Name": "Operation Uniframe",
-        "GroupId": 1,
-        "SortId": 3,
-        "TimeId": 8204.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA5SPwanfa.png",
-        "ActivityTitle": "Operation Uniframe",
-        "ActivityDes": "Requirements: Commandant Lv.52\\n\\nEvent Info:\\n1. This event has 2 phases that are independent of each other.\\n2. Each phase consists of 3 Combat Areas and 1 Central Area.\\n3. Clearing the stages in a Combat Area increase its Energy Supply Level.\\n4. Each Area grants additional points to the Central Area based on its Energy Supply Level.\\n5. Resident Shop added. Exchange items in the shop for rewards.\\n6. Difficulty selection added. Higher difficulties grant better rewards. You can select a difficulty 1 time each session.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            82070
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 100,
-        "Name": "Spectroscopic Binary Star",
-        "GroupId": 1,
-        "SortId": 4,
-        "TimeId": 8501.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseTakeTwo.png",
-        "ActivityTitle": "Spectroscopic Binary Star",
-        "ActivityDes": "Requirements: Commandant Lv.52\\n\\n [Event Info]:\\n1. This is a single-player mode that allows you to deploy two characters to the battlefield to fight the enemy.\\n2. Use Reinforcement Skills in battle to let the other character trigger Matrix and attack the enemy.\\n3. Each class has 2 unique reinforcement effects. Use them wisely based on the mechanic you have selected.\\n4. The event consists of 5 chapters. The first 3 chapters are of normal difficulty. Clear them and you will win most of the rewards. The 4th and 5th chapter, however, grants a tougher challenge.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            82001
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 101,
-        "Name": "Disco Panini",
-        "GroupId": 1,
-        "SortId": 5,
-        "TimeId": 8701.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseSound.png",
-        "ActivityTitle": "Disco Panini",
-        "ActivityDes": "Requirements: Commandant Lv.52\\n\\n[Event Info]:\\n1. During this event, 10 songs will be released over the course of the event with 2 difficulties for you to challenge upon release.\\n2. While a stage is in progress, watch for notes to change and follow the melody's prompt to complete the designated action.\\n3. Upon completing the event, you can receive the rare collectible [Spin This Disco Ball] and the new decor set [Knight Pavilion].\\n4. Let's dance together in this joyful ocean of music!",
-        "ActivityPrefabPath": null,
-        "Params": [
-            84010
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 102,
-        "Name": "White Wishes",
-        "GroupId": 1,
-        "SortId": 6,
-        "TimeId": 8001.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseWhiteValentine.png",
-        "ActivityTitle": "White Wishes",
-        "ActivityDes": "Requirements: Commandant Lv.40\\n\\n[Event Info]:\\n1. During the event, the [White Wishes] event mission will be available for a limited time.\\n2. Participate in the story with other Gray Ravens for an unexpected journey!",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20133
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 103,
-        "Name": "War Zone",
-        "GroupId": 1,
-        "SortId": 7,
-        "TimeId": 8301.0,
-        "ShowBeginTime": "From 2023-06-15 02:00",
-        "ShowEndTime": "Permanent",
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseWarZone.png",
-        "ActivityTitle": "War Zone",
-        "ActivityDes": "Requirements: Complete Story 4-8 (Normal)\\n\\n[Event Info]:\\n1. Added a \"Full-Realm Support\" mechanic that adds additional benefits for each War Zone (applies in the next session of War Zone after updating)\\n2. Each War Zone's \"Area 3\" now has 4 different stage types instead of the previous fixed stage.\\n3. War Zone calculation has changed such that each of the 4 War Zone stage types is calculated separately.\\n4. Legend Squads have been added. Once points are calculated, the 1st and 2nd ranked player with 100 Merit Points will have their points consumed and join the Legend Squad.\\n5. \"War Zone Influence Rewards\" have been added to each War Zone tier. Additionally, \"Trade Vouchers\" have also been added. Lastly, players in the Hero Squad and Legend Squad will also receive a timed medal, with duplicate medals extending the duration.\\n6. During the squad formation phase of a War Zone, commandants will be randomly divided into squads and dispatched to a War Zone.\\n7. Added individual score rankings.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            30013
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 104,
-        "Name": "Machine Precursor",
-        "GroupId": 1,
-        "SortId": 8,
-        "TimeId": 8401.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseRepeat.png",
-        "ActivityTitle": "Machine Precursor",
-        "ActivityDes": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. You can obtain event tokens by clearing a stage. Some stages may drop random Memories.\\n2. Event tokens can be used to purchase items from the event shop.\\n3. Clearing a stage will earn you Challenge EXP. Your Authority Level will be increased when you earn a certain amount of Challenge EXP. Increased Authority Level will grant Battle bonuses including damage increase.\\n(Note: Those bonuses can be applied to Machine Precursor stages only.)",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20017
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 105,
-        "Name": "Uniframe Target",
-        "GroupId": 1,
-        "SortId": 9,
-        "TimeId": 8601.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseDrawHKMYanFa.png",
-        "ActivityTitle": "Starveil - Target",
-        "ActivityDes": "New Uniframe:\\n\u203bS-Rank Ice Vanguard [Haicma: Starveil]\\nNew Weapon:\\n\u203b6\u2605 [Galatea] (Scythe)\\n\\nInfo:\\n1. Character Research:\\n\u203b[Haicma: Starveil] will be available in the [Uniframe Only] Research Pool.\\nPlayers have a 100% chance to get [Haicma: Starveil]\\nwhen they get an S-Rank Uniframe.\\n2. Weapon Research:\\n\u203b[Galatea] will be available in the [Target Weapon] Research Pool\\nwith the same rules and rates as other weapons.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            7210
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 106,
-        "Name": "New Coating - Starveil",
-        "GroupId": 1,
-        "SortId": 10,
-        "TimeId": 8602.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseDrawHKMPf.png",
-        "ActivityTitle": "Starveil: Fantastical Fellowship",
-        "ActivityDes": "New Coating:\\nUniframe [Haicma: Starveil]: [Fantastical Fellowship]\\n\\nInfo:\\n[Fantastical Fellowship] will be on sale at \"30% off\" in \"Purchase - Coating Supply Pack\"\\nduring the event.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20020
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 107,
-        "Name": "New Coating - Entropy",
-        "GroupId": 1,
-        "SortId": 11,
-        "TimeId": 8603.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseDrawLiPf.png",
-        "ActivityTitle": "Entropy: Illusionist",
-        "ActivityDes": "New Coating:\\nOmniframe [Lee: Entropy] Coating: [Illusionist]\\n\\nInfo:\\n[Illusionist] will be on sale at \"30% off\" in \"Purchase - Coating Supply Pack\"\\nduring the event.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20020
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 108,
-        "Name": "Tactical Assessment Manual",
-        "GroupId": 1,
-        "SortId": 12,
-        "TimeId": 8510.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseBattlePassHKM.png",
-        "ActivityTitle": "Tactical Assessment Manual - Iron Heart File",
-        "ActivityDes": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. Accumulate Intel Value by completing the Rate Missions of the Daily, the Weekly, and the current Intel Manual.\\n2. Raise the Rating Level by reaching the required Intel Value.\\n3. You will obtain the corresponding reward upon reaching the required Rating Level.\\n4. You can also purchase additional Intel to get better rewards.\\n",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20138
-        ],
-        "ConditionId": null
-    },
-    {
         "Id": 109,
         "Name": "Godseeker's Psalm",
         "GroupId": 17,
@@ -363,45 +462,6 @@
         "Params": [
             125,
             20071.0
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 110,
-        "Name": "Entropy: Illusionist",
-        "GroupId": 18,
-        "SortId": 1,
-        "TimeId": 8005.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 1,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestHKMLeeshiwan.png",
-        "ActivityTitle": "Entropy: Illusionist",
-        "ActivityDes": "[New Coating]: Omniframe [Lee: Entropy] Coating: [Illusionist]",
-        "ActivityPrefabPath": null,
-        "Params": [
-            126,
-            10035.0
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 111,
-        "Name": "New Coating - Starfarer",
-        "GroupId": 1,
-        "SortId": 15,
-        "TimeId": 2160143.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseDraw70Pf.png",
-        "ActivityTitle": "Starfarer: Night Navigator",
-        "ActivityDes": "New Coating:\\nOmniframe [Nanami: Starfarer] Coating: [Night Navigator]\\n\\nInfo:\\nDuring the event, [Night Navigator] will be on sale for \"30% off\" via \\n\"Purchase - Coating Supply Pack\".",
-        "ActivityPrefabPath": null,
-        "Params": [
-            20020
         ],
         "ConditionId": null
     },
@@ -446,26 +506,6 @@
         "ConditionId": null
     },
     {
-        "Id": 92,
-        "Name": "New Year Lottery",
-        "GroupId": 16,
-        "SortId": 1,
-        "TimeId": 6009.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 1,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseNewYearLuck.png",
-        "ActivityTitle": "New Year Lottery",
-        "ActivityDes": "Instructions: Complete event missions to obtain [New Year Token].",
-        "ActivityPrefabPath": null,
-        "Params": [
-            97,
-            20112.0
-        ],
-        "ConditionId": null
-    },
-    {
         "Id": 201,
         "Name": "Roamer Records",
         "GroupId": 1,
@@ -481,44 +521,6 @@
         "ActivityPrefabPath": null,
         "Params": [
             20122
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 202,
-        "Name": "\u65b0\u5e74\u306e\u5bff\u304e",
-        "GroupId": 1,
-        "SortId": 17,
-        "TimeId": 7007.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA14Xinnian.png",
-        "ActivityTitle": "\u65b0\u5e74\u306e\u5bff\u304e",
-        "ActivityDes": "\u53c2\u52a0\u6761\u4ef6\uff1a\u6307\u63ee\u5b98Lv40\\n\\n\u8aac\u660e\uff1a\\n1\u3001\u671f\u9593\u9650\u5b9a\u3067\u30a4\u30d9\u30f3\u30c8\u300c\u65b0\u5e74\u306e\u5bff\u304e\u300d\u3092\u958b\u50ac\u3002\\n2\u3001\u521d\u56de\u30af\u30ea\u30a2\u3067\u5831\u916c\u304c\u3082\u3089\u3048\u307e\u3059\u3002\\n3\u3001\u6307\u63ee\u5b98\u69d8\u3001\u3088\u3044\u304a\u5e74\u3092\uff01",
-        "ActivityPrefabPath": null,
-        "Params": [
-            83010
-        ],
-        "ConditionId": null
-    },
-    {
-        "Id": 203,
-        "Name": "\u30cf\u30f3\u30c9\u30e1\u30a4\u30c9\u30ec\u30fc\u30b9",
-        "GroupId": 1,
-        "SortId": 18,
-        "TimeId": 7006.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA12Kicthen.png",
-        "ActivityTitle": "\u30cf\u30f3\u30c9\u30e1\u30a4\u30c9\u30ec\u30fc\u30b9-\u706f\u7c60\u306e\u5143\u306b\u96c6\u3048",
-        "ActivityDes": "\u53c2\u52a0\u6761\u4ef6\uff1a\u6307\u63ee\u5b98Lv52\\n\\n\u8aac\u660e\uff1a\\n1\u30013\u4eba1\u7d44\u3067\u904a\u3076\u30de\u30eb\u30c1\u30b3\u30f3\u30c6\u30f3\u30c4\u3067\u3059\u3002\\n2\u3001\u6bce\u65e5\u306e\u4efb\u52d9\u3084\u5bfe\u6226\u3067\u5165\u624b\u3067\u304d\u308b\u300c\u7279\u8a13\u306e\u661f\u300d\u3092\u8caf\u3081\u308b\u3068\u30e9\u30f3\u30af\u304c\u4e0a\u304c\u308a\u307e\u3059\u3002\\n3\u3001\u30a4\u30d9\u30f3\u30c8\u7d42\u4e86\u6642\u70b9\u306e\u30e9\u30f3\u30af\u306b\u57fa\u3065\u304d\u5831\u916c\u304c\u3082\u3089\u3048\u307e\u3059\u3002\\n\u305f\u3060\u3057\u3001\u4eca\u56de\u306e\u30a4\u30d9\u30f3\u30c8\u30e9\u30f3\u30af\u3092\u6b21\u56de\u306e\u30de\u30eb\u30c1\u30b3\u30f3\u30c6\u30f3\u30c4\u306b\u5f15\u304d\u7d99\u3050\u3053\u3068\u306f\u3067\u304d\u307e\u305b\u3093\u3002\\n4\u3001\u30d2\u30f3\u30c8\u306b\u5f93\u3063\u3066\u9806\u756a\u306b\u30a2\u30a4\u30b3\u30f3\u3092\u30bf\u30c3\u30d7\u3059\u308b\u3068\u30b9\u30b3\u30a2\u304c\u3082\u3089\u3048\u307e\u3059\u3002\u30b3\u30f3\u30dc\u6570\u304c\u591a\u3044\u307b\u3069\u30b9\u30b3\u30a2\u304c\u30a2\u30c3\u30d7\uff01\\n\u30b9\u30b3\u30a2\u304c\u4e00\u756a\u591a\u3044\u6307\u63ee\u5b98\u304c\u305d\u306e\u5bfe\u6226\u306e1\u4f4d\u3067\u3059\u3002\\n5\u3001\u672c\u30a4\u30d9\u30f3\u30c8\u306b\u306f\u96e3\u6613\u5ea6\u304c\u7570\u306a\u308b\u30b9\u30c6\u30fc\u30b8\u304c2\u3064\u3042\u308a\u307e\u3059\u3002\u96e3\u6613\u5ea6\u306e\u9ad8\u3044\u30b9\u30c6\u30fc\u30b8\u306f\u30a2\u30a4\u30b3\u30f3\u51fa\u73fe\u30eb\u30fc\u30eb\u304c\u3088\u308a\u8907\u96d1\u3067\u3059\u3002",
-        "ActivityPrefabPath": null,
-        "Params": [
-            83020
         ],
         "ConditionId": null
     },
@@ -736,25 +738,6 @@
         "ConditionId": null
     },
     {
-        "Id": 119,
-        "Name": "Norman Revival Plan",
-        "GroupId": 1,
-        "SortId": 18,
-        "TimeId": 2160144.0,
-        "ShowBeginTime": null,
-        "ShowEndTime": null,
-        "ActivityType": 3,
-        "ActivityBgType": 1,
-        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA6SuperJudian.png",
-        "ActivityTitle": "Norman Revival Plan",
-        "ActivityDes": "Requirements: Commandant Lv.60.\\n\\nEvent Info:\\n1. Each phase lasts 14 days, and you will enter the Battle phase when any stage is cleared in the first 4 days (or automatically enter the Battle phase after the first 4 days). The Battle phase lasts 10 days.\\n2. During the preparation phase, Lv.60-84 players will automatically enter the \"qualifying battle\", while players of Lv.85 and above can choose between \"ordinary battle\" and \"pioneer battle\".\\n3. \"Ordinary battle\" and \"pioneer battle\" are of the same difficulty. Ordinary battle gives more electricity but fewer rewards, while pioneer battle gives less electricity but more rewards.\\n4. The Cover Tactic will be unlocked on the third day of the Battle phase. Clear the stage to obtain Electricity and item rewards.\\n5. A battle will be conducted in form of multiple teams playing at the same time, and the characters involved shall be selected in accordance with the battle environment.\\n6. Electricity is supplied by the Power Station. You may consume electricity on the Team page to increase your team's Battle Power.\\n7. After clearing a stage, you can obtain Autonomous Miners and Tantalum Ore. At the end of each day, the miners will also produce Tantalum Ore and grow by 50% of the current number of miners.\\n8. Tantalum Ore can be exchanged for rewards in the shop.",
-        "ActivityPrefabPath": null,
-        "Params": [
-            70001
-        ],
-        "ConditionId": null
-    },
-    {
         "Id": 120,
         "Name": "Coating Rerun - Veritas",
         "GroupId": 1,
@@ -770,6 +753,64 @@
         "ActivityPrefabPath": null,
         "Params": [
             20020
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 200,
+        "Name": "Nosferatu",
+        "GroupId": 25,
+        "SortId": 1,
+        "TimeId": 2160160.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA6SKutuzhuang.png",
+        "ActivityTitle": "Nosferatu",
+        "ActivityDes": "New Coating: Omniframe [Chrome: Glory] Coating: [Nosferatu]",
+        "ActivityPrefabPath": null,
+        "Params": [
+            94,
+            10035.0
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 202,
+        "Name": "New Coating - Chrome",
+        "GroupId": 22,
+        "SortId": 11,
+        "TimeId": 2160160.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA6SKutuzhuang.png",
+        "ActivityTitle": "New Coating:Omniframe [Chrome: Glory] ",
+        "ActivityDes": "Coating: [Nosferatu]\\n\\nInfo:\\n[Nosferatu] will be on sale at \"30% off\"\\n in \"Top-up - Coating Supply Pack\"during the event.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            20020
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 203,
+        "Name": "Norman Revival Plan",
+        "GroupId": 22,
+        "SortId": 13,
+        "TimeId": 2160167.0,
+        "ShowBeginTime": null,
+        "ShowEndTime": null,
+        "ActivityType": 3,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseA6SuperJudian.png",
+        "ActivityTitle": "Norman Revival Plan",
+        "ActivityDes": "Requirements: Commandant Lv.60.\\n\\nEvent Info:\\n1. Each phase lasts 14 days, and you will enter the Battle phase when any stage is cleared in the first 4 days (or automatically enter the Battle phase after the first 4 days). The Battle phase lasts 10 days.\\n2. During the preparation phase, Lv.60-84 players will automatically enter the \"qualifying battle\", while players of Lv.85 and above can choose between \"ordinary battle\" and \"pioneer battle\".\\n3. \"Ordinary battle\" and \"pioneer battle\" are of the same difficulty. Ordinary battle gives more electricity but fewer rewards, while pioneer battle gives less electricity but more rewards.\\n4. The Cover Tactic will be unlocked on the third day of the Battle phase. Clear the stage to obtain Electricity and item rewards.\\n5. A battle will be conducted in form of multiple teams playing at the same time, and the characters involved shall be selected in accordance with the battle environment.\\n6. Electricity is supplied by the Power Station. You may consume electricity on the Team page to increase your team's Battle Power.\\n7. After clearing a stage, you can obtain Autonomous Miners and Tantalum Ore. At the end of each day, the miners will also produce Tantalum Ore and grow by 50% of the current number of miners.\\n8. Tantalum Ore can be exchanged for rewards in the shop.",
+        "ActivityPrefabPath": null,
+        "Params": [
+            70001
         ],
         "ConditionId": null
     }

@@ -1,0 +1,457 @@
+[
+    {
+        "Index": 1,
+        "Attrib": "Life",
+        "Name": "HP"
+    },
+    {
+        "Index": 2,
+        "Attrib": "Energy",
+        "Name": "Energy"
+    },
+    {
+        "Index": 3,
+        "Attrib": "RunSpeed",
+        "Name": "Speed (Run)"
+    },
+    {
+        "Index": 4,
+        "Attrib": "WalkSpeed",
+        "Name": "Speed (Walk)"
+    },
+    {
+        "Index": 5,
+        "Attrib": "TurnRoundSpeed",
+        "Name": "Speed (Turning)"
+    },
+    {
+        "Index": 6,
+        "Attrib": "BallInterval",
+        "Name": "Orb Interval"
+    },
+    {
+        "Index": 7,
+        "Attrib": "DamageNormalImmunity",
+        "Name": "Physical DMG Immunity"
+    },
+    {
+        "Index": 8,
+        "Attrib": "DamageMagicImmunity",
+        "Name": "Elemental DMG Immunity"
+    },
+    {
+        "Index": 9,
+        "Attrib": "AntiDamageNormalImmunity",
+        "Name": "Physical DMG Counter Immunity"
+    },
+    {
+        "Index": 10,
+        "Attrib": "AntiDamageMagicImmunity",
+        "Name": "Anti-Elemental DMG Immunity"
+    },
+    {
+        "Index": 11,
+        "Attrib": "AttackNormal",
+        "Name": "ATK"
+    },
+    {
+        "Index": 12,
+        "Attrib": "AttackMagic1",
+        "Name": "Fire Attack"
+    },
+    {
+        "Index": 13,
+        "Attrib": "AttackMagic2",
+        "Name": "Lightning Attack"
+    },
+    {
+        "Index": 14,
+        "Attrib": "AttackMagic3",
+        "Name": "Ice Attack"
+    },
+    {
+        "Index": 15,
+        "Attrib": "AttackMagic4",
+        "Name": "Dark Attack"
+    },
+    {
+        "Index": 16,
+        "Attrib": "AttackMagicEnd",
+        "Name": "Elemental ATK Start-Mark"
+    },
+    {
+        "Index": 17,
+        "Attrib": "AntiAttackNormal",
+        "Name": "Physical ATK Counter"
+    },
+    {
+        "Index": 18,
+        "Attrib": "AntiAttackMagic1",
+        "Name": "Anti-Fire Attack"
+    },
+    {
+        "Index": 19,
+        "Attrib": "AntiAttackMagic2",
+        "Name": "Anti-Lightning Attack"
+    },
+    {
+        "Index": 20,
+        "Attrib": "AntiAttackMagic3",
+        "Name": "Anti-Ice Attack"
+    },
+    {
+        "Index": 21,
+        "Attrib": "AntiAttackMagic4",
+        "Name": "Anti-Dark Attack"
+    },
+    {
+        "Index": 22,
+        "Attrib": "AntiAttackMagicEnd",
+        "Name": "Elemental ATK Counter End-Mark"
+    },
+    {
+        "Index": 23,
+        "Attrib": "DefenseNormal",
+        "Name": "Physical DEF"
+    },
+    {
+        "Index": 24,
+        "Attrib": "AntiDefenseNormal",
+        "Name": "Physical DEF Counter"
+    },
+    {
+        "Index": 25,
+        "Attrib": "DamageChangeP",
+        "Name": "Extra DMG Bonus"
+    },
+    {
+        "Index": 26,
+        "Attrib": "DamageNormalChangeP",
+        "Name": "Physical DMG Bonus"
+    },
+    {
+        "Index": 27,
+        "Attrib": "DamageMagic1ChangeP",
+        "Name": "Fire DMG Bonus"
+    },
+    {
+        "Index": 28,
+        "Attrib": "DamageMagic2ChangeP",
+        "Name": "Lightning DMG Bonus"
+    },
+    {
+        "Index": 29,
+        "Attrib": "DamageMagic3ChangeP",
+        "Name": "Ice DMG Bonus"
+    },
+    {
+        "Index": 30,
+        "Attrib": "DamageMagic4ChangeP",
+        "Name": "Dark DMG Bonus"
+    },
+    {
+        "Index": 31,
+        "Attrib": "DamageMagicChangePEnd",
+        "Name": "Elemental DMG Bonus End-Mark"
+    },
+    {
+        "Index": 32,
+        "Attrib": "AntiDamageChangeP",
+        "Name": "Extra DMG Reduction"
+    },
+    {
+        "Index": 33,
+        "Attrib": "AntiDamageNormalChangeP",
+        "Name": "Physical RES"
+    },
+    {
+        "Index": 34,
+        "Attrib": "AntiDamageMagic1ChangeP",
+        "Name": "Fire DMG RES"
+    },
+    {
+        "Index": 35,
+        "Attrib": "AntiDamageMagic2ChangeP",
+        "Name": "Lightning DMG RES"
+    },
+    {
+        "Index": 36,
+        "Attrib": "AntiDamageMagic3ChangeP",
+        "Name": "Ice DMG RES"
+    },
+    {
+        "Index": 37,
+        "Attrib": "AntiDamageMagic4ChangeP",
+        "Name": "Dark DMG RES"
+    },
+    {
+        "Index": 38,
+        "Attrib": "AntiDamageMagicChangePEnd",
+        "Name": "Elemental RES End-Mark"
+    },
+    {
+        "Index": 39,
+        "Attrib": "DamagePBegin",
+        "Name": "DMG Type Start-Mark"
+    },
+    {
+        "Index": 40,
+        "Attrib": "Damage1P",
+        "Name": "Mech DMG"
+    },
+    {
+        "Index": 41,
+        "Attrib": "Damage2P",
+        "Name": "Energy DMG"
+    },
+    {
+        "Index": 42,
+        "Attrib": "Damage3P",
+        "Name": "Creature DMG"
+    },
+    {
+        "Index": 43,
+        "Attrib": "DamagePEnd",
+        "Name": "DMG Type End-Mark"
+    },
+    {
+        "Index": 44,
+        "Attrib": "Crit",
+        "Name": "CRIT"
+    },
+    {
+        "Index": 45,
+        "Attrib": "CritP",
+        "Name": "CRIT Rate"
+    },
+    {
+        "Index": 46,
+        "Attrib": "CritDamageP",
+        "Name": "CRIT DMG Rate"
+    },
+    {
+        "Index": 47,
+        "Attrib": "AntiCritP",
+        "Name": "Anti-CRIT Rate"
+    },
+    {
+        "Index": 48,
+        "Attrib": "AntiCritDamageP",
+        "Name": "Anti-CRIT DMG Rate"
+    },
+    {
+        "Index": 49,
+        "Attrib": "Lifesteal",
+        "Name": "Lifesteal"
+    },
+    {
+        "Index": 50,
+        "Attrib": "LifestealP",
+        "Name": "Lifesteal Rate"
+    },
+    {
+        "Index": 51,
+        "Attrib": "CureChangeP",
+        "Name": "Amplify Healing"
+    },
+    {
+        "Index": 52,
+        "Attrib": "AntiCureChangeP",
+        "Name": "Anti-Amplify Healing"
+    },
+    {
+        "Index": 53,
+        "Attrib": "Endure",
+        "Name": "Super Armor - Yellow"
+    },
+    {
+        "Index": 54,
+        "Attrib": "ThreatRateP",
+        "Name": "Aggro Generation Rate"
+    },
+    {
+        "Index": 55,
+        "Attrib": "DodgeEnergy",
+        "Name": "Dodge Energy"
+    },
+    {
+        "Index": 56,
+        "Attrib": "DodgeEnergyAutoRecovery",
+        "Name": "Dodge Energy Auto Regen (Energy/s)"
+    },
+    {
+        "Index": 57,
+        "Attrib": "CustomEnergy",
+        "Name": "Custom Energy"
+    },
+    {
+        "Index": 58,
+        "Attrib": "AccuResistance1",
+        "Name": "Charge Resistance 1"
+    },
+    {
+        "Index": 59,
+        "Attrib": "AccuResistance2",
+        "Name": "Charge Resistance 2"
+    },
+    {
+        "Index": 60,
+        "Attrib": "AccuResistance3",
+        "Name": "Charge Resistance 3"
+    },
+    {
+        "Index": 61,
+        "Attrib": "AccuResistance4",
+        "Name": "Charge Resistance 4"
+    },
+    {
+        "Index": 62,
+        "Attrib": "AccuResistance5",
+        "Name": "Charge Resistance 5"
+    },
+    {
+        "Index": 63,
+        "Attrib": "AccuResistance6",
+        "Name": "Charge Resistance 6"
+    },
+    {
+        "Index": 64,
+        "Attrib": "AccuResistance7",
+        "Name": "Charge Resistance 7"
+    },
+    {
+        "Index": 65,
+        "Attrib": "AccuResistance8",
+        "Name": "Charge Resistance 8"
+    },
+    {
+        "Index": 66,
+        "Attrib": "AccuResistance9",
+        "Name": "Charge Resistance 9"
+    },
+    {
+        "Index": 67,
+        "Attrib": "AccuResistance10",
+        "Name": "Charge Resistance 10"
+    },
+    {
+        "Index": 68,
+        "Attrib": "SquatSpeed",
+        "Name": "Crouch SPD"
+    },
+    {
+        "Index": 69,
+        "Attrib": "NormalWeaknessP",
+        "Name": "Physical Weakness"
+    },
+    {
+        "Index": 70,
+        "Attrib": "Magic1WeaknessP",
+        "Name": "Fire Weakness"
+    },
+    {
+        "Index": 71,
+        "Attrib": "Magic2WeaknessP",
+        "Name": "Lightning Weakness"
+    },
+    {
+        "Index": 72,
+        "Attrib": "Magic3WeaknessP",
+        "Name": "Ice Weakness"
+    },
+    {
+        "Index": 73,
+        "Attrib": "Magic4WeaknessP",
+        "Name": "Dark Weakness"
+    },
+    {
+        "Index": 74,
+        "Attrib": "SprintSpeed",
+        "Name": "Sprint Speed (Logic Unit/Rate)"
+    },
+    {
+        "Index": 75,
+        "Attrib": "CustomEnergyGroup1",
+        "Name": "Custom Energy Group 1"
+    },
+    {
+        "Index": 76,
+        "Attrib": "CustomEnergyGroup2",
+        "Name": "Custom Energy Group 2"
+    },
+    {
+        "Index": 77,
+        "Attrib": "CustomEnergyGroup3",
+        "Name": "Custom Energy Group 3"
+    },
+    {
+        "Index": 78,
+        "Attrib": "CustomEnergyGroup4",
+        "Name": "Custom Energy Group 4"
+    },
+    {
+        "Index": 79,
+        "Attrib": "Hack",
+        "Name": "Execution"
+    },
+    {
+        "Index": 80,
+        "Attrib": "HackChangeP",
+        "Name": "Execution Buff Rate"
+    },
+    {
+        "Index": 81,
+        "Attrib": "AntiHackChangeP",
+        "Name": "Execution Resistance Rate"
+    },
+    {
+        "Index": 82,
+        "Attrib": "HackAutoRecovery",
+        "Name": "Execution Auto Regen"
+    },
+    {
+        "Index": 83,
+        "Attrib": "SkillDamageChangeP",
+        "Name": "Skill Multiplier Increase"
+    },
+    {
+        "Index": 84,
+        "Attrib": "ReduceHackDynamicScoringCoe",
+        "Name": "Dynamic Scoring Coefficient of Reduced Enemy Execution"
+    },
+    {
+        "Index": 85,
+        "Attrib": "BeExecutedDynamicScoringCoe",
+        "Name": "Dynamic Scoring Coefficient of Enemy Execution"
+    },
+    {
+        "Index": 86,
+        "Attrib": "DynamicScoringScoreChangeP",
+        "Name": "Dynamic scoring rate up"
+    },
+    {
+        "Index": 87,
+        "Attrib": "DynamicScoringScoreChangeV",
+        "Name": "Dynamic scoring up"
+    },
+    {
+        "Index": 88,
+        "Attrib": "ReduceDynamicScoringScorePerSecondChangeP",
+        "Name": "Dynamic scoring rate decreased per second up"
+    },
+    {
+        "Index": 89,
+        "Attrib": "ReduceDynamicScoringScorePerSecondChangeV",
+        "Name": "Dynamic scoring decreased per second up"
+    },
+    {
+        "Index": 90,
+        "Attrib": "ReduceDynamicScoringScoreWhenBeDamagedChangeP",
+        "Name": "Dynamic scoring rate decreased once injured up"
+    },
+    {
+        "Index": 91,
+        "Attrib": "ReduceDynamicScoringScoreWhenBeDamagedChangeV",
+        "Name": "Dynamic scoring decreased once injured up"
+    }
+]

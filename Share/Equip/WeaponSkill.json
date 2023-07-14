@@ -20,7 +20,7 @@
         "Ability": 100,
         "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool17.png",
         "Name": "Dead Line Timing",
-        "Description": "Gain 2 extra random signal orbs upon deployment, and 3 signal orbs of the same color every 45s (also gain signal orbs on standby).",
+        "Description": "Gain 2 extra random Signal Orbs when deployed, and 3 Signal Orbs of the same color every 45s (also gain Signal Orbs on standby).",
         "DesLinkCharacterSkillId": null
     },
     {
@@ -295,7 +295,7 @@
         "SubSkillId": [],
         "Ability": 100,
         "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool13.png",
-        "Name": "Boudary's Annihilation",
+        "Name": "Boundary's Annihilation",
         "Description": "On QTE, shields the Construct in control for 10% of the skill user's max HP for 5s.",
         "DesLinkCharacterSkillId": null
     },
@@ -1836,6 +1836,42 @@
         "Icon": null,
         "Name": "Helium Flash",
         "Description": "Fire DMG increases by 15%. When Nanami: Starfarer is on standby, her teammates' every 3-Ping will restore 12 Signature Energy for her. Missiles will inflict <color=#FF6347>Scorching Invasion</color> upon hitting the target: reduces 15% Fire Resistance for 8s. When Nanami: Starfarer triggers the QTE, if there is <color=#FF6347>Missile Support</color> on the field, the duration of <color=#FF6347>Missile Support</color> will be refreshed.",
+        "DesLinkCharacterSkillId": null
+    },
+    {
+        "Id": 2284001,
+        "BornMagic": [
+            522030.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Test Circuit",
+        "Description": "Extra DMG Bonus of Radiant Whirlwind Increases by 10%.",
+        "DesLinkCharacterSkillId": null
+    },
+    {
+        "Id": 2285001,
+        "BornMagic": [
+            522019.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Darkstar Convergence",
+        "Description": "Increases Dark DMG by 10%.",
+        "DesLinkCharacterSkillId": null
+    },
+    {
+        "Id": 2286001,
+        "BornMagic": [
+            522021.0
+        ],
+        "SubSkillId": [],
+        "Ability": 0,
+        "Icon": null,
+        "Name": "Big Bang",
+        "Description": "The <color=#FF6347>Chain Fusion</color> effect applied by Karenina: Scire increases by <color=#FF6347>10%</color>. Each time Karenina casts <color=#FF6347>Radiant Whirlwind</color>, she recovers <color=#FF6347>1</color> Energy. The Extra DMG Bonus of Leap Attack increases by <color=#FF6347>20%</color>.",
         "DesLinkCharacterSkillId": null
     }
 ]

@@ -1020,6 +1020,31 @@
         "Text": "Different preset character type"
     },
     {
+        "Id": 20004005,
+        "Key": "TeamManagerCanNotFindThePrefabTeam",
+        "Text": "20004005 Cannot find preset team"
+    },
+    {
+        "Id": 20004006,
+        "Key": "TeamManagerCharacterIsEmptyCanNotCarryPartner",
+        "Text": "20004006 No character in position. Cannot carry CUB"
+    },
+    {
+        "Id": 20004007,
+        "Key": "TeamManagerThisTeamPosIsNotExist",
+        "Text": "20004007 Position does not exist."
+    },
+    {
+        "Id": 20004008,
+        "Key": "TeamManagerPrefabPartnerSkillIsEmpty",
+        "Text": "20004006 CUB preset skill cannot be empty"
+    },
+    {
+        "Id": 20004009,
+        "Key": "TeamManagerPrePartnerIsEmptyCanNotCarrySkill",
+        "Text": "20004008 CUB preset is empty. Cannot set skill"
+    },
+    {
         "Id": 20007001,
         "Key": "FightProxyManagerEnterIsExist",
         "Text": "The player is already in another battle"
@@ -4790,6 +4815,11 @@
         "Text": "Omniframe not owned"
     },
     {
+        "Id": 20060063,
+        "Key": "DormDecomposeOverLimitCount",
+        "Text": "20060063 Scrap quantity exceeds the limit"
+    },
+    {
         "Id": 20061001,
         "Key": "GachaTemplateNotFound",
         "Text": "Card draw matrix configuration not found"
@@ -8475,6 +8505,16 @@
         "Text": "20099034 The character is already used in another stage of the same level"
     },
     {
+        "Id": 20099035,
+        "Key": "ExpeditionPreStageNotPass",
+        "Text": "20099035 Pre-requisite stage limit not reached"
+    },
+    {
+        "Id": 20099036,
+        "Key": "ExpeditionChapterNotOpen",
+        "Text": "20099036 Chapter not available yet"
+    },
+    {
         "Id": 20100001,
         "Key": "RpgNotOpen",
         "Text": "Event is not available yet"
@@ -10605,6 +10645,21 @@
         "Text": "20114043 Companion rename forbidden"
     },
     {
+        "Id": 20114044,
+        "Key": "PartnerIsNullCanNotWearSkill",
+        "Text": "20114045 No companion to assign skills"
+    },
+    {
+        "Id": 20114045,
+        "Key": "PartnerCanNotSetWhenCharacterIsNull",
+        "Text": "20114046 No character to set as companion"
+    },
+    {
+        "Id": 20114046,
+        "Key": "PartnerIsNotCarrySkills",
+        "Text": "20114047 Companion has no configured skills"
+    },
+    {
         "Id": 20115001,
         "Key": "SimulatedCombatActivityNotOpen",
         "Text": "20115001 Event is not available yet"
@@ -11040,6 +11095,11 @@
         "Text": "Today's voting limit reached. You cannot vote anymore."
     },
     {
+        "Id": 20118010,
+        "Key": "MoeWarWinGroupNotNeedMatch",
+        "Text": "20118010 Losers match in progress. Winners cannot participate."
+    },
+    {
         "Id": 20119001,
         "Key": "MoeWarPreparationNotOpen",
         "Text": "Event is not available yet"
@@ -11148,6 +11208,46 @@
         "Id": 20119022,
         "Key": "MoeWarPreparationCanNotSelectExcludeWrongAnswer",
         "Text": "Cannot select excluded error answers"
+    },
+    {
+        "Id": 20119023,
+        "Key": "MoeWarPreparationRecruitHelperNotFinish",
+        "Text": "Helper not recruited"
+    },
+    {
+        "Id": 20119024,
+        "Key": "MoeWarPreparationNotSelectHelper",
+        "Text": "Character not selected"
+    },
+    {
+        "Id": 20119025,
+        "Key": "MoeWarPreparationMoodValueNotEnough",
+        "Text": "Insufficient Mood"
+    },
+    {
+        "Id": 20119026,
+        "Key": "MoeWarPreparationMoodValueLimit",
+        "Text": "Mood limit reached"
+    },
+    {
+        "Id": 20119027,
+        "Key": "MoeWarPreparationGiftNotEnough",
+        "Text": "Insufficient supplies. Complete preparatory tasks to obtain more"
+    },
+    {
+        "Id": 20119028,
+        "Key": "MoeWarStoreNameplateAlreadyOwn",
+        "Text": "Nameplate already owned"
+    },
+    {
+        "Id": 20119029,
+        "Key": "MoeWarStoreNameplateAlreadyOwnMoreHigher",
+        "Text": "Higher level nameplate already owned"
+    },
+    {
+        "Id": 20119030,
+        "Key": "MoeWarStoreCanNotFindTemplate",
+        "Text": "Item not found in the Festival Shop"
     },
     {
         "Id": 20120001,
@@ -13685,6 +13785,16 @@
         "Text": "Failed to retrieve leaderboard"
     },
     {
+        "Id": 20149049,
+        "Key": "SuperSmashBrosSystemRobotDoNotExist",
+        "Text": null
+    },
+    {
+        "Id": 20149050,
+        "Key": "SuperSmashBrosEggException",
+        "Text": null
+    },
+    {
         "Id": 20150001,
         "Key": "MemorySaveChapterNotFind",
         "Text": "20150001 Memory Rescue: Chapter ID not found"
@@ -13727,22 +13837,22 @@
     {
         "Id": 20151001,
         "Key": "ReviewActivityDataNotExist",
-        "Text": "20151001 Review data not found"
+        "Text": "Review data not found"
     },
     {
         "Id": 20151002,
         "Key": "ShareReviewRewardHadToken",
-        "Text": "20151002 Review event share reward already claimed"
+        "Text": "Reward already claimed"
     },
     {
         "Id": 20151003,
         "Key": "ShareReviewRewardNotExist",
-        "Text": "20151003 Review event share reward does not exist"
+        "Text": "Reward does not exist"
     },
     {
         "Id": 20151004,
         "Key": "ReviewActivityNotOpen",
-        "Text": "20151004 Review event not available"
+        "Text": "Review event not available"
     },
     {
         "Id": 20152001,
@@ -15383,6 +15493,181 @@
         "Id": 20170007,
         "Key": "TaikoMasterRobotInvalid",
         "Text": "Illegal character"
+    },
+    {
+        "Id": 20171001,
+        "Key": "FestivalSendGiftError",
+        "Text": "20171001 Cannot send this gift"
+    },
+    {
+        "Id": 20171002,
+        "Key": "FestivalSendGiftOnlyOne",
+        "Text": "20171002 You can only sent one special gift at a time"
+    },
+    {
+        "Id": 20172001,
+        "Key": "MoeWarParkourActivityNotOpen",
+        "Text": "Event is not available yet"
+    },
+    {
+        "Id": 20172002,
+        "Key": "MoeWarParkourActivityCfgNotExist",
+        "Text": "Event configuration not found"
+    },
+    {
+        "Id": 20172003,
+        "Key": "MoeWarParkourStageCfgNotExist",
+        "Text": "Stage configuration not found"
+    },
+    {
+        "Id": 20172004,
+        "Key": "MoeWarParkourStageNotOpen",
+        "Text": "Stage is not available yet"
+    },
+    {
+        "Id": 20172005,
+        "Key": "MoeWarParkourCanOnlyOneRoleFight",
+        "Text": "Only one character can be deployed"
+    },
+    {
+        "Id": 20172006,
+        "Key": "MoeWarParkourCanOnlySelectHelperCharacter",
+        "Text": "Cannot deploy unrecruited characters"
+    },
+    {
+        "Id": 20173001,
+        "Key": "GuildDormCodeStart",
+        "Text": "20173001"
+    },
+    {
+        "Id": 20173002,
+        "Key": "GuildDormInvalidRoomId",
+        "Text": "Invalid room ID"
+    },
+    {
+        "Id": 20173003,
+        "Key": "GuildDormInvalidChannelId",
+        "Text": "Invalid channel ID"
+    },
+    {
+        "Id": 20173004,
+        "Key": "GuildDormInvalidCharId",
+        "Text": "Invalid character ID"
+    },
+    {
+        "Id": 20173005,
+        "Key": "GuildDormInvalidActionId",
+        "Text": "Invalid action ID"
+    },
+    {
+        "Id": 20173006,
+        "Key": "GuildDormInvalidFurnId",
+        "Text": "Invalid decor ID"
+    },
+    {
+        "Id": 20173007,
+        "Key": "GuildDormGdsInvalidRequest",
+        "Text": "Invalid Dormitory service request"
+    },
+    {
+        "Id": 20173008,
+        "Key": "GuildDormGdsGetRoomGrainFailed",
+        "Text": "Dormitory server failed to obtain room channel target."
+    },
+    {
+        "Id": 20173009,
+        "Key": "GuildDormGdsTcpSessionNotActivated",
+        "Text": "Invalid data flow."
+    },
+    {
+        "Id": 20173010,
+        "Key": "GuildDormRoomInvalidPlayerId",
+        "Text": "Invalid player ID."
+    },
+    {
+        "Id": 20173011,
+        "Key": "GuildDormRoomInvalidRoomState",
+        "Text": "Room channel unavailable."
+    },
+    {
+        "Id": 20173012,
+        "Key": "GuildDormRoomOutOfCapacity",
+        "Text": "Room channel full."
+    },
+    {
+        "Id": 20173013,
+        "Key": "GuildDormRoomCreateActorFailed",
+        "Text": "Player failed to create room channel"
+    },
+    {
+        "Id": 20173014,
+        "Key": "GuildDormRoomAddActorFailed",
+        "Text": "Failed to add player to room channel."
+    },
+    {
+        "Id": 20173015,
+        "Key": "GuildDormRoomEnterInvalidToken",
+        "Text": "Room channel verification failed."
+    },
+    {
+        "Id": 20173016,
+        "Key": "GuildDormRoomEnterInvalidTcpSession",
+        "Text": "Room channel data flow error."
+    },
+    {
+        "Id": 20173017,
+        "Key": "GuildDormRoomEnterInvalidKcpSession",
+        "Text": "Room channel data pack error."
+    },
+    {
+        "Id": 20173018,
+        "Key": "GuildDormRoomFurnFurnOnUsed",
+        "Text": "Decor is occupied by another player."
+    },
+    {
+        "Id": 20173019,
+        "Key": "GuildDormRoomFurnInOtherFurn",
+        "Text": "Interacting with decor."
+    },
+    {
+        "Id": 20173501,
+        "Key": "GuildDormPlayerCodeStart",
+        "Text": "Guild Dormitory gameserver error."
+    },
+    {
+        "Id": 20173502,
+        "Key": "GuildDormPlayerNotInGuild",
+        "Text": "No guild joined. Cannot perform this operation."
+    },
+    {
+        "Id": 20173503,
+        "Key": "GuildDormPlayerGetRoomGrainFailed",
+        "Text": "Failed to acquire room channel target."
+    },
+    {
+        "Id": 20173504,
+        "Key": "GuildDormPlayerRoomGrainActivateFailed",
+        "Text": "Failed to activate room channel target."
+    },
+    {
+        "Id": 20173505,
+        "Key": "GuildDormPlayerRoomGrainCallFailed",
+        "Text": "Room channel request failed."
+    },
+    {
+        "Id": 20173506,
+        "Key": "GuildDormPlayerGetDcGrainFailed",
+        "Text": "Failed to obtain data operation target."
+    },
+    {
+        "Id": 20173507,
+        "Key": "GuildDormPlayerDcGrainCallFailed",
+        "Text": "Data operation request failed."
+    },
+    {
+        "Id": 20173508,
+        "Key": "GuildDormPlayerNoChannelAvailable",
+        "Text": "No channels available."
     },
     {
         "Id": 30002001,

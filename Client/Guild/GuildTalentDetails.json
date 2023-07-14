@@ -1,0 +1,642 @@
+[
+    {
+        "Id": 1101,
+        "Name": "Beacon: Power",
+        "IndexInMap": 1,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_001.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn1.prefab",
+        "Descriptions": [
+            "ATK is increased by 0% in Command Bureau challenges.",
+            "ATK is increased by 2% in Command Bureau challenges.",
+            "ATK is increased by 4% in Command Bureau challenges.",
+            "ATK is increased by 6% in Command Bureau challenges.",
+            "ATK is increased by 8% in Command Bureau challenges.",
+            "ATK is increased by 10% in Command Bureau challenges.",
+            "ATK is increased by 12% in Command Bureau challenges.",
+            "ATK is increased by 14% in Command Bureau challenges.",
+            "ATK is increased by 16% in Command Bureau challenges.",
+            "ATK is increased by 18% in Command Bureau challenges.",
+            "ATK is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1102,
+        "Name": "Beacon: Garrison",
+        "IndexInMap": 2,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_015.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn1.prefab",
+        "Descriptions": [
+            "Physical DEF is increased by 0% in Command Bureau challenges.",
+            "Physical DEF is increased by 5% in Command Bureau challenges.",
+            "Physical DEF is increased by 10% in Command Bureau challenges.",
+            "Physical DEF is increased by 15% in Command Bureau challenges.",
+            "Physical DEF is increased by 20% in Command Bureau challenges.",
+            "Physical DEF is increased by 25% in Command Bureau challenges.",
+            "Physical DEF is increased by 30% in Command Bureau challenges.",
+            "Physical DEF is increased by 35% in Command Bureau challenges.",
+            "Physical DEF is increased by 40% in Command Bureau challenges.",
+            "Physical DEF is increased by 45% in Command Bureau challenges.",
+            "Physical DEF is increased by 50% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1103,
+        "Name": "Beacon: Physical DMG Up",
+        "IndexInMap": 3,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_013.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn1.prefab",
+        "Descriptions": [
+            "Physical DMG is increased by 0% in Command Bureau challenges.",
+            "Physical DMG is increased by 2% in Command Bureau challenges.",
+            "Physical DMG is increased by 4% in Command Bureau challenges.",
+            "Physical DMG is increased by 6% in Command Bureau challenges.",
+            "Physical DMG is increased by 8% in Command Bureau challenges.",
+            "Physical DMG is increased by 10% in Command Bureau challenges.",
+            "Physical DMG is increased by 12% in Command Bureau challenges.",
+            "Physical DMG is increased by 14% in Command Bureau challenges.",
+            "Physical DMG is increased by 16% in Command Bureau challenges.",
+            "Physical DMG is increased by 18% in Command Bureau challenges.",
+            "Physical DMG is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1201,
+        "Name": "Beacon: Fire DMG Up",
+        "IndexInMap": 4,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_008.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Fire DMG is increased by 0% in Command Bureau challenges.",
+            "Fire DMG is increased by 3% in Command Bureau challenges.",
+            "Fire DMG is increased by 6% in Command Bureau challenges.",
+            "Fire DMG is increased by 9% in Command Bureau challenges.",
+            "Fire DMG is increased by 12% in Command Bureau challenges.",
+            "Fire DMG is increased by 15% in Command Bureau challenges.",
+            "Fire DMG is increased by 18% in Command Bureau challenges.",
+            "Fire DMG is increased by 21% in Command Bureau challenges.",
+            "Fire DMG is increased by 24% in Command Bureau challenges.",
+            "Fire DMG is increased by 27% in Command Bureau challenges.",
+            "Fire DMG is increased by 30% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1202,
+        "Name": "Beacon: Ice DMG Up",
+        "IndexInMap": 5,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_009.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Ice DMG is increased by 0% in Command Bureau challenges.",
+            "Ice DMG is increased by 3% in Command Bureau challenges.",
+            "Ice DMG is increased by 6% in Command Bureau challenges.",
+            "Ice DMG is increased by 9% in Command Bureau challenges.",
+            "Ice DMG is increased by 12% in Command Bureau challenges.",
+            "Ice DMG is increased by 15% in Command Bureau challenges.",
+            "Ice DMG is increased by 18% in Command Bureau challenges.",
+            "Ice DMG is increased by 21% in Command Bureau challenges.",
+            "Ice DMG is increased by 24% in Command Bureau challenges.",
+            "Ice DMG is increased by 27% in Command Bureau challenges.",
+            "Ice DMG is increased by 30% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1203,
+        "Name": "Beacon: Lightning DMG Up",
+        "IndexInMap": 6,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_010.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Lightning DMG is increased by 0% in Command Bureau challenges.",
+            "Lightning DMG is increased by 3% in Command Bureau challenges.",
+            "Lightning DMG is increased by 6% in Command Bureau challenges.",
+            "Lightning DMG is increased by 9% in Command Bureau challenges.",
+            "Lightning DMG is increased by 12% in Command Bureau challenges.",
+            "Lightning DMG is increased by 15% in Command Bureau challenges.",
+            "Lightning DMG is increased by 18% in Command Bureau challenges.",
+            "Lightning DMG is increased by 21% in Command Bureau challenges.",
+            "Lightning DMG is increased by 24% in Command Bureau challenges.",
+            "Lightning DMG is increased by 27% in Command Bureau challenges.",
+            "Lightning DMG is increased by 30% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1204,
+        "Name": "Beacon: Dark DMG Up",
+        "IndexInMap": 7,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_018.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Dark DMG is increased by 0% in Command Bureau challenges.",
+            "Dark DMG is increased by 3% in Command Bureau challenges.",
+            "Dark DMG is increased by 6% in Command Bureau challenges.",
+            "Dark DMG is increased by 9% in Command Bureau challenges.",
+            "Dark DMG is increased by 12% in Command Bureau challenges.",
+            "Dark DMG is increased by 15% in Command Bureau challenges.",
+            "Dark DMG is increased by 18% in Command Bureau challenges.",
+            "Dark DMG is increased by 21% in Command Bureau challenges.",
+            "Dark DMG is increased by 24% in Command Bureau challenges.",
+            "Dark DMG is increased by 27% in Command Bureau challenges.",
+            "Dark DMG is increased by 30% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1301,
+        "Name": "Beacon: DMG Bonus",
+        "IndexInMap": 8,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_019.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Extra DMG is increased by 0% in Command Bureau challenges.",
+            "Extra DMG is increased by 2% in Command Bureau challenges.",
+            "Extra DMG is increased by 4% in Command Bureau challenges.",
+            "Extra DMG is increased by 6% in Command Bureau challenges.",
+            "Extra DMG is increased by 8% in Command Bureau challenges.",
+            "Extra DMG is increased by 10% in Command Bureau challenges.",
+            "Extra DMG is increased by 12% in Command Bureau challenges.",
+            "Extra DMG is increased by 14% in Command Bureau challenges.",
+            "Extra DMG is increased by 16% in Command Bureau challenges.",
+            "Extra DMG is increased by 18% in Command Bureau challenges.",
+            "Extra DMG is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1302,
+        "Name": "Beacon: HP Boost",
+        "IndexInMap": 9,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_016.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Max HP is increased by 0% in Command Bureau challenges.",
+            "Max HP is increased by 4% in Command Bureau challenges.",
+            "Max HP is increased by 8% in Command Bureau challenges.",
+            "Max HP is increased by 12% in Command Bureau challenges.",
+            "Max HP is increased by 16% in Command Bureau challenges.",
+            "Max HP is increased by 20% in Command Bureau challenges.",
+            "Max HP is increased by 24% in Command Bureau challenges.",
+            "Max HP is increased by 28% in Command Bureau challenges.",
+            "Max HP is increased by 32% in Command Bureau challenges.",
+            "Max HP is increased by 36% in Command Bureau challenges.",
+            "Max HP is increased by 40% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1303,
+        "Name": "Beacon: Riot",
+        "IndexInMap": 10,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_011.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "CRIT Rate is increased by 0% in Command Bureau challenges.",
+            "CRIT Rate is increased by 1% in Command Bureau challenges.",
+            "CRIT Rate is increased by 2% in Command Bureau challenges.",
+            "CRIT Rate is increased by 3% in Command Bureau challenges.",
+            "CRIT Rate is increased by 4% in Command Bureau challenges.",
+            "CRIT Rate is increased by 5% in Command Bureau challenges.",
+            "CRIT Rate is increased by 6% in Command Bureau challenges.",
+            "CRIT Rate is increased by 7% in Command Bureau challenges.",
+            "CRIT Rate is increased by 8% in Command Bureau challenges.",
+            "CRIT Rate is increased by 9% in Command Bureau challenges.",
+            "CRIT Rate is increased by 10% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1401,
+        "Name": "Beacon: Offense-Defense Balance",
+        "IndexInMap": 11,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_014.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn4.prefab",
+        "Descriptions": [
+            "Gain a shield equal to 0% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 5% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 10% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 15% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 20% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 25% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 30% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 35% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 40% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 45% of maximum HP at the start of a Bureau challenge.",
+            "Gain a shield equal to 50% of maximum HP at the start of a Bureau challenge."
+        ]
+    },
+    {
+        "Id": 1402,
+        "Name": "Beacon: Critical DMG",
+        "IndexInMap": 12,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_012.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn4.prefab",
+        "Descriptions": [
+            "CRIT DMG is increased by 0% in Command Bureau challenges.",
+            "CRIT DMG is increased by 1% in Command Bureau challenges.",
+            "CRIT DMG is increased by 2% in Command Bureau challenges.",
+            "CRIT DMG is increased by 3% in Command Bureau challenges.",
+            "CRIT DMG is increased by 4% in Command Bureau challenges.",
+            "CRIT DMG is increased by 5% in Command Bureau challenges.",
+            "CRIT DMG is increased by 6% in Command Bureau challenges.",
+            "CRIT DMG is increased by 7% in Command Bureau challenges.",
+            "CRIT DMG is increased by 8% in Command Bureau challenges.",
+            "CRIT DMG is increased by 9% in Command Bureau challenges.",
+            "CRIT DMG is increased by 10% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1501,
+        "Name": "Beacon: Enhanced Healing",
+        "IndexInMap": 13,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_003.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Healing effect is increased by 0% in Command Bureau challenges.",
+            "Healing effect is increased by 5% in Command Bureau challenges.",
+            "Healing effect is increased by 10% in Command Bureau challenges.",
+            "Healing effect is increased by 15% in Command Bureau challenges.",
+            "Healing effect is increased by 20% in Command Bureau challenges.",
+            "Healing effect is increased by 25% in Command Bureau challenges.",
+            "Healing effect is increased by 30% in Command Bureau challenges.",
+            "Healing effect is increased by 35% in Command Bureau challenges.",
+            "Healing effect is increased by 40% in Command Bureau challenges.",
+            "Healing effect is increased by 45% in Command Bureau challenges.",
+            "Healing effect is increased by 50% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1502,
+        "Name": "Beacon: Energy Storage",
+        "IndexInMap": 14,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_030.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Starting Energy is increased by 0 in Command Bureau challenges.",
+            "Starting Energy is increased by 5 in Command Bureau challenges.",
+            "Starting Energy is increased by 10 in Command Bureau challenges.",
+            "Starting Energy is increased by 15 in Command Bureau challenges.",
+            "Starting Energy is increased by 20 in Command Bureau challenges.",
+            "Starting Energy is increased by 25 in Command Bureau challenges.",
+            "Starting Energy is increased by 30 in Command Bureau challenges.",
+            "Starting Energy is increased by 35 in Command Bureau challenges.",
+            "Starting Energy is increased by 40 in Command Bureau challenges.",
+            "Starting Energy is increased by 45 in Command Bureau challenges.",
+            "Starting Energy is increased by 50 in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1503,
+        "Name": "Beacon: Sprint",
+        "IndexInMap": 15,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_032.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Movement Speed is increased by 0% in Command Bureau challenges.",
+            "Movement Speed is increased by 2% in Command Bureau challenges.",
+            "Movement Speed is increased by 4% in Command Bureau challenges.",
+            "Movement Speed is increased by 6% in Command Bureau challenges.",
+            "Movement Speed is increased by 8% in Command Bureau challenges.",
+            "Movement Speed is increased by 10% in Command Bureau challenges.",
+            "Movement Speed is increased by 12% in Command Bureau challenges.",
+            "Movement Speed is increased by 14% in Command Bureau challenges.",
+            "Movement Speed is increased by 16% in Command Bureau challenges.",
+            "Movement Speed is increased by 18% in Command Bureau challenges.",
+            "Movement Speed is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1504,
+        "Name": "Beacon: Dodge Limit",
+        "IndexInMap": 16,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_029.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn2.prefab",
+        "Descriptions": [
+            "Limit of Dodge Gauge is increased by 0 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 40 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 80 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 120 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 160 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 200 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 240 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 280 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 320 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 360 in Command Bureau challenges.",
+            "Limit of Dodge Gauge is increased by 400 in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1601,
+        "Name": "Beacon: Attacker Invincibility",
+        "IndexInMap": 17,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_004.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Attacker's DMG Reduction is increased by 0% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 2.5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 7.5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 10% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 12.5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 15% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 17.5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 20% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 22.5% in Command Bureau challenges.",
+            "Attacker's DMG Reduction is increased by 25% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1602,
+        "Name": "Beacon: Tank Invincibility",
+        "IndexInMap": 18,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_005.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Tank-type's DMG Reduction is increased by 0% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 2.5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 7.5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 10% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 12.5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 15% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 17.5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 20% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 22.5% in Command Bureau challenges.",
+            "Tank-type's DMG Reduction is increased by 25% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1603,
+        "Name": "Beacon: Support Invincibility",
+        "IndexInMap": 19,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_006.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Support-type's DMG Reduction is increased by 0% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 2.5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 7.5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 10% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 12.5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 15% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 17.5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 20% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 22.5% in Command Bureau challenges.",
+            "Support-type's DMG Reduction is increased by 25% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1701,
+        "Name": "Beacon: Vanguard Invincibility",
+        "IndexInMap": 20,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_031.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Vanguard-type's DMG Reduction is increased by 0% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 2.5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 7.5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 10% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 12.5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 15% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 17.5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 20% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 22.5% in Command Bureau challenges.",
+            "Vanguard-type's DMG Reduction is increased by 25% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1702,
+        "Name": "Beacon: Attacker Power",
+        "IndexInMap": 21,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_020.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Attacker's ATK is increased by 0% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 2% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 4% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 6% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 8% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 10% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 12% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 14% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 16% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 18% in Command Bureau challenges.",
+            "Attacker's ATK is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1703,
+        "Name": "Beacon: Tank Power",
+        "IndexInMap": 22,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_021.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Tank-type's ATK is increased by 0% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 2% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 4% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 6% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 8% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 10% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 12% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 14% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 16% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 18% in Command Bureau challenges.",
+            "Tank-type's ATK is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1704,
+        "Name": "Beacon: Support Power",
+        "IndexInMap": 23,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_022.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Support-type's ATK is increased by 0% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 2% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 4% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 6% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 8% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 10% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 12% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 14% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 16% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 18% in Command Bureau challenges.",
+            "Support-type's ATK is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1801,
+        "Name": "Beacon: Vanguard Power",
+        "IndexInMap": 24,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_007.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Vanguard-type's ATK is increased by 0% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 2% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 4% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 6% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 8% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 10% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 12% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 14% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 16% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 18% in Command Bureau challenges.",
+            "Vanguard-type's ATK is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1802,
+        "Name": "Beacon: Fearless",
+        "IndexInMap": 25,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_023.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "DMG Reduction after performing a Signature is increased by 0% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 2.5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 7.5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 10% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 12.5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 15% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 17.5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 20% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 22.5% in Command Bureau challenges.",
+            "DMG Reduction after performing a Signature is increased by 25% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1803,
+        "Name": "Beacon: Inspired",
+        "IndexInMap": 26,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_024.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "DMG dealt after performing a Signature is increased by 0% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 2% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 4% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 6% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 8% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 10% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 12% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 14% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 16% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 18% in Command Bureau challenges.",
+            "DMG dealt after performing a Signature is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1901,
+        "Name": "Beacon: Skill Acquisition",
+        "IndexInMap": 27,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_025.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Skill DMG is increased by 0% in Command Bureau challenges.",
+            "Skill DMG is increased by 2% in Command Bureau challenges.",
+            "Skill DMG is increased by 4% in Command Bureau challenges.",
+            "Skill DMG is increased by 6% in Command Bureau challenges.",
+            "Skill DMG is increased by 8% in Command Bureau challenges.",
+            "Skill DMG is increased by 10% in Command Bureau challenges.",
+            "Skill DMG is increased by 12% in Command Bureau challenges.",
+            "Skill DMG is increased by 14% in Command Bureau challenges.",
+            "Skill DMG is increased by 16% in Command Bureau challenges.",
+            "Skill DMG is increased by 18% in Command Bureau challenges.",
+            "Skill DMG is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1902,
+        "Name": "Beacon: Ultimate Enlightenment",
+        "IndexInMap": 28,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_026.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "Signature Move DMG is increased by 0% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 2% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 4% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 6% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 8% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 10% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 12% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 14% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 16% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 18% in Command Bureau challenges.",
+            "Signature Move DMG is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 1903,
+        "Name": "Beacon: Matrix DMG Up",
+        "IndexInMap": 29,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_028.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn3.prefab",
+        "Descriptions": [
+            "DMG dealt in the Matrix is increased by 0% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 2% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 4% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 6% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 8% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 10% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 12% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 14% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 16% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 18% in Command Bureau challenges.",
+            "DMG dealt in the Matrix is increased by 20% in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 2001,
+        "Name": "Beacon: Elemental DMG Up",
+        "IndexInMap": 30,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_002.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn4.prefab",
+        "Descriptions": [
+            "In Command Bureau, Omniframes gain 0% Elem. DMG",
+            "In Command Bureau, Omniframes gain 1% Elem. DMG",
+            "In Command Bureau, Omniframes gain 2% Elem. DMG",
+            "In Command Bureau, Omniframes gain 3% Elem. DMG",
+            "In Command Bureau, Omniframes gain 4% Elem. DMG",
+            "In Command Bureau, Omniframes gain 5% Elem. DMG",
+            "In Command Bureau, Omniframes gain 6% Elem. DMG",
+            "In Command Bureau, Omniframes gain 7% Elem. DMG",
+            "In Command Bureau, Omniframes gain 8% Elem. DMG",
+            "In Command Bureau, Omniframes gain 9% Elem. DMG",
+            "In Command Bureau, Omniframes gain 10% Elem. DMG"
+        ]
+    },
+    {
+        "Id": 2002,
+        "Name": "Beacon: Energy Recovery",
+        "IndexInMap": 31,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_027.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn4.prefab",
+        "Descriptions": [
+            "Restores 0 Energy per 5s in Command Bureau challenges.",
+            "Restores 1 Energy per 5s in Command Bureau challenges.",
+            "Restores 2 Energy per 5s in Command Bureau challenges.",
+            "Restores 3 Energy per 5s in Command Bureau challenges.",
+            "Restores 4 Energy per 5s in Command Bureau challenges.",
+            "Restores 5 Energy per 5s in Command Bureau challenges.",
+            "Restores 6 Energy per 5s in Command Bureau challenges.",
+            "Restores 7 Energy per 5s in Command Bureau challenges.",
+            "Restores 8 Energy per 5s in Command Bureau challenges.",
+            "Restores 9 Energy per 5s in Command Bureau challenges.",
+            "Restores 10 Energy per 5s in Command Bureau challenges."
+        ]
+    },
+    {
+        "Id": 2003,
+        "Name": "Beacon: Powerful Reinforcements",
+        "IndexInMap": 32,
+        "TalentIcon": "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_017.png",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiGuild/GuildSkillPointBtn4.prefab",
+        "Descriptions": [
+            "QTE Skill DMG is increased by 0% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 10% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 20% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 30% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 40% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 50% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 60% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 70% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 80% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 90% in Command Bureau challenges.",
+            "QTE Skill DMG is increased by 100% in Command Bureau challenges."
+        ]
+    }
+]

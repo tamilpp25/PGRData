@@ -1,0 +1,665 @@
+[
+    {
+        "Id": 1,
+        "TitleCN": "Member Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": 1.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "Guaranteed S-Rank Omniframe every 60 attempts"
+        ],
+        "BaseRuleTitles": [
+            "Basic Mode",
+            "Targeted Mode",
+            "New Constructs arrive",
+            "Instructions"
+        ],
+        "BaseRules": [
+            "Random A-Rank or above character is guaranteed every 10 research attempts in Basic Mode.",
+            "In Targeted Mode where you can select a character, an A-Rank or above Omniframe is guaranteed every 10 research attempts. You will have a better chance of getting the selected A-Rank Omniframe when you get an A-Rank Omniframe.",
+            "Please check the relevant announcements for the implementation schedule of new A-Rank characters into Targeted Mode.",
+            "In the targeted Construct pool, the guarantee value of A-Rank and S-Rank Constructs will not be affected when you change your selected Construct, which means the guarantee progress is inherited."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": null,
+        "UpQuality": "<color=#fee82a>A\u30af\u30e9\u30b9</color>",
+        "UpProbability": "<color=#fee82a>50%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": 40.0,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 2,
+        "TitleCN": "Weapon Research",
+        "TitleEN": "Standard Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed 5\u2605 or above Weapon for every 10 attempts.",
+            "Guaranteed 6\u2605 Weapon every 30 attempts"
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts 5\u2605 Guaranteed",
+            "30 Attempts 6\u2605 Guaranteed"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive 5\u2605 or above Weapon for every 10 research attempts.",
+            "Guaranteed to receive 6\u2605 Weapon for every 30 research attempts."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": null,
+        "UpQuality": null,
+        "UpProbability": null,
+        "BottomText": "Guaranteed 6\u2605",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 4,
+        "TitleCN": "Target Weapon Research",
+        "TitleEN": "Optional Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Choose any set (80% chance to receive the chosen 6\u2605 Weapon when getting a 6\u2605 Weapon)",
+            "Guaranteed 5\u2605 or above Weapon for every 10 attempts.",
+            "Guaranteed 6\u2605 Weapon every 30 attempts"
+        ],
+        "BaseRuleTitles": [
+            "Custom Set",
+            "Target Mode Rules"
+        ],
+        "BaseRules": [
+            "Choose a Weapon Set for your research. The chosen set will get an increased chance to receive. ",
+            "In Target Mode, the chance of chosen Weapon set will increase greatly."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": null,
+        "UpQuality": null,
+        "UpProbability": null,
+        "BottomText": "Guaranteed 6\u2605",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 6,
+        "TitleCN": "Dormitory Research",
+        "TitleEN": "Standard Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed Coating Blueprint Sketch every 10 attempts."
+        ],
+        "BaseRuleTitles": [
+            "Research Outcome",
+            "Research Notes"
+        ],
+        "BaseRules": [
+            "May drop Decor, Blueprints, Coating Sketches, and Residence Permits.",
+            "New Decors are not added to the pool yet."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": null,
+        "UpQuality": "<color=#fee82a>6\u2605</color>",
+        "UpProbability": "<color=#fee82a>80%</color>",
+        "BottomText": "Guaranteed",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 10,
+        "TitleCN": "Themed Target Weapon",
+        "TitleEN": "Standard Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "100% to receive 5\u2605 or above Weapon for every 10 research attempts.",
+            "100% to receive 6\u2605 or above Weapon for every 30 research attempts."
+        ],
+        "BaseRuleTitles": [
+            "10 rounds for 5\u2605 Weapon guarantee",
+            "30 rounds for 6\u2605 Weapon guarantee"
+        ],
+        "BaseRules": [
+            "100% to receive 5\u2605 or above Weapon for every 10 research attempts.",
+            "100% to receive 6\u2605 or above Weapon for every 30 research attempts."
+        ],
+        "EventRuleTitles": [
+            "In 6\u2605 Chance"
+        ],
+        "EventRules": [
+            "If a 6\u2605 Weapon is researched, it has an 80% chance to be the rate-up weapon."
+        ],
+        "UpType": "Weapon",
+        "UpQuality": "<color=#fee82a>6\u2605</color>",
+        "UpProbability": "<color=#fee82a>80%</color>",
+        "BottomText": "Guaranteed 6\u2605",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 11,
+        "TitleCN": "Themed Event Construct",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "Guaranteed S-Rank Omniframe every 60 attempts"
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts A-Rank Guaranteed",
+            "60 Attempts S-Rank Guaranteed",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive an A-Rank or above Omniframe for every 10 research attempts.",
+            "Guaranteed to receive an S-Rank Omniframe for every 60 research attempts.",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "In S-Rank Chance"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 12,
+        "TitleCN": "Arrival Construct",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "Guaranteed S-Rank Omniframe every 60 attempts"
+        ],
+        "BaseRuleTitles": [
+            "60 Attempts S-Rank Guaranteed",
+            "Research Pool Inheritance Rules",
+            "Calibration System"
+        ],
+        "BaseRules": [
+            "In Targeted Mode where you can select a character, an S-Rank or above Omniframe is guaranteed every 60 research attempts. You will have a better chance of getting the selected S-Rank Omniframe when you get an S-Rank Omniframe.",
+            "The guarantee is inherited between the same type of pools (Calibration included). For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool].",
+            "Upon getting an S-Ranked character other than your target character, the Calibration System will trigger and guarantee that your targeted character will be obtained the next time you obtain an S-Ranked character. (Pool inheritance rules apply)"
+        ],
+        "EventRuleTitles": [
+            "In S-Rank Chance"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 70% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>70%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 13,
+        "TitleCN": "Fate Arrival Construct",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "1. Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "2. Guaranteed S-Rank Omniframe every 80-100 attempts",
+            "3. The overall chance is the same as the Arrival Pool.",
+            "4. The S-Rank base chance increased"
+        ],
+        "BaseRuleTitles": [
+            "Floating Guarantee",
+            "Base rate (Excluding the Guarantee)",
+            "Combined Chance (Including the Guarantee)",
+            "Research Pool Inheritance Rules",
+            "Calibration System"
+        ],
+        "BaseRules": [
+            "A value will be generated randomly between 80 and 100. For example, if the value is 90, an S-Rank Construct is guaranteed within 90 research attempts. The random guarantee value will be generated again once an S Construct has arrived.",
+            "Base S-Rank Omniframe rate is 1.5%. In Targeted Mode where you can select a character, you will have a better chance of getting the selected S-Rank Omniframe when you get an S-Rank Omniframe.",
+            "Overall S-Rank Omniframe chance is the same as other pools (1.9%).",
+            "The guarantee is inherited between the same type of pools (Calibration included). For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool].",
+            "Upon getting an S-Ranked character other than your target character, the Calibration System will trigger and guarantee that your targeted character will be obtained the next time you obtain an S-Ranked character. (Pool inheritance rules apply)"
+        ],
+        "EventRuleTitles": [
+            "In S-Rank Chance"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 70% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>70%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": 80.0,
+        "SpecialBottomMax": 100.0,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 14,
+        "TitleCN": "Arrival Event Construct",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "Guaranteed S-Rank or above Omniframe every 60 attempts"
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts A-Rank Guaranteed",
+            "60 Attempts S-Rank Guaranteed",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive an A-Rank or above Omniframe for every 10 research attempts.",
+            "Guaranteed to receive an S-Rank Omniframe for every 60 research attempts.",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "In S-Rank Chance"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 70% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>70%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 15,
+        "TitleCN": "Fate Themed Construct",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "1. Guaranteed A-Rank or above Omniframe every 10 attempts",
+            "2. Guaranteed S-Rank Omniframe every 80-100 attempts",
+            "3. The overall chance is the same as the Thematic Construct Pool.",
+            "4. The S-Rank base chance increased"
+        ],
+        "BaseRuleTitles": [
+            "Floating Guarantee",
+            "Base rate (Excluding the Guarantee)",
+            "Combined Chance (Including the Guarantee)",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "A value will be generated randomly between 80 and 100. For example, if the value is 90, an S-Rank Construct is guaranteed within 90 research attempts. The random guarantee value will be generated again once an S Construct has arrived.",
+            "Base S-Rank Omniframe rate is 1.5%.",
+            "Overall S-Rank Omniframe chance is the same as other pools (1.9%).",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "In S-Rank Chance"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": 80.0,
+        "SpecialBottomMax": 100.0,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 16,
+        "TitleCN": "Target Uniframe",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed an S-Rank or above Uniframe every 10 attempts"
+        ],
+        "BaseRuleTitles": [
+            "Shard Conversion",
+            "Base chance (excluding the guarantee)",
+            "Combined chance (including the guarantee)",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Upon receiving a duplicate Uniframe, you will receive 18 Inver-Shard of that Uniframe instead.",
+            "Base S-Rank Uniframe rate is 5%.",
+            "Overall drop rate of an S-Rank Uniframe is 12.45%.",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "S-rank rate"
+        ],
+        "EventRules": [],
+        "UpType": "Uniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 17,
+        "TitleCN": "Anniversary",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "Guaranteed an S-Rank Omniframe every 60 attempts."
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts A-Rank Guaranteed",
+            "60 Attempts S-Rank Guaranteed",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive an A-Rank or above Omniframe for every 10 research attempts.",
+            "Guaranteed to receive an S-Rank Omniframe for every 60 research attempts.",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "S-rank rate"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, 100% chance to receive the selected rate-up character."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 18,
+        "TitleCN": "Fate Anniversary Limited",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "1. Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "2. Guaranteed an S-Rank Omniframe every 80-100 attempts.",
+            "3. The overall chance is the same as the Thematic Construct Pool.",
+            "4. The S-Rank base chance increased."
+        ],
+        "BaseRuleTitles": [
+            "Floating Guarantee",
+            "Base chance (excluding the guarantee)",
+            "Combined chance (including the guarantee)",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "A value will be generated randomly between 80 and 100. For example, if the value is 90, an S-Rank Construct is guaranteed within 90 research attempts. The random guarantee value will be generated again once an S Construct has arrived.",
+            "Base S-Rank Omniframe rate is 1.5%.",
+            "Overall S-Rank Omniframe chance is the same as other pools (1.9%).",
+            "The guarantee is inherited between the same type of pools. For example, after an [Arrival Construct Pool] has ended, its guarantee progress will be inherited by the next [Arrival Construct Pool]."
+        ],
+        "EventRuleTitles": [
+            "S-rank rate"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, 100% chance to receive the selected rate-up character."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": 80.0,
+        "SpecialBottomMax": 100.0,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 19,
+        "TitleCN": "Collab Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "Guaranteed an S-Rank Omniframe every 60 attempts.",
+            "Bonus 3 for every 10 attempts during the event"
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts A-Rank Guaranteed",
+            "60 Attempts S-Rank Guaranteed",
+            "Pool Independently Guaranteed"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive an A-Rank or above Omniframe for every 10 research attempts.",
+            "Guaranteed to receive an S-Rank Omniframe for every 60 research attempts.",
+            "This is a special collab pool whose guarantee attempts can only be carried over from the same type of collab pools and not to other pools."
+        ],
+        "EventRuleTitles": [
+            "S-rank Rate",
+            "Bonus 3 for every 10 attempts"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe.",
+            "Research 10 times for 3 additional research attempts (750 Collab Construct R&D Tickets)"
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 20,
+        "TitleCN": "Fate Collab Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "1. Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "2. Guaranteed an S-Rank Omniframe every 80-100 attempts.",
+            "3. The S-Rank base chance increased",
+            "4. Bonus 3 for every 10 attempts during the event"
+        ],
+        "BaseRuleTitles": [
+            "Floating Guarantee",
+            "Base chance (excluding the guarantee)",
+            "Combined chance (including the guarantee)",
+            "Pool Independently Guaranteed"
+        ],
+        "BaseRules": [
+            "A value will be generated randomly between 80 and 100. For example, if the value is 90, an S-Rank Construct is guaranteed within 90 research attempts. The random guarantee value will be generated again once an S Construct has arrived.",
+            "Base S-Rank Omniframe rate is 1.5%.",
+            "Overall S-Rank Omniframe chance is the same as other pools (1.9%).",
+            "This is a special collab pool whose guarantee attempts can only be carried over from the same type of collab pools and not to other pools."
+        ],
+        "EventRuleTitles": [
+            "S-rank Rate",
+            "Bonus 3 for every 10 attempts"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe.",
+            "Research 10 times for 3 additional research attempts (750 Collab Construct R&D Tickets)"
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": 80.0,
+        "SpecialBottomMax": 100.0,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 21,
+        "TitleCN": "Collab Weapon Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Choose any rate-up set. 80% rate in 6\u2605 pool.",
+            "Guaranteed a 5\u2605+ weapon for every 10 research attempts.",
+            "Guaranteed a 6\u2605 weapon for every 30 research attempts."
+        ],
+        "BaseRuleTitles": [
+            "Custom Set",
+            "Targeted Mode Details",
+            "Pool Independently Guaranteed"
+        ],
+        "BaseRules": [
+            "Choose 1 gear set to draw. Certain sets have a chance to rate-up.",
+            "Choose a targeted weapon for a chance to greatly increase your chances.",
+            "This is a special collab pool whose guarantee attempts can only be carried over from the same type of collab pools and not to other pools."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": null,
+        "UpQuality": null,
+        "UpProbability": null,
+        "BottomText": "6\u2605 Guaranteed",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 22,
+        "TitleCN": "CUB Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": null,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed A-Rank or above CUB every 10 attempts",
+            "Guaranteed S-Rank CUB every 20 attempts"
+        ],
+        "BaseRuleTitles": [
+            "Custom Set",
+            "Target Mode Details",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Select 1 CUB to pull. Selected target gains increased chances.",
+            "Select a CUB in Target Mode for greatly increased chances.",
+            "In the CUB Target Pool, the guaranteed attempt of pulling A-Rank and S-Rank CUBs will not be affected when you change your targeted CUB, which means the guarantee progress is inherited."
+        ],
+        "EventRuleTitles": [],
+        "EventRules": [],
+        "UpType": "Cub",
+        "UpQuality": null,
+        "UpProbability": null,
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 23,
+        "TitleCN": "Wishing Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "Guaranteed an S-Rank Omniframe every 60 attempts."
+        ],
+        "BaseRuleTitles": [
+            "10 Attempts A-Rank Guaranteed",
+            "60 Attempts S-Rank Guaranteed",
+            "Research Pool Inheritance Rules"
+        ],
+        "BaseRules": [
+            "Guaranteed to receive an A-Rank or above Omniframe for every 10 research attempts.",
+            "Guaranteed to receive an S-Rank Omniframe for every 60 research attempts.",
+            "The guarantee progress is inherited between the same type of pools. For example, after the [Wishing Target] pool has ended, its guarantee progress will be inherited by the next [Wishing Target] pool."
+        ],
+        "EventRuleTitles": [
+            "S-Rank Rate"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": null,
+        "SpecialBottomMax": null,
+        "DrawBottomHint": null
+    },
+    {
+        "Id": 24,
+        "TitleCN": "Fate Wishing Target",
+        "TitleEN": "Standard Mode",
+        "RareRank": 2.0,
+        "GroupBtnBg": null,
+        "MainRules": [
+            "1. Guaranteed an A-Rank or above Omniframe every 10 attempts.",
+            "2. Guaranteed an S-Rank Omniframe every 80-100 attempts.",
+            "3. The overall chance is the same as the Arrival Pool.",
+            "4. The S-Rank base chance increased."
+        ],
+        "BaseRuleTitles": [
+            "Floating Guarantee",
+            "Base Chance (Excluding the Guarantee)",
+            "Combined Chance (Including the Guarantee)",
+            "Research Pool Inheritance Rules",
+            "Calibration"
+        ],
+        "BaseRules": [
+            "A value will be generated randomly between 80 and 100. For example, if the value is 90, an S-Rank Construct is guaranteed within 90 research attempts. The random guarantee value will be generated again once an S Construct has arrived.",
+            "Base S-Rank Omniframe rate is 1.5%.",
+            "Overall S-Rank Omniframe chance is the same as other pools (1.9%).",
+            "The guarantee progress is inherited between the same type of pools. For example, after the [Fate Wishing Target] pool has ended, its guarantee progress will be inherited by the next [Fate Wishing Target] pool."
+        ],
+        "EventRuleTitles": [
+            "S-Rank Rate"
+        ],
+        "EventRules": [
+            "When an S-Rank Omniframe is researched, there is a 100% chance to receive the rate-up Omniframe."
+        ],
+        "UpType": "Omniframe",
+        "UpQuality": "<color=#fee82a>S-Rank</color>",
+        "UpProbability": "<color=#fee82a>100%</color>",
+        "BottomText": "Guaranteed S",
+        "NewHandBottomCount": null,
+        "SpecialBottomMin": 80.0,
+        "SpecialBottomMax": 100.0,
+        "DrawBottomHint": null
+    }
+]

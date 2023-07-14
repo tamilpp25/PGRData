@@ -297,7 +297,7 @@
         "Id": 51001,
         "Priority": 51001,
         "Ignore": 0,
-        "Desc": "Learn about Shop and currency",
+        "Desc": "Celica's Class Info",
         "GuideType": 1,
         "ConditionId": [
             851001
@@ -381,7 +381,7 @@
         "Id": 51601,
         "Priority": 51601,
         "Ignore": 0,
-        "Desc": "Learn about Trial Quest",
+        "Desc": "Memory Rescue Info",
         "GuideType": 1,
         "ConditionId": [
             851601
@@ -395,7 +395,7 @@
         "Id": 51701,
         "Priority": 51701,
         "Ignore": 0,
-        "Desc": "Guide to Hard",
+        "Desc": "Hidden Story Guide",
         "GuideType": 1,
         "ConditionId": [
             851701
@@ -535,7 +535,7 @@
         "Id": 52602,
         "Priority": 52602,
         "Ignore": 0,
-        "Desc": "Guide Operation Guardians",
+        "Desc": "Operation Guardians Guide",
         "GuideType": 1,
         "ConditionId": [
             852601,
@@ -578,7 +578,7 @@
         "Id": 52801,
         "Priority": 52801,
         "Ignore": 0,
-        "Desc": "Guide to Arena",
+        "Desc": "War Zone Guide",
         "GuideType": 1,
         "ConditionId": [
             852801
@@ -589,10 +589,24 @@
         "GroupId": 52801
     },
     {
+        "Id": 52802,
+        "Priority": 52802,
+        "Ignore": 0,
+        "Desc": "Full Support Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852801
+        ],
+        "CompleteId": 52802,
+        "ActiveUi": "UiArenaWarZone",
+        "RewardId": 0,
+        "GroupId": 52802
+    },
+    {
         "Id": 52901,
         "Priority": 52901,
         "Ignore": 0,
-        "Desc": "Guide to Solo Boss",
+        "Desc": "Phantom Pain Cage Guide",
         "GuideType": 1,
         "ConditionId": [
             852901
@@ -760,7 +774,7 @@
     {
         "Id": 53006,
         "Priority": 53006,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Guide - Horizon Phase 2",
         "GuideType": 1,
         "ConditionId": [
@@ -1002,7 +1016,7 @@
     {
         "Id": 54051,
         "Priority": 54051,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Guide the Festival Foundation",
         "GuideType": 1,
         "ConditionId": [
@@ -1016,7 +1030,7 @@
     {
         "Id": 54052,
         "Priority": 54052,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Guide the Festival Daily Tasks",
         "GuideType": 1,
         "ConditionId": [
@@ -1030,7 +1044,7 @@
     {
         "Id": 54053,
         "Priority": 54053,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Festival Mission Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1044,7 +1058,7 @@
     {
         "Id": 54054,
         "Priority": 54054,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Guide the Festival Lottery Event",
         "GuideType": 1,
         "ConditionId": [
@@ -1296,7 +1310,7 @@
     {
         "Id": 57021,
         "Priority": 57021,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Ultimate Brawl Mode Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1310,7 +1324,7 @@
     {
         "Id": 57022,
         "Priority": 57022,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Ultimate Brawl Interface Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1324,7 +1338,7 @@
     {
         "Id": 57023,
         "Priority": 57023,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Ultimate Brawl Event Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1338,7 +1352,7 @@
     {
         "Id": 57024,
         "Priority": 57024,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Ultimate Brawl Formation Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1352,7 +1366,7 @@
     {
         "Id": 57025,
         "Priority": 57025,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "Ultimate Brawl Member Preparation Guide",
         "GuideType": 1,
         "ConditionId": [
@@ -1954,5 +1968,145 @@
         "ActiveUi": "UiPivotCombatSecondary",
         "RewardId": 0,
         "GroupId": 60132
+    },
+    {
+        "Id": 60201,
+        "Priority": 60201,
+        "Ignore": 0,
+        "Desc": "Cultural Festival 2.0 Basics Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 60201,
+        "ActiveUi": "UiMoeWarMain",
+        "RewardId": 0,
+        "GroupId": 60201
+    },
+    {
+        "Id": 60202,
+        "Priority": 60202,
+        "Ignore": 0,
+        "Desc": "Cultural Festival 2.0 Daily Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 60202,
+        "ActiveUi": "UiMoeWarPreparation",
+        "RewardId": 0,
+        "GroupId": 60202
+    },
+    {
+        "Id": 60203,
+        "Priority": 60203,
+        "Ignore": 0,
+        "Desc": "Cultural Festival 2.0 Giveaway Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601216
+        ],
+        "CompleteId": 60203,
+        "ActiveUi": "UiMoeWarMain",
+        "RewardId": 0,
+        "GroupId": 60203
+    },
+    {
+        "Id": 60204,
+        "Priority": 60204,
+        "Ignore": 0,
+        "Desc": "Cultural Festival 2.0 Parkour Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601200
+        ],
+        "CompleteId": 60204,
+        "ActiveUi": "UiMoeWarParkourMain",
+        "RewardId": 0,
+        "GroupId": 60204
+    },
+    {
+        "Id": 60211,
+        "Priority": 60211,
+        "Ignore": 0,
+        "Desc": "Auto Chess 3.0 Main Interface Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            775100
+        ],
+        "CompleteId": 60211,
+        "ActiveUi": "UiExpeditionMain",
+        "RewardId": 0,
+        "GroupId": 60211
+    },
+    {
+        "Id": 60221,
+        "Priority": 60221,
+        "Ignore": 0,
+        "Desc": "Guild Dormitory Hall Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            852731
+        ],
+        "CompleteId": 60221,
+        "ActiveUi": "UiGuildDormMain",
+        "RewardId": 0,
+        "GroupId": 60221
+    },
+    {
+        "Id": 60231,
+        "Priority": 60231,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl 2.0 Mode Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60231,
+        "ActiveUi": "UiSuperSmashBrosMain",
+        "RewardId": 0,
+        "GroupId": 60231
+    },
+    {
+        "Id": 60232,
+        "Priority": 60232,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl 2.0 Scenario Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60232,
+        "ActiveUi": "UiSuperSmashBrosSelectStage",
+        "RewardId": 0,
+        "GroupId": 60232
+    },
+    {
+        "Id": 60233,
+        "Priority": 60233,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl 2.0 Edit Team Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60233,
+        "ActiveUi": "UiSuperSmashBrosPick",
+        "RewardId": 0,
+        "GroupId": 60233
+    },
+    {
+        "Id": 60234,
+        "Priority": 60234,
+        "Ignore": 0,
+        "Desc": "Ultimate Brawl 2.0 Member Preparation Guide",
+        "GuideType": 1,
+        "ConditionId": [
+            84601800
+        ],
+        "CompleteId": 60234,
+        "ActiveUi": "UiSuperSmashBrosCharacter",
+        "RewardId": 0,
+        "GroupId": 60234
     }
 ]

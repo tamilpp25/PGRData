@@ -326,7 +326,7 @@
     {
         "Id": 9,
         "Name": "Godseeker's Psalm",
-        "TimeId": 8003.0,
+        "TimeId": null,
         "ChallengeStage": [
             30160519.0,
             30160520.0,
@@ -364,5 +364,48 @@
         "SkinTrialStageId": null,
         "SkinDrawSkipId": null,
         "ChallengeCondition": 96002.0
+    },
+    {
+        "Id": 10,
+        "Name": "Nuclear Darkness",
+        "TimeId": 9003.0,
+        "ChallengeStage": [
+            30160522.0,
+            30160523.0,
+            30160524.0
+        ],
+        "StageId": [
+            30100924.0,
+            30100925.0,
+            30100926.0,
+            30100927.0
+        ],
+        "TreasureId": [
+            36,
+            37,
+            38,
+            39.0
+        ],
+        "TotalStars": 9,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenSuperKareninaActivity/FuBenSuperKareninaActivity01.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenSuperKareninaActivity/GridSuperKareninaActivityStage01.prefab",
+        "FubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FuBenSuperKareninaActivity/FuBenSuperKareninaActivity02.prefab",
+        "GridFubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FuBenSuperKareninaActivity/GridSuperKareninaActivityStage02.prefab",
+        "ConditionId": null,
+        "MainBgImg": null,
+        "StageBgImg": null,
+        "TitleImg": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner71.png",
+        "CharacterId": 1071004,
+        "SkipIdDraw": 7209,
+        "SkipIdAct": null,
+        "SkipIdJZ": null,
+        "SkipIdChar": null,
+        "SkipIdSkin": 20111.0,
+        "NewCharType": 10,
+        "MovieId": null,
+        "SkinTrialStageId": null,
+        "SkinDrawSkipId": null,
+        "ChallengeCondition": 96003.0
     }
 ]

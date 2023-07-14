@@ -1,0 +1,82 @@
+[
+    {
+        "Id": 1,
+        "Name": "Basic",
+        "ConditionId": null,
+        "RewardFactor": 0.5,
+        "ReopenCount": 15,
+        "FightEventId": [
+            2240247,
+            2240183.0
+        ],
+        "EnemyBuff": [
+            2240187,
+            2240191
+        ],
+        "ShowItemIds": [
+            96102,
+            96103,
+            96104
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Intermediate",
+        "ConditionId": 1002073.0,
+        "RewardFactor": 1.0,
+        "ReopenCount": 8,
+        "FightEventId": [
+            2240184
+        ],
+        "EnemyBuff": [
+            2240188,
+            2240192
+        ],
+        "ShowItemIds": [
+            96102,
+            96103,
+            96104
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Advanced",
+        "ConditionId": 1002074.0,
+        "RewardFactor": 2.0,
+        "ReopenCount": 5,
+        "FightEventId": [
+            2240185
+        ],
+        "EnemyBuff": [
+            2240189,
+            2240193,
+            2240195.0
+        ],
+        "ShowItemIds": [
+            96102,
+            96103,
+            96104
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Obscure",
+        "ConditionId": 1002075.0,
+        "RewardFactor": 2.0,
+        "ReopenCount": 3,
+        "FightEventId": [
+            2240186
+        ],
+        "EnemyBuff": [
+            2240190,
+            2240194,
+            2240196.0,
+            2240197.0
+        ],
+        "ShowItemIds": [
+            96102,
+            96103,
+            96104
+        ]
+    }
+]

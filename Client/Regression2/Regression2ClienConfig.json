@@ -1,0 +1,198 @@
+[
+    {
+        "Key": "TaskButtonName",
+        "Values": [
+            "Operation Revival"
+        ],
+        "Comment": "Mission Event Name"
+    },
+    {
+        "Key": "SignInButtonName",
+        "Values": [
+            "Gray Raven's Bond"
+        ],
+        "Comment": "Sign-in Event Name"
+    },
+    {
+        "Key": "GachaButtonName1",
+        "Values": [
+            "Returning Supplies"
+        ],
+        "Comment": "Lottery Event Name"
+    },
+    {
+        "Key": "GachaButtonName2",
+        "Values": [
+            "Frontline Supplies"
+        ],
+        "Comment": "Lottery Event Name"
+    },
+    {
+        "Key": "InviteButtonName",
+        "Values": [
+            "Shoulder to Shoulder"
+        ],
+        "Comment": "Active Player Invitation Event Name"
+    },
+    {
+        "Key": "FettersButtonName",
+        "Values": [
+            "Shoulder to Shoulder"
+        ],
+        "Comment": "Returning Players Invitation Event Name"
+    },
+    {
+        "Key": "DiscountButtonName",
+        "Values": [
+            "Returning Rewards"
+        ],
+        "Comment": "Returning Gift Pack Purchase Screen Name"
+    },
+    {
+        "Key": "TaskPrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelTask.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "SignInPrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelReturnSignIn.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "GachaPrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelShop.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "InvitePrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelReturninvitation.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "FettersPrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelFetters.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "DiscountPrefabAssetPath",
+        "Values": [
+            "Assets/Product/Ui/ComponentPrefab/UiReturnActivity/PanelDiscount.prefab"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "TaskButtonWeight",
+        "Values": [
+            "2"
+        ],
+        "Comment": "Activity threshold weight; the smaller the value, the more ahead it will be."
+    },
+    {
+        "Key": "SignInButtonWeight",
+        "Values": [
+            "1"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "GachaButtonWeight",
+        "Values": [
+            "4"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "InviteButtonWeight",
+        "Values": [
+            "3"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "FettersButtonWeight",
+        "Values": [
+            "4"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "DiscountButtonWeight",
+        "Values": [
+            "5"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "DiscountUiType",
+        "Values": [
+            "9"
+        ],
+        "Comment": "The UI for returning player rewards screen and the UiType related to the PurchasePackage table"
+    },
+    {
+        "Key": "MainRegressionNormalIconPath",
+        "Values": [
+            "Assets/Product/Texture/Image/UiMain/MainSpRegression01.png"
+        ],
+        "Comment": "The normal state icon path of the main screen returning button"
+    },
+    {
+        "Key": "MainRegressionPressIconPath",
+        "Values": [
+            "Assets/Product/Texture/Image/UiMain/MainSpRegression02.png"
+        ],
+        "Comment": "The pressed state icon path of the main screen returning button"
+    },
+    {
+        "Key": "MainInviteNormalIconPath",
+        "Values": [
+            "Assets/Product/Texture/Image/UiMain/MainSpInvite01.png"
+        ],
+        "Comment": "The normal state icon path of the main screen active button"
+    },
+    {
+        "Key": "MainInvitePressIconPath",
+        "Values": [
+            "Assets/Product/Texture/Image/UiMain/MainSpInvite02.png"
+        ],
+        "Comment": "The pressed state icon path of the main screen active button"
+    },
+    {
+        "Key": "ForwardDesc",
+        "Values": [
+            "Fill in your [Returning Invitation] code on the [Returning to Battle] event page during the event from July 15 to August 5 for a bunch of sweet rewards!"
+        ],
+        "Comment": "Share Screen Description"
+    },
+    {
+        "Key": "ShareLink",
+        "Values": [
+            "https://pns.kurogame.com/activities/regression_v126?i="
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "IsShowTextShare",
+        "Values": [
+            "1"
+        ],
+        "Comment": null
+    },
+    {
+        "Key": "DefaultCopyText",
+        "Values": [
+            "Brand new update [A New Divide] for Punishing: Gray Raven has arrived! Participate now to earn massive rewards! Returning players will gain extra rewards when they sign in from July 15 to August 5 and fill in their Invite Code in the [Returning to Battle] event!"
+        ],
+        "Comment": null
+    }
+]

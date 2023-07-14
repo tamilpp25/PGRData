@@ -1,0 +1,888 @@
+[
+    {
+        "Id": 101,
+        "Name": "Story Mission",
+        "ConditionIds": [
+            70101
+        ],
+        "Priority": 1,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 101,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 102,
+        "Name": "Get Constructs, level up",
+        "ConditionIds": [
+            70102
+        ],
+        "Priority": 2,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 102,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 103,
+        "Name": "Improve skill",
+        "ConditionIds": [
+            70103
+        ],
+        "Priority": 3,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 103,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 104,
+        "Name": "Novice Mission",
+        "ConditionIds": [
+            70104
+        ],
+        "Priority": 4,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 104,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 105,
+        "Name": "Promote Construct",
+        "ConditionIds": [
+            70105
+        ],
+        "Priority": 5,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 105,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 1,
+        "Name": "Sign-in",
+        "ConditionIds": [
+            70001
+        ],
+        "Priority": 6,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 1,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 2,
+        "Name": "Mission - Daily",
+        "ConditionIds": [
+            70002
+        ],
+        "Priority": 7,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lee",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
+        "ContentsGroupId": 2,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 3,
+        "Name": "Research System",
+        "ConditionIds": [
+            70003
+        ],
+        "Priority": 8,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "\uff1f\uff1f\uff1f",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadYongyechao1.png",
+        "ContentsGroupId": 3,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 111,
+        "Name": "Main Quest Guide",
+        "ConditionIds": [
+            70106
+        ],
+        "Priority": 9,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 111,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 106,
+        "Name": "Daily - Character EXP",
+        "ConditionIds": [
+            70111
+        ],
+        "Priority": 10,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 106,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 4,
+        "Name": "Normal Shop",
+        "ConditionIds": [
+            70004
+        ],
+        "Priority": 11,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 4,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 5,
+        "Name": "Tutorial Stage",
+        "ConditionIds": [
+            70005
+        ],
+        "Priority": 12,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 5,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 107,
+        "Name": "Skill Stage",
+        "ConditionIds": [
+            70107
+        ],
+        "Priority": 13,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 107,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 108,
+        "Name": "Coin Stage",
+        "ConditionIds": [
+            70108
+        ],
+        "Priority": 14,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 108,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 6,
+        "Name": "Equipment EXP Stage",
+        "ConditionIds": [
+            70006
+        ],
+        "Priority": 15,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 6,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 7,
+        "Name": "Equipment Overclock Stage",
+        "ConditionIds": [
+            70007
+        ],
+        "Priority": 16,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lee",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
+        "ContentsGroupId": 7,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 8,
+        "Name": "Challenge - Trial Mission",
+        "ConditionIds": [
+            70008
+        ],
+        "Priority": 17,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Asimov",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 8,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 9,
+        "Name": "Story Mission - Hard",
+        "ConditionIds": [
+            70009
+        ],
+        "Priority": 18,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 9,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 109,
+        "Name": "Auto Clear",
+        "ConditionIds": [
+            70109
+        ],
+        "Priority": 19,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 109,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 10,
+        "Name": "High-rank Equipment Stage",
+        "ConditionIds": [
+            70010
+        ],
+        "Priority": 20,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 10,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 11,
+        "Name": "Construct - Details",
+        "ConditionIds": [
+            70011
+        ],
+        "Priority": 21,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Kamui",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadShenwei1.png",
+        "ContentsGroupId": 11,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 112,
+        "Name": "Trial Zone",
+        "ConditionIds": [
+            70112
+        ],
+        "Priority": 22,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 112,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 12,
+        "Name": "Construct Army",
+        "ConditionIds": [
+            70012
+        ],
+        "Priority": 23,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 12,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 13,
+        "Name": "Co-op",
+        "ConditionIds": [
+            852201
+        ],
+        "Priority": 24,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 13,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 110,
+        "Name": "Support",
+        "ConditionIds": [
+            70110
+        ],
+        "Priority": 25,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 110,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 14,
+        "Name": "Side Story",
+        "ConditionIds": [
+            70014
+        ],
+        "Priority": 26,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 14,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 15,
+        "Name": "Construct - Outfit",
+        "ConditionIds": [
+            70015
+        ],
+        "Priority": 27,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 15,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 17,
+        "Name": "Study",
+        "ConditionIds": [
+            70017
+        ],
+        "Priority": 29,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 17,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 18,
+        "Name": "Infrastructure and Dormitory",
+        "ConditionIds": [
+            70018
+        ],
+        "Priority": 30,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 18,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 19,
+        "Name": "Challenge - War Zone",
+        "ConditionIds": [
+            70019
+        ],
+        "Priority": 31,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Asimov",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 19,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 20,
+        "Name": "Challenge - Phantom Pain Cage",
+        "ConditionIds": [
+            70020
+        ],
+        "Priority": 32,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Nikola",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 20,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 21,
+        "Name": "Exploration",
+        "ConditionIds": [
+            774300
+        ],
+        "Priority": 33,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Asimov",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 21,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 22,
+        "Name": "Medal System",
+        "ConditionIds": [
+            852931
+        ],
+        "Priority": 34,
+        "SkipId": 21.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 22,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 23,
+        "Name": "Challenge - Border Pact",
+        "ConditionIds": [
+            774900
+        ],
+        "Priority": 35,
+        "SkipId": 21.0,
+        "BtnContent": "I got it.",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 23,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 555,
+        "Name": "Medal 1",
+        "ConditionIds": [
+            555
+        ],
+        "Priority": 35,
+        "SkipId": 500.0,
+        "BtnContent": "I got it",
+        "NpcName": "Nikola",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 555,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 556,
+        "Name": "Medal 2",
+        "ConditionIds": [
+            556
+        ],
+        "Priority": 36,
+        "SkipId": 500.0,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 556,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 557,
+        "Name": "Medal 3",
+        "ConditionIds": [
+            557
+        ],
+        "Priority": 37,
+        "SkipId": 500.0,
+        "BtnContent": "I got it",
+        "NpcName": "Nikola",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/NikelaNomal01.png",
+        "ContentsGroupId": 557,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 558,
+        "Name": "Medal 4",
+        "ConditionIds": [
+            558
+        ],
+        "Priority": 38,
+        "SkipId": 500.0,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 558,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 559,
+        "Name": "Medal 5",
+        "ConditionIds": [
+            559
+        ],
+        "Priority": 39,
+        "SkipId": 500.0,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 559,
+        "Type": 2,
+        "UiType": 2
+    },
+    {
+        "Id": 599,
+        "Name": "Clear Stronghold Chapter 1",
+        "ConditionIds": [
+            70119
+        ],
+        "Priority": 40,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 599,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 600,
+        "Name": "Clear Stronghold Chapter 2",
+        "ConditionIds": [
+            70113
+        ],
+        "Priority": 41,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 600,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 601,
+        "Name": "Clear Stronghold Chapter 3",
+        "ConditionIds": [
+            70114
+        ],
+        "Priority": 42,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 601,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 602,
+        "Name": "Clear Stronghold Chapter 4",
+        "ConditionIds": [
+            70115
+        ],
+        "Priority": 43,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 602,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 603,
+        "Name": "Clear Stronghold Chapter 5",
+        "ConditionIds": [
+            70116
+        ],
+        "Priority": 44,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Asimov",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 603,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 604,
+        "Name": "Clear Stronghold Chapter 6",
+        "ConditionIds": [
+            70117
+        ],
+        "Priority": 45,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 604,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 605,
+        "Name": "Clear Stronghold Chapter 7",
+        "ConditionIds": [
+            70118
+        ],
+        "Priority": 46,
+        "SkipId": null,
+        "BtnContent": "I got it",
+        "NpcName": "Asimov",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/AximofuNomal01.png",
+        "ContentsGroupId": 605,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 606,
+        "Name": "Clear Stronghold Chapter 9",
+        "ConditionIds": [
+            70120
+        ],
+        "Priority": 47,
+        "SkipId": null,
+        "BtnContent": "I got it.",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 606,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 607,
+        "Name": "Clear Stronghold Chapter 10",
+        "ConditionIds": [
+            70121
+        ],
+        "Priority": 48,
+        "SkipId": null,
+        "BtnContent": "...That's not necessary.",
+        "NpcName": "Jamilah",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/JiamilaNormal01.png",
+        "ContentsGroupId": 607,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 608,
+        "Name": "Clear Stronghold Chapter 11",
+        "ConditionIds": [
+            70122
+        ],
+        "Priority": 49,
+        "SkipId": null,
+        "BtnContent": "You're welcome.",
+        "NpcName": "Pulao",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/PulaoNormal01.png",
+        "ContentsGroupId": 608,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 609,
+        "Name": "Clear Stronghold Chapter 12",
+        "ConditionIds": [
+            70123
+        ],
+        "Priority": 50,
+        "SkipId": null,
+        "BtnContent": "Hmm.",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 609,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 700,
+        "Name": "Gift Mission Lee",
+        "ConditionIds": [
+            400000
+        ],
+        "Priority": 51,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lee",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
+        "ContentsGroupId": 700,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 701,
+        "Name": "Gift Mission Liv",
+        "ConditionIds": [
+            400001
+        ],
+        "Priority": 52,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 701,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 702,
+        "Name": "Gift Mission Kamui",
+        "ConditionIds": [
+            400002
+        ],
+        "Priority": 53,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Kamui",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadShenwei1.png",
+        "ContentsGroupId": 702,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 703,
+        "Name": "Gift Mission Lucia",
+        "ConditionIds": [
+            400003
+        ],
+        "Priority": 54,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 703,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 704,
+        "Name": "Gift Mission Nanami",
+        "ConditionIds": [
+            400004
+        ],
+        "Priority": 55,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Nanami",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadYongyechao1.png",
+        "ContentsGroupId": 704,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 705,
+        "Name": "Gift Mission Celica",
+        "ConditionIds": [
+            400005
+        ],
+        "Priority": 56,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 705,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 706,
+        "Name": "Gift Mission Karenina",
+        "ConditionIds": [
+            400006
+        ],
+        "Priority": 57,
+        "SkipId": 8002.0,
+        "BtnContent": "I got it",
+        "NpcName": "Karenina",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadKalienina1.png",
+        "ContentsGroupId": 706,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 24,
+        "Name": "Challenge - Autopoiesis Maze",
+        "ConditionIds": [
+            84700201
+        ],
+        "Priority": 36,
+        "SkipId": 21.0,
+        "BtnContent": "Got it.",
+        "NpcName": "Hassen",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/HasangNomal01.png",
+        "ContentsGroupId": 24,
+        "Type": 1,
+        "UiType": 1
+    },
+    {
+        "Id": 25,
+        "Name": "Operation Guardians",
+        "ConditionIds": [
+            870002,
+            773400.0
+        ],
+        "Priority": 28,
+        "SkipId": 21.0,
+        "BtnContent": "I get it.",
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 25,
+        "Type": 1,
+        "UiType": 1
+    }
+]

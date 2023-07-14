@@ -846,5 +846,77 @@
         "Title": "Huntress' Command",
         "Description": "With the exclusive [Isabel] memory equipped, [Bitter Frost] deals Extra DMG to enemies with [Frozen Status] from the 2-Phase Signature.",
         "NextTrialID": 103
+    },
+    {
+        "Id": 107,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "Anti-gravity System: When Karenina: Scire has a set of 3-Ping Orbs or Matrix's enhanced orb effect, press and hold Basic Attack to start charging. Karenina will gain Super Armor and DMG Reduction when charging.",
+        "NextTrialID": 108
+    },
+    {
+        "Id": 108,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "While charging, 3-Ping Orbs will be consumed continuously. Each 3-Ping grants 20 Anti-gravity Energy. Up to 2 sets of 3-Ping Orbs can be consumed.",
+        "NextTrialID": 109
+    },
+    {
+        "Id": 109,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "When charging is complete, launches Leap Attack and leap up into the air to deal Dark DMG. After two sets of 3-Pings are consumed by charging, the Base DMG of Leap Attack will increase.",
+        "NextTrialID": 110
+    },
+    {
+        "Id": 110,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "When Karenina: Scire is airborne, keep tapping Basic Attack to cast Radiant Whirlwind, dealing Dark DMG and increasing airborne time and spin speed.",
+        "NextTrialID": 111
+    },
+    {
+        "Id": 111,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "Upon landing, triggers Gravity Overload, dealing Dark DMG, reducing Anti-gravity Energy, and gaining Energy.",
+        "NextTrialID": 112
+    },
+    {
+        "Id": 112,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "If Karenina: Scire has no less than 20 Anti-gravity Energy, she can jump up again until her Anti-gravity Energy drops below 20.",
+        "NextTrialID": 113
+    },
+    {
+        "Id": 113,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "When in the Anti-gravity status, dodges to cast Airborne Spin, pulling and knocking back enemies around her, dealing Dark DMG, and restoring 20 Anti-gravity Energy. (This effect can only be triggered once every 10s.)",
+        "NextTrialID": 114
+    },
+    {
+        "Id": 114,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "When Matrix is triggered by dodging, casts Returning Repulsion, pulling and knocking back enemies around her, dealing Dark DMG, and restoring 40 Anti-gravity Energy.",
+        "NextTrialID": 115
+    },
+    {
+        "Id": 115,
+        "CharacterID": 1071004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Kalienina1.png",
+        "Title": "Space Walk",
+        "Description": "Radiant Whirlwind grants Kinetic Energy. When in the Anti-gravity status, casts Starshatter Horizon and the Signature Move will deal more damage based on Kinetic Energy accumulated.",
+        "NextTrialID": 107
     }
 ]

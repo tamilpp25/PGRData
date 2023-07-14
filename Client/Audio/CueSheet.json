@@ -530,8 +530,8 @@
     {
         "Id": 89,
         "CueSheetName": "External/Criware/m_avg_silence.acb",
-        "CueAwb": null,
-        "HasAwb": 0
+        "CueAwb": "External/Criware/m_avg_silence.awb",
+        "HasAwb": 1
     },
     {
         "Id": 90,
@@ -978,6 +978,30 @@
         "HasAwb": 1
     },
     {
+        "Id": 165,
+        "CueSheetName": "External/Criware/m_ev20_battle_full.acb",
+        "CueAwb": "External/Criware/m_ev20_battle_full.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 166,
+        "CueSheetName": "External/Criware/m_ev21_intro.acb",
+        "CueAwb": "External/Criware/m_ev21_intro.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 167,
+        "CueSheetName": "External/Criware/m_ev21_boss.acb",
+        "CueAwb": "External/Criware/m_ev21_boss.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 168,
+        "CueSheetName": "External/Criware/m_ev21_battle.acb",
+        "CueAwb": "External/Criware/m_ev21_battle.awb",
+        "HasAwb": 1
+    },
+    {
         "Id": 4101,
         "CueSheetName": "External/Criware/c_pet.acb",
         "CueAwb": null,
@@ -1034,6 +1058,12 @@
     {
         "Id": 4110,
         "CueSheetName": "External/Criware/c_pet_hu.acb",
+        "CueAwb": null,
+        "HasAwb": 0
+    },
+    {
+        "Id": 4111,
+        "CueSheetName": "External/Criware/c_pet_tu.acb",
         "CueAwb": null,
         "HasAwb": 0
     },
@@ -1250,6 +1280,12 @@
     {
         "Id": 12017,
         "CueSheetName": "External/Criware/c_karenRK3_nya.acb",
+        "CueAwb": null,
+        "HasAwb": 0
+    },
+    {
+        "Id": 10027,
+        "CueSheetName": "External/Criware/c_karenRk4.acb",
         "CueAwb": null,
         "HasAwb": 0
     },
@@ -1638,6 +1674,12 @@
         "HasAwb": 1
     },
     {
+        "Id": 229,
+        "CueSheetName": "External/Criware/ja/v_kaliesuper.acb",
+        "CueAwb": "External/Criware/ja/v_kaliesuper.awb",
+        "HasAwb": 1
+    },
+    {
         "Id": 302,
         "CueSheetName": "External/Criware/zh/v_lucia.acb",
         "CueAwb": "External/Criware/zh/v_lucia.awb",
@@ -1830,6 +1872,12 @@
         "HasAwb": 1
     },
     {
+        "Id": 329,
+        "CueSheetName": "External/Criware/zh/v_kaliesuper.acb",
+        "CueAwb": "External/Criware/zh/v_kaliesuper.awb",
+        "HasAwb": 1
+    },
+    {
         "Id": 402,
         "CueSheetName": "External/Criware/ca/v_lucia.acb",
         "CueAwb": "External/Criware/ca/v_lucia.awb",
@@ -2016,6 +2064,12 @@
         "HasAwb": 1
     },
     {
+        "Id": 429,
+        "CueSheetName": "External/Criware/ca/v_kaliesuper.acb",
+        "CueAwb": "External/Criware/ca/v_kaliesuper.awb",
+        "HasAwb": 1
+    },
+    {
         "Id": 501,
         "CueSheetName": "External/Criware/zh/v_ac5.acb",
         "CueAwb": "External/Criware/zh/v_ac5.awb",
@@ -2106,399 +2160,9 @@
         "HasAwb": 1
     },
     {
-        "Id": 561,
-        "CueSheetName": "External/Criware/en/v_ac5.acb",
-        "CueAwb": "External/Criware/en/v_ac5.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 562,
-        "CueSheetName": "External/Criware/en/v_ac7.acb",
-        "CueAwb": "External/Criware/en/v_ac7.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 563,
-        "CueSheetName": "External/Criware/en/v_ac8.acb",
-        "CueAwb": "External/Criware/en/v_ac8.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 564,
-        "CueSheetName": "External/Criware/en/ac10_boss_1.acb",
-        "CueAwb": "External/Criware/en/ac10_boss_1.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 565,
-        "CueSheetName": "External/Criware/en/v_ac12.acb",
-        "CueAwb": "External/Criware/en/v_ac12.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 566,
-        "CueSheetName": "External/Criware/en/v_ac14.acb",
-        "CueAwb": "External/Criware/en/v_ac14.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 567,
-        "CueSheetName": "External/Criware/en/v_ac15.acb",
-        "CueAwb": "External/Criware/en/v_ac15.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 568,
-        "CueSheetName": "External/Criware/en/v_ac16.acb",
-        "CueAwb": "External/Criware/en/v_ac16.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 569,
-        "CueSheetName": "External/Criware/en/ac17_boss.acb",
-        "CueAwb": "External/Criware/en/ac17_boss.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 570,
-        "CueSheetName": "External/Criware/en/ac18_pulao.acb",
-        "CueAwb": "External/Criware/en/ac18_pulao.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 571,
-        "CueSheetName": "External/Criware/en/v_ac21.acb",
-        "CueAwb": "External/Criware/en/v_ac21.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 572,
-        "CueSheetName": "External/Criware/en/v_ac23.acb",
-        "CueAwb": "External/Criware/en/v_ac23.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 573,
-        "CueSheetName": "External/Criware/en/v_ac23_guanqia.acb",
-        "CueAwb": "External/Criware/en/v_ac23_guanqia.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 574,
-        "CueSheetName": "External/Criware/en/v_ac23_juqing.acb",
-        "CueAwb": "External/Criware/en/v_ac23_juqing.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 575,
-        "CueSheetName": "External/Criware/en/v_ac23_yindao.acb",
-        "CueAwb": "External/Criware/en/v_ac23_yindao.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 576,
-        "CueSheetName": "External/Criware/en/ac24.acb",
-        "CueAwb": "External/Criware/en/ac24.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 577,
-        "CueSheetName": "External/Criware/en/ac25.acb",
-        "CueAwb": "External/Criware/en/ac25.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 578,
-        "CueSheetName": "External/Criware/en/ac26.acb",
-        "CueAwb": "External/Criware/en/ac26.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 579,
-        "CueSheetName": "External/Criware/en/ac27.acb",
-        "CueAwb": "External/Criware/en/ac27.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 580,
-        "CueSheetName": "External/Criware/en/ac27_boss.acb",
-        "CueAwb": "External/Criware/en/ac27_boss.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 581,
-        "CueSheetName": "External/Criware/en/ac27_hunt.acb",
-        "CueAwb": "External/Criware/en/ac27_hunt.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 582,
-        "CueSheetName": "External/Criware/en/ac28_boss.acb",
-        "CueAwb": "External/Criware/en/ac28_boss.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 583,
-        "CueSheetName": "External/Criware/en/v_ac29.acb",
-        "CueAwb": "External/Criware/en/v_ac29.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 584,
-        "CueSheetName": "External/Criware/en/v_ac30.acb",
-        "CueAwb": "External/Criware/en/v_ac30.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 802,
-        "CueSheetName": "External/Criware/en/v_lucia.acb",
-        "CueAwb": "External/Criware/en/v_lucia.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 8021,
-        "CueSheetName": "External/Criware/en/v_luciaalpha.acb",
-        "CueAwb": "External/Criware/en/v_luciaalpha.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 8022,
-        "CueSheetName": "External/Criware/en/v_luciaice.acb",
-        "CueAwb": "External/Criware/en/v_luciaice.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 803,
-        "CueSheetName": "External/Criware/en/v_liv.acb",
-        "CueAwb": "External/Criware/en/v_liv.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 801,
-        "CueSheetName": "External/Criware/en/v_li.acb",
-        "CueAwb": "External/Criware/en/v_li.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 806,
-        "CueSheetName": "External/Criware/en/v_kamui.acb",
-        "CueAwb": "External/Criware/en/v_kamui.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 8061,
-        "CueSheetName": "External/Criware/en/v_kamuianneng.acb",
-        "CueAwb": "External/Criware/en/v_kamuianneng.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 805,
-        "CueSheetName": "External/Criware/en/v_imper9t.acb",
-        "CueAwb": "External/Criware/en/v_imper9t.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 804,
-        "CueSheetName": "External/Criware/en/v_bianca.acb",
-        "CueAwb": "External/Criware/en/v_bianca.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 808,
-        "CueSheetName": "External/Criware/en/v_watanabe.acb",
-        "CueAwb": "External/Criware/en/v_watanabe.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 807,
-        "CueSheetName": "External/Criware/en/v_karen.acb",
-        "CueAwb": "External/Criware/en/v_karen.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 809,
-        "CueSheetName": "External/Criware/en/v_aila.acb",
-        "CueAwb": "External/Criware/en/v_aila.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 8091,
-        "CueSheetName": "External/Criware/en/v_ailaRK3.acb",
-        "CueAwb": "External/Criware/en/v_ailaRK3.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 810,
-        "CueSheetName": "External/Criware/en/v_sufeiya.acb",
-        "CueAwb": "External/Criware/en/v_sufeiya.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 811,
-        "CueSheetName": "External/Criware/en/v_kuluomu.acb",
-        "CueAwb": "External/Criware/en/v_kuluomu.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 812,
-        "CueSheetName": "External/Criware/en/v_weila.acb",
-        "CueAwb": "External/Criware/en/v_weila.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 813,
-        "CueSheetName": "External/Criware/en/v_camu.acb",
-        "CueAwb": "External/Criware/en/v_camu.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 814,
-        "CueSheetName": "External/Criware/en/v_luosaita.acb",
-        "CueAwb": "External/Criware/en/v_luosaita.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 815,
-        "CueSheetName": "External/Criware/en/v_changyu.acb",
-        "CueAwb": "External/Criware/en/v_changyu.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 816,
-        "CueSheetName": "External/Criware/en/v_qu.acb",
-        "CueAwb": "External/Criware/en/v_qu.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 817,
-        "CueSheetName": "External/Criware/en/v_luna.acb",
-        "CueAwb": "External/Criware/en/v_luna.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 818,
-        "CueSheetName": "External/Criware/en/v_sailinna.acb",
-        "CueAwb": "External/Criware/en/v_sailinna.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 819,
-        "CueSheetName": "External/Criware/en/v_wanshi.acb",
-        "CueAwb": "External/Criware/en/v_wanshi.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 820,
-        "CueSheetName": "External/Criware/en/v_kuluomuice.acb",
-        "CueAwb": "External/Criware/en/v_kuluomuice.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 821,
-        "CueSheetName": "External/Criware/en/v_twentyone.acb",
-        "CueAwb": "External/Criware/en/v_twentyone.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 822,
-        "CueSheetName": "External/Criware/en/v_weilathunder.acb",
-        "CueAwb": "External/Criware/en/v_weilathunder.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 823,
-        "CueSheetName": "External/Criware/en/v_luolan.acb",
-        "CueAwb": "External/Criware/en/v_luolan.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 824,
-        "CueSheetName": "External/Criware/en/v_livsuper.acb",
-        "CueAwb": "External/Criware/en/v_livsuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 825,
-        "CueSheetName": "External/Criware/en/v_sailinnasuper.acb",
-        "CueAwb": "External/Criware/en/v_sailinnasuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 826,
-        "CueSheetName": "External/Criware/en/v_pulao.acb",
-        "CueAwb": "External/Criware/en/v_pulao.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 827,
-        "CueSheetName": "External/Criware/en/v_qishisuper.acb",
-        "CueAwb": "External/Criware/en/v_qishisuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 828,
-        "CueSheetName": "External/Criware/en/v_hakama.acb",
-        "CueAwb": "External/Criware/en/v_hakama.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 829,
-        "CueSheetName": "External/Criware/en/v_kaliesuper.acb",
-        "CueAwb": "External/Criware/en/v_kaliesuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 830,
-        "CueSheetName": "External/Criware/en/v_nuoan.acb",
-        "CueAwb": "External/Criware/en/v_nuoan.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 831,
-        "CueSheetName": "External/Criware/en/v_biankasuper.acb",
-        "CueAwb": "External/Criware/en/v_biankasuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 832,
-        "CueSheetName": "External/Criware/en/v_bangbinata.acb",
-        "CueAwb": "External/Criware/en/v_bangbinata.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 833,
-        "CueSheetName": "External/Criware/en/v_lisuper.acb",
-        "CueAwb": "External/Criware/en/v_lisuper.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 834,
-        "CueSheetName": "External/Criware/en/v_luciaalphaRK4.acb",
-        "CueAwb": "External/Criware/en/v_luciaalphaRK4.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 835,
-        "CueSheetName": "External/Criware/en/v_hanying.acb",
-        "CueAwb": "External/Criware/en/v_hanying.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 836,
-        "CueSheetName": "External/Criware/en/v_twentyoneRK3.acb",
-        "CueAwb": "External/Criware/en/v_twentyoneRK3.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 837,
-        "CueSheetName": "External/Criware/en/v_nuoketi.acb",
-        "CueAwb": "External/Criware/en/v_nuoketi.awb",
-        "HasAwb": 1
-    },
-    {
-        "Id": 838,
-        "CueSheetName": "External/Criware/en/v_yalisha.acb",
-        "CueAwb": "External/Criware/en/v_yalisha.awb",
+        "Id": 516,
+        "CueSheetName": "External/Criware/ja/v_ac21.acb",
+        "CueAwb": "External/Criware/ja/v_ac21.awb",
         "HasAwb": 1
     },
     {
@@ -3306,6 +2970,18 @@
         "HasAwb": 0
     },
     {
+        "Id": 9324,
+        "CueSheetName": "External/Criware/mb_moonguy.acb",
+        "CueAwb": null,
+        "HasAwb": 0
+    },
+    {
+        "Id": 9325,
+        "CueSheetName": "External/Criware/mo_moonlighter.acb",
+        "CueAwb": null,
+        "HasAwb": 0
+    },
+    {
         "Id": 10000000,
         "CueSheetName": "External/Criware/c_luciaRk3_JP.acb",
         "CueAwb": null,
@@ -3315,6 +2991,264 @@
         "Id": 10000001,
         "CueSheetName": "External/Criware/ja/v_acja1.acb",
         "CueAwb": "External/Criware/ja/v_acja1.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 561,
+        "CueSheetName": "External/Criware/en/v_ac5.acb",
+        "CueAwb": "External/Criware/en/v_ac5.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 562,
+        "CueSheetName": "External/Criware/en/v_ac7.acb",
+        "CueAwb": "External/Criware/en/v_ac7.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 563,
+        "CueSheetName": "External/Criware/en/v_ac8.acb",
+        "CueAwb": "External/Criware/en/v_ac8.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 564,
+        "CueSheetName": "External/Criware/en/ac10_boss_1.acb",
+        "CueAwb": "External/Criware/en/ac10_boss_1.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 565,
+        "CueSheetName": "External/Criware/en/v_ac12.acb",
+        "CueAwb": "External/Criware/en/v_ac12.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 566,
+        "CueSheetName": "External/Criware/en/v_ac14.acb",
+        "CueAwb": "External/Criware/en/v_ac14.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 567,
+        "CueSheetName": "External/Criware/en/v_ac15.acb",
+        "CueAwb": "External/Criware/en/v_ac15.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 568,
+        "CueSheetName": "External/Criware/en/v_ac16.acb",
+        "CueAwb": "External/Criware/en/v_ac16.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 569,
+        "CueSheetName": "External/Criware/en/ac17_boss.acb",
+        "CueAwb": "External/Criware/en/ac17_boss.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 570,
+        "CueSheetName": "External/Criware/en/ac18_pulao.acb",
+        "CueAwb": "External/Criware/en/ac18_pulao.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 571,
+        "CueSheetName": "External/Criware/en/v_ac21.acb",
+        "CueAwb": "External/Criware/en/v_ac21.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 802,
+        "CueSheetName": "External/Criware/en/v_lucia.acb",
+        "CueAwb": "External/Criware/en/v_lucia.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 8021,
+        "CueSheetName": "External/Criware/en/v_luciaalpha.acb",
+        "CueAwb": "External/Criware/en/v_luciaalpha.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 8022,
+        "CueSheetName": "External/Criware/en/v_luciaice.acb",
+        "CueAwb": "External/Criware/en/v_luciaice.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 803,
+        "CueSheetName": "External/Criware/en/v_liv.acb",
+        "CueAwb": "External/Criware/en/v_liv.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 801,
+        "CueSheetName": "External/Criware/en/v_li.acb",
+        "CueAwb": "External/Criware/en/v_li.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 806,
+        "CueSheetName": "External/Criware/en/v_kamui.acb",
+        "CueAwb": "External/Criware/en/v_kamui.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 8061,
+        "CueSheetName": "External/Criware/en/v_kamuianneng.acb",
+        "CueAwb": "External/Criware/en/v_kamuianneng.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 805,
+        "CueSheetName": "External/Criware/en/v_imper9t.acb",
+        "CueAwb": "External/Criware/en/v_imper9t.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 804,
+        "CueSheetName": "External/Criware/en/v_bianca.acb",
+        "CueAwb": "External/Criware/en/v_bianca.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 808,
+        "CueSheetName": "External/Criware/en/v_watanabe.acb",
+        "CueAwb": "External/Criware/en/v_watanabe.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 807,
+        "CueSheetName": "External/Criware/en/v_karen.acb",
+        "CueAwb": "External/Criware/en/v_karen.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 809,
+        "CueSheetName": "External/Criware/en/v_aila.acb",
+        "CueAwb": "External/Criware/en/v_aila.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 810,
+        "CueSheetName": "External/Criware/en/v_sufeiya.acb",
+        "CueAwb": "External/Criware/en/v_sufeiya.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 811,
+        "CueSheetName": "External/Criware/en/v_kuluomu.acb",
+        "CueAwb": "External/Criware/en/v_kuluomu.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 812,
+        "CueSheetName": "External/Criware/en/v_weila.acb",
+        "CueAwb": "External/Criware/en/v_weila.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 813,
+        "CueSheetName": "External/Criware/en/v_camu.acb",
+        "CueAwb": "External/Criware/en/v_camu.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 814,
+        "CueSheetName": "External/Criware/en/v_luosaita.acb",
+        "CueAwb": "External/Criware/en/v_luosaita.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 815,
+        "CueSheetName": "External/Criware/en/v_changyu.acb",
+        "CueAwb": "External/Criware/en/v_changyu.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 816,
+        "CueSheetName": "External/Criware/en/v_qu.acb",
+        "CueAwb": "External/Criware/en/v_qu.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 817,
+        "CueSheetName": "External/Criware/en/v_luna.acb",
+        "CueAwb": "External/Criware/en/v_luna.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 818,
+        "CueSheetName": "External/Criware/en/v_sailinna.acb",
+        "CueAwb": "External/Criware/en/v_sailinna.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 819,
+        "CueSheetName": "External/Criware/en/v_wanshi.acb",
+        "CueAwb": "External/Criware/en/v_wanshi.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 820,
+        "CueSheetName": "External/Criware/en/v_kuluomuice.acb",
+        "CueAwb": "External/Criware/en/v_kuluomuice.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 821,
+        "CueSheetName": "External/Criware/en/v_twentyone.acb",
+        "CueAwb": "External/Criware/en/v_twentyone.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 822,
+        "CueSheetName": "External/Criware/en/v_weilathunder.acb",
+        "CueAwb": "External/Criware/en/v_weilathunder.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 823,
+        "CueSheetName": "External/Criware/en/v_luolan.acb",
+        "CueAwb": "External/Criware/en/v_luolan.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 824,
+        "CueSheetName": "External/Criware/en/v_livsuper.acb",
+        "CueAwb": "External/Criware/en/v_livsuper.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 825,
+        "CueSheetName": "External/Criware/en/v_sailinnasuper.acb",
+        "CueAwb": "External/Criware/en/v_sailinnasuper.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 826,
+        "CueSheetName": "External/Criware/en/v_pulao.acb",
+        "CueAwb": "External/Criware/en/v_pulao.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 827,
+        "CueSheetName": "External/Criware/en/v_qishisuper.acb",
+        "CueAwb": "External/Criware/en/v_qishisuper.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 828,
+        "CueSheetName": "External/Criware/en/v_hakama.acb",
+        "CueAwb": "External/Criware/en/v_hakama.awb",
+        "HasAwb": 1
+    },
+    {
+        "Id": 829,
+        "CueSheetName": "External/Criware/en/v_kaliesuper.acb",
+        "CueAwb": "External/Criware/en/v_kaliesuper.awb",
         "HasAwb": 1
     }
 ]

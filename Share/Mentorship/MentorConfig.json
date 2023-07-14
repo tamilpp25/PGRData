@@ -1,0 +1,247 @@
+[
+    {
+        "Key": "BeMentorLv",
+        "Comment": "Level when becoming mentor",
+        "Value": 80
+    },
+    {
+        "Key": "GraduateLv",
+        "Comment": "Level of student at graduation",
+        "Value": 80
+    },
+    {
+        "Key": "BeStudentLv",
+        "Comment": "Level of student when collaboration started",
+        "Value": 20
+    },
+    {
+        "Key": "MaxStudentCount",
+        "Comment": "Mentor's student limit",
+        "Value": 3
+    },
+    {
+        "Key": "JudgeFailPassTime",
+        "Comment": "No. of minutes AFK before marking as fail",
+        "Value": 4320
+    },
+    {
+        "Key": "TickPunishTime",
+        "Comment": "No. of minutes banned from becoming a student or teacher again after terminating collaboration",
+        "Value": 720
+    },
+    {
+        "Key": "CompleteTaskCount",
+        "Comment": "Student's weekly mission limit",
+        "Value": 6
+    },
+    {
+        "Key": "SysReleaseTaskCount",
+        "Comment": "No. of missions posted by the system",
+        "Value": 5
+    },
+    {
+        "Key": "GetTaskCount",
+        "Comment": "No. of missions available for student per day",
+        "Value": 3
+    },
+    {
+        "Key": "ChangeTaskCount",
+        "Comment": "Mentor's daily mission swap limit",
+        "Value": 9
+    },
+    {
+        "Key": "MaxApplyCount",
+        "Comment": "Message limit on application list",
+        "Value": 6
+    },
+    {
+        "Key": "ApplyTimeout",
+        "Comment": "Request message storage limit (minutes)",
+        "Value": 1440
+    },
+    {
+        "Key": "MaxRecommendCount",
+        "Comment": "No. of recommendations displayed",
+        "Value": 6
+    },
+    {
+        "Key": "ApplyCd",
+        "Comment": "Mentor stops receiving request from this player for x minutes after a request is rejected (an error message will display if x is set to 0)",
+        "Value": 5
+    },
+    {
+        "Key": "MaxRecommendRecordCount",
+        "Comment": "Max recommendation stored in server",
+        "Value": 100
+    },
+    {
+        "Key": "StudentRefuseApplyInterval",
+        "Comment": "Student stops receiving request from this player for x minutes after a request is rejected (an error message will display if x is set to 0)",
+        "Value": 5
+    },
+    {
+        "Key": "RecommendIntervalTime",
+        "Comment": "Cooldown of recommendation list refresh (minutes). E.g. If a player has tapped for N times in a row, and each two taps are less than X minutes apart. Used for both recommendation list and search functions",
+        "Value": 1
+    },
+    {
+        "Key": "MaxContinuousClickCount",
+        "Comment": "Max tapping counter when retrieving a recommendation list",
+        "Value": 10
+    },
+    {
+        "Key": "MaxContinuousClickIntervalTime",
+        "Comment": "Interval between two taps of retrieving recommendation list (seconds)",
+        "Value": 10
+    },
+    {
+        "Key": "MaxDailyApply",
+        "Comment": "Max requests sent per day",
+        "Value": 100
+    },
+    {
+        "Key": "KickTeacherMailId",
+        "Comment": "Mail ID sent to mentor upon termination",
+        "Value": 60004
+    },
+    {
+        "Key": "KickStudentMailId",
+        "Comment": "Mail ID when terminating a student",
+        "Value": 60003
+    },
+    {
+        "Key": "AnnouncementMaxLength",
+        "Comment": "Announcement length limit",
+        "Value": 20
+    },
+    {
+        "Key": "AddMentorTeacherMailId",
+        "Comment": "Mail ID sent to mentor upon collaboration is formed",
+        "Value": 60002
+    },
+    {
+        "Key": "AddMentorStudentMailId",
+        "Comment": "Mail ID sent to the student upon collaboration is formed",
+        "Value": 60001
+    },
+    {
+        "Key": "MentorChatMaxCount",
+        "Comment": "Max number of messages between mentor and student saved (latest)",
+        "Value": 50
+    },
+    {
+        "Key": "GraduateRewardId",
+        "Comment": "Graduation rewards (reward list ID)",
+        "Value": 40750
+    },
+    {
+        "Key": "GraduateStudentRetainDay",
+        "Comment": "No. of days available for mentor to collect mission rewards after a student graduates",
+        "Value": 7
+    },
+    {
+        "Key": "GraduateMailId",
+        "Comment": "Mail ID if student has incomplete growth mission at graduation (mission will be automatically completed and rewards are sent via mail)",
+        "Value": 60007
+    },
+    {
+        "Key": "NormalLabelMaxCount",
+        "Comment": "Max customized tags that can be selected",
+        "Value": 2
+    },
+    {
+        "Key": "TimeLabelMaxCount",
+        "Comment": "Max time tags that can be selected",
+        "Value": 1
+    },
+    {
+        "Key": "MentorChangeTaskDisplayCount",
+        "Comment": "No. of missions displayed when mentor opens mission swap page",
+        "Value": 5
+    },
+    {
+        "Key": "MentorGiveEquipCount",
+        "Comment": "No. of Memories given in one mission",
+        "Value": 2
+    },
+    {
+        "Key": "MentorGiveEquipMaxLevel",
+        "Comment": "Max Memory level that can be gifted",
+        "Value": 1
+    },
+    {
+        "Key": "MentorGiveEquipMaxStar",
+        "Comment": "Max Memory rank that can be gifted",
+        "Value": 5
+    },
+    {
+        "Key": "StudentWeeklyResetSendEquipMailId",
+        "Comment": "Mail ID if student has not collected the Memories sent by mentor at weekly reset",
+        "Value": 60005
+    },
+    {
+        "Key": "GraduateStudentCount",
+        "Comment": "Display limit of graduates on mentorship list",
+        "Value": 4
+    },
+    {
+        "Key": "GraduateTaskMailId",
+        "Comment": "Mail ID if student has uncollected challenge mission rewards upon graduation",
+        "Value": 60006
+    },
+    {
+        "Key": "FirstMentorMailId",
+        "Comment": "Mail ID of first batch of Instructor mails",
+        "Value": 60008
+    },
+    {
+        "Key": "FirstMentorRewardDeadline",
+        "Comment": "No. of days after 0:00, Nov 26 to stop sending Instructor mails",
+        "Value": 29
+    },
+    {
+        "Key": "MonthlyStudentCount",
+        "Comment": "Monthly student limit",
+        "Value": 6
+    },
+    {
+        "Key": "GraduateCollectionId",
+        "Comment": "Mentor Reward Display Graduation Collectible ID",
+        "Value": 13000800
+    },
+    {
+        "Key": "AutoGraduateLv",
+        "Comment": "Level at Automatic Graduation",
+        "Value": 83
+    },
+    {
+        "Key": "MessageBoardMaxLen",
+        "Comment": "Character limit of a message",
+        "Value": 100
+    },
+    {
+        "Key": "ActivationCount",
+        "Comment": "Limiting value of Daily Activity",
+        "Value": 100
+    },
+    {
+        "Key": "ActivationItemId",
+        "Comment": "Displayed gift ID for the instructor who reaches the activity",
+        "Value": 96006
+    },
+    {
+        "Key": "ActivationRewardId",
+        "Comment": "Actual reward ID for the instructor sends to the student",
+        "Value": 40802
+    },
+    {
+        "Key": "ActivationRewardCount",
+        "Comment": "How many gifts can the instructor send when the activity is reached",
+        "Value": 3
+    },
+    {
+        "Key": "GiftMailId",
+        "Comment": "Email ID for the gift sent to the Instructor",
+        "Value": 60010
+    }
+]

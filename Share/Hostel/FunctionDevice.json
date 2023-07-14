@@ -1,0 +1,295 @@
+[
+    {
+        "Id": 101,
+        "Name": "Connection System",
+        "Des": "Connects the Garden of Eden to the core system of Gray Raven's HQ, which is essential to HQ's operation.",
+        "BelongType": null,
+        "Type": 1,
+        "Level": 1,
+        "ConditionId": null,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": []
+    },
+    {
+        "Id": 102,
+        "Name": "Connection System",
+        "Des": "Connects the Garden of Eden to the core system of Gray Raven's HQ, which is essential to HQ's operation.",
+        "BelongType": null,
+        "Type": 1,
+        "Level": 2,
+        "ConditionId": 30401.0,
+        "CostId": 15.0,
+        "CostCount": 100.0,
+        "CostTime": 1200.0,
+        "FunctionParam": []
+    },
+    {
+        "Id": 103,
+        "Name": "Connection System",
+        "Des": "Connects the Garden of Eden to the core system of Gray Raven's HQ, which is essential to HQ's operation.",
+        "BelongType": null,
+        "Type": 1,
+        "Level": 3,
+        "ConditionId": 30402.0,
+        "CostId": 15.0,
+        "CostCount": 100.0,
+        "CostTime": 480.0,
+        "FunctionParam": []
+    },
+    {
+        "Id": 104,
+        "Name": "Connection System",
+        "Des": "Connects the Garden of Eden to the core system of Gray Raven's HQ, which is essential to HQ's operation.",
+        "BelongType": null,
+        "Type": 1,
+        "Level": 4,
+        "ConditionId": 30403.0,
+        "CostId": 15.0,
+        "CostCount": 100.0,
+        "CostTime": 840.0,
+        "FunctionParam": []
+    },
+    {
+        "Id": 105,
+        "Name": "Connection System",
+        "Des": "Connects the Garden of Eden to the core system of Gray Raven's HQ, which is essential to HQ's operation.",
+        "BelongType": null,
+        "Type": 1,
+        "Level": 5,
+        "ConditionId": 30404.0,
+        "CostId": 15.0,
+        "CostCount": 100.0,
+        "CostTime": 1200.0,
+        "FunctionParam": []
+    },
+    {
+        "Id": 201,
+        "Name": "Particle Generator",
+        "Des": "An electronic device which is necessary for HQ's operation. It generates particles automatically and generates even more under the monitor of staff.",
+        "BelongType": null,
+        "Type": 2,
+        "Level": 1,
+        "ConditionId": null,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            1200.0,
+            60.0,
+            2000.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 202,
+        "Name": "Particle Generator",
+        "Des": "An electronic device which is necessary for HQ's operation. It generates particles automatically and generates even more under the monitor of staff.",
+        "BelongType": null,
+        "Type": 2,
+        "Level": 2,
+        "ConditionId": 30101.0,
+        "CostId": 15.0,
+        "CostCount": 1000.0,
+        "CostTime": 7200.0,
+        "FunctionParam": [
+            1200.0,
+            60.0,
+            2000.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 20001,
+        "Name": "Power Slot 1",
+        "Des": "Appoint a Construct to manage the particle generator to gain more particles.",
+        "BelongType": 2.0,
+        "Type": 201,
+        "Level": 1,
+        "ConditionId": 30201.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            3.0,
+            20.0,
+            20.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 20002,
+        "Name": "Power Slot 2",
+        "Des": "Appoint a Construct to manage the particle generator to gain more particles.",
+        "BelongType": 2.0,
+        "Type": 202,
+        "Level": 1,
+        "ConditionId": 30202.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            3.0,
+            20.0,
+            20.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 20003,
+        "Name": "Power Slot 3",
+        "Des": "Appoint a Construct to manage the particle generator to gain more particles.",
+        "BelongType": 2.0,
+        "Type": 203,
+        "Level": 1,
+        "ConditionId": 30203.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            3.0,
+            20.0,
+            20.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 301,
+        "Name": "Factory",
+        "Des": "A factory that recycles waste for production. It needs to be monitored by staff.",
+        "BelongType": null,
+        "Type": 3,
+        "Level": 1,
+        "ConditionId": null,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            0.0
+        ]
+    },
+    {
+        "Id": 302,
+        "Name": "Factory",
+        "Des": "A factory that recycles waste for production. It needs to be monitored by staff.",
+        "BelongType": null,
+        "Type": 3,
+        "Level": 2,
+        "ConditionId": 30101.0,
+        "CostId": 15.0,
+        "CostCount": 1000.0,
+        "CostTime": 300.0,
+        "FunctionParam": [
+            10.0
+        ]
+    },
+    {
+        "Id": 30001,
+        "Name": "Factory Slot 1",
+        "Des": "Factory Slot 1",
+        "BelongType": 3.0,
+        "Type": 301,
+        "Level": 1,
+        "ConditionId": 30301.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            1.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 30002,
+        "Name": "Factory Slot 2",
+        "Des": "Factory Slot 2",
+        "BelongType": 3.0,
+        "Type": 302,
+        "Level": 1,
+        "ConditionId": 30302.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            1.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 30003,
+        "Name": "Factory Slot 3",
+        "Des": "Factory Slot 3",
+        "BelongType": 3.0,
+        "Type": 303,
+        "Level": 1,
+        "ConditionId": 30303.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            1.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 30004,
+        "Name": "Factory Slot 4",
+        "Des": "Factory Slot 4",
+        "BelongType": 3.0,
+        "Type": 304,
+        "Level": 1,
+        "ConditionId": 30301.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            16.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 30005,
+        "Name": "Factory Slot 5",
+        "Des": "Factory Slot 5",
+        "BelongType": 3.0,
+        "Type": 305,
+        "Level": 1,
+        "ConditionId": 30302.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            16.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 30006,
+        "Name": "Factory Slot 6",
+        "Des": "Factory Slot 6",
+        "BelongType": 3.0,
+        "Type": 306,
+        "Level": 1,
+        "ConditionId": 30303.0,
+        "CostId": null,
+        "CostCount": null,
+        "CostTime": null,
+        "FunctionParam": [
+            300.0,
+            20.0,
+            16.0,
+            50.0
+        ]
+    }
+]

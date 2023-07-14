@@ -1,0 +1,1547 @@
+[
+    {
+        "Id": 1,
+        "Name": "Gray Raven: Fledgling - I",
+        "ChildComboId": 301,
+        "EffectDescription": "All Constructs' Basic Attack gains <color=#ff3f3f>200</color> True DMG and causes enemies to take 1% increased DMG for 2s (max 20%). Each attack refreshes the effect.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Fledgling Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98078
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Gray Raven: Fledgling - II",
+        "ChildComboId": 301,
+        "EffectDescription": "All Constructs' Basic Attack gains <color=#ff3f3f>400</color> True DMG and causes enemies to take 1% increased DMG for 2s (max 20%). Each attack refreshes the effect.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Fledgling Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98079
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Gray Raven: Fledgling - III",
+        "ChildComboId": 301,
+        "EffectDescription": "All Constructs' Basic Attack gains <color=#ff3f3f>600</color> True DMG and causes enemies to take 1% increased DMG for 2s (max 20%). Each attack refreshes the effect.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Fledgling Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98080
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Gray Raven: Fledgling - IV",
+        "ChildComboId": 301,
+        "EffectDescription": "All Constructs' Basic Attack gains <color=#ff3f3f>800</color> True DMG and causes enemies to take 1% increased DMG for 2s (max 20%). Each attack refreshes the effect.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Fledgling Constructs reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98081
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Gray Raven: Advanced - I",
+        "ChildComboId": 302,
+        "EffectDescription": "All Constructs activate 1 amplification device for 3s every 15s, gaining <color=#ff3f3f>5%</color> increased DMG and movement speed for <color=#ff3f3f>5s</color>.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Advanced Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98082
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Gray Raven: Advanced - II",
+        "ChildComboId": 302,
+        "EffectDescription": "All Constructs activate 1 amplification device for 3s every 15s, gaining <color=#ff3f3f>10%</color> increased DMG and movement speed for <color=#ff3f3f>7s</color>.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Advanced Constructs reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98083
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Gray Raven: Advanced - III",
+        "ChildComboId": 302,
+        "EffectDescription": "All Constructs activate 1 amplification device for 3s every 15s, gaining <color=#ff3f3f>5%</color> increased DMG and movement speed for <color=#ff3f3f>10s</color>.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Advanced Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98084
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Gray Raven: Advanced - IV",
+        "ChildComboId": 302,
+        "EffectDescription": "All Constructs activate 1 amplification device for 3s every 15s, gaining <color=#ff3f3f>20%</color> increased DMG and movement speed for <color=#ff3f3f>14s</color>.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Advanced Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98085
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Gray Raven: Ultimate - I",
+        "ChildComboId": 303,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Summons a force field that follows the Construct. Constructs within the force field recover <color=#ff3f3f>100</color> HP and deal <color=#ff3f3f>1000</color> DMG to enemies every second.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Ultimate Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98086
+        ],
+        "EffectValid": [
+            "2|303"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Gray Raven: Ultimate - II",
+        "ChildComboId": 303,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Summons a force field that follows the Construct. Constructs within the force field recover <color=#ff3f3f>200</color> HP and deal <color=#ff3f3f>1500</color> DMG to enemies every second.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Ultimate Constructs reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98087
+        ],
+        "EffectValid": [
+            "2|303"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 11,
+        "Name": "Gray Raven: Ultimate - III",
+        "ChildComboId": 303,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Summons a force field that follows the Construct. Constructs within the force field recover <color=#ff3f3f>300</color> HP and deal <color=#ff3f3f>2000</color> DMG to enemies every second.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Ultimate Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98088
+        ],
+        "EffectValid": [
+            "2|303"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 12,
+        "Name": "Gray Raven: Ultimate - IV",
+        "ChildComboId": 303,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Summons a force field that follows the Construct. Constructs within the force field recover <color=#ff3f3f>400</color> HP and deal <color=#ff3f3f>2500</color> DMG to enemies every second.",
+        "ConditionDesc": "Combined Stars of Gray Raven: Ultimate Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98089
+        ],
+        "EffectValid": [
+            "2|303"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 13,
+        "Name": "Strike Hawk - I",
+        "ChildComboId": 304,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Max HP of all Constructs increases by <color=#ff3f3f>2000</color>, and each attack deals Extra DMG equal to 10% of the current Construct's Max HP.",
+        "ConditionDesc": "Combined Stars of Strike Hawk Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98114
+        ],
+        "EffectValid": [
+            "2|304"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 14,
+        "Name": "Strike Hawk - II",
+        "ChildComboId": 304,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Max HP of all Constructs increases by <color=#ff3f3f>3000</color>, and each attack deals Extra DMG equal to 10% of the current Construct's Max HP.",
+        "ConditionDesc": "Combined Stars of Strike Hawk Constructs reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98115
+        ],
+        "EffectValid": [
+            "2|304"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 15,
+        "Name": "Strike Hawk - III",
+        "ChildComboId": 304,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Max HP of all Constructs increases by <color=#ff3f3f>4000</color>, and each attack deals Extra DMG equal to 10% of the current Construct's Max HP.",
+        "ConditionDesc": "Combined Stars of Strike Hawk Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98116
+        ],
+        "EffectValid": [
+            "2|304"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 16,
+        "Name": "Strike Hawk - IV",
+        "ChildComboId": 304,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Max HP of all Constructs increases by <color=#ff3f3f>5000</color>, and each attack deals Extra DMG equal to 10% of the current Construct's Max HP.",
+        "ConditionDesc": "Combined Stars of Strike Hawk Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98117
+        ],
+        "EffectValid": [
+            "2|304"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 17,
+        "Name": "Engineering Force - I",
+        "ChildComboId": 305,
+        "EffectDescription": "All Constructs summon 2 rounds of Fire Support twice every <color=#ff3f3f>4s</color>, each dealing <color=#ff3f3f>5000</color> Fire DMG.",
+        "ConditionDesc": "Combined Stars of Engineering Force Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98110
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Engineering Force - II",
+        "ChildComboId": 305,
+        "EffectDescription": "All Constructs summon 2 rounds of Fire Support twice every <color=#ff3f3f>3s</color>, each dealing <color=#ff3f3f>7500</color> Fire DMG.",
+        "ConditionDesc": "Combined Stars of Engineering Force Constructs reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98111
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "Engineering Force - III",
+        "ChildComboId": 305,
+        "EffectDescription": "All Constructs summon 2 rounds of Fire Support twice every <color=#ff3f3f>2s</color>, each dealing <color=#ff3f3f>10000</color> Fire DMG.",
+        "ConditionDesc": "Combined Stars of Engineering Force Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98112
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 20,
+        "Name": "Engineering Force - IV",
+        "ChildComboId": 305,
+        "EffectDescription": "All Constructs summon 2 rounds of Fire Support twice every <color=#ff3f3f>1s</color>, each dealing <color=#ff3f3f>12500</color> Fire DMG.",
+        "ConditionDesc": "Combined Stars of Engineering Force Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98113
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 21,
+        "Name": "Forsaken - I",
+        "ChildComboId": 306,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> All Constructs have a 20% chance to increase an attack's DMG by <color=#ff3f3f>100%</color> if it is a backstabbing or critical attack.",
+        "ConditionDesc": "Combined Stars of Forsaken Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98106
+        ],
+        "EffectValid": [
+            "2|306"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 22,
+        "Name": "Forsaken - II",
+        "ChildComboId": 306,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> All Constructs have a 20% chance to increase an attack's DMG by <color=#ff3f3f>200%</color> if it is a backstabbing or critical attack.",
+        "ConditionDesc": "Combined Stars of Forsaken Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98107
+        ],
+        "EffectValid": [
+            "2|306"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 23,
+        "Name": "Forsaken - III",
+        "ChildComboId": 306,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> All Constructs have a 20% chance to increase an attack's DMG by <color=#ff3f3f>300%</color> if it is a backstabbing or critical attack.",
+        "ConditionDesc": "Combined Stars of Forsaken Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98108
+        ],
+        "EffectValid": [
+            "2|306"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Forsaken - IV",
+        "ChildComboId": 306,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> All Constructs have a 20% chance to increase an attack's DMG by <color=#ff3f3f>400%</color> if it is a backstabbing or critical attack.",
+        "ConditionDesc": "Combined Stars of Forsaken Constructs reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98109
+        ],
+        "EffectValid": [
+            "2|306"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "Purifying Force - I",
+        "ChildComboId": 307,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Whenever the current Construct defeats 1 enemy, gain <color=#ff3f3f>5</color> ATK permanently and recover <color=#ff3f3f>3</color> Energy.",
+        "ConditionDesc": "Combined Stars of Purifying Force Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98102
+        ],
+        "EffectValid": [
+            "2|307"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Purifying Force - II",
+        "ChildComboId": 307,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Whenever the current Construct defeats 1 enemy, gain <color=#ff3f3f>10</color> ATK permanently and recover <color=#ff3f3f>6</color> Energy.",
+        "ConditionDesc": "Combined Stars of Purifying Force Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98103
+        ],
+        "EffectValid": [
+            "2|307"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 27,
+        "Name": "Purifying Force - III",
+        "ChildComboId": 307,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Whenever the current Construct defeats 1 enemy, gain <color=#ff3f3f>15</color> ATK permanently and recover <color=#ff3f3f>9</color> Energy.",
+        "ConditionDesc": "Combined Stars of Purifying Force Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98104
+        ],
+        "EffectValid": [
+            "2|307"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 28,
+        "Name": "Purifying Force - IV",
+        "ChildComboId": 307,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Whenever the current Construct defeats 1 enemy, gain <color=#ff3f3f>20</color> ATK permanently and recover <color=#ff3f3f>12</color> Energy.",
+        "ConditionDesc": "Combined Stars of Purifying Force Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98105
+        ],
+        "EffectValid": [
+            "2|307"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 29,
+        "Name": "Nanami Models - I",
+        "ChildComboId": 308,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Randomly convert 1 normal enemy into an ally every 20s. While in effect, reduce the converted enemy's Max HP by 5% every second to increase the converted enemy's DMG by <color=#ff3f3f>500%</color>.",
+        "ConditionDesc": "Combined Stars of all Nanami models reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98098
+        ],
+        "EffectValid": [
+            "2|308"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 30,
+        "Name": "Nanami Models - II",
+        "ChildComboId": 308,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Randomly convert 1 normal enemy into an ally every 20s. While in effect, reduce the converted enemy's Max HP by 5% every second to increase the converted enemy's DMG by <color=#ff3f3f>1000%</color>.",
+        "ConditionDesc": "Combined Stars of all Nanami models reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98099
+        ],
+        "EffectValid": [
+            "2|308"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 31,
+        "Name": "Nanami Models - III",
+        "ChildComboId": 308,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Randomly convert 1 normal enemy into an ally every 20s. While in effect, reduce the converted enemy's Max HP by 5% every second to increase the converted enemy's DMG by <color=#ff3f3f>1500%</color>.",
+        "ConditionDesc": "Combined Stars of all Nanami models reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98100
+        ],
+        "EffectValid": [
+            "2|308"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 32,
+        "Name": "Nanami Models - IV",
+        "ChildComboId": 308,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> Randomly convert 1 normal enemy into an ally every 20s. While in effect, reduce the converted enemy's Max HP by 5% every second to increase the converted enemy's DMG by <color=#ff3f3f>2000%</color>.",
+        "ConditionDesc": "Combined Stars of all Nanami models reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98101
+        ],
+        "EffectValid": [
+            "2|308"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 33,
+        "Name": "ACA - I",
+        "ChildComboId": 309,
+        "EffectDescription": "When a Construct pings a Basic Signal Orb, there is a <color=#ff3f3f>15%</color> chance to gain a Signal Orb of the same color.",
+        "ConditionDesc": "Combined Stars of ACA Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98090
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 34,
+        "Name": "ACA - II",
+        "ChildComboId": 309,
+        "EffectDescription": "When a Construct pings a Basic Signal Orb, there is a <color=#ff3f3f>20%</color> chance to gain a Signal Orb of the same color.",
+        "ConditionDesc": "Combined Stars of ACA Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98091
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 35,
+        "Name": "ACA - III",
+        "ChildComboId": 309,
+        "EffectDescription": "When a Construct pings a Basic Signal Orb, there is a <color=#ff3f3f>25%</color> chance to gain a Signal Orb of the same color.",
+        "ConditionDesc": "Combined Stars of ACA Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98092
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 36,
+        "Name": "ACA - IV",
+        "ChildComboId": 309,
+        "EffectDescription": "When a Construct pings a Basic Signal Orb, there is a <color=#ff3f3f>30%</color> chance to gain a Signal Orb of the same color.",
+        "ConditionDesc": "Combined Stars of ACA Constructs reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98093
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 37,
+        "Name": "WGAA - I",
+        "ChildComboId": 310,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>Transform into <color=#ff3f3f>a low-level </color> Prime to fight for <color=#ff3f3f>15s</color> (may affect visuals).",
+        "ConditionDesc": "Combined Stars of WGAA Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            93349,
+            93350.0
+        ],
+        "EffectValid": [
+            "3|218#232",
+            "3|218#232"
+        ],
+        "EffectTarget": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 38,
+        "Name": "WGAA - II",
+        "ChildComboId": 310,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>Transform into <color=#ff3f3f>a mid-level </color> Prime to fight for <color=#ff3f3f>20s</color> (may affect visuals).",
+        "ConditionDesc": "Combined Stars of WGAA Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            93349,
+            93351.0
+        ],
+        "EffectValid": [
+            "3|218#232",
+            "3|218#232"
+        ],
+        "EffectTarget": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 39,
+        "Name": "WGAA - III",
+        "ChildComboId": 310,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>Transform into <color=#ff3f3f>a high-level </color> Prime to fight for <color=#ff3f3f>25s</color> (may affect visuals).",
+        "ConditionDesc": "Combined Stars of WGAA Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            93349,
+            93352.0
+        ],
+        "EffectValid": [
+            "3|218#232",
+            "3|218#232"
+        ],
+        "EffectTarget": [
+            "1",
+            1.0
+        ]
+    },
+    {
+        "Id": 40,
+        "Name": "WGAA - IV",
+        "ChildComboId": 310,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>Transform into <color=#ff3f3f>an ultimate-level </color> Prime to fight for <color=#ff3f3f>30s</color> (may affect visuals).",
+        "ConditionDesc": "Combined Stars of WGAA Constructs reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            93349
+        ],
+        "EffectValid": [
+            "3|218#232"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 41,
+        "Name": "Cerberus - I",
+        "ChildComboId": 311,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]:</color> Whenever the current Construct takes DMG, permanently increase ATK by 2% (max <color=#ff3f3f>30%</color>).",
+        "ConditionDesc": "Combined Stars of Cerberus Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98094
+        ],
+        "EffectValid": [
+            "2|311"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 42,
+        "Name": "Cerberus - II",
+        "ChildComboId": 311,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]:</color> Whenever the current Construct takes DMG, permanently increase ATK by 2% (max <color=#ff3f3f>40%</color>).",
+        "ConditionDesc": "Combined Stars of Cerberus Constructs reach <color=#ff3f3f>15\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98095
+        ],
+        "EffectValid": [
+            "2|311"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 43,
+        "Name": "Cerberus - III",
+        "ChildComboId": 311,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]:</color> Whenever the current Construct takes DMG, permanently increase ATK by 2% (max <color=#ff3f3f>50%</color>).",
+        "ConditionDesc": "Combined Stars of Cerberus Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98096
+        ],
+        "EffectValid": [
+            "2|311"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 44,
+        "Name": "Cerberus - IV",
+        "ChildComboId": 311,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]:</color> Whenever the current Construct takes DMG, permanently increase ATK by 2% (max <color=#ff3f3f>60%</color>).",
+        "ConditionDesc": "Combined Stars of Cerberus Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98097
+        ],
+        "EffectValid": [
+            "2|311"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 45,
+        "Name": "Attacker - I",
+        "ChildComboId": 101,
+        "EffectDescription": "<color=#ff3f3f>[Attackers only]</color> When attacking, there is a <color=#ff3f3f>3%</color> chance to deal Extra DMG equal to current combo x100 (max 20k DMG).",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>5</color> Attacker Constructs reach <color=#ff3f3f>5\u2605</color>",
+        "ConditionLevel": 5,
+        "ConditionNum": 5,
+        "EffectId": [
+            98122
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|101"
+        ]
+    },
+    {
+        "Id": 46,
+        "Name": "Attacker - II",
+        "ChildComboId": 101,
+        "EffectDescription": "<color=#ff3f3f>[Attackers only]</color> When attacking, there is a <color=#ff3f3f>6%</color> chance to deal Extra DMG equal to current combo x100 (max 20k DMG).",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>5</color> Attacker Constructs reach <color=#ff3f3f>25\u2605</color>",
+        "ConditionLevel": 25,
+        "ConditionNum": 5,
+        "EffectId": [
+            98123
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|101"
+        ]
+    },
+    {
+        "Id": 47,
+        "Name": "Attacker - III",
+        "ChildComboId": 101,
+        "EffectDescription": "<color=#ff3f3f>[Attackers only]</color> When attacking, there is a <color=#ff3f3f>9%</color> chance to deal Extra DMG equal to current combo x100 (max 20k DMG).",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>5</color> Attacker Constructs reach <color=#ff3f3f>75\u2605</color>",
+        "ConditionLevel": 75,
+        "ConditionNum": 5,
+        "EffectId": [
+            98124
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|101"
+        ]
+    },
+    {
+        "Id": 48,
+        "Name": "Attacker - IV",
+        "ChildComboId": 101,
+        "EffectDescription": "<color=#ff3f3f>[Attackers only]</color> When attacking, there is a <color=#ff3f3f>12%</color> chance to deal Extra DMG equal to current combo x100 (max 20k DMG).",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>5</color> Attacker Constructs reach <color=#ff3f3f>135\u2605</color>",
+        "ConditionLevel": 135,
+        "ConditionNum": 5,
+        "EffectId": [
+            98125
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|101"
+        ]
+    },
+    {
+        "Id": 49,
+        "Name": "Tank - I",
+        "ChildComboId": 102,
+        "EffectDescription": "<color=#ff3f3f>[Tank-type Constructs only]</color> Gain <color=#ff3f3f>300</color> Shield (stackable) every 5s. It will explode after 15s, dealing DMG equal to the its value x3 to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Tank-type Constructs reach <color=#ff3f3f>5\u2605</color>",
+        "ConditionLevel": 5,
+        "ConditionNum": 5,
+        "EffectId": [
+            98126
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|102"
+        ]
+    },
+    {
+        "Id": 50,
+        "Name": "Tank - II",
+        "ChildComboId": 102,
+        "EffectDescription": "<color=#ff3f3f>[Tank-type Constructs only]</color> Gain <color=#ff3f3f>600</color> Shield (stackable) every 5s. It will explode after 15s, dealing DMG equal to the its value x3 to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Tank-type Constructs reach <color=#ff3f3f>25\u2605</color>",
+        "ConditionLevel": 25,
+        "ConditionNum": 5,
+        "EffectId": [
+            98127
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|102"
+        ]
+    },
+    {
+        "Id": 51,
+        "Name": "Tank - III",
+        "ChildComboId": 102,
+        "EffectDescription": "<color=#ff3f3f>[Tank-type Constructs only]</color> Gain <color=#ff3f3f>900</color> Shield (stackable) every 5s. It will explode after 15s, dealing DMG equal to the its value x3 to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Tank-type Constructs reach <color=#ff3f3f>75\u2605</color>",
+        "ConditionLevel": 75,
+        "ConditionNum": 5,
+        "EffectId": [
+            98128
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|102"
+        ]
+    },
+    {
+        "Id": 52,
+        "Name": "Tank - IV",
+        "ChildComboId": 102,
+        "EffectDescription": "<color=#ff3f3f>[Tank-type Constructs only]</color> Gain <color=#ff3f3f>1200</color> Shield (stackable) every 5s. It will explode after 15s, dealing DMG equal to the its value x3 to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Tank-type Constructs reach <color=#ff3f3f>135\u2605</color>",
+        "ConditionLevel": 135,
+        "ConditionNum": 5,
+        "EffectId": [
+            98129
+        ],
+        "EffectValid": [
+            "1"
+        ],
+        "EffectTarget": [
+            "2|102"
+        ]
+    },
+    {
+        "Id": 53,
+        "Name": "Support - I",
+        "ChildComboId": 103,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Support Construct]: </color> Each Construct not on the battlefield recovers <color=#ff3f3f>300</color> HP per second. Excess HP regen will heal the current Construct, and this Construct's excess HP regen will be converted to <color=#ff3f3f>200%</color> DMG, dealt to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Support-type Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 3,
+        "EffectId": [
+            98130
+        ],
+        "EffectValid": [
+            "2|103"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 54,
+        "Name": "Support - II",
+        "ChildComboId": 103,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Support Construct]: </color> Each Construct not on the battlefield recovers <color=#ff3f3f>400</color> HP per second. Excess HP regen will heal the current Construct, and this Construct's excess HP regen will be converted to <color=#ff3f3f>300%</color> DMG, dealt to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Support-type Constructs reach <color=#ff3f3f>3\u2605</color>",
+        "ConditionLevel": 15,
+        "ConditionNum": 3,
+        "EffectId": [
+            98131
+        ],
+        "EffectValid": [
+            "2|103"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 55,
+        "Name": "Support - III",
+        "ChildComboId": 103,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Support Construct]: </color> Each Construct not on the battlefield recovers <color=#ff3f3f>500</color> HP per second. Excess HP regen will heal the current Construct, and this Construct's excess HP regen will be converted to <color=#ff3f3f>400%</color> DMG, dealt to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Support-type Constructs reach <color=#ff3f3f>45\u2605</color>",
+        "ConditionLevel": 45,
+        "ConditionNum": 3,
+        "EffectId": [
+            98132
+        ],
+        "EffectValid": [
+            "2|103"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 56,
+        "Name": "Support - IV",
+        "ChildComboId": 103,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Support Construct]: </color> Each Construct not on the battlefield recovers <color=#ff3f3f>600</color> HP per second. Excess HP regen will heal the current Construct, and this Construct's excess HP regen will be converted to <color=#ff3f3f>500%</color> DMG, dealt to enemies within a 6m radius.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>3</color> Support-type Constructs reach <color=#ff3f3f>81\u2605</color>",
+        "ConditionLevel": 81,
+        "ConditionNum": 3,
+        "EffectId": [
+            98133
+        ],
+        "EffectValid": [
+            "2|103"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 57,
+        "Name": "Amplifier - I",
+        "ChildComboId": 104,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Amplifier Construct]:</color> When any Construct pings a Signal Orb, gain the following effect: Red - Increase DMG by 10% for 5s; Blue - Recover 1500 HP; Yellow - Gain Super Armor for 5s. CD: <color=#ff3f3f>8s</color>.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>2</color> Amplifier Constructs reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98118
+        ],
+        "EffectValid": [
+            "2|104"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 58,
+        "Name": "Amplifier - II",
+        "ChildComboId": 104,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Amplifier Construct]:</color> When any Construct pings a Signal Orb, gain the following effect: Red - Increase DMG by 10% for 5s; Blue - Recover 1500 HP; Yellow - Gain Super Armor for 5s. CD: <color=#ff3f3f>7s</color>.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>2</color> Amplifier Constructs reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98119
+        ],
+        "EffectValid": [
+            "2|104"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 59,
+        "Name": "Amplifier - III",
+        "ChildComboId": 104,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Amplifier Construct]:</color> When any Construct pings a Signal Orb, gain the following effect: Red - Increase DMG by 10% for 5s; Blue - Recover 1500 HP; Yellow - Gain Super Armor for 5s. CD: <color=#ff3f3f>6s</color>.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>2</color> Amplifier Constructs reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98120
+        ],
+        "EffectValid": [
+            "2|104"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 60,
+        "Name": "Amplifier - IV",
+        "ChildComboId": 104,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Amplifier Construct]:</color> When any Construct pings a Signal Orb, gain the following effect: Red - Increase DMG by 10% for 5s; Blue - Recover 1500 HP; Yellow - Gain Super Armor for 5s. CD: <color=#ff3f3f>5s</color>.",
+        "ConditionDesc": "Combined Stars of <color=#ff3f3f>2</color> Amplifier Constructs reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98121
+        ],
+        "EffectValid": [
+            "2|104"
+        ],
+        "EffectTarget": [
+            "1"
+        ]
+    },
+    {
+        "Id": 200,
+        "Name": "Heavy Blow - I",
+        "ChildComboId": 400,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> [ATK of Blast and Zero +30%; Signature DMG +25%] Cache the last Signature Move or Signal Orb skill cast. Upon casting the cached skill, increases DMG by <color=#ff3f3f>20%</color> for 2s (Signal Orb skills must be cast as a 3-Ping). CD: <color=#ff3f3f>6s</color>.",
+        "ConditionDesc": "Combined Stars of Zero and Blast reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98050,
+            98051.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|400"
+        ],
+        "EffectTarget": [
+            "2|400",
+            1.0
+        ]
+    },
+    {
+        "Id": 201,
+        "Name": "Heavy Blow - II",
+        "ChildComboId": 400,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> [ATK of Blast and Zero +30%; Signature DMG +25%] Cache the last Signature Move or Signal Orb skill cast. Upon casting the cached skill, increases DMG by <color=#ff3f3f>30%</color> for 2s (Signal Orb skills must be cast as a 3-Ping). CD: <color=#ff3f3f>5s</color>.",
+        "ConditionDesc": "Combined Stars of Zero and Blast reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98050,
+            98052.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|400"
+        ],
+        "EffectTarget": [
+            "2|400",
+            1.0
+        ]
+    },
+    {
+        "Id": 202,
+        "Name": "Heavy Blow - III",
+        "ChildComboId": 400,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> [ATK of Blast and Zero +30%; Signature DMG +25%] Cache the last Signature Move or Signal Orb skill cast. Upon casting the cached skill, increases DMG by <color=#ff3f3f>40%</color> for 2s (Signal Orb skills must be cast as a 3-Ping). CD: <color=#ff3f3f>4s</color>.",
+        "ConditionDesc": "Combined Stars of Zero and Blast reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98050,
+            98053.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|400"
+        ],
+        "EffectTarget": [
+            "2|400",
+            1.0
+        ]
+    },
+    {
+        "Id": 203,
+        "Name": "Heavy Blow - IV",
+        "ChildComboId": 400,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]:</color> [ATK of Blast and Zero +30%; Signature DMG +25%] Cache the last Signature Move or Signal Orb skill cast. Upon casting the cached skill, increases DMG by <color=#ff3f3f>50%</color> for 2s (Signal Orb skills must be cast as a 3-Ping). CD: <color=#ff3f3f>3s</color>.",
+        "ConditionDesc": "Combined Stars of Zero and Blast reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98050,
+            98054.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|400"
+        ],
+        "EffectTarget": [
+            "2|400",
+            1.0
+        ]
+    },
+    {
+        "Id": 204,
+        "Name": "Disintegration - I",
+        "ChildComboId": 401,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Bastion and Nightblade +40%; DMG from Yellow Orb +50%] When pinging Yellow Orbs, gain DMG Immunity for <color=#ff3f3f>0.5s</color>. Taking damage/backstabbing/landing a critical attack during so will inflict Disintegration on the enemy\u2014stuns and remove all resistance from the enemy for 1.5s. While Disintegration is in effect, DMG from Constructs <color=#ff3f3f>+100%</color>.",
+        "ConditionDesc": "Combined Stars of Bastion and Nightblade reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98055,
+            98056.0,
+            98057.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|401",
+            "2|401"
+        ],
+        "EffectTarget": [
+            "2|401",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 205,
+        "Name": "Disintegration - II",
+        "ChildComboId": 401,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Bastion and Nightblade +40%; DMG from Yellow Orb +50%] When pinging Yellow Orbs, gain DMG Immunity for <color=#ff3f3f>1s</color>. Taking damage/backstabbing/landing a critical attack during so will inflict Disintegration on the enemy\u2014stuns and remove all resistance from the enemy for 1.5s. While Disintegration is in effect, DMG from Constructs <color=#ff3f3f>+150%</color>.",
+        "ConditionDesc": "Combined Stars of Bastion and Nightblade reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98055,
+            98056.0,
+            98058.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|401",
+            "2|401"
+        ],
+        "EffectTarget": [
+            "2|401",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 206,
+        "Name": "Disintegration - III",
+        "ChildComboId": 401,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Bastion and Nightblade +40%; DMG from Yellow Orb +50%] When pinging Yellow Orbs, gain DMG Immunity for <color=#ff3f3f>1.5s</color>. Taking damage/backstabbing/landing a critical attack during so will inflict Disintegration on the enemy\u2014stuns and remove all resistance from the enemy for 1.5s. While Disintegration is in effect, DMG from Constructs <color=#ff3f3f>+200%</color>.",
+        "ConditionDesc": "Combined Stars of Bastion and Nightblade reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98055,
+            98056.0,
+            98059.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|401",
+            "2|401"
+        ],
+        "EffectTarget": [
+            "2|401",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 207,
+        "Name": "Disintegration - IV",
+        "ChildComboId": 401,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Bastion and Nightblade +40%; DMG from Yellow Orb +50%] When pinging Yellow Orbs, gain DMG Immunity for <color=#ff3f3f>2s</color>. Taking damage/backstabbing/landing a critical attack during so will inflict Disintegration on the enemy\u2014stuns and remove all resistance from the enemy for 1.5s. While Disintegration is in effect, DMG from Constructs <color=#ff3f3f>+250%</color>.",
+        "ConditionDesc": "Combined Stars of Bastion and Nightblade reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98055,
+            98056.0,
+            98060.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|401",
+            "2|401"
+        ],
+        "EffectTarget": [
+            "2|401",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 208,
+        "Name": "Ties - I",
+        "ChildComboId": 402,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>[ATK of Crimson Abyss and Laurel +20%; Special Orb DMG +20%] [Pinging Special Orbs charges +3 Energy; 100 to activate] Upon activation, consume 5 Energy every second to summon a random Construct onto the battlefield with invincibility, granting the current and summoned Constructs <color=#ff3f3f>20%</color> Extra DMG. When the summoned Construct deals DMG by assisting, the current Construct recovers <color=#ff3f3f>2%</color> HP. When the summoned Construct blocks damage for the current Construct, stuns the enemy for 1s (CD: 5s).",
+        "ConditionDesc": "Combined Stars of Crimson Abyss and Laurel reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98061,
+            98062.0
+        ],
+        "EffectValid": [
+            "1",
+            "3|216#226"
+        ],
+        "EffectTarget": [
+            "2|402",
+            1.0
+        ]
+    },
+    {
+        "Id": 209,
+        "Name": "Ties - II",
+        "ChildComboId": 402,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>[ATK of Crimson Abyss and Laurel +20%; Special Orb DMG +20%] [Pinging Special Orbs charges +3 Energy; 100 to activate] Upon activation, consume 5 Energy every second to summon a random Construct onto the battlefield with invincibility, granting the current and summoned Constructs <color=#ff3f3f>30%</color> Extra DMG. When the summoned Construct deals DMG by assisting, the current Construct recovers <color=#ff3f3f>4%</color> HP. When the summoned Construct blocks damage for the current Construct, stuns the enemy for 1s (CD: 5s).",
+        "ConditionDesc": "Combined Stars of Crimson Abyss and Laurel reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98061,
+            98063.0
+        ],
+        "EffectValid": [
+            "1",
+            "3|216#226"
+        ],
+        "EffectTarget": [
+            "2|402",
+            1.0
+        ]
+    },
+    {
+        "Id": 210,
+        "Name": "Ties - III",
+        "ChildComboId": 402,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>[ATK of Crimson Abyss and Laurel +20%; Special Orb DMG +20%] [Pinging Special Orbs charges +3 Energy; 100 to activate] Upon activation, consume 5 Energy every second to summon a random Construct onto the battlefield with invincibility, granting the current and summoned Constructs <color=#ff3f3f>40%</color> Extra DMG. When the summoned Construct deals DMG by assisting, the current Construct recovers <color=#ff3f3f>6%</color> HP. When the summoned Construct blocks damage for the current Construct, stuns the enemy for 1s (CD: 5s).",
+        "ConditionDesc": "Combined Stars of Crimson Abyss and Laurel reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98061,
+            98064.0
+        ],
+        "EffectValid": [
+            "1",
+            "3|216#226"
+        ],
+        "EffectTarget": [
+            "2|402",
+            1.0
+        ]
+    },
+    {
+        "Id": 211,
+        "Name": "Ties - IV",
+        "ChildComboId": 402,
+        "EffectDescription": "<color=#ff3f3f>[Deploy all Constructs with this Bond]: </color>[ATK of Crimson Abyss and Laurel +20%; Special Orb DMG +20%] [Pinging Special Orbs charges +3 Energy; 100 to activate] Upon activation, consume 5 Energy every second to summon a random Construct onto the battlefield with invincibility, granting the current and summoned Constructs <color=#ff3f3f>50%</color> Extra DMG. When the summoned Construct deals DMG by assisting, the current Construct recovers <color=#ff3f3f>8%</color> HP. When the summoned Construct blocks damage for the current Construct, stuns the enemy for 1s (CD: 5s).",
+        "ConditionDesc": "Combined Stars of Crimson Abyss and Laurel reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98061,
+            98065.0
+        ],
+        "EffectValid": [
+            "1",
+            "3|216#226"
+        ],
+        "EffectTarget": [
+            "2|402",
+            1.0
+        ]
+    },
+    {
+        "Id": 212,
+        "Name": "Thorn - I",
+        "ChildComboId": 403,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Rozen and XXI +50%; gain 1 revive] Activate anytime to cancel the above effect. Afterward, 5% HP is consumed every second for 1 random Signal Orb. Gain <color=#ff3f3f>3.5%</color> ATK for each 5% of HP missing. Upon taking damage, there is a <color=#ff3f3f>30%</color> chance to summon thorns that silence the enemy for 2s and deal DMG equal to 10 times the damage received (Automatically deactivates when there is insufficient HP).",
+        "ConditionDesc": "Combined Stars of Rozen and XXI reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98066,
+            98067.0,
+            98068.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|403",
+            "2|403"
+        ],
+        "EffectTarget": [
+            "2|403",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 213,
+        "Name": "Thorn - II",
+        "ChildComboId": 403,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Rozen and XXI +50%; gain 1 revive] Activate anytime to cancel the above effect. Afterward, 5% HP is consumed every second for 1 random Signal Orb. Gain <color=#ff3f3f>4%</color> ATK for each 5% of HP missing. Upon taking damage, there is a <color=#ff3f3f>40%</color> chance to summon thorns that silence the enemy for 2s and deal DMG equal to 10 times the damage received (Automatically deactivates when there is insufficient HP).",
+        "ConditionDesc": "Combined Stars of Rozen and XXI reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98066,
+            98067.0,
+            98069.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|403",
+            "2|403"
+        ],
+        "EffectTarget": [
+            "2|403",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 214,
+        "Name": "Thorn - III",
+        "ChildComboId": 403,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Rozen and XXI +50%; gain 1 revive] Activate anytime to cancel the above effect. Afterward, 5% HP is consumed every second for 1 random Signal Orb. Gain <color=#ff3f3f>4.5%</color> ATK for each 5% of HP missing. Upon taking damage, there is a <color=#ff3f3f>50%</color> chance to summon thorns that silence the enemy for 2s and deal DMG equal to 10 times the damage received (Automatically deactivates when there is insufficient HP).",
+        "ConditionDesc": "Combined Stars of Rozen and XXI reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98066,
+            98067.0,
+            98070.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|403",
+            "2|403"
+        ],
+        "EffectTarget": [
+            "2|403",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 215,
+        "Name": "Thorn - IV",
+        "ChildComboId": 403,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Rozen and XXI +50%; gain 1 revive] Activate anytime to cancel the above effect. Afterward, 5% HP is consumed every second for 1 random Signal Orb. Gain <color=#ff3f3f>5%</color> ATK for each 5% of HP missing. Upon taking damage, there is a <color=#ff3f3f>60%</color> chance to summon thorns that silence the enemy for 2s and deal DMG equal to 10 times the damage received (Automatically deactivates when there is insufficient HP).",
+        "ConditionDesc": "Combined Stars of Rozen and XXI reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98066,
+            98067.0,
+            98071.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|403",
+            "2|403"
+        ],
+        "EffectTarget": [
+            "2|403",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 216,
+        "Name": "Ingenious - I",
+        "ChildComboId": 404,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Ember and Pulse +40%; recover 3 Energy every second] Tap the button to command the drone to attack. Tap again to recall the drone to assist. Constructs gain <color=#ff3f3f>20%</color> ATK Bonus and recover 5% HP every second when the drone is assisting. The attacking drone deals <color=#ff3f3f>500%</color> DMG to the enemy and has a 7% chance to paralyze the enemy for 2s.",
+        "ConditionDesc": "Combined Stars of Ember and Pulse reach <color=#ff3f3f>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "EffectId": [
+            98072,
+            98073.0,
+            98074.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|404",
+            "2|404"
+        ],
+        "EffectTarget": [
+            "2|404",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 217,
+        "Name": "Ingenious - II",
+        "ChildComboId": 404,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Ember and Pulse +40%; recover 3 Energy every second] Tap the button to command the drone to attack. Tap again to recall the drone to assist. Constructs gain <color=#ff3f3f>25%</color> ATK Bonus and recover 5% HP every second when the drone is assisting. The attacking drone deals <color=#ff3f3f>600%</color> DMG to the enemy and has a 7% chance to paralyze the enemy for 2s.",
+        "ConditionDesc": "Combined Stars of Ember and Pulse reach <color=#ff3f3f>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 2,
+        "EffectId": [
+            98072,
+            98073.0,
+            98075.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|404",
+            "2|404"
+        ],
+        "EffectTarget": [
+            "2|404",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 218,
+        "Name": "Ingenious - III",
+        "ChildComboId": 404,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Ember and Pulse +40%; recover 3 Energy every second] Tap the button to command the drone to attack. Tap again to recall the drone to assist. Constructs gain <color=#ff3f3f>30%</color> ATK Bonus and recover 5% HP every second when the drone is assisting. The attacking drone deals <color=#ff3f3f>700%</color> DMG to the enemy and has a 7% chance to paralyze the enemy for 2s.",
+        "ConditionDesc": "Combined Stars of Ember and Pulse reach <color=#ff3f3f>30\u2605</color>",
+        "ConditionLevel": 30,
+        "ConditionNum": 2,
+        "EffectId": [
+            98072,
+            98073.0,
+            98076.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|404",
+            "2|404"
+        ],
+        "EffectTarget": [
+            "2|404",
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 219,
+        "Name": "Ingenious - IV",
+        "ChildComboId": 404,
+        "EffectDescription": "<color=#ff3f3f>[Deploy any Construct with this Bond]: </color>[ATK of Ember and Pulse +40%; recover 3 Energy every second] Tap the button to command the drone to attack. Tap again to recall the drone to assist. Constructs gain <color=#ff3f3f>35%</color> ATK Bonus and recover 5% HP every second when the drone is assisting. The attacking drone deals <color=#ff3f3f>800%</color> DMG to the enemy and has a 7% chance to paralyze the enemy for 2s.",
+        "ConditionDesc": "Combined Stars of Ember and Pulse reach <color=#ff3f3f>54\u2605</color>",
+        "ConditionLevel": 54,
+        "ConditionNum": 2,
+        "EffectId": [
+            98072,
+            98073.0,
+            98077.0
+        ],
+        "EffectValid": [
+            "1",
+            "2|404",
+            "2|404"
+        ],
+        "EffectTarget": [
+            "2|404",
+            1.0,
+            1.0
+        ]
+    }
+]

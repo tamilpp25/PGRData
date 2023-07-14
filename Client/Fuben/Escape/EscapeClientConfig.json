@@ -1,0 +1,99 @@
+[
+    {
+        "Key": "HelpKey",
+        "Comment": "Help Key",
+        "Values": [
+            "Escape"
+        ]
+    },
+    {
+        "Key": "RemainTimeColor",
+        "Comment": "Escape Time Color",
+        "Values": [
+            "#00FF22",
+            "#FFF100",
+            "#FF3500"
+        ]
+    },
+    {
+        "Key": "RemainTimeShowColor",
+        "Comment": "60s+: Green. 59-30s: Yellow. 29-0s: Red.",
+        "Values": [
+            "60",
+            "30",
+            "0"
+        ]
+    },
+    {
+        "Key": "ChapterSettleCondDesc",
+        "Comment": "Result calculation info displayed on the left",
+        "Values": [
+            "Remaining Time",
+            "Hits Taken",
+            "Traps Triggered"
+        ]
+    },
+    {
+        "Key": "ChapterSettleRemainTimeScore",
+        "Comment": "Stage Result Rating",
+        "Values": [
+            "80",
+            "75",
+            "70",
+            "65",
+            "60",
+            "1"
+        ]
+    },
+    {
+        "Key": "ChapterSettleRemainTimeGradeImgPath",
+        "Comment": "Image resources for stage result rankings",
+        "Values": [
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorS.png",
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorA.png",
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorB.png",
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorC.png",
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorD.png",
+            "Assets/Product/Texture/Image/UiSameColorGame/SameColorE.png"
+        ]
+    },
+    {
+        "Key": "ChapterSettleRemainTimeGrade",
+        "Comment": "Stage Result Rankings",
+        "Values": [
+            "S",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E"
+        ]
+    },
+    {
+        "Key": "DifficultyName",
+        "Comment": "Difficulty",
+        "Values": [
+            "Standard",
+            "Nightmare"
+        ]
+    },
+    {
+        "Key": "MainBg",
+        "Comment": "Main Interface Background",
+        "Values": [
+            "Assets/Product/Texture/Image/UiEscape/UiEscapeMainBg02.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscapeMainBg03.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscapeMainBg04.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscapeMainBg05.png",
+            "Assets/Product/Texture/Image/UiEscape/UiEscapeMainBg06.png"
+        ]
+    },
+    {
+        "Key": "FightSettleCondDesc",
+        "Comment": "Battle Results Info",
+        "Values": [
+            "Current Area",
+            "Current Points"
+        ]
+    }
+]

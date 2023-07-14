@@ -1,0 +1,3096 @@
+[
+    {
+        "Id": 1,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Instant Creation I: Fast Strike",
+        "Desc": "<color=#fa5826>Triggering a Basic Attack</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>1400% ATK</color>. Cooldown: <color=#fa5826>8s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240001
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 2,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Instant Creation II: Fast Strike",
+        "Desc": "<color=#fa5826>Triggering a Basic Attack</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>1700% ATK</color>. Cooldown: <color=#fa5826>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240002
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 3,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Instant Creation III: Fast Strike",
+        "Desc": "<color=#fa5826>Triggering a Basic Attack</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>1900% ATK</color>. Cooldown: <color=#fa5826>6s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240003
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 4,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Instant Creation IV: Fast Strike",
+        "Desc": "<color=#fa5826>Triggering a Basic Attack</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>2000% ATK</color>. Cooldown: <color=#fa5826>5s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240004
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 5,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Instant Creation I: Elimination",
+        "Desc": "<color=#fa5826>Triggering a 3-Ping</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>1750% ATK</color>. Cooldown: <color=#fa5826>10s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240005
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 6,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Instant Creation II: Elimination",
+        "Desc": "<color=#fa5826>Triggering a 3-Ping</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>2100% ATK</color>. Cooldown: <color=#fa5826>9s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240006
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 7,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Instant Creation III: Elimination",
+        "Desc": "<color=#fa5826>Triggering a 3-Ping</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>2350% ATK</color>. Cooldown: <color=#fa5826>8s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240007
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 8,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Instant Creation IV: Elimination",
+        "Desc": "<color=#fa5826>Triggering a 3-Ping</color> will summon a <color=#fa5826>Flame Burst</color>, dealing area Fire DMG equal to <color=#fa5826>2500% ATK</color>. Cooldown: <color=#fa5826>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240008
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 9,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Instant Creation I: Burst",
+        "Desc": "<color=#fa5826>Triggering the Signature Move</color> will summon <color=#fa5826>Flame Burst</color> 3 times in a row, each time dealing area Fire DMG equal to <color=#fa5826>880% ATK</color>. Cooldown: <color=#fa5826>15s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240009
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 10,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Instant Creation II: Burst",
+        "Desc": "<color=#fa5826>Triggering the Signature Move</color> will summon <color=#fa5826>Flame Burst</color> 3 times in a row, each time dealing area Fire DMG equal to <color=#fa5826>1050% ATK</color>. Cooldown: <color=#fa5826>14s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240010
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 11,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Instant Creation III: Burst",
+        "Desc": "<color=#fa5826>Triggering the Signature Move</color> will summon 3 <color=#fa5826>Flame Bursts</color> in a row, each dealing area Fire DMG equal to <color=#fa5826>1180% ATK</color>. Cooldown: <color=#fa5826>13s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240011
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 12,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Instant Creation IV: Burst",
+        "Desc": "<color=#fa5826>Triggering the Signature Move</color> will summon a <color=#fa5826>Flame Burst</color> 3 times in a row, each time dealing area Fire DMG equal to <color=#fa5826>1250% ATK</color>. Cooldown: <color=#fa5826>12s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240012
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 13,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Instant Creation I: Impeccability",
+        "Desc": "<color=#fa5826>Triggering Matrix</color> will summon a <color=#fa5826>Flame Burst</color>, dealing Fire DMG equal to <color=#fa5826>1000% ATK</color>. Cooldown: <color=#fa5826>8s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240013
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 14,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Instant Creation II: Impeccability",
+        "Desc": "<color=#fa5826>Triggering Matrix</color> will summon a <color=#fa5826>Flame Burst</color>, dealing Fire DMG equal to <color=#fa5826>1500% ATK</color>. Cooldown: <color=#fa5826>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240014
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 15,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Instant Creation III: Impeccability",
+        "Desc": "<color=#fa5826>Triggering Matrix</color> will summon a <color=#fa5826>Flame Burst</color>, dealing Fire DMG equal to <color=#fa5826>2000% ATK</color>. Cooldown: <color=#fa5826>6s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240015
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 16,
+        "PowerId": 1,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Instant Creation IV: Impeccability",
+        "Desc": "<color=#fa5826>Triggering Matrix</color> will summon a <color=#fa5826>Flame Burst</color>, dealing Fire DMG equal to <color=#fa5826>2500% ATK</color>. Cooldown: <color=#fa5826>5s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240016
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 17,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Skill Renovation",
+        "Desc": "All <color=#fa5826>Fire DMG dealt increases by 40%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240017
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 18,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Perception of Flame",
+        "Desc": "All characters' <color=#fa5826>Signature Move charging speed increases by 25%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240018
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 19,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Color Perception",
+        "Desc": "Character(s) on the field <color=#ff0000>lose 1% HP per second</color>, but all damage dealt by them will <color=#fa5826>come with additional 20% True DMG</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240019
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 20,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Color Combination",
+        "Desc": "<color=#fa5826>Flame Bursts</color> will leave <color=#fa5826>Magma</color> on the ground, dealing Fire DMG equal to <color=#fa5826>300% ATK</color> per second to the enemies within its range for 3s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240022
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 21,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Color Expansion",
+        "Desc": "<color=#fa5826>Flame Bursts'</color> effect radius <color=#fa5826>doubles</color> and their damage percentage increases by <color=#fa5826>30%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240020
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 22,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Instant Impression",
+        "Desc": "Upon summoned, a <color=#fa5826>Flame Burst</color> has a <color=#fa5826>30%</color> chance to summon another <color=#fa5826>Flame Burst</color>. (Effect triggered by the entry will not be triggered again.)",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240021
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 23,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Scientific Fusion",
+        "Desc": "Enemies hit by a <color=#fa5826>Flame Burst</color> will explode again in 2s, dealing damage equal to <color=#fa5826>400% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240024
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 24,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Revelation of Nature",
+        "Desc": "After the character gets hit by a <color=#fa5826>Flame Burst</color>, they will deal <color=#fa5826>20%</color> more damage for 5s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240025
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 25,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Natural Light Depiction",
+        "Desc": "All <color=#fa5826>Flame Bursts'</color> damage percentage increases by <color=#fa5826>25%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240026
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 26,
+        "PowerId": 1,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Subjective Depiction",
+        "Desc": "Upon hitting an enemy, a <color=#fa5826>Flame Burst</color> has a <color=#fa5826>25%</color> chance to reset all <color=#fa5826>Flame Burst</color> main ability cooldowns. Cooldown: 15s",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType6.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240023
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 27,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Arbitrary Memory I: Fast Strike",
+        "Desc": "<color=#168eec>Triggering a Basic Attack</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>9-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>840% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240027
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 28,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Arbitrary Memory II: Fast Strike",
+        "Desc": "<color=#168eec>Triggering a Basic Attack</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>8-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1020% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240028
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 29,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Arbitrary Memory III: Fast Strike",
+        "Desc": "<color=#168eec>Triggering a Basic Attack</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>7-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1140% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240029
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 30,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Arbitrary Memory IV: Fast Strike",
+        "Desc": "<color=#168eec>Triggering a Basic Attack</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>6-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1200% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240030
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 31,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Arbitrary Memory I: Elimination",
+        "Desc": "<color=#168eec>Triggering a 3-Ping</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>12-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1050% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240031
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 32,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Arbitrary Memory II: Elimination",
+        "Desc": "<color=#168eec>Triggering a 3-Ping</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>11-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1275% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240032
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 33,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Arbitrary Memory III: Elimination",
+        "Desc": "<color=#168eec>Triggering a 3-Ping</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>10-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1425% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240033
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 34,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Arbitrary Memory IV: Elimination",
+        "Desc": "<color=#168eec>Triggering a 3-Ping</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>9-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1500% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240034
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 35,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Arbitrary Memory I: Burst",
+        "Desc": "<color=#168eec>Triggering the Signature Move</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>15-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1600% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240035
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 36,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Arbitrary Memory II: Burst",
+        "Desc": "<color=#168eec>Triggering the Signature Move</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>14-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1920% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240036
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 37,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Arbitrary Memory III: Burst",
+        "Desc": "<color=#168eec>Triggering the Signature Move</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>13-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>2130% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240037
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 38,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Arbitrary Memory IV: Burst",
+        "Desc": "<color=#168eec>Triggering the Signature Move</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>12-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>2250% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240038
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 39,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Arbitrary Memory I: Impeccability",
+        "Desc": "<color=#168eec>Triggering Matrix</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>9-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1050% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240039
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 40,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Arbitrary Memory II: Impeccability",
+        "Desc": "<color=#168eec>Triggering Matrix</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>8-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1275% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240040
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 41,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Arbitrary Memory III: Impeccability",
+        "Desc": "<color=#168eec>Triggering Matrix</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>7-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1425% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240041
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 42,
+        "PowerId": 2,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Arbitrary Memory IV: Impeccability",
+        "Desc": "<color=#168eec>Triggering Matrix</color> will summon a 6-second <color=#168eec>Lightning Orb</color> with a <color=#168eec>6-second</color> cooldown. There can be up to 4 different <color=#168eec>Lightning Orbs</color> on the field at the same time. Each <color=#168eec>Lightning Orb</color> will channel a lightning strike at a nearby enemy every 3s, dealing Lightning DMG equal to <color=#168eec>1500% ATK</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240042
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 43,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Source of Liberation",
+        "Desc": "All <color=#168eec>Lightning DMG dealt increases by 40%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240043
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 44,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Broad Definition",
+        "Desc": "Dodge Gauge limit increases by <color=#168eec>30%</color>. Recovery speed increases by <color=#168eec>20%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240044
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 45,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "United Will",
+        "Desc": "All damage dealt within 10s after the Signature Move will come with <color=#168eec>20% additional True DMG</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240045
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 46,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Ease of Dispute",
+        "Desc": "All <color=#168eec>Lightning Orb</color> main ability cooldowns decrease by <color=#168eec>3s</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240046
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 47,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Structure Enhancement",
+        "Desc": "<color=#168eec>Lightning Orbs</color> will channel lightning strikes that <color=#168eec>deal damage to a significantly bigger area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240047
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 48,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Imagined Community",
+        "Desc": "Automatically gain <color=#168eec>Skill Orb(s)</color> once per 6s with the number changing with the number of the <color=#168eec>Lightning Orbs</color> on the field.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240048
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 49,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Self-Determination",
+        "Desc": "With <color=#168eec>Lightning Orb(s)</color> on the field, upon taking lethal damage, the character will <color=#168eec>keep 1 HP to stay alive, become invincible for 3s</color> at the cost of all <color=#168eec>Lightning Orb(s)</color>, and restore <color=#168eec>40%-100% HP</color> based on the number of Lightning Orb(s) consumed. Cooldown: 30s",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240049
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 50,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Call for Equity",
+        "Desc": "Upon disappearance, a <color=#168eec>Lightning Orb</color> could <color=#168eec>summon another</color> <color=#168eec>Lightning Orb</color> with the same effect.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240050
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 51,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Vague Impression",
+        "Desc": "Reduce <color=#168eec>QTE cooldown</color> based on the number of <color=#168eec>Lightning Orbs</color> on the field.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240051
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 52,
+        "PowerId": 2,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Consensus",
+        "Desc": "The interval of lightning strikes channeled by <color=#168eec>Lightning Orbs</color> <color=#168eec>decreases from 3s to 2s</color>. Each lightning strike has a 10% chance to stun the enemy.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType4.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240052
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 53,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "True Depiction I: Fast Strike",
+        "Desc": "<color=#13cfb7>Triggering a Basic Attack</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>20-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>200% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240053
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 54,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "True Depiction II: Fast Strike",
+        "Desc": "<color=#13cfb7>Triggering a Basic Attack</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>19-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>240% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240054
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 55,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "True Depiction III: Fast Strike",
+        "Desc": "<color=#13cfb7>Triggering a Basic Attack</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>18-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>270% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240055
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 56,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "True Depiction IV: Fast Strike",
+        "Desc": "<color=#13cfb7>Triggering a Basic Attack</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>17-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>285% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240056
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 57,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "True Depiction I: Elimination",
+        "Desc": "<color=#13cfb7>Triggering a 3-Ping</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>23-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>250% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240057
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 58,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "True Depiction II: Elimination",
+        "Desc": "<color=#13cfb7>Triggering a 3-Ping</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>22-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>305% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240058
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 59,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "True Depiction III: Elimination",
+        "Desc": "<color=#13cfb7>Triggering a 3-Ping</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>21-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>342% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240059
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 60,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "True Depiction IV: Elimination",
+        "Desc": "<color=#13cfb7>Triggering a 3-Ping</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>20-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>360% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240060
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 61,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "True Depiction I: Burst",
+        "Desc": "<color=#13cfb7>Triggering the Signature Move</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>28-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>370% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240061
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 62,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "True Depiction II: Burst",
+        "Desc": "<color=#13cfb7>Triggering the Signature Move</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>27-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>450% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240062
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 63,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "True Depiction III: Burst",
+        "Desc": "<color=#13cfb7>Triggering the Signature Move</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>26-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>500% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240063
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 64,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "True Depiction IV: Burst",
+        "Desc": "<color=#13cfb7>Triggering the Signature Move</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>25-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>530% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240064
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 65,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "True Depiction I: Impeccability",
+        "Desc": "<color=#13cfb7>Triggering Matrix</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>20-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>250% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240065
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 66,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "True Depiction II: Impeccability",
+        "Desc": "<color=#13cfb7>Triggering Matrix</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>19-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>305% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240066
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 67,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "True Depiction III: Impeccability",
+        "Desc": "<color=#13cfb7>Triggering Matrix</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>18-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>342% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240067
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 68,
+        "PowerId": 3,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "True Depiction IV: Impeccability",
+        "Desc": "<color=#13cfb7>Triggering Matrix</color> will summon a 10-second <color=#13cfb7>Ice Circle</color> with a <color=#13cfb7>17-second</color> cooldown. The enemies in the Ice Circle will be slowed down by 30% and receive Ice DMG equal to <color=#13cfb7>360% ATK</color> once every 1.5s. [There can be only one <color=#13cfb7>Ice Circle</color> on the field. The new <color=#13cfb7>Ice Circle</color> will inherit the remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240068
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 69,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Reality Repro",
+        "Desc": "All <color=#13cfb7>Ice DMG dealt increases by 40%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240069
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 70,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Dark Condemnation",
+        "Desc": "Upon taking a hit, become <color=#13cfb7>immune to its damage</color> and directly <color=#13cfb7>freeze your enemy for 5s</color>. Cooldown: 30s. [Frozen enemies will be unfrozen upon receiving any damage. During the next 10s, enemies will receive 5% more damage and can only be unfrozen every 10s.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240070
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 71,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Portrayal of Collapse",
+        "Desc": "The character <color=#ff0000>receives 15% damage</color>. And the character's <color=#13cfb7>3-Ping damage will freeze the enemy</color>. The freezing effect and the Resistance Reduction effect will <color=#13cfb7>last permanently</color>. [Frozen enemies will be unfrozen upon receiving any damage. During the next 10s, enemies will lose 5% all stat Resistances and can only be unfrozen every 10s.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240071
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 72,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Natural Beauty",
+        "Desc": "A maximum of <color=#13cfb7>2</color> <color=#13cfb7>Ice Circles</color> can be summoned. All skill cooldowns <color=#13cfb7>decrease by 5s</color>. Ice Circles' damage effects can be <color=#13cfb7>stacked</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240072
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 73,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Touch of Nature",
+        "Desc": "<color=#13cfb7>Ice Circle(s)</color> summoned will explode in the center every 3s, dealing <color=#13cfb7>150% Ice DMG</color> to all enemies within and <color=#13cfb7>directly freeze</color> them. [Frozen enemies will be unfrozen upon receiving any damage. During the next 10s, enemies will receive 5% more damage and can only be unfrozen every 10s.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240073
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 74,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Natural Integrity",
+        "Desc": "The character will have a <color=#13cfb7>permanent Ice Circle</color> upon owning any Ice Circle main ability. [This Ice Circle will not be counted toward the Ice Circle summon quota and will move around with the character.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240074
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 75,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "True Nature",
+        "Desc": "Each <color=#13cfb7>Ice Circle</color> Ice DMG hit will be triggered at the rate of once per <color=#13cfb7>second</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240075
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 76,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Empathy of Fate",
+        "Desc": "The character gains <color=#13cfb7>20%</color> more DEF and <color=#13cfb7>Super Armor</color> when fighting in the <color=#13cfb7>Ice Circle</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240076
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 77,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Bitter Lament",
+        "Desc": "Gain <color=#13cfb7>10%-25%</color> DMG Buff based on the number of enemies in the <color=#13cfb7>Ice Circle(s)</color>. The DMG Buff will be 25% when there are 4 Ice Circles.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240077
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 78,
+        "PowerId": 3,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Distinctive Echo",
+        "Desc": "Each <color=#13cfb7>Ice Circle</color> will drop <color=#13cfb7>three Signal Orbs</color> upon disappearance.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType5.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240078
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 79,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Great Fantasy I: Fast Strike",
+        "Desc": "<color=#f13c3c>Triggering a Basic Attack</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>1750% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240079
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 80,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Great Fantasy II: Fast Strike",
+        "Desc": "<color=#f13c3c>Triggering a Basic Attack</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2150% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>6s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240080
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 81,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Great Fantasy III: Fast Strike",
+        "Desc": "<color=#f13c3c>Triggering a Basic Attack</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2375% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>5s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240081
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 82,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Great Fantasy IV: Fast Strike",
+        "Desc": "<color=#f13c3c>Triggering a Basic Attack</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2500% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>4s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240082
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 83,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Great Fantasy I: Elimination",
+        "Desc": "<color=#f13c3c>Triggering a 3-Ping</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2100% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>9s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240083
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 84,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Great Fantasy II: Elimination",
+        "Desc": "<color=#f13c3c>Triggering a 3-Ping</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2550% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>8s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240084
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 85,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Great Fantasy III: Elimination",
+        "Desc": "<color=#f13c3c>Triggering a 3-Ping</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2850% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240085
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 86,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Great Fantasy IV: Elimination",
+        "Desc": "<color=#f13c3c>Triggering a 3-Ping</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>3000% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>6s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240086
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 87,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Great Fantasy I: Burst",
+        "Desc": "<color=#f13c3c>Triggering the Signature Move</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>3200% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>12s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240087
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 88,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Great Fantasy II: Burst",
+        "Desc": "<color=#f13c3c>Triggering the Signature Move</color> will summon <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>3900% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>11s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240088
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 89,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Great Fantasy III: Burst",
+        "Desc": "<color=#f13c3c>Triggering the Signature Move</color> will summon <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>4370% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>10s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240089
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 90,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Great Fantasy IV: Burst",
+        "Desc": "<color=#f13c3c>Triggering the Signature Move</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>4600% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>9s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240090
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 91,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Great Fantasy I: Impeccability",
+        "Desc": "<color=#f13c3c>Triggering Matrix</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2100% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>7s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240091
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 92,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Great Fantasy II: Impeccability",
+        "Desc": "<color=#f13c3c>Triggering Matrix</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2550% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>6s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240092
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 93,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Great Fantasy III: Impeccability",
+        "Desc": "<color=#f13c3c>Triggering Matrix</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>2850% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>5s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240093
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 94,
+        "PowerId": 4,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Great Fantasy IV: Impeccability",
+        "Desc": "<color=#f13c3c>Triggering Matrix</color> will summon a <color=#f13c3c>Sharp Lance</color> to attack. The <color=#f13c3c>Sharp Lance</color> will deal Physical DMG equal to <color=#f13c3c>3000% ATK</color>, which will cause a sector shockwave backward upon hitting an enemy and deal damage equal to 25% of the hit damage. Cooldown: <color=#f13c3c>4s</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240094
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 95,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Passionate Expression",
+        "Desc": "All <color=#f13c3c>Physical DMG dealt increases by 40%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240095
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 96,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Dramatic Portrayal",
+        "Desc": "Any character will <color=#f13c3c>gain an additional set of Skill Orbs</color> upon triggering Matrix.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240096
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 97,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Outburst of Passion",
+        "Desc": "All characters <color=#ff0000>lose 30% Dodge Gauge</color> and gain <color=#f13c3c>50% Dodge recovery speed</color>. They will also deal <color=#f13c3c>8% bonus True DMG</color> for 12s every after they dodge. The effect can be stacked up to 3 times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240097
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 98,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Enlightenment Rebound",
+        "Desc": "If a <color=#f13c3c>Sharp Lance</color> deals damage to 2 or more enemies, the subsequent 3 <color=#f13c3c>Sharp Lance</color> hits will deal <color=#f13c3c>15% more damage</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240098
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 99,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Depiction of History",
+        "Desc": "A <color=#f13c3c>Sharp Lance</color> attack will inflict 1 stack of Bleed on the enemy on hit. Each stack will cause the enemy to lose HP equal to <color=#f13c3c>20% Physical DMG</color> per second and <color=#f13c3c>receive 2% more damage</color>. The effect can be stacked up to 5 times and lasts 8s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240099
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 100,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Intuitive Imagination",
+        "Desc": "<color=#f13c3c>Sharp Lances</color> have <color=#f13c3c>more</color> styles and a <color=#f13c3c>bigger</color> range, and produce sector shockwaves of a <color=#f13c3c>bigger</color> range. All damage dealt by <color=#f13c3c>Sharp Lances</color> increases by <color=#f13c3c>30%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240100
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 101,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Hymn of Nature",
+        "Desc": "The target hit by <color=#f13c3c>Sharp Lance</color>'s single-target damage will increase all subsequent damage dealt by <color=#f13c3c>Sharp Lance</color> by <color=#f13c3c>2%</color>. It lasts permanently and can be stacked up to 8 times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240101
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 102,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Powerful Expression",
+        "Desc": "Every time when Matrix is triggered, reduce all <color=#f13c3c>Sharp Lance</color> skill cooldowns by <color=#f13c3c>2s</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240102
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 103,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Fabulous Depiction",
+        "Desc": "Each <color=#f13c3c>Sharp Lance</color> has a <color=#f13c3c>30%</color> chance to copy and activate the same <color=#f13c3c>Sharp Lance</color> on hit. The <color=#f13c3c>Sharp Lance</color> copied will only be activated once and will not be affected by the effect again.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240103
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 104,
+        "PowerId": 4,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Blue Nostalgia",
+        "Desc": "<color=#f13c3c>Sharp Lances</color> will have a slight <color=#f13c3c>enemy-pulling effect</color> upon hitting an enemy.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType3.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240104
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 105,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Eternal Pull I: Fast Strike",
+        "Desc": "<color=#cc68c1>Triggering a Basic Attack</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>4-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>400% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240105
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 106,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Eternal Pull II: Fast Strike",
+        "Desc": "<color=#cc68c1>Triggering a Basic Attack</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>4-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>420% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240106
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 107,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Eternal Pull III: Fast Strike",
+        "Desc": "<color=#cc68c1>Triggering a Basic Attack</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>435% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240107
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 108,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Eternal Pull IV: Fast Strike",
+        "Desc": "<color=#cc68c1>Triggering a Basic Attack</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>450% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240108
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 109,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Eternal Pull I: Elimination",
+        "Desc": "<color=#cc68c1>Triggering a 3-Ping</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 14s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>420% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240109
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 110,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Eternal Pull II: Elimination",
+        "Desc": "<color=#cc68c1>Triggering a 3-Ping</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 14s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>450% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240110
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 111,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Eternal Pull III: Elimination",
+        "Desc": "<color=#cc68c1>Triggering a 3-Ping</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>6-second</color> Black Hole with a cooldown of 14s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>485% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240111
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 112,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Eternal Pull IV: Elimination",
+        "Desc": "<color=#cc68c1>Triggering a 3-Ping</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>6-second</color> Black Hole with a cooldown of 14s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>500% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240112
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 113,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Eternal Pull I: Burst",
+        "Desc": "<color=#cc68c1>Triggering the Signature Move</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>7-second</color> Black Hole with a cooldown of 16s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>450% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240113
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 114,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Eternal Pull II: Burst",
+        "Desc": "<color=#cc68c1>Triggering the Signature Move</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>7-second</color> Black Hole with a cooldown of 16s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>490% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240114
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 115,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Eternal Pull III: Burst",
+        "Desc": "<color=#cc68c1>Triggering the Signature Move</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating an <color=#cc68c1>8-second</color> Black Hole with a cooldown of 16s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>525% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240115
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 116,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Eternal Pull IV: Burst",
+        "Desc": "<color=#cc68c1>Triggering the Signature Move</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating an <color=#cc68c1>8-second</color> Black Hole with a cooldown of 16s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>550% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240116
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 117,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Eternal Pull I: Impeccability",
+        "Desc": "<color=#cc68c1>Triggering Matrix</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>420% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240117
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 118,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Eternal Pull II: Impeccability",
+        "Desc": "<color=#cc68c1>Triggering Matrix</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>5-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>485% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240118
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 119,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Eternal Pull III: Impeccability",
+        "Desc": "<color=#cc68c1>Triggering Matrix</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>6-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>500% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240119
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 120,
+        "PowerId": 5,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Eternal Pull IV: Impeccability",
+        "Desc": "<color=#cc68c1>Triggering Matrix</color> will summon <color=#cc68c1>Black Hole</color> Pull, generating a <color=#cc68c1>6-second</color> Black Hole with a cooldown of 10s. The <color=#cc68c1>Black Hole</color> will attract nearby enemies and deal Dark DMG equal to <color=#cc68c1>450% ATK</color> once per second to enemies close to the center of the <color=#cc68c1>Black Hole</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240120
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 121,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Inner Search",
+        "Desc": "All <color=#cc68c1>Dark DMG dealt increases by 40%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240121
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 122,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Disgust of Noise",
+        "Desc": "Each ability acquired will grant a <color=#cc68c1>2.5%</color> DEF Buff. The effect can be stacked up to 15 times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240122
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 123,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Moment of Abandonment",
+        "Desc": "The character deals <color=#ff0000>10% less damage</color> but gain <color=#cc68c1>2% bonus Extra True DMG</color> for <color=#cc68c1>every 3-Ping</color>. The effect lasts permanently and can be stacked unlimited times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240123
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 124,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Wild Expression",
+        "Desc": "Units within the range of a <color=#cc68c1>Black Hole</color> will lose <color=#cc68c1>3%</color> all Resistances per second. The effect can be stacked up to 5 times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240124
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 125,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Revelation of Evil",
+        "Desc": "Upon the disappearance of the existing <color=#cc68c1>Black Hole</color>, deal Dark DMG equal to <color=#cc68c1>250% ATK + remaining effect time x50%</color> to a large area.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240125
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 126,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Twisted Reality",
+        "Desc": "The attraction/damage radius of <color=#cc68c1>Black Holes</color> doubles and <color=#cc68c1>all damage dealt increases by 30%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240126
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 127,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Silent Monologue",
+        "Desc": "Upon the expiration and disappearance of a <color=#cc68c1>Black Hole</color>, it has a <color=#cc68c1>30% chance</color> to summon a new <color=#cc68c1>Black Hole</color> directly on the spot.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240127
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 128,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Passion Extension",
+        "Desc": "All <color=#cc68c1>Black Holes</color> last <color=#cc68c1>+1s</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240128
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 129,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Deconstruction",
+        "Desc": "Enemies within the range of a <color=#cc68c1>Black Hole</color> will deal <color=#cc68c1>20%</color> less damage for 3s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240129
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 130,
+        "PowerId": 5,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Blurry Boundary",
+        "Desc": "When a <color=#cc68c1>Black Hole</color> deals damage to 2 or more targets, it has a <color=#cc68c1>20% chance</color> to reduce QTE and switch cooldown by 1s. Cooldown: 3s",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType7.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240130
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 131,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Monarch Power I: Fast Strike",
+        "Desc": "<color=#ff8d1e>Triggering a Basic Attack</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge once [only charge once when the Energy Entity already exists] with a <color=#ff8d1e>3-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240131
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 132,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Monarch Power II: Fast Strike",
+        "Desc": "<color=#ff8d1e>Triggering a Basic Attack</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge once [only charge once when the Energy Entity already exists] with a <color=#ff8d1e>2-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240132
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 133,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Monarch Power III: Fast Strike",
+        "Desc": "<color=#ff8d1e>Triggering a Basic Attack</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge once [only charge once when the Energy Entity already exists] with a <color=#ff8d1e>1.5-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240133
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 134,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Monarch Power IV: Fast Strike",
+        "Desc": "<color=#ff8d1e>Triggering a Basic Attack</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge once [only charge once when the Energy Entity already exists] with a <color=#ff8d1e>1-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240134
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 135,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Monarch Power I: Elimination",
+        "Desc": "<color=#ff8d1e>Triggering a 3-Ping</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>4-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240135
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 136,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Monarch Power II: Elimination",
+        "Desc": "<color=#ff8d1e>Triggering a 3-Ping</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>3-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240136
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 137,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Monarch Power III: Elimination",
+        "Desc": "<color=#ff8d1e>Triggering a 3-Ping</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>2-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240137
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 138,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Monarch Power IV: Elimination",
+        "Desc": "<color=#ff8d1e>Triggering a 3-Ping</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>1.5-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240138
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 139,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Monarch Power I: Burst",
+        "Desc": "<color=#ff8d1e>Triggering the Signature Move</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge 5 times [only charge 5 times when the Energy Entity already exists] with a <color=#ff8d1e>6-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240139
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 140,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Monarch Power II: Burst",
+        "Desc": "<color=#ff8d1e>Triggering the Signature Move</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge 5 times [only charge 5 times when the Energy Entity already exists] with a <color=#ff8d1e>5-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240140
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 141,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Monarch Power III: Burst",
+        "Desc": "<color=#ff8d1e>Triggering the Signature Move</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge 5 times [only charge 5 times when the Energy Entity already exists] with a <color=#ff8d1e>4-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240141
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 142,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Monarch Power IV: Burst",
+        "Desc": "<color=#ff8d1e>Triggering the Signature Move</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge 5 times [only charge 5 times when the Energy Entity already exists] with a <color=#ff8d1e>3-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240142
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 143,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Monarch Power I: Impeccability",
+        "Desc": "<color=#ff8d1e>Triggering Matrix</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>3-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240143
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 144,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Monarch Power II: Impeccability",
+        "Desc": "<color=#ff8d1e>Triggering Matrix</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>2-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240144
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 145,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Monarch Power III: Impeccability",
+        "Desc": "<color=#ff8d1e>Triggering Matrix</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>1.5-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240145
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 146,
+        "PowerId": 6,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Monarch Power IV: Impeccability",
+        "Desc": "<color=#ff8d1e>Triggering Matrix</color> will summon an <color=#ff8d1e>Energy Entity</color> and charge twice [only charge twice when the Energy Entity already exists] with a <color=#ff8d1e>1-second</color> cooldown. [After 10 stacks charged, the next charging action will consume the <color=#ff8d1e>Energy Entity</color> and trigger a 4-second <color=#ff8d1e>Energy Shock</color>, dealing True DMG equal to <color=#ff8d1e>800% ATK</color> every second.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240146
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 147,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Hymn of Rationality",
+        "Desc": "Character deals <color=#ff8d1e>extra 15% Final DMG</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240147
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 148,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Role Model",
+        "Desc": "At the beginning of each battle, gain a <color=#ff8d1e>40% Final DMG Buff</color>. The effect lasts 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240148
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 149,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Support for Centralization",
+        "Desc": "All members' <color=#ff0000>initial HP is 50%</color> and gain <color=#ff8d1e>Ture DMG bonus effects</color> based on their current HP. <color=#ff8d1e>Every 1% HP loss will grant 0.8% more Final DMG Buff</color>. And upon taking lethal damage, the character will be immune to death, all members will have their HP fully restored, and all the effects of the ability will not be activated in the rest of the battle.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240149
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 150,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Compromised Absorption",
+        "Desc": "When there is an <color=#ff8d1e>Energy Entity</color> on the field, it will automatically <color=#ff8d1e>charge once</color> every 3s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240150
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 151,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Creation Specification",
+        "Desc": "Every time the <color=#ff8d1e>Energy Shock</color> deals damage, it will charge the <color=#ff8d1e>Energy Entity</color> <color=#ff8d1e>once</color>. Cooldown: 3s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240151
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 152,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Pure Metamorphosis",
+        "Desc": "Every time when the <color=#ff8d1e>Energy Entity</color> gets charged, it could <color=#ff8d1e>directly trigger light orb collision</color>. It has a 3-second cooldown, but a maximum of 15 energy can be charged.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240152
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 153,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Historical Reference",
+        "Desc": "Each <color=#ff8d1e>Energy Shock</color> will reduce enemies' <color=#ff8d1e>all stat Resistances by 3%</color>. The effect can be stacked up to 10 times and lasts permanently.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240153
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 154,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Brilliant Absorption",
+        "Desc": "Every time the <color=#ff8d1e>Energy Entity</color> charges, the character will deal <color=#ff8d1e>3% more Final DMG</color>. The effect can be stacked up to 8 times with each stack lasting 5s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240154
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 155,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Classic Advocate",
+        "Desc": "The excess energy charged every time for the <color=#ff8d1e>Energy Entity</color> will be <color=#ff8d1e>directly counted</color> toward the next <color=#ff8d1e>Energy Entity</color> summoned.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240155
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 156,
+        "PowerId": 6,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Genre Portrayal",
+        "Desc": "The <color=#ff8d1e>Energy Shock</color> lasts <color=#ff8d1e>6s</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType2.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240156
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 157,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Rebellious Collapse I: Fast Strike",
+        "Desc": "<color=#8fcf06>Triggering a Basic Attack</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>490%</color> True DMG every 1.5s. Lasts 4.5s with a <color=#8fcf06>10s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240157
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 158,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Rebellious Collapse II: Fast Strike",
+        "Desc": "<color=#8fcf06>Triggering a Basic Attack</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>595%</color> True DMG every 1.5s. Lasts 4.5s with a <color=#8fcf06>9s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240158
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 159,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Rebellious Collapse III: Fast Strike",
+        "Desc": "<color=#8fcf06>Triggering a Basic Attack</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>665%</color> True DMG every 1.5s. Lasts 4.5s with an <color=#8fcf06>8s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240159
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 160,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 1.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Rebellious Collapse IV: Fast Strike",
+        "Desc": "<color=#8fcf06>Triggering a Basic Attack</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>700%</color> True DMG every 1.5s. Lasts 4.5s with a <color=#8fcf06>7s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240160
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 161,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Rebellious Collapse I: Elimination",
+        "Desc": "<color=#8fcf06>Triggering a 3-Ping</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>525%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>12s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240161
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 162,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Rebellious Collapse II: Elimination",
+        "Desc": "<color=#8fcf06>Triggering a 3-Ping</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>640%</color> True DMG every 1.5s. Lasts 6s with an <color=#8fcf06>11s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240162
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 163,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Rebellious Collapse III: Elimination",
+        "Desc": "<color=#8fcf06>Triggering a 3-Ping</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>710%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>10s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240163
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 164,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 2.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Rebellious Collapse IV: Elimination",
+        "Desc": "<color=#8fcf06>Triggering a 3-Ping</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>750%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>9s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240164
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 165,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Rebellious Collapse I: Burst",
+        "Desc": "<color=#8fcf06>Triggering the Signature Move</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>610%</color> True DMG every 1.5s. Lasts 9s with a <color=#8fcf06>15s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240165
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 166,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Rebellious Collapse II: Burst",
+        "Desc": "<color=#8fcf06>Triggering the Signature Move</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>740%</color> True DMG every 1.5s. Lasts 9s with a <color=#8fcf06>14s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240166
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 167,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Rebellious Collapse III: Burst",
+        "Desc": "<color=#8fcf06>Triggering the Signature Move</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>825%</color> True DMG every 1.5s. Lasts 9s with a <color=#8fcf06>13s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240167
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 168,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 3.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Rebellious Collapse IV: Burst",
+        "Desc": "<color=#8fcf06>Triggering the Signature Move</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>870%</color> True DMG every 1.5s. Lasts 9s with a <color=#8fcf06>12s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240168
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 169,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 1.0,
+        "Lv": 5.0,
+        "FightAbility": 200,
+        "Name": "Rebellious Collapse I: Impeccability",
+        "Desc": "<color=#8fcf06>Triggering Matrix</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>525%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>10s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240169
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 170,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 2.0,
+        "Lv": 10.0,
+        "FightAbility": 250,
+        "Name": "Rebellious Collapse II: Impeccability",
+        "Desc": "<color=#8fcf06>Triggering Matrix</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>640%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>9s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240170
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 171,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 3.0,
+        "Lv": 15.0,
+        "FightAbility": 300,
+        "Name": "Rebellious Collapse III: Impeccability",
+        "Desc": "<color=#8fcf06>Triggering Matrix</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>710%</color> True DMG every 1.5s. Lasts 6s with an <color=#8fcf06>8s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240171
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 172,
+        "PowerId": 7,
+        "Type": 1,
+        "Pos": 4.0,
+        "Quality": 4.0,
+        "Lv": 18.0,
+        "FightAbility": 350,
+        "Name": "Rebellious Collapse IV: Impeccability",
+        "Desc": "<color=#8fcf06>Triggering Matrix</color> will summon a <color=#8fcf06>Levi-Gun</color> that hunts for enemies and deals <color=#8fcf06>750%</color> True DMG every 1.5s. Lasts 6s with a <color=#8fcf06>7s</color> cooldown. [No more than two <color=#8fcf06>Levi-Guns</color> can exist at the same time. When you summon the third <color=#8fcf06>Levi-Gun</color>, it will replace the first one and inherit its remaining effect time.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240172
+        ],
+        "SkillWeight": 115
+    },
+    {
+        "Id": 173,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Break of Balance",
+        "Desc": "Character <color=#8fcf06>Base ATK increases by 45%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240173
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 174,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Powerful Performance",
+        "Desc": "Character QTE/switch cooldown <color=#8fcf06>decreases by 30%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240174
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 175,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Passionate Creation",
+        "Desc": "Gain an additional <color=#8fcf06>permanent <color=#8fcf06>Levi-Gun</color></color>. [The additional <color=#8fcf06>Levi-Gun</color> will not be restricted by the Levi-Gun number limit or be replaced and will last permanently.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240175
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 176,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Soul Vibration",
+        "Desc": "Every time when a <color=#8fcf06>Levi-Gun</color> hits an enemy, it will permanently reduce their <color=#8fcf06>all stat Resistances by 2%</color>. It lasts permanently and can be stacked up to 10 times.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240176
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 177,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 200,
+        "Name": "Rebellious Spirit",
+        "Desc": "A <color=#8fcf06>Levi-Gun</color> will randomly <color=#8fcf06>copy a main ability</color> and cast it every after dealing damage 10 times. [The current <color=#8fcf06>Levi-Gun</color> ability cannot be copied again.]",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240177
+        ],
+        "SkillWeight": 20
+    },
+    {
+        "Id": 178,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Passion Overload",
+        "Desc": "Co-existing <color=#8fcf06>Levi-Guns</color> <color=#8fcf06>+1</color>. <color=#8fcf06>Levi-Gun</color> attack frequency increases to <color=#8fcf06>once per second</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240178
+        ],
+        "SkillWeight": 40
+    },
+    {
+        "Id": 179,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Space Enhancement",
+        "Desc": "Every time when a <color=#8fcf06>Levi-Gun</color> hits an enemy, it has a <color=#8fcf06>20%</color> chance to trigger Explosion DMG and deal equal amount of True DMG.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": 1.0,
+        "FightEventId": [
+            2240179
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 180,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Soul of Movement",
+        "Desc": "Each <color=#8fcf06>Levi-Gun</color> on the field will increase player's Base ATK by <color=#8fcf06>15%</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240180
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 181,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 100,
+        "Name": "Overflowing Imagination",
+        "Desc": "All <color=#8fcf06>Levi-Guns</color> last <color=#8fcf06>50%</color> time longer.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240181
+        ],
+        "SkillWeight": 70
+    },
+    {
+        "Id": 182,
+        "PowerId": 7,
+        "Type": 2,
+        "Pos": null,
+        "Quality": null,
+        "Lv": null,
+        "FightAbility": 150,
+        "Name": "Comprehensive Inscription",
+        "Desc": "Every time when a <color=#8fcf06>Levi-Gun</color> hits an enemy, it has a <color=#8fcf06>40%</color> chance to reduce all active skill cooldowns by 1s.",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre/UiTheatreBuffType1.png",
+        "NeedPowerFavor": null,
+        "FightEventId": [
+            2240182
+        ],
+        "SkillWeight": 40
+    }
+]

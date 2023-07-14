@@ -1,0 +1,3058 @@
+[
+    {
+        "Id": 1010001,
+        "FilePoolId": 5001,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 1
+    },
+    {
+        "Id": 1010101,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010201,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010202,
+        "FilePoolId": 20701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            1010201.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010203,
+        "FilePoolId": 20101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            1010202.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010301,
+        "FilePoolId": 30501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010302,
+        "FilePoolId": 30502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010401,
+        "FilePoolId": 40701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1010501,
+        "FilePoolId": 10701,
+        "Condition": [
+            31200.0,
+            31205.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 112
+    },
+    {
+        "Id": 1020101,
+        "FilePoolId": 40401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 302
+    },
+    {
+        "Id": 1020201,
+        "FilePoolId": 40401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 303
+    },
+    {
+        "Id": 1020301,
+        "FilePoolId": 40201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 1030101,
+        "FilePoolId": 10701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 202
+    },
+    {
+        "Id": 1030102,
+        "FilePoolId": 10701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1030103,
+        "FilePoolId": 120602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 3
+    },
+    {
+        "Id": 2010001,
+        "FilePoolId": 5003,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010002,
+        "FilePoolId": 50702,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2010001.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010101,
+        "FilePoolId": 50501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010201,
+        "FilePoolId": 50602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010202,
+        "FilePoolId": 50602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010203,
+        "FilePoolId": 50603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010204,
+        "FilePoolId": 50603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010301,
+        "FilePoolId": 50701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010302,
+        "FilePoolId": 50701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2010301.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010303,
+        "FilePoolId": 50701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2010302.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010304,
+        "FilePoolId": 50701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2010303.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010401,
+        "FilePoolId": 50601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2010501,
+        "FilePoolId": 50401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2020101,
+        "FilePoolId": 50604,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 3010101,
+        "FilePoolId": 70701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3010102,
+        "FilePoolId": 70701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3010103,
+        "FilePoolId": 110301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3020101,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 302
+    },
+    {
+        "Id": 4010001,
+        "FilePoolId": 5002,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 201
+    },
+    {
+        "Id": 4020101,
+        "FilePoolId": 60601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 304
+    },
+    {
+        "Id": 5010101,
+        "FilePoolId": 80201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5010102,
+        "FilePoolId": 80301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5010103,
+        "FilePoolId": 80201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5010104,
+        "FilePoolId": 80301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5010105,
+        "FilePoolId": 80101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5010201,
+        "FilePoolId": 80501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5020101,
+        "FilePoolId": 80401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5020102,
+        "FilePoolId": 80301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5020103,
+        "FilePoolId": 80301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6010101,
+        "FilePoolId": 120401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6010201,
+        "FilePoolId": 120601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6010202,
+        "FilePoolId": 120601,
+        "Condition": [
+            31200.0,
+            31207.0
+        ],
+        "PreFileId": [
+            6010201.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7010101,
+        "FilePoolId": 110501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7010102,
+        "FilePoolId": 110301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8010101,
+        "FilePoolId": 90501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8010102,
+        "FilePoolId": 90101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8020101,
+        "FilePoolId": 90601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 301
+    },
+    {
+        "Id": 8020102,
+        "FilePoolId": 90301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9010101,
+        "FilePoolId": 100601,
+        "Condition": [
+            31200.0,
+            31203.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 157
+    },
+    {
+        "Id": 9010102,
+        "FilePoolId": 100601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9010201,
+        "FilePoolId": 100401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9010202,
+        "FilePoolId": 100101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9020101,
+        "FilePoolId": 100701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 10
+    },
+    {
+        "Id": 9030101,
+        "FilePoolId": 100402,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 10
+    },
+    {
+        "Id": 10010101,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31202.0,
+            31201.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 103
+    },
+    {
+        "Id": 10010102,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31202.0
+        ],
+        "PreFileId": [
+            10010101.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010201,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0,
+            31206.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010202,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0,
+            31206.0
+        ],
+        "PreFileId": [
+            10010201.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010301,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010302,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10010301.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010303,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10010302.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010304,
+        "FilePoolId": 10101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10010303.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010401,
+        "FilePoolId": 10201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010501,
+        "FilePoolId": 30101,
+        "Condition": [
+            31200.0,
+            31204.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010502,
+        "FilePoolId": 30101,
+        "Condition": [
+            31200.0,
+            31204.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010503,
+        "FilePoolId": 30101,
+        "Condition": [
+            31200.0,
+            31204.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010601,
+        "FilePoolId": 10201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010602,
+        "FilePoolId": 40402,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010603,
+        "FilePoolId": 40402,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010604,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10010605,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1011001,
+        "FilePoolId": 5006,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1011002,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1021001,
+        "FilePoolId": 5007,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1021002,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            1011002.0
+        ],
+        "Weight": 50,
+        "Announcer": 13
+    },
+    {
+        "Id": 1021003,
+        "FilePoolId": 30201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 3
+    },
+    {
+        "Id": 1031001,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0,
+            31209.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 1031002,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0,
+            31210.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 1031003,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0,
+            31211.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 2011001,
+        "FilePoolId": 50601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2021002.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2021001,
+        "FilePoolId": 5010,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 2021002,
+        "FilePoolId": 50201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 2021003,
+        "FilePoolId": 50201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 3011001,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10011013.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3011002,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3021001,
+        "FilePoolId": 5012,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 3021002,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0,
+            31210.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 4011001,
+        "FilePoolId": 5011,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4011002,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4011003,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [
+            4011002.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5011001,
+        "FilePoolId": 80201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5011002,
+        "FilePoolId": 80201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5011003,
+        "FilePoolId": 80302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5021001,
+        "FilePoolId": 80302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 6011001,
+        "FilePoolId": 120101,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6011002,
+        "FilePoolId": 120101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10011014.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6011003,
+        "FilePoolId": 120601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6011004,
+        "FilePoolId": 120601,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6011005,
+        "FilePoolId": 120101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            6011002.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7011001,
+        "FilePoolId": 110501,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7011002,
+        "FilePoolId": 110501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7011003,
+        "FilePoolId": 110701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7011004,
+        "FilePoolId": 110701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            7011003.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7021001,
+        "FilePoolId": 110501,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 11
+    },
+    {
+        "Id": 8011001,
+        "FilePoolId": 90601,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8011002,
+        "FilePoolId": 90701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            8021001.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8021001,
+        "FilePoolId": 90701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 9
+    },
+    {
+        "Id": 9011001,
+        "FilePoolId": 100102,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9011002,
+        "FilePoolId": 100102,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9011003,
+        "FilePoolId": 100701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9021001,
+        "FilePoolId": 100701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 10
+    },
+    {
+        "Id": 10011001,
+        "FilePoolId": 5008,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011002,
+        "FilePoolId": 5009,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011003,
+        "FilePoolId": 10201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011004,
+        "FilePoolId": 10201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011005,
+        "FilePoolId": 10401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011006,
+        "FilePoolId": 10402,
+        "Condition": [
+            31200.0,
+            31211.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011007,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011008,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011009,
+        "FilePoolId": 30201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011010,
+        "FilePoolId": 30401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011011,
+        "FilePoolId": 30401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10011010.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011012,
+        "FilePoolId": 40201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011013,
+        "FilePoolId": 40301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10011014,
+        "FilePoolId": 40301,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10031001,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 10031002,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 1012001,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1012002,
+        "FilePoolId": 40401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1012003,
+        "FilePoolId": 40401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1022001,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 1032001,
+        "FilePoolId": 5019,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 13
+    },
+    {
+        "Id": 1032002,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 1032003,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 1032004,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0,
+            31216.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 2012001,
+        "FilePoolId": 50604,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2012002,
+        "FilePoolId": 50604,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2012003,
+        "FilePoolId": 50605,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2012004,
+        "FilePoolId": 50605,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2012005,
+        "FilePoolId": 50702,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2022001,
+        "FilePoolId": 50702,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 306
+    },
+    {
+        "Id": 3012001,
+        "FilePoolId": 5013,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012002,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012003,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012004,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012005,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012006,
+        "FilePoolId": 70501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3012007,
+        "FilePoolId": 70501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3022001,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 3022003,
+        "FilePoolId": 70701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 3022004,
+        "FilePoolId": 70701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            3022003.0
+        ],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 3022005,
+        "FilePoolId": 90302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 4012001,
+        "FilePoolId": 60601,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4012002,
+        "FilePoolId": 60602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4022001,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0,
+            31215.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 4022002,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0,
+            31215.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 4032001,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0,
+            31214.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 4032002,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0,
+            31214.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 5012001,
+        "FilePoolId": 5014,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5012002,
+        "FilePoolId": 80501,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5012003,
+        "FilePoolId": 80302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5012004,
+        "FilePoolId": 80302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5012005,
+        "FilePoolId": 80402,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5012006,
+        "FilePoolId": 80401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6012001,
+        "FilePoolId": 120201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6012002,
+        "FilePoolId": 120401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6012003,
+        "FilePoolId": 120602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6022001,
+        "FilePoolId": 5018,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6022002,
+        "FilePoolId": 120401,
+        "Condition": [
+            31200.0,
+            31208.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 12
+    },
+    {
+        "Id": 6022003,
+        "FilePoolId": 120602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 12
+    },
+    {
+        "Id": 7012001,
+        "FilePoolId": 5017,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8012001,
+        "FilePoolId": 5015,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8012002,
+        "FilePoolId": 90301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8012003,
+        "FilePoolId": 90301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8012004,
+        "FilePoolId": 90501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8012005,
+        "FilePoolId": 90501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012001,
+        "FilePoolId": 5016,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012002,
+        "FilePoolId": 100101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012003,
+        "FilePoolId": 100101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012004,
+        "FilePoolId": 100201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012005,
+        "FilePoolId": 100201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9012006,
+        "FilePoolId": 100701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10012001,
+        "FilePoolId": 10501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10012002,
+        "FilePoolId": 40101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10012003,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10022001,
+        "FilePoolId": 10501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 305
+    },
+    {
+        "Id": 1032005,
+        "FilePoolId": 60401,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 3022002,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    },
+    {
+        "Id": 4032003,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0,
+            31214.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 10013001,
+        "FilePoolId": 5022,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10013002,
+        "FilePoolId": 5026,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013001,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013002,
+        "FilePoolId": 10501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013003,
+        "FilePoolId": 10501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013004,
+        "FilePoolId": 10702,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013005,
+        "FilePoolId": 10701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013006,
+        "FilePoolId": 20101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013007,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013008,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013009,
+        "FilePoolId": 30501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013010,
+        "FilePoolId": 30501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013011,
+        "FilePoolId": 30502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013012,
+        "FilePoolId": 30502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013013,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013014,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013015,
+        "FilePoolId": 40501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2013001,
+        "FilePoolId": 50101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2013002,
+        "FilePoolId": 50201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2013003,
+        "FilePoolId": 50201,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2013004,
+        "FilePoolId": 50301,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4013001,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4013002,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4013003,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3013001,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0,
+            31216.0
+        ],
+        "PreFileId": [
+            3012005.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3013002,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3013003,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0,
+            31201.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3013004,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            3012007.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5013001,
+        "FilePoolId": 80402,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5013002,
+        "FilePoolId": 80401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5013003,
+        "FilePoolId": 80502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5013004,
+        "FilePoolId": 80502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8013001,
+        "FilePoolId": 90301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8013002,
+        "FilePoolId": 90301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8013003,
+        "FilePoolId": 90401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8013004,
+        "FilePoolId": 90501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9013001,
+        "FilePoolId": 100101,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9013002,
+        "FilePoolId": 100401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9013003,
+        "FilePoolId": 100501,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9013004,
+        "FilePoolId": 100501,
+        "Condition": [
+            31200.0,
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1013016,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1023001,
+        "FilePoolId": 5020,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 1
+    },
+    {
+        "Id": 1023002,
+        "FilePoolId": 5021,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 2
+    },
+    {
+        "Id": 1023003,
+        "FilePoolId": 5023,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 2023001,
+        "FilePoolId": 5024,
+        "Condition": [
+            31213.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 4023001,
+        "FilePoolId": 5025,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 307
+    },
+    {
+        "Id": 1023004,
+        "FilePoolId": 30101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 3
+    },
+    {
+        "Id": 1023005,
+        "FilePoolId": 40101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 308
+    },
+    {
+        "Id": 1023006,
+        "FilePoolId": 40501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 2023002,
+        "FilePoolId": 50605,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 5
+    },
+    {
+        "Id": 4023002,
+        "FilePoolId": 60501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 6
+    },
+    {
+        "Id": 423003,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 4
+    },
+    {
+        "Id": 5023001,
+        "FilePoolId": 80401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 8
+    },
+    {
+        "Id": 8023001,
+        "FilePoolId": 90101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 9
+    },
+    {
+        "Id": 9023001,
+        "FilePoolId": 100402,
+        "Condition": [
+            31200.0,
+            31214.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 309
+    },
+    {
+        "Id": 8014001,
+        "FilePoolId": 5027,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 9014001,
+        "FilePoolId": 5028,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014001,
+        "FilePoolId": 5030,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1014001,
+        "FilePoolId": 10401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014001,
+        "FilePoolId": 20101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014002,
+        "FilePoolId": 20101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1014002,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014003,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10014002.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014004,
+        "FilePoolId": 20701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1014003,
+        "FilePoolId": 30501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014005,
+        "FilePoolId": 30502,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014006,
+        "FilePoolId": 30701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014007,
+        "FilePoolId": 40101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014008,
+        "FilePoolId": 40101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            10014007.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014009,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014010,
+        "FilePoolId": 40403,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014011,
+        "FilePoolId": 40701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2014001,
+        "FilePoolId": 50101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2014002,
+        "FilePoolId": 50401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [
+            2010501.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2024003,
+        "FilePoolId": 50501,
+        "Condition": [
+            31200.0,
+            31219.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2024004,
+        "FilePoolId": 50604,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 2024005,
+        "FilePoolId": 50605,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4014001,
+        "FilePoolId": 60201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4014002,
+        "FilePoolId": 60501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4014003,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4014004,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 4014005,
+        "FilePoolId": 60603,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014012,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3014001,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10014013,
+        "FilePoolId": 70301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3014002,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 3014003,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5014001,
+        "FilePoolId": 80102,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5014002,
+        "FilePoolId": 80102,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5014003,
+        "FilePoolId": 80501,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5014004,
+        "FilePoolId": 80701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5014005,
+        "FilePoolId": 80701,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8014002,
+        "FilePoolId": 90101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8014003,
+        "FilePoolId": 90101,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8014004,
+        "FilePoolId": 90201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8014005,
+        "FilePoolId": 90201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 8014006,
+        "FilePoolId": 90401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014002,
+        "FilePoolId": 120201,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014003,
+        "FilePoolId": 120202,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014004,
+        "FilePoolId": 120202,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014005,
+        "FilePoolId": 120401,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 6014006,
+        "FilePoolId": 120602,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 7024001,
+        "FilePoolId": 5029,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 11
+    },
+    {
+        "Id": 1024001,
+        "FilePoolId": 5031,
+        "Condition": [],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 310
+    },
+    {
+        "Id": 1024002,
+        "FilePoolId": 10402,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1024003,
+        "FilePoolId": 30701,
+        "Condition": [
+            31200.0,
+            31212.0
+        ],
+        "PreFileId": [
+            10014006.0
+        ],
+        "Weight": 50,
+        "Announcer": 3
+    },
+    {
+        "Id": 3024001,
+        "FilePoolId": 70302,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 7
+    }
+]

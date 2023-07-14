@@ -378,7 +378,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/ELifuZhongqiuI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/ELifuZhongqiuI01002.png",
         "Name": "Liv: United",
-        "Description": "Survival Enhanced",
+        "Description": "Survival Boost",
         "SkillEffect": [
             155062.0,
             155064.0
@@ -393,13 +393,13 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EKuluomuI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EKuluomuI01002.png",
         "Name": "Chrome: Banquet",
-        "Description": "2-Year Anniversary Memory",
+        "Description": "2nd Anniversary Memory",
         "SkillEffect": [
             155072.0,
             155074.0
         ],
         "SkillDescription": [
-            "DEF increases by 10%",
+            "DEF increases by 10%.",
             "After a 3-Ping, gain a shield of 15% max HP for 8s. Can be triggered once per 8s."
         ]
     },
@@ -549,7 +549,7 @@
             161004.0
         ],
         "SkillDescription": [
-            "Healing effect increases by 10%. Healing ally units will increase their Physical DMG by 10% and DEF by 10% for 5s. 8s cooldown.",
+            "Increase Heal by 10%. Healing allies increases their Physical DMG and DEF by 10% for 5s (CD: 8s).",
             "A healing drone will be charged when healing is performed. When fully charged, the next time you performing healing will consume all charged energy to summon the healing drone. It will follow an ally with the lowest HP percentage, healing allies in a 5m radius for 2% maximum HP per second and increasing their Physical DMG by 15% for 5s. 12s cooldown."
         ]
     },
@@ -697,7 +697,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/ELukeleiqiyaI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/ELukeleiqiyaI01002.png",
         "Name": "Lucrezia",
-        "Description": "Lightning Enhanced",
+        "Description": "Lightning Boost",
         "SkillEffect": [
             162002.0,
             162004.0,
@@ -714,7 +714,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EAikesupeiliI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EAikesupeiliI01002.png",
         "Name": "Exupery",
-        "Description": "Ice Enhanced",
+        "Description": "Ice Boost",
         "SkillEffect": [],
         "SkillDescription": []
     },
@@ -723,7 +723,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/ETifaI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/ETifaI01002.png",
         "Name": "Tifa",
-        "Description": "Lightning Enhanced",
+        "Description": "Lightning Boost",
         "SkillEffect": [
             162202.0,
             162204.0
@@ -738,7 +738,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/ENikeersenI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/ENikeersenI01002.png",
         "Name": "Jack",
-        "Description": "Fire Enhanced",
+        "Description": "Fire Boost",
         "SkillEffect": [
             162302.0,
             162304.0,
@@ -755,7 +755,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EYilishabaiI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EYilishabaiI01002.png",
         "Name": "Elizabeth",
-        "Description": "Fire Enhanced",
+        "Description": "Fire Boost",
         "SkillEffect": [
             162402.0,
             162404.0
@@ -770,7 +770,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EFanniI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EFanniI01002.png",
         "Name": "Seraphine",
-        "Description": "Dark Enhanced",
+        "Description": "Dark Boost",
         "SkillEffect": [
             162502.0,
             162504.0
@@ -785,7 +785,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EMaerkeI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EMaerkeI01002.png",
         "Name": "Marco",
-        "Description": "Physical Enhancement",
+        "Description": "Physical Boost",
         "SkillEffect": [
             162602.0,
             162604.0,
@@ -802,7 +802,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EYounimeiteI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EYounimeiteI01002.png",
         "Name": "Unimate",
-        "Description": "Fire Enhanced",
+        "Description": "Fire Boost",
         "SkillEffect": [
             162702.0,
             162704.0
@@ -817,7 +817,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EAixiaI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EAixiaI01002.png",
         "Name": "Isabel",
-        "Description": "Ice Enhanced",
+        "Description": "Ice Boost",
         "SkillEffect": [
             162802.0,
             162804.0,
@@ -827,6 +827,36 @@
             "ATK increases by 5% and Ice DMG increases by 7%.",
             "Frost-Treated Blade: Quench deals 15% more Base DMG.",
             "Bitter Frost deals 200% more Ice DMG to enemies with Frozen Status."
+        ]
+    },
+    {
+        "Id": 1629,
+        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EBuenI01001Sp.png",
+        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EBuenI01002.png",
+        "Name": "Boone",
+        "Description": "Dark Boost",
+        "SkillEffect": [
+            162902.0,
+            162904.0
+        ],
+        "SkillDescription": [
+            "Dark DMG increases by 10%.",
+            "Doubles the Base DMG increase effect of Karenina: Scire's Kinetic Energy for Starshatter Horizon and the Base DMG multiplier of Leap Attack and Radiant Whirlwind."
+        ]
+    },
+    {
+        "Id": 20001,
+        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpLivlizhuangI01001Sp.png",
+        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpLivlizhuangB01001.png",
+        "Name": "Ceremony - Liv",
+        "Description": "Survival Boost",
+        "SkillEffect": [
+            3000002.0,
+            3000004.0
+        ],
+        "SkillDescription": [
+            "Gain a shield equal to 20% Max HP for 5s every 30s after taking DMG.",
+            "Gain a Heal effect equal to 15% Max HP every 20s."
         ]
     },
     {
@@ -908,21 +938,6 @@
         "SkillDescription": [
             "Movement Speed +10%",
             "\u4f1a\u5fc3\u7387\u304c3%\u4e0a\u6607\u3001\u7269\u7406\u30c0\u30e1\u30fc\u30b8\u304c2%\u4e0a\u6607"
-        ]
-    },
-    {
-        "Id": 20001,
-        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpLivlizhuangI01001Sp.png",
-        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpLivlizhuangB01001.png",
-        "Name": "Liv-Ceremony",
-        "Description": "Survival Boost",
-        "SkillEffect": [
-            3000002.0,
-            3000004.0
-        ],
-        "SkillDescription": [
-            "When taking damage, gains a shield equal to 20% of own maximum HP for 5s. 30s cooldown.",
-            "Gain a healing effect equal to 15% of own maximum HP for every 20s."
         ]
     },
     {
