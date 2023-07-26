@@ -190,6 +190,16 @@
         "Text": "\u65e0\u6cd5\u91cd\u8fde"
     },
     {
+        "Id": 1033,
+        "Key": "GameServerLoginQueueFull",
+        "Text": "\u5f53\u524d\u767b\u9646\u4eba\u6570\u8fc7\u591a"
+    },
+    {
+        "Id": 1034,
+        "Key": "GameServerAlreadyInLoginQueue",
+        "Text": "\u6b63\u5728\u767b\u9646\u4e2d"
+    },
+    {
         "Id": 20000001,
         "Key": "PlayerFunctionNotOpen",
         "Text": "\u529f\u80fd\u672a\u5f00\u542f"
@@ -676,386 +686,391 @@
     },
     {
         "Id": 20003071,
+        "Key": "FubenBossSingleRankIsNotAvailable",
+        "Text": "20003071\u56da\u7b3c\u6392\u884c\u699c\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 20003072,
         "Key": "FubenBossOnlineSectionNotFound",
         "Text": "\u627e\u4e0d\u5230\u7ae0\u8282\u4fe1\u606f"
     },
     {
-        "Id": 20003072,
+        "Id": 20003073,
         "Key": "FubenMainLinePassTimesNotEnough",
         "Text": "\u4e3b\u7ebf\u6311\u6218\u6b21\u6570\u4e0d\u8db3"
     },
     {
-        "Id": 20003073,
+        "Id": 20003074,
         "Key": "FubenMainLineChapterIsNotExist",
         "Text": "\u7ae0\u8282\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003074,
+        "Id": 20003075,
         "Key": "FubenMainLineActivityHideChapterNotOpen",
         "Text": "\u9690\u85cf\u7ae0\u8282\u6d3b\u52a8\u672a\u5f00\u542f"
     },
     {
-        "Id": 20003075,
+        "Id": 20003076,
         "Key": "FubenMainLineActivityVariationsChapterNotOpen",
         "Text": "20003074\u4e3b\u7ebf\u6d3b\u52a8\u5f02\u53d8\u7ae0\u8282\u672a\u5f00\u542f"
     },
     {
-        "Id": 20003076,
+        "Id": 20003077,
         "Key": "FubenPrequelStageNotPass",
         "Text": "\u5173\u5361\u5c1a\u672a\u901a\u5173"
     },
     {
-        "Id": 20003077,
+        "Id": 20003078,
         "Key": "FubenPrequelStageRewardAlready",
         "Text": "\u661f\u7ea7\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
-        "Id": 20003078,
+        "Id": 20003079,
         "Key": "FubenPrequelStageIdError",
         "Text": "\u65e0\u6548\u7684\u524d\u4f20\u5173\u5361"
     },
     {
-        "Id": 20003079,
+        "Id": 20003080,
         "Key": "FubenPrequelCoverIdError",
         "Text": "\u65e0\u6548\u7684\u524d\u4f20\u5c01\u9762Id"
     },
     {
-        "Id": 20003080,
+        "Id": 20003081,
         "Key": "FubenPrequelChallengeIdError",
         "Text": "\u65e0\u6548\u7684\u524d\u4f20\u6311\u6218Id"
     },
     {
-        "Id": 20003081,
+        "Id": 20003082,
         "Key": "FubenPrequelChallengeLock",
         "Text": "\u524d\u4f20\u5173\u5361\u5c1a\u672a\u89e3\u9501"
     },
     {
-        "Id": 20003082,
+        "Id": 20003083,
         "Key": "FubenPrequelChallengeUnlockAlready",
         "Text": "\u524d\u4f20\u5173\u5361\u5df2\u7ecf\u89e3\u9501"
     },
     {
-        "Id": 20003083,
+        "Id": 20003084,
         "Key": "FubenPrequelChallengeCountLimit",
         "Text": "\u6311\u6218\u6b21\u6570\u4e0d\u8db3"
     },
     {
-        "Id": 20003084,
+        "Id": 20003085,
         "Key": "FubenPrequelChapterNotFind",
         "Text": "\u788e\u7247\u5173\u5361\u5bf9\u5e94\u95f4\u7ae0\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003085,
+        "Id": 20003086,
         "Key": "FubenPrequelCoverNotFind",
         "Text": "20003084\u788e\u7247\u5173\u5361\u5bf9\u5e94\u8868\u914d\u7f6e\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003086,
+        "Id": 20003087,
         "Key": "FubenManagerAutoFightStageNotExist",
         "Text": "\u526f\u672c\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003087,
+        "Id": 20003088,
         "Key": "FubenManagerAutoFightStageInvalid",
         "Text": "\u526f\u672c\u65e0\u6548"
     },
     {
-        "Id": 20003088,
+        "Id": 20003089,
         "Key": "FubenManagerAutoFightHaventPassed",
         "Text": "\u526f\u672c\u672a\u901a\u5173"
     },
     {
-        "Id": 20003089,
+        "Id": 20003090,
         "Key": "FubenManagerAutoFightPoolIsFull",
         "Text": "\u961f\u4f0d\u6570\u91cf\u5df2\u6ee1"
     },
     {
-        "Id": 20003090,
+        "Id": 20003091,
         "Key": "FubenManagerAutoFightAlreadyRunning",
         "Text": "\u81ea\u52a8\u4f5c\u6218\u4e2d"
     },
     {
-        "Id": 20003091,
+        "Id": 20003092,
         "Key": "FubenManagerAutoFightNotEnoughTimes",
         "Text": "\u5269\u4f59\u6311\u6218\u6b21\u6570\u4e0d\u8db3"
     },
     {
-        "Id": 20003092,
+        "Id": 20003093,
         "Key": "FubenManagerAutoFightNotEnoughActionPoint",
         "Text": "\u4f53\u529b\u4e0d\u8db3"
     },
     {
-        "Id": 20003093,
+        "Id": 20003094,
         "Key": "FubenManagerAutoFightIndexInvalid",
         "Text": "\u81ea\u52a8\u4f5c\u6218\u7f16\u53f7\u65e0\u6548"
     },
     {
-        "Id": 20003094,
+        "Id": 20003095,
         "Key": "FubenManagerAutoFightStageNotMatch",
         "Text": "\u81ea\u52a8\u4f5c\u6218\u526f\u672c\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003095,
+        "Id": 20003096,
         "Key": "FubenManagerAutoFightNotComplete",
         "Text": "\u81ea\u52a8\u4f5c\u6218\u672a\u5b8c\u6210"
     },
     {
-        "Id": 20003096,
+        "Id": 20003097,
         "Key": "FubenManagerTrialIdIsNotFound",
         "Text": "\u8bd5\u70bc\u526f\u672c\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003097,
+        "Id": 20003098,
         "Key": "FubenManagerTrialPreIdIsNotPass",
         "Text": "\u8bf7\u5148\u901a\u5173\u524d\u7f6e\u5173\u5361"
     },
     {
-        "Id": 20003098,
+        "Id": 20003099,
         "Key": "FubenManagerTrialIdIsNotPass",
         "Text": "\u8bf7\u5148\u901a\u5173"
     },
     {
-        "Id": 20003099,
+        "Id": 20003100,
         "Key": "FubenManagerTrialPassRewardAlreadyGet",
         "Text": "\u901a\u5173\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
-        "Id": 20003100,
+        "Id": 20003101,
         "Key": "FubenManagerTrialTypeRewardIsNotExit",
         "Text": "\u5956\u52b1\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003101,
+        "Id": 20003102,
         "Key": "FubenManagerTrialTypeRewardAlreadyGet",
         "Text": "\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
-        "Id": 20003102,
+        "Id": 20003103,
         "Key": "FubenManagerTrialTypeRewardIsNotFinish",
         "Text": "\u5173\u5361\u672a\u5b8c\u6210"
     },
     {
-        "Id": 20003103,
+        "Id": 20003104,
         "Key": "FubenManagerDailyChapterNotFound",
         "Text": "\u627e\u4e0d\u5230\u65e5\u5e38\u672c\u7ae0\u8282\u914d\u7f6e"
     },
     {
-        "Id": 20003104,
+        "Id": 20003105,
         "Key": "FubenManagerDailySectionNotFound",
         "Text": "\u627e\u4e0d\u5230\u65e5\u5e38\u672c\u914d\u7f6e"
     },
     {
-        "Id": 20003105,
+        "Id": 20003106,
         "Key": "FubenManagerDailyConditionInvalid",
         "Text": "\u65e0\u6548\u7684\u65e5\u5e38\u672c\u6761\u4ef6\u914d\u7f6e"
     },
     {
-        "Id": 20003106,
+        "Id": 20003107,
         "Key": "FubenManagerDailyTimeNotFit",
         "Text": "\u672a\u5230\u8fbe\u5f00\u542f\u65f6\u95f4"
     },
     {
-        "Id": 20003107,
+        "Id": 20003108,
         "Key": "FubenManagerAutoFightTimesError",
         "Text": "\u81ea\u52a8\u6218\u6597\u6b21\u6570\u9519\u8bef"
     },
     {
-        "Id": 20003108,
+        "Id": 20003109,
         "Key": "FubenManagerBossSingleResetCanNotSaveScore",
         "Text": "\u73a9\u6cd5\u5df2\u5237\u65b0\uff0c\u65e0\u6cd5\u4fdd\u5b58\u8bb0\u5f55"
     },
     {
-        "Id": 20003109,
+        "Id": 20003110,
         "Key": "FubenManagerBossSingleDataIsRefresh",
         "Text": "\u526f\u672c\u6570\u636e\u5df2\u5237\u65b0\uff0c\u8bf7\u91cd\u65b0\u6253\u5f00\u9875\u9762"
     },
     {
-        "Id": 20003110,
+        "Id": 20003111,
         "Key": "FubenManagerStartFightIntervalFast",
         "Text": "\u526f\u672c\u6311\u6218\u95f4\u9694\u8fc7\u5feb"
     },
     {
-        "Id": 20003111,
+        "Id": 20003112,
         "Key": "FubenAssignChapterNotFound",
         "Text": "\u7ae0\u8282\u4fe1\u606f\u914d\u7f6e\u5f02\u5e38"
     },
     {
-        "Id": 20003112,
+        "Id": 20003113,
         "Key": "FubenAssignGroupNotFound",
         "Text": "\u5173\u5361\u4fe1\u606f\u914d\u7f6e\u5f02\u5e38"
     },
     {
-        "Id": 20003113,
+        "Id": 20003114,
         "Key": "FubenAssignTeamInfoNotFound",
         "Text": "\u961f\u4f0d\u4fe1\u606f\u914d\u7f6e\u5f02\u5e38"
     },
     {
-        "Id": 20003114,
+        "Id": 20003115,
         "Key": "FubenAssignGroupFightCountLimit",
         "Text": "\u6311\u6218\u6b21\u6570\u5df2\u7528\u5c3d"
     },
     {
-        "Id": 20003115,
+        "Id": 20003116,
         "Key": "FubenAssignGroupTeamNotSet",
         "Text": "\u961f\u4f0d\u672a\u8bbe\u7f6e\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003116,
+        "Id": 20003117,
         "Key": "FubenAssignFightCardCountError",
         "Text": "\u51fa\u6218\u6210\u5458\u6570\u91cf\u6709\u8bef\uff0c\u65e0\u6cd5\u51fa\u6218"
     },
     {
-        "Id": 20003117,
+        "Id": 20003118,
         "Key": "FubenAssignFightCardNotInTeam",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u51fa\u6218\u89d2\u8272\u672a\u5728\u961f\u4f0d\u4e2d"
     },
     {
-        "Id": 20003118,
+        "Id": 20003119,
         "Key": "FubenAssignFightGroupIdNotMatch",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u5173\u5361\u7ec4\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003119,
+        "Id": 20003120,
         "Key": "FubenAssignFightStageAlreadyFinish",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u5173\u5361\u5df2\u5b8c\u6210"
     },
     {
-        "Id": 20003120,
+        "Id": 20003121,
         "Key": "FubenAssignFightPreStageNotFinish",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u524d\u7f6e\u5173\u5361\u672a\u5b8c\u6210"
     },
     {
-        "Id": 20003121,
+        "Id": 20003122,
         "Key": "FubenAssignWinStageNotMatch",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u80dc\u5229\u5173\u5361\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003122,
+        "Id": 20003123,
         "Key": "FubenAssignWinGroupIdNotMatch",
         "Text": "\u8fb9\u754c\u516c\u7ea6\u80dc\u5229\u5173\u5361\u7ec4\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003123,
+        "Id": 20003124,
         "Key": "FubenAssignGroupTeamListNotFound",
         "Text": "\u961f\u4f0d\u5217\u8868\u4e0d\u5b58\u5728\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003124,
+        "Id": 20003125,
         "Key": "FubenAssignPreGroupNotFinish",
         "Text": "\u524d\u7f6e\u7ae0\u8282\u672a\u5b8c\u6210"
     },
     {
-        "Id": 20003125,
+        "Id": 20003126,
         "Key": "FubenAssignTeamListIsEmpty",
         "Text": "\u961f\u4f0d\u6570\u91cf\u4e3a\u7a7a\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003126,
+        "Id": 20003127,
         "Key": "FubenAssignTeamCountError",
         "Text": "\u961f\u4f0d\u6570\u91cf\u4e0e\u8981\u6c42\u4e0d\u7b26\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003127,
+        "Id": 20003128,
         "Key": "FubenAssignTeamIsEmpty",
         "Text": "\u961f\u4f0d\u4eba\u6570\u4e0d\u8db3\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003128,
+        "Id": 20003129,
         "Key": "FubenAssignTeamMemberCountLimit",
         "Text": "\u961f\u4f0d\u4eba\u6570\u4e0e\u8981\u6c42\u4e0d\u7b26\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003129,
+        "Id": 20003130,
         "Key": "FubenAssignTeamMemberRepeated",
         "Text": "\u961f\u4f0d\u6210\u5458\u91cd\u590d\uff0c\u4e0d\u80fd\u51fa\u6218"
     },
     {
-        "Id": 20003130,
+        "Id": 20003131,
         "Key": "FubenAssignChapterNotFinish",
         "Text": "\u7ae0\u8282\u672a\u5b8c\u6210"
     },
     {
-        "Id": 20003131,
+        "Id": 20003132,
         "Key": "FubenAssignChapterUseSameCharacter",
         "Text": "\u89d2\u8272\u5df2\u88ab\u5b89\u6392\u9a7b\u5b88"
     },
     {
-        "Id": 20003132,
+        "Id": 20003133,
         "Key": "FubenAssignChapterCharacterAlreadyUse",
         "Text": "\u89d2\u8272\u5df2\u5728\u5176\u4ed6\u533a\u57df\u9a7b\u5b88"
     },
     {
-        "Id": 20003133,
+        "Id": 20003134,
         "Key": "FubenAssignChapterRewardAlreadyGet",
         "Text": "\u7ae0\u8282\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
-        "Id": 20003134,
+        "Id": 20003135,
         "Key": "FubenAssignStageInfoNotFound",
         "Text": "20003132\u5173\u5361\u4fe1\u606f\u672a\u627e\u5230"
     },
     {
-        "Id": 20003135,
+        "Id": 20003136,
         "Key": "FubenAssignGroupInfoNotExist",
         "Text": "20003133\u5f53\u524d\u8282\u70b9\u6ca1\u6709\u8fdb\u5ea6"
     },
     {
-        "Id": 20003136,
+        "Id": 20003137,
         "Key": "FubenAssignGroupStageNotFinish",
         "Text": "20003134\u5f53\u524d\u8282\u70b9\u5173\u5361\u672a\u5b8c\u6210\uff0c\u4e0d\u80fd\u91cd\u7f6e"
     },
     {
-        "Id": 20003137,
+        "Id": 20003138,
         "Key": "FubenAssignFinishedStageCanNotChangeTeam",
         "Text": "20003135\u5df2\u5b8c\u6210\u7684\u5173\u5361\u4e0d\u80fd\u6539\u53d8\u961f\u4f0d"
     },
     {
-        "Id": 20003138,
+        "Id": 20003139,
         "Key": "FubenManagerFightRestartFightIdNotMatch",
         "Text": "\u6218\u6597\u91cd\u5f00\u6218\u6597Id\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003139,
+        "Id": 20003140,
         "Key": "FubenManagerFightRestartPreFightDataNotMatch",
         "Text": "\u6218\u6597\u91cd\u5f00\u6218\u6597\u6570\u636e\u4e0d\u5339\u914d"
     },
     {
-        "Id": 20003140,
+        "Id": 20003141,
         "Key": "FubenBfrtChapterNotOpen",
         "Text": "\u8be5\u636e\u70b9\u7ae0\u8282\u672a\u5f00\u653e"
     },
     {
-        "Id": 20003141,
+        "Id": 20003142,
         "Key": "FubenBfrtTeamSetCharacterRepeat",
         "Text": "\u8bbe\u7f6e\u961f\u4f0d\u89d2\u8272\u91cd\u590d"
     },
     {
-        "Id": 20003142,
+        "Id": 20003143,
         "Key": "FubenManagerStageConfigNotExist",
         "Text": "\u5173\u5361\u914d\u7f6e\u4e0d\u5b58\u5728"
     },
     {
-        "Id": 20003143,
+        "Id": 20003144,
         "Key": "FubenFightNpcIsNullOrEmpty",
         "Text": "\u4e0a\u9635\u89d2\u8272\u4e0d\u80fd\u4e3a\u7a7a"
     },
     {
-        "Id": 20003144,
+        "Id": 20003145,
         "Key": "FubenRepeatedCharacter",
         "Text": "\u4e0d\u80fd\u5b58\u5728\u76f8\u540c\u7684\u4e0a\u9635\u89d2\u8272"
     },
     {
-        "Id": 20003145,
+        "Id": 20003146,
         "Key": "FubenActivityReset",
         "Text": "\u6d3b\u52a8\u5df2\u91cd\u7f6e"
     },
     {
-        "Id": 20003146,
+        "Id": 20003147,
         "Key": "FubenBossSingleIsNotTrialStage",
         "Text": "20003137\u8be5\u5173\u5361\u4e0d\u662f\u4f53\u9a8c\u5173"
     },
     {
-        "Id": 20003147,
+        "Id": 20003148,
         "Key": "FubenStageCharacterNpcIdCfgNotExit",
         "Text": "20003139\u627e\u4e0d\u5230\u8be5\u5173\u5361\u7c7b\u578b\u7684\u89d2\u8272NpcId\u914d\u7f6e"
     },
@@ -18525,6 +18540,11 @@
         "Text": "\u533a\u57df\u52a0\u6210\u672a\u89e3\u9501"
     },
     {
+        "Id": 20185047,
+        "Key": "RestaurantIsClosing",
+        "Text": "\u9910\u5385\u5df2\u6253\u70ca"
+    },
+    {
         "Id": 20186001,
         "Key": "Maverick2IsNotOpen",
         "Text": "20186001\u6d3b\u52a8\u672a\u5f00\u542f"
@@ -19713,6 +19733,21 @@
         "Id": 20204005,
         "Key": "TurntableDrawGainAllReward",
         "Text": "20204005\u5df2\u83b7\u53d6\u6240\u6709\u5956\u52b1"
+    },
+    {
+        "Id": 20205001,
+        "Key": "CheatCommandIsNull",
+        "Text": "20205001\u6307\u4ee4\u4e0d\u80fd\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20205002,
+        "Key": "CheatCommandNotFound",
+        "Text": "20205002\u627e\u4e0d\u5230\u5bf9\u5e94\u6307\u4ee4"
+    },
+    {
+        "Id": 20205003,
+        "Key": "CheatPlayerOfflineOrNotExist",
+        "Text": "20205003\u73a9\u5bb6\u4e0d\u5728\u7ebf\u6216\u4e0d\u5b58\u5728"
     },
     {
         "Id": 25000001,

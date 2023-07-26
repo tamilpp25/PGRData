@@ -16,13 +16,13 @@
     },
     {
         "Id": 2,
-        "Name": "\u5df4\u522b\u5854\u00b7\u5e7d\u754c\u6797\u6d77",
+        "Name": "\u5df4\u522b\u5854\u00b7\u65e0\u9699\u661f\u6cca",
         "ManagerName": "FubenBabelTowerManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
-        "TimeId": null,
+        "TimeId": 20001.0,
         "FunctionNameId": 10307.0,
         "SkipId": 20015.0,
-        "Order": null,
+        "Order": 7.0,
         "RedPointConditions": [
             "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
         ],
@@ -33,10 +33,10 @@
         "Name": "\u6e38\u8fb0\u7275\u661f",
         "ManagerName": "PokerGuessingManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner81.png",
-        "TimeId": null,
+        "TimeId": 20940.0,
         "FunctionNameId": 10333.0,
         "SkipId": 11761.0,
-        "Order": null,
+        "Order": 11.0,
         "RedPointConditions": [
             "CONDITION_POKER_GUESSING_RED"
         ],
@@ -47,7 +47,7 @@
         "Name": "\u8be1\u8c23\u6c89\u5f71",
         "ManagerName": "FubenRepeatChallengeManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
-        "TimeId": null,
+        "TimeId": 20801.0,
         "FunctionNameId": 10309.0,
         "SkipId": 20017.0,
         "Order": 1.0,
@@ -58,13 +58,13 @@
     },
     {
         "Id": 5,
-        "Name": "\u6df1\u6d77\u9057\u6b4c",
+        "Name": "\u65e7\u65e5\u9065\u6b4c",
         "ManagerName": "FubenActivityBossSingleManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner105.png",
-        "TimeId": null,
+        "TimeId": 20421.0,
         "FunctionNameId": 10304.0,
         "SkipId": 11724.0,
-        "Order": 4.0,
+        "Order": 6.0,
         "RedPointConditions": [
             "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
         ],
@@ -132,7 +132,7 @@
         "TimeId": null,
         "FunctionNameId": 10426.0,
         "SkipId": 20122.0,
-        "Order": 6.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_GOLDEN_MINER_REWARD"
         ],
@@ -155,7 +155,7 @@
     {
         "Id": 12,
         "Name": "\u82cd\u84dd\u65e0\u5c3d\u590f",
-        "ManagerName": "FashionStoryManager",
+        "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner86.png",
         "TimeId": null,
         "FunctionNameId": null,
@@ -210,10 +210,10 @@
     },
     {
         "Id": 16,
-        "Name": "\u5ba1\u5224\u8005\u6b63\u8a00",
+        "Name": "\u8ffd\u6eaf\u8005\u6d04\u6e38",
         "ManagerName": "FubenNewCharActivityManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner117.png",
-        "TimeId": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner123.png",
+        "TimeId": 20411.0,
         "FunctionNameId": 10325.0,
         "SkipId": 20071.0,
         "Order": 2.0,
@@ -242,7 +242,7 @@
         "TimeId": 20203.0,
         "FunctionNameId": 10443.0,
         "SkipId": 89008.0,
-        "Order": null,
+        "Order": 9.0,
         "RedPointConditions": [
             "CONDITION_RESTAURANT_ENTRANCE"
         ],
@@ -250,13 +250,13 @@
     },
     {
         "Id": 19,
-        "Name": "\u672c\u6211\u56de\u5eca\u00b7\u5361\u5217\u5c3c\u5a1c",
+        "Name": "\u672c\u6211\u56de\u5eca\u00b7\u8bfa\u5b89",
         "ManagerName": "CharacterTowerManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner107.png",
-        "TimeId": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner124.png",
+        "TimeId": 20402.0,
         "FunctionNameId": 10436.0,
-        "SkipId": 11790.0,
-        "Order": null,
+        "SkipId": 11795.0,
+        "Order": 5.0,
         "RedPointConditions": [],
         "Note": "\u672c\u6211\u56de\u5eca"
     },
@@ -378,7 +378,7 @@
         "TimeId": null,
         "FunctionNameId": 10349.0,
         "SkipId": 20102.0,
-        "Order": 3.0,
+        "Order": null,
         "RedPointConditions": [
             "XRedPointConditionAreaWarActivity"
         ],
@@ -392,7 +392,7 @@
         "TimeId": null,
         "FunctionNameId": 10339.0,
         "SkipId": 20083.0,
-        "Order": 5.0,
+        "Order": null,
         "RedPointConditions": [
             "XRedPointConditionKillZoneActivity"
         ],
@@ -432,7 +432,7 @@
         "TimeId": 20301.0,
         "FunctionNameId": 10316.0,
         "SkipId": 89025.0,
-        "Order": null,
+        "Order": 10.0,
         "RedPointConditions": [
             "CONDITION_SPECIALTRAIN_RED"
         ],
@@ -440,44 +440,30 @@
     },
     {
         "Id": 33,
-        "Name": "\u5df4\u522b\u5854\u00b7\u65e0\u9699\u661f\u6cca",
-        "ManagerName": "FubenBabelTowerManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
-        "TimeId": 20001.0,
-        "FunctionNameId": 10307.0,
-        "SkipId": 20015.0,
-        "Order": null,
-        "RedPointConditions": [
-            "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
-        ],
-        "Note": "\u5df4\u522b\u5854"
-    },
-    {
-        "Id": 34,
         "Name": "\u4f17\u5fd7\u884c\u5f81\u2163",
         "ManagerName": "GuildWarManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner119.png",
         "TimeId": 20101.0,
         "FunctionNameId": 10425.0,
         "SkipId": 85016.0,
-        "Order": 6.0,
+        "Order": 8.0,
         "RedPointConditions": [
-            "CONDITION_GUILD_WAR"
+            "CONDITION_GUILDWAR_Main"
         ],
-        "Note": "\u4f17\u5fd7\u884c\u5f81\u2163"
+        "Note": "\u516c\u4f1a\u6218"
     },
     {
-        "Id": 35,
+        "Id": 34,
         "Name": "\u957f\u590f\u6563\u8bb0",
-        "ManagerName": null,
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner15.png",
-        "TimeId": null,
-        "FunctionNameId": null,
+        "ManagerName": "FashionStoryManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner122.png",
+        "TimeId": 20930.0,
+        "FunctionNameId": 10341.0,
         "SkipId": 89029.0,
-        "Order": null,
+        "Order": 4.0,
         "RedPointConditions": [
             "CONDITION_FASHION_STORY_ENTRANCE"
         ],
-        "Note": "\u957f\u590f\u6563\u8bb0"
+        "Note": "\u6d82\u88c5\u5267\u60c5"
     }
 ]

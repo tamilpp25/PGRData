@@ -6,10 +6,10 @@
         "LinkTargetId": 2011,
         "LinkAddWeight": 9999,
         "DelNodeIds": [
-            9,
-            41,
-            76,
-            111.0
+            9.0,
+            26.0,
+            62.0,
+            98.0
         ]
     },
     {
@@ -19,9 +19,83 @@
         "LinkTargetId": 3011,
         "LinkAddWeight": 9999,
         "DelNodeIds": [
-            49,
-            84,
-            119
+            16.0,
+            34.0,
+            70.0,
+            106.0
         ]
+    },
+    {
+        "Id": 3,
+        "GroupId": 2012,
+        "LinkType": 2,
+        "LinkTargetId": 2013,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": [
+            9.0,
+            26.0,
+            62.0,
+            98.0
+        ]
+    },
+    {
+        "Id": 4,
+        "GroupId": 3012,
+        "LinkType": 2,
+        "LinkTargetId": 4011,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": [
+            40.0,
+            76.0,
+            112.0
+        ]
+    },
+    {
+        "Id": 5,
+        "GroupId": 3013,
+        "LinkType": 2,
+        "LinkTargetId": 4012,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": [
+            40.0,
+            76.0,
+            112.0
+        ]
+    },
+    {
+        "Id": 6,
+        "GroupId": 3014,
+        "LinkType": 2,
+        "LinkTargetId": 3015,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": [
+            40.0,
+            76.0,
+            112.0
+        ]
+    },
+    {
+        "Id": 7,
+        "GroupId": 4011,
+        "LinkType": 2,
+        "LinkTargetId": 5011,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": []
+    },
+    {
+        "Id": 8,
+        "GroupId": 4012,
+        "LinkType": 2,
+        "LinkTargetId": 5012,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": []
+    },
+    {
+        "Id": 9,
+        "GroupId": 4013,
+        "LinkType": 2,
+        "LinkTargetId": 4014,
+        "LinkAddWeight": 9999,
+        "DelNodeIds": []
     }
 ]

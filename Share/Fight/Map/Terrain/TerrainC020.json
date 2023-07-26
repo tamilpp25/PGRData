@@ -112,33 +112,7 @@
         "DefaultDynamicObject": []
     },
     {
-        "Id": 999999010,
-        "Name": "Scene02106",
-        "Info": 12150305.0,
-        "BornPosition": [
-            "PB1",
-            "PB1",
-            "PB1",
-            "PB1",
-            "PB1"
-        ],
-        "LookPosition": [
-            "S1",
-            "S1",
-            "S1",
-            "S1",
-            "S1"
-        ],
-        "DefaultObstacleArea": [],
-        "DefaultDynamicObject": [
-            "FxScene02106Linght",
-            "FxScene02106Shuipao",
-            "FxSceneTiankongWenli",
-            "MaterialController"
-        ]
-    },
-    {
-        "Id": 999999020,
+        "Id": 102601020,
         "Name": "Scene03906",
         "Info": 10260199.0,
         "BornPosition": [
@@ -156,8 +130,58 @@
             "S1"
         ],
         "DefaultObstacleArea": [
+            "AW1",
+            "AW5",
+            "AW6"
+        ],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 102601110,
+        "Name": "Scene03904",
+        "Info": 10260111.0,
+        "BornPosition": [
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [
+            "AW2",
             "AW1"
         ],
+        "DefaultDynamicObject": [
+            "1",
+            "2"
+        ]
+    },
+    {
+        "Id": 102601250,
+        "Name": "Scene03902",
+        "Info": 12150305.0,
+        "BornPosition": [
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1",
+            "PB1"
+        ],
+        "LookPosition": [
+            "S1",
+            "S1",
+            "S1",
+            "S1",
+            "S1"
+        ],
+        "DefaultObstacleArea": [],
         "DefaultDynamicObject": []
     }
 ]

@@ -1,0 +1,34 @@
+local CsXTextManagerGetText = CsXTextManagerGetText
+
+local XUiGridStrongholdBanner = XClass(nil, "XUiGridStrongholdBanner")
+
+function XUiGridStrongholdBanner:Ctor(ui)
+    self.GameObject = ui.gameObject
+    self.Transform = ui.transform
+
+    XTool.InitUiObject(self)
+end
+
+function XUiGridStrongholdBanner:Refresh(chapterId)
+    local icon = XStrongholdConfigs.GetChapterBanner(chapterId)
+    self.RImgDz:SetRawImage(icon)
+
+    local name = XStrongholdConfigs.GetChapterName(chapterId)
+    self.TxtName.text = name
+
+    local hasFinished = XDataCenter.StrongholdManager.CheckChapterHasFinishedStage(chapterId)
+    self.ImgYzz.gameObject:SetActiveEx(hasFinished)
+
+    local finishCount, totalCount = XDataCenter.StrongholdManager.GetChapterGroupProgress(chapterId)
+    self.TxtProgress.text = CsXTextManagerGetText("StrongholdChapterProgress", finishCount, totalCount)
+
+    local isUnlock, conditionDes = XDataCenter.StrongholdManager.CheckChapterUnlock(chapterId)
+    if isUnlock then
+        self.Imglock.gameObject:SetActiveEx(false)
+    else
+        self.TxtUnlockCondition.text = conditionDes
+        self.Imglock.gameObject:SetActiveEx(true)
+    end
+end
+
+return XUiGridStrongholdBanner

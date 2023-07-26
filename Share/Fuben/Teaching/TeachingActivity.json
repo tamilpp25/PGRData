@@ -810,7 +810,7 @@
     {
         "Id": 20,
         "Name": "\u5ba1\u5224\u8005\u6b63\u8a00",
-        "TimeId": 19311.0,
+        "TimeId": null,
         "ChallengeStage": [
             30160552.0,
             30160553.0,
@@ -849,5 +849,48 @@
         "SkinDrawSkipId": null,
         "SkipGet": 19053.0,
         "ChallengeCondition": 96013.0
+    },
+    {
+        "Id": 21,
+        "Name": "\u8ffd\u6eaf\u8005\u6d04\u6e38",
+        "TimeId": 20411.0,
+        "ChallengeStage": [
+            30160555.0,
+            30160556.0,
+            30160557.0
+        ],
+        "StageId": [
+            30100004.0,
+            30100005.0,
+            30100006.0
+        ],
+        "TreasureId": [
+            80,
+            81,
+            82,
+            83.0
+        ],
+        "TotalStars": 9,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenLamiaActivity/FuBenLamiaActivity01.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenLamiaActivity/GridLamiaActivityStage01.prefab",
+        "FubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FuBenLamiaActivity/FuBenLamiaActivity02.prefab",
+        "GridFubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FuBenLamiaActivity/GridLamiaActivityStage02.prefab",
+        "ConditionId": null,
+        "MainBgImg": null,
+        "StageBgImg": null,
+        "TitleImg": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner123.png",
+        "CharacterId": 1271003,
+        "SkipIdDraw": 7209,
+        "SkipIdAct": null,
+        "SkipIdJZ": null,
+        "SkipIdChar": null,
+        "SkipIdSkin": 20111.0,
+        "NewCharType": 21,
+        "MovieId": null,
+        "SkinTrialStageId": null,
+        "SkinDrawSkipId": null,
+        "SkipGet": null,
+        "ChallengeCondition": 96014.0
     }
 ]

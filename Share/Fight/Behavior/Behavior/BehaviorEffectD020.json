@@ -921,10 +921,26 @@
     },
     {
         "Id": 774752,
-        "Type": "OnAfterDamage",
+        "Type": "OnSkill",
         "Priority": 3,
         "PrefixRoot": 650202972,
         "Root": 650202978.0,
+        "PreLoadRoot": null
+    },
+    {
+        "Id": 764821,
+        "Type": "OnSkillFinish",
+        "Priority": 3,
+        "PrefixRoot": 650202981,
+        "Root": 650202983.0,
+        "PreLoadRoot": null
+    },
+    {
+        "Id": 764822,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 650203831,
+        "Root": 650203834.0,
         "PreLoadRoot": null
     },
     {

@@ -1753,7 +1753,11 @@
         "LikeType": 2,
         "LikeCharIds": [],
         "HateCharIds": [],
-        "QuestAttrib": []
+        "QuestAttrib": [
+            3.0,
+            5.0,
+            6.0
+        ]
     },
     {
         "Id": 1271003,
@@ -1771,10 +1775,19 @@
         "DailogTouchHight": 0.51,
         "EffectWidgetHight": 1,
         "TouchWidgetHight": 0.6,
-        "LoveType": 3,
-        "LikeType": 2,
-        "LikeCharIds": [],
-        "HateCharIds": [],
-        "QuestAttrib": []
+        "LoveType": 2,
+        "LikeType": 3,
+        "LikeCharIds": [
+            1171003.0
+        ],
+        "HateCharIds": [
+            1131002.0,
+            1131003.0
+        ],
+        "QuestAttrib": [
+            2.0,
+            6.0,
+            7.0
+        ]
     }
 ]
