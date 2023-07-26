@@ -1,1 +1,0 @@
-local XUiGuildSign2 = XLuaUiManager.Register(require("XUi/XUiGuildSign/XUiGuildSignBase"), "UiGuildSign2")
