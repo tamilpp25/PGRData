@@ -20,11 +20,10 @@ function XUiBattleRoomRoleGrid:SetCharacterViewModel(characterViewModel)
     local elementIcon
     for i = 1, 3 do
         elementIcon = obtainElementIcons[i]
-        local elementImg = self["RImgElement" .. i] or self["RImgCharElement" .. i]
-        if elementImg then
-            elementImg.gameObject:SetActiveEx(elementIcon ~= nil)
+        if self["RImgElement" .. i] then
+            self["RImgElement" .. i].gameObject:SetActiveEx(elementIcon ~= nil)
             if elementIcon then
-                elementImg:SetRawImage(elementIcon)
+                self["RImgElement" .. i]:SetRawImage(elementIcon)
             end
         end
     end

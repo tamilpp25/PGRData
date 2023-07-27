@@ -34,11 +34,6 @@ end
 
 function XUiGridStage:SetButtonCallBack()
     self.BtnStage.CallBack = function()
-        if not self.StageNode then
-            XLog.Error("[XUiGridStageTerm4] stageNode is empty, i dont know how it occur")
-            XDataCenter.GuildWarManager.GetActivityData()
-            return
-        end
         self:OnBtnStageClick()
     end
 end

@@ -10,7 +10,6 @@ function XUiCharacterSystemV2P6:OnAwake()
     self.OpenChildStack = XStack.New()
     self.CurCharacter = nil --所有的子界面都通过该字段同步、获取角色
     self.FilterCurSelectTagBtnName = nil --同步子界面的筛选器标签。子界面切换了标签后，成员界面的标签也要切换
-    self:SetPanelAsset(XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     
     self:InitModel()
     self:InitButton()

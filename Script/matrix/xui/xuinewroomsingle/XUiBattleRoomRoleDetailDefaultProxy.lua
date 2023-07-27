@@ -5,7 +5,7 @@ local XUiBattleRoomRoleDetailDefaultProxy = XClass(nil, "XUiBattleRoomRoleDetail
 -- characterType : XCharacterConfigs.CharacterType 参数为空时要返回所有实体
 -- return : { ... }
 function XUiBattleRoomRoleDetailDefaultProxy:GetEntities(characterType)
-    return XMVCA.XCharacter:GetOwnCharacterList(characterType)
+    return XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
 end
 
 function XUiBattleRoomRoleDetailDefaultProxy:GetFilterJudge()
@@ -66,7 +66,7 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterViewModelByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XMVCA.XCharacter:GetCharacter(id)
+            entity = XDataCenter.CharacterManager.GetCharacter(id)
         end
         if entity == nil then
             XLog.Error(string.format("找不到id%s的角色", id))

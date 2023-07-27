@@ -434,7 +434,7 @@ function XUiTurntableMain:PlayEndEffect(records, dim)
     local effectPanel = self._EffectPool[dim]
     if effectPanel then
         effectPanel.gameObject:SetActiveEx(true)
-        self._EffectTimer = XScheduleManager.ScheduleOnce(function()
+        XScheduleManager.ScheduleOnce(function()
             effectPanel.gameObject:SetActiveEx(false)
             self:OnTurntableEnd(records)
         end, 1000)
@@ -442,9 +442,9 @@ function XUiTurntableMain:PlayEndEffect(records, dim)
         self:OnTurntableEnd(records)
     end
     if self.RawImageLight then
-        self._ImgShowTimer = XScheduleManager.ScheduleOnce(function()
+        XScheduleManager.ScheduleOnce(function()
             self.RawImageLight.gameObject:SetActiveEx(true)
-            self._ImgHideTimer = XScheduleManager.ScheduleOnce(function()
+            XScheduleManager.ScheduleOnce(function()
                 self.RawImageLight.gameObject:SetActiveEx(false)
             end, 900)
         end, 100)
@@ -590,19 +590,7 @@ function XUiTurntableMain:RemoveTimer()
     if self.Timer then
         XScheduleManager.UnSchedule(self.Timer)
     end
-    if self._EffectTimer then
-        XScheduleManager.UnSchedule(self._EffectTimer)
-    end
-    if self._ImgShowTimer then
-        XScheduleManager.UnSchedule(self._ImgShowTimer)
-    end
-    if self._ImgHideTimer then
-        XScheduleManager.UnSchedule(self._ImgHideTimer)
-    end
     self.Timer = nil
-    self._EffectTimer = nil
-    self._ImgShowTimer = nil
-    self._ImgHideTimer = nil
 end
 
 function XUiTurntableMain:CountDown()

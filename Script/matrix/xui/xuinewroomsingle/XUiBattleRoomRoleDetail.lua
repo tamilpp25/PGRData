@@ -173,9 +173,6 @@ function XUiBattleRoomRoleDetail:InitFilter()
     -- 自定义格子proxy
     local gridProxy = self.Proxy:GetGridProxy() or XUiBattleRoomRoleGrid
     local checkInTeam = function (id)
-        if self.Proxy.CheckInTeam then
-            return self.Proxy:CheckInTeam(self.Team, id)
-        end
         return self.Team:GetEntityIdIsInTeam(id)
     end
     -- 覆写排序算法
@@ -185,10 +182,9 @@ function XUiBattleRoomRoleDetail:InitFilter()
     self.PanelCharacterFilter.gameObject:SetActiveEx(true)
     self.Transform:FindTransform("CharInfo").gameObject:SetActiveEx(false)
     self.Transform:FindTransform("BtnFilter").gameObject:SetActiveEx(false)
-    local list = self.Proxy:GetEntities()
-    local currentEntityId = self.Proxy.GetCurrentEntityId and self.Proxy:GetCurrentEntityId(self.CurrentEntityId) or self.CurrentEntityId
+    local list = self.Proxy:GetEntities() 
     self.PanelFilter:ImportList(list)
-    self.PanelFilter:DoSelectCharacter(currentEntityId) -- 自动选择点进来的角色
+    self.PanelFilter:DoSelectCharacter(self.CurrentEntityId) -- 自动选择点进来的角色
 end
 
 function XUiBattleRoomRoleDetail:RefreshEntityInfo()

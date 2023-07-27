@@ -97,8 +97,6 @@ function XGWBattleManager:Ctor(difficultyId)
     self.IsHistoryAction = false
     -- 行动动画是否缩放
     self.IsActionInZoom = false
-    -- 等待动画播放请求
-    self.IsWaitingActionCallback = false
 end
 
 --region 数据
@@ -434,11 +432,6 @@ function XGWBattleManager:CheckActionPlaying()
     end
     return false
 end
-
-function XGWBattleManager:CheckIsCanGuide()
-    return (not self.IsWaitingActionCallback) and (not self:CheckActionPlaying())
-end
-
 -- 检查某个动画是否已经播放
 function XGWBattleManager:CheckActionIsShowed(id)
     return self.ShowedActionIdDic[id]
@@ -514,7 +507,6 @@ function XGWBattleManager:CheckActionList(PlayTypeList)
                 table.insert(actionIdList, action.ActionId)
             end
             local callback =  function ()
-                self.IsWaitingActionCallback = false
                 local type = actionGroup[1].ActionType
                 self.IsActionPlayingDic[type] = true
                 self:UpdateShowedActionIdDic(actionIdList)
@@ -530,7 +522,6 @@ function XGWBattleManager:CheckActionList(PlayTypeList)
                     end
                 end
             end
-            self.IsWaitingActionCallback = true
             -- debug 不请求, 如此就可以不停播放
             --XScheduleManager.ScheduleOnce(callback, 0)
             XDataCenter.GuildWarManager.RequestPopupActionID(actionIdList, callback)

@@ -35,13 +35,6 @@ function XUiEquipResonanceSelectV2P6:SetPos(equipId, pos)
 
     local textKey = self.IsWeapon and "EquipResonanceItemSelect" or "EquipResonanceItemSelect2"
     self.ItemSelect:GetObject("TxtStateName").text = XUiHelper.GetText(textKey)
-
-    -- 共鸣结果未确认
-    if XDataCenter.EquipManager.CheckEquipPosUnconfirmedResonanced(self.EquipId, pos) then
-        XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter, function()
-            self.Parent:OnResonanceSuccess(self.Pos, true)
-        end)
-    end
 end
 
 function XUiEquipResonanceSelectV2P6:OnGetEvents()

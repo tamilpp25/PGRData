@@ -26,8 +26,6 @@ end
 -- auto
 function XUiCharacterDetail:OnBtnTeamRecomendClick()
     self:SwitchView(CharDetailUiType.Parner)
-    self.Bg.gameObject:SetActiveEx(false)
-    self.Bg2.gameObject:SetActiveEx(false)
 end
 
 function XUiCharacterDetail:OnBtnEquipRecomendClick()
@@ -234,8 +232,6 @@ end
 function XUiCharacterDetail:OnBtnBackClick()
     if self.CurUiType == CharDetailUiType.Parner or self.CurUiType == CharDetailUiType.Equip then
         self:SwitchView(CharDetailUiType.Detail)
-        self.Bg.gameObject:SetActiveEx(true)
-        self.Bg2.gameObject:SetActiveEx(true)
     else
         -- local tPos = self.PanelContentRtf.anchoredPosition
         -- if tPos.x > -400 then
