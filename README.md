@@ -1,7 +1,7 @@
 # PGRData
 > Client region: Chinese <br>
 > Game Version: 2.6.0 <br>
-> Document Version: 2.6.10 <br>
+> Document Version: 2.6.11 <br>
 
 - Client
 - Share
