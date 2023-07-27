@@ -1227,7 +1227,7 @@ PlayerCondition = {
         if not battleManager then
             return false
         end
-        return not battleManager:CheckActionPlaying()
+        return battleManager:CheckIsCanGuide()
     end,
 }
 

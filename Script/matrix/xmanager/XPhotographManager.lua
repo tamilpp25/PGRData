@@ -161,13 +161,13 @@ XPhotographManagerCreator = function()
     end
 
     function XPhotographManager.InitCharacterList()
-        local allCharDatas = XDataCenter.CharacterManager.GetCharacterList()
+        local allCharDatas = XMVCA.XCharacter:GetCharacterList()
         local curAssistantId = XDataCenter.DisplayManager.GetDisplayChar().Id
 
         OwnCharDatas = {}
         for _, v in pairs(allCharDatas or {}) do
             local characterId = v.Id
-            local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+            local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
             if isOwn then
                 local name = XCharacterConfigs.GetCharacterName(characterId)
                 local tradeName = XCharacterConfigs.GetCharacterTradeName(characterId)

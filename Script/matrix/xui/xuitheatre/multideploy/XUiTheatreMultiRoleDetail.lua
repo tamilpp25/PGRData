@@ -7,27 +7,15 @@ function XUiTheatreBattleRoomRoleGrid:Ctor()
     self.AdventureMultiDeploy = XDataCenter.TheatreManager.GetCurrentAdventureManager():GetAdventureMultiDeploy()
 end
 
--- entity: XAdventureRole
 -- team : XTeam
+---@param entity XTheatreAdventureRole
 function XUiTheatreBattleRoomRoleGrid:SetData(entity, team, stageId)
     self.Super.SetData(self, entity, team, stageId)
     local characterViewModel = entity:GetCharacterViewModel()
     self.RImgHeadIcon:SetRawImage(characterViewModel:GetSmallHeadIcon())
-    self.TxtPower.text = characterViewModel:GetAbility()
+    --self.TxtFight.text = characterViewModel:GetAbility()
     self.TxtLevel.text = characterViewModel:GetLevel()
     self.RImgQuality:SetRawImage(characterViewModel:GetQualityIcon())
-    -- 元素图标
-    local obtainElementIcons = characterViewModel:GetObtainElementIcons()
-    local elementIcon
-    for i = 1, 3 do
-        elementIcon = obtainElementIcons[i]
-        self["RImgElement" .. i].gameObject:SetActiveEx(elementIcon ~= nil)
-        if elementIcon then
-            self["RImgElement" .. i]:SetRawImage(elementIcon)
-        end
-    end
-    self.PanelTry.gameObject:SetActiveEx(XEntityHelper.GetIsRobot(characterViewModel:GetSourceEntityId()))
-
     --其他队伍信息（文本控件的引用名字被改了，兼容新旧两个文本）
     local isInOtherTeam, teamIndex = self.AdventureMultiDeploy:IsInOtherTeam(team:GetId(), entity:GetId())
     local otherTeamIsWin = self.AdventureMultiDeploy:GetMultipleTeamIsWin(teamIndex)
@@ -39,6 +27,17 @@ function XUiTheatreBattleRoomRoleGrid:SetData(entity, team, stageId)
         self.TxtEchelonIndex.text = otherTeamText
     end
     self.PanelTeamSupport.gameObject:SetActiveEx(isInOtherTeam)
+end
+
+function XUiTheatreBattleRoomRoleGrid:UpdateFight()
+    if self.IsFragment then
+        self.PanelFight.gameObject:SetActiveEx(false)
+        return
+    end
+
+    self.TxtFight.gameObject:SetActiveEx(true)
+    self.TxtFight.text = self.Character:GetCharacterViewModel():GetAbility()
+    self.PanelFight.gameObject:SetActiveEx(true)
 end
 
 function XUiTheatreBattleRoomRoleGrid:SetInTeamStatus(value)
@@ -58,22 +57,23 @@ function XUiTheatreMultiRoleDetail:Ctor()
     self.TheatreManager = XDataCenter.TheatreManager
     self.AdventureManager = self.TheatreManager.GetCurrentAdventureManager()
     self.AdventureMultiDeploy = self.AdventureManager:GetAdventureMultiDeploy()
+    self._IdDir = {}
 end
 
 -- characterType : XCharacterConfigs.CharacterType
-function XUiTheatreMultiRoleDetail:GetEntities(characterType)
+function XUiTheatreMultiRoleDetail:GetEntities()
     local roles = self.AdventureManager:GetCurrentRoles(true)
-    --local result = {}
-    --for _, role in ipairs(roles) do
-    --    if role:GetCharacterViewModel():GetCharacterType() == characterType then
-    --        table.insert(result, role)
-    --    end
-    --end
+    for _, role in ipairs(roles) do
+        if not role:GetIsLocalRole() then
+            local robotId = role:GetRawData().Id
+            self._IdDir[robotId] = role:GetId()
+        end
+    end
     return roles
 end
 
 function XUiTheatreMultiRoleDetail:GetCharacterViewModelByEntityId(entityId)
-    local role = self.AdventureManager:GetRole(entityId)
+    local role = self.AdventureManager:GetRoleByRobotId(entityId)
     if role == nil then return nil end
     return role:GetCharacterViewModel()
 end
@@ -140,8 +140,30 @@ function XUiTheatreMultiRoleDetail:AOPOnBtnJoinTeamClickedAfter(rootUi)
     local team = self.__AOP_OtherTeam
     if not team then return nil end
     if team:GetId() == rootUi.Team:GetId() then return nil end
-    team:UpdateEntityTeamPos(rootUi.CurrentEntityId, nil, false)
+    local id = self._IdDir[rootUi.CurrentEntityId] and self._IdDir[rootUi.CurrentEntityId] or rootUi.CurrentEntityId
+    team:UpdateEntityTeamPos(id, nil, false)
     self.__AOP_OtherTeam = nil
+end
+
+function XUiTheatreMultiRoleDetail:GetFilterControllerConfig()
+    ---@type XCharacterAgency
+    local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+    return characterAgency:GetModelCharacterFilterController()["UiTheatreBattleRoomDetail"]
+end
+
+---v2.6 新筛选器用
+function XUiTheatreMultiRoleDetail:CheckInTeam(team, entityId)
+    local id = self._IdDir[entityId] and self._IdDir[entityId] or entityId
+    return team:GetEntityIdIsInTeam(id)
+end
+
+function XUiTheatreMultiRoleDetail:GetCurrentEntityId(currentEntityId)
+    for robotId, entityId in pairs(self._IdDir) do
+        if entityId == currentEntityId then
+            return robotId
+        end
+    end
+    return currentEntityId
 end
 
 return XUiTheatreMultiRoleDetail

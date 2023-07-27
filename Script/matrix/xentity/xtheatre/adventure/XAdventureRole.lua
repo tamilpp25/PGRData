@@ -12,7 +12,14 @@ function XAdventureRole:Ctor(id)
     self.Config = XTheatreConfigs.GetTheatreRole(id)
     -- 是否在本地角色
     self.IsLocalRole = false
-    self.Id = self:GetRawData().Id -- 适配筛选
+    self.Id = self:GetFilterId() -- 适配筛选
+end
+
+function XAdventureRole:GetFilterId()
+    if not self:GetIsLocalRole() then
+        return self:GetRawData():GetId()
+    end
+    return self:GetCharacterId()
 end
 
 function XAdventureRole:GetId()
@@ -30,6 +37,7 @@ end
 function XAdventureRole:SetCharacter(value)
     self.RawData = value
     self.IsLocalRole = true
+    self.Id = self:GetFilterId() -- 适配筛选
 end
 
 -- 职业标签

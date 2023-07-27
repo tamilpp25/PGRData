@@ -185,7 +185,7 @@ function XUiEquipDetailChildV2P6:OnBtnResonanceSkill(pos)
     local characterId = self.CharacterId or equip.CharacterId
 
     -- 共鸣技能替换界面，武器且选中位置与当前角色是共鸣
-    if equip:IsWeapon() and pos and equip:GetResonanceBindCharacterId(pos) == characterId then
+    if equip:IsWeapon() and pos and equip:GetResonanceBindCharacterId(pos) == characterId and characterId and characterId ~= 0 then
         XLuaUiManager.Open("UiEquipResonanceSkillChangeV2P6", characterId, self.EquipId)
 
     -- 5星武器只能共鸣一次

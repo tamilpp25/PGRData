@@ -259,8 +259,10 @@ XTheatreManagerCreator = function()
 
         --去掉了奖励结算界面，战后播完剧情会没恢复被释放的UI
         if not _AutoMultiFight and not _MultiFight and not XLuaUiManager.IsUiLoad("UiTheatrePlayMain") and playEndStory then
-            XLuaUiManager.Remove("UiTheatrePlayMain")
-            XLuaUiManager.Open("UiTheatrePlayMain")
+            --XLuaUiManager.Remove("UiTheatrePlayMain")
+            --XLuaUiManager.Open("UiTheatrePlayMain")
+            --v2.6 UiTheatrePlayMain的enable处理导致Ui连续open卡死锁，故这么写
+            CurrentAdventureManager:ShowNextOperation()
         end
     end
 

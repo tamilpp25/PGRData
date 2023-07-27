@@ -90,6 +90,9 @@ function XUiRestaurantEntrance:UpdateView()
         isInBusiness = viewModel:IsInBusiness()
 
         self:BindViewModelPropertyToObj(viewModel, function()
+            if XTool.UObjIsNil(self.BtnMenu) then
+                return
+            end
             self.BtnMenu:ShowReddot(XDataCenter.RestaurantManager.CheckMenuRedPoint())
         end, "_MenuRedPointMarkCount")
     end
