@@ -22,11 +22,11 @@ function XUiPromotionWay:OnBtnClose()
 end
 
 function XUiPromotionWay:OnBtnCharacterJump()
-    XLuaUiManager.Open("UiCharacter", self.TeamData[self.TargetCharacter], nil, nil, nil, true)
+    XLuaUiManager.Open("UiCharacterSystemV2P6", self.TeamData[self.TargetCharacter], XEnumConst.CHARACTER.SkipEnumV2P6.PropertyLvUp)
 end
 
 function XUiPromotionWay:OnBtnEquipJump()
-    XLuaUiManager.Open("UiCharacter", self.TeamData[self.TargetCharacter])
+    XLuaUiManager.Open("UiCharacterSystemV2P6", self.TeamData[self.TargetCharacter])
 end
 
 function XUiPromotionWay:UpdateData()

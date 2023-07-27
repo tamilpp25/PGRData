@@ -99,7 +99,8 @@ function XUiAssignDeploy:AutoCheckTeamToRefresh()
                 if teamData then
                     for index, charId in pairs(teamList) do
                         if index > teamData:GetNeedCharacter() then
-                            table.remove(teamList, index)
+                            -- table.remove(teamList, index)
+                            teamList[index] = nil
                         end
                     end
                 end
@@ -118,9 +119,12 @@ function XUiAssignDeploy:AutoCheckTeamToRefresh()
 
                 -- 清除多余队伍
                 if i > #self.ListData then
-                    table.remove(targetPreGroupTeamData.TeamInfoList, i)
-                    table.remove(targetPreGroupTeamData.FirstFightPosList, i)
-                    table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    -- table.remove(targetPreGroupTeamData.TeamInfoList, i)
+                    -- table.remove(targetPreGroupTeamData.FirstFightPosList, i)
+                    -- table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    targetPreGroupTeamData.TeamInfoList[i] = nil
+                    targetPreGroupTeamData.FirstFightPosList[i] = nil
+                    targetPreGroupTeamData.CaptainPosList[i] = nil
                 end
 
                 -- 设置修改后的数据
