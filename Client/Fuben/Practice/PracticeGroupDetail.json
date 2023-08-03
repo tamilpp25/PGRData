@@ -629,11 +629,26 @@
     {
         "GroupId": 1271003,
         "CharacterId": 1271003,
+        "Name": "\u6df1\u8c23",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR3Lamiya1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
+        "ActivityTimeId": 28.0,
+        "ActivityCondition": [
+            100000.0
+        ],
+        "OpenCondition": [],
+        "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
+    },
+    {
+        "GroupId": 1281002,
+        "CharacterId": 1281002,
         "Name": "\u672a\u77e5",
-        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR3Yalisha1.png",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR3Lamiya1.png",
         "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
         "ActivityTimeId": null,
-        "ActivityCondition": [],
+        "ActivityCondition": [
+            100000.0
+        ],
         "OpenCondition": [
             200000.0
         ],

@@ -930,7 +930,7 @@
     {
         "Id": 30,
         "TimeId": 809.0,
-        "ActivityTimeId": 19207.0,
+        "ActivityTimeId": null,
         "UiType": 1.0,
         "Name": "\u65ed\u613f\u7b3a\u68a6",
         "Priority": 30,
@@ -968,8 +968,8 @@
         "UiType": 2.0,
         "Name": "\u5fc3\u6620\u7e41\u666f",
         "Priority": 32,
-        "FubenActivityOrder": null,
-        "FunctionOpenId": 10306,
+        "FubenActivityOrder": 3.0,
+        "FunctionOpenId": 10432,
         "SkipId": [
             20200.0
         ],
@@ -990,6 +990,64 @@
             30130603,
             30130604.0,
             30130605.0
+        ]
+    },
+    {
+        "Id": 32,
+        "TimeId": 20091.0,
+        "ActivityTimeId": null,
+        "UiType": null,
+        "Name": "\u767d\u68a6\u6e38\u5f0b",
+        "Priority": 31,
+        "FubenActivityOrder": null,
+        "FunctionOpenId": 10306,
+        "SkipId": [],
+        "StagePrefix": "ARC-",
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner102.png",
+        "ChapterType": 27,
+        "MainBackgound": "Assets/Product/Texture/Image/UiEpicFashionGachaStageLine/UiEpicFashionGachaStageLineBg.png",
+        "EffectUrl": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenFashionGachaStageLine/FubenFashionGachaStageLine.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFashionGachaStageLineFight.prefab",
+        "GridStoryPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFashionGachaStageLineStory.prefab",
+        "TitleIcon": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanImg01.png",
+        "TitleBg": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanTitleBg01.png",
+        "ChapterBgm": 230.0,
+        "StageId": [
+            30130411,
+            30130412,
+            30130413,
+            30130414.0,
+            30130415.0
+        ]
+    },
+    {
+        "Id": 33,
+        "TimeId": 21000.0,
+        "ActivityTimeId": 21000.0,
+        "UiType": null,
+        "Name": "\u767d\u68a6\u6e38\u5f0b\u00b7\u590d\u523b",
+        "Priority": 33,
+        "FubenActivityOrder": null,
+        "FunctionOpenId": 10306,
+        "SkipId": [],
+        "StagePrefix": "ARC-",
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner102.png",
+        "ChapterType": 27,
+        "MainBackgound": "Assets/Product/Texture/Image/UiEpicFashionGachaStageLine/UiEpicFashionGachaStageLineBg.png",
+        "EffectUrl": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenFashionGachaStageLine/FubenFashionGachaStageLine.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFashionGachaStageLineFight.prefab",
+        "GridStoryPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageFashionGachaStageLineStory.prefab",
+        "TitleIcon": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanImg01.png",
+        "TitleBg": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanTitleBg01.png",
+        "ChapterBgm": 230.0,
+        "StageId": [
+            30130411,
+            30130412,
+            30130413,
+            30130414.0,
+            30130415.0
         ]
     }
 ]

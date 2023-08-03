@@ -1297,7 +1297,9 @@
         "Name": "\u7cfb\u5217\u6d82\u88c5\u6d3b\u52a8",
         "Priority": 120,
         "Hint": 0,
-        "Condition": [],
+        "Condition": [
+            774800.0
+        ],
         "Type": 1
     },
     {
@@ -1891,10 +1893,11 @@
     },
     {
         "Id": 10432,
-        "Name": "\u3010\u61a9\u68a6\u7a79\u68ee\u3011\u6d3b\u52a8\u7814\u53d1",
+        "Name": "\u6d3b\u52a8\u7814\u53d1",
         "Priority": 16,
         "Hint": 0,
         "Condition": [
+            770401.0,
             770402.0
         ],
         "Type": 1
@@ -2085,7 +2088,7 @@
         "Priority": 123,
         "Hint": 1,
         "Condition": [
-            120000.0
+            200000.0
         ],
         "Type": 1
     },
@@ -2104,6 +2107,16 @@
         "Name": "\u590f\u65e5\u5e78\u8fd0\u661f",
         "Priority": 70,
         "Hint": 0,
+        "Condition": [
+            774800.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 10455,
+        "Name": "\u9ed1\u5ca9\u6218\u68cb",
+        "Priority": 70,
+        "Hint": 1,
         "Condition": [
             774800.0
         ],

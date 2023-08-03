@@ -1753,12 +1753,16 @@
         "LikeType": 2,
         "LikeCharIds": [],
         "HateCharIds": [],
-        "QuestAttrib": []
+        "QuestAttrib": [
+            3.0,
+            5.0,
+            6.0
+        ]
     },
     {
         "Id": 1271003,
         "Type": 2,
-        "Model": "Assets/Product/Role/Room/Prefab/QR3LamiyaMd010011.prefab",
+        "Model": "Assets/Product/Role/Room/Prefab/QR2BlackrockMd010011.prefab",
         "Name": "\u62c9\u5f25\u4e9a \u6df1\u8c23",
         "NameFrist": "\u62c9\u5f25\u4e9a",
         "NameLast": "\u6df1\u8c23",
@@ -1771,10 +1775,45 @@
         "DailogTouchHight": 0.51,
         "EffectWidgetHight": 1,
         "TouchWidgetHight": 0.6,
-        "LoveType": 3,
-        "LikeType": 2,
+        "LoveType": 2,
+        "LikeType": 3,
+        "LikeCharIds": [
+            1171003.0
+        ],
+        "HateCharIds": [
+            1131002.0,
+            1131003.0
+        ],
+        "QuestAttrib": [
+            2.0,
+            6.0,
+            7.0
+        ]
+    },
+    {
+        "Id": 1281002,
+        "Type": 2,
+        "Model": "Assets/Product/Role/Room/Prefab/QR2BlackrockMd010011.prefab",
+        "Name": "BRS",
+        "NameFrist": "BRS",
+        "NameLast": null,
+        "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadR3Lamiya2Q.png",
+        "HeadIcon": "Assets/Product/Texture/Image/Role/RoleHeadR3Lamiya1Q.png",
+        "ExpFondleWidgetHeight": 0.85,
+        "ExpDetailWidgetHeight": 0.7,
+        "PutOnWidgetHight": 1.2,
+        "DailogWidgetHight": 1.4,
+        "DailogTouchHight": 0.51,
+        "EffectWidgetHight": 1,
+        "TouchWidgetHight": 0.6,
+        "LoveType": 2,
+        "LikeType": 3,
         "LikeCharIds": [],
         "HateCharIds": [],
-        "QuestAttrib": []
+        "QuestAttrib": [
+            2.0,
+            6.0,
+            7.0
+        ]
     }
 ]

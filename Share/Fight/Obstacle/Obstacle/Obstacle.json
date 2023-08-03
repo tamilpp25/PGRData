@@ -1733,9 +1733,10 @@
     {
         "Id": 831301,
         "Model": null,
-        "Shape": 2,
+        "Shape": 5,
         "ShapeParams": [
-            831301
+            25,
+            1.0
         ],
         "Lifetime": 3.0,
         "Destructible": 0,
@@ -1762,6 +1763,63 @@
         "BlockNpc": 1,
         "NpcTargetType": 7,
         "BlockMissile": 1,
+        "MissileKind": 3,
+        "MissileTargetType": 1,
+        "MissileInteractType": 1,
+        "MissileInteractParams": 1
+    },
+    {
+        "Id": 849501,
+        "Model": null,
+        "Shape": 5,
+        "ShapeParams": [
+            40,
+            30.0
+        ],
+        "Lifetime": 0.0,
+        "Destructible": 0,
+        "Type": 3,
+        "BlockNpc": 1,
+        "NpcTargetType": 4,
+        "BlockMissile": 0,
+        "MissileKind": 3,
+        "MissileTargetType": 1,
+        "MissileInteractType": 1,
+        "MissileInteractParams": 1
+    },
+    {
+        "Id": 849502,
+        "Model": null,
+        "Shape": 5,
+        "ShapeParams": [
+            60,
+            20.0
+        ],
+        "Lifetime": 0.0,
+        "Destructible": 0,
+        "Type": 3,
+        "BlockNpc": 1,
+        "NpcTargetType": 4,
+        "BlockMissile": 0,
+        "MissileKind": 3,
+        "MissileTargetType": 1,
+        "MissileInteractType": 1,
+        "MissileInteractParams": 1
+    },
+    {
+        "Id": 849503,
+        "Model": null,
+        "Shape": 5,
+        "ShapeParams": [
+            60,
+            60.0
+        ],
+        "Lifetime": 0.0,
+        "Destructible": 0,
+        "Type": 3,
+        "BlockNpc": 1,
+        "NpcTargetType": 4,
+        "BlockMissile": 0,
         "MissileKind": 3,
         "MissileTargetType": 1,
         "MissileInteractType": 1,

@@ -1712,7 +1712,7 @@
     {
         "Key": "ActivityShopItemTextCanBuyColor",
         "Type": "string",
-        "Value": "270045"
+        "Value": "181C18"
     },
     {
         "Key": "ActivityShopItemTextCanNotBuyColor",
@@ -3365,16 +3365,6 @@
         "Value": "404/405/406"
     },
     {
-        "Key": "TwoSideTowerPositiveIcon",
-        "Type": "string",
-        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage01.png"
-    },
-    {
-        "Key": "TwoSideTowerNegativeIcon",
-        "Type": "string",
-        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage02.png"
-    },
-    {
         "Key": "ActivityBriefBaseModel",
         "Type": "string",
         "Value": "Assets/Product/Ui/UiModel/UiActivityBriefBase3D/UiActivityBriefBase.prefab"
@@ -3840,6 +3830,11 @@
         "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiMain3dQishi02Prefab/FxUiMain3dQishiXuxian.prefab"
     },
     {
+        "Key": "BtnOccupyJoinImg1",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiAssign/UiAssignCharacterBtn01.png"
+    },
+    {
         "Key": "BtnOccupyJoinImg3",
         "Type": "string",
         "Value": "Assets/Product/Texture/Atlas/UiAssign/UiAssignCharacterBtn03.png"
@@ -4138,5 +4133,25 @@
         "Key": "FxUiCharacterV2Sanjiao1",
         "Type": "string",
         "Value": "Assets/Product/Effect/Prefab/FxUi/FxUiCharacterV2Prefab/FxUiCharacterV2Sanjiao1.prefab"
+    },
+    {
+        "Key": "UiSpecialWeaponCase",
+        "Type": "string",
+        "Value": "SpecialWeaponCase"
+    },
+    {
+        "Key": "UiWeaponCaseNode",
+        "Type": "string",
+        "Value": "UiWeaponCase"
+    },
+    {
+        "Key": "WeaponCaseNode",
+        "Type": "string",
+        "Value": "WeaponCase"
+    },
+    {
+        "Key": "PanelCharInfoWithEquip",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/Character/PanelCharInfoWithEquip.prefab"
     }
 ]

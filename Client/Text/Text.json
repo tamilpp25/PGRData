@@ -3981,7 +3981,7 @@
     },
     {
         "Key": "ActivityBranchFightLeftTime",
-        "Text": "\u4f5c\u6218\u65f6\u95f4\u5269\u4f59\uff1a"
+        "Text": "\u5269\u4f59\uff1a"
     },
     {
         "Key": "ActivityBranchShopLeftTime",
@@ -4137,7 +4137,7 @@
     },
     {
         "Key": "ActivityRepeatChallengeDesc",
-        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#9799ff>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
+        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#C7A3FF>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
     },
     {
         "Key": "ActivityRepeatChallengeLevelTitle",
@@ -8104,6 +8104,10 @@
         "Text": "\u3001"
     },
     {
+        "Key": "UserCenterSetting",
+        "Text": "\u8d26\u53f7\u4e2d\u5fc3"
+    },
+    {
         "Key": "UserAgreeSetting",
         "Text": "\u9690\u79c1\u6761\u6b3e\u4e0e\u8bbe\u7f6e"
     },
@@ -10438,6 +10442,10 @@
     {
         "Key": "LottoKareninaFashionTip",
         "Text": "\u5df2\u83b7\u5f97\u8f89\u6653\u6d82\u88c5\u2014\u70b8\u88c2\u9713\u8679\u2606"
+    },
+    {
+        "Key": "LottoKareninaNotOwnTip",
+        "Text": "\u5c1a\u672a\u62e5\u6709\u3010{0}\u00b7{1}\u3011"
     },
     {
         "Key": "ChessPursuitShopBuyTips",
@@ -13089,7 +13097,7 @@
     },
     {
         "Key": "FashionStoryActivityEnd",
-        "Text": "\u6d3b\u52a8\u5df2\u7ed3\u675f"
+        "Text": "\u5f53\u524d\u4e0d\u5728\u6d3b\u52a8\u65f6\u95f4\u5185"
     },
     {
         "Key": "FashionStoryTrialStageLeftTime",
@@ -16816,6 +16824,10 @@
         "Text": "- - -"
     },
     {
+        "Key": "TaikoMasterFightTeamCountTip",
+        "Text": "\u5173\u5361\u9650\u5b9a\u4e0a\u9635{0}\u540d\u89d2\u8272"
+    },
+    {
         "Key": "MultiDimCareer1",
         "Text": "\u8fdb\u653b\u5929\u8d4b"
     },
@@ -17040,88 +17052,8 @@
         "Text": "\u516c\u4f1a\u5bbf\u820d\u7f51\u7edc\u9519\u8bef"
     },
     {
-        "Key": "XTwoSideTowerChapterConditionProcess",
-        "Text": "\u901a\u5173{0}\u89e3\u9501"
-    },
-    {
-        "Key": "XTwoSideTowerChapterCleared",
-        "Text": "\u6700\u9ad8\u6784\u60f3\u70b9\uff1a{0}"
-    },
-    {
-        "Key": "XTwoSideTowerChapterNotCleared",
-        "Text": "\u672a\u901a\u5173"
-    },
-    {
-        "Key": "XTwoSideTowerChapterTimeProcess",
-        "Text": "{0}\u540e\u89e3\u9501"
-    },
-    {
-        "Key": "TwoSideTowerPositiveTitle",
-        "Text": "\u987a\u6d41\u800c\u4e0b"
-    },
-    {
-        "Key": "TwoSideTowerNegativeTitle",
-        "Text": "\u9006\u6d41\u800c\u4e0a"
-    },
-    {
-        "Key": "TwoSideTowerStageDetailTitle",
-        "Text": "\u5173\u5361\u8be6\u60c5"
-    },
-    {
-        "Key": "TwoSideTowerResetTitle",
-        "Text": "\u63d0\u793a"
-    },
-    {
-        "Key": "TwoSideTowerResetContent",
-        "Text": "\u91cd\u7f6e\u7ae0\u8282\u4f1a<color=#e41f0a>\u91cd\u7f6e\u7ae0\u8282\u8fdb\u5ea6</color>\uff0c\u4f46\u4ecd\u4f1a\u4fdd\u7559\u9006\u6d41\u800c\u4e0a\u9636\u6bb5\u4e2d\u5173\u5361\u7684\u5386\u53f2\u6700\u9ad8\u5206\\n\u786e\u5b9a\u8981\u91cd\u65b0\u6311\u6218\u5417\uff1f"
-    },
-    {
-        "Key": "TwoSideTowerSettleBuffDesc",
-        "Text": "{0}/{1}"
-    },
-    {
-        "Key": "TwoSideTowerSettleShieldDetail",
-        "Text": "\u5728\u9006\u6d41\u800c\u4e0a\u9636\u6bb5\u7684\u6218\u6597\u4e2d\uff0c\u60a8\u4e00\u5171\u7a81\u7834\u4e86<color=#e41f0a>{1}</color>\u4e2a\u5e7b\u8c61\u7279\u6027\uff0c\\n\u5c4f\u853d\u4e86<color=#00ffffff>{0}</color>\u4e2a\u5e7b\u8c61\u7279\u6027"
-    },
-    {
-        "Key": "TwoSideTowerSettlePoint",
-        "Text": "{0}/{1}"
-    },
-    {
-        "Key": "TwoSideTowerFightAgain",
-        "Text": "\u518d\u6b21\u6311\u6218"
-    },
-    {
-        "Key": "TwoSideTowerAutoFightTitle",
-        "Text": "\u63d0\u793a"
-    },
-    {
-        "Key": "TwoSideTowerAutoFightContent",
-        "Text": "\u91cd\u7f6e\u7ae0\u8282\u540e\uff0c\u987a\u6d41\u800c\u4e0b\u9636\u6bb5\u901a\u5173\u8fc7\u7684\u5173\u5361\u53ef\u4ee5\u4f7f\u7528\u81ea\u52a8\u4f5c\u6218<color=#e41f0a>\u76f4\u63a5\u901a\u5173</color>\\n\u786e\u5b9a\u8981\u8fdb\u884c\u81ea\u52a8\u4f5c\u6218\u5417\uff1f"
-    },
-    {
-        "Key": "TwoSideTowerSettleTitle",
-        "Text": "{0}\u901a\u5173\uff01"
-    },
-    {
         "Key": "TwoSideTowerProcess",
         "Text": "\u5b8c\u6210\u4efb\u52a1:{0}/{1}"
-    },
-    {
-        "Key": "TwoSideTowerChangeTip1",
-        "Text": "\u987a\u6d41\u800c\u4e0b\u9636\u6bb5\u7ed3\u675f"
-    },
-    {
-        "Key": "TwoSideTowerChangeTip2",
-        "Text": "\u8fdb\u5165\u9006\u6d41\u800c\u4e0a\u9636\u6bb5"
-    },
-    {
-        "Key": "TwoSideTowerStageEnterTipsTitle",
-        "Text": "\u8fdb\u5165\u5173\u5361"
-    },
-    {
-        "Key": "TwoSideTowerStageEnterTipsContent",
-        "Text": "\u9009\u62e9\u5173\u5361\u8fdb\u884c\u6311\u6218\u540e\uff0c\u672a\u9009\u4e2d\u5173\u5361\u5c06\u5728\u9006\u6d41\u800c\u4e0a\u9636\u6bb5\u8fdb\u884c\u6311\u6218\u3002\u662f\u5426\u8981\u5148\u6311\u6218\u672c\u5173\u5361\uff1f"
     },
     {
         "Key": "GameExitMsg",
@@ -18952,26 +18884,6 @@
         "Text": "\u9700\u8981\u4e0a\u9635{0}"
     },
     {
-        "Key": "UiNewActivityCalendarOpenTime",
-        "Text": "{0}\u5f00\u542f"
-    },
-    {
-        "Key": "UiNewActivityCalendarRewardCountDesc",
-        "Text": "<color=#0f70bc>{0}</color>/{1}"
-    },
-    {
-        "Key": "UiNewActivityCalendarBtnTips1",
-        "Text": "\u65b0\u6d3b\u52a8\u5f00\u542f\u4e86"
-    },
-    {
-        "Key": "UiNewActivityCalendarBtnTips2",
-        "Text": "\u4e30\u539a\u5956\u52b1\u6d3b\u52a8"
-    },
-    {
-        "Key": "UiNewActivityCalendarBtnTips3",
-        "Text": "\u8fd9\u91cc\u6709\u4e9b\u6d3b\u52a8"
-    },
-    {
         "Key": "EquipOverrun",
         "Text": "\u6b66\u5668\u8c10\u632f"
     },
@@ -19037,7 +18949,7 @@
     },
     {
         "Key": "TransfiniteTimeExtra3",
-        "Text": "{0}\u79d2\u5185\u901a\u8fc7\u53ef\u83b7\u5f97\u989d\u5916\u5956\u52b1"
+        "Text": "<color=#ee2746>{0}\u79d2\u5185\u901a\u8fc7\u53ef\u83b7\u5f97\u989d\u5916\u5956\u52b1</color>"
     },
     {
         "Key": "TransfiniteRewardCanReceive",
@@ -19118,6 +19030,10 @@
     {
         "Key": "EquipResonanceItemSelect",
         "Text": "\u6d88\u8017\u6750\u6599\u6216\u6b66\u5668"
+    },
+    {
+        "Key": "EquipResonanceItemSelect2",
+        "Text": "\u6d88\u8017\u6750\u6599\u6216\u610f\u8bc6"
     },
     {
         "Key": "EquipResonanceItemDisable",
@@ -19281,7 +19197,7 @@
     },
     {
         "Key": "Theatre3EnergyNoEnoughTip",
-        "Text": "\u80fd\u91cf\u4e0d\u8db3"
+        "Text": "\u62db\u52df\u80fd\u91cf\u4e0d\u8db3"
     },
     {
         "Key": "Theatre3AdventureOptionSelectTip",
@@ -19357,7 +19273,7 @@
     },
     {
         "Key": "Theatre3EnergyUnused",
-        "Text": "{0}"
+        "Text": "\u62db\u52df\u80fd\u91cf{0}"
     },
     {
         "Key": "Theatre3EquipBackTip",
@@ -19377,11 +19293,11 @@
     },
     {
         "Key": "Theatre3EnergyNum",
-        "Text": "<color=#00487B>{0}</color><size=55>/{1}</size>"
+        "Text": "<color=#356a91>{0}</color><size=55>/{1}</size>"
     },
     {
         "Key": "Theatre3EquipSuitNumNewLine",
-        "Text": "\u5957\u88c5\\n\u00d7{0}"
+        "Text": "{0}"
     },
     {
         "Key": "Theatre3ShopBuyTipContent",
@@ -19484,6 +19400,18 @@
         "Text": "\u7ca4\u8bed\uff1a"
     },
     {
+        "Key": "TransfiniteTeamMemberDead",
+        "Text": "\u5f53\u524d\u6210\u5458\u5df2\u88ab\u6dd8\u6c70"
+    },
+    {
+        "Key": "TransfiniteRepeatChallengeStage",
+        "Text": "\u91cd\u65b0\u6311\u6218"
+    },
+    {
+        "Key": "TransfiniteBeginChallengeStage",
+        "Text": "\u5f00\u59cb\u6311\u6218"
+    },
+    {
         "Key": "EquipStrengthenNoItemTips",
         "Text": "\u6240\u9009\u5347\u7ea7\u9053\u5177\u4e0d\u8db3"
     },
@@ -19538,5 +19466,73 @@
     {
         "Key": "CharacterExhibitionGroupNullText",
         "Text": "Punishing"
+    },
+    {
+        "Key": "TransfiniteTimeExtra4",
+        "Text": "<color=#64EE64>{0}\u79d2\u5185\u901a\u8fc7\u53ef\u83b7\u5f97\u989d\u5916\u5956\u52b1\uff08\u5df2\u8fbe\u6210\uff09</color>"
+    },
+    {
+        "Key": "BlackRockChessMoveInterval",
+        "Text": "\u884c\u52a8\u95f4\u9694\uff1a{0}"
+    },
+    {
+        "Key": "BlackRockChessStageUnlock",
+        "Text": "\u9700\u8981\u901a\u5173\u524d\u7f6e\u5173\u5361\u624d\u89e3\u9501"
+    },
+    {
+        "Key": "BlackRockChessArchiveUnlock",
+        "Text": "\u5267\u60c5\u6682\u672a\u89e3\u9501"
+    },
+    {
+        "Key": "BlackRockChessSkillUnlock",
+        "Text": "\u6280\u80fd\u6682\u672a\u89e3\u9501"
+    },
+    {
+        "Key": "BlackRockChessWeaponUnlock",
+        "Text": "\u6b66\u5668\u6682\u672a\u89e3\u9501"
+    },
+    {
+        "Key": "BlackRockChessChessUnlock",
+        "Text": "\u68cb\u5b50\u6682\u672a\u89e3\u9501"
+    },
+    {
+        "Key": "UiNewActivityCalendarBeginCountDown",
+        "Text": "\u51c6\u5907\u4e2d:{0}"
+    },
+    {
+        "Key": "UiNewActivityCalendarEndCountDown",
+        "Text": "\u8fdb\u884c\u4e2d:{0}"
+    },
+    {
+        "Key": "FavorabilityCharacterSelectOverflowTips",
+        "Text": "\u6700\u591a\u53ef\u90094\u540d\u52a9\u7406"
+    },
+    {
+        "Key": "ExpensiveItemExpiration",
+        "Text": "\u73cd\u60dc\u9053\u5177\u5230\u671f"
+    },
+    {
+        "Key": "TransfiniteTimeExtra5",
+        "Text": "{0}\u79d2\u5185\u901a\u5173\u53ef\u5f00\u542f14\u5173\u6311\u6218"
+    },
+    {
+        "Key": "TransfiniteTimeExtra6",
+        "Text": "<color=#64EE64>{0}\u79d2\u5185\u901a\u5173\u53ef\u5f00\u542f14\u5173\u6311\u6218\uff08\u5df2\u8fbe\u6210\uff09</color>"
+    },
+    {
+        "Key": "TransfiniteTimeExtra7",
+        "Text": "<color=#ee2746>{0}\u79d2\u5185\u901a\u5173\u53ef\u5f00\u542f14\u5173\u6311\u6218</color>"
+    },
+    {
+        "Key": "FavorabilityCharacterSelectChangeTips",
+        "Text": "\u60a8\u5df2\u505a\u51fa\u4fee\u6539\uff0c\u662f\u5426\u4fdd\u5b58\u540e\u9000\u51fa\uff1f"
+    },
+    {
+        "Key": "PcMouseButtonAttack",
+        "Text": "\u653b\u51fb"
+    },
+    {
+        "Key": "PcMouseButtonDodge",
+        "Text": "\u95ea\u907f"
     }
 ]

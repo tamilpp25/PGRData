@@ -240,7 +240,30 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
-        "SortTagList": []
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiTheatreMultiRoleDetail",
+        "Desc": "\u8089\u9e3d1.0-\u591a\u961f\u4f0d\u7f16\u961f",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": 1.0,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
     },
     {
         "UiName": "UiGuildWarCharacterSelect",
@@ -288,8 +311,27 @@
         "SortTagList": []
     },
     {
-        "UiName": "UiAssignRoomCharacter",
-        "Desc": "\u9ec4\u91d1\u4e4b\u6da1",
+        "UiName": "UiBiancaTheatreMainMassage",
+        "Desc": "\u8089\u9e3d2.0\u6210\u5458",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/PanelBiancaTheatreMainMassage.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiTheatre2BattleRoomDetail",
+        "Desc": "\u8089\u9e3d2.0\u7f16\u961f",
         "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
         "EnableFolder": null,
         "DisableAutoSeleGrid": null,
@@ -300,6 +342,102 @@
         "EnableSupportTag": null,
         "BanElementTags": [],
         "DiyTagNames": [],
-        "SortTagList": []
+        "SortTagList": [
+            8.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "UiName": "UiFunbenKoroTutoriaTeachingDetail",
+        "Desc": "\u8bd5\u73a9\u6d3b\u52a8\u7f16\u961f",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            8.0,
+            11.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterAssignOccupy",
+        "Desc": "\u8fb9\u754c\u516c\u7ea6\u9a7b\u5b88",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignOccupy.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            57.0,
+            55.0,
+            56.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterAwarenessOccupy",
+        "Desc": "\u610f\u8bc6\u516c\u7ea6\u9a7b\u5b88",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListAssignOccupy.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            57.0,
+            55.0,
+            56.0
+        ]
+    },
+    {
+        "UiName": "UiTwoSideTowerBattle",
+        "Desc": "\u6b63\u9006\u58543.0",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListBattleRoomRoleDetailDefaultListV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            8.0,
+            4.0
+        ]
+    },
+    {
+        "UiName": "UiSelectCharacterPlayerSupport",
+        "Desc": "\u6307\u6325\u5b98--\u652f\u63f4",
+        "CharacterListPrefabPath": "Assets/Product/Ui/ComponentPrefab/Character/CharacterListDefaultV2P6.prefab",
+        "EnableFolder": null,
+        "DisableAutoSeleGrid": null,
+        "EnableShowFragment": null,
+        "DiableEmptyStatus": null,
+        "ForceEnableUniframe": null,
+        "EnableRedDotTag": null,
+        "EnableSupportTag": null,
+        "BanElementTags": [],
+        "DiyTagNames": [],
+        "SortTagList": [
+            55.0,
+            4.0
+        ]
     }
 ]

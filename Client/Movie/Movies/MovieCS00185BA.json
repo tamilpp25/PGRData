@@ -11,7 +11,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/Bgstory96.png"
+            "Assets/Product/Texture/Image/BgStory/BgStory669.jpg"
         ]
     },
     {
@@ -34,7 +34,7 @@
         "Id": 3,
         "ActionId": 3,
         "NextActionId": null,
-        "Type": 201,
+        "Type": 501,
         "IsBlock": null,
         "IsEnd": null,
         "BeginAnim": null,
@@ -42,9 +42,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "500627",
-            400.0
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryQujingkuang.prefab",
+            "2"
         ]
     },
     {
@@ -54,85 +53,17 @@
         "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": "DialogEnable",
+        "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "\u6d4b\u8bd5",
-            1.0
+            "\u540c\u4e00\u9635\u8425\u7684\u5347\u683c\u8005\u4e5f\u5e76\u975e\u6ca1\u6709\u53ef\u80fd\u2026\u2026"
         ]
     },
     {
         "Id": 5,
         "ActionId": 5,
-        "NextActionId": null,
-        "Type": 501,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiDoorClose.prefab",
-            "2"
-        ]
-    },
-    {
-        "Id": 6,
-        "ActionId": 6,
-        "NextActionId": null,
-        "Type": 201,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "15",
-            "500641",
-            -400.0
-        ]
-    },
-    {
-        "Id": 7,
-        "ActionId": 7,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "\u6d4b\u8bd52",
-            1.0
-        ]
-    },
-    {
-        "Id": 8,
-        "ActionId": 8,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "\u6d4b\u8bd52\u6d4b\u8bd52\u6d4b\u8bd52\u6d4b\u8bd52",
-            1.0,
-            2.0
-        ]
-    },
-    {
-        "Id": 9,
-        "ActionId": 9,
         "NextActionId": null,
         "Type": 505,
         "IsBlock": null,
@@ -142,28 +73,12 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiDoorClose.prefab"
+            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryQujingkuang.prefab"
         ]
     },
     {
-        "Id": 10,
-        "ActionId": 10,
-        "NextActionId": null,
-        "Type": 501,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiDoorOpen.prefab",
-            "2"
-        ]
-    },
-    {
-        "Id": 11,
-        "ActionId": 11,
+        "Id": 6,
+        "ActionId": 6,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
