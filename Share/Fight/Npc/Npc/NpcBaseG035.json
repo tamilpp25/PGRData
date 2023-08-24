@@ -30,7 +30,7 @@
         "HpWidgetHeight": 0.8,
         "HpWidgetType": 2.0,
         "RollCharHeight": 1.5,
-        "LieOnFloorTime": 0,
+        "LieOnFloorTime": 0.0,
         "StandUpTailTime": null,
         "StandUpImmuneHitTime": 0.3,
         "MaxHitValue": 9999,
@@ -70,7 +70,7 @@
             900011,
             900008,
             819215,
-            819201.0,
+            819201,
             819202.0
         ],
         "SkillId": [
@@ -144,7 +144,7 @@
         "HpWidgetHeight": null,
         "HpWidgetType": null,
         "RollCharHeight": 1.5,
-        "LieOnFloorTime": 0,
+        "LieOnFloorTime": 0.0,
         "StandUpTailTime": null,
         "StandUpImmuneHitTime": null,
         "MaxHitValue": 9999,
@@ -184,7 +184,7 @@
             900011,
             900008,
             900051,
-            935425.0,
+            935425,
             935426.0
         ],
         "SkillId": [
@@ -231,8 +231,8 @@
         "HpWidgetHeight": null,
         "HpWidgetType": null,
         "RollCharHeight": 1.5,
-        "LieOnFloorTime": 0,
-        "StandUpTailTime": null,
+        "LieOnFloorTime": 0.1,
+        "StandUpTailTime": 0.0,
         "StandUpImmuneHitTime": null,
         "MaxHitValue": 9999,
         "BeHitInterval": null,
@@ -244,7 +244,7 @@
         "CatchType": null,
         "NoThreat": null,
         "NotToThreatTarget": null,
-        "DeathTime": 1.7,
+        "DeathTime": 1.8,
         "HasRunToStand": 0,
         "HasRunStart": null,
         "HasStandTransition": null,
@@ -270,7 +270,8 @@
             9358,
             900011,
             900008,
-            900051
+            900051,
+            935831
         ],
         "SkillId": [
             935801,

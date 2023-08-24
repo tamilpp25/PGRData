@@ -230,7 +230,7 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 1000.0,
+        "EndDelay": null,
         "Params": [
             "-150|0|-150",
             "1"
@@ -246,7 +246,7 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": null,
+        "EndDelay": 1000.0,
         "Params": [
             "\u5f80\u84b2\u7262\u7684\u65b9\u5411\u770b\uff0c\u53d1\u73b0\u8fd8\u6709\u4e24\u4e2a\u719f\u6089\u7684\u8eab\u5f71\uff0c\u4e0d\uff0c\u4e09\u4e2a\u3002"
         ]
@@ -322,22 +322,6 @@
         "Id": 21,
         "ActionId": 21,
         "NextActionId": null,
-        "Type": 104,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": 1000.0,
-        "Params": [
-            "0|0|0",
-            "1"
-        ]
-    },
-    {
-        "Id": 22,
-        "ActionId": 22,
-        "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
         "IsEnd": null,
@@ -351,8 +335,8 @@
         ]
     },
     {
-        "Id": 23,
-        "ActionId": 23,
+        "Id": 22,
+        "ActionId": 22,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -369,8 +353,8 @@
         ]
     },
     {
-        "Id": 24,
-        "ActionId": 24,
+        "Id": 23,
+        "ActionId": 23,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -381,12 +365,12 @@
         "EndDelay": null,
         "Params": [
             "\u79d8\u5bc6\u8ba1\u5212\u51fa\u73b0\u963b\u788d\u4e86\uff1f",
-            "25"
+            "24"
         ]
     },
     {
-        "Id": 25,
-        "ActionId": 25,
+        "Id": 24,
+        "ActionId": 24,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -401,8 +385,8 @@
         ]
     },
     {
-        "Id": 26,
-        "ActionId": 26,
+        "Id": 25,
+        "ActionId": 25,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -416,8 +400,8 @@
         ]
     },
     {
-        "Id": 27,
-        "ActionId": 27,
+        "Id": 26,
+        "ActionId": 26,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -432,8 +416,8 @@
         ]
     },
     {
-        "Id": 28,
-        "ActionId": 28,
+        "Id": 27,
+        "ActionId": 27,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -450,8 +434,8 @@
         ]
     },
     {
-        "Id": 29,
-        "ActionId": 29,
+        "Id": 28,
+        "ActionId": 28,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -466,8 +450,8 @@
         ]
     },
     {
-        "Id": 30,
-        "ActionId": 30,
+        "Id": 29,
+        "ActionId": 29,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -482,8 +466,8 @@
         ]
     },
     {
-        "Id": 31,
-        "ActionId": 31,
+        "Id": 30,
+        "ActionId": 30,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -500,8 +484,8 @@
         ]
     },
     {
-        "Id": 32,
-        "ActionId": 32,
+        "Id": 31,
+        "ActionId": 31,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -512,14 +496,14 @@
         "EndDelay": null,
         "Params": [
             "\u55e8\u2014\u2014",
-            "33",
+            "32",
             "\u5f88\u70ed\u95f9\u554a\u3002",
-            33.0
+            32.0
         ]
     },
     {
-        "Id": 33,
-        "ActionId": 33,
+        "Id": 32,
+        "ActionId": 32,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -534,8 +518,8 @@
         ]
     },
     {
-        "Id": 34,
-        "ActionId": 34,
+        "Id": 33,
+        "ActionId": 33,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -551,8 +535,8 @@
         ]
     },
     {
-        "Id": 35,
-        "ActionId": 35,
+        "Id": 34,
+        "ActionId": 34,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -563,12 +547,12 @@
         "EndDelay": null,
         "Params": [
             "\u6240\u4ee5\uff0c\u73b0\u5728\u662f\u4ec0\u4e48\u60c5\u51b5\uff1f",
-            "36"
+            "35"
         ]
     },
     {
-        "Id": 36,
-        "ActionId": 36,
+        "Id": 35,
+        "ActionId": 35,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -583,8 +567,8 @@
         ]
     },
     {
-        "Id": 37,
-        "ActionId": 37,
+        "Id": 36,
+        "ActionId": 36,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -599,8 +583,8 @@
         ]
     },
     {
-        "Id": 38,
-        "ActionId": 38,
+        "Id": 37,
+        "ActionId": 37,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -617,8 +601,8 @@
         ]
     },
     {
-        "Id": 39,
-        "ActionId": 39,
+        "Id": 38,
+        "ActionId": 38,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -634,8 +618,8 @@
         ]
     },
     {
-        "Id": 40,
-        "ActionId": 40,
+        "Id": 39,
+        "ActionId": 39,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -650,8 +634,8 @@
         ]
     },
     {
-        "Id": 41,
-        "ActionId": 41,
+        "Id": 40,
+        "ActionId": 40,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -667,8 +651,8 @@
         ]
     },
     {
-        "Id": 42,
-        "ActionId": 42,
+        "Id": 41,
+        "ActionId": 41,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -685,8 +669,8 @@
         ]
     },
     {
-        "Id": 43,
-        "ActionId": 43,
+        "Id": 42,
+        "ActionId": 42,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -701,8 +685,8 @@
         ]
     },
     {
-        "Id": 44,
-        "ActionId": 44,
+        "Id": 43,
+        "ActionId": 43,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -718,8 +702,8 @@
         ]
     },
     {
-        "Id": 45,
-        "ActionId": 45,
+        "Id": 44,
+        "ActionId": 44,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -736,8 +720,8 @@
         ]
     },
     {
-        "Id": 46,
-        "ActionId": 46,
+        "Id": 45,
+        "ActionId": 45,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -751,8 +735,8 @@
         ]
     },
     {
-        "Id": 47,
-        "ActionId": 47,
+        "Id": 46,
+        "ActionId": 46,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -768,8 +752,8 @@
         ]
     },
     {
-        "Id": 48,
-        "ActionId": 48,
+        "Id": 47,
+        "ActionId": 47,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -784,8 +768,8 @@
         ]
     },
     {
-        "Id": 49,
-        "ActionId": 49,
+        "Id": 48,
+        "ActionId": 48,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -800,8 +784,8 @@
         ]
     },
     {
-        "Id": 50,
-        "ActionId": 50,
+        "Id": 49,
+        "ActionId": 49,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -818,8 +802,8 @@
         ]
     },
     {
-        "Id": 51,
-        "ActionId": 51,
+        "Id": 50,
+        "ActionId": 50,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -835,8 +819,8 @@
         ]
     },
     {
-        "Id": 52,
-        "ActionId": 52,
+        "Id": 51,
+        "ActionId": 51,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -851,8 +835,8 @@
         ]
     },
     {
-        "Id": 53,
-        "ActionId": 53,
+        "Id": 52,
+        "ActionId": 52,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -868,8 +852,8 @@
         ]
     },
     {
-        "Id": 54,
-        "ActionId": 54,
+        "Id": 53,
+        "ActionId": 53,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -886,8 +870,8 @@
         ]
     },
     {
-        "Id": 55,
-        "ActionId": 55,
+        "Id": 54,
+        "ActionId": 54,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -902,8 +886,8 @@
         ]
     },
     {
-        "Id": 56,
-        "ActionId": 56,
+        "Id": 55,
+        "ActionId": 55,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -919,8 +903,8 @@
         ]
     },
     {
-        "Id": 57,
-        "ActionId": 57,
+        "Id": 56,
+        "ActionId": 56,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -937,8 +921,8 @@
         ]
     },
     {
-        "Id": 58,
-        "ActionId": 58,
+        "Id": 57,
+        "ActionId": 57,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -953,8 +937,8 @@
         ]
     },
     {
-        "Id": 59,
-        "ActionId": 59,
+        "Id": 58,
+        "ActionId": 58,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -970,8 +954,8 @@
         ]
     },
     {
-        "Id": 60,
-        "ActionId": 60,
+        "Id": 59,
+        "ActionId": 59,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -988,8 +972,8 @@
         ]
     },
     {
-        "Id": 61,
-        "ActionId": 61,
+        "Id": 60,
+        "ActionId": 60,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1004,8 +988,8 @@
         ]
     },
     {
-        "Id": 62,
-        "ActionId": 62,
+        "Id": 61,
+        "ActionId": 61,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1021,8 +1005,8 @@
         ]
     },
     {
-        "Id": 63,
-        "ActionId": 63,
+        "Id": 62,
+        "ActionId": 62,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1039,8 +1023,8 @@
         ]
     },
     {
-        "Id": 64,
-        "ActionId": 64,
+        "Id": 63,
+        "ActionId": 63,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1056,8 +1040,8 @@
         ]
     },
     {
-        "Id": 65,
-        "ActionId": 65,
+        "Id": 64,
+        "ActionId": 64,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1072,8 +1056,8 @@
         ]
     },
     {
-        "Id": 66,
-        "ActionId": 66,
+        "Id": 65,
+        "ActionId": 65,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1088,8 +1072,8 @@
         ]
     },
     {
-        "Id": 67,
-        "ActionId": 67,
+        "Id": 66,
+        "ActionId": 66,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1106,8 +1090,8 @@
         ]
     },
     {
-        "Id": 68,
-        "ActionId": 68,
+        "Id": 67,
+        "ActionId": 67,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -1118,12 +1102,12 @@
         "EndDelay": null,
         "Params": [
             "\u96be\u9053\u8bf4\u2026\u2026\uff01",
-            "69"
+            "68"
         ]
     },
     {
-        "Id": 69,
-        "ActionId": 69,
+        "Id": 68,
+        "ActionId": 68,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1137,8 +1121,8 @@
         ]
     },
     {
-        "Id": 70,
-        "ActionId": 70,
+        "Id": 69,
+        "ActionId": 69,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -1149,12 +1133,12 @@
         "EndDelay": null,
         "Params": [
             "\u7adf\u7136\u662f\u2014\u2014\uff01",
-            "71"
+            "70"
         ]
     },
     {
-        "Id": 71,
-        "ActionId": 71,
+        "Id": 70,
+        "ActionId": 70,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1169,8 +1153,8 @@
         ]
     },
     {
-        "Id": 72,
-        "ActionId": 72,
+        "Id": 71,
+        "ActionId": 71,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1186,8 +1170,8 @@
         ]
     },
     {
-        "Id": 73,
-        "ActionId": 73,
+        "Id": 72,
+        "ActionId": 72,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1204,8 +1188,8 @@
         ]
     },
     {
-        "Id": 74,
-        "ActionId": 74,
+        "Id": 73,
+        "ActionId": 73,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1220,8 +1204,8 @@
         ]
     },
     {
-        "Id": 75,
-        "ActionId": 75,
+        "Id": 74,
+        "ActionId": 74,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1236,8 +1220,8 @@
         ]
     },
     {
-        "Id": 76,
-        "ActionId": 76,
+        "Id": 75,
+        "ActionId": 75,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1254,8 +1238,8 @@
         ]
     },
     {
-        "Id": 77,
-        "ActionId": 77,
+        "Id": 76,
+        "ActionId": 76,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -1266,12 +1250,12 @@
         "EndDelay": null,
         "Params": [
             "\u597d\u50cf\u662f\u731c\u5bf9\u4e0b\u4e00\u5f20\u724c\u7684\u5927\u5c0f\u6765\u5224\u65ad\u8f93\u8d62\u5427\u2014\u2014",
-            "78"
+            "77"
         ]
     },
     {
-        "Id": 78,
-        "ActionId": 78,
+        "Id": 77,
+        "ActionId": 77,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1285,8 +1269,8 @@
         ]
     },
     {
-        "Id": 79,
-        "ActionId": 79,
+        "Id": 78,
+        "ActionId": 78,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1302,8 +1286,8 @@
         ]
     },
     {
-        "Id": 80,
-        "ActionId": 80,
+        "Id": 79,
+        "ActionId": 79,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1318,8 +1302,8 @@
         ]
     },
     {
-        "Id": 81,
-        "ActionId": 81,
+        "Id": 80,
+        "ActionId": 80,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1334,8 +1318,8 @@
         ]
     },
     {
-        "Id": 82,
-        "ActionId": 82,
+        "Id": 81,
+        "ActionId": 81,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1352,8 +1336,8 @@
         ]
     },
     {
-        "Id": 83,
-        "ActionId": 83,
+        "Id": 82,
+        "ActionId": 82,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1368,8 +1352,8 @@
         ]
     },
     {
-        "Id": 84,
-        "ActionId": 84,
+        "Id": 83,
+        "ActionId": 83,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1384,8 +1368,8 @@
         ]
     },
     {
-        "Id": 85,
-        "ActionId": 85,
+        "Id": 84,
+        "ActionId": 84,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1402,8 +1386,8 @@
         ]
     },
     {
-        "Id": 86,
-        "ActionId": 86,
+        "Id": 85,
+        "ActionId": 85,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1418,8 +1402,8 @@
         ]
     },
     {
-        "Id": 87,
-        "ActionId": 87,
+        "Id": 86,
+        "ActionId": 86,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1434,8 +1418,8 @@
         ]
     },
     {
-        "Id": 88,
-        "ActionId": 88,
+        "Id": 87,
+        "ActionId": 87,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1452,8 +1436,8 @@
         ]
     },
     {
-        "Id": 89,
-        "ActionId": 89,
+        "Id": 88,
+        "ActionId": 88,
         "NextActionId": null,
         "Type": 203,
         "IsBlock": null,
@@ -1470,8 +1454,8 @@
         ]
     },
     {
-        "Id": 90,
-        "ActionId": 90,
+        "Id": 89,
+        "ActionId": 89,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1485,8 +1469,8 @@
         ]
     },
     {
-        "Id": 91,
-        "ActionId": 91,
+        "Id": 90,
+        "ActionId": 90,
         "NextActionId": null,
         "Type": 501,
         "IsBlock": null,
@@ -1501,8 +1485,8 @@
         ]
     },
     {
-        "Id": 92,
-        "ActionId": 92,
+        "Id": 91,
+        "ActionId": 91,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1516,8 +1500,8 @@
         ]
     },
     {
-        "Id": 93,
-        "ActionId": 93,
+        "Id": 92,
+        "ActionId": 92,
         "NextActionId": null,
         "Type": 203,
         "IsBlock": null,
@@ -1532,8 +1516,8 @@
         ]
     },
     {
-        "Id": 94,
-        "ActionId": 94,
+        "Id": 93,
+        "ActionId": 93,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -1548,8 +1532,8 @@
         ]
     },
     {
-        "Id": 95,
-        "ActionId": 95,
+        "Id": 94,
+        "ActionId": 94,
         "NextActionId": null,
         "Type": 505,
         "IsBlock": null,
@@ -1563,8 +1547,8 @@
         ]
     },
     {
-        "Id": 96,
-        "ActionId": 96,
+        "Id": 95,
+        "ActionId": 95,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1580,8 +1564,8 @@
         ]
     },
     {
-        "Id": 97,
-        "ActionId": 97,
+        "Id": 96,
+        "ActionId": 96,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1597,8 +1581,8 @@
         ]
     },
     {
-        "Id": 98,
-        "ActionId": 98,
+        "Id": 97,
+        "ActionId": 97,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1613,8 +1597,8 @@
         ]
     },
     {
-        "Id": 99,
-        "ActionId": 99,
+        "Id": 98,
+        "ActionId": 98,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1629,8 +1613,8 @@
         ]
     },
     {
-        "Id": 100,
-        "ActionId": 100,
+        "Id": 99,
+        "ActionId": 99,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1647,8 +1631,8 @@
         ]
     },
     {
-        "Id": 101,
-        "ActionId": 101,
+        "Id": 100,
+        "ActionId": 100,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1663,8 +1647,8 @@
         ]
     },
     {
-        "Id": 102,
-        "ActionId": 102,
+        "Id": 101,
+        "ActionId": 101,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1679,8 +1663,8 @@
         ]
     },
     {
-        "Id": 103,
-        "ActionId": 103,
+        "Id": 102,
+        "ActionId": 102,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1697,8 +1681,8 @@
         ]
     },
     {
-        "Id": 104,
-        "ActionId": 104,
+        "Id": 103,
+        "ActionId": 103,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1713,8 +1697,8 @@
         ]
     },
     {
-        "Id": 105,
-        "ActionId": 105,
+        "Id": 104,
+        "ActionId": 104,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1730,8 +1714,8 @@
         ]
     },
     {
-        "Id": 106,
-        "ActionId": 106,
+        "Id": 105,
+        "ActionId": 105,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1748,8 +1732,8 @@
         ]
     },
     {
-        "Id": 107,
-        "ActionId": 107,
+        "Id": 106,
+        "ActionId": 106,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -1760,12 +1744,12 @@
         "EndDelay": null,
         "Params": [
             "\u6216\u8bb8\u6709\u4e24\u5168\u7684\u529e\u6cd5\uff1f",
-            "108"
+            "107"
         ]
     },
     {
-        "Id": 108,
-        "ActionId": 108,
+        "Id": 107,
+        "ActionId": 107,
         "NextActionId": null,
         "Type": 204,
         "IsBlock": null,
@@ -1780,8 +1764,8 @@
         ]
     },
     {
-        "Id": 109,
-        "ActionId": 109,
+        "Id": 108,
+        "ActionId": 108,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1797,8 +1781,8 @@
         ]
     },
     {
-        "Id": 110,
-        "ActionId": 110,
+        "Id": 109,
+        "ActionId": 109,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1813,8 +1797,8 @@
         ]
     },
     {
-        "Id": 111,
-        "ActionId": 111,
+        "Id": 110,
+        "ActionId": 110,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1829,8 +1813,8 @@
         ]
     },
     {
-        "Id": 112,
-        "ActionId": 112,
+        "Id": 111,
+        "ActionId": 111,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1847,8 +1831,8 @@
         ]
     },
     {
-        "Id": 113,
-        "ActionId": 113,
+        "Id": 112,
+        "ActionId": 112,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1863,8 +1847,8 @@
         ]
     },
     {
-        "Id": 114,
-        "ActionId": 114,
+        "Id": 113,
+        "ActionId": 113,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1880,8 +1864,8 @@
         ]
     },
     {
-        "Id": 115,
-        "ActionId": 115,
+        "Id": 114,
+        "ActionId": 114,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1898,8 +1882,8 @@
         ]
     },
     {
-        "Id": 116,
-        "ActionId": 116,
+        "Id": 115,
+        "ActionId": 115,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1915,8 +1899,8 @@
         ]
     },
     {
-        "Id": 117,
-        "ActionId": 117,
+        "Id": 116,
+        "ActionId": 116,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1931,8 +1915,8 @@
         ]
     },
     {
-        "Id": 118,
-        "ActionId": 118,
+        "Id": 117,
+        "ActionId": 117,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1947,8 +1931,8 @@
         ]
     },
     {
-        "Id": 119,
-        "ActionId": 119,
+        "Id": 118,
+        "ActionId": 118,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -1965,8 +1949,8 @@
         ]
     },
     {
-        "Id": 120,
-        "ActionId": 120,
+        "Id": 119,
+        "ActionId": 119,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -1981,8 +1965,8 @@
         ]
     },
     {
-        "Id": 121,
-        "ActionId": 121,
+        "Id": 120,
+        "ActionId": 120,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -1997,8 +1981,8 @@
         ]
     },
     {
-        "Id": 122,
-        "ActionId": 122,
+        "Id": 121,
+        "ActionId": 121,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2015,8 +1999,8 @@
         ]
     },
     {
-        "Id": 123,
-        "ActionId": 123,
+        "Id": 122,
+        "ActionId": 122,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2031,8 +2015,8 @@
         ]
     },
     {
-        "Id": 124,
-        "ActionId": 124,
+        "Id": 123,
+        "ActionId": 123,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2047,8 +2031,8 @@
         ]
     },
     {
-        "Id": 125,
-        "ActionId": 125,
+        "Id": 124,
+        "ActionId": 124,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2065,8 +2049,8 @@
         ]
     },
     {
-        "Id": 126,
-        "ActionId": 126,
+        "Id": 125,
+        "ActionId": 125,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2081,8 +2065,8 @@
         ]
     },
     {
-        "Id": 127,
-        "ActionId": 127,
+        "Id": 126,
+        "ActionId": 126,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2096,8 +2080,8 @@
         ]
     },
     {
-        "Id": 128,
-        "ActionId": 128,
+        "Id": 127,
+        "ActionId": 127,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -2108,14 +2092,14 @@
         "EndDelay": null,
         "Params": [
             "\u8c08\u5224\u3002",
-            "129",
+            "128",
             "\u5546\u8c08\u3002",
-            129.0
+            128.0
         ]
     },
     {
-        "Id": 129,
-        "ActionId": 129,
+        "Id": 128,
+        "ActionId": 128,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2130,8 +2114,8 @@
         ]
     },
     {
-        "Id": 130,
-        "ActionId": 130,
+        "Id": 129,
+        "ActionId": 129,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2148,8 +2132,8 @@
         ]
     },
     {
-        "Id": 131,
-        "ActionId": 131,
+        "Id": 130,
+        "ActionId": 130,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2165,8 +2149,8 @@
         ]
     },
     {
-        "Id": 132,
-        "ActionId": 132,
+        "Id": 131,
+        "ActionId": 131,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2181,8 +2165,8 @@
         ]
     },
     {
-        "Id": 133,
-        "ActionId": 133,
+        "Id": 132,
+        "ActionId": 132,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2198,8 +2182,8 @@
         ]
     },
     {
-        "Id": 134,
-        "ActionId": 134,
+        "Id": 133,
+        "ActionId": 133,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2216,8 +2200,8 @@
         ]
     },
     {
-        "Id": 135,
-        "ActionId": 135,
+        "Id": 134,
+        "ActionId": 134,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2232,8 +2216,8 @@
         ]
     },
     {
-        "Id": 136,
-        "ActionId": 136,
+        "Id": 135,
+        "ActionId": 135,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2248,8 +2232,8 @@
         ]
     },
     {
-        "Id": 137,
-        "ActionId": 137,
+        "Id": 136,
+        "ActionId": 136,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2266,8 +2250,8 @@
         ]
     },
     {
-        "Id": 138,
-        "ActionId": 138,
+        "Id": 137,
+        "ActionId": 137,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2282,8 +2266,8 @@
         ]
     },
     {
-        "Id": 139,
-        "ActionId": 139,
+        "Id": 138,
+        "ActionId": 138,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2298,8 +2282,8 @@
         ]
     },
     {
-        "Id": 140,
-        "ActionId": 140,
+        "Id": 139,
+        "ActionId": 139,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2316,8 +2300,8 @@
         ]
     },
     {
-        "Id": 141,
-        "ActionId": 141,
+        "Id": 140,
+        "ActionId": 140,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,
@@ -2333,8 +2317,8 @@
         ]
     },
     {
-        "Id": 142,
-        "ActionId": 142,
+        "Id": 141,
+        "ActionId": 141,
         "NextActionId": null,
         "Type": 302,
         "IsBlock": null,
@@ -2345,12 +2329,12 @@
         "EndDelay": null,
         "Params": [
             "\u597d\u554a\u3002",
-            "143"
+            "142"
         ]
     },
     {
-        "Id": 143,
-        "ActionId": 143,
+        "Id": 142,
+        "ActionId": 142,
         "NextActionId": null,
         "Type": 202,
         "IsBlock": null,
@@ -2365,8 +2349,8 @@
         ]
     },
     {
-        "Id": 144,
-        "ActionId": 144,
+        "Id": 143,
+        "ActionId": 143,
         "NextActionId": null,
         "Type": 201,
         "IsBlock": null,
@@ -2382,8 +2366,8 @@
         ]
     },
     {
-        "Id": 145,
-        "ActionId": 145,
+        "Id": 144,
+        "ActionId": 144,
         "NextActionId": null,
         "Type": 301,
         "IsBlock": null,

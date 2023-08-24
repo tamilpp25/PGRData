@@ -853,7 +853,7 @@
     {
         "Id": 21,
         "Name": "\u8ffd\u6eaf\u8005\u6d04\u6e38",
-        "TimeId": 20411.0,
+        "TimeId": null,
         "ChallengeStage": [
             30160555.0,
             30160556.0,
@@ -892,5 +892,48 @@
         "SkinDrawSkipId": null,
         "SkipGet": null,
         "ChallengeCondition": 96014.0
+    },
+    {
+        "Id": 22,
+        "Name": "\u5f02\u8bbf\u8005\u7130\u8d77",
+        "TimeId": 21403.0,
+        "ChallengeStage": [
+            30160558.0,
+            30160559.0,
+            30160560.0
+        ],
+        "StageId": [
+            30100010.0,
+            30100011.0,
+            30100012.0
+        ],
+        "TreasureId": [
+            84,
+            85,
+            86,
+            87.0
+        ],
+        "TotalStars": 9,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenBRSActivity/FuBenBRSActivity01.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenBRSActivity/GridBRSActivityStage01.prefab",
+        "FubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenBRSActivity/FuBenBRSActivity02.prefab",
+        "GridFubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenBRSActivity/GridBRSActivityStage02.prefab",
+        "ConditionId": null,
+        "MainBgImg": null,
+        "StageBgImg": null,
+        "TitleImg": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner128.png",
+        "CharacterId": 1281002,
+        "SkipIdDraw": 10047,
+        "SkipIdAct": null,
+        "SkipIdJZ": null,
+        "SkipIdChar": null,
+        "SkipIdSkin": 20111.0,
+        "NewCharType": 22,
+        "MovieId": null,
+        "SkinTrialStageId": null,
+        "SkinDrawSkipId": null,
+        "SkipGet": null,
+        "ChallengeCondition": 96015.0
     }
 ]

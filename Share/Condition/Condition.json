@@ -574,6 +574,15 @@
         "Desc": "\u62e5\u6709\u6cdb\u7528\u673a\u4f53\u62c9\u5f25\u4e9a\u00b7\u6df1\u8c23"
     },
     {
+        "Id": 355,
+        "Type": 10102,
+        "Formula": null,
+        "Params": [
+            1281002.0
+        ],
+        "Desc": null
+    },
+    {
         "Id": 401,
         "Type": 11105,
         "Formula": null,
@@ -6408,6 +6417,15 @@
         "Desc": "\u9732\u897f\u4e9a\u00b7\u6df1\u7ea2\u4e4b\u6e0a\u8fbe\u523080\u7ea7"
     },
     {
+        "Id": 7330,
+        "Type": 13103,
+        "Formula": null,
+        "Params": [
+            80.0
+        ],
+        "Desc": "\u6bd4\u5b89\u5361\u00b7\u771f\u7406\u8fbe\u523080\u7ea7"
+    },
+    {
         "Id": 18108001,
         "Type": 18108,
         "Formula": null,
@@ -8917,6 +8935,16 @@
             4.0
         ],
         "Desc": "\u6df1\u8c23\u8fbe\u5230\u7ec8\u9636\u89e3\u653e"
+    },
+    {
+        "Id": 60454,
+        "Type": 11102,
+        "Formula": null,
+        "Params": [
+            1281002.0,
+            4.0
+        ],
+        "Desc": "BRS\u8fbe\u5230\u7ec8\u9636\u89e3\u653e"
     },
     {
         "Id": 60600,
@@ -23302,6 +23330,15 @@
         "Desc": "\u5df2\u62e5\u6709\u8be5\u6d82\u88c5"
     },
     {
+        "Id": 6002905,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6002905.0
+        ],
+        "Desc": "\u5df2\u62e5\u6709\u8be5\u6d82\u88c5"
+    },
+    {
         "Id": 30499,
         "Type": 10101,
         "Formula": null,
@@ -25196,6 +25233,15 @@
             6003404.0
         ],
         "Desc": "\u62e5\u6709\u6d82\u88c5\u201c\u6d77\u6e0a\u6b8a\u8272\u201d\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 812047,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6002905.0
+        ],
+        "Desc": "\u62e5\u6709\u6d82\u88c5\u201c\u7834\u591c\u6781\u661f\u201d\u540e\u89e3\u9501"
     },
     {
         "Id": 841001,
@@ -28539,6 +28585,66 @@
         "Formula": null,
         "Params": [
             13019616.0,
+            5.0
+        ],
+        "Desc": "\u83b7\u5f975\u4e2a"
+    },
+    {
+        "Id": 990170,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019618.0,
+            2.0
+        ],
+        "Desc": "\u83b7\u5f972\u4e2a"
+    },
+    {
+        "Id": 990171,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019618.0,
+            3.0
+        ],
+        "Desc": "\u83b7\u5f973\u4e2a"
+    },
+    {
+        "Id": 990172,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019618.0,
+            4.0
+        ],
+        "Desc": "\u83b7\u5f974\u4e2a"
+    },
+    {
+        "Id": 990173,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019619.0,
+            2.0
+        ],
+        "Desc": "\u83b7\u5f972\u4e2a"
+    },
+    {
+        "Id": 990174,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019619.0,
+            3.0
+        ],
+        "Desc": "\u83b7\u5f973\u4e2a"
+    },
+    {
+        "Id": 990175,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019619.0,
             5.0
         ],
         "Desc": "\u83b7\u5f975\u4e2a"
@@ -33888,6 +33994,51 @@
             10260127.0
         ],
         "Desc": "\u901a\u5173\u4e3b\u7ebf\u666e\u901a\u5267\u60c526-27\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84102642,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010212.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u6597\u4e89\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84102643,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010212.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u6597\u4e89\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84102644,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010212.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u6597\u4e89\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84102645,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010212.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u6597\u4e89\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84102646,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010201.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u4e24\u7c07\u706b\u7130\u540e\u89e3\u9501"
     },
     {
         "Id": 84200101,
@@ -39793,6 +39944,123 @@
         "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u5bc4\u6e0a\u6b8b\u54cd\u201d\u5173\u5361\u9a6c\u57fa\u96c5\u7ef4\u5229\u540e\u89e3\u9501"
     },
     {
+        "Id": 84600611,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010201.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u4e24\u7c07\u706b\u7130\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600612,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010202.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u8bf1\u56e0\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600613,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010203.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u9ed1\u4e0e\u767d\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600614,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010204.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u87ba\u65cb\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600615,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010205.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u5e03\u9635\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600616,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010206.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u5bf9\u5c40\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600617,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010207.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u4ea4\u950b\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600618,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010208.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u77db\u76fe\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600619,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010209.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u77b3\u4e2d\u4e4b\u5f71\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600620,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010210.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u4e24\u540d\u5c11\u5973\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600621,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010211.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u7ed3\u8bba\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600622,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010212.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u6597\u4e89\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84600623,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010213.0
+        ],
+        "Desc": "\u901a\u5173\u8054\u52a8\u73a9\u6cd5\u201c\u955c\u7130\u8ff7\u57ce\u201d\u5173\u5361\u68a6\u540e\u89e3\u9501"
+    },
+    {
         "Id": 84600701,
         "Type": 10105,
         "Formula": null,
@@ -42427,7 +42695,7 @@
         "Params": [
             30031645.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u62c9\u5f25\u4e9a"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602513,
@@ -42436,7 +42704,7 @@
         "Params": [
             30031646.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u9732\u897f\u4e9a"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602514,
@@ -42445,7 +42713,7 @@
         "Params": [
             30031647.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u91cc"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602515,
@@ -42454,7 +42722,7 @@
         "Params": [
             30031648.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u4e3d\u8299"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602516,
@@ -42463,7 +42731,7 @@
         "Params": [
             30031649.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u6bd4\u5b89\u5361"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602517,
@@ -42472,7 +42740,7 @@
         "Params": [
             30031650.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u4e03\u5b9e"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602518,
@@ -42481,7 +42749,7 @@
         "Params": [
             30031651.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u795e\u5a01"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602519,
@@ -42490,7 +42758,7 @@
         "Params": [
             30031652.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u5361\u5217\u5c3c\u5a1c"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602520,
@@ -42499,7 +42767,7 @@
         "Params": [
             30031653.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u6e21\u8fb9"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602521,
@@ -42508,7 +42776,7 @@
         "Params": [
             30031654.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u963f\u5c14\u6cd5"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602522,
@@ -42517,7 +42785,7 @@
         "Params": [
             30031655.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u827e\u62c9"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602523,
@@ -42526,7 +42794,7 @@
         "Params": [
             30031656.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u82cf\u83f2\u4e9a"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602524,
@@ -42535,7 +42803,7 @@
         "Params": [
             30031657.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u5e93\u6d1b\u59c6"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602525,
@@ -42544,7 +42812,7 @@
         "Params": [
             30031658.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u8587\u62c9"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602526,
@@ -42553,7 +42821,7 @@
         "Params": [
             30031659.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u9732\u5a1c"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602527,
@@ -42562,7 +42830,7 @@
         "Params": [
             30031660.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u5361\u7a46"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602528,
@@ -42571,7 +42839,7 @@
         "Params": [
             30031661.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u7f57\u585e\u5854"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602529,
@@ -42580,7 +42848,7 @@
         "Params": [
             30031662.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u66f2"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602530,
@@ -42589,7 +42857,7 @@
         "Params": [
             30031663.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u5e38\u7fbd"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602531,
@@ -42598,7 +42866,7 @@
         "Params": [
             30031664.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u4e07\u4e8b"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602532,
@@ -42607,7 +42875,7 @@
         "Params": [
             30031665.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u8d5b\u7433\u5a1c"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602533,
@@ -42616,7 +42884,7 @@
         "Params": [
             30031666.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-21\u53f7"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602534,
@@ -42625,7 +42893,7 @@
         "Params": [
             30031667.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u7f57\u5170"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602535,
@@ -42634,7 +42902,7 @@
         "Params": [
             30031668.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u84b2\u7262"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602536,
@@ -42643,7 +42911,7 @@
         "Params": [
             30031669.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u54c8\u5361\u739b"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602537,
@@ -42652,7 +42920,7 @@
         "Params": [
             30031670.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u8bfa\u5b89"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602538,
@@ -42661,7 +42929,7 @@
         "Params": [
             30031671.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u90a6\u6bd4\u5a1c\u5854"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602539,
@@ -42670,7 +42938,7 @@
         "Params": [
             30031672.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u542b\u82f1"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602540,
@@ -42679,7 +42947,7 @@
         "Params": [
             30031673.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u4e9a\u91cc\u838e"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
     },
     {
         "Id": 84602541,
@@ -42688,7 +42956,52 @@
         "Params": [
             30031674.0
         ],
-        "Desc": "\u901a\u5173\u6e38\u8fb0\u7275\u661f-\u8bfa\u514b\u63d0"
+        "Desc": "\u5c06\u4e8e\u3010\u6e38\u8fb0\u7275\u661f\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 84602542,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "\u3010\u7bb1\u5ead\u68cb\u57df\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u81ea\u52a8\u89e3\u9501"
+    },
+    {
+        "Id": 84602543,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "\u3010\u7bb1\u5ead\u68cb\u57df\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u81ea\u52a8\u89e3\u9501"
+    },
+    {
+        "Id": 84602544,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "\u3010\u7bb1\u5ead\u68cb\u57df\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u81ea\u52a8\u89e3\u9501"
+    },
+    {
+        "Id": 84602545,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "\u3010\u7bb1\u5ead\u68cb\u57df\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u81ea\u52a8\u89e3\u9501"
+    },
+    {
+        "Id": 84602546,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "\u3010\u7bb1\u5ead\u68cb\u57df\u3011\u6d3b\u52a8\u7ed3\u675f\u540e\u81ea\u52a8\u89e3\u9501"
     },
     {
         "Id": 84700101,
@@ -45229,7 +45542,7 @@
             1.0,
             1.0
         ],
-        "Desc": "\u5f53\u524d\u96be\u5ea6\u7535\u91cf\u5c0f\u4e8e150\u901a\u5173EX-05\u4e0b\u6b21\u6d3b\u52a8\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u7535\u91cf\u5c0f\u4e8e151\u901a\u5173EX-05\u4e0b\u6b21\u6d3b\u52a8\u53ef\u626b\u8361"
     },
     {
         "Id": 95404,
@@ -45454,6 +45767,15 @@
         "Formula": null,
         "Params": [
             30100006.0
+        ],
+        "Desc": "\u901a\u5173\u5168\u90e8\u6559\u5b66\u5173"
+    },
+    {
+        "Id": 96015,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30100012.0
         ],
         "Desc": "\u901a\u5173\u5168\u90e8\u6559\u5b66\u5173"
     },
@@ -49364,6 +49686,266 @@
         "Desc": "120\u79d2\u5185\u901a\u5173\u7b2c13\u5173\u89e3\u9501"
     },
     {
+        "Id": 1006578,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163000.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c1\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006579,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163001.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c2\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006580,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163002.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c3\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006581,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163003.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c4\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006582,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163004.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c5\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006583,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163005.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c6\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006584,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163006.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c7\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006585,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163007.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c8\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006586,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163008.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c9\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006587,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163009.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c10\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006588,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163010.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c11\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006589,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163011.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c12\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006590,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163012.0,
+            120.0
+        ],
+        "Desc": "120\u79d2\u5185\u901a\u5173\u7b2c13\u5173\u89e3\u9501"
+    },
+    {
+        "Id": 1006591,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163014.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c1\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006592,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163015.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c2\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006593,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163016.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c3\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006594,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163017.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c4\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006595,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163018.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c5\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006596,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163019.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c6\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006597,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163020.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c7\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006598,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163021.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c8\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006599,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163022.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c9\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006600,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163023.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c10\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006601,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163024.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c11\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006602,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163025.0,
+            6000.0
+        ],
+        "Desc": "\u7b2c12\u5173\u80dc\u5229\u89e3\u9501"
+    },
+    {
+        "Id": 1006603,
+        "Type": 10210,
+        "Formula": null,
+        "Params": [
+            30163026.0,
+            120.0
+        ],
+        "Desc": "120\u79d2\u5185\u901a\u5173\u7b2c13\u5173\u89e3\u9501"
+    },
+    {
         "Id": 1007001,
         "Type": 10105,
         "Formula": null,
@@ -51177,50 +51759,6 @@
         "Desc": "\u51fb\u7834\u533a\u57df\u56db\u6697\u533a\u540e\u89e3\u9501"
     },
     {
-        "Id": 861140,
-        "Type": 10180,
-        "Formula": null,
-        "Params": [
-            6.0
-        ],
-        "Desc": "\u3010\u9910\u5385LV6\u89e3\u9501\u3011"
-    },
-    {
-        "Id": 861340,
-        "Type": 10101,
-        "Formula": null,
-        "Params": [
-            40.0
-        ],
-        "Desc": "\u6307\u6325\u5b98\u7b49\u7ea7\u8fbe\u523040\u7ea7\u5f00\u542f"
-    },
-    {
-        "Id": 861341,
-        "Type": 10153,
-        "Formula": null,
-        "Params": [
-            1689822000.0,
-            1.0
-        ],
-        "Desc": "\u57282022/11/17 11:00 \u524d\u6ce8\u518c"
-    },
-    {
-        "Id": 861320,
-        "Type": 23001,
-        "Formula": null,
-        "Params": [
-            20201.0
-        ],
-        "Desc": "\u9732\u8bb0\u51b0\u57ce\u5f00\u653e\u65f6\u95f4"
-    },
-    {
-        "Id": 861332,
-        "Type": 17218,
-        "Formula": null,
-        "Params": [],
-        "Desc": "\u4f17\u5fd7\u884c\u5f81\u5f15\u5bfc\u5f00\u653e\u6761\u4ef6"
-    },
-    {
         "Id": 1020001,
         "Type": 17213,
         "Formula": null,
@@ -51320,7 +51858,7 @@
         "Params": [
             3.0
         ],
-        "Desc": "\u8089\u9e3d\u7b2c\u4e8c\u7ed3\u5c40\u89e3\u9501\u6761\u4ef6"
+        "Desc": null
     },
     {
         "Id": 1020100,
@@ -51542,5 +52080,382 @@
             3.0
         ],
         "Desc": "\u8fbe\u6210\u6f14\u7b97\u7ed3\u5c40\u3010\u5f7c\u5cb8\u3011"
+    },
+    {
+        "Id": 861140,
+        "Type": 10180,
+        "Formula": null,
+        "Params": [
+            6.0
+        ],
+        "Desc": "\u3010\u9910\u5385LV6\u89e3\u9501\u3011"
+    },
+    {
+        "Id": 861340,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            40.0
+        ],
+        "Desc": "\u6307\u6325\u5b98\u7b49\u7ea7\u8fbe\u523040\u7ea7\u5f00\u542f"
+    },
+    {
+        "Id": 861341,
+        "Type": 10153,
+        "Formula": null,
+        "Params": [
+            1689822000.0,
+            1.0
+        ],
+        "Desc": "\u57282022/11/17 11:00 \u524d\u6ce8\u518c"
+    },
+    {
+        "Id": 3110701,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            12.0
+        ],
+        "Desc": "\u901a\u5173ST-10\u89e3\u9501\u6b64\u96be\u5ea6"
+    },
+    {
+        "Id": 3110702,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            21.0
+        ],
+        "Desc": "\u901a\u5173ST-15\u89e3\u9501\u6b64\u96be\u5ea6"
+    },
+    {
+        "Id": 3110703,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "\u901a\u5173ST-02\u89e3\u9501\u9a91\u58eb"
+    },
+    {
+        "Id": 3110704,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            7.0
+        ],
+        "Desc": "\u901a\u5173ST-05\u89e3\u9501\u4e3b\u6559"
+    },
+    {
+        "Id": 3110705,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            11.0
+        ],
+        "Desc": "\u901a\u5173ST-09\u89e3\u9501\u57ce\u5821"
+    },
+    {
+        "Id": 3110706,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            13.0
+        ],
+        "Desc": "\u901a\u5173EX-01\u89e3\u9501\u7687\u540e"
+    },
+    {
+        "Id": 3110707,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            17.0
+        ],
+        "Desc": "\u901a\u5173ST-11\u89e3\u9501\u52a8\u529b\u5f3a\u5316"
+    },
+    {
+        "Id": 3110708,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            21.0
+        ],
+        "Desc": "\u901a\u5173ST-15\u89e3\u9501\u80fd\u6548\u7ba1\u7406"
+    },
+    {
+        "Id": 3110709,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "\u901a\u5173ST-06\u89e3\u9501\u6f06\u9ed1\u4e4b\u5203"
+    },
+    {
+        "Id": 3110710,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "\u901a\u5173ST-06\u89e3\u9501\u7130\u71c3\u6211\u5fc3"
+    },
+    {
+        "Id": 3110711,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "\u901a\u5173ST-01\u89e3\u9501\u6b64\u5267\u60c5"
+    },
+    {
+        "Id": 3110712,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            9.0
+        ],
+        "Desc": "\u901a\u5173ST-07\u89e3\u9501\u6b64\u5267\u60c5"
+    },
+    {
+        "Id": 3110713,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            12.0
+        ],
+        "Desc": "\u901a\u5173ST-10\u89e3\u9501\u6b64\u5267\u60c5"
+    },
+    {
+        "Id": 3110714,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            17.0
+        ],
+        "Desc": "\u901a\u5173ST-11\u89e3\u9501\u6b64\u5267\u60c5"
+    },
+    {
+        "Id": 3110715,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            21.0
+        ],
+        "Desc": "\u901a\u5173ST-15\u89e3\u9501\u6b64\u5267\u60c5"
+    },
+    {
+        "Id": 861320,
+        "Type": 23001,
+        "Formula": null,
+        "Params": [
+            20201.0
+        ],
+        "Desc": "\u9732\u8bb0\u51b0\u57ce\u5f00\u653e\u65f6\u95f4"
+    },
+    {
+        "Id": 861332,
+        "Type": 17218,
+        "Formula": null,
+        "Params": [],
+        "Desc": "\u4f17\u5fd7\u884c\u5f81\u6ee1\u8db3\u5f15\u5bfc\u6761\u4ef6"
+    },
+    {
+        "Id": 861333,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            9.0
+        ],
+        "Desc": "\u901a\u5173ST-07\u89e3\u9501"
+    },
+    {
+        "Id": 861334,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            12.0
+        ],
+        "Desc": "\u901a\u5173ST-10\u89e3\u9501"
+    },
+    {
+        "Id": 861335,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            16.0
+        ],
+        "Desc": "\u901a\u5173EX-04\u89e3\u9501"
+    },
+    {
+        "Id": 861336,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            21.0
+        ],
+        "Desc": "\u901a\u5173ST-15\u89e3\u9501"
+    },
+    {
+        "Id": 861337,
+        "Type": 10401,
+        "Formula": null,
+        "Params": [
+            26.0
+        ],
+        "Desc": "\u901a\u5173EX-15\u89e3\u9501"
+    },
+    {
+        "Id": 861400,
+        "Type": 10405,
+        "Formula": null,
+        "Params": [
+            61410.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c1\u5173\u89e6\u53d1\u5f15\u5bfc"
+    },
+    {
+        "Id": 861401,
+        "Type": 10405,
+        "Formula": null,
+        "Params": [
+            61411.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c2\u5173\u89e6\u53d1\u5f15\u5bfc"
+    },
+    {
+        "Id": 861402,
+        "Type": 10405,
+        "Formula": null,
+        "Params": [
+            61412.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c3\u5173\u89e6\u53d1\u5f15\u5bfc"
+    },
+    {
+        "Id": 861403,
+        "Type": 10404,
+        "Formula": null,
+        "Params": [
+            0.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u5e38\u89c4\u56de\u5408"
+    },
+    {
+        "Id": 861404,
+        "Type": 10405,
+        "Formula": null,
+        "Params": [
+            61413.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c3\u5173\u89e6\u53d1\u5f15\u5bfc"
+    },
+    {
+        "Id": 861410,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c1\u5173"
+    },
+    {
+        "Id": 861411,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c2\u5173"
+    },
+    {
+        "Id": 861412,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c3\u5173"
+    },
+    {
+        "Id": 861413,
+        "Type": 10403,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u62e5\u67094\u70b9\u80fd\u91cf"
+    },
+    {
+        "Id": 861414,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            6.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c4\u5173"
+    },
+    {
+        "Id": 861415,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            7.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c5\u5173"
+    },
+    {
+        "Id": 861416,
+        "Type": 10403,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u62e5\u67098\u70b9\u80fd\u91cf"
+    },
+    {
+        "Id": 861417,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            9.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c7\u5173"
+    },
+    {
+        "Id": 861418,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            11.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u7b2c9\u5173"
+    },
+    {
+        "Id": 861419,
+        "Type": 10403,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u62e5\u67095\u70b9\u80fd\u91cf"
+    },
+    {
+        "Id": 861420,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            13.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u56f0\u96be\u7b2c1\u5173"
+    },
+    {
+        "Id": 861421,
+        "Type": 10402,
+        "Formula": null,
+        "Params": [
+            15.0
+        ],
+        "Desc": "\u7bb1\u5ead\u68cb\u57df\u4f4d\u4e8e\u56f0\u96be\u7b2c3\u5173"
     }
 ]
