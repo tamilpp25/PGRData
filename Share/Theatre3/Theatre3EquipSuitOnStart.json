@@ -101,7 +101,9 @@
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
-        "ExcludeSuitIds": []
+        "ExcludeSuitIds": [
+            17.0
+        ]
     },
     {
         "Id": 14,
@@ -149,7 +151,9 @@
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
-        "ExcludeSuitIds": []
+        "ExcludeSuitIds": [
+            58.0
+        ]
     },
     {
         "Id": 20,
@@ -178,6 +182,42 @@
     {
         "Id": 23,
         "SuitId": 57,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": []
+    },
+    {
+        "Id": 24,
+        "SuitId": 58,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [
+            53.0
+        ]
+    },
+    {
+        "Id": 25,
+        "SuitId": 17,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [
+            13.0
+        ]
+    },
+    {
+        "Id": 26,
+        "SuitId": 18,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": []
+    },
+    {
+        "Id": 27,
+        "SuitId": 14,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,

@@ -632,7 +632,7 @@
         "Name": "\u6df1\u8c23",
         "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR3Lamiya1.png",
         "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
-        "ActivityTimeId": 28.0,
+        "ActivityTimeId": 20411.0,
         "ActivityCondition": [
             100000.0
         ],
@@ -642,13 +642,24 @@
     {
         "GroupId": 1281002,
         "CharacterId": 1281002,
-        "Name": "\u672a\u77e5",
-        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR3Lamiya1.png",
-        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
-        "ActivityTimeId": null,
+        "Name": "BRS",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR2Blackrock1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassA.png",
+        "ActivityTimeId": 21401.0,
         "ActivityCondition": [
             100000.0
         ],
+        "OpenCondition": [],
+        "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
+    },
+    {
+        "GroupId": 1081004,
+        "CharacterId": 1081004,
+        "Name": "\u5c18\u94ed",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR2Blackrock1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassA.png",
+        "ActivityTimeId": null,
+        "ActivityCondition": [],
         "OpenCondition": [
             200000.0
         ],

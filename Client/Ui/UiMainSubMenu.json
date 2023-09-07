@@ -1,11 +1,11 @@
 [
     {
         "Id": 1,
-        "TimeId": null,
+        "TimeId": 28.0,
         "Title": "\u8d44\u6e90\u4e0b\u8f7d",
         "SubTitle": null,
         "Desc": "\u8d44\u6e90\u4e0b\u8f7d\u5185\u5bb9",
-        "StyleType": 2,
+        "StyleType": 2.0,
         "BtnIcon": "Assets/Product/Texture/Atlas/UiMain/UiMainIconDownLoad.png",
         "SkipId": 89010,
         "ConditionId": 860745,
@@ -20,11 +20,26 @@
         "Title": "\u5e93\u8857\u533a",
         "SubTitle": null,
         "Desc": "\u8df3\u8f6c\u5e93\u8857\u533a",
-        "StyleType": 2,
+        "StyleType": 2.0,
         "BtnIcon": "Assets/Product/Texture/Atlas/UiMain/UiMainIconKujiequ.png",
         "SkipId": 89014,
         "ConditionId": 860826,
         "RedPointCondition": [],
+        "RedPointParam": []
+    },
+    {
+        "Id": 3,
+        "TimeId": 28.0,
+        "Title": "\u9884\u4e0b\u8f7d",
+        "SubTitle": null,
+        "Desc": "\u9884\u4e0b\u8f7d",
+        "StyleType": null,
+        "BtnIcon": "Assets/Product/Texture/Atlas/UiMain/UiMainIconTimeDownLoad.png",
+        "SkipId": 89042,
+        "ConditionId": 860748,
+        "RedPointCondition": [
+            "CONDITION_PRELOAD_NEW_VERSION"
+        ],
         "RedPointParam": []
     }
 ]

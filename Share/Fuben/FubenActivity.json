@@ -23,7 +23,7 @@
         "TimeId": null,
         "FunctionNameId": 10307.0,
         "SkipId": 20015.0,
-        "Order": 7.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
         ],
@@ -38,7 +38,7 @@
         "TimeId": null,
         "FunctionNameId": 10333.0,
         "SkipId": 11761.0,
-        "Order": 11.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_POKER_GUESSING_RED"
         ],
@@ -47,13 +47,13 @@
     },
     {
         "Id": 4,
-        "Name": "\u8be1\u8c23\u6c89\u5f71",
+        "Name": "\u68cb\u5c40\u518d\u6f14",
         "ManagerName": "FubenRepeatChallengeManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
         "TimeId": null,
         "FunctionNameId": 10309.0,
         "SkipId": 20017.0,
-        "Order": 1.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_REPEAT_CHALLENGE_ENTRANCE"
         ],
@@ -62,13 +62,13 @@
     },
     {
         "Id": 5,
-        "Name": "\u65e7\u65e5\u6b4c\u8c23",
+        "Name": "\u672b\u4e16\u4e00\u89c1",
         "ManagerName": "FubenActivityBossSingleManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner105.png",
         "TimeId": null,
         "FunctionNameId": 10304.0,
         "SkipId": 11724.0,
-        "Order": 6.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
         ],
@@ -92,13 +92,13 @@
     },
     {
         "Id": 7,
-        "Name": "\u94fe\u5408\u56de\u8def\u00b7\u5e7d\u6797\u7ade\u72e9",
+        "Name": "\u94fe\u5408\u56de\u8def\u00b7\u79fb\u98ce\u7834\u6597",
         "ManagerName": "SameColorActivityManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner109.png",
-        "TimeId": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner130.png",
+        "TimeId": 22201.0,
         "FunctionNameId": 10413.0,
         "SkipId": 82010.0,
-        "Order": null,
+        "Order": 2.0,
         "RedPointConditions": [
             "CONDITION_SAMECOLOR_TASK"
         ],
@@ -107,13 +107,13 @@
     },
     {
         "Id": 8,
-        "Name": "\u6620\u50cf\u6f5c\u6e0a",
+        "Name": "\u6620\u50cf\u6f5c\u6e0a\u00b7\u6df1\u70b9\u8fed\u4ee3",
         "ManagerName": "RiftManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner88.png",
-        "TimeId": null,
+        "TimeId": 22001.0,
         "FunctionNameId": 10437.0,
         "SkipId": 88003.0,
-        "Order": null,
+        "Order": 1.0,
         "RedPointConditions": [
             "CONDITION_RIFT_ENTRANCE"
         ],
@@ -225,13 +225,13 @@
     },
     {
         "Id": 16,
-        "Name": "\u8ffd\u6eaf\u8005\u6d04\u6e38",
+        "Name": "\u5f02\u8bbf\u8005\u7130\u8d77",
         "ManagerName": "FubenNewCharActivityManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner123.png",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner128.png",
         "TimeId": null,
         "FunctionNameId": 10325.0,
         "SkipId": 20071.0,
-        "Order": 2.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_KOROMCHARACTIVITYMAINRED"
         ],
@@ -259,7 +259,7 @@
         "TimeId": null,
         "FunctionNameId": 10443.0,
         "SkipId": 89008.0,
-        "Order": 9.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_RESTAURANT_ENTRANCE"
         ],
@@ -274,7 +274,7 @@
         "TimeId": null,
         "FunctionNameId": 10436.0,
         "SkipId": 11795.0,
-        "Order": 5.0,
+        "Order": null,
         "RedPointConditions": [],
         "Note": "\u672c\u6211\u56de\u5eca",
         "IsAgency": null
@@ -296,12 +296,12 @@
     },
     {
         "Id": 21,
-        "Name": "\u767d\u68a6\u6e38\u5f0b",
+        "Name": "\u767d\u68a6\u6e38\u5f0b\u00b7\u590d\u523b",
         "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner102.png",
         "TimeId": null,
         "FunctionNameId": 403.0,
-        "SkipId": 89012.0,
+        "SkipId": 89036.0,
         "Order": null,
         "RedPointConditions": [],
         "Note": "\u6d82\u88c5\u5267\u60c5",
@@ -327,7 +327,7 @@
         "Name": "\u5954\u884c\u65e5\u591c",
         "ManagerName": "XTwoSideTowerAgency",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner103.png",
-        "TimeId": 200000.0,
+        "TimeId": null,
         "FunctionNameId": 10431.0,
         "SkipId": 85013.0,
         "Order": null,
@@ -463,7 +463,7 @@
         "TimeId": null,
         "FunctionNameId": 10316.0,
         "SkipId": 89025.0,
-        "Order": 10.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_SPECIALTRAIN_RED"
         ],
@@ -478,7 +478,7 @@
         "TimeId": null,
         "FunctionNameId": 10425.0,
         "SkipId": 85016.0,
-        "Order": 8.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_GUILDWAR_Main"
         ],
@@ -490,11 +490,13 @@
         "Name": "\u7bb1\u5ead\u68cb\u57df",
         "ManagerName": "XBlackRockChessAgency",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner126.png",
-        "TimeId": 21001.0,
+        "TimeId": null,
         "FunctionNameId": 10455.0,
         "SkipId": 89028.0,
         "Order": null,
-        "RedPointConditions": [],
+        "RedPointConditions": [
+            "CONDITION_BLACK_ROCK_CHESS_ENTRANCE"
+        ],
         "Note": "\u7bb1\u5ead\u68cb\u57df",
         "IsAgency": 1.0
     },
@@ -506,7 +508,7 @@
         "TimeId": null,
         "FunctionNameId": 10341.0,
         "SkipId": 89029.0,
-        "Order": 4.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_FASHION_STORY_ENTRANCE"
         ],
@@ -515,28 +517,30 @@
     },
     {
         "Id": 36,
-        "Name": "\u9ed1\u5ca9\u8054\u52a8\u5173",
+        "Name": "\u955c\u7130\u8ff7\u57ce",
         "ManagerName": "XBlackRockStageAgency",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner110.png",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner127.png",
         "TimeId": null,
         "FunctionNameId": 10443.0,
         "SkipId": 89030.0,
         "Order": null,
         "RedPointConditions": [],
-        "Note": "\u9ed1\u5ca9\u8054\u52a8\u5173",
+        "Note": "\u9ed1\u5ca9\u8054\u52a8\u5267\u60c5",
         "IsAgency": 1.0
     },
     {
         "Id": 37,
-        "Name": "\u821e\u4e50\u6668\u661f2.0",
+        "Name": "\u821e\u52a8\u7eee\u97f3",
         "ManagerName": "XTaikoMasterAgency",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner110.png",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner69.png",
         "TimeId": null,
         "FunctionNameId": 10430.0,
         "SkipId": 84010.0,
         "Order": null,
-        "RedPointConditions": [],
-        "Note": null,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITY_TAIKO_MASTER_TASK"
+        ],
+        "Note": "\u6218\u53cc\u97f3\u6e38",
         "IsAgency": 1.0
     }
 ]

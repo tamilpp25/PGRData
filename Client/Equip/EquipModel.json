@@ -4861,6 +4861,36 @@
         "UiAutoRotateDelay": []
     },
     {
+        "Id": 21970211,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CelloMainMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CelloMainMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CelloMd030011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 21970212,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CelloSubMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CelloSubMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CelloMd030011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
         "Id": 12040111,
         "ModelName": [
             "Assets/Product/Role/WeaponPrefab/E2GunbladeMd010011.prefab",
@@ -7583,6 +7613,7 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Nuoan/NuoanMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Nuoan/NuoanMdCommon/Fight/Fight.controller",
             "Assets/Product/Role/WeaponAnimation/Nuoan/E3NuoanMd010011P04/Uistand/Uistand.controller"
         ],
@@ -8095,6 +8126,48 @@
         "UiAnimDelay": [
             300.0
         ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 23170111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Uistand/Uistand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Fight/Fight.controller",
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "Uistandstart"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 23170112,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3BangbinataMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Uistand/Uistand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Fight/Fight.controller",
+            "Assets/Product/Role/WeaponAnimation/Bangbinata/BangbinataMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "Uistandstart"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
         "UiAutoRotateDelay": []
     },
     {
@@ -8841,7 +8914,27 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
-            "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd020011/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller"
+        ],
+        "UiAnimStateName": [
+            "Uistandstart"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 23470121,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller"
         ],
         "UiAnimStateName": [
@@ -9563,6 +9656,108 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14040111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd010011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd010011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd010011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14050111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2SabreMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14060111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P01.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P01/Uistand/Uistand.controller",
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P01/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14060121,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P02.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P02/Uistand/Uistand.controller",
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P02/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14060131,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P03.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P03/Uistand/Uistand.controller",
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P03/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14060141,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3SabreMd010011P04.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P04/Uistand/Uistand.controller",
+            "Assets/Product/Role/WeaponAnimation/Sabre/E3SabreMd010011P04/Uistand/Uistand.controller"
+        ],
         "UiAnimStateName": [],
         "UiAnimCueId": [],
         "UiAnimDelay": [],

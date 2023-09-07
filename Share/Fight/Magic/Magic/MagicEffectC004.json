@@ -2101,9 +2101,9 @@
     },
     {
         "Id": 741190,
-        "Name": "Damage",
+        "Name": "RealDamageEx",
         "Level": [
-            "50|80000|0|0|0|0|0|0|10000"
+            "50|0|0|0|80000|10000|0|0"
         ]
     },
     {
@@ -2146,6 +2146,20 @@
         "Name": "AddBehavior",
         "Level": [
             "741152"
+        ]
+    },
+    {
+        "Id": 741244,
+        "Name": "AddBuff",
+        "Level": [
+            "741244"
+        ]
+    },
+    {
+        "Id": 741244000,
+        "Name": "AddBehavior",
+        "Level": [
+            "741244"
         ]
     },
     {
@@ -2206,9 +2220,9 @@
     },
     {
         "Id": 741191,
-        "Name": "Damage",
+        "Name": "RealDamageEx",
         "Level": [
-            "50|50000|0|0|0|0|0|0|10000"
+            "50|0|0|0|50000|10000|0|0"
         ]
     },
     {
@@ -2251,6 +2265,20 @@
         "Name": "AddBehavior",
         "Level": [
             "741160"
+        ]
+    },
+    {
+        "Id": 741255,
+        "Name": "AddBuff",
+        "Level": [
+            "741255"
+        ]
+    },
+    {
+        "Id": 741255000,
+        "Name": "ChangeAttribGroupAdditive",
+        "Level": [
+            "1||3000"
         ]
     },
     {
@@ -2352,6 +2380,27 @@
         ]
     },
     {
+        "Id": 741245,
+        "Name": "AddBall",
+        "Level": [
+            "1|3"
+        ]
+    },
+    {
+        "Id": 741246,
+        "Name": "AddBall",
+        "Level": [
+            "3|3"
+        ]
+    },
+    {
+        "Id": 741247,
+        "Name": "AddBall",
+        "Level": [
+            "2|3"
+        ]
+    },
+    {
         "Id": 741167,
         "Name": "AddBuff",
         "Level": [
@@ -2389,6 +2438,13 @@
         "Name": "AddBehavior",
         "Level": [
             "741169"
+        ]
+    },
+    {
+        "Id": 741248,
+        "Name": "AddAttribValue",
+        "Level": [
+            "2|1|0"
         ]
     },
     {
@@ -2460,6 +2516,18 @@
         "Level": [
             "741174"
         ]
+    },
+    {
+        "Id": 741262,
+        "Name": "AddBuff",
+        "Level": [
+            "741262"
+        ]
+    },
+    {
+        "Id": 741262000,
+        "Name": "PlayBallExEffect",
+        "Level": []
     },
     {
         "Id": 741175,
@@ -2571,6 +2639,34 @@
         "Name": "AddNpcState",
         "Level": [
             "27"
+        ]
+    },
+    {
+        "Id": 741249,
+        "Name": "AddBuff",
+        "Level": [
+            "741249"
+        ]
+    },
+    {
+        "Id": 741249000,
+        "Name": "ChangeAttribGroupAdditive",
+        "Level": [
+            "1||1500"
+        ]
+    },
+    {
+        "Id": 741250,
+        "Name": "AddBuff",
+        "Level": [
+            "741250"
+        ]
+    },
+    {
+        "Id": 741250000,
+        "Name": "AddBehavior",
+        "Level": [
+            "741250"
         ]
     },
     {
@@ -2697,6 +2793,20 @@
         "Name": "AddBehavior",
         "Level": [
             "741195"
+        ]
+    },
+    {
+        "Id": 741251,
+        "Name": "AddBuff",
+        "Level": [
+            "741251"
+        ]
+    },
+    {
+        "Id": 741251000,
+        "Name": "AddBehavior",
+        "Level": [
+            "741251"
         ]
     },
     {
@@ -2950,6 +3060,34 @@
         ]
     },
     {
+        "Id": 741252,
+        "Name": "AddBuff",
+        "Level": [
+            "741252"
+        ]
+    },
+    {
+        "Id": 741252000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "25|2000|"
+        ]
+    },
+    {
+        "Id": 741254,
+        "Name": "AddBuff",
+        "Level": [
+            "741254"
+        ]
+    },
+    {
+        "Id": 741254000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "741703"
+        ]
+    },
+    {
         "Id": 741218,
         "Name": "AddBuff",
         "Level": [
@@ -3027,6 +3165,39 @@
         ]
     },
     {
+        "Id": 741253,
+        "Name": "AddBuff",
+        "Level": [
+            "741253"
+        ]
+    },
+    {
+        "Id": 741253000,
+        "Name": "PlayBallExEffect",
+        "Level": []
+    },
+    {
+        "Id": 741256,
+        "Name": "AddBuff",
+        "Level": [
+            "741256"
+        ]
+    },
+    {
+        "Id": 741256000,
+        "Name": "AddBehavior",
+        "Level": [
+            "741256"
+        ]
+    },
+    {
+        "Id": 741257,
+        "Name": "ChangeDamageAdditive",
+        "Level": [
+            "25|10000|"
+        ]
+    },
+    {
         "Id": 741223,
         "Name": "AddBuff",
         "Level": [
@@ -3038,6 +3209,20 @@
         "Name": "AddBehavior",
         "Level": [
             "741223"
+        ]
+    },
+    {
+        "Id": 741261,
+        "Name": "AddBuff",
+        "Level": [
+            "741261"
+        ]
+    },
+    {
+        "Id": 741261000,
+        "Name": "AddBehavior",
+        "Level": [
+            "741261"
         ]
     },
     {
@@ -3058,7 +3243,7 @@
         "Id": 741225,
         "Name": "AddAttribValue",
         "Level": [
-            "2|20|"
+            "2|10|"
         ]
     },
     {
@@ -3319,6 +3504,27 @@
         ]
     },
     {
+        "Id": 741259,
+        "Name": "AddBuff",
+        "Level": [
+            "741259"
+        ]
+    },
+    {
+        "Id": 741260,
+        "Name": "AddBuff",
+        "Level": [
+            "741260"
+        ]
+    },
+    {
+        "Id": 741260000,
+        "Name": "ChangeModelScale",
+        "Level": [
+            "1.1|0.1"
+        ]
+    },
+    {
         "Id": 741242,
         "Name": "AddBuff",
         "Level": [
@@ -3347,165 +3553,6 @@
         ]
     },
     {
-        "Id": 741244,
-        "Name": "AddBuff",
-        "Level": [
-            "741244"
-        ]
-    },
-    {
-        "Id": 741244000,
-        "Name": "AddBehavior",
-        "Level": [
-            "741244"
-        ]
-    },
-    {
-        "Id": 741245,
-        "Name": "AddBall",
-        "Level": [
-            "1|3"
-        ]
-    },
-    {
-        "Id": 741246,
-        "Name": "AddBall",
-        "Level": [
-            "3|3"
-        ]
-    },
-    {
-        "Id": 741247,
-        "Name": "AddBall",
-        "Level": [
-            "2|3"
-        ]
-    },
-    {
-        "Id": 741248,
-        "Name": "AddAttribValue",
-        "Level": [
-            "2|1|0"
-        ]
-    },
-    {
-        "Id": 741249,
-        "Name": "AddBuff",
-        "Level": [
-            "741249"
-        ]
-    },
-    {
-        "Id": 741249000,
-        "Name": "ChangeAttribGroupAdditive",
-        "Level": [
-            "1||1500"
-        ]
-    },
-    {
-        "Id": 741250,
-        "Name": "AddBuff",
-        "Level": [
-            "741250"
-        ]
-    },
-    {
-        "Id": 741250000,
-        "Name": "AddBehavior",
-        "Level": [
-            "741250"
-        ]
-    },
-    {
-        "Id": 741251,
-        "Name": "AddBuff",
-        "Level": [
-            "741251"
-        ]
-    },
-    {
-        "Id": 741251000,
-        "Name": "AddBehavior",
-        "Level": [
-            "741251"
-        ]
-    },
-    {
-        "Id": 741252,
-        "Name": "AddBuff",
-        "Level": [
-            "741252"
-        ]
-    },
-    {
-        "Id": 741252000,
-        "Name": "ChangeAttribAdditive",
-        "Level": [
-            "25|2000|"
-        ]
-    },
-    {
-        "Id": 741253,
-        "Name": "AddBuff",
-        "Level": [
-            "741253"
-        ]
-    },
-    {
-        "Id": 741253000,
-        "Name": "PlayBallExEffect",
-        "Level": []
-    },
-    {
-        "Id": 741254,
-        "Name": "AddBuff",
-        "Level": [
-            "741254"
-        ]
-    },
-    {
-        "Id": 741254000,
-        "Name": "PlayScreenEffect",
-        "Level": [
-            "741703"
-        ]
-    },
-    {
-        "Id": 741255,
-        "Name": "AddBuff",
-        "Level": [
-            "741255"
-        ]
-    },
-    {
-        "Id": 741255000,
-        "Name": "ChangeAttribGroupAdditive",
-        "Level": [
-            "1||3000"
-        ]
-    },
-    {
-        "Id": 741256,
-        "Name": "AddBuff",
-        "Level": [
-            "741256"
-        ]
-    },
-    {
-        "Id": 741256000,
-        "Name": "AddBehavior",
-        "Level": [
-            "741256"
-        ]
-    },
-    {
-        "Id": 741257,
-        "Name": "ChangeDamageAdditive",
-        "Level": [
-            "25|10000|"
-        ]
-    },
-    {
         "Id": 741258,
         "Name": "AddBuff",
         "Level": [
@@ -3520,24 +3567,10 @@
         ]
     },
     {
-        "Id": 741259,
+        "Id": 741263,
         "Name": "AddBuff",
         "Level": [
-            "741259"
-        ]
-    },
-    {
-        "Id": 741260,
-        "Name": "AddBuff",
-        "Level": [
-            "741260"
-        ]
-    },
-    {
-        "Id": 741260000,
-        "Name": "ChangeModelScale",
-        "Level": [
-            "1.1|0.1"
+            "741263"
         ]
     }
 ]
