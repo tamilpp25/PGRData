@@ -133,8 +133,17 @@ function XUiPanelSignBoard:ResetPlayList()
     self.SignBoardPlayer:SetPlayList(playList)
 end
 
+function XUiPanelSignBoard:CheckBtnReplaceDisable()
+    local char = XDataCenter.DisplayManager.GetDisplayChar()
+    local isOnlyOneCharInDisList = #XPlayer.DisplayCharIdList <= 1
+    local isCurCharRandom = char.RandomFashion
+    local isOnlyOneFashionRandom = #XDataCenter.FashionManager.GetCharacterRandomFashionList(char.Id) == 1
+    local isDisable = (isOnlyOneCharInDisList and not isCurCharRandom) or (isOnlyOneCharInDisList and isOnlyOneFashionRandom)
+    return isDisable
+end
+
 function XUiPanelSignBoard:RefreshUiShow()
-    self.BtnReplace:SetDisable(not XPlayer.DisplayCharIdList or #XPlayer.DisplayCharIdList <= 1)
+    self.BtnReplace:SetDisable(self:CheckBtnReplaceDisable())
     if self.OpenType == XUiPanelSignBoard.SignBoardOpenType.MAIN then
         self.PanelOpration.gameObject:SetActiveEx(false)
     end
@@ -375,20 +384,32 @@ end
 
 -- auto 随机替换
 function XUiPanelSignBoard:OnBtnReplaceClick()
-    if not XPlayer.DisplayCharIdList or #XPlayer.DisplayCharIdList <= 1 then
-        XUiManager.TipMsg(XUiHelper.GetText("AssistOnlyOne"))
+    -- if not XPlayer.DisplayCharIdList or #XPlayer.DisplayCharIdList <= 1 then
+    --     XUiManager.TipMsg(XUiHelper.GetText("AssistOnlyOne"))
+    --     return
+    -- end
+    if self:CheckBtnReplaceDisable() then
+        XUiManager.TipMsg(XUiHelper.GetText("AssistAndCoatingOnlyOne"))
         return
     end
     
+
+    -- 随机角色
     local displayCharacterId = XDataCenter.DisplayManager.GetRandomDisplayCharByList().Id
     XDataCenter.DisplayManager.SetNextDisplayChar(nil)
-    self:SetDisplayCharacterId(displayCharacterId)
-    self:RefreshCharModel()
-    if self.Parent.PlayChangeModelEffect then
-        self.Parent:PlayChangeModelEffect()
+
+    -- 刷新
+    local refreshFun = function ()
+        self:SetDisplayCharacterId(displayCharacterId)
+        self:RefreshCharModel()
+        if self.Parent.PlayChangeModelEffect then
+            self.Parent:PlayChangeModelEffect()
+        end
+        self.SignBoardPlayer:Stop()
     end
 
-    self.SignBoardPlayer:Stop()
+    -- 随机涂装
+    XDataCenter.FashionManager.SetCharacterRandomFashion(displayCharacterId, refreshFun)
 end
 
 function XUiPanelSignBoard:OnBtnCoatingClick()
@@ -405,12 +426,15 @@ function XUiPanelSignBoard:OnBtnCoatingClick()
 end
 
 function XUiPanelSignBoard:OnBtnSceneClick()
-    XLuaUiManager.Open("UiSceneSettingMain",UiMainMenuType.Main)
+    XDataCenter.PhotographManager.OpenUiSceneSetting(UiMainMenuType.Main)
 end
 
 function XUiPanelSignBoard:OnBtnCommunicationClick()
     if XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.FavorabilityMain) then
         XUiManager.TipMsg(CS.XTextManager.GetText("FunctionalMaintain"))
+        return
+    end
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FavorabilityMain) then
         return
     end
     self:SetPanelLayoutActive(false)
@@ -434,11 +458,11 @@ function XUiPanelSignBoard:Play(element)
     if element.CvType then
         cvType = element.CvType
         --播放动作页签下的动作，使用页签选择的语言类型
-        content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, element.CvType)
+        content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, element.CvType)
     else
         --播放看板交互的动作，使用设置项的语言
         cvType = CS.UnityEngine.PlayerPrefs.GetInt("CV_TYPE", DEFAULT_CV_TYPE)
-        content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, cvType)
+        content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, cvType)
     end
     self.TxtSplitCvContent:ShowContent(cvId, cvType, content)
 
@@ -528,11 +552,11 @@ function XUiPanelSignBoard:PlayCross(element)
     if element.CvType then
         cvType = element.CvType
         --播放动作页签下的动作，使用页签选择的语言类型
-        content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, element.CvType)
+        content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, element.CvType)
     else
         --播放看板交互的动作，使用设置项的语言
         cvType = CS.UnityEngine.PlayerPrefs.GetInt("CV_TYPE", DEFAULT_CV_TYPE)
-        content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, cvType)
+        content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, cvType)
     end
     self.TxtSplitCvContent:ShowContent(cvId, cvType, content)
 
@@ -567,7 +591,8 @@ end
 function XUiPanelSignBoard:ShowNormalContent(show)
     self:SetPanelLayoutActive(show)
     self.BtnReplace:SetButtonState(CS.UiButtonState.Normal)
-    self.BtnReplace:SetDisable(not XPlayer.DisplayCharIdList or #XPlayer.DisplayCharIdList <= 1)
+    -- local isDisable = not XPlayer.DisplayCharIdList or #XPlayer.DisplayCharIdList <= 1
+    self.BtnReplace:SetDisable(self:CheckBtnReplaceDisable())
     self.BtnCoating:SetButtonState(CS.UiButtonState.Normal)
     self.BtnCommunication:SetButtonState(CS.UiButtonState.Normal)
 end
@@ -580,7 +605,7 @@ end
 
 --显示对白
 function XUiPanelSignBoard:ShowContent(cvId, cvType)
-    local content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, cvType)
+    local content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, cvType)
     if self.LayoutContent then
         self.LayoutContent.localPosition = self.LayoutContentOriginPos
     end
@@ -596,7 +621,7 @@ end
 function XUiPanelSignBoard:PlayCvWithCvType(cvId, cvType)
     if self.PlayingAudio then
         --正在播放语音页签下的语音，播放新动作需要打断语音并播放打断特效
-        self.Parent.FavorabilityMain.FavorabilityAudio:UnScheduleAudio()
+        self.Parent.FavorabilityMain.FavorabilityShow:UnScheduleAudioPlay()
         self.Parent:PlayChangeActionEffect()
         self.PlayingAudio = false
     end
@@ -699,7 +724,7 @@ end
 function XUiPanelSignBoard:TrasformPlayConfigByFavorability(config)
     if config == nil then return end
     --确定当前动作是否满足好感度条件
-    local isUnlock , conditionDescript = XDataCenter.FavorabilityManager.CheckCharacterActionUnlockBySignBoardActionId(config.Id)
+    local isUnlock , conditionDescript = XMVCA.XFavorability:CheckCharacterActionUnlockBySignBoardActionId(config.Id)
     if isUnlock then
         return config
     end
@@ -707,7 +732,7 @@ function XUiPanelSignBoard:TrasformPlayConfigByFavorability(config)
     local SignBoardActionDatas = XSignBoardConfigs.GetSignBoardConfigByRoldIdAndCondition(tonumber(config.RoleId), config.ConditionId)
     local randomDatas = {}
     for _, signBoardActionData in ipairs(SignBoardActionDatas) do
-        if signBoardActionData.ConditionParam == config.ConditionParam and XDataCenter.FavorabilityManager.CheckCharacterActionUnlockBySignBoardActionId(signBoardActionData.Id) then
+        if signBoardActionData.ConditionParam == config.ConditionParam and XMVCA.XFavorability:CheckCharacterActionUnlockBySignBoardActionId(signBoardActionData.Id) then
             table.insert(randomDatas,signBoardActionData)
         end
     end
@@ -771,7 +796,13 @@ function XUiPanelSignBoard:OnMultClick(clickTimes)
     if config ~= nil and self.SpecialFilterAnimId and self.SpecialFilterAnimId[config.Id] then
         return
     end
-    if config ~= nil then self:ForcePlayCross(config.Id, nil, true, true) end
+    if config ~= nil then
+        if self.Parent.FavorabilityMain then
+            self:ForcePlayCross(config.Id, self.Parent.FavorabilityMain.CvType, true, true)
+        else
+            self:ForcePlayCross(config.Id, nil, true, true)
+        end
+    end
 end
 
 --设置自动播放

@@ -100,7 +100,7 @@ function XUiAssignSelectOccupy:Refresh()
         local weightGrowUpLevel = growUpLevel * 10
         local weightQuality = character.Quality
         weights[character.Id] = weightState + weightAbility + weightGrowUpLevel + weightQuality
-        -- XLog.Debug("Sort " .. XCharacterConfigs.GetCharacterTradeName(character.Id) .. ": " .. character.Id .. ", weight: " .. weights[character.Id], {"isInOccupy, isMatch, state, ability, growUpLevel", isInOccupy, isMatch, state, ability, growUpLevel})
+        -- XLog.Debug("Sort " .. XMVCA.XCharacter:GetCharacterTradeName(character.Id) .. ": " .. character.Id .. ", weight: " .. weights[character.Id], {"isInOccupy, isMatch, state, ability, growUpLevel", isInOccupy, isMatch, state, ability, growUpLevel})
     end
 
     table.sort(ownCharacters, function(a, b)

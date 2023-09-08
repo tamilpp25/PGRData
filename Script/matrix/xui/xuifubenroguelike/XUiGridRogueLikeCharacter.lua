@@ -33,7 +33,7 @@ function XUiGridRogueLikeCharacter:OnBtnCharacterClick()
     if self.ClickCallback then
 
         if self.IsCharacterType then
-            if XCharacterConfigs.IsCharacterForeShow(self.TemplateId) then
+            if XMVCA.XCharacter:IsCharacterForeShow(self.TemplateId) then
                 self.ClickCallback(self.Template)
             else
                 XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -83,7 +83,7 @@ function XUiGridRogueLikeCharacter:UpdateGrid(template)
 
     if self.TxtTradeName then
         local characterId = self.IsCharacterType and self.Template.Id or self.Template.CharacterId
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(characterId)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
     end
 
     if self.PanelFight then

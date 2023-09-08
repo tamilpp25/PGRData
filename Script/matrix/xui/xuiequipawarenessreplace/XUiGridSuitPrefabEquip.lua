@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local XUiGridSuitPrefabEquip = XClass(nil, "XUiGridSuitPrefabEquip")
 
@@ -11,8 +11,7 @@ end
 
 function XUiGridSuitPrefabEquip:Refresh(conflictInfo)
     self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(conflictInfo.CharacterId))
-    local grid = XUiGridEquip.New(self.GridEquip, self.Parent, nil, true)
-    grid:InitRootUi(self.Parent)
+    local grid = XUiGridEquip.New(self.GridEquip, self.Parent)
     grid:Refresh(conflictInfo.EquipId)
 end
 

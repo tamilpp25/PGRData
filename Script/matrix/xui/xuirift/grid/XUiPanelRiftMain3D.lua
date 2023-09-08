@@ -1,4 +1,4 @@
--- 大秘境主界面3D面板
+---@class XUiPanelRiftMain3D 大秘境主界面3D面板
 local XUiPanelRiftMain3D = XClass(nil, "XUiPanelRiftMain3D")
 local XUiGridRiftChapter3D = require("XUi/XUiRift/Grid/XUiGridRiftChapter3D")
 
@@ -7,6 +7,7 @@ function XUiPanelRiftMain3D:Ctor(ui, rootui)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     XTool.InitUiObject(self)
+    ---@type XUiGridRiftChapter3D[]
     self.GirdChapterDic = {}
     self.Drag3DDic = {}
     
@@ -45,6 +46,27 @@ function XUiPanelRiftMain3D:FocusTargetNodeIndex(targetIndex, duration, cb)
     drag3D:FocusTargetNodeIndex(targetIndex - 1, duration, cb)
 end
 
+function XUiPanelRiftMain3D:ImmediatelyGoToNodeIndex(targetIndex)
+    local drag3D = self.Drag3DDic[1]
+    drag3D:FocusTargetNodeIndex(targetIndex - 1, 0)
+end
+
+-- 设置自动吸附结束后的回调
+function XUiPanelRiftMain3D:SetDragCallBack(autoSorptionCb, startDragCb)
+    for _, drag3D in ipairs(self.Drag3DDic) do
+        drag3D:SetAutoSorptionCallBack(function(index)
+            autoSorptionCb(self.GirdChapterDic[index + 1])
+        end)
+        drag3D:SetBeginDragCallBack(function()
+            startDragCb()
+        end)
+    end
+end
+
+function XUiPanelRiftMain3D:GetMaxLayer()
+    return #self.Drag3DDic
+end
+
 function XUiPanelRiftMain3D:RefreshRedPoint()
     for _, gridChapter in pairs(self.GirdChapterDic) do
         gridChapter:RefreshRedPoint()
@@ -63,6 +85,14 @@ end
 function XUiPanelRiftMain3D:ClearAllStageGroup() -- 清除所有区域的关卡格子信息
     for k, gridChapter in pairs(self.GirdChapterDic) do
         gridChapter:ClearStageGroup()
+    end
+end
+
+function XUiPanelRiftMain3D:AutoOpenDetail(xFightLayer)
+    local chapterId = xFightLayer.ParentChapter:GetId()
+    local gridChapter = self.GirdChapterDic[chapterId]
+    if gridChapter then
+        gridChapter:AutoOpenDetail()
     end
 end
 ------------------------------------ (作战层选择界面专用)

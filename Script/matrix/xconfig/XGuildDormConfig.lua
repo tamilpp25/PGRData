@@ -106,6 +106,9 @@ XGuildDormConfig.RoleFSMType = enum({
     INTERACT="INTERACT" --交互状态
 })
 
+--2.6同步角度忽略值
+XGuildDormConfig.IgnoreAngle=99999
+
 -- NPC状态
 XGuildDormConfig.NpcState= {
     Static=0,

@@ -1,6 +1,7 @@
 local XTeam = require("XEntity/XTeam/XTeam")
 local XPartnerPrefab = require("XEntity/XPartner/XPartnerPrefab")
 XTeamManagerCreator = function()
+    ---@class XTeamManager XTeamManager
     local XTeamManager = {}
 
     local TeamDataKey = "STAGE_TEAM_DATA_"

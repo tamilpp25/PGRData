@@ -168,7 +168,7 @@ function XUiEquipResonanceAwake:OnBtnAwakeClick()
 
     local title = CSXTextManagerGetText("EquipAwakeTipTitle")
     local bindCharacterId = XDataCenter.EquipManager.GetResonanceBindCharacterId(equipId, pos)
-    local name = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+    local name = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
     local content = CSXTextManagerGetText("EquipAwakeTipContent", name)
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, function()
         XMVCA:GetAgency(ModuleId.XEquip):Awake(equipId, pos, XEquipConfig.GetEquipAwakeTabIndex())

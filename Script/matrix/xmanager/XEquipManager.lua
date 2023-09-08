@@ -559,7 +559,7 @@ XEquipManagerCreator = function()
             [ResonanceType.None] = {}
         }
 
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         local equipIds = XEquipManager.GetAwarenessIds(characterType)
         for _, equipId in pairs(equipIds) do
             local resonanceType = ResonanceType.None
@@ -1015,6 +1015,16 @@ XEquipManagerCreator = function()
         return false
     end
 
+    function XEquipManager.GetEquipAwakeNum(equipId)
+        local num = 0
+        for pos = 1, XEquipConfig.MAX_AWAKE_COUNT  do
+            if XEquipManager.IsEquipPosAwaken(equipId, pos) then
+                num = num + 1
+            end
+        end
+        return num
+    end
+
     function XEquipManager.IsEquipPosAwaken(equipId, pos)
         local equip = XEquipManager.GetEquip(equipId)
         return equip:IsEquipPosAwaken(pos)
@@ -1137,7 +1147,7 @@ XEquipManagerCreator = function()
 
     function XEquipManager.GetEquipAttrMap(equipId, preLevel)
         return XMVCA:GetAgency(ModuleId.XEquip):GetEquipAttrMap(equipId, nil, preLevel)
-        end
+    end
 
     function XEquipManager.GetEquipAttrMapByEquipData(equip)
         local attrMap = {}
@@ -1274,7 +1284,7 @@ XEquipManagerCreator = function()
     --desc: 获取符合当前角色使用类型的所有武器equipId
     function XEquipManager.GetCanUseWeaponIds(characterId)
         local weaponIds = {}
-        local requireEquipType = XCharacterConfigs.GetCharacterEquipType(characterId)
+        local requireEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
         for k, v in pairs(Equips) do
             if
                 XEquipManager.IsClassifyEqual(v.Id, XEquipConfig.Classify.Weapon) and
@@ -1289,7 +1299,7 @@ XEquipManagerCreator = function()
     --desc: 获取符合当前角色使用类型的所有武器templateId
     function XEquipManager.GetCanUseWeaponTemplateIds(characterId)
         local weaponTemplateIds = {}
-        local requireEquipType = XCharacterConfigs.GetCharacterEquipType(characterId)
+        local requireEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
         local equipTemplates = XEquipConfig.GetEquipTemplates()
         for _, v in pairs(equipTemplates) do
             if
@@ -1304,7 +1314,7 @@ XEquipManagerCreator = function()
 
     --desc: 获取符合当前武器使用角色的所有templateId
     function XEquipManager.GetWeaponUserTemplateIds(weaponTemplateIds)
-        local characters = XCharacterConfigs.GetCharacterTemplates()
+        local characters = XMVCA.XCharacter:GetCharacterTemplates()
         local canUesCharacters = {}
         for _, character in pairs(characters) do
             local weaponIds = XEquipManager.GetCanUseWeaponTemplateIds(character.Id)
@@ -1854,7 +1864,7 @@ XEquipManagerCreator = function()
 
         if template then
             for case, modelTransId in pairs(template.ModelTransId) do
-                if XTool.IsNumberValid(modelTransId) then
+                if modelTransId then
                     local modelId = isWeaponFashion and XWeaponFashionConfigs.GetWeaponResonanceModelId(case, weaponFashionId, resonanceCount)
                     if not modelId then
                         modelId = isAprilFoolDay and
@@ -1963,7 +1973,7 @@ XEquipManagerCreator = function()
                 local equip = XEquipManager.GetEquip(equipId)
                 return XEquipManager.GetEquipModelIdListByEquipData(equip, weaponFashionId)
             else
-                local templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+                local templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
                 local equip = {TemplateId = templateId}
                 return XEquipManager.GetEquipModelIdListByEquipData(equip, weaponFashionId)
             end
@@ -1972,7 +1982,7 @@ XEquipManagerCreator = function()
         -- 默认武器预览
         if isDefault or not isOwnCharacter then
             local idList = {}
-            local templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+            local templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
             local template = XEquipConfig.GetEquipResCfg(templateId)
             for _, id in pairs(template.ModelTransId) do
                 tableInsert(idList, id)
@@ -2546,7 +2556,7 @@ XEquipManagerCreator = function()
         for _, character in pairs(ownCharacterList) do
             local characterId = character.Id
             if characterId ~= wearingCharacterId then
-                local characterEquipType = XCharacterConfigs.GetCharacterEquipType(characterId)
+                local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
                 if XEquipManager.IsTypeEqual(equipId, characterEquipType) then
                     tableInsert(canResonanceCharacterList, character)
                 end

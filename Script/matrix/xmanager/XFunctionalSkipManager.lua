@@ -1,4 +1,5 @@
 XFunctionalSkipManagerCreator = function()
+    ---@class XFunctionalSkipManager
     local XFunctionalSkipManager = {}
     local DormDrawGroudId = CS.XGame.ClientConfig:GetInt("DormDrawGroudId")
 
@@ -426,7 +427,12 @@ XFunctionalSkipManagerCreator = function()
     -- 前往幻痛囚笼
     function XFunctionalSkipManager.OnOpenUiFubenBossSingle()
         if XDataCenter.FubenBossSingleManager.CheckNeedChooseLevelType() then
-            XLuaUiManager.Open("UiFubenBossSingleChooseLevelType")
+            local highBossList, extremeBossList =  XDataCenter.FubenBossSingleManager.GetAllChooseBossList()
+
+            if not highBossList or not extremeBossList then
+                return
+            end
+            XLuaUiManager.Open("UiFubenBossSingleChooseLevelType", highBossList, extremeBossList)
             return
         end
 
@@ -475,6 +481,10 @@ XFunctionalSkipManagerCreator = function()
             return false
         end
 
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Prequel, data.ChapterId) then
+            return
+        end
+        
         XLuaUiManager.Open("UiPrequelMain", data.PequelChapterCfg)
         -- XLuaUiManager.OpenWithCallback("UiFuben", function()
         --     CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_PREQUEL_AUTOSELECT, param1, param2)
@@ -546,6 +556,14 @@ XFunctionalSkipManagerCreator = function()
         XLuaUiManager.OpenWithCallback("UiExhibition", function()
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_CHARACTER_EXHIBITION_AUTOSELECT, param1)
         end, true, list.CustomParams[2])
+    end
+
+    function XFunctionalSkipManager.OnOpenExhibitionInfoCustomArg(list, characterId)
+        local char = XMVCA.XCharacter:GetCharacter(characterId)
+        if not char then
+            return
+        end
+        XLuaUiManager.Open("UiExhibitionInfo", characterId)
     end
 
     -- 前往具体的抽卡
@@ -1211,7 +1229,7 @@ XFunctionalSkipManagerCreator = function()
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Passport) then
             return
         end
-        XDataCenter.PassportManager.OpenMainUi()
+        XMVCA.XPassport:OpenMainUi()
     end
 
     function XFunctionalSkipManager.SkipToPickFlipRewardActivity(skipData)
@@ -1319,7 +1337,9 @@ XFunctionalSkipManagerCreator = function()
 
     --跳转到音游
     function XFunctionalSkipManager.OnOpenTaikoMaster()
-        XDataCenter.TaikoMasterManager.OpenUi()
+        ---@type XTaikoMasterAgency
+        local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+        agency:ExOpenMainUi()
     end
 
     --跳转到多维跳转
@@ -1347,7 +1367,9 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.OpenTwoSideTower()
-        XDataCenter.TwoSideTowerManager.OnOpenMain()
+        ---@type XTwoSideTowerAgency
+        local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+        twoSideTowerAgency:ExOpenMainUi()
     end
 
     function XFunctionalSkipManager.OpenLotto(list)
@@ -1505,7 +1527,7 @@ XFunctionalSkipManagerCreator = function()
             XUiManager.TipText("EquipGuideDrawNoWeaponTip")
             return
         end
-        XDataCenter.DrawManager.OpenDrawUi(param1, param2, drawId)
+        XDataCenter.DrawManager.OpenDrawUi(param1, param2, drawId,nil,CS.XGame.Config:GetString('UiEquipStrengthenSkipDrawGroups'))
     end
     --endregion------------------装备目标系统跳转 finish------------------
 
@@ -1622,11 +1644,22 @@ XFunctionalSkipManagerCreator = function()
 
     --分包下载
     function XFunctionalSkipManager.SkipToDLCDownload(list)
-        if not XDataCenter.DlcManager.CheckIsOpen() then
+        if not XMVCA.XSubPackage:IsOpen() then
             return
         end
         local param1 = (list.CustomParams[1] ~= 0) and list.CustomParams[1] or nil
         XLuaUiManager.Open("UiDownLoadMain", param1)
+    end
+
+    function XFunctionalSkipManager.SkipToPreload()
+        local subPackageAgency = XMVCA.XSubPackage
+        if subPackageAgency:IsOpen() and not subPackageAgency:CheckNecessaryComplete() then
+            XUiManager.DialogTip("", XUiHelper.GetText("PreloadCheckSubPackage"), XUiManager.DialogType.Normal, nil, function()
+                subPackageAgency:OpenUiMain()
+            end, {sureText = XUiHelper.GetText("PreloadSkipSubPackage")})
+            return
+        end
+        XLuaUiManager.Open("UiPreloadMain")
     end
 
     function XFunctionalSkipManager.SkipToNewDrawMain(list)
@@ -1697,6 +1730,10 @@ XFunctionalSkipManagerCreator = function()
         XLuaUiManager.Open("UiCharacterSystemV2P6", param1)
     end
 
+    function XFunctionalSkipManager.SkipToCharacterV2P6CustomArg(list, characterId)
+        XLuaUiManager.Open("UiCharacterSystemV2P6", characterId)
+    end
+
     -- 成员升级
     function XFunctionalSkipManager.SkipToCharacterLevelUpV2P6()
         XLuaUiManager.Open("UiCharacterSystemV2P6", nil, XEnumConst.CHARACTER.SkipEnumV2P6.PropertyLvUp)
@@ -1727,6 +1764,150 @@ XFunctionalSkipManagerCreator = function()
         agency:ExOpenMainUi()
     end
     
+    --战棋
+    function XFunctionalSkipManager.SkipToBlackRockChess()
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        agency:ExOpenMainUi()
+    end
+    
+    -- 黑岩联动关
+    function XFunctionalSkipManager.SkipToBlackRockStage()
+        XLuaUiManager.Open("UiBlackRockStage")
+    end
+    
+    --剧情关章节界面
+    function XFunctionalSkipManager.SkipToFashionStoryChapter(skipData)
+        if skipData.ParamId then
+            local IsOpen,LockReason=XDataCenter.FashionStoryManager.CheckGroupIsCanOpen(skipData.ParamId)
+            XDataCenter.FashionStoryManager.EnterPaintingGroupPanel(skipData.ParamId,IsOpen,LockReason,function()
+                XLuaUiManager.PopThenOpen("UiFubenFashionPaintingNew",skipData.ParamId)
+                XDataCenter.FashionStoryManager.MarkGroupAsHadAccess(skipData.ParamId)
+            end)
+        end
+    end
+
+    function XFunctionalSkipManager.SkipToConnectingLine()
+        XLuaUiManager.Open("UiConnectingLineGame")
+    end
+
+    -- 跳转共鸣，默认选择角色第一个意识
+    function XFunctionalSkipManager.SkipToResonanceCustomArg(list, characterId)
+        local equipId = nil
+        local isHaveCanResonanceEquip = false -- 有【有剩余共鸣位】的意识
+        local isWearSixStarEquip = false -- 是否穿戴了六星意识
+        local isAllResonanceSkillBindCurChar = true -- 所有共鸣技能都绑定了当前角色
+
+        for equipSite = XEquipConfig.MAX_STAR_COUNT, 1, -1 do -- 要查找第一个的，从倒数开始
+            local tempEquipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite)
+
+            if XTool.IsNumberValid(tempEquipId) then
+                if XMVCA.XEquip:GetEquipStarByEquipId(tempEquipId) >= XEquipConfig.MAX_STAR_COUNT 
+                and XDataCenter.EquipManager.GetResonanceCount(tempEquipId) < XEquipConfig.MAX_AWAKE_COUNT then -- 意识只能共鸣2个
+                    equipId = tempEquipId
+                    isHaveCanResonanceEquip = true
+                end
+
+                if XMVCA.XEquip:GetEquipStarByEquipId(tempEquipId) >= XEquipConfig.MAX_STAR_COUNT then
+                    isWearSixStarEquip = true
+                end
+
+                for pos = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT, 1 do
+                    if XDataCenter.EquipManager.CheckEquipPosResonanced(tempEquipId, pos) 
+                    and XDataCenter.EquipManager.GetResonanceBindCharacterId(tempEquipId, pos) ~= characterId then --检测当前位置是否仍可以超频，且共鸣绑定当前角色
+                        isAllResonanceSkillBindCurChar = false
+                        break
+                    end
+                end
+            end
+        end
+
+        if isWearSixStarEquip and not isHaveCanResonanceEquip and not isAllResonanceSkillBindCurChar then
+            XUiManager.TipError(CS.XTextManager.GetText("ResonanceBindCharNotCur"))
+            return
+        end
+
+        -- 没有意识符合条件再检查武器
+        if not XTool.IsNumberValid(equipId) then
+            local usingWeaponId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
+            if XMVCA.XEquip:GetEquipStarByEquipId(usingWeaponId) >= XEquipConfig.MAX_STAR_COUNT 
+            and XDataCenter.EquipManager.GetResonanceCount(usingWeaponId) < XEquipConfig.MAX_RESONANCE_SKILL_COUNT then -- 武器能共鸣3个
+                equipId = usingWeaponId
+            end
+        end
+
+        if not XTool.IsNumberValid(equipId) then
+            XUiManager.TipError(CS.XTextManager.GetText("CharNeedWearSixStarEquip"))
+            return
+        end
+
+        XLuaUiManager.Open("UiEquipDetailV2P6", equipId, nil, characterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE)
+    end
+
+    function XFunctionalSkipManager.SkipToAwakeCustomArg(list, characterId)
+        local tempEquipId = nil -- 检测所有格子是否有意识
+        local sixStarButNotAwakeEquipId = nil -- 第一个【满足可超频的意识 但是没有完全超频的】
+        local sixStarButNotResonaceEquipId = nil -- 第一个 【满足可共鸣的意识 但是没完全共鸣】
+        local isHaveCanResonanceEquip = false -- 有【有剩余共鸣位】的意识
+        local isWearSixStarEquip = false -- 是否穿戴了六星意识 
+        local isAllAwarenessMaxLv = true
+
+        for equipSite = XEquipConfig.MAX_STAR_COUNT, 1, -1 do
+            tempEquipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite) or tempEquipId
+            if XTool.IsNumberValid(tempEquipId) then
+                
+                local isEquipCanAwake = false
+                for pos = 1, XEquipConfig.MAX_AWAKE_COUNT, 1 do
+                    if XDataCenter.EquipManager.CheckEquipCanAwake(tempEquipId, pos) 
+                    and XDataCenter.EquipManager.GetResonanceBindCharacterId(tempEquipId, pos) == characterId then --检测当前位置是否仍可以超频，且共鸣绑定当前角色
+                        isEquipCanAwake = true
+                        break
+                    end
+                end
+
+                if isEquipCanAwake and 
+                XDataCenter.EquipManager.GetEquipAwakeNum(tempEquipId) < XEquipConfig.MAX_AWAKE_COUNT -- 每个装备超频只能2个
+                then -- 且共鸣是绑定当前角色
+                    sixStarButNotAwakeEquipId = tempEquipId
+                end
+
+                if XMVCA.XEquip:GetEquipStarByEquipId(tempEquipId) >= XEquipConfig.MAX_STAR_COUNT 
+                and XDataCenter.EquipManager.GetResonanceCount(tempEquipId) < XEquipConfig.MAX_AWAKE_COUNT then -- 意识只能共鸣2个
+                    sixStarButNotResonaceEquipId = tempEquipId
+                end
+
+                if XMVCA.XEquip:GetEquipStarByEquipId(tempEquipId) >= XEquipConfig.MAX_STAR_COUNT then
+                    isWearSixStarEquip = true
+                end
+
+                if not XDataCenter.EquipManager.IsMaxLevel(tempEquipId) then
+                    isAllAwarenessMaxLv = false
+                end
+            end
+        end
+        isHaveCanResonanceEquip = XTool.IsNumberValid(sixStarButNotResonaceEquipId)
+
+        if not XTool.IsNumberValid(tempEquipId) then
+            XUiManager.TipError(CS.XTextManager.GetText("CharNeedWearSixStarEquip"))
+            return
+        end
+        
+        -- 武器不能超频 不检测
+        if sixStarButNotAwakeEquipId then
+            XLuaUiManager.Open("UiEquipDetailV2P6", sixStarButNotAwakeEquipId, nil, characterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.OVERCLOCKING)
+        elseif sixStarButNotResonaceEquipId then
+            XLuaUiManager.Open("UiEquipDetailV2P6", sixStarButNotResonaceEquipId, nil, characterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE)
+        elseif isWearSixStarEquip and not isHaveCanResonanceEquip then -- 穿了六星装备，且没有剩余的可共鸣意识。（既然走到了这个判断，说明这些意识都不是当前绑定角色的共鸣）
+            if isAllAwarenessMaxLv then
+                XUiManager.TipError(CS.XTextManager.GetText("ResonanceBindCharNotCur"))
+            else
+                XUiManager.TipError(CS.XTextManager.GetText("AwarenessNeedMaxLvAndResonance"))
+            end
+
+        else
+            XUiManager.TipError(CS.XTextManager.GetText("CharNeedWearSixStarEquip2"))
+        end
+    end
     -- EquipGuideDrawNoWeaponTip
 
     return XFunctionalSkipManager

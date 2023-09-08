@@ -35,7 +35,7 @@ function XUiGuildWarStageMain:Init()
     end)
 
     local itemIds = XGuildWarConfig.GetClientConfigValues("StageMainCostItems", "Int")
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
         self.AssetActivityPanel:Refresh(itemIds, nil, { XDataCenter.GuildWarManager.GetMaxActionPoint() })
     end, self.AssetActivityPanel)

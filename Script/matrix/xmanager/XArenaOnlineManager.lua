@@ -353,7 +353,7 @@ XArenaOnlineManagerCreator = function()
     function XArenaOnlineManager.CheckActiveBuffOnByCharId(charId)
         local challengeId = XArenaOnlineManager.GetCurChallengeId()
         local buffCfg = XArenaOnlineManager.GetActiveBuffCfgByStageId(challengeId)
-        local minQulity = XCharacterConfigs.GetCharMinQuality(charId)
+        local minQulity = XMVCA.XCharacter:GetCharMinQuality(charId)
         return minQulity <= buffCfg.Quality
     end
 

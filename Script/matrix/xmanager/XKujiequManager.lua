@@ -27,6 +27,10 @@ XKujiequManagerCreator = function()
     end
 
     function XKujiequManager.OpenKujiequ()
+        --活动分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         if IgnoreTips then
             XKujiequManager.OpenURL()
         else

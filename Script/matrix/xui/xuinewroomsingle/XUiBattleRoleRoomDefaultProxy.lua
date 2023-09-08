@@ -209,6 +209,26 @@ function XUiBattleRoleRoomDefaultProxy:AOPGoPartnerCarry()
     return false
 end
 
+---点击切换首个进场角色时触发
+function XUiBattleRoleRoomDefaultProxy:AOPOnFirstFightBtnClick(buttonGroup, index, team)
+    return false
+end
+
+---切换队长位置前触发
+function XUiBattleRoleRoomDefaultProxy:AOPOnCaptainPosChangeBefore(newCaptainPos, team)
+    return false
+end
+
+---检查index位置是否可以拖起角色
+function XUiBattleRoleRoomDefaultProxy:CheckIsCanMoveUpCharacter(index, time)
+    return true
+end
+
+---检查index位置是否可以拖放角色
+function XUiBattleRoleRoomDefaultProxy:CheckIsCanMoveDownCharacter(index)
+    return true
+end
+
 -- 该界面是否启用q版模型 默认用愚人节检测
 function XUiBattleRoleRoomDefaultProxy:CheckUseCuteModel()
     return XDataCenter.AprilFoolDayManager.IsInCuteModelTime()

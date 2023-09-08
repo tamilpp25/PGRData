@@ -520,7 +520,7 @@ XSignBoardManagerCreator = function()
         end
         local configs = {}
         for _, v in ipairs(elements) do
-            local isUnlock , conditionDescript = XDataCenter.FavorabilityManager.CheckCharacterActionUnlockBySignBoardActionId(v.Id)
+            local isUnlock , conditionDescript = XMVCA.XFavorability:CheckCharacterActionUnlockBySignBoardActionId(v.Id)
             if isUnlock then
                 table.insert(configs, v)
             end

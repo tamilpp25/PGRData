@@ -18,7 +18,7 @@ function XUiArchiveCG:OnDestroy()
 end
 
 function XUiArchiveCG:InitRedPoint(btn,type)
-    XRedPointManager.AddRedPointEvent(btn,
+    self:AddRedPointEvent(btn,
         function (_,count)
             btn:ShowReddot(count >= 0)
         end, self,

@@ -88,7 +88,7 @@ XReviewActivityManagerCreator = function()
         if not id then
             return ""
         end
-        return XCharacterConfigs.GetCharacterEnName(id)
+        return XMVCA.XCharacter:GetCharacterEnName(id)
     end
 
     function XReviewActivityManager.GetMaxAbilityCharacterFullName()
@@ -96,7 +96,7 @@ XReviewActivityManagerCreator = function()
         if not id then
             return ""
         end
-        return XCharacterConfigs.GetCharacterFullNameStr(id)
+        return XMVCA.XCharacter:GetCharacterFullNameStr(id)
     end
 
     function XReviewActivityManager.GetMaxAbility()
@@ -113,7 +113,7 @@ XReviewActivityManagerCreator = function()
 
     function XReviewActivityManager.GetMaxTrustName()
         local maxTrustLv = XReviewActivityManager.GetMaxTrustLv()
-        local trustCfg = XFavorabilityConfigs.GetTrustExpById(1011002) --这里角色写死表里的第一个，因为编写当时并没有等级和名称对应的关系，只能使用一个默认角色的好感度等级名称
+        local trustCfg = XMVCA.XFavorability:GetTrustExpById(1011002) --这里角色写死表里的第一个，因为编写当时并没有等级和名称对应的关系，只能使用一个默认角色的好感度等级名称
         return trustCfg and trustCfg[maxTrustLv] and trustCfg[maxTrustLv].Name or XUiHelper.GetText("ReviewActivityDefaultFavorName")
     end
 

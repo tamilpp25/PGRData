@@ -57,9 +57,7 @@ function XMovieActionFullScreenDialog:OnInit()
             return
         end
         LastDonextTime = CS.UnityEngine.Time.time
-        if self.UiRoot.BtnSkipDialog.CallBack then
-            self.UiRoot.BtnSkipDialog.CallBack()
-        end
+        self:OnClickBtnSkipDialog()
     end, 0);
     self.UiRoot.PanelFullScreenDialog.gameObject:SetActiveEx(true)
     self.UiRoot.GridSingleDialog.gameObject:SetActiveEx(false)

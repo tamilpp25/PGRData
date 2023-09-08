@@ -55,7 +55,7 @@ function XGridDrawTarget:SetCharacterData()
     local halfBodyImage = XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharId)
 
     -- 名字
-    local name = XCharacterConfigs.GetCharacterLogName(self.CharId)
+    local name = XMVCA.XCharacter:GetCharacterLogName(self.CharId)
 
     -- 职业
     local career = XCharacterConfigs.GetCharDetailCareer(self.CharId)

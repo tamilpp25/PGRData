@@ -1,3 +1,7 @@
+---@class XTheatre3ReqCDData
+---@field RecordTime number
+---@field RecordData number[]
+
 ---@class XTheatre3Control : XControl
 ---@field _Model XTheatre3Model
 local XTheatre3Control = XClass(XControl, "XTheatre3Control")
@@ -22,10 +26,13 @@ local RequestProto = {
     Theatre3SetTeamRequest = "Theatre3SetTeamRequest",                          -- 设置队伍
     Theatre3EndWorkShopRequest = "Theatre3EndWorkShopRequest",                  -- 事件—工坊—结束工坊—事件下一步
     Theatre3EndEquipBoxRequest = "Theatre3EndEquipBoxRequest",                  -- 结束装备箱事件
+    Theatre3LookEquipAttributeRequest = "Theatre3LookEquipAttributeRequest",    -- 内循环查看装备数据
 }
 
 function XTheatre3Control:OnInit()
     --初始化内部变量
+    ---@type XTheatre3ReqCDData[]
+    self._ReqCdDir = {}
 end
 
 function XTheatre3Control:AddAgencyEvent()
@@ -39,6 +46,7 @@ end
 
 function XTheatre3Control:OnRelease()
     -- 这里执行Control的释放
+    self._ReqCdDir = {}
 end
 
 --region 活动相关
@@ -81,8 +89,8 @@ function XTheatre3Control:GetNextDisplayLevel(level)
     if maxBattlePassLevel <= level then
         return maxBattlePassLevel
     end
-    local configs = self._Model:GetBattlePassConfigs()
-    for i = level + 1, #configs do
+    --local configs = self._Model:GetBattlePassConfigs()
+    for i = level + 1, maxBattlePassLevel do
         if self:CheckBattlePassDisplay(i) then
             return i
         end
@@ -371,6 +379,18 @@ function XTheatre3Control:IsSuitComplete(suitId)
     return true
 end
 
+---穿戴该装备后套装是否能激活
+function XTheatre3Control:CanSuitComplete(equipId)
+    local config = self:GetEquipById(equipId)
+    local equips = self:GetAllSuitEquip(config.SuitId)
+    for _, equip in pairs(equips) do
+        if equip.Id ~= equipId and not self:IsWearEquip(equip.Id) then
+            return false
+        end
+    end
+    return true
+end
+
 ---槽位已用装备容量
 function XTheatre3Control:GetSlotCapcity(slotId)
     local list = self:GetSlotSuits(slotId)
@@ -489,7 +509,7 @@ function XTheatre3Control:OpenEquipmentTip(equipId, btnTxt, btnCallBack, tipWorl
 end
 
 ---显示装备Tip（可以设置居目标对象的左边还是右边）
-function XTheatre3Control:OpenEquipmentTipByAlign(equipId, btnTxt, btnCallBack, closeCallBack, dimObj, align)
+function XTheatre3Control:OpenEquipmentTipByAlign(equipId, btnTxt, btnCallBack, closeCallBack, dimObj, align, isAdventure)
     local param = {
         equipId = equipId,
         btnTxt = btnTxt,
@@ -498,7 +518,14 @@ function XTheatre3Control:OpenEquipmentTipByAlign(equipId, btnTxt, btnCallBack, 
         DimObj = dimObj,
         Align = align or XEnumConst.THEATRE3.TipAlign.Right,
     }
-    XLuaUiManager.Open("UiTheatre3BubbleEquipment", param)
+    if isAdventure then
+        local cfg = self:GetEquipById(equipId)
+        self:RequestLookEquipAttribute(equipId, cfg.SuitId, function()
+            XLuaUiManager.Open("UiTheatre3BubbleEquipment", param, true)
+        end)
+    else
+        XLuaUiManager.Open("UiTheatre3BubbleEquipment", param)
+    end
 end
 
 ---显示套装Tip
@@ -516,7 +543,10 @@ function XTheatre3Control:OpenSuitTip(suitId, btnTxt, btnCallBack, closeCallBack
         DimObj = dimObj,
         Align = align or XEnumConst.THEATRE3.TipAlign.Right,
     }
-    XLuaUiManager.Open("UiTheatre3SuitTip", param)
+
+    self:RequestLookEquipAttribute(nil, suitId, function()
+        XLuaUiManager.Open("UiTheatre3SuitTip", param)
+    end)
 end
 
 ---打开装备选择界面
@@ -715,17 +745,25 @@ function XTheatre3Control:CheckAnyPreStrengthenTreeUnlock(id)
 end
 
 -- 检查前置天赋是否全部解锁
-function XTheatre3Control:CheckPreStrengthenTreeAllUnlock(id)
+function XTheatre3Control:CheckPreStrengthenTreeAllUnlock(id, isRedPoint)
     local preIds = self:GetStrengthenTreePreIdById(id)
     if XTool.IsTableEmpty(preIds) then
-        return true
+        if isRedPoint then
+            return not self:_CheckGeniusRedPoint(id)
+        else
+            return true
+        end
     end
     for _, preId in pairs(preIds) do
         if not self:CheckStrengthTreeUnlock(preId) then
             return false
         end
     end
-    return true
+    if isRedPoint then
+        return not self:_CheckGeniusRedPoint(id)
+    else
+        return true
+    end
 end
 
 -- 检查天赋条件是否成立
@@ -759,7 +797,7 @@ function XTheatre3Control:CheckStrengthenTreeRedPoint(id)
     if not isEnough then
         return false
     end
-    return self:CheckPreStrengthenTreeAllUnlock(id)
+    return self:CheckPreStrengthenTreeAllUnlock(id, true)
 end
 
 -- 检查所有天赋树红点
@@ -974,6 +1012,10 @@ function XTheatre3Control:GetSlotOrder(posId)
     return self._Model.ActivityData:GetSlotIndexByPos(posId)
 end
 
+function XTheatre3Control:GetSlotIdByColor(colorId)
+    return self._Model.ActivityData:GetSlotPosIdByColorId(colorId)
+end
+
 function XTheatre3Control:UpdateEquipPosRoleId(roleId, slotId, isJoin)
     self._Model.ActivityData:UpdateEquipPosRoleId(roleId, slotId, isJoin)
 end
@@ -984,7 +1026,7 @@ function XTheatre3Control:GetCharacterList(isOnlyRobot)
     for _, config in pairs(configs) do
         table.insert(characterList, config.RobotId)
         if not isOnlyRobot then
-            if XCharacterConfigs.IsCharacterCanShow(config.CharacterId) then
+            if XMVCA.XCharacter:IsCharacterCanShow(config.CharacterId) then
                 table.insert(characterList, config.CharacterId)
             end
         end
@@ -1089,12 +1131,12 @@ end
 
 function XTheatre3Control:GetEquipCaptainPos()
     local captainPos = self._Model.ActivityData:GetCaptainPos()
-    return self._Model.ActivityData:GetSlotPosIdByColocId(captainPos)
+    return self._Model.ActivityData:GetSlotPosIdByColorId(captainPos)
 end
 
 function XTheatre3Control:GetEquipFirstFightPos()
     local firstFightPos = self._Model.ActivityData:GetFirstFightPos()
-    return self._Model.ActivityData:GetSlotPosIdByColocId(firstFightPos)
+    return self._Model.ActivityData:GetSlotPosIdByColorId(firstFightPos)
 end
 
 function XTheatre3Control:GetTeamsEntityIds()
@@ -1105,8 +1147,17 @@ function XTheatre3Control:GetEntityIdIsInTeam(entityId)
     return self._Model.ActivityData:GetEntityIdIsInTeam(entityId)
 end
 
+function XTheatre3Control:GetEntityIdBySlotColor(colorId)
+    return self._Model.ActivityData:GetEntityIdBySlotColor(colorId)
+end
+
 function XTheatre3Control:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     self._Model.ActivityData:UpdateEntityTeamPos(entityId, teamPos, isJoin)
+end
+
+--- 交换队伍位置
+function XTheatre3Control:SwapEntityTeamPos(teamPosA, teamPosB)
+    self._Model.ActivityData:SwapEntityTeamPos(teamPosA, teamPosB)
 end
 
 function XTheatre3Control:UpdateCaptainPosAndFirstFightPos(cPos, fPos)
@@ -1155,10 +1206,10 @@ end
 
 -- 获取物品解锁进度
 function XTheatre3Control:GetItemUnlockProgress()
-    local itmeTypeIdList = self:GetItemTypeIdList()
+    local itemTypeIdList = self:GetItemTypeIdList()
     local curCount = 0
     local totalCount = 0
-    for _, typeId in pairs(itmeTypeIdList) do
+    for _, typeId in pairs(itemTypeIdList) do
         local itemIds = self:GetItemIdListByTypeId(typeId)
         for _, itemId in pairs(itemIds) do
             if self:CheckUnlockItemId(itemId) then
@@ -1180,17 +1231,13 @@ function XTheatre3Control:CheckUnlockItemId(itemId)
     return self._Model.ActivityData:CheckUnlockItemId(itemId)
 end
 
--- 检查物品条件是否成立
-function XTheatre3Control:CheckItemUnlockConditionId(itemId)
-    local unlockConditionId = self:GetItemUnlockConditionId(itemId)
-    if XTool.IsNumberValid(unlockConditionId) then
-        return XConditionManager.CheckCondition(unlockConditionId)
-    end
-    return true, ""
-end
-
 -- 检查物品是否有红点  首次获得时显示红点
 function XTheatre3Control:CheckItemRedPoint(itemId)
+    -- 默认解锁无需红点
+    local unlockConditionId = self:GetItemUnlockConditionId(itemId)
+    if not XTool.IsNumberValid(unlockConditionId) then
+        return false
+    end
     if not self:GetItemClickRedPoint(itemId) and self:CheckUnlockItemId(itemId) then
         return true
     end
@@ -1199,8 +1246,8 @@ end
 
 -- 检查所有的物品是否有红点
 function XTheatre3Control:CheckAllItemRedPoint()
-    local itmeTypeIdList = self:GetItemTypeIdList()
-    for _, typeId in pairs(itmeTypeIdList) do
+    local itemTypeIdList = self:GetItemTypeIdList()
+    for _, typeId in pairs(itemTypeIdList) do
         local itemIds = self:GetItemIdListByTypeId(typeId)
         for _, itemId in pairs(itemIds) do
             if self:CheckItemRedPoint(itemId) then
@@ -1301,6 +1348,93 @@ end
 
 --endregion
 
+--region Buff - Desc
+function XTheatre3Control:GetEquipEffectGroupDesc(equipId)
+    local effectGroupId = self._Model:GetEquipById(equipId).EffectGroupId
+    local type = self._Model:GetEffectGroupDescCfgType(effectGroupId)
+    if not type then
+        return ""
+    end
+    return self:_GetEffectGroupDesc(effectGroupId, self:_GetEffectGroupParamList(type, equipId))
+end
+
+function XTheatre3Control:GetSuitEffectGroupDesc(suitId)
+    local suitEffectGroupId = self._Model:GetSuitById(suitId).SuitEffectGroupId
+    local effectGroupId = self._Model:GetSuitEffectGroupById(suitEffectGroupId).EffectGroupId
+    
+    local type = self._Model:GetEffectGroupDescCfgType(effectGroupId)
+    if not type then
+        return ""
+    end
+    return self:_GetEffectGroupDesc(effectGroupId, self:_GetEffectGroupParamList(type, nil, suitId))
+end
+
+function XTheatre3Control:GetItemEffectGroupDesc(itemId)
+    local effectGroupId = self._Model:GetItemConfigById(itemId).EffectGroupId
+    local type = self._Model:GetEffectGroupDescCfgType(effectGroupId)
+    if not type then
+        return ""
+    end
+    return self:_GetEffectGroupDesc(effectGroupId, self:_GetEffectGroupParamList(type))
+end
+
+---@return number[]
+function XTheatre3Control:_GetEffectGroupParamList(type, equipId, suitId)
+    local result = {}
+    if type == XEnumConst.THEATRE3.EffectGroupDescType.PassNode then
+        local adventureEffectDesc = self._Model.ActivityData:GetAdventureEffectDescData()
+        if adventureEffectDesc then
+            if XTool.IsNumberValid(equipId) then
+                table.insert(result, adventureEffectDesc:GetEquipPassNodeCount(equipId))
+                return result
+            end
+            if XTool.IsNumberValid(suitId) then
+                table.insert(result, adventureEffectDesc:GetSuitPassNodeCount(equipId))
+                return result
+            end
+        end
+        return result
+    elseif type == XEnumConst.THEATRE3.EffectGroupDescType.BuyCount then
+        local adventureEffectDesc = self._Model.ActivityData:GetAdventureEffectDescData()
+        if adventureEffectDesc then
+            table.insert(result, adventureEffectDesc:GetItemBuyCount())
+        end
+        return result
+    elseif type == XEnumConst.THEATRE3.EffectGroupDescType.ItemCount then
+        return { #self:GetAdventureCurItemList() }
+    elseif type == XEnumConst.THEATRE3.EffectGroupDescType.CollectSuit then
+        local count = 0
+        for i = 1, 3 do
+            for _, suit in ipairs(self._Model.ActivityData:GetAdventureSuitList(i)) do
+                if self:IsSuitComplete(suit) then
+                    count = count + 1
+                end
+            end
+        end
+        table.insert(result, count)
+        return result
+    elseif type == XEnumConst.THEATRE3.EffectGroupDescType.FightAndBoss then
+        local adventureEffectDesc = self._Model.ActivityData:GetAdventureEffectDescData()
+        if XTool.IsNumberValid(equipId) then
+            table.insert(result, adventureEffectDesc:GetEquipPassFightCount(equipId))
+            table.insert(result, adventureEffectDesc:GetEquipPassBossFightCount(equipId))
+            return result
+        end
+        if XTool.IsNumberValid(suitId) then
+            table.insert(result, adventureEffectDesc:GetSuitPassFightCount(suitId))
+            table.insert(result, adventureEffectDesc:GetSuitPassBossFightCount(suitId))
+            return result
+        end
+        return result
+    end
+end
+
+---@param paramList number[]
+function XTheatre3Control:_GetEffectGroupDesc(effectGroupId, paramList)
+    return self._Model:GetEffectGroupDescByIndex(effectGroupId, paramList)
+end
+--endregion
+
 --region 音效相关
 
 -- 播放奖励音效(1.道具箱 | 2.金币 | 3.装备箱)
@@ -1361,6 +1495,18 @@ function XTheatre3Control:SaveItemClickRedPoint(itemId)
     XSaveTool.SaveData(key, true)
 end
 
+function XTheatre3Control:ClearItemRedPoint()
+    local itemTypeIdList = self:GetItemTypeIdList()
+    for _, typeId in pairs(itemTypeIdList) do
+        local itemIds = self:GetItemIdListByTypeId(typeId)
+        for _, itemId in pairs(itemIds) do
+            if self:CheckItemRedPoint(itemId) then
+                self:SaveItemClickRedPoint(itemId)
+            end
+        end
+    end
+end
+
 -- 图鉴-装备红点点击缓存
 function XTheatre3Control:GetEquipClickRedPointKey(equipId)
     return string.format("XTheatre3EquipClickRedPoint_%s_%s_%s", XPlayer.Id, self._Model.ActivityData:GetCurActivityId(), equipId)
@@ -1380,6 +1526,50 @@ function XTheatre3Control:SaveEquipClickRedPoint(equipId)
     XSaveTool.SaveData(key, true)
 end
 
+function XTheatre3Control:ClearEquipRedPoint()
+    local equipSuitTypeIdList = self:GetEquipSuitTypeIdList()
+    for _, typeId in pairs(equipSuitTypeIdList) do
+        local equipSuitIdList = self:GetEquipSuitIdListByTypeId(typeId)
+        for _, suitId in pairs(equipSuitIdList) do
+            local equipConfigs = self._Model:GetSameSuitEquip(suitId)
+            if not XTool.IsTableEmpty(equipConfigs) then
+                for _, config in pairs(equipConfigs) do
+                    if self:CheckEquipRedPoint(config.Id) then
+                        self:SaveEquipClickRedPoint(config.Id)
+                    end
+                end
+            end
+        end
+    end
+end
+
+-- 精通-天赋红点点击缓存
+function XTheatre3Control:_GetGeniusRedPointKey(geniusId)
+    return string.format("XTheatre3GeniusRedPoint_%s_%s_%s", XPlayer.Id, self._Model.ActivityData:GetCurActivityId(), geniusId)
+end
+
+function XTheatre3Control:_CheckGeniusRedPoint(geniusId)
+    local key = self:_GetGeniusRedPointKey(geniusId)
+    return XSaveTool.GetData(key) or false
+end
+
+function XTheatre3Control:SaveGeniusRedPoint(geniusId)
+    local key = self:_GetGeniusRedPointKey(geniusId)
+    local data = XSaveTool.GetData(key) or false
+    if data then
+        return
+    end
+    XSaveTool.SaveData(key, true)
+end
+
+function XTheatre3Control:ClearGeniusRedPoint()
+    local strengthenTreeIdList = self:GetStrengthenTreeIdList()
+    for _, id in pairs(strengthenTreeIdList) do
+        if self:CheckStrengthenTreeRedPoint(id) then
+            self:SaveGeniusRedPoint(id)
+        end
+    end
+end
 --endregion
 
 --region 网络请求相关
@@ -1694,6 +1884,49 @@ function XTheatre3Control:RequestEndEquipBox(cb)
         end
     end)
 end
+
+function XTheatre3Control:RequestLookEquipAttribute(equipId, suitId, cb)
+    local request = RequestProto.Theatre3LookEquipAttributeRequest
+    local effectDescData = self._Model.ActivityData:GetAdventureEffectDescData()
+    local CsTime = CS.UnityEngine.Time
+    if self._ReqCdDir[request] and effectDescData then
+        if CsTime.realtimeSinceStartup - self._ReqCdDir[request].RecordTime < 1.1 then
+            return
+        else
+            if (effectDescData:CheckHasEquipData(equipId) or effectDescData:CheckHasSuitData(suitId))
+                    and XTime.GetServerNowTimestamp() - self._ReqCdDir[request].RecordTime < 3
+                    and self._ReqCdDir[request].RecordData[1] == equipId
+                    and self._ReqCdDir[request].RecordData[2] == suitId
+            then
+                if cb then cb() end
+                return
+            end
+        end
+    end
+    local reqBody = {
+        EquipId = equipId or 0,
+        SuitId = suitId or 0,
+    }
+    XNetwork.CallWithAutoHandleErrorCode(RequestProto.Theatre3LookEquipAttributeRequest, reqBody, function(res)
+        self._Model.ActivityData:UpdateEffectDescData(res)
+        self._ReqCdDir[request] = {}
+        self._ReqCdDir[request].RecordData = {equipId, suitId}
+        self._ReqCdDir[request].RecordTime = CsTime.realtimeSinceStartup
+        if cb then
+            cb()
+        end
+    end)
+end
+--endregion
+
+--region RedPoint
+function XTheatre3Control:GetAddEnergyLimitRedPoint()
+    return self._Model:GetAddEnergyLimitRedPoint()
+end
+
+function XTheatre3Control:SetAddEnergyLimitRedPoint(value)
+    self._Model:SetAddEnergyLimitRedPoint(value)
+end
 --endregion
 
 --region Cfg - Difficulty
@@ -1975,11 +2208,61 @@ end
 ---@return XTheatre3NodeReward[]
 function XTheatre3Control:GetAdventureStepSelectRewardList()
     local lastStep = self._Model.ActivityData:GetCurChapterDb():GetLastStep()
-    return lastStep and lastStep:GetFightRewards() or {}
+    if XTool.IsTableEmpty(lastStep) then
+        return {}
+    end
+    -- 以下所有均只是为了一个困难标签
+    local result = lastStep:GetFightRewards()
+    local stepRootUid = lastStep:GetRootUid()
+    local rootStep = self._Model.ActivityData:GetCurChapterDb():GetStepByUid(stepRootUid)
+    if rootStep then
+        local nodeSlot = rootStep:GetLastNodeSlot()
+        local fightId = nodeSlot and nodeSlot:GetFightId()
+        local fightNodeCfg = XTool.IsNumberValid(fightId) and self._Model:GetFightNodeCfgById(fightId)
+        if fightNodeCfg and fightNodeCfg.Difficulty == 2 then
+            for _, reward in ipairs(result) do
+                if self:_CheckNodeRewardIsDifficulty(reward, fightNodeCfg) then
+                    reward:SetTag(XEnumConst.THEATRE3.NodeRewardTag.Difficulty)
+                end
+            end
+        end
+    end
+    return result or {}
+end
+
+---@param reward XTheatre3NodeReward
+---@param fightNodeCfg XTableTheatre3FightNode
+function XTheatre3Control:_CheckNodeRewardIsDifficulty(reward, fightNodeCfg)
+    if reward:CheckType(XEnumConst.THEATRE3.NodeRewardType.Gold) then
+        for _, id in pairs(fightNodeCfg.GoldIds) do
+            if reward:GetConfigId() == id then
+                return true
+            end
+        end
+    end
+    if reward:CheckType(XEnumConst.THEATRE3.NodeRewardType.ItemBox) then
+        for _, id in pairs(fightNodeCfg.ItemBoxIds) do
+            if reward:GetConfigId() == id then
+                return true
+            end
+        end
+    end
+    if reward:CheckType(XEnumConst.THEATRE3.NodeRewardType.EquipBox) then
+        for _, id in pairs(fightNodeCfg.EquipBoxIds) do
+            if reward:GetConfigId() == id then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 function XTheatre3Control:GetAdventureSlotDataList()
     return self._Model.ActivityData:GetSlotInfoList()
+end
+
+function XTheatre3Control:GetAdventureItemCount(itemId)
+    return self._Model.ActivityData:GetAdventureItemCount(itemId)
 end
 
 function XTheatre3Control:SetAdventureStepSelectItem(id)
@@ -2035,7 +2318,9 @@ end
 
 --region System - Adventure Ui Control
 function XTheatre3Control:OpenAdventureProp()
-    XLuaUiManager.Open("UiTheatre3Prop")
+    self:RequestLookEquipAttribute(nil, nil, function()
+        XLuaUiManager.Open("UiTheatre3Prop")
+    end)
 end
 
 function XTheatre3Control:OpenAdventureRoleRoom()

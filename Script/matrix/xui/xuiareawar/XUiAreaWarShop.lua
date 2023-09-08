@@ -8,7 +8,7 @@ local XUiAreaWarShop = XLuaUiManager.Register(XLuaUi, "UiAreaWarShop")
 function XUiAreaWarShop:OnAwake()
     self.GridShop.gameObject:SetActiveEx(false)
     self.TxtTime.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin

@@ -202,8 +202,8 @@ XCommonCharacterFiltManagerCreator = function()
                 end
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(idA)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(idB)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(idA)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(idB)
             if priorityA ~= priorityB then
                 if isAscendOrder then
                     return priorityA < priorityB
@@ -256,8 +256,8 @@ XCommonCharacterFiltManagerCreator = function()
         for k, v in ipairs(charaterList) do
             if (not XDataCenter.CharacterManager.GetCharacter(v.Id)) and (not XRobotManager.CheckIsRobotId(v.Id)) then -- 分开碎片和角色
                 local curFragmentA = XDataCenter.CharacterManager.GetCharUnlockFragment(v.Id)
-                local bornQualityA = XCharacterConfigs.GetCharMinQuality(v.Id)
-                local characterTypeA = XCharacterConfigs.GetCharacterType(v.Id)
+                local bornQualityA = XMVCA.XCharacter:GetCharMinQuality(v.Id)
+                local characterTypeA = XMVCA.XCharacter:GetCharacterType(v.Id)
                 local needFragmentA = XCharacterConfigs.GetComposeCount(characterTypeA, bornQualityA)
                 local isCanUnlockA = curFragmentA >= needFragmentA -- 是否可解锁碎片
 

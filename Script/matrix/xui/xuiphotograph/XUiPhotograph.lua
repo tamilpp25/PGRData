@@ -312,7 +312,7 @@ function XUiPhotograph:UpdatePartner(templateId)
         model.transform.localPosition = CS.UnityEngine.Vector3(-0.6, 0.6, -0.5)
     end, false, true)
     ---播放出现特效
-    self.PartnerModelPanel:LoadPartnerUiEffect(standByModel, XPartnerConfigs.EffectParentName.ModelOnEffect, true, true, true)
+    --self.PartnerModelPanel:LoadPartnerUiEffect(standByModel, XPartnerConfigs.EffectParentName.ModelOnEffect, true, true, true)
 end
 
 function XUiPhotograph:UpdateViewState(show)
@@ -435,7 +435,7 @@ function XUiPhotograph:Replay()
     local configs = XFavorabilityConfigs.GetCharacterActionById(self.SelectCharacterId)
     local data = nil
     for k, v in pairs(configs) do
-        if v.Id == self.ActionId then
+        if v.config.Id == self.ActionId then
             data = v
         end
     end
@@ -444,9 +444,9 @@ function XUiPhotograph:Replay()
     end
     local tryFashionId = self.SelectFashionId
     local trySceneId = self.CurrSeleSceneId
-    local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.SelectCharacterId).TrustLv, tryFashionId, trySceneId)
+    local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.SelectCharacterId).TrustLv, tryFashionId, trySceneId)
     if not isHas then
-        XUiManager.TipError(data.ConditionDescript)
+        XUiManager.TipError(data.config.ConditionDescript)
         return
     end
 

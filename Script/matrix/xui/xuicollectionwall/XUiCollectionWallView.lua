@@ -23,12 +23,21 @@ function XUiCollectionWallView:OnStart(wallDataList, inType, otherPlayerCollecti
     self.Index = DEFAULT_INDEX
 
     self.BaseItem = {}  -- 底座Id做索引，保存对应的ui物体模板
+    self.ItemResource = {} --缓存resource
 
     self:AddListener()
 end
 
 function XUiCollectionWallView:OnEnable()
     self:Refresh()
+end
+
+function XUiCollectionWallView:OnDestroy()
+    for _, res in pairs(self.ItemResource) do
+        CS.XResourceManager.Unload(res)
+    end
+    self.ItemResource = {}
+    self.Resource = nil
 end
 
 function XUiCollectionWallView:Refresh()
@@ -96,6 +105,8 @@ function XUiCollectionWallView:GenerateCollection(collectionInfo, pedestalId)
         local baseItemPath = XCollectionWallConfigs.GetColDecPath(pedestalId)
 
         self.Resource = CS.XResourceManager.Load(baseItemPath)
+        self.ItemResource[baseItemPath] = self.Resource
+
         local baseItem = CS.UnityEngine.Object.Instantiate(self.Resource.Asset)
         if baseItem == nil or not baseItem:Exist() then
             return

@@ -1,21 +1,20 @@
-local XUiPassportPanelTaskActivity = XClass(nil, "XUiPassportPanelTaskActivity")
+---@field _Control XPassportControl
+---@class XUiPassportPanelTaskActivity:XUiNode
+local XUiPassportPanelTaskActivity = XClass(XUiNode, "XUiPassportPanelTaskActivity")
 
 --活动任务
 function XUiPassportPanelTaskActivity:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
     self.RootUi = rootUi
-    XTool.InitUiObject(self)
-
+    
     XUiHelper.RegisterClickEvent(self, self.BtnTongBlack, self.OnBtnTongBlackClick)
 
     self.DynamicTable = XDynamicTableNormal.New(self.SViewTask.transform)
-    self.DynamicTable:SetProxy(XDynamicGridTask)
+    self.DynamicTable:SetProxy(XDynamicGridTask, self)
     self.DynamicTable:SetDelegate(self)
 
     self.GridTask.gameObject:SetActive(false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_ACTIVITY_RED })
+    self:AddRedPointEvent(self.BtnTongBlack, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_PASSPORT_TASK_ACTIVITY_RED })
 end
 
 function XUiPassportPanelTaskActivity:Refresh()
@@ -23,12 +22,12 @@ function XUiPassportPanelTaskActivity:Refresh()
         return
     end
 
-    self.Tasks = XDataCenter.PassportManager.GetPassportTask(XPassportConfigs.TaskType.Activity)
+    self.Tasks = self._Control:GetPassportTask(XEnumConst.PASSPORT.TASK_TYPE.ACTIVITY)
     self.DynamicTable:SetDataSource(self.Tasks)
     self.DynamicTable:ReloadDataSync()
 
-    local clearTaskCount = XDataCenter.PassportManager.GetClearTaskCount(XPassportConfigs.TaskType.Activity)
-    local taskTotalCount = XPassportConfigs.GetPassportBPTaskTotalCount()
+    local clearTaskCount = self._Control:GetClearTaskCount(XEnumConst.PASSPORT.TASK_TYPE.ACTIVITY)
+    local taskTotalCount = self._Control:GetPassportBPTaskTotalCount()
     self.TxtDailyNumber.text = string.format("%s/%s", clearTaskCount, taskTotalCount)
 end
 
@@ -42,7 +41,7 @@ end
 
 --一键领取
 function XUiPassportPanelTaskActivity:OnBtnTongBlackClick()
-    XDataCenter.PassportManager.FinishMultiTaskRequest(XPassportConfigs.TaskType.Activity)
+    self._Control:FinishMultiTaskRequest(XEnumConst.PASSPORT.TASK_TYPE.ACTIVITY)
 end
 
 function XUiPassportPanelTaskActivity:OnCheckTaskRedPoint(count)

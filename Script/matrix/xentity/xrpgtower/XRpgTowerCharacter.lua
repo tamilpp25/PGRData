@@ -229,7 +229,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetCharaName()
-    return XCharacterConfigs.GetCharacterName(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterName(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -237,7 +237,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetFullName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -245,7 +245,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetModelName()
-    return XCharacterConfigs.GetCharacterTradeName(self.RCharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterTradeName(self.RCharaCfg.CharacterId)
 end
 --[[
 ================
@@ -281,7 +281,7 @@ function XRpgTowerCharacter:GetRoleListSkill()
         local skillNo = skillId % 100
         skillHead = math.floor(skillId / 100)
         if not removeNo[skillNo] then
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
             local tempData = { Order = skillId, Info = skillInfo}
             table.insert(tempList, tempData)
         end
@@ -292,7 +292,7 @@ function XRpgTowerCharacter:GetRoleListSkill()
     for skillNo, forceAdd in pairs(forceNo) do
         if forceAdd then
             local skillId = skillHead * 100 + skillNo
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, 0)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, 0)
             local tempData = { Order = skillId, Info = skillInfo}
             table.insert(tempList, tempData)
         end
@@ -333,7 +333,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetSmallHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionSmallHeadIcon(fashionId)
 end
 --[[
@@ -342,7 +342,7 @@ end
 ================
 ]]
 function XRpgTowerCharacter:GetBigHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self.RCharaCfg.CharacterId).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionBigHeadIcon(fashionId)
 end
 --[[

@@ -12,7 +12,8 @@ end
 function XUiEquipRecommendItem:Refresh(target, isHideSetTarget)
     self.Target = target
     --目标是否达成
-    self.PanelReach.gameObject:SetActiveEx(target:GetProperty("_IsFinish"))
+    local isReach = target:GetProperty("_IsFinish")
+    --self.PanelReach.gameObject:SetActiveEx(isReach)
     self.RecommendId = target:GetProperty("_RecommendId")
     local template = XCharacterConfigs.GetCharDetailEquipTemplate(self.RecommendId)
     --目标描述
@@ -21,22 +22,16 @@ function XUiEquipRecommendItem:Refresh(target, isHideSetTarget)
     --点赞
     self:RefreshVote()
     --是否是当前目标
-    local isTarget = XDataCenter.EquipGuideManager.IsCurrentEquipTarget(targetId)
+    self.IsTarget = XDataCenter.EquipGuideManager.IsCurrentEquipTarget(targetId)
     --检查当前角色穿戴装备是否跟模板一致
     local isFullEquipped = self.Target:CheckIsFullEquipped()
     local isSetTarget = XDataCenter.EquipGuideManager.IsSetEquipTarget()
     local openSetTarget = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.EquipGuideSetTarget) and not isHideSetTarget
     self.BtnSet.gameObject:SetActiveEx(openSetTarget)
     if openSetTarget then
-        local disable = isTarget or (isFullEquipped and not isSetTarget)
-        self.BtnSet:SetDisable(disable, not disable)
-        if isTarget then
-            self.BtnSet:SetNameByGroup(0, XUiHelper.GetText("EquipGuideCurTargetText"))
-        elseif isFullEquipped and not isSetTarget then
-            self.BtnSet:SetNameByGroup(0,  XUiHelper.GetText("EquipGuideEquippedText"))
-        else
-            self.BtnSet:SetNameByGroup(0,  XUiHelper.GetText("EquipGuideNoTargetText"))
-        end
+        local isCurrent = isFullEquipped and isReach
+        self.PanelCurSet.gameObject:SetActiveEx(isCurrent)
+        self.BtnSet:SetNameByGroup(0,  XUiHelper.GetText("EquipGuideNoTargetText"))
     end
     --装备
     self.WeaponGrid = self.WeaponGrid or XUiGridEquipGuide.New(self.GridEquipItem)
@@ -97,27 +92,33 @@ function XUiEquipRecommendItem:OnBtnVoteClick()
 end
 
 function XUiEquipRecommendItem:OnBtnSetClick()
-    local putOnPosList = self.Target:CreatePutOnPosList()
     local target = self.Target
+    local OpenUiEquipGuideDetail = function()
+        if XLuaUiManager.IsUiLoad("UiEquipGuideDetail") then
+            XLuaUiManager.Remove("UiEquipGuideDetail")
+        end
+        XLuaUiManager.Remove("UiEquipGuideRecommend")
+        XLuaUiManager.Open("UiEquipGuideDetail", target)
+    end
+
+    if self.IsTarget then
+        OpenUiEquipGuideDetail()
+        return
+    end
+
+    local putOnPosList = self.Target:CreatePutOnPosList()
     local roleId = target:GetProperty("_CharacterId")
     local targetId = target:GetProperty("_Id")
-    
     XDataCenter.EquipGuideManager.EquipGuideSetTargetRequest(
-            targetId,
-            putOnPosList,
-            function()
-                if XLuaUiManager.IsUiLoad("UiEquipGuideDetail") then
-                    XLuaUiManager.Remove("UiEquipGuideDetail")
-                end
-                XLuaUiManager.Remove("UiEquipGuideRecommend")
-                XLuaUiManager.Open("UiEquipGuideDetail", target)
-
-                
-                local progress = target:GetProperty("_Progress")
-                local weaponState = target:GetWeaponState()
-                local chipsState = target:GetChipsState()
-                XDataCenter.EquipGuideManager.RecordSetTargetEvent(roleId, targetId, progress, weaponState, chipsState)
-            end
+        targetId,
+        putOnPosList,
+        function()
+            OpenUiEquipGuideDetail()
+            local progress = target:GetProperty("_Progress")
+            local weaponState = target:GetWeaponState()
+            local chipsState = target:GetChipsState()
+            XDataCenter.EquipGuideManager.RecordSetTargetEvent(roleId, targetId, progress, weaponState, chipsState)
+        end
     )
 end
 
@@ -166,7 +167,7 @@ function XUiEquipGuideRecommend:InitView()
     , XDataCenter.ItemManager.ItemId.ActionPoint
     , XDataCenter.ItemManager.ItemId.Coin)
     
-    self.TxtName.text = XCharacterConfigs.GetCharacterLogName(self.EquipGuide:GetProperty("_Id"))
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterLogName(self.EquipGuide:GetProperty("_Id"))
 
     
     if not XDataCenter.VoteManager.IsInit() then

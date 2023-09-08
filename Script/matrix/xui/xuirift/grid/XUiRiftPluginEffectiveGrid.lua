@@ -1,35 +1,56 @@
-local XUiRiftPluginEffectiveGrid = XClass(nil, "XUiRiftPluginEffectiveGrid")
+---@class XUiRiftPluginEffectiveGrid : XUiNode
+---@field Parent XUiRiftChoosePlugin
+local XUiRiftPluginEffectiveGrid = XClass(XUiNode, "XUiRiftPluginEffectiveGrid")
 
-function XUiRiftPluginEffectiveGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiRiftPluginEffectiveGrid:OnStart()
 
-    XTool.InitUiObject(self)
-    self.Btn.CallBack = function ()
-        self:OnBtnClick()
+end
+
+function XUiRiftPluginEffectiveGrid:Init(role, plugin, isDetailTxt, isBagShow, clickCb)
+    ---@type XRiftRole
+    self._Role = role
+    ---@type XUiRiftPluginGrid
+    self._Grid = require("XUi/XUiRift/Grid/XUiRiftPluginGrid").New(self.GridRiftCore, self.Parent)
+    self._IsBagShow = isBagShow
+    self._ClickCb = clickCb
+    self:Refresh(plugin, isDetailTxt)
+    XUiHelper.RegisterClickEvent(self, self.Transform, self.OnClick)
+end
+
+---@param plugin XRiftPlugin
+function XUiRiftPluginEffectiveGrid:Refresh(plugin, isDetailTxt)
+    self._Plugin = plugin
+    self._Grid:Refresh(plugin)
+    self.TxtPluginName.text = plugin:GetName()
+    self.TxtLoad.text = plugin.Config.Load
+    self.TxtGoldDetail.text = plugin:GetGoldDesc()
+    self.TxtPluginEffective.text = plugin:GetDesc(isDetailTxt)
+    local isWear = self._Role:CheckHasPlugin(plugin:GetId())
+    self._Grid:SetIsWear(isWear) -- 只有总览才需要显示穿戴状态
+    local fixTypeList = plugin:GetPropTag()
+    XUiHelper.RefreshCustomizedList(self.PanelAddition.parent, self.PanelAddition, #fixTypeList, function(i, go)
+        local uiObject = {}
+        XTool.InitUiObjectByUi(uiObject, go)
+        uiObject.TxtAddition.text = fixTypeList[i]
+    end)
+    local isSpecial = plugin:IsSpecialQuality()
+    self.TxtGoldDetail.gameObject:SetActiveEx(isSpecial)
+    if self.ImgNormal then
+        self.ImgNormal.gameObject:SetActiveEx(not isSpecial)
+    end
+    if self.ImgSpecial then
+        self.ImgSpecial.gameObject:SetActiveEx(isSpecial)
     end
 end
 
-function XUiRiftPluginEffectiveGrid:OnBtnClick()
-    if self.OnClickCb then
-        self.OnClickCb()
+function XUiRiftPluginEffectiveGrid:SetSelected(bo)
+    self.PanelSelect.gameObject:SetActiveEx(bo)
+end
+
+function XUiRiftPluginEffectiveGrid:OnClick()
+    if self._ClickCb then
+        self._ClickCb()
     end
-end
-
-function XUiRiftPluginEffectiveGrid:InitClickCb(OnClickCb)
-    self.OnClickCb = OnClickCb
-end
-
-function XUiRiftPluginEffectiveGrid:Refresh(xPlugin, index)
-    self.XPlugin = xPlugin
-    self.Index = index
-    self.RImgIcon:SetRawImage(xPlugin:GetIcon())
-    local qualityImage, qualityImageBg = xPlugin:GetQualityImage()
-    self.ImgQuality:SetSprite(qualityImage)
-    self.ImgQualityBg:SetSprite(qualityImageBg)
-    self.TxtPluginName.text = xPlugin:GetName()
-    self.TxtLoad.text = CS.XTextManager.GetText("RiftLoad", xPlugin.Config.Load)
-    self.TxtPluginEffective.text = xPlugin:GetDesc()
 end
 
 return XUiRiftPluginEffectiveGrid

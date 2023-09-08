@@ -68,6 +68,9 @@ function XTurntableAgency:IsProgressRewardGain()
 end
 
 function XTurntableAgency:IsHasTimesInTheRemaining72Hours()
+    if not self._Model.IsNeedShow72HoursRedPoint then
+        return false
+    end
     local cfg = self:GetCurCfg()
     if cfg then
         local time = XFunctionManager.GetEndTimeByTimeId(cfg.TimeId) - XTime.GetServerNowTimestamp()
@@ -79,6 +82,18 @@ function XTurntableAgency:IsHasTimesInTheRemaining72Hours()
                 return true
             end
         end
+    end
+    return false
+end
+
+function XTurntableAgency:IsOpen()
+    local cfg = self:GetCurCfg()
+    if cfg then
+        local activityId = self._Model.ActivityData:GetActivityId()
+        if not XTool.IsNumberValid(activityId) then
+            return false
+        end
+        return XFunctionManager.CheckInTimeByTimeId(cfg.TimeId)
     end
     return false
 end

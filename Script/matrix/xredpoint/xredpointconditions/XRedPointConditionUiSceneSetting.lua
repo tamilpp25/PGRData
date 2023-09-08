@@ -1,12 +1,6 @@
 local XRedPointConditionUiSceneSetting={}
 
 function XRedPointConditionUiSceneSetting.Check()
-    --todo remove: 2.5,2.6屏蔽，2.7开放后再移除启用
-    if true then
-        return false
-    end
-    --end remove
-    
     --检查已拥有的场景是否未使用过或未预览过
     local scenes=XDataCenter.PhotographManager.GetSceneIdList()
     for index, sceneId in ipairs(scenes) do

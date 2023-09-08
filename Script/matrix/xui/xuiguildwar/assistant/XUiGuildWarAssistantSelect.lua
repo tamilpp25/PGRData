@@ -129,7 +129,7 @@ function XUiGuildWarAssistantSelect:OnBtnJoinTeamClicked()
 end
 
 function XUiGuildWarAssistantSelect:GetEntities()
-    return XDataCenter.CharacterManager.GetOwnCharacterList(self._CurrentCharacterType)
+    return XMVCA.XCharacter:GetOwnCharacterList(self._CurrentCharacterType)
 end
 
 ---@param grid XUiGuildWarAssistantSelectGrid

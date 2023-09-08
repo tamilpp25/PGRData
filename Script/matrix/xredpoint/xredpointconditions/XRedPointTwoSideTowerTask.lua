@@ -10,7 +10,9 @@ function XRedPointTwoSideTowerTask.GetSubEvents()
 end
 
 function XRedPointTwoSideTowerTask.Check()
-    return XDataCenter.TwoSideTowerManager.CheckTaskFinish()
+    ---@type XTwoSideTowerAgency
+    local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+    return twoSideTowerAgency:CheckTaskFinish()
 end
 
 return XRedPointTwoSideTowerTask

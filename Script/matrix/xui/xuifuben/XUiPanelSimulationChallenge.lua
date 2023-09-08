@@ -191,10 +191,7 @@ function XUiPanelSimulationChallenge:OnClickChapterGrid(manager, grid)
         grid:OnClickSelf()
         return
     end
-    local doneCb = function ()
-        manager:ExOpenMainUi()
-    end
-    XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.Challenge, manager:ExGetConfig().Type, doneCb)
+    manager:ExOpenMainUi()
 end
 
 function XUiPanelSimulationChallenge:PlaySwithChapterListAnim()

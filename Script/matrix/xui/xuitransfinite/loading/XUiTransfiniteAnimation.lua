@@ -17,16 +17,17 @@ function XUiTransfiniteAnimation:OnAwake()
     }
 end
 
-function XUiTransfiniteAnimation:OnStart(stage, callback)
+function XUiTransfiniteAnimation:OnStart(stage, stageGroup, callback)
     self._Callback = callback
-    self:Update(stage)
+    self:Update(stage, stageGroup)
     self:PlayAnimation("Enable", function()
         self:PlayAnimation("Loop")
     end)
 end
 
 ---@param stage XTransfiniteStage
-function XUiTransfiniteAnimation:Update(stage)
+---@param stageGroup XTransfiniteStageGroup
+function XUiTransfiniteAnimation:Update(stage, stageGroup)
     self.TxtNameTitle.text = stage:GetName()
     local events = stage:GetFightEvent()
     for i = 1, #self._GridBuff do
@@ -35,9 +36,21 @@ function XUiTransfiniteAnimation:Update(stage)
         grid:Update(event)
     end
     local time = stage:GetRewardExtraTime()
+    local index = stageGroup:GetStageIndex(stage)
     if time > 0 then
-        self.Text.text = XUiHelper.GetText("TransfiniteTimeExtra2", time)
-        self.PanelCondition.gameObject:SetActiveEx(true)
+        if stageGroup:IsIsland() then
+            if index == XTransfiniteConfigs.IslandSpecialStage.FirstHideExtra then
+                self.PanelCondition.gameObject:SetActiveEx(false)
+            elseif index == XTransfiniteConfigs.IslandSpecialStage.SecondHideExtra then
+                self.PanelCondition.gameObject:SetActiveEx(false)
+            else
+                self.Text.text = XUiHelper.GetText("TransfiniteTimeExtra2", time)
+                self.PanelCondition.gameObject:SetActiveEx(true)
+            end
+        else
+            self.Text.text = XUiHelper.GetText("TransfiniteTimeExtra2", time)
+            self.PanelCondition.gameObject:SetActiveEx(true)
+        end
     else
         self.PanelCondition.gameObject:SetActiveEx(false)
     end

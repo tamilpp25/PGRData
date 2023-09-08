@@ -98,6 +98,7 @@ function XUiPanelModelV2P6:InitQualitySingleRelatedBtn()
             if i < initQuality then
                 return
             end
+            self:SetSelectQuality(i)
             if self.BtnDropCb then
                 self.BtnDropCb(i)
             end
@@ -107,7 +108,7 @@ function XUiPanelModelV2P6:InitQualitySingleRelatedBtn()
 
             self:OnBtnCloseBubbleClick()
 
-            self:PlayCharModelAnime("PanelBigBallQieHuan")
+            self:PlayAnimationWithMask("PanelBigBallQieHuan")
         end)
     end
 
@@ -283,7 +284,7 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
             local disable = btn.transform:Find("Disable")
             local skillTipsShadow = btn.transform:FindTransform("SkillTipsShadow")
             local skillTips = btn.transform:FindTransform("SkillTips")
-            local bgSkill = btn.transform:FindTransform("BgSkill")
+            local allBgSkill = btn.transform:FindAllTransforms("BgSkill")
 
             normal.gameObject:SetActiveEx(isActive and not isCurrent)
             select.gameObject:SetActiveEx(isCurrent)
@@ -312,7 +313,12 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
                 skillTips:Find("Image1"):GetComponent("Image"):SetSprite(CS.XGame.ClientConfig:GetString("PanelCharBigBallBgSpecial1"))
                 skillTips:Find("Image2"):GetComponent("Image"):SetSprite(CS.XGame.ClientConfig:GetString("PanelCharBigBallBgSpecial2"))
             end
-            bgSkill.gameObject:SetActiveEx(isActiveSkill)
+            if allBgSkill then
+                for j = 0, allBgSkill.Count - 1 do
+                    local tag = allBgSkill[j]
+                    tag.gameObject:SetActiveEx(isActiveSkill)
+                end
+            end
 
             -- 名字
             local qualityDesc = XCharacterConfigs.GetCharQualityDesc(self.SeleQuality)
@@ -329,8 +335,16 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
         else
             btnDrop.gameObject:SetActiveEx(true)
         end
+
         local curQualityState = self.CharacterAgency:GetQualityState(character.Id, i)
-        btnDrop.transform:Find("Disable").gameObject:SetActiveEx(curQualityState == XEnumConst.CHARACTER.QualityState.Lock)
+        local isDisable = curQualityState == XEnumConst.CHARACTER.QualityState.Lock
+
+        btnDrop.transform:Find("Disable").gameObject:SetActiveEx(isDisable)
+        local allLockTransform = btnDrop.transform:FindAllTransforms("BtnDropLock")
+        for j = 0, allLockTransform.Count - 1 do
+            local tag = allLockTransform[j]
+            tag.gameObject:SetActiveEx(isDisable)
+        end
     end
 
     -- 刷新当前球里的特效 
@@ -393,7 +407,24 @@ function XUiPanelModelV2P6:RefreshBigBallEffect(quality, isActive, isEvo)
         if quality >= self.CharacterAgency:GetCharMaxQuality(character.Id) then
             EffectBallBigDecorate1 = true
             EffectBallBigDecorate2 = true
+        elseif character.Quality >= quality then
+            EffectBallBigDecorate2 = true
+            if isActive then
+                EffectBallBigUpdate = true
+            end
         end
+    end
+    
+    -- 激活或进化效果
+    if isActive then
+        obj.EffectBallBigExplode.gameObject:SetActiveEx(false)
+        EffectBallBigExplode = true
+    else
+        EffectBallBigExplode = false
+    end
+    if isEvo then
+        obj.EffectBallBigUpdate.gameObject:SetActiveEx(false)
+        EffectBallBigUpdate = true
     end
 
     obj.EffectBallBigInside1.gameObject:SetActiveEx(EffectBallBigInside1)
@@ -402,20 +433,8 @@ function XUiPanelModelV2P6:RefreshBigBallEffect(quality, isActive, isEvo)
     obj.EffectBallBigOutside2.gameObject:SetActiveEx(EffectBallBigOutside2)
     obj.EffectBallBigDecorate1.gameObject:SetActiveEx(EffectBallBigDecorate1)
     obj.EffectBallBigDecorate2.gameObject:SetActiveEx(EffectBallBigDecorate2)
-    
-    -- 激活或进化效果
-    if isActive then
-        obj.EffectBallBigExplode.gameObject:SetActiveEx(false)
-        obj.EffectBallBigExplode.gameObject:SetActiveEx(true)
-    else
-        obj.EffectBallBigExplode.gameObject:SetActiveEx(false)
-    end
-    if isEvo then
-        obj.EffectBallBigUpdate.gameObject:SetActiveEx(false)
-        obj.EffectBallBigUpdate.gameObject:SetActiveEx(true)
-    else
-        obj.EffectBallBigUpdate.gameObject:SetActiveEx(false)
-    end
+    obj.EffectBallBigExplode.gameObject:SetActiveEx(EffectBallBigExplode)
+    obj.EffectBallBigUpdate.gameObject:SetActiveEx(EffectBallBigUpdate)
 end
 
 --region 动态列表相关
@@ -423,7 +442,7 @@ function XUiPanelModelV2P6:SetDynamicTableClickCb(cb)
     self.OnSelectCb = cb
 end
 
-function XUiPanelModelV2P6:InitDynamicTable3D()
+function XUiPanelModelV2P6:InitDynamicTable3D(uiNodeParentUi)
     local smallBallPath = "Assets/Product/Ui/ComponentPrefab/Character/PanelEffectBallSmall.prefab"
     local resource = CS.XResourceManager.Load(smallBallPath)
     table.insert(self.Resources, resource)
@@ -435,7 +454,7 @@ function XUiPanelModelV2P6:InitDynamicTable3D()
     end
 
     self.DynamicTable3D = XDynamicTableFixed3D.New(self.PanelBallList)
-    self.DynamicTable3D:SetProxy(XUiGridSkillEffectBall3D, self, self)
+    self.DynamicTable3D:SetProxy(XUiGridSkillEffectBall3D, uiNodeParentUi or self)
     self.DynamicTable3D:SetDelegate(self)
     self.DynamicTable3D:GetImpl():SetPreGirdsList(gridList)
 
@@ -450,7 +469,8 @@ function XUiPanelModelV2P6:OnDynamicTableEvent(event, index, grid)
         local characterId = self.Parent.CurCharacter.Id
         grid:Refresh(characterId, curQuality)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        local curSelectQuality = self.InitQuality + (index - 1)
+        local curSelectQuality = self.DynamicTable3D.DataSource[index].Quality
+        self:SetSelectQuality(curSelectQuality)
         if self.OnSelectCb then
             self.OnSelectCb(curSelectQuality)
         end
@@ -497,7 +517,8 @@ end
 
 -- 看小球文字的相机和动态列表同步打开
 function XUiPanelModelV2P6:SetDynamicTableActive(flag)
-    self.PanelBallList.gameObject:SetActiveEx(flag)
+    -- self.PanelBallList.gameObject:SetActiveEx(flag)
+    self.DynamicTable3D:SetActive(flag)
 end
 
 function XUiPanelModelV2P6:SetCameraQualityActive(flag)
@@ -530,15 +551,7 @@ function XUiPanelModelV2P6:SetPanelEffectBallBigActive(flag)
     self.PanelEffectBallBig.gameObject:SetActiveEx(flag)
 end
 
-function XUiPanelModelV2P6:PlayCharModelAnime(animeName, finCb)
-    local animTrans = self.Animation:FindTransform(animeName)
-    if not animTrans.gameObject.activeInHierarchy then
-        return
-    end
-    animTrans:PlayTimelineAnimation(finCb)
-end
-
-function XUiPanelModelV2P6:OnRelease()
+function XUiPanelModelV2P6:OnDestroy()
     for k, obj in pairs(self.Resources) do
         CS.XResourceManager.Unload(obj)
     end

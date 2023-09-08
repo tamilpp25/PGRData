@@ -69,7 +69,7 @@ function XUiBiancaTheatreOutpost:OnAwake()
     self:RefreshItemChange()
     self:RegisterUiEvents()
 
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
 end
 
 function XUiBiancaTheatreOutpost:OnStart()

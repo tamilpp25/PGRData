@@ -67,7 +67,7 @@ function XUiPanelSupport:Refresh(AssistData)
         self.TxtLevel.text = AssistData.Level
         self.Parent:SetUiSprite(self.ImgIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(AssistData.CharacterId))
         self.Parent:SetUiSprite(self.ImgRoleQulity, XCharacterConfigs.GetCharacterQualityIcon(AssistData.Quality))
-        self.TxtName.text = XCharacterConfigs.GetCharacterName(AssistData.CharacterId)
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterName(AssistData.CharacterId)
         self.PanelHaveData.gameObject:SetActive(true)
         self.PanelNoData.gameObject:SetActive(false)
     else

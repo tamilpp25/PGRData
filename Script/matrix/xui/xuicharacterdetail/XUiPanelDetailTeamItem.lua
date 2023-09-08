@@ -80,9 +80,9 @@ function XUiPanelDetailTeamItem:UpdateView(recommendConfig, rank, curCharacterId
         end
         grid:Refresh(templateId)
 
-        local quality = XCharacterConfigs.GetCharMinQuality(templateId)
+        local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
         self["RImgQuality" .. i]:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
-        self["TxtName" .. i].text = XCharacterConfigs.GetCharacterFullNameStr(templateId)
+        self["TxtName" .. i].text = XMVCA.XCharacter:GetCharacterFullNameStr(templateId)
     end
 
     self:UpdateVoteView()

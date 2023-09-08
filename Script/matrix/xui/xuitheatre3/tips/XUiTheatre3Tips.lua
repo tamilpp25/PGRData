@@ -28,8 +28,7 @@ function XUiTheatre3Tips:OnStart(templateId, itemType, customData, closeCb)
 
     local count
     if itemType == XEnumConst.THEATRE3.EventStepItemType.InnerItem then
-        --TODO 肉鸽3.0道具
-        count = 0
+        count = self._Control:GetAdventureItemCount(self.TemplateId)
     elseif itemType == XEnumConst.THEATRE3.EventStepItemType.ItemBox or
             itemType == XEnumConst.THEATRE3.EventStepItemType.EquipBox then
         --道具箱、装备箱拥有数量
@@ -52,7 +51,7 @@ function XUiTheatre3Tips:OnStart(templateId, itemType, customData, closeCb)
     end
     self.TxtWorldDesc.text = self._Control:GetEventStepItemWorldDesc(self.TemplateId, itemType)
     -- 描述
-    self.TxtDescription.text = self._Control:GetEventStepItemDesc(self.TemplateId, itemType)
+    self.TxtDescription.text = XUiHelper.FormatText(self._Control:GetEventStepItemDesc(self.TemplateId, itemType), "")
 end
 
 function XUiTheatre3Tips:ShowCustomData(customData)
@@ -80,10 +79,7 @@ function XUiTheatre3Tips:RegisterUiEvents()
 end
 
 function XUiTheatre3Tips:OnBtnBackClick()
-    self:Close()
-    if self.CloseCb then
-        self.CloseCb()
-    end
+    XLuaUiManager.CloseWithCallback(self.Name, self.CloseCb)
 end
 
 return XUiTheatre3Tips

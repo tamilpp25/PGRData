@@ -1,8 +1,8 @@
 
 local XUiWelfare = XLuaUiManager.Register(XLuaUi, "UiWelfare")
 ---@desc 按钮类型
----@field Primary 一级标签
----@field Secondary 二级标签
+---@field Primary number 一级标签
+---@field Secondary number 二级标签
 local BtnType = {
     Primary = 1,
     Secondary = 2
@@ -122,7 +122,7 @@ function XUiWelfare:InitTabButton()
                 if functionType == XAutoWindowConfigs.AutoFunctionType.NoticeActivity then
                     secondRedPoint = XDataCenter.ActivityManager.CheckRedPointByActivityId(subCfg.Id)
                 end
-                if subCount > 1 then
+                if not (subCount==1 and XAchievementConfigs.GetActivityGroupIsOnlyGroup(config.Id)==1) then
                     prefab = self:GetButtonPrefab(BtnType.Secondary, false, index, subCount)
                     ui = XUiHelper.Instantiate(prefab, self.PanelTitleBtnGroup.transform)
                     ui.gameObject:SetActiveEx(true)
@@ -193,7 +193,7 @@ function XUiWelfare:InitRefreshFunc()
 end
 
 ---@desc 选中页签回调
----@param index 页签下标
+---@param index number 页签下标
 ---@return nil
 function XUiWelfare:OnSelectTab(index)
     index = index > #self.TabButtons and DefaultSelectIndex or index
@@ -227,7 +227,7 @@ function XUiWelfare:RefreshRightView()
 end
 
 ---@desc 刷新活动界面
----@param config 活动配置 Activity.tab
+---@param config table 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:RefreshActivity(config)
     local template = XActivityConfigs.GetActivityTemplate(config.Id)
@@ -259,7 +259,7 @@ function XUiWelfare:RefreshActivity(config)
 end
 
 ---@desc 刷新福利界面
----@param config 福利配置
+---@param config table 福利配置
 ---@return nil
 function XUiWelfare:RefreshWelfare(config)
     local functionType = config.FunctionType
@@ -274,10 +274,9 @@ function XUiWelfare:RefreshWelfare(config)
 end
 
 ---@desc 加载预制，并初始化
----@param prefabPath 预制路径
----@param parent 预制父物体
----@param modulePath 初始化模块路径
----@return init prefab
+---@param prefabPath string 预制路径
+---@param parent UnityEngine.Transform 预制父物体
+---@param modulePath string 初始化模块路径
 function XUiWelfare:LoadFromPrefab(prefabPath, parent, modulePath)
     if string.IsNilOrEmpty(prefabPath) then
         XLog.Error("XUiWelfare:LoadFromPrefab: prefab path id empty!")
@@ -307,7 +306,7 @@ end
 --region   ------------------红点刷新 start-------------------
 
 ---@desc 刷新活动类型界面的红点
----@param template 活动配置 Activity.tab
+---@param template table 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:RefreshActivityRedPoint(template)
     if not template then
@@ -358,7 +357,7 @@ function XUiWelfare:HideAll()
 end
 
 ---@desc 刷新【活动-任务】类型界面
----@param template 活动配置 Activity.tab
+---@param template XTableActivity 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:OnRefreshTask(template)
     self.PanelTask.gameObject:SetActiveEx(true)
@@ -367,7 +366,7 @@ function XUiWelfare:OnRefreshTask(template)
 end
 
 ---@desc 刷新【活动-商店】类型界面
----@param template 活动配置 Activity.tab
+---@param template XTableActivity 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:OnRefreshShop(template)
     self.PanelActivityShop.gameObject:SetActiveEx(true)
@@ -376,7 +375,7 @@ function XUiWelfare:OnRefreshShop(template)
 end
 
 ---@desc 刷新【活动-跳转】类型界面
----@param template 活动配置 Activity.tab
+---@param template XTableActivity 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:OnRefreshSkip(template)
     self.PanelSkip.gameObject:SetActiveEx(true)
@@ -385,7 +384,7 @@ function XUiWelfare:OnRefreshSkip(template)
 end
 
 ---@desc 刷新【活动-链接】类型界面
----@param template 活动配置 Activity.tab
+---@param template XTableActivity 活动配置 Activity.tab
 ---@return nil
 function XUiWelfare:OnRefreshLink(template)
     self.PanelReward.gameObject:SetActiveEx(true)
@@ -483,7 +482,7 @@ function XUiWelfare:OnRefreshSClassConstructNovice(template)
 end
 
 ---@desc 刷新【福利-签到】类型界面
----@param template 福利配置
+---@param template
 ---@return nil
 function XUiWelfare:OnRefreshWelfareSign(template)
     local prefab = self:LoadFromPrefab(template.PrefabPath, self.PanelLoadPrefab1, "XUi/XUiSignIn/XUiSignPrefabContent")
@@ -496,7 +495,7 @@ function XUiWelfare:OnRefreshWelfareSign(template)
 end
 
 ---@desc 刷新【福利-首冲】类型界面
----@param template 福利配置
+---@param template
 ---@return nil
 function XUiWelfare:OnRefreshWelfareFirstRecharge(template)
     local prefab = self:LoadFromPrefab(template.PrefabPath, self.PanelLoadPrefab1, "XUi/XUiSignIn/XUiSignFirstRecharge")
@@ -515,7 +514,7 @@ function XUiWelfare:OnRefreshWelfareFirstRecharge(template)
 end
 
 ---@desc 刷新【福利-月卡】类型界面
----@param template 福利配置
+---@param template
 ---@return nil
 function XUiWelfare:OnRefreshWelfareCard(template)
     local prefab = self:LoadFromPrefab(template.PrefabPath, self.PanelLoadPrefab1, "XUi/XUiSignIn/XUiSignCard")
@@ -533,7 +532,7 @@ function XUiWelfare:OnRefreshWelfareCard(template)
 end
 
 ---@desc 刷新【福利-周挑战】类型界面
----@param template 福利配置
+---@param template
 ---@return nil
 function XUiWelfare:OnRefreshWelfareWeekChallenge(template)
     local prefab = self:LoadFromPrefab(template.PrefabPath, self.PanelLoadPrefab1, "XUi/XUiWeekChallenge/XUiWeekChallenge")
@@ -553,11 +552,11 @@ end
 --endregion------------------界面刷新 finish------------------
 
 ---@desc 获取按钮预制
----@param btnType BtnType 按钮类型
----@param hasChild 是否有子节点
----@param pos 位置
----@param totalNum 总数
----@return gameObject
+---@param btnType number 按钮类型
+---@param hasChild boolean 是否有子节点
+---@param pos number 位置
+---@param totalNum number 总数
+---@return UnityEngine.GameObject
 function XUiWelfare:GetButtonPrefab(btnType, hasChild, pos, totalNum)
     if btnType == BtnType.Primary then
         return hasChild and self.BtnFirstHasSnd or self.BtnFirst

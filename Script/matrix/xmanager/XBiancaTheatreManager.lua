@@ -518,6 +518,7 @@ XBiancaTheatreManagerCreator = function()
         return XTool.IsNumberValid(CurChapterId)
     end
 
+    ---@return XBiancaTheatreAdventureManager
     function XBiancaTheatreManager.GetCurrentAdventureManager()
         if not CurrentAdventureManager then
             CurrentAdventureManager = XBiancaTheatreManager.CreateAdventureManager()
@@ -1654,9 +1655,16 @@ XBiancaTheatreManagerCreator = function()
 
     ------------------副本入口扩展 start-------------------------
     function XBiancaTheatreManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.BiancaTheatre) then
-            XBiancaTheatreManager.CheckAutoPlayStory()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.BiancaTheatre) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
+        XBiancaTheatreManager.CheckAutoPlayStory()
     end
 
     -- 检查是否展示红点

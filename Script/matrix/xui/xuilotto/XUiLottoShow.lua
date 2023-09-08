@@ -333,7 +333,7 @@ function XUiLottoShow:ShowCharacterModel(templateId, fashtionId)
     end
 
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashtionId)
-    local curFashtionId = fashtionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashtionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.CharacterRoot, XModelManager.MODEL_UINAME.XUiDrawShow, function(model)
@@ -462,7 +462,7 @@ function XUiLottoShow:GetQuality(id, type)
     elseif type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else

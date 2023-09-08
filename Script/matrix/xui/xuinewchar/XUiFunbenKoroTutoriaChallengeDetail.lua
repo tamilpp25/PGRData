@@ -25,7 +25,7 @@ function XUiFunbenKoroTutoriaChallengeDetail:SetStageDetail(stageId, id)
     self.Id = id
     self.StageId = stageId
     self.StageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    self.TxtTitle.text = self.StageCfg.Name
+    self.TxtTitle.text = self.StageCfg.Description
     self.TxtDescDetail.text = XFubenNewCharConfig.GetNewCharDescDetail(self.StageId)
     local starsMap = XDataCenter.FubenNewCharActivityManager.GetStarMap(self.StageId)
     for i = 1, DescCount do
@@ -104,7 +104,7 @@ function XUiFunbenKoroTutoriaChallengeDetail:OnBtnEnterClick()
         --self:Close()
         if XTool.USENEWBATTLEROOM then
             XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
-                , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
+                , XDataCenter.FubenNewCharActivityManager.LoadTeamLocal(self.Id)
                 , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
         else
             XLuaUiManager.Open("UiNewRoomSingle", self.StageCfg.StageId)

@@ -22,7 +22,7 @@ function XUiRegressionActivity:OnAwake()
 end
 
 function XUiRegressionActivity:OnStart()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XRegression3rdConfigs.Regression3rdCoinId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XRegression3rdConfigs.Regression3rdCoinId }, self.PanelSpecialTool, self)
 
     self:InitView()
 end

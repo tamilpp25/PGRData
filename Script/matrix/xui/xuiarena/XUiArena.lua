@@ -10,7 +10,13 @@ end
 function XUiArena:OnStart()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 
+    -- 依靠uiNode:Open()来激活
+    self.PanelActive.gameObject:SetActiveEx(false)
+    self.PanelPrepare.gameObject:SetActiveEx(false)
+    
+    ---@type XUiPanelActive
     self.ActivePanel = XUiPanelActive.New(self.PanelActive, self)
+    ---@type XUiPanelPrepare
     self.PreparePanel = XUiPanelPrepare.New(self.PanelPrepare, self)
 end
 
@@ -26,6 +32,7 @@ end
 
 function XUiArena:OnDestroy()
     self.ActivePanel:UnBindTimer()
+    self.ActivePanel:Close()
 end
 
 function XUiArena:AutoAddListener()
@@ -49,10 +56,14 @@ function XUiArena:Refresh()
 
     local status = XDataCenter.ArenaManager.GetArenaActivityStatus()
     if status == XArenaActivityStatus.Fight then
-        self.ActivePanel:Show()
-        self.PreparePanel:Hide()
+        if self.ActivePanel:IsNodeShow() then
+            XDataCenter.ArenaManager.RequestGroupMember()
+            return
+        end
+        self.ActivePanel:Open()
+        self.PreparePanel:Close()
     else
-        self.PreparePanel:Show()
-        self.ActivePanel:Hide()
+        self.PreparePanel:Open()
+        self.ActivePanel:Close()
     end
 end

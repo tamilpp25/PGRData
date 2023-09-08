@@ -19,6 +19,11 @@ XSummerSignInManagerCreator = function()
             XUiManager.TipText("CommonActivityNotStart")
             return
         end
+
+        --活动分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         
         XLuaUiManager.Open("UiSummerSignInMain")
     end

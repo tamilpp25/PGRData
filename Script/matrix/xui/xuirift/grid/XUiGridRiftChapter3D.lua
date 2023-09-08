@@ -1,6 +1,7 @@
 local XUiGridRiftChapter3D = XClass(nil, "XUiGridRiftChapter3D")
 local XUiGridRiftStageGroup3D = require("XUi/XUiRift/Grid/XUiGridRiftStageGroup3D") -- 进入区域后的关卡节点格子，对应关卡节点
 
+---@class XUiGridRiftChapter3D
 function XUiGridRiftChapter3D:Ctor(rootUi, rootPanel3D, ui, object3D, camera2D, camera3D, xChapter)
     self.RootUi2D = rootUi
     self.RootPanel3D = rootPanel3D
@@ -12,6 +13,7 @@ function XUiGridRiftChapter3D:Ctor(rootUi, rootPanel3D, ui, object3D, camera2D, 
     self.Object3D = {}
     XTool.InitUiObjectByUi(self.Object3D, object3D) -- 将3d的内容都加进来
     self.XChapter = xChapter
+    ---@type XUiGridRiftStageGroup3D[]
     self.GridStageGroupDic = {}
     self.GridOutliersList = {}
     
@@ -45,7 +47,7 @@ function XUiGridRiftChapter3D:InitGridStageGroup()
     for i = 1, 5 do -- 每层5个预留的关卡节对象
         local uiParent2D = self["StageGroup"..i]
         local uiParent3D = self.Object3D["PanelGuanqia"..i]
-        local stageGroupTemplate2D = i == XRiftConfig.StageGroupLuckyPos and self.RootPanel3D.PanelChapterParent:Find("UiRiftLuckyGuanqia") or self.RootPanel3D.PanelChapterParent:Find("UiRiftGuanqia")
+        local stageGroupTemplate2D = self.RootPanel3D.PanelChapterParent:Find("UiRiftGuanqia")
         local stageGroupTemplate3D = i == 5 and self.RootPanel3D.PanelMapEffect:Find("RiftGuanqiaBig") or self.RootPanel3D.PanelMapEffect:Find("RiftGuanqia")
         local object2D = CS.UnityEngine.Object.Instantiate(stageGroupTemplate2D, uiParent2D)
         local object3D = CS.UnityEngine.Object.Instantiate(stageGroupTemplate3D, uiParent3D)
@@ -57,29 +59,12 @@ function XUiGridRiftChapter3D:InitGridStageGroup()
     self:ClearStageGroup()
 end
 
--- 加载本区域当前选择的作战层关卡库数据
+-- 加载本区域当前选择的作战层关卡库数据 (v2.0 一层只有一个节点)
+---@param xFightLayer XRiftFightLayer
 function XUiGridRiftChapter3D:SetGridStageGroupData(xFightLayer)
-    -- 首通过的作战层，再次进入会看到clear状态的stageGroup
-    if xFightLayer:CheckHasPassed() and xFightLayer:CheckNoneData() then
-        local allPos = xFightLayer.Config.NodePositions
-        for k, pos in pairs(allPos) do
-            local gridStageGroup = self.GridStageGroupDic[pos]
-            gridStageGroup:SetState(3)
-        end
-    end
-
-    for i, xStageGroup in pairs(xFightLayer:GetAllStageGroups()) do -- 不管什么类型的关卡节点，先把数据塞进去
-        local pos = xStageGroup:GetPos()
-        local gridStageGroup = self.GridStageGroupDic[pos]
-        gridStageGroup:UpdateData(xStageGroup)
-    end
-
-    local luckStageGroup = xFightLayer:GetLuckStageGroup()  -- 幸运节点要单独检测
-    if luckStageGroup and not luckStageGroup:CheckHasPassed() then
-        local pos = luckStageGroup:GetPos()
-        local gridStageGroup = self.GridStageGroupDic[pos]
-        gridStageGroup:UpdateData(luckStageGroup)
-    end
+    local nodePosition = xFightLayer:GetConfig().NodePositions[1]
+    self.CurStage = self.GridStageGroupDic[nodePosition]
+    self.CurStage:UpdateData(xFightLayer:GetId())
 end
 
 function XUiGridRiftChapter3D:OnStageGroupClickToFocusCamera(clickGrid)
@@ -103,6 +88,13 @@ function XUiGridRiftChapter3D:SetCameraFocusOpen(flag)
     self.Object3D.FxUiRiftXiJie1.gameObject:SetActiveEx(flag)
     self.Object3D.FxUiRiftAnDi3.gameObject:SetActiveEx(flag)
 end
+
+function XUiGridRiftChapter3D:AutoOpenDetail()
+    if self.CurStage then
+        self.CurStage:OnBtnDetailClick()
+    end
+end
+
 --endregion
 ---------------在【区域界面】时调用的方法
 function XUiGridRiftChapter3D:OnDestroy()

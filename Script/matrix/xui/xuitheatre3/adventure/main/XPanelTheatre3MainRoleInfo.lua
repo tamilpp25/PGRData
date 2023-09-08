@@ -8,7 +8,6 @@ local XPanelTheatre3MainRoleInfo = XClass(XUiNode, "XPanelTheatre3MainRoleInfo")
 function XPanelTheatre3MainRoleInfo:OnStart()
     self:AddBtnListener()
     self:InitCharacter()
-    self:InitEquipSuit()
 end
 
 function XPanelTheatre3MainRoleInfo:OnEnable()
@@ -19,25 +18,23 @@ function XPanelTheatre3MainRoleInfo:OnDisable()
     self:RemoveEventListener()
 end
 
-function XPanelTheatre3MainRoleInfo:Refresh(slotId)
+function XPanelTheatre3MainRoleInfo:Refresh(slotId, selectSlotId)
     self._SlotId = slotId
-
-    local equipSuitIdList = self._Control:GetSlotSuits(self._SlotId)
     self:RefreshCharacter()
-    self:RefreshEquipSuit()
-    if XTool.IsTableEmpty(equipSuitIdList) then
-        self:SetIsSelect()
-    end
+    self:SetIsSelect(selectSlotId, true)
 end
 
-function XPanelTheatre3MainRoleInfo:SetIsSelect(slotId)
+function XPanelTheatre3MainRoleInfo:SetIsSelect(slotId, isNotHide)
     if self._IsSelect and self._SlotId == slotId then
-        self._IsSelect = false
+        self._IsSelect = isNotHide
     else
         self._IsSelect = self._SlotId == slotId
     end
     self.PanelSet.gameObject:SetActiveEx(self._IsSelect)
     self.BtnOpen.gameObject:SetActiveEx(self._IsSelect)
+    if self._IsSelect then
+        self:InitEquipSuit()
+    end
     self:RefreshEquipSuit()
 end
 
@@ -55,6 +52,9 @@ end
 
 --region Ui - EquipSuit
 function XPanelTheatre3MainRoleInfo:InitEquipSuit()
+    if self._IsInitSuit then
+        return
+    end
     ---@type XGridTheatre3MainEquipSuit[]
     self._SuitList = {
         XGridTheatre3MainEquipSuit.New(self.BtnSet1, self),
@@ -62,11 +62,15 @@ function XPanelTheatre3MainRoleInfo:InitEquipSuit()
         XGridTheatre3MainEquipSuit.New(self.BtnSet3, self),
     }
     self.BtnOpen.gameObject:SetActiveEx(true)
+    self._IsInitSuit = true
 end
 
 function XPanelTheatre3MainRoleInfo:RefreshEquipSuit()
+    if not self._IsInitSuit then
+        return
+    end
     local equipSuitIdList = self._Control:GetSlotSuits(self._SlotId)
-    if XTool.IsTableEmpty(equipSuitIdList) then
+    if XTool.IsTableEmpty(equipSuitIdList) or not self._IsSelect then
         for _, suitGrid in ipairs(self._SuitList) do
             suitGrid:Close()
         end

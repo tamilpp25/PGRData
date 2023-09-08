@@ -1,4 +1,4 @@
-local XUiGuildViewInformation = XClass(nil, "XUiGuildViewInformation")
+local XUiGuildViewInformation = XClass(XUiNode, "XUiGuildViewInformation")
 local MainType = {
     Info = 1,
     Admin = 2,
@@ -10,11 +10,7 @@ local XUiGridChannelItem = require("XUi/XUiGuild/XUiChildItem/XUiGridChannelItem
 
 local LastRefreshMainTime = 0
 
-function XUiGuildViewInformation:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-    XTool.InitUiObject(self)
+function XUiGuildViewInformation:OnStart()
     self:InitChildView()
     self.IsFirstRequest = true
 end
@@ -47,8 +43,8 @@ end
 
 function XUiGuildViewInformation:InitChildView()
     self.tabViews = {}
-    self.tabViews[MainType.Info] = XUiGuildMainInfo.New(self.PanelInformation, self.UiRoot)
-    self.tabViews[MainType.Admin] = XUiGuildAdministration.New(self.PanelAdministration, self.UiRoot)
+    self.tabViews[MainType.Info] = XUiGuildMainInfo.New(self.PanelInformation, self.Parent)
+    self.tabViews[MainType.Admin] = XUiGuildAdministration.New(self.PanelAdministration, self.Parent)
 
     self.mainTabs = {}
     self.mainTabs[MainType.Info] = self.BtnInformation
@@ -135,7 +131,7 @@ function XUiGuildViewInformation:OnBtnActiveBoxClick()
     -- 中途被踢出公会
     if not XDataCenter.GuildManager.IsJoinGuild() then
         XUiManager.TipMsg(CS.XTextManager.GetText("GuildKickOutByAdministor"))
-        self.UiRoot:Close()
+        self.Parent:Close()
         return
     end
 
@@ -191,7 +187,7 @@ end
 
 function XUiGuildViewInformation:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self.UiRoot)
+        grid:Init(self.Parent)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.GuildNewsList[index]
         if not data then return end

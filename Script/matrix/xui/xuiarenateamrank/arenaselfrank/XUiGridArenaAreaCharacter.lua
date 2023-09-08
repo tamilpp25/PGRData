@@ -22,7 +22,7 @@ function XUiGridArenaAreaCharacter:Refresh(characterId, partnerId, fightScore, q
         else
             self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
         end
-        self.TxtName.text = XCharacterConfigs.GetCharacterLogName(characterId)
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterLogName(characterId)
     end
     if partnerId and partnerId ~= 0 then
         self.RImgPetIcon:SetRawImage(XPartnerConfigs.GetPartnerTemplateIcon(partnerId))

@@ -41,9 +41,9 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatre3RewardChoose:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(
             {XEnumConst.THEATRE3.Theatre3InnerCoin,},
-            self.PanelSpecialTool,
+            self.PanelSpecialTool, self,
             nil,
             function()
                 XLuaUiManager.Open("UiTheatre3Tips", XEnumConst.THEATRE3.Theatre3InnerCoin)
@@ -102,6 +102,7 @@ function XUiTheatre3RewardChoose:InitPanelFightReward()
     self.DynamicTable = XDynamicTableNormal.New(self.SViewRewardList)
     self.DynamicTable:SetProxy(XGridTheatre3RewardChoose, self)
     self.DynamicTable:SetDelegate(self)
+    self.GridReward.gameObject:SetActiveEx(false)
 end
 
 function XUiTheatre3RewardChoose:RefreshPanelFightReward()

@@ -249,14 +249,34 @@ function XUiEquipDetailV2P6:OpenChildUiResonanceAwake(pos)
 end
 
 -- 共鸣成功
-function XUiEquipDetailV2P6:OnResonanceSuccess()
-    self:UpdateOverclockingBtn()
-    self.PanelTabGroup:SelectIndex(XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE)
+function XUiEquipDetailV2P6:OnResonanceSuccess(pos, openInEnable)
+    self.ResonanceSuccessPos = pos
+    if openInEnable then
+        self.TabIndex = XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE
+    else
+        self:UpdateOverclockingBtn()
+        self.PanelTabGroup:SelectIndex(XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE)
+    end
+end
+
+-- 清除共鸣成功的位置记录
+function XUiEquipDetailV2P6:ClearResonanceSuccessPos()
+    self.ResonanceSuccessPos = nil
 end
 
 -- 超频成功
-function XUiEquipDetailV2P6:OnOverClockingSuccess()
-    self.PanelTabGroup:SelectIndex(XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.OVERCLOCKING)
+function XUiEquipDetailV2P6:OnOverClockingSuccess(pos, openInEnable)
+    self.OverClockingSuccessPos = pos
+    if openInEnable then
+        self.TabIndex = XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.OVERCLOCKING
+    else
+        self.PanelTabGroup:SelectIndex(XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.OVERCLOCKING)
+    end
+end
+
+-- 清除超频成功的位置记录
+function XUiEquipDetailV2P6:ClearOverClockingSuccessPos()
+    self.OverClockingSuccessPos = nil
 end
 
 -- 跳转到共鸣页签，对应位置共鸣界面

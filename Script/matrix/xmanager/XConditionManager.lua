@@ -1011,7 +1011,20 @@ PlayerCondition = {
     end,
     [20110] = function(condition)
         -- 分包下载是否开启
-        return XDataCenter.DlcManager.CheckIsOpen()
+        return XMVCA.XSubPackage:IsOpen(), condition.Desc
+    end,
+    [20111] = function(condition)
+        -- 预下载是否开启
+        local isOpen = XMVCA.XPreload:CheckShowPreloadEntry()
+        return isOpen, condition.Desc
+    end,
+    [20112] = function(condition)
+        --分包下载未开启
+        if not XMVCA.XSubPackage:IsOpen() then
+            return true, condition.Desc
+        end
+        --开启时，判断必要资源是否下载完毕
+        return XMVCA.XSubPackage:CheckNecessaryComplete(), condition.Desc
     end,
     -- 战双餐厅相关
     [10180] = function(condition)
@@ -1121,9 +1134,10 @@ PlayerCondition = {
         local chapterId = condition.Params[1]
         local needScore = condition.Params[2]
         local isReach = false
-        local chapter = XDataCenter.TwoSideTowerManager.GetChapter(chapterId)
-        if chapter then
-            local maxScore = chapter:GetMaxChapterScore()
+        ---@type XTwoSideTowerAgency
+        local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+        local maxScore = twoSideTowerAgency:GetMaxChapterScore(chapterId)
+        if XTool.IsNumberValid(maxScore) then
             isReach = maxScore >= needScore
         end
         return isReach, condition.Desc
@@ -1170,8 +1184,10 @@ PlayerCondition = {
         return result, condition.Desc
     end,
     [17208] = function(condition)   -- 玩家是否已达成XX结局
-        XLog.Error("当前冒险结局数据未同步！")
-        local result = false
+        ---@type XTheatre3Agency
+        local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
+        local nodeId = condition.Params[1]
+        local result = agency:CheckEndingIsPass(nodeId)
         return result, condition.Desc
     end,
     [17211] = function(condition)   -- XXID的天赋树点位是否为激活状态
@@ -1220,6 +1236,53 @@ PlayerCondition = {
         local result = agency:CheckAdventureHasPassNode(nodeId)
         return result, condition.Desc
     end,
+    [17218] = function(condition)
+        local battleManager = XDataCenter.GuildWarManager.GetBattleManager()
+        if not battleManager then
+            return false
+        end
+        return battleManager:CheckIsCanGuide()
+    end,
+    [10401] = function(condition)   -- 国际战棋关卡通关判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsStagePass(condition.Params[1]), condition.Desc
+    end,
+    [10402] = function(condition)   -- 国际战棋当前关卡判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsCurStageId(condition.Params[1]), condition.Desc
+    end,
+    [10403] = function(condition)   -- 国际战棋当前能量判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsEnergyGreatOrEqual(condition.Params[1]), condition.Desc
+    end,
+    [10404] = function(condition)   -- 国际战棋当前回合是否为额外回合
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        local param1 = condition.Params[1]
+        if XTool.IsNumberValid(param1) then
+            return agency:IsExtraRound(), condition.Desc
+        end
+        return (not agency:IsExtraRound()), condition.Desc
+    end,
+    [10405] = function(condition) -- 国际战棋当前关卡是否触发引导
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsGuideCurrentCombat(condition.Params[1]), condition.Desc
+    end,
+    [10171] = function(condition) -- 大秘境插件星级判断
+        local star = condition.Params[1]
+        local count = condition.Params[2]
+        local cur, _ = XDataCenter.RiftManager.GetPluginCount(star)
+        return cur >= count, condition.Desc
+    end,
+    [10172] = function(condition) -- 大秘境赛季通关判断
+        local season = condition.Params[1]
+        local layerId = condition.Params[2]
+        return XDataCenter.RiftManager:CheckSeasonOpen(season) and not XDataCenter.RiftManager.IsLayerLock(layerId), condition.Desc
+    end,
 }
 
 local CharacterCondition = {
@@ -1228,7 +1291,7 @@ local CharacterCondition = {
         if type(characterId) ~= "number" then
             characterId = characterId.Id
         end
-        local characterTemplate = XCharacterConfigs.GetCharacterTemplate(characterId)
+        local characterTemplate = XMVCA.XCharacter:GetCharacterTemplate(characterId)
         return characterTemplate.Sex == condition.Params[1], condition.Desc
     end,
     [13102] = function(condition, characterId)
@@ -1439,7 +1502,7 @@ local CharacterCondition = {
             return false, condition.Desc
         end
 
-        local id = XDataCenter.FavorabilityManager.GetHighestTrustExpCharacter()
+        local id = XMVCA.XFavorability:GetHighestTrustExpCharacter()
 
         for _, roleId in pairs(condition.Params) do
             if id == roleId then
@@ -1464,7 +1527,7 @@ local CharacterCondition = {
         if type(characterId) == "number" then
             character = GetCharAgency():GetCharacter(characterId)
         end
-        local charType = XCharacterConfigs.GetCharacterType(character.Id)
+        local charType = XMVCA.XCharacter:GetCharacterType(character.Id)
         if charType == condition.Params[1] then
             return true
         end
@@ -1489,7 +1552,7 @@ local CharacterCondition = {
         if not condition.Params or #condition.Params < 1 then
             return false, condition.Desc
         end
-        local trustLv = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
+        local trustLv = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
         if trustLv >= condition.Params[1] then
             return true, condition.Desc
         end
@@ -2135,7 +2198,7 @@ local EquipCondition = {
     [31106] = function(condition, suitId)
         -- 套装中不同的意识的数量达到目标数量
         return XDataCenter.ArchiveManager.GetAwarenessCountBySuitId(suitId) >= condition.Params[1], condition.Desc
-    end
+    end,
 }
 
 function XConditionManager.GetConditionType(id)

@@ -110,7 +110,7 @@ function XUiEquipGuideDetail:InitCb()
     self:BindHelpBtn()
     
     self.BtnDelete.CallBack = function() 
-        local content = XUiHelper.GetText("EquipGuideCancelTargetTips", XCharacterConfigs.GetCharacterLogName(self.CharacterId))
+        local content = XUiHelper.GetText("EquipGuideCancelTargetTips", XMVCA.XCharacter:GetCharacterLogName(self.CharacterId))
         XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, nil, nil, function()
             XDataCenter.EquipGuideManager.EquipGuideSetTargetRequest(0, {}, function()
                 self:Close()

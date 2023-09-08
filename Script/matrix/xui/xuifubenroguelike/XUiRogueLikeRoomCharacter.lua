@@ -40,13 +40,13 @@ function XUiRogueLikeRoomCharacter:OnAwake()
         local leftAbility = leftCharacter.Ability
         local leftLevel = leftCharacter.Level
         local leftQuality = leftCharacter.Quality
-        local leftPriority = XCharacterConfigs.GetCharacterPriority(leftCharacter.Id)
+        local leftPriority = XMVCA.XCharacter:GetCharacterPriority(leftCharacter.Id)
 
         local rightInTeam = self:IsInTeam(rightCharacter.Id)
         local rightAbility = rightCharacter.Ability
         local rightLevel = rightCharacter.Level
         local rightQuality = rightCharacter.Quality
-        local rightPriority = XCharacterConfigs.GetCharacterPriority(rightCharacter.Id)
+        local rightPriority = XMVCA.XCharacter:GetCharacterPriority(rightCharacter.Id)
 
         if leftInTeam ~= rightInTeam then
             return leftInTeam
@@ -299,7 +299,7 @@ function XUiRogueLikeRoomCharacter:UpdateCharacterList(charlist)
 
     if not selectId or selectId == 0
     or not self.CharacterGrids[selectId]
-    or characterType ~= XCharacterConfigs.GetCharacterType(selectId)
+    or characterType ~= XMVCA.XCharacter:GetCharacterType(selectId)
     or not charDic[selectId]
     then
         selectId = charlist[1].Id
@@ -423,7 +423,7 @@ function XUiRogueLikeRoomCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = XCharacterConfigs.GetCharacterType(selectId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(selectId)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -466,7 +466,7 @@ end
 function XUiRogueLikeRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end

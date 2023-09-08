@@ -176,7 +176,7 @@ end
 
 
 function XAssignChapter:GetOccupyCharacterName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self:GetCharacterId())
 end
 
 return XAssignChapter

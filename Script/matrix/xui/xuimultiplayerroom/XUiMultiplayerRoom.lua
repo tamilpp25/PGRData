@@ -1000,7 +1000,7 @@ function XUiMultiplayerRoom:GetTeamCharacterTypes()
     local roomData = XDataCenter.RoomManager.RoomData
     local result = {}
     for _,playerData in pairs(roomData.PlayerDataList) do
-        local characterType = XCharacterConfigs.GetCharacterType(playerData.FightNpcData.Character.Id)
+        local characterType = XMVCA.XCharacter:GetCharacterType(playerData.FightNpcData.Character.Id)
         table.insert(result,characterType)
     end
     return result
@@ -1131,7 +1131,7 @@ function XUiMultiplayerRoom:OnBtnReadyClick()
 end
 
 function XUiMultiplayerRoom:OnBtnChatClick()
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Room, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Room, ChatChannelType.World)
 end
 
 function XUiMultiplayerRoom:OnBtnChangeDifficultyClick()

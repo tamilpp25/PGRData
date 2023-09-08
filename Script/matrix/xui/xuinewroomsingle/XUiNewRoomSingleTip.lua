@@ -102,7 +102,7 @@ function XUiNewRoomSingleTip:Refresh()
             local head
             local skillDesc
             local isAssitant
-            local charConfig = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charConfig = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charConfig == nil then
                 return
             end

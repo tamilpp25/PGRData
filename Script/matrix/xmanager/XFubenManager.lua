@@ -253,10 +253,8 @@ XFubenManagerCreator = function()
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.DoubleTowers, XDataCenter.DoubleTowersManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.MultiDimSingle, XDataCenter.MultiDimManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.MultiDimOnline, XDataCenter.MultiDimManager)
-        XFubenManager.RegisterFubenManager(XFubenManager.StageType.TaikoMaster, XDataCenter.TaikoMasterManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.MoeWarParkour, XDataCenter.MoeWarManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.SpecialTrainBreakthrough, XDataCenter.FubenSpecialTrainManager)
-        XFubenManager.RegisterFubenManager(XFubenManager.StageType.TwoSideTower, XDataCenter.TwoSideTowerManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.Course, XDataCenter.CourseManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.BiancaTheatre, XDataCenter.BiancaTheatreManager)
         XFubenManager.RegisterFubenManager(XFubenManager.StageType.Rift, XDataCenter.RiftManager)
@@ -592,10 +590,10 @@ XFubenManagerCreator = function()
             local unUseCount = 0
             for id, stageInfo in pairs(StageInfos) do
                 if not XTool.IsNumberValid(stageInfo.Type) then
-                    unUseStageIds[#unUseStageIds + 1] = id
+                    unUseStageIds[#unUseStageIds + 1] = tostring(id)
                     unUseCount = unUseCount + 1
                 else
-                    stageId2Type[id] = stageInfo.Type
+                    stageId2Type[tostring(id)] = stageInfo.Type
                     stageCount = stageCount + 1
                 end
             end
@@ -603,7 +601,8 @@ XFubenManagerCreator = function()
             stageInfoCollect.stageId2Type = stageId2Type
             stageInfoCollect.stageCount = stageCount
             stageInfoCollect.unUseCount = unUseCount
-            CS.System.IO.File.WriteAllText(CS.System.IO.Path.Combine(CS.UnityEngine.Application.dataPath, "StageInfo.txt"), XLog.Dump(stageInfoCollect))
+            local Json = require("XCommon/Json")
+            CS.System.IO.File.WriteAllText(CS.System.IO.Path.Combine(CS.UnityEngine.Application.dataPath, "StageInfo.txt"), Json.encode(stageInfoCollect))
         end
     end
 
@@ -793,9 +792,8 @@ XFubenManagerCreator = function()
             , XDataCenter.GoldenMinerManager.GetActivityChapters()--黄金矿工
             , XDataCenter.RpgMakerGameManager.GetActivityChapters()--推箱子小游戏
             , XDataCenter.MultiDimManager.GetActivityChapters()--多维挑战
-            , XDataCenter.TaikoMasterManager.GetActivityChapters()--音游
+            , XMVCA:GetAgency(ModuleId.XTaikoMaster):GetActivityChapters()--音游
             , XDataCenter.DoomsdayManager.GetActivityChapters()--模拟经营
-            , XDataCenter.TwoSideTowerManager.GetActivityChapter()--正逆塔
         )
         table.sort(chapters, function(a, b)
             local priority1 = XFubenConfigs.GetActivityPriorityByActivityIdAndType(a.Id, a.Type)
@@ -1196,22 +1194,6 @@ XFubenManagerCreator = function()
             preFight.CardIds = nil
         end
 
-        if stageInfo.Type == XDataCenter.FubenManager.StageType.TwoSideTower then
-            preFight.RobotIds = {}
-            local robotIds = XDataCenter.TwoSideTowerManager.GetActivityRobotIds()
-            for i, v in ipairs(preFight.CardIds) do
-                for _, robotId in pairs(robotIds) do
-                    if robotId == v then
-                        preFight.RobotIds[i] = v
-                        preFight.CardIds[i] = 0
-                        break
-                    else
-                        preFight.RobotIds[i] = 0
-                    end
-                end
-            end
-        end
-
         return preFight
     end
 
@@ -1250,8 +1232,23 @@ XFubenManagerCreator = function()
                 local fightData = res.FightData
                 local stageInfo = XFubenManager.GetStageInfo(fightData.StageId)
                 local isKeepPlayingStory = stage and XFubenConfigs.IsKeepPlayingStory(stage.StageId) and (stage.BeginStoryId)
-                local isNotPass = stage and stage.BeginStoryId and (not stageInfo or not stageInfo.Passed)
-                if isKeepPlayingStory or isNotPass then
+                local haveStoryId = stage and stage.BeginStoryId
+                local isNotPass = haveStoryId and (not stageInfo or not stageInfo.Passed)
+                local isPlayMovie = isKeepPlayingStory or isNotPass
+
+                -- 主线关卡跳转
+                if stageInfo.Type == XFubenManager.StageType.Mainline then
+                    local beforeStageId = XDataCenter.FubenMainLineManager.GetTeleportFightBeforeStageId()
+                    if beforeStageId ~= 0 then
+                        local teleportCfg = XFubenMainLineConfigs.GetTeleportCfg(beforeStageId)
+                        if teleportCfg then
+                            isKeepPlayingStory = teleportCfg.KeepPlayingStory == 1
+                            isPlayMovie = haveStoryId and (isKeepPlayingStory or isNotPass) 
+                        end
+                    end
+                end
+                
+                if isPlayMovie then
                     -- 播放剧情，进入战斗
                     XFubenManager.EnterRealFight(preFight, fightData, stage.BeginStoryId)
                 else
@@ -1266,9 +1263,7 @@ XFubenManagerCreator = function()
 
     function XFubenManager.EnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
         local enter = function()
-            XDataCenter.DlcManager.CheckDownloadForStage(stage.StageId, function()
-                XFubenManager.DoEnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
-            end)
+            XFubenManager.DoEnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
         end
         -- v1.29 协同作战联机中不给跳转，防止跳出联机房间
         if XDataCenter.RoomManager.RoomData then
@@ -1603,6 +1598,7 @@ XFubenManagerCreator = function()
     end
 
     -- 大秘境战斗
+    ---@param xTeam XRiftTeam
     function XFubenManager.EnterRiftFight(xTeam, xStageGroup, index)
         local xRiftStage = xStageGroup:GetAllEntityStages()[index]
         local stage = XFubenManager.GetStageCfg(xRiftStage.StageId)
@@ -1627,7 +1623,7 @@ XFubenManagerCreator = function()
         local preFight = {}
         preFight.CardIds = characterIds
         preFight.RobotIds = robotIds
-        preFight.StageId = stage.StageId
+        preFight.StageId = xTeam:IsLuckyStage() and XDataCenter.RiftManager:GetLuckStageId() or stage.StageId
         preFight.CaptainPos = captainPos
         preFight.FirstFightPos = firstFightPos
         preFight.RiftInfo = 
@@ -1635,7 +1631,7 @@ XFubenManagerCreator = function()
             ChapterId = xStageGroup:GetParent():GetParent():GetId(),
             LayerId = xStageGroup:GetParent():GetId(),
             -- 节点对应位置, -1表示幸运节点
-            NodeIdx = xStageGroup:GetId(),
+            NodeIdx = xTeam:IsLuckyStage() and -1 or xStageGroup:GetId(),
             StageIdx = index,
         }
 
@@ -2324,53 +2320,50 @@ XFubenManagerCreator = function()
     function XFubenManager.EnterRealFight(preFightData, fightData, movieId, endCb)
         if XFubenManager.CheckCustomUiConflict() then return end
 
-        local doneCb = function()
-            local asynPlayMovie = movieId and asynTask(XDataCenter.MovieManager.PlayMovie) or nil
+        local asynPlayMovie = movieId and asynTask(XDataCenter.MovieManager.PlayMovie) or nil
 
-            RunAsyn(function()
-                --战前剧情
-                if movieId then
-                    XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE)
+        RunAsyn(function()
+            --战前剧情
+            if movieId then
+                XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE)
 
-                    --UI栈从战斗结束的逻辑还原，无需从剧情系统还原UI栈
-                    CsXUiManager.Instance:SetRevertAllLock(true)
+                --UI栈从战斗结束的逻辑还原，无需从剧情系统还原UI栈
+                CsXUiManager.Instance:SetRevertAllLock(true)
 
-                    asynPlayMovie(movieId)
+                asynPlayMovie(movieId)
 
-                    --剧情已经释放了UI栈，无需从战斗释放UI栈
-                    CsXUiManager.Instance:SetReleaseAllLock(true)
-                end
+                --剧情已经释放了UI栈，无需从战斗释放UI栈
+                CsXUiManager.Instance:SetReleaseAllLock(true)
+            end
 
-                --剧情过程中强制下线
-                if not XLoginManager.IsLogin() then
-                    return
-                end
+            --剧情过程中强制下线
+            if not XLoginManager.IsLogin() then
+                return
+            end
 
-                if endCb then
-                    endCb()
-                end
-                
-                --打开Loading图
-                XFubenManager.CallOpenFightLoading(preFightData.StageId)
+            if endCb then
+                endCb()
+            end
 
-                --等待0.5秒，第一时间先把load图加载进来，然后再加载战斗资源
-                asynWaitSecond(0.5)
+            --打开Loading图
+            XFubenManager.CallOpenFightLoading(preFightData.StageId)
 
-                CsXBehaviorManager.Instance:Clear()
-                XTableManager.ReleaseAll(true)
-                CS.BinaryManager.OnPreloadFight(true)
-                collectgarbage("collect")
+            --等待0.5秒，第一时间先把load图加载进来，然后再加载战斗资源
+            asynWaitSecond(0.5)
 
-                CS.XUiSceneManager.Clear() -- ui场景提前释放，不等ui销毁
-                CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
+            CsXBehaviorManager.Instance:Clear()
+            XTableManager.ReleaseAll(true)
+            CS.BinaryManager.OnPreloadFight(true)
+            collectgarbage("collect")
 
-                CsXUiManager.Instance:SetRevertAndReleaseLock(false)
+            CS.XUiSceneManager.Clear() -- ui场景提前释放，不等ui销毁
+            CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
 
-                --进入战斗
-                DoEnterRealFight(preFightData, fightData)
-            end)
-        end
-        XDataCenter.DlcManager.CheckDownloadForStage(preFightData.StageId, doneCb)
+            CsXUiManager.Instance:SetRevertAndReleaseLock(false)
+
+            --进入战斗
+            DoEnterRealFight(preFightData, fightData)
+        end)
         
     end
 
@@ -2743,9 +2736,20 @@ XFubenManagerCreator = function()
         local winData = XFubenManager.GetChallengeWinData(BeginData, settleData)
         local stage = XFubenManager.GetStageCfg(settleData.StageId)
         local isKeepPlayingStory = stage and XFubenConfigs.IsKeepPlayingStory(stage.StageId) and (stage.EndStoryId)
-        local isNotPass = stage and stage.EndStoryId and not BeginData.LastPassed
+        local haveStory = stage and stage.EndStoryId
+        local isNotPass = haveStory and not BeginData.LastPassed
+        local isPlayMovie = isKeepPlayingStory or isNotPass
 
-        if isKeepPlayingStory or isNotPass then
+        -- 主线关卡跳转
+        if stageInfo.Type == XFubenManager.StageType.Mainline then
+            local teleportCfg = XFubenMainLineConfigs.GetTeleportCfg(settleData.StageId)
+            if teleportCfg then
+                isKeepPlayingStory = teleportCfg.KeepPlayingStory == 1
+                isPlayMovie = haveStory and (isKeepPlayingStory or isNotPass)
+            end
+        end
+
+        if isPlayMovie then
             -- 播放剧情
             CsXUiManager.Instance:SetRevertAndReleaseLock(true)
             XDataCenter.MovieManager.PlayMovie(stage.EndStoryId, function()
@@ -2891,13 +2895,20 @@ XFubenManagerCreator = function()
                 XUiManager.TipMsg(CSTextManagerGetText("FubenMainLineNoneOpen"))
                 return
             end
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MainLine, chapter.ChapterId) then
+                return
+            end
             XLuaUiManager.Open("UiFubenMainLineChapter", chapter, stageId)
         elseif stageInfo.Type == XFubenManager.StageType.Bfrt then
             if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenNightmare) then
                 return
             end
-
             local chapter = XDataCenter.BfrtManager.GetChapterCfg(stageInfo.ChapterId)
+
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Bfrt, chapter.ChapterId) then
+                return
+            end
+            
             XLuaUiManager.Open("UiFubenMainLineChapter", chapter, stageId)
         elseif stageInfo.Type == XFubenManager.StageType.ActivtityBranch then
             if not XDataCenter.FubenActivityBranchManager.IsOpen() then
@@ -2914,6 +2925,11 @@ XFubenManagerCreator = function()
                 XLog.Debug("Assign Stage not open ", stageId)
                 return
             end
+
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+                return
+            end
+            
             XLuaUiManager.Open("UiPanelAssignMain", stageId)
         end
     end
@@ -2930,6 +2946,10 @@ XFubenManagerCreator = function()
         end
         if not stageInfo.Unlock then
             XUiManager.TipMsg(XFubenManager.GetFubenOpenTips(stageId))
+            return
+        end
+
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MainLine, stageInfo.ChapterId) then
             return
         end
 
@@ -3152,8 +3172,6 @@ XFubenManagerCreator = function()
             return XDataCenter.TRPGManager.IsStagePass(stageId)
         elseif stageInfo.Type == XFubenManager.StageType.Pokemon then
             return XDataCenter.PokemonManager.CheckStageIsPassed(stageId)
-        elseif stageInfo.Type == XFubenManager.StageType.TwoSideTower then
-            return XDataCenter.TwoSideTowerManager.CheckStageIsPassed(stageId)
         elseif stageInfo.Type == XFubenManager.StageType.Maverick2 then 
             return XDataCenter.Maverick2Manager.IsStagePassed(stageId)
         elseif CheckStageIsPassHandler[stageInfo.Type] then
@@ -3300,6 +3318,13 @@ XFubenManagerCreator = function()
             XNetwork.Call(METHOD_NAME.FightSettle, fightResBytes, function(res)
                 --战斗结算清除数据的判断依据
                 XFubenManager.FubenSettleResult = res
+                -- 随机涂装
+                for k, v in pairs(res.Settle.NpcHpInfo or {}) do 
+                    local charId = v.CharacterId
+                    if charId and XMVCA.XCharacter:IsOwnCharacter(charId) then
+                        XDataCenter.FashionManager.SetCharacterRandomFashion(charId)
+                    end
+                end
                 XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SETTLE_REWARD, res.Settle)
             end, true)
         end

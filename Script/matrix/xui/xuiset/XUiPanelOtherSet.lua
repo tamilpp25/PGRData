@@ -1,17 +1,21 @@
-XUiPanelOtherSet = XClass(nil, "XUiPanelOtherSet")
+---@class XUiPanelOtherSet : XUiNode
+local XUiPanelOtherSet = XClass(XUiNode, "XUiPanelOtherSet")
 local XUiSafeAreaAdapter = CS.XUiSafeAreaAdapter
 
-function XUiPanelOtherSet:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
-
-    XTool.InitUiObject(self)
+function XUiPanelOtherSet:OnStart()
     self:InitUi()
 
     self.MaxOff = CS.XGame.ClientConfig:GetFloat("SpecialScreenOff")
     self.SetConfigs = XSetConfigs
     self._IsInitFocusTypeDlcHunt = false
+end
+
+function XUiPanelOtherSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelOtherSet:OnDisable()
+    self:HidePanel()
 end
 
 function XUiPanelOtherSet:InitUi()
@@ -159,12 +163,27 @@ function XUiPanelOtherSet:ShowAgreement()
         end
     end
 
-    -- KuroSDK只展示隐私条款与设置
+    -- KuroSDK 隐私条款与设置
     if self.BtnProtocolSetting then
         self.BtnProtocolSetting.gameObject:SetActiveEx(true)
         self.BtnProtocolSetting:SetNameByGroup(0, CsXTextManagerGetText("UserAgreeSetting"))
         self.BtnProtocolSetting.CallBack = function()
             CS.XHeroSdkAgent.ShowProtocolSetting()
+        end
+    end
+
+    -- KuroSDK 账号中心 PC暂时没有 判断函数是否存在是为了兼容线上平行包
+    if self.BtnUserCenter then 
+        local channelId = CS.XHeroSdkAgent.GetChannelId()
+        --国服官服渠道18、56 只有安卓母包跟iOS开放
+        if (channelId == 18 or channelId == 56) and not XDataCenter.UiPcManager.IsPc() and CS.XHeroSdkAgent.ShowUserCenter then          
+            self.BtnUserCenter.gameObject:SetActiveEx(true)
+            self.BtnUserCenter:SetNameByGroup(0, CsXTextManagerGetText("UserCenterSetting"))
+            self.BtnUserCenter.CallBack = function()
+                CS.XHeroSdkAgent.ShowUserCenter()
+            end
+        else 
+            self.BtnUserCenter.gameObject:SetActiveEx(false)
         end
     end
     
@@ -388,7 +407,8 @@ end
 
 function XUiPanelOtherSet:OnLoadingTypeChanged(index)
     if index == self.SetConfigs.LoadingType.Custom
-            and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive, nil, true) then
+            and (not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive, nil, true) 
+            or not XMVCA.XSubPackage:CheckSubpackage()) then
         self.TGroupLoadingType:SelectIndex(self.SetConfigs.LoadingType.Default)
         return
     end
@@ -457,7 +477,6 @@ function XUiPanelOtherSet:OnRechargeTypeChanged(index)
 end
 
 function XUiPanelOtherSet:ShowPanel()
-    self.GameObject:SetActive(true)
     if self.Parent then
         self.Adaptation.gameObject:SetActiveEx(not self.Parent.IsFight)
     end
@@ -467,7 +486,6 @@ end
 
 function XUiPanelOtherSet:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 -- 由于ui位置上, 新增的半自动锁定插到了中间, 所以type2和type3的index是反的

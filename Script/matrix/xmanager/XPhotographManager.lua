@@ -4,6 +4,8 @@ local tableSort = table.sort
 
 local XPhotographSet = require("XEntity/XPhotograph/XPhotographSet")
 
+local DefaultSceneId = 14000001 --默认初始场景
+
 XPhotographManagerCreator = function()
     local XPhotographManager = {}
     local SceneIdList = {} -- 场景Id列表
@@ -94,8 +96,10 @@ XPhotographManagerCreator = function()
     function XPhotographManager.HandlerAddPhotoScene(data)
         HasSceneIdDic[data.BackgroundId] = data.BackgroundId
         XPhotographManager.SortSceneIdList()
-        --获得新场景时打开提示窗
-        XLuaUiManager.Open('UiSceneSettingObtain',data)
+        --获得新场景时打开提示窗 在抽卡时`
+        if not XLuaUiManager.IsUiShow("UiEpicFashionGacha") then
+            XLuaUiManager.Open("UiSceneSettingObtain", data)
+        end
         --新获得场景需要刷新终端红点
         XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
@@ -161,18 +165,18 @@ XPhotographManagerCreator = function()
     end
 
     function XPhotographManager.InitCharacterList()
-        local allCharDatas = XDataCenter.CharacterManager.GetCharacterList()
+        local allCharDatas = XMVCA.XCharacter:GetCharacterList()
         local curAssistantId = XDataCenter.DisplayManager.GetDisplayChar().Id
 
         OwnCharDatas = {}
         for _, v in pairs(allCharDatas or {}) do
             local characterId = v.Id
-            local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+            local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
             if isOwn then
-                local name = XCharacterConfigs.GetCharacterName(characterId)
-                local tradeName = XCharacterConfigs.GetCharacterTradeName(characterId)
-                local logName = XCharacterConfigs.GetCharacterLogName(characterId)
-                local enName = XCharacterConfigs.GetCharacterEnName(characterId)
+                local name = XMVCA.XCharacter:GetCharacterName(characterId)
+                local tradeName = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+                local logName = XMVCA.XCharacter:GetCharacterLogName(characterId)
+                local enName = XMVCA.XCharacter:GetCharacterEnName(characterId)
 
                 tableInsert(OwnCharDatas, {
                     Id = characterId,
@@ -242,6 +246,9 @@ XPhotographManagerCreator = function()
     end
 
     function XPhotographManager.GetCurSceneId()
+        if not XMVCA.XSubPackage:CheckNecessaryComplete() then
+            return DefaultSceneId
+        end
         return PreviewSceneId or CurSceneId
     end
 
@@ -488,11 +495,22 @@ XPhotographManagerCreator = function()
     function XPhotographManager.OpenScenePreview(sceneId)
         if not sceneId or not XTool.IsNumberValid(sceneId) then return end
 
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
         XDataCenter.PhotographManager.SetPreviewSceneId(sceneId)
         XDataCenter.GuideManager.SetDisableGuide(true)
         XEventManager.DispatchEvent(XEventId.EVENT_SCENE_UIMAIN_RIGHTMIDTYPE_CHANGE, 1) --1即UiMain的Main状态
         XLuaUiManager.Open("UiMain")
-        XLuaUiManager.Open("UiSceneMainPreview", sceneId,true)
+        XLuaUiManager.Open("UiSceneMainPreview", sceneId,XPhotographConfigs.PreviewOpenType.SceneSetting)
+    end
+    
+    function XPhotographManager.OpenUiSceneSetting(...)
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+        XLuaUiManager.Open("UiSceneSettingMain", ...)
     end
 
     XPhotographManager.Init()

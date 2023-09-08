@@ -25,7 +25,7 @@ function XUiTheatre3ShopTips:OnStart(shopItem, closeCb, sureCb)
         self.RImgIcon:SetRawImage(icon)
     end
     -- 描述
-    self.TxtDescription.text = self._Control:GetEventStepItemDesc(self.TemplateId, self.Type)
+    self.TxtDescription.text = XUiHelper.FormatText(self._Control:GetEventStepItemDesc(self.TemplateId, self.Type), "")
     -- 表现
     self.Tag.gameObject:SetActiveEx(false)
 
@@ -56,10 +56,7 @@ function XUiTheatre3ShopTips:OnBtnBackClick()
 end
 
 function XUiTheatre3ShopTips:OnBtnSureClick()
-    self:Close()
-    if self.SureCb then
-        self.SureCb()
-    end
+    XLuaUiManager.CloseWithCallback(self.Name, self.SureCb)
 end
 --endregion
 

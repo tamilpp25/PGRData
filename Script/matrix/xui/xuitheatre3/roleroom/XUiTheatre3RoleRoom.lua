@@ -121,8 +121,8 @@ function XUiTheatre3RoleRoom:SetRole(go, position)
     if uiObject.ImgNormal then
         uiObject.ImgNormal.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
     end
-    if uiObject.ImgNormal2 then
-        uiObject.ImgNormal2.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
+    if uiObject.ImgNormal1 then
+        uiObject.ImgNormal1.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
     end
 end
 

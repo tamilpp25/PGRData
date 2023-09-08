@@ -117,6 +117,9 @@ XStrongholdManagerCreator = function()
 
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_STRONGHOLD_ACTIVITY_STATUS_CHANGE)
         XEventManager.DispatchEvent(XEventId.EVENT_STRONGHOLD_ACTIVITY_STATUS_CHANGE)
+
+        -- 状态更改通知周历刷新
+        XEventManager.DispatchEvent(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE)
     end
 
     local function UpdateActivityInfo(activityId, beginTime, fightBeginTime)
@@ -268,6 +271,11 @@ XStrongholdManagerCreator = function()
 
         if not XStrongholdManager.IsOpen() then
             XUiManager.TipText("StrongholdActivityNotOpen")
+            return
+        end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
             return
         end
 
@@ -656,7 +664,7 @@ XStrongholdManagerCreator = function()
         local totalElectric = 0
         if IsNumberValid(cancelCharacterId) then
             --撤回电能支援队员时电力减少值
-            local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(cancelCharacterId)
+            local ability = XMVCA.XCharacter:GetCharacterAbilityById(cancelCharacterId)
             local totalAbility = XStrongholdManager.GetElectricCharactersTotalAbility() - ability
             totalElectric = XStrongholdConfigs.GetTeamAbilityToExtraElectric(totalAbility) + _MaxElectricEnergy
         else
@@ -696,7 +704,7 @@ XStrongholdManagerCreator = function()
     function XStrongholdManager.GetElectricCharactersTotalAbility()
         local totalAbility = 0
         for _, characterId in pairs(_ElectricCharacterIdDic) do
-            local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+            local ability = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
             totalAbility = totalAbility + ability
         end
         return totalAbility
@@ -704,7 +712,7 @@ XStrongholdManagerCreator = function()
 
     --获取可上阵电能支援角色
     function XStrongholdManager.GetCanElectricCharacters(characterType)
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         tableSort(
             characterList,
             function(a, b)
@@ -1918,7 +1926,7 @@ XStrongholdManagerCreator = function()
         local stageIdList = XStrongholdManager.GetGroupStageIds(lastGroupId)
 
         --自动编队仅上阵已拥有构造体
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
         tableSort(
             ownCharacters,
             function(a, b)
@@ -1963,7 +1971,7 @@ XStrongholdManagerCreator = function()
                 local member = team:GetMember(pos)
                 if member:IsEmpty() then
                     for index, characterId in ipairs(waitCharacterIds) do
-                        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+                        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
                         if not team:ExistDifferentCharacterType(characterType) then
                             member:SetCharacterId(characterId)
                             tableRemove(waitCharacterIds, index)
@@ -2261,7 +2269,7 @@ XStrongholdManagerCreator = function()
             table.insert(res, {Id = id})
         end
 
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList()
         for k, v in pairs(characterList) do
             table.insert(res, v)
         end
@@ -2342,7 +2350,7 @@ XStrongholdManagerCreator = function()
         local levelId = XStrongholdManager.GetLevelId()
         local ids = not isPrefab and XStrongholdConfigs.GetGroupCanUseRobotIds(groupId, characterType, levelId) or {}
 
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         for _, character in pairs(characterList) do
             tableInsert(ids, character.Id)
         end
@@ -2394,10 +2402,10 @@ XStrongholdManagerCreator = function()
                 --战力排序
                 local aAbility =
                     aIsRobot and XRobotManager.GetRobotAbility(aId) or
-                    XDataCenter.CharacterManager.GetCharacterAbilityById(aId)
+                    XMVCA.XCharacter:GetCharacterAbilityById(aId)
                 local bAbility =
                     bIsRobot and XRobotManager.GetRobotAbility(bId) or
-                    XDataCenter.CharacterManager.GetCharacterAbilityById(bId)
+                    XMVCA.XCharacter:GetCharacterAbilityById(bId)
                 if aAbility ~= bAbility then
                     return aAbility > bAbility
                 end
@@ -2426,7 +2434,7 @@ XStrongholdManagerCreator = function()
         end
 
         local notRobotCharacterId = XRobotManager.GetCharacterId(charId)
-        local notRobotCharAbility = XDataCenter.CharacterManager.GetCharacterAbilityById(notRobotCharacterId)
+        local notRobotCharAbility = XMVCA.XCharacter:GetCharacterAbilityById(notRobotCharacterId)
         local robotCharAbility = XRobotManager.GetRobotAbility(charId)
         return robotCharAbility > notRobotCharAbility
     end
@@ -3816,6 +3824,54 @@ public class StrongholdAssistCharacterDetail
 
     function XStrongholdManager:ExOpenMainUi()
         XStrongholdManager.EnterUiMain()
+    end
+
+    -- 获取倒计时（周历专用）
+    function XStrongholdManager:ExGetCalendarRemainingTime()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return ""
+        end
+        local remainTime = _TargetCountDownTime - XTime.GetServerNowTimestamp()
+        if remainTime < 0 then
+            remainTime = 0
+        end
+        local timeText = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.NEW_CALENDAR)
+        if XStrongholdManager.IsActivityBegin() then
+            return XUiHelper.GetText("UiNewActivityCalendarBeginCountDown", timeText)
+        elseif XStrongholdManager.IsFightBegin() then
+            return XUiHelper.GetText("UiNewActivityCalendarEndCountDown", timeText)
+        end
+        return ""
+    end
+
+    -- 获取解锁时间（周历专用）
+    function XStrongholdManager:ExGetCalendarEndTime()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return 0
+        end
+        return _TargetCountDownTime
+    end
+
+    -- 是否在周历里显示
+    function XStrongholdManager:ExCheckShowInCalendar()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return false
+        end
+        if _TargetCountDownTime - XTime.GetServerNowTimestamp() <= 0 then
+            return false
+        end
+        if XStrongholdManager.IsActivityBegin() or XStrongholdManager.IsFightBegin() then
+            return true
+        end
+        return false
+    end
+    
+    -- 是否显示提示信息（周历专用）
+    function XStrongholdManager:ExCheckWeekIsShowTips()
+        if XStrongholdManager.IsActivityBegin() and not XTool.IsNumberValid(XStrongholdManager.GetLevelId()) then
+            return true
+        end
+        return false
     end
     
     ------------------副本入口扩展 end-------------------------

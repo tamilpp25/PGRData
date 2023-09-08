@@ -6,13 +6,14 @@ local XUiRiftTemplate = XLuaUiManager.Register(XLuaUi, "UiRiftTemplate")
 local TEMPLATE_CNT = 5
 
 function XUiRiftTemplate:OnAwake()
+	---@type XUiGridRiftTemplate[]
 	self.GridTemplateList = {}
 	self:RegisterEvent()
 	self:InitTemplateList()
 	self:InitTimes()
 end
 
-function XUiRiftTemplate:OnStart(attrTempletaId, changeCb, clearCb)
+function XUiRiftTemplate:OnStart(attrTempletaId, changeCb, clearCb, hideBtnClear, hideBtnCover)
 	self.CurAttrTemplate = XDataCenter.RiftManager.GetAttrTemplate(attrTempletaId)
 	if not self.CurAttrTemplate then
 		self.CurAttrTemplate = XDataCenter.RiftManager.GetAttrTemplate()
@@ -21,6 +22,8 @@ function XUiRiftTemplate:OnStart(attrTempletaId, changeCb, clearCb)
 	self.SelectIndex = attrTempletaId
 	self.ChangeCb = changeCb
 	self.ClearCb = clearCb
+	self.BtnClear.gameObject:SetActiveEx(not hideBtnClear)
+	self.BtnCover.gameObject:SetActiveEx(not hideBtnCover)
 
 	self:RefreshCurTemplate()
 	self:RefreshTemplateList()
@@ -87,6 +90,7 @@ function XUiRiftTemplate:OnClickBtnSelectGrid(index)
 		xGridRiftTemplate:SetSelect(i == self.SelectIndex)
 	end
 
+	self.BtnUse.gameObject:SetActiveEx(not self.GridTemplateList[self.SelectIndex].IsEmpty)
 	self:RefreshBtnList()
 end
 

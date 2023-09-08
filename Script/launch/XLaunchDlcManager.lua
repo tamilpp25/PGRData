@@ -6,6 +6,7 @@ local KEY_DOWNLOADED = "KEY_DOWNLOADED"
 local DLC_NEED_DOWNLOAD_KEY = "DLC_NEED_DOWNLOAD_KEY"
 local HAS_SELECT_DOWNLOAD_PART_KEY = "HAS_SELECT_DOWNLOAD_PART_KEY"
 local HAS_SELECT_ALL_DOWNLOAD_KEY = "HAS_SELECT_ALL_DOWNLOAD_KEY"
+local IS_SELECT_WIFI_AUTO_DOWNLOAD = "IS_SELECT_WIFI_AUTO_DOWNLOAD" --是否选中wifi自动下载
 local CsApplication = CS.XApplication
 local CsLog = CS.XLog
 
@@ -48,14 +49,13 @@ M.Init = function(dlcIndexTable)
         table.insert(DlcIdList, dlcId)
     end
 
-    --print("[DLC] ====XLaunchDlcManager.Init:" .. tostring(XLaunchDlcManager))
     for i, dlcId in pairs(DlcIdList) do
         LaunchDownloadRecord[dlcId] = UnityPlayerPrefs.GetInt(KEY_LAUNCH_DOWNLOAD_RECORD .. dlcId, STATE_DEFAULT)
-        GameDownloadRecord[dlcId] = UnityPlayerPrefs.GetInt(KEY_GAME_DOWNLOAD_RECORD .. dlcId, STATE_DEFAULT)
+        --这个字段只有在游戏内读取，避免下载时一次下载多个，不用存在本地
+        --GameDownloadRecord[dlcId] = UnityPlayerPrefs.GetInt(KEY_GAME_DOWNLOAD_RECORD .. dlcId, STATE_DEFAULT)
 
         local downloadState = UnityPlayerPrefs.GetInt(KEY_DOWNLOADED .. dlcId, STATE_DEFAULT)
         DownloadedDic[dlcId] = downloadState
-        -- print("[DLC] Init Downloaded DLC:" .. dlcId .. ",state:"..tostring(downloadState) .. ", LaunchDownloadRecord[dlcId]:" .. LaunchDownloadRecord[dlcId] .. ", GameDownloadRecord[dlcId]:" .. GameDownloadRecord[dlcId])
     end
 end
 
@@ -133,10 +133,8 @@ end
 
 -- 游戏内选择的dlc均设为“已下载”
 M.DoneDownloadInGame = function()
-    print("== DoneDownloadInGame ")
     for dlcId, v in pairs(GameDownloadRecord) do
         if v == STATE_START then
-            print(" >> DoneDownloadInGame dlcID:" ..dlcId)
             DownloadedDic[dlcId] = STATE_START
             UnityPlayerPrefs.SetInt(KEY_DOWNLOADED .. dlcId, STATE_START)
         end
@@ -162,24 +160,27 @@ M.NeedShowSelect = function(appVer)
     if CS.XRemoteConfig.LaunchSelectType == nil or CS.XRemoteConfig.LaunchSelectType == 0 then
         return false
     end
-    return UnityPlayerPrefs.GetInt(HAS_SELECT_DOWNLOAD_PART_KEY .. appVer, STATE_DEFAULT) == STATE_DEFAULT
+    --return UnityPlayerPrefs.GetInt(HAS_SELECT_DOWNLOAD_PART_KEY .. appVer, STATE_DEFAULT) == STATE_DEFAULT
+    --调整为只有新包才会弹
+    return UnityPlayerPrefs.GetInt(HAS_SELECT_DOWNLOAD_PART_KEY, STATE_DEFAULT) == STATE_DEFAULT
 end
 
 M.DoneSelect = function(appVer)
-    UnityPlayerPrefs.SetInt(HAS_SELECT_DOWNLOAD_PART_KEY .. appVer, STATE_START)
+    --UnityPlayerPrefs.SetInt(HAS_SELECT_DOWNLOAD_PART_KEY .. appVer, STATE_START)
+    --调整为只有新包才会弹
+    UnityPlayerPrefs.SetInt(HAS_SELECT_DOWNLOAD_PART_KEY, STATE_START)
 end
 
 --- 是否是整包下载
----@param appVer string app版本
 ---@return boolean
 --------------------------
-M.IsFullDownload = function(appVer)
-    local state = UnityPlayerPrefs.GetInt(HAS_SELECT_ALL_DOWNLOAD_KEY .. appVer, STATE_DEFAULT)
+M.IsFullDownload = function()
+    local state = UnityPlayerPrefs.GetInt(HAS_SELECT_ALL_DOWNLOAD_KEY, STATE_DEFAULT)
     return state == STATE_START
 end
 
-M.SetIsFullDownload = function(appVer, isFullDownload) 
-    UnityPlayerPrefs.SetInt(HAS_SELECT_ALL_DOWNLOAD_KEY .. appVer, isFullDownload and STATE_START or STATE_DEFAULT)
+M.SetIsFullDownload = function(isFullDownload) 
+    UnityPlayerPrefs.SetInt(HAS_SELECT_ALL_DOWNLOAD_KEY, isFullDownload and STATE_START or STATE_DEFAULT)
 end
 
 M.SetLaunchDownloadRecord = function (id)
@@ -194,22 +195,14 @@ end
 --======== 游戏业务层接口 begin ====
 
 M.SetGameDownloadRecord = function (id)
-    local state = STATE_START
-    CsLog.Debug("SetGameDownloadRecord:" .. tostring(id))
-    GameDownloadRecord[id] = state
-    UnityPlayerPrefs.SetInt(KEY_GAME_DOWNLOAD_RECORD .. id, state)
+    GameDownloadRecord[id] = STATE_START
+    --UnityPlayerPrefs.SetInt(KEY_GAME_DOWNLOAD_RECORD .. id, STATE_START)
 end
 
---- 清除需要下载的DlcId标记
+--- 清除需要下载的DlcId标记(仅仅本次）
 --------------------------
 M.ClearGameDownloadRecord = function()
-    local list = {}
-    for dlcId, _ in pairs(GameDownloadRecord) do
-        UnityPlayerPrefs.DeleteKey(KEY_GAME_DOWNLOAD_RECORD .. dlcId)
-        table.insert(list, dlcId)
-    end
     GameDownloadRecord = {}
-    CsLog.Debug("[DLC]清除需要下载的DLCId列表:" .. table.concat(list, ", "))
 end
 
 M.CheckGameNeedDownload = function(dlcId)
@@ -244,22 +237,24 @@ M.GetVersionmodule = function()
 end
 
 M.DoDownloadDlc = function(progressCb, doneCb, exitCb)
-    CsLog.Debug("[DLC] 加载下载模块")
     local PathModule = M.GetPathmodule()
     local DocFileModule = M.GetFilemodule()
     local VersionModule = M.GetVersionmodule()
     DocFileModule.SetIsInGame(IsInGame)
-    XDataCenter.DlcManager.SetFileModule(DocFileModule)
+    XMVCA.XSubPackage:SetFileModule(DocFileModule)
     DocFileModule.Check(RES_FILE_TYPE.MATRIX_FILE, PathModule, VersionModule, doneCb, progressCb, exitCb)
 end
 
 -- 游戏内调用下载
 M.DownloadDlc = function (ids, processCb, doneCb, exitCb)
     IsInGame = true
+    --清除一下记录
+    M.ClearGameDownloadRecord()
+    --标记本次需要下载DLCId
     for _, id in pairs(ids) do
         M.SetGameDownloadRecord(id)
     end
-    XLog.Debug("[DownloadDlc] ids:" .. table.concat(ids,","))
+    --CsLog.Error("Prepare Download" .. table.concat(ids, ", "))
    -- todo 下载模块，无需界面
    -- CS.XUiManager.Instance:OpenWithCallback("UiLaunch", function()
         M.DoDownloadDlc(processCb, 
@@ -280,6 +275,18 @@ end
 M.GetIndexInfo = function()
     return DlcIndexInfo
 end
+
+--是否选中wifi自动下载
+M.IsSelectWifiAutoDownload = function()
+    --默认选中
+    return UnityPlayerPrefs.GetInt(IS_SELECT_WIFI_AUTO_DOWNLOAD, STATE_START) == STATE_START
+end
+
+M.SetSelectWifiAutoDownloadValue = function(isSelect)
+    local value = isSelect and STATE_START or STATE_DEFAULT
+    UnityPlayerPrefs.SetInt(IS_SELECT_WIFI_AUTO_DOWNLOAD, value)
+end
+
 --======== 业务层接口 end ====
 
 return XLaunchDlcManager

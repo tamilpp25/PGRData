@@ -22,6 +22,11 @@ function XUiGridAwarenessSelectCharacter:Refresh(character, chapterData)
     self.PanelLock.gameObject:SetActiveEx(not chapterData:IsCharConditionMatch(characterId))
     self.PanelCurrOccupy:Find("Text"):GetComponent("Text").text = CS.XTextManager.GetText("AwarenessOccupyThisMember")
     self.PanelOtherOccupy:Find("Text"):GetComponent("Text").text = CS.XTextManager.GetText("AwarenessOccupyOtherMember")
+    -- 独域图标
+    if self.PanelUniframe then
+        local isUniframe = XMVCA.XCharacter:GetIsIsomer(characterId)
+        self.PanelUniframe.gameObject:SetActiveEx(isUniframe)
+    end
 end
 
 function XUiGridAwarenessSelectCharacter:SetSelect(value)
@@ -29,7 +34,7 @@ function XUiGridAwarenessSelectCharacter:SetSelect(value)
         self.PanelSelected.gameObject:SetActiveEx(value)
     end
 
-    if value then
+    if value and self.RootUi and  self.RootUi.OnGridSelected then
         self.RootUi:OnGridSelected(self.Character)
     end
 end

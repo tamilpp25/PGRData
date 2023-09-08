@@ -75,7 +75,7 @@ function XUiSlotMachineTask:RefreshAssetPanel()
     if self.CurMachineEntity then
         local itemId = self.CurMachineEntity:GetConsumeItemId()
         if not self.AssetPanel then
-            self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+            self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
             self.AssetPanel:SetRootUiName(self.Name)
         else
             self.AssetPanel:Refresh({ itemId })

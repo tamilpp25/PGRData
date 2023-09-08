@@ -13,7 +13,7 @@ local PanelStagePosX = {
 function XUiKillZoneMain:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
     self.GridStage.gameObject:SetActiveEx(false)

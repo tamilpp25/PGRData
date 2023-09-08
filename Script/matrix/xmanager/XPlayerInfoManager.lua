@@ -57,7 +57,7 @@ XPlayerInfoManagerCreator = function()
             else
                 --该玩家的这个种类的信息没有请求过
                 cache[playerId][type] = {}
-                cacheTime[playerId][type] = {}
+                cacheTime[playerId][type] = dataType.CharacterInfo == type and {} or 0
                 return true
             end
         end

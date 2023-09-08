@@ -63,11 +63,11 @@ function XStrongholdTeamMember:GetCaptainSkillDesc()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self._CharacterId, true)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self._CharacterId, true)
     elseif self:IsRobot() then
         return XRobotManager.GetRobotCaptainSkillDesc(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self._CharacterId)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self._CharacterId)
     end
 end
 
@@ -98,7 +98,7 @@ function XStrongholdTeamMember:GetCharacterType()
     if not IsNumberValid(showCharacterId) then
         return
     end
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 --上阵
@@ -157,7 +157,7 @@ function XStrongholdTeamMember:GetAbility()
     elseif self:IsRobot() then
         ability = XRobotManager.GetRobotAbility(self._RobotId)
     else
-        ability = XDataCenter.CharacterManager.GetCharacterAbilityById(self._CharacterId)
+        ability = XMVCA.XCharacter:GetCharacterAbilityById(self._CharacterId)
     end
 
     return math.ceil(ability)
@@ -253,11 +253,11 @@ function XStrongholdTeamMember:GetSmallHeadIcon()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self._CharacterId)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self._CharacterId)
     elseif self:IsRobot() then
         return XRobotManager.GetRobotSmallHeadIcon(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self._CharacterId)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self._CharacterId)
     end
 end
 
@@ -267,12 +267,12 @@ function XStrongholdTeamMember:GetCharacterName()
     end
 
     if self:IsAssitant() then
-        return XCharacterConfigs.GetCharacterName(self._CharacterId)
+        return XMVCA.XCharacter:GetCharacterName(self._CharacterId)
     elseif self:IsRobot() then
         local characterId = XRobotManager.GetCharacterId(self._RobotId)
-        return XCharacterConfigs.GetCharacterName(characterId)
+        return XMVCA.XCharacter:GetCharacterName(characterId)
     else
-        return XCharacterConfigs.GetCharacterName(self._CharacterId)
+        return XMVCA.XCharacter:GetCharacterName(self._CharacterId)
     end
 end
 

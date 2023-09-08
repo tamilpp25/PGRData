@@ -1,8 +1,9 @@
--- 战双大秘境插件
+---@class XRiftPlugin 战双大秘境插件
 local XRiftPlugin = XClass(nil, "XRiftPlugin")
 local CommonText = XUiHelper.GetText("Common")
 
 function XRiftPlugin:Ctor(config)
+    ---@type XTableRiftPlugin
     self.Config = config
     self.IsHave = false
 end
@@ -19,13 +20,25 @@ function XRiftPlugin:GetStar()
     return self.Config.Star
 end
 
+function XRiftPlugin:GetFilterTags()
+    return self.Config.Tags
+end
+
+function XRiftPlugin:IsContainTag(tagId)
+    return table.indexof(self.Config.Tags, tagId)
+end
+
 function XRiftPlugin:GetIcon()
     return self.Config.Icon
 end
 
+function XRiftPlugin:GetQuality()
+    return self.Config.Quality
+end
+
 function XRiftPlugin:GetTag()
     if self.Config.CharacterId ~= 0 then
-        return XCharacterConfigs.GetCharacterName(self.Config.CharacterId)
+        return XMVCA.XCharacter:GetCharacterName(self.Config.CharacterId)
     else
         return CommonText
     end
@@ -42,12 +55,16 @@ function XRiftPlugin:GetImageDropHead()
 end
 
 -- 插件总描述
-function XRiftPlugin:GetDesc()
+function XRiftPlugin:GetDesc(isDetailTxt)
+    if isDetailTxt == nil then
+        isDetailTxt = true
+    end
     local attrLevel = XDataCenter.RiftManager.GetDefaultTemplateAttrLevel(self.Config.DescFixAttrId)
     local descInitValue = self.Config.DescInitValue / 10000 -- DescInitValue配表按*10000填写
     local descCoefficient = self.Config.DescCoefficient / 10000 -- DescCoefficient配表按*10000填写
-    local attrAddValue = attrLevel * descCoefficient 
-    local desc = self.Config.Desc
+    local attrAddValue = attrLevel * descCoefficient
+    local desc = isDetailTxt and self.Config.Desc or self.Config.SimpleDesc
+    desc = desc or ""
     desc = string.gsub(desc, "{0}", self:FormatNum(descInitValue + attrAddValue))
     desc = string.gsub(desc, "{1}", self:FormatNum(descInitValue))
     desc = string.gsub(desc, "{2}", self:FormatNum(attrAddValue))
@@ -57,6 +74,11 @@ function XRiftPlugin:GetDesc()
         desc = desc .. self.Config.DescTips
     end
     return desc
+end
+
+---暗金描述
+function XRiftPlugin:GetGoldDesc()
+    return self.Config.GoldDesc or ""
 end
 
 -- 保留到小数点一位，小数如果为0，则去掉
@@ -84,6 +106,27 @@ function XRiftPlugin:GetAttrFixTypeList()
         table.insert(attrTypeList, attrType)
     end
     return attrTypeList
+end
+
+---获取属性标签
+function XRiftPlugin:GetPropTag()
+    local tagNames = {}
+    local element = self.Config.Element
+    local configs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftFilterTag)
+    local specialTagId = tonumber(XDataCenter.RiftManager:GetClientConfig("PropStrengthTagId"))
+    for _, tagId in pairs(self.Config.Tags) do
+        if tagId == specialTagId then
+            --【属性强化】要根据Element替换成【火属性强化】等
+            table.insert(tagNames, configs[tagId].Params[element])
+        elseif configs[tagId] then
+            table.insert(tagNames, configs[tagId].Name)
+        end
+    end
+    -- 暗金装备额外显示【暗金】标签
+    if self:IsSpecialQuality() then
+        table.insert(tagNames, XUiHelper.GetText("RiftGoldTagName"))
+    end
+    return tagNames
 end
 
 -- 获取插件总的战力值
@@ -159,6 +202,14 @@ function XRiftPlugin:GetHave()
     return self.IsHave
 end
 
+function XRiftPlugin:IsUnlock()
+    local needSeason = self.Config.Season
+    if not XTool.IsNumberValid(needSeason) or XDataCenter.RiftManager:CheckSeasonOpen(needSeason) then
+        return true, ""
+    end
+    return false, XUiHelper.GetText("RiftPluginLock", XDataCenter.RiftManager:GetSeasonNameByIndex(needSeason))
+end
+
 -- 是否为展示插件，用于UI上刷新显示，不会掉落，不在插件背包显示
 function XRiftPlugin:GetIsDisplay()
     return self.Config.IsDisplay == 1
@@ -211,6 +262,17 @@ end
 function XRiftPlugin:SetCharacterUpgradeRedpoint(flag)
     local redKey = "RiftCharacterPluginRed"..XPlayer.Id.."PluginId:"..self:GetId()
     XSaveTool.SaveData(redKey, flag)
+end
+
+---是否暗金品质
+function XRiftPlugin:IsSpecialQuality()
+    return self.Config.Quality >= 5
+end
+
+---构界突破
+function XRiftPlugin:IsStageUpgrade()
+    local stageUpgradeType = tonumber(XDataCenter.RiftManager:GetClientConfig("BreakType"))
+    return self.Config.Type == stageUpgradeType
 end
 
 return XRiftPlugin

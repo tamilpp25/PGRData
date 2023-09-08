@@ -195,7 +195,7 @@ end
 function XUiNewRoomSingle:GetCurTeamCharacterType()
     for _, characterId in pairs(self.CurTeam.TeamData) do
         if characterId > 0 then
-            return XCharacterConfigs.GetCharacterType(characterId)
+            return XMVCA.XCharacter:GetCharacterType(characterId)
         end
     end
 end
@@ -205,7 +205,7 @@ function XUiNewRoomSingle:GetCurTeamCharacterTypeList()
     local result = {}
     for _, characterId in pairs(self.CurTeam.TeamData) do
         if characterId > 0 then
-            table.insert(result, XCharacterConfigs.GetCharacterType(characterId))
+            table.insert(result, XMVCA.XCharacter:GetCharacterType(characterId))
         end
     end
     return result
@@ -589,7 +589,7 @@ function XUiNewRoomSingle:InitTeamData()
 
     for i = 1, MAX_CHAR_COUNT do
         local teamCfg = XTeamConfig.GetTeamCfgById(i)
-        if teamCfg then
+        if teamCfg and not string.IsNilOrEmpty(teamCfg.EffectPath) then
             self.PanelCharacterInfo[i].PanelRoleEffect:LoadPrefab(teamCfg.EffectPath, false)
         end
     end
@@ -1390,7 +1390,7 @@ function XUiNewRoomSingle:CheckRoleStanmina()
             if posData and posData > 0 then
                 local curStamina = XDataCenter.FubenBossSingleManager.GetMaxStamina() - XDataCenter.FubenBossSingleManager.GetCharacterChallengeCount(posData)
                 if curStamina <= 0 then
-                    local charName = XCharacterConfigs.GetCharacterName(posData)
+                    local charName = XMVCA.XCharacter:GetCharacterName(posData)
                     local text = CSXTextManagerGetText("BossSingleNoStamina", charName)
                     XUiManager.TipError(text)
                     return false

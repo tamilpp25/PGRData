@@ -80,7 +80,7 @@ function XUiGridCharacter:OnBtnCharacterClick()
         else
             characterId = self.Character.Id
         end
-        if XCharacterConfigs.IsCharacterForeShow(characterId) then
+        if XMVCA.XCharacter:IsCharacterForeShow(characterId) then
             self.ClickCallback(self.Character)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -271,10 +271,10 @@ function XUiGridCharacter:UpdateUnOwnInfo()
         self.TxtCurCount.text = self.CharacterAgency:GetCharUnlockFragment(characterId)
     end
 
-    local bornQuality = XCharacterConfigs.GetCharMinQuality(characterId)
+    local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
 
     if self.TxtNeedCount then
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         self.TxtNeedCount.text = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
     end
 
@@ -305,7 +305,7 @@ function XUiGridCharacter:UpdateOwnInfo()
     end
 
     if self.TxtTradeName then
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(self.Character.Id)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(self.Character.Id)
     end
 end
 
@@ -383,7 +383,7 @@ function XUiGridCharacter:SetSameRoleTag(isShow, showText)
     end
     if self.TextSameRole and isShow then
         local characterId = self.Character.Id
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         local characterTypeName = characterType == XCharacterConfigs.CharacterType.Isomer and CS.XTextManager.GetText("TypeIsomer") or CS.XTextManager.GetText("TypeCharacter")
         self.TextSameRole.text = showText or CS.XTextManager.GetText("TeamGridSameRole", characterTypeName)
     end

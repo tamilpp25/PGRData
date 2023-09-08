@@ -24,6 +24,9 @@ function XUiGridFashionStoryStage:RefreshData(stageId)
         self.Button:SetButtonState(XUiButtonState.Disable)
     end
     
+    --设置关卡名称
+    self.Button:SetNameByGroup(0,XDataCenter.FubenManager.GetStageName(self.Id))
+
 end
 
 function XUiGridFashionStoryStage:OnClickEvent()

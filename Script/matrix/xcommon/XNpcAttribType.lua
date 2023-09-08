@@ -89,6 +89,5 @@ XNpcAttribType = {
     ReduceDynamicScoringScoreWhenBeDamagedChangeP = 90, -- 受伤时动态评分点数下降提升率
     ReduceDynamicScoringScoreWhenBeDamagedChangeV = 91, -- 受伤时动态评分点数下降提升值
     DamageAmplificationFactorP = 92, --伤害增幅万分比 (武器超限系统新增属性)
-    WeaponChangeP = 93, --武器伤害增幅万分比
-    End = 94, --
+    End = 93, --
 }

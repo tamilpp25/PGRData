@@ -221,6 +221,8 @@ XFunctionManager.FunctionName = {
     Transfinite = 10451, -- 超限连战
     NewActivityCalendar = 10452, -- 新活动周历
     Theatre3 = 10453, -- 肉鸽3.0
+    BlackRockChess = 10455, -- 国际战棋
+    Turntable = 10454, -- 夏日幸运星
 }
 
 XFunctionManager.FunctionType = {
@@ -629,6 +631,19 @@ end
 
 function XFunctionManager.InitFuncOpenTime(data)
     UpdateFunctionTimeData(data)
+end
+
+--2.8
+function XFunctionManager.CheckSkipPanelIsLoad(skipId)
+    local list = XFunctionConfig.GetSkipList(skipId)
+    if list.NotShowUI then
+        for i, v in pairs(list.NotShowUI) do
+            if XLuaUiManager.IsUiLoad(v) then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 XRpc.NotifyTimeLimitCtrlConfigList = function(data)

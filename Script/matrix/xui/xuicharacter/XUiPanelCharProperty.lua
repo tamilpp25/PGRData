@@ -29,7 +29,7 @@ function XUiPanelCharProperty:OnEnable(parent, defaultIdx)
     self.CharacterId = self.Parent.CharacterId
     ---@type XCharacter
     self.CharEntity = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     self.IsSp = characterType ~= XCharacterConfigs.CharacterType.Normal
     self.Parent.PanelCharacterTypeBtns.gameObject:SetActiveEx(false)
     self.Parent.SViewCharacterList.gameObject:SetActiveEx(false)
@@ -199,7 +199,7 @@ function XUiPanelCharProperty:UpdateShowPanel()
     else
         panel:ShowPanel(self.CharacterId)
     end
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     local functionId = characterType == XCharacterConfigs.CharacterType.Normal and XFunctionManager.FunctionName.CharacterEnhanceSkill or XFunctionManager.FunctionName.SpCharacterEnhanceSkill
     local IsShowEnhanceSkill = self.CharEntity:GetIsHasEnhanceSkill() and 
     not XFunctionManager.CheckFunctionFitter(functionId)

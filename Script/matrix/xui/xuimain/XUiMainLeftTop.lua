@@ -1,4 +1,3 @@
-
 local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
 ---@class XUiMainLeftTop : XUiMainPanelBase
 local XUiMainLeftTop = XClass(XUiMainPanelBase, "XUiMainLeftTop")
@@ -51,6 +50,14 @@ local RedPointConditionGroup = {
     NewActivityCalendar = {
         XRedPointConditions.Types.CONDITION_NEW_ACTIVITY_CALENDAR_RED
     },
+    -- 特殊签到
+    SummerSign = {
+        XRedPointConditions.Types.CONDITION_SUMMER_SIGNIN_ACTIVITY
+    },
+    -- 夏日幸运星
+    Turntable = {
+        XRedPointConditions.Types.CONDITION_TURNTABLE_SUMMARY
+    },
 }
 
 ---@param rootUi XUiMain
@@ -63,13 +70,13 @@ function XUiMainLeftTop:OnStart(rootUi)
     self.BtnRoleInfo.CallBack = function() self:OnBtnRoleInfo() end
     self.BtnPassport.CallBack = function() self:OnBtnPassportClick() end
     --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnRoleInfo.ReddotObj, self.OnCheckRoleNews, self, RedPointConditionGroup.RoleInfo)
+    self:AddRedPointEvent(self.BtnRoleInfo.ReddotObj, self.OnCheckRoleNews, self, RedPointConditionGroup.RoleInfo)
 
-    XRedPointManager.AddRedPointEvent(self.BtnPassport.ReddotObj, self.OnCheckPassportRedPoint, self, RedPointConditionGroup.Passport)
+    self:AddRedPointEvent(self.BtnPassport.ReddotObj, self.OnCheckPassportRedPoint, self, RedPointConditionGroup.Passport)
 
     --Filter
     self:CheckFilterFunctions()
-    
+
     self:InitActivityButton()
 end
 
@@ -77,14 +84,14 @@ function XUiMainLeftTop:InitActivityButton()
     self.PanelActivityBtn.gameObject:SetActiveEx(not XUiManager.IsHideFunc)
     if self.BtnNewRegression then
         self.BtnNewRegression.CallBack = function() XDataCenter.NewRegressionManager.OpenMainUi() end
-        XRedPointManager.AddRedPointEvent(self.BtnNewRegression.ReddotObj, self.OnCheckNewRegressionRedPoint, self, RedPointConditionGroup.NewRegression)
+        self:AddRedPointEvent(self.BtnNewRegression.ReddotObj, self.OnCheckNewRegressionRedPoint, self, RedPointConditionGroup.NewRegression)
     end
 
     if self.BtnGuide then
         self.BtnGuide.CallBack = function()
             XDataCenter.NewbieTaskManager.OpenMainUi()
         end
-        XRedPointManager.AddRedPointEvent(self.BtnGuide.ReddotObj, self.OnClickNewbieTaskRedPoint, self, RedPointConditionGroup.Guide)
+        self:AddRedPointEvent(self.BtnGuide.ReddotObj, self.OnClickNewbieTaskRedPoint, self, RedPointConditionGroup.Guide)
     end
 
     if self.BtnDlcHunt then
@@ -93,23 +100,23 @@ function XUiMainLeftTop:InitActivityButton()
 
     if self.BtnTarget then
         self.BtnTarget.CallBack = function() self:OnBtnTarget() end
-        XRedPointManager.AddRedPointEvent(self.BtnTarget.ReddotObj, self.OnCheckTargetNews, self, RedPointConditionGroup.Target)
+        self:AddRedPointEvent(self.BtnTarget.ReddotObj, self.OnCheckTargetNews, self, RedPointConditionGroup.Target)
     end
 
     if self.BtnSpecialShop then
         self.BtnSpecialShop.CallBack = function() self:OnBtnSpecialShop() end
-        self.SpecialShopRed = XRedPointManager.AddRedPointEvent(self.BtnSpecialShop.ReddotObj, self.OnCheckSpecialShopRedPoint, self, RedPointConditionGroup.SpecialShop)
+        self.SpecialShopRed = self:AddRedPointEvent(self.BtnSpecialShop.ReddotObj, self.OnCheckSpecialShopRedPoint, self, RedPointConditionGroup.SpecialShop)
     end
 
     if self.BtnRegression then
         self.BtnRegression.CallBack = function() self:OnBtnRegression() end
-        XRedPointManager.AddRedPointEvent(self.BtnRegression.ReddotObj, nil, self, RedPointConditionGroup.Regression)
+        self:AddRedPointEvent(self.BtnRegression.ReddotObj, nil, self, RedPointConditionGroup.Regression)
     end
 
     if self.BtnRegression3rd then
         self.BtnRegression3rd.gameObject:SetActiveEx(false)
         self.BtnRegression3rd.CallBack = function() self:OnBtnRegression3rdClick() end
-        XRedPointManager.AddRedPointEvent(self.BtnRegression3rd, self.OnCheckRegression3rdRedPoint, self, RedPointConditionGroup.NewRegression3rd)
+        self:AddRedPointEvent(self.BtnRegression3rd, self.OnCheckRegression3rdRedPoint, self, RedPointConditionGroup.NewRegression3rd)
     end
 
     if self.BtnKujiequ then
@@ -120,8 +127,19 @@ function XUiMainLeftTop:InitActivityButton()
         self.BtnCalendar.CallBack = function() self:OnBtnCalendar() end
         -- 默认设置为false
         self.BtnCalendar:ShowTag(false)
-        self.CalendarRedPoint = XRedPointManager.AddRedPointEvent(self.BtnCalendar, self.CheckNewActivityCalendarRedPoint, self, RedPointConditionGroup.NewActivityCalendar)
+        self.CalendarRedPoint = self:AddRedPointEvent(self.BtnCalendar, self.CheckNewActivityCalendarRedPoint, self, RedPointConditionGroup.NewActivityCalendar)
     end
+
+    if self.BtnSummerSign3 then
+        self.BtnSummerSign3.CallBack = function() self:OnBtnSummerSignClick() end
+        self.SummerSignRedPoint = self:AddRedPointEvent(self.BtnSummerSign3, self.CheckSummerSignRedPoint, self, RedPointConditionGroup.SummerSign)
+    end
+
+    if self.BtnTurntable then
+        self.BtnTurntable.CallBack = function() self:OnBtnTurntableClick() end
+        self.TurntableRedPoint = self:AddRedPointEvent(self.BtnTurntable, self.CheckTurntableRedPoint, self, RedPointConditionGroup.Turntable)
+    end
+    --TODO 后续新增入口时，注意分包资源检测
 end
 
 function XUiMainLeftTop:OnEnable()
@@ -136,7 +154,9 @@ function XUiMainLeftTop:OnEnable()
     self:OnRegression3rdOpenStatusUpdate()
     self:OnNewActivityCalendarOpenStatusUpdate()
     self:BtnKujiequUpdate()
-    
+    self:OnSummerSignOpenStatusUpdate()
+    self:OnTurntableOpenStateUpdate()
+
     self:AddEventListener()
 end
 
@@ -146,11 +166,11 @@ function XUiMainLeftTop:OnDisable()
         self.BtnCalendar:ShowTag(false)
     end
     self:RemoveEventListener()
-   
+
 end
 
 function XUiMainLeftTop:OnDestroy()
-    XRedPointManager.RemoveRedPointEvent(self.CalendarRedPoint)
+    
 end
 
 function XUiMainLeftTop:CheckFilterFunctions()
@@ -177,6 +197,10 @@ function XUiMainLeftTop:OnBtnPassportClick()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Passport) then
         return
     end
+    --活动分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnPassport)
     XLuaUiManager.Open("UiPassport")
 end
@@ -193,7 +217,7 @@ function XUiMainLeftTop:UpdateInfo()
     self.TxtName.text = name
 
     local level = XPlayer.GetLevelOrHonorLevel()
-    self.TxtLevel.text = level 
+    self.TxtLevel.text = level
     self.TxtId.text = XPlayer.Id
     self.Rankt.text = self:GetLevelTxt()
 end
@@ -221,10 +245,10 @@ end
 --region   ------------------通行证 start-------------------
 
 function XUiMainLeftTop:UpdatePassportLeftTime()
-    local timeId = XPassportConfigs.GetPassportActivityTimeId()
+    local timeId = XMVCA.XPassport:GetPassportActivityTimeId()
     if XFunctionManager.CheckInTimeByTimeId(timeId) then
         self.BtnPassport.gameObject:SetActiveEx(true)
-    elseif XDataCenter.PassportManager.IsActivityClose() then
+    elseif XMVCA.XPassport:IsActivityClose() then
         self:StopPassportTimer()
         self:OnPassportOpenStatusUpdate()
     else
@@ -240,7 +264,7 @@ function XUiMainLeftTop:StopPassportTimer()
 end
 
 function XUiMainLeftTop:OnPassportOpenStatusUpdate()
-    if XDataCenter.PassportManager.IsActivityClose()
+    if XMVCA.XPassport:IsActivityClose()
             -- 功能未开启时，隐藏通行证按钮
             or not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Passport, false, true)
             or XUiManager.IsHideFunc
@@ -261,7 +285,7 @@ end
 
 --region   ------------------定时器 start-------------------
 function XUiMainLeftTop:StartTimer()
-    
+
 end
 
 function XUiMainLeftTop:StopTimer()
@@ -282,6 +306,7 @@ function XUiMainLeftTop:AddEventListener()
     XEventManager.AddEventListener(XEventId.EVENT_REGRESSION3_ACTIVITY_STATUS_CHANGE, self.OnRegression3rdOpenStatusUpdate, self)
     XEventManager.AddEventListener(XEventId.EVENT_FUNCTION_EVENT_END, self.OnNewActivityCalendarPlayEffect, self)
     XEventManager.AddEventListener(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE, self.OnNewActivityCalendarOpenStatusUpdate, self)
+    XEventManager.AddEventListener(XEventId.EVENT_TURNTABLE_PROGRESS_REWARD, self.OnTurntableOpenStateUpdate, self)
 end
 
 function XUiMainLeftTop:RemoveEventListener()
@@ -292,6 +317,7 @@ function XUiMainLeftTop:RemoveEventListener()
     XEventManager.RemoveEventListener(XEventId.EVENT_REGRESSION3_ACTIVITY_STATUS_CHANGE, self.OnRegression3rdOpenStatusUpdate, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FUNCTION_EVENT_END, self.OnNewActivityCalendarPlayEffect, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE, self.OnNewActivityCalendarOpenStatusUpdate, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_TURNTABLE_PROGRESS_REWARD, self.OnTurntableOpenStateUpdate, self)
 end
 --endregion------------------事件监听 finish------------------
 
@@ -403,6 +429,10 @@ function XUiMainLeftTop:OnBtnTarget()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Target) then
         return
     end
+    ----活动分包资源检测
+    --if not XMVCA.XSubPackage:CheckSubpackage() then
+    --    return
+    --end
     XLuaUiManager.Open("UiNewPlayerTask")
 end
 
@@ -415,8 +445,12 @@ end
 --region   ------------------特殊商店 start-------------------
 --- 特殊商店入口点击
 function XUiMainLeftTop:OnBtnSpecialShop()
+    --活动分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XSaveTool.SaveData(string.format("%d%s", XPlayer.Id, "SpecialShopAlreadyIn"), true)
-
+    
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon)
             or XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopActive) then
 
@@ -456,8 +490,11 @@ function XUiMainLeftTop:OnRegressionOpenStatusUpdate()
     end
 end
 
-
 function XUiMainLeftTop:OnBtnRegression()
+    --活动分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XLuaUiManager.Open("UiRegression")
 end
 
@@ -576,25 +613,32 @@ end
 --region   ------------------新周历 start-------------------
 
 function XUiMainLeftTop:OnBtnCalendar()
-    if not XDataCenter.NewActivityCalendarManager.GetIsOpen() then
+    ---@type XNewActivityCalendarAgency
+    local calendarAgency = XMVCA:GetAgency(ModuleId.XNewActivityCalendar)
+    if not calendarAgency:GetIsOpen() then
         return
     end
-    XDataCenter.NewActivityCalendarManager.NewActivityCalendarGetDataRequest(function()
-        self.RootUi:OnShowCalendar()
-        -- 设置文本描述
-        self.BtnCalendar:SetNameByGroup(0, XDataCenter.NewActivityCalendarManager.GetMainBtnShowTextDesc())
-        XRedPointManager.Check(self.CalendarRedPoint)
-    end)
+    --活动分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnCalendar)
+    self.RootUi:OnShowCalendar(true)
+    -- 设置文本描述
+    self.BtnCalendar:SetNameByGroup(0, calendarAgency:GetMainBtnShowTextDesc())
+    XRedPointManager.Check(self.CalendarRedPoint)
 end
 
 function XUiMainLeftTop:OnNewActivityCalendarOpenStatusUpdate()
-    local isOpen = XDataCenter.NewActivityCalendarManager.GetIsOpen(true)
+    ---@type XNewActivityCalendarAgency
+    local calendarAgency = XMVCA:GetAgency(ModuleId.XNewActivityCalendar)
+    local isOpen = calendarAgency:GetIsOpen(true)
     self.BtnCalendar.gameObject:SetActiveEx(isOpen)
     if not isOpen then
         return
     end
     -- 设置文本描述
-    self.BtnCalendar:SetNameByGroup(0, XDataCenter.NewActivityCalendarManager.GetMainBtnShowTextDesc())
+    self.BtnCalendar:SetNameByGroup(0, calendarAgency:GetMainBtnShowTextDesc())
 end
 
 function XUiMainLeftTop:CheckNewActivityCalendarRedPoint(count)
@@ -608,17 +652,81 @@ end
 
 -- 检查是否播放特效
 function XUiMainLeftTop:OnNewActivityCalendarPlayEffect()
-    local isOpen = XDataCenter.NewActivityCalendarManager.GetIsOpen(true)
+    ---@type XNewActivityCalendarAgency
+    local calendarAgency = XMVCA:GetAgency(ModuleId.XNewActivityCalendar)
+    local isOpen = calendarAgency:GetIsOpen(true)
     if not isOpen then
         return
     end
-    if self.RootUi:CheckCalenderShow() then
+    if self.RootUi:IsShowCalendar() or self.RootUi:IsShowTerminal() then
         return
     end
-    local isPlayEffect = XDataCenter.NewActivityCalendarManager.CheckIsNeedPlayEffect()
+    local isPlayEffect = calendarAgency:CheckIsNeedPlayEffect()
     self.BtnCalendar:ShowTag(isPlayEffect)
 end
 
 --endregion------------------新周历 finish------------------
+
+--region   ------------------夏日签到 start-------------------
+
+function XUiMainLeftTop:OnBtnSummerSignClick()
+    XDataCenter.SummerSignInManager.OnOpenMain()
+end
+
+function XUiMainLeftTop:CheckSummerSignRedPoint(count)
+    self.BtnSummerSign3:ShowReddot(count >= 0)
+end
+
+function XUiMainLeftTop:GetSummerSignIsOpen()
+    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.SummerSignIn) then
+        return false
+    end
+    return XDataCenter.SummerSignInManager.IsOpen()
+end
+
+function XUiMainLeftTop:OnSummerSignOpenStatusUpdate()
+    local isOpen = self:GetSummerSignIsOpen()
+    if self.BtnSummerSign3 then
+        self.BtnSummerSign3.gameObject:SetActiveEx(isOpen)
+        if isOpen then
+            XRedPointManager.Check(self.SummerSignRedPoint)
+        end
+    end
+end
+
+--endregion------------------夏日签到 finish-------------------
+
+--region   ------------------大转盘 start-------------------
+
+function XUiMainLeftTop:OnBtnTurntableClick()
+    --活动分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    XLuaUiManager.Open("UiTurntableMain")
+end
+
+function XUiMainLeftTop:OnTurntableOpenStateUpdate()
+    local isOpen
+    if XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Turntable) then
+        ---@type XTurntableAgency
+        local agency = XMVCA:GetAgency(ModuleId.XTurntable)
+        isOpen = agency:IsOpen()
+    else
+        isOpen = false
+    end
+    if self.BtnTurntable then
+        self.BtnTurntable.gameObject:SetActiveEx(isOpen)
+        if isOpen then
+            XRedPointManager.Check(self.TurntableRedPoint)
+        end
+    end
+end
+
+function XUiMainLeftTop:CheckTurntableRedPoint(count)
+    self.BtnTurntable:ShowReddot(count >= 0)
+end
+
+--endregion------------------大转盘 finish-------------------
 
 return XUiMainLeftTop

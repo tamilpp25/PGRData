@@ -1,4 +1,5 @@
 local XSCRoleSkill = require("XEntity/XSameColorGame/Skill/XSCRoleSkill")
+---@class XSCBattleRoleSkill:XSCRoleSkill
 local XSCBattleRoleSkill = XClass(XSCRoleSkill, "XSCBattleRoleSkill")
 
 function XSCBattleRoleSkill:Ctor(groupId)
@@ -26,6 +27,10 @@ end
 
 function XSCBattleRoleSkill:ClearUsedCount()
     self.UsedCount = 0
+end
+
+function XSCBattleRoleSkill:IsInUsed()
+    return XTool.IsNumberValid(self.UsedCount)
 end
 
 -- 增加技能消球次数

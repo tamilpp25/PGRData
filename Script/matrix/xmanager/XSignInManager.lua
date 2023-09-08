@@ -237,4 +237,5 @@ end
 XRpc.NotifySignInData = function(data)
     XDataCenter.SignInManager.InitData(data.SignInfos)
     XDataCenter.SignInManager.SetNotifySign(true)
+    XEventManager.DispatchEvent(XEventId.EVENT_SIGN_IN_FIVE_OCLOCK_REFRESH)
 end

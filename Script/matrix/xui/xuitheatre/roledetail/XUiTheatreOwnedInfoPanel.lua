@@ -36,7 +36,7 @@ function XGridSkill:OnBtnSubSkillIconBgClick()
     if not skillId or not level then
         return
     end
-    local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, level)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, level)
     XLuaUiManager.Open("UiSkillDetailsTips", configDes)
 end
 
@@ -346,9 +346,7 @@ function XPanelAwareness:SetData(adventureRole)
     self.WeaponGridNormal:Refresh(weaponEquip)
     self.WeaponGridPress:Refresh(weaponEquip)
 
-    --意识四件套和二件套
-    local suitMergeActiveDatas = adventureRole:GetSuitMergeActiveDatas()
-    for i, data in ipairs(suitMergeActiveDatas) do
+    for i = 1, 2 do
         local suitGrids = self.SuitGrids[i]
         if not suitGrids then
             suitGrids = {}
@@ -356,7 +354,12 @@ function XPanelAwareness:SetData(adventureRole)
             suitGrids[2] = XPanelSuit.New(self["PanelPressAwareness" .. i], self.RootUi)
             self.SuitGrids[i] = suitGrids
         end
-
+    end
+    
+    --意识四件套和二件套
+    local suitMergeActiveDatas = adventureRole:GetSuitMergeActiveDatas()
+    for i, data in ipairs(suitMergeActiveDatas) do
+        local suitGrids = self.SuitGrids[i]
         for i, suitGrid in ipairs(suitGrids) do
             suitGrid:Refresh(data)
             suitGrid.GameObject:SetActiveEx(true)

@@ -9,7 +9,7 @@ end
 function XUiFubenDailyShop:OnStart(shopId, defaultSuitId)
     self.ShopId = shopId
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
 
     self.SuitShopItemDic = {}
     self.ShopItemList = XShopManager.GetShopGoodsList(self.ShopId)
@@ -58,7 +58,7 @@ function XUiFubenDailyShop:OnStart(shopId, defaultSuitId)
     self.WaferNameGroup.gameObject:SetActiveEx(isShopAvailable)
     self.PanelActivityAsset.gameObject:SetActiveEx(isShopAvailable)
 
-    XRedPointManager.AddRedPointEvent(self.BtnSwitch, self.OnCheckShopNew, self, { XRedPointConditions.Types.CONDITION_FUBEN_DAILY_SHOP }, self.ShopItemList)
+    self:AddRedPointEvent(self.BtnSwitch, self.OnCheckShopNew, self, { XRedPointConditions.Types.CONDITION_FUBEN_DAILY_SHOP }, self.ShopItemList)
 end
 
 function XUiFubenDailyShop:InitComponent()

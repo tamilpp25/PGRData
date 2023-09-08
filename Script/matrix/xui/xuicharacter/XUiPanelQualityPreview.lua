@@ -56,7 +56,7 @@ end
 --===========================================================================
 function XUiPanelQualityPreview:InitQualityPreviewData(characterId, skillStar)
     self.CharacterId = characterId
-    self.CharacterMinQuality = XCharacterConfigs.GetCharMinQuality(self.CharacterId)
+    self.CharacterMinQuality = XMVCA.XCharacter:GetCharMinQuality(self.CharacterId)
     self.CharacterMaxQuality = XCharacterConfigs.GetCharMaxQuality(self.CharacterId)
     self.Character = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
     --技能节点打开的位置

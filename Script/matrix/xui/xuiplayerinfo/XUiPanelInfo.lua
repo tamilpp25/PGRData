@@ -118,6 +118,19 @@ function XUiPanelInfo:OnBtnDorm()
         return
     end
 
+    if XDataCenter.GuildDormManager.GetIsRunning() then
+        XDataCenter.GuildDormManager.RequestExitRoom(function()
+            local uiList = {"UiPlayerInfo", "UiGuildRongyu"}
+            for _, uiName in pairs(uiList) do
+                if XLuaUiManager.IsUiLoad(uiName)
+                        or XLuaUiManager.IsUiShow(uiName) then
+                    XLuaUiManager.Remove(uiName)
+                end
+            end
+            XLuaUiManager.Remove("UiGuildDormMain")
+        end)
+    end
+
     local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
     if unionFightData and unionFightData.Id then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))

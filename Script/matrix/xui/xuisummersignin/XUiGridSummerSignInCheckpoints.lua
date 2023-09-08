@@ -39,6 +39,11 @@ function XUiGridSummerSignInCheckpoints:RefreshView()
     self.NormalPanelHaveCheck.gameObject:SetActiveEx(isSignIn)
     self.PressPanelCheck.gameObject:SetActiveEx(not isSignIn)
     self.PressPanelHaveCheck.gameObject:SetActiveEx(isSignIn)
+
+    local isSurplusTimes = XDataCenter.SummerSignInManager.CheckSurplusTimes()
+    if self.EffectBtn then
+        self.EffectBtn.gameObject:SetActiveEx(not isSignIn and not isSurplusTimes)
+    end
 end
 
 function XUiGridSummerSignInCheckpoints:GetIsSignIn()

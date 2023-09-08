@@ -208,19 +208,23 @@ function XUiTheatre3Main:OnBtnHandBookClick()
 end
 
 function XUiTheatre3Main:OnBtnRetreat()
-    self._Control:AdventureGiveUp(function()
-        ---@type XTheatre3Agency
-        local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
-        agency:CheckAndOpenSettle()
+    self:PlayAnimationWithMask("BtnRetreatDianji", function()
+        self._Control:AdventureGiveUp(function()
+            ---@type XTheatre3Agency
+            local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
+            agency:CheckAndOpenSettle()
+        end)
     end)
 end
 
 function XUiTheatre3Main:OnBtnBattle()
-    if not self._Control:IsHaveAdventure() then
-        self._Control:AdventureStart()
-    else
-        self._Control:AdventureContinue()
-    end
+    self:PlayAnimationWithMask("BtnBattleDianji", function()
+        if not self._Control:IsHaveAdventure() then
+            self._Control:AdventureStart()
+        else
+            self._Control:AdventureContinue()
+        end
+    end)
 end
 --endregion
 

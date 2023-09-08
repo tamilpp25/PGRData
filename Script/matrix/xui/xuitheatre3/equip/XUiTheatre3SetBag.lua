@@ -12,6 +12,9 @@ local Key = "UiTheatre3SetBagSwitch"
 local XUiTheatre3SetBag = XLuaUiManager.Register(XLuaUi, "UiTheatre3SetBag")
 
 function XUiTheatre3SetBag:OnAwake()
+    if not self.TxtRecastTitle then
+        self.TxtRecastTitle = XUiHelper.TryGetComponent(self.PanelRecast, "RImgBg01/Txt", "Text")
+    end
     self:RegisterClickEvent(self.BtnCancel, handler(self, self.CancelChooseEquipMode))
     self:RegisterClickEvent(self.BtnSwitch, handler(self, self.OnClickBtnSwitch))
 end
@@ -79,9 +82,6 @@ function XUiTheatre3SetBag:InitCompnent()
     else
         self.TxtTitle.text = XUiHelper.GetText("Theatre3EquipRebuildTitle")
     end
-
-    ---@type XUiTheatre3EquipmentCell
-    self._RebuildEquip = XUiTheatre3EquipmentCell.New(self.EquipmentGrid, self)
 
     self.BtnSet.gameObject:SetActiveEx(false)
     self.PanelRecast.gameObject:SetActiveEx(false)
@@ -226,13 +226,17 @@ end
 
 function XUiTheatre3SetBag:ShowEquipTip(cell, equipId)
     if self._Mode == Mode.ShowEquip then
-        self._Control:OpenEquipmentTipByAlign(equipId, nil, nil, nil, cell.Transform)
+        self._Control:OpenEquipmentTipByAlign(equipId, nil, nil, nil, cell.Transform, nil, true)
         return
+    elseif self._Mode == Mode.SelectEquip then
+        if not self._Control:IsWearEquip(equipId) then
+            return -- 没解锁的装备不给点
+        end
     end
     self:SignSrcSuit(cell)
     self._Control:OpenEquipmentTipByAlign(equipId, XUiHelper.GetText("Theatre3EquipRebuildEquipTipBtn"), function()
         self:EnterChooseEquipMode(cell, equipId)
-    end, handler(self, self.OnTipClose), cell.Transform)
+    end, handler(self, self.OnTipClose), cell.Transform, nil, true)
 end
 
 --region 选中标记
@@ -348,6 +352,13 @@ function XUiTheatre3SetBag:EnterChooseEquipMode(cell, equipId)
         end
     end
     self.PanelRecast.gameObject:SetActiveEx(true)
+    if self.TxtRecastTitle then
+        self.TxtRecastTitle.text = self._Control:GetClientConfig("EquipWorkShopTipTitle")
+    end
+    if not self._RebuildEquip then
+        ---@type XUiTheatre3EquipmentCell
+        self._RebuildEquip = XUiTheatre3EquipmentCell.New(self.EquipmentGrid, self)
+    end
     self._RebuildEquip:ShowEquip(equipId)
     self:ChangeListWidth()
 end

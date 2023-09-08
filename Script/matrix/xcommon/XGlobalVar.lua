@@ -53,6 +53,7 @@ XGlobalVar = {
         BtnUiMainBtnMentor          = 35, --主界面点击指导
         BtnUiMainBtnEquipGuide      = 36, --主界面点击装备目标
         BtnUiMainBtnKuJieQu         = 37, --主界面点击库街区
+        BtnUiMainBtnCalendar        = 38, --主界面点击新周历
     },
     BtnBuriedSpotTypeLevelTwo = {
         BtnUiPurchaseBtnTabSkip1 = 1,

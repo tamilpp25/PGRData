@@ -1,3 +1,4 @@
+---@class XUiButtonLongClick
 XUiButtonLongClick = XClass(nil, "XUiButtonLongClick")
 
 -- AddPointerDownListener
@@ -164,4 +165,15 @@ end
 function XUiButtonLongClick:Destroy()
     self:Reset()
     self.Widget:RemoveAllListeners()
+
+    self.GameObject = nil
+    self.Transform = nil
+    self.Caller = nil
+    self.Proxy = nil
+    self.OnlyOneCallback = nil
+    self.noAutoUp = nil
+    self.Widget = nil
+    self.ClickCallbacks = nil
+    self.LongClickCallback = nil
+    self.longClickUpCallbacks = nil
 end

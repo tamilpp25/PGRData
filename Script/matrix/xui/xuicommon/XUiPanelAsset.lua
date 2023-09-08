@@ -5,13 +5,14 @@ local min = math.min
 
 function XUiPanelAsset:InitNode(ui, parent, ...)
     XUiPanelAsset.Super.InitNode(self, parent, ui, ...)
+end
 
-    self._BindNodes = {}
-    self.ItemIds = { ... }
-    self.EventListener = {}
+function XUiPanelAsset:OnStart(...)
     self:InitAutoScript()
-
     self:InitBtnSound()
+    
+    self.ItemIds = { ... }
+    self._BindNodes = {}
     self:InitAssert(self.ItemIds)
 end
 
@@ -236,7 +237,7 @@ function XUiPanelAsset:RemoveCountUpdateListener()
     self._BindNodes = {}
 end
 
-function XUiPanelAsset:OnRelease()
+function XUiPanelAsset:OnDestroy()
     self:RemoveCountUpdateListener()
 end
 

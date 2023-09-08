@@ -129,7 +129,7 @@ function XUiPanelCharacterList:HandleData(hasPermission, hasCharacterDisplay)
         self.PanelScore.gameObject:SetActiveEx(true)
         self.TxtScore.text = score
 
-        for k, v in pairs(XCharacterConfigs.GetCharacterTemplates()) do
+        for k, v in pairs(XMVCA.XCharacter:GetCharacterTemplates()) do
             local temData = { IsLocked = true }
             if characterListById[k] then
                 tableInsert(allCharList, characterListById[k])

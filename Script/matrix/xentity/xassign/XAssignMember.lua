@@ -24,7 +24,7 @@ function XAssignMember:GetCharacterSkillInfo()
 end
 
 function XAssignMember:GetCharacterType()
-    return self:HasCharacter() and XCharacterConfigs.GetCharacterType(self.CharacterId)
+    return self:HasCharacter() and XMVCA.XCharacter:GetCharacterType(self.CharacterId)
 end
 
 return XAssignMember

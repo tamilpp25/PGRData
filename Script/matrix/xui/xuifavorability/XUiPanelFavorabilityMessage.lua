@@ -1,4 +1,6 @@
-XUiPanelFavorabilityMessage = XClass(nil, "XUiPanelFavorabilityMessage")
+--2.7标记：疑似被弃用
+local XUiGridLikeMessageItem=require("XUi/XUiFavorability/XUiGridLikeMessageItem")
+local XUiPanelFavorabilityMessage = XClass(nil, "XUiPanelFavorabilityMessage")
 
 function XUiPanelFavorabilityMessage:Ctor(ui, uiRoot, parent)
     self.GameObject = ui.gameObject

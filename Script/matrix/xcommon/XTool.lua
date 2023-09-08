@@ -252,6 +252,7 @@ XTool.InitUiObject = function(targetObj)
     end
 end
 
+---@param uiObject UiObject
 XTool.InitUiObjectByInstance = function(uiObject, instance)
     for i = 0, uiObject.NameList.Count - 1 do
         instance[uiObject.NameList[i]] = uiObject.ObjList[i]
@@ -263,6 +264,51 @@ XTool.InitUiObjectByUi = function(targetUi, uiPrefab)
     targetUi.Transform = uiPrefab.transform
     XTool.InitUiObject(targetUi)
     return targetUi
+end
+
+---用来监听收集赋值的C#对象
+XTool.InitUiObjectNewIndex = function(tbl)
+    local metaTbl = getmetatable(tbl)
+    if not metaTbl.__newindex then
+        tbl._uObjIndexes = {}
+        metaTbl.__newindex = function(tbl, k, v)
+            rawset(tbl, k, v)
+            if v then--有值的, 有些界面会在close之后还对一些属性进行置空
+                local t = type(v)
+                if t == "userdata" and CsXUiHelper.IsUnityObject(v) then
+                    if tbl._uObjIndexes then
+                        table.insert(tbl._uObjIndexes, k)
+                    else
+                        if XMain.IsWindowsEditor then
+                            XLog.Error(string.format("%s has been call ReleaseUiObjectIndex", tostring(tbl.Name)))
+                        end
+                    end
+                end
+            end
+        end
+        setmetatable(tbl, metaTbl)
+    else
+        if XMain.IsWindowsEditor then
+            XLog.Error(string.format("tbl %s 已经存在__newindex元表", tostring(tbl.Name)))
+        end
+    end
+end
+
+XTool.ReleaseUiObjectIndex = function(tbl)
+    if tbl.Obj and tbl.Obj:Exist() then
+        local nameList = tbl.Obj.NameList
+        for _, v in pairs(nameList) do
+            tbl[v] = nil
+        end
+        tbl.Obj = nil
+    end
+
+    if tbl._uObjIndexes then
+        for _, key in ipairs(tbl._uObjIndexes) do
+            tbl[key] = nil
+        end
+        tbl._uObjIndexes = nil
+    end
 end
 
 XTool.DestroyChildren = function(gameObject)
@@ -790,3 +836,35 @@ end
 function XTool.SortIdTable(idTable, isDescend)
     table.sort(idTable, function(a, b) return isDescend and a > b or a < b end)
 end 
+
+function XTool.DeepCompare(tbl1, tbl2)
+    if tbl1 == tbl2 then
+        return true
+    end
+
+    if type(tbl1) ~= "table" or type(tbl2) ~= "table" then
+        return false
+    end
+
+    for k, v in pairs(tbl1) do
+        if type(v) == "table" then
+            if not deepCompare(v, tbl2[k]) then
+                return false
+            end
+        elseif v ~= tbl2[k] then
+            return false
+        end
+    end
+
+    for k, v in pairs(tbl2) do
+        if type(v) == "table" then
+            if not deepCompare(v, tbl1[k]) then
+                return false
+            end
+        elseif v ~= tbl1[k] then
+            return false
+        end
+    end
+
+    return true
+end

@@ -529,7 +529,7 @@ XFubenSimulatedCombatManagerCreator = function()
             if item.BuyMethod then
                 tableInsert(members, {Id = item.Id, ConsumeType = item.BuyMethod})
                 local charId = XFubenSimulatedCombatManager.GetCharacterAndRobotId(item.Id)
-                --XLog.Warning("name", XCharacterConfigs.GetCharacterFullNameStr(charId))
+                --XLog.Warning("name", XMVCA.XCharacter:GetCharacterFullNameStr(charId))
                 tableInsert(CurrentTeam.TeamData, charId)
                 CharIdToMemberId[charId] = item.Id
             end

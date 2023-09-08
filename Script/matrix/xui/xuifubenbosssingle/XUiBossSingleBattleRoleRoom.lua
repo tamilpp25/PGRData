@@ -73,7 +73,7 @@ function XUiBossSingleBattleRoleRoom:CheckRoleStanmina(team)
         if posData and posData > 0 then
             local curStamina = self.FubenBossSingleManager.GetMaxStamina() - self.FubenBossSingleManager.GetCharacterChallengeCount(posData)
             if curStamina <= 0 then
-                local charName = XCharacterConfigs.GetCharacterName(posData)
+                local charName = XMVCA.XCharacter:GetCharacterName(posData)
                 local text = CSXTextManagerGetText("BossSingleNoStamina", charName)
                 XUiManager.TipError(text)
                 return false

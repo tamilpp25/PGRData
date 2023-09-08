@@ -180,7 +180,8 @@ function XUiRestaurantMain:InitView()
     self:SetAutoCloseInfo(endTime, function(isClose)
         if isClose or not XDataCenter.RestaurantManager.IsOpen() then
             self.Room:ClearAllCustomer()
-            self:Close()
+            XLuaUiManager.RunMain()
+            XUiManager.TipText("CommonActivityEnd")
             return
         end
     end)

@@ -13,7 +13,7 @@ function XGridSkill:Refresh(skillGroupId)
     end
 
     local skillId = XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
-    local cfg = XCharacterConfigs.GetSkillGradeDesConfig(skillId, SHOW_SKILL_LEVEL)
+    local cfg = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, SHOW_SKILL_LEVEL)
     if not cfg then return end
     self.SkillData = cfg or self.SkillData
     self.RImgSubSkillIconNormal:SetRawImage(cfg.Icon)

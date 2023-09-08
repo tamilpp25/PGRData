@@ -1,10 +1,5 @@
+---@class XUiGridRiftFightLayer
 local XUiGridRiftFightLayer = XClass(nil, "XUiGridRiftFightLayer")
-local State = 
-{
-    Normal = 1,
-    Select = 2,
-    Disable = 3,
-}
 
 function XUiGridRiftFightLayer:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
@@ -14,19 +9,23 @@ function XUiGridRiftFightLayer:Ctor(ui, rootUi)
     XTool.InitUiObject(self)
 end
 
+---@param xFightLayer XRiftFightLayer
 function XUiGridRiftFightLayer:Update(xFightLayer, index)
     self.XFightLayer = xFightLayer
     self.Index = index
-    self.Btn:SetNameByGroup(0, xFightLayer:GetId()) -- 标签名
-    self.Clear.gameObject:SetActiveEx(xFightLayer:CheckHasPassed()) 
-    if xFightLayer:GetType() == XRiftConfig.LayerType.Normal then
-        self.CurNormal = self.Normal
-        self.NormalSpecial.gameObject:SetActiveEx(false)
-    else
-        self.CurNormal = self.NormalSpecial
-        self.Normal.gameObject:SetActiveEx(false)
+    local layerType = xFightLayer:GetType()
+    local isSeasonLayer = xFightLayer:IsSeasonLayer()
+    local isPass = xFightLayer:CheckHasPassed()
+    local isNormal = layerType == XRiftConfig.LayerType.Normal
+    self.Pass.gameObject:SetActiveEx(isPass)
+    self.Special.gameObject:SetActiveEx(not isNormal)
+    self.Simple.gameObject:SetActiveEx(isNormal)
+    for i = 1, 2 do
+        self["TxtDeep" .. i].text = xFightLayer:GetId()
+        self["ImgZoom" .. i].gameObject:SetActiveEx(layerType == XRiftConfig.LayerType.Zoom and not isSeasonLayer)
+        self["ImgMatch" .. i].gameObject:SetActiveEx(layerType == XRiftConfig.LayerType.Zoom and isSeasonLayer)
+        self["ImgMulti" .. i].gameObject:SetActiveEx(layerType == XRiftConfig.LayerType.Multi)
     end
-
     self:RefreshReddot()
 end
 
@@ -35,21 +34,19 @@ function XUiGridRiftFightLayer:RefreshReddot()
 end
 
 function XUiGridRiftFightLayer:SetState(state)
-    local showDisable = state == State.Disable
-    self.CurNormal.gameObject:SetActiveEx(state == State.Normal)
-    self.Select.gameObject:SetActiveEx(state == State.Select)
-    self.Disable.gameObject:SetActiveEx(showDisable)
-    self.Btn:SetDisable(showDisable)
+    self.Btn:SetButtonState(state)
+    self.Lock.gameObject:SetActiveEx(state == CS.UiButtonState.Disable)
+    self.Unlock.gameObject:SetActiveEx(state ~= CS.UiButtonState.Disable)
 end
 
 function XUiGridRiftFightLayer:SetSelect(value)
     if value then
-        self:SetState(State.Select)
+        self:SetState(CS.UiButtonState.Select)
     else
         if self.XFightLayer:CheckHasLock() then
-            self:SetState(State.Disable)
+            self:SetState(CS.UiButtonState.Disable)
         else
-            self:SetState(State.Normal)
+            self:SetState(CS.UiButtonState.Normal)
         end
     end
 

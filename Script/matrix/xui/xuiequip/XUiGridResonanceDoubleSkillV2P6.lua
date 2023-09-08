@@ -14,6 +14,10 @@ function XUiGridResonanceDoubleSkillV2P6:Ctor(ui)
     end
 end
 
+function XUiGridResonanceDoubleSkillV2P6:SetForbidGotoEquip(flag)
+    self.ForbidGotoEquip = flag
+end
+
 --@site: 意识的位置
 function XUiGridResonanceDoubleSkillV2P6:RefreshBySite(characterId, site)
     self.CharacterId = characterId
@@ -76,6 +80,9 @@ function XUiGridResonanceDoubleSkillV2P6:RefreshTxtPos(site)
 end
 
 function XUiGridResonanceDoubleSkillV2P6:OnBtnResonanceClick(pos)
+    if self.ForbidGotoEquip then
+        return
+    end
     XLuaUiManager.Open("UiEquipDetailV2P6", self.EquipId, nil, self.CharacterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE, nil, pos)
 end
 

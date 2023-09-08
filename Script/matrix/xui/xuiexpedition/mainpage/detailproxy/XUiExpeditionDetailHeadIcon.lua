@@ -13,11 +13,11 @@ function XUiExpeditionDetailHeadIcon:RefreshData(teamData)
     self.GameObject:SetActiveEx(true)
     --这里使用查表方式展示，因为通关人员可能因为重置而导致eChara重置
     local cfg = XExpeditionConfig.GetBaseCharacterCfgById(teamData.BaseId)
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(cfg.CharacterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(cfg.CharacterId).DefaultNpcFashtionId
     local head = XDataCenter.FashionManager.GetFashionBigHeadIcon(fashionId)
     self.RImgIcon:SetRawImage(head)
     self.TxtLevel.text = teamData.Rank
-    local tradeName = XCharacterConfigs.GetCharacterTradeName(cfg.CharacterId)
+    local tradeName = XMVCA.XCharacter:GetCharacterTradeName(cfg.CharacterId)
     self.TxtName.text = tradeName or "UnNamed"
 end
 

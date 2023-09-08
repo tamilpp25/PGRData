@@ -1,4 +1,5 @@
-XUiPanelGraphicsSet = XClass(nil, "XUiPanelGraphicsSet")
+---@class XUiPanelGraphicsSet : XUiNode
+local XUiPanelGraphicsSet = XClass(XUiNode, "XUiPanelGraphicsSet")
 
 local XQualityManager = CS.XQualityManager.Instance
 
@@ -48,11 +49,7 @@ local function SetToggleEnable(tog, flag)
 end
 
 
-function XUiPanelGraphicsSet:Ctor(ui,parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    self.Parent = parent
+function XUiPanelGraphicsSet:OnStart()
     self:InitAutoScript()
 
     self.QualitySettings = {
@@ -363,6 +360,14 @@ function XUiPanelGraphicsSet:Ctor(ui,parent)
 
 end
 
+function XUiPanelGraphicsSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelGraphicsSet:OnDisable()
+    self:HidePanel()
+end
+
 function XUiPanelGraphicsSet:OnClickFrameRateSettings(id)
     self.QualitySettings.FrameRateLevel = id
 end
@@ -445,8 +450,6 @@ end
 function XUiPanelGraphicsSet:ShowPanel()
     self.Dirty = false
 
-    self.GameObject:SetActive(true)
-
     self.CurQualityLevel = XQualityManager:GetCurQualitySettings()
     self:UpdatePanel()
 end
@@ -466,7 +469,6 @@ end
 --on close
 function XUiPanelGraphicsSet:HidePanel()
     XDataCenter.SetManager.SetUiResolutionEventFlag(false)
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelGraphicsSet:SetAllInteractable(flag)
@@ -762,3 +764,5 @@ end
 function XUiPanelGraphicsSet:OnTogHighFrameRateClick()
 
 end
+
+return XUiPanelGraphicsSet

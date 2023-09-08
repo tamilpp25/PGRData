@@ -387,6 +387,13 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
     self:ClearSynData()
 end
 
+function XUiGridCommon:ShowIcon(icon)
+    if self.RImgIcon then
+        self.RImgIcon:SetRawImage(icon)
+        self.RImgIcon.gameObject:SetActiveEx(true)
+    end
+end
+
 function XUiGridCommon:ShowCount(show)
     if (self.TxtCount) then
         self.TxtCount.gameObject:SetActiveEx(show)

@@ -41,7 +41,27 @@ XLoadingManagerCreator = function()
                 return
             end
 
-            return XTool.WeightRandomSelect(loadingList), XSetConfigs.LoadingType.Default
+            local loadingListSatisfied = {}
+            local isInsert
+            for i = 1, #loadingList do
+                local config = loadingList[i]
+                local conditionList = config.ShowCondition
+                isInsert = true
+                if conditionList and conditionList[1] then
+                    for j = 1, #conditionList do
+                        local condition = conditionList[j]
+                        if not XConditionManager.CheckCondition(condition) then
+                            isInsert = false
+                            break
+                        end
+                    end
+                end
+                if isInsert then
+                    loadingListSatisfied[#loadingListSatisfied + 1] = config
+                end
+            end
+
+            return XTool.WeightRandomSelect(loadingListSatisfied), XSetConfigs.LoadingType.Default
         end
     end
 

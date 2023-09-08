@@ -1,4 +1,5 @@
 local XExFubenSimulationChallengeManager = require("XEntity/XFuben/XExFubenSimulationChallengeManager")
+local XTeam = require("XEntity/XTeam/XTeam")
 
 XFubenBossSingleManagerCreator = function()
     ---@class XFubenBossSingleManager:XExFubenSimulationChallengeManager
@@ -21,6 +22,7 @@ XFubenBossSingleManagerCreator = function()
     local TotalTrialSectionScoreInfo = {} 
     local TrialPreStageInfo = {}
     local FubenBossSingleData = {}
+    local ChooseableBossListDic = {}
     local SelfRankData = {}
     local BossList = {}
     local ActivityNo = 0
@@ -126,6 +128,10 @@ XFubenBossSingleManagerCreator = function()
         return BossSingleGradeCfg
     end
 
+    function XFubenBossSingleManager.CheckHasRankData(levelType)
+        return levelType ~= XFubenBossSingleConfigs.LevelType.Normal and levelType ~= XFubenBossSingleConfigs.LevelType.Medium
+    end
+
     function XFubenBossSingleManager.GetRankIsOpenByType(type)
         local timeId = BossSingleGradeCfg[type].RankTimeId
         
@@ -171,6 +177,53 @@ XFubenBossSingleManagerCreator = function()
         return BossStageCfg[bossStageId]
     end
 
+    function XFubenBossSingleManager.GetAllChooseBossList()
+        return ChooseableBossListDic[XFubenBossSingleConfigs.LevelType.High], ChooseableBossListDic[XFubenBossSingleConfigs.LevelType.Extreme]
+    end
+
+    function XFubenBossSingleManager.GetTeamByStageId(stageId)
+        local teamId = XFubenBossSingleManager.GetTeamIdByStageId(stageId)
+        ---@type XTeam
+        local resultTeam = XDataCenter.TeamManager.GetXTeam(teamId)
+
+        if not resultTeam then
+            local localTeam = XSaveTool.GetData(teamId .. XPlayer.Id)
+            ---@type XTeam
+            local serverTeam = XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdBossSingle"))
+
+            resultTeam = XTeam.New(teamId)
+            if not localTeam then
+                resultTeam:UpdateFromTeamData(serverTeam:SwithToOldTeamData())
+            else
+                local teamData = {
+                    FirstFightPos = localTeam.FirstFightPos,
+                    CaptainPos = localTeam.CaptainPos,
+                    TeamData = localTeam.EntitiyIds,
+                    TeamName = "",
+                }
+
+                resultTeam:UpdateFromTeamData(teamData)
+            end
+
+            resultTeam:UpdateSaveCallback(function(inTeam)
+                serverTeam:UpdateFromTeamData(inTeam:SwithToOldTeamData())
+            end)
+            XDataCenter.TeamManager.SetXTeam(resultTeam)
+        end
+
+        return resultTeam
+    end
+
+    function XFubenBossSingleManager.GetTeamIdByStageId(stageId)
+        return "Fuben_Boss_Single_" .. stageId
+    end
+
+    function XFubenBossSingleManager.SetChooseableBossList(bossListDic)
+        if XFubenBossSingleManager.CheckNeedChooseLevelType() then
+            ChooseableBossListDic = bossListDic
+        end 
+    end
+
     function XFubenBossSingleManager.RefreshBossSingleData(bossSingleData)
         if not bossSingleData then return end
 
@@ -189,6 +242,11 @@ XFubenBossSingleManagerCreator = function()
         end
 
         XFubenBossSingleManager.SetTrialStageInfo(bossSingleData.TrialStageInfoList)
+        
+        -- 周历处理 当FubenBossSingleData.LevelType == 0时刷新周历
+        if XFubenBossSingleManager.CheckNeedChooseLevelType() then
+            XEventManager.DispatchEvent(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE)
+        end
     end
 
     function XFubenBossSingleManager.GetCharacterChallengeCount(charId)
@@ -644,8 +702,11 @@ XFubenBossSingleManagerCreator = function()
     end
 
     function XFubenBossSingleManager.OpenBossSingleView()
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         local func = function()
-            XLuaUiManager.Open("UiFubenBossSingle", FubenBossSingleData, BossList)
+            XLuaUiManager.Open("UiFubenBossSingle", BossList)
         end
         XFubenBossSingleManager.RequestSelfRank(func)
     end
@@ -1005,12 +1066,60 @@ XFubenBossSingleManagerCreator = function()
     function XFubenBossSingleManager:ExOpenMainUi()
         if XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
             if XFubenBossSingleManager.CheckNeedChooseLevelType() then
-                XLuaUiManager.Open("UiFubenBossSingleChooseLevelType")
+                local highBossList, extremeBossList = XFubenBossSingleManager.GetAllChooseBossList()
+
+                if not highBossList or not extremeBossList then
+                    return
+                end
+                XLuaUiManager.Open("UiFubenBossSingleChooseLevelType", highBossList, extremeBossList)
                 return
             end
     
             XDataCenter.FubenBossSingleManager.OpenBossSingleView()
         end
+    end
+
+    -- 获取倒计时（周历专用）
+    function XFubenBossSingleManager:ExGetCalendarRemainingTime()
+        if not XTool.IsNumberValid(FubenBossSingleData.EndTime) then
+            return ""
+        end
+        local remainTime = FubenBossSingleData.EndTime - XTime.GetServerNowTimestamp()
+        if remainTime < 0 then
+            remainTime = 0
+        end
+        local timeText = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.NEW_CALENDAR)
+        return XUiHelper.GetText("UiNewActivityCalendarEndCountDown", timeText)
+    end
+
+    -- 获取解锁时间（周历专用）
+    function XFubenBossSingleManager:ExGetCalendarEndTime()
+        if not XTool.IsNumberValid(FubenBossSingleData.EndTime) then
+            return 0
+        end
+        return FubenBossSingleData.EndTime
+    end
+    
+    -- 是否在周历里显示
+    function XFubenBossSingleManager:ExCheckShowInCalendar()
+        if not XTool.IsNumberValid(FubenBossSingleData.EndTime) then
+            return false
+        end
+        if FubenBossSingleData.EndTime - XTime.GetServerNowTimestamp() <= 0 then
+            return false
+        end
+        if XTool.IsNumberValid(XFubenBossSingleManager.GetActivityNo()) then
+            return true
+        end
+        return false
+    end
+
+    -- 是否显示提示信息（周历专用）
+    function XFubenBossSingleManager:ExCheckWeekIsShowTips()
+        if XFubenBossSingleManager.CheckNeedChooseLevelType() then
+            return true
+        end
+        return false
     end
     
     ------------------副本入口扩展 end-------------------------
@@ -1021,6 +1130,7 @@ end
 
 XRpc.NotifyFubenBossSingleData = function(data)
     XDataCenter.FubenBossSingleManager.RefreshBossSingleData(data.FubenBossSingleData)
+    XDataCenter.FubenBossSingleManager.SetChooseableBossList(data.BossListDict)
     XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_SINGLE_BOSS_SYNC)
 end
 

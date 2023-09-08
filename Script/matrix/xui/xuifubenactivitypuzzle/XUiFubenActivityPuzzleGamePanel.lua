@@ -355,4 +355,9 @@ function XUiFubenActivityPuzzleGamePanel:ShowPuzzleCompleteEffect()
     self.PuzzleCompleteEffect.gameObject:SetActive(true)
 end
 
+function XUiFubenActivityPuzzleGamePanel:OnRelease()
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointVideoId)
+end
+
 return XUiFubenActivityPuzzleGamePanel

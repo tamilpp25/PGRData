@@ -21,9 +21,12 @@ function XUiGridTheatreGenius:Refresh(geniusId)
     local isOpen = self._Control:CheckStrengthenTreeCondition(self.GeniusId)
     self.PanelLock.gameObject:SetActiveEx(not isShow or not isOpen)
     -- 是否激活
+    local isActive = self._Control:CheckStrengthTreeUnlock(self.GeniusId)
     if self.PanelActive then
-        local isActive = self._Control:CheckStrengthTreeUnlock(self.GeniusId)
         self.PanelActive.gameObject:SetActiveEx(isActive)
+    end
+    if self.ImgBg then
+        self.ImgBg.gameObject:SetActiveEx(not isActive)
     end
     -- 刷新红点
     local isRedPoint = self._Control:CheckStrengthenTreeRedPoint(geniusId)

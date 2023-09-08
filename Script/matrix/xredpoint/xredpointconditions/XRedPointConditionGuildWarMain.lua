@@ -16,6 +16,7 @@ function XRedPointConditionGuildWarMain.Check()
     if XRedPointConditionGuildWarTaskRed.Check() then return true end
     if XRedPointConditionGuildWarSupply.Check() then return true end
     if XRedPointConditionGuildWarAssistant.Check() then return true end
+    if XDataCenter.GuildWarManager.IsShowRedPointBossReward() then return true end
     return false
 end
 

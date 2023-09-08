@@ -263,13 +263,15 @@ function XUiPanelReset:GetRecycleCoinCount()
         return self.RecycleCount
     end
     local furnitureIds, _ = self:GetFilterFurnitureIds()
-    local rewards = XDataCenter.FurnitureManager.GetRecycleRewards(furnitureIds)
+    
     local count = 0
-    for _, reward in pairs(rewards) do
-        if reward.TemplateId == XDataCenter.ItemManager.ItemId.FurnitureCoin then
-            count = count + reward.Count
-        end
+    local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
+    for _, furnitureId in pairs(furnitureIds) do
+        local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(furnitureId)
+        local rewardCount = rewards[coinId] and rewards[coinId].Count or 0
+        count = count + rewardCount
     end
+
     self.RecycleCount = count
     
     return count

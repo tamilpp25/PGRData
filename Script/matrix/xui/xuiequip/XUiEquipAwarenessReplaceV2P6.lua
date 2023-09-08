@@ -1,7 +1,7 @@
 local XUiGridSuitDetail = XClass(nil, "XUiGridSuitDetail")
 local XUiPanelSuitList = XClass(nil, "XUiPanelSuitList")
 
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local Dropdown = CS.UnityEngine.UI.Dropdown
 local CSInstantiate = CS.UnityEngine.Object.Instantiate
@@ -16,6 +16,7 @@ local NORMAL = CS.UiButtonState.Normal
 local XUiEquipAwarenessReplaceV2P6 = XLuaUiManager.Register(XLuaUi, "UiEquipAwarenessReplaceV2P6")
 
 function XUiEquipAwarenessReplaceV2P6:OnAwake()
+    self.CompareEffect = self.Transform:Find("SafeAreaContentPane/Right/Effect")
     self.SuitItem.gameObject:SetActiveEx(false)
     self.SuitList.gameObject:SetActiveEx(false)
     self.EquipDetail1.gameObject:SetActiveEx(false)
@@ -70,7 +71,14 @@ end
 function XUiEquipAwarenessReplaceV2P6:OnNotify(evt, ...)
     local args = { ... }
 
-    if evt == XEventId.EVENT_EQUIP_PUTON_NOTYFY or evt == XEventId.EVENT_EQUIPLIST_TAKEOFF_NOTYFY then
+    if evt == XEventId.EVENT_EQUIP_PUTON_NOTYFY then
+        self:UpdateView()
+
+        local grid = self.DynamicTable:GetGridByIndex(1)
+        local effect = grid.Transform:Find("Effect")
+        effect.gameObject:SetActive(false)
+        effect.gameObject:SetActive(true)
+    elseif evt == XEventId.EVENT_EQUIPLIST_TAKEOFF_NOTYFY then
         self:UpdateView()
     end
 end
@@ -173,7 +181,7 @@ function XUiEquipAwarenessReplaceV2P6:OnBtnPutOnClick(equipId)
 
     local wearingCharacterId = XDataCenter.EquipManager.GetEquipWearingCharacterId(equipId)
     if wearingCharacterId and wearingCharacterId > 0 then
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(wearingCharacterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(wearingCharacterId)
         local content = string.gsub(CSXTextManagerGetText("EquipAwarenessReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(
             CSXTextManagerGetText("TipTitle"),
@@ -243,6 +251,8 @@ function XUiEquipAwarenessReplaceV2P6:OnDynamicTableEvent(event, index, grid)
         local isSelect = self.SelectEquipId == equip.Id
         grid:Refresh(equip.Id)
         grid:SetSelected(isSelect)
+        grid.Transform:Find("Effect").gameObject:SetActiveEx(false)
+
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local grids = self.DynamicTable:GetGrids()
         for _, grid in pairs(grids) do
@@ -289,6 +299,9 @@ function XUiEquipAwarenessReplaceV2P6:UpdateOneEquipDetail(equipIndex, equipId, 
             if isShow then
                 uiObj.gameObject:SetActiveEx(true)
                 self:PlayAnimation("EquipDetail2Enable")
+                self.CompareEffect.gameObject:SetActive(false)
+                self.CompareEffect.gameObject:SetActive(true)
+
             else
                 self:PlayAnimation("EquipDetail2Disable", function()
                     uiObj.gameObject:SetActiveEx(false)
@@ -296,6 +309,8 @@ function XUiEquipAwarenessReplaceV2P6:UpdateOneEquipDetail(equipIndex, equipId, 
             end
         elseif isShow then
             self:PlayAnimation("EquipDetail2QieHuan")
+            self.CompareEffect.gameObject:SetActive(false)
+            self.CompareEffect.gameObject:SetActive(true)
         end
     end
 

@@ -11,7 +11,11 @@ function XFightUtil.ClearFight()
 end
 
 function XFightUtil.IsFighting()
-    return CS.XFight.Instance ~= nil or CS.StatusSyncFight.XFightClient.FightInstance ~= nil
+    return CS.XFight.Instance ~= nil or XFightUtil.IsDlcFighting()
+end
+
+function XFightUtil.IsDlcFighting()
+    return CS.StatusSyncFight.XFightClient.FightInstance ~= nil
 end
 
 function XFightUtil.IsDlcOnline()

@@ -36,7 +36,7 @@ function XViewModelMazeStory:GetDataSource()
         local stageId = stageConfig.StageId
         local robotId = stageConfig.RobotId
         local characterId = XRobotManager.GetCharacterId(robotId)
-        local name = XCharacterConfigs.GetCharacterName(characterId)
+        local name = XMVCA.XCharacter:GetCharacterName(characterId)
         local isPass = XDataCenter.MazeManager.IsStagePassed(stageId)
         local dataBegin = {
             Name = XUiHelper.ReadTextWithNewLine("MazeStoryStart", name),

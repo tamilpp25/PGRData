@@ -23,7 +23,7 @@ function XUiGuildWarStageRank:InitPanelAssets()
     local itemIds = {
         tonumber(actionId)
     }
-    self.PanelAsset = XUiHelper.NewPanelActivityAsset(itemIds, self.PanelAsset)
+    self.PanelAsset = XUiHelper.NewPanelActivityAssetSafe(itemIds, self.PanelAsset, self)
 end
 
 function XUiGuildWarStageRank:InitRankingList()

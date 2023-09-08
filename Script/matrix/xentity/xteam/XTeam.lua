@@ -38,6 +38,11 @@ end
 
 function XTeam:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     if isJoin then
+        if self:CheckHasSameCharacterId(entityId) then
+            local content = string.format("joinEntity:%s", entityId)
+            XLog.BuglyLog("XTeam", "UpdateEntityTeamPos JoinId:", entityId, "AllEntityIdInTeam", self.EntitiyIds)
+            return
+        end
         self.EntitiyIds[teamPos] = entityId or 0
     else
         for pos, id in ipairs(self.EntitiyIds) do
@@ -52,6 +57,11 @@ end
 
 -- teamData : 旧系统的队伍数据
 function XTeam:UpdateFromTeamData(teamData)
+    local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(teamData.TeamData)
+    if isSameEntityId then
+        teamData.TeamData[index] = 0
+    end
+
     self.FirstFightPos = teamData.FirstFightPos
     self.CaptainPos = teamData.CaptainPos
     for pos, characterId in ipairs(teamData.TeamData) do
@@ -62,6 +72,11 @@ function XTeam:UpdateFromTeamData(teamData)
 end
 
 function XTeam:UpdateEntityIds(value)
+    local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(value)
+    if isSameEntityId then
+        value[index] = 0
+    end
+
     self.EntitiyIds = value
     self:Save()
 end
@@ -124,7 +139,7 @@ function XTeam:GetCharacterType()
     else
         characterId = entityId
     end
-    return XCharacterConfigs.GetCharacterType(characterId)
+    return XMVCA.XCharacter:GetCharacterType(characterId)
 end
 
 function XTeam:SetCustomCharacterType(value)

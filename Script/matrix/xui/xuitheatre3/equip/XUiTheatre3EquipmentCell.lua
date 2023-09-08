@@ -18,8 +18,20 @@ function XUiTheatre3EquipmentCell:ShowEquip(id)
     self.ImgEquipmentBg2.gameObject:SetActiveEx(self._EquipConfig.UseType == 2)
     if self._EquipConfig.UseType == 1 then
         self.ImgEquipment1:SetRawImage(self._EquipConfig.Icon)
+        if self.ImgEquipment3 then
+            self.ImgEquipment3:SetRawImage(self._EquipConfig.Icon)
+        end
     else
         self.ImgEquipment2:SetRawImage(self._EquipConfig.Icon)
+        if self.ImgEquipment4 then
+            self.ImgEquipment4:SetRawImage(self._EquipConfig.Icon)
+        end
+    end
+    if self.ImgEquipmentBg3 then
+        self.ImgEquipmentBg3.gameObject:SetActiveEx(self._EquipConfig.UseType == 1)
+    end
+    if self.ImgEquipmentBg4 then
+        self.ImgEquipmentBg4.gameObject:SetActiveEx(self._EquipConfig.UseType == 2)
     end
 end
 

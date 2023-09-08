@@ -55,7 +55,7 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatreMainMassage:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool)
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self)
 end
 
 function XUiTheatreMainMassage:RemovePanelAsset()
@@ -84,6 +84,7 @@ function XUiTheatreMainMassage:InitFilter()
     end
     self._PanelFilter:InitData(handler(self, self._OnSelectTab), clickTag, nil, nil, XUiTheatreMassageGrid, checkInTeam)
     self._PanelFilter:ImportList(self:_GetCharacterList())
+    self._PanelFilter:RefreshList()
 end
 
 function XUiTheatreMainMassage:_GetCharacterList()
@@ -134,6 +135,7 @@ function XUiTheatreMainMassage:SwitchRoleState(entityId)
     self._RoleSelectStateDic[characterId] = not state
     
     self._PanelFilter:ImportList(self:_GetCharacterList())
+    self._PanelFilter:RefreshList()
     self._PanelFilter:DoSelectIndex(self._CurSelectIndex)
     self:RefreshModel()
     self:_RefreshRoleDetail()

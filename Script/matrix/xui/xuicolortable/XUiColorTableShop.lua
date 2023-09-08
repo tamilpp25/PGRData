@@ -144,7 +144,7 @@ function XUiColorTableShop:InitTimer()
 end
 
 function XUiColorTableShop:InitActivityAsset()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {XDataCenter.ItemManager.ItemId.ColorTableCoin},
         handler(self, self.UpdateAssets),

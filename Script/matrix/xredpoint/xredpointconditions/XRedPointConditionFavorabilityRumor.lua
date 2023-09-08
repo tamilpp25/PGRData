@@ -16,7 +16,7 @@ function XRedPointConditionFavorabilityRumor.Check(checkArgs)
     if characterId == nil then return false end
     local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FavorabilityFile)
     if not isOpen then return false end
-    return XDataCenter.FavorabilityManager.HasRumorsToBeUnlock(characterId)
+    return XMVCA.XFavorability:HasRumorsToBeUnlock(characterId)
 end
 
 return XRedPointConditionFavorabilityRumor

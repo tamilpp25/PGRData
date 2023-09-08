@@ -16,7 +16,7 @@ function XUiRiftPluginShopItem:Refresh(goodData)
     self.GoodData = goodData
 
     self:Show()
-    self.Plugin = XDataCenter.RiftManager.GetPlugin(goodData.PluginId)
+    self.Plugin = XDataCenter.RiftManager.GetShopGoodsPlugin(goodData)
     self.PluginGrid:Refresh(self.Plugin)
 
     self.TxtCostCount3.text = goodData.ConsumeCount
@@ -41,9 +41,10 @@ function XUiRiftPluginShopItem:OnClickBtnBuy()
         return
     end
 
-    XDataCenter.RiftManager.RequestBuyPlugin(self.GoodData.Id, function()
+    XDataCenter.RiftManager.RequestBuyPlugin(self.GoodData.Id, function(newPluginId, decomposeValue)
         self:Close()
         self.Base:RefreshBuy()
+        self.Base:OnShowPluginTip(newPluginId, decomposeValue)
     end)
 end
 

@@ -1,3 +1,4 @@
+---@class XUiTaikoMasterRankGrid
 local XUiTaikoMasterRankGrid = XClass(nil, "XUiTaikoMasterRankGrid")
 
 function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
@@ -10,6 +11,7 @@ function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
     XUiHelper.RegisterClickEvent(self, self.BtnDetail, self.OnBtnDetailClicked)
 end
 
+---@param rankInfo XTaikoMasterRankPlayerInfo
 function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
     self._RankInfo = rankInfo
     -- 名次

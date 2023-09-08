@@ -15,7 +15,7 @@ function XUiLotto:OnStart(groupData, closeCb, backGround)
     self.IsCanDraw = true
     local drawData = self.LottoGroupData:GetDrawData()
     --self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.HongKa, drawData:GetConsumeId())
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemIds = {
         XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.HongKa, drawData:GetConsumeId()
     }

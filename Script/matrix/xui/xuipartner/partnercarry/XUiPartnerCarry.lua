@@ -84,7 +84,7 @@ function XUiPartnerCarry:InitDynamicTable()
 end
 
 function XUiPartnerCarry:SetupDynamicTable()
-    local curPartnerType = XCharacterConfigs.GetCharacterType(self.CurCarrierId)
+    local curPartnerType = XMVCA.XCharacter:GetCharacterType(self.CurCarrierId)
 
     self.PageDatas = XDataCenter.PartnerManager.GetPartnerOverviewDataList(nil, curPartnerType, false)
     XPartnerSort.CarrySortFunction(self.PageDatas, self.CurCarrierId)
@@ -104,8 +104,8 @@ function XUiPartnerCarry:UpdatePanel()
     self:SetupDynamicTable()
     self:PlayAnimation("LeftQieHuan")
     
-    local charName = XCharacterConfigs.GetCharacterLogName(self.CurCarrierId)
-    local charElement = XCharacterConfigs.GetCharacterElement(self.CurCarrierId)
+    local charName = XMVCA.XCharacter:GetCharacterLogName(self.CurCarrierId)
+    local charElement = XMVCA.XCharacter:GetCharacterElement(self.CurCarrierId)
     local elementConfig = XCharacterConfigs.GetCharElement(charElement)
 
     self.CountText.text = #self.PageDatas
@@ -217,13 +217,13 @@ function XUiPartnerCarry:OnBtnMainUiClick()
 end
 
 function XUiPartnerCarry:OnBtnStrengthenClick()
-    XLuaUiManager.Open("UiPartnerMain", XPartnerConfigs.MainUiState.Property, self.CurPartner, true, true)
+    XDataCenter.PartnerManager.OpenUiPartnerMain(false, XPartnerConfigs.MainUiState.Property, self.CurPartner, true, true)
 end
 
 function XUiPartnerCarry:OnBtnTakeOnClick()
     local IsCarring = self.Data:GetIsCarry() and self.Data:GetCharacterId() ~= self.CurCarrierId
     if IsCarring then
-        local CarrierName = XCharacterConfigs.GetCharacterLogName(self.Data:GetCharacterId())
+        local CarrierName = XMVCA.XCharacter:GetCharacterLogName(self.Data:GetCharacterId())
         XDataCenter.PartnerManager.TipDialog(nil,function ()
                 self:DoTakeOn()
             end, "PartnerIsCarringHint", CarrierName)

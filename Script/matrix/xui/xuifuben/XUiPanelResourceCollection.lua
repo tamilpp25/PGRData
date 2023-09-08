@@ -185,7 +185,9 @@ function XUiPanelResourceCollection:OnClickChapterGrid(ChapterViewModel)
         ChapterViewModel:GetOpenDayString()))
         return
     end
-
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.RESOURCE_ENTRY_TYPE, ChapterViewModel:GetId()) then
+        return
+    end
     ChapterViewModel:OpenUi()
 end
 

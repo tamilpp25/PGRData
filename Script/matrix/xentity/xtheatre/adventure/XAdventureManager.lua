@@ -325,16 +325,20 @@ end
 function XAdventureManager:GetRecruitTotalRoles()
     local adventureChapter = self:GetCurrentChapter()
     local currentRoles = self:GetCurrentRoles()
-    currentRoles = XTool.Clone(currentRoles)
-
     local recruitGridCount = XTheatreConfigs.GetChapterRecruitGrid(adventureChapter:GetId())
     local lastGridCount = recruitGridCount - #currentRoles
+    local result = {}
 
+    if not XTool.IsTableEmpty(currentRoles) then
+        for _, grid in ipairs(currentRoles) do
+            table.insert(result, grid)
+        end
+    end
     for i = 1, lastGridCount do
-        table.insert(currentRoles, {})
+        table.insert(result, {})
     end
 
-    return currentRoles
+    return result
 end
 
 function XAdventureManager:AddRoleById(roleId, configId)

@@ -7,6 +7,9 @@ function XCommonCharacterFiltModel:OnInit()
     self.SelectTagData = {} -- 记录缓存用
     self.SelectListData = {}
     self.SortTagData = {}
+    self.LastSortResList = nil
+    self.NotSortTrigger = nil
+    self.FilterGoProxyDic = {} -- 缓存筛选器GameObject和代理的字典
 end
 
 function XCommonCharacterFiltModel:ClearPrivate()
@@ -18,6 +21,9 @@ function XCommonCharacterFiltModel:ResetAll()
     self.SelectTagData = {} -- 记录缓存用
     self.SelectListData = {}
     self.SortTagData = {}
+    self.LastSortResList = nil
+    self.NotSortTrigger = nil
+    self.FilterGoProxyDic = {} 
 end
 
 ----------public start----------

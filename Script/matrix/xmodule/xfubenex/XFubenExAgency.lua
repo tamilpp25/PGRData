@@ -1,3 +1,6 @@
+local IsWindowsEditor = XMain.IsWindowsEditor
+local XFubenBaseAgency = require("XModule/XBase/XFubenBaseAgency")
+local XFubenActivityAgency = require("XModule/XBase/XFubenActivityAgency")
 ---@class XFubenExAgency : XAgency
 ---@field private _Model XFubenExModel
 local XFubenExAgency = XClass(XAgency, "XFubenExAgency")
@@ -29,11 +32,23 @@ end
 ----------public start----------
 ---@param agency XFubenBaseAgency
 function XFubenExAgency:RegisterChapterAgency(agency)
+    if IsWindowsEditor then
+        if not CheckClassSuper(agency, XFubenBaseAgency) then
+            XLog.Error(string.format("%s Agency 需要继承 XFubenBaseAgency", agency:GetId()))
+            return
+        end
+    end
     table.insert(self._ChapterAgencyList, agency)
 end
 
 ---@param agency XFubenActivityAgency
 function XFubenExAgency:RegisterActivityAgency(agency)
+    if IsWindowsEditor then
+        if not CheckClassSuper(agency, XFubenActivityAgency) then
+            XLog.Error(string.format("%s Agency 需要继承 XFubenActivityAgency", agency:GetId()))
+            return
+        end
+    end
     table.insert(self._ActivityAgencyList, agency)
 end
 

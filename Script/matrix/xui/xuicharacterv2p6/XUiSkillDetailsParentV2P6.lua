@@ -6,6 +6,16 @@ function XUiSkillDetailsParentV2P6:OnAwake()
     self.CharacterAgency = ag
 
     self.SkillGridIndex = 1
+
+    self:InitEffect()
+end
+
+function XUiSkillDetailsParentV2P6:InitEffect()
+    local root = self.UiModelGo
+    self.EffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
+    self.EffectHuanren = root:FindTransform("ImgEffectHuanren")
+    self.EffectHuanren.gameObject:SetActiveEx(false)
+    self.EffectHuanren1.gameObject:SetActiveEx(false)
 end
 
 function XUiSkillDetailsParentV2P6:SetSkillPos(pos)
@@ -51,6 +61,10 @@ function XUiSkillDetailsParentV2P6:OnStart(characterId, type, pos, gridIndex)
         self:OpenChildUi("UiSkillDetailsForEnhanceV2P6", self.CharacterId)
         self:SetSkillPos(XCharacterConfigs.MAX_SHOW_SKILL_POS + 1)
     end
+end
+
+function XUiSkillDetailsParentV2P6:OnDisable()
+    XDataCenter.FavorabilityManager.StopCv()
 end
 
 return XUiSkillDetailsParentV2P6

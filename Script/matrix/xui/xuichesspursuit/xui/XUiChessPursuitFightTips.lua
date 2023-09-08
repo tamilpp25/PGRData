@@ -154,7 +154,7 @@ function XUiChessPursuitFightTips:UpdateInfo()
             gridBossAutoFight.gameObject:SetActive(true)
             local iconpath = self:GetHeadIconUrl(characterId)
             self["RImgHead" .. i]:SetRawImage(iconpath)
-            self["TxtNickName" .. i].text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+            self["TxtNickName" .. i].text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         else
             gridBossAutoFight.gameObject:SetActive(false)
         end
@@ -183,7 +183,7 @@ function XUiChessPursuitFightTips:GetHeadIconUrl(characterId)
         characterId = XRobotManager.GetCharacterId(characterId)
     end
 
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     local headIcon = XDataCenter.FashionManager.GetFashionRoundnessNotItemHeadIcon(fashionId)
 
     return headIcon

@@ -18,6 +18,7 @@ function XUiTheatre3Outpost:OnStart(slot)
 end
 
 function XUiTheatre3Outpost:OnEnable()
+    self:PlayAnimationWithMask("AnimStartAuto")
     self:RefreshUi()
 end
 
@@ -63,9 +64,9 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatre3Outpost:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(
             {XEnumConst.THEATRE3.Theatre3InnerCoin,},
-            self.PanelSpecialTool,
+            self.PanelSpecialTool, self,
             nil,
             function()
                 XLuaUiManager.Open("UiTheatre3Tips", XEnumConst.THEATRE3.Theatre3InnerCoin)
@@ -103,6 +104,7 @@ end
 --region Ui - PanelRole
 function XUiTheatre3Outpost:RefreshPanelRole(roleIcon, roleName, roleContent)
     if not string.IsNilOrEmpty(roleIcon) then
+        self.RImgRole.gameObject:SetActiveEx(true)
         self.RImgRole:SetRawImage(roleIcon)
     else
         self.RImgRole.gameObject:SetActiveEx(false)
@@ -110,6 +112,7 @@ function XUiTheatre3Outpost:RefreshPanelRole(roleIcon, roleName, roleContent)
     if not string.IsNilOrEmpty(roleName) then
         self.TxtRoleName.text = roleName
         self.TxtRoleContent.text = roleContent
+        self.PanelRole.gameObject:SetActiveEx(true)
     else
         self.PanelRole.gameObject:SetActiveEx(false)
     end
@@ -158,7 +161,7 @@ end
 --region Ui - PanelReward
 function XUiTheatre3Outpost:InitPanelReward()
     self.PanelReward.gameObject:SetActiveEx(true)
-    ---@type XPanelTheatre3EventDialogue
+    ---@type XPanelTheatre3EventReward
     self._PanelReward = XPanelTheatre3EventReward.New(self.PanelReward, self)
     self._PanelReward:Close()
 end
@@ -177,7 +180,6 @@ end
 
 --region Ui - PanelShop
 function XUiTheatre3Outpost:InitPanelShop()
-    self.PanelShop.gameObject:SetActiveEx(true)
     ---@type XPanelTheatre3EventShop
     self._PanelShop = XPanelTheatre3EventShop.New(self.PanelShop, self)
     self._PanelShop:Close()
@@ -194,24 +196,37 @@ function XUiTheatre3Outpost:RefreshPanelShop()
 
     self.PanelReward.gameObject:SetActiveEx(false)
     self:RefreshBg(self._ShopCfg.BgAsset)
-    self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.RoleContent)
     if self._CurSlot:CheckIsShopEndBuy() then
+        self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.EndRoleContent)
         self:_RefreshEndBuy()
     else
+        self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.RoleContent)
         self:_RefreshBuy()
     end
 end
 
 function XUiTheatre3Outpost:_RefreshBuy()
     self:RefreshPanelTitle()
+    self.PanelShop.gameObject:SetActiveEx(true)
     self._PanelShop:Open()
     self._PanelShop:Refresh(self._ShopCfg, self._CurSlot)
 end
 
 function XUiTheatre3Outpost:_RefreshEndBuy()
-    self:RefreshPanelTitle(self._ShopCfg.TitleContent, self._ShopCfg.Desc)
-    self._PanelDialogue:Open()
-    self._PanelDialogue:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText)
+    self:RefreshPanelTitle(self._ShopCfg.TitleContent, self._ShopCfg.EndTitleDesc)
+    if XTool.IsNumberValid(self._ShopCfg.RewardBoxId) then
+        local type = self._ShopCfg.RewardBoxType
+        if type == XEnumConst.THEATRE3.NodeRewardType.ItemBox then
+            type = XEnumConst.THEATRE3.EventStepItemType.ItemBox
+        elseif type == XEnumConst.THEATRE3.NodeRewardType.EquipBox then
+            type = XEnumConst.THEATRE3.EventStepItemType.EquipBox
+        end 
+        self._PanelReward:Open()
+        self._PanelReward:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText, type, self._ShopCfg.RewardBoxId)
+    else
+        self._PanelDialogue:Open()
+        self._PanelDialogue:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText)
+    end
 end
 --endregion
 

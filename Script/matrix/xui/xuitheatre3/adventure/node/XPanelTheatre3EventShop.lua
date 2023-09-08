@@ -42,7 +42,7 @@ function XPanelTheatre3EventShop:_RefreshTitle()
         self.TxtTitle.gameObject:SetActiveEx(false)
     end
     if not string.IsNilOrEmpty(self._ShopCfg.Desc) then
-        self.TxtContent.text = self._ShopCfg.Desc
+        XUiHelper.SetText2LineBreak(self.TxtContent, self._ShopCfg.Desc)
     else
         self.TxtContent.gameObject:SetActiveEx(false)
     end

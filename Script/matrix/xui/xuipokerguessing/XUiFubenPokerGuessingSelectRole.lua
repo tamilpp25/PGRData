@@ -4,11 +4,11 @@ function XUiGridPokerGuessingRole:Ctor(ui)
     XTool.InitUiObjectByUi(self, ui)
 end
 
-function XUiGridPokerGuessingRole:Refresh(data, useId)
+function XUiGridPokerGuessingRole:Refresh(data, useId, selectId)
     self.ImgIcon:SetRawImage(data.RoundnessNotItemHeadIcon)
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(data.CharacterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(data.CharacterId)
     self.ImgUse.gameObject:SetActiveEx(data.Id == useId)
-    self:SetSelect(false)
+    self:SetSelect(data.Id == selectId)
 end
 
 function XUiGridPokerGuessingRole:SetSelect(select)
@@ -60,7 +60,7 @@ end
 
 function XUiFubenPokerGuessingSelectRole:OnDynamicTableEvent(evt, index, grid)
     if evt == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        grid:Refresh(self.RoleList[index], self.UsedId)
+        grid:Refresh(self.RoleList[index], self.UsedId, self.SelectId)
     elseif evt == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self:OnSelect(index, grid)
     elseif evt == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RELOAD_COMPLETED then

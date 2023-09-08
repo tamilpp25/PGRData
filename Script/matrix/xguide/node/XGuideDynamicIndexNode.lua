@@ -13,7 +13,7 @@ function XGuideDynamicIndexNode:InitNodeData()
     local fields = self.Node.Fields.Fields
 
     for _, v in pairs(fields) do
-        if v.FieldName == "SizeDelta" then
+        if v.FieldName == "SizeDelta" or v.FieldName == "Offset" then
             self.Fields[v.FieldName] = v
         else
             self.Fields[v.FieldName] = v.Value
@@ -41,10 +41,17 @@ function XGuideDynamicIndexNode:OnAwake()
     self.PassEvent = self.Fields["PassEvent"]
     local sizeDelta = self.Fields["SizeDelta"]
     self.SizeDelta = CS.UnityEngine.Vector2(sizeDelta.X, sizeDelta.Y)
+    local offset = self.Fields["Offset"]
+    if not offset then
+        self.Offset = CS.UnityEngine.Vector2.zero
+    else
+        self.Offset = CS.UnityEngine.Vector2(offset.X, offset.Y)
+    end
+    self.PassAll = self.Fields["PassAll"]
 end
 
 function XGuideDynamicIndexNode:OnEnter()
-    self.AgentProxy:IndexDynamicTable(self.UiName, self.DynamicName, self.IndexKey, self.IndexValue, self.FocusTransform, self.PassEvent, self.SizeDelta)
+    self.AgentProxy:IndexDynamicTable(self.UiName, self.DynamicName, self.IndexKey, self.IndexValue, self.FocusTransform, self.PassEvent, self.SizeDelta, self.Offset, self.PassAll)
 end
 
 function XGuideDynamicIndexNode:OnGetEvents()
@@ -74,7 +81,7 @@ function XGuideCurveDynamicIndexNode:InitNodeData()
     local fields = self.Node.Fields.Fields
 
     for _, v in pairs(fields) do
-        if v.FieldName == "SizeDelta" then
+        if v.FieldName == "SizeDelta" or v.FieldName == "Offset" then
             self.Fields[v.FieldName] = v
         else
             self.Fields[v.FieldName] = v.Value
@@ -106,7 +113,14 @@ function XGuideCurveDynamicIndexNode:OnAwake()
     else
         self.SizeDelta = CS.UnityEngine.Vector2(sizeDelta.X, sizeDelta.Y)
     end
-    
+
+    local offset = self.Fields["Offset"]
+    if not offset then
+        self.Offset = CS.UnityEngine.Vector2.zero
+    else
+        self.Offset = CS.UnityEngine.Vector2(offset.X, offset.Y)
+    end
+    self.PassAll = self.Fields["PassAll"]
 end
 
 function XGuideCurveDynamicIndexNode:OnEnter()

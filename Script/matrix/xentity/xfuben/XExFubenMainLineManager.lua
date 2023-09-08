@@ -9,15 +9,13 @@ function XExFubenMainLineManager:ExOpenChapterUi(viewModel, difficulty)
     local chapterMainId = extralData.MainId
     local chapterConfig = XDataCenter.FubenMainLineManager.GetChapterCfgByChapterMain(chapterMainId, difficulty)
     if not viewModel:GetIsLocked() then
-        XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.MainChapter, chapterMainId, function()
-            if chapterMainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
-                XDataCenter.TRPGManager.PlayStartStory()
-            elseif chapterMainId == XDataCenter.FubenMainLineManager.MainLine3DId then
-                XLuaUiManager.Open("UiFubenMainLine3D")
-            else
-                XLuaUiManager.Open("UiFubenMainLineChapter", chapterConfig)
-            end
-        end)
+        if chapterMainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
+            XDataCenter.TRPGManager.PlayStartStory()
+        elseif chapterMainId == XDataCenter.FubenMainLineManager.MainLine3DId then
+            XLuaUiManager.Open("UiFubenMainLine3D")
+        else
+            XLuaUiManager.Open("UiFubenMainLineChapter", chapterConfig)
+        end
         -- self:ExSetCurrentGroupIndexAndChapterIndex(extralData.GroupId, extralData.Index)
     elseif viewModel:CheckHasTimeLimitTag() then
         local ret, desc = XDataCenter.FubenMainLineManager.CheckActivityCondition(viewModel:GetId())

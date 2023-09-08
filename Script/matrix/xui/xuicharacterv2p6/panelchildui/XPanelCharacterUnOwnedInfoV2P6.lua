@@ -2,10 +2,7 @@ local XPanelCharacterUnOwnedInfoV2P6 = XClass(XUiNode, "XPanelCharacterUnOwnedIn
 local XUiCharacterPanelRoleSkillV2P6 = require("XUi/XUiCharacterV2P6/Grid/XUiCharacterPanelRoleSkillV2P6")
 
 function XPanelCharacterUnOwnedInfoV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
+    self.IsFoldState = false
     self.RoleSkillPanel = XUiCharacterPanelRoleSkillV2P6.New(self.PanelRoleSkill, self)
 
     self:InitButton()
@@ -16,12 +13,12 @@ function XPanelCharacterUnOwnedInfoV2P6:RefreshUiShow()
     self.CharacterId = characterId
     
     -- 机体名
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
     -- 职业
-    local career = self.CharacterAgency:GetCharacterCareer(characterId)
+    local career = XMVCA.XCharacter:GetCharacterCareer(characterId)
     local careerIcon = XCharacterConfigs.GetNpcTypeIcon(career)
     self.BtnType:SetRawImage(careerIcon)
 
@@ -29,7 +26,7 @@ function XPanelCharacterUnOwnedInfoV2P6:RefreshUiShow()
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
 
     -- 品质
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(characterId)))
+    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(characterId)))
 
     -- 元素
     local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
@@ -46,9 +43,9 @@ function XPanelCharacterUnOwnedInfoV2P6:RefreshUiShow()
     end
 
     -- 碎片   
-    local bornQuality = XCharacterConfigs.GetCharMinQuality(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
-    local curFragment = self.CharacterAgency:GetCharUnlockFragment(characterId)
+    local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+    local curFragment = XMVCA.XCharacter:GetCharUnlockFragment(characterId)
     local needFragment = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
     self.TxtOwnFragmentNumber.text = curFragment
     self.TxtNeedFragmentNumber.text = "/"..needFragment
@@ -57,11 +54,11 @@ function XPanelCharacterUnOwnedInfoV2P6:RefreshUiShow()
     self.BtnUnlock.gameObject:SetActiveEx(isEnoughtFrament)
     self.BtnGet.gameObject:SetActiveEx(not isEnoughtFrament)
 
-    local fragmentItemId = XCharacterConfigs.GetCharacterTemplate(characterId).ItemId
+    local fragmentItemId = XMVCA.XCharacter:GetCharacterTemplate(characterId).ItemId
     local fragmentIcon = XDataCenter.ItemManager.GetItemIcon(fragmentItemId)
     self.Icon:SetRawImage(fragmentIcon)
     -- 描述
-    self.TxtFiles.text = XCharacterConfigs.GetCharacterIntro(characterId)
+    self.TxtFiles.text = XMVCA.XCharacter:GetCharacterIntro(characterId)
 
     -- 技能预览
     self.RoleSkillPanel:Refresh(characterId)
@@ -75,6 +72,13 @@ function XPanelCharacterUnOwnedInfoV2P6:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnSkillUnFold, self.OnBtnSkillUnFoldClick)
     XUiHelper.RegisterClickEvent(self, self.BtnGet, self.OnBtnGetClick)
     XUiHelper.RegisterClickEvent(self, self.BtnUnlock, self.OnBtnUnlockClick)
+
+    self.XGoInputHandler:AddDragUpListener(function ()
+        self:OnDragUp()
+    end)
+    self.XGoInputHandler:AddDragDownListener(function ()
+        self:OnDragDown()
+    end)
 end
 
 function XPanelCharacterUnOwnedInfoV2P6:OnBtnUniframeTipClick()
@@ -89,25 +93,49 @@ function XPanelCharacterUnOwnedInfoV2P6:OnBtnElementDetailClick()
     XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterId)
 end
 
+-- 描述折叠
 function XPanelCharacterUnOwnedInfoV2P6:OnBtnSkillFoldClick()
+    if self.RoleSkillPanel:IsNodeShow() then
+        return
+    end
+    
+    self.Parent:PlayAnimation("PanelRoleSkillEnable")
     self.BtnSkillFold.gameObject:SetActiveEx(false)
     self.PanelUnownedInfo.gameObject:SetActiveEx(false)
-    self.PanelRoleSkill.gameObject:SetActiveEx(true)
+    self.RoleSkillPanel:Open()
+    local characterId = self.Parent.CurCharacter.Id
+    self.RoleSkillPanel:Refresh(characterId)
 end
 
+-- 描述展开
 function XPanelCharacterUnOwnedInfoV2P6:OnBtnSkillUnFoldClick()
+    if not self.RoleSkillPanel:IsNodeShow() then
+        return
+    end
+
+    self.Parent:PlayAnimation("PanelUnOwnedEnable")
     self.BtnSkillFold.gameObject:SetActiveEx(true)
     self.PanelUnownedInfo.gameObject:SetActiveEx(true)
-    self.PanelRoleSkill.gameObject:SetActiveEx(false)
+    self.RoleSkillPanel:Close()
 end
 
 function XPanelCharacterUnOwnedInfoV2P6:OnBtnUnlockClick()
     local characterId = self.CharacterId
+    if not XMVCA.XCharacter:CheckIsFragment(characterId) then
+        return
+    end
+
     XLuaUiManager.Open("UiUnlockShow", characterId, function()
-        local title = CSXTextManagerGetText("CharacterUnlockNewCharacter")
-        local content = XCharacterConfigs.GetCharacterFullNameStr(characterId)
-        XUiManager.PopupLeftTip(title, content)
-        CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiCharacter_UnlockEnd)
+        if not XMVCA.XCharacter:CheckIsFragment(characterId) then
+            return
+        end
+        
+        XMVCA.XCharacter:ExchangeCharacter(characterId, function()
+            local title = CSXTextManagerGetText("CharacterUnlockNewCharacter")
+            local content = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
+            XUiManager.PopupLeftTip(title, content)
+            CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiCharacter_UnlockEnd)
+        end)
     end)
 end
 
@@ -117,8 +145,16 @@ function XPanelCharacterUnOwnedInfoV2P6:OnBtnGetClick()
         return
     end
 
-    local useItemId = XCharacterConfigs.GetCharacterTemplate(self.CharacterId).ItemId
+    local useItemId = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId).ItemId
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(useItemId))
+end
+
+function XPanelCharacterUnOwnedInfoV2P6:OnDragUp()
+    self:OnBtnSkillFoldClick()
+end
+
+function XPanelCharacterUnOwnedInfoV2P6:OnDragDown()
+    self:OnBtnSkillUnFoldClick()
 end
 
 return XPanelCharacterUnOwnedInfoV2P6

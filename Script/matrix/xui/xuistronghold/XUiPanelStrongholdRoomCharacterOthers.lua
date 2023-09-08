@@ -285,7 +285,7 @@ function XUiPanelStrongholdRoomCharacterOthers:OnClickBtnJoinTeam()
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList, playerId)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, setTeamFunc)
         else
@@ -418,7 +418,7 @@ function XUiPanelStrongholdRoomCharacterOthers:GetCharacterType(characterId)
     if not IsNumberValid(characterId) then return end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 return XUiPanelStrongholdRoomCharacterOthers

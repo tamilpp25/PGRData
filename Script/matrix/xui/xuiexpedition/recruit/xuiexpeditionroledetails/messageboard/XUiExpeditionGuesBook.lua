@@ -46,8 +46,8 @@ function XUiExpeditionGuesBook:RefreshRoleInfo()
     local jobType = XRobotManager.GetRobotJobType(self.ECharaCfg.RobotId)
     self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId))
     self.RImgIconCharacter:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(self.CharacterId)
-    self.TxtNameOther.text = XCharacterConfigs.GetCharacterTradeName(self.CharacterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(self.CharacterId)
+    self.TxtNameOther.text = XMVCA.XCharacter:GetCharacterTradeName(self.CharacterId)
     local elementList = XExpeditionConfig.GetCharacterElementByBaseId(self.ECharaCfg.BaseId)
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]

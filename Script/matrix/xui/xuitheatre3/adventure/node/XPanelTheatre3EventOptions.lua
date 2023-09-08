@@ -26,7 +26,7 @@ function XPanelTheatre3EventOptions:Refresh(eventCfg, slot)
     ---@type XTableTheatre3Event
     self._EventCfg = eventCfg
     self._NodeSlot = slot
-    self.TxtDesc.text = self._EventCfg.EventDesc
+    XUiHelper.SetText2LineBreak(self.TxtDesc, self._EventCfg.EventDesc)
     self.BtnOK:SetNameByGroup(0, self._EventCfg.ConfirmContent)
     self:_RefreshOption()
     self:_RefreshOptionSelect()

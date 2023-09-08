@@ -13,6 +13,7 @@ function XUiRiftSettlePlugin:InitButton()
     self:RegisterClickEvent(self.BtnQuitLuck, self.OnBtnQuitClick)
     self:RegisterClickEvent(self.BtnNext, self.OnBtnNextClick)
     self:RegisterClickEvent(self.BtnSettle, self.OnBtnSettleClick)
+    self:RegisterClickEvent(self.BtnContinue, self.OnBtnContinueClick)
 end
 
 function XUiRiftSettlePlugin:OnStart(settleData, nextStageGroup, nextStageIndex)
@@ -20,23 +21,21 @@ function XUiRiftSettlePlugin:OnStart(settleData, nextStageGroup, nextStageIndex)
     self.RiftSettleResult = settleData.RiftSettleResult
     self.NextStageGroup = nextStageGroup
     self.NextStageIndex = nextStageIndex
+
+    self.DataList = self.SettleData.RiftSettleResult.PluginDropRecords
+    table.sort(self.DataList, self.DropPluginSortFunc)
 end
 
 function XUiRiftSettlePlugin:OnEnable()
     -- 判断要不要进行下一关，显示对应按钮
-    local xStageGroup = XDataCenter.RiftManager.GetLastFightXStage():GetParent()
-    if xStageGroup:GetType() == XRiftConfig.StageGroupType.Luck then
-        self.BtnQuit.gameObject:SetActiveEx(false)
-        self.BtnQuitLuck.gameObject:SetActiveEx(true)
-        self.BtnNext.gameObject:SetActiveEx(false)
-        self.BtnSettle.gameObject:SetActiveEx(false)
-    elseif not self.NextStageGroup then
+    if not self.NextStageGroup then
         self.BtnQuit.gameObject:SetActiveEx(false)
         self.BtnNext.gameObject:SetActiveEx(false)
         self.BtnSettle.gameObject:SetActiveEx(true)
     end
     -- 刷新插件列表
     self:RefreshDynamicTable()
+    self:SetMouseVisible()
 end
 
 -- 进行下一关战斗
@@ -66,11 +65,11 @@ end
 function XUiRiftSettlePlugin:InitDynamicTable()
     self.GridRiftPluginTips.gameObject:SetActiveEx(false)
     self.DynamicTable = XDynamicTableNormal.New(self.PanelPluginList)
-    self.DynamicTable:SetProxy(XUiGridRiftPluginDrop)
+    self.DynamicTable:SetProxy(XUiGridRiftPluginDrop,self)
     self.DynamicTable:SetDelegate(self)
 end
 
-local DropPluginSortFunc = function(dropDataA, dropDataB)
+function XUiRiftSettlePlugin.DropPluginSortFunc(dropDataA, dropDataB)
     local isDecomposeA = dropDataA.DecomposeCount > 0
     local isDecomposeB = dropDataB.DecomposeCount > 0
     if isDecomposeA ~= isDecomposeB then
@@ -87,9 +86,7 @@ local DropPluginSortFunc = function(dropDataA, dropDataB)
 end
 
 function XUiRiftSettlePlugin:RefreshDynamicTable()
-    self.DataList = self.RiftSettleResult.PluginDropRecords
-    table.sort(self.DataList, DropPluginSortFunc)
-
+    self._PluginShowMap = {}
     self.DynamicTable:SetDataSource(self.DataList)
     self.DynamicTable:ReloadDataSync(1)
 end
@@ -98,11 +95,28 @@ function XUiRiftSettlePlugin:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local dropData = self.DataList[index]
         grid:Refresh(dropData)
+        grid:RefreshBg()
+        table.insert(self._PluginShowMap, grid)
     end
+end
+
+function XUiRiftSettlePlugin:OnBtnContinueClick()
+    for _, v in pairs(self._PluginShowMap) do
+        v:DoOverturn()
+    end
+    self.BtnContinue.gameObject:SetActiveEx(false)
 end
 
 function XUiRiftSettlePlugin:OnDestroy()
     CS.XFight.ExitForClient(true)
+end
+
+function XUiRiftSettlePlugin:SetMouseVisible()
+    -- 这里只有PC端开启了键鼠以后才能获取到设备
+    if CS.XFight.Instance and CS.XFight.Instance.InputSystem then
+        local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
+        inputKeyboard.HideMouseEvenByDrag = false
+    end
 end
 
 return XUiRiftSettlePlugin

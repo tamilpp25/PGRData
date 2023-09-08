@@ -210,3 +210,10 @@ function XRedPointManager.CheckConditions(conditions, args)
     end
     return false
 end
+
+function XRedPointManager.CheckEventExist(eventId)
+    if RedPointEventDic == nil then
+        return false
+    end
+    return RedPointEventDic[eventId] ~= nil
+end

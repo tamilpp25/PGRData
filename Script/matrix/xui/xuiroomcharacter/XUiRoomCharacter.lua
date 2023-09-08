@@ -92,8 +92,8 @@ function XUiRoomCharacter:OnAwake()
                 return AQuality > BQuality
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(ACharId)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(BCharID)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(ACharId)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(BCharID)
             if priorityA ~= priorityB then
                 return priorityA < priorityB
             end
@@ -307,7 +307,7 @@ function XUiRoomCharacter:RefreshCharacterTypeTips()
         self.Proxy.RefreshCharacterTypeTips(self)
     else
         local limitBuffId = self.LimitBuffId
-        local characterType = self.CurCharacter and XCharacterConfigs.GetCharacterType(self.CurCharacter.Id)
+        local characterType = self.CurCharacter and XMVCA.XCharacter:GetCharacterType(self.CurCharacter.Id)
         local characterLimitType = self.CharacterLimitType
         local text = XFubenConfigs.GetStageCharacterLimitTextSelectCharacter(characterLimitType, characterType, limitBuffId)
         self.TxtRequireCharacter.text = text
@@ -473,7 +473,7 @@ function XUiRoomCharacter:InitBtnTabIsClick()
     local characterType
     for _, charId in ipairs(self.TeamCharIdMap) do
         if charId > 0 then
-            characterType = XCharacterConfigs.GetCharacterType(charId)
+            characterType = XMVCA.XCharacter:GetCharacterType(charId)
             if characterType == XCharacterConfigs.CharacterType.Normal and not isClickNormal then
                 isClickNormal = true
             elseif characterType == XCharacterConfigs.CharacterType.Isomer and not isClickOmer then
@@ -574,7 +574,7 @@ function XUiRoomCharacter:UpdateCharacterList(index)
     self.CurIndex = nil
     self.CharacterIdToIndex = {}
     local useDefaultIndex = true
-    if selectId and selectId ~= 0 and (characterType == XCharacterConfigs.CharacterType.Robot or characterType == XCharacterConfigs.GetCharacterType(selectId)) then
+    if selectId and selectId ~= 0 and (characterType == XCharacterConfigs.CharacterType.Robot or characterType == XMVCA.XCharacter:GetCharacterType(selectId)) then
         useDefaultIndex = false
     end
     for i, id in ipairs(self.CharIdList) do
@@ -885,7 +885,7 @@ function XUiRoomCharacter:OnBtnJoinTeamClick()
         -- 角色类型不一致拦截
         local inTeamCharacterType = self:GetTeamCharacterType()
         if inTeamCharacterType then
-            local characterType = id and id ~= 0 and XCharacterConfigs.GetCharacterType(id)
+            local characterType = id and id ~= 0 and XMVCA.XCharacter:GetCharacterType(id)
             if characterType and characterType ~= inTeamCharacterType then
                 local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
                 local sureCallBack = function()
@@ -964,7 +964,7 @@ end
 function XUiRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end
@@ -1087,7 +1087,7 @@ function XUiRoomCharacter:CheckIsInChessPursuit(characterId)
 end
 
 function XUiRoomCharacter:ShowChessPursuitDialogTip(characterId, sureCallBack)
-    local name = XCharacterConfigs.GetCharacterName(characterId)
+    local name = XMVCA.XCharacter:GetCharacterName(characterId)
     local title = CSXTextManagerGetText("BfrtDeployTipTitle")
     local content = CSXTextManagerGetText("ChessPursuitReplaceCharacterTip", name)
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, sureCallBack)

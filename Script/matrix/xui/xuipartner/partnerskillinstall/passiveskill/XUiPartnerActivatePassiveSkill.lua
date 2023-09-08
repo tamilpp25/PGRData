@@ -3,6 +3,7 @@ local XUiGridPassiveSkill = require("XUi/XUiPartner/PartnerSkillInstall/PassiveS
 local CSTextManagerGetText = CS.XTextManager.GetText
 
 function XUiPartnerActivatePassiveSkill:OnStart(partner)
+    ---@type XPartner
     self.Partner = partner
     self:SetButtonCallBack()
     self:InitDynamicTable()
@@ -14,7 +15,6 @@ function XUiPartnerActivatePassiveSkill:OnEnable()
     self:SetupDynamicTable()
     self:UpdatePanel()
     XEventManager.AddEventListener(XEventId.EVENT_PARTNER_SKILLCHANGE, self.CloseMask, self)
-
 end
 
 function XUiPartnerActivatePassiveSkill:OnDisable()
@@ -36,6 +36,13 @@ function XUiPartnerActivatePassiveSkill:InitPanel()
     local carryPassiveSkillGroupList = self.Partner:GetCarryPassiveSkillGroupList()
     for _,skillGroup in pairs(carryPassiveSkillGroupList) do
         self.SelectSkillDic[skillGroup:GetId()] = skillGroup
+    end
+
+    if self.Partner:GetIsComposePreview() then
+        if self.PanelTitle then
+            self.PanelTitle.gameObject:SetActiveEx(false)
+            self.PanelTitle2.gameObject:SetActiveEx(true)
+        end
     end
 end
 
@@ -71,6 +78,10 @@ function XUiPartnerActivatePassiveSkill:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiPartnerActivatePassiveSkill:SetSelectSkill(entity, IsAdd)
+    if self.Partner:GetIsComposePreview() then
+        return
+    end
+    
     if IsAdd then
         if self.IsSelectCountFull then
             XUiManager.TipText("PartnerSelectSkillFull")

@@ -50,6 +50,9 @@ function XUiFubenRepeatchallenge:OnStart()
     end
     
     --self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnTreasure, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_CHAPTER_REWARD }, nil, false)
+    self.CoinRedPointId=XRedPointManager.AddRedPointEvent(self.PanelStandByInfo.BtnShop,function(count) 
+        self.PanelStandByInfo.BtnShop:ShowReddot(count>=0)  
+    end,nil,{XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_COIN},nil,false)
 end
 
 function XUiFubenRepeatchallenge:OnEnable()
@@ -63,6 +66,10 @@ end
 
 function XUiFubenRepeatchallenge:OnDisable()
     self:DestroyActivityTimer()
+end
+
+function XUiFubenRepeatchallenge:OnDestroy()
+    XRedPointManager.RemoveRedPointEvent(self.CoinRedPointId)
 end
 --region 活动倒计时显示
 function XUiFubenRepeatchallenge:CreateActivityTimer()
@@ -120,13 +127,14 @@ end
 --endregion
 --刷新主面板界面
 function XUiFubenRepeatchallenge:Refresh()
+    XRedPointManager.Check(self.CoinRedPointId)
     self:CreateActivityTimer()
     local activityCfg = XDataCenter.FubenRepeatChallengeManager.GetActivityConfig()
     local chapterCfg = XFubenRepeatChallengeConfigs.GetChapterCfg(activityCfg.NormalChapter[1])
     local rcStageCfg = XFubenRepeatChallengeConfigs.GetStageConfig(chapterCfg.StageId[1])
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(rcStageCfg.Id)
     self.RImgBg:SetRawImage(chapterCfg.Bg)
-    local characterName = XCharacterConfigs.GetCharacterLogName(activityCfg.SpecialCharacters[1])
+    local characterName = XMVCA.XCharacter:GetCharacterLogName(activityCfg.SpecialCharacters[1])
     local limitLevel = activityCfg.ExtraBuffLevel
     self.TxtTitle.text = CsXTextManagerGetText("ActivityRepeatChallengeDesc", characterName , limitLevel)
     self.PanelEffect.gameObject:LoadUiEffect(chapterCfg.EffectPath)

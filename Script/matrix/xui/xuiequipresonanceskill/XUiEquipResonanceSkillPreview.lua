@@ -23,7 +23,7 @@ end
 
 function XUiEquipResonanceSkillPreview:UpdateCharacterName()
     if self.RootUi.SelectCharacterId then
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.RootUi.SelectCharacterId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.RootUi.SelectCharacterId)
         self.TxtCharacterName.text = charConfig.Name
         self.TxtCharacterNameOther.text = charConfig.TradeName
     else

@@ -69,9 +69,9 @@ end
 function XUiPanelCharLevel:UpdatePanel()
     local characterId = self.CharacterId
     local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-    local nextLeveExp = XCharacterConfigs.GetNextLevelExp(characterId, character.Level)
+    local nextLeveExp = XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level)
     self.TxtCurLevel.text = character.Level
-    self.TxtMaxLevel.text = "/" .. XCharacterConfigs.GetCharMaxLevel(characterId)
+    self.TxtMaxLevel.text = "/" .. XMVCA.XCharacter:GetCharMaxLevel(characterId)
     self.TxtExp.text = character.Exp .. "/" .. nextLeveExp
     self.ImgFill.fillAmount = character.Exp / nextLeveExp
     self.TxtAttack.text = FixToInt(character.Attribs[XNpcAttribType.AttackNormal])

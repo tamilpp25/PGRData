@@ -1,9 +1,10 @@
 
 local TableKey = {
-    Stage = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll, Identifier = "StageId"},
-    StageLevelControl = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll},
-    StageMultiplayerLevelControl = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll},
-    FlopReward = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.Int}
+    Stage = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll, CacheType = XConfigUtil.CacheType.Normal, Identifier = "StageId"},
+    StageLevelControl = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll, CacheType = XConfigUtil.CacheType.Normal},
+    StageMultiplayerLevelControl = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.IntAll, CacheType = XConfigUtil.CacheType.Normal},
+    FlopReward = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.Int, CacheType = XConfigUtil.CacheType.Normal},
+    StageType = {DirPath = XConfigUtil.DirectoryType.Share, ReadFunc = XConfigUtil.ReadType.Int, CacheType = XConfigUtil.CacheType.Normal}
 }
 
 ---@class XFubenModel : XModel
@@ -171,6 +172,14 @@ end
 -----常用配置
 
 ----配置表相关start
+
+function XFubenModel:GetStageTypeCfg(stageId)
+    if self.Compatible then
+        return XFubenConfigs.GetStageTypeCfg(stageId)
+    end
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.StageType, stageId)
+end
+
 ------获取整个副本配置表
 function XFubenModel:GetStageCfgs()
     if self.Compatible then

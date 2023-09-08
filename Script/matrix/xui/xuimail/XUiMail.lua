@@ -12,7 +12,7 @@ function XUiMail:OnAwake()
     self.DynamicTable:SetProxy(XUiGridTitle)
     self.DynamicTable:SetDelegate(self)
     self.GridTitle.gameObject:SetActive(false)
-    XRedPointManager.AddRedPointEvent(self.RedCollection, self.OnCheckCollectionBoxView, self, { XRedPointConditions.Types.CONDITION_MAIL_FAVORITE_BOX })
+    self:AddRedPointEvent(self.RedCollection, self.OnCheckCollectionBoxView, self, { XRedPointConditions.Types.CONDITION_MAIL_FAVORITE_BOX })
 end
 
 function XUiMail:OnStart()

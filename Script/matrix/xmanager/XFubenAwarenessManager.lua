@@ -304,7 +304,7 @@ XFubenAwarenessManagerCreator = function()
 
                 local i
                 for charIndex, char in ipairs(ownCharacters) do
-                    local charType = XCharacterConfigs.GetCharacterType(char.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(char.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto CONTINUE
                     end

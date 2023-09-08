@@ -166,7 +166,7 @@ function XUiDrawShow:ShowResult()
     elseif Type == XArrangeConfigs.Types.Weapon and (not XDataCenter.ItemManager.IsWeaponFashion(id)) then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end
@@ -232,7 +232,7 @@ function XUiDrawShow:NextPack()
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
@@ -394,7 +394,7 @@ function XUiDrawShow:ShowCharacterModel(templateId,fashionId)
     end
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashionId)
 
-    local curFashtionId = fashionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.CharacterRoot, XModelManager.MODEL_UINAME.XUiDrawShow, function(model)
@@ -580,7 +580,7 @@ function XUiDrawShow:GetQuality(showIndex)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end

@@ -48,7 +48,7 @@ function XUiSkillDetailsForEnhanceV2P6:RefreshUiShow()
 
     -- 刷新技能类型文本
     local characterSkillGateConfig = self.CharacterAgency:GetModelCharacterSkillGate()
-    local configId = CharacterTypeSkillGateIdDic[XCharacterConfigs.GetCharacterType(self.CharacterId)]
+    local configId = CharacterTypeSkillGateIdDic[XMVCA.XCharacter:GetCharacterType(self.CharacterId)]
     local config = characterSkillGateConfig[configId]
     self.TxtName.text = config.Name
     self.TxtNameEn.text = config.EnName

@@ -65,4 +65,8 @@ XUiAchvPanelTabs.OnDestroy = function()
     Clear()
 end
 
+XUiAchvPanelTabs.SelectIndex = function(index)
+    TempPanel.TabBtnGroup:SelectIndex(index)
+end
+
 return XUiAchvPanelTabs

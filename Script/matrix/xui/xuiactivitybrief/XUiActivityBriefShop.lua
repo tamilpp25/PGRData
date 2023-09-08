@@ -25,7 +25,7 @@ function XUiActivityBriefShop:OnAwake()
     self.SortGroupList = {}
     self.XUiGridShopList = {}
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
     self:SetButtonCallBack()
     self:InitDynamicTable()
 end

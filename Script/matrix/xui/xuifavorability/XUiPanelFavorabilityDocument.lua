@@ -1,4 +1,5 @@
-XUiPanelFavorabilityDocument = XClass(nil, "XUiPanelFavorabilityDocument")
+--2.7标记：已弃用
+local XUiPanelFavorabilityDocument = XClass(nil, "XUiPanelFavorabilityDocument")
 
 local DocumentTypeSize = 4
 local DocumentType = {
@@ -41,7 +42,7 @@ end
 
 function XUiPanelFavorabilityDocument:InitUiAfterAuto()
     self.FavorabilityFile = XUiPanelFavorabilityFile.New(self.PanelFavorabilityFile, self.UiRoot, self)
-    self.FavorabilityInfo = XUiPanelFavorabilityInfo.New(self.PanelFavorabilityInfo, self.UiRoot, self)
+    self.FavorabilityInfo = XUiPanelFavorabilityArchives.New(self.PanelFavorabilityInfo, self.UiRoot, self)
     self.FavorabilityRumors = XUiPanelFavorabilityRumors.New(self.PanelFavorabilityRumors, self.UiRoot, self)
     self.FavorabilityAudio = XUiPanelFavorabilityAudio.New(self.PanelFavorabilityAudio, self.UiRoot, self)
 

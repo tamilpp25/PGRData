@@ -77,7 +77,7 @@ end
 
 function XUiLivWarmActivityPop:InitPanelSpecialTool()
     local itemId = XLivWarmActivityConfigs.GetLivWarmActivityItemId()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     self.AssetActivityPanel:Refresh({itemId})
     XDataCenter.ItemManager.AddCountUpdateListener({itemId}, function()
         self:UpdateLoseText()

@@ -16,7 +16,7 @@ local CONDITION_COLOR_FOR_TEXT = {
 local XUiStrongholdMain = XLuaUiManager.Register(XLuaUi, "UiStrongholdMain")
 
 function XUiStrongholdMain:OnAwake()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
         self.AssetActivityPanel:Refresh({ itemId })

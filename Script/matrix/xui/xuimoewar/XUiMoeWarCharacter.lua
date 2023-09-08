@@ -82,8 +82,8 @@ function XUiMoeWarCharacter:OnAwake()
 
         local ACharId = self:GetCharacterId(a)
         local BCharID = self:GetCharacterId(b)
-        local priorityA = XCharacterConfigs.GetCharacterPriority(ACharId)
-        local priorityB = XCharacterConfigs.GetCharacterPriority(BCharID)
+        local priorityA = XMVCA.XCharacter:GetCharacterPriority(ACharId)
+        local priorityB = XMVCA.XCharacter:GetCharacterPriority(BCharID)
         if priorityA ~= priorityB then
             return priorityA < priorityB
         end
@@ -363,7 +363,7 @@ function XUiMoeWarCharacter:InitBtnTabIsClick()
     local characterType
     for _, charId in ipairs(self.RobotIdList) do
         if charId > 0 then
-            characterType = XCharacterConfigs.GetCharacterType(charId)
+            characterType = XMVCA.XCharacter:GetCharacterType(charId)
             if characterType == XCharacterConfigs.CharacterType.Normal and not isClickNormal then
                 isClickNormal = true
             elseif characterType == XCharacterConfigs.CharacterType.Isomer and not isClickOmer then
@@ -433,7 +433,7 @@ function XUiMoeWarCharacter:UpdateCharacterList(index)
     self.CurIndex = nil
     self.CharacterIdToIndex = {}
     local useDefaultIndex = true
-    if selectId and selectId ~= 0 and characterType == XCharacterConfigs.GetCharacterType(selectId) then
+    if selectId and selectId ~= 0 and characterType == XMVCA.XCharacter:GetCharacterType(selectId) then
         useDefaultIndex = false
     end
     for index, id in ipairs(self.CharIdlist) do
@@ -620,7 +620,7 @@ function XUiMoeWarCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = id and id ~= 0 and XCharacterConfigs.GetCharacterType(id)
+        local characterType = id and id ~= 0 and XMVCA.XCharacter:GetCharacterType(id)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -664,7 +664,7 @@ end
 function XUiMoeWarCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end

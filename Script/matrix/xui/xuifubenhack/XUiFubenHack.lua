@@ -30,7 +30,7 @@ function XUiFubenHack:OnStart()
     self.TxtChapterName.text = self.ActTemplate.Name
 
     self:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 end
 
 function XUiFubenHack:OnGetEvents()

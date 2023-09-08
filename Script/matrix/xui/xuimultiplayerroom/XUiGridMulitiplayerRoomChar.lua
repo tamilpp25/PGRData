@@ -193,8 +193,8 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
         if XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo) then
             self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController,true)
         else
-        self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController)
-    end
+            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController)
+        end
     end
     local char = playerData.FightNpcData.Character
     if XTool.IsNumberValid(char.LiberateAureoleId) then
@@ -309,7 +309,7 @@ function XUiGridMulitiplayerRoomChar:OpenSelectCharView()
                     self:OnSelectCharacter(rootUi.Team:GetEntityIds())
                 end,
                 GetEntities = function()
-                    return XDataCenter.CharacterManager.GetOwnCharacterList(XCharacterConfigs.CharacterType.Normal)
+                    return XDataCenter.CharacterManager.GetOwnCharacterList()
                 end
             })
         else
@@ -453,12 +453,14 @@ function XUiGridMulitiplayerRoomChar:OnBtnPetClick()
         self:OnBtnItemClick()
         return
     end
-    XDataCenter.RoomManager.BeginSelectRequest()
-    XDataCenter.PartnerManager.GoPartnerCarry(charId, false, function()
+    local isCanOpenUiPartner = XDataCenter.PartnerManager.GoPartnerCarry(charId, false, function()
         XDataCenter.RoomManager.EndSelectRequest(function()
             XDataCenter.RoomManager.Select(charId)
         end)
     end)
+    if isCanOpenUiPartner then
+        XDataCenter.RoomManager.BeginSelectRequest()
+    end
 end
 
 function XUiGridMulitiplayerRoomChar:OnBtnFriendClick()

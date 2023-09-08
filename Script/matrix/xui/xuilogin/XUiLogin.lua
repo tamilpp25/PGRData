@@ -57,7 +57,6 @@ function XUiLogin:CheckFool()
 end
 
 function XUiLogin:OnStart()
-    CS.XEffectManager.useNewEffect = 1
     --删除闪屏
     CS.XUnloadSplash.DoUnloadSplash()
     --GC

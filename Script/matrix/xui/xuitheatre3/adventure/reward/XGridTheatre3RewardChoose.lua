@@ -6,12 +6,21 @@ local XUiGridTheatre3Reward = require("XUi/XUiTheatre3/Adventure/Prop/XUiGridThe
 local XGridTheatre3RewardChoose = XClass(XUiNode, "XGridTheatre3RewardChoose")
 
 function XGridTheatre3RewardChoose:OnStart()
+    if not self.ImgRewardTag then
+        ---@type UnityEngine.UI.Image
+        self.ImgRewardTag = XUiHelper.TryGetComponent(self.Transform, "PanleDifficulty", "Image")
+        ---@type UnityEngine.UI.Text
+        self.TxtRewardTag = XUiHelper.TryGetComponent(self.Transform, "PanleDifficulty/Text", "Text")
+    end
     self:AddBtnListener()
 end
 
 function XGridTheatre3RewardChoose:Refresh(isProp, data, selectClickFunc)
     self._SelectClickFunc = selectClickFunc
     self._IsProp = isProp
+    if self.ImgRewardTag then
+        self.ImgRewardTag.gameObject:SetActiveEx(false)
+    end
     if self._IsProp then
         self._Id = data
         self:RefreshProp()
@@ -26,10 +35,11 @@ function XGridTheatre3RewardChoose:Refresh(isProp, data, selectClickFunc)
 end
 
 --region Ui - Item
-function XGridTheatre3RewardChoose:RefreshProp()
+function XGridTheatre3RewardChoose:RefreshProp(isAdventureDesc)
     local config = self._Control:GetItemConfigById(self._Id)
     self.TxtTitle.text = config.Name
-    self.TxtDescribe.text = config.Description
+    -- 处理道具动态数据描述
+    self.TxtDescribe.text = XUiHelper.FormatText(config.Description, isAdventureDesc and self._Control:GetItemEffectGroupDesc(self._Id) or "")
     if not self._Grid then
         ---@type XUiGridTheatre3Reward
         self._Grid = XUiGridTheatre3Reward.New(self.PropGrid, self)
@@ -46,6 +56,23 @@ function XGridTheatre3RewardChoose:RefreshFightReward()
     self.TxtDescribe.text = config.Desc
     self.TxtTitle.text = config.Name
     self._Uid = config.Uid
+    
+    -- 奖励标签
+    if not self.ImgRewardTag then
+        return
+    end
+    if self._FightReward:CheckTag(XEnumConst.THEATRE3.NodeRewardTag.None) then
+        self.ImgRewardTag.gameObject:SetActiveEx(false)
+    else
+        self.ImgRewardTag.gameObject:SetActiveEx(true)
+        local icon = self._Control:GetClientConfig("FightRewardTagIcon", self._FightReward:GetTag())
+        local tagTxt = self._Control:GetClientConfig("FightRewardTag", self._FightReward:GetTag())
+        if string.IsNilOrEmpty(icon) then
+            return
+        end
+        self.ImgRewardTag:SetSprite(icon)
+        self.TxtRewardTag.text = tagTxt
+    end
 end
 --endregion
 
@@ -76,6 +103,10 @@ function XGridTheatre3RewardChoose:OnBtnYesClick()
             self._Control:CheckAndOpenAdventureNextStep(true)
         end)
     else
+        local cueId = tonumber(self._Control:GetClientConfig("FightRewardGetSound", self._FightReward:GetType()))
+        if XTool.IsNumberValid(cueId) then
+            XSoundManager.PlaySoundByType(cueId, XSoundManager.SoundType.Sound)
+        end
         self._Control:RequestAdventureRecvFightReward(self._Id, function(isEnd)
             if not self._FightReward:CheckType(XEnumConst.THEATRE3.NodeRewardType.Gold) then
                 self._Control:CheckAndOpenAdventureNextStep(true)

@@ -107,5 +107,5 @@ function XUiAwarenessOccupy:OnBtnChangeTag(isLeft)
 end
 
 function XUiAwarenessOccupy:OnBtnOccupyClick()
-    XLuaUiManager.Open("UiAwarenessSelectCharacter", self.CurrChapterData:GetId())
+    XLuaUiManager.Open("UiSelectCharacterAwarenessOccupy", self.CurrChapterData:GetCharacterId(), self.CurrChapterData:GetId())
 end

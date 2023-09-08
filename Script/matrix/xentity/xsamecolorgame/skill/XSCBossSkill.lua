@@ -1,3 +1,4 @@
+---@class XSCBossSkill
 local XSCBossSkill = XClass(nil, "XSCBossSkill")
 
 function XSCBossSkill:Ctor(id)

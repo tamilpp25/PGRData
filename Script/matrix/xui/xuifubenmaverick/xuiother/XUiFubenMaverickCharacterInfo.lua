@@ -21,7 +21,7 @@ function XUiFubenMaverickCharacterInfo:Refresh(memberId)
     --角色名
     local robotId = XDataCenter.MaverickManager.GetRobotId(member)
     local robotCfg = XRobotManager.GetRobotTemplate(robotId)
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(robotCfg.CharacterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(robotCfg.CharacterId)
     --类型图标
     local jobType = XRobotManager.GetRobotJobType(robotId)
     self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))

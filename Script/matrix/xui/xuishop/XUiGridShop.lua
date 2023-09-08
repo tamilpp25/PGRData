@@ -1,5 +1,11 @@
 local MAX_COUNT = CS.XGame.Config:GetInt("ShopBuyGoodsCountLimit")
 
+local Operate = {
+    OpenShop = 1,
+    OpenItemTip = 2,
+}
+
+---@class XUiGridShop
 XUiGridShop = XClass(nil, "XUiGridShop")
 function XUiGridShop:Ctor(ui)
     self.GameObject = ui.gameObject
@@ -18,6 +24,7 @@ function XUiGridShop:Init(parent, rootUi, uiParams)
     self.UiParams = uiParams
     self.Parent = parent
     self.RootUi = rootUi or parent
+    ---@type XUiGridCommon
     self.Grid = XUiGridCommon.New(self.RootUi, self.GridCommon, uiParams)
 end
 
@@ -89,18 +96,26 @@ function XUiGridShop:GetIsCanBuy()
 end
 
 function XUiGridShop:OnBtnBuyClick()
+    if self.BtnBuyOperate == Operate.OpenItemTip then
+        self.Grid:OnBtnClickClick()
+        return
+    end
+    self:OnBuyGoods()
+end
+
+function XUiGridShop:OnBuyGoods()
     local isCanBuy = self:GetIsCanBuy()
     if not self.IsShopLock and isCanBuy then
         self.Parent:UpdateBuy(
-            self.Data,
-            function()
-                self:RefreshHave()
-                self:RefreshSellOut()
-                self:RefreshCondition()
-                self:RefreshOnSales()
-                self:RefreshPrice()
-                self:RefreshBuyCount()
-            end
+                self.Data,
+                function()
+                    self:RefreshHave()
+                    self:RefreshSellOut()
+                    self:RefreshCondition()
+                    self:RefreshOnSales()
+                    self:RefreshPrice()
+                    self:RefreshBuyCount()
+                end
         )
     else
         if self.ShopLockDecs and self.IsShopLock then
@@ -118,6 +133,7 @@ function XUiGridShop:UpdateData(data, shopItemTextColor, shopId)
     self.ShopId = shopId
     self.Data = data
     self.ShopItemTextColor = shopItemTextColor
+    self.BtnBuyOperate = Operate.OpenShop
     self:RefreshHave()
     self:RefreshSellOut()
     self:RefreshCondition()
@@ -137,6 +153,15 @@ function XUiGridShop:UpdateData(data, shopItemTextColor, shopId)
         -- 刷新销售结束时间
         self:RefreshTimer(self.Data.SelloutTime)
     end
+end
+
+--- 当商品是时装时，在时装详情里显示购买按钮，并且屏蔽外面的购买界面
+function XUiGridShop:BugOnFashionDetail()
+    self.BtnBuyOperate = Operate.OpenItemTip
+    self.Data.RewardGoods.ItemIcon = XDataCenter.ItemManager.GetItemIcon(self.Data.ConsumeList[1].Id)
+    self.Data.RewardGoods.ItemCount = self._NeedCount
+    self.Data.RewardGoods.BuyCallBack = handler(self, self.OnBuyGoods)
+    self:RefreshCommon()
 end
 
 function XUiGridShop:RefreshBuyCount()
@@ -276,10 +301,10 @@ function XUiGridShop:RefreshPrice()
         end
 
         if self["TxtNewPrice" .. index] then
-            local needCount = math.floor(count.Count * self.Sales / 100)
-            self["TxtNewPrice" .. index].text = needCount
+            self._NeedCount = math.floor(count.Count * self.Sales / 100)
+            self["TxtNewPrice" .. index].text = self._NeedCount
             local itemCount = XDataCenter.ItemManager.GetCount(count.Id)
-            if itemCount < needCount then
+            if itemCount < self._NeedCount then
                 if not self.ShopItemTextColor then
                     self["TxtNewPrice" .. index].color = CS.UnityEngine.Color(1, 0, 0)
                 else
@@ -479,7 +504,7 @@ function XUiGridShop:RefreshShowLock()
     end
     if self.TxtLock then
         if isLock then
-            self.TxtLock.text = self.ConditionDesc
+            self.TxtLock.text = XUiHelper.ReplaceTextNewLine(self.ConditionDesc)
             self.TxtLock.gameObject:SetActiveEx(true)
         else
             self.TxtLock.gameObject:SetActiveEx(false)

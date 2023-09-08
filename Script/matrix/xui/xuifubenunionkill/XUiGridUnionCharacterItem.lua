@@ -21,7 +21,7 @@ end
 
 function XUiGridUnionCharacterItem:OnBtnCharacterClick()
     if self.ClickCallback then
-        if XCharacterConfigs.IsCharacterForeShow(self.ItemData.Id) then
+        if XMVCA.XCharacter:IsCharacterForeShow(self.ItemData.Id) then
             self.ClickCallback(self.ItemData)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -43,7 +43,7 @@ function XUiGridUnionCharacterItem:UpdateOwnInfo(character)
     end
 
     if self.TxtTradeName then
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(character.Id)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(character.Id)
     end
 end
 

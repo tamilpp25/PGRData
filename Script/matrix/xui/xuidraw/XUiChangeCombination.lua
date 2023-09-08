@@ -68,7 +68,7 @@ end
 
 function XUiChangeCombination:SetCharacterData(combination)
     local goodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
-    local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
+    local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
     local drawAimProbability = XDrawConfigs.GetDrawAimProbability()
 
     self.CharId = combination.GoodsId[1]

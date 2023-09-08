@@ -22,6 +22,7 @@ function XUiTurntableMain:OnStart()
     self._LinePool = {}
     self._SectorsPool = {}
     self._BoxPool = {}
+    self._EffectPool = {}
 
     self:InitCompnent()
     self:InitActivityInfo()
@@ -45,15 +46,21 @@ function XUiTurntableMain:InitCompnent()
     self.TopController = XUiHelper.NewPanelTopControl(self, self.TopControlWhite, handler(self, self.OnBtnCloseClick),handler(self,self.OnBtnMainClick))
 
     local itemId, _ = self._Control:GetTurntableCost()
-    if not self.AssetPanel then
-        self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    local itemCfg = XDataCenter.ItemManager.GetItem(itemId)
+    if itemCfg then -- 道具过期
+        if not self.AssetPanel then
+            self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
+        else
+            self.AssetPanel:Refresh({ itemId })
+        end
+        XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
+            self:UpdateTurntableButton()
+        end, self)
+        self.PanelSpecialTool.gameObject:SetActiveEx(true)
     else
-        self.AssetPanel:Refresh({ itemId })
+        self.PanelSpecialTool.gameObject:SetActiveEx(false)
     end
 
-    XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
-        self:UpdateTurntableButton()
-    end, self)
     self.BtnSkip:SetButtonState(CS.UiButtonState.Normal)
     self.PanelForbidClick.gameObject:SetActiveEx(false)
 end
@@ -122,6 +129,7 @@ function XUiTurntableMain:UpdateTurntable()
     local totalAngle = 0
     local isOver = self._Control:IsGoodsGone()
     self._IdMap = {}
+    self._EffectPool = {}
     self._Config = self._Control:GetTurntableRewards()
     for _, config in pairs(self._Config) do
         local hasGainTimes = self._Control:GetItemGainTimes(config.Id)
@@ -295,6 +303,12 @@ function XUiTurntableMain:SetItem(box, cfg, boxRotation, isOver)
     uiObject.Grid256NewSmall.gameObject:SetActiveEx(not isMain)
     uiObject.IconDajiangBig.gameObject:SetActiveEx(isMain)
     uiObject.IconDajiangSmall.gameObject:SetActiveEx(not isMain)
+
+    if isMain then
+        self._EffectPool[cfg.Id] = uiObject.PanelEffectBig
+    else
+        self._EffectPool[cfg.Id] = uiObject.PanelEffectSmall
+    end
 end
 
 function XUiTurntableMain:UpdateProgress()
@@ -362,14 +376,17 @@ function XUiTurntableMain:StartRotate(records)
     self:OnTurntableStart()
 
     local dim = nil
+    local dimRewardId = nil
     for _, v in pairs(records) do
         local cfg = self._Control:GetTurntableById(v.Id)
         if not dim and cfg.RewardType == XEnumConst.Turntable.RewardType.Main then
-            dim = self._IdMap[v.Id]
+            dimRewardId = v.Id
+            dim = self._IdMap[dimRewardId]
         end
     end
     if not dim then
-        dim = self._IdMap[records[1].Id]
+        dimRewardId = records[1].Id
+        dim = self._IdMap[dimRewardId]
     end
 
     local cur = dim == 1 and self._RotationTb[#self._RotationTb] or self._RotationTb[dim - 1]
@@ -384,15 +401,53 @@ function XUiTurntableMain:StartRotate(records)
     local rotation = 180 + random - 360 * 8
 
     if self._IsJump then
-        self:OnTurntableEnd(records)
+        self:PlayEndEffect(records, dimRewardId)
         self:OnTurntableEndUpdate()
     else
         self.BoxArrow:DOLocalRotate(CS.UnityEngine.Vector3(0, 0, rotation), 6, Tweening.RotateMode.FastBeyond360):SetEase(Tweening.Ease.OutQuart):OnUpdate(function()
             self:ShowLight() -- 指针所指区域高亮
         end):OnComplete(function()
-            self:OnTurntableEnd(records)
+            self:PlayEndEffect(records, dimRewardId)
             self:OnTurntableEndUpdate()
+            self:PlayEndAnimation()
         end)
+        self:PlayStartAnimation()
+    end
+end
+
+function XUiTurntableMain:PlayStartAnimation()
+    self.Spine = self.PanelSpine:LoadSpinePrefab(self.PanelSpine.AssetUrl):GetComponent("SkeletonGraphic")
+    if self.Spine then
+        self.Spine.AnimationState:SetAnimation(0, "idle2", true)
+    end
+    self:PlayAnimation("ChoukaShake")
+end
+
+function XUiTurntableMain:PlayEndAnimation()
+    if self.Spine then
+        self.Spine.AnimationState:SetAnimation(0, "idle", true)
+    end
+end
+
+function XUiTurntableMain:PlayEndEffect(records, dim)
+    self._IsTweening = false
+    local effectPanel = self._EffectPool[dim]
+    if effectPanel then
+        effectPanel.gameObject:SetActiveEx(true)
+        self._EffectTimer = XScheduleManager.ScheduleOnce(function()
+            effectPanel.gameObject:SetActiveEx(false)
+            self:OnTurntableEnd(records)
+        end, 1000)
+    else
+        self:OnTurntableEnd(records)
+    end
+    if self.RawImageLight then
+        self._ImgShowTimer = XScheduleManager.ScheduleOnce(function()
+            self.RawImageLight.gameObject:SetActiveEx(true)
+            self._ImgHideTimer = XScheduleManager.ScheduleOnce(function()
+                self.RawImageLight.gameObject:SetActiveEx(false)
+            end, 900)
+        end, 100)
     end
 end
 
@@ -410,7 +465,6 @@ function XUiTurntableMain:OnTurntableStart()
 end
 
 function XUiTurntableMain:OnTurntableEnd(records)
-    self._IsTweening = false
     self.BtnSkip.enabled = true
     self.PanelForbidClick.gameObject:SetActiveEx(false)
     self:ShowRewardTip(records)
@@ -529,13 +583,26 @@ function XUiTurntableMain:OnDestroy()
     self._BoxPool = {}
     self._IsTweening = false
     self:RemoveTimer()
+    self._Control:SignDontShow72hoursRedPoint()
 end
 
 function XUiTurntableMain:RemoveTimer()
     if self.Timer then
         XScheduleManager.UnSchedule(self.Timer)
     end
+    if self._EffectTimer then
+        XScheduleManager.UnSchedule(self._EffectTimer)
+    end
+    if self._ImgShowTimer then
+        XScheduleManager.UnSchedule(self._ImgShowTimer)
+    end
+    if self._ImgHideTimer then
+        XScheduleManager.UnSchedule(self._ImgHideTimer)
+    end
     self.Timer = nil
+    self._EffectTimer = nil
+    self._ImgShowTimer = nil
+    self._ImgHideTimer = nil
 end
 
 function XUiTurntableMain:CountDown()

@@ -103,6 +103,10 @@ function XTheatre3Step:GetUid()
     return self.Uid
 end
 
+function XTheatre3Step:GetRootUid()
+    return self.RootUid
+end
+
 function XTheatre3Step:GetEquipIds()
     return self.EquipIds
 end

@@ -131,7 +131,7 @@ end
 local GetCoupleCombatChapterConfig = function(id)
     local config = CoupleCombatChapter[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetCoupleCombatChapterConfig", "CoupleCombatChapterConfigs", TABLE_COUPLE_CHAPTER, "Id", id)
+        XLog.ErrorTableDataNotFound("XFubenCoupleCombatConfig.GetCoupleCombatChapterConfig", "CoupleCombatChapterConfigs", TABLE_COUPLE_CHAPTER, "Id", id)
         return
     end
     return config
@@ -237,7 +237,7 @@ end
 local GetCoupleCombatCharacterCareerSkillConfig = function(id)
     local config = CoupleCombatCharacterCareerSkill[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetCoupleCombatCharacterCareerSkillConfig", "CoupleCombatCharacterCareerSkill", TABLE_COUPLE_CHARACTER_CAREER_SKILL, "Id", id)
+        XLog.ErrorTableDataNotFound("XFubenCoupleCombatConfig.GetCoupleCombatCharacterCareerSkillConfig", "CoupleCombatCharacterCareerSkill", TABLE_COUPLE_CHARACTER_CAREER_SKILL, "Id", id)
         return
     end
     return config
@@ -290,7 +290,7 @@ end
 local GetCoupleCombatCharacterCareerSkillGroupConfig = function(type)
     local config = CoupleCombatCharacterCareerSkillGroup[type]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetCoupleCombatCharacterCareerSkillGroupConfig", "CoupleCombatCharacterCareerSkillGroup", TABLE_COUPLE_CHARACTER_CAREER_SKILL_GROUP, "Type", type)
+        XLog.ErrorTableDataNotFound("XFubenCoupleCombatConfig.GetCoupleCombatCharacterCareerSkillGroupConfig", "CoupleCombatCharacterCareerSkillGroup", TABLE_COUPLE_CHARACTER_CAREER_SKILL_GROUP, "Type", type)
         return
     end
     return config
@@ -337,7 +337,7 @@ end
 local GetCoupleCombatCharacterConfig = function(id)
     local config = CoupleCombatCharacter[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetCoupleCombatCharacterConfig", "CoupleCombatCharacter", TABLE_COUPLE_CHARACTER, "Id", id)
+        XLog.ErrorTableDataNotFound("XFubenCoupleCombatConfig.GetCoupleCombatCharacterConfig", "CoupleCombatCharacter", TABLE_COUPLE_CHARACTER, "Id", id)
         return
     end
     return config
@@ -397,7 +397,7 @@ end
 local GetCoupleCombatFeatureConfig = function(id)
     local config = CoupleCombatFeature[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetCoupleCombatFeatureConfig", "CoupleCombatFeature", TABLE_COUPLE_BUFF, "Id", id)
+        XLog.ErrorTableDataNotFound("XFubenCoupleCombatConfig.GetCoupleCombatFeatureConfig", "CoupleCombatFeature", TABLE_COUPLE_BUFF, "Id", id)
         return
     end
     return config

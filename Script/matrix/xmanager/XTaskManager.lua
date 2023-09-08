@@ -63,6 +63,7 @@ TaskType = {
     DlcHunt = 75, -- DlcHunt
     BackFlow = 76, -- 回流玩家
     SpecialTrainDailySwitchTask = 77, -- 特训关每日任务
+    Rift = 82, --大秘境任务
 }
 
 XTaskManagerCreator = function()
@@ -244,7 +245,7 @@ XTaskManagerCreator = function()
         --RpgTowerTaskData = {}
         --WhiteValentineTaskData = {}
         --FingerGuessingTaskData = {}
-        --PokerGuessingTaskData = {}
+        PokerGuessingTaskData = {}
         --GuildDailyTaskData = {}
         --GuildMainlyTaskData = {}
         --GuildWeeklyTaskData = {}
@@ -1082,6 +1083,10 @@ XTaskManagerCreator = function()
 
     function XTaskManager.GetInfestorWeeklyTaskList()
         return GetTaskList(XTaskManager.GetTaskDataByTaskType(XTaskManager.TaskType.InfestorWeekly))
+    end
+
+    function XTaskManager.GetRiftTaskList()
+        return GetTaskList(XTaskManager.GetTaskDataByTaskType(XTaskManager.TaskType.Rift))
     end
 
     -- 包括已完成的任务
@@ -2089,7 +2094,13 @@ XTaskManagerCreator = function()
     end
 
     --批量领取任务奖励
-    function XTaskManager.FinishMultiTaskRequest(taskIds, cb, notTip)
+    local MultiTaskResReward = {}
+    function XTaskManager.FinishMultiTaskRequest(taskIds, cb, notTip, isLoopReceive)
+        if XTool.IsTableEmpty(taskIds) then
+            XLog.BuglyLog("XTaskManager", "FinishMultiTaskRequest taskIds empty")
+            return
+        end
+
         cb = cb or function() end
         XNetwork.Call("FinishMultiTaskRequest", { TaskIds = taskIds }, function(reply)
             if reply.Code ~= XCode.Success then
@@ -2100,7 +2111,20 @@ XTaskManagerCreator = function()
                 return
             end
 
-            cb(reply.RewardGoodsList)
+            if isLoopReceive then
+                for k, v in pairs(reply.RewardGoodsList) do
+                    table.insert(MultiTaskResReward, v)
+                end
+                if not XTool.IsTableEmpty(reply.NotDealTaskIds) then
+                    XTaskManager.FinishMultiTaskRequest(reply.NotDealTaskIds, cb, notTip, isLoopReceive)
+                    return
+                end
+            else
+                MultiTaskResReward = reply.RewardGoodsList
+            end
+
+            cb(MultiTaskResReward)
+            MultiTaskResReward = {}
             XEventManager.DispatchEvent(XEventId.EVENT_FINISH_MULTI, true)
         end)
     end
@@ -2138,6 +2162,24 @@ XTaskManagerCreator = function()
             XEventManager.DispatchEvent(XEventId.EVENT_TASK_SYNC)
             CsXGameEventManager.Instance:Notify(XEventId.EVENT_TASK_SYNC)
             XUiManager.OpenUiObtain(reply.RewardGoodsList)
+        end)
+    end
+    
+    --客户端判断完成条件，向服务端请求完成
+    function XTaskManager.RequestClientTaskFinish(taskId, func)
+        local taskCfg = XTaskConfig.GetTaskCfgById(taskId)
+        local conditionTemplates = XTaskConfig.GetTaskCondition(taskCfg.Condition[1])
+        local taskType = conditionTemplates.Params[2]
+        -- 请求任务条件完成
+        local req = { ClientTaskType = taskType }
+        
+        XNetwork.Call("DoClientTaskEventRequest", req, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+
+            if func then func() end
         end)
     end
 

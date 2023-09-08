@@ -10,7 +10,7 @@ end
 
 function XUiMultiDimTalent:OnStart()
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     
     self:InitLeftTabBtn()
     self.MultiDimCareer = XDataCenter.MultiDimManager.GetMultiDimCareerInfo()

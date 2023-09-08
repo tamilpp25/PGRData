@@ -5,6 +5,7 @@ local XTheatreItem = require("XEntity/XBiancaTheatre/Item/XTheatreItem")
 local XTheatreTeam = require("XEntity/XBiancaTheatre/XTheatreTeam")
 local XAdventureRole = require("XEntity/XBiancaTheatre/Adventure/XAdventureRole")
 local XAdventureEnd = require("XEntity/XBiancaTheatre/Adventure/XAdventureEnd")
+---@class XBiancaTheatreAdventureManager
 local XAdventureManager = XClass(nil, "XAdventureManager")
 
 --当前冒险管理
@@ -321,6 +322,7 @@ function XAdventureManager:GetRolesStarCount()
 end
 
 -- includeLocal : 是否包含本地角色
+---@return XBiancaTheatreAdventureRole[]
 function XAdventureManager:GetCurrentRoles(includeLocal)
     if includeLocal == nil then includeLocal = false end
     local result = {}
@@ -365,6 +367,7 @@ function XAdventureManager:UpdateRoleLevel(roleId, level)
     end
 end
 
+---@return XBiancaTheatreAdventureRole
 function XAdventureManager:GetRole(id)
     for _, role in ipairs(self:GetCurrentRoles(true)) do
         if role:GetId() == id then

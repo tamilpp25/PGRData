@@ -93,6 +93,10 @@ XLottoManagerCreator = function()
     function XLottoManager.GetWeaponFashionCacheReward()
         return CacheReward
     end
+    
+    function XLottoManager.ClearWeaponFashionCacheReward()
+        CacheReward = nil
+    end
 
     function XLottoManager.GetLottoGroupDataList()
         local list = {}
@@ -159,6 +163,10 @@ XLottoManagerCreator = function()
         end)
     end
 
+    function XLottoManager.SetIsInterceptUiObtain(value)
+        IsInterceptUiObtain = value
+    end
+    
     function XLottoManager.DoLotto(lottoId, cb, errorCb)
         IsInterceptUiObtain = true
         XNetwork.Call(METHOD_NAME.LottoRequest, { Id = lottoId }, function(res)
@@ -182,6 +190,22 @@ XLottoManagerCreator = function()
             local reward = XRewardManager.CreateRewardGoodsByTemplate({ TemplateId = res.ItemId, Count = res.ItemCount })
             if cb then cb({ reward }) end
         end)
+    end
+    
+    function XLottoManager.GetTemplateQuality(templateId)
+        local templateIdData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(templateId)
+        local Type = XTypeManager.GetTypeById(templateId)
+        local quality
+        if Type == XArrangeConfigs.Types.Wafer then
+            quality = templateIdData.Star
+        elseif Type == XArrangeConfigs.Types.Weapon then
+            quality = templateIdData.Star
+        elseif Type == XArrangeConfigs.Types.Character then
+            quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
+        else
+            quality = XTypeManager.GetQualityById(templateId)
+        end
+        return quality
     end
 
     XLottoManager.Init()

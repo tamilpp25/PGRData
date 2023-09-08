@@ -8,32 +8,22 @@ function XUiRiftPluginShopTips:OnAwake()
 end
 
 function XUiRiftPluginShopTips:OnStart(goodData)
-    self.Plugin = XDataCenter.RiftManager.GetPlugin(goodData.PluginId)
+    self.Plugin = XDataCenter.RiftManager.GetShopGoodsPlugin(goodData)
     self.PluginGrid:Refresh(self.Plugin)
     self.TxtName.text = self.Plugin:GetName()
     self.TxtDescription.text = self.Plugin:GetDesc()
 
-    -- 补正类型
-    local fixTypeList = self.Plugin:GetAttrFixTypeList()
-    for i = 1, XRiftConfig.PluginMaxFixCnt do
-        local isShow = #fixTypeList >= i
-        self["PanelAddition" .. i].gameObject:SetActiveEx(isShow)
-        if isShow then
-            self["TxtAddition" .. i].text = fixTypeList[i]
-        end
+    local fixTypeList = self.Plugin:GetPropTag()
+    for i, v in ipairs(fixTypeList) do
+        local grid = i == 1 and self.PanelAddition or XUiHelper.Instantiate(self.PanelAddition, self.PanelAddition.parent)
+        local uiObject = {}
+        XTool.InitUiObjectByUi(uiObject, grid)
+        grid.gameObject:SetActiveEx(true)
+        uiObject.TxtAddition.text = v
     end
-
-    -- 补正效果
-    local fixDesc = XUiHelper.GetText("FubenHackBuffDetailTitle") .. "："
-    local attrFixList = self.Plugin:GetEffectStringList()
-    for index, attrFix in ipairs(attrFixList) do
-    	if index == 1 then 
-        	fixDesc = fixDesc .. attrFix.Name
-    	else
-        	fixDesc = fixDesc .. "、" .. attrFix.Name
-    	end
+    if XTool.IsTableEmpty(fixTypeList) then
+        self.PanelAddition.gameObject:SetActiveEx(false)
     end
-    self.TxtWorldDesc.text = fixDesc
 end
 
 function XUiRiftPluginShopTips:AddListener()

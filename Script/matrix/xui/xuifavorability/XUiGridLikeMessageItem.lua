@@ -1,4 +1,5 @@
-XUiGridLikeMessageItem = XClass(nil, "XUiGridLikeMessageItem")
+--2.7标记，疑似被弃用
+local XUiGridLikeMessageItem = XClass(nil, "XUiGridLikeMessageItem")
 
 local ArrowDown = CS.UnityEngine.Vector3.one
 local ArrowUp = CS.UnityEngine.Vector3(1, -1, 1)

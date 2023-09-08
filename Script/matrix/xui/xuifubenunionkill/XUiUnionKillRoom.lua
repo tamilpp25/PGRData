@@ -420,7 +420,7 @@ function XUiUnionKillRoom:OnWeatherChanged()
 end
 
 function XUiUnionKillRoom:OnBtnChatClick()
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Room, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Room, ChatChannelType.World)
 end
 
 function XUiUnionKillRoom:OnBtnBackClick()

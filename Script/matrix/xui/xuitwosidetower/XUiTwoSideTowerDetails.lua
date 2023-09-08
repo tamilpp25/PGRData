@@ -1,85 +1,104 @@
+local XUiGridTwoSideTowerFeature = require("XUi/XUiTwoSideTower/XUiGridTwoSideTowerFeature")
+
+---@class UiTwoSideTowerDetails : XLuaUi
+---@field _Control XTwoSideTowerControl
 local XUiTwoSideTowerDetails = XLuaUiManager.Register(XLuaUi, "UiTwoSideTowerDetails")
 
----@param pointData XTwoSideTowerPoint
-function XUiTwoSideTowerDetails:OnStart(featureList, pointData, chapter, cb)
-    self.FeatureList = featureList
-    if pointData then
-        self.PointData = pointData
-        self.StageId = self.PointData:GetNegativeStage():GetStageId()
-        ---@type XTwoSideTowerChapter
-        self.Chapter = chapter
-        self.Cb = cb
-    end
-    self.GridBuffDic = {}
-    self.BtnTanchuangCloseBig.CallBack = function()
-        self:Close()
-        if self.Cb then
-            self.Cb()
-        end
-        CsXGameEventManager.Instance:Notify(XEventId.EVENT_TWO_SIDE_TOWER_FEATURE_FORBID)
-    end
-    self:Refresh()
+function XUiTwoSideTowerDetails:OnAwake()
+    self:RegisterUiEvents()
+
+    self.FeatureEndUi = XTool.InitUiObjectByUi({}, self.PanelFeatureEnd)
+    self.FeatureNormalUi = XTool.InitUiObjectByUi({}, self.PanelFeatureNormal)
+    self.FeatureEndUi.GridFeature.gameObject:SetActiveEx(false)
+    self.FeatureNormalUi.GridFeature.gameObject:SetActiveEx(false)
+    ---@type XUiGridTwoSideTowerFeature[]
+    self.GridFeatureEndList = {}
+    ---@type XUiGridTwoSideTowerFeature[]
+    self.GridFeatureNormalList = {}
 end
 
-function XUiTwoSideTowerDetails:Refresh()
-    self.PanelScore.gameObject:SetActiveEx(self.PointData)
-    if self.PointData and self.TxtScore then
-        self.TxtScore.gameObject:SetActiveEx(self.PointData:GetReduceScore() > 0)
-    end
-    if self.Chapter and self.TxtTips then
-        self.TxtTips.gameObject:SetActiveEx(not self.Chapter:IsPositive())
-    end
-    for _, featureId in pairs(self.FeatureList) do
-        if featureId == XTwoSideTowerConfigs.UnknowFeatureId then
-            goto CONTINUE
-        end
+function XUiTwoSideTowerDetails:OnStart(stageIds, chapterId, pointType, callBack)
+    self.StageIds = stageIds
+    self.ChapterId = chapterId
+    self.PointType = pointType
+    self.CallBack = callBack
+end
 
-        local featureCfg = XTwoSideTowerConfigs.GetFeatureCfg(featureId)
-        if not self.GridBuffDic[featureId] then
-            ---@type UnityEngine.RectTransform
-            local gridBuff = CS.UnityEngine.GameObject.Instantiate(self.GridBuff, self.Content)
-            self.GridBuffDic[featureId] = gridBuff
-            local btnShield = gridBuff:Find("BtnShield"):GetComponent("XUiButton")
-            local btnRelieve = gridBuff:Find("BtnRelieve"):GetComponent("XUiButton")
-            btnShield.CallBack = function()
-                XDataCenter.TwoSideTowerManager.ShieldFeatureRequest(featureId, self.StageId, true, function(pointData)
-                    btnShield.gameObject:SetActiveEx(false)
-                    btnRelieve.gameObject:SetActiveEx(true)
-                    self.Chapter:UpdatePointData(pointData)
-                    self:Refresh()
-                end)
-            end
-            btnRelieve.CallBack = function()
-                XDataCenter.TwoSideTowerManager.ShieldFeatureRequest(featureId, self.StageId, false, function(pointData)
-                    btnShield.gameObject:SetActiveEx(true)
-                    btnRelieve.gameObject:SetActiveEx(false)
-                    self.Chapter:UpdatePointData(pointData)
-                    self:Refresh()
-                end)
-            end
-        end
-        local gridBuff = self.GridBuffDic[featureId]
-        local isShield = self.PointData and self.PointData:IsShieldFeature(featureId) or false
-        local buffName = gridBuff:Find("TxtBuffName"):GetComponent("Text")
-        buffName.text = featureCfg.Name
-        local buffDesc = gridBuff:Find("TxtAmbien"):GetComponent("Text")
-        buffDesc.transform.sizeDelta = self.PointData and CS.UnityEngine.Vector2(813, buffDesc.transform.sizeDelta.y) or CS.UnityEngine.Vector2(1055, buffDesc.transform.sizeDelta.y)
-        buffDesc.transform.anchoredPosition = self.PointData and CS.UnityEngine.Vector2(-104, buffDesc.transform.anchoredPosition.y) or CS.UnityEngine.Vector2(17.6, buffDesc.transform.anchoredPosition.y)
-        buffDesc.text = featureCfg.Desc
-        local buffIcon = gridBuff:Find("IconBuff/RImgIcon"):GetComponent("RawImage")
-        buffIcon:SetRawImage(featureCfg.Icon)
-        local btnShield = gridBuff:Find("BtnShield"):GetComponent("XUiButton")
-        local btnRelieve = gridBuff:Find("BtnRelieve"):GetComponent("XUiButton")
-        local panelScreen = gridBuff:Find("IconBuff/PanelScreen")
-        local effect = gridBuff:Find("IconBuff/Effect")
-        panelScreen.gameObject:SetActiveEx(self.PointData and self.PointData:IsShieldFeature(featureId))
-        effect.gameObject:SetActiveEx(featureCfg.Type == 2)
-        btnShield.gameObject:SetActiveEx(not isShield and self.PointData and self.Chapter)
-        btnRelieve.gameObject:SetActiveEx(isShield and self.PointData and self.Chapter)
-
-        :: CONTINUE ::
+function XUiTwoSideTowerDetails:OnEnable()
+    self.FeatureEndUi.GameObject:SetActiveEx(self.PointType == XEnumConst.TwoSideTower.PointType.End)
+    self.FeatureNormalUi.GameObject:SetActiveEx(self.PointType == XEnumConst.TwoSideTower.PointType.Normal)
+    if self.PointType == XEnumConst.TwoSideTower.PointType.Normal then
+        self:RefreshFeatureNormalList()
     end
-    self.GridBuff.gameObject:SetActiveEx(false)
+    if self.PointType == XEnumConst.TwoSideTower.PointType.End then
+        self:RefreshFeatureEndList()
+    end
+end
+
+function XUiTwoSideTowerDetails:RefreshFeatureNormalList()
+    if XTool.IsTableEmpty(self.StageIds) then
+        return
+    end
+    for index, stageId in pairs(self.StageIds) do
+        local grid = self.GridFeatureNormalList[index]
+        if not grid then
+            local go = index == 1 and self.FeatureNormalUi.GridFeature or XUiHelper.Instantiate(self.FeatureNormalUi.GridFeature, self.FeatureNormalUi.Content)
+            grid = XUiGridTwoSideTowerFeature.New(go, self)
+            self.GridFeatureNormalList[index] = grid
+        end
+        grid:Open()
+        grid:Refresh(self.ChapterId, stageId)
+    end
+    for i = #self.StageIds + 1, #self.GridFeatureNormalList do
+        self.GridFeatureNormalList[i]:Close()
+    end
+end
+
+function XUiTwoSideTowerDetails:RefreshFeatureEndList()
+    if not XTool.IsNumberValid(self.ChapterId) then
+        return
+    end
+    local pointIds = self._Control:GetChapterPointIds(self.ChapterId)
+    local stageIds = {}
+    for _, pointId in pairs(pointIds) do
+        local stageId = self._Control:GetPointPassStageId(self.ChapterId, pointId)
+        if stageId > 0 then
+            table.insert(stageIds, stageId)
+        end
+    end
+    for index, stageId in pairs(stageIds) do
+        local grid = self.GridFeatureEndList[index]
+        if not grid then
+            local go = index == 1 and self.FeatureEndUi.GridFeature or XUiHelper.Instantiate(self.FeatureEndUi.GridFeature, self.FeatureEndUi.Content)
+            grid = XUiGridTwoSideTowerFeature.New(go, self, handler(self, self.RefreshScoreUi))
+            self.GridFeatureEndList[index] = grid
+        end
+        grid:Open()
+        grid:Refresh(self.ChapterId, stageId)
+    end
+    for i = #stageIds + 1, #self.GridFeatureEndList do
+        self.GridFeatureEndList[i]:Close()
+    end
+    self:RefreshScoreUi()
+end
+
+function XUiTwoSideTowerDetails:RefreshScoreUi()
+    -- 评分降低
+    local isLower = self._Control:CheckChapterShieldFeaturesCount(self.ChapterId)
+    if self.FeatureEndUi.TxtScore then
+        self.FeatureEndUi.TxtScore.gameObject:SetActiveEx(isLower)
+    end
+end
+
+function XUiTwoSideTowerDetails:RegisterUiEvents()
+    XUiHelper.RegisterClickEvent(self, self.BtnTanchuangClose, self.OnBtnTanchuangCloseClick)
+end
+
+function XUiTwoSideTowerDetails:OnBtnTanchuangCloseClick()
+    self:Close()
+    if self.CallBack then
+        self.CallBack()
+    end
 end
 
 return XUiTwoSideTowerDetails

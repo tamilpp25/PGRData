@@ -144,7 +144,7 @@ function XUiArchiveMonsterSynopsis:SetButtonCallBack()
         
         local stageId = XPracticeConfigs.GetSimulateTrainMonsterStageId(self.Data:GetId())
         local panelType = XPracticeConfigs.GetPracticeChapterIdByStageId(stageId)
-        XLuaUiManager.Open("UiFubenPractice", panelType, stageId)
+        XDataCenter.PracticeManager.OpenUiFubenPratice(panelType, stageId)
     end
 end
 

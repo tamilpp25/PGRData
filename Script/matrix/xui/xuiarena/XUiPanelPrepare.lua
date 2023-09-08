@@ -1,16 +1,9 @@
-local XUiPanelPrepare = XClass(nil, "XUiPanelPrepare")
+---@class XUiPanelPrepare:XUiNode
+local XUiPanelPrepare = XClass(XUiNode, "XUiPanelPrepare")
 
-function XUiPanelPrepare:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    XTool.InitUiObject(self)
+function XUiPanelPrepare:OnStart()
     self:AutoAddListener()
-
-    self.IsShow = false
-    self.GameObject:SetActiveEx(false)
-
-    self.RedPointApplyId = XRedPointManager.AddRedPointEvent(self.ImgRed, nil, self, { XRedPointConditions.Types.CONDITION_ARENA_APPLY })
+    self:AddRedPointEvent(self.ImgRed, nil, self, { XRedPointConditions.Types.CONDITION_ARENA_APPLY })
 end
 
 function XUiPanelPrepare:RegisterClickEvent(uiNode, func)
@@ -60,23 +53,8 @@ function XUiPanelPrepare:OnBtnShopClick()
     XLuaUiManager.Open("UiShop", XShopManager.ShopType.Arena)
 end
 
-function XUiPanelPrepare:Show()
-    if self.IsShow then
-        return
-    end
-
-    self.IsShow = true
-    self.GameObject:SetActiveEx(true)
+function XUiPanelPrepare:OnEnable()
     self:Refresh()
-end
-
-function XUiPanelPrepare:Hide()
-    if not self.IsShow then
-        return
-    end
-
-    self.IsShow = false
-    self.GameObject:SetActiveEx(false)
 end
 
 function XUiPanelPrepare:OnCheckApplyData(count)

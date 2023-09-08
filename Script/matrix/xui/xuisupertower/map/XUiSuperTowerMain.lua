@@ -128,7 +128,7 @@ function XUiSuperTowerMain:InitPanel()
     self.ThemeSelectPanel = XUiPanelThemeSelect.New(self.PanelThemeSelect, self)
 
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
             self.AssetActivityPanel:Refresh(itemIds)
         end, self.AssetActivityPanel)

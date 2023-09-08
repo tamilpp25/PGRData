@@ -3,6 +3,8 @@
 --Author: wujie
 --Note: 音乐播放器管理
 
+local DefaultAlbumId = CS.XGame.ClientConfig:GetInt("MusicPlayerMainViewNeedPlayedAlbumId")
+
 XMusicPlayerManagerCreator = function()
     local XMusicPlayerManager = {}
 
@@ -11,7 +13,7 @@ XMusicPlayerManagerCreator = function()
     function XMusicPlayerManager.Init()
         local albumId = XSaveTool.GetData(XMusicPlayerConfigs.UiMainSavedAlbumIdKey)
         if not albumId or not XMusicPlayerConfigs.IsHaveAlbumById(albumId) then
-            albumId = CS.XGame.ClientConfig:GetInt("MusicPlayerMainViewNeedPlayedAlbumId")
+            albumId = DefaultAlbumId
             if albumId == 0 then
                 XLog.Error("Client/Config/ClientConfig.tab 表里面的 MusicPlayerMainViewNeedPlayedAlbumId 字段对应的值不能为0")
             end
@@ -29,6 +31,9 @@ XMusicPlayerManagerCreator = function()
     end
 
     function XMusicPlayerManager.GetUiMainNeedPlayedAlbumId()
+        if not XMVCA.XSubPackage:CheckNecessaryComplete() then
+            return DefaultAlbumId
+        end
         return UiMainNeedPlayedAlbumId
     end
 

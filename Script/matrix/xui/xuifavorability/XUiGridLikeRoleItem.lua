@@ -1,22 +1,19 @@
-XUiGridLikeRoleItem = XClass(nil, "XUiGridLikeRoleItem")
-
-function XUiGridLikeRoleItem:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
-
-function XUiGridLikeRoleItem:Init(uiRoot)
-    self.UiRoot = uiRoot
-end
+local XUiGridLikeRoleItem = XClass(XUiNode, "XUiGridLikeRoleItem")
 
 -- [刷新界面]
 function XUiGridLikeRoleItem:OnRefresh(data)
     self.CharacterData = data
-    self.TrustExp = XFavorabilityConfigs.GetTrustExpById(data.Id)
+    self.TrustExp = self._Control:GetTrustExpById(data.Id)
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(data.Id))
-    self.ImgAssist.gameObject:SetActiveEx(XDataCenter.DisplayManager.GetDisplayChar().Id == data.Id)
-
+    
+    --2.7是助理就显示
+    if self.ImgAssist then
+        self.ImgAssist.gameObject:SetActiveEx(data.IsAssistant and not data.MainAssistant)
+    end
+    if self.ImgAssistMain then
+        self.ImgAssistMain.gameObject:SetActiveEx(data.MainAssistant)
+    end
+    
     local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(data.Id)
     self.ImgLock.gameObject:SetActiveEx(not isOwn)
     self.RImgAIxin.gameObject:SetActiveEx(isOwn)
@@ -27,8 +24,8 @@ function XUiGridLikeRoleItem:OnRefresh(data)
     else
         local trustLv = data.TrustLv or 1
         self.TxtLevel.text = trustLv
-        self.TxtDisplayLevel.text = XFavorabilityConfigs.GetWordsWithColor(trustLv, self.TrustExp[trustLv].Name)
-        self.UiRoot:SetUiSprite(self.RImgAIxin, XFavorabilityConfigs.GetTrustLevelIconByLevel(data.TrustLv))
+        self.TxtDisplayLevel.text = self._Control:GetWordsWithColor(trustLv, self.TrustExp[trustLv].Name)
+        self.Parent:SetUiSprite(self.RImgAIxin, self._Control:GetTrustLevelIconByLevel(data.TrustLv))
 
         self.ImgRedPoint.gameObject:SetActiveEx(self:IsRed())
     end
@@ -45,18 +42,18 @@ end
 function XUiGridLikeRoleItem:IsRed()
     if self.CharacterData then
         local characterId = self.CharacterData.Id
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if not isOwn then return false end
 
-        local rumorReddot = XDataCenter.FavorabilityManager.HasRumorsToBeUnlock(characterId)
-        local dataReddot = XDataCenter.FavorabilityManager.HasDataToBeUnlock(characterId)
-        local audioReddot = XDataCenter.FavorabilityManager.HasAudioToBeUnlock(characterId)
-        local actionReddot = XDataCenter.FavorabilityManager.HasActionToBeUnlock(characterId)
+        local rumorReddot = XMVCA.XFavorability:HasRumorsToBeUnlock(characterId)
+        local dataReddot = XMVCA.XFavorability:HasDataToBeUnlock(characterId)
+        local audioReddot = XMVCA.XFavorability:HasAudioToBeUnlock(characterId)
+        local actionReddot = XMVCA.XFavorability:HasActionToBeUnlock(characterId)
 
         local check = XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.FavorabilityFile)
         local documentReddot = (not check) and (rumorReddot or dataReddot or audioReddot or actionReddot)
 
-        local storyReddot = XDataCenter.FavorabilityManager.HasStroyToBeUnlock(characterId)
+        local storyReddot = XMVCA.XFavorability:HasStroyToBeUnlock(characterId)
         local plotReddot = (not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.FavorabilityStory)) and storyReddot
 
         return documentReddot or plotReddot

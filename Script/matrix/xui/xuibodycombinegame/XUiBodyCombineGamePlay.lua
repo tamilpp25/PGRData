@@ -88,7 +88,7 @@ function XUiBodyCombineGamePlay:OnStart(stage)
     self.Stage = stage
 
     local itemId = XDataCenter.BodyCombineGameManager.GetCoinItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelAsset)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelAsset, self)
 
     self.UiPanelTeam = {}
     --初始化各个部位显示

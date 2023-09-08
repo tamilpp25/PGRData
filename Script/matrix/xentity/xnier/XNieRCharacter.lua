@@ -349,7 +349,7 @@ end
 
 function XNieRCharacter:GetNieRCharName()
     local characterId = self:GetRobotCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local nameStr = charConfig.Name
     -- if charConfig.TradeName ~= "" then
     --     nameStr = nameStr .. "·" .. charConfig.TradeName

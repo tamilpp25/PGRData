@@ -225,9 +225,9 @@ end
 
 function XUiGuildWarTerm4PanelDetail:OnBtnModeSwitch()
     if self.Node:GetSelfChildIndex() == XGuildWarConfig.ChildNodeIndex.Right then
-        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_PANDA_UNFOLD_DETAIL, true, XGuildWarConfig.ChildNodeIndex.Left)
+        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_PANDA_UNFOLD_DETAIL, true, XGuildWarConfig.ChildNodeIndex.Left, true)
     elseif self.Node:GetSelfChildIndex() == XGuildWarConfig.ChildNodeIndex.Left then
-        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_PANDA_UNFOLD_DETAIL, true, XGuildWarConfig.ChildNodeIndex.Right)
+        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_PANDA_UNFOLD_DETAIL, true, XGuildWarConfig.ChildNodeIndex.Right, true)
     end
 end
 

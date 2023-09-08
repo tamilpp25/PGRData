@@ -62,7 +62,9 @@ end
 function XEquipGuide:GetTargetList()
     local list = {}
     for _, target in pairs(self._EquipTargetDict) do
-        table.insert(list, target)
+        if not target:GetProperty("_Hidden") then
+            table.insert(list, target)
+        end
     end
     
     table.sort(list, function(a, b) 

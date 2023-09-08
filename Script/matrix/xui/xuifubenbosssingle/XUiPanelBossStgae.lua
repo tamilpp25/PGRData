@@ -1,83 +1,58 @@
-local XUiPanelBossStgae = XClass(nil, "XUiPanelBossStgae")
+---@class XUiPanelBossStgae : XUiNode
+local XUiPanelBossStgae = XClass(XUiNode, "XUiPanelBossStgae")
 local BOSS_MAX_COUNT = 3
 
-function XUiPanelBossStgae:Ctor(parent, ui, bossList)
-    self.Parent = parent
-    self.BossList = bossList
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
-    self:Init()
+function XUiPanelBossStgae:OnStart(bossList)
+    self._BossList = bossList
+    self._GroupId = {}
+    self:_RegisterButtonListeners()
+    self:_RefreshBossInfo()
 end
 
-function XUiPanelBossStgae:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiPanelBossStgae:RegisterClickEvent函数参数错误：参数func不能为空")
-        return
-    end
-
-    if type(func) ~= "function" then
-        XLog.Error("XUiPanelBossStgae:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
-
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
+function XUiPanelBossStgae:OnEnable()
+    self:_RefreshBossInfo()
 end
 
-function XUiPanelBossStgae:AutoAddListener()
-    self:RegisterClickEvent(self.BtnEnter1, self.OnBtnEnter1Click)
-    self:RegisterClickEvent(self.BtnEnter2, self.OnBtnEnter2Click)
-    self:RegisterClickEvent(self.BtnEnter3, self.OnBtnEnter3Click)
-    self:RegisterClickEvent(self.BtnName1, self.OnBtnName1Click)
-    self:RegisterClickEvent(self.BtnName2, self.OnBtnName2Click)
-    self:RegisterClickEvent(self.BtnName3, self.OnBtnName3Click)
+function XUiPanelBossStgae:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnEnter1, self.OnBtnEnter1Click, true)
+    XUiHelper.RegisterClickEvent(self, self.BtnEnter2, self.OnBtnEnter2Click, true)
+    XUiHelper.RegisterClickEvent(self, self.BtnEnter3, self.OnBtnEnter3Click, true)
+    XUiHelper.RegisterClickEvent(self, self.BtnName1, self.OnBtnName1Click, true)
+    XUiHelper.RegisterClickEvent(self, self.BtnName2, self.OnBtnName2Click, true)
+    XUiHelper.RegisterClickEvent(self, self.BtnName3, self.OnBtnName3Click, true)
 end
 
-function XUiPanelBossStgae:Init()
-    self:RefreshBossInfo()
-end
-
-function XUiPanelBossStgae:RefreshBossInfo()
-    self.GroupId = {}
+function XUiPanelBossStgae:_RefreshBossInfo()
+    self._GroupId = {}
     for i = 1, BOSS_MAX_COUNT do
-        if not self.BossList[i] then
+        if not self._BossList[i] then
             self["PanelStageLock" .. i].gameObject:SetActiveEx(true)
             self["PanelStageOpen" .. i].gameObject:SetActiveEx(false)
             self["PanelBossNameInfo" .. i].gameObject:SetActiveEx(false)
-            self["PanelHideBoss" .. i].gameObject:SetActiveEx(false)
-            self["PanelBossLeftTime" .. i].gameObject:SetActiveEx(false)
             self["TxtBoosName" .. i].gameObject:SetActiveEx(false)
-            self["PanelRongtiaoBuff" .. i].gameObject:SetActiveEx(false)
-            self["TxtBoosName" .. i].text = "--"
-            self["TxtBoosLevel" .. i].text = "--"
+            self["PanelLevel" .. i].gameObject:SetActiveEx(false)
             return
         end
 
-        local bossId = self.BossList[i]
+        local bossId = self._BossList[i]
         self["PanelStageLock" .. i].gameObject:SetActiveEx(false)
         self["PanelStageOpen" .. i].gameObject:SetActiveEx(true)
         self["PanelBossNameInfo" .. i].gameObject:SetActiveEx(true)
+        self["TxtBoosName" .. i].gameObject:SetActiveEx(true)
+        self["PanelLevel" .. i].gameObject:SetActiveEx(true)
 
         local bossInfo = XDataCenter.FubenBossSingleManager.GetBossCurDifficultyInfo(bossId, i)
+        local curScore = XDataCenter.FubenBossSingleManager.GetBossCurScore(bossId)
         if bossInfo.isHideBoss then
+            self["TxtBossScore" .. i].text = CS.XTextManager.GetText("BossSingleLevelHideBoss", curScore)
             self["TxtBoosLevel" .. i].text = CS.XTextManager.GetText("BossSingleNameHideDesc", bossInfo.bossDiffiName)
         else
+            self["TxtBossScore" .. i].text = CS.XTextManager.GetText("BossSingleLevel", curScore)
             self["TxtBoosLevel" .. i].text = CS.XTextManager.GetText("BossSingleNameNotHideDesc", bossInfo.bossDiffiName)
         end
 
         self["TxtBoosName" .. i].text = bossInfo.bossName
         self["RImgBossIcon" .. i]:SetRawImage(bossInfo.bossIcon)
-        self["PanelHideBoss" .. i].gameObject:SetActiveEx(bossInfo.isHideBoss)
-
-        self["ImgTag" .. i].gameObject:SetActiveEx(bossInfo.tagIcon ~= nil)
-        if bossInfo.tagIcon then
-            self.Parent:SetUiSprite(self["ImgTag" .. i], bossInfo.tagIcon)
-        end
 
         if bossInfo.groupName then
             self["BtnName" .. i]:SetName(bossInfo.groupName)
@@ -87,82 +62,43 @@ function XUiPanelBossStgae:RefreshBossInfo()
             self["BtnName" .. i]:SetSprite(bossInfo.groupIcon)
         end
 
-        local leftTime = XFubenBossSingleConfigs.GetBossSectionLeftTime(bossId)
-        if leftTime > 0 then
-            local timeStr = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
-            self["TxtBossLeftTime" .. i].text = CS.XTextManager.GetText("BossSingleBossSectionLeftTime", timeStr)
-            self["PanelBossLeftTime" .. i].gameObject:SetActiveEx(true)
-        else
-            self["PanelBossLeftTime" .. i].gameObject:SetActiveEx(false)
-        end
-
-        local teamBuffId = XFubenBossSingleConfigs.GetBossSectionTeamBuffId(bossId)
-        local showBuffIcon = teamBuffId > 0
-        self["PanelRongtiaoBuff" .. i].gameObject:SetActiveEx(showBuffIcon)
-
-        self.GroupId[i] = bossInfo.groupId
+        self._GroupId[i] = bossInfo.groupId
     end
 end
 
-function XUiPanelBossStgae:RefreshBossDifficult()
-    for i = 1, BOSS_MAX_COUNT do
-        if self.BossList[i] then
-            local bossId = self.BossList[i] or 0
-            local bossInfo = XDataCenter.FubenBossSingleManager.GetBossCurDifficultyInfo(bossId, i)
-            self["TxtBoosName" .. i].text = bossInfo.bossName
-            self["RImgBossIcon" .. i]:SetRawImage(bossInfo.bossIcon)
-            self["PanelHideBoss" .. i].gameObject:SetActiveEx(bossInfo.isHideBoss)
-
-            if bossInfo.isHideBoss then
-                self["TxtBoosLevel" .. i].text = CS.XTextManager.GetText("BossSingleNameHideDesc", bossInfo.bossDiffiName)
-            else
-                self["TxtBoosLevel" .. i].text = CS.XTextManager.GetText("BossSingleNameNotHideDesc", bossInfo.bossDiffiName)
-            end
-        else
-            self["TxtBoosName" .. i].text = "--"
-            self["TxtBoosLevel" .. i].text = "--"
-            self["PanelHideBoss" .. i].gameObject:SetActiveEx(false)
-        end
-    end
-end
-
-function XUiPanelBossStgae:EnterDetail(index)
-    if not self.BossList[index] then
+function XUiPanelBossStgae:_EnterDetail(index)
+    if not self._BossList[index] then
         XUiManager.TipText("BossSingleBossNotEnough")
         return
     end
-    self.Parent:ShowBossDetail(self.BossList[index])
-end
 
-function XUiPanelBossStgae:PanelBossContentActive(active)
-    self.GameObject:SetActiveEx(active)
-    self:RefreshBossInfo()
+    self.Parent:ShowBossDetail(self._BossList[index])
 end
 
 function XUiPanelBossStgae:OnBtnEnter1Click()
-    self:EnterDetail(1)
+    self:_EnterDetail(1)
 end
 
 function XUiPanelBossStgae:OnBtnEnter2Click()
-    self:EnterDetail(2)
+    self:_EnterDetail(2)
 end
 
 function XUiPanelBossStgae:OnBtnEnter3Click()
-    self:EnterDetail(3)
+    self:_EnterDetail(3)
 end
 
 function XUiPanelBossStgae:OnBtnName1Click()
-    local groupId = self.GroupId[1]
+    local groupId = self._GroupId[1]
     self.Parent:ShowBossGroupInfo(groupId)
 end
 
 function XUiPanelBossStgae:OnBtnName2Click()
-    local groupId = self.GroupId[2]
+    local groupId = self._GroupId[2]
     self.Parent:ShowBossGroupInfo(groupId)
 end
 
 function XUiPanelBossStgae:OnBtnName3Click()
-    local groupId = self.GroupId[3]
+    local groupId = self._GroupId[3]
     self.Parent:ShowBossGroupInfo(groupId)
 end
 

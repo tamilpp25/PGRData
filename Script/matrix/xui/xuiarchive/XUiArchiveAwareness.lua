@@ -28,7 +28,7 @@ function XUiArchiveAwareness:OnAwake()
     self:InitDynamicTable()
     self:AutoAddListener()
 
-    self.EventIdAwarenessRedPoint = XRedPointManager.AddRedPointEvent(
+    self.EventIdAwarenessRedPoint = self:AddRedPointEvent(
     self.TabBtnGroup,
     self.OnCheckAwarenessRedPoint,
     self,

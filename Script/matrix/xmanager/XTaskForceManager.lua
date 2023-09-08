@@ -260,8 +260,8 @@ XTaskForceManagerCreator = function()
             return a.Quality > b.Quality
         end
 
-        local priorityA = XCharacterConfigs.GetCharacterPriority(a.Id)
-        local priorityB = XCharacterConfigs.GetCharacterPriority(b.Id)
+        local priorityA = XMVCA.XCharacter:GetCharacterPriority(a.Id)
+        local priorityB = XMVCA.XCharacter:GetCharacterPriority(b.Id)
 
         if priorityA ~= priorityB then
             return priorityA < priorityB
@@ -847,7 +847,7 @@ XTaskForceManagerCreator = function()
         end,
 
         [18109] = function(condition, characterId) -- 派遣中拥有指定数量指定性别的构造体
-            local characterTemplate = XCharacterConfigs.GetCharacterTemplate(characterId)
+            local characterTemplate = XMVCA.XCharacter:GetCharacterTemplate(characterId)
             return characterTemplate.Sex == condition.Params[1], condition.Desc
         end,
 

@@ -4,6 +4,7 @@ local XUiEquipDetailOther = XLuaUiManager.Register(XLuaUi, "UiEquipDetailOther")
 
 function XUiEquipDetailOther:OnAwake()
     -- UI初始化
+    self.BtnHelp.gameObject:SetActiveEx(false)
     self.BtnLock.gameObject:SetActiveEx(false)
     self.BtnUnlock.gameObject:SetActiveEx(false)
     self.BtnLaJi.gameObject:SetActiveEx(false)

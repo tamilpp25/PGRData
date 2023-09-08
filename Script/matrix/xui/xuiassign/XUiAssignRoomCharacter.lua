@@ -83,7 +83,7 @@ function XUiAssignRoomCharacter:InitFilter()
     self.PanelFilter:InitData(onSeleCb, tagClickedCb, nil, 
     refreshGridsFun, XUiGridCharacter, checkIsInTeam)
     local list = self.CharacterAgency:GetOwnCharacterList()
-    self.PanelFilter:ImportList(list)
+    self.PanelFilter:ImportList(list, self.OrgSeleCharacterId)
 end
 
 -- function XUiAssignRoomCharacter:InitDynamicTable()
@@ -114,7 +114,7 @@ function XUiAssignRoomCharacter:OnStart(orgSeleCharacterId, teamId, clickTeamPos
 
     -- 自动选中点击的角色
     if XTool.IsNumberValid(orgSeleCharacterId) then
-        local charaType = XCharacterConfigs.GetCharacterType(orgSeleCharacterId)
+        local charaType = XMVCA.XCharacter:GetCharacterType(orgSeleCharacterId)
         local charcter = XDataCenter.CharacterManager.GetCharacter(orgSeleCharacterId)
         self.InitCharacterType = charaType
         self.LastSelectNormalCharacter = charaType == TabBtnIndex.Normal and charcter or self.LastSelectNormalCharacter 
@@ -130,6 +130,7 @@ function XUiAssignRoomCharacter:OnEnable()
     -- 部分ui文本
     self.TxtTeamInfoName.text = CS.XTextManager.GetText("AssignTeamTitle", self.ClickTeamPos) -- 作战梯队{0}
     self.TxtRequireAbility.text = self.AblityRequire and self.AblityRequire or ""
+    self.PanelFilter:RefreshList()
 end
 
 -- function XUiAssignRoomCharacter:OnSelectCharacterType(index)
@@ -213,12 +214,11 @@ end
 
 -- 角色被选中
 function XUiAssignRoomCharacter:OnRoleCharacter(character)
-    if self.CurCharacter and character.Id == self.CurCharacter.Id then
+    if not character then
         return
     end
-    
     self.CurCharacter = character
-    if XCharacterConfigs.GetCharacterType(character.Id) == TabBtnIndex.Normal then
+    if XMVCA.XCharacter:GetCharacterType(character.Id) == TabBtnIndex.Normal then
         self.LastSelectNormalCharacter = self.CurCharacter
     else 
         self.LastSelectIsomerCharacter = self.CurCharacter
@@ -320,7 +320,7 @@ function XUiAssignRoomCharacter:CheckLimitBeforeChangeTeam(charId, pos, isAfterC
     if isIn and otherTeamData ~= self.CurrTeamData then
         -- 在其他编队
         local title = CS.XTextManager.GetText("AssignDeployTipTitle")
-        local characterName = XCharacterConfigs.GetCharacterName(charId)
+        local characterName = XMVCA.XCharacter:GetCharacterName(charId)
         local oldTeamName = CS.XTextManager.GetText("AssignTeamTitle", otherTeamOrder)
         local newTeamName = CS.XTextManager.GetText("AssignTeamTitle", self.TeamOrderInGroup)
         local content = CS.XTextManager.GetText("AssignDeployTipContent", characterName, oldTeamName, newTeamName)

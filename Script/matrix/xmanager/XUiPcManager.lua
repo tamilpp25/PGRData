@@ -2,6 +2,9 @@ XUiPcManagerCreator = function()
     ---@class XUiPcManager
     local XUiPcManager = {}
 
+    local FullScreenMode = CS.UnityEngine.FullScreenMode
+    local PlayerPrefs = CS.UnityEngine.PlayerPrefs
+
     local EditingKey
     local ExitingGame
     local UiStacks
@@ -13,7 +16,7 @@ XUiPcManagerCreator = function()
     local function IsOnBtnClick()
         if XLuaUiManager.IsUiShow("UiLoading") or
                 XLuaUiManager.IsUiShow("UiAssignInfo") or -- loading 界面 边界公约
-                XDataCenter.GuideManager.CheckIsInGuidePlus() or
+                XDataCenter.GuideManager.CheckIsInGuide() or
                 XLuaUiManager.IsUiShow("UiBlackScreen") then
             return false
         end
@@ -527,6 +530,7 @@ XUiPcManagerCreator = function()
     end
 
     XUiPcManager.SetEditingKeyState = function(editing)
+        CS.XJoystickLSHelper.ForceResponse = not editing
         XUiPcManager.EditingKey = editing
         CS.XCommonGenericEventManager.NotifyInt(CSEventId.EVENT_EDITING_KEYSET, editing and 1 or 0)
     end
@@ -536,11 +540,11 @@ XUiPcManagerCreator = function()
     end
 
     XUiPcManager.RefreshJoystickActive = function()
-        XEventManager.DispatchEvent(CSEventId.EVENT_JOYSTICK_ACTIVE_CHANGED)
+        XEventManager.DispatchEvent(XEventId.EVENT_JOYSTICK_ACTIVE_CHANGED)
     end
 
     XUiPcManager.RefreshJoystickType = function()
-        XEventManager.DispatchEvent(CSEventId.EVENT_JOYSTICK_TYPE_CHANGED)
+        XEventManager.DispatchEvent(XEventId.EVENT_JOYSTICK_TYPE_CHANGED)
     end
 
     XUiPcManager.FullScreenableCheck = function()
@@ -548,16 +552,21 @@ XUiPcManagerCreator = function()
         local resolutions = XUiPcManager.GetOriginPcResolution();       -- 获取配置表最大分辨率
         local lastResolution = XUiPcManager.GetLastResolution();        -- 获取上一次设备分辨率
         local lastScreen = XUiPcManager.GetLastScreen();                -- 获取上一次使用的屏幕分辨率 
-        local unityScreen = XUiPcManager.GetUnityScreen();          -- 获取Unity写入的设备分辨率
+        local unityScreen = XUiPcManager.GetUnityScreen();              -- 获取Unity写入的设备分辨率
         local length = #resolutions;
 		local minResolution = resolutions[1]
         local maxResolution = resolutions[length];
+        local noFrame = XUiPcManager.GetLastNoFrame();
+        local lastFullScreen = XUiPcManager.GetLastFullScreen();
+        local windowedMode = FullScreenMode.Windowed;
+        local fullScreenMode = not noFrame and FullScreenMode.ExclusiveFullScreen or FullScreenMode.FullScreenWindow;
+        local mode = lastFullScreen and fullScreenMode or windowedMode;
         CS.XLog.Debug("width", width, "height", height, "maxResolution", maxResolution, "minResolution", minResolution, "lastResolution", lastResolution, "lastScreen", lastScreen)
         if width > maxResolution.x or height > maxResolution.y then
             CS.XLog.Debug("不能使用全屏")
             -- compare -- 当获取的屏幕尺寸超过配置表最大值时
             -- 这货不能用全屏, 给他禁掉
-            CS.XStandaloneSettingHelper.ForceWindow = true;
+            CS.XSettingHelper.ForceWindow = true;
             -- 同时立即设置为窗口模式
             CS.UnityEngine.Screen.fullScreen = false;
             local fitWidth;
@@ -570,36 +579,34 @@ XUiPcManagerCreator = function()
                 fitHeight = maxResolution.y;
             end
             CS.XLog.Debug("fitResolution", fitWidth, fitHeight)
-            XUiPcManager.SetResolution(fitWidth, fitHeight, false)
+            XUiPcManager.SetResolution(fitWidth, fitHeight, windowedMode)
         elseif width < lastResolution.width or height < lastResolution.height then
             if (lastScreen.width > minResolution.x and lastScreen.height > minResolution.y) and (width < lastScreen.width or height < lastScreen.height) then
                 -- 当前设备分辨率小于上一次使用的屏幕分辨率, 使其全屏
                 CS.XLog.Debug("新设备比旧设备分辨率小, 直接使用当前分辨率并全屏", width, height)
-                XUiPcManager.SetResolution(width, height, true);
-                CS.XStandaloneSettingHelper.ForceWindow = false;
+                XUiPcManager.SetResolution(width, height, fullScreenMode);
             else
                 -- 当前设备分辨率大于上一次使用的屏幕分辨率, 直接使用上一次的作为当前窗口分辨率设置
-                local lastFullScreen = XUiPcManager.GetLastFullScreen()
-                CS.XLog.Debug("新设备比旧设备分辨率小, 但是大于上一次窗口分辨率设置, 使用上一次的窗口化分辨率", lastScreen.width, lastScreen.height, lastFullScreen)
-                XUiPcManager.SetResolution(lastScreen.width, lastScreen.height, lastFullScreen)
+                CS.XLog.Debug("新设备比旧设备分辨率小, 但是大于上一次窗口分辨率设置, 使用上一次的窗口化分辨率", lastScreen.width, lastScreen.height, mode)
+                XUiPcManager.SetResolution(lastScreen.width, lastScreen.height, mode)
             end
+            CS.XSettingHelper.ForceWindow = false;
         else
-            local lastFullScreen = XUiPcManager.GetLastFullScreen()
             if unityScreen.width < minResolution.x or unityScreen.height < minResolution.y then
                 -- unity读取的尺寸很可能导致条幅屏, 判断是否有正确的缓存值
 				if lastScreen.width > minResolution.x and lastScreen.height > minResolution.y then
 				    -- 如果有正确的缓存值
 					CS.XLog.Debug("设置过正确的缓存值, 使用这个")
-					XUiPcManager.SetResolution(lastScreen.width, lastScreen.height, lastFullScreen)
+					XUiPcManager.SetResolution(lastScreen.width, lastScreen.height, mode)
 				else
 				    -- 没有正确的缓存值, 使用全屏
 				    CS.XLog.Debug("未被设置过, 使用全屏")
-                    XUiPcManager.SetResolution(width, height, lastFullScreen)
+                    XUiPcManager.SetResolution(width, height, mode)
 				end
             else
                 CS.XLog.Debug("不需要任何变化")
             end
-            CS.XStandaloneSettingHelper.ForceWindow = false;
+            CS.XSettingHelper.ForceWindow = false;
         end
         -- 记录设备分辨率
         XUiPcManager.SaveResolution(width, height)
@@ -608,7 +615,7 @@ XUiPcManagerCreator = function()
     XUiPcManager.LastResolution = nil
     XUiPcManager.GetLastResolution = function()
         if not XUiPcManager.LastResolution then
-            local prefs = CS.UnityEngine.PlayerPrefs.GetString("LastResolution", nil);
+            local prefs = PlayerPrefs.GetString("LastResolution", nil);
             if not prefs or prefs == "" then
                 XUiPcManager.LastResolution = CS.UnityEngine.Screen.currentResolution
             else
@@ -625,7 +632,7 @@ XUiPcManagerCreator = function()
     XUiPcManager.LastScreen = nil
     XUiPcManager.GetLastScreen = function()
         if not XUiPcManager.LastScreen then
-            local prefs = CS.UnityEngine.PlayerPrefs.GetString("LastScreen", nil)
+            local prefs = PlayerPrefs.GetString("LastScreen", nil)
             if not prefs or prefs == "" then
                 XUiPcManager.LastScreen = CS.XUnityEx.ResolutionEmpty
             else
@@ -651,7 +658,7 @@ XUiPcManagerCreator = function()
     XUiPcManager.LastFullScreen = false
     XUiPcManager.GetLastFullScreen = function()
         if not XUiPcManager.LastFullScreen then
-            local prefs = CS.UnityEngine.PlayerPrefs.GetInt("LastFullScreen", -1)
+            local prefs = PlayerPrefs.GetInt("LastFullScreen", -1)
             if prefs == -1 then
                 XUiPcManager.LastFullScreen = CS.UnityEngine.Screen.fullScreen
             else
@@ -661,10 +668,48 @@ XUiPcManagerCreator = function()
         return XUiPcManager.LastFullScreen
     end
 
-    XUiPcManager.SetResolution = function(width, heigth, isFullscreen)
-        CS.XStandaloneSettingHelper.SetResolution(width, heigth, isFullscreen)
-        XUiPcManager.SaveScreen(width, heigth)
-        XUiPcManager.SaveFullScreen(isFullscreen)
+    XUiPcManager.LastFullScreenMode = nil
+    XUiPcManager.GetLastFullScreenMode = function()
+        if not XUiPcManager.LastFullScreenMode then
+            local prefs = PlayerPrefs.GetInt("LastFullScreenMode", -1);
+            if prefs < 0 or prefs > 3 then
+                XUiPcManager.LastFullScreenMode = CS.UnityEngine.Screen.fullScreenMode;
+            else
+                XUiPcManager.LastFullScreenMode = FullScreenMode.__CastFrom(prefs)
+            end
+        end
+        return XUiPcManager.LastFullScreenMode
+    end
+
+    XUiPcManager.LastNoFrame = false
+    XUiPcManager.GotLastNoFrame = false
+    XUiPcManager.GetLastNoFrame = function()
+        if not XUiPcManager.GotLastNoFrame then
+            XUiPcManager.GotLastNoFrame = true
+            local prefs = CS.UnityEngine.PlayerPrefs.GetInt("LastNoFrame", -1)
+            if prefs == -1 then
+                XUiPcManager.LastNoFrame = true
+            else
+                XUiPcManager.LastNoFrame = prefs == 1
+            end
+        end
+        return XUiPcManager.LastNoFrame
+    end
+
+    XUiPcManager.SetNoFrame = function(value)
+        XUiPcManager.LastNoFrame = value
+        CS.UnityEngine.PlayerPrefs.SetInt("LastNoFrame", value and 1 or 0)
+        CS.UnityEngine.PlayerPrefs.Save()
+    end
+
+    ---@param width number
+    ---@param height number
+    ---@param fullScreenMode FullScreenMode
+    XUiPcManager.SetResolution = function(width, height, fullScreenMode)
+        CS.XSettingHelper.SetResolution(width, height, fullScreenMode)
+        XUiPcManager.SaveScreen(width, height)
+        XUiPcManager.SaveFullScreen(fullScreenMode == FullScreenMode.FullScreenMode)
+        XUiPcManager.SaveFullScreenMode(fullScreenMode)
     end
 
     XUiPcManager.SaveResolution = function(width, height)
@@ -672,8 +717,8 @@ XUiPcManagerCreator = function()
         empty.width = width;
         empty.height = height
         XUiPcManager.LastResolution = empty
-        CS.UnityEngine.PlayerPrefs.SetString("LastResolution", width .. "," .. height);
-        CS.UnityEngine.PlayerPrefs.Save();
+        PlayerPrefs.SetString("LastResolution", width .. "," .. height);
+        PlayerPrefs.Save();
     end
 
     XUiPcManager.SaveScreen = function(width, height)
@@ -681,14 +726,20 @@ XUiPcManagerCreator = function()
         empty.width = width
         empty.height = height
         XUiPcManager.LastScreen = empty
-        CS.UnityEngine.PlayerPrefs.SetString("LastScreen", width .. "," .. height)
-        CS.UnityEngine.PlayerPrefs.Save()
+        PlayerPrefs.SetString("LastScreen", width .. "," .. height)
+        PlayerPrefs.Save()
     end
 
     XUiPcManager.SaveFullScreen = function(fullScreen)
         XUiPcManager.LastFullScreen = fullScreen
-        CS.UnityEngine.PlayerPrefs.SetInt("LastFullScreen", fullScreen and 1 or 0)
-        CS.UnityEngine.PlayerPrefs.Save()
+        PlayerPrefs.SetInt("LastFullScreen", fullScreen and 1 or 0)
+        PlayerPrefs.Save()
+    end
+
+    XUiPcManager.SaveFullScreenMode = function(fullScreenMode)
+        XUiPcManager.LastFullScreenMode = fullScreenMode;
+        PlayerPrefs.SetInt("LastFullScreenMode", fullScreenMode);
+        PlayerPrefs.Save()
     end
 
     XUiPcManager.AddCustomUI = function(root)

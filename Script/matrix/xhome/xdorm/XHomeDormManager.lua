@@ -240,6 +240,9 @@ end
 ---@return
 --------------------------
 function XHomeDormManager.EnterDorm(targetId, dormitoryId, isEnterRoom, onFinishLoadScene, onFinishEnterRoom)
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     local isSelf = true
     local dormDataType = XDormConfig.DormDataType.Self
     XHomeDormManager.TargetId = targetId

@@ -191,7 +191,7 @@ end
 
 function XUiPanelCharPropertyOther:GetSceneUrl()
     local fashionId = self.Character.FashionId or
-    XCharacterConfigs.GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
+    XMVCA.XCharacter:GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
     local sceneUrl = XDataCenter.FashionManager.GetFashionSceneUrl(fashionId)
     return sceneUrl or self:GetDefaultSceneUrl()
 end

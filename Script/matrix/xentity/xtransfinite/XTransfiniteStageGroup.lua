@@ -21,12 +21,14 @@ function XTransfiniteStageGroup:Ctor(id)
 
     self._IsBegin = false
     self._IsClear = false
+    self._IsIsland = nil
 
     ---@type XTeam
     self._Team = false
 
     self._BestClearTime = 0
 
+    self._StageSaveIndex = 0
     self._StageProgressIndex = 1
 
     -- 上一次关卡记录
@@ -34,6 +36,9 @@ function XTransfiniteStageGroup:Ctor(id)
 
     -- 未confirm的记录
     self._LastResult = false
+    
+    -- 历史关卡记录
+    self._HistoryResults = false
 end
 
 function XTransfiniteStageGroup:SetDataFromServer(data)
@@ -74,6 +79,7 @@ function XTransfiniteStageGroup:SetDataFromServer(data)
         end
     end
 
+    self._StageSaveIndex = data.StageProgressIndex
     self._StageProgressIndex = data.StageProgressIndex + 1
     local stageAmount = self:GetStageAmount()
     if self._StageProgressIndex > stageAmount then
@@ -82,9 +88,13 @@ function XTransfiniteStageGroup:SetDataFromServer(data)
     else
         self._IsClear = false
     end
+    if self._StageSaveIndex >= stageAmount then
+        self._StageSaveIndex = stageAmount - 1
+    end
 
     self._Result = data.Result
     self._LastResult = data.LastResult
+    self._HistoryResults = data.HistoryResults
 end
 
 function XTransfiniteStageGroup:GetId()
@@ -106,6 +116,7 @@ function XTransfiniteStageGroup:Reset()
     --self._Team = false
     self._Score = 0
     self._StageProgressIndex = 1
+    self._StageSaveIndex = 0
     return true
 end
 
@@ -114,7 +125,19 @@ function XTransfiniteStageGroup:GetStageGroupType()
 end
 
 function XTransfiniteStageGroup:IsIsland()
-    return self:GetStageGroupType() == XTransfiniteConfigs.StageGroupType.Island
+    if self._IsIsland == nil then
+        local region = XDataCenter.TransfiniteManager.GetRegion()
+        local stageGroupIdList = region:GetIslandStageGroupIdArray()
+
+        self._IsIsland = false
+        for i = 1, #stageGroupIdList do
+            if self._Id == stageGroupIdList[i] then
+                self._IsIsland = true
+            end
+        end
+    end
+    
+    return self._IsIsland
 end
 
 function XTransfiniteStageGroup:GetName()
@@ -242,6 +265,9 @@ end
 function XTransfiniteStageGroup:IsAchievementAchieved()
     local achievementIdList = XTransfiniteConfigs.GetAchievementListByStageGroupId(self._Id)
 
+    if not achievementIdList then
+        return false
+    end
     for id, config in Pairs(achievementIdList) do
         local taskIds = XTransfiniteConfigs.GetTaskTaskIds(id)
         for _, taskId in Pairs(taskIds) do
@@ -423,6 +449,20 @@ end
 
 function XTransfiniteStageGroup:ClearLastResult()
     self._LastResult = nil
+end
+
+function XTransfiniteStageGroup:GetSaveStageIndex()
+    return self._StageSaveIndex
+end
+
+function XTransfiniteStageGroup:GetHistoryCharacterByIndex(index)
+    if self._HistoryResults and self._StageSaveIndex - 1 > 0 then
+        local historyResults = self._HistoryResults[self._StageSaveIndex - 1]
+        
+        if historyResults and historyResults.CharacterResultList then
+            return historyResults.CharacterResultList[index]
+        end
+    end
 end
 
 return XTransfiniteStageGroup

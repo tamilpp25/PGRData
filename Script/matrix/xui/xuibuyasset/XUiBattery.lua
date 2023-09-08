@@ -123,7 +123,7 @@ function XUiBattery:UpdateGrid(bagItem, parent, index)
     end
 
     if self.BagItem.Data.Template.TimelinessType and
-    self.BagItem.Data.Template.TimelinessType ~= FoEver then
+    self.BagItem.Data.Template.TimelinessType ~= FoEver and not self.Timers then
         self.Timers = XScheduleManager.ScheduleForever(function() self:SetTime() end, XScheduleManager.SECOND)
     end
 
@@ -132,6 +132,9 @@ function XUiBattery:UpdateGrid(bagItem, parent, index)
 end
 
 function XUiBattery:SetTime()
+    if XTool.UObjIsNil(self.GameObject) then
+        return
+    end
     local sprite
     if not self.BagItem.Data.Template.TimelinessType or
     self.BagItem.Data.Template.TimelinessType == FoEver then
@@ -160,7 +163,9 @@ function XUiBattery:SetTime()
             self:OnBtnMinusSelectCallBack()
         end
     end
-    self.Base:SetUiSprite(self.TimeTag, sprite)
+    if self.Base then
+        self.Base:SetUiSprite(self.TimeTag, sprite)
+    end
 end
 
 function XUiBattery:FlushSelectShow()

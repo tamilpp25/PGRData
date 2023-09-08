@@ -46,7 +46,6 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:Show(teamList, teamId, memberIn
     end
 
     self.PlayAnimationCb("ShuaXin")
-    self.GameObject:SetActiveEx(true)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:RefreshCharacterTypeTips()
@@ -105,7 +104,7 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:GetTeamDynamicCharacterTypes()
     if not isInCurTeam then
         local type = self:GetSelectCharacterType()
         if self.Parent.CharacterId then
-            local template = XCharacterConfigs.GetCharacterTemplate(self.Parent.CharacterId)
+            local template = XMVCA.XCharacter:GetCharacterTemplate(self.Parent.CharacterId)
             type = template.Type
         end
         table.insert(result, type)
@@ -171,7 +170,7 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnConsciousnessClick()
         XUiManager.TipText("StrongholdRobotRefuseAwareness")
         return
     end
-    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwareness(self.Parent.CharacterId)
+    XMVCA.XEquip:OpenUiEquipAwareness(self.Parent.CharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnWeaponClick()
@@ -179,7 +178,7 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnWeaponClick()
         XUiManager.TipText("StrongholdRobotRefuseWeapon")
         return
     end
-    XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.Parent.CharacterId, nil, true)
+    XMVCA.XEquip:OpenUiEquipReplace(self.Parent.CharacterId, nil, true)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:OnClickBtnFashion()
@@ -268,7 +267,7 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:OnClickBtnJoinTeam(btnSelfObj, 
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             self:AddDialogTipCount()
 
@@ -376,7 +375,7 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:GetCharacterType(characterId)
     end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:IsPrefab()

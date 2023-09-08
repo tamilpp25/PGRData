@@ -10,7 +10,7 @@ end
 
 function XUiDayTopicCharacter:SetTopicInfo(characterInfo)
     self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterInfo.Id))
-    self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterInfo.Id)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterInfo.Id)
     if self.IconUp then
         self.IconUp.gameObject:SetActiveEx(XDataCenter.FubenRogueLikeManager.IsTeamEffectCharacter(characterInfo.Id))
     end
@@ -24,7 +24,7 @@ end
 
 function XUiDayTopicCharacter:SetTopicInfoById(charId)
     self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(charId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(charId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(charId)
     if self.IconUp then
         self.IconUp.gameObject:SetActiveEx(true)
     end

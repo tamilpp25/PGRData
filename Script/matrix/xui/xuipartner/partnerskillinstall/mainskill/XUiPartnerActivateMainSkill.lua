@@ -49,14 +49,32 @@ function XUiPartnerActivateMainSkill:Init()
             break
         end
     end
+
+    if not self.CurSkillGroup and not self.PreviewSkillGroup then
+        for index,skillgroup in pairs(self.SkillGroupList) do
+            self.CurSkillGroup = skillgroup
+            self.PreviewSkillGroup = skillgroup
+            break
+        end
+    end
     
     if self.Partner:GetIsCarry() then
         local charId = self.Partner:GetCharacterId()
-        self.CharElement = XCharacterConfigs.GetCharacterElement(charId)
+        self.CharElement = XMVCA.XCharacter:GetCharacterElement(charId)
     end
     
     self.SkillOptionPanel = XUiPanelMainSkillOption.New(self.PanelMainSkillOption, self, self.Partner)
     self.ElementPanel = XUiPanelElement.New(self.PanelElement, self)
+
+    if self.Partner:GetIsComposePreview() then
+        if self.PanelLv then
+            self.PanelLv.gameObject:SetActiveEx(false)
+        end
+        if self.PanelTitle2 then
+            self.PanelTitle.gameObject:SetActiveEx(false)
+            self.PanelTitle2.gameObject:SetActiveEx(true)
+        end
+    end
 end
 
 
@@ -114,13 +132,17 @@ function XUiPartnerActivateMainSkill:DoSkillSelect()
 end
 
 function XUiPartnerActivateMainSkill:CheckIsSkillChange()
+    if self.Partner:GetIsComposePreview() then
+        return false
+    end
     local mainSkillGrouplist = self.SkillGroupList
     local changeSkillDic = {}
     local IsChange = false
     local oldCarrySkillGroup = {}
+    local curSkillGroupId = self.CurSkillGroup and self.CurSkillGroup:GetId()
     for _,skillGroup in pairs(mainSkillGrouplist) do
         if not skillGroup:GetIsCarry() then
-            if self.CurSkillGroup:GetId() == skillGroup:GetId() then
+            if curSkillGroupId == skillGroup:GetId() then
                 IsChange = true
             end
         else

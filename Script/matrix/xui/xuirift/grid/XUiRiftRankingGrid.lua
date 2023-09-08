@@ -1,3 +1,4 @@
+---@class XUiRiftRankingGrid
 local XUiRiftRankingGrid = XClass(nil, "UiRiftRankingGrid")
 local MAX_TEAM_CNT = 3
 
@@ -31,11 +32,13 @@ function XUiRiftRankingGrid:Refresh(rankInfo)
     for i = 1, MAX_TEAM_CNT do
         local roleId = rankInfo.CharacterIds and rankInfo.CharacterIds[i]
         local roleName = "PanelRole" .. i
-        self[roleName].gameObject:SetActiveEx(roleId ~= nil)
-        if roleId then 
-            local roleIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(roleId, false)
-            local imgName = "ImgRole" .. i
-            self[imgName]:SetRawImage(roleIcon)
+        if self[roleName] then
+            self[roleName].gameObject:SetActiveEx(roleId ~= nil)
+            if roleId then
+                local roleIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(roleId, false)
+                local imgName = "ImgRole" .. i
+                self[imgName]:SetRawImage(roleIcon)
+            end
         end
     end
 end

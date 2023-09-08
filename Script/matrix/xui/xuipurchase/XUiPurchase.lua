@@ -15,7 +15,7 @@ local XUiPurchaseYK = require("XUi/XUiPurchase/XUiPurchaseYK")
 local XUiPurchaseYKList = require("XUi/XUiPurchase/XUiPurchaseYKList")
 -- local XUiPurchaseHK = require("XUi/XUiPurchase/XUiPurchaseHK")
 local XUiPurchaseHKShop = require("XUi/XUiPurchase/XUiPurchaseHKShop")
-local XUiPurchaseHKExchange = require("XUi/XUiPurchase/XUiPurchaseHKExchange") 
+local XUiPurchaseHKExchange = require("XUi/XUiPurchase/XUiPurchaseHKExchange")
 local XUiPurchaseHKExchangeTop = require("XUi/XUiPurchase/XUiPurchaseHKExchangeTop")
 local XUiPurchaseCoatingLB = require("XUi/XUiPurchase/XUiPurchaseCoatingLB")
 local XUiPurchaseRecommend = require("XUi/XUiPurchase/XUiPurchaseRecommend")
@@ -33,9 +33,9 @@ function XUiPurchase:OnAwake()
     self:GetYKUiTypesList() -- 创建YKUiTypes月卡类型
     UiTypeCfg = XPurchaseConfigs.GetTabControlUiTypeConfig() -- 创建顶部页签数据
     self:InitUi() -- 创建顶部按钮、注册子页面信息
-    XRedPointManager.AddRedPointEvent(self.GameObject, self.LBRedPoint, self, {XRedPointConditions.Types.CONDITION_PURCHASE_LB_RED})
-    XRedPointManager.AddRedPointEvent(self.GameObject, self.AccumulateRedPoint, self, {XRedPointConditions.Types.CONDITION_ACCUMULATE_PAY_RED})
-    XRedPointManager.AddRedPointEvent(self.GameObject, self.UpdateRecommendRed, self, {XRedPointConditions.Types.CONDITION_PURCHASE_RECOMMEND_RED}, nil, false)
+    self:AddRedPointEvent(self.GameObject, self.LBRedPoint, self, { XRedPointConditions.Types.CONDITION_PURCHASE_LB_RED })
+    self:AddRedPointEvent(self.GameObject, self.AccumulateRedPoint, self, { XRedPointConditions.Types.CONDITION_ACCUMULATE_PAY_RED })
+    self:AddRedPointEvent(self.GameObject, self.UpdateRecommendRed, self, { XRedPointConditions.Types.CONDITION_PURCHASE_RECOMMEND_RED }, nil, false)
     self.TimeId = nil
 end
 
@@ -43,12 +43,12 @@ function XUiPurchase:OnEnable()
     if self.CurUiView then
         self.CurUiView:ShowPanel()
     end
-    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_UPDATE,self.OnAccumulatedUpdate,self)
-    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_REWARD,self.OnAccumulatedGeted,self)
+    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_UPDATE, self.OnAccumulatedUpdate, self)
+    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_REWARD, self.OnAccumulatedGeted, self)
     XEventManager.AddEventListener(XEventId.EVENT_ONPCSELECT_MONEYCARD_CHANGED, self.OnPcSelectedIdChanged, self)
     if not self.TimeId then
         self.TimeId = XScheduleManager.ScheduleForever(function()
-                self:RefreshTimeData()
+            self:RefreshTimeData()
         end, XScheduleManager.SECOND, 0)
     end
 end
@@ -77,6 +77,9 @@ function XUiPurchase:OnStart(tab, isClearData, childTabIndex)
         if not self.TabGroup then
             return
         end
+        if XTool.UObjIsNil(self.GameObject) then
+            return
+        end
         local recommendManager = XDataCenter.PurchaseManager.GetRecommendManager()
         local index = self:GetTabIndexByTabType(XPurchaseConfigs.TabsConfig.Recommend)
         local button = self.TabGroup:GetButtonByIndex(index)
@@ -88,7 +91,7 @@ function XUiPurchase:OnStart(tab, isClearData, childTabIndex)
             if self.CurGroupTab == index then
                 self:OnStartSelTab(XPurchaseConfigs.TabsConfig.LB)
             end
-        end        
+        end
     end)
 end
 
@@ -124,13 +127,13 @@ function XUiPurchase:OnBtnPayAddClick()
 end
 
 function XUiPurchase:OnBtnPCSwitchClick()
-    XPlayer.ChangePcSelectMoneyCardId()  
+    XPlayer.ChangePcSelectMoneyCardId()
 end
 
 function XUiPurchase:GetLBUiTypesList()
     local t = XPurchaseConfigs.GetLBUiTypesList()
     LBUiTypes = {}
-    for _,v in pairs(t)do
+    for _, v in pairs(t) do
         LBUiTypes[v] = v
     end
 end
@@ -138,7 +141,7 @@ end
 function XUiPurchase:GetYKUiTypesList()
     local t = XPurchaseConfigs.GetYKUiTypes()
     YKUiTypes = {}
-    for _,v in pairs(t)do
+    for _, v in pairs(t) do
         YKUiTypes[v] = v
     end
 end
@@ -174,13 +177,18 @@ function XUiPurchase:InitUi()
         table.insert(groupTabBtns, btncs)
     end
 
-    self.TabGroup:Init(groupTabBtns, function(tab) self:TabSkip(tab) end)
+    self.TabGroup:Init(groupTabBtns, function(tab)
+        self:TabSkip(tab)
+    end)
 
     local purchaseLBCb = function(skipIndex, leftTabIndex)
-        if leftTabIndex == nil then leftTabIndex = 1 end
+        if leftTabIndex == nil then
+            leftTabIndex = 1
+        end
         self:OnStartSelTab(skipIndex)
-        if skipIndex == XPurchaseConfigs.TabsConfig.LB 
-           and leftTabIndex > 0 then
+        if skipIndex == XPurchaseConfigs.TabsConfig.LB
+                and leftTabIndex > 0
+                and leftTabIndex <= self.GroupTab.TabBtnList.Count then
             self.GroupTab:SelectIndex(leftTabIndex)
         end
     end
@@ -194,26 +202,26 @@ function XUiPurchase:InitUi()
     end
 
     self.UiPanel = {}
-    self.UiPanel[PanelNameConfig.PanelRecharge] = XUiPurchasePay.New(self.PanelRecharge,self,XPurchaseConfigs.TabExConfig.Sample)
-    self.UiPanel[PanelNameConfig.PanelLb] = XUiPurchaseLB.New(self.PanelLb,self, purchaseLBCb)
+    self.UiPanel[PanelNameConfig.PanelRecharge] = XUiPurchasePay.New(self.PanelRecharge, self, XPurchaseConfigs.TabExConfig.Sample)
+    self.UiPanel[PanelNameConfig.PanelLb] = XUiPurchaseLB.New(self.PanelLb, self, purchaseLBCb)
     self.UiPanel[PanelNameConfig.PanelYk] = XUiPurchaseYKList.New(self.PanelYk, self, purchaseLBCb)
     self.UiPanel[PanelNameConfig.PanelDh] = XUiPurchaseHKExchangeTop.New(self.PanelDh, self, purchaseLBCb)
-    self.UiPanel[PanelNameConfig.PanelHksd] = XUiPurchaseHKShop.New(self.PanelHksd,self)
+    self.UiPanel[PanelNameConfig.PanelHksd] = XUiPurchaseHKShop.New(self.PanelHksd, self)
     self.UiPanel[PanelNameConfig.PanelTj] = XUiPurchaseRecommend.New(self.PanelTj, self, purchaseLBCb)
 
-    self.UiPanel[PanelExNameConfig.PanelRecharge] = XUiPurchasePay.New(self.PanelRechargeEx,self,XPurchaseConfigs.TabExConfig.EXTable)
-    self.UiPanel[PanelExNameConfig.PanelLb] = XUiPurchaseLB.New(self.PanelLbEx,self, purchaseLBCb)
+    self.UiPanel[PanelExNameConfig.PanelRecharge] = XUiPurchasePay.New(self.PanelRechargeEx, self, XPurchaseConfigs.TabExConfig.EXTable)
+    self.UiPanel[PanelExNameConfig.PanelLb] = XUiPurchaseLB.New(self.PanelLbEx, self, purchaseLBCb)
     self.UiPanel[PanelExNameConfig.PanelDh] = XUiPurchaseHKExchange.New(self.PanelDhEx, self, purchaseLBCb)
     self.UiPanel[PanelExNameConfig.PanelYk] = XUiPurchaseYK.New(self.PanelYkEx, self, purchaseLBCb)
-    self.UiPanel[PanelExNameConfig.PanelHksd] = XUiPurchaseHKShop.New(self.PanelHksdEx,self)
+    self.UiPanel[PanelExNameConfig.PanelHksd] = XUiPurchaseHKShop.New(self.PanelHksdEx, self)
     self.UiPanel[PanelExNameConfig.PanelCoatingLb] = XUiPurchaseCoatingLB.New(self.PanelCoatingLbEx, self, purchaseLBCb)
 
-    self.UiPurchasePayAdd = XUiPurchasePayAdd.New(self.PanelLjcz,self)
+    self.UiPurchasePayAdd = XUiPurchasePayAdd.New(self.PanelLjcz, self)
     if XDataCenter.UiPcManager.IsPc() then
         local id = XPlayer.GetPcSelectMoneyCardId()
         self:ShowCurrentRainbowCard(id)
         self.BtnPCSwich.gameObject:SetActiveEx(true)
-    end 
+    end
     self:AddListener()
 end
 
@@ -259,7 +267,7 @@ function XUiPurchase:CheckChildCount(childs, names)
         self.ImgBgEx.gameObject:SetActive(false)
         self.Panels.gameObject:SetActive(true)
         self.PanelsEx.gameObject:SetActive(false)
-        for k,v in pairs(names)do
+        for k, v in pairs(names) do
             if self.UiPanel[k] then
                 if k ~= self.CurUiNames[k] then
                     self.UiPanel[k]:HidePanel()
@@ -279,8 +287,8 @@ function XUiPurchase:CheckChildCount(childs, names)
 end
 
 function XUiPurchase:TabSkip(tab)
-    
-    if XDataCenter.UiPcManager.IsPc() then 
+
+    if XDataCenter.UiPcManager.IsPc() then
         if tab == self:GetTabIndexByTabType(XPurchaseConfigs.TabsConfig.Pay) then
             XUiManager.TipText("PcRechargeCloseTip")
             if self.CurGroupTab then
@@ -314,11 +322,11 @@ function XUiPurchase:TabSkip(tab)
     local dict = {}
     dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnRecharge
     dict["role_level"] = XPlayer.GetLevel()
-    dict["ui_second_button"] = XGlobalVar.BtnBuriedSpotTypeLevelTwo["BtnUiPurchaseBtnTabSkip"..tab]
+    dict["ui_second_button"] = XGlobalVar.BtnBuriedSpotTypeLevelTwo["BtnUiPurchaseBtnTabSkip" .. tab]
     CS.XRecord.Record(dict, "200004", "UiOpen")
 
     self.CurGroupTab = tab
-    self.SingleTab  = nil
+    self.SingleTab = nil
 
     local names = XPurchaseConfigs.PanelNameConfig
     local sendUiTypes = {}
@@ -352,7 +360,7 @@ function XUiPurchase:TabSkip(tab)
         if XDataCenter.PurchaseManager.IsHaveDataByUiTypes(sendUiTypes) then
             self:SetData()
         else
-            XDataCenter.PurchaseManager.GetPurchaseListRequest(sendUiTypes,function()
+            XDataCenter.PurchaseManager.GetPurchaseListRequest(sendUiTypes, function()
                 self:SetData()
             end)
         end
@@ -378,14 +386,14 @@ function XUiPurchase:LBRedPoint(result)
 
     local LbRedUiTypes = XDataCenter.PurchaseManager.LBRedPointUiTypes()
     if self.Btns and Next(self.LBtnIndex) and Next(LbRedUiTypes) then
-        for index,uiType in pairs(self.LBtnIndex)do
+        for index, uiType in pairs(self.LBtnIndex) do
             if uiType and self.Btns[index] then
                 self.Btns[index]:ShowReddot(LbRedUiTypes[uiType] ~= nil)
             end
         end
     else
         if self.Btns and Next(self.Btns) then
-            for _,btn in pairs(self.Btns)do
+            for _, btn in pairs(self.Btns) do
                 if btn then
                     btn:ShowReddot(false)
                 end
@@ -401,14 +409,13 @@ function XUiPurchase:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.ListData[index]
         grid:OnRefresh(data)
-    -- elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
+        -- elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
     end
 end
 
-
 function XUiPurchase:OnStartSelTab(t)
     local index = self:GetTabIndexByTabType(t)
-    
+
     self.IsStartAnimation = true
     self.TabGroup:SelectIndex(index)
 end
@@ -417,10 +424,10 @@ function XUiPurchase:GetTabIndexByTabType(tabType)
     local uiTypes = XPurchaseConfigs.GetUiTypesByTab(tabType)
     local cfg = self.TabsCfg
     local index = 1
-    for k, v in pairs(cfg)do
+    for k, v in pairs(cfg) do
         local childs = v.Childs
-        for _,c in pairs(childs)do
-            for _,a in pairs(uiTypes)do
+        for _, c in pairs(childs) do
+            for _, a in pairs(uiTypes) do
                 if a.UiType == c.UiType then
                     index = k
                     break
@@ -431,7 +438,7 @@ function XUiPurchase:GetTabIndexByTabType(tabType)
     return index
 end
 
-function XUiPurchase.UiTypeTabSort(a,b)
+function XUiPurchase.UiTypeTabSort(a, b)
     if UiTypeCfg[a] and UiTypeCfg[b] then
         return UiTypeCfg[a].GroupOrder < UiTypeCfg[b].GroupOrder
     end
@@ -467,12 +474,14 @@ function XUiPurchase:InitGroupTab(uiTypes)
 
     local len = #self.Btns
     if i < len then
-        for index = i+1, len do
+        for index = i + 1, len do
             self.Btns[index].gameObject:SetActive(false)
         end
     end
 
-    self.GroupTab:Init(self.TabBtns, function(tab) self:GroupTabSkip(tab) end)
+    self.GroupTab:Init(self.TabBtns, function(tab)
+        self:GroupTabSkip(tab)
+    end)
     self.GroupTab:SelectIndex(self.ChildTabIndex)
 end
 
@@ -494,7 +503,7 @@ function XUiPurchase:GroupTabSkip(tab)
     local dict = {}
     dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnRecharge
     dict["role_level"] = XPlayer.GetLevel()
-    dict["ui_second_button"] = XGlobalVar.BtnBuriedSpotTypeLevelTwo["BtnUiPurchaseGroupTabSkip"..tab]
+    dict["ui_second_button"] = XGlobalVar.BtnBuriedSpotTypeLevelTwo["BtnUiPurchaseGroupTabSkip" .. tab]
     CS.XRecord.Record(dict, "200004", "UiOpen")
 
     self.SingleTab = tab
@@ -513,7 +522,6 @@ function XUiPurchase:GroupTabSkip(tab)
     self:PlayAnimationWithMask("QieHuanSmall")
 end
 
-
 function XUiPurchase:OnAccumulatedUpdate()
 end
 
@@ -525,14 +533,14 @@ function XUiPurchase:OnDisable()
     if self.CurUiView then
         self.CurUiView:HidePanel()
     end
-    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_UPDATE,self.OnAccumulatedUpdate,self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_REWARD, self.OnAccumulatedGeted,self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_UPDATE, self.OnAccumulatedUpdate, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_REWARD, self.OnAccumulatedGeted, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ONPCSELECT_MONEYCARD_CHANGED, self.OnPcSelectedIdChanged, self)
 
     if self.TimeId then
         XScheduleManager.UnSchedule(self.TimeId)
         self.TimeId = nil
-    end 
+    end
 end
 
 function XUiPurchase:OnDestroy()
@@ -541,7 +549,7 @@ function XUiPurchase:OnDestroy()
         XDataCenter.PurchaseManager.ClearData()
     end
 
-    for _,panel in pairs(self.UiPanel) do
+    for _, panel in pairs(self.UiPanel) do
         if panel.BuyUiTips then
             panel.BuyUiTips:OnDestroy()
         end
@@ -550,7 +558,7 @@ end
 
 function XUiPurchase:IsLBUiType(cfg)
     if Next(cfg) then
-        for _, v in pairs(cfg)do
+        for _, v in pairs(cfg) do
             if LBUiTypes[v.UiType] then
                 return true
             end
@@ -561,7 +569,7 @@ end
 
 function XUiPurchase:IsYKUiType(cfg)
     if Next(cfg) then
-        for _, v in pairs(cfg)do
+        for _, v in pairs(cfg) do
             if YKUiTypes[v.UiType] then
                 return true
             end

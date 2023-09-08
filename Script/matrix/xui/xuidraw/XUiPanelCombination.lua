@@ -87,7 +87,7 @@ function XUiPanelCombination:SetCharacterData()
     local halfBodyImage = XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharId)
 
     -- 名字
-    local name = XCharacterConfigs.GetCharacterLogName(self.CharId)
+    local name = XMVCA.XCharacter:GetCharacterLogName(self.CharId)
 
     -- 职业
     local career = XCharacterConfigs.GetCharDetailCareer(self.CharId)
@@ -165,7 +165,7 @@ function XUiPanelCombination:SetEquipData()
     local roleName = nil
     if haveChar then
         charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
-        roleName = XCharacterConfigs.GetCharacterLogName(charId)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
     end
 
     -- 刷新
@@ -201,7 +201,7 @@ function XUiPanelCombination:SetPartnerData()
     local roleName = nil
     if haveChar then
         charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
-        roleName = XCharacterConfigs.GetCharacterLogName(charId)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
     end
 
     -- 刷新

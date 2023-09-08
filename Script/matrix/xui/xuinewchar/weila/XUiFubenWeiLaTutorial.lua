@@ -1,12 +1,14 @@
+---@class XUiFunbenWeiLaTutorial:XLuaUi
 local XUiFunbenWeiLaTutorial = XLuaUiManager.Register(XLuaUi, "UiFunbenWeiLaTutorial")
 local XUiPanelFubenWeiLaStage = require("XUi/XUiNewChar/WeiLa/XUiPanelFubenWeiLaStage")
+local XUiPanelNewCharTask=require('XUi/XUiNewChar/XUiPanelNewCharTask')
 
 function XUiFunbenWeiLaTutorial:OnAwake()
     self:InitAutoScript()
-    self.RedPointBtnChallengeId = XRedPointManager.AddRedPointEvent(self.BtnChallenge, self.RefreshBtnChallengeRedDot, self, {
+    self.RedPointBtnAchievementId=self:AddRedPointEvent(self.BtnAchievement,self.RefreshBtnTaskRedDot,self,{
         XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYCHALLENGERED,
     })
-    self.RedPointBtnTeachingId = XRedPointManager.AddRedPointEvent(self.BtnTeaching, self.RefreshBtnTeachingRedDot, self, {
+    self.RedPointBtnTeachingId = self:AddRedPointEvent(self.BtnTeaching, self.RefreshBtnTeachingRedDot, self, {
         XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYTEACHINGRED,
     })
     --self.PanelRoot = self.PanelStageRoot.parent:Find("PanelRoot")
@@ -35,6 +37,7 @@ function XUiFunbenWeiLaTutorial:OnEnable()
     self:CheckRedPoint()
     self:SwitchPanelStage(self.CurPanelStage)
     self:StartActivityTimer()
+    self:RefreshMainTask()
 end
 
 function XUiFunbenWeiLaTutorial:OnDisable()
@@ -45,15 +48,17 @@ function XUiFunbenWeiLaTutorial:InitPanel()
     --self.TxtActivityName.text = self.ActivityCfg.Name
     self.FubenGo = self.PanelStageRoot:LoadPrefab(self.ActivityCfg.FubenPrefab)
     self.FubenGo.gameObject:SetActiveEx(false)
-    self.PanelStageKoro = XUiPanelFubenWeiLaStage.New(self, self.FubenGo, self.ActivityCfg, XFubenNewCharConfig.KoroPanelType.Teaching)
+    self.PanelStageKoro = XUiPanelFubenWeiLaStage.New( self.FubenGo, self,self.ActivityCfg, XFubenNewCharConfig.KoroPanelType.Teaching)
     self.FubenChallengeGo = self.PanelChallengeStageRoot:LoadPrefab(self.ActivityCfg.FubenChallengePrefab)
     self.FubenChallengeGo.gameObject:SetActiveEx(false)
-    self.PanelStageKoroChallenge = XUiPanelFubenWeiLaStage.New(self, self.FubenChallengeGo, self.ActivityCfg, XFubenNewCharConfig.KoroPanelType.Challenge)
+    self.PanelStageKoroChallenge = XUiPanelFubenWeiLaStage.New(self.FubenChallengeGo, self, self.ActivityCfg, XFubenNewCharConfig.KoroPanelType.Challenge)
+    self.TaskPanel=XUiPanelNewCharTask.New(self.PanelTreasure,self,self.ActivityCfg)
+    self.TaskPanel:Close()
 end
 
 --按钮红点
 function XUiFunbenWeiLaTutorial:CheckRedPoint()
-    XRedPointManager.Check(self.RedPointBtnChallengeId)
+    XRedPointManager.Check(self.RedPointBtnAchievementId)
     XRedPointManager.Check(self.RedPointBtnTeachingId)
     --self.BtnChapter:ShowReddot(false)
 end
@@ -116,6 +121,7 @@ function XUiFunbenWeiLaTutorial:SwitchPanelStage(panelStage)
             self.PanelStageKoroChallenge:OnHide()
             self.CurPanelStage = panelStage
             self:CheckRedPoint()
+            self:RefreshMainTask()
             --XLuaUiManager.SetMask(true)
             --self:PlayAnimation("AnimSwitch", function()
             --    XLuaUiManager.SetMask(false)
@@ -136,6 +142,12 @@ function XUiFunbenWeiLaTutorial:InitAutoScript()
     self.BtnObtain.CallBack = function() self:OnBtnObtainClick() end
     self.BtnSkin.CallBack = function() self:OnBtnSkinClick() end
     self.BtnResearch.CallBack = function() self:OnBtnResearchClick() end
+    if self.BtnAchievement then
+        self.BtnAchievement.CallBack=function() self.TaskPanel:Open() end
+    end
+    if self.BtnTreasure then
+        XUiHelper.RegisterClickEvent(self,self.BtnTreasure,function() self.TaskPanel:Open() end)
+    end
 end
 
 function XUiFunbenWeiLaTutorial:OnBtnBackClick()
@@ -200,6 +212,10 @@ function XUiFunbenWeiLaTutorial:RefreshBtnTeachingRedDot(count)
     self.BtnTeaching:ShowReddot(count >= 0)
 end
 
+function XUiFunbenWeiLaTutorial:RefreshBtnTaskRedDot(count)
+    self.BtnAchievement:ShowReddot(count>=0)
+end
+
 function XUiFunbenWeiLaTutorial:HideTopBtn()
     self.BtnMainUi.gameObject:SetActiveEx(false)
     self.BtnBack.gameObject:SetActiveEx(false)
@@ -208,4 +224,57 @@ end
 function XUiFunbenWeiLaTutorial:ShowTopBtn()
     self.BtnMainUi.gameObject:SetActiveEx(true)
     self.BtnBack.gameObject:SetActiveEx(true)
+end
+
+--2.8 刷新主界面的任务相关内容
+function XUiFunbenWeiLaTutorial:RefreshMainTask()
+    
+    local treasureId, isAllFinish = XDataCenter.FubenNewCharActivityManager.GetShowTaskId(self.Id)
+    if not XTool.IsNumberValid(treasureId) then
+        self.PanelTips.gameObject:SetActiveEx(false)
+        return
+    end
+    self.PanelTips.gameObject:SetActiveEx(true)
+    local config = XFubenNewCharConfig.GetTreasureCfg(treasureId)
+    self.GridMainTaskReward = self.GridMainTaskReward or {}
+    local rewardId = config.RewardId
+    local rewards = XRewardManager.GetRewardList(rewardId)
+    local rewardsNum = #rewards
+    for i = 1, rewardsNum do
+        local grid = self.GridMainTaskReward[i]
+        if not grid then
+            local go = i == 1 and self.Grid256New or XUiHelper.Instantiate(self.Grid256New, self.PanelItem)
+            grid = XUiGridCommon.New(self, go)
+            self.GridMainTaskReward[i] = grid
+        end
+        grid:Refresh(rewards[i])
+        grid:SetReceived(isAllFinish)
+        grid.GameObject:SetActiveEx(true)
+    end
+    for i = rewardsNum + 1, #self.GridMainTaskReward do
+        self.GridMainTaskReward[i].GameObject:SetActiveEx(false)
+    end
+    
+    self:InitStarts()
+end
+
+--初始化收集进度
+function XUiFunbenWeiLaTutorial:InitStarts()
+    local curStars
+    local totalStars
+    curStars, totalStars = XDataCenter.FubenNewCharActivityManager.GetProcess()
+
+    self.ImgJindu.fillAmount = totalStars > 0 and curStars / totalStars or 0
+    self.ImgJindu.gameObject:SetActiveEx(true)
+
+    local received = true
+    local cfg=XFubenNewCharConfig.GetActTemplates()[self.Id]
+    for _, v in pairs(cfg.TreasureId) do
+        if not XDataCenter.FubenNewCharActivityManager.IsTreasureGet(v) then
+            received = false
+            break
+        end
+    end
+    self.ImgLingqu.gameObject:SetActiveEx(received)
+
 end

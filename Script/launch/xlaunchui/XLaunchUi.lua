@@ -3,6 +3,7 @@ local Creator = function()
 
     local XDynamicTableCurveLaunch = require("XLaunchUi/XDynamicTableCurveLaunch")
     local DYNAMIC_DELEGATE_EVENT = XDynamicTableCurveLaunch.DYNAMIC_DELEGATE_EVENT
+    local XLaunchDlcManager = require("XLaunchDlcManager")
     local Vector3 = CS.UnityEngine.Vector3
     local MathFloor = math.floor
     local StringFormat = string.format
@@ -46,6 +47,42 @@ local Creator = function()
             table.insert(arr, v)
         end
         return arr
+    end
+
+    --==========Queue=========--
+    local function Enqueue(queue, element)
+        if not element then return end
+
+        local endIndex = queue._EndIndex + 1
+        queue._EndIndex = endIndex
+        queue._Container[endIndex] = element
+    end
+
+    local function Dequeue(queue)
+        if queue._StartIndex > queue._EndIndex then
+            return nil
+        end
+
+        local startIndex = queue._StartIndex
+        local element = queue._Container[startIndex]
+
+        queue._StartIndex = startIndex + 1
+        queue._Container[startIndex] = nil
+
+        return element
+    end
+
+    local function Count(queue)
+        return queue._EndIndex - queue._StartIndex + 1
+    end
+
+    local function NewQueue()
+        return
+        {
+            _Container = {},
+            _StartIndex = 1,
+            _EndIndex = 0
+        }
     end
 
     --====== XUiLaunch ======
@@ -106,6 +143,11 @@ local Creator = function()
         self.LastProgress = 0
 
         self.CurrentDownloadSelect = 1
+        self.SizeWindow = NewQueue()
+        self.TimeWindow = NewQueue()
+        self.WindowTimeSum = 0
+        self.WindowSizeSum = 0;
+        self.WindowSize = 5
 
         -- 展示列表
         local showPaths = CS.XLaunchManager.LaunchConfig:GetString("UiLaunchShowList") -- 注意：launch更新时只能使用包内资源（还未解析matrix的index文件及资源）
@@ -312,10 +354,22 @@ local Creator = function()
 
             if self.NeedUnit then
                 self.TxtDownloadSize.text = StringFormat("(0MB/%dMB)", MathFloor(self.MBSize))
+                self.TxtDownloadTime.gameObject:SetActiveEx(true)
             else
                 self.TxtDownloadSize.text = StringFormat("(0/%d)", MathFloor(self.MBSize))
                 self.TxtDownloadSpeed.text = ""
+                self.TxtDownloadTime.text = ""
+                self.TxtDownloadTime.gameObject:SetActiveEx(false)
             end
+
+            --用滑动窗口来计算下载速度
+            self.SizeWindow = NewQueue()
+            self.TimeWindow = NewQueue()
+            self.WindowTimeSum = 0
+            self.WindowSizeSum = 0
+            self.WindowSize = 5
+            self.LastSpeed = 0
+
         elseif evt == CS.XEventId.EVENT_LAUNCH_CG then
             local needCGBtn = args[1]
             local needPlayCG = args[2]
@@ -357,20 +411,42 @@ local Creator = function()
                 self.TxtAppVer.text = CS.XRemoteConfig.ApplicationVersion
                 self.TxtDocVer.text = CS.XRemoteConfig.DocumentVersion
                 -- 速度
-                if self.NeedUnit and (CS.UnityEngine.Time.time - self.LastUpdateTime > 1) then
-                    local kBSpeed = MathFloor((progress - self.LastProgress) * (self.UpdateSize / 1024))
-                    if kBSpeed > 10240 then
-                        self.TxtDownloadSpeed.text = StringFormat("%dMB/S", MathFloor(kBSpeed / 1024))
+                local deltaTime = CS.UnityEngine.Time.time - self.LastUpdateTime
+                if self.NeedUnit and (deltaTime > 1) then
+                    local deltaSize = MathFloor((progress - self.LastProgress) * (self.UpdateSize / 1024))
+                    Enqueue(self.SizeWindow, deltaSize)
+                    Enqueue(self.TimeWindow, deltaTime)
+                    self.WindowSizeSum = self.WindowSizeSum + deltaSize
+                    self.WindowTimeSum = self.WindowTimeSum + deltaTime
+                    if Count(self.SizeWindow) > self.WindowSize then
+                        self.WindowSizeSum = self.WindowSizeSum - Dequeue(self.SizeWindow)
+                        self.WindowTimeSum = self.WindowTimeSum - Dequeue(self.TimeWindow)
+                    end
+
+                    local currentSpeed = 0
+                    if self.WindowTimeSum ~= 0 then
+                        currentSpeed = self.WindowSizeSum / self.WindowTimeSum
+                    end
+
+                    --模拟优化，速度小于零的时候，取上次大于零的速度
+                    if currentSpeed < 0 then
+                        currentSpeed = self.LastSpeed
                     else
-                        self.TxtDownloadSpeed.text = StringFormat("%dKB/S", kBSpeed)
+                        self.LastSpeed = currentSpeed
+                    end
+
+                    if currentSpeed > 1024 then
+                        self.TxtDownloadSpeed.text = StringFormat("%0.1fMB/S", currentSpeed / 1024)
+                    else
+                        self.TxtDownloadSpeed.text = StringFormat("%dKB/S", MathFloor(currentSpeed))
                     end
                     self.LastUpdateTime = CS.UnityEngine.Time.time
                     self.LastProgress = progress
-                    
-                    if progress > 0 and kBSpeed > 0 then
-                        local time = math.ceil(((1 - progress) * self.MBSize) / (kBSpeed / 1024))
+
+                    if progress > 0 and currentSpeed > 0 then
+                        local time = math.ceil(((1 - progress) * self.MBSize) / (currentSpeed / 1024))
                         self.TxtDownloadTime.text = self.DownloadCostTimeTitle .. FormatSec2Min(time) -- "预计时间："
-                    elseif kBSpeed <= 0 then
+                    elseif currentSpeed <= 0 then
                         self.TxtDownloadTime.text = self.DownloadCostTimeTitleDefault -- "预计时间：00:00:00"
                     end
                 end
@@ -416,6 +492,7 @@ local Creator = function()
         if CS.XRemoteConfig.LaunchSelectType == 1 then -- 支持完整下载
             self.BtnAll:SetButtonState(CS.UiButtonState.Normal)
         end
+        self.BtnReportSubType.gameObject:SetActiveEx(true)
         --  CS.XLog.Debug(" self.CurrentDownloadSelect == 1")
     end
 
@@ -423,13 +500,17 @@ local Creator = function()
         self.CurrentDownloadSelect = 2
         self.BtnBasic:SetButtonState(CS.UiButtonState.Normal)
         self.BtnAll:SetButtonState(CS.UiButtonState.Select)
+        self.BtnReportSubType.gameObject:SetActiveEx(false)
         --  CS.XLog.Debug(" self.CurrentDownloadSelect == 2")
     end
 
     function XUiLaunchUi:OnConfirmSelect()
         -- CS.XLog.Debug(" self.OnConfirmSelect")
+        local isFullDownload = self.CurrentDownloadSelect == 2
         self.UiDownlosdTips:SetActiveEx(false)
-        CS.XGameEventManager.Instance:Notify(CS.XEventId.EVENT_LAUNCH_DONE_DOWNLOAD_SELECT,self.CurrentDownloadSelect==2)
+        CS.XGameEventManager.Instance:Notify(CS.XEventId.EVENT_LAUNCH_DONE_DOWNLOAD_SELECT, isFullDownload)
+        
+        self:DoRecordSelect(self.CurrentDownloadSelect, X)
     end
 
     function XUiLaunchUi:CheckPlayCG()
@@ -528,7 +609,7 @@ local Creator = function()
 
     function XUiLaunchUi:SetupDownloadSelect(args)
         --屏蔽下载提示弹窗，直接下载基础包
-        if CS.XRemoteConfig.LaunchSelectType == 2 then
+        if CS.XRemoteConfig.LaunchSelectType ~= 1 then
             self.UiDownlosdTips:SetActiveEx(false)
             CS.XGameEventManager.Instance:Notify(CS.XEventId.EVENT_LAUNCH_DONE_DOWNLOAD_SELECT, false)
             return
@@ -536,7 +617,7 @@ local Creator = function()
         self.UiDownlosdTips:SetActiveEx(true)
         local baseUpdateSize = args[1]
         local allUpdateSize = args[2]
-
+        
         if self.CurrentDownloadSelect == 1 then
             self:OnSelectBasic()
         else
@@ -554,6 +635,14 @@ local Creator = function()
         local descAll = StringFormat("<b>%0.2f%s</b>", allSize, allUnit)
         self.BtnAll:SetNameByGroup(1, CS.XApplication.GetText("DownloadDescAll"))--"下载完成后可体验所有内容")
         self.BtnAll:SetNameByGroup(2, descAll)
+
+        local isSelect = XLaunchDlcManager.IsSelectWifiAutoDownload()
+        if self.BtnReportSubType then
+            self.BtnReportSubType:SetButtonState(isSelect and CS.UiButtonState.Select or CS.UiButtonState.Normal)
+            self.BtnReportSubType.CallBack = function()
+                self:OnBtnWifiClick()
+            end
+        end
     end
 
     function XUiLaunchUi:Ctor(name, uiProxy)
@@ -738,6 +827,22 @@ local Creator = function()
         end)
     end
 
+    function XUiLaunchUi:OnBtnWifiClick()
+        local isSelect = self.BtnReportSubType:GetToggleState()
+        XLaunchDlcManager.SetSelectWifiAutoDownloadValue(isSelect)
+    end
+    
+    function XUiLaunchUi:DoRecordSelect(select)
+        local dict = {}
+        dict["document_version"] = CS.XRemoteConfig.DocumentVersion
+        dict["app_version"] = CS.XRemoteConfig.ApplicationVersion
+        -- 1:基础资源 2:全量资源
+        dict["select_type"] = select
+        dict["auto_wifi"] = tostring(XLaunchDlcManager.IsSelectWifiAutoDownload())
+        
+        CS.XRecord.Record(dict, "80032", "SubpackageSelect")
+    end
+    
     return XUiLaunchUi
 end
 

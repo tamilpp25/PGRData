@@ -1,58 +1,33 @@
-local XUiPanelScoreInfo = XClass(nil, "XUiPanelScoreInfo")
+---@class XUiPanelScoreInfo : XUiNode
+---@field _RootUi XUiFubenBossSingle
+local XUiPanelScoreInfo = XClass(XUiNode, "XUiPanelScoreInfo")
 local XUiGridBossScore = require("XUi/XUiFubenBossSingle/XUiGridBossScore")
 
-function XUiPanelScoreInfo:Ctor(rootUi, ui, bossSingleData)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.BossSingleData = bossSingleData
-    self.RootUi = rootUi
-    self.GridBossScoreList = {}
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
-    self:Init()
-end
-
-function XUiPanelScoreInfo:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiPanelScoreInfo:RegisterClickEvent函数参数错误：参数func不能为空")
-        return
-    end
-
-    if type(func) ~= "function" then
-        XLog.Error("XUiPanelScoreInfo:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
-
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
-end
-
-function XUiPanelScoreInfo:AutoAddListener()
-    self:RegisterClickEvent(self.BtnBlock, self.OnBtnBlockClick)
-end
-
-function XUiPanelScoreInfo:Init()
+function XUiPanelScoreInfo:OnStart(rootUi)
+    self._RootUi = rootUi
+    ---@type XUiGridBossScore
+    self._GridBossScoreList = {}
     self.GridBossScore.gameObject:SetActive(false)
-    self:Rrefrsh()
+    self:_RegisterButtonListeners()
 end
 
-function XUiPanelScoreInfo:ShowPanel(bossSingleData)
-    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnBlockClick")
-    self.BossSingleData = bossSingleData
-    self:Rrefrsh()
-    self.GameObject:SetActive(true)
+function XUiPanelScoreInfo:OnEnable()
+    self:_Refresh()
 end
 
-function XUiPanelScoreInfo:Rrefrsh()
-    local cfgs = XDataCenter.FubenBossSingleManager.GetScoreRewardCfg(self.BossSingleData.LevelType)
+function XUiPanelScoreInfo:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnBlock, self.OnBtnBlockClick, true)
+end
+
+function XUiPanelScoreInfo:_Refresh()
+    local bossSingleData = self._RootUi:GetBossSingleData()
+    local cfgs = XDataCenter.FubenBossSingleManager.GetScoreRewardCfg(bossSingleData.LevelType)
     local canGetList = {}
     local unGetList = {}
     local gotList = {}
 
     for i = 1, #cfgs do
-        local canGet = self.BossSingleData.TotalScore >= cfgs[i].Score
+        local canGet = bossSingleData.TotalScore >= cfgs[i].Score
         local isGet = XDataCenter.FubenBossSingleManager.CheckRewardGet(cfgs[i].Id)
         if canGet and not isGet then
             table.insert(canGetList, cfgs[i])
@@ -71,40 +46,31 @@ function XUiPanelScoreInfo:Rrefrsh()
         table.insert(canGetList, gotList[i])
     end
 
-    local curScore = CS.XTextManager.GetText("BossSingleScore2", self.BossSingleData.TotalScore)
+    local curScore = CS.XTextManager.GetText("BossSingleScore2", bossSingleData.TotalScore)
     self.TxtCurScore.text = curScore
 
     for i = 1, #canGetList do
-        local grid = self.GridBossScoreList[i]
+        local grid = self._GridBossScoreList[i]
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridBossScore)
-            grid = XUiGridBossScore.New(self.RootUi, ui)
+            grid = XUiGridBossScore.New(ui, self, self._RootUi)
             grid.Transform:SetParent(self.PanelScoreContent, false)
-            self.GridBossScoreList[i] = grid
+            self._GridBossScoreList[i] = grid
         end
 
-        grid:Refresh(canGetList[i], self.BossSingleData.TotalScore)
-        grid.GameObject:SetActive(true)
+        grid:SetData(canGetList[i], bossSingleData.TotalScore)
+        grid:Open()
     end
 
-    for i = #canGetList + 1, #self.GridBossScoreList do
-        self.GridBossScoreList[i].GameObject:SetActive(false)
+    for i = #canGetList + 1, #self._GridBossScoreList do
+        self._GridBossScoreList[i]:Close()
     end
 end
 
 function XUiPanelScoreInfo:OnBtnBlockClick()
-    self:HidePanel(true)
-end
-
-function XUiPanelScoreInfo:HidePanel(isAniam)
-    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
-    if isAniam then
-        self.RootUi:PlayAnimation("AnimScoreInfoDisable", function()
-                self.GameObject:SetActive(false)
-            end)
-    else
-        self.GameObject:SetActive(false)
-    end
+    self._RootUi:PlayAnimation("AnimScoreInfoDisable", function()
+        self:Close()
+    end)
 end
 
 return XUiPanelScoreInfo

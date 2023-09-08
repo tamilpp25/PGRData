@@ -22,10 +22,14 @@ function XUiTurntableTask:OnStart(root)
 
     local itemId, _ = self._Control:GetTurntableCost()
     if not self.AssetPanel then
-        self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool, self)
+        self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     else
         self.AssetPanel:Refresh({ itemId })
     end
+end
+
+function XUiTurntableTask:OnEnable()
+    self:Refresh()
 end
 
 function XUiTurntableTask:Refresh(isReset)
@@ -38,6 +42,7 @@ function XUiTurntableTask:OnSelectTab(index)
     self._ActivityTasks = self._Control:GetTasks(index)
     self.DynamicTable:SetDataSource(self._ActivityTasks)
     self.DynamicTable:ReloadDataASync(1)
+    self:PlayAnimation("QieHuan")
 end
 
 function XUiTurntableTask:OnGetEvents()

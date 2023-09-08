@@ -234,7 +234,7 @@ XFubenRogueLikeManagerCreator = function()
             receiveNewRobot = true
             NewRobots[robotId] = true
             local characterId = XRobotManager.GetCharacterId(robotId)
-            local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+            local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
             if robot_names == "" then
                 robot_names = fullName
             else
@@ -333,7 +333,7 @@ XFubenRogueLikeManagerCreator = function()
 
         for _, v in pairs(AssistRobots or {}) do
             local characterId = XRobotManager.GetCharacterId(v)
-            local charType = XCharacterConfigs.GetCharacterType(characterId)
+            local charType = XMVCA.XCharacter:GetCharacterType(characterId)
             if not characterType or charType == characterType then
                 table.insert(robots, { Id = v })
             end

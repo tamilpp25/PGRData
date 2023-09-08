@@ -12,7 +12,7 @@ end
 function XGridNieRUpLvDetail:UpdateInfo(data)
     local nierCharacter = XDataCenter.NieRManager.GetNieRCharacterByCharacterId(data.Id)
     local characterId = nierCharacter:GetRobotCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local nameStr = nierCharacter:GetNieRCharName()
     
     self.TxtName.text = nameStr

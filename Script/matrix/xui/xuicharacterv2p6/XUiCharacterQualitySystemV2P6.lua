@@ -16,7 +16,7 @@ function XUiCharacterQualitySystemV2P6:OnAwake()
     self.IsEvoPerform = nil --演出锁
 
     -- 初始化3d动态列表
-    self.ParentUi.PanelModel:InitDynamicTable3D()
+    self.ParentUi.PanelModel:InitDynamicTable3D(self)
 
     self:InitPanel()
 end
@@ -60,7 +60,7 @@ end
 function XUiCharacterQualitySystemV2P6:OnEnable()
     -- 进化界面更改资源栏为对应角色碎片
     local character = self.ParentUi.CurCharacter
-    local fragmentItemId = XCharacterConfigs.GetCharacterItemId(character.Id)
+    local fragmentItemId = XMVCA.XCharacter:GetCharacterItemId(character.Id)
     self.ParentUi:SetPanelAsset(XDataCenter.ItemManager.ItemId.FreeGem, fragmentItemId, XDataCenter.ItemManager.ItemId.Coin)
     self.ParentUi.PanelModel:SetCameraQualityActive(true)
 end
@@ -106,7 +106,7 @@ function XUiCharacterQualitySystemV2P6:OpenLastChildUi()
     if targetUiName == PanelName.XPanelQualityWholeV2P6 and curUiname == PanelName.XPanelQualitySingleV2P6 then
         self[curUiname]:Close() -- 提前关闭single
         CS.XUiManager.Instance:SetMask(true)
-        self.ParentUi.PanelModel:PlayCharModelAnime("SingleToQuality", function ()
+        self.ParentUi.PanelModel:PlayAnimation("SingleToQuality", function ()
             self:OpenChildPanel(targetUiName)
             CS.XUiManager.Instance:SetMask(false)
         end)
@@ -134,8 +134,8 @@ end
 -- 单品质展示界面 返回时应该回到所有品质球展示界面
 function XUiCharacterQualitySystemV2P6:OnQualityBallSelected(selectQuality)
     self.ParentUi:SetCamera(XEnumConst.CHARACTER.CameraV2P6.QualitySingle)
-    self.ParentUi.PanelModel:PlayCharModelAnime("QualityToSingle") -- 移动镜头
-    self.ParentUi.PanelModel:PlayCharModelAnime("PanelBigBallEnable") -- 刷新大球
+    self.ParentUi.PanelModel:PlayAnimation("QualityToSingle") -- 移动镜头
+    self.ParentUi.PanelModel:PlayAnimationWithMask("PanelBigBallEnable") -- 刷新大球
     self:OpenChildPanel(PanelName.XPanelQualitySingleV2P6)
     self[PanelName.XPanelQualitySingleV2P6]:Refresh(selectQuality)
 end
@@ -163,7 +163,7 @@ function XUiCharacterQualitySystemV2P6:OnUpgradeCloseCb(nextQuality)
 
     -- 关闭大球展示
     self.ParentUi.PanelModel:SetPanelEffectBallBigActive(false)
-    self.ParentUi.PanelModel:PlayCharModelAnime("UpgradeDetailToQuality")
+    self.ParentUi.PanelModel:PlayAnimation("UpgradeDetailToQuality")
     self.ParentUi.PanelModel:RefreshDynamicTable3DByEvoPerform(nextQuality, function ()
         self.IsEvoPerform = false
         CS.XUiManager.Instance:SetMask(false)

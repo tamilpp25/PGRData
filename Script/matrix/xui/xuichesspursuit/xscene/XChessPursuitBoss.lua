@@ -31,6 +31,11 @@ function XChessPursuitBoss:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.GameObject)
         self.GameObject = nil
     end
+
+    if self.Resource then
+        CS.XResourceManager.Unload(self.Resource)
+        self.Resource = nil
+    end
     
     self.Func = nil
 end

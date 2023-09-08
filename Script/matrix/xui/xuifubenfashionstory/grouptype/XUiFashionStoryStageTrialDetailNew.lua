@@ -31,6 +31,7 @@ function XUiFashionStoryStageTrialDetailNew:AddListener()
             self.CloseTrialDetailCb()
         end
         self:Close()
+        self.ParentUi:PlayAnimation('AnimEnable')
     end
     self.BtnMainUi.CallBack = function()
         XLuaUiManager.RunMain()
@@ -52,7 +53,7 @@ function XUiFashionStoryStageTrialDetailNew:OnBtnEnterClick()
 
     local isInTime = XDataCenter.FashionStoryManager.IsTrialStageInTime(self.StageId)
     if isInTime then
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     else
         XUiManager.TipText("FashionStoryTrialStageEnd")
     end

@@ -155,12 +155,12 @@ function XUiPanelCharQuality:OnBtnPreviewClick()
 end
 
 function XUiPanelCharQuality:OnBtnItemTipClick()
-    XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(XCharacterConfigs.GetCharacterItemId(self.CharacterId)))
+    XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(XMVCA.XCharacter:GetCharacterItemId(self.CharacterId)))
 end
 
 function XUiPanelCharQuality:OnBtnMoneyTipClick()
     local character = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(XCharacterConfigs.GetPromoteItemId(characterType, character.Quality)))
 end
 
@@ -230,7 +230,7 @@ function XUiPanelCharQuality:RefreshPanel()
     self:UpdateWaferCircuit(character)
     self:UpdateStar(character)
 
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     if isMaxStar then
         self:OpenAdvanced(characterType, character.Quality)
     else
@@ -396,9 +396,9 @@ function XUiPanelCharQuality:OpenWaferCircuit(characterType, quality, star)
     self.WaferCircuit.gameObject:SetActive(true)
     self.BtnPreview.gameObject:SetActive(true)
 
-    self.RImgIconSuipian:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XCharacterConfigs.GetCharacterItemId(self.CharacterId)))
+    self.RImgIconSuipian:SetRawImage(XDataCenter.ItemManager.GetItemIcon(XMVCA.XCharacter:GetCharacterItemId(self.CharacterId)))
 
-    local curItem = XDataCenter.ItemManager.GetItem(XCharacterConfigs.GetCharacterItemId(self.CharacterId))
+    local curItem = XDataCenter.ItemManager.GetItem(XMVCA.XCharacter:GetCharacterItemId(self.CharacterId))
     local itemCount = 0
     if curItem ~= nil then
         itemCount = curItem.Count

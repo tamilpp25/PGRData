@@ -54,14 +54,13 @@ function XUiTransfiniteBattlePrepare:OnAwake()
 
     ---@type XUiGridCommon
     --self._GridRewardExtra = XUiGridCommon.New(self, self.GridRewardExtra)
-
-    self._ViewModel:OnAwake()
 end
 
 function XUiTransfiniteBattlePrepare:OnStart(stageGroup)
     if stageGroup then
         self._ViewModel:SetStageGroup(stageGroup)
     end
+    self._ViewModel:OnAwake()
 end
 
 function XUiTransfiniteBattlePrepare:OnEnable()
@@ -118,11 +117,16 @@ function XUiTransfiniteBattlePrepare:Update(resetIndex)
         self.TxtLock.text = data.TxtStageLock
     end
     self.PanelComplete.gameObject:SetActiveEx(data.IsStagePassed)
-
-    if not data.IsStageCurrent then
-        self.BtnBattle:SetDisable(true, false)
-    else
+    
+    if data.IsStageCurrent then
         self.BtnBattle:SetDisable(false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteBeginChallengeStage"))
+    elseif data.IsShowRepeatBtn then
+        self.BtnBattle:SetDisable(false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteRepeatChallengeStage"))
+    else
+        self.BtnBattle:SetDisable(true, false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteBeginChallengeStage"))
     end
 
     local members = data.Members
@@ -138,7 +142,7 @@ function XUiTransfiniteBattlePrepare:Update(resetIndex)
 
     if self.TxtAddedRewardTitle then
         if data.ExtraRewardTime > 0 then
-            self.TxtAddedRewardTitle.text = XUiHelper.GetText("TransfiniteTimeExtra3", data.ExtraRewardTime)
+            self.TxtAddedRewardTitle.text = data.ExtraDesc
             self.TxtAddedRewardTitle.gameObject:SetActiveEx(true)
             self.PanelRewardTitle.gameObject:SetActiveEx(true)
         else

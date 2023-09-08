@@ -50,7 +50,7 @@ function XUiFubenMainLineChapter:OnStart(chapter, stageId, hideDiffTog)
     self.RedPointZhouMuId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
 
     self.RedPointBfrtId = XRedPointManager.AddRedPointEvent(self.ImgRedProgressA, self.OnCheckBfrtRewards, self, { XRedPointConditions.Types.CONDITION_BFRT_CHAPTER_REWARD }, nil, false)
-    XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXPLORE_ITEM_GET }, self.MainChapterId)
+    self.RedPointBtnExItemId = XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXPLORE_ITEM_GET }, self.MainChapterId)
 
     -- 注册stage事件
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
@@ -129,6 +129,10 @@ function XUiFubenMainLineChapter:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_BOUNTYTASK_TASK_COMPLETE_NOTIFY, self.SetupBountyTask, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_START, self.OnAutoFightStart, self)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointZhouMuId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointBfrtId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointBtnExItemId)
 end
 
 function XUiFubenMainLineChapter:OnOpenInit()

@@ -18,12 +18,9 @@ function XGridTheatre3EventOption:Refresh(optionId, index)
     local optionCfg = self._Control:GetEventOptionCfgById(optionId)
     local iconUrl = optionCfg.OptionIcon
     local itemId = optionCfg.OptionItemId[1]
-    local itemIcon
+    local itemIcon = self._Control:GetEventStepItemIcon(itemId, optionCfg.OptionItemType)
     local costCount = optionCfg.OptionItemCount[1]
     local iconCount = self._BtnOption.ImageList.Count / 2
-    if optionCfg.OptionItemType == 1 then
-        itemIcon = XDataCenter.ItemManager.GetItemIcon(itemId)
-    end
     
     --选项名称
     if not string.IsNilOrEmpty(optionCfg.OptionDesc) then

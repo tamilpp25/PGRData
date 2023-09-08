@@ -93,8 +93,8 @@ XRoomCharFilterTipsManagerCreator = function()
                 end
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(idA)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(idB)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(idA)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(idB)
             if priorityA ~= priorityB then
                 if isAscendOrder then
                     return priorityA < priorityB
@@ -288,7 +288,7 @@ XRoomCharFilterTipsManagerCreator = function()
         local characterType
         local characterId = GetCharacterIdByValueType(allCharList[1])
         if characterId then
-            characterType = XCharacterConfigs.GetCharacterType(GetCharacterIdByValueType(allCharList[1])) or XCharacterConfigs.CharacterType.Normal
+            characterType = XMVCA.XCharacter:GetCharacterType(GetCharacterIdByValueType(allCharList[1])) or XCharacterConfigs.CharacterType.Normal
         end
         -- 遍历选择的标签
         for groupId, tagDic in pairs(selectTagGroupDic) do

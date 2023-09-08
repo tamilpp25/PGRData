@@ -53,7 +53,7 @@ function XPanelQualitySingleV2P6:RefreshUseItem()
     local character = self.Character
     local isMaxQuality = self.CharacterAgency:GetCharMaxQuality(character.Id) == character.Quality
     local isMaxStars = character.Star == XEnumConst.CHARACTER.MAX_QUALITY_STAR
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
 
     if isMaxQuality then
         self.PanelConsume.gameObject:SetActiveEx(false)
@@ -74,7 +74,7 @@ function XPanelQualitySingleV2P6:RefreshUseItem()
         local data = {CostCount = useCoin, Count = curCount, Id = itemId}
         grid:Refresh(data)
     else
-        itemId = XCharacterConfigs.GetCharacterItemId(self.CharacterId)
+        itemId = XMVCA.XCharacter:GetCharacterItemId(self.CharacterId)
         local curItem = XDataCenter.ItemManager.GetItem(itemId)
         local itemCount = 0
         if curItem ~= nil then
@@ -108,7 +108,6 @@ end
 
 -- 刷新包括数据更新 (该函数类似Start外部传参)
 function XPanelQualitySingleV2P6:Refresh(seleQuality)
-    self.PanelModel:SetSelectQuality(seleQuality)
     self.SeleQuality = seleQuality
     self.CharacterId = self.Parent.ParentUi.CurCharacter.Id
     self.Character = self.CharacterAgency:GetCharacter(self.CharacterId)
@@ -136,9 +135,24 @@ end
 -- 品质内升阶级
 function XPanelQualitySingleV2P6:OnBtnActiveClick()
     local character = self.Character
+    local beforeArea = self.CharacterAgency:GetCharQualityPerformArea(character.Id, character.Quality)
     self.CharacterAgency:ActivateStar(character, function()
         self:RefreshUiShow(true)
+        -- cv
         CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiCharacter_QualityFragments)
+
+        -- 音效 .进化到了特定阶段才播放
+        local areaAfter = self.CharacterAgency:GetCharQualityPerformArea(character.Id, character.Quality)
+        if areaAfter <= beforeArea then
+            return
+        end
+
+        local config = self.CharacterAgency:GetModelCharacterSkillQualityBigEffectBall()[character.Quality]
+        local cueId = config.CueIds[areaAfter]
+        if not XTool.IsNumberValid(cueId) then
+            return
+        end
+        CS.XAudioManager.PlaySound(cueId)
     end)
 end
 
@@ -174,7 +188,7 @@ function XPanelQualitySingleV2P6:RemoveEventListener()
     XDataCenter.ItemManager.RemoveCountUpdateListener(self.GridItemHaveCount)
 end
 
-function XPanelQualitySingleV2P6:OnRelease()
+function XPanelQualitySingleV2P6:OnDestroy()
     self:RemoveEventListener()
 end
 

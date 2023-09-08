@@ -78,13 +78,13 @@ function XUiPanelSelectLevelItems:ResetData()
     self.ShowNextLevel = character.Level
 
     for start = character.Level, self.MaxLevel - 1 do
-        self.MaxLevelNeedExp = self.MaxLevelNeedExp + XCharacterConfigs.GetNextLevelExp(characterId, start)
+        self.MaxLevelNeedExp = self.MaxLevelNeedExp + XMVCA.XCharacter:GetNextLevelExp(characterId, start)
     end
 
     self.ShowCurExp = character.Exp
     self.CurCharacterExp = character.Exp
     self.CharacterTempExp = character.Exp
-    if character.Exp > XCharacterConfigs.GetNextLevelExp(characterId, character.Level) then
+    if character.Exp > XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level) then
         self.CharacterTempExp = 0
     end
     self.MaxLevelNeedExp = self.MaxLevelNeedExp - self.CharacterTempExp
@@ -129,8 +129,8 @@ function XUiPanelSelectLevelItems:UpdateUi()
 
     self.ImgExpAddBar.gameObject:SetActive(false)
     local isMaxLevel = self.ShowNextLevel >= self.MaxLevel
-    self.ImgExpBar.fillAmount = isMaxLevel and 0 or self.CharacterTempExp / XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
-    self.TxtExpCompare.text = math.floor(self.ShowCurExp) .. "/" .. XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
+    self.ImgExpBar.fillAmount = isMaxLevel and 0 or self.CharacterTempExp / XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
+    self.TxtExpCompare.text = math.floor(self.ShowCurExp) .. "/" .. XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
     self.TxtCharCurLevel.text = character.Level
     self.TxtAddExp.text = self.AddExp > 0 and "+" .. math.floor(self.AddExp) or ""
 
@@ -144,7 +144,7 @@ function XUiPanelSelectLevelItems:UpdateUiAdd(index)
     local character = self.CharacterAgency:GetCharacter(characterId)
 
     local isMaxLevel = self.ShowNextLevel >= self.MaxLevel
-    local nextLevelExp = XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
+    local nextLevelExp = XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
 
     self.ImgExpAddBar.gameObject:SetActive(true)
 

@@ -54,6 +54,7 @@ function XUiEquipPreviewV2P6:InitModel()
     self.PanelWeaponPlane.gameObject:SetActiveEx(false)
     self.FxUiLihuiChuxian01.gameObject:SetActiveEx(false)
     if self.IsWeapon then
+        self.PanelWeapon.gameObject:SetActiveEx(true)
         local breakthroughTimes = 0
         local resonanceCount = 0
         local modelTransformName = "UiEquipDetail"
@@ -69,7 +70,6 @@ function XUiEquipPreviewV2P6:InitModel()
                 self.PanelDrag
             )
         end
-        self.PanelWeapon.gameObject:SetActiveEx(true)
     elseif self.IsAwareness then
         self:ReleaseModel()
         local breakthroughTimes = 0

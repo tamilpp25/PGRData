@@ -25,7 +25,7 @@ function XUiArchiveWeapon:OnAwake()
 
     self.IsHaveCallOnEnable = false
 
-    self.EventIdWeaponRedPoint = XRedPointManager.AddRedPointEvent(
+    self.EventIdWeaponRedPoint = self:AddRedPointEvent(
         self.TabBtnGroup,
         self.OnCheckWeaponRedPoint,
         self,

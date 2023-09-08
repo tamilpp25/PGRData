@@ -331,7 +331,14 @@ XGuideManagerCreator = function()
                 return true
             end
             for _, node in ipairs(nodes or {}) do
-                local tmp = luaUi.Transform:FindTransform(node)
+                local findIndex = string.find(node, "/")
+                local tmp
+                --根据下标查找
+                if findIndex then
+                    tmp = luaUi.Transform:FindTransformWithSplit(node)
+                else --根据名称查找
+                    tmp = luaUi.Transform:FindTransform(node)
+                end
                 --存在且显示
                 if not XTool.UObjIsNil(tmp) 
                         and tmp.gameObject.activeInHierarchy then
@@ -513,13 +520,6 @@ XGuideManagerCreator = function()
     --是否正在引导
     --该接口在某些包强跳引导(ResetGuide)不会恢复IsGuiding
     function XGuideManager.CheckIsInGuide()
-        return IsGuiding
-    end
-
-    ---是否正在引导(升级版)该接口即使强跳也能判断
-    ---原强跳引导在外服环境IsGuiding是不会恢复的
-    ---对于某些业务可能出现卡流程现象
-    function XGuideManager.CheckIsInGuidePlus()
         return IsGuiding and ActiveGuide ~= nil
     end
 

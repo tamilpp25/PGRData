@@ -25,7 +25,7 @@ function XUiFunbenKoroTutoriaTeachingDetail:SetStageDetail(stageId, id)
     self.Id = id
     self.StageId = stageId
     self.StageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-    self.TxtTitle.text = self.StageCfg.Name
+    self.TxtTitle.text = self.StageCfg.Description
     for i = 1, DescCount do
         self.StarGridList[i]:Refresh(self.StageCfg.StarDesc[i], true)
     end

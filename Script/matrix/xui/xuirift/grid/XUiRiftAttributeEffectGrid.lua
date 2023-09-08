@@ -1,24 +1,25 @@
-local XUiRiftAttributeEffectGrid = XClass(nil, "UiRiftAttributeEffectGrid")
+---@class XUiRiftAttributeEffectGrid : XUiNode
+local XUiRiftAttributeEffectGrid = XClass(XUiNode, "UiRiftAttributeEffectGrid")
 
 local Color = {
-    black = CS.UnityEngine.Color.black,
+    black = XUiHelper.Hexcolor2Color("E5635E"),
     red = XUiHelper.Hexcolor2Color("d11227"),
     blue = XUiHelper.Hexcolor2Color("0f70bc"),
 }
 
-function XUiRiftAttributeEffectGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
-
 function XUiRiftAttributeEffectGrid:Refresh(index, effectData)
-    local isShowBlack = index % 2 == 1
-    self.ImgBlack.gameObject:SetActiveEx(isShowBlack)
+    local isPercent
+    if effectData.PropType == XEnumConst.Rift.PropType.Battle then
+        local battleEffectTypeCfg = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttributeEffectType, effectData.EffectType)
+        isPercent = battleEffectTypeCfg.ShowType == XRiftConfig.AttributeFixEffectType.Percent
+        self.TxtEffect.text = battleEffectTypeCfg.Name
+    elseif effectData.PropType == XEnumConst.Rift.PropType.System then
+        local systemEffectTypeCfg = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftSystemAttributeEffectType, effectData.EffectType)
+        isPercent = systemEffectTypeCfg.ShowType == XRiftConfig.AttributeFixEffectType.Percent
+        self.TxtEffect.text = systemEffectTypeCfg.Desc
+    end
 
-    local effectTypeCfg = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttributeEffectType, effectData.EffectType)
-    self.TxtEffect.text = effectTypeCfg.Name
-    if effectTypeCfg.ShowType == XRiftConfig.AttributeFixEffectType.Percent then
+    if isPercent then
         self.TxtZuo.text = effectData.OriginValue .. "%"
         self.TxtYou.text = effectData.CurValue .. "%"
     else

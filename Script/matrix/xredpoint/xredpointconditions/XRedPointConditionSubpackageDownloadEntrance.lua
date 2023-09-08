@@ -2,7 +2,7 @@
 local XRedPointConditionSubpackageDownloadEntrance = {}
 
 function XRedPointConditionSubpackageDownloadEntrance.Check()
-    return XDataCenter.DlcManager.CheckRedPoint()
+    return XMVCA.XSubPackage:CheckRedPoint()
 end
 
 return XRedPointConditionSubpackageDownloadEntrance

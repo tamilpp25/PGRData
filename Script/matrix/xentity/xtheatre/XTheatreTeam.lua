@@ -61,4 +61,33 @@ function XTheatreTeam:GetTeamIndex()
     return self.TeamIndex
 end
 
+function XTheatreTeam:UpdateEntityTeamPos(entityId, teamPos, isJoin)
+    if isJoin then
+        self.EntitiyIds[teamPos] = entityId or 0
+    else
+        for pos, id in ipairs(self.EntitiyIds) do
+            if id == entityId then
+                self.EntitiyIds[pos] = 0
+                break
+            end
+        end
+    end
+    self:Save()
+end
+
+function XTheatreTeam:UpdateFromTeamData(teamData)
+    self.FirstFightPos = teamData.FirstFightPos
+    self.CaptainPos = teamData.CaptainPos
+    for pos, characterId in ipairs(teamData.TeamData) do
+        self.EntitiyIds[pos] = characterId
+    end
+    self.TeamName = teamData.TeamName
+    self:Save()
+end
+
+function XTheatreTeam:UpdateEntityIds(value)
+    self.EntitiyIds = value
+    self:Save()
+end
+
 return XTheatreTeam

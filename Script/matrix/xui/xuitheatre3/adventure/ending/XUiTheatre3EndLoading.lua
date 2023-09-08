@@ -29,6 +29,9 @@ function XUiTheatre3EndLoading:OnStart(endingId)
     end
     if not string.IsNilOrEmpty(endingCfg.Icon) then
         self.Icon:SetRawImage(endingCfg.Icon)
+        self.Icon.gameObject:SetActiveEx(true)
+    else
+        self.Icon.gameObject:SetActiveEx(false)
     end
     if self.TxtEndTitle then
         self.TxtEndTitle.text = endingCfg.Name
@@ -39,6 +42,7 @@ function XUiTheatre3EndLoading:OnStart(endingId)
             self.TxtEndInfo.color = XUiHelper.Hexcolor2Color(endingCfg.DescColor)
         end
     end
+    self._Control:AdventurePlayBgm(endingCfg.BgmCueId)
 end
 
 --region Ui - BtnListener

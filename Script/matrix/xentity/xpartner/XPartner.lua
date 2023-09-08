@@ -478,7 +478,7 @@ function XPartner:UpdateSkillEntity()
             tmpData.IsCarry = false
             if self:GetIsCarry() then
                 local charId = self:GetCharacterId()
-                local charElement = XCharacterConfigs.GetCharacterElement(charId)
+                local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
                 local skillId = skillGroup:GetSkillIdByElement(charElement)
                 tmpData.ActiveSkillId = skillId
             else
@@ -777,6 +777,10 @@ end
 -------------------------------宠物来源----------------------------------
 function XPartner:SetIsBelongSelf(value)
     self.IsBelongSelf = value
+end
+
+function XPartner:GetIsComposePreview()
+    return not self.IsComplete
 end
 
 return XPartner

@@ -15,12 +15,16 @@ end
 
 function XUiTheatre3SettlementCollection:OnEnable()
     local isEmpty = #self._Data.Items == 0
-    self.TxtEnd.text = self._Control:GetEndingById(self._Data.EndId).Desc
+    local endConfig = self._Control:GetEndingById(self._Data.EndId)
+    self.TxtEnd.text = endConfig.Desc
     self.TxtEmpty.gameObject:SetActiveEx(isEmpty)
     self.SViewlList.gameObject:SetActiveEx(not isEmpty)
     if not isEmpty then
         self.DynamicTable:SetDataSource(self._Data.Items)
         self.DynamicTable:ReloadDataASync(1)
+    end
+    if self.TxtTitle then
+        self.TxtTitle.text = endConfig.Name
     end
 end
 

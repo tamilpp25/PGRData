@@ -137,7 +137,7 @@ function XAwarenessChapter:GetOccupyCharSmallHeadIcon()
 end
 
 function XAwarenessChapter:GetOccupyCharacterName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self:GetCharacterId())
 end
 
 return XAwarenessChapter

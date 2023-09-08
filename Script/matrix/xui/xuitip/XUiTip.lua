@@ -6,7 +6,7 @@ function XUiTip:OnAwake()
     self:InitAutoScript()
 end
 
-function XUiTip:OnStart(data, hideSkipBtn, rootUiName, lackNum, showNum, switchRainbowCard)
+function XUiTip:OnStart(data, hideSkipBtn, rootUiName, lackNum, showNum, switchRainbowCard, title, isShowCount)
     local musicKey = self:GetAutoKey(self.BtnBack, "onClick")
     self.SpecialSoundMap[musicKey] = XSoundManager.UiBasicsMusic.Return
     self.HideSkipBtn = hideSkipBtn
@@ -14,6 +14,15 @@ function XUiTip:OnStart(data, hideSkipBtn, rootUiName, lackNum, showNum, switchR
     self.Data = data
     self.LackNum = lackNum
     self.ShowNum = showNum -- 兼容自定义数量
+    if self.TxtTitle and title then
+        self.TxtTitle.text = title
+    end
+    if self.CountBg then
+        if isShowCount == nil then
+            isShowCount = true
+        end
+        self.CountBg.gameObject:SetActiveEx(isShowCount)
+    end
     self:PlayAnimation("AnimStart")
     if XDataCenter.UiPcManager.IsPc() then
         
@@ -296,6 +305,12 @@ function XUiTip:Refresh(data)
     -- 世界观描述
     if self.TxtWorldDesc then
         local worldDesc = XGoodsCommonManager.GetGoodsWorldDesc(self.TemplateId)
+        
+        ---黑岩超难关藏品特殊处理
+        if self.TemplateId == XEnumConst.SpecialHandling.DEADCollectiblesId then
+            worldDesc = XUiHelper.ReplaceUnicodeSpace(worldDesc)
+        end
+
         if worldDesc and #worldDesc then
             self.TxtWorldDesc.text = worldDesc
             self:SetUiActive(self.TxtWorldDesc, true)

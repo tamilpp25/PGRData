@@ -7,7 +7,7 @@ function XUiFubenHackSection:OnAwake()
     self.StarGridList = {}
     self.GridList = {}
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self:InitStarPanels()
 end
 

@@ -1,20 +1,34 @@
 ---@class XUiPanelActivityAsset
-XUiPanelActivityAsset = XClass(nil, "XUiPanelActivityAsset")
+XUiPanelActivityAsset = XClass(XUiNode, "XUiPanelActivityAsset")
 
-function XUiPanelActivityAsset:Ctor(ui, deleteDes, base, hideAssetPanel, hideSkipBtn)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+--function XUiPanelActivityAsset:Ctor(ui, deleteDes, base, hideAssetPanel, hideSkipBtn)
+--    self.GameObject = ui.gameObject
+--    self.Transform = ui.transform
+--    self.DeleteDes = deleteDes
+--    self.Base = base
+--    self.HideAssetPanel = hideAssetPanel
+--    self.HideSkipBtn = hideSkipBtn
+--    self:InitAutoScript()
+--end
+
+function XUiPanelActivityAsset:OnStart(deleteDes, hideAssetPanel, hideSkipBtn)
     self.DeleteDes = deleteDes
-    self.Base = base
     self.HideAssetPanel = hideAssetPanel
     self.HideSkipBtn = hideSkipBtn
     self:InitAutoScript()
 end
 
+--这里有可能外部赋值, 所以在OnRelease里调用
+function XUiPanelActivityAsset:OnRelease()
+    self.OnBtnClick = nil
+    XDataCenter.ItemManager.RemoveCountUpdateListener(self)
+end
+
+
 -- auto
 -- Automatic generation of code, forbid to edit
 function XUiPanelActivityAsset:InitAutoScript()
-    XTool.InitUiObject(self)
+    --XTool.InitUiObject(self)
     self:AutoAddListener()
 end
 
@@ -147,11 +161,13 @@ function XUiPanelActivityAsset:Refresh(idlist, canBuyItemIds, maxCountDic)
         end
     end
 
-    if self.HideAssetPanel and self.Base then
-        self.Base.AssetPanel.GameObject:SetActiveEx(
-            not (self.PanelSpecialTool3.gameObject.activeSelf or self.PanelSpecialTool2.gameObject.activeSelf or
-                self.PanelSpecialTool1.gameObject.activeSelf)
-        )
+    if self.HideAssetPanel and self.Parent then
+        if not (self.PanelSpecialTool3.gameObject.activeSelf or self.PanelSpecialTool2.gameObject.activeSelf or
+                self.PanelSpecialTool1.gameObject.activeSelf) then
+            self.Parent.AssetPanel:Open()
+        else 
+            self.Parent.AssetPanel:Close()
+        end
     end
     self.PanelSpecialTool.gameObject:SetActiveEx(
         self.PanelSpecialTool3.gameObject.activeSelf or self.PanelSpecialTool2.gameObject.activeSelf or

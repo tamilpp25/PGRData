@@ -16,6 +16,9 @@ function XUiPanelSkip:Refresh(activityCfg)
 
     local skipId = activityCfg.Params[1]
     CsXUiHelper.RegisterClickEvent(self.BtnGo, function()
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         XFunctionManager.SkipInterface(skipId)
     end)
 end

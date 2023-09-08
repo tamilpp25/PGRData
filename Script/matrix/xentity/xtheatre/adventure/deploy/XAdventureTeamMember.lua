@@ -64,7 +64,7 @@ function XAdventureTeamMember:GetCharacterName()
     if self:IsEmpty() then return "" end
 
     local charId = self:GetCharacterId()
-    return XRobotManager.CheckIsRobotId(charId) and XCharacterConfigs.GetCharacterName(XRobotManager.GetCharacterId(charId)) or XCharacterConfigs.GetCharacterName(charId)
+    return XRobotManager.CheckIsRobotId(charId) and XMVCA.XCharacter:GetCharacterName(XRobotManager.GetCharacterId(charId)) or XMVCA.XCharacter:GetCharacterName(charId)
 end
 
 --是否为空

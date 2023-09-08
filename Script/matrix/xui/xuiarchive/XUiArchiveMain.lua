@@ -30,7 +30,7 @@ end
 function XUiArchiveMain:InitArchiveList()
     self.ArchiveList = {}
     for index, archiveObj in pairs(self.ArchiveObj) do
-        self.ArchiveList[index] = XUiGridArchive.New(archiveObj)
+        self.ArchiveList[index] = XUiGridArchive.New(archiveObj,self)
         self.ArchiveList[index]:AddRedPointEvent(index)
     end
 end

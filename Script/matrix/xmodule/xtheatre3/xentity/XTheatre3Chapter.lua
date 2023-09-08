@@ -84,6 +84,19 @@ function XTheatre3Chapter:GetCurChapterProgress()
     return 69 .. "%"
 end
 
+function XTheatre3Chapter:GetStepByUid(uid)
+    if XTool.IsTableEmpty(self.Steps) then
+        return false
+    end
+    local stepCount = #self.Steps
+    for i = stepCount, 1, -1 do
+        if self.Steps[i]:GetUid() == uid then
+            return self.Steps[i]
+        end
+    end
+    return false
+end
+
 ---@return XTheatre3Step
 function XTheatre3Chapter:GetLastStep()
     if XTool.IsTableEmpty(self.Steps) then

@@ -1,4 +1,4 @@
-local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
+ local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
 local XUiMainRightBottom = XClass(XUiMainPanelBase, "XUiMainRightBottom")
 
 local TipsMainViewTextMovePauseInterval = CS.XGame.ClientConfig:GetFloat("TipsMainViewTextMovePauseInterval")
@@ -29,7 +29,7 @@ function XUiMainRightBottom:OnStart(rootUi)
     self.BtnTerminal.CallBack = function() self:OnBtnTerminalClick() end
     
     --RedPoint
-    self.TerminalRedPoint = XRedPointManager.AddRedPointEvent(self.BtnTerminal, self.OnCheckBtnTerminalRedPoint, self, RedPointConditionGroup.Terminal)
+    self.TerminalRedPoint = self:AddRedPointEvent(self.BtnTerminal, self.OnCheckBtnTerminalRedPoint, self, RedPointConditionGroup.Terminal)
     
     self.TxtTips.gameObject:SetActiveEx(false)
     self.TxtMusic.gameObject:SetActiveEx(false)
@@ -43,6 +43,10 @@ function XUiMainRightBottom:OnEnable()
     self:StartTimer()
     --界面状态事件，也会触发红点检查
     XEventManager.AddEventListener(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE, self.RefreshTips, self)
+    XEventManager.AddEventListener(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE, self.RefreshTips, self)
+    XEventManager.AddEventListener(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA, self.RefreshTips, self)
+
+    XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_DOWNLOAD_STATE, self.RefreshTips, self)
 end
 
 function XUiMainRightBottom:OnDisable()
@@ -52,8 +56,17 @@ function XUiMainRightBottom:OnDisable()
     end
     self:StopTimer()
     XEventManager.RemoveEventListener(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE, self.RefreshTips, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE, self.RefreshTips, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA, self.RefreshTips, self)
 
+    XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_DOWNLOAD_STATE, self.RefreshTips, self)
     self:ClearGrids()
+
+    self.ChangeColorFin = false
+end
+
+function XUiMainRightBottom:OnDestroy()
+
 end
 
 function XUiMainRightBottom:CheckFilterFunctions()
@@ -69,46 +82,7 @@ function XUiMainRightBottom:StopTimer()
 end
 
 function XUiMainRightBottom:GetScrollTips()
-    -- 月卡优先级 大于 礼包优先级
-    local tipList = {}
-
-    if XDataCenter.PurchaseManager.CheckYKContinueBuy() then
-        table.insert(tipList, {
-            Tips = XUiHelper.GetText("PurchaseYKExpireDes"),
-            Type = TipsType.Normal
-        })
-    end
-
-    local giftCount = XDataCenter.PurchaseManager.ExpireCount or 0
-    if giftCount == 1 then
-        table.insert(tipList,
-                {
-                    Tips = XUiHelper.GetText("PurchaseGiftValitimeTips1"),
-                    Type = TipsType.Normal
-                })
-    elseif giftCount > 1 then
-        table.insert(tipList,
-                {
-                    Tips = XUiHelper.GetText("PurchaseGiftValitimeTips2"),
-                    Type = TipsType.Normal
-                })
-    end
-    
-    -- 宿舍终端提示 可领取 > 可派遣
-    local dispatchedCount, unDispatchCount = XDataCenter.DormQuestManager.GetEntranceShowData()
-    if dispatchedCount > 0 then
-        table.insert(tipList,
-                {
-                    Tips = XUiHelper.GetText("DormQuestTerminalMainTeamRegress", dispatchedCount),
-                    Type = TipsType.Normal
-                })
-    elseif unDispatchCount > 0 then
-        table.insert(tipList,
-                {
-                    Tips = XUiHelper.GetText("DormQuestTerminalMainTeamFree", unDispatchCount),
-                    Type = TipsType.Normal
-                })
-    end
+    local tipList = XMVCA.XUiMain:GetScrollTipList(false)
     
     if XTool.IsTableEmpty(tipList) then
         local albumId = XDataCenter.MusicPlayerManager.GetUiMainNeedPlayedAlbumId()
@@ -128,11 +102,15 @@ function XUiMainRightBottom:GetScrollTips()
 end
 
 function XUiMainRightBottom:RefreshTips()
+    if not self.ChangeColorFin or not XDataCenter.DormManager.IsDormDataNotify then -- ChangeColorFin字段保证刷新在切换主题之后
+        return
+    end
+    
     if self.ScrollSequence then
         self.ScrollSequence:Kill()
         self.ScrollSequence = nil
     end
-    -- 月卡优先级 大于 礼包优先级
+   
     local tipList = self:GetScrollTips()
     
     self.NeedScroll = not XTool.IsTableEmpty(tipList)
@@ -165,6 +143,10 @@ function XUiMainRightBottom:RefreshTips()
         end
     end
     self:ScrollTips()
+end
+
+function XUiMainRightBottom:AfterChangeColorCb()
+    self:RefreshTips()
 end
 
 function XUiMainRightBottom:ClearGrids()
@@ -206,7 +188,9 @@ function XUiMainRightBottom:CheckRedPoint()
 end
 
 function XUiMainRightBottom:OnCheckBtnTerminalRedPoint(count)
-    self.BtnTerminal:ShowReddot(count >= 0)
+    if self.BtnTerminal then
+        self.BtnTerminal:ShowReddot(count >= 0)
+    end
 end
 
 return XUiMainRightBottom

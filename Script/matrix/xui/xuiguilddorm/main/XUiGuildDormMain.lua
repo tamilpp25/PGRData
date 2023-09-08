@@ -124,12 +124,12 @@ function XUiGuildDormMain:AddEventListeners()
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_ON_ENTER_ROOM, self.OnEnterRoom, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_PLAY_ACTION, self.OnPlayAction, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILD_DORM_UI_SETTING, self.SetComponentsClose, self)
-    self.RedPointGiftId = XRedPointManager.AddRedPointEvent(self.BtnGift, self.SetBtnGiftRed, self, {
+    self.RedPointGiftId = self:AddRedPointEvent(self.BtnGift, self.SetBtnGiftRed, self, {
         XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
         XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
         XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
     })
-    self.RedPointInfomationId = XRedPointManager.AddRedPointEvent(self.BtnInformation, self.SetBtnInformationRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self.RedPointInfomationId = self:AddRedPointEvent(self.BtnInformation, self.SetBtnInformationRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
 
     --新手引导结束
     --CsXGameEventManager.Instance:RegisterEvent(XEventId.EVENT_GUIDE_END, handler(self, self.OnGuideEnd))
@@ -143,8 +143,8 @@ function XUiGuildDormMain:RemoveEventListeners()
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_ON_ENTER_ROOM, self.OnEnterRoom, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_PLAY_ACTION, self.OnPlayAction, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_UI_SETTING, self.SetComponentsClose, self)
-    XRedPointManager.RemoveRedPointEvent(self.RedPointGiftId)
-    XRedPointManager.RemoveRedPointEvent(self.RedPointInfomationId)
+    self:RemoveRedPointEvent(self.RedPointGiftId)
+    self:RemoveRedPointEvent(self.RedPointInfomationId)
 
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILD_DORM_3D_UI_SHOW, self.CheckOpenHelp, self)
 
@@ -194,7 +194,7 @@ function XUiGuildDormMain:InitButtons()
     end)
     self.GuildWarEntry:OnShow()
 
-    XRedPointManager.AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
+    self:AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
             {
                 XRedPointConditions.Types.CONDITION_GUILDWAR_TASK,
                 XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY,

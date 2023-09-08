@@ -1,12 +1,9 @@
-local XUiPanelActive = XClass(nil, "XUiPanelActive")
+---@class XUiPanelActive:XUiNode
+local XUiPanelActive = XClass(XUiNode, "XUiPanelActive")
 local XUiArenaGrid = require("XUi/XUiArena/XUiArenaGrid")
 local XUiArenaContributeScore = require("XUi/XUiArena/XUiArenaContributeScore")
 
-function XUiPanelActive:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    XTool.InitUiObject(self)
+function XUiPanelActive:OnStart()
     self:AutoAddListener()
     self:RegisterRedPointEvent()
 
@@ -20,7 +17,6 @@ function XUiPanelActive:Ctor(ui, rootUi)
 
     self.GridPlayer.gameObject:SetActive(false)
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelActive:CheckRedPoint()
@@ -30,7 +26,7 @@ function XUiPanelActive:CheckRedPoint()
 end
 
 function XUiPanelActive:RegisterRedPointEvent()
-    self.EventId = XRedPointManager.AddRedPointEvent(self.ImgRedLegion, self.OnCheckTaskNews, self, { XRedPointConditions.Types.CONDITION_ARENA_MAIN_TASK })
+    self.EventId = self:AddRedPointEvent(self.ImgRedLegion, self.OnCheckTaskNews, self, { XRedPointConditions.Types.CONDITION_ARENA_MAIN_TASK })
 end
 
 --@region 注册点击事件
@@ -100,29 +96,14 @@ end
 
 --@endregion
 
-function XUiPanelActive:Show()
-    if self.IsShow then
-        XDataCenter.ArenaManager.RequestGroupMember()
-        return
-    end
-
-    self.IsShow = true
-    self.GameObject:SetActive(true)
-
+function XUiPanelActive:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_ARENA_MAIN_INFO, self.RefreshMainInfo, self)
 
     XDataCenter.ArenaManager.RequestGroupMember()
     self:Refresh()
 end
 
-function XUiPanelActive:Hide()
-    if not self.IsShow then
-        return
-    end
-
-    self.IsShow = false
-    self.GameObject:SetActive(false)
-
+function XUiPanelActive:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_ARENA_MAIN_INFO, self.RefreshMainInfo, self)
 end
 
@@ -337,7 +318,7 @@ function XUiPanelActive:AddTitle(rankRegion, rewardId, isHeroSquad)
         return
     end
     local iconPath = XGoodsCommonManager.GetGoodsIcon(rewards[1].TemplateId)
-    self.RootUi:SetUiSprite(rewardIcon, iconPath)
+    self.Parent:SetUiSprite(rewardIcon, iconPath)
     rewardCount.text = rewards[1].Count
 end
 

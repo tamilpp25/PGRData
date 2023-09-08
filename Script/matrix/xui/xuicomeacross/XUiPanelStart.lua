@@ -25,7 +25,7 @@ function XUiPanelStart:SetupContent(data)
     local gameTypeCfg = XComeAcrossConfig.GetComeAcrossTypeConfigById(gameType)
     self.TxtSelect.text = gameTypeCfg.Title
     self.TxtWords.text = gameTypeCfg.Desc
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(character.Id)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(character.Id)
     self.Parent:SetUiSprite(self.ImgRole, XDataCenter.CharacterManager.GetCharHalfBodyBigImage(character.Id))
 end
 

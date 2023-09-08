@@ -9,7 +9,7 @@ function XUiCerberusGameShop:OnAwake()
         CanNotBuyColor = "E53E3EFF",
     }
     self.ItemList = XUiPanelItemList.New(self.PanelItemList, self, nil, self.UiParams, handler(self, self.OnRefreshGrid))
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.CerberusGameCoin1, XDataCenter.ItemManager.ItemId.CerberusGameCoin2 }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.CerberusGameCoin1, XDataCenter.ItemManager.ItemId.CerberusGameCoin2 }, self.PanelSpecialTool, self)
 
     self.CurSelectIndex = 1
 end

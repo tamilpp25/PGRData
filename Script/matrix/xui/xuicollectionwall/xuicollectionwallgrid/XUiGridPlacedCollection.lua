@@ -46,7 +46,12 @@ function XUiGridPlacedCollection:Ctor(ui, rootUi, parentUi, collectionData)
 end
 
 function XUiGridPlacedCollection:InitComponent()
-    self.TxtName.text = XMedalConfigs.GetCollectionNameById(self.Id)
+    if self.Id == XEnumConst.SpecialHandling.DEADCollectiblesId then
+        self.TxtName.text = XUiHelper.ReplaceUnicodeSpace(XMedalConfigs.GetCollectionNameById(self.Id))
+        self.TxtName.resizeTextForBestFit = true
+    else
+        self.TxtName.text = XMedalConfigs.GetCollectionNameById(self.Id)
+    end
 
     local prefabPath = XMedalConfigs.GetCollectionPrefabPath(self.Id)
     local styleObj = self.CollectionStyleNode.gameObject:LoadPrefab(prefabPath)

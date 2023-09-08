@@ -30,6 +30,7 @@ function XUiGuideNew:OnStart(targetImg, isWeakGuide, guideDesc, icon, name, call
     if targetImg then
         CS.XGuideEventPass.IsPassEvent = true
         CS.XGuideEventPass.IsFightGuide = true
+        CS.XGuideEventPass.IsPassAll = false
         self.IsFight = true
         self:ShowMark(true, true)
         local anchor = CS.UnityEngine.Vector2(0, 1)
@@ -60,6 +61,9 @@ function XUiGuideNew:OnDestroy()
     --         self.Callback = nil
     --     end
     -- end)
+    if XMain.IsDebug and XFightUtil.IsFighting() then
+        CS.XFight.Instance.InputControl:OnCloseGuideOperation()
+    end
 end
 
 function XUiGuideNew:AutoAddListener()
@@ -123,7 +127,7 @@ function XUiGuideNew:ShowDialog(icon, name, content, anchorMax, anchorMin, posit
     self.PanelInfo.gameObject:SetActive(true)
     self:SetUiSprite(self.ImgRole, icon)
     self.TxtName.text = name or ""
-    self.TxtDesc.text = content
+    self.TxtDesc.text = XUiHelper.ReplaceTextNewLine(content)
 
     self.PanelInfoRect.anchorMax = anchorMax
     self.PanelInfoRect.anchorMin = anchorMin
@@ -136,18 +140,20 @@ function XUiGuideNew:HideDialog()
 end
 
 --聚焦panel
-function XUiGuideNew:FocusOnPanel(panel, eulerAngles, passEvent, sizeDelta)
+function XUiGuideNew:FocusOnPanel(panel, eulerAngles, passEvent, sizeDelta, offset, passAll)
     eulerAngles = eulerAngles or CS.UnityEngine.Vector3.zero
     sizeDelta = sizeDelta or CS.UnityEngine.Vector2.zero
+    offset = offset or CS.UnityEngine.Vector2.zero
     self.BtnPass.gameObject:SetActive(true)
     self.BtnPass.gameObject.transform.eulerAngles = eulerAngles
-    self.Guide:SetTarget(panel, sizeDelta)
+    self.Guide:SetTarget(panel, sizeDelta, offset)
 
     if not XTool.UObjIsNil(panel.gameObject) then
         CS.XGuideEventPass.Target = panel.gameObject
     end
 
     CS.XGuideEventPass.IsPassEvent = passEvent
+    CS.XGuideEventPass.IsPassAll = passAll
     if self.AniGuideJiaoLoop then
         self.AniGuideJiaoLoop.gameObject:SetActive(false)
         self.AniGuideJiaoLoop.gameObject:SetActive(true)

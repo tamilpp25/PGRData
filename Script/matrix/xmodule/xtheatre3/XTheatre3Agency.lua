@@ -135,6 +135,13 @@ function XTheatre3Agency:CheckHasPassEnding(difficultyId, endingId)
     return false
 end
 
+function XTheatre3Agency:CheckEndingIsPass(endingId)
+    if self._Model.ActivityData then
+        return self._Model.ActivityData:CheckEndingIsPass(endingId)
+    end
+    return false
+end
+
 function XTheatre3Agency:CheckAdventureHasPassEventStep(eventStepId)
     if self._Model.ActivityData then
         return self._Model.ActivityData:CheckAdventureHasPassEventStep(eventStepId)
@@ -206,6 +213,7 @@ end
 
 function XTheatre3Agency:NotifyTheatre3MaxEnergyChange(data)
     self._Model.ActivityData:UpdateMaxEnergy(data.MaxEnergy)
+    self._Model:SetAddEnergyLimitRedPoint(true)
 end
 --endregion
 
@@ -278,9 +286,20 @@ end
 --region 副本入口扩展
 
 function XTheatre3Agency:ExOpenMainUi()
-    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre3) then
-        self:CheckAutoPlayStory()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre3) then
+        return
     end
+    if not self._Model.ActivityData or not self:ExCheckInTime()  then
+        XUiManager.TipErrorWithKey("CommonActivityNotStart")
+        return
+    end
+
+    --分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    
+    self:CheckAutoPlayStory()
 end
 
 function XTheatre3Agency:ExGetConfig()
@@ -392,9 +411,13 @@ function XTheatre3Agency:CheckAndOpenSettle()
         return false
     end
     local storyId = self._Model:GetEndingById(settle.EndId).StoryId
-    if storyId then 
+    if storyId then
+        self:OpenBlackView()
         --结局剧情
         XDataCenter.MovieManager.PlayMovie(storyId, function()
+            if self:IsBlackViewOpen() then
+                XLuaUiManager.Remove("UiBiancaTheatreBlack")
+            end
             self:RemoveStepView()
             XLuaUiManager.Open("UiTheatre3EndLoading", settle.EndId)
         end, nil, nil, false)

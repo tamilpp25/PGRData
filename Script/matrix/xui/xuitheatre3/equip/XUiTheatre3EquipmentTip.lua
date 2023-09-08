@@ -29,6 +29,10 @@ function XUiTheatre3EquipmentTip:InitBtnDetail()
     end
 end
 
+function XUiTheatre3EquipmentTip:SetIsAdventureDesc(isAdventureDesc)
+    self._IsAdventureDesc = isAdventureDesc
+end
+
 function XUiTheatre3EquipmentTip:SetBtnDetailCallBack(cb)
     if self.BtnDetail then
         self.BtnDetail.gameObject:SetActiveEx(true)
@@ -70,11 +74,13 @@ end
 function XUiTheatre3EquipmentTip:ShowDetailOrSimpleTxt(isDetailTxt)
     if self._EquipConfig then
         local desc = isDetailTxt and self._EquipConfig.EffectDesc or self._EquipConfig.SimpleEffectDesc
-        self.TxtDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(desc, self._EquipConfig.TraitName)))
+        desc = XUiHelper.FormatText(desc, self._IsAdventureDesc and self._Control:GetEquipEffectGroupDesc(self._EquipConfig.Id) or "")
+        self.TxtDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(desc))
     end
     if self._SuitConfig then
         local desc = isDetailTxt and self._SuitConfig.Desc or self._SuitConfig.SimpleEffectDesc
-        self.TxtSuitDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(desc, self._SuitConfig.TraitName)))
+        desc = XUiHelper.FormatText(desc, self._IsAdventureDesc and self._Control:GetSuitEffectGroupDesc(self._SuitConfig.Id) or "")
+        self.TxtSuitDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(desc))
     end
 end
 
@@ -207,14 +213,6 @@ end
 function XUiTheatre3EquipmentTip:SetPositionByAlign(dimObj, alignment)
     local posX = 0
     local pos = self.Transform.parent:InverseTransformPoint(dimObj.position)
-    if alignment == XEnumConst.THEATRE3.TipAlign.Left then
-        self.Transform.pivot = Vector2(1, 1)
-        posX = pos.x - dimObj.rect.width * dimObj.localScale.x * dimObj.pivot.x
-    else
-        self.Transform.pivot = Vector2(0, 1)
-        posX = pos.x + dimObj.rect.width * dimObj.localScale.x * (1 - dimObj.pivot.x)
-    end
-    local posY = pos.y + dimObj.rect.height * dimObj.localScale.y * (1 - dimObj.pivot.y)
 
     -- 超框
     -- PS：Parent.Transform是UiTheatre3BubbleEquipment，而Transform.parent是SafeAreaContentPane，刚好能做异形屏适配
@@ -226,7 +224,17 @@ function XUiTheatre3EquipmentTip:SetPositionByAlign(dimObj, alignment)
     local maxW = centerW - tipW
     local minH = tipH - centerH
     local maxH = centerH
-    posX = math.min(math.max(posX, minW), maxW)
+
+    if alignment == XEnumConst.THEATRE3.TipAlign.Left then
+        self.Transform.pivot = Vector2(1, 1)
+        posX = pos.x - dimObj.rect.width * dimObj.localScale.x * dimObj.pivot.x
+        posX = math.max(posX, minW)
+    else
+        self.Transform.pivot = Vector2(0, 1)
+        posX = pos.x + dimObj.rect.width * dimObj.localScale.x * (1 - dimObj.pivot.x)
+        posX = math.min(posX, maxW)
+    end
+    local posY = pos.y + dimObj.rect.height * dimObj.localScale.y * (1 - dimObj.pivot.y)
     posY = math.min(math.max(posY, minH), maxH)
 
     self.Transform.localPosition = Vector3(posX, posY, 0)
@@ -262,6 +270,13 @@ end
 function XUiTheatre3EquipmentTip:ShowCurEquipTag(isShow)
     if self.RImgCurrent then
         self.RImgCurrent.gameObject:SetActiveEx(isShow)
+    end
+end
+
+---显示【可激活】标签
+function XUiTheatre3EquipmentTip:ShowCanActiveTag(canActive)
+    if self.PanelCanActive then
+        self.PanelCanActive.gameObject:SetActiveEx(canActive)
     end
 end
 

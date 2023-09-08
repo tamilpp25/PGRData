@@ -76,7 +76,7 @@ function XUiShopNodePanel:Ctor(ui, rootUi)
     XUiHelper.RegisterClickEvent(self, self.BtnBackOut, self.OnBtnBackOutClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnEnd, self.OnBtnEndClicked)
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, self)
 end
 
 -- node : XAShopNode

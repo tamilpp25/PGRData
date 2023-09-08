@@ -12,7 +12,7 @@ end
 function XPanelTheatre3EventDialogue:Refresh(eventCfg, slot)
     self._EventCfg = eventCfg
     self._NodeSlot = slot
-    self.TxtContent.text = eventCfg.EventDesc
+    XUiHelper.SetText2LineBreak(self.TxtContent, eventCfg.EventDesc)
     if not string.IsNilOrEmpty(eventCfg.ConfirmContent) then
         self.BtnOK:SetNameByGroup(0, eventCfg.ConfirmContent)
     end
@@ -20,7 +20,7 @@ end
 
 function XPanelTheatre3EventDialogue:RefreshOnlyDialogue(content, confirmText)
     self._IsOnlyDialogue = true
-    self.TxtContent.text = content
+    XUiHelper.SetText2LineBreak(self.TxtContent, content)
     if not string.IsNilOrEmpty(confirmText) then
         self.BtnOK:SetNameByGroup(0, confirmText)
     end

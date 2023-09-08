@@ -48,7 +48,7 @@ function XGridSkill:OnBtnSubSkillIconBgClick()
     if not skillId or not level then
         return
     end
-    local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, level)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, level)
     XLuaUiManager.Open("UiSkillDetailsTips", configDes)
 end
 
@@ -497,6 +497,7 @@ function XComboGrid:OnBtnClick()
 end
 
 --######################## XPanelRole 简略角色羁绊面板 ########################
+---@class XBiancaTheatrePanelRole
 local XPanelRole = XClass(nil, "XPanelRole")
 
 function XPanelRole:Ctor(ui)
@@ -548,6 +549,7 @@ local AnimationPanel = {
 }
 
 --选择的角色详情
+---@class XUiBiancaTheatreOwnedInfoPanel
 local XUiTheatreOwnedInfoPanel = XClass(nil, "XUiTheatreOwnedInfoPanel")
 
 function XUiTheatreOwnedInfoPanel:Ctor(ui, switchRoleStateCb, rootUi)
@@ -564,6 +566,7 @@ end
 
 function XUiTheatreOwnedInfoPanel:Init(rootUi)
     local backClickCb = handler(self, self.OnChangePanel)
+    ---@type XBiancaTheatrePanelRole
     self.RolePanel = XPanelRole.New(self.PanelRole)
     self.AwarenessPanel = XPanelAwareness.New(self.PanelAwareness, rootUi)
     self.RolelAwarenessPanel = XPaneRolelAwareness.New(self.PaneRolelAwareness, backClickCb, rootUi, PanelIndex.Awareness)
@@ -617,6 +620,7 @@ function XUiTheatreOwnedInfoPanel:OnChangePanel(panelIndex, isBack)
     end)
 end
 
+---@param adventureRole XBiancaTheatreAdventureRole
 function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
     if not adventureRole then
         return

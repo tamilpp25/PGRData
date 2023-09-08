@@ -32,9 +32,9 @@ function XExhibitionConfigs.Init()
         if v.Port ~= nil then
             CharacterHeadPortrait[v.CharacterId] = v.HeadPortrait
             CharacterGraduationPortrait[v.CharacterId] = v.GraduationPortrait
-            ExhibitionCharacterGroupDic[v.CharacterId] = { GroupName = v.GroupName, GroupNameEn = v.GroupNameEn }
+            ExhibitionCharacterGroupDic[v.CharacterId] = { GroupId=v.GroupId,GroupName = v.GroupName, GroupNameEn = v.GroupNameEn }
             ExhibitionGroupNameConfig[v.GroupId] = v.GroupName
-            ExhibitionGroupLogoConfig[v.GroupId] = v.GroupLogo
+            ExhibitionGroupLogoConfig[v.CharacterId] = v.GroupLogo
             ExhibitionGroupDescConfig[v.GroupId] = v.GroupDescription
             if v.Type and not ExhibitionConfigByTypeAndPort[v.Type] then
                 ExhibitionConfigByTypeAndPort[v.Type] = {}
@@ -91,6 +91,15 @@ function XExhibitionConfigs.GetExhibitionConfig()
     return ExhibitionConfig
 end
 
+function XExhibitionConfigs.GetExhibitionConfigById(teamId)
+    local config=ExhibitionConfig[teamId]
+    if config then
+        return config
+    else
+        XLog.ErrorTableDataNotFound("XExhibitionConfigs.GetExhibitionConfigById","",TABLE_CHARACTER_EXHIBITION,"teamId",teamId)
+    end
+end
+
 function XExhibitionConfigs.GetExhibitionPortConfigByType(showType)
     if not showType then return ExhibitionConfig end
     return ExhibitionConfigByTypeAndPort[showType] or {}
@@ -134,6 +143,10 @@ function XExhibitionConfigs.GetExhibitionLevelConfig()
 end
 
 function XExhibitionConfigs.GetCharacterGrowUpTasks(characterId)
+    if XRobotManager.CheckIsRobotId(characterId) then
+        return
+    end
+    
     local config = CharacterGrowUpTasksConfig[characterId]
     if not config then
         XLog.Error("XExhibitionConfigs.GetCharacterGrowUpTasks error: 角色解放配置错误：characterId: " .. characterId .. " ,path: " .. TABLE_CHARACTER_GROW_TASK_INFO)
@@ -144,6 +157,10 @@ end
 
 function XExhibitionConfigs.GetCharacterGrowUpTask(characterId, level)
     local levelTasks = XExhibitionConfigs.GetCharacterGrowUpTasks(characterId)
+    if XTool.IsTableEmpty(levelTasks) then
+        return
+    end
+    
     for _, config in pairs(levelTasks) do
         if config.LevelId == level then
             return config

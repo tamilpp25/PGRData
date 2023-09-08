@@ -21,8 +21,8 @@ function XUiPanelComeAcrossReward:SetupReward(gameData, result)
         grid:Refresh(rewards[i])
     end
 
-    local favor = XDataCenter.FavorabilityManager.GetCharacterTrustExpById(gameData.Character.Id)
-    local curFavorabilityTableData = XDataCenter.FavorabilityManager.GetFavorabilityTableData(gameData.Character.Id)
+    local favor = XMVCA.XFavorability:GetCharacterTrustExpById(gameData.Character.Id)
+    local curFavorabilityTableData = XMVCA.XFavorability:GetFavorabilityTableData(gameData.Character.Id)
     self.SliderFavor.value = favor/curFavorabilityTableData.Exp
 end
 

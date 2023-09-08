@@ -686,6 +686,26 @@ XNoticeManagerCreator = function()
         return true
     end
 
+    function XNoticeManager.GetPreloadNotice()
+        if not InGameNoticeMap then
+            return false
+        end
+
+        local notice = InGameNoticeMap[InGameNoticeType.Game]
+
+        if not notice or not next(notice) then
+            return false
+        end
+
+        for _, v in pairs(notice) do --有这个预下载标记的
+            if v.Preload == 1 then
+                return v
+            end
+        end
+        return false
+    end
+
+
     function XNoticeManager.CheckInGameNoticeRedPoint(type)
         if not InGameNoticeMap or not InGameNoticeMap[type] then
             return false
@@ -782,9 +802,14 @@ XNoticeManagerCreator = function()
             return
         end
 
-        for _, v in ipairs(notice.Content) do
-            if XNoticeManager.CheckNoticeValid(v) then
-                table.insert(SubMenuNoticeMap, v)
+        -- debug 内网 渠道id = -1, 总是显示
+        if (XMain.IsDebug and CS.XHeroSdkAgent.GetChannelId() == -1) or
+            XNoticeManager.CheckChannelAndPlatform(notice)
+        then
+            for _, v in ipairs(notice.Content) do
+                if XNoticeManager.CheckNoticeValid(v) then
+                    table.insert(SubMenuNoticeMap, v)
+                end
             end
         end
 
@@ -1309,11 +1334,19 @@ XNoticeManagerCreator = function()
         if not XNoticeManager.IsWhiteIp(notice.WhiteLists) then
             return false
         end
+
+        if not XNoticeManager.CheckChannelAndPlatform(notice) then
+            return false
+        end
         
+        return true
+    end
+    
+    function XNoticeManager.CheckChannelAndPlatform(notice)
         -- 发布渠道
         local channelInfoList = notice.ChannelInfoList
         if channelInfoList then
-            local myChannel = XUserManager.Channel
+            local myChannel = CS.XHeroSdkAgent.GetChannelId()
             local isMyChannelInclude = false
             for i = 1, #channelInfoList do
                 local channel = channelInfoList[i]
@@ -1326,7 +1359,7 @@ XNoticeManagerCreator = function()
                 return false
             end
         end
-        
+
         -- 发布平台 pc,ios,android
         local loginPlatformList = notice.LoginPlatformList
         if loginPlatformList then
@@ -1343,7 +1376,6 @@ XNoticeManagerCreator = function()
                 return false
             end
         end
-
         return true
     end
 

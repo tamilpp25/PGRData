@@ -49,11 +49,11 @@ function XUiMainLeftBottom:OnStart(rootUi)
     self.BtnMail.CallBack = function() self:OnBtnMail() end
     --RedPoint
     
-    XRedPointManager.AddRedPointEvent(self.BtnMentor.ReddotObj, self.OnCheckMentorNews, self, RedPointConditionGroup.Mentor)
-    self.RedPoinWelfareId = XRedPointManager.AddRedPointEvent(self.BtnWelfare.ReddotObj, self.OnCheckWalfarelNews, self, RedPointConditionGroup.Welfare)
-    self.RedPoinFirstRechargeId = XRedPointManager.AddRedPointEvent(self.BtnWelfare.TagObj, self.OnCheckFirstRecharge, self, RedPointConditionGroup.FirstRecharge)
-    XRedPointManager.AddRedPointEvent(self.BtnNotice.ReddotObj, self.OnCheckNoticeNews, self, RedPointConditionGroup.Notice)
-    XRedPointManager.AddRedPointEvent(self.BtnMail, self.OnCheckMailNews, self, RedPointConditionGroup.Mail)
+    self:AddRedPointEvent(self.BtnMentor.ReddotObj, self.OnCheckMentorNews, self, RedPointConditionGroup.Mentor)
+    self.RedPoinWelfareId = self:AddRedPointEvent(self.BtnWelfare.ReddotObj, self.OnCheckWalfarelNews, self, RedPointConditionGroup.Welfare)
+    self.RedPoinFirstRechargeId = self:AddRedPointEvent(self.BtnWelfare.TagObj, self.OnCheckFirstRecharge, self, RedPointConditionGroup.FirstRecharge)
+    self:AddRedPointEvent(self.BtnNotice.ReddotObj, self.OnCheckNoticeNews, self, RedPointConditionGroup.Notice)
+    self:AddRedPointEvent(self.BtnMail, self.OnCheckMailNews, self, RedPointConditionGroup.Mail)
     self:InitChatMsg()
 
     --Filter
@@ -156,7 +156,7 @@ function XUiMainLeftBottom:OnBtnChat()
         dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnChat
         dict["role_level"] = XPlayer.GetLevel()
         CS.XRecord.Record(dict, "200004", "UiOpen")
-        XLuaUiManager.Open("UiChatServeMain", true, ChatChannelType.World)
+        XUiHelper.OpenUiChatServeMain(true, ChatChannelType.World)
     end
 end
 

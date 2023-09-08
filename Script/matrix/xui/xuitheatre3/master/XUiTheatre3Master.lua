@@ -5,7 +5,6 @@ local XUiGridTheatreGenius = require("XUi/XUiTheatre3/Master/XUiGridTheatreGeniu
 
 ---@class XUiTheatre3Master : XLuaUi
 ---@field _Control XTheatre3Control
----@field BoundSizeFitter XBoundSizeFitter
 ---@field PanelGeniusDrag XDragArea
 local XUiTheatre3Master = XLuaUiManager.Register(XLuaUi, "UiTheatre3Master")
 
@@ -35,7 +34,7 @@ function XUiTheatre3Master:OnAwake()
     self.CharacterGroupList = {}
     local genuisMaxCount = self._Control:GetClientConfig("StrengthenTreeMaxCount")
     self.GenuisMaxCount = genuisMaxCount and tonumber(genuisMaxCount)
-    self.IsFristEnter = true
+    self.IsFirstEnter = true
 end
 
 function XUiTheatre3Master:OnStart()
@@ -57,6 +56,7 @@ function XUiTheatre3Master:OnDisable()
     -- 保存天赋上次关闭位置Index 
     self._Control:SaveStrengthenTreeSelectIndex(self.CurGeniusIndex)
     self:CancelCharacterSelect()
+    self:_ClearRedPoint(self.SelectIndex)
 end
 
 function XUiTheatre3Master:OnDestroy()
@@ -66,7 +66,7 @@ end
 --region PanelAsset
 function XUiTheatre3Master:InitPanelAsset()
     self.ItemId = XEnumConst.THEATRE3.Theatre3TalentPoint
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ self.ItemId }, self.PanelSpecialTool, nil, handler(self, self.OnBtnClick))
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ self.ItemId }, self.PanelSpecialTool, self, nil, handler(self, self.OnBtnClick))
 end
 --endregion
 
@@ -82,6 +82,9 @@ function XUiTheatre3Master:InitLeftTabBtns()
 end
 
 function XUiTheatre3Master:OnSelectBtnTag(index)
+    if self.SelectIndex ~= index then
+        self:_ClearRedPoint(self.SelectIndex)
+    end
     self.SelectIndex = index
     self.PanelGeniusList.gameObject:SetActiveEx(index == MasterType.Genius)
     self.PanelCharacterList.gameObject:SetActiveEx(index == MasterType.Character)
@@ -98,6 +101,7 @@ function XUiTheatre3Master:OnSelectBtnTag(index)
             self.CharacterScrollRect.verticalNormalizedPosition = 1
         end
     end
+    self:PlayAnimation("QieHuan1")
 end
 --endregion
 
@@ -139,11 +143,6 @@ function XUiTheatre3Master:RefreshGeniusTable()
             end
         end
     end
-    
-    -- 移动至ListView正确的位置
-    if self.BoundSizeFitter then
-        self.BoundSizeFitter:SetLayoutHorizontal()
-    end
 end
 
 function XUiTheatre3Master:InitGeniusDetailPanel()
@@ -171,8 +170,8 @@ function XUiTheatre3Master:ClickGenuisGridByIndex()
     end
     self:ClickGenuisGrid(grid)
     -- 第一次打开将选中的自动移到中间位置
-    if self.IsFristEnter then
-        self.IsFristEnter = false
+    if self.IsFirstEnter then
+        self.IsFirstEnter = false
         self:GoToGenuis(grid)
     end
 end
@@ -196,6 +195,7 @@ function XUiTheatre3Master:ClickGenuisGrid(grid)
 
     self.CurGeniusIndex = grid.Index
     self.CurGeniusGrid = grid
+    self:PlayAnimation("QieHuan2")
 end
 
 function XUiTheatre3Master:CancelGeniusSelect()
@@ -275,6 +275,7 @@ function XUiTheatre3Master:ClickCharacterGrid(grid)
     self._PanelCharacterDetail:Refresh(grid.CharacterId)
     
     self.CurCharacterGrid = grid
+    self:PlayAnimation("QieHuan2")
 end
 
 function XUiTheatre3Master:CancelCharacterSelect()
@@ -286,6 +287,15 @@ function XUiTheatre3Master:CancelCharacterSelect()
     self.CurCharacterGrid = nil
     -- 关闭详情面板
     self._PanelCharacterDetail:Close()
+end
+--endregion
+
+--region Ui - RedPoint
+function XUiTheatre3Master:_ClearRedPoint(selectIndex)
+    if selectIndex == 1 then
+        self._Control:ClearGeniusRedPoint()
+        self:RefreshGeniusRedPoint()
+    end
 end
 --endregion
 

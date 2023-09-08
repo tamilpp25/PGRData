@@ -17,8 +17,12 @@ function XUiPanelTheatre3BubbleAffixTip:Refresh(config)
                 self.GridAffixList[index] = grid
             end
             grid.TxtTitle.text = name
-            grid.TxtInformation.text = XUiHelper.ReplaceUnicodeSpace(config.TraitDesc[index])
+            grid.TxtInformation.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ConvertLineBreakSymbol(config.TraitDesc[index]))
+            grid.GameObject:SetActiveEx(true)
         end
+    end
+    for i = #config.TraitName + 1, #self.GridAffixList do
+        self.GridAffixList[i].GameObject:SetActiveEx(false)
     end
 end
 

@@ -15,6 +15,10 @@ function XUiEquipResonanceSelectV2P6:OnStart(parent, characterId, forceShowBindC
     self.ForceShowBindCharacter = forceShowBindCharacter
 end
 
+function XUiEquipResonanceSelectV2P6:OnDisable()
+    self:ClearOpenUiTimer()
+end
+
 -- 在设置装备和位置的时候进行界面刷新
 function XUiEquipResonanceSelectV2P6:SetPos(equipId, pos)
     self.EquipId = equipId
@@ -28,6 +32,16 @@ function XUiEquipResonanceSelectV2P6:SetPos(equipId, pos)
     self.SelectSkillInfo = nil
     self:InitBindCharacter()
     self:UpdateView()
+
+    local textKey = self.IsWeapon and "EquipResonanceItemSelect" or "EquipResonanceItemSelect2"
+    self.ItemSelect:GetObject("TxtStateName").text = XUiHelper.GetText(textKey)
+
+    -- 共鸣结果未确认
+    if XDataCenter.EquipManager.CheckEquipPosUnconfirmedResonanced(self.EquipId, pos) then
+        XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter, function()
+            self.Parent:OnResonanceSuccess(self.Pos, true)
+        end)
+    end
 end
 
 function XUiEquipResonanceSelectV2P6:OnGetEvents()
@@ -46,17 +60,20 @@ function XUiEquipResonanceSelectV2P6:OnNotify(evt, ...)
     if not isContainPos then return end
 
     if evt == XEventId.EVENT_EQUIP_RESONANCE_NOTYFY then
-        self.Parent:OnResonanceSuccess()
-        
         --如果是武器自选只需要弹提示
         if self.IsWeapon then
             if self.IsNewSkill then
-                XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter)
+                XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter, function()
+                    self.Parent:OnResonanceSuccess(self.Pos, true)
+                end)
             else
-                XUiManager.TipText("EquipResonanceChangeSuccess")
+                XMVCA:GetAgency(ModuleId.XEquip):TipEquipOperation(nil, XUiHelper.GetText("DormTemplateSelectSuccess"))
+                self.Parent:OnResonanceSuccess(self.Pos)
             end
         else
-            XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter)
+            XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, nil, self.ForceShowBindCharacter, function()
+                self.Parent:OnResonanceSuccess(self.Pos, true)
+            end)
         end
     end
 end
@@ -64,13 +81,17 @@ end
 function XUiEquipResonanceSelectV2P6:InitStateGrid()
     self.CharacterSelect:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceCharSelect")
     self.CharacterDisable:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceCharDisable")
+    self.CharacterBlindEffect = self.CharacterBlind.transform:Find("Effect")
+    self.CharacterBlindEffect.gameObject:SetActiveEx(false)
 
     self.ItemBlind:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceItemBlind")
-    self.ItemSelect:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceItemSelect")
     self.ItemDisable:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceItemDisable")
+    self.ItemBlindEffect = self.ItemBlind.transform:Find("Effect")
+    self.ItemBlindEffect.gameObject:SetActiveEx(false)
 
     self.SkillSelect:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceSkillSelect")
     self.SkillDisable:GetObject("TxtStateName").text = XUiHelper.GetText("EquipResonanceSkillDisable")
+    self.SkillBlindEffect = self.SkillBlind.transform:Find("Effect")
 end
 
 function XUiEquipResonanceSelectV2P6:SetButtonCallBack()
@@ -91,7 +112,10 @@ function XUiEquipResonanceSelectV2P6:OnCharacterSelectClick()
         end 
 
         self.SelectCharacterId = selectCharacterId
-        self:UpdateView()
+        self:UpdateView(true)
+
+        self.CharacterBlindEffect.gameObject:SetActive(false)
+        self.CharacterBlindEffect.gameObject:SetActive(true)
     end)
 end
 
@@ -105,7 +129,10 @@ function XUiEquipResonanceSelectV2P6:OnItemSelectClick()
             self.SelectSkillInfo = nil
         end
 
-        self:UpdateView()
+        self:UpdateView(true)
+
+        self.ItemBlindEffect.gameObject:SetActive(false)
+        self.ItemBlindEffect.gameObject:SetActive(true)
     end)
 end
 
@@ -121,7 +148,10 @@ function XUiEquipResonanceSelectV2P6:OnSkillSelectClick()
         isNeedSelectSkill = self:IsNeedSelectSkill(),
         ClickCb = function (skillInfo)
             self.SelectSkillInfo = skillInfo
-            self:UpdateView()
+            self:UpdateView(true)
+
+            self.SkillBlindEffect.gameObject:SetActive(false)
+            self.SkillBlindEffect.gameObject:SetActive(true)
         end
     })
 end
@@ -180,12 +210,20 @@ function XUiEquipResonanceSelectV2P6:InitBindCharacter()
     end
 end
 
-function XUiEquipResonanceSelectV2P6:UpdateView()
+function XUiEquipResonanceSelectV2P6:UpdateView(checkOpenUi)
     self:UpdateCurResonanceSkill()
     self:UpdateBlindCharacter()
     self:UpdateBlindItem()
     self:UpdateBlindSkill()
     self:UpdateBtnResonance()
+
+    self:ClearOpenUiTimer()
+    if checkOpenUi then
+        self.CheckOpenUiTimer = XScheduleManager.ScheduleOnce(function()
+            self.CheckOpenUiTimer = nil
+            self:CheckOpenSelectUi()
+        end, 300)
+    end
 end
 
 -- 刷新当前的技能
@@ -213,7 +251,7 @@ function XUiEquipResonanceSelectV2P6:UpdateBlindCharacter()
         if isBlind then
             local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.SelectCharacterId)
             self.CharacterBlind:GetObject("ImgHead"):SetRawImage(icon)
-            self.CharacterBlind:GetObject("TxtName").text = XCharacterConfigs.GetCharacterLogName(self.SelectCharacterId)
+            self.CharacterBlind:GetObject("TxtName").text = XMVCA.XCharacter:GetCharacterLogName(self.SelectCharacterId)
 
             local lastCharId = XDataCenter.EquipManager.GetResonanceBindCharacterId(self.EquipId, self.Pos)
             local isChange = lastCharId ~= 0 and lastCharId ~= self.SelectCharacterId
@@ -372,6 +410,37 @@ function XUiEquipResonanceSelectV2P6:GetBtnResonanceState()
                 return true
             end
         end
+    end
+end
+
+-- 检测是否打开选择UI
+function XUiEquipResonanceSelectV2P6:CheckOpenSelectUi()
+    if XLuaUiManager.IsUiShow("UiEquipResonanceSelectCharacterV2P6") or XLuaUiManager.IsUiShow("UiEquipResonanceSelectEquipV2P6")
+    or XLuaUiManager.IsUiShow("UiEquipResonanceSkillPreview") then
+        return
+    end
+
+    local equip = XMVCA:GetAgency(ModuleId.XEquip):GetEquip(self.EquipId)
+    if self.CanBlindCharacter and not self.SelectCharacterId then
+        self:OnCharacterSelectClick()
+        return
+    end
+
+    if not self.SelectEquipId and not self.SelectItemId and not self:CheckIsNoConsumption() then
+        self:OnItemSelectClick()
+        return
+    end
+
+    if not self.SelectSkillInfo and self:IsNeedSelectSkill() then
+        self:OnSkillSelectClick()
+        return
+    end
+end
+
+function XUiEquipResonanceSelectV2P6:ClearOpenUiTimer()
+    if self.CheckOpenUiTimer then
+        XScheduleManager.UnSchedule(self.CheckOpenUiTimer)
+        self.CheckOpenUiTimer = nil
     end
 end
 

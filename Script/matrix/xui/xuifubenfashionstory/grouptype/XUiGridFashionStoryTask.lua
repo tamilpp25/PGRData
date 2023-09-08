@@ -1,8 +1,8 @@
 local XUiGridFashionStoryTask=XClass(nil,"XUiGridFashionStoryTask")
 
 local ButtonState={
-    Normal=1,
-    Disable=3
+    Normal=CS.UiButtonState.Normal,
+    Disable=CS.UiButtonState.Disable
 }
 
 --region 初始化

@@ -9,7 +9,7 @@ local GetDefaultSelectIndex = function(characterLimitType, tabBtnIndex, robotIdL
         if XRobotManager.CheckIsRobotId(selectCharId) then
             return tabBtnIndex.Robot
         end
-        return XCharacterConfigs.GetCharacterType(selectCharId) == XCharacterConfigs.CharacterType.Isomer and tabBtnIndex.Isomer or tabBtnIndex.Normal
+        return XMVCA.XCharacter:GetCharacterType(selectCharId) == XCharacterConfigs.CharacterType.Isomer and tabBtnIndex.Isomer or tabBtnIndex.Normal
     end
 
     local defaultTabBtnIndex

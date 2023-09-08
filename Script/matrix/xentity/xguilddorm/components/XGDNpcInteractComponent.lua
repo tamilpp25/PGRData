@@ -20,6 +20,11 @@ end
 function XGDNpcInteractComponent:Init()
     XGDNpcInteractComponent.Super.Init(self)
     self:UpdateRoleDependence()
+    XEventManager.AddEventListener(XEventId.EVENT_DORM_TALK_END,self.EndInteract,self)
+end
+
+function XGDNpcInteractComponent:Dispose()
+    XEventManager.RemoveEventListener(XEventId.EVENT_DORM_TALK_END,self.EndInteract,self)
 end
 
 function XGDNpcInteractComponent:UpdateRoleDependence()
@@ -64,6 +69,11 @@ function XGDNpcInteractComponent:BeginInteract(currentInteractInfo, isDirectInte
     --self.Role:ChangeStateMachine(XGuildDormConfig.RoleFSMType.MOVE)
     self.Role:EnableCharacterController(false)
     self.InteractStatus = XGuildDormConfig.InteractStatus.Begin
+    self.Role:UpdateInteractStatus(XGuildDormConfig.InteractStatus.Begin)
+end
+
+function XGDNpcInteractComponent:EndInteract()
+    self.Role:UpdateInteractStatus(XGuildDormConfig.InteractStatus.End)
 end
 
 function XGDNpcInteractComponent:Update(dt)
@@ -72,6 +82,7 @@ function XGDNpcInteractComponent:Update(dt)
         --self.Role:ChangeStateMachine(XGuildDormConfig.RoleFSMType.IDLE)
         self.InteractStatus = XGuildDormConfig.InteractStatus.Playing
         self.Npc:PlayBehavior(self.InteractInfo.BehaviorType)
+        self.Role:UpdateInteractStatus(XGuildDormConfig.InteractStatus.Playing)
     elseif self.InteractStatus == XGuildDormConfig.InteractStatus.Playing then
         -- 角色旋转
         local targetRotation = XGuildDormHelper.GetEulerAngles(self.Npc:GetRLRole():GetTransform(), self.Transform)

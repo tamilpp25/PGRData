@@ -29,18 +29,49 @@ function XFightUiManager.DoLuaFunction(id)
 	FunctionDictionary[funcName](id)
 end
 
------------跟随tips CSharpCallLua begin--------------
-local function GetUiFightBrilliantwalk()
+local function GetChildUiFight(uiName)
 	local fight = CS.XFight.Instance
 	if not fight then
 		return
 	end
 
-	return fight.UiManager:GetUi(typeof(CS.XUiFight)):FindChildUi("UiFightBrilliantwalk")
+	local ui = fight.UiManager:GetUi(typeof(CS.XUiFight)):FindChildUi(uiName)
+	if not ui then
+		XLog.Error(string.format("子Ui未加载！ name:%s", uiName))
+		return
+	end
+	
+	return ui
 end
 
+local function OpenChildUiFight(uiName, value)
+	local fight = CS.XFight.Instance
+	if not fight then
+		return
+	end
+
+	fight.UiManager:GetUi(typeof(CS.XUiFight)):OpenChildUi(uiName, value)
+end
+
+-----------关卡自定义按钮列表 CSharpCallLua begin--------------
+function XFightUiManager.DoSetCommonInterBtnList(id, key, icon, text, order, isDisable)
+	local uiName = "UiFightCommonInterBtnList"
+	local ui = GetChildUiFight(uiName)
+	if not ui then
+		return
+	end
+	
+	if not XLuaUiManager.IsUiShow(uiName) then
+		OpenChildUiFight(uiName)
+	end
+	local func = ui.UiProxy.UiLuaTable["SetCommonInterBtn"]
+	func(ui.UiProxy.UiLuaTable, id, key, icon, text, order, isDisable)
+end
+-----------关卡自定义按钮列表 CSharpCallLua end----------------
+
+-----------跟随tips CSharpCallLua begin--------------
 local function BrilliantwalkInit(uiLuaTableKey, ...)
-	local ui = GetUiFightBrilliantwalk()
+	local ui = GetChildUiFight("UiFightBrilliantwalk")
 	if not ui then
 		return
 	end
@@ -68,7 +99,7 @@ function XFightUiManager.DoBrilliantwalkInitTipsEx(id, npcId, styleType, xOffset
 end
 
 function XFightUiManager.DoBrilliantwalkSetTipsDesc(id, textIndex, tipTextId, varIndex, value)
-	local ui = GetUiFightBrilliantwalk()
+	local ui = GetChildUiFight("UiFightBrilliantwalk")
 	if not ui then
 		return
 	end
@@ -95,14 +126,7 @@ FunctionDictionary = {
 	end,
 
 	["DoOpenChildUi"] = function(id, value)
-		local fight = CS.XFight.Instance
-		if not fight then
-			return
-		end
-
-		local uiName = FunctionParams[id].Params[1]
-
-		fight.UiManager:GetUi(typeof(CS.XUiFight)):OpenChildUi(uiName, value)
+		OpenChildUiFight(FunctionParams[id].Params[1], value)
 	end,
 
 	["DoCloseChildUi"] = function(id)

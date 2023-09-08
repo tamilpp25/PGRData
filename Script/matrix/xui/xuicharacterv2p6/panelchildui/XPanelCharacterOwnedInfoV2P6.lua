@@ -20,6 +20,13 @@ function XPanelCharacterOwnedInfoV2P6:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnFree, self.OnBtnFreeClick)
     XUiHelper.RegisterClickEvent(self, self.BtnTrain, self.OnBtnTrainClick)
     XUiHelper.RegisterClickEvent(self, self.BtnEvolution, self.OnBtnEvolutionClick)
+
+    self.XGoInputHandler:AddDragUpListener(function ()
+        self:OnDragUp()
+    end)
+    self.XGoInputHandler:AddDragDownListener(function ()
+        self:OnDragDown()
+    end)
 end
 
 function XPanelCharacterOwnedInfoV2P6:InitPanelEquip()
@@ -30,7 +37,7 @@ function XPanelCharacterOwnedInfoV2P6:InitPanelEquip()
     local onUnFoldCb = function ()
         self.PanelEquipEnable:PlayTimelineAnimation()
     end
-    self.PanelEquips = self.EquipAgency:InitPanelEquipV2P6(self.PanelEquip, self.Parent)
+    self.PanelEquips = self.EquipAgency:InitPanelEquipV2P6(self.PanelEquip, self, self.Parent)
     self.PanelEquips:InitData(onFoldCb, onUnFoldCb)
 end
 
@@ -61,7 +68,7 @@ function XPanelCharacterOwnedInfoV2P6:RefreshUiShow()
     self.PanelEquips:UpdateCharacter(characterId)
     
     -- 机体名
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
@@ -98,7 +105,7 @@ function XPanelCharacterOwnedInfoV2P6:RefreshUiShow()
     self:UpdateAbility()
 
     -- 等级
-    local maxLevel= XCharacterConfigs.GetCharMaxLevel(characterId)
+    local maxLevel = XMVCA.XCharacter:GetCharMaxLevel(characterId)
     local curLevel = character.Level or 1
     self.TxtCurLv.text = curLevel
     self.TxtMaxLv.text = "/"..maxLevel
@@ -166,6 +173,14 @@ end
 
 function XPanelCharacterOwnedInfoV2P6:OnBtnEvolutionClick()
     self.Parent.ParentUi:OpenChildUi("UiCharacterQualitySystemV2P6")
+end
+
+function XPanelCharacterOwnedInfoV2P6:OnDragUp()
+    self.PanelEquips:OnBtnUnFoldClick()
+end
+
+function XPanelCharacterOwnedInfoV2P6:OnDragDown()
+    self.PanelEquips:OnBtnFoldClick()
 end
 
 -- 更新战斗力

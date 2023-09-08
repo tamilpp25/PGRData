@@ -41,12 +41,13 @@ function XDynamicTableIrregular:Init(gameObject)
     return true
 end
 
+---@param proxy XUiNode
 function XDynamicTableIrregular:SetProxyDisplay(proxy, isShow)
     if CheckClassSuper(proxy, XUiNode) then
         if isShow then
             proxy:Open()
         else
-            if not XTool.UObjIsNil(proxy.GameObject) then
+            if proxy:IsValid() then
                 proxy:Close()
             end
         end
@@ -124,6 +125,22 @@ function XDynamicTableIrregular:OnDynamicTableEvent(event, index)
         self.Delegate:OnDynamicTableEvent(event, index, proxy)
     end
 
+end
+
+-- 兼容XUiNode
+function XDynamicTableIrregular:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
 end
 
 --回收所有节点

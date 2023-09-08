@@ -66,7 +66,7 @@ end
 function XUiInfestorExploreTeamEdit:GetCurTeamCharacterType()
     for _, characterId in pairs(self.CharacterIds) do
         if characterId > 0 then
-            return XCharacterConfigs.GetCharacterType(characterId)
+            return XMVCA.XCharacter:GetCharacterType(characterId)
         end
     end
 end

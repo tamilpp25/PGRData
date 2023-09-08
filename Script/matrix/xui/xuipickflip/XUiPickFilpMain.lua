@@ -16,7 +16,7 @@ end
 function XUiPickFilpMain:OnStart(groupId)
     self.RewardGroup = self.PickFlipManager.GetRewardGroup(groupId)
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.RewardGroup:GetAssetItemIds(), self.PanelAsset)
+    XUiHelper.NewPanelActivityAssetSafe(self.RewardGroup:GetAssetItemIds(), self.PanelAsset, self)
     -- 活动名称
     self.TxtName.text = self.RewardGroup:GetName()
     self:RefreshCurrentLayer()

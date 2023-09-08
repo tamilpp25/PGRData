@@ -1,4 +1,5 @@
 local Fuben = {}
+local Character = {}
 
 function Fuben.CheckSettleFight()
     return XDataCenter.FubenManager.CheckSettleFight()
@@ -32,6 +33,18 @@ function Fuben.GetAssistTemplateInfo()
     return XDataCenter.FubenManager.GetAssistTemplateInfo()
 end
 
+function Character.GetFightCharHeadIcon(character, characterId)
+    return XMVCA.XCharacter:GetFightCharHeadIcon(character, characterId)
+end
+
+function Character.GetCharSmallHeadIconByCharacter(character)
+    return XMVCA.XCharacter:GetCharSmallHeadIconByCharacter(character)
+end
+
+function Character.GetCharacter(id)
+    return XMVCA.XCharacter:GetCharacter(id)
+end
 
 CsCallLua = {}
 CsCallLua.Fuben = Fuben
+CsCallLua.Character = Character

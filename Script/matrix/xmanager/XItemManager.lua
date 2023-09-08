@@ -74,6 +74,7 @@ XItemManagerCreator = function()
         DoubleTower = 60850,--动作塔防代币
         GuildWarCoin = 96190,-- 工会战货币
         RiftCoin = 63400, --大秘境活动代币，用于活动商店兑换
+        RiftSeasonCoin = 97013, --大秘境活动代币，用于活动商店赛季物品兑换
         RiftGold = 63401, --大秘境金币，用于队伍增幅和插件商店兑换
         RiftLoadLimit = 63405, -- 大秘境提升负载上限道具
         RiftAttributeLimit = 63406, -- 大秘境提升属性点上限道具
@@ -89,6 +90,7 @@ XItemManagerCreator = function()
         CerberusGameCoin1 = 97007, -- 三头犬玩法货币1
         CerberusGameCoin2 = 97008,-- 三头犬玩法货币2
         TransfiniteScore = 105,-- 超限连战积分
+        ConnectingLine = 1044,
     }
 
     --时效性道具初始时间计算方式
@@ -936,7 +938,7 @@ XItemManagerCreator = function()
         end
 
         --角色已经满级
-        local characterId = XCharacterConfigs.GetCharcterIdByFragmentItemId(id)
+        local characterId = XMVCA.XCharacter:GetCharcterIdByFragmentItemId(id)
         local charcter = XDataCenter.CharacterManager.GetCharacter(characterId)
         return charcter and XDataCenter.CharacterManager.IsMaxQuality(charcter)
     end
@@ -1114,6 +1116,11 @@ XItemManagerCreator = function()
     end
 
     function XItemManager.Sell(datas, callback)
+        if XTool.IsTableEmpty(datas) then
+            XLog.Error("XItemManager.Sell, 传入 datas为空")
+            return
+        end
+
         XMessagePack.MarkAsTable(datas)
         local req = { SellItems = datas }
         XNetwork.Call(METHOD_NAME.Sell, req, function(res)

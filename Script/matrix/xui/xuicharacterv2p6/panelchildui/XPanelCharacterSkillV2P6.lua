@@ -30,13 +30,14 @@ end
 
 function XPanelCharacterSkillV2P6:UpdateSkill()
     local characterId = self.CharacterId
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     local skills = XCharacterConfigs.GetCharacterSkills(characterId)
 
     for i = 1, XCharacterConfigs.MAX_SHOW_SKILL_POS do
         local grid = self.SkillGrids[i]
         if not grid  then
             grid = XUiGridSkillItemV2P6.New(self["GridSkillItem" .. i], self.Parent)
+            grid:Open()
             grid:SetClickCb(function ()
                 self:OnGotoSkillDetail(i)
             end)
@@ -52,6 +53,7 @@ function XPanelCharacterSkillV2P6:UpdateSkill()
             local grid = self.SkillGrids[i]
             if not grid then
                 grid = XUiGridSkillItemV2P6.New(self["GridSkillItem" .. i], self.Parent)
+                grid:Open()
                 grid:SetClickCb(function ()
                     self:OnGotoEnhanceSkillDetail()
                 end)
@@ -62,15 +64,23 @@ function XPanelCharacterSkillV2P6:UpdateSkill()
         end
 
         if characterType == XCharacterConfigs.CharacterType.Normal then
-            self.GridSkillItem6.gameObject:SetActiveEx(true)
-            self.GridSkillItem5.gameObject:SetActiveEx(false)
+            self.SkillGrids[5]:Close()
+            self.SkillGrids[6]:Open()
         else
-            self.GridSkillItem5.gameObject:SetActiveEx(true)
-            self.GridSkillItem6.gameObject:SetActiveEx(false)
+            self.SkillGrids[5]:Open()
+            self.SkillGrids[6]:Close()
         end
     else
-        self.GridSkillItem6.gameObject:SetActiveEx(false)
-        self.GridSkillItem5.gameObject:SetActiveEx(false)
+        if self.SkillGrids[5] then
+            self.SkillGrids[5]:Close()
+        else
+            self.GridSkillItem5.gameObject:SetActiveEx(false)
+        end
+        if self.SkillGrids[6] then
+            self.SkillGrids[6]:Close()
+        else
+            self.GridSkillItem6.gameObject:SetActiveEx(false)
+        end
     end
 end
 

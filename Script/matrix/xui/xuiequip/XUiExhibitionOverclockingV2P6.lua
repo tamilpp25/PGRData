@@ -5,6 +5,9 @@ local XUiExhibitionOverclockingV2P6 = XLuaUiManager.Register(XLuaUi, "UiExhibiti
 function XUiExhibitionOverclockingV2P6:OnAwake()
     self.GridSkill2 = CSInstantiate(self.GridSkill1.gameObject, self.SkillPos2):GetComponent("UiObject")
     self.GridSkill2.transform.localPosition = CS.UnityEngine.Vector3.zero
+    self.Effect1 = self.SkillPos1:Find("Effect")
+    self.Effect1.gameObject:SetActiveEx(false)
+    self.Effect2 = CSInstantiate(self.Effect1.gameObject, self.SkillPos2)
 
     self.UiGridSkill1 = {}
     XTool.InitUiObjectByUi(self.UiGridSkill1, self.GridSkill1)
@@ -85,6 +88,14 @@ function XUiExhibitionOverclockingV2P6:RefreshByPos(pos)
     Panel.TxtHarmUnActive.text = harmStr
     Panel.ImgHarmActive.gameObject:SetActiveEx(isOccupy)
     Panel.ImgHarmUnActive.gameObject:SetActiveEx(not isOccupy)
+
+    -- 特效
+    local effect = self["Effect" .. pos]
+    local showEffect = pos == self.Parent.OverClockingSuccessPos
+    effect.gameObject:SetActiveEx(showEffect)
+    if showEffect then
+        self.Parent:ClearOverClockingSuccessPos()
+    end
 end
 
 function XUiExhibitionOverclockingV2P6:OnBtnLockClick(pos)

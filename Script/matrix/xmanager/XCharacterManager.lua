@@ -31,7 +31,7 @@ XCharacterManagerCreator = function()
     local OwnCharacters = {}               -- 已拥有角色数据
     setmetatable(OwnCharacters, {
         __index = function(_, k, v)
-            if XCharacterConfigs.IsCharacterCanShow(k) then
+            if XMVCA.XCharacter:IsCharacterCanShow(k) then
                 return v
             end
         end,
@@ -40,7 +40,7 @@ XCharacterManagerCreator = function()
             return function(t, k)
                 local nk, nv = next(t, k)
                 if nk then
-                    if XCharacterConfigs.IsCharacterCanShow(nk) then
+                    if XMVCA.XCharacter:IsCharacterCanShow(nk) then
                         return nk, nv
                     else
                         return nk, nil
@@ -81,8 +81,8 @@ XCharacterManagerCreator = function()
             return a.Quality > b.Quality
         end
 
-        local priorityA = XCharacterConfigs.GetCharacterPriority(a.Id)
-        local priorityB = XCharacterConfigs.GetCharacterPriority(b.Id)
+        local priorityA = XMVCA.XCharacter:GetCharacterPriority(a.Id)
+        local priorityB = XMVCA.XCharacter:GetCharacterPriority(b.Id)
 
         if priorityA ~= priorityB then
             return priorityA < priorityB
@@ -112,7 +112,7 @@ XCharacterManagerCreator = function()
         end
 
         local unOwnCharList = {}
-        for k, v in pairs(XCharacterConfigs.GetCharacterTemplates()) do
+        for k, v in pairs(XMVCA.XCharacter:GetCharacterTemplates()) do
             if not isUseNewSort or XDataCenter.RoomCharFilterTipsManager.IsFilterSelectTag(k, characterType, isUseTempSelectTag) then
                 if OwnCharacters[k] then
                     if isNeedIsomer == nil then
@@ -671,7 +671,7 @@ XCharacterManagerCreator = function()
 
     function XCharacterManager.IsMaxLevel(templateId)
         local char = XCharacterManager.GetCharacter(templateId)
-        local maxLevel = XCharacterConfigs.GetCharMaxLevel(templateId)
+        local maxLevel = XMVCA.XCharacter:GetCharMaxLevel(templateId)
         return char and char.Level >= maxLevel
     end
 
@@ -681,10 +681,10 @@ XCharacterManagerCreator = function()
         local curExp = character.Exp + exp
         local curLevel = character.Level
 
-        local maxLevel = XCharacterConfigs.GetCharMaxLevel(id)
+        local maxLevel = XMVCA.XCharacter:GetCharMaxLevel(id)
 
         while curLevel do
-            local nextLevelExp = XCharacterConfigs.GetNextLevelExp(id, curLevel)
+            local nextLevelExp = XMVCA.XCharacter:GetNextLevelExp(id, curLevel)
             if ((curExp >= nextLevelExp) and (curLevel < teamLevel)) then
                 if curLevel == maxLevel then
                     curExp = nextLevelExp
@@ -708,7 +708,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local charMaxLevel = XCharacterConfigs.GetCharMaxLevel(templateId)
+        local charMaxLevel = XMVCA.XCharacter:GetCharMaxLevel(templateId)
         local playerMaxLevel = XPlayer.Level
 
         return mathMin(charMaxLevel, playerMaxLevel)
@@ -716,9 +716,9 @@ XCharacterManagerCreator = function()
 
     function XCharacterManager.GetMaxLevelNeedExp(character)
         local id = character.Id
-        local levelUpTemplateId = XCharacterConfigs.GetCharacterTemplate(id).LevelUpTemplateId
+        local levelUpTemplateId = XMVCA.XCharacter:GetCharacterTemplate(id).LevelUpTemplateId
         local levelUpTemplate = XCharacterConfigs.GetLevelUpTemplate(levelUpTemplateId)
-        local maxLevel = XCharacterConfigs.GetCharMaxLevel(id)
+        local maxLevel = XMVCA.XCharacter:GetCharMaxLevel(id)
         local totalExp = 0
         for i = character.Level, maxLevel - 1 do
             totalExp = totalExp + levelUpTemplate[i].Exp
@@ -770,7 +770,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local template = XCharacterConfigs.GetCharacterTemplate(templateId)
+        local template = XMVCA.XCharacter:GetCharacterTemplate(templateId)
         if not template then
             XLog.ErrorTableDataNotFound("XCharacterManager.IsCharQualityStarUseItemEnough",
             "template", "Share/Character/Character.tab", "templateId", tostring(templateId))
@@ -789,7 +789,7 @@ XCharacterManagerCreator = function()
         end
 
         local itemKey = template.ItemId
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(templateId)
         local itemCount = XCharacterConfigs.GetStarUseCount(characterType, quality, star)
 
         return XCharacterManager.IsUseItemEnough(itemKey, itemCount)
@@ -798,7 +798,7 @@ XCharacterManagerCreator = function()
     function XCharacterManager.IsCanPromoted(characterId)
         local character = XCharacterManager.GetCharacter(characterId)
         local hasCoin = XDataCenter.ItemManager.GetCoinsNum()
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         local useCoin = XCharacterConfigs.GetPromoteUseCoin(characterType, character.Quality)
 
         return hasCoin >= useCoin
@@ -810,12 +810,12 @@ XCharacterManagerCreator = function()
         if isNotSelf == nil then isNotSelf = false end
         -- 不属于自身数据的直接获取本地即可
         if isNotSelf then
-            return XCharacterConfigs.GetCharacterTemplate(templateId).DefaultNpcFashtionId
+            return XMVCA.XCharacter:GetCharacterTemplate(templateId).DefaultNpcFashtionId
         end
         if XCharacterManager.IsOwnCharacter(templateId) == true then
             return OwnCharacters[templateId].FashionId
         else
-            return XCharacterConfigs.GetCharacterTemplate(templateId).DefaultNpcFashtionId
+            return XMVCA.XCharacter:GetCharacterTemplate(templateId).DefaultNpcFashtionId
         end
     end
 
@@ -979,7 +979,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local curCharItemId = XCharacterConfigs.GetCharacterTemplate(templateId).ItemId
+        local curCharItemId = XMVCA.XCharacter:GetCharacterTemplate(templateId).ItemId
         if not curCharItemId then
             XLog.ErrorTableDataNotFound("XCharacterManager.GetCharUnlockFragment",
             "curCharItemId", "Share/Character/Character.tab", "templateId", tostring(templateId))
@@ -1212,9 +1212,9 @@ XCharacterManagerCreator = function()
     --@return 技能Data
     --==============================--
     function XCharacterManager.GetCaptainSkillInfo(characterId)
-        local captianSkillId = XCharacterConfigs.GetCharacterCaptainSkill(characterId)
+        local captianSkillId = XMVCA.XCharacter:GetCharacterCaptainSkill(characterId)
         local skillLevel = XCharacterManager.GetSkillLevel(captianSkillId)
-        return XCharacterConfigs.GetCaptainSkillInfo(characterId, skillLevel)
+        return XMVCA.XCharacter:GetCaptainSkillInfo(characterId, skillLevel)
     end
 
     --==============================--
@@ -1265,15 +1265,15 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local char = XCharacterConfigs.GetCharacterTemplate(templateId)
+        local char = XMVCA.XCharacter:GetCharacterTemplate(templateId)
         if not char then
             XUiManager.TipCode(XCode.CharacterManagerGetCharacterTemplateNotFound)
             return
         end
 
         local itemId = char.ItemId
-        local bornQulity = XCharacterConfigs.GetCharMinQuality(templateId)
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
+        local bornQulity = XMVCA.XCharacter:GetCharMinQuality(templateId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(templateId)
         local itemCount = XCharacterConfigs.GetComposeCount(characterType, bornQulity)
 
         if not XCharacterManager.IsUseItemEnough(itemId, itemCount) then
@@ -1300,7 +1300,7 @@ XCharacterManagerCreator = function()
             XCharacterManager.AddCharacter(protoData)
 
             local templateId = protoData.Id
-            if XCharacterConfigs.GetCharacterNeedFirstShow(templateId) ~= 0 then
+            if XMVCA.XCharacter:GetCharacterNeedFirstShow(templateId) ~= 0 then
                 XUiHelper.PushInFirstGetIdList(templateId, XArrangeConfigs.Types.Character)
             end
 
@@ -1416,7 +1416,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local characterType = XCharacterConfigs.GetCharacterType(character.Id)
+        local characterType = XMVCA.XCharacter:GetCharacterType(character.Id)
         if not XDataCenter.ItemManager.DoNotEnoughBuyAsset(XDataCenter.ItemManager.ItemId.Coin,
         XCharacterConfigs.GetPromoteUseCoin(characterType, character.Quality),
         1,
@@ -1541,7 +1541,7 @@ XCharacterManagerCreator = function()
         end
 
         if not quality then
-            quality = XCharacterConfigs.GetCharMinQuality(templateId)
+            quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
         end
 
         local npcId = XCharacterConfigs.GetCharNpcId(templateId, quality)
@@ -1798,11 +1798,11 @@ XCharacterManagerCreator = function()
             return false
         end
 
-        local character = XCharacterConfigs.GetCharacterTemplate(characterId)
+        local character = XMVCA.XCharacter:GetCharacterTemplate(characterId)
 
         local itemId = character.ItemId
-        local bornQulity = XCharacterConfigs.GetCharMinQuality(characterId)
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local bornQulity = XMVCA.XCharacter:GetCharMinQuality(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         local itemCount = XCharacterConfigs.GetComposeCount(characterType, bornQulity)
 
         if not XCharacterManager.IsUseItemEnough(itemId, itemCount) then
@@ -1848,7 +1848,7 @@ XCharacterManagerCreator = function()
         if ownCharacter then
             return ownCharacter.Quality or 0
         end
-        return XCharacterConfigs.GetCharMinQuality(characterId)
+        return XMVCA.XCharacter:GetCharMinQuality(characterId)
     end
 
     -- 角色初始品质(不是自己的角色也可以用)
@@ -1856,7 +1856,7 @@ XCharacterManagerCreator = function()
         if XRobotManager.CheckIsRobotId(characterId) then
             characterId = XRobotManager.GetCharacterId(characterId)
         end
-        return XCharacterConfigs.GetCharMinQuality(characterId)
+        return XMVCA.XCharacter:GetCharMinQuality(characterId)
     end
 
     -- 职业类型(不是自己的角色也可以用)
@@ -1878,7 +1878,7 @@ XCharacterManagerCreator = function()
         if XRobotManager.CheckIsRobotId(characterId) then
             characterId = XRobotManager.GetCharacterId(characterId)
         end
-        return XCharacterConfigs.GetCharacterElement(characterId)
+        return XMVCA.XCharacter:GetCharacterElement(characterId)
     end
 
     function XCharacterManager.GetCharacterHaveRobotAbilityById(characterId)

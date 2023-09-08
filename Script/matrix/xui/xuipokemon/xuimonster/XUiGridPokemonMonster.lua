@@ -3,14 +3,10 @@ local XUiPanelStars = require("XUi/XUiPokemon/XUiMonster/XUiPanelStars")
 local handler = handler
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
-local XUiGridPokemonMonster = XClass(nil, "XUiGridPokemonMonster")
+---@class XUiGridPokemonMonster : XUiNode
+local XUiGridPokemonMonster = XClass(XUiNode, "XUiGridPokemonMonster")
 
-function XUiGridPokemonMonster:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    XTool.InitUiObject(self)
-
+function XUiGridPokemonMonster:OnStart()
     self:SetSelect(false)
     self:SetDisable(false)
 
@@ -18,8 +14,16 @@ function XUiGridPokemonMonster:Ctor(ui)
         self.BtnClick.CallBack = handler(self, self.OnClickBtnClick)
     end
 
+end
+
+function XUiGridPokemonMonster:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_POKEMON_MONSTERS_LEVEL_UP, self.UpdateData, self)
     XEventManager.AddEventListener(XEventId.EVENT_POKEMON_MONSTERS_STAR_UP, self.UpdateData, self)
+end
+
+function XUiGridPokemonMonster:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_POKEMON_MONSTERS_LEVEL_UP, self.UpdateData, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_POKEMON_MONSTERS_STAR_UP, self.UpdateData, self)
 end
 
 function XUiGridPokemonMonster:UpdateData(monsterId)

@@ -229,9 +229,9 @@ function XUiDormMain:OnEnable()
     self.BtnWork:ShowReddot(XDataCenter.DormManager.DormWorkRedFun())
     --self.BtnBuild:ShowReddot(XDataCenter.FurnitureManager.HasCollectableFurniture())
     self.BtnEntrust:ShowReddot(XDataCenter.DormQuestManager.CheckDormEntrustRedPoint())
-    local redPointTypes = XRedPointConditions.Types
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { redPointTypes.CONDITION_DORM_MAIN_TASK_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnBuild.ReddotObj, self.OnCheckBuildFurniture, self, { redPointTypes.CONDITION_FURNITURE_CREATE })
+    local redPointTypes = XRedPointConditions.Types 
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { redPointTypes.CONDITION_DORM_MAIN_TASK_RED })
+    self:AddRedPointEvent(self.BtnBuild.ReddotObj, self.OnCheckBuildFurniture, self, { redPointTypes.CONDITION_FURNITURE_CREATE })
 
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_DORMMAIN_EVENT_NOTIFY, self.DormCharEventCB)
     XEventManager.AddEventListener(XEventId.EVENT_DORM_ROOM_ACTIVE_SUCCESS, self.DormActiveRespCB, self)

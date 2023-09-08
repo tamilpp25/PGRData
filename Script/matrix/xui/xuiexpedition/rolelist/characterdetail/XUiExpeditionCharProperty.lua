@@ -18,7 +18,7 @@ function XUiExpeditionCharProperty:ShowPanel(robotData)
     self.LeveInfoQiehuan:PlayTimelineAnimation()
     self:UpdatePanel()
     self.BtnLevelUpButton.gameObject:SetActive(false)
-    self.ImgMaxLevel.gameObject:SetActive(self.RobotCfg.CharacterLevel == XCharacterConfigs.GetCharMaxLevel(self.CharacterId))
+    self.ImgMaxLevel.gameObject:SetActive(self.RobotCfg.CharacterLevel == XMVCA.XCharacter:GetCharMaxLevel(self.CharacterId))
 end
 
 function XUiExpeditionCharProperty:HidePanel()
@@ -30,7 +30,7 @@ function XUiExpeditionCharProperty:UpdatePanel()
     self.ExpBar.gameObject:SetActiveEx(false)
     self.BtnLiberation.gameObject:SetActiveEx(false)
     self.TxtCurLevel.text = self.RobotCfg.CharacterLevel
-    self.TxtMaxLevel.text = "/" .. XCharacterConfigs.GetCharMaxLevel(self.CharacterId)
+    self.TxtMaxLevel.text = "/" .. XMVCA.XCharacter:GetCharMaxLevel(self.CharacterId)
     self.TxtExp.text = "-"
     self.ImgFill.fillAmount = 1
     self.CharacterAttributes = XRobotManager.GetRobotAttribs(self.RobotCfg.Id)

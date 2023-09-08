@@ -152,7 +152,7 @@ function XUiPanelSkillInfoOther:RefreshData()
     local characterId = self.CharacterId
     if not characterId then return end
 
-    self.Skills = XCharacterConfigs.GetCharacterSkillsByCharacter(self.NpcData.Character)
+    self.Skills = XMVCA.XCharacter:GetCharacterSkillsByCharacter(self.NpcData.Character)
     local skill = self.Skills[self.Skill.config.Pos]
     local grid = self.SkillInfoGrids[self.Pos]
     for i = 1, #self.SkillInfoGrids do

@@ -80,7 +80,7 @@ function XUiChatServeMain:OnStart(isMain, ...)
         self.ImgBgMain:SetActive(false)
         self.ImgBgCommon:SetActive(true)
     end
-    XRedPointManager.AddRedPointEvent(self.Content, self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_RECIEVE_CHAT }, nil, false)
+    self:AddRedPointEvent(self.Content, self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_RECIEVE_CHAT }, nil, false)
 end
 
 function XUiChatServeMain:OnEnable()
@@ -232,6 +232,8 @@ function XUiChatServeMain:OnBtnSendClick()
     local content = self.InputField.text
     if string.IsNilOrEmpty(content) then
         self.InputField.text = ''
+        -- 内容为空, 则选中它
+        self.InputField:ActivateInputField()
         return
     end
 
@@ -276,6 +278,9 @@ function XUiChatServeMain:SendChat(sendChat)
 end
 
 function XUiChatServeMain:Close()
+    if self.InputField.isFocused then
+        return
+    end
     --关闭聊天
     self:PlayAnimationWithMask("AnimChatOut", function()
             self.Super.Close(self)

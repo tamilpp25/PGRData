@@ -74,7 +74,7 @@ function XUiGridSkillInfo:SetSubInfo(characterId, index, level, skillId)
     self.SubSkillId = config.SubSkillId
     self.SubSkillLevel = level + addLevel
 
-    local gradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(self.SubSkillId, self.SubSkillLevel)
+    local gradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(self.SubSkillId, self.SubSkillLevel)
     self.TxtSkillLevel.text = levelStr
     self.TxtSkillDesc.text = gradeConfig.Intro
     self.TxtSkillName.text = gradeConfig.Name
@@ -111,7 +111,7 @@ function XUiGridSkillInfo:SetSubInfoByCharacterData(npcData, index, level, skill
         self.BtnDetails.gameObject:SetActiveEx(false)
     end
 
-    local gradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(config.SubSkillId, level + addLevel)
+    local gradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(config.SubSkillId, level + addLevel)
     self.TxtSkillLevel.text = levelStr
     self.TxtSkillDesc.text = gradeConfig.Intro
     self.TxtSkillName.text = gradeConfig.Name

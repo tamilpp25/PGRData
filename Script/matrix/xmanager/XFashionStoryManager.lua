@@ -44,17 +44,13 @@ XFashionStoryManagerCreator = function()
     --- 获取系列涂装剧情活动
     function XFashionStoryManager.GetActivityChapters(noNeedInTime)
         local chapter = {}
-        local allFashionStoryId = XFashionStoryConfigs.GetAllFashionStoryId()
-        for _, id in pairs(allFashionStoryId) do
-            if noNeedInTime or XFashionStoryManager.IsActivityInTime(id)  then
-                table.insert(chapter, {
-                    Id = id,
-                    Type = XDataCenter.FubenManager.ChapterType.FashionStory,
-                    Name = XFashionStoryConfigs.GetName(id),
-                    Icon = XFashionStoryConfigs.GetActivityBannerIcon(id)
-                })
-            end
-        end
+        local currentId=XFashionStoryManager.GetCurrentActivityId()
+        --判断活动类型
+        table.insert(chapter, {
+                Id = currentId,
+                Type = XDataCenter.FubenManager.ChapterType.FashionStory,
+            })
+
         return chapter
     end
 
@@ -96,18 +92,35 @@ XFashionStoryManagerCreator = function()
 
     ---
     --- 获取活动章节关的关卡进度
-    function XFashionStoryManager.GetChapterProgress(id)
-        local stageIdList = XFashionStoryConfigs.GetChapterStagesList(id)
-        local passNum = 0
-        local totalNum = #stageIdList
 
-        for _, stageId in ipairs(stageIdList) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo.Passed then
-                passNum = passNum + 1
+    function XFashionStoryManager.GetChapterProgress(id)
+        if XFashionStoryConfigs.GetPrefabType(id)==XFashionStoryConfigs.PrefabType.Old then
+            --旧版
+            local stageIdList = XFashionStoryConfigs.GetChapterStagesList(id)
+            local passNum = 0
+            local totalNum = #stageIdList
+
+            for _, stageId in ipairs(stageIdList) do
+                local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+                if stageInfo.Passed then
+                    passNum = passNum + 1
+                end
             end
+            return passNum, totalNum
+        else
+            --新版
+            local singleLineIds=XFashionStoryConfigs.GetSingleLines(id)
+            local groupPass=0
+            for i, singleLineId in ipairs(singleLineIds) do
+                local stages=XFashionStoryConfigs.GetSingleLineStages(singleLineId)
+                local passNum=XFashionStoryManager.GetGroupStagesPassCount(stages)
+                if passNum>=#stages then
+                    groupPass=groupPass+1
+                end
+            end
+            return groupPass,#singleLineIds
         end
-        return passNum, totalNum
+        
     end
 
     ---
@@ -396,6 +409,28 @@ XFashionStoryManagerCreator = function()
         if preStage then
             --读取组Id
             return StageGroupMap[preStage]
+        end
+    end
+    
+    function XFashionStoryManager.EnterPaintingGroupPanel(singleLineId,isOpen,lockReason,callback)
+        if singleLineId then
+            if isOpen then
+                if callback then
+                    callback()
+                else
+                    XLuaUiManager.Open("UiFubenFashionPaintingNew",singleLineId)
+                    XDataCenter.FashionStoryManager.MarkGroupAsHadAccess(singleLineId)
+                end
+            else
+                if lockReason==XFashionStoryConfigs.GroupUnOpenReason.OutOfTime then
+                    XUiManager.TipText("FashionStoryGroupOutTime")
+                elseif lockReason==XFashionStoryConfigs.GroupUnOpenReason.PreGroupUnPass then
+                    local preGroupId=XDataCenter.FashionStoryManager.GetPreSingleLineId(singleLineId)
+                    if preGroupId then
+                        XUiManager.TipText("FashionStoryGroupPassTip",nil,nil,XFashionStoryConfigs.GetSingleLineName(preGroupId))
+                    end
+                end
+            end
         end
     end
     --endregion

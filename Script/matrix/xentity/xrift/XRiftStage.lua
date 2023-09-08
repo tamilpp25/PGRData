@@ -1,6 +1,7 @@
 -- 1个关卡库对应多个关卡(stage)
 -- 不同的【Rift关卡cfg】可以配置同一个stageId
 -- 且不同的关卡库可以配置相同的【Rift关卡cfg】Id
+---@class XRiftStage
 local XRiftStage = XClass(nil, "XRiftStage")
 
 function XRiftStage:Ctor(config, index, parentStageGroup)
@@ -44,6 +45,7 @@ function XRiftStage:GetIndex()
 end
 
 -- 【获取】父层
+---@type XRiftStageGroup
 function XRiftStage:GetParent()
     return self.s_ParentStageGroup
 end

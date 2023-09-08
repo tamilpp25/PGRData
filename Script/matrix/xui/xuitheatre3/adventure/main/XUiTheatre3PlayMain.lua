@@ -45,9 +45,9 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatre3PlayMain:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(
             {XEnumConst.THEATRE3.Theatre3InnerCoin,}, 
-            self.PanelSpecialTool, 
+            self.PanelSpecialTool, self, 
             nil, 
             function()
                 XLuaUiManager.Open("UiTheatre3Tips", XEnumConst.THEATRE3.Theatre3InnerCoin)
@@ -85,7 +85,7 @@ function XUiTheatre3PlayMain:RefreshRoleInfo()
         local pos = data:GetPos()
         local equipSuitIdList = self._Control:GetSlotSuits(pos)
         if data:CheckIsHaveCharacter() or not XTool.IsTableEmpty(equipSuitIdList) then
-            self._GridRoleInfoList[pos]:Refresh(pos)
+            self._GridRoleInfoList[pos]:Refresh(pos, 1)
             self._GridRoleInfoList[pos]:Open()
         else
             self._GridRoleInfoList[pos]:Close()

@@ -8,8 +8,9 @@ function XUiTheatre3BubbleEquipment:OnAwake()
     self:RegisterClickEvent(self.BtnEmpty, self.Close)
 end
 
-function XUiTheatre3BubbleEquipment:OnStart(param)
+function XUiTheatre3BubbleEquipment:OnStart(param, isAdventure)
     self._Param = param
+    self._IsAdventure = isAdventure
     self:InitComponent()
     self:UpdateView()
 end
@@ -23,6 +24,7 @@ end
 function XUiTheatre3BubbleEquipment:InitComponent()
     ---@type XUiTheatre3EquipmentTip
     self._Tip = XUiTheatre3EquipmentTip.New(self.BubbleEquipment, self)
+    self._Tip:SetIsAdventureDesc(self._IsAdventure)
 end
 
 function XUiTheatre3BubbleEquipment:UpdateView()

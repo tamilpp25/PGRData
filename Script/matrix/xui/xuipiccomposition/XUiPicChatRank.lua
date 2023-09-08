@@ -30,7 +30,7 @@ function XUiPicChatRank:InitData()
     picComposition.RankNum or nil
 
     self.RankDataAllList = {}
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 
     self.RankDataAllList = XDataCenter.MarketingActivityManager.GetRankCompositionDataList()
     self.PanelNoRank.gameObject:SetActiveEx(#self.RankDataAllList == 0)

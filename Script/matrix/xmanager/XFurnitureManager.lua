@@ -871,6 +871,29 @@ XFurnitureManagerCreator = function()
 
         return rewardId
     end
+    
+    -- 获取家具制作时的奖励Id
+    function XFurnitureManager.GetBaseRewardId(furnitureId)
+        local furniture = XFurnitureManager.GetFurnitureById(furnitureId)
+        if not furniture then
+            return 0
+        end
+        
+        local baseScore = furniture:GetAttrTotal()
+        local configId = XFurnitureManager.GetFurnitureConfigId(furnitureId)
+        local furnitureTypeId = XFurnitureConfigs.GetFurnitureTypeCfgByConfigId(configId).Id
+        local levelConfigs = XFurnitureConfigs.GetFurnitureLevelTemplate(furnitureTypeId)
+        local rewardId
+
+        for _, levelConfig in pairs(levelConfigs) do
+            if baseScore >= levelConfig.MinScore and baseScore < levelConfig.MaxScore then
+                rewardId = levelConfig.ReturnId
+                break
+            end
+        end
+
+        return rewardId
+    end
 
     -- 获取家具品质
     function XFurnitureManager.GetLevelRewardQuality(furnitureId)
@@ -933,6 +956,46 @@ XFurnitureManagerCreator = function()
         end
 
         return recycleRewards
+    end
+    
+    -- 重置家具能获取到的奖励
+    function XFurnitureManager.GetRemakeRewards(furnitureId)
+        local levelRewardId = XFurnitureManager.GetLevelRewardId(furnitureId)
+        local furniture = XFurnitureManager.GetFurnitureById(furnitureId)
+        local costA, costB, costC = furniture:GetBaseAttr()
+        local cost = costA + costB + costC
+
+        if not XTool.IsNumberValid(levelRewardId) then
+            local configId = furniture:GetConfigId()
+            levelRewardId = XFurnitureConfigs.GetFurnitureReturnId(configId)
+        end
+
+        local function getRewardMap(rewardList)
+            rewardList = rewardList or {}
+            local rewards = {}
+            for _, item in pairs(rewardList) do
+                if rewards[item.TemplateId] then
+                    rewards[item.TemplateId].Count = rewards[item.TemplateId].Count + item.Count
+                else
+                    rewards[item.TemplateId] = XRewardManager.CreateRewardGoodsByTemplate(item)
+                end
+            end
+
+            return rewards
+        end
+        
+        local rewardList = XRewardManager.GetRewardList(levelRewardId)
+        local rewards = getRewardMap(rewardList)
+        
+        -- 如果回收的货币的数量 < 制作时的数量
+        local recycleCount = rewards[XDataCenter.ItemManager.ItemId.FurnitureCoin] and rewards[XDataCenter.ItemManager.ItemId.FurnitureCoin].Count or 0
+        if recycleCount >= cost then
+            local baseRewardId = XFurnitureManager.GetBaseRewardId(furnitureId)
+            rewardList = XRewardManager.GetRewardList(baseRewardId)
+            rewards = getRewardMap(rewardList)
+        end
+        
+        return rewards
     end
 
     -- 分解家具

@@ -3,8 +3,6 @@ local XUiTheatre3EquipmentCharacter = require("XUi/XUiTheatre3/Equip/XUiTheatre3
 
 local TodayDontShowKey = "Theatre3EquipmentChoose"
 local TipDescTxtKey = "UiTheatre3EquipmentChooseSwitch"
-local SelectScale = Vector3(0.94, 0.94, 0.94)
-local NoSelectScale = Vector3(0.86, 0.86, 0.86)
 
 ---@class XUiTheatre3EquipmentChoose : XLuaUi 选择装备界面
 ---@field _Control XTheatre3Control
@@ -52,6 +50,9 @@ function XUiTheatre3EquipmentChoose:InitComponent()
     self._TipMap = {}
     for i = 1, 3 do
         local equipId = self._Equips[i]
+        if not XTool.IsNumberValid(equipId) then
+            break
+        end
         ---@type XUiTheatre3EquipmentTip
         local tip = XUiTheatre3EquipmentTip.New(self["BubbleEquipment" .. i], self)
         local funcShowDetail = function()
@@ -62,9 +63,10 @@ function XUiTheatre3EquipmentChoose:InitComponent()
         tip:SetSelectCallBack(function()
             self:OnSelectEquipment(i)
         end)
+        tip:ShowCanActiveTag(self._Control:CanSuitComplete(equipId))
         self._TipMap[i] = tip
-        self._CharacterCells[i] = XUiTheatre3EquipmentCharacter.New(self["CharacterGrid" .. i], self, i)
-        self["BtnEquipment" .. i].CallBack = function()
+        local btnEquipment = self["BtnEquipment" .. i]
+        btnEquipment.CallBack = function()
             self:OnSelectEquipment(i)
         end
         self["ImgSelect" .. i].gameObject:SetActiveEx(false)
@@ -83,6 +85,11 @@ function XUiTheatre3EquipmentChoose:CheckEquipTab()
 end
 
 function XUiTheatre3EquipmentChoose:CheckInitCharacterSelect()
+    local index = self:GetFirstCanWearSlot()
+    self.CharacterTab:SelectIndex(index)
+end
+
+function XUiTheatre3EquipmentChoose:GetFirstCanWearSlot()
     --如果同套装下的某个装备穿戴在该槽位上，那么其余装备也只能放在这个槽位上
     local isForbid = false
     local belong = nil
@@ -93,7 +100,18 @@ function XUiTheatre3EquipmentChoose:CheckInitCharacterSelect()
             belong = i
         end
     end
-    self.CharacterTab:SelectIndex(isForbid and belong or 1)
+    return isForbid and belong or 1
+end
+
+function XUiTheatre3EquipmentChoose:CheckRecoverIndex()
+    -- 如果恢复的槽位没法穿戴该装备，需要重新找一个
+    if not self._RecoverIndex then
+        return
+    end
+    local recover = self._CharacterCells[self._RecoverIndex]
+    if recover:IsForbidEquip() or not recover:HasEnoughCapcity() then
+        self._RecoverIndex = self:GetFirstCanWearSlot()
+    end
 end
 
 function XUiTheatre3EquipmentChoose:OnSelectSlot(index)
@@ -102,6 +120,7 @@ function XUiTheatre3EquipmentChoose:OnSelectSlot(index)
         if charId == 0 then
             self._Control:OpenTextTip(handler(self, self.OnEmptySlotTipSure), XUiHelper.GetText("TipTitle"), XUiHelper.GetText("Theatre3EquipEmptySlotTip"), handler(self, self.OnEmptySlotTipCancel), TodayDontShowKey)
         end
+        self:CheckRecoverIndex()
     else
         self._RecoverIndex = index
     end
@@ -127,8 +146,18 @@ function XUiTheatre3EquipmentChoose:OnEmptySlotTipCancel()
 end
 
 function XUiTheatre3EquipmentChoose:OnChooseEquip()
-    self._Control:RequestSelectEquip(self._Equips[self._CurSelectEquip], self._CurSelectSlot, function()
-        self._Control:CheckAndOpenAdventureNextStep(true)
+    local equipId = self._Equips[self._CurSelectEquip]
+    self._Control:RequestSelectEquip(equipId, self._CurSelectSlot, function()
+        -- 套装激活弹框
+        local equipConfig = self._Control:GetEquipById(equipId)
+        local suitId = equipConfig.SuitId
+        if self._Control:IsSuitComplete(suitId) then
+            XLuaUiManager.Open("UiTheatre3SuitActiveTip", suitId, function()
+                self._Control:CheckAndOpenAdventureNextStep(true)
+            end)
+        else
+            self._Control:CheckAndOpenAdventureNextStep(true)
+        end
     end)
 end
 
@@ -137,22 +166,43 @@ function XUiTheatre3EquipmentChoose:OnShowEquip()
 end
 
 function XUiTheatre3EquipmentChoose:OnSelectEquipment(index)
+    self:ShowSlotChoose()
     local isInit = self._CurSelectEquip == nil
+    self._LastSelectEquip = self._CurSelectEquip
     self._CurSelectEquip = index
+    self.BubbleCharacter.gameObject:SetActiveEx(true)
+    self:PlayChooseAnim()
     for i = 1, 3 do
         local isCurSelect = i == index
         if not isCurSelect then
             self._TipMap[i]:CloseEffectDetail()
         end
+        if not self._CharacterCells[i] then
+            self._CharacterCells[i] = XUiTheatre3EquipmentCharacter.New(self["CharacterGrid" .. i], self, i)
+        end
         self._CharacterCells[i]:UpdateByEquip(self._Equips[index])
-        self["BtnEquipment" .. i].transform.localScale = isCurSelect and SelectScale or NoSelectScale
         self["ImgSelect" .. i].gameObject:SetActiveEx(isCurSelect)
     end
     if isInit then
         self:CheckInitCharacterSelect()
-        self:ShowSlotChoose()
+        self:PlayAnimation("BubbleCharacterEnable")
     end
     self:CheckCharacterShow()
+end
+
+function XUiTheatre3EquipmentChoose:PlayChooseAnim()
+    if self._LastSelectEquip == self._CurSelectEquip then
+        return
+    end
+    local aniName
+    if self._LastSelectEquip then
+        aniName = string.format("BtnEquipment%s%s", self._LastSelectEquip, "Small")
+        self:PlayAnimation(aniName)
+    end
+    if self._CurSelectEquip then
+        aniName = string.format("BtnEquipment%s%s", self._CurSelectEquip, "Big")
+        self:PlayAnimation(aniName)
+    end
 end
 
 function XUiTheatre3EquipmentChoose:CheckCharacterShow()
@@ -178,11 +228,7 @@ function XUiTheatre3EquipmentChoose:CheckCharacterShow()
 end
 
 function XUiTheatre3EquipmentChoose:ShowSlotChoose()
-    self.BubbleCharacter.gameObject:SetActiveEx(true)
     self.BtnYes.gameObject:SetActiveEx(true)
-    self.PanelEquipment.spacing = 30
-    self.PanelZB.padding.left = -140
-    self.BtnSwitch.transform.anchoredPosition = Vector2(self.BtnSwitchPosX - self.BubbleCharacter.rect.width, self.BtnSwitchPosY)
 end
 
 function XUiTheatre3EquipmentChoose:HideSlotChoose()

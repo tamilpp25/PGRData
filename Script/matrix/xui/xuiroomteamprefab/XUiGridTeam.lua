@@ -127,7 +127,7 @@ function XUiGridTeam:HandleCharacterType(teamData)
     local characterType = 0
     for _, charId in ipairs(teamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 characterType = charTemplate.Type
                 break
@@ -142,7 +142,7 @@ function XUiGridTeam:GetTeamIsMixType()
     local countDic = {}
     for _, charId in pairs(self.TeamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 countDic[charTemplate.Type] = true
             end
@@ -271,7 +271,7 @@ function XUiGridTeam:OnChessPursuitBtnChoicesClick()
         end
     end
     if isInOtherTeam then
-        local name = XCharacterConfigs.GetCharacterFullNameStr(inOtherTeamCharId)
+        local name = XMVCA.XCharacter:GetCharacterFullNameStr(inOtherTeamCharId)
         local content = CSXTextManagerGetText("ChessPursuitUsePrefabTipsContent", name, teamGridIndex)
         content = string.gsub(content, " ", "\u{00A0}") --不换行空格
         XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, function() self:OnSelectCallback() end)

@@ -35,8 +35,9 @@ function XUiEquipResonanceAwakeV2P6:OnNotify(evt, ...)
         if equipId ~= self.EquipId then return end
         if pos ~= self.Pos then return end
         
-        self.Parent:OnOverClockingSuccess()
-        XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, true, self.ForceShowBindCharacter)
+        XLuaUiManager.Open("UiEquipResonanceSelectAfter", self.EquipId, self.Pos, self.CharacterId, true, self.ForceShowBindCharacter, function()
+            self.Parent:OnOverClockingSuccess(self.Pos, true)
+        end)
     elseif evt == XEventId.EVENT_ITEM_FAST_TRADING then
         self:UpdateView()
     end
@@ -162,7 +163,7 @@ function XUiEquipResonanceAwakeV2P6:OnBtnAwakeClick()
 
     local title = CSXTextManagerGetText("EquipAwakeTipTitle")
     local bindCharacterId = XDataCenter.EquipManager.GetResonanceBindCharacterId(equipId, pos)
-    local name = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+    local name = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
     local content = CSXTextManagerGetText("EquipAwakeTipContent", name)
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, function()
         XMVCA:GetAgency(ModuleId.XEquip):Awake(equipId, pos, XEnumConst.EQUIP.AWAKE_CRYSTAL_MONEY)

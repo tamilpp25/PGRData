@@ -1,82 +1,65 @@
-local XUiPanelTwoSideTowerRoadLine = XClass(nil, "XUiPanelTwoSideTowerRoadLine")
 local XUiGridTwoSideTowerStage = require("XUi/XUiTwoSideTower/XUiGridTwoSideTowerStage")
----@param gameObject UnityEngine.GameObject
-function XUiPanelTwoSideTowerRoadLine:Ctor(gameObject, chapterId, root)
-    self.GameObject = gameObject
-    self.Transform = gameObject.transform
+
+---@class XUiPanelTwoSideTowerRoadLine : XUiNode
+---@field _Control XTwoSideTowerControl
+local XUiPanelTwoSideTowerRoadLine = XClass(XUiNode, "XUiPanelTwoSideTowerRoadLine")
+
+function XUiPanelTwoSideTowerRoadLine:OnStart(chapterId)
     self.ChapterId = chapterId
-    self.Root = root
-    XTool.InitUiObject(self)
-    self.StageList = {}
-end
-
-function XUiPanelTwoSideTowerRoadLine:Update(chapterId)
-    self.ChapterId = chapterId or self.ChapterId
-    ---@type XTwoSideTowerChapter
-    local chapter = XDataCenter.TwoSideTowerManager.GetChapter(self.ChapterId)
-    local pointList = chapter:GetPointData()
-    if not chapter:IsPositive() then
-        table.sort(pointList, function(a, b) return a:GetId() > b:GetId() end)
-    end
-    for i, pointData in ipairs(pointList) do
-        if not self.StageList[i] then
-            ---@type UnityEngine.RectTransform
-            local stageObj = CS.UnityEngine.GameObject.Instantiate(self.GridStage, self["Stage" .. i])
-            stageObj.localPosition = CS.UnityEngine.Vector3.zero
-            local stage = XUiGridTwoSideTowerStage.New(stageObj, pointData, chapter:IsPointPositive(pointData), function(stage) self:OnSelectStage(stage) end, chapter, self)
-            table.insert(self.StageList, stage)
-        else
-            self.StageList[i]:Refresh(pointData, chapter)
-        end
-    end
+    ---@type XUiGridTwoSideTowerStage[]
+    self.GridStageList = {}
     self.GridStage.gameObject:SetActiveEx(false)
+end
 
-    -- 刷新路线
-    local pointCnt = #pointList
-    for i, pointData in ipairs(pointList) do
-        local isPositive = chapter:IsPointPositive(pointData)
-        self["RedStage"..i].gameObject:SetActiveEx(not isPositive)
-        if i < pointCnt then
-            local lineGo = self["Line"..i]
-            local redLineGo = self["RedLine"..i]
-            if not isPositive then
-                local nextPointData = pointList[i + 1]
-                local nextIsPositive = chapter:IsPointPositive(nextPointData)
-                lineGo.gameObject:SetActiveEx(false)
-                redLineGo.gameObject:SetActiveEx(true)
-                redLineGo.transform:Find("Effect1").gameObject:SetActiveEx(nextIsPositive)
-                redLineGo.transform:Find("Effect2").gameObject:SetActiveEx(not nextIsPositive)
-            else
-                lineGo.gameObject:SetActiveEx(true)
-                redLineGo.gameObject:SetActiveEx(false)
+function XUiPanelTwoSideTowerRoadLine:Refresh()
+    local pointIdList = self._Control:GetChapterPointIds(self.ChapterId)
+    for index, pointId in pairs(pointIdList) do
+        local grid = self.GridStageList[index]
+        if not grid then
+            local parent = XUiHelper.TryGetComponent(self.PanelStageList, string.format("Stage%s", index))
+            if not parent then
+                XLog.Error("XUiPanelTwoSideTowerRoadLine:Refresh error: can not find parent")
+                return
             end
+            local go = XUiHelper.Instantiate(self.GridStage, parent)
+            grid = XUiGridTwoSideTowerStage.New(go, self, self.ChapterId, handler(self, self.ClickStageGrid))
+            self.GridStageList[index] = grid
         end
+        grid:Open()
+        grid:Refresh(pointId)
+    end
+    for index = #pointIdList + 1, #self.GridStageList do
+        self.GridStageList[index]:Close()
     end
 end
 
----@param stage XUiGridTwoSideTowerStage
-function XUiPanelTwoSideTowerRoadLine:OnSelectStage(stage)
-    for _, stageEntity in pairs(self.StageList) do
-        if stage == stageEntity then
-            stageEntity:SetSelect(true)
-        else
-            stageEntity:SetSelect(false)
-        end
+-- 选中 Grid
+---@param grid XUiGridTwoSideTowerStage
+function XUiPanelTwoSideTowerRoadLine:ClickStageGrid(grid)
+    local curGrid = self.CurStageGrid
+    if curGrid and curGrid:GetPointId() == grid:GetPointId() then
+        return
     end
+    -- 取消上一次的选择
+    if curGrid then
+        curGrid:SetSelect(false)
+    end
+    -- 选中当前的选择
+    grid:SetSelect(true)
+    -- 打开详情面板
+    if not XLuaUiManager.IsUiShow("UiTwoSideTowerStageDetail") then
+        XLuaUiManager.Open("UiTwoSideTowerStageDetail", grid:GetPointId(), self.ChapterId, handler(self, self.CancelStageSelect))
+    end
+    self.CurStageGrid = grid
 end
 
--- 刷新特性列表
-function XUiPanelTwoSideTowerRoadLine:RefreshBuffList()
-    for _, stageEntity in pairs(self.StageList) do
-        stageEntity:RefreshBuffList()
+function XUiPanelTwoSideTowerRoadLine:CancelStageSelect()
+    if not self.CurStageGrid then
+        return
     end
-end
-
--- 播放切换动画
-function XUiPanelTwoSideTowerRoadLine:PlaySwitchAnim()
-    for _, stageEntity in pairs(self.StageList) do
-        stageEntity:PlaySwitchAnim()
-    end
+    -- 取消当前选择
+    self.CurStageGrid:SetSelect(false)
+    self.CurStageGrid = nil
 end
 
 return XUiPanelTwoSideTowerRoadLine

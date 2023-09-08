@@ -8,6 +8,7 @@ XDynamicTableNormal = {}
     DYNAMIC_GRID_RECYCLE = 4,--回收
     DYNAMIC_TWEEN_OVER = 5,
     DYNAMIC_BEGIN_DRAG = 6,
+    DYNAMIC_END_DRAG = 7,
 
     DYNAMIC_GRID_INIT = 100
 }
@@ -73,12 +74,13 @@ function XDynamicTableNormal:SetDelegate(delegate)
     self.Delegate = delegate
 end
 
+---@param proxy XUiNode
 function XDynamicTableNormal:SetProxyDisplay(proxy, isShow)
     if CheckClassSuper(proxy, XUiNode) then
         if isShow then
             proxy:Open()
         else
-            if not XTool.UObjIsNil(proxy.GameObject) then
+            if proxy:IsValid() then
                 proxy:Close()
             end
         end
@@ -145,6 +147,21 @@ function XDynamicTableNormal:OnDynamicTableEvent(event, index, grid)
     end
 end
 
+-- 兼容XUiNode
+function XDynamicTableNormal:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
+end
 
 --设置事件回调
 function XDynamicTableNormal:SetDynamicEventDelegate(fun)

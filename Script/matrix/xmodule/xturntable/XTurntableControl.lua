@@ -179,6 +179,10 @@ function XTurntableControl:SaveSkipAnimationValue(value)
     XSaveTool.SaveData("TurntableJump", isSave)
 end
 
+function XTurntableControl:SignDontShow72hoursRedPoint()
+    self._Model.IsNeedShow72HoursRedPoint = false
+end
+
 function XTurntableControl:RequestDrawReward(times, cb)
     XNetwork.CallWithAutoHandleErrorCode(RequestProto.TurntableDrawRewardRequest, { Times = times }, function(res)
         if res.Code ~= XCode.Success then

@@ -68,10 +68,7 @@ function XUiStrongholdRoomCharacterV2P6:InitFilter()
     self.PanelFilter:InitData(onSeleCb, onTagClick, nil, refreshFun, XUiGridStrongholdCharacter, checkInTeam, overrideFunTable)
     -- 导入列表并刷新
     local list = XDataCenter.StrongholdManager.GetAllCanUseCharacterOrRobotIds(self.GroupId)
-    self.PanelFilter:ImportList(list)
-    if XTool.IsNumberValid(self.InitSelectCharId) then
-        self.PanelFilter:DoSelectCharacter(self.InitSelectCharId)
-    end
+    self.PanelFilter:ImportList(list, self.InitSelectCharId)
     -- 导入支援列表
     self:ImportSupportList()
 end
@@ -105,10 +102,7 @@ end
 
 function XUiStrongholdRoomCharacterV2P6:OnEnable()
     CS.XGraphicManager.UseUiLightDir = true
-
-    if self.SelectTabIndex then
-        self.PanelCharacterTypeBtns:SelectIndex(self.SelectTabIndex)
-    end
+    self.PanelFilter:RefreshList()
 end
 
 function XUiStrongholdRoomCharacterV2P6:OnDisable()
@@ -120,24 +114,30 @@ function XUiStrongholdRoomCharacterV2P6:OnDestroy()
 end
 
 function XUiStrongholdRoomCharacterV2P6:CheckIsOtherPlayer()
-    return self.PanelFilter.CurSelectTagBtn.gameObject.name == "BtnSupport"
+    return self.PanelFilter:IsTagSupport()
 end
 
 function XUiStrongholdRoomCharacterV2P6:SelectPanel()
+    local isEmpty = self.PanelFilter:IsCurListEmpty()
     if self:CheckIsOtherPlayer() then
-        self.SelfPanel:Hide()
+        self.SelfPanel:Close()
+        if isEmpty then
+            self.OthersPanel:Close()
+        else
+            self.OthersPanel:Open()
+        end
         self.OthersPanel:Show(self.TeamList, self.TeamId, self.MemberIndex, self.GroupId)
         self.PanelRefresh.gameObject:SetActiveEx(true)
         self.CurPanel = self.OthersPanel
     else
+        self.OthersPanel:Close()
+        self.SelfPanel:Open()
         self.SelfPanel:Show(self.TeamList, self.TeamId, self.MemberIndex, self.GroupId, false, self.Pos)
-        self.OthersPanel:Hide()
         self.PanelRefresh.gameObject:SetActiveEx(false)
         self.CurPanel = self.SelfPanel
     end
 
     --角色列表为空，不显示按钮
-    local isEmpty = self.PanelFilter:IsCurListEmpty()
     self.BtnTeaching.gameObject:SetActiveEx(not isEmpty)
 end
 

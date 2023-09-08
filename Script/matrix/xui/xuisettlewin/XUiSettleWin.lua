@@ -317,6 +317,24 @@ function XUiSettleWin:InitRewardCharacterList(data)
 
         return
     end
+    
+    -- 音游玩法特殊处理
+    if self.StageInfos.Type == XEnumConst.FuBen.StageType.TaikoMaster then
+        if self.WinData.SettleData then
+            local teamData = XMVCA.XTaikoMaster:GetTeam():GetEntityIds()
+            for _, robotId in ipairs(teamData) do
+                if robotId > 0 then
+                    local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
+                    ---@type XUiGridSettleWinRole
+                    local grid = XUiGridWinRole.New(self, ui)
+                    grid.Transform:SetParent(self.PanelRoleContent, false)
+                    grid:UpdateTaikoRoleInfo(robotId)
+                    grid.GameObject:SetActiveEx(true)
+                end
+            end
+        end
+        return
+    end
 
     --口袋妖怪
     if self.StageInfos.Type == XDataCenter.FubenManager.StageType.Pokemon then
@@ -407,6 +425,13 @@ function XUiSettleWin:SetBtnByType(btnType)
     if btnType == XRoomSingleManager.BtnType.SelectStage then
         self:OnBtnBackClick(false)
     elseif btnType == XRoomSingleManager.BtnType.Again then
+        -- 音游需要进入自己的战斗房间
+        if self.StageInfos.Type == XEnumConst.FuBen.StageType.TaikoMaster then
+            ---@type XTaikoMasterAgency
+            local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+            agency:OpenBattleRoom(self.CurrentStageId)
+            return
+        end
         XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageCfg.StageId, nil, nil, nil, true)
     elseif btnType == XRoomSingleManager.BtnType.Next then
         self:OnBtnEnterNextClick()

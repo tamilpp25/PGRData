@@ -44,7 +44,7 @@ end
 function XUiTheatreRoleDetails:Refresh()
     local adventureRole = self.AdventureRole
     local characterId = adventureRole:GetCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
 
     --角色名
     self.TxtName.text = charConfig.Name

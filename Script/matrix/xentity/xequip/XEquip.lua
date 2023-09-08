@@ -367,7 +367,7 @@ function XEquip:IsOverrunBlindMatch(characterId)
     end
     
     characterId = characterId or self.CharacterId
-    local charType = XCharacterConfigs.GetCharacterType(characterId)
+    local charType = XMVCA.XCharacter:GetCharacterType(characterId)
     local suitCharType = XEquipConfig.GetSuitCharacterType(choseSuit)
     if suitCharType == XEquipConfig.UserType.All or suitCharType == charType then
         return true

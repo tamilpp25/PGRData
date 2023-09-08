@@ -16,7 +16,7 @@ end
 function XUiFubenActivityPuzzle:OnStart()
     self.RedPointIdArr = {}
     self:AutoRegisterBtn()
-    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, true)
+    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, self, true)
     self.AssetPanel:Refresh({ XDataCenter.FubenActivityPuzzleManager.GetActivityInfo().ItemId })
     self:InitBtnGroup()
 end
@@ -36,7 +36,8 @@ function XUiFubenActivityPuzzle:OnDisable()
 end
 
 function XUiFubenActivityPuzzle:OnDestroy()
-    self:RemoveRedPointEvent()
+    self:RemoveAllRedPoints()
+    self.PanelGame:OnRelease()
 end
 
 function XUiFubenActivityPuzzle:OnGetEvents()
@@ -230,7 +231,7 @@ function XUiFubenActivityPuzzle:StopActivityTimer()
     end
 end
 
-function XUiFubenActivityPuzzle:RemoveRedPointEvent()
+function XUiFubenActivityPuzzle:RemoveAllRedPoints()
     for _, redPointId in ipairs(self.RedPointIdArr) do
         XRedPointManager.RemoveRedPointEvent(redPointId)
     end

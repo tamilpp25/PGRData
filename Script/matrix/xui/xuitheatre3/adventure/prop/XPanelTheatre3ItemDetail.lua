@@ -22,7 +22,7 @@ function XPanelTheatre3ItemDetail:Refresh(itemId)
     self._ItemGrid:SetData(itemId, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
     self._ItemGrid:ShowRed(false)
     self.TxtName.text = itemCfg.Name
-    self.TxtDesc.text = itemCfg.Description
+    self.TxtDesc.text = XUiHelper.ConvertLineBreakSymbol(XUiHelper.FormatText(itemCfg.Description, self._Control:GetItemEffectGroupDesc(itemId)))
     self.TxtWorldDesc.text = itemCfg.WorldDesc
     if self.PanelCondition then
         self.PanelCondition.gameObject:SetActiveEx(false)

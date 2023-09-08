@@ -42,7 +42,7 @@ function XUiShop:OnStart(typeId, cb, configShopId, screenId)
     self.ScreenId = screenId
 
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset,nil,self,true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, nil, self, true)
     self.ItemList = XUiPanelItemList.New(self.PanelItemList, self)
     self.FashionList = XUiPanelFashionList.New(self.PanelFashionList, self)
     self.GuildGoodsList = XUiPanelGuildGoodsList.New(self.PanelGuildGoodsList, self)

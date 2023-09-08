@@ -31,6 +31,16 @@ end
 
 local UIBindControl = require("MVCA/UIBindControl")
 
+---子节点状态标记
+local XUiNodeState = {
+    None = 0,
+    Start = 1,
+    Enable = 2,
+    Disable = 3,
+    Destroy = 4,
+    Release = 5
+}
+
 ---@class XUiNode
 XUiNode = XClass(nil, "XUiNode")
 if IsWindowsEditor then
@@ -51,37 +61,105 @@ if IsWindowsEditor then
 end
 --XUiNode._Profiler()
 --XUiNode._ProfilerNode("XUiGridCharacterNew")
+
+---@param ui UnityEngine.Component
+---@param parent XLuaUi
 function XUiNode:Ctor(ui, parent, ...)
     self:InitNode(ui, parent, ...)
 end
 
 function XUiNode:InitNode(ui, parent, ...)
-    if IsWindowsEditor then
-        XUiNode._profiler[self] = self.__cname
-    end
     self._IsPopPanel = false
     self._Uid = GenUIUid()
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.Parent = parent
+    XTool.InitUiObject(self)
+
+    if IsWindowsEditor then
+        XUiNode._profiler[self] = self.__cname
+        self:OverrideGameObject()
+    end
+
     ---@type XUiNode[]
     self._ChildNodes = {} --子节点
     self._Control = nil
-    self._IsShow = self.GameObject.activeSelf
-    self._EnabledCount = 0
+    self._AbleCount = 0
     self._BindControlId = nil
-    XTool.InitUiObject(self)
     self:BindParent() --跟父节点绑定关系
     self:InitBindControlId() --实例化要绑定的control名字,优先父节点
     self:BindControl() --绑定control
+    self._StateFlag = XUiNodeState.None
+    self._arg = table.pack(...)
+    self._IsNodeShow = false
 
     self._LuaEvents = self:OnGetLuaEvents()
 
-    self:OnStart(...) --执行子类的onStart
-    if self._IsShow then
-        self:OnEnableUi()
+    XTool.InitUiObjectNewIndex(self)
+
+    if self.GameObject.activeSelf then
+        self:Open()
     end
 end
+
+function XUiNode:OverrideGameObject()
+    --self.TempGameObject = self.GameObject
+    --local GameObjectTbl = {}
+    --setmetatable(GameObjectTbl, {
+    --    __index = self.TempGameObject
+    --})
+    --
+    --function GameObjectTbl:SetActive(value)
+    --    self.TempGameObject:SetActive(value)
+    --    XLog.Error(string.format("请勿在外部调用%s.GameObject.SetActive", self.__cname))
+    --end
+    --
+    --function GameObjectTbl:SetActiveEx(value)
+    --    self.TempGameObject:SetActiveEx(value)
+    --    XLog.Error(string.format("请勿在外部调用%s.GameObject.SetActiveEx", self.__cname))
+    --end
+    --self.GameObject = GameObjectTbl
+    --XLog.Error("self.GameObject:Exist() " .. tostring(self.GameObject:Exist()))
+end
+
+
+---返回该子节点是否有效
+function XUiNode:IsValid()
+    if self._StateFlag >= XUiNodeState.Destroy then
+        return false
+    elseif XTool.UObjIsNil(self.GameObject) then
+        return false
+    end
+    return true
+end
+
+function XUiNode:IsValidState()
+    return self._StateFlag > XUiNodeState.None and self._StateFlag < XUiNodeState.Destroy
+end
+
+function XUiNode:CallStart()
+    if self._StateFlag < XUiNodeState.Start then
+        self._StateFlag = XUiNodeState.Start
+        self:OnStart(table.unpack(self._arg)) --执行子类的onStart
+        self._arg = nil
+    end
+end
+
+---这个函数用来检测activeInHierarchy
+function XUiNode:_CheckUIActive()
+    if IsWindowsEditor then
+        if self._StateFlag == XUiNodeState.Enable then
+            if not self.GameObject.activeInHierarchy then
+                XLog.Error(string.format("子节点 %s 显示后, activeInHierarchy依旧为false, go name : %s", self.__cname, self.GameObject.name))
+            end
+        elseif self._StateFlag == XUiNodeState.Disable then --暂时用不了, 因为是先OnDisable再SetActive
+            if self.GameObject.activeInHierarchy then
+                XLog.Error(string.format("子节点 %s 隐藏后, activeInHierarchy依旧为true, go name : %s", self.__cname, self.GameObject.name))
+            end
+        end
+    end
+end
+
 
 ---设置是否为弹出的界面, 用于那种使用内部节点做资源, 但是有独立的弹出窗体的界面
 function XUiNode:SetIsPopPanel(value)
@@ -105,35 +183,61 @@ function XUiNode:OnStart()
 end
 
 function XUiNode:OnEnableUi()
-    self:OnEnable()
-    if self._LuaEvents then
-        for i = 1, #self._LuaEvents do
-            XUIEventBind.AddEventListener(self._LuaEvents[i], self.OnNotify, self)
+    if self._StateFlag == XUiNodeState.Start or self._StateFlag == XUiNodeState.Disable then
+        self._StateFlag = XUiNodeState.Enable
+        self:_CheckUIActive()
+
+        self:EnableChildNodes()
+
+        self:OnEnable()
+        if self._LuaEvents then
+            for i = 1, #self._LuaEvents do
+                XUIEventBind.AddEventListener(self._LuaEvents[i], self.OnNotify, self)
+            end
         end
     end
-    if self._EnabledCount > 0 then
-        self:EnableChildNodes()
-    end
-    self._EnabledCount = self._EnabledCount + 1
 end
+
 function XUiNode:OnEnable()
 end
 
 function XUiNode:OnDisableUi()
-    if self._LuaEvents then
-        for i = 1, #self._LuaEvents do
-            XUIEventBind.RemoveEventListener(self._LuaEvents[i], self.OnNotify, self)
+    if self._StateFlag == XUiNodeState.Start or self._StateFlag == XUiNodeState.Enable then
+        self._StateFlag = XUiNodeState.Disable
+        --self:_CheckUIActive()
+
+        self:DisableChildNodes()
+
+        if self._LuaEvents then
+            for i = 1, #self._LuaEvents do
+                XUIEventBind.RemoveEventListener(self._LuaEvents[i], self.OnNotify, self)
+            end
         end
+        self:OnDisable()
     end
-    self:OnDisable()
-    self:DisableChildNodes()
 end
+
 function XUiNode:OnDisable()
 end
 
+function XUiNode:OnDestroyUi()
+    if self._StateFlag >= XUiNodeState.Start and self._StateFlag < XUiNodeState.Destroy then
+        self._StateFlag = XUiNodeState.Destroy
+
+        self._IsNodeShow = false
+        self:DestroyChildNodes()
+        self:OnDestroy()
+    end
+end
+
+function XUiNode:OnDestroy()
+
+end
+
+
 function XUiNode:EnableChildNodes()
     for _, child in ipairs(self._ChildNodes) do
-        if child._IsShow then
+        if child:IsNodeShow() then
             child:OnEnableUi()
         end
     end
@@ -141,34 +245,57 @@ end
 
 function XUiNode:DisableChildNodes()
     for _, child in ipairs(self._ChildNodes) do
-        if child._IsShow then
+        if child:IsNodeShow() then
             child:OnDisableUi()
         end
     end
 end
 
+function XUiNode:DestroyChildNodes()
+    for _, child in ipairs(self._ChildNodes) do
+        child:OnDestroyUi()
+    end
+end
+
+function XUiNode:IsNodeShow()
+    return self._IsNodeShow
+end
+
 ---显示节点
 function XUiNode:Open()
-    if not self._IsShow then
-        self._IsShow = true
+    if not self._IsNodeShow then
+        self._IsNodeShow = true
         self:SetDisplay(true)
+        if self._StateFlag == XUiNodeState.None then
+            self:CallStart()
+        end
         self:OnEnableUi()
     end
 end
 
 ---隐藏节点
 function XUiNode:Close()
-    if self._IsShow then
-        self._IsShow = false
+    if self._IsNodeShow then
+        self._IsNodeShow = false
         self:SetDisplay(false)
         self:OnDisableUi()
     end
 end
 
----设置显示, 子类可以重写
+---设置显示
 ---@param val boolean 是否显示
 function XUiNode:SetDisplay(val)
+    --if IsWindowsEditor then
+    --    self.TempGameObject:SetActiveEx(val)
+    --else
     self.GameObject:SetActiveEx(val)
+    --end
+    self:OnSetDisplay(val)
+end
+
+---设置显示状态后提供给子类重写
+function XUiNode:OnSetDisplay(val)
+
 end
 
 function XUiNode:BindParent()
@@ -208,9 +335,7 @@ end
 
 ---@param node XUiNode
 function XUiNode:AddChildNode(node)
-    if not table.contains(self._ChildNodes, node) then
-        table.insert(self._ChildNodes, node)
-    end
+    table.insert(self._ChildNodes, node)
 end
 
 ---@param node XUiNode
@@ -256,14 +381,22 @@ function XUiNode:UnBindControl()
 end
 
 function XUiNode:Release()
-    self:OnRelease()
-    self:UnBindControl() --移除控制器
+    self._IsNodeShow = false
+    self._StateFlag = XUiNodeState.Release
+
     self:ReleaseChildNodes() --执行子节点的
+
+    self:OnRelease()
+
+    self:UnBindControl() --移除控制器
+    self:ReleaseRedPoint()
+    XTool.ReleaseUiObjectIndex(self)
 
     self.GameObject = nil
     self.Transform = nil
     self.Parent = nil
     self._LuaEvents = nil
+    self._arg = nil
 end
 
 function XUiNode:ReleaseChildNodes()
@@ -278,6 +411,95 @@ function XUiNode:OnRelease()
 
 end
 
+--添加红点绑定接口，优化红点释放问题
+function XUiNode:AddRedPointEvent(node, func, listener, conditionGroup, args, isCheck)
+    if not self.RedEventDic then
+        self.RedEventDic = {}
+    end
+    if self.RedEventDic[node] then
+        local redPointId = self.RedEventDic[node]
+        local exist = XRedPointManager.CheckEventExist(redPointId)
+        --存在则再检查一次
+        if exist then
+            XRedPointManager.Check(redPointId, args)
+            return
+        else
+            self.RedEventDic[node] = nil
+            XLog.Error("红点释放时机不对，请检查添加与释放函数，当前界面：" .. 
+                    tostring(self.GameObject.name) .. ", 节点：" .. tostring(node.gameObject.name))
+        end
+    end
+    local id = XRedPointManager.AddRedPointEvent(node, func, listener, conditionGroup, args, isCheck)
+    self.RedEventDic[node] = id
+    return id
+end
+
+function XUiNode:ReleaseRedPoint()
+    if XTool.IsTableEmpty(self.RedEventDic) then
+        return
+    end
+    for _, redPointId in pairs(self.RedEventDic) do
+        XRedPointManager.RemoveRedPointEvent(redPointId)
+    end
+    self.RedEventDic = {}
+end
+
+function XUiNode:RemoveRedPointEvent(redPointId)
+    if XTool.IsTableEmpty(self.RedEventDic) then
+        return
+    end
+    local tmpNode
+    for node, pointId in pairs(self.RedEventDic) do
+        if pointId == redPointId then
+            tmpNode = node
+            break
+        end
+    end
+
+    if tmpNode then
+        self.RedEventDic[tmpNode] = nil
+        XRedPointManager.RemoveRedPointEvent(redPointId)
+    end
+end
+
+function XUiNode:PlayAnimationWithMask(animeName, finCb, beginCb)
+    local subBeginCb = function ()
+        XLuaUiManager.SetMask(true)
+        if beginCb then
+            beginCb()
+        end
+    end
+
+    local subFinCb = function ()
+        XLuaUiManager.SetMask(false)
+        if finCb then
+            finCb()
+        end
+    end
+
+    self:PlayAnimation(animeName, subFinCb, subBeginCb)
+end
+
+function XUiNode:PlayAnimation(animeName, finCb, beginCb)
+    if XTool.UObjIsNil(self.Transform) then
+        return
+    end
+
+    local animRoot = self.Transform:Find("Animation")
+    if XTool.UObjIsNil(animRoot) then
+        return
+    end
+
+    local animTrans = animRoot:FindTransform(animeName)
+    if not animTrans or not animTrans.gameObject.activeInHierarchy then
+        return
+    end
+    if beginCb then
+        beginCb()
+    end
+    animTrans:PlayTimelineAnimation(finCb)
+end
+
 ------------------------------------------------LuaUI---------------------------------------------------------
 ---@class XLuaUi
 ---@field UiModel XUiModel
@@ -286,6 +508,7 @@ XLuaUi = XClass(nil, "XLuaUi")
 function XLuaUi:Ctor(name, uiProxy)
     self._Uid = GenUIUid()
     self.Name = name
+    ---@type XUiLuaProxy
     self.UiProxy = uiProxy
     self.Ui = uiProxy.Ui
     -- 页面自动关闭时间id
@@ -298,7 +521,6 @@ function XLuaUi:Ctor(name, uiProxy)
     self._Control = nil
     ---@type XUiNode[]
     self._ChildNodes = {} --子节点
-    self._EnabledCount = 0
     self:BindControl()
     self._LuaEvents = self:OnGetLuaEvents()
 end
@@ -323,9 +545,7 @@ end
 
 ---@param node XUiNode
 function XLuaUi:AddChildNode(node)
-    if not table.contains(self._ChildNodes, node) then
-        table.insert(self._ChildNodes, node)
-    end
+    table.insert(self._ChildNodes, node)
 end
 
 ---@param node XUiNode
@@ -345,7 +565,7 @@ end
 
 function XLuaUi:EnableChildNodes()
     for _, child in ipairs(self._ChildNodes) do
-        if child._IsShow then
+        if child:IsNodeShow() then
             child:OnEnableUi()
         end
     end
@@ -353,9 +573,15 @@ end
 
 function XLuaUi:DisableChildNodes()
     for _, child in ipairs(self._ChildNodes) do
-        if child._IsShow then
+        if child:IsNodeShow() then
             child:OnDisableUi()
         end
+    end
+end
+
+function XLuaUi:DestroyChildNodes()
+    for _, child in ipairs(self._ChildNodes) do
+        child:OnDestroyUi()
     end
 end
 
@@ -381,6 +607,7 @@ function XLuaUi:SetGameObject()
     self.UiModelGo = self.Ui.UiModelGo
     self.UiModel = self.Ui.UiModel
     self:InitUiObjects()
+    XTool.InitUiObjectNewIndex(self)
 end
 
 function XLuaUi:OnAwakeUi()
@@ -397,6 +624,8 @@ function XLuaUi:OnStart()
 end
 
 function XLuaUi:OnEnableUi(...)
+    self:EnableChildNodes()
+
     self:OnEnable(...)
     if self._LuaEvents then
         for i = 1, #self._LuaEvents do
@@ -406,10 +635,6 @@ function XLuaUi:OnEnableUi(...)
     if self.OpenAutoClose then
         self:_StartAutoCloseTimer()
     end
-    if self._EnabledCount > 0 then
-        self:EnableChildNodes()
-    end
-    self._EnabledCount = self._EnabledCount + 1
 end
 
 function XLuaUi:OnEnable()
@@ -417,6 +642,8 @@ function XLuaUi:OnEnable()
 end
 
 function XLuaUi:OnDisableUi()
+    self:DisableChildNodes()
+
     if self._LuaEvents then
         for i = 1, #self._LuaEvents do
             XUIEventBind.RemoveEventListener(self._LuaEvents[i], self.OnNotify, self)
@@ -426,7 +653,6 @@ function XLuaUi:OnDisableUi()
         self:_StopAutoCloseTimer()
     end
     self:OnDisable()
-    self:DisableChildNodes()
 end
 
 function XLuaUi:OnDisable()
@@ -435,6 +661,7 @@ end
 
 function XLuaUi:OnDestroyUi()
     self:ReleaseRedPoint()
+    self:DestroyChildNodes()
     self:OnDestroy()
 end
 
@@ -539,21 +766,7 @@ function XLuaUi:OnRelease()
     self:UnBindControl()
     self:ReleaseChildNodes()
 
-
-    if self.Obj and self.Obj:Exist() then
-        local nameList = self.Obj.NameList
-        for _, v in pairs(nameList) do
-            self[v] = nil
-        end
-        self.Obj = nil
-    end
-
-    for k, v in pairs(self) do
-        local t = type(v)
-        if t == "userdata" and CsXUiHelper.IsUnityObject(v) then
-            self[k] = nil
-        end
-    end
+    XTool.ReleaseUiObjectIndex(self)
 end
 
 --CS.XEventId.EVENT_UI_ALLOWOPERATE 允许UI操作事件（可以理解为动画播放完成后的回调）
@@ -723,6 +936,46 @@ function XLuaUi:PlayAnimationWithMask(animName, callback, beginCallback, wrapMod
     )
 end
 
+---因为PlayAnimation不能手动停止，遇到需求需要所以添加此接口 v2.7 by ljb
+function XLuaUi:StopAnimation(animName, isTriggerCallBack, isEvaluate)
+    if isEvaluate == nil then
+        isEvaluate = true
+    end
+    self.UiProxy:StopAnimation(animName, isTriggerCallBack, isEvaluate)
+end
+
+---带mask的anim手动停止需特殊处理 v2.7 by ljb
+function XLuaUi:PlayMaskAnimation(animName, callback, beginCallback, wrapMode)
+    self.UiProxy:PlayAnimation(
+            animName,
+            function(state)
+                XLuaUiManager.SetMask(false, animName)
+                if callback then
+                    callback(state)
+                end
+            end,
+            function()
+                XLuaUiManager.SetMask(true, animName)
+                if beginCallback then
+                    beginCallback()
+                end
+            end,
+            wrapMode or CS.UnityEngine.Playables.DirectorWrapMode.Hold
+    )
+end
+
+---带mask的anim手动停止需特殊处理 v2.7 by ljb
+function XLuaUi:StopMaskAnimation(animName, isTriggerCallBack, isEvaluate)
+    if not XLuaUiManager.IsMaskShow(animName) then
+        XLog.Error("[StopMaskAnimation Error:此接口仅对使用PlayMaskAnimation播放的Animation有效]")
+    end
+    if isEvaluate == nil then
+        isEvaluate = true
+    end
+    self.UiProxy:StopAnimation(animName, isTriggerCallBack, isEvaluate)
+    XLuaUiManager.SetMask(false, animName)
+end
+
 --获取Open传递的参数
 function XLuaUi:GetArgs()
     return self.UiProxy:GetArgs()
@@ -869,23 +1122,54 @@ function XLuaUi:BindHelpBtnOnly(btn)
     -- TODO 对帮助按钮进行统一隐藏
 end
 
---添加红点绑定接口，优化红点释放问题，如果页面重写了OnDisable，使用时需要手动在子类调用ReleaseRedPoint方法
-function XLuaUi:BindRedPoint(node, func, listener, conditionGroup, args, isCheck)
+--添加红点绑定接口，优化红点释放问题
+---@param node UnityEngine.Component
+function XLuaUi:AddRedPointEvent(node, func, listener, conditionGroup, args, isCheck)
     if not self.RedEventDic then
         self.RedEventDic = {}
     end
     if self.RedEventDic[node] then
-        return
+        local redPointId = self.RedEventDic[node]
+        local exist = XRedPointManager.CheckEventExist(redPointId)
+        --存在则再检查一次
+        if exist then
+            XRedPointManager.Check(redPointId, args)
+            return
+        else
+            self.RedEventDic[node] = nil
+            XLog.Error("红点释放时机不对，请检查添加与释放函数，当前界面：" ..
+                    tostring(self.GameObject.name) .. ", 节点：" .. tostring(node.gameObject.name))
+        end
     end
     local id = XRedPointManager.AddRedPointEvent(node, func, listener, conditionGroup, args, isCheck)
     self.RedEventDic[node] = id
+    return id
 end
 
 function XLuaUi:ReleaseRedPoint()
     if XTool.IsTableEmpty(self.RedEventDic) then
         return
     end
-    for _, redPointId in ipairs(self.RedEventDic) do
+    for _, redPointId in pairs(self.RedEventDic) do
+        XRedPointManager.RemoveRedPointEvent(redPointId)
+    end
+    self.RedEventDic = {}
+end
+
+function XLuaUi:RemoveRedPointEvent(redPointId)
+    if XTool.IsTableEmpty(self.RedEventDic) then
+        return
+    end
+    local tmpNode
+    for node, pointId in pairs(self.RedEventDic) do
+        if pointId == redPointId then
+            tmpNode = node
+            break
+        end
+    end
+
+    if tmpNode then
+        self.RedEventDic[tmpNode] = nil
         XRedPointManager.RemoveRedPointEvent(redPointId)
     end
 end

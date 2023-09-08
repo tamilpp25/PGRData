@@ -10,7 +10,7 @@ end
 
 function XUiMultiDimTask:OnStart()
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     
     self:InitDynamicTable()
     self:InitLeftTabBtn()

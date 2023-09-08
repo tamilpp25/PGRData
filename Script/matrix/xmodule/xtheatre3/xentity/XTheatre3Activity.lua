@@ -23,6 +23,8 @@ function XTheatre3Activity:Ctor()
     -- 当前章节数据
     ---@type XTheatre3Chapter
     self.CurChapterDb = nil
+    ---@type XTheatre3AdventureEffectDescData
+    self.AdventureEffectDescData = nil
     -- 当前编队数据
     ---@type XTheatre3Team
     self.CurTeamData = nil
@@ -269,9 +271,9 @@ function XTheatre3Activity:UpdateUnlockItemIdData(data)
         return
     end
     self.UnlockItemId = {}
-    for _, itmeId in pairs(data) do
-        if XTool.IsNumberValid(itmeId) then
-            self.UnlockItemId[itmeId] = itmeId
+    for _, itemId in pairs(data) do
+        if XTool.IsNumberValid(itemId) then
+            self.UnlockItemId[itemId] = itemId
         end
     end
 end
@@ -281,9 +283,9 @@ function XTheatre3Activity:UpdateUnlockEquipIdData(data)
         return
     end
     self.UnlockEquipId = {}
-    for _, itmeId in pairs(data) do
-        if XTool.IsNumberValid(itmeId) then
-            self.UnlockEquipId[itmeId] = itmeId
+    for _, itemId in pairs(data) do
+        if XTool.IsNumberValid(itemId) then
+            self.UnlockEquipId[itemId] = itemId
         end
     end
 end
@@ -364,6 +366,9 @@ function XTheatre3Activity:UpdateSettle(data)
         self:UpdateFirstPassChapter(data.PassChapterIds)
         self:SetAdventurePassChapterDir({})
     end
+    if XTool.IsNumberValid(data.FirstPassFlag) then
+        self.FirstPassFlag = true
+    end
 end
 
 function XTheatre3Activity:GetCurActivityId()
@@ -412,7 +417,7 @@ function XTheatre3Activity:GetSlotInfo(slotId)
     return self.EquipPos[slotId]
 end
 
-function XTheatre3Activity:GetSlotPosIdByColocId(colorId)
+function XTheatre3Activity:GetSlotPosIdByColorId(colorId)
     for _, v in ipairs(self.EquipPos) do
         if v:GetColorId() == colorId then
             return v:GetPos()
@@ -500,12 +505,21 @@ function XTheatre3Activity:GetFirstFightPos()
     return self.CurTeamData and self.CurTeamData:GetFirstFightPos() or 1
 end
 
+---@return boolean, number isInTeam, EquipPos.ColorId
 function XTheatre3Activity:GetEntityIdIsInTeam(entityId)
     return self.CurTeamData:GetEntityIdIsInTeam(entityId)
 end
 
+function XTheatre3Activity:GetEntityIdBySlotColor(slotColorId)
+    return self.CurTeamData:GetEntityIdByTeamPos(slotColorId)
+end
+
 function XTheatre3Activity:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     self.CurTeamData:UpdateEntityTeamPos(entityId, teamPos, isJoin)
+end
+
+function XTheatre3Activity:SwapEntityTeamPos(teamPosA, teamPosB)
+    self.CurTeamData:SwitchEntityPos(teamPosA, teamPosB)
 end
 
 function XTheatre3Activity:UpdateCaptainPosAndFirstFightPos(cPos, fPos)
@@ -513,13 +527,13 @@ function XTheatre3Activity:UpdateCaptainPosAndFirstFightPos(cPos, fPos)
 end
 
 function XTheatre3Activity:CheckCaptainHasEntityId()
-    local entitiyId = self.CurTeamData:GetCaptainPosEntityId()
-    return XTool.IsNumberValid(entitiyId)
+    local entityId = self.CurTeamData:GetCaptainPosEntityId()
+    return XTool.IsNumberValid(entityId)
 end
 
 function XTheatre3Activity:CheckFirstFightHasEntityId()
-    local entitiyId = self.CurTeamData:GetFirstFightPosEntityId()
-    return XTool.IsNumberValid(entitiyId)
+    local entityId = self.CurTeamData:GetFirstFightPosEntityId()
+    return XTool.IsNumberValid(entityId)
 end
 
 function XTheatre3Activity:ResetTeam()
@@ -551,6 +565,21 @@ function XTheatre3Activity:CheckHasPassEnding(difficultyId, endingId)
         return true
     end
     return table.indexof(self.PassDifficultyRecords[difficultyId], endingId)
+end
+
+function XTheatre3Activity:CheckEndingIsPass(endingId)
+    if XTool.IsTableEmpty(self.PassDifficultyRecords) then
+        return false
+    end
+    if not XTool.IsNumberValid(endingId) then
+        return true
+    end
+    for _, list in pairs(self.PassDifficultyRecords) do
+        if table.indexof(list, endingId) then
+            return true
+        end
+    end
+    return false
 end
 
 function XTheatre3Activity:CheckDifficultyIdUnlock(difficultyId)
@@ -605,12 +634,27 @@ function XTheatre3Activity:UpdateUnlockDifficultyId(data)
 end
 --endregion
 
+--region EquipDescData
+function XTheatre3Activity:UpdateEffectDescData(data)
+    if not self.AdventureEffectDescData then
+        local XTheatre3AdventureEffectDescData = require("XModule/XTheatre3/XEntity/Adventure/XTheatre3AdventureEffectDescData")
+        self.AdventureEffectDescData = XTheatre3AdventureEffectDescData.New()
+    end
+    self.AdventureEffectDescData:UpdateData(data)
+end
+
+function XTheatre3Activity:GetAdventureEffectDescData()
+    return self.AdventureEffectDescData
+end
+--endregion
+
 --region Adventure
 function XTheatre3Activity:InitAdventureData()
     self.DifficultyId = 0
     self.MaxEnergy = 0
     self.CurChapterId = 0
     self.CurChapterDb = nil
+    self.AdventureEffectDescData = nil
 end
 
 function XTheatre3Activity:InitAdventureSettleData()
@@ -642,7 +686,7 @@ function XTheatre3Activity:UpdateFirstPassChapter(data)
         end
     end
     local dir = self:GetAdventurePassChapterDir()
-    for chapterId, v in ipairs(dir) do
+    for chapterId, _ in ipairs(dir) do
         self:SetAdventureChapterFirstPass(chapterId, true)
     end
 end
@@ -680,6 +724,23 @@ end
 function XTheatre3Activity:SetAdventurePassChapterDir(dir)
     local key = self:GetAdventurePassChapterIdSaveKey()
     return XSaveTool.SaveData(key, dir)
+end
+
+function XTheatre3Activity:GetAdventureItemCount(itemId)
+    local result = 0
+    if XTool.IsTableEmpty(self.Items) then
+        return result
+    end
+    for _, itemData in ipairs(self.Items) do
+        if itemData.ItemId == itemId then
+            result = result + 1
+        end
+    end
+    return result
+end
+
+function XTheatre3Activity:GetAdventureSuitList(index)
+    return self.Equips[index]:GetSuitIdList()
 end
 --endregion
 

@@ -61,6 +61,8 @@ function XUiCharacterPropertyV2P6:InitFilter()
     local list = self.CharacterAgency:GetOwnCharacterList()
     self.DataSource = list
     self.PanelFilter:ImportList(list)
+    self.PanelFilter:RefreshList()
+    self.PanelFilter:Close()
 end
 
 function XUiCharacterPropertyV2P6:InitButton()
@@ -101,6 +103,10 @@ function XUiCharacterPropertyV2P6:OnEnable()
 
     --顺便附加拖拽模型
     self.PanelDrag.Target = self.ParentUi.RoleModelPanel:GetTransform()
+end
+
+function XUiCharacterPropertyV2P6:OnDisable()
+    XDataCenter.FavorabilityManager.StopCv()
 end
 
 -- 刷新当前展示的内容
@@ -214,6 +220,7 @@ end
 function XUiCharacterPropertyV2P6:HideFilter()
     self.PanelCharacterFilter.gameObject:SetActiveEx(false)
     self.PanelPropertyButtons.gameObject:SetActiveEx(true)
+    self.PanelFilter:Close()
 end
 
 function XUiCharacterPropertyV2P6:OnBtnExchangeClick()
@@ -229,6 +236,9 @@ function XUiCharacterPropertyV2P6:ShowOrHideFilter()
         self.PanelFilter:DoSelectTag("BtnAll")
         local charId = self.ParentUi.CurCharacter.Id
         self.PanelFilter:DoSelectCharacter(charId)
+        self.PanelFilter:Open()
+    else
+        self.PanelFilter:Close()
     end
 
     activeSelf = self.PanelPropertyButtons.gameObject.activeSelf

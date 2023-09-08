@@ -127,7 +127,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetTeamDynamicCharacterTypes()
     if not isInCurTeam then
         local type = self:GetSelectCharacterType()
         if self.CharacterId then
-            local template = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+            local template = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
             type = template.Type
         end
         table.insert(result, type)
@@ -363,7 +363,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnJoinTeam(btnSelfObj, pref
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             self:AddDialogTipCount()
 
@@ -471,7 +471,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetCharacterType(characterId)
     end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:IsPrefab()

@@ -244,7 +244,7 @@ function XUiDoubleTowersRoom:OnBtnCharClicked()
             if team:GetCaptainPos() == index then
                 soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
             end
-            XDataCenter.FavorabilityManager.PlayCvByType(XEntityHelper.GetCharacterIdByEntityId(newEntityId), soundType)
+            XMVCA.XFavorability:PlayCvByType(XEntityHelper.GetCharacterIdByEntityId(newEntityId), soundType)
             XDataCenter.DoubleTowersManager.SetRoleId(newEntityId)
             XDataCenter.DoubleTowersManager.RequestDoubleTowerSetTeam()
         end

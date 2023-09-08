@@ -31,6 +31,7 @@ XFubenMainLineManagerCreator = function()
     local ExploreEventStateList = {}
     local MainlineStageRecord
     local LastPassStage = {}    --key:chapterId value:stageId
+    local TeleportFightBeforeStageId = 0 -- 关卡内跳转前的关卡Id
     local TeleportFightStageId = 0 -- 关卡内跳转的关卡Id
 
     local ExItemRedPointState = {
@@ -652,6 +653,7 @@ XFubenMainLineManagerCreator = function()
     function XFubenMainLineManager.ShowReward(winData)
         local teleportFight = XFubenMainLineManager.GetTeleportFight(winData.StageId)
         TeleportFightStageId = teleportFight and teleportFight.StageCfg.StageId or 0
+        TeleportFightBeforeStageId = teleportFight and winData.StageId or 0
         if teleportFight then
             XFubenMainLineManager.TeleportRewardCacheInfo(winData)
             XFubenMainLineManager.EnterTeleportFight(teleportFight)
@@ -663,11 +665,16 @@ XFubenMainLineManagerCreator = function()
     function XFubenMainLineManager.OpenFightLoading(stageId)
         if TeleportFightStageId == stageId then
             TeleportFightStageId = 0
+            TeleportFightBeforeStageId = 0
             local loadingType = XFubenMainLineConfigs.GetSkipLoadingTypeByStageId(stageId)
             XLuaUiManager.Open("UiLoading", loadingType)
         else
             XDataCenter.FubenManager.OpenFightLoading(stageId)
         end
+    end
+
+    function XFubenMainLineManager.GetTeleportFightBeforeStageId()
+        return TeleportFightBeforeStageId
     end
 
     function XFubenMainLineManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)

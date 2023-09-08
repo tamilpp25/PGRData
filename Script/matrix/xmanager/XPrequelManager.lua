@@ -649,7 +649,7 @@ XPrequelManagerCreator = function()
                 end,
                 GetOpenDayString = function(proxy)
                     -- local name = config.RoleName
-                    local name = XCharacterConfigs.GetCharacterTemplate(characterId).Name
+                    local name = XMVCA.XCharacter:GetCharacterTemplate(characterId).Name
                     return name, true
                 end,
                 CheckHasTimeLimitTag = function(proxy)
@@ -664,8 +664,8 @@ XPrequelManagerCreator = function()
             }, XChapterViewModel
             , {
                 Id = config.Id,
-                ExtralName = XCharacterConfigs.GetCharacterTemplate(characterId).TradeName,
-                Name = XCharacterConfigs.GetCharacterTemplate(characterId).TradeName,
+                ExtralName = XMVCA.XCharacter:GetCharacterTemplate(characterId).TradeName,
+                Name = XMVCA.XCharacter:GetCharacterTemplate(characterId).TradeName,
                 Desc = config.Desc,
                 Icon = config.Icon,
                 CharacterId = characterId,

@@ -1,13 +1,16 @@
 local XSCRoleSkill = require("XEntity/XSameColorGame/Skill/XSCRoleSkill")
 local XCharacterViewModel = require("XEntity/XCharacter/XCharacterViewModel")
 local XSCBall = require("XEntity/XSameColorGame/Battle/XSCBall")
+---@class XSCRole
 local XSCRole = XClass(nil, "XSCRole")
 
 function XSCRole:Ctor(id)
     self.Id = id
+    ---@type XTableSameColorGameRole
     self.Config = XSameColorGameConfigs.GetRoleConfig(id)
+    ---@type XCharacterViewModel
     self.CharacterViewModel = nil
-    -- self.SkillManager = nil
+    ---@type XSCBall[]
     self.BallDic = {}
     -- 正在使用中的技能
     self.UsingSkillGroupIds = {}
@@ -68,6 +71,14 @@ function XSCRole:GetNameIcon()
     return self.Config.NameIcon
 end
 
+function XSCRole:GetNameEnIcon()
+    return self.Config.NameEnIcon
+end
+
+function XSCRole:GetAttributeFactorId()
+    return self.Config.AttributeFactorId
+end
+
 function XSCRole:GetSkillEnergyCost()
     local skill = self:GetMainSkill()
     if skill then
@@ -83,6 +94,7 @@ function XSCRole:GetAutoEnergyByRound(round)
     return self.AutoEnergyDic[round]
 end
 
+---@return XCharacterViewModel
 function XSCRole:GetCharacterViewModel()
     if self.CharacterViewModel == nil then
         self.CharacterViewModel = XCharacterViewModel.New(self.Config.CharacterId)
@@ -99,13 +111,20 @@ function XSCRole:GetIsLock()
     return not self:GetIsInUnlockTime()
 end
 
+function XSCRole:GetOpenTimeTipStr()
+    local startTime = XFunctionManager.GetStartTimeByTimeId(self.Config.TimerId)
+    return XUiHelper.GetTimeYearMonthDay(startTime)
+end
+
 function XSCRole:GetOpenTimeStr()
     local startTime = XFunctionManager.GetStartTimeByTimeId(self.Config.TimerId)
     return XUiHelper.GetTime(startTime - XTime.GetServerNowTimestamp()
     , XUiHelper.TimeFormatType.ACTIVITY)
 end
 
+
 -- 获得角色的球的数据
+---@return XSCBall[]
 function XSCRole:GetBalls()
     local result = {}
     for _, ballId in ipairs(self.Config.BallId) do
@@ -114,6 +133,7 @@ function XSCRole:GetBalls()
     return result
 end
 
+---@return XSCBall
 function XSCRole:GetBall(id)
     local result = self.BallDic[id] 
     if result == nil then

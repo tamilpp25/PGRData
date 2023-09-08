@@ -144,13 +144,21 @@ function XUiTheatre3TeamInstall:OnSave()
         XUiManager.TipMsg(XUiHelper.GetText("Theatre3SaveTeamSettingTip"))
         return
     end
+    local slotInfo1 = self._Control:GetSlotInfo(self._CurCaptain)
+    local slotInfo2 = self._Control:GetSlotInfo(self._CurFirstFight)
+    if not slotInfo1:CheckIsHaveCharacter() then
+        XUiManager.TipText("TeamManagerCheckCaptainNil")
+        return
+    end
+    if not slotInfo2:CheckIsHaveCharacter() then
+        XUiManager.TipText("TeamManagerCheckFirstFightNil")
+        return
+    end
     for pos, ColorId in pairs(self._Colors) do
         local slotInfo = self._Control:GetSlotInfo(pos)
         slotInfo:UpdateEquipPosColorId(ColorId)
         self._Control:UpdateEntityTeamPos(slotInfo:GetRoleId(), ColorId, true)
     end
-    local slotInfo1 = self._Control:GetSlotInfo(self._CurCaptain)
-    local slotInfo2 = self._Control:GetSlotInfo(self._CurFirstFight)
     self._Control:UpdateCaptainPosAndFirstFightPos(slotInfo1:GetColorId(), slotInfo2:GetColorId())
     self._Control:RequestSetTeam()
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_THEATRE3_SAVE_TEAM)

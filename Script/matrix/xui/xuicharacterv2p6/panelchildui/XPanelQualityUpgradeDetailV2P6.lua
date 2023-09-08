@@ -32,7 +32,7 @@ function XPanelQualityUpgradeDetailV2P6:Refresh(afterEvoQuality)
     local characterId = self.Parent.ParentUi.CurCharacter.Id
      
     -- 名字和职业
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local career = self.CharacterAgency:GetCharacterCareer(characterId)
     local careerIcon = XCharacterConfigs.GetNpcTypeIcon(career)
     self.BtnType:SetRawImage(careerIcon)

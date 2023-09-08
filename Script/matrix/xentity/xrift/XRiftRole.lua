@@ -1,5 +1,6 @@
--- 大秘境【角色】实例（含机器人和自用角色）
 local XBaseRole = require("XEntity/XRole/XBaseRole")
+
+---@class XRiftRole 大秘境【角色】实例（含机器人和自用角色）
 local XRiftRole = XClass(XBaseRole, "XRiftRole")
 
 function XRiftRole:Ctor(rawData)

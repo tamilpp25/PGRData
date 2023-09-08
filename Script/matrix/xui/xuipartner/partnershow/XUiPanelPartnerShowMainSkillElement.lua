@@ -42,7 +42,7 @@ end
 function XUiPanelPartnerShowMainSkillElement:SetData(partner, skill)
     self.Skill = skill
     if partner:GetIsCarry() then
-        self.CharacterElement = XCharacterConfigs.GetCharacterElement(partner:GetCharacterId())
+        self.CharacterElement = XMVCA.XCharacter:GetCharacterElement(partner:GetCharacterId())
     end
     -- 刷新列表
     self:RefreshDynamicTable()

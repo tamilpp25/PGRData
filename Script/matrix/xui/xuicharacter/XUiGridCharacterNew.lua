@@ -75,8 +75,8 @@ end
 function XUiGridCharacterNew:UpdateUnOwnInfo()
     local characterId = self.Character.Id
     self.TxtCurCount.text = XDataCenter.CharacterManager.GetCharUnlockFragment(characterId)
-    local bornQuality = XCharacterConfigs.GetCharMinQuality(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
+    local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
     self.TxtNeedCount.text = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
     if self.IconEquipGuide then

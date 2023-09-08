@@ -1,5 +1,6 @@
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 
+---@class XUiGridSettleWinRole
 XUiGridWinRole = XClass(nil, "XUiGridWinRole")
 
 function XUiGridWinRole:Ctor(rootUi, ui)
@@ -27,10 +28,10 @@ function XUiGridWinRole:UpdateRoleInfo(charExpData, addExp)
 
     local lastLevel = charExpData.Level
     local lastExp = charExpData.Exp
-    local lastMaxExp = XCharacterConfigs.GetNextLevelExp(charId, lastLevel)
+    local lastMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, lastLevel)
     local curLevel = char.Level
     local curExp = char.Exp
-    local curMaxExp = XCharacterConfigs.GetNextLevelExp(charId, curLevel)
+    local curMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, curLevel)
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp)
     self.PlayerExpBar:SetShareTag(false)
@@ -63,10 +64,10 @@ function XUiGridWinRole:UpdateShareRoleInfo(shareRoleInfo)
     local charId = shareRoleInfo.Id
     local lastLevel = shareRoleInfo.Level
     local lastExp = shareRoleInfo.Exp
-    local lastMaxExp = XCharacterConfigs.GetNextLevelExp(charId, lastLevel)
+    local lastMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, lastLevel)
     local curLevel = shareRoleInfo.Level
     local curExp = shareRoleInfo.Exp
-    local curMaxExp = XCharacterConfigs.GetNextLevelExp(charId, curLevel)
+    local curMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, curLevel)
 
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, 0)
@@ -99,6 +100,14 @@ function XUiGridWinRole:UpdateNieRRobotInfo(robotId)
         icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(data.CharacterId)
     end
     
+    if icon then
+        self.RImgIcon:SetRawImage(icon)
+    end
+end
+
+function XUiGridWinRole:UpdateTaikoRoleInfo(robotId)
+    self.PanelPlayerExpBar.gameObject:SetActiveEx(false)
+    local icon = XCharacterCuteConfig.GetCuteModelSmallHeadIcon(XRobotManager.GetCharacterId(robotId))
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end

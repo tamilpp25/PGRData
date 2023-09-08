@@ -1,6 +1,6 @@
 ---@desc 提示类型
----@field YK 月卡提示
----@field Gift 礼包提示
+---@field YK number 月卡提示
+---@field Gift number 礼包提示
 local TipsType = {
     YK = 1,
     Gift = 2,
@@ -18,11 +18,14 @@ end
 
 function XUiGridTip:Refresh(data)
     self.Data = data
-    self.TxtTips.text = data.Data
+    self.TxtTips.text = data.Tips
 end
 
 function XUiGridTip:OnClick()
-    if self.ClickCb then self.ClickCb(self.Data.Type) end
+    if self.Data.Config.Id == XEnumConst.Ui_MAIN.TerminalTipType.ExpensiveItem then
+        XMVCA.XUiMain:RecordPanelTipClicked(self.Data.Config.Id)
+    end
+    if self.ClickCb then self.ClickCb(self.Data.Config.SkipId) end
 end
 
 --=========================================类分界线=========================================--
@@ -37,18 +40,15 @@ local RedPointConditionGroup = {
     Set = {
         XRedPointConditions.Types.CONDITION_MAIN_SET
     },
-    --2.5,2.6隐藏，2.7出了周历后应该会再次启用
-    --[[
     Screen={
         XRedPointConditions.Types.CONDITION_SCENE_SETTING
     }
-    --]]
 }
 
 local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
 
 ---@class XUiMainTerminal 终端界面类
----@field uiMain 主界面引用
+---@field uiMain XUiMain 主界面引用
 local XUiMainTerminal = XClass(XUiMainPanelBase, "XUiMainTerminal")
 
 -- 一分钟
@@ -68,6 +68,11 @@ function XUiMainTerminal:OnStart(uiMain)
     self.GridTips = {}
     self:InitUi()
     self:InitCb()
+end
+
+function XUiMainTerminal:OnEnable(uiMain)
+    XEventManager.AddEventListener(XEventId.EVENT_SIGN_IN_FIVE_OCLOCK_REFRESH, self.RefreshGridTips, self)
+    self:Show()
 end
 
 function XUiMainTerminal:Show()
@@ -97,10 +102,7 @@ function XUiMainTerminal:Show()
     --改变状态-触发红点检查
     XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
-    --2.5,2.6隐藏，2.7出了周历后应该会再次启用
-    --[[
     XRedPointManager.Check(self.ScreenPointId)
-    --]]
     XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnTanchuangCloseBig")
 end
 
@@ -130,6 +132,11 @@ function XUiMainTerminal:OnDisable()
     XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
     XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SIGN_IN_FIVE_OCLOCK_REFRESH, self.RefreshGridTips, self)
+end
+
+function XUiMainTerminal:OnRelease()
+    self:RemoveItemListener()
 end
 
 function XUiMainTerminal:InitCb()
@@ -147,7 +154,7 @@ function XUiMainTerminal:InitCb()
     end
     --场景切换
     self.BtnScreen.CallBack=function()
-        XLuaUiManager.Open("UiSceneSettingMain")
+        XDataCenter.PhotographManager.OpenUiSceneSetting()
     end
     --拍照分享
     self.BtnScreenShot.CallBack = function() 
@@ -180,13 +187,11 @@ function XUiMainTerminal:InitUi()
     self.BtnSet.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Setting))
     
     --红点注册
-    self.WeekPointId = XRedPointManager.AddRedPointEvent(self.BtnWeek, self.CheckBtnWeekRedPoint, self, RedPointConditionGroup.Week)
-    XRedPointManager.AddRedPointEvent(self.BtnSocial.ReddotObj, self.CheckBtnSocialRedPoind, self, RedPointConditionGroup.Friend)
-    XRedPointManager.AddRedPointEvent(self.BtnSet, self.CheckBtnSetRedPoint, self, RedPointConditionGroup.Set)
-    --2.5,2.6隐藏，2.7出了周历后应该会再次启用
-    --[[
-    self.ScreenPointId=XRedPointManager.AddRedPointEvent(self.BtnScreen,self.CheckBtnScreenRedPoint,self,RedPointConditionGroup.Screen)
-    --]]
+    --self.WeekPointId = self:AddRedPointEvent(self.BtnWeek, self.CheckBtnWeekRedPoint, self, RedPointConditionGroup.Week)
+    self:AddRedPointEvent(self.BtnSocial.ReddotObj, self.CheckBtnSocialRedPoind, self, RedPointConditionGroup.Friend)
+    self:AddRedPointEvent(self.BtnSet, self.CheckBtnSetRedPoint, self, RedPointConditionGroup.Set)
+
+    self.ScreenPointId=self:AddRedPointEvent(self.BtnScreen,self.CheckBtnScreenRedPoint,self,RedPointConditionGroup.Screen)
 end
 
 function XUiMainTerminal:RefreshTime()
@@ -231,7 +236,7 @@ function XUiMainTerminal:RefreshSubMenu()
     local dataList = self:GetSubMenuList()
     if XTool.IsTableEmpty(dataList) then
         self.SubMenuList = {
-            { Id = -1, Title = "Loading", SubTitle = "...", StyleType = 1 }
+            { Id = -1, Title = "Loading", SubTitle = "...", StyleType = XUiConfigs.SubMenuDefaultStyleType }
         }
     else
         self.SubMenuList = dataList
@@ -257,47 +262,17 @@ function XUiMainTerminal:GetSubMenuList()
     
     return appendArray(systemList, operateList)
 end
-
+ 
 function XUiMainTerminal:RefreshGridTips()
-    local tips = {}
-    if XDataCenter.PurchaseManager.CheckYKContinueBuy() then
-        local tip = {
-            Data = XUiHelper.GetText("PurchaseYKExpireDes"),
-            Type = TipsType.YK
-        }
-        table.insert(tips, tip)
-    end
-    local giftCount = XDataCenter.PurchaseManager.ExpireCount or 0
-    if giftCount > 0 then
-        local tip = {
-            Data = giftCount == 1 and XUiHelper.GetText("PurchaseGiftValitimeTips1") or XUiHelper.GetText("PurchaseGiftValitimeTips2"),
-            Type = TipsType.Gift
-        }
-        table.insert(tips, tip)
-    end
-    -- 宿舍终端提示 可领取 > 可派遣
-    local dispatchedCount, unDispatchCount = XDataCenter.DormQuestManager.GetEntranceShowData()
-    if dispatchedCount > 0 then
-        local tip = {
-            Data = XUiHelper.GetText("DormQuestTerminalMainTeamRegress", dispatchedCount),
-            Type = TipsType.DormTerminal
-        }
-        table.insert(tips, tip)
-    elseif unDispatchCount > 0 then
-        local tip = {
-            Data = XUiHelper.GetText("DormQuestTerminalMainTeamFree", unDispatchCount),
-            Type = TipsType.DormTerminal
-        }
-        table.insert(tips, tip)
-    end
-    for idx, tip in ipairs(tips) do
+    local tips = XMVCA.XUiMain:GetScrollTipList(true)
+    for idx, value in ipairs(tips) do
         local grid = self.GridTips[idx]
         if not grid then
             local ui = idx == 1 and self.GridTip or XUiHelper.Instantiate(self.GridTip, self.PanelMobileList)
             grid = XUiGridTip.New(ui, handler(self, self.OnGridTipClick))
             self.GridTips[idx] = grid
         end
-        grid:Refresh(tip)
+        grid:Refresh(value)
     end
 
     local tipCount = #tips
@@ -306,6 +281,17 @@ function XUiMainTerminal:RefreshGridTips()
     end
     local childCount = self.PanelMobileList.childCount
     self.ScrollView.transform:SetSiblingIndex(childCount - 1)
+end
+
+function XUiMainTerminal:AddItemListener(itemId)
+    XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
+        self:RefreshGridTips()
+        XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE)
+    end, self)
+end
+
+function XUiMainTerminal:RemoveItemListener()
+    XDataCenter.ItemManager.RemoveCountUpdateListener(self)
 end
 
 --region   ------------------界面事件 start-------------------
@@ -320,6 +306,9 @@ end
 
 --音乐播放器
 function XUiMainTerminal:OnBtnMusicPlayerClick()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnMusicPlayer)
     XLuaUiManager.Open("UiMusicPlayer", handler(self, self.OnMusicPlayerClose))
 end
@@ -336,10 +325,16 @@ end
 
 --拍照分享
 function XUiMainTerminal:OnBtnScreenShotClick()
-    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Photograph) then
-        XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnScreenShot)
-        XLuaUiManager.Open("UiPhotograph")
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Photograph) then
+        return
     end
+
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnScreenShot)
+    XLuaUiManager.Open("UiPhotograph")
 end
 
 --好友/社交
@@ -378,17 +373,18 @@ function XUiMainTerminal:OnRotateMusicIcon()
     self.RImgMusicIcon.transform:Rotate(0, 0, CsTime.deltaTime * RotateSpeed);
 end
 
-function XUiMainTerminal:OnGridTipClick(tipType)
-    if tipType == TipsType.YK then
-        XDataCenter.PurchaseManager.SetYKContinueBuy()
-        XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.YK)
-    elseif tipType == TipsType.Gift then
-        XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.LB)
-    elseif tipType == TipsType.DormTerminal then
-        XHomeDormManager.EnterDorm(XPlayer.Id, nil, false, function()
-            XLuaUiManager.Open("UiDormTerminalSystem")
-        end)
-    end
+function XUiMainTerminal:OnGridTipClick(SkipId)
+    XFunctionManager.SkipInterface(SkipId)
+    -- if tipType == XEnumConst.Ui_MAIN.TerminalTipType.MonthlyCard then
+    --     XDataCenter.PurchaseManager.SetYKContinueBuy()
+    --     XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.YK)
+    -- elseif tipType == XEnumConst.Ui_MAIN.TerminalTipType.Gift then
+    --     XLuaUiManager.Open("UiPurchase", XPurchaseConfigs.TabsConfig.LB)
+    -- elseif tipType == XEnumConst.Ui_MAIN.TerminalTipType.Dorm then
+    --     XHomeDormManager.EnterDorm(XPlayer.Id, nil, false, function()
+    --         XLuaUiManager.Open("UiDormTerminalSystem")
+    --     end)
+    -- end
     XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
 end

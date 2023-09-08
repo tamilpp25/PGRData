@@ -1,4 +1,6 @@
+---@class XUiGuildWarPanelStage
 local XUiPanelStage = XClass(nil, "XUiPanelStage")
+
 local XUiGridStage = require("XUi/XUiGuildWar/Map/XUiGridStage/XUiGridStage")
 local XUiGridMonster = require("XUi/XUiGuildWar/Map/XUiGridMonster")
 local XUiGridLine = require("XUi/XUiGuildWar/Map/XUiGridLine")
@@ -222,6 +224,10 @@ function XUiPanelStage:AddEventListener()
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ACTION_BOSS_MERGE, self.ShowBossMerge, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ACTION_BOSS_TREAT_MONSTER, self.ShowBossTreatMonster, self)
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ACTION_NODEDESTROY, self.ShowNodeDestroyed, self)
+    self._FocusBase = function()
+        self:FocusOnBase()
+    end
+    CS.XGameEventManager.Instance:RegisterEvent(XEventId.EVENT_GUIDE_START, self._FocusBase)
     --endregion
 end
 --移除监听
@@ -249,6 +255,7 @@ function XUiPanelStage:RemoveEventListener()
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ACTION_BOSS_MERGE, self.ShowBossMerge, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ACTION_BOSS_TREAT_MONSTER, self.ShowBossTreatMonster, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ACTION_NODEDESTROY, self.ShowNodeDestroyed, self)
+    CS.XGameEventManager.Instance:RemoveEvent(XEventId.EVENT_GUIDE_START, self._FocusBase)
 
     --endregion
     self:StopTimerBaseBeHit()
@@ -354,7 +361,7 @@ function XUiPanelStage:UpdateStage(IsActionPlaying, isPathEditOver)
 
     for key, node in pairs(self.AllNodeDic or {}) do
         local grid = self.GridStageDic[key]
-        grid:UpdateGrid(node, self.IsPathEdit, IsActionPlaying, isPathEditOver)
+        grid:UpdateGrid(node, self.IsPathEdit, IsActionPlaying, isPathEditOver, self)
     end
 end
 
@@ -525,6 +532,7 @@ end
 function XUiPanelStage:CloseMovieMode()
     self:LookAllMap(false)
     self.Base.ReviewPanel:HidePanel()
+    XDataCenter.GuideManager.CheckGuideOpen()
 end
 
 function XUiPanelStage:CheckFinishCount(maxCount, actType, cb)
@@ -899,6 +907,13 @@ function XUiPanelStage:StopTimerBaseBeHit()
     if self.TimerBaseBeHitByBoss1 then
         XScheduleManager.UnSchedule(self.TimerBaseBeHitByBoss1)
         self.TimerBaseBeHitByBoss1 = false
+    end
+end
+
+function XUiPanelStage:FocusOnBase()
+    if XDataCenter.GuideManager.CheckIsGuide(61332) then
+        local grid = self.GridStageDic[BASENODE_INDEX]
+        self:PanelDragFocusTarget(grid)
     end
 end
 

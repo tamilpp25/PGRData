@@ -28,13 +28,13 @@ function XUiGridSkip:Refresh(skipId, hideSkipBtn, skipCb, ...)
     self.SkipCb = skipCb
     self.Args = {...}
 
-    local canSkip = XFunctionManager.IsCanSkip(skipId)
+    local canSkip = XFunctionManager.IsCanSkip(skipId) and not XFunctionManager.CheckSkipPanelIsLoad(skipId)
     local template = XFunctionConfig.GetSkipList(skipId)
     self.TxtNameOn.text = template.Explain
     if hideSkipBtn then
         self.BtnSkip.gameObject:SetActive(false)
     else
         self.BtnSkip.gameObject:SetActive(true)
-        self.BtnSkip:SetDisable(not canSkip)
+        self.BtnSkip:SetDisable(not canSkip,canSkip)
     end
 end

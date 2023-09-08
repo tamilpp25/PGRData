@@ -84,7 +84,7 @@ function XUiGridPresetSkill:Refresh(skillGroup, partner, lock, type, unlockQuali
         skillIcon:SetRawImage(icon)
 
         if partner and self.IsCarry then
-            local charElement = XCharacterConfigs.GetCharacterElement(chrId)
+            local charElement = XMVCA.XCharacter:GetCharacterElement(chrId)
             local elementConfig = XCharacterConfigs.GetCharElement(charElement)
             self.RawElement:SetRawImage(elementConfig.Icon2)
             self.RawElement.gameObject:SetActiveEx(true)

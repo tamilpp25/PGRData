@@ -90,6 +90,7 @@ XShopManager.ActivityShopType = {
     PlanetShop = 8, --行星商店
     RiftShop = 9, --大秘境商店
     CerberusShop = 10, --三头犬小队商店
+    BlackRockChessShop = 11, --国际战旗商店
 }
 
 --分解商店分类

@@ -9,6 +9,7 @@ local Default = {
     _ChipModelList = {},
     _PutOnPosList = {}, --穿戴装备位置列表
     _Pos2IsPut = {},
+    _Hidden = false, --是否隐藏
 }
 
 local XEquipGuideModel = require("XEntity/XEquipGuide/XEquipGuideModel")
@@ -26,6 +27,7 @@ end
 function XEquipTarget:InitData(id)
     self:SetProperty("_Id", id)
     self._RecommendId = XEquipGuideConfigs.TargetConfig:GetProperty(id, "EquipRecommendId")
+    self._Hidden = XEquipGuideConfigs.TargetConfig:GetProperty(id, "Hidden") == 1
     local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
     local suitIds = template.SuitId
     local suitLength = #suitIds

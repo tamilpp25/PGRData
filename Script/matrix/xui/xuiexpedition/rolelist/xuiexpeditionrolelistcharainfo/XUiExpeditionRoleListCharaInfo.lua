@@ -33,7 +33,7 @@ function XUiExpeditionRoleListCharaInfo:UpdateView(eCharacterId)
     self.CharacterId = XExpeditionConfig.GetCharacterIdByBaseId(self.ECharacterCfg.BaseId)
     self.RobotId = self.ECharacterCfg.RobotId
     self.RobotCfg = XRobotManager.GetRobotTemplate(self.RobotId)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
     local jobType = XRobotManager.GetRobotJobType(self.RobotId)

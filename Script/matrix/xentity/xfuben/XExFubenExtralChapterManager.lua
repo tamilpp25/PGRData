@@ -9,10 +9,7 @@ function XExFubenExtralChapterManager:ExOpenChapterUi(viewModel, difficulty)
     local chapterInfo = XDataCenter.ExtraChapterManager.GetChapterInfo(chapterId)
     local chapterCfg = XDataCenter.ExtraChapterManager.GetChapterDetailsCfgByChapterIdAndDifficult(chapterInfo.ChapterMainId, difficulty)
     if chapterInfo.Unlock then
-        local doneCb = function()
-            XLuaUiManager.Open("UiFubenMainLineChapterFw", chapterCfg, nil, false)
-        end -- doneCb
-        XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.ExtraChapter, chapterId, doneCb)
+        XLuaUiManager.Open("UiFubenMainLineChapterFw", chapterCfg, nil, false)
     elseif chapterInfo.IsActivity then
         local ret, desc = XDataCenter.ExtraChapterManager.CheckActivityCondition(chapterId)
         if not ret then

@@ -26,7 +26,7 @@ function XUiStrongholdPower:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
         self.AssetActivityPanel:Refresh({ itemId })

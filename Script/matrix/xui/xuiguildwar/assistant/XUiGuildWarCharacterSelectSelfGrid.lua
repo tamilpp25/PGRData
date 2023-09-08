@@ -17,13 +17,13 @@ end
 
 function XUiGuildWarCharacterSelectSelfGrid:UpdateCharacter()
     local characterId = self.CharacterId
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     
     self:SetData(character)
 
     if self.PanelFight then
         self.PanelFight.gameObject:SetActiveEx(true)
-        local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+        local ability = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
         self.TxtFight.text = math.floor(ability)
     end
 

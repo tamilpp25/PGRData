@@ -1005,6 +1005,9 @@ XGuildDormManagerCreator = function()
     --进入房间
     --==============
     function GuildDormManager.EnterGuildDorm(roomId, channelIndex, onLoadingStart, afterEnterMain)
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         if IsRunning then
             XLuaUiManager.Open("UiGuildDormMain")
             return
@@ -1242,12 +1245,13 @@ XGuildDormManagerCreator = function()
     
     function GuildDormManager.SyncNpcPosition(npcData,npc)
         if npcData.Position and npc:CheckRLRoleIsCreated() then
-
             local transform = npc:GetRLRole():GetTransform()
             local position = Vector3(npcData.Position.X,npcData.Position.Y,npcData.Position.Z)
             local eulerAngles = transform.rotation.eulerAngles
+            --确定新的Y轴转向：如果角度值是被忽略的，则沿用当前角度，否则使用下发的角度
+            local newYangle=(XGuildDormConfig.IgnoreAngle==npcData.Position.Angle or math.abs(npcData.Position.Angle-XGuildDormConfig.IgnoreAngle)<100) and eulerAngles.y or npcData.Position.Angle
             local rotation = Quaternion.Euler(
-                    Vector3(eulerAngles.x, npcData.Position.Angle, eulerAngles.z))
+                    Vector3(eulerAngles.x, newYangle, eulerAngles.z))
             if not npc.SyncAgent then
                 local XGDNpcManagerComponent = require("XEntity/XGuildDorm/Components/XGDNpcSyncToClientComponent")
                 npc.SyncAgent=XGDNpcManagerComponent.New(npc, transform,GuildDormManager.GetCurrentRoom())
@@ -1255,9 +1259,9 @@ XGuildDormManagerCreator = function()
             else
                 npc.SyncAgent:UpdateCurrentSyncData(position, rotation)
             end
-
+            
             if GuildDormManager.GetNpcDataFromDormData(npcData.Id).State==XGuildDormConfig.NpcState.Move then--patrol
-                if npc:GetAgent().BTree==nil or npc:GetAgent().BTree.Id ~=npc:GetPatrolBehaviorId() then
+                if npc:GetAgent().BTree==nil or (npc:GetAgent().BTree.Id ~=npc:GetPatrolBehaviorId() and npc.InteractStatus~=XGuildDormConfig.InteractStatus.End) then
                     npc:PlayBehavior(npc:GetPatrolBehaviorId())
                 end
             end
@@ -1271,6 +1275,7 @@ XGuildDormManagerCreator = function()
                     npc.SyncAgent:SetMoveLock(true)
                 end
                 npc:ChangeStateMachine(XGuildDormConfig.RoleFSMType.PATROL_IDLE)
+
             end
         end
     end

@@ -38,21 +38,7 @@ function XUiGridFashionStoryGroup:Refresh(groupId)
 end
 
 function XUiGridFashionStoryGroup:OnClickEvent()
-    if self.GroupId then
-        if self.IsOpen then
-            XLuaUiManager.Open("UiFubenFashionPaintingNew",self.GroupId)
-            XDataCenter.FashionStoryManager.MarkGroupAsHadAccess(self.GroupId)
-        else
-            if self.LockReason==XFashionStoryConfigs.GroupUnOpenReason.OutOfTime then
-                XUiManager.TipText("FashionStoryGroupOutTime")
-            elseif self.LockReason==XFashionStoryConfigs.GroupUnOpenReason.PreGroupUnPass then
-                local preGroupId=XDataCenter.FashionStoryManager.GetPreSingleLineId(self.GroupId)
-                if preGroupId then
-                    XUiManager.TipText("FashionStoryGroupPassTip",nil,nil,XFashionStoryConfigs.GetSingleLineName(preGroupId))
-                end
-            end
-        end
-    end
+    XDataCenter.FashionStoryManager.EnterPaintingGroupPanel(self.GroupId,self.IsOpen,self.LockReason)
 end
 
 return XUiGridFashionStoryGroup

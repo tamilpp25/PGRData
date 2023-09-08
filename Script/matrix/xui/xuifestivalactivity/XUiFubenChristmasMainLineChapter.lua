@@ -221,7 +221,7 @@ end
 -- 更新刷新
 function XUiFubenChristmasMainLineChapter:RefreshFestivalNodes()
     if not self.Chapter or not self.FestivalStageIds then return end
-    for i = 1, #self.FestivalStageIds do
+        for i = 1, #self.FestivalStageIds do
         self.FestivalStages[i]:UpdateNode(self.Chapter:GetChapterId(), self.FestivalStageIds[i])
     end
     self:UpdateNodeLines()

@@ -43,6 +43,7 @@ function XUiSkillDetails:RefreshDataByChangePage(characterId, skills, pos, gridI
     self.Skills = skills
     self.Pos = pos
     self.Skill = skills[pos]
+    self.GridIndex = gridIndex
     -- 默认显示第一个
     self.CurrentSkillSelect = gridIndex or 1
 end
@@ -76,17 +77,13 @@ function XUiSkillDetails:OnDestroy()
 end
 
 function XUiSkillDetails:Close()
-    XDataCenter.FavorabilityManager.ResetLastPlaySkillCvTime()
+    XMVCA.XFavorability:ResetLastPlaySkillCvTime()
     self.Super.Close(self)
 end
 
 function XUiSkillDetails:InitModelRoot()
     local root = self.ParentUi.UiModelGo
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")
-    self.EffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
-    self.EffectHuanren = root:FindTransform("ImgEffectHuanren")
-    self.EffectHuanren.gameObject:SetActiveEx(false)
-    self.EffectHuanren1.gameObject:SetActiveEx(false)
 end
 
 function XUiSkillDetails:InitSkillBtn()
@@ -209,7 +206,8 @@ function XUiSkillDetails:GotoSkill(index)
     self.Pos = index
     self.Skill = self.Skills[index]
     -- 默认显示第一个
-    self.CurrentSkillSelect = 1
+    self.CurrentSkillSelect = self.GridIndex or 1
+    self.GridIndex = nil -- 跳进来的技能位序号，使用完后清除
     self:InitSkillBtn()
     self:RefreshSkillInfo()
     self:RefreshViewData()

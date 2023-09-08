@@ -1,10 +1,13 @@
 local PanelUsingWords = CS.XTextManager.GetText("EquipGridUsingWords")
 local PanelInPrefabWords = CS.XTextManager.GetText("EquipGridInPrefabWords")
 local PanelSelectedWords = CS.XTextManager.GetText("MentorGiftIsSelectedText")
-local XUiGridEquip = XClass(XUiNode, "XUiGridEquip")
+local XUiGridEquip = XClass(nil, "XUiGridEquip")
 
--- 如需注册事件在界面里注册，后续会优化删掉XUiGridEquip事件的注册
-function XUiGridEquip:OnStart(clickCb, isNeedEvent)
+-- 事件注册后没有移除，请使用Lua\Matrix\XUi\XUiEquip\XUiGridEquip.lua
+function XUiGridEquip:Ctor(ui, rootUi, clickCb, isNeedEvent)
+    self.GameObject = ui.gameObject
+    self.Transform = ui.transform
+    self.Parent = rootUi
     self.ClickCb = clickCb
     self.IsNeedEvent = isNeedEvent
     self:InitAutoScript()

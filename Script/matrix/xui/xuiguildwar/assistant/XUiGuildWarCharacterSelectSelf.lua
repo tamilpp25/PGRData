@@ -90,7 +90,7 @@ function XUiGuildWarCharacterSelectSelf:SelectCharacter(index)
 end
 
 function XUiGuildWarCharacterSelectSelf:GetEntities(notFilter)
-    local list = XDataCenter.CharacterManager.GetOwnCharacterList(self._CharacterType)
+    local list = XMVCA.XCharacter:GetOwnCharacterList(self._CharacterType)
 
     if not notFilter then
         local filterData = XDataCenter.CommonCharacterFiltManager.GetSelectTagData(self._FilterKey)
@@ -155,6 +155,14 @@ end
 ---@param character XCharacter
 function XUiGuildWarCharacterSelectSelf:UpdateCharacterData(character)
     self._Character = character
+    self:UpdateCharacter()
+end
+
+function XUiGuildWarCharacterSelectSelf:UpdateCharacter()
+    local character = self._Character
+    if not character then
+        return
+    end
     local characterId = character:GetId()
     if not characterId then
         return
@@ -165,7 +173,7 @@ function XUiGuildWarCharacterSelectSelf:UpdateCharacterData(character)
     }))
 
     -- name
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 

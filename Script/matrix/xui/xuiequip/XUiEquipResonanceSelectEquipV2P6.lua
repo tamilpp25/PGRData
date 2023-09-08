@@ -23,6 +23,10 @@ function XUiEquipResonanceSelectEquipV2P6:OnStart(equipId, confirmCb)
 end
 
 function XUiEquipResonanceSelectEquipV2P6:OnEnable()
+    -- 按钮名称
+    local btnName = self.IsWeapon and XUiHelper.GetText("TypeWeapon") or XUiHelper.GetText("TypeWafer")
+    self.BtnTabEquip:SetNameByGroup(0, btnName)
+
     -- 装备列表
     self.EquipIdList = XDataCenter.EquipManager.GetResonanceCanEatEquipIds(self.EquipId)
     XTool.ReverseList(self.EquipIdList) --这个UI要初始升序

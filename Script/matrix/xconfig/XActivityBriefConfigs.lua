@@ -414,6 +414,11 @@ function XActivityBriefConfigs.GetActivityBriefGroupRemindPriority(groupId)
     return config and config.RemindPriority or 0
 end
 
+function XActivityBriefConfigs.GetActivityBriefGroupRedCondition(groupId)
+    local config = XActivityBriefConfigs.GetActivityGroupConfig(groupId)
+    return config and config.RedCondition or ""
+end
+
 function XActivityBriefConfigs.GetActivityBriefGroupTagCondition(groupId)
     local config = XActivityBriefConfigs.GetActivityGroupConfig(groupId)
     return config and config.TagCondition or ""

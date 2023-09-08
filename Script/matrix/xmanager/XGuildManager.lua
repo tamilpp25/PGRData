@@ -710,6 +710,9 @@ XGuildManagerCreator = function()
     end
 
     function XGuildManager.EnterGuild(onEnterGuildCb)
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         if not XDataCenter.GuildManager.IsJoinGuild() then
             if XGuildManager.IsNeedRequestRecommendData() then
                 XDataCenter.GuildManager.GuildListRecommendRequest(1, function()

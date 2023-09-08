@@ -92,6 +92,13 @@ function XUiEquipResonanceSkillV2P6:UpdateView()
             end
             skillGrid:SetEquipIdAndPos(self.EquipId, pos)
             skillGrid:Refresh()
+
+            local effect = skillGrid.Transform:Find("Effect")
+            local showEffect = self.Parent.ResonanceSuccessPos == pos
+            effect.gameObject:SetActiveEx(showEffect)
+            if showEffect then
+                self.Parent:ClearResonanceSuccessPos()
+            end
         end
     end 
 end

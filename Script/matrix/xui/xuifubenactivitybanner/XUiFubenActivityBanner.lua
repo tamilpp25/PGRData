@@ -637,7 +637,9 @@ function XUiFubenActivityBanner:OnClickTaikoMaster()
     end
     self.ParentUi:PushUi(
         function()
-            XDataCenter.TaikoMasterManager.OpenUi()
+            ---@type XTaikoMasterAgency
+            local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+            agency:ExOpenMainUi()
         end
     )
 end

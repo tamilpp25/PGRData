@@ -1,3 +1,4 @@
+local IsWindowsEditor = XMain.IsWindowsEditor
 local CSTextManagerGetText = CS.XTextManager.GetText
 local ProcessFunc = XEnumConst.FuBen.ProcessFunc
 local StageType = XEnumConst.FuBen.StageType
@@ -20,7 +21,7 @@ local METHOD_NAME = {
     FightReboot = "FightRebootRequest",
     FightRestart = "FightRestartRequest"
 }
-
+local XFubenBaseAgency = require("XModule/XBase/XFubenBaseAgency")
 
 ---@class XFubenAgency : XAgency
 ---@field private _Model XFubenModel
@@ -86,11 +87,18 @@ function XFubenAgency:HasRegisterAgency(fubenType)
     return false
 end
 
-
+---@param fubenType number
+---@param moduleId string
 function XFubenAgency:RegisterFuben(fubenType, moduleId)
     if not self._RegFubenDict[fubenType] then
         local agency = XMVCA:GetAgency(moduleId)
         if agency then
+            if IsWindowsEditor then
+                if not CheckClassSuper(agency, XFubenBaseAgency) then
+                    XLog.Error(string.format("%s Agency 需要继承 XFubenBaseAgency", agency:GetId()))
+                    return
+                end
+            end
             self._RegFubenDict[fubenType] = moduleId
         else
             XLog.Error("注册副本模块Agency不存在: "..tostring(fubenType) .. " " ..tostring(moduleId))
@@ -242,9 +250,7 @@ end
 ---进入战斗
 function XFubenAgency:EnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
     local enter = function()
-        XDataCenter.DlcManager.CheckDownloadForStage(stage.StageId, function()
-            self:DoEnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
-        end)
+        self:DoEnterFight(stage, teamId, isAssist, challengeCount, challengeId, callback)
     end
     -- v1.29 协同作战联机中不给跳转，防止跳出联机房间
     if XDataCenter.RoomManager.RoomData then
@@ -308,10 +314,21 @@ function XFubenAgency:GetStageInfo(stageId)
 end
 
 ----------基础信息接口
+
+function XFubenAgency:GetStageTypeRobot(stageType)
+    local config = self._Model:GetStageTypeCfg(stageType)
+    return (config or {}).RobotId
+end
+
+function XFubenAgency:IsAllowRepeatChar(stageType)
+    local config = self._Model:GetStageTypeCfg(stageType)
+    return (config or {}).MatchCharIdRepeat
+end
+
 ---返回stage对应的类型
 function XFubenAgency:GetStageType(stageId)
     local config = self._Model:GetStageCfg(stageId)
-    if XTool.IsNumberValid(config.Type) then --增加多一列, 优先读取配置的
+    if config and XTool.IsNumberValid(config.Type) then --增加多一列, 优先读取配置的
         return config.Type
     end
     local stageInfo = self._Model:GetStageInfo(stageId)
@@ -338,6 +355,19 @@ end
 function XFubenAgency:ResetSettle()
     self._Model:SetFubenSettling(false)
     self._Model:SetFubenSettleResult(nil)
+end
+
+function XFubenAgency:IsStageCute(stageId)
+    local stageType = self:GetStageType(stageId)
+    if stageType == XEnumConst.FuBen.StageType.TaikoMaster
+            or stageType == XEnumConst.FuBen.StageType.MoeWarParkour
+            or stageType == XEnumConst.FuBen.StageType.Maze
+    then
+        return true
+    end
+    return XFubenSpecialTrainConfig.CheckIsSpecialTrainBreakthroughStage(stageId)
+            or XFubenSpecialTrainConfig.CheckIsYuanXiaoStage(stageId)
+            or XFubenSpecialTrainConfig.CheckIsSnowGameStage(stageId)
 end
 
 ----------public end----------
@@ -406,8 +436,6 @@ function XFubenAgency:CheckStageIsPass(stageId)
         return XDataCenter.TRPGManager.IsStagePass(stageId)
     elseif stageType == StageType.Pokemon then
         return XDataCenter.PokemonManager.CheckStageIsPassed(stageId)
-    elseif stageType == StageType.TwoSideTower then
-        return XDataCenter.TwoSideTowerManager.CheckStageIsPassed(stageId)
     elseif stageType == StageType.Maverick2 then
         return XDataCenter.Maverick2Manager.IsStagePassed(stageId)
     else
@@ -761,22 +789,6 @@ function XFubenAgency:PreFight(stage, teamId, isAssist, challengeCount, challeng
         preFight.CardIds = nil
     end
 
-    if stageType == StageType.TwoSideTower then
-        preFight.RobotIds = {}
-        local robotIds = XDataCenter.TwoSideTowerManager.GetActivityRobotIds()
-        for i, v in ipairs(preFight.CardIds) do
-            for _, robotId in pairs(robotIds) do
-                if robotId == v then
-                    preFight.RobotIds[i] = v
-                    preFight.CardIds[i] = 0
-                    break
-                else
-                    preFight.RobotIds[i] = 0
-                end
-            end
-        end
-    end
-
     return preFight
 end
 
@@ -855,7 +867,7 @@ function XFubenAgency:RecordFightBeginData(stageId, charList, isHasAssist, assis
     }
     self._Model:SetBeginData(beginData)
 
-    if not XDataCenter.FubenSpecialTrainManager.IsStageCute(stageId) then
+    if not self:IsStageCute(stageId) then
         for _, charId in pairs(charList) do
             local isRobot = XRobotManager.CheckIsRobotId(charId)
             local char = isRobot and XRobotManager.GetRobotTemplate(charId) or XDataCenter.CharacterManager.GetCharacter(charId)
@@ -1027,53 +1039,50 @@ end
 function XFubenAgency:EnterRealFight(preFightData, fightData, movieId, endCb)
     if self:CheckCustomUiConflict() then return end
 
-    local doneCb = function()
-        local asynPlayMovie = movieId and asynTask(XDataCenter.MovieManager.PlayMovie) or nil
+    local asynPlayMovie = movieId and asynTask(XDataCenter.MovieManager.PlayMovie) or nil
 
-        RunAsyn(function()
-            --战前剧情
-            if movieId then
-                XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE)
+    RunAsyn(function()
+        --战前剧情
+        if movieId then
+            XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_BEGIN_PLAYMOVIE)
 
-                --UI栈从战斗结束的逻辑还原，无需从剧情系统还原UI栈
-                CsXUiManager.Instance:SetRevertAllLock(true)
+            --UI栈从战斗结束的逻辑还原，无需从剧情系统还原UI栈
+            CsXUiManager.Instance:SetRevertAllLock(true)
 
-                asynPlayMovie(movieId)
+            asynPlayMovie(movieId)
 
-                --剧情已经释放了UI栈，无需从战斗释放UI栈
-                CsXUiManager.Instance:SetReleaseAllLock(true)
-            end
+            --剧情已经释放了UI栈，无需从战斗释放UI栈
+            CsXUiManager.Instance:SetReleaseAllLock(true)
+        end
 
-            --剧情过程中强制下线
-            if not XLoginManager.IsLogin() then
-                return
-            end
+        --剧情过程中强制下线
+        if not XLoginManager.IsLogin() then
+            return
+        end
 
-            if endCb then
-                endCb()
-            end
+        if endCb then
+            endCb()
+        end
 
-            --打开Loading图
-            self:CallOpenFightLoading(preFightData.StageId)
+        --打开Loading图
+        self:CallOpenFightLoading(preFightData.StageId)
 
-            --等待0.5秒，第一时间先把load图加载进来，然后再加载战斗资源
-            asynWaitSecond(0.5)
+        --等待0.5秒，第一时间先把load图加载进来，然后再加载战斗资源
+        asynWaitSecond(0.5)
 
-            CsXBehaviorManager.Instance:Clear()
-            XTableManager.ReleaseAll(true)
-            CS.BinaryManager.OnPreloadFight(true)
-            collectgarbage("collect")
+        CsXBehaviorManager.Instance:Clear()
+        XTableManager.ReleaseAll(true)
+        CS.BinaryManager.OnPreloadFight(true)
+        collectgarbage("collect")
 
-            CS.XUiSceneManager.Clear() -- ui场景提前释放，不等ui销毁
-            CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
+        CS.XUiSceneManager.Clear() -- ui场景提前释放，不等ui销毁
+        CsXUiManager.Instance:ReleaseAll(CsXUiType.Normal)
 
-            CsXUiManager.Instance:SetRevertAndReleaseLock(false)
+        CsXUiManager.Instance:SetRevertAndReleaseLock(false)
 
-            --进入战斗
-            self:DoEnterRealFight(preFightData, fightData)
-        end)
-    end
-    XDataCenter.DlcManager.CheckDownloadForStage(preFightData.StageId, doneCb)
+        --进入战斗
+        self:DoEnterRealFight(preFightData, fightData)
+    end)
 
 end
 

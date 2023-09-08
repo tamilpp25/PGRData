@@ -11,6 +11,7 @@ function XUiDrawControl:Ctor(rootUi, drawInfo, drawCb, uiDraw)
     self.UiDraw = uiDraw
     self.DrawBtns = {}
     self.IsCanDraw = true
+    self._DrawTime = 0
     self:InitRes()
     self:InitButtons()
     return self
@@ -124,6 +125,9 @@ function XUiDrawControl:OnDraw(drawCount)
     end
 
     if self.IsCanDraw then
+        if XTime.GetServerNowTimestamp() - self._DrawTime < tonumber(XDrawConfigs.GetDrawClientConfig("DrawCD")) then
+            return
+        end
         self.IsCanDraw = false
         local onAnimFinish = function()
             if list and #list > 0 then
@@ -141,6 +145,7 @@ function XUiDrawControl:OnDraw(drawCount)
         if drawCount ~= 1 then
             freeId = 0
         end
+        self._DrawTime = XTime.GetServerNowTimestamp()
         XDataCenter.DrawManager.DrawCard(self.DrawInfo.Id, drawCount,freeId, function(drawInfo, rewardList, extraRewardList)
             XDataCenter.AntiAddictionManager.BeginDrawCardAction()
             if self.DrawCb then
@@ -150,10 +155,11 @@ function XUiDrawControl:OnDraw(drawCount)
             self:Update(drawInfo)
             info = drawInfo
             list = rewardList
-            XLuaUiManager.Open("UiDrawNew",info,list)
+            XLuaUiManager.OpenWithCallback("UiDrawNew", function()
+                onAnimFinish()
+            end, info,list)
             --self.UiDraw:SetExtraRewardList(extraRewardList)
             --self.UiDraw:HideUiView(onAnimFinish)
-            onAnimFinish()
         end)
     end
 end

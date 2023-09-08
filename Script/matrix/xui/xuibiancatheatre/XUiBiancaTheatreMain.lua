@@ -7,7 +7,7 @@ function XUiBiancaTheatreMain:OnAwake()
     XDataCenter.BiancaTheatreManager.SetIsAutoOpen(true)
     XDataCenter.BiancaTheatreManager.SetIsAutoOpenSettleWin(true)
     self.IsShowPanel = true
-    XUiHelper.NewPanelActivityAsset(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, nil, handler(self, self.OnBtnClick))
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self, nil, handler(self, self.OnBtnClick))
     self:InitButtonCallBack()
     self.TaskManager = XDataCenter.BiancaTheatreManager.GetTaskManager()
 

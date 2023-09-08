@@ -42,6 +42,8 @@ function XTransfiniteData:Ctor()
     self._CircleId = 0
 
     self._IsForceExit = false
+    
+    self._HasRotateSettleInfo = false
 end
 
 function XTransfiniteData:GetActivityId()
@@ -68,10 +70,11 @@ function XTransfiniteData:InitFromServerData(data)
     local activityId = transfiniteData.ActivityId
     local beginTime = transfiniteData.BeginTime
     local regionId = transfiniteData.RegionId
-    local stageGroupIndex = transfiniteData.StageGroupIndex
     local battleInfo = transfiniteData.BattleInfo
     local bestSpendTime = transfiniteData.BestSpendTime
     local circleId = transfiniteData.CircleId
+    
+    self._HasRotateSettleInfo = transfiniteData.RotateSettleInfo ~= nil
 
     if self._ActivityId ~= activityId then
         self._ActivityId = activityId
@@ -84,7 +87,11 @@ function XTransfiniteData:InitFromServerData(data)
     self._Region:SetRunning(true)
     self._Region:SetRewardReceivedFromServer(transfiniteData.GotScoreRewardIndex)
     local stageGroupIdArray = self._Region:GetStageGroupIdArray()
-    local normalStageGroupId = stageGroupIdArray[stageGroupIndex + 1]
+    local normalStageGroupId = transfiniteData.StageGroupId
+
+    if not normalStageGroupId then
+        normalStageGroupId = stageGroupIdArray[1]
+    end
 
     -- 普通关卡组
     self._StageGroup:SetId(normalStageGroupId)
@@ -198,6 +205,9 @@ function XTransfiniteData:IsOpen()
     if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Transfinite) then
         return false
     end
+    if not self._StageGroup:GetId() then
+        return false
+    end
 
     local timeId = self:GetTimeId()
     if not XFunctionManager.CheckInTimeByTimeId(timeId) then
@@ -276,6 +286,14 @@ end
 
 function XTransfiniteData:GetCircleId()
     return self._CircleId
+end
+
+function XTransfiniteData:HasRotateSettleInfo() 
+    return self._HasRotateSettleInfo
+end
+
+function XTransfiniteData:SetHasRotateSettleInfo(value)
+    self._HasRotateSettleInfo = value
 end
 
 return XTransfiniteData

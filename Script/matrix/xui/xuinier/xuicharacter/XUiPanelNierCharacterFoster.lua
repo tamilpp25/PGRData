@@ -81,7 +81,7 @@ function XUiPanelNierCharacterFoster:OnDynamicGridClick(index)
         if data.Type == XNieRConfigs.AbilityType.Skill then
             local skillId = config.SkillId
             local skillLevel = config.SkillLevel
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
             XUiManager.DialogDragTip(skillInfo.Name, skillInfo.Intro, XUiManager.DialogType.NoBtn, nil, nil)
         elseif data.Type == XNieRConfigs.AbilityType.Fashion then
             XLuaUiManager.Open("UiFashion", self.CharacterData:GetRobotCharacterId(), true, true, XUiConfigs.OpenUiType.NieRCharacterUI)

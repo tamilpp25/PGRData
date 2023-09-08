@@ -100,24 +100,6 @@ function XUiMainRightMid:OnStart(rootUi)
         self.BtnReward.gameObject:SetActiveEx(false)
     end
 
-    -- 已经移到 PanelDown 区域中
-
-    --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckTaskNews, self, RedPointConditionGroup.Task)
-    XRedPointManager.AddRedPointEvent(self.BtnBuilding.ReddotObj, self.OnCheckBuildingNews, self, RedPointConditionGroup.Dorm)
-    --XRedPointManager.AddRedPointEvent(self.BtnReward.ReddotObj, self.OnCheckARewardNews, self, { XRedPointConditions.Types.CONDITION_ACTIVITYDRAW_RED })
-    -- XRedPointManager.AddRedPointEvent(self.BtnActivityBrief, self.OnCheckActivityBriefRedPoint, self, { XRedPointConditions.Types.CONDITION_ACTIVITY_NEW_MAINENTRY })
-    XRedPointManager.AddRedPointEvent(self.ImgBuldingRedDot, self.OnCheckGuildRedPoint, self, RedPointConditionGroup.Guild)
-
-    XRedPointManager.AddRedPointEvent(self.BtnPartner, self.OnCheckPartnerRedPoint, self, RedPointConditionGroup.Partner)
-
-    XRedPointManager.AddRedPointEvent(self.BtnMember.ReddotObj, self.OnCheckMemberNews, self, RedPointConditionGroup.Member)
-    XRedPointManager.AddRedPointEvent(self.BtnRecharge.ReddotObj, self.OnCheckRechargeNews, self, RedPointConditionGroup.Recharge)
-    
-    XRedPointManager.AddRedPointEvent(self.BtnBag, self.OnCheckBagNews, self, RedPointConditionGroup.Bag)
-    
-    XRedPointManager.AddRedPointEvent(self.BtnOpen, self.OnCheckOpenRedPoint, self, RedPointConditionGroup.Open)
-
     --Filter
     self:CheckFilterFunctions()
     self:InitBtnActivityEntry()
@@ -130,14 +112,13 @@ function XUiMainRightMid:OnEnable()
     XDataCenter.PurchaseManager.LBInfoDataReq()
     XRedPointManager.CheckByNode(self.BtnMember.ReddotObj)
     
-    --XEventManager.AddEventListener(XEventId.EVENT_NOTICE_TASKINITFINISHED, self.OnInitTaskFinished, self)
+    self:CheckRedPoint()
+    
     XEventManager.AddEventListener(XEventId.EVENT_DRAW_ACTIVITYCOUNT_CHANGE, self.CheckDrawTag, self)
     XEventManager.AddEventListener(XEventId.EVENT_EQUIP_GUIDE_REFRESH_TARGET_STATE, self.OnCheckMemberTag, self)
-    --XEventManager.AddEventListener(XEventId.EVENT_TASKFORCE_INFO_NOTIFY, self.SetupDispatch, self)
     XEventManager.AddEventListener(XEventId.EVENT_DAYLY_REFESH_RECHARGE_BTN, self.OnCheckRechargeNews, self)
     
     self:RefreshFubenProgress()
-    --self:UpdateStoryTaskBtn()
     self:UpdateBtnActivityBrief()
     self:UpdateBtnActivityEntry()
     self:CheckDrawTag()
@@ -160,7 +141,7 @@ function XUiMainRightMid:OnEnable()
         -- 有功能开放标记时才显示免费标签
         if XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.DrawCard) then
             XDataCenter.DrawManager.GetDrawGroupList(function()
-                XRedPointManager.AddRedPointEvent(self.BtnReward, self.OnCheckDrawFreeTicketTag, self, { XRedPointConditions.Types.CONDITION_DRAW_FREE_TAG })
+                self:AddRedPointEvent(self.BtnReward, self.OnCheckDrawFreeTicketTag, self, { XRedPointConditions.Types.CONDITION_DRAW_FREE_TAG })
             end)
         end
     else
@@ -171,6 +152,21 @@ function XUiMainRightMid:OnEnable()
     self:OnCheckRechargeNews()
     self:OnCheckStore()
     self:RefreshSubPanelState(self:GetSubPanelState())
+end
+
+function XUiMainRightMid:CheckRedPoint() 
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckTaskNews, self, RedPointConditionGroup.Task)
+    self:AddRedPointEvent(self.BtnBuilding.ReddotObj, self.OnCheckBuildingNews, self, RedPointConditionGroup.Dorm)
+    self:AddRedPointEvent(self.ImgBuldingRedDot, self.OnCheckGuildRedPoint, self, RedPointConditionGroup.Guild)
+
+    self:AddRedPointEvent(self.BtnPartner, self.OnCheckPartnerRedPoint, self, RedPointConditionGroup.Partner)
+
+    self:AddRedPointEvent(self.BtnMember.ReddotObj, self.OnCheckMemberNews, self, RedPointConditionGroup.Member)
+    self:AddRedPointEvent(self.BtnRecharge.ReddotObj, self.OnCheckRechargeNews, self, RedPointConditionGroup.Recharge)
+
+    self:AddRedPointEvent(self.BtnBag, self.OnCheckBagNews, self, RedPointConditionGroup.Bag)
+
+    self:AddRedPointEvent(self.BtnOpen, self.OnCheckOpenRedPoint, self, RedPointConditionGroup.Open)
 end
 
 function XUiMainRightMid:CheckGuildOpen()
@@ -185,7 +181,6 @@ function XUiMainRightMid:CheckGuildOpen()
 end
 
 function XUiMainRightMid:OnDisable()
-    --XEventManager.RemoveEventListener(XEventId.EVENT_NOTICE_TASKINITFINISHED, self.OnInitTaskFinished, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_DRAW_ACTIVITYCOUNT_CHANGE, self.CheckDrawTag, self)
     --XEventManager.RemoveEventListener(XEventId.EVENT_TASKFORCE_INFO_NOTIFY, self.SetupDispatch, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_GUIDE_REFRESH_TARGET_STATE, self.OnCheckMemberTag, self)
@@ -299,7 +294,7 @@ function XUiMainRightMid:OnBtnPartner()
         return
     end
     XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnPartner)
-    XLuaUiManager.Open("UiPartnerMain", DefaultType)
+    XDataCenter.PartnerManager.OpenUiPartnerMain(false, DefaultType)
 end
 
 function XUiMainRightMid:CheckDrawTag()
@@ -405,30 +400,6 @@ function XUiMainRightMid:IsMainLineClear(curChapterOrderId, progressOrder, curSt
     end
 end
 
---更新任务按钮描述
-function XUiMainRightMid:UpdateStoryTaskBtn()
-    --self.ShowTaskId = XDataCenter.TaskManager.GetStoryTaskShowId()
-    --local white = "#ffffff"
-    --local blue = "#34AFF8"
-    --if self.ShowTaskId > 0 then
-    --    local taskTemplates = XDataCenter.TaskManager.GetTaskTemplate(self.ShowTaskId)
-        --self.BtnSkipTask:SetDisable(false, true)
-        --local taskData = XDataCenter.TaskManager.GetTaskDataById(self.ShowTaskId)
-        --local hasRed = taskData and taskData.State == XDataCenter.TaskManager.TaskState.Achieved
-        --self.BtnSkipTask:ShowReddot(hasRed)
-        --local color = hasRed and blue or white
-        --self.BtnSkipTask:SetName(string.format("<color=%s>%s</color>", color, taskTemplates.Desc))
-    --else
-        --self.BtnSkipTask:SetDisable(true, true)
-        --self.BtnSkipTask:SetName(string.format("<color=%s>%s</color>", white, CSXTextManagerGetText("TaskStoryNoTask")))
-    --end
-end
-
---更新任务标签
-function XUiMainRightMid:OnInitTaskFinished()
-    --self:UpdateStoryTaskBtn()
-end
-
 -------------活动简介 Begin-------------------
 function XUiMainRightMid:UpdateBtnActivityBrief()
     local isOpen = XDataCenter.ActivityBriefManager.CheckActivityBriefOpen()
@@ -437,6 +408,9 @@ function XUiMainRightMid:UpdateBtnActivityBrief()
 end
 
 function XUiMainRightMid:OnBtnActivityBrief()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     local dict = {}
     dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnActivityBrief
     dict["role_level"] = XPlayer.GetLevel()
@@ -460,7 +434,7 @@ function XUiMainRightMid:InitBtnActivityEntry()
             local redPointConditions = XActivityBriefConfigs.GetRedPointConditionsBySkipId(config.SkipId)
             local redPointParam = XActivityBriefConfigs.GetRedPointParamBySkipId(config.SkipId)
             if redPointConditions then
-                local redPointEventId = XRedPointManager.AddRedPointEvent(btn, function(_, count) self:OnCheckActivityEntryRedPointByIndex(index, count) end, self, redPointConditions, redPointParam)
+                local redPointEventId = self:AddRedPointEvent(btn, function(_, count) self:OnCheckActivityEntryRedPointByIndex(index, count) end, self, redPointConditions, redPointParam)
                 tableInsert(self.BtnActivityEntryRedPointEventIds, redPointEventId)
             else
                 btn:ShowReddot(false)
@@ -470,8 +444,8 @@ function XUiMainRightMid:InitBtnActivityEntry()
 end
 
 function XUiMainRightMid:InitBtnActivityEntryRedPointEventIds()
-    for _, redPointEventId in ipairs(self.BtnActivityEntryRedPointEventIds or {}) do
-        XRedPointManager.RemoveRedPointEvent(redPointEventId)
+    for _, redPointId in pairs(self.BtnActivityEntryRedPointEventIds or {}) do
+        self:RemoveRedPointEvent(redPointId)
     end
     self.BtnActivityEntryRedPointEventIds = {}
 end
@@ -490,6 +464,9 @@ function XUiMainRightMid:SetBtnActivityEntryHide()
 end
 
 function XUiMainRightMid:OnClickBtnActivityEntry(id, index)
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     local dict = {}
     dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne["BtnUiMainBtnActivityEntry" .. index]
     dict["role_level"] = XPlayer.GetLevel()
@@ -632,6 +609,10 @@ function XUiMainRightMid:OnBtnMember()
     XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnMember)
 
     if XEnumConst.CHARACTER.IS_NEW_CHARACTER then
+        --region 【v2.8，主干】【联机邀请提示】在主界面收到好友邀请后进入成员界面，邀请弹窗会有残留
+        XEventManager.DispatchEvent(XEventId.EVENT_ARENA_HIDE_INVITATION)
+        --endregion
+        
         XLuaUiManager.Open("UiCharacterSystemV2P6")
     else
         XLuaUiManager.Open("UiCharacter")
@@ -707,7 +688,9 @@ end
 function XUiMainRightMid:OnCheckRechargeNews()
     local isShowRedPoint = XDataCenter.PurchaseManager.FreeLBRed() or XDataCenter.PurchaseManager.AccumulatePayRedPoint() or XDataCenter.PurchaseManager.CheckYKContinueBuy()
             or XDataCenter.PurchaseManager.GetRecommendManager():GetIsShowRedPoint()
-    self.BtnRecharge:ShowReddot(isShowRedPoint)
+    if self.BtnRecharge then
+        self.BtnRecharge:ShowReddot(isShowRedPoint)
+    end
 end
 
 --研发活动标签

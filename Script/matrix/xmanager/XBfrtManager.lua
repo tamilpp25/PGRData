@@ -895,7 +895,7 @@ XBfrtManagerCreator = function()
             for memberIndex = 1, teamInfo.NeedCharacter do
                 for index, character in ipairs(ownCharacters) do
                     -- if character.Ability >= teamInfo.RequireAbility then
-                    local charType = XCharacterConfigs.GetCharacterType(character.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(character.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto SELECT_CONTINUE
                     end
@@ -1032,9 +1032,16 @@ XBfrtManagerCreator = function()
     end
 
     function XBfrtManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
-            XLuaUiManager.Open("UiNewFubenChapterBfrt")
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
         end
+        
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
+        XLuaUiManager.Open("UiNewFubenChapterBfrt")
     end
     
     ------------------副本入口扩展 end-------------------------

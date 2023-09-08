@@ -75,10 +75,7 @@ function XUiTheatre3TipReward:RegisterUiEvents()
 end
 
 function XUiTheatre3TipReward:OnBtnCloseClick()
-    self:Close()
-    if self.CancelCallback then
-        self.CancelCallback()
-    end
+    XLuaUiManager.CloseWithCallback(self.Name, self.CancelCallback)
 end
 
 return XUiTheatre3TipReward

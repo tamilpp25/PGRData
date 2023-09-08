@@ -397,7 +397,7 @@ local ReadWithContext = function(context, tableConfig, keyType, identifier, path
                 local mainKey = elems[identifier]
                 if not mainKey then
                     XLog.Warning(
-                            "表格有空行, path = " ..
+                            "表格有空行, 或key错误, path = " ..
                                     path .. ", row = " .. index .. ", cols = " .. cols .. ", cells length = " .. #tmpElems
                     )
                     goto nextLine

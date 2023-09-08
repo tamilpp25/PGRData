@@ -442,8 +442,8 @@ XEquipGuideManagerCreator = function()
                 --        XEquipGuideConfigs.TargetConfig:GetProperty(targetId, "Description"))
                 RequestSetTarget(targetId, putOnPosList, cb)
             else--不同角色切换
-                content = XUiHelper.GetText("EquipGuideChangeTargetInequalityRoleTips", XCharacterConfigs.GetCharacterLogName(oldCharacterId),
-                        XCharacterConfigs.GetCharacterLogName(characterId))
+                content = XUiHelper.GetText("EquipGuideChangeTargetInequalityRoleTips", XMVCA.XCharacter:GetCharacterLogName(oldCharacterId),
+                        XMVCA.XCharacter:GetCharacterLogName(characterId))
                 XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, nil, nil, function()
                     RequestSetTarget(targetId, putOnPosList, cb)
                 end)

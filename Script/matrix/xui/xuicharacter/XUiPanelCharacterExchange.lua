@@ -40,7 +40,7 @@ function XUiPanelCharacterExchange:OnEnable()
     self.CharacterId = characterId
 
     local characterType = CharacterTypeConvert[self.SelectTabBtnIndex]
-    local paramCharacterType = XCharacterConfigs.GetCharacterType(characterId)
+    local paramCharacterType = XMVCA.XCharacter:GetCharacterType(characterId)
     if paramCharacterType ~= characterType then
         --选中角色与当前类型页签不符时，强制选中对应角色类型页签
         if XCharacterConfigs.IsIsomer(characterId) then
@@ -113,7 +113,7 @@ function XUiPanelCharacterExchange:OnDynamicTableEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local charData = self.CharList[index]
 
-        if not XCharacterConfigs.IsCharacterForeShow(charData.Id) then
+        if not XMVCA.XCharacter:IsCharacterForeShow(charData.Id) then
             XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
             return
         end

@@ -19,7 +19,7 @@ function XUiAutoFightRewardCharacter:SetData(id, addExp)
     self.RImgIcon:SetRawImage(icon)
 
     local exp = character and character.Exp or 0
-    local maxExp = XCharacterConfigs.GetCharMaxLevel(id)
+    local maxExp = XMVCA.XCharacter:GetCharMaxLevel(id)
     local expBefore = exp - addExp
     self.ImgExpBar.fillAmount = expBefore > 0 and expBefore / maxExp or 0
     self.ImgExpBarReward.fillAmount = exp / maxExp

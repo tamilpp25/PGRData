@@ -9,7 +9,7 @@ function XUiLotto:OnStart(groupData, closeCb, backGround)
     self.BackGroundPath = backGround
     self.TxtTitle.text = groupData:GetName()
     self.IsCanDraw = true
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.HongKa }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.HongKa }, self.PanelSpecialTool, self)
 
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.PaidGem,function ()
         self.AssetPanel:Refresh({ XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.HongKa })
@@ -190,6 +190,7 @@ function XUiLotto:RefreshRewardList(rewardList)
     if XTool.IsTableEmpty(cacheReward) then
         return
     end
+    XDataCenter.LottoManager.ClearWeaponFashionCacheReward()
     local convertFrom = rewardList[1].TemplateId
     local itemId = cacheReward.ItemId
     local count = cacheReward.ItemCount

@@ -12,6 +12,10 @@ function XExPrequelManager:ExOpenChapterUi(viewModel)
         XUiManager.TipMsg(XDataCenter.PrequelManager.GetChapterUnlockDescription(viewModel:GetConfig().Id))
         return
     end
+    
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Prequel, viewModel:GetConfig().Id) then
+        return
+    end
     XLuaUiManager.Open("UiPrequelMain", viewModel:GetConfig().ExtralData.PequelChapterCfg)
 
     -- XLuaUiManager.Open("UiPrequel", viewModel:GetConfig().ExtralData)
@@ -67,7 +71,7 @@ function XExPrequelManager:ExGetChapterViewModels()
                 return XDataCenter.PrequelManager.GetChapterLockStatus(proxy.Config.Id)
             end,
             GetMinCharacterName = function(proxy)
-                return XCharacterConfigs.GetCharacterTradeName(chapterInfo.PequelChapterCfg.CharacterId)
+                return XMVCA.XCharacter:GetCharacterTradeName(chapterInfo.PequelChapterCfg.CharacterId)
             end
         }, XChapterViewModel
         , {

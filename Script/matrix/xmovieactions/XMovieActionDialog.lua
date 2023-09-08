@@ -62,7 +62,7 @@ function XMovieActionDialog:OnInit()
             return
         end
         LastDonextTime = CS.UnityEngine.Time.time
-        self.UiRoot.BtnSkipDialog.CallBack()
+        self:OnClickBtnSkipDialog()
     end, 0);
     self.UiRoot.DialogTypeWriter.CompletedHandle = function() self:OnTypeWriterComplete() end
     self.UiRoot.PanelDialog.gameObject:SetActiveEx(true)

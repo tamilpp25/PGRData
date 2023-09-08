@@ -1,17 +1,16 @@
--- 大秘境【区域】实例（一共6个）
+---@class XRiftChapter 大秘境【区域】实例（一共6个）
 local XRiftChapter = XClass(nil, "XRiftChapter")
 
 function XRiftChapter:Ctor(config)
     self.Config = config
+    ---@type XRiftFightLayer[]
     self.EntityFightLayersDic = {}
     self.EntityFightLayersList = {}
     self.OutliersList = {}
     -- 服务端下发后确认的数据
     self.s_UnlockedLayerOrderMax = nil -- 已解锁最高层数
     self.s_PassedLayerOrderMax = nil -- 已通关最高层数
-    self.s_LuckyValue = 0
     self.s_LeftSweepTimes = nil --剩余扫荡次数
-    self.s_CurrLuckFightLayer = nil
 end
 
 -- 向下建立关系
@@ -99,6 +98,7 @@ function XRiftChapter:GetAllFightLayers()
 end
 
 -- 【获取】按Id排序的顺序表
+---@return XRiftFightLayer[]
 function XRiftChapter:GetAllFightLayersOrderList()
     if not XTool.IsTableEmpty(self.EntityFightLayersList) then
         return self.EntityFightLayersList
@@ -154,14 +154,6 @@ function XRiftChapter:GetProgress()
     return finalCur, total
 end
 
--- 【获取】幸运值进度
-function XRiftChapter:GetLuckValueProgress()
-    local progress = self.s_LuckyValue / self.Config.LuckyValueMax
-    progress = progress >= 1 and 1 or progress 
-    progress = progress < 0 and 0 or progress
-    return progress
-end
-
 -- 【检查】检查当前chapter是否刚刚完成首通，是的话打开弹窗 并执行传入的sureCb
 function XRiftChapter:CheckFirstPassAndOpenTipFun(afterSureCb)
     local nextChapter = XDataCenter.RiftManager.GetEntityChapterById(self:GetId() + 1)
@@ -202,14 +194,6 @@ function XRiftChapter:GetPassedLayerOrderMaxFightLayer()
     return xFightLayer
 end
 
-function XRiftChapter:GetCurrLuckFightLayer()
-    return self.s_CurrLuckFightLayer
-end
-
-function XRiftChapter:SetCurrLuckFightLayer(xFightLayer)
-    self.s_CurrLuckFightLayer = xFightLayer
-end
-
 function XRiftChapter:GetMaxUnlockLayer()
     return self.s_UnlockedLayerOrderMax or 0
 end
@@ -221,11 +205,18 @@ end
 function XRiftChapter:SyncData(data)
     self.s_UnlockedLayerOrderMax = data.UnlockedLayerOrderMax -- 已解锁最高层数
     self.s_PassedLayerOrderMax = data.PassedLayerOrderMax -- 已通关最高层数
-    self.s_LuckyValue = data.LuckyValue
-    if not XTool.IsTableEmpty(data.LuckyNode) then
-        local xFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(data.LuckyNode.LayerId)
-        xFightLayer:SetLuckStageGroup(data.LuckyNode)
+end
+
+---获取区域进度
+function XRiftChapter:GetChapterProgress()
+    local count = 0
+    local datas = self:GetAllFightLayersOrderList()
+    for _, data in ipairs(datas) do
+        if data:CheckHasPassed() then
+            count = count + 1
+        end
     end
+    return count, #datas
 end
 
 return XRiftChapter

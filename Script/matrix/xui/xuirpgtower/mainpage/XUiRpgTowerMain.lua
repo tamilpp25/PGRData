@@ -51,7 +51,7 @@ end
 
 function XUiRpgTowerMain:OnDisable()
     self:StopTimer()
-    self:RemoveRedPointEvents()
+    self:RemoveAllRedPoints()
     CS.XShadowHelper.SetDisableUIGlobalShadowMeshHeight(false)
 end
 
@@ -257,7 +257,7 @@ end
 --================
 --注销页面红点事件
 --================
-function XUiRpgTowerMain:RemoveRedPointEvents()
+function XUiRpgTowerMain:RemoveAllRedPoints()
     if not self.AlreadyAddRed then return end
     for _, eventId in pairs(self.RedEvents) do
         XRedPointManager.RemoveRedPointEvent(eventId)

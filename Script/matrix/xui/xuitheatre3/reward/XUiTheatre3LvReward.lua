@@ -56,6 +56,7 @@ function XUiTheatre3LvReward:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelReward)
     self.DynamicTable:SetProxy(XUiGridTheatre3LvReward, self, handler(self, self.Refresh))
     self.DynamicTable:SetDelegate(self)
+    self:SetFloatFrameColumn()
 end
 
 function XUiTheatre3LvReward:SetupDynamicTable(index)
@@ -70,7 +71,6 @@ end
 function XUiTheatre3LvReward:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:Refresh(self.DataList[index], self.CurLevel)
-        self:RefreshFloatFrame()
     end
 end
 
@@ -83,13 +83,35 @@ function XUiTheatre3LvReward:RefreshCurLevel()
         self.GridLeftFloatFrame:Open()
     end
     self.GridLeftFloatFrame:Refresh(self.CurLevel)
-    -- 刷新右侧浮框
-    self:RefreshRightFloatFrame(self.CurLevel)
 end
 
-function XUiTheatre3LvReward:RefreshFloatFrame()
-    local startLevel = self.DynamicTable:GetStartIndex()
-    local endLevel = self.DynamicTable:GetEndIndex()
+function XUiTheatre3LvReward:SetFloatFrameColumn()
+    local imp = self.DynamicTable:GetImpl()
+    local viewSize = imp.ViewSize
+    local gridSize = imp.OriginGridSize
+    local spacing = imp.Spacing
+    local padding = imp.Padding
+    local width = viewSize.x - padding.left - padding.right
+    local column = math.max(1, math.ceil(width / (gridSize.x + spacing.x)))
+    imp.ScrRect.onValueChanged:AddListener(function(offset)
+        self:OnScrollRectValueChanged(offset, column)
+    end)
+end
+
+function XUiTheatre3LvReward:OnScrollRectValueChanged(offset, column)
+    local imp = self.DynamicTable:GetImpl()
+    if not imp then
+        return
+    end
+    local startIndex = imp:GetStartIndexByOffest(offset)
+    local endIndex = startIndex + column
+    self:RefreshFloatFrame(startIndex, endIndex)
+end
+
+function XUiTheatre3LvReward:RefreshFloatFrame(startLevel, endLevel)
+    if not self.GridLeftFloatFrame then
+        return
+    end
     -- 左侧浮框
     if XTool.IsNumberValid(self.CurLevel) and (self.CurLevel < startLevel or self.CurLevel > endLevel) then
         self.GridLeftFloatFrame:Open()
@@ -97,9 +119,7 @@ function XUiTheatre3LvReward:RefreshFloatFrame()
         self.GridLeftFloatFrame:Close()
     end
     -- 右侧浮框
-    -- 下一大奖等级
-    local nextDisplayLevel = self._Control:GetNextDisplayLevel(endLevel)
-    self.GridRightFloatFrame:Refresh(nextDisplayLevel)
+    self:RefreshRightFloatFrame(endLevel)
 end
 
 function XUiTheatre3LvReward:RefreshBtnGetPoint()

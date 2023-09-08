@@ -6,6 +6,7 @@ local tableSort = table.sort
 local XWeaponFashion = require("XEntity/XEquip/XWeaponFashion")
 
 XWeaponFashionManagerCreator = function()
+    ---@class XWeaponFashionManager XWeaponFashionManager
     local XWeaponFashionManager = {}
 
     local OwnWeaponFashions = {}
@@ -44,11 +45,10 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.NotifyWeaponFashionTransform(data)
         IsNotifyWeaponFashionTransform = true
         if not data or not next(data) then return end
-        local rewards = {}
-        tableInsert(rewards, { TemplateId = data.ItemId, Count = data.ItemCount })
         if XDataCenter.LottoManager.GetIsInterceptUiObtain() then
             XDataCenter.LottoManager.CacheWeaponFashionRewards(data)
         else
+            local rewards = { { TemplateId = data.ItemId, Count = data.ItemCount } }
             XUiManager.OpenUiObtain(rewards)
         end
     end
@@ -131,7 +131,7 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.GetSortedWeaponFashionIdsByCharacterId(characterId)
         local sortedFashionIds = {}
 
-        local characterEquipType = XCharacterConfigs.GetCharacterEquipType(characterId)
+        local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
         local fashionIds = XWeaponFashionConfigs.GetWeaponFashionIdsByEquipType(characterEquipType)
         for _, id in pairs(fashionIds) do
             if XWeaponFashionManager.IsFashionInTime(id) then
@@ -156,6 +156,21 @@ XWeaponFashionManagerCreator = function()
         end)
 
         return sortedFashionIds
+    end
+
+    function XWeaponFashionManager.GetOwnWeaponFashionList(characterId)
+        local res = {}
+        tableInsert(res, XWeaponFashionConfigs.DefaultWeaponFashionId)
+
+        local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(characterId)
+        local fashionIds = XWeaponFashionConfigs.GetWeaponFashionIdsByEquipType(characterEquipType)
+        for _, id in pairs(fashionIds) do
+            if XWeaponFashionManager.IsFashionInTime(id) and XWeaponFashionManager.GetFashionStatus(id) == XWeaponFashionManager.FashionStatus.UnLock then
+                tableInsert(res, id)
+            end
+        end
+
+        return res
     end
 
     function XWeaponFashionManager.GetFashionStatus(fashionId, characterId)
@@ -191,8 +206,8 @@ XWeaponFashionManagerCreator = function()
 
         if XWeaponFashionConfigs.IsDefaultId(weaponFashionId) then
             local templateId
-            if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
-                templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+            if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
+                templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
             else
                 local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
                 templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
@@ -208,10 +223,10 @@ XWeaponFashionManagerCreator = function()
     function XWeaponFashionManager.GetWeaponModelCfg(weaponFashionId, characterId, uiName)
         local modelConfig = {}
 
-        local IsOwnCharacter = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local IsOwnCharacter = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if XWeaponFashionConfigs.IsDefaultId(weaponFashionId) then
             if not IsOwnCharacter then
-                local templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+                local templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
                 modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, uiName, 0, 0)
             else
                 local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
@@ -236,7 +251,7 @@ XWeaponFashionManagerCreator = function()
     end
 
     function XWeaponFashionManager.UseFashion(fashionId, characterId, cb)
-        if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
             XUiManager.TipText("CharacterLock")
             return
         end

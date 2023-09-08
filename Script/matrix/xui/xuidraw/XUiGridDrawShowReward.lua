@@ -97,7 +97,7 @@ function XUiGridDrawShowModel:OnShow(rewardInfo)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
@@ -108,7 +108,12 @@ function XUiGridDrawShowModel:OnShow(rewardInfo)
     end
 
     -- 加载特效
-    self:LoadEffect(showTable.DrawEffectGroupId[quality])
+    if self.Reward.SpecialDrawEffectGroupId then
+        -- v2.6 替换DrawEffectId
+        self:LoadEffect(self.Reward.SpecialDrawEffectGroupId)
+    else
+        self:LoadEffect(showTable.DrawEffectGroupId[quality])
+    end
 
     local templateId = id
     if XArrangeConfigs.Types.Furniture == reward.RewardType then
@@ -260,7 +265,7 @@ function XUiGridDrawShowModel:CreateCharacterModel(templateId, fashionId)
     end
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashionId)
 
-    local curFashtionId = fashionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.GridModel, self.RootUi.Name, function(model)
@@ -336,13 +341,19 @@ end
 function XUiGridDrawShowModel:LoadEffect(id)
     -- 加载底座特效
     local carriageEffect = XDrawConfigs.GetCarriageEffect(id)
-    self.ImgEffectDizuo:LoadPrefab(carriageEffect)
+    if not string.IsNilOrEmpty(carriageEffect) then
+        self.ImgEffectDizuo:LoadPrefab(carriageEffect) 
+    end
     -- 加载线特效
     local floorEffect = XDrawConfigs.GetFloorEffect(id)
-    self.ImgEffectFloor:LoadPrefab(floorEffect)
+    if not string.IsNilOrEmpty(floorEffect) then
+        self.ImgEffectFloor:LoadPrefab(floorEffect)
+    end
     -- 加载光圈特效
     local apertureEffect = XDrawConfigs.GetApertureEffect(id)
-    self.ImgEffectGuang:LoadPrefab(apertureEffect)
+    if not string.IsNilOrEmpty(apertureEffect) then
+        self.ImgEffectGuang:LoadPrefab(apertureEffect)
+    end
 end
 
 -- 加载3d 通讯线特效

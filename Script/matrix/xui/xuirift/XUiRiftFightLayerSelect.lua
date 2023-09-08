@@ -1,11 +1,12 @@
---大秘境作战层选择界面（点击区域进入此处）
+---@class XUiRiftFightLayerSelect:XLuaUi 大秘境作战层选择界面（点击区域进入此处）
 local XUiRiftFightLayerSelect = XLuaUiManager.Register(XLuaUi, "UiRiftFightLayerSelect")
 local XUiGridRiftFightLayer = require("XUi/XUiRift/Grid/XUiGridRiftFightLayer")
-local XUiRiftPluginGrid = require("XUi/XUiRift/Grid/XUiRiftPluginGrid")
 
 local IsPlayEnableAnimTrigger = nil
-local BubbleChangeTime = 3 -- 插件和奖励列表切换的时间
-local BubbleDuration = 10 -- 启用切换气泡
+local ItemIds = {
+    XDataCenter.ItemManager.ItemId.RiftGold,
+    XDataCenter.ItemManager.ItemId.RiftCoin
+}
 
 function XUiRiftFightLayerSelect:OnAwake()
     self.FuncUnlockItemId = nil -- 特权解锁的道具id
@@ -14,27 +15,27 @@ function XUiRiftFightLayerSelect:OnAwake()
 
     self:InitButton()
     self:InitDynamicTable()
-    self:InitAssetPanel()
     self.BtnAttributeRedEventId = XRedPointManager.AddRedPointEvent(self.BtnAttribute, self.OnCheckAttribute, self, { XRedPointConditions.Types.CONDITION_RIFT_ATTRIBUTE })
+end
+
+function XUiRiftFightLayerSelect:OnDestroy()
+    XRedPointManager.RemoveRedPointEvent(self.BtnAttributeRedEventId)
 end
 
 function XUiRiftFightLayerSelect:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnBtnMapClick)
     XUiHelper.RegisterClickEvent(self, self.BtnMainUi, function() XLuaUiManager.RunMain() end)
     self:BindHelpBtn(self.BtnHelp, "RiftHelp")
-    self:BindHelpBtn(self.BtnLuckHelp, "RiftLuckyHelp")
-    XUiHelper.RegisterClickEvent(self, self.BtnTask, function() XLuaUiManager.Open("UiRiftTask") end)
+    XUiHelper.RegisterClickEvent(self, self.BtnTask, self.OnClickBtnTask)
     XUiHelper.RegisterClickEvent(self, self.BtnTask2, self.OnBtnFuncUnlockClick)
     XUiHelper.RegisterClickEvent(self, self.BtnAttribute, self.OnBtnAttributeClick)
     XUiHelper.RegisterClickEvent(self, self.BtnPluginBag, function() XLuaUiManager.Open("UiRiftPluginBag") end)
     XUiHelper.RegisterClickEvent(self, self.BtnShop, function() XDataCenter.RiftManager.OpenUiShop() end)
     XUiHelper.RegisterClickEvent(self, self.BtnCharacter, function() XLuaUiManager.Open("UiRiftCharacter", nil, nil, nil, true) end)
-    -- XUiHelper.RegisterClickEvent(self, self.BtnMap, self.OnBtnMapClick)
     XUiHelper.RegisterClickEvent(self, self.BtnLuck, self.OnBtnLuckClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnStart, self.OnBtnStartClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnStartAgain, self.OnBtnStartClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnGiveup, self.OnBtnGiveupClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnRefresh, self.OnBtnRefreshClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnStart, self.OnShowDetail)
+    XUiHelper.RegisterClickEvent(self, self.BtnStartAgain, self.OnShowDetail)
+    XUiHelper.RegisterClickEvent(self, self.BtnContinue, self.OnShowDetail)
     XUiHelper.RegisterClickEvent(self, self.BtnMopup, self.OnBtnMopupClick) -- 派遣(扫荡)
     XUiHelper.RegisterClickEvent(self, self.BtnReward, function() XLuaUiManager.Open("UiRiftPreview", self.CurrSelectXFightLayer) end)
 end
@@ -46,48 +47,33 @@ function XUiRiftFightLayerSelect:InitDynamicTable()
     self.DynamicTable:SetDelegate(self)
 end
 
-function XUiRiftFightLayerSelect:OnStart(parentUi, panel3D)
+function XUiRiftFightLayerSelect:OnStart(parentUi, panel3D, jumpLayerId)
     self.ParentUi = parentUi
+    ---@type XUiPanelRiftMain3D
     self.Panel3D = panel3D
+    self.JumpLayerId = jumpLayerId
     parentUi.ChildUi = self
     IsPlayEnableAnimTrigger = true
-end
-
-function XUiRiftFightLayerSelect:InitBubbleChange()
-    if self.BubbleTimer then
-        return
-    end
-    local duration = BubbleDuration
-    local changeCD = BubbleChangeTime -- 插件和奖励列表切换的时间
-    local flag = true
-    self.PanelRewardList.gameObject:SetActiveEx(flag)
-    self.PanelPluginList.gameObject:SetActiveEx(not flag)
-    self.Transform:Find("Animation/RewardEnable"):PlayTimelineAnimation()
-
-    self.BubbleTimer = XScheduleManager.ScheduleForever(function()
-        changeCD = changeCD - 1
-        duration = duration - 1
-        if changeCD < 0 then -- 切换气泡显示
-            changeCD = BubbleChangeTime
-            flag = not flag
-            self.PanelRewardList.gameObject:SetActiveEx(flag)
-            self.PanelPluginList.gameObject:SetActiveEx(not flag)
-        end
-
-        if duration < 0 then -- 气泡消失
-            self.Transform:Find("Animation/RewardDisable"):PlayTimelineAnimation(function ()
-                self.PanelRewardList.gameObject:SetActiveEx(false)
-                self.PanelPluginList.gameObject:SetActiveEx(false)
-            end)
-            self:RemoveTimer()
-        end
-    end, XScheduleManager.SECOND, 0)
+    self:InitComponent()
 end
 
 function XUiRiftFightLayerSelect:RemoveTimer()
     if not self.BubbleTimer then return end
     XScheduleManager.UnSchedule(self.BubbleTimer)
     self.BubbleTimer = nil
+end
+
+function XUiRiftFightLayerSelect:OnGetEvents()
+    return {
+        XEventId.EVENT_RIFT_SEASON,
+    }
+end
+
+function XUiRiftFightLayerSelect:OnNotify(evt)
+    if evt == XEventId.EVENT_RIFT_SEASON then
+        self:RefreshDynamicTable()
+        self:Refresh()
+    end
 end
 
 function XUiRiftFightLayerSelect:OnEnable()
@@ -97,48 +83,48 @@ function XUiRiftFightLayerSelect:OnEnable()
         self.Transform:Find("Animation/AnimEnable1"):PlayTimelineAnimation()
     end
     -- 切换为区域镜头
+    ---@type XRiftChapter
     self.XChapter = XDataCenter.RiftManager.GetEntityChapterById(self.ParentUi.CurrSelectIndex)
     self.Panel3D:SetCameraAngleByChapterId(self.ParentUi.CurrSelectIndex)
     self.Panel3D:SetOtherGameObjectShowByChapterId(self.ParentUi.CurrSelectIndex)
     self.Panel3D:SetDragComponentEnable(false)
+    self.BtnCharacter:ShowReddot(XDataCenter.RiftManager:GetCharacterRedPoint())
     
     -- 每次进入检查以下trigger
     -- 1.跨层通关 2.跨层解锁 3.跳转作战层并开始作战 4.是否首通当前区域
-    -- 高盖低机制trigger，展示提示界面
+    -- 高盖低机制trigger，展示提示界面,关闭后飘字
     local jumpResTrigger = XDataCenter.RiftManager.GetIsTriggerJumpRes()
-    if jumpResTrigger then 
-        XLuaUiManager.Open("UiRiftJumpResults", jumpResTrigger, function ()
-            self.XChapter:CheckFirstPassAndOpenTipFun(function (nextChapter)
+    -- 【下一层】跳转
+    local isLayerIdTrigger = XDataCenter.RiftManager.GetIsNewLayerIdTrigger()
+    if jumpResTrigger then
+        XLuaUiManager.Open("UiRiftJumpResults", jumpResTrigger, function()
+            self.XChapter:CheckFirstPassAndOpenTipFun(function(nextChapter)
                 self.ParentUi:AutoPositioningToOpenBubbleByChapterId(nextChapter:GetId())
                 self:OnBtnMapClick()
             end)
+            self:ShowJumpTip()
         end)
+    else
+        -- 刷新完数据 最后再弹各种提示
+        -- 横幅互斥
+        local isJumpOpenTrigger = XDataCenter.RiftManager.GetIsTriggerJumpOpen()
+        if isJumpOpenTrigger then
+            self:ShowJumpTip()
+        elseif isLayerIdTrigger then
+            self:ShowNewLayerTip(isLayerIdTrigger)
+        end
     end
-    -- 每次进入界面检测【跃升跨层解锁】Trigger和【下一层】跳转Trigger，跃升trigger优先
-    local isJumpOpenTrigger = XDataCenter.RiftManager.GetIsTriggerJumpOpen()
-    local isLayerIdTrigger = XDataCenter.RiftManager.GetIsNewLayerIdTrigger()
-    self.PanelBegin.gameObject:SetActiveEx(false) -- 弹横幅
-    self.PanelBeginJump.gameObject:SetActiveEx(false)
-    self:AutoPositioningByLayerId(isLayerIdTrigger)
+
+    if XTool.IsNumberValid(isLayerIdTrigger) then
+        self:AutoPositioningByLayerId(isLayerIdTrigger) -- 跳转到跃升层
+    else
+        self:AutoPositioningByLayerId(self.JumpLayerId)
+    end
+    self.JumpLayerId = nil
     self:RefreshDynamicTable()
+    self:PlayLayerNodeAnim(isLayerIdTrigger)
     self:Refresh()
-    self:InitBubbleChange()
-    
-    -- 刷新完数据 最后再弹各种提示
-    -- 横幅互斥
-    if isJumpOpenTrigger then
-        self.PanelBeginJump.gameObject:SetActiveEx(true)
-        self.TxtBeginJump.text = CS.XTextManager.GetText("RiftLayerStartByJump", XDataCenter.RiftManager.GetMaxUnLockFightLayerId())
-    elseif isLayerIdTrigger then
-        self.PanelBegin.gameObject:SetActiveEx(true)
-        self.TxtBegin.text = CS.XTextManager.GetText("RiftLayerStartByAuto", isLayerIdTrigger)
-    end
-    -- 跳转Trigger必开始作战
-    if isLayerIdTrigger then
-        XDataCenter.RiftManager.RiftStartLayerRequest(isLayerIdTrigger, function ()
-            self:Refresh()
-        end)
-    end
+
     -- 检测区域是否全部通关 弹提示，必现要在跃升奖励之后再弹该提示
     if not jumpResTrigger then
         self.XChapter:CheckFirstPassAndOpenTipFun(function (nextChapter)
@@ -146,6 +132,18 @@ function XUiRiftFightLayerSelect:OnEnable()
             self:OnBtnMapClick()
         end)
     end
+end
+
+function XUiRiftFightLayerSelect:ShowJumpTip()
+    self.PanelBeginJump.gameObject:SetActiveEx(true)
+    self.PanelBeginJumpEnable:Play()
+    self.TxtBeginJump.text = CS.XTextManager.GetText("RiftLayerStartByJump", XDataCenter.RiftManager.GetMaxUnLockFightLayerId())
+end
+
+function XUiRiftFightLayerSelect:ShowNewLayerTip(isLayerIdTrigger)
+    self.PanelBegin.gameObject:SetActiveEx(true)
+    self.PanelBeginEnable:Play()
+    self.TxtBegin.text = CS.XTextManager.GetText("RiftLayerStartByAuto", isLayerIdTrigger)
 end
 
 function XUiRiftFightLayerSelect:Refresh()
@@ -160,14 +158,12 @@ function XUiRiftFightLayerSelect:RefreshUiShow()
     self:RefreshFuncUnlock()
 
     -- 幸运值信息
-    local value = math.floor((self.XChapter:GetLuckValueProgress() * 100))
-    self.TxtLuckProgress.text =  value.. "%"
-    self.ImgLuckProgress.fillAmount = self.XChapter:GetLuckValueProgress()
+    local progress = XDataCenter.RiftManager:GetLuckValueProgress()
+    self.ImgLuckProgress.fillAmount = progress
+    self.TxtLuckProgress.text = string.format("%s%%", math.floor(progress * 100))
+    self.BtnLuck:ShowReddot(progress >= 1)
     local isUnlock = XDataCenter.RiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.LuckyStage)
     self.PanelHiddenStage.gameObject:SetActiveEx(isUnlock)
-
-    -- 资源栏
-    self:UpdateAssetPanel()
 
     -- 属性加点按钮
     local isUnlock = XDataCenter.RiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.Attribute)
@@ -185,7 +181,11 @@ function XUiRiftFightLayerSelect:RefreshDynamicTable()
     local resourceList = self.XChapter:GetAllFightLayersOrderList()
     local res = {}
     local unLockCount = 0
-    for i, xFightLayer in ipairs(resourceList) do
+    self.HasPassCount = 0
+    for _, xFightLayer in ipairs(resourceList) do
+        if not XDataCenter.RiftManager.IsLayerLock(xFightLayer:GetId()) then
+            self.HasPassCount = self.HasPassCount + 1
+        end
         if xFightLayer:CheckHasLock() then
             unLockCount = unLockCount + 1
             if unLockCount > 5 then
@@ -197,10 +197,24 @@ function XUiRiftFightLayerSelect:RefreshDynamicTable()
     self.LayerListData = res
     self.DynamicTable:SetDataSource(self.LayerListData)
     self.DynamicTable:ReloadDataSync(self.CurrSelectLayerListIndex or 1)
+    -- 计算进度条
+    if self.HasPassCount == #res then
+        self.ImgNodeProgress.fillAmount = 1
+    else
+        self.ImgNodeProgress.fillAmount = self:GetNodePorgress(self.HasPassCount)
+    end
+end
+
+function XUiRiftFightLayerSelect:GetNodePorgress(hasPassCount)
+    local space = self.Btn.rect.height + self.FightLayerList.Spacing.y
+    local offset = math.abs(self.BtnSimple.anchoredPosition.y)
+    local progress = offset + math.max(0, space * (hasPassCount - 1))
+    local totalProgress = math.max(self.FightLayerList.transform.rect.height, self.Btn.rect.height * #self.LayerListData + self.FightLayerList.Spacing.y * (#self.LayerListData - 1))
+    return progress / totalProgress
 end
 
 function XUiRiftFightLayerSelect:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX or event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
         local isSelect = self.CurrSelectLayerListIndex == index
         grid:Update(self.LayerListData[index], index)
         grid:SetSelect(isSelect)
@@ -219,8 +233,9 @@ function XUiRiftFightLayerSelect:OnDynamicTableEvent(event, index, grid)
             XUiManager.TipError(CS.XTextManager.GetText(text))
             return
         end
-
-        self.CurrGrid:SetSelect(false)
+        if self.CurrGrid then
+            self.CurrGrid:SetSelect(false)
+        end
         grid:SetSelect(true)
         self.CurrGrid = grid
         self.CurrSelectLayerListIndex = index
@@ -261,6 +276,7 @@ function XUiRiftFightLayerSelect:AutoPositioningByLayerId(layerId)
         end
     end
     -- 找到这个作战层在列表里的序号index， 如果该作战层不属于该chapter则还是定位到默认index=1的作战层
+    ---@type XRiftFightLayer
     self.CurrSelectXFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(curLayerId)
     local xCurFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(curLayerId)
     for k, xFightLayer in pairs(self.LayerListData) do
@@ -276,130 +292,74 @@ function XUiRiftFightLayerSelect:OnGridFightLayerSelected(grid)
     -- 进入战斗层，记录进入打个卡
     XDataCenter.RiftManager.SaveLastFightLayer(grid.XFightLayer)
     grid.XFightLayer:SaveFirstEnter()
-    if self.CurrSelectXFightLayer == grid.XFightLayer then
-        return
+    if self.CurrSelectXFightLayer ~= grid.XFightLayer then
+        self.CurrSelectXFightLayer = grid.XFightLayer
+        self.Transform:Find("Animation/QieHuan"):PlayTimelineAnimation()
+        grid:RefreshReddot()
     end
-    
-    self.CurrSelectXFightLayer = grid.XFightLayer
-    self.Transform:Find("Animation/QieHuan"):PlayTimelineAnimation()
-    grid:RefreshReddot()
     self:Refresh()
-    self:InitBubbleChange() -- 打开气泡
+end
+
+---@param fightLayer XRiftFightLayer
+function XUiRiftFightLayerSelect:StartLayer(fightLayer, cb)
+    -- 已经有数据就不能再请求,否则怪物数据会被刷新掉
+    local groups = fightLayer:GetAllStageGroups()
+    local chapter, _ = XDataCenter.RiftManager.GetCurrPlayingChapter()
+    if XTool.IsTableEmpty(groups) or not chapter then
+        XDataCenter.RiftManager.RiftStartLayerRequest(fightLayer:GetId(), function()
+            cb()
+        end)
+    else
+        cb()
+    end
 end
 
 -- 刷新该层的相关数据
 function XUiRiftFightLayerSelect:RefreshFightLayerData()
     -- 刷新层名 深度
-    self.TxtDepth.text = self.CurrSelectXFightLayer:GetId()
-    self.TxtTitle.text = self.CurrSelectXFightLayer:GetTypeDesc()
-    -- 刷新奖励信息
-    local rewards = {}
-    local rewardId = self.CurrSelectXFightLayer:GetConfig().RewardId
-    if rewardId > 0 then
-        rewards = XRewardManager.GetRewardList(rewardId) 
-    end
-    for i, grid in ipairs(self.GridRewardList) do
-        grid.GameObject:SetActiveEx(false)
-    end
-    for i, item in ipairs(rewards) do
-        local grid =  self.GridRewardList[i]
-        if not grid then
-            local ui = CS.UnityEngine.Object.Instantiate(self.GridReward, self.GridReward.parent)
-            grid = XUiGridCommon.New(self, ui)
-            self.GridRewardList[i] = grid
-        end
-        grid:Refresh(item)
-        grid:SetReceived(self.CurrSelectXFightLayer:CheckHasPassed())
-        grid.GameObject:SetActive(true)
-    end
-    self.GridReward.gameObject:SetActiveEx(false)
-    
-    -- 刷新插件信息
-    for i, grid in ipairs(self.GridPluginList) do
-        grid.GameObject:SetActiveEx(false)
-    end
-    local pluginIds = self.CurrSelectXFightLayer.ClientConfig.PluginList
-    for i, pluginId in ipairs(pluginIds) do
-        local grid =  self.GridPluginList[i]
-        if not grid then
-            local ui = CS.UnityEngine.Object.Instantiate(self.GridRiftPlugin, self.GridRiftPlugin.parent)
-            grid = XUiRiftPluginGrid.New(ui)
-            self.GridPluginList[i] = grid
-        end
-        local xPlugin = XDataCenter.RiftManager.GetPlugin(pluginId)
-        grid:Refresh(xPlugin)
-        grid:Init(function ()
-            XLuaUiManager.Open("UiRiftPluginShopTips", {PluginId = xPlugin:GetId()})
-        end)
-        grid.GameObject:SetActive(true)
-    end
-    self.GridRiftPlugin.gameObject:SetActiveEx(false)
+    local cur, total = self.XChapter:GetChapterProgress()
+    self.TxtDepth.text = string.format("%s%%", total ~= 0 and math.round(cur / total * 100) or 0)
+    self.TxtTitle.text = self.CurrSelectXFightLayer:GetParent():GetConfig().Name
     
     -- 刷新关卡节点(3D)
     self.Panel3D:SetGridStageGroupData(self.CurrSelectXFightLayer)
 
-    -- 作战层动态列表和地图按钮互斥显示
-    local isFightBtn = self.CurrSelectXFightLayer:CheckHasStarted()
-    self.PanelLayerList.gameObject:SetActiveEx(not isFightBtn)
-    self.PanelFightBtn.gameObject:SetActiveEx(isFightBtn)
-
     -- 刷新按钮显示状态
-    local isShow = self.CurrSelectXFightLayer:CheckHasPassed() -- 已通关用再次挑战按钮
-    self.BtnStartAgain.gameObject:SetActiveEx(isShow)
-    self.BtnStart.gameObject:SetActiveEx(not isShow)
-    local currBtnStart = isShow and self.BtnStartAgain or self.BtnStart
-    
-    currBtnStart.gameObject:SetActiveEx(true)
-    self.BtnRefresh.gameObject:SetActiveEx(false)
-    self.BtnGiveup:SetDisable(false)
-    self.BtnRefresh:SetDisable(false)
-
-    if self.CurrSelectXFightLayer:CheckHasStarted() then    -- 作战开始
-        currBtnStart.gameObject:SetActiveEx(false)
-        -- 作战开始，但是进度为0
-        if self.CurrSelectXFightLayer:GetProgress() <= 0 then
-            self.BtnRefresh.gameObject:SetActiveEx(true)
-        else
-            self.BtnRefresh.gameObject:SetActiveEx(false)
-        end
-    elseif self.CurrSelectXFightLayer:CheckNoneData() then  -- 没有任何数据
-        self.BtnGiveup:SetDisable(true)
-        self.BtnRefresh:SetDisable(true)
-    end
-
-    local isZoom = self.CurrSelectXFightLayer:GetType() == XRiftConfig.LayerType.Zoom
-    self.BtnMopup.gameObject:SetActiveEx(not isZoom) -- 跃升层隐藏扫荡按钮
-    self.BtnMopup:SetDisable(self.CurrSelectXFightLayer:CheckMopupDisable()) -- 跃升层隐藏扫荡按钮
+    local currLayer = self.CurrSelectXFightLayer:GetId()
+    local isCurrPlay = XDataCenter.RiftManager.IsCurrPlayingLayer(currLayer)
+    local isPass = XDataCenter.RiftManager.IsLayerPass(currLayer)
+    self.BtnStart.gameObject:SetActiveEx(not isCurrPlay and not isPass)     -- 开始挑战
+    self.BtnStartAgain.gameObject:SetActiveEx(not isCurrPlay and isPass)    -- 再次挑战
+    self.BtnContinue.gameObject:SetActiveEx(isCurrPlay)                     -- 继续挑战
 end
 
-function XUiRiftFightLayerSelect:OnBtnStartClick()
-    XDataCenter.RiftManager.RiftStartLayerRequest(self.CurrSelectXFightLayer:GetId(), function ()
+function XUiRiftFightLayerSelect:OnShowDetail()
+    local newLayerId = self.CurrSelectXFightLayer:GetId()
+    if XDataCenter.RiftManager.IsOtherLayerPlaying(newLayerId) then
+        -- 弹放弃其他层的弹框
+        XUiManager.DialogTip("", XUiHelper.GetText("RiftLayerGiveUp"), XUiManager.DialogType.Normal, nil, function()
+            XDataCenter.RiftManager.RiftStopLayerRequest(function()
+                self:OnStartNewLayer(newLayerId)
+            end)
+        end)
+        return
+    end
+    self:OnStartNewLayer(newLayerId)
+end
+
+function XUiRiftFightLayerSelect:OnStartNewLayer(newLayerId)
+    local newFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(newLayerId)
+    self:StartLayer(newFightLayer, function()
+        self.Panel3D:AutoOpenDetail(self.CurrSelectXFightLayer)
         self:Refresh()
     end)
-end
-
-function XUiRiftFightLayerSelect:OnBtnGiveupClick()
-    local title = CS.XTextManager.GetText("TipTitle")
-    local content = CS.XTextManager.GetText("RiftGiveUpConfirm")
-    local sureCallback = function ()
-        XDataCenter.RiftManager.RiftStopLayerRequest(function ()
-            self:Refresh()
-            local playTrans = self.Transform:Find("Animation/LayerListEnable")
-            if playTrans.gameObject.activeInHierarchy then
-                playTrans:PlayTimelineAnimation()
-            end
-        end)
-    end
-    XLuaUiManager.Open("UiDialog", title, content, XUiManager.DialogType.Normal, nil, sureCallback)
 end
 
 function XUiRiftFightLayerSelect:OnBtnRefreshClick()
     local title = CS.XTextManager.GetText("TipTitle")
     local content = CS.XTextManager.GetText("RiftRefreshRandomConfirm")
     local sureCallback = function ()
-        XDataCenter.RiftManager.RiftStartLayerRequestWithCD(self.CurrSelectXFightLayer:GetId(), function ()
-            self:Refresh()
-        end)
+        self:StartLayer(self.CurrSelectXFightLayer, handler(self, self.Refresh))
     end
 
     if self.CurrSelectXFightLayer:CheckIsOwnFighting() then
@@ -411,22 +371,23 @@ end
 
 function XUiRiftFightLayerSelect:OnBtnMopupClick()
     if XDataCenter.RiftManager.GetSweepLeftTimes() <= 0 then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftSweepTimesLimit"))
+        XUiManager.TipError(XUiHelper.GetText("RiftSweepTimesLimit"))
         return
     end
-    if not self.CurrSelectXFightLayer:CheckHasPassed() then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftSweepFirstPassLimit"))
+    local maxPass = XDataCenter.RiftManager.GetMaxPassFightLayerId()
+    if not XTool.IsNumberValid(maxPass) then
+        XUiManager.TipError(XUiHelper.GetText("RiftSweepForbidTip"))
         return
     end
-    if self.CurrSelectXFightLayer:CheckIsOwnFighting() then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftSweepDataLimit"))
+    if not XDataCenter.RiftManager.IsLayerPass(self.CurrSelectXFightLayer:GetId()) then
+        XUiManager.TipError(XUiHelper.GetText("RiftMopupForbid"))
         return
     end
     
     local title = CS.XTextManager.GetText("TipTitle")
     local content = CS.XTextManager.GetText("RiftSweepConfirm")
     local sureCallback = function ()
-        XDataCenter.RiftManager.RiftSweepLayerRequest(self.CurrSelectXFightLayer:GetId(), function ()
+        XDataCenter.RiftManager.RiftSweepLayerRequest(function ()
             self:Refresh()
         end)
     end
@@ -434,41 +395,26 @@ function XUiRiftFightLayerSelect:OnBtnMopupClick()
 end
 
 function XUiRiftFightLayerSelect:OnBtnLuckClick()
-    -- 区域唯一幸运节点检测
-    local luckFightLayer = self.XChapter:GetCurrLuckFightLayer()
-    if luckFightLayer and luckFightLayer:GetLuckStageGroup() and not luckFightLayer:GetLuckStageGroup():CheckHasPassed() then
-        local title = CS.XTextManager.GetText("TipTitle")
-        local content = CS.XTextManager.GetText("RiftLuckOnlyLimit")
-        local sureCallback = function ()
-            -- 检测跳转限制，目标作战层不是该层
-            if self.CurrSelectXFightLayer:CheckIsOwnFighting() and luckFightLayer ~= self.CurrSelectXFightLayer then 
-                XUiManager.TipError(CS.XTextManager.GetText("RiftFightLimit"))
-                return
-            end
-            -- 跳转到指定层
-            self:AutoPositioningByLayerId(luckFightLayer:GetId())
-            self:RefreshDynamicTable()
-            self:Refresh()
-        end
-        XLuaUiManager.Open("UiDialog", title, content, XUiManager.DialogType.Normal, nil, sureCallback)
+    local startLucky = function()
+        local luckyLayer = XDataCenter.RiftManager:GetLuckLayer()
+        self:StartLayer(luckyLayer, function()
+            local group = luckyLayer:GetStage()
+            XDataCenter.RiftManager.SetCurrSelectRiftStage(group)
+            XLuaUiManager.Open("UiRiftLuckStageDetail", group, handler(self, self.Refresh))
+        end)
+    end
+
+    if XDataCenter.RiftManager.GetCurrPlayingChapter() then
+        -- 弹放弃其他层的弹框
+        XUiManager.DialogTip("", XUiHelper.GetText("RiftLayerGiveUp"), XUiManager.DialogType.Normal, nil, function()
+            XDataCenter.RiftManager.RiftStopLayerRequest(function()
+                startLucky()
+            end)
+        end)
         return
     end
 
-    -- 开始作战状态检测
-    if not self.CurrSelectXFightLayer:CheckHasStarted() then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftLuckNotFightLimit"))
-        return
-    end
-
-    -- 幸运值检测
-    if self.XChapter:GetLuckValueProgress() < 1 then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftLuckValueLimit"))
-        return
-    end
-
-    XDataCenter.RiftManager.RiftStartLuckyNodeRequest(function ()
-        self:Refresh()
-    end)  
+    startLucky()
 end
 
 function XUiRiftFightLayerSelect:OnBtnBackClick()
@@ -488,7 +434,7 @@ function XUiRiftFightLayerSelect:OnBtnFuncUnlockClick()
             Id = self.FuncUnlockItemId,
             Count = "0"
         }
-        XLuaUiManager.Open("UiTip", data)
+        XLuaUiManager.Open("UiTip", data, nil, nil, nil, nil, nil, XUiHelper.GetText("RiftChapterPrivilegeTarget"), false)
 
         XDataCenter.RiftManager.CloseFuncUnlockRed()
         self:RefreshFuncUnlock()
@@ -516,25 +462,16 @@ function XUiRiftFightLayerSelect:OnDisable()
     self:RemoveTimer()
 end
 
-function XUiRiftFightLayerSelect:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-        {
-            XDataCenter.ItemManager.ItemId.RiftGold,
-            XDataCenter.ItemManager.ItemId.RiftCoin
-        },
-        handler(self, self.UpdateAssetPanel),
-        self.AssetActivityPanel
-    )
+function XUiRiftFightLayerSelect:InitComponent()
+    if self.AssetActivityPanel then
+        self.AssetActivityPanel:Refresh(ItemIds)
+    else
+        self.AssetActivityPanel = XUiHelper.NewPanelActivityAssetSafe(ItemIds, self.PanelSpecialTool, self)
+    end
 end
 
 function XUiRiftFightLayerSelect:UpdateAssetPanel()
-    self.AssetActivityPanel:Refresh(
-        {
-            XDataCenter.ItemManager.ItemId.RiftGold,
-            XDataCenter.ItemManager.ItemId.RiftCoin
-        }
-    )
+    self.AssetActivityPanel:Refresh(ItemIds)
 end
 
 -- 刷新任务ui
@@ -561,6 +498,29 @@ function XUiRiftFightLayerSelect:RefreshFuncUnlock()
 
         local isRed = XDataCenter.RiftManager.IsFuncUnlockRed()
         self.BtnTask2:ShowReddot(isRed)
+    end
+end
+
+function XUiRiftFightLayerSelect:OnClickBtnTask()
+    self.JumpLayerId = self.CurrSelectXFightLayer:GetId()
+    XLuaUiManager.Open("UiRiftTask")
+end
+
+function XUiRiftFightLayerSelect:PlayLayerNodeAnim(jumpLayerId)
+    if not XTool.IsNumberValid(jumpLayerId) then
+        return
+    end
+    local old = XDataCenter.RiftManager.GetMaxPassFightLayerId()
+    ---@type XUiGridRiftFightLayer[]
+    local grids = self.DynamicTable:GetGrids()
+    for _, grid in pairs(grids) do
+        local layerId = grid.XFightLayer:GetId()
+        if layerId > old and layerId <= jumpLayerId then
+            XScheduleManager.ScheduleOnce(function()
+                grid.AnimationBig:Play()
+                self.ImgNodeProgress.fillAmount = self:GetNodePorgress(self.HasPassCount - jumpLayerId + layerId)
+            end, (layerId - old - 1) * 300)
+        end
     end
 end
 

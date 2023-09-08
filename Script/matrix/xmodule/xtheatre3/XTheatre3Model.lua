@@ -4,7 +4,7 @@ local XTheatre3Activity = require("XModule/XTheatre3/XEntity/XTheatre3Activity")
 --ReadFunc : 读取表格的方法，默认为XConfigUtil.ReadType.Int
 --DirPath : 读取的文件夹类型XConfigUtil.DirectoryType，默认是Share
 --Identifier : 读取表格的主键名，默认为Id
---TableDefindName : 表定于名，默认同表名
+--TableDefinedName : 表定于名，默认同表名
 --CacheType : 配置表缓存方式，默认XConfigUtil.CacheType.Private
 --=============
 local TableKey = {
@@ -21,6 +21,7 @@ local TableKey = {
     Theatre3Config = { ReadFunc = XConfigUtil.ReadType.String, Identifier = "Key" },
     Theatre3Task = { CacheType = XConfigUtil.CacheType.Normal, DirPath = XConfigUtil.DirectoryType.Client },
     Theatre3EquipSuit = {},
+    Theatre3EquipSuitEffectGroup = {CacheType = XConfigUtil.CacheType.Temp},
     Theatre3Equip = {},
     Theatre3Item = {},
     Theatre3Ending = { CacheType = XConfigUtil.CacheType.Normal },
@@ -39,6 +40,7 @@ local TableKey = {
     Theatre3EquipBox = {},
     Theatre3Gold = {},
     Theatre3EnergyUnused = {},
+    Theatre3EffectGroupDesc = { DirPath = XConfigUtil.DirectoryType.Client, Identifier = "EffectGroupId" },
 }
 
 ---@class XTheatre3Model : XModel
@@ -135,12 +137,10 @@ end
 
 -- 获取BP经验值
 function XTheatre3Model:GetBattlePassTotalExp()
+    if not self.ActivityData then
+        return 0
+    end
     return self.ActivityData:GetTotalBattlePassExp()
-end
-
--- Adventure
-function XTheatre3Model:GetAdventureItemList()
-    return self.ActivityData:GetAdventureItemList()
 end
 
 --endregion
@@ -335,6 +335,7 @@ function XTheatre3Model:GetEquipConfig()
     return self._ConfigUtil:GetByTableKey(TableKey.Theatre3Equip)
 end
 
+---@return XTableTheatre3Equip
 function XTheatre3Model:GetEquipById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Equip, id)
 end
@@ -344,8 +345,14 @@ function XTheatre3Model:GetEquipSuitConfigs()
     return self._ConfigUtil:GetByTableKey(TableKey.Theatre3EquipSuit)
 end
 
+---@return XTableTheatre3EquipSuit
 function XTheatre3Model:GetSuitById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EquipSuit, id)
+end
+
+---@return XTableTheatre3EquipSuitEffectGroup
+function XTheatre3Model:GetSuitEffectGroupById(id)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EquipSuitEffectGroup, id)
 end
 
 ---@return XTableTheatre3Equip[]
@@ -656,6 +663,28 @@ end
 
 --endregion
 
+--region Cache
+function XTheatre3Model:GetLocalCacheKey(key)
+    return string.format("Theatre3_%s_%s_%s", XPlayer.Id, self.ActivityData:GetCurActivityId(), key)
+end
+
+function XTheatre3Model:GetAddEnergyLimitRedPoint()
+    local value = XSaveTool.GetData(self:GetLocalCacheKey("EnergyLimitRedPoint"))
+    if value == nil then
+        return false
+    else
+        return value
+    end
+end
+
+function XTheatre3Model:SetAddEnergyLimitRedPoint(value)
+    if self:GetAddEnergyLimitRedPoint() == value then
+        return
+    end
+    XSaveTool.SaveData(self:GetLocalCacheKey("EnergyLimitRedPoint"), value)
+end
+--endregion
+
 --region Difficulty
 ---@return XTableTheatre3Difficulty[]
 function XTheatre3Model:GetDifficultyConfigs()
@@ -750,6 +779,40 @@ end
 function XTheatre3Model:GetFubenClashCost(rebootId)
     local cfg = self:GetRebootCfg(rebootId)
     return cfg and cfg.FubenClashCost or 0
+end
+--endregion
+
+--region EffectGroup
+---@return XTableTheatre3EffectGroupDesc
+function XTheatre3Model:_GetEffectGroupDescCfg(effectGroupId)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EffectGroupDesc, effectGroupId, true)
+end
+
+---@param paramList number[]
+---@return string
+function XTheatre3Model:GetEffectGroupDescByIndex(effectGroupId, paramList, index)
+    local cfg = self:_GetEffectGroupDescCfg(effectGroupId)
+    if not cfg then
+        return ""
+    end
+    local value = 0
+    index = index and index or 1
+    local baseValueList = string.Split(cfg.BaseValueList[index], "|")
+    for i = 1, #baseValueList do
+        if baseValueList[i] ~= "" then
+            value = value + tonumber(baseValueList[i]) * (paramList[i] and paramList[i] or 1)
+        end
+    end
+    return XUiHelper.FormatText(cfg.DescList[index], value)
+end
+
+---@return number 
+function XTheatre3Model:GetEffectGroupDescCfgType(effectGroupId)
+    local cfg = self:_GetEffectGroupDescCfg(effectGroupId)
+    if not cfg then
+        return
+    end
+    return cfg.Type
 end
 --endregion
 

@@ -73,7 +73,7 @@ end
 
 function XUiExpeditionDefaultTeam:GetCharaFullName(baseId)
     local baseECharaCfg = XExpeditionConfig.GetBaseCharacterCfgById(baseId)
-    return XCharacterConfigs.GetCharacterFullNameStr(baseECharaCfg.CharacterId)
+    return XMVCA.XCharacter:GetCharacterFullNameStr(baseECharaCfg.CharacterId)
 end
 
 function XUiExpeditionDefaultTeam:GetFullName(teamId)

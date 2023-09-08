@@ -1,3 +1,4 @@
+---@class XUiGridRiftTemplate
 local XUiGridRiftTemplate = XClass(nil, "UiGridRiftTemplate")
 local Normal = CS.UiButtonState.Normal
 local Select = CS.UiButtonState.Select
@@ -14,22 +15,19 @@ function XUiGridRiftTemplate:Ctor(ui, base, index)
 end
 
 function XUiGridRiftTemplate:SetButtonCallBack()
-    self.BtnOne.CallBack = function()
-        self.Base:OnClickBtnSelectGrid(self.Index)
-    end
-
-    self.BtnTwo.CallBack = function()
-        self.Base:OnClickBtnCoverGrid(self.Index)
-    end
+    XUiHelper.RegisterClickEvent(self, self.BtnOne, self.OnBtnSelectGrid)
+    XUiHelper.RegisterClickEvent(self, self.BtnTwo, self.OnBtnSelectGrid)
+    XUiHelper.RegisterClickEvent(self, self.BtnReName, self.OnBtnReName)
 end
 
+---@param attrTemplate XRiftAttributeTemplate
 function XUiGridRiftTemplate:Refresh(attrTemplate)
     self.AttrTemplate = attrTemplate
-    local isEmpty = attrTemplate:IsEmpty()
-    self.BtnOne.gameObject:SetActiveEx(not isEmpty)
-    self.BtnTwo.gameObject:SetActiveEx(isEmpty)
+    self.IsEmpty = attrTemplate:IsEmpty()
+    self.BtnOne.gameObject:SetActiveEx(not self.IsEmpty)
+    self.BtnTwo.gameObject:SetActiveEx(self.IsEmpty)
 
-    if not isEmpty then
+    if not self.IsEmpty then
         local stateNameList = {"Noamal", "Press", "Select"}
         for _, stateName in ipairs(stateNameList) do
             local btnState = self[stateName]
@@ -44,8 +42,24 @@ function XUiGridRiftTemplate:Refresh(attrTemplate)
     self.TxtTittle.text = attrTemplate:GetName()
 end
 
+function XUiGridRiftTemplate:OnBtnSelectGrid()
+    self.Base:OnClickBtnSelectGrid(self.Index)
+end
+
+function XUiGridRiftTemplate:OnBtnReName()
+    local maxLen = XDataCenter.RiftManager.GetCurrentConfig().AttrSetNameLength
+    XLuaUiManager.Open("UiTeamPrefabReName", function(newName, closeCb)
+        XDataCenter.RiftManager.RiftSetAttrSetNameRequest(self.AttrTemplate.Id, newName, function()
+            self.TxtTittle.text = self.AttrTemplate:GetName()
+            XUiManager.TipError(XUiHelper.GetText("RiftReNameSuccess"))
+            XLuaUiManager.Close("UiTeamPrefabReName")
+        end)
+    end, XUiHelper.GetText("RiftReNameTitle"), maxLen)
+end
+
 function XUiGridRiftTemplate:SetSelect(isSelect)
     self.BtnOne:SetButtonState(isSelect and Select or Normal)
+    self.BtnTwo:SetButtonState(isSelect and Select or Normal)
 end
 
 return XUiGridRiftTemplate

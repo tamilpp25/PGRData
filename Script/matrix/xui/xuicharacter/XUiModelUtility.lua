@@ -28,7 +28,7 @@ function XUiModelUtility.LoadPartnerModelSToC(templateId, panelRoleModelUi, uiNa
     end
 
     -- 变形特效
-    panelRoleModelUi:LoadPartnerUiEffect(modelConfig.StandByModel, XPartnerConfigs.EffectParentName.ModelOffEffect, true, true)
+    panelRoleModelUi:LoadPartnerUiEffect(modelConfig.StandbyModel, XPartnerConfigs.EffectParentName.ModelOffEffect, true, true)
     -- 动画
     panelRoleModelUi:PlayAnima(modelConfig.SToCAnime, true, sToCAnimaFinishCallback)
 

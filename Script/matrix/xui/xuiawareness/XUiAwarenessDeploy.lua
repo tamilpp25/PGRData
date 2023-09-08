@@ -72,6 +72,14 @@ function XUiAwarenessDeploy:AutoCheckTeamToRefresh()
     -- 先检查队伍是否为空
     -- 若为空则往前查找有队伍信息的group 
     if not XDataCenter.FubenAwarenessManager.CheckChapterHadRecordTeam(self.ChapterId) then
+        -- 且自动填充前清除队伍数据
+        for k, teamId in pairs(self.ListData) do
+            local teamData = teamId and XDataCenter.FubenAwarenessManager.GetTeamDataById(teamId) or nil
+            if teamData then
+                teamData:SetMemberList(nil)
+            end
+        end
+
         local targetPreGroupTeamData = nil
         local teamRecords = XDataCenter.FubenAwarenessManager.GetChapterTeamRecords()
         for i = 1, #teamRecords do
@@ -94,7 +102,8 @@ function XUiAwarenessDeploy:AutoCheckTeamToRefresh()
                 if teamData then
                     for index, charId in pairs(teamList) do
                         if index > teamData:GetNeedCharacter() then
-                            table.remove(teamList, index)
+                            -- table.remove(teamList, index)
+                            teamList[index] = nil
                         end
                     end
                 end
@@ -113,9 +122,12 @@ function XUiAwarenessDeploy:AutoCheckTeamToRefresh()
 
                 -- 清除多余队伍
                 if i > #self.ListData then
-                    table.remove(targetPreGroupTeamData.TeamInfoList, i)
-                    table.remove(targetPreGroupTeamData.FirstFightPosList, i)
-                    table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    -- table.remove(targetPreGroupTeamData.TeamInfoList, i)
+                    -- table.remove(targetPreGroupTeamData.FirstFightPosList, i)
+                    -- table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    targetPreGroupTeamData.TeamInfoList[i] = nil
+                    targetPreGroupTeamData.FirstFightPosList[i] = nil
+                    targetPreGroupTeamData.CaptainPosList[i] = nil
                 end
 
                 -- 设置修改后的数据
@@ -172,6 +184,7 @@ function XUiAwarenessDeploy:OnBtnFightClick()
         local chapterData = XDataCenter.FubenAwarenessManager.GetChapterDataById(self.ChapterId)
         XDataCenter.FubenAwarenessManager.SetEnterLoadingData(targetIndex, teamCharList[targetIndex], groupData, chapterData, true)
         XDataCenter.FubenManager.EnterAwarenessFight(targetStageId, teamCharList[targetIndex], captainPosList[targetStageId], nil, nil, firstFightPosList[targetIndex])
+        XDataCenter.FubenAwarenessManager.AwarenessGetDataRequest() -- 同步队伍数据
     end)
 end
 

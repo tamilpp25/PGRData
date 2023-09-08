@@ -8,6 +8,9 @@ function XUiLottoTanchuang:OnStart(data, cb)
     self.UseItem = {}
     self.TargetItem = {}
     self.UseCard = {self.Card1,self.Card2}
+end
+
+function XUiLottoTanchuang:OnEnable()
     self:ShowPanel()
 end
 

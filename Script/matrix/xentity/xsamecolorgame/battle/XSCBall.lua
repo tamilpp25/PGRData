@@ -1,3 +1,4 @@
+---@class XSCBall
 local XSCBall = XClass(nil, "XSCBall")
 
 function XSCBall:Ctor(id)

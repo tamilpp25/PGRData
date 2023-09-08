@@ -59,7 +59,7 @@ function XUiCerberusGameBattleRoomProxy:GetIsCanEnterFight(xTeam, stageId)
     local chardesc = ""
     for charId, v in pairs(canUseCharIdList) do
         canUseCharacterCount = canUseCharacterCount + 1
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(charId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(charId)
         local name = charConfig.Name.. "，"
         chardesc = chardesc .. name
     end

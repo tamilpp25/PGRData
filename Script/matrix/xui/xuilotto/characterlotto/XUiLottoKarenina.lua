@@ -17,14 +17,12 @@ local PANEL_TYPE = {
 function XUiLottoKarenina:OnStart(groupData, closeCb, backGround, initPanelType)
     ---@type XLottoGroupEntity
     self._LottoGroupData = groupData
-    if XDataCenter.LottoManager.GetFirstAnim(self._LottoGroupData:GetId()) or not XDataCenter.LottoManager.GetSkipAnim(self._LottoGroupData:GetId()) then
-        self._PanelType = PANEL_TYPE.FIRST
-    else
-        if XTool.IsNumberValid(initPanelType) then
-            self._PanelType = initPanelType
-        else
-            self._PanelType = self._CachePanelType and self._CachePanelType or PANEL_TYPE.SHOW
-        end
+    self._InitPanelType = initPanelType
+    self:SetPanelType(initPanelType)
+    local isFirst = XDataCenter.LottoManager.GetFirstAnim(self._LottoGroupData:GetId())
+    if initPanelType == PANEL_TYPE.STAGE then
+        -- 入场是Stage则切换回抽卡需要演出
+        self._IsExitStagePlayFirst = isFirst
     end
 
     self:Init()
@@ -36,12 +34,16 @@ function XUiLottoKarenina:OnEnable()
     self:StartAutoCloseTimer()
     self:SetGlobalIllumination(true)
 
-    self:PlayStartAnim()
+    self:PlayEnableAnim()
 end
 
 function XUiLottoKarenina:OnDisable()
+    self:_StopTimer()
     self:CloseAutoCloseTimer()
     self:SetGlobalIllumination(false)
+
+    self.PanelDrawGroup.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.SHOW))
+    self.PanelStory.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.STAGE))
 end
 
 function XUiLottoKarenina:OnDestroy()
@@ -58,6 +60,7 @@ end
 
 function XUiLottoKarenina:Init()
     self:InitPanelAsset()
+    self:InitBtn()
     self:InitReward()
     self:InitStageList()
     self:InitUiAnim()
@@ -83,15 +86,26 @@ function XUiLottoKarenina:_RefreshPanelType()
     self.BtnBack.gameObject:SetActiveEx(isShowOrStage)
     self.BtnMainUi.gameObject:SetActiveEx(isShowOrStage)
     self.PanelSpecialTool.gameObject:SetActiveEx(isShowOrStage)
-    
-    self.PanelDrawGroup.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.SHOW))
-    self.PanelStory.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.STAGE))
+
     self.PanelDrawEffect.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.DRAW))
     self.BtnDraw.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.DRAW))
     self.BtnStart.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.FIRST))
 end
 
---region Checker
+--region Data - PanelType
+function XUiLottoKarenina:SetPanelType(panelType)
+    local isFirst = XDataCenter.LottoManager.GetFirstAnim(self._LottoGroupData:GetId())
+    local isSkip = XDataCenter.LottoManager.GetSkipAnim(self._LottoGroupData:GetId())
+    if XTool.IsNumberValid(panelType) then
+        self._PanelType = panelType
+    else
+        self._PanelType = self._CachePanelType and self._CachePanelType or PANEL_TYPE.SHOW
+    end
+    if (isFirst or not isSkip) and self:CheckPanelType(PANEL_TYPE.SHOW) then
+        self._PanelType = PANEL_TYPE.FIRST
+    end
+end
+
 function XUiLottoKarenina:CheckPanelType(type)
     return self._PanelType == type
 end
@@ -218,7 +232,7 @@ function XUiLottoKarenina:InitPanelAsset()
         XDataCenter.ItemManager.ItemId.HongKa,
         drawData:GetConsumeId()
     }
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(itemIds, self.PanelSpecialTool)
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(itemIds, self.PanelSpecialTool, self)
 end
 
 function XUiLottoKarenina:RemovePanelAssetListener()
@@ -240,6 +254,19 @@ end
 --endregion
 
 --region Ui - Btn
+function XUiLottoKarenina:InitBtn()
+    if not self.BtnSkip then
+        ---@type XUiComponent.XUiButton
+        self.BtnSkip = XUiHelper.TryGetComponent(self.PanelDrawGroup.transform, "TopControlSpe/BtnSkip", "XUiButton")
+    end
+    if self.BtnSkip then
+        self.BtnSkip.gameObject:SetActiveEx(false)
+    end
+    if self.TopControlSpe then
+        self.TopControlSpe.gameObject:SetActiveEx(false)
+    end
+end
+
 function XUiLottoKarenina:RefreshDrawBtn()
     local drawData = self._LottoGroupData:GetDrawData()
     local icon = XDataCenter.ItemManager.GetItemBigIcon(drawData:GetConsumeId())
@@ -272,70 +299,131 @@ function XUiLottoKarenina:InitUiAnim()
     self._UiAnimEnableLong = self.GameObject:FindTransform("AnimEnableLong"):GetComponent("PlayableDirector")
 end
 
-function XUiLottoKarenina:PlayStartAnim()
+function XUiLottoKarenina:PlayEnableAnim()
     local isFirst = XDataCenter.LottoManager.GetFirstAnim(self._LottoGroupData:GetId())
     local isSkip = XDataCenter.LottoManager.GetSkipAnim(self._LottoGroupData:GetId())
     if isFirst then
         --播放完首次动画后默认跳过动画
         isSkip = true
-        self:_PlayStartAnim()
         XDataCenter.LottoManager.SetSkipAnim(self._LottoGroupData:GetId(), isSkip)
+    end
+    if self:CheckPanelType(PANEL_TYPE.FIRST) then
+        self:_PlayEnableAnim()
     else
-        if isSkip then
-            self:PlayShortStartAnim()
-        else
-            self:_PlayStartAnim()
-        end
+        self:PlayShortEnableAnim()
     end
     self:RefreshSkipBtn(isSkip)
 end
 
 ---首次进入和不跳过进入待点击动画(卡列徘徊)
-function XUiLottoKarenina:_PlayStartAnim()
+function XUiLottoKarenina:_PlayEnableAnim()
+    -- 这里remove是因为默认剧情关又不跳过演出，会导致模型在舞台下，只有脑袋的影子
+    -- 所以需要移除影子
+    self:RemoveModelShadow()
     self.BtnStart.gameObject:SetActiveEx(false)
-    self:PlayAnimation("AnimStart1")
+    self:PlayAnimationWithMask("AnimStart1")
+    self:PlayTimeLineAnim(self._SceneAnimStart)
+    
     self._CamAnimStart1.gameObject:PlayTimelineAnimation(function()
         self.BtnStart.gameObject:SetActiveEx(true)
     end)
+    self._Mat1.gameObject:SetActiveEx(true)
 end
 
 ---长入场动画(上台唱歌)
 function XUiLottoKarenina:_PlayLongStartAnim(time)
-    self._UiAnimEnableLong.initialTime = time or 0
-    self._UiAnimEnableLong.extrapolationMode = CS.UnityEngine.Playables.DirectorWrapMode.Hold
-    self._UiAnimEnableLong:Evaluate()
-    self._UiAnimEnableLong:Play()
-    
-    self._CamAnimEnableLong.initialTime = time or 0
-    self._CamAnimEnableLong:Evaluate()
-    self._CamAnimEnableLong:Play()
     self._CamAnimStart1:Stop()
-    XLuaUiManager.SetMask(true)
-    XScheduleManager.ScheduleOnce(function()
-        XLuaUiManager.SetMask(false)
-    end, self._CamAnimEnableLong.duration * XScheduleManager.SECOND)
+    self:PlayAnimation("AnimEnableLong")
+    self:PlayTimeLineAnim(self._SceneAnimEnableLong)
+    self:PlayTimeLineAnim(self._CamAnimEnableLong, time)
+    self:PlayTimeLineAnim(self._CamAnimEnableLongEffect)
+    
+    self:_StopTimer()
+    -- 因为要提前加影子保证最后效果一直，长动画需要检测卡列的动作加影子
+    self._LongAnimTimer = XScheduleManager.ScheduleForever(function()
+        if not XTool.UObjIsNil(self._ModelAnimator) and self._ModelAnimator:GetCurrentAnimatorStateInfo(0):IsName("LottoStand01loop") then
+            self:AddModelShadow()
+            self:_StopTimer()
+        end
+    end, 0, 0)
 end
 
----跳过进入短入场动画(台上Stand)
-function XUiLottoKarenina:PlayShortStartAnim()
-    if self:CheckPanelType(PANEL_TYPE.SHOW) then
-        self:PlayAnimation("AnimEnableShort")
-        self._CamAnimEnableShort.initialTime = 0
-        self._CamAnimEnableShort:Evaluate()
-        self._CamAnimEnableShort:Play()
-    elseif self:CheckPanelType(PANEL_TYPE.STAGE) then
-        
+function XUiLottoKarenina:_StopTimer()
+    if self._LongAnimTimer then
+        XScheduleManager.UnSchedule(self._LongAnimTimer)
     end
 end
 
----关卡镜头动画
-function XUiLottoKarenina:PlayStageAnim()
-
+---跳过进入短入场动画(台上Stand)
+function XUiLottoKarenina:PlayShortEnableAnim()
+    if self:CheckPanelType(PANEL_TYPE.SHOW) then
+        self:PlayAnimationWithMask("AnimEnableShort", function()
+            -- 额外奖励和皮肤弹窗摆这里是因为结果回来会播该动画
+            -- 弹窗会截图背景做模糊处理，显得过渡不自然
+            self:_ShowExtraReward(function()
+                self:_ShowFashionReward()
+            end)
+        end)
+        self:PlayTimeLineAnim(self._CamAnimEnableShort)
+    elseif self:CheckPanelType(PANEL_TYPE.STAGE) then
+        self:PlayStageAnim(true)
+    end
+    self:AddModelShadow()
 end
 
----抽奖动画
-function XUiLottoKarenina:PlayDrawAnim()
+---关卡镜头动画
+function XUiLottoKarenina:PlayStageAnim(isDisableTop)
+    if self._InitPanelType == PANEL_TYPE.STAGE or isDisableTop then
+        self._InitPanelType = nil
+        self:PlayAnimationWithMask("AnimStart2")
+    else
+        self:PlayAnimationWithMask("AnimEnableStory")
+    end
+    self:PlayTimeLineAnim(self._CamAnimEnableStory)
+end
 
+---关卡镜头动画
+function XUiLottoKarenina:PlayStageDisableAnim()
+    self:PlayAnimationWithMask("AnimDisableStory")
+    self:PlayTimeLineAnim(self._CamAnimDisableStory)
+end
+
+---@param anim UnityEngine.Playables.PlayableDirector
+---@param directorWrapMode number UnityEngine.Playables.DirectorWrapMode
+function XUiLottoKarenina:PlayTimeLineAnim(anim, time, directorWrapMode)
+    if not anim then
+        return
+    end
+    anim.initialTime = time or 0
+    if directorWrapMode then
+        anim.extrapolationMode = directorWrapMode
+    end
+    anim:Evaluate()
+    anim:Play()
+end
+
+---@param anim UnityEngine.Playables.PlayableDirector
+function XUiLottoKarenina:PauseTimeLineAnim(anim)
+    if not anim then
+        return
+    end
+    anim:Pause()
+end
+
+---@param anim UnityEngine.Playables.PlayableDirector
+function XUiLottoKarenina:ResumeTimeLineAnim(anim)
+    if not anim then
+        return
+    end
+    anim:Play()
+end
+
+---@param anim UnityEngine.Playables.PlayableDirector
+function XUiLottoKarenina:StopTimeLineAnim(anim)
+    if not anim then
+        return
+    end
+    anim:Stop()
 end
 --endregion
 
@@ -344,22 +432,92 @@ function XUiLottoKarenina:OnDraw()
     local drawData = self._LottoGroupData:GetDrawData()
     characterRecord.Record()
     XDataCenter.LottoManager.DoLotto(drawData:GetId(), function(rewardList, extraRewardList)
+        self._PanelType = PANEL_TYPE.SHOW
         XDataCenter.AntiAddictionManager.BeginDrawCardAction()
         self._ExtraRewardList = extraRewardList
-        self._RewardList = rewardList
+        self._RewardList = self:HandleDrawShowReward(rewardList)
         self._IsCanDraw = true
-        --UiDrawResult
-        XLuaUiManager.Open("UiDrawShowNew", drawData, self._RewardList, nil, 1, function()
-            self.IsDrawBack = true
-            self._PanelType = PANEL_TYPE.SHOW
-            self:Refresh()
-            self:_ShowExtraReward(function()
-                self:_ShowFashionReward()
-            end)
-        end)
+        self:EnableDrawAnim(handler(self, self.AfterDrawAnim))
     end, function()
         self._IsCanDraw = true
     end)
+end
+
+function XUiLottoKarenina:AfterDrawAnim()
+    local drawData = self._LottoGroupData:GetDrawData()
+    local openResult = function()
+        --UiDrawResult
+        XLuaUiManager.Open("UiDrawShowNew", drawData, self._RewardList, nil, 1, function()
+            self.IsDrawBack = true
+            self:Refresh()
+            self:DisableDrawAnim()
+        end)
+    end
+    ---todo 优化 
+    -- XUiPlayTimelineAnimation没加XLuaGen,Lua调不了Stop接口
+    -- Disable里不能关闭父节点,因此如果跳过的时候延后一帧再回调
+    if self._IsSkipDrawAnim then
+        self._IsSkipDrawAnim = false
+        XScheduleManager.ScheduleOnce(openResult, 0)
+    else
+        openResult()
+    end
+end
+
+function XUiLottoKarenina:HandleDrawShowReward(rewardList)
+    if XTool.IsTableEmpty(rewardList) then
+        return {}
+    end
+    for _, reward in ipairs(rewardList) do
+        local quality = XDataCenter.LottoManager.GetTemplateQuality(reward.TemplateId)
+        reward.SpecialDrawEffectGroupId = XLottoConfigs.GetLottoKalieDrawEffectGroupId(reward.TemplateId, quality)
+    end
+    return rewardList
+end
+
+function XUiLottoKarenina:EnableDrawAnim(cb)
+    if self.BtnSkip then
+        self.BtnSkip.gameObject:SetActiveEx(true)
+    end
+    if self.TopControlSpe then
+        self.TopControlSpe.gameObject:SetActiveEx(true)
+    end
+    self:_SetSceneDrawCam(true)
+    if XTool.IsTableEmpty(self._RewardList) then
+        cb()
+        return
+    end
+    self._DrawTimeLine = "ChoukaVioletEnable"
+    for _, reward in ipairs(self._RewardList) do
+        local quality = XDataCenter.LottoManager.GetTemplateQuality(reward.TemplateId)
+        self._DrawTimeLine = XLottoConfigs.GetLottoKalieDrawTimeLine(reward.TemplateId, quality)
+    end
+    self:PlayAnimationWithMask("UiDisable")
+    if not self._CamAnimDrawDir[self._DrawTimeLine].gameObject.activeSelf then
+        self._CamAnimDrawDir[self._DrawTimeLine].gameObject:SetActiveEx(true)
+    end
+    self._CamAnimDrawDir[self._DrawTimeLine].gameObject:PlayTimelineAnimation(cb)
+end
+
+function XUiLottoKarenina:DisableDrawAnim()
+    if self.BtnSkip then
+        self.BtnSkip.gameObject:SetActiveEx(false)
+    end
+    self:_SetSceneDrawCam(false)
+    ---@type UnityEngine.Transform
+    local root = self.UiModelGo.transform
+    local effectRoot = XUiHelper.TryGetComponent(root, "UiEffectRoot/Effect")
+    for i = 0, effectRoot.childCount - 1 do
+        effectRoot:GetChild(i).gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiLottoKarenina:_SetSceneDrawCam(active)
+    if not XTool.IsTableEmpty(self._SceneCamDrawList) then
+        for _, cam in ipairs(self._SceneCamDrawList) do
+            cam.gameObject:SetActiveEx(active)
+        end
+    end
 end
 
 function XUiLottoKarenina:_ShowExtraReward(cb)
@@ -375,11 +533,15 @@ end
 
 --- 检测是否抽到时装
 function XUiLottoKarenina:_ShowFashionReward()
+    if XTool.IsTableEmpty(self._RewardList) then
+        return
+    end
     local drawData = self._LottoGroupData:GetDrawData()
     local rewardId = drawData:GetCoreRewardTemplateId()
     for _, v in pairs(self._RewardList) do
         if v.TemplateId == rewardId then
             XLuaUiManager.Open("UiEpicFashionGachaQuickWear", rewardId, XUiHelper.GetText("LottoKareninaFashionTip"))
+            self._RewardList = nil
         end
     end
 end
@@ -394,20 +556,34 @@ end
 
 --region Scene - Obj
 function XUiLottoKarenina:InitSceneObj()
-    if not self:CheckIsHaveScene() then
+    if not self.UiSceneInfo then
         return
     end
 
+    self:InitSceneCam()
     self:InitSceneAnim()
     self:InitCameraAnim()
-    ---@class XVideoPlayerScene
-    self._SceneVideoPlayer = XUiHelper.TryGetComponent(self.UiSceneInfo.Transform, "Video", "XVideoPlayerScene")
-    
-    self:_InitSceneVideo()
+    self:InitSceneVideo()
+    self:InitSceneModel()
+end
+
+function XUiLottoKarenina:InitSceneCam()
+    ---@type UnityEngine.Transform
+    local root = self.UiModelGo.transform
+    ---@type UnityEngine.Transform[]
+    self._SceneCamDrawList = {
+        XUiHelper.TryGetComponent(root, "UiFarRoot/UiFarCamQuan"),
+        XUiHelper.TryGetComponent(root, "UiNearRoot/UiNearCamQuan")
+    }
 end
 
 function XUiLottoKarenina:InitSceneAnim()
-    
+    ---@type UnityEngine.RectTransform
+    self._SceneAnimRoot = XUiHelper.TryGetComponent(self.UiSceneInfo.Transform, "Animations")
+    ---@type UnityEngine.Playables.PlayableDirector
+    self._SceneAnimStart = XUiHelper.TryGetComponent(self._SceneAnimRoot, "Timeline_B", "PlayableDirector")
+    ---@type UnityEngine.Playables.PlayableDirector
+    self._SceneAnimEnableLong = XUiHelper.TryGetComponent(self._SceneAnimRoot, "Timeline_C", "PlayableDirector")
 end
 
 function XUiLottoKarenina:InitCameraAnim()
@@ -415,21 +591,29 @@ function XUiLottoKarenina:InitCameraAnim()
     local root = self.UiModelGo.transform
     ---@type UnityEngine.Playables.PlayableDirector
     self._CamAnimStart1 = root:FindTransform("AnimStart1"):GetComponent("PlayableDirector")
+    self._Mat1 = root:FindTransform("FxUiLottoKareninaMat01")
+
     ---@type UnityEngine.Playables.PlayableDirector
     self._CamAnimEnableLong = root:FindTransform("AnimEnableLong"):GetComponent("PlayableDirector")
     ---@type UnityEngine.Playables.PlayableDirector
     self._CamAnimEnableShort = root:FindTransform("AnimEnableShort"):GetComponent("PlayableDirector")
     ---@type UnityEngine.Playables.PlayableDirector
-    self._CamEffectEnable = root:FindTransform("EffectEnable"):GetComponent("PlayableDirector")
+    self._CamAnimEnableStory = root:FindTransform("AnimEnableStory"):GetComponent("PlayableDirector")
+    ---@type UnityEngine.Playables.PlayableDirector
+    self._CamAnimDisableStory = root:FindTransform("AnimDisableStory"):GetComponent("PlayableDirector")
+    ---@type UnityEngine.Playables.PlayableDirector
+    self._CamAnimEnableLongEffect = root:FindTransform("AnimEnableLongEffect"):GetComponent("PlayableDirector")
+
+    ---@type UnityEngine.Transform[]
+    self._CamAnimDrawDir = {}
+    self._CamAnimDrawDir.ChoukaVioletEnable = root:FindTransform("ChoukaVioletEnable")
+    self._CamAnimDrawDir.ChoukaYellowEnable = root:FindTransform("ChoukaYellowEnable")
+    self._CamAnimDrawDir.ChoukaRedEnable = root:FindTransform("ChoukaRedEnable")
 end
 
-function XUiLottoKarenina:CheckIsHaveScene()
-    return self.UiSceneInfo
-end
---endregion
-
---region Scene - Video
-function XUiLottoKarenina:_InitSceneVideo()
+function XUiLottoKarenina:InitSceneVideo()
+    ---@type XVideoPlayerScene
+    self._SceneVideoPlayer = XUiHelper.TryGetComponent(self.UiSceneInfo.Transform, "Video", "XVideoPlayerScene")
     if not self._SceneVideoPlayer then
         return
     end
@@ -437,6 +621,31 @@ function XUiLottoKarenina:_InitSceneVideo()
     local videoId = XLottoConfigs.GetLottoClientConfigNumber("KalieVideo")
     local url = XVideoConfig.GetMovieUrlById(videoId)
     self._SceneVideoPlayer:SetVideoFromRelateUrl(url)
+end
+
+function XUiLottoKarenina:InitSceneModel()
+    ---@type UnityEngine.Transform
+    local root = self.UiModelGo.transform
+    local modelParent = XUiHelper.TryGetComponent(root, "UiNearRoot/UiModelParent")
+    if modelParent then
+        self._Model = modelParent:GetChild(0)
+    end
+    ---@type UnityEngine.Animator
+    self._ModelAnimator = self._Model.gameObject:GetComponent("Animator")
+end
+
+function XUiLottoKarenina:AddModelShadow()
+    if XTool.UObjIsNil(self._Model) then
+        return
+    end
+    CS.XShadowHelper.AddShadow(self._Model.gameObject, true)
+end
+
+function XUiLottoKarenina:RemoveModelShadow()
+    if XTool.UObjIsNil(self._Model) then
+        return
+    end
+    CS.XShadowHelper.RemoveShadow(self._Model.gameObject, true)
 end
 --endregion
 
@@ -456,7 +665,9 @@ function XUiLottoKarenina:AddBtnListener()
     XUiHelper.RegisterClickEvent(self, self.BtnGo, self.OnBtnBeDrawClick)
 
     XUiHelper.RegisterClickEvent(self, self.BtnStart, self.OnBtnStartClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnDraw, self.OnBtnDrawClick)
+    if self.BtnSkip then
+        XUiHelper.RegisterClickEvent(self, self.BtnSkip, self.OnBtnSkipDrawClick)
+    end
 end
 
 function XUiLottoKarenina:OnBtnBackClick()
@@ -490,13 +701,20 @@ function XUiLottoKarenina:OnBtnSetClick()
 end
 
 function XUiLottoKarenina:OnBtnDrawShowClick()
-    self._PanelType = PANEL_TYPE.SHOW
+    self._PanelType = self._IsExitStagePlayFirst and PANEL_TYPE.FIRST or PANEL_TYPE.SHOW
     self:Refresh()
+    if self._IsExitStagePlayFirst then
+        self._IsExitStagePlayFirst = false
+        self:PlayEnableAnim()
+    else
+        self:PlayStageDisableAnim()
+    end
 end
 
 function XUiLottoKarenina:OnBtnStageClick()
     self._PanelType = PANEL_TYPE.STAGE
     self:Refresh()
+    self:PlayStageAnim()
 end
 
 function XUiLottoKarenina:OnBtnBeDrawClick()
@@ -528,7 +746,9 @@ function XUiLottoKarenina:OnBtnStartClick()
     self:_PlayLongStartAnim()
 end
 
-function XUiLottoKarenina:OnBtnDrawClick()
-    self:Close()
+function XUiLottoKarenina:OnBtnSkipDrawClick()
+    self._IsSkipDrawAnim = true
+    self._CamAnimDrawDir[self._DrawTimeLine].gameObject:SetActiveEx(false)
+    self._CamAnimDrawDir[self._DrawTimeLine].gameObject:SetActiveEx(true)
 end
 --endregion

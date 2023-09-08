@@ -7,7 +7,7 @@ local DECORATION_AUTO_WINDOW_KEY = "TheatreDecorationAutoWindow"   --装修改�
 
 function XUiTheatreMain:OnAwake()
     self.IsShowPanel = true
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitReward()
     self:InitButtonCallBack()
     self.TaskManager = XDataCenter.TheatreManager.GetTaskManager()

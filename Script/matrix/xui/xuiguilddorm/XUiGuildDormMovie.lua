@@ -93,11 +93,13 @@ function XUiGuildDormMovie:OnBtnSkipDialogClicked()
                     if complete then
                         npcDormData.lastState=nil
                         CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_TALK_END)
+                        XEventManager.DispatchEvent(XEventId.EVENT_DORM_TALK_END)
                         self:Close()
                     end
                 end)
             else
                 CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_TALK_END)
+                XEventManager.DispatchEvent(XEventId.EVENT_DORM_TALK_END)
                 self:Close()
             end
         else
@@ -135,6 +137,7 @@ function XUiGuildDormMovie:OnEndTalkEvent()
     dict["skip_id"] = self.CurrentTalkConfig.EmptySkipId
     CS.XRecord.Record(dict, "200006", "GuildDorm")
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_TALK_END)
+    XEventManager.DispatchEvent(XEventId.EVENT_DORM_TALK_END)
     self:Close()
 end
 

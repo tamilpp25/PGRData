@@ -5,7 +5,7 @@ local XUiBattleRoomRoleDetailDefaultProxy = XClass(nil, "XUiBattleRoomRoleDetail
 -- characterType : XCharacterConfigs.CharacterType 参数为空时要返回所有实体
 -- return : { ... }
 function XUiBattleRoomRoleDetailDefaultProxy:GetEntities(characterType)
-    return XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    return XMVCA.XCharacter:GetOwnCharacterList(characterType)
 end
 
 function XUiBattleRoomRoleDetailDefaultProxy:GetFilterJudge()
@@ -66,7 +66,7 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterViewModelByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XDataCenter.CharacterManager.GetCharacter(id)
+            entity = XMVCA.XCharacter:GetCharacter(id)
         end
         if entity == nil then
             XLog.Error(string.format("找不到id%s的角色", id))
@@ -182,9 +182,13 @@ end
 
 -- 获取角色战力
 function XUiBattleRoomRoleDetailDefaultProxy:GetRoleAbility(entityId)
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    return ag:GetCharacterHaveRobotAbilityById(entityId)
+    local viewModel = self:GetCharacterViewModelByEntityId(entityId)
+    if not viewModel then
+        ---@type XCharacterAgency
+        local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+        return ag:GetCharacterHaveRobotAbilityById(entityId)
+    end
+    return viewModel:GetAbility()
 end
 
 --######################## AOP ########################
@@ -240,6 +244,10 @@ end
 
 -- 覆写排序算法的table
 function XUiBattleRoomRoleDetailDefaultProxy:GetFilterSortOverrideFunTable()
+    return nil
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:GetFilterCharIdFun(entity)
     return nil
 end
 

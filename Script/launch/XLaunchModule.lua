@@ -6,6 +6,7 @@ local CsStringEx = CS.XStringEx
 local CsGameEventManager = CS.XGameEventManager.Instance
 local IO = CS.System.IO
 local CsRemoteConfig = CS.XRemoteConfig
+local KeepEverythingGoing = -1
 
 --Test 设置模式
 --CsApplication.Mode = CS.XMode.Debug
@@ -199,7 +200,12 @@ CheckUpdate = function(isReloaded)
 
     if VersionModule.CheckAppUpdate() then
     -- if IsApkTesting or VersionModule.CheckAppUpdate() then
-        local tmpStr = CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version)
+        local tmpStr
+        if XDataCenter.UiPcManager.IsPc() then
+            tmpStr = CsStringEx.Format(CsApplication.GetText("PCUpdateApplication"), CsInfo.Version)
+        else
+            tmpStr = CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version)
+        end
         CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), tmpStr, nil, function()
             local jumpCB = function()
                 print("[Apk] - Failed to Download Apk.")
@@ -388,7 +394,7 @@ function StartDownloadApk(apkUrl)
 
     local cache = true
     local sha1 = nil
-    local downloader = CS.XDownloader(apkUrl, ApkSavePath, cache, sha1, APK_TIMEOUT)
+    local downloader = CS.XDownloader(2, apkUrl, ApkSavePath, cache, sha1, KeepEverythingGoing, APK_TIMEOUT)
 
     local isDownloading = false
     CS.XTool.WaitCoroutinePerFrame(downloader:Send(), function(isComplete)

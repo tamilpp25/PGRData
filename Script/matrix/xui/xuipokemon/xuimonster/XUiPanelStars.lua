@@ -1,14 +1,11 @@
 local pairs = pairs
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 
-local XUiPanelStars = XClass(nil, "XUiPanelStars")
+---@class XUiPanelStars : XUiNode
+local XUiPanelStars = XClass(XUiNode, "XUiPanelStars")
 
-function XUiPanelStars:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelStars:OnStart()
     self.StarGrids = {}
-
-    XTool.InitUiObject(self)
 end
 
 function XUiPanelStars:Refresh(star, maxStar)

@@ -30,7 +30,7 @@ function XUiGridSwitchSkill:Refresh(skillId, skillLevel, isCurrent)
 
     local gradeConfig = self.CharacterAgency:GetCharacterSkillExchangeDesBySkillIdAndLevel(skillId, skillLevel)
     if XTool.IsTableEmpty(gradeConfig) then
-        gradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+        gradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
     end
    
     -- 技能名

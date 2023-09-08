@@ -1,13 +1,9 @@
-local XUiBtnKeyItem = XClass(nil, "XUiBtnKeyItem")
+local XUiBtnKeyItem = XClass(XUiNode, "XUiBtnKeyItem")
 
 local XInputManager = CS.XInputManager
 local ToInt32 = CS.System.Convert.ToInt32
 
-function XUiBtnKeyItem:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-    XTool.InitUiObject(self)
+function XUiBtnKeyItem:OnStart()
     self._KeySetType = false
 
     if self.BtnClear then
@@ -59,7 +55,7 @@ function XUiBtnKeyItem:Refresh(data, cb, resetTextOnly, curOperationType)
                 self.Icon2.gameObject:SetActiveEx(false)
             end
         else
-            local icons = XInputManager.GetKeyCodeIcon(operationTypeToEnum, operationKey, CS.PressKeyIndex.End)
+            local icons = XInputManager.GetKeyCodeIcon(self._KeySetType, operationTypeToEnum, operationKey, CS.PressKeyIndex.End)
             if icons and icons.Count ~= 0 then
                 self.Icon1:SetSprite(icons[0])
                 self.Icon1.gameObject:SetActiveEx(true)
@@ -107,7 +103,7 @@ function XUiBtnKeyItem:SetRecommendText(operationKey)
     end
 
     if recommendKey.Count == 1 then
-        self.UiRoot:SetUiSprite(self.ImgGamePad1, recommendKey[0])
+        self.Parent:SetUiSprite(self.ImgGamePad1, recommendKey[0])
         self.ImgGamePad1.gameObject:SetActiveEx(true)
         self.TxtPlus.gameObject:SetActiveEx(false)
         self.ImgGamePad2.gameObject:SetActiveEx(false)
@@ -115,8 +111,8 @@ function XUiBtnKeyItem:SetRecommendText(operationKey)
         self.ImgGamePad1.gameObject:SetActiveEx(true)
         self.TxtPlus.gameObject:SetActiveEx(true)
         self.ImgGamePad2.gameObject:SetActiveEx(true)
-        self.UiRoot:SetUiSprite(self.ImgGamePad1, recommendKey[0])
-        self.UiRoot:SetUiSprite(self.ImgGamePad2, recommendKey[1])
+        self.Parent:SetUiSprite(self.ImgGamePad1, recommendKey[0])
+        self.Parent:SetUiSprite(self.ImgGamePad2, recommendKey[1])
     end
     self.GroupRecommend.gameObject:SetActiveEx(true)
 end

@@ -111,6 +111,10 @@ function XTransfiniteStage:GetScore()
     return self._Score
 end
 
+function XTransfiniteStage:GetExtraDesc()
+    return XTransfiniteConfigs.GetStageExtraDec(self._Id)
+end
+
 function XTransfiniteStage:GetRewardScore()
     return XTransfiniteConfigs.GetStageScore(self._Id)
 end
@@ -181,12 +185,34 @@ function XTransfiniteStage:IsExtraMissionIncomplete(time)
     return false
 end
 
+function XTransfiniteStage:IsAchievedExtraMission()
+    if self._PassTime <= 0 then
+        return false
+    end
+
+    local extraMissionTime = self:GetRewardExtraTime()
+    if extraMissionTime <= 0 then
+        return false
+    end
+    
+    return self._PassTime <= extraMissionTime
+end
+
 function XTransfiniteStage:IsExtraMission()
     return self:GetRewardExtraTime() > 0
 end
 
-function XTransfiniteStage:GetExtraMissionText()
-    return XUiHelper.GetText("TransfiniteTimeExtra", self:GetRewardExtraTime())
+function XTransfiniteStage:GetExtraMissionText(isIsland)
+    local missionText = ""
+    local extraTime = self:GetRewardExtraTime()
+    
+    if isIsland then
+        missionText = XUiHelper.GetText("TransfiniteTimeExtra5", extraTime)
+    else
+        missionText = XUiHelper.GetText("TransfiniteTimeExtra", extraTime)
+    end
+    
+    return missionText
 end
 
 return XTransfiniteStage

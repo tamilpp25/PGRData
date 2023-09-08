@@ -15,9 +15,9 @@ local AnimTime = CS.XGame.ClientConfig:GetInt("RegressionTaskScheduleProgressAni
 function XUiRegressionTask:OnAwake()
     self:InitTabBtnGroup()
     self.PanelList = {
-        XUiPanelRegressionTaskCourse.New(self.PanelDynamicTableCourse),
-        XUiPanelRegressionTaskDay.New(self.PanelDynamicTableDay),
-        XUiPanelRegressionTaskWeek.New(self.PanelDynamicTableWeek),
+        XUiPanelRegressionTaskCourse.New(self.PanelDynamicTableCourse,self),
+        XUiPanelRegressionTaskDay.New(self.PanelDynamicTableDay,self),
+        XUiPanelRegressionTaskWeek.New(self.PanelDynamicTableWeek,self),
     }
 
     self.GridScheduleList = {
@@ -147,7 +147,7 @@ function XUiRegressionTask:UpdateDynamicTableByIndex(index)
     local taskIdList = XDataCenter.TaskManager.GetRegressionTaskByType(taskType)
     if taskIdList then
         local panel = self.PanelList[index]
-        panel.GameObject:SetActiveEx(true)
+        panel:Open()
         panel:UpdateDynamicTable(taskIdList)
     end
 end
@@ -156,7 +156,7 @@ end
 function XUiRegressionTask:OnTabBtnGroupClick(index)
     if self.SelectTabBtnIndex == index then return end
     if self.SelectTabBtnIndex then
-        self.PanelList[self.SelectTabBtnIndex].GameObject:SetActiveEx(false)
+        self.PanelList[self.SelectTabBtnIndex]:Close()
     end
 
     self:PlayAnimation("QieHuan")

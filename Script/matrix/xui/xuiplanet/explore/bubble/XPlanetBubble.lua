@@ -12,6 +12,7 @@ function XPlanetBubble:Ctor(rootProxy, rootUi, camera, scene, parentBubbleRootTr
     self.FollowTransform = followTransform
     
     local resource = CS.XResourceManager.Load(XPlanetConfigs.GetUiPlanet2DObj())
+    self.Resource = resource
     local ui = CS.UnityEngine.Object.Instantiate(resource.Asset, parentBubbleRootTrans)
     XTool.InitUiObjectByUi(self, ui)
     self.Transform:SetAsFirstSibling()
@@ -187,6 +188,8 @@ function XPlanetBubble:OnDestroy()
     self.FollowTransform = nil
     self.ParentBubbleRootTrans = nil
     self._UiHolder = nil
+
+    CS.XResourceManager.Unload(self.Resource)
 end
 
 function XPlanetBubble:UpdateFollowTransform(transform)

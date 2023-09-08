@@ -67,10 +67,10 @@ end
 
 function XUiExhibitionInfo:RegisterRedPointEvent()
     local characterId = self.CharacterId
-    XRedPointManager.AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog4, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 4 })
+    self:AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
+    self:AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
+    self:AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
+    self:AddRedPointEvent(self.BtnTog4, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 4 })
 end
 
 function XUiExhibitionInfo:OnCheckExhibitionRedPoint(count, args)
@@ -147,9 +147,15 @@ end
 
 function XUiExhibitionInfo:UpdateCharacterInfo()
     local characterId = self.CharacterId
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(characterId)
-    self.TxtType.text = XCharacterConfigs.GetCharacterTradeName(characterId)
-    self.TxtNumber.text = XCharacterConfigs.GetCharacterCodeStr(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtNameHorizontal.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtType.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+    self.TxtNumber.text = XMVCA.XCharacter:GetCharacterCodeStr(characterId)
+
+    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    local isShowHorText = detailConfig.LiberationShowType
+    self.TxtNameHorizontal.gameObject:SetActiveEx(isShowHorText)
+    self.TxtName.gameObject:SetActiveEx(not isShowHorText)
 
     -- 解放标签改到按钮下方了
     -- local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
@@ -171,10 +177,10 @@ function XUiExhibitionInfo:UpdateCharacterModel(growUpLevel)
         self.PanelDrag.Target = model.transform
         self.EffectHuanren.gameObject:SetActiveEx(false)
         self.EffectHuanren1.gameObject:SetActiveEx(false)
-        if self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.STRUCT or self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.Linkage then
-            self.EffectHuanren.gameObject:SetActiveEx(true)
-        else
+        if XMVCA.XCharacter:GetIsIsomer(characterId) then
             self.EffectHuanren1.gameObject:SetActiveEx(true)
+        else
+            self.EffectHuanren.gameObject:SetActiveEx(true)
         end
     end, growUpLevel, true)
 end

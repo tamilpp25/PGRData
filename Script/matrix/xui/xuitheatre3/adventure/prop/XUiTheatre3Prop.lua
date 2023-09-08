@@ -134,6 +134,7 @@ function XUiTheatre3Prop:OnSelectItem(grid)
         panelGrid:RefreshSelect(self._CurSelectGrid)
     end
     self:RefreshItemDetail()
+    self:PlayAnimationWithMask("QieHuan")
 end
 
 function XUiTheatre3Prop:ClickPropGridByIndex(panelIndex, itemIndex)

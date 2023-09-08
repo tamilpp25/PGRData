@@ -67,7 +67,7 @@ function XUiGuildWarTerm4Panel:OnStart(node, selectedNode)
     self:InitCamera()
     
     if selectedNode then
-        self._ChildIndex = selectedNode:GetSelfChildIndex()
+        self:SetChildIndex(selectedNode:GetSelfChildIndex())
     else
         self:UpdateCurrentChildIndex()
     end
@@ -78,17 +78,16 @@ function XUiGuildWarTerm4Panel:UpdateCurrentChildIndex()
     -- 首次进入boss节点直接攻击第一个boss（等级1），不给选择，玩家通关第一个boss后，切换为第二个boss（等级2）。通关第二个boss后，再开启自选boss功能
     local bossLevel = node:GetBossLevel()
     if bossLevel == 1 then
-        self._ChildIndex = XGuildWarConfig.ChildNodeIndex.Left
+        self:SetChildIndex(XGuildWarConfig.ChildNodeIndex.Left)
         self._UiDetail.BtnMode.gameObject:SetActiveEx(false)
         self._UiDetail.BtnCloseDetail.gameObject:SetActiveEx(false)
 
     elseif bossLevel == 2 then
-        self._ChildIndex = XGuildWarConfig.ChildNodeIndex.Right
+        self:SetChildIndex(XGuildWarConfig.ChildNodeIndex.Right)
         self._UiDetail.BtnMode.gameObject:SetActiveEx(false)
         self._UiDetail.BtnCloseDetail.gameObject:SetActiveEx(false)
 
     else
-        self._ChildIndex = XGuildWarConfig.ChildNodeIndex.None
         self._UiDetail.BtnMode.gameObject:SetActiveEx(true)
         self._UiDetail.BtnCloseDetail.gameObject:SetActiveEx(true)
     end
@@ -240,7 +239,7 @@ function XUiGuildWarTerm4Panel:StopTimer()
     end
 end
 
-function XUiGuildWarTerm4Panel:OnEventUnfoldDetail(isUnfold, childIndex)
+function XUiGuildWarTerm4Panel:OnEventUnfoldDetail(isUnfold, childIndex, playAnimation)
     if isUnfold then
         self._UiDetail.GameObject:SetActiveEx(true)
         self:Update(childIndex)
@@ -254,6 +253,10 @@ function XUiGuildWarTerm4Panel:OnEventUnfoldDetail(isUnfold, childIndex)
         end
         self._UiModeLeft.GameObject:SetActiveEx(false)
         self._UiModeRight.GameObject:SetActiveEx(false)
+
+        if playAnimation then
+            self:PlayAnimation("QieHuan")
+        end
     else
         self:Update(XGuildWarConfig.ChildNodeIndex.None)
         self:SetCamera(self._CameraGroup.Main)
@@ -271,7 +274,7 @@ function XUiGuildWarTerm4Panel:Update(childIndex)
         return
     end
     if childIndex then
-        self._ChildIndex = childIndex
+        self:SetChildIndex(childIndex)
     end
 
     local node = self:GetNode()
@@ -361,5 +364,17 @@ function XUiGuildWarTerm4Panel:SetCamera(cameraGroupEnable)
 end
 
 --endregion camera
+
+function XUiGuildWarTerm4Panel:OnReleaseInst()
+    return self._ChildIndex
+end
+
+function XUiGuildWarTerm4Panel:OnResume(value)
+    self:SetChildIndex(value)
+end
+
+function XUiGuildWarTerm4Panel:SetChildIndex(value)
+    self._ChildIndex = value
+end
 
 return XUiGuildWarTerm4Panel

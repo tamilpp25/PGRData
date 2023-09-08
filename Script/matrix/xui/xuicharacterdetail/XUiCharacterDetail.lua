@@ -26,6 +26,8 @@ end
 -- auto
 function XUiCharacterDetail:OnBtnTeamRecomendClick()
     self:SwitchView(CharDetailUiType.Parner)
+    self.Bg.gameObject:SetActiveEx(false)
+    self.Bg2.gameObject:SetActiveEx(false)
 end
 
 function XUiCharacterDetail:OnBtnEquipRecomendClick()
@@ -96,11 +98,10 @@ function XUiCharacterDetail:OnStart(CharacterId)
     self.CharacterId = CharacterId
 
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-
     self.PanelContentRtf = self.PanelContent:GetComponent("RectTransform")
     -- self.BtnArchive.gameObject:SetActiveEx(true)
     self.BtnDetial.gameObject:SetActiveEx(false)
-    self.PanelAsset.gameObject:SetActiveEx(false)
+    self.AssetPanel:Close()
     self.BtnEquipRecomend.gameObject:SetActiveEx(XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.EquipGuideRecommend))
 
     self:SwitchView(CharDetailUiType.Detail)
@@ -115,18 +116,18 @@ end
 
 function XUiCharacterDetail:UpdateStateView()
     if self.CurUiType == CharDetailUiType.Detail then
-        self.PanelAsset.gameObject:SetActiveEx(false)
+        self.AssetPanel:Close()
         self.PanelDetailInfo.gameObject:SetActiveEx(true)
         self:UpdateRightElementView()
         self:CloseChildUi(CHILD_UI_EQUIP)
         self:CloseChildUi(CHILD_UI_TEAM)
     elseif self.CurUiType == CharDetailUiType.Equip then
-        self.PanelAsset.gameObject:SetActiveEx(true)
+        self.AssetPanel:Open()
         self.PanelDetailInfo.gameObject:SetActiveEx(false)
         self:OpenChildUi(CHILD_UI_EQUIP, self.CharacterId, self)
         self:CloseChildUi(CHILD_UI_TEAM)
     elseif self.CurUiType == CharDetailUiType.Parner then
-        self.PanelAsset.gameObject:SetActiveEx(true)
+        self.AssetPanel:Open()
         self.PanelDetailInfo.gameObject:SetActiveEx(false)
         self:CloseChildUi(CHILD_UI_EQUIP)
         self:OpenChildUi(CHILD_UI_TEAM, self.CharacterId, self)
@@ -135,7 +136,7 @@ end
 
 function XUiCharacterDetail:UpdateRightElementView()
     local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     if not detailConfig or not charConfig then
         return
     end
@@ -206,7 +207,7 @@ function XUiCharacterDetail:UpdateRightElementView()
     end
 
     --人物名字，名称，icon等
-    local quality = XCharacterConfigs.GetCharMinQuality(self.CharacterId)
+    local quality = XMVCA.XCharacter:GetCharMinQuality(self.CharacterId)
     local npcId = XCharacterConfigs.GetCharNpcId(self.CharacterId, quality)
     local npc = CS.XNpcManager.GetNpcTemplate(npcId)
 
@@ -219,7 +220,7 @@ function XUiCharacterDetail:UpdateRightElementView()
     self.TxtCharacterName.text = charConfig.Name
     self.TxtCharacterDesName.text = charConfig.TradeName
 
-    local castName = XFavorabilityConfigs.GetCharacterCvById(self.CharacterId)
+    local castName = XMVCA.XFavorability:GetCharacterCvById(self.CharacterId)
     local cast = (castName ~= "") and CS.XTextManager.GetText("FavorabilityCast")..castName or ""
     self.TxtCV.text = cast
 
@@ -232,6 +233,8 @@ end
 function XUiCharacterDetail:OnBtnBackClick()
     if self.CurUiType == CharDetailUiType.Parner or self.CurUiType == CharDetailUiType.Equip then
         self:SwitchView(CharDetailUiType.Detail)
+        self.Bg.gameObject:SetActiveEx(true)
+        self.Bg2.gameObject:SetActiveEx(true)
     else
         -- local tPos = self.PanelContentRtf.anchoredPosition
         -- if tPos.x > -400 then

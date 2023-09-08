@@ -112,6 +112,8 @@ function XUiFubenMainLineChapterDP:OnDestroy()
     self:DestroyActivityTimer()
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_START, self.OnAutoFightStart, self)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointZhouMuId)
 end
 
 function XUiFubenMainLineChapterDP:InitPanelBottom()

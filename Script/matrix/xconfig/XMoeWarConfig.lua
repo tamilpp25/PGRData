@@ -715,7 +715,7 @@ end
 function XMoeWarConfig.GetCharacterFullNameByHelperId(helperId)
     local robotId = XMoeWarConfig.GetMoeWarPreparationHelperRobotId(helperId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    return XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    return XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
 end
 
 function XMoeWarConfig.GetMoeWarPreparationHelperQuestionCounts(id)

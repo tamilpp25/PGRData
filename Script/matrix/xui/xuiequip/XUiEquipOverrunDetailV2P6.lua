@@ -1,12 +1,8 @@
 local XUiEquipOverrunDetailV2P6 = XClass(XUiNode, "XUiEquipOverrunDetailV2P6")
 
-function XUiEquipOverrunDetailV2P6:Ctor(ui, parent)
-    self.Ui = ui
-    self.Transform = ui.transform
-    self.Parent = parent
-    
-    XTool.InitUiObject(self)
+function XUiEquipOverrunDetailV2P6:OnStart()
     self.BtnPreview = self.Transform:FindTransform("BtnPreview")
+    self.ChoiceEffect = self.BtnChoice.transform:Find("RImgBg/Effect")
     self:SetButtonCallBack()
 end
 
@@ -33,6 +29,8 @@ function XUiEquipOverrunDetailV2P6:OnClickChangeBind()
 
     XLuaUiManager.Open("UiEquipOverrunSelect", self.EquipId, function()
         self:RefreshBlindSuit()
+        self.ChoiceEffect.gameObject:SetActive(false)
+        self.ChoiceEffect.gameObject:SetActive(true)
     end)
 end
 
@@ -67,6 +65,7 @@ function XUiEquipOverrunDetailV2P6:RefreshBlindSuit()
     self.PanelLock.gameObject:SetActiveEx(false)
     self.BtnUnChoice.gameObject:SetActiveEx(false)
     self.BtnChoice.gameObject:SetActiveEx(false)
+    self.ChoiceEffect.gameObject:SetActive(false)
 
     local canBind = self.Equip:IsOverrunCanBlindSuit()
     local lv = self.Equip:GetOverrunLevel()

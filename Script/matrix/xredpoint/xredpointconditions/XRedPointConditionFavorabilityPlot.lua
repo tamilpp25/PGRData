@@ -20,7 +20,7 @@ function XRedPointConditionFavorabilityPlot.Check(checkArgs)
     if characterId == nil then return false end
     local isOpen = XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FavorabilityStory)
     if not isOpen then return false end
-    return XDataCenter.FavorabilityManager.HasStroyToBeUnlock(characterId)
+    return XMVCA.XFavorability:HasStroyToBeUnlock(characterId)
 end
 
 

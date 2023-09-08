@@ -60,7 +60,7 @@ function XUiCommonCharacterFilterTipsSort:OnBtnSortClick()
     end
 
     -- 排序时缓存
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterList[1].Id)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterList[1].Id)
     XDataCenter.CommonCharacterFiltManager.SetSortData(self.SelectTagType, characterType) -- 自动缓存
     XDataCenter.CommonCharacterFiltManager.SetSelectListData(resultSortList, self.CacheKeyName)
 

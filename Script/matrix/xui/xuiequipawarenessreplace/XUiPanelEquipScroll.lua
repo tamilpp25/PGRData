@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiPanelEquipScroll = XClass(XUiNode, "XUiPanelEquipScroll")
 
 --multiSelect复用

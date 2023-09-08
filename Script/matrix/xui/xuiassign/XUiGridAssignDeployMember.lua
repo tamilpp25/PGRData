@@ -149,7 +149,7 @@ function XUiGridAssignDeployMember:OnMemberClick()
                     -- 在其他编队
                     local newOrder = teamOrderMap[currentEntityId]
                     local title = CS.XTextManager.GetText("AssignDeployTipTitle")
-                    local characterName = XCharacterConfigs.GetCharacterName(currentEntityId)
+                    local characterName = XMVCA.XCharacter:GetCharacterName(currentEntityId)
                     local oldTeamName = CS.XTextManager.GetText("AssignTeamTitle", curTeamOrder)
                     local newTeamName = CS.XTextManager.GetText("AssignTeamTitle", newOrder)
                     local content = CS.XTextManager.GetText("AssignDeployTipContent", characterName, oldTeamName, newTeamName)

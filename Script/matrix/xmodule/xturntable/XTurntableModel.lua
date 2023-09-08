@@ -5,8 +5,8 @@ local XTurntableActivity = require("XModule/XTurntable/XEntity/XTurntableActivit
 local XTurntableModel = XClass(XModel, "XTurntableModel")
 
 local TableKey = {
-    Turntable = { CacheType = XConfigUtil.CacheType.Temp },
-    TurntableActivity = { CacheType = XConfigUtil.CacheType.Temp },
+    Turntable = {},
+    TurntableActivity = {},
 }
 
 function XTurntableModel:OnInit()
@@ -21,6 +21,8 @@ function XTurntableModel:OnInit()
     -- self.MainItems = {}
     -- 转盘奖励池总量
     self.TotalTurntableTimes = {}
+    -- 进过一次界面后就不用再显示该红点
+    self.IsNeedShow72HoursRedPoint = true
 end
 
 function XTurntableModel:ClearPrivate()
@@ -28,7 +30,7 @@ function XTurntableModel:ClearPrivate()
 end
 
 function XTurntableModel:ResetAll()
-
+    self.IsNeedShow72HoursRedPoint = true
 end
 
 --region config

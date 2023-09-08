@@ -27,7 +27,7 @@ function XUiFubenFashionPaintingNew:Init()
     self.BtnMainUi.CallBack=function() XLuaUiManager.RunMain() end
     self.BtnSkip1.CallBack=function()
         --前往商店界面
-        XFunctionManager.SkipInterface(XFashionStoryConfigs.GetFashionStorySkipId(XFashionStoryConfigs.FashionStorySkip.SkipToStore))
+        XFunctionManager.SkipInterface(XFashionStoryConfigs.GetFashionStorySkipId(XDataCenter.FashionStoryManager.GetCurrentActivityId(),XFashionStoryConfigs.FashionStorySkip.SkipToStore))
     end
 end
 

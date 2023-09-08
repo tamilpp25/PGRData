@@ -60,10 +60,10 @@ function XUiFubenExtraChapter:OnStart(chapter, stageId, hideDiffTog)
     }
 
     -- 注册红点事件
-    self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
-    self.RedPointZhouMuId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
+    self.RedPointId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
+    self.RedPointZhouMuId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
+    self:AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
 
     -- 注册stage事件
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)

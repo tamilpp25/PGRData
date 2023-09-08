@@ -9,7 +9,7 @@ end
 
 function XUiGridRoleInfoItem:SetRoleInfo(characterId)
     self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
 end
 
 function XUiGridRoleInfoItem:SetRandomRoleInfo()

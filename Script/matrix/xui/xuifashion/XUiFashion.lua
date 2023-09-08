@@ -127,6 +127,7 @@ function XUiFashion:InitFilter()
         self:OnSelectCharacter(character.Id)
     end
     self.PanelFilter:InitData(onSeleCb)
+    self.PanelFilter:Close()
 end
 
 function XUiFashion:OnStart(defaultCharacterId, isOnlyOneCharacter, notShowWeapon, openUiType)
@@ -147,6 +148,7 @@ function XUiFashion:OnStart(defaultCharacterId, isOnlyOneCharacter, notShowWeapo
     self.DefaultCharacterId = defaultCharacterId
 
     self.PanelFilter:ImportList(characterList)
+    self.PanelFilter:RefreshList()
     self.PanelFilter:DoSelectCharacter(defaultCharacterId)
 
     self.CurWeaponViewType = WeaponViewType.WithCharacter
@@ -172,7 +174,6 @@ function XUiFashion:OnEnable()
         self.PanelTagGroup.gameObject:SetActiveEx(true)
     end
     self.PanelTagGroup:SelectIndex(LastSelectedTabIndex)
-    self:UpdateCountForBtn()
 end
 
 function XUiFashion:OnDisable()
@@ -294,13 +295,20 @@ function XUiFashion:UpdateCountForBtn()
 end
 
 function XUiFashion:UpdateFashionData()
-    self:UpdateRedPoint()            
     if self.OpenUiType and self.OpenUiType == XUiConfigs.OpenUiType.NieRCharacterUI then
         local nierCharacter = XDataCenter.NieRManager.GetSelNieRCharacter()
         self.FashionList = nierCharacter:GetNieRFashionList()
     else
         self.FashionList = XDataCenter.FashionManager.GetCurrentTimeFashionByCharId(self.CharacterId)
     end
+
+    local char = XMVCA.XCharacter:GetCharacter(self.CharacterId)
+    self.ToggleRandomFashion.gameObject:SetActiveEx(false)
+    self.BtnRandomFashion.gameObject:SetActiveEx(false)
+    self.BtnBan.gameObject:SetActiveEx(false)
+
+    self:UpdateRedPoint()            
+    self:UpdateCountForBtn()
 end
 
 function XUiFashion:OnSelectCharacter(characterId)
@@ -326,6 +334,7 @@ function XUiFashion:OnSelectCharacter(characterId)
         self:UpdateHeadPortraitList()
     end
     self:OnBtnCloseFilterClick()
+    self:RefreshRandomFashionBtns()
 
     local syncChar = self.CharacterAgency:GetCharacter(characterId)
     XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, syncChar)
@@ -461,50 +470,65 @@ function XUiFashion:UpdateCharacterModel()
         self.PanelBtnLens.gameObject:SetActiveEx(false)
         self.BtnUsed.gameObject:SetActiveEx(false)
         self.PanelUnOwed.gameObject:SetActiveEx(false)
+        self.BanParent.gameObject:SetActiveEx(true)
         self.BtnUse.gameObject:SetActiveEx(false)
     end
 end
 
 function XUiFashion:UpdateButtonState()
+    local PanelUnOwed = nil
+    local BtnUse = nil
+    local BtnUsed = nil
+    local BtnFashionUnLock = nil
+    local BanParent = nil
+
     if self.OpenUiType and self.OpenUiType == XUiConfigs.OpenUiType.NieRCharacterUI then
         local nierCharacter = XDataCenter.NieRManager.GetSelNieRCharacter()
         local dressedId = nierCharacter:GetNieRFashionId()
         if self.CurFashionId == dressedId then
-            self.PanelUnOwed.gameObject:SetActiveEx(false)
-            self.BtnUse.gameObject:SetActiveEx(false)
-            self.BtnUsed.gameObject:SetActiveEx(true)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(false)
+            PanelUnOwed = false
+            BtnUse = false
+            BtnUsed = true
+            BtnFashionUnLock = false
         else
-            self.PanelUnOwed.gameObject:SetActiveEx(false)
-            self.BtnUse.gameObject:SetActiveEx(true)
-            self.BtnUsed.gameObject:SetActiveEx(false)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(false)
+            PanelUnOwed = false
+            BtnUse = true
+            BtnUsed = false
+            BtnFashionUnLock = false
         end
     else
         local status = XDataCenter.FashionManager.GetFashionStatus(self.CurFashionId)
         local fashionStatus = XDataCenter.FashionManager.FashionStatus
         if status == fashionStatus.Dressed then
-            self.PanelUnOwed.gameObject:SetActiveEx(false)
-            self.BtnUse.gameObject:SetActiveEx(false)
-            self.BtnUsed.gameObject:SetActiveEx(true)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(false)
+            PanelUnOwed = false
+            BtnUse = false
+            BtnUsed = true
+            BtnFashionUnLock = false
         elseif status == fashionStatus.UnLock then
-            self.PanelUnOwed.gameObject:SetActiveEx(false)
-            self.BtnUse.gameObject:SetActiveEx(true)
-            self.BtnUsed.gameObject:SetActiveEx(false)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(false)
+            PanelUnOwed = false
+            BtnUse = true
+            BtnUsed = false
+            BtnFashionUnLock = false
         elseif status == fashionStatus.Lock then
-            self.PanelUnOwed.gameObject:SetActiveEx(false)
-            self.BtnUse.gameObject:SetActiveEx(false)
-            self.BtnUsed.gameObject:SetActiveEx(false)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(true)
+            PanelUnOwed = false
+            BtnUse = false
+            BtnUsed = false
+            BtnFashionUnLock = true
         elseif status == fashionStatus.UnOwned then
-            self.PanelUnOwed.gameObject:SetActiveEx(true)
-            self.BtnUse.gameObject:SetActiveEx(false)
-            self.BtnUsed.gameObject:SetActiveEx(false)
-            self.BtnFashionUnLock.gameObject:SetActiveEx(false)
+            PanelUnOwed = true
+            BtnUse = false
+            BtnUsed = false
+            BtnFashionUnLock = false
         end
     end
+    BanParent = not PanelUnOwed
+
+    self.PanelUnOwed.gameObject:SetActiveEx(PanelUnOwed)
+    self.BtnUse.gameObject:SetActiveEx(BtnUse)
+    self.BtnUsed.gameObject:SetActiveEx(BtnUsed)
+    self.BtnFashionUnLock.gameObject:SetActiveEx(BtnFashionUnLock)
+    self.BanParent.gameObject:SetActiveEx(BanParent)
+
     local template = XDataCenter.FashionManager.GetFashionTemplate(self.CurFashionId)
     self.TxtFashionName.text = template.Name
 
@@ -556,7 +580,7 @@ function XUiFashion:UpdateFashionIntro(fashionId)
         local isDefaultId = XWeaponFashionConfigs.IsDefaultId(fashionId)
         if isDefaultId then
             if not self.CharacterAgency:IsOwnCharacter(characterId) then
-                fashionId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+                fashionId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
             else
                 local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
                 fashionId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)
@@ -638,22 +662,36 @@ function XUiFashion:UpdateWeaponButtonState()
     local characterId = self.CharacterId
     local status = XDataCenter.WeaponFashionManager.GetFashionStatus(self.CurWeaponFashionId, characterId)
     local fashionStatus = XDataCenter.WeaponFashionManager.FashionStatus
+
+    local PanelUnOwed = nil
+    local BtnUse = nil
+    local BtnUsed = nil
+    local BtnFashionUnLock = nil
+    local BanParent = nil
+
     if status == fashionStatus.Dressed then
-        self.PanelUnOwed.gameObject:SetActiveEx(false)
-        self.BtnUse.gameObject:SetActiveEx(false)
-        self.PanelHeadLock.gameObject:SetActiveEx(false)
-        self.BtnUsed.gameObject:SetActiveEx(true)
+        PanelUnOwed = false
+        BtnUse = false
+        BtnUsed = true
+        BtnFashionUnLock = false
     elseif status == fashionStatus.UnLock then
-        self.PanelUnOwed.gameObject:SetActiveEx(false)
-        self.BtnUse.gameObject:SetActiveEx(true)
-        self.BtnUsed.gameObject:SetActiveEx(false)
-        self.PanelHeadLock.gameObject:SetActiveEx(false)
+        PanelUnOwed = false
+        BtnUse = true
+        BtnUsed = false
+        BtnFashionUnLock = false
     elseif status == fashionStatus.UnOwned then
-        self.PanelUnOwed.gameObject:SetActiveEx(true)
-        self.BtnUse.gameObject:SetActiveEx(false)
-        self.BtnUsed.gameObject:SetActiveEx(false)
-        self.PanelHeadLock.gameObject:SetActiveEx(false)
+        PanelUnOwed = true
+        BtnUse = false
+        BtnUsed = false
+        BtnFashionUnLock = false
     end
+    BanParent = not PanelUnOwed
+
+    self.PanelUnOwed.gameObject:SetActiveEx(PanelUnOwed)
+    self.BtnUse.gameObject:SetActiveEx(BtnUse)
+    self.BtnUsed.gameObject:SetActiveEx(BtnUsed)
+    self.BtnFashionUnLock.gameObject:SetActiveEx(BtnFashionUnLock)
+    self.BanParent.gameObject:SetActiveEx(BanParent)
 end
 
 function XUiFashion:OnSelectHeadPortrait(headInfo)
@@ -701,6 +739,8 @@ function XUiFashion:AutoAddListener()
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
     self:RegisterClickEvent(self.BtnCharacterFilter, self.OnBtnCharacterFilterClick)
     self:RegisterClickEvent(self.BtnCloseFilter, self.OnBtnCloseFilterClick)
+    self:RegisterClickEvent(self.ToggleRandomFashion, self.OnToggleRandomFashionClick)
+    self:RegisterClickEvent(self.BtnRandomFashion, self.OnBtnRandomFashionClick)
     self.BtnLensOut.CallBack = function()
         self:OnBtnLensOut()
     end
@@ -824,9 +864,47 @@ function XUiFashion:OnBtnUseClick()
     end
 end
 
+function XUiFashion:RefreshRandomFashionBtns()
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
+    if not character then
+        return
+    end
+
+    if character.RandomFashion then
+        self.ToggleRandomFashion.isOn = true
+    else
+        self.ToggleRandomFashion.isOn = false
+    end
+    -- self.BtnRandomFashion.gameObject:SetActiveEx(character.RandomFashion)
+    -- self.BtnBan.gameObject:SetActiveEx(character.RandomFashion)
+    self.UseParent.gameObject:SetActiveEx(not character.RandomFashion)
+end
+
+function XUiFashion:OnToggleRandomFashionClick()
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
+    if not character then
+        return
+    end
+
+    local targetState = nil
+    if character.RandomFashion then
+        targetState = false
+    else
+        targetState = true
+    end
+    XDataCenter.FashionManager.FashionRandomActiveRequest(self.CharacterId, targetState, function ()
+        self:RefreshRandomFashionBtns()
+    end)
+end
+
+function XUiFashion:OnBtnRandomFashionClick()
+    XLuaUiManager.Open("UiFashionRandom", self.CharacterId)
+end
+
 function XUiFashion:OnBtnCloseFilterClick()
     self.PanelCharacterFilter.gameObject:SetActiveEx(false)
     self.PanelTagGroup.gameObject:SetActiveEx(true)
+    self.PanelFilter:Close()
 end
 
 function XUiFashion:OnBtnCharacterFilterClick()
@@ -841,6 +919,9 @@ function XUiFashion:ShowOrHideFilter()
     if not activeSelf then
         self.PanelFilter:DoSelectTag("BtnAll")
         self.PanelFilter:DoSelectCharacter(self.CharacterId)
+        self.PanelFilter:Open()
+    else
+        self.PanelFilter:Close()
     end
 
     activeSelf = self.PanelTagGroup.gameObject.activeSelf

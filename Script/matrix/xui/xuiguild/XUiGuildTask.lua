@@ -19,8 +19,8 @@ function XUiGuildTask:InitTaskView()
     self.PanelTab:SelectIndex(XGuildConfig.GuildTaskType.Daily)
     self.BtnClose.CallBack = function() self:OnBtnCloseClick() end
 
-    XRedPointManager.AddRedPointEvent(self.RedDaily, self.RefreshTaskDaily, self, { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.GuildDaily)
-    XRedPointManager.AddRedPointEvent(self.RedMainly, self.RefresTaskMainly, self, { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.GuildMainly)
+    self:AddRedPointEvent(self.RedDaily, self.RefreshTaskDaily, self, { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.GuildDaily)
+    self:AddRedPointEvent(self.RedMainly, self.RefresTaskMainly, self, { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.GuildMainly)
 end
 
 function XUiGuildTask:RefreshTaskDaily(count)

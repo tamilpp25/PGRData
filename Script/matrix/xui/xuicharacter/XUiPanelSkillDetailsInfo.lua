@@ -160,7 +160,7 @@ function XUiPanelSkillDetailsInfo:RefreshSkillLevel(subSkill)
     end
 
     self.SubSkillLevel = subSkill.Level + addLevel
-    self.GradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(self.SubSkillId, self.SubSkillLevel)
+    self.GradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(self.SubSkillId, self.SubSkillLevel)
     self.TxtSkillLevel.text = levelStr
 end
 
@@ -394,6 +394,9 @@ function XUiPanelSkillDetailsInfo:OnBtnUpgradeClick(ClientLongPressIncreaseLevel
     end
     self.CharacterAgency:UpgradeSubSkillLevel(self.CharacterId, self.SubSkillId, function()
         -- XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_INCREASE_TIP, CS.XTextManager.GetText("CharacterUngradeSkillComplete"))
+        if not self.RootUi.GameObject or XTool.UObjIsNil(self.RootUi.GameObject) then
+            return
+        end
         XUiManager.PopupLeftTip(CS.XTextManager.GetText("CharacterUngradeSkillComplete"))
         self.RootUi:RefreshData()
     end, ClientLongPressIncreaseLevel)

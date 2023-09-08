@@ -13,6 +13,10 @@ function XAgency:Ctor(id)
     --self:OnInit()
 end
 
+function XAgency:GetId()
+    return self._Id
+end
+
 ---初始化接口, 提供给子类重写
 function XAgency:OnInit()
 

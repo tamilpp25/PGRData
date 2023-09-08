@@ -17,6 +17,9 @@ function XStageItem:SetNormalStage()
         self.ImgStoryNor:SetRawImage(self.FStage:GetIcon())
     end
     self.TxtStageOrder.text = self.FStage:GetOrderName()
+    if self.TxtName then
+        self.TxtName.text = self.FStage:GetName()
+    end
     -- SetLockStage
     self.PanelStageLock.gameObject:SetActiveEx(self.IsLock)
 end
@@ -42,6 +45,9 @@ function XStageItem:UpdateNode(festivalId, stageId)
     for i = 0, uiObj.NameList.Count - 1 do
         self[uiObj.NameList[i]] = uiObj.ObjList[i]
     end
+    if not self.TxtName and self.RImgFightActiveNor then
+        self.TxtName = XUiHelper.TryGetComponent(self.RImgFightActiveNor.transform, "TxtName", "Text")
+    end
     self.BtnStage.CallBack = function() self:OnBtnStageClick() end
     self.IsLock = not isOpen
     self.Description = description
@@ -55,7 +61,6 @@ function XStageItem:UpdateNode(festivalId, stageId)
     if self.ImgHideLine then
         self.ImgHideLine.gameObject:SetActiveEx(isEgg)
     end
-
 end
 
 function XStageItem:OnBtnStageClick()

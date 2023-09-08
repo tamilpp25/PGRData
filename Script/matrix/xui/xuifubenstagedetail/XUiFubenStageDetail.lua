@@ -41,6 +41,13 @@ function XUiFubenStageDetail:OnDisable()
 
 end
 
+function XUiFubenStageDetail:OnDestroy()
+    if self.CallBack then
+        self.CallBack()
+        self.CallBack=nil
+    end
+end
+
 -- auto
 -- Automatic generation of code, forbid to edit
 function XUiFubenStageDetail:InitAutoScript()
@@ -98,6 +105,7 @@ function XUiFubenStageDetail:OnBtnCloseClick()
     self:PlayHideAnimation()
     if self.CallBack then
         self.CallBack()
+        self.CallBack=nil
     end
 end
 

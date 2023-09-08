@@ -98,7 +98,7 @@ function XUiGridDrawResult:SetData(rewardInfo)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else

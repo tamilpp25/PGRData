@@ -30,7 +30,7 @@ function XUiPokemonMonster:OnAwake()
     self.BtnSkill.gameObject:SetActiveEx(false)
     self.GridMonster.gameObject:SetActiveEx(false)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.PokemonLevelUpItem, function()
         self.AssetActivityPanel:Refresh({ XDataCenter.ItemManager.ItemId.PokemonLevelUpItem, XDataCenter.ItemManager.ItemId.PokemonStarUpItem, XDataCenter.ItemManager.ItemId.PokemonLowStarUpItem })
     end, self.AssetActivityPanel)

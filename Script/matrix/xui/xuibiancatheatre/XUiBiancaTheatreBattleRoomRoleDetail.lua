@@ -39,6 +39,17 @@ function XUiBiancaTheatreRoleGrid:SetData(entity)
     self.RImgQuality.gameObject:SetActiveEx(false)
 end
 
+function XUiBiancaTheatreRoleGrid:UpdateFight()
+    if self.IsFragment then
+        self.PanelFight.gameObject:SetActiveEx(false)
+        return
+    end
+
+    self.PanelFight.gameObject:SetActiveEx(true)
+    self.TxtFight.gameObject:SetActiveEx(true)
+    self.TxtFight.text = self.Character:GetCharacterViewModel():GetAbility()
+end
+
 --######################## XUiBiancaTheatreBattleRoomRoleDetail ########################
 local XUiBattleRoomRoleDetailDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy")
 
@@ -64,12 +75,6 @@ end
 -- characterType : XCharacterConfigs.CharacterType
 function XUiBiancaTheatreBattleRoomRoleDetail:GetEntities(characterType)
     local roles = self.AdventureManager:GetCurrentRoles(true)
-    -- local result = {}
-    -- for _, role in ipairs(roles) do
-    --     if role:GetCharacterViewModel():GetCharacterType() == characterType then
-    --         table.insert(result, role)
-    --     end
-    -- end
     return roles
 end
 
@@ -81,25 +86,31 @@ end
 
 -- team : XTeam
 -- sortTagType : XRoomCharFilterTipsConfigs.EnumSortTag
-function XUiBiancaTheatreBattleRoomRoleDetail:SortEntitiesWithTeam(team, entities, sortTagType)
-    table.sort(entities, function(entityA, entityB)
-        local _, posA = team:GetEntityIdIsInTeam(entityA:GetId())
-        local _, posB = team:GetEntityIdIsInTeam(entityB:GetId())
-        local teamWeightA = posA ~= -1 and (10 - posA) * 100000 or 0
-        local teamWeightB = posB ~= -1 and (10 - posB) * 100000 or 0
-        teamWeightA = teamWeightA + entityA:GetAbility()
-        teamWeightB = teamWeightB + entityB:GetAbility()
-        if teamWeightA == teamWeightB then
-            return entityA:GetId() > entityB:GetId()
-        else
-            return teamWeightA > teamWeightB
-        end
-    end)
-    return entities
-end
+--function XUiBiancaTheatreBattleRoomRoleDetail:SortEntitiesWithTeam(team, entities, sortTagType)
+--    table.sort(entities, function(entityA, entityB)
+--        local _, posA = team:GetEntityIdIsInTeam(entityA:GetId())
+--        local _, posB = team:GetEntityIdIsInTeam(entityB:GetId())
+--        local teamWeightA = posA ~= -1 and (10 - posA) * 100000 or 0
+--        local teamWeightB = posB ~= -1 and (10 - posB) * 100000 or 0
+--        teamWeightA = teamWeightA + entityA:GetAbility()
+--        teamWeightB = teamWeightB + entityB:GetAbility()
+--        if teamWeightA == teamWeightB then
+--            return entityA:GetId() > entityB:GetId()
+--        else
+--            return teamWeightA > teamWeightB
+--        end
+--    end)
+--    return entities
+--end
 
 function XUiBiancaTheatreBattleRoomRoleDetail:GetGridProxy()
     return XUiBiancaTheatreRoleGrid
+end
+
+function XUiBiancaTheatreBattleRoomRoleDetail:GetFilterControllerConfig()
+    ---@type XCharacterAgency
+    local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+    return characterAgency:GetModelCharacterFilterController()["UiTheatre2BattleRoomDetail"]
 end
 
 -- 获取角色战力
@@ -113,6 +124,10 @@ end
 
 function XUiBiancaTheatreBattleRoomRoleDetail:GetRoleDynamicGrid(rootUi)
     return rootUi.GridCharacterBiancaTheatre
+end
+
+function XUiBiancaTheatreBattleRoomRoleDetail:GetFilterCharIdFun(adventureRole)
+    return adventureRole:GetId()
 end
 
 return XUiBiancaTheatreBattleRoomRoleDetail

@@ -18,6 +18,28 @@ function XCharacterControl:CharacterResetNewFlagRequest(characterIdList, cb)
     end)
 end
 
+function XCharacterControl:CharacterSetCollectStateRequest(characterId, collectState, cb)
+    local char = XMVCA.XCharacter:GetCharacter(characterId)
+    if not char then
+        return
+    end
+
+    if collectState == char.CollectState then
+        return
+    end
+
+    XNetwork.Call("CharacterSetCollectStateRequest", { CharacterId = characterId, CollectState = collectState }, function(res)
+        if res.Code ~= XCode.Success then
+            XUiManager.TipCode(res.Code)
+            return
+        end
+
+        if cb then
+            cb()
+        end
+    end)
+end
+
 function XCharacterControl:AddAgencyEvent()
     --control在生命周期启动的时候需要对Agency及对外的Agency进行注册
 end

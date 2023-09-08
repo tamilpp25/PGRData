@@ -43,6 +43,7 @@ end
 
 function XUiTRPGMain:OnDestroy()
     self.LevelPanel:Delete()
+    self.PanelPlotTab:OnDestroy()
 end
 
 function XUiTRPGMain:Init()

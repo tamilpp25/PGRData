@@ -1,5 +1,6 @@
 XGachaManagerCreator = function()
     local GET_GACHA_DATA_INTERVAL = 15
+    ---@class XGachaManager
     local XGachaManager = {}
     local ParseToTimestamp = XTime.ParseToTimestamp 
 
@@ -270,7 +271,9 @@ XGachaManagerCreator = function()
     end
 
     function XGachaManager.DoGacha(gaChaId, count, cb, errorCb, organizeId)
+        XDataCenter.LottoManager.SetIsInterceptUiObtain(true)
         XNetwork.Call(METHOD_NAME.Gacha, { Id = gaChaId, Times = count }, function(res)
+            XDataCenter.LottoManager.SetIsInterceptUiObtain(false)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 if errorCb then
@@ -287,9 +290,9 @@ XGachaManagerCreator = function()
             if organizeId then
                 newUnlockGachaId = XGachaManager.DrawUpdateOrganizeStatus(organizeId, gaChaId)
             end
-
+            
             if cb then
-                cb(res.RewardList, newUnlockGachaId)
+                cb(res.RewardList, newUnlockGachaId, res)
             end
         end)
     end

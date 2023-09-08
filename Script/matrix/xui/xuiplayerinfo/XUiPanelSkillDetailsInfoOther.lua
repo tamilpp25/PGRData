@@ -64,7 +64,7 @@ function XUiPanelSkillDetailsInfoOther:RefreshSkillLevel(subSkill)
         self.BtnDetails.gameObject:SetActiveEx(false)
     end
 
-    self.GradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(self.SubSkillId, subSkill.Level + addLevel)
+    self.GradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(self.SubSkillId, subSkill.Level + addLevel)
     self.TxtSkillLevel.text = levelStr
 end
 

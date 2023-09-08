@@ -1,18 +1,15 @@
-XUiPanelFightSet = XClass(nil, "XUiPanelFightSet")
+---@class XUiPanelFightSet : XUiNode
+local XUiPanelFightSet = XClass(XUiNode, "XUiPanelFightSet")
 
 local XInputManager = CS.XInputManager
+local XUiRespondBarrierType = CS.XUiComponent.XUiButton.XUiRespondBarrierType
+local Pairs = pairs
 
-function XUiPanelFightSet:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-    XTool.InitUiObject(self)
-
+function XUiPanelFightSet:OnStart()
     self.OperationTypeList = XDataCenter.SetManager.GetOperationTypeList()
     
     self:ShowSetKeyTip(false)
     self:GetDataThenLoadSchemeName()
-    self:RegisterCustomUiEvent()
     self.PageType = {
         Touch = 1, --触摸设置
         GameController = 2, --外接手柄键位设置
@@ -49,6 +46,7 @@ function XUiPanelFightSet:Ctor(ui, uiRoot)
     self.BtnCloseInput.CallBack = function()
         self:OnBtnCloseInputClick()
     end
+    self.BtnCloseInput:SetBarrierType(XUiRespondBarrierType.Mouse2)
 
     self:InitControllerPanel()
     self:RefreshJoystickPanel()
@@ -56,7 +54,8 @@ function XUiPanelFightSet:Ctor(ui, uiRoot)
     self:InitKeyboardPanel()
     self:RefreshKeyboardPanel()
 
-    self.BtnTabGroup:SelectIndex(self:GetDefaultIndex())
+    self.CurPageType = self:GetDefaultIndex()
+    self.BtnTabGroup:SelectIndex(self.CurPageType, false)
     self.PatternGroup:SelectIndex(XInputManager.GetJoystickType())
 
     local behaviour = self.GameObject:AddComponent(typeof(CS.XLuaBehaviour))
@@ -68,8 +67,20 @@ function XUiPanelFightSet:Ctor(ui, uiRoot)
 
     self.CustomUi.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CustomUi))
 
+end
+
+function XUiPanelFightSet:OnEnable()
+    self:RegisterCustomUiEvent()
     XEventManager.AddEventListener(XEventId.EVENT_JOYSTICK_TYPE_CHANGED, self.OnJoystickTypeChanged, self)
     XEventManager.AddEventListener(XEventId.EVENT_JOYSTICK_ACTIVE_CHANGED, self.OnJoystickActiveChanged, self)
+    self:ShowPanel()
+end
+
+function XUiPanelFightSet:OnDisable()
+    self:HidePanel()
+    self:RemoveCustomUiEvent()
+    XEventManager.RemoveEventListener(XEventId.EVENT_JOYSTICK_TYPE_CHANGED, self.OnJoystickTypeChanged, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_JOYSTICK_ACTIVE_CHANGED, self.OnJoystickActiveChanged, self)
 end
 
 function XUiPanelFightSet:OnJoystickTypeChanged()
@@ -138,19 +149,19 @@ end
 
 function XUiPanelFightSet:UpdatePanel()
     if self.CurPageType == self.PageType.Touch then
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(true)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(true)
+        self.Parent.BtnSave.gameObject:SetActiveEx(true)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(true)
     elseif self.CurPageType == self.PageType.GameController then
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(false)
+        self.Parent.BtnSave.gameObject:SetActiveEx(false)
         if XInputManager.EnableInputJoystick then
-            self.UiRoot.BtnDefault.gameObject:SetActiveEx(true)
+            self.Parent.BtnDefault.gameObject:SetActiveEx(true)
         else
-            self.UiRoot.BtnDefault.gameObject:SetActiveEx(false)
+            self.Parent.BtnDefault.gameObject:SetActiveEx(false)
         end
         self:InitControllerPanel()
     elseif self.CurPageType == self.PageType.Keyboard then
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(false)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(false)
+        self.Parent.BtnSave.gameObject:SetActiveEx(false)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(false)
         self:InitKeyboardPanel()
     end
     self:ShowSubPanel(self.CurPageType)
@@ -160,6 +171,8 @@ function XUiPanelFightSet:ShowSubPanel(type)
     self.PanelTouch.gameObject:SetActiveEx(type == self.PageType.Touch)
     self.PanelGameController.gameObject:SetActiveEx(type == self.PageType.GameController)
     self.PanelKeyboard.gameObject:SetActiveEx(type == self.PageType.Keyboard)
+    self:RefreshKeyboardItem(type == self.PageType.Keyboard and (self.TogEnableKeyboard:GetToggleState() or XDataCenter.UiPcManager.IsPc()))
+    self:RefreshJoystickItem(type == self.PageType.GameController and self.TogEnableJoystick:GetToggleState())
 end
 
 function XUiPanelFightSet:OnPatternGroupClick(index)
@@ -170,15 +183,13 @@ end
 function XUiPanelFightSet:ShowPanel()
     self:UpdatePanel()
     self:GetCache()
-    self.GameObject:SetActive(true)
-    self.RedPoint = XRedPointManager.AddRedPointEvent(self.BtnCustomUi, self.OnCheckCustomUiSetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_SET }, nil, true)
+    self:AddRedPointEvent(self.BtnCustomUi, self.OnCheckCustomUiSetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_SET }, nil, true)
     self.IsShow = true
 end
 
 function XUiPanelFightSet:HidePanel()
     XInputManager.EndEdit()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelFightSet:OnTogStaticJoystickClick()
@@ -190,7 +201,10 @@ function XUiPanelFightSet:OnTogDynamicJoystickClick()
 end
 
 function XUiPanelFightSet:CheckDataIsChange()
-    return self.DynamicJoystick ~= XDataCenter.SetManager.DynamicJoystick or XInputManager.IsKeyMappingChange() or XInputManager.IsCameraMoveSensitivitiesChange()
+    if self._CurKeySetTypeInt and self._CurKeySetTypeInt ~= XInputManager.GetJoystickType() then
+        return true
+    end
+    return  self.DynamicJoystick ~= XDataCenter.SetManager.DynamicJoystick or XInputManager.IsKeyMappingChange() or XInputManager.IsCameraMoveSensitivitiesChange()
 end
 
 function XUiPanelFightSet:SaveTouchChange()
@@ -219,11 +233,16 @@ end
 
 function XUiPanelFightSet:SaveChange()
     self:SaveTouchChange()
+    if self._CurKeySetTypeInt then
+        XInputManager.SetJoystickType(self._CurKeySetTypeInt)
+    end
     XInputManager.SaveChange()
 end
 
 function XUiPanelFightSet:CancelChange()
     self.JoystickGroup:SelectIndex(self.DynamicJoystick + 1)
+    self.PatternGroup:SelectIndex(XInputManager.GetJoystickType())
+    self._CurKeySetTypeInt = XInputManager.GetJoystickType()
     XInputManager.RevertKeyMappings()
 end
 
@@ -243,6 +262,19 @@ function XUiPanelFightSet:OnTogEnableJoystickClick(value)
     self:RefreshJoystickPanel()
 end
 
+function XUiPanelFightSet:RefreshJoystickItem(enable)
+    if self.CtrlKeyItemList then
+        for i, grid in Pairs(self.CtrlKeyItemList) do
+            local list = XSetConfigs.GetControllerMapCfg()
+            local item = list[i]
+            local curOperationType = self:GetCurOperationType()
+            local isActive = curOperationType == item.OperationType and self:IsSameKeySet(item.KeySetTypes)
+
+            self:SetGridActive(grid, enable and isActive)
+        end
+    end
+end
+
 function XUiPanelFightSet:RefreshJoystickPanel()
     local enable = XInputManager.EnableInputJoystick
     local isPc = XDataCenter.UiPcManager.IsPc()
@@ -250,8 +282,8 @@ function XUiPanelFightSet:RefreshJoystickPanel()
     if enable then
         self.PanelJoystickSet.gameObject:SetActiveEx(true)
         self.TipDisableJoyStick.gameObject:SetActiveEx(false)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(true)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(true)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(true)
+        self.Parent.BtnSave.gameObject:SetActiveEx(true)
         self.PanelGameControlOperationType.gameObject:SetActiveEx(true)
         self:InitControllerPanel()
         if not isPc then
@@ -260,13 +292,14 @@ function XUiPanelFightSet:RefreshJoystickPanel()
     else
         self.PanelJoystickSet.gameObject:SetActiveEx(false)
         self.TipDisableJoyStick.gameObject:SetActiveEx(true)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(false)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(false)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(false)
+        self.Parent.BtnSave.gameObject:SetActiveEx(false)
         self.PanelGameControlOperationType.gameObject:SetActiveEx(false)
         if isPc then  -- pc时,手柄被禁用了则要立即开启键盘
             self:SetEnableInputKeyboard(true)
         end
     end
+    self:RefreshJoystickItem(enable)
 end
 
 function XUiPanelFightSet:OnTogEnableKeyboardClick(value)
@@ -285,14 +318,27 @@ function XUiPanelFightSet:OnTogEnableKeyboardClick(value)
     self:RefreshKeyboardPanel()
 end
 
+function XUiPanelFightSet:RefreshKeyboardItem(enable)
+    if self._KeyboardGridList then
+        for i, grid in Pairs(self._KeyboardGridList) do
+            local list = XSetConfigs.GetControllerMapCfg()
+            local item = list[i]
+            local curOperationType = self:GetCurOperationType()
+            local isActive = curOperationType == item.OperationType and self:IsSameKeySet(item.KeySetTypes)
+
+            self:SetGridActive(grid, enable and isActive)
+        end
+    end
+end
+
 function XUiPanelFightSet:RefreshKeyboardPanel()
     local enable = XInputManager.EnableInputKeyboard
     self.TogEnableKeyboard:SetButtonState(enable and XUiButtonState.Select or XUiButtonState.Normal)
     if enable then
         self.PanelKeyboardSet.gameObject:SetActiveEx(true)
         self.TipDisableKeyboard.gameObject:SetActiveEx(false)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(true)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(true)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(true)
+        self.Parent.BtnSave.gameObject:SetActiveEx(true)
         self.PanelKeyboardOperationType.gameObject:SetActiveEx(true)
         if not XDataCenter.UiPcManager.IsPc() then
             XInputManager.SetEnableInputJoystick(false)
@@ -300,10 +346,11 @@ function XUiPanelFightSet:RefreshKeyboardPanel()
     else
         self.PanelKeyboardSet.gameObject:SetActiveEx(false)
         self.TipDisableKeyboard.gameObject:SetActiveEx(true)
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(false)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(false)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(false)
+        self.Parent.BtnSave.gameObject:SetActiveEx(false)
         self.PanelKeyboardOperationType.gameObject:SetActiveEx(false)
     end
+    self:RefreshKeyboardItem(enable)
 end
 
 function XUiPanelFightSet:OnBtnCloseInputClick()
@@ -338,12 +385,6 @@ function XUiPanelFightSet:RemoveCustomUiEvent()
     self.LoadSchemeNameFunc = nil
 end
 
-function XUiPanelFightSet:OnDestroy()
-    self:RemoveCustomUiEvent()
-    XEventManager.RemoveEventListener(XEventId.EVENT_JOYSTICK_TYPE_CHANGED, self.OnJoystickTypeChanged, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_JOYSTICK_ACTIVE_CHANGED, self.OnJoystickActiveChanged, self)
-end
-
 function XUiPanelFightSet:SetEnableInputKeyboard(value)
     XInputManager.SetEnableInputKeyboard(value)
 end
@@ -354,18 +395,18 @@ function XUiPanelFightSet:UpdateKeySetType()
     end
     if self.BtnTabGroup.CurSelectId == self.PageType.Keyboard then
         self._CurKeySetType = CS.KeySetType.Keyboard
-        XInputManager.SetJoystickType(3)
+        self._CurKeySetTypeInt = nil
         return
     end
     if self.BtnTabGroup.CurSelectId == self.PageType.GameController then
         if self.PatternGroup.CurSelectId == 1 then
             self._CurKeySetType = CS.KeySetType.Xbox
-            XInputManager.SetJoystickType(1)
+            self._CurKeySetTypeInt = 1
             return
         end
         if self.PatternGroup.CurSelectId == 2 then
             self._CurKeySetType = CS.KeySetType.Ps
-            XInputManager.SetJoystickType(2)
+            self._CurKeySetTypeInt = 2
             return
         end
     end

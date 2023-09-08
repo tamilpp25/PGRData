@@ -24,6 +24,10 @@ function XUiGridMainSkill:SetButtonCallBack()
 end
 
 function XUiGridMainSkill:OnBtnSelectClick()
+    if self.Root.Partner:GetIsComposePreview() then
+        return
+    end
+    
     if self.SkillGroup:GetIsLock() then
         XUiManager.TipMsg(self.SkillGroup:GetConditionDesc())
         return
@@ -54,6 +58,12 @@ function XUiGridMainSkill:UpdateGrid(skillGroup, base, root)
 end
 
 function XUiGridMainSkill:ShowGrid()
+    if self.Root.Partner:GetIsComposePreview() then
+        self.BtnSelect2.gameObject:SetActiveEx(false)
+        self:ChangeState(State.Normal)
+        return
+    end
+    
     if self.SkillGroup then
         local selectSkillId = self.Root.CurSkillGroup:GetId()
         local IsSelect = self.SkillGroup:GetId() == selectSkillId

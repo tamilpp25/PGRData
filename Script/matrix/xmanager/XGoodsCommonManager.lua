@@ -17,7 +17,7 @@ local GoodsName = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterName(templateId)
+        return XMVCA.XCharacter:GetCharacterName(templateId)
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
@@ -194,7 +194,7 @@ local GoodsDescription = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterIntro(templateId)
+        return XMVCA.XCharacter:GetCharacterIntro(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -535,13 +535,13 @@ GoodsShowParams[XArrangeConfigs.Types.Item] = function(templateId)
 end
 
 GoodsShowParams[XArrangeConfigs.Types.Character] = function(templateId)
-    local quality = XCharacterConfigs.GetCharMinQuality(templateId)
+    local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
 
     return {
         RewardType = XRewardManager.XRewardType.Character,
         TemplateId = templateId,
-        Name = XCharacterConfigs.GetCharacterName(templateId),
-        TradeName = XCharacterConfigs.GetCharacterTradeName(templateId),
+        Name = XMVCA.XCharacter:GetCharacterName(templateId),
+        TradeName = XMVCA.XCharacter:GetCharacterTradeName(templateId),
         Quality = quality,
         QualityIcon = XCharacterConfigs.GetCharQualityIconGoods(quality),
         Icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(templateId),

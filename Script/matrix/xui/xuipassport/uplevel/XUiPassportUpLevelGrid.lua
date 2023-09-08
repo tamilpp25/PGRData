@@ -1,13 +1,11 @@
-local XUiPassportUpLevelGrid = XClass(nil, "XUiPassportUpLevelGrid")
+---@field _Control XPassportControl
+---@class XUiPassportUpLevelGrid:XUiNode
+local XUiPassportUpLevelGrid = XClass(XUiNode, "XUiPassportUpLevelGrid")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local MaxGridCount = 3
 
 function XUiPassportUpLevelGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
     self.RewardPanelList = {}
     self:SetImgEffectActive(false)
 end
@@ -19,15 +17,15 @@ end
 function XUiPassportUpLevelGrid:Refresh(levelId)
     self:SetImgEffectActive(false)
 
-    local level = XPassportConfigs.GetPassportLevel(levelId)
+    local level = self._Control:GetPassportLevel(levelId)
     self.Text.text = CSXTextManagerGetText("PassportLevelUnLockSupplyDesc", level)
 
-    local unLockPassportRewardIdList = XPassportConfigs.GetUnLockPassportRewardIdListByLevel(level)
+    local unLockPassportRewardIdList = self._Control:GetUnLockPassportRewardIdListByLevel(level)
     local gridCostItem
     local panel
     local rewardData
     for i, passportRewardId in ipairs(unLockPassportRewardIdList) do
-        rewardData = XPassportConfigs.GetPassportRewardData(passportRewardId)
+        rewardData = self._Control:GetPassportRewardData(passportRewardId)
         gridCostItem = self["GridCostItem" .. i]
         panel = self.RewardPanelList[i]
         if gridCostItem and not panel then

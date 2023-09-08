@@ -643,7 +643,6 @@ function XActivityBrieIsOpen.RpgMaker()
     end
 end
 
---todo by zlb
 function XActivityBrieIsOpen.Reform()
     --local beginTime = XDataCenter.Reform2ndManager.GetActivityStartTime()
     --local endTime = XDataCenter.ReformActivityManager.GetActivityEndTime()
@@ -893,10 +892,12 @@ function XActivityBrieIsOpen.Escape()
     end
 end
 
---v1.27音游小游戏
+--v2.6 舞乐晨曦2.0 音游小游戏
 function XActivityBrieIsOpen.TaikoMaster()
-    local beginTime = XDataCenter.TaikoMasterManager.GetActivityStartTime()
-    local endTime = XDataCenter.TaikoMasterManager.GetActivityEndTime()
+    ---@type XTaikoMasterAgency
+    local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+    local beginTime = agency:GetActivityStartTime()
+    local endTime = agency:GetActivityEndTime()
     local fightEndTime = endTime
     local inTime, timeStr, openTimeTipsStr = XActivityBrieIsOpen.RefreshAcitivityTime(beginTime, fightEndTime, endTime)
 
@@ -935,9 +936,11 @@ end
 
 --v1.29正逆塔
 function XActivityBrieIsOpen.TwoSideTower()
-    local beginTime = XDataCenter.TwoSideTowerManager.GetStartTime()
-    local endTime = XDataCenter.TaikoMasterManager.GetEndTime()
-    return XActivityBrieIsOpen.CheckInOpen(beginTime, endTime, XFunctionManager.FunctionName.TaikoMaster)
+    ---@type XTwoSideTowerAgency
+    local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+    local beginTime = twoSideTowerAgency:GetStartTime()
+    local endTime = twoSideTowerAgency:GetEndTime()
+    return XActivityBrieIsOpen.CheckInOpen(beginTime, endTime, XFunctionManager.FunctionName.TwoSideTower)
 end
 
 --@endregion

@@ -1,8 +1,10 @@
 local XSCRole = require("XEntity/XSameColorGame/Role/XSCRole")
 
+---@class XSCRoleManager
 local XSCRoleManager = XClass(nil, "XSCRoleManager")
 
 function XSCRoleManager:Ctor()
+    ---@type XSCRole[]
     self.RoleDic = {}
     -- -- 已获得的角色id数据
     -- self.ReceivedRoleIdDic = {}
@@ -20,6 +22,7 @@ end
 --     return self.ReceivedRoleIdDic[roleId] or false
 -- end
 
+---@return XSCRole[]
 function XSCRoleManager:GetRoles()
     local roleConfigDic = XSameColorGameConfigs.GetRoleConfigDic()
     local result = {}
@@ -39,6 +42,7 @@ function XSCRoleManager:GetRoles()
     return result
 end
 
+---@return XSCRole
 function XSCRoleManager:GetRole(id)
     local result = self.RoleDic[id]
     if result == nil then

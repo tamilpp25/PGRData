@@ -240,7 +240,7 @@ function XUiMonsterCombatBattlePrepare:OnBtnCharacterClicked(index)
         if self.MonsterTeam:GetCaptainPos() == index then
             soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
         end
-        XDataCenter.FavorabilityManager.PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId), soundType)
+        XMVCA.XFavorability:PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId), soundType)
     end)
 end
 

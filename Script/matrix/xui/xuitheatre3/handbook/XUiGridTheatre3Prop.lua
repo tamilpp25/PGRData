@@ -14,27 +14,17 @@ function XUiGridTheatre3Prop:OnStart(callBack)
     }
 end
 
-function XUiGridTheatre3Prop:GetConfigDataById(id)
-    local isProp = self.Parent:CheckCurTypeIsProp()
-    local isSet = self.Parent:CheckCurTypeIsSet()
-    local config = {}
-    if isProp then
-        config = self._Control:GetItemConfigById(id)
-    elseif isSet then
-        config = self._Control:GetSuitById(id)
-    end
-    return config
-end
-
 ---@param id number 套装id|物品id
 function XUiGridTheatre3Prop:Refresh(id)
     if not XTool.IsNumberValid(id) then
         return
     end
     self.Id = id
-    local config = self:GetConfigDataById(id)
     -- 图标
-    local icon = config.Icon
+    local icon
+    if self.Parent:CheckCurTypeIsProp() then
+        icon = self._Control:GetEventStepItemIcon(id, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
+    end
     if self.Parent:CheckCurTypeIsSet() then
         local equipCfgList = self._Control:GetAllSuitEquip(id)
         if equipCfgList[1] and not string.IsNilOrEmpty(equipCfgList[1].Icon) then
@@ -46,7 +36,7 @@ function XUiGridTheatre3Prop:Refresh(id)
     end
     --道具品质
     if self.Parent:CheckCurTypeIsProp() then
-        local quality = config.Quality
+        local quality = self._Control:GetEventStepItemQuality(id, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
         if not XTool.IsTableEmpty(self.QualityObjDir) then
             for i, obj in pairs(self.QualityObjDir) do
                 obj.gameObject:SetActiveEx(i == quality)
@@ -60,16 +50,13 @@ end
 function XUiGridTheatre3Prop:RefreshStatus()
     local isProp = self.Parent:CheckCurTypeIsProp()
     local isSet = self.Parent:CheckCurTypeIsSet()
-    local isOpen = true
     local isUnlock = false
-
     if isProp then
-        isOpen = self._Control:CheckItemUnlockConditionId(self.Id)
         isUnlock = self._Control:CheckUnlockItemId(self.Id)
     elseif isSet then
         isUnlock = self._Control:CheckAnyEquipIdUnlock(self.Id)
     end
-    self:SetIsLock(not isOpen or not isUnlock)
+    self:SetIsLock(not isUnlock)
 end
 
 function XUiGridTheatre3Prop:RefreshRedPoint()

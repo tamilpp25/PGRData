@@ -73,30 +73,30 @@ function XUiArchiveMonster:Init()
 end
 
 function XUiArchiveMonster:InitRedPoint()
-    XRedPointManager.AddRedPointEvent(self.BtnFirst1,
+    self:AddRedPointEvent(self.BtnFirst1,
         self.OnCheckPawnRedPoint, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_RED },
         XArchiveConfigs.MonsterType.Pawn)
-    XRedPointManager.AddRedPointEvent(self.BtnFirst2,
+    self:AddRedPointEvent(self.BtnFirst2,
         self.OnCheckEliteRedPoint, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_RED },
         XArchiveConfigs.MonsterType.Elite)
-    XRedPointManager.AddRedPointEvent(self.BtnFirst3,
+    self:AddRedPointEvent(self.BtnFirst3,
         self.OnCheckBossRedPoint, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_RED },
         XArchiveConfigs.MonsterType.Boss)
 end
 
 function XUiArchiveMonster:InitNewTag()
-    XRedPointManager.AddRedPointEvent(self.BtnFirst1,
+    self:AddRedPointEvent(self.BtnFirst1.TagObj,
         self.OnCheckPawnTag, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_TAG },
         XArchiveConfigs.MonsterType.Pawn)
-    XRedPointManager.AddRedPointEvent(self.BtnFirst2,
+    self:AddRedPointEvent(self.BtnFirst2.TagObj,
         self.OnCheckEliteTag, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_TAG },
         XArchiveConfigs.MonsterType.Elite)
-    XRedPointManager.AddRedPointEvent(self.BtnFirst3,
+    self:AddRedPointEvent(self.BtnFirst3.TagObj,
         self.OnCheckBossTag, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_TYPE_TAG },
         XArchiveConfigs.MonsterType.Boss)
@@ -130,25 +130,37 @@ function XUiArchiveMonster:OnBtnMainUiClick()
 end
 
 function XUiArchiveMonster:OnCheckPawnRedPoint(count)
-    self.BtnFirst1:ShowReddot(count >= 0)
+    if self.BtnFirst1 then
+        self.BtnFirst1:ShowReddot(count >= 0)
+    end
 end
 
 function XUiArchiveMonster:OnCheckEliteRedPoint(count)
-    self.BtnFirst2:ShowReddot(count >= 0)
+    if self.BtnFirst2 then
+        self.BtnFirst2:ShowReddot(count >= 0)
+    end
 end
 
 function XUiArchiveMonster:OnCheckBossRedPoint(count)
-    self.BtnFirst3:ShowReddot(count >= 0)
+    if self.BtnFirst3 then
+        self.BtnFirst3:ShowReddot(count >= 0)
+    end
 end
 
 function XUiArchiveMonster:OnCheckPawnTag(count)
-    self.BtnFirst1:ShowTag(count >= 0)
+    if self.BtnFirst1 then
+        self.BtnFirst1:ShowTag(count >= 0)
+    end
 end
 
 function XUiArchiveMonster:OnCheckEliteTag(count)
-    self.BtnFirst2:ShowTag(count >= 0)
+    if self.BtnFirst2 then
+        self.BtnFirst2:ShowTag(count >= 0)
+    end
 end
 
 function XUiArchiveMonster:OnCheckBossTag(count)
-    self.BtnFirst3:ShowTag(count >= 0)
+    if self.BtnFirst3 then
+        self.BtnFirst3:ShowTag(count >= 0)
+    end
 end

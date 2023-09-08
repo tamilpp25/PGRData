@@ -11,7 +11,7 @@ function XUiEquipAwarenessV2P6:OnAwake()
     self.UiPanelRoleModel = XUiPanelRoleModel.New(self.PanelRoleModelGo, self.Name, nil, true)
 
     -- 装备面板初始化
-    self.PanelEquip = XMVCA:GetAgency(ModuleId.XEquip):InitPanelEquipV2P6(self.PanelEquip, self)
+    self.PanelEquip = XMVCA:GetAgency(ModuleId.XEquip):InitPanelEquipV2P6(self.PanelEquip, self, self)
     self.PanelEquip:InitData()
 
     self:SetButtonCallBack()
@@ -22,20 +22,22 @@ function XUiEquipAwarenessV2P6:OnStart(characterId)
     self.CharacterId = characterId
     self:RefreshModel(characterId)
 
-    -- 刷新装备面板
-    self.PanelEquip.IsShowPanelAwareness = true
-    self.PanelEquip:UpdateCharacter(characterId)
-    self.PanelEquip:InitUnFoldButton()
-
     -- 由动画展开意识面板
     local anim = self.PanelEquip.PanelEquipEnable:GetComponent("PlayableDirector")
     anim.time = anim.duration
     anim:Play()
+    self.PanelEquip.PanelAwareness.gameObject:SetActiveEx(true)
 
     -- 切换按钮不显示，不可点击
     local canvasGroup = self.PanelEquip.BtnFold:GetComponent("CanvasGroup")
     canvasGroup.alpha = 0
     canvasGroup.blocksRaycasts = false
+
+    -- 刷新装备面板
+    self.PanelEquip:Open()
+    self.PanelEquip.IsShowPanelAwareness = true
+    self.PanelEquip:UpdateCharacter(characterId)
+    self.PanelEquip:InitUnFoldButton()
 end
 
 function XUiEquipAwarenessV2P6:OnEnable()
@@ -130,7 +132,7 @@ function XUiEquipAwarenessV2P6:PlaySwitchEffect()
         return
     end
 
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
     if characterType == XCharacterConfigs.CharacterType.Normal then
         self.ImgEffectHuanren.gameObject:SetActive(true)
     else

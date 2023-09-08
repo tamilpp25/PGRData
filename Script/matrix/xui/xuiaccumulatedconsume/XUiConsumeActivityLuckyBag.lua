@@ -17,7 +17,7 @@ function XUiConsumeActivityLuckyBag:OnStart()
     self.ConsumeDrawActivity = XDataCenter.AccumulatedConsumeManager.GetConsumeDrawActivity()
     
     self.ItemId = self.ConsumeDrawActivity:GetDrawCardCoinItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ self.ItemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ self.ItemId }, self.PanelSpecialTool, self)
     
     self:InitRewardList()
     self:InitView()

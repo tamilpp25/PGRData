@@ -1,3 +1,4 @@
+---@class XUiTask:XLuaUi
 local XUiTask = XLuaUiManager.Register(XLuaUi, "UiTask")
 local MaintainerActionIcon = CS.XGame.ClientConfig:GetString("MaintainerActionIconInTaskUI")
 local PANEL_INDEX = {
@@ -29,12 +30,12 @@ function XUiTask:OnEnable()
     self:CheckTogLockStatus()
     self:CheckFunctionalFilter()
     self:SetupBountyTask()
-    self:AddRedPointEvent()
     self.TabPanelGroup:SelectIndex(self.CurToggleType)
     self:PlayAnimation("AnimStartEnable")
     if self.TaskStoryModule then
         self.TaskStoryModule:RefreshCourse()
     end
+    self:AddRedPointEventListener()
 end
 
 function XUiTask:Init()
@@ -60,9 +61,6 @@ function XUiTask:Init()
     self.TabPanelGroup:Init(self.TabList, function(index) self:OnTaskPanelSelect(index) end)
     local lastSelectTab = XDataCenter.TaskManager.GetNewPlayerHint(XDataCenter.TaskManager.TaskLastSelectTab, PANEL_INDEX.Story)
     self.CurToggleType = self.CurToggleType or lastSelectTab
-    
-    -- 红点
-    self:AddRedPointEvent()
 end
 
 function XUiTask:CheckTogLockStatus()
@@ -125,6 +123,9 @@ function XUiTask:OnDisable()
 end
 
 function XUiTask:OnDestroy()
+    if self.TaskDailyModule then
+        self.TaskDailyModule:OnDestroy()
+    end
     XDataCenter.TaskManager.UpdateViewCallback = nil
     XEventManager.RemoveEventListener(XEventId.EVENT_FINISH_TASK, self.OnTaskChangeSync, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FINISH_MULTI, self.OnTaskChangeSync, self)
@@ -135,17 +136,17 @@ function XUiTask:OnDestroy()
 end
 
 --添加点事件
-function XUiTask:AddRedPointEvent()
-    XRedPointManager.AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self,
+function XUiTask:AddRedPointEventListener()
+    self:AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE, XRedPointConditions.Types.CONDITION_TASK_COURSE }, XDataCenter.TaskManager.TaskType.Story)
 
-    self.DailyPointId = XRedPointManager.AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self,
+    self.DailyPointId = self:AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.Daily)
 
-    XRedPointManager.AddRedPointEvent(self.ImgWeeklyNewTag, self.RefreshWeeklyTabRedDot, self,
+    self:AddRedPointEvent(self.ImgWeeklyNewTag, self.RefreshWeeklyTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, {XDataCenter.TaskManager.TaskType.Weekly, XDataCenter.TaskManager.TaskType.ArenaOnlineWeekly, XDataCenter.TaskManager.TaskType.InfestorWeekly})
 
-    XRedPointManager.AddRedPointEvent(self.ImgActivetyNewTag, self.RefreshActivityTabRedDot, self,
+    self:AddRedPointEvent(self.ImgActivetyNewTag, self.RefreshActivityTabRedDot, self,
     { XRedPointConditions.Types.CONDITION_TASK_TYPE }, XDataCenter.TaskManager.TaskType.Activity)
 end
 

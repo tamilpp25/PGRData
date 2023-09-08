@@ -15,6 +15,7 @@ function XViewModelTransfiniteRoom:Ctor()
         ExtraRewardAmount = false,
         ExtraRewardTime = 0,
         ExtraCondition = false,
+        ExtraDesc = false,
         ---@type XViewModelTransfiniteRoomMember[]
         Members = false,
         IsTeamEmpty = false,
@@ -30,19 +31,29 @@ function XViewModelTransfiniteRoom:Ctor()
         TxtStageLock = false,
         IsStageCurrent = false,
         IsHideBtnReset = false,
+        IsShowRepeatBtn = false,
         ImgScore = false
     }
 
     ---@type XTransfiniteStageGroup
     self._StageGroup = XDataCenter.TransfiniteManager.GetStageGroup()
-
     self._StageIndex = 0
-    self:ResetIndex()
     self._IsOpenRoom = false
 end
 
 function XViewModelTransfiniteRoom:SetStageGroup(stageGroup)
     self._StageGroup = stageGroup
+    self:ResetIndex()
+    if not stageGroup:IsBegin() then
+        local team = stageGroup:GetTeam()
+        if team:IsEmpty() then
+            team:Load()
+        end
+    end
+
+    if stageGroup:IsRecordNotConfirm() then
+        self:ConfirmRecordResult()
+    end
 end
 
 function XViewModelTransfiniteRoom:ResetIndex()
@@ -126,6 +137,23 @@ function XViewModelTransfiniteRoom:Update(resetIndex)
                     IsFirst = i == team:GetFirstPos(),
                     IsDead = hp == 0,
                 }
+
+                if self._StageIndex == stageGroup:GetSaveStageIndex() then
+                    if self._StageIndex == 1 then
+                        dataMember.Hp = 1
+                        dataMember.Sp = 0
+                        dataMember.IsDead = false
+                    else
+                        local historyCharacter = stageGroup:GetHistoryCharacterByIndex(i)
+
+                        if historyCharacter then
+                            dataMember.Hp = historyCharacter.HpPercent / 100
+                            dataMember.Sp = historyCharacter.Energy / 100
+                            dataMember.IsDead = dataMember.Hp == 0
+                        end
+                    end
+                end
+                
                 data.Members[i] = dataMember
                 data.IsTeamEmpty = false
             end
@@ -156,7 +184,28 @@ function XViewModelTransfiniteRoom:Update(resetIndex)
     else
         data.IsHideBtnReset = true
     end
-
+    
+    data.IsShowRepeatBtn = self._StageIndex == stageGroup:GetSaveStageIndex()
+    if stageGroup:IsIsland() then
+        if self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.FirstHideExtra then
+            data.ExtraRewardTime = 0
+        elseif self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.SecondHideExtra then
+            data.ExtraRewardTime = 0
+        elseif self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.ShowOtherExtra then
+            if stage:IsAchievedExtraMission() then
+                data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra6", data.ExtraRewardTime)
+            else
+                data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra7", data.ExtraRewardTime)
+            end
+        end
+    else
+        if stage:IsAchievedExtraMission() then
+            data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra4", data.ExtraRewardTime)
+        else
+            data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra3", data.ExtraRewardTime)
+        end
+    end
+    
     data.ImgScore = XItemConfigs.GetItemIconById(XDataCenter.ItemManager.ItemId.TransfiniteScore)
 end
 
@@ -186,10 +235,10 @@ end
 
 function XViewModelTransfiniteRoom:OnClickMember()
     local stageGroup = self._StageGroup
-    if stageGroup:IsBegin() then
-        XUiManager.TipText("TransfiniteTimeLockTeam2")
-        return
-    end
+    --if stageGroup:IsBegin() then
+    --    XUiManager.TipText("TransfiniteTimeLockTeam2")
+    --    return
+    --end
 
     local team = XDataCenter.TransfiniteManager.GetTeam()
     local stageGroupTeam = stageGroup:GetTeam()
@@ -202,18 +251,10 @@ function XViewModelTransfiniteRoom:OnClickMember()
 end
 
 function XViewModelTransfiniteRoom:OnAwake()
-    local stageGroup = self._StageGroup
-    if not stageGroup:IsBegin() then
-        local team = stageGroup:GetTeam()
-        if team:IsEmpty() then
-            team:Load()
-        end
+    if self._StageGroup:IsIsland() then
+        return
     end
-
-    if stageGroup:IsRecordNotConfirm() then
-        self:ConfirmRecordResult()
-    end
-
+    
     -- 第一次进入新周期，弹出环境
     local circleId = XDataCenter.TransfiniteManager.GetCircleId()
     if circleId then
@@ -258,20 +299,12 @@ function XViewModelTransfiniteRoom:_Fight()
 end
 
 function XViewModelTransfiniteRoom:_FightAndSetTeam()
-    if self._StageGroup:GetCurrentIndex() == 1 then
-        XDataCenter.TransfiniteManager.RequestSetTeam(self._StageGroup, function()
-            self:_Fight()
-        end)
-    else
+    XDataCenter.TransfiniteManager.RequestSetTeam(self._StageGroup, self._StageGroup:GetCurrentIndex() == 1, function()
         self:_Fight()
-    end
+    end)
 end
 
 function XViewModelTransfiniteRoom:OnClickFight()
-    if self._StageGroup:IsBegin() then
-        self:_FightAndSetTeam()
-        return
-    end
     local team = self._StageGroup:GetTeam()
     if not team:IsCaptainSelected() then
         XUiManager.TipText("TeamManagerCheckCaptainNil")

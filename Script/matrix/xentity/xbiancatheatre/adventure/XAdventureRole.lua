@@ -3,6 +3,7 @@ local type = type
 local MAIN_SKILL_INDEX = 4  --主动技能
 local PASSIVE_SKILL_INDEX = 5 --被动技能
 
+---@class XBiancaTheatreAdventureRole
 local XAdventureRole = XClass(nil, "XAdventureRole")
 
 function XAdventureRole:Ctor(id, isRobot, isDecay)
@@ -138,6 +139,7 @@ function XAdventureRole:GenerateLocalRole()
     self:SetCharacter(character)
 end
 
+---@return XCharacterViewModel
 function XAdventureRole:GetCharacterViewModel()
     local characterViewModel = self:GetRawData():GetCharacterViewModel()
     return characterViewModel
@@ -368,7 +370,7 @@ function XAdventureRole:GetSkill()
                 local skillCo = {}
                 local skillType = XCharacterConfigs.GetSkillType(skillId)
                 skillCo.Level = adventureManager:GetCoreSkillLv(skillType) or skillLevelMap[skillId] or 0
-                local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillCo.Level)
+                local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillCo.Level)
                 if configDes then
                     skillCo.configDes = configDes
                 end

@@ -16,12 +16,19 @@ function XUiMainOther:OnStart(rootUi)
 end
 
 function XUiMainOther:OnEnable()
-
     if self.SignBoard then
+        -- 随机角色
         local displayCharacterId = XDataCenter.DisplayManager.GetRandomDisplayCharByList().Id
-        XDataCenter.DisplayManager.SetNextDisplayChar(nil)
-        self.SignBoard:SetDisplayCharacterId(displayCharacterId)
-        self.SignBoard:OnEnable()
+
+        -- 刷新
+        local refreshFun = function ()
+            XDataCenter.DisplayManager.SetNextDisplayChar(nil)
+            self.SignBoard:SetDisplayCharacterId(displayCharacterId)
+            self.SignBoard:OnEnable()
+        end
+
+        -- 随机涂装
+        XDataCenter.FashionManager.SetCharacterRandomFashion(displayCharacterId, refreshFun)
     end
 end
 

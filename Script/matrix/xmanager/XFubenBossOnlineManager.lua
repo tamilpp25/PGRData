@@ -396,6 +396,10 @@ XFubenBossOnlineManagerCreator = function()
     end
 
     function XFubenBossOnlineManager:ExOpenMainUi()
+        --分包资源检查
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityOnlineBoss) then
             return
         end

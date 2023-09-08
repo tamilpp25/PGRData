@@ -11,6 +11,15 @@ function XUiEquipDetailChildV2P6:OnAwake()
     self.PaneEquipResonance.gameObject:SetActiveEx(false)
     self.PanelAwarenessResonance.gameObject:SetActiveEx(false)
     self.PanelExtend.gameObject:SetActiveEx(false)
+    self.PanelAddEffect = self.PanelAdd.transform:Find("Effect")
+    self.PanelAdd2Effect = self.PanelAdd2.transform:Find("Effect")
+    self.GridEquipResonanceEffect1 = self.GridEquipResonance1.transform:Find("Effect")
+    self.GridEquipResonanceEffect2 = self.GridEquipResonance2.transform:Find("Effect")
+    self.GridEquipResonanceEffect3 = self.GridEquipResonance3.transform:Find("Effect")
+    self.GridEquipResonanceEffect1.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect2.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect3.gameObject:SetActiveEx(false)
+    self.OverrunBlindEffect = self.BtnOverrunBlind.transform:Find("Normal/Effect")
 
     -- 场景初始化
     local sceneRoot = self.UiSceneInfo.Transform
@@ -53,6 +62,8 @@ function XUiEquipDetailChildV2P6:OnStart(equipId, isPreview, characterId, forceS
 end
 
 function XUiEquipDetailChildV2P6:OnEnable()
+    self.PanelAddEffect.gameObject:SetActiveEx(false)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(false)
     self:UpdateView()
 end
 
@@ -83,8 +94,13 @@ function XUiEquipDetailChildV2P6:OnNotify(evt, ...)
     elseif evt == XEventId.EVENT_EQUIP_RECYCLE_STATUS_CHANGE_NOTYFY then
         self:UpdateEquipRecycle()
     elseif evt == XEventId.EVENT_EQUIP_RESONANCE_NOTYFY then
-        XUiManager.TipText("EquipResonanceChangeSuccess")
+        XMVCA:GetAgency(ModuleId.XEquip):TipEquipOperation(nil, XUiHelper.GetText("DormTemplateSelectSuccess"))
         self:UpdateEquipResonance()
+        
+        local slots = args[2]
+        for _, pos in ipairs(slots) do
+            self["GridEquipResonanceEffect"..pos].gameObject:SetActiveEx(true)
+        end
     end
 end
 
@@ -166,10 +182,11 @@ function XUiEquipDetailChildV2P6:OnBtnResonanceSkill(pos)
 
     local equip = XMVCA:GetAgency(ModuleId.XEquip):GetEquip(self.EquipId)
     local star = XMVCA:GetAgency(ModuleId.XEquip):GetEquipQuality(equip.TemplateId)
+    local characterId = self.CharacterId or equip.CharacterId
 
     -- 共鸣技能替换界面，武器且选中位置与当前角色是共鸣
-    if equip:IsWeapon() and pos and equip:GetResonanceBindCharacterId(pos) == self.CharacterId then
-        XLuaUiManager.Open("UiEquipResonanceSkillChangeV2P6", self.CharacterId, self.EquipId)
+    if equip:IsWeapon() and pos and equip:GetResonanceBindCharacterId(pos) == characterId and characterId and characterId ~= 0 then
+        XLuaUiManager.Open("UiEquipResonanceSkillChangeV2P6", characterId, self.EquipId)
 
     -- 5星武器只能共鸣一次
     elseif equip:IsWeapon() and equip:GetResonanceInfo(pos) and star == XEnumConst.EQUIP.FIVE_STAR then
@@ -223,12 +240,20 @@ end
 function XUiEquipDetailChildV2P6:ShowPanelSkill()
     self.IsShowExtend = false
     self:PlayAnimation("AnimUnFold")
+    self.PanelAddEffect.gameObject:SetActiveEx(false)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(true)
+    self.GridEquipResonanceEffect1.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect2.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect3.gameObject:SetActiveEx(false)
+    self.OverrunBlindEffect.gameObject:SetActiveEx(false)
 end
 
 -- 显示扩展面板
 function XUiEquipDetailChildV2P6:ShowPanelExtend()
     self.IsShowExtend = true
     self:PlayAnimation("AnimFold")
+    self.PanelAddEffect.gameObject:SetActiveEx(true)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(false)
 end
 
 function XUiEquipDetailChildV2P6:OnBtnOverrunClick()
@@ -239,6 +264,7 @@ function XUiEquipDetailChildV2P6:OnBtnOverrunClick()
 
     XLuaUiManager.Open("UiEquipOverrunSelect", self.EquipId, function()
         self:UpdateOverrun()
+        self.OverrunBlindEffect.gameObject:SetActiveEx(true)
     end)
 end
 
@@ -256,6 +282,7 @@ function XUiEquipDetailChildV2P6:InitModel()
     self.PanelWeaponPlane.gameObject:SetActiveEx(false)
     self.FxUiLihuiChuxian01.gameObject:SetActiveEx(false)
     if self.IsWeapon then
+        self.PanelWeapon.gameObject:SetActiveEx(true)
         local breakthroughTimes = not self.IsPreview and XDataCenter.EquipManager.GetBreakthroughTimes(self.EquipId) or 0
         local resonanceCount = not self.IsPreview and XDataCenter.EquipManager.GetResonanceCount(self.EquipId) or 0
         local modelTransformName = "UiEquipDetail"
@@ -271,7 +298,6 @@ function XUiEquipDetailChildV2P6:InitModel()
                 self.PanelDrag
             )
         end
-        self.PanelWeapon.gameObject:SetActiveEx(true)
     elseif self.IsAwareness then
         self:ReleaseModel()
         local breakthroughTimes = not self.IsPreview and XDataCenter.EquipManager.GetBreakthroughTimes(self.EquipId) or 0
@@ -528,6 +554,7 @@ function XUiEquipDetailChildV2P6:UpdateEquipResonanceSkill(pos)
     local isEquip = not self.IsPreview and XDataCenter.EquipManager.CheckEquipPosResonanced(self.EquipId, pos) ~= nil
     local uiObj = self["GridEquipResonance" .. pos]
     uiObj:GetComponent("XUiButton"):SetDisable(not isEquip)
+    self["GridEquipResonanceEffect"..pos].gameObject:SetActiveEx(false)
     if isEquip then
         if not self.ResonanceSkillDic then 
             self.ResonanceSkillDic = {} 
@@ -607,6 +634,7 @@ function XUiEquipDetailChildV2P6:UpdateOverrun()
         stateObj:GetObject("RImgSuit"):SetRawImage(iconPath)
         stateObj:GetObject("ImgNotMatching").gameObject:SetActiveEx(not isMatch)
     end
+    self.OverrunBlindEffect.gameObject:SetActiveEx(false)
 end
 
 -- 刷新超限场景特效

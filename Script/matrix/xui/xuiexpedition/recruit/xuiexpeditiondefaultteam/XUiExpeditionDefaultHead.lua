@@ -14,11 +14,11 @@ function XUiExpeditionDefaultHead:RefreshData(eCharaCfg, rank)
     end
     self:Show()
     local characterId = eCharaCfg.CharacterId
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     local icon = XDataCenter.FashionManager.GetFashionBigHeadIcon(fashionId)
     self.RImgHead:SetRawImage(icon)
     self.TxtStar.text = rank
-    self.TxtName.text = XCharacterConfigs.GetCharacterTradeName(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
 end
 
 function XUiExpeditionDefaultHead:Show()

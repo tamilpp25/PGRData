@@ -92,4 +92,14 @@ function XUiTheatreBattleRoomRoleDetail:GetFilterControllerConfig()
     return characterAgency:GetModelCharacterFilterController()["UiTheatreBattleRoomDetail"]
 end
 
+---v2.6 新筛选器用
+function XUiTheatreBattleRoomRoleDetail:CheckInTeam(team, entityId)
+    local id = self._IdDir[entityId] and self._IdDir[entityId] or entityId
+    return team:GetEntityIdIsInTeam(id)
+end
+
+function XUiTheatreBattleRoomRoleDetail:GetCurrentEntityId(currentEntityId)
+    return self._IdDir[currentEntityId] and self._IdDir[currentEntityId] or currentEntityId
+end
+
 return XUiTheatreBattleRoomRoleDetail

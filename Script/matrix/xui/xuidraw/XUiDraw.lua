@@ -224,7 +224,7 @@ function XUiDraw:UpdateLeftAimUpInfo(combination, groupInfo)
         self.PanelUpShowCharacter.gameObject:SetActiveEx(true)
         self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
         self.AimImgBottomIco:SetRawImage(self.GoodsShowParams.Icon)
-        local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
+        local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
         self.AimImgBottomRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
 
         if self.GoodsShowParams.Quality then
@@ -284,7 +284,7 @@ function XUiDraw:UpdateCharacterInfo(combination)
         -- self.ImgBottomRank = self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterBottom/UpCharacter/ImgBottomRank"):GetComponent("RawImage")
         self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
         self.ImgBottomIco:SetRawImage(self.GoodsShowParams.Icon)
-        local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
+        local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
         self.ImgBottomRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
         if #combination.GoodsId > 1 then
             -- self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterUpShow/UpCharacter2").gameObject:SetActiveEx(true)
@@ -293,7 +293,7 @@ function XUiDraw:UpdateCharacterInfo(combination)
             self.UpCharacter2.gameObject:SetActiveEx(true)
             self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[2])
             self.ImgBottomIco2:SetRawImage(self.GoodsShowParams.Icon)
-            local tmpQuality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[2])
+            local tmpQuality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[2])
             self.ImgBottomRank2:SetRawImage(XCharacterConfigs.GetCharQualityIcon(tmpQuality))
         else
             -- self.Transform:Find("SafeAreaContentPane/PanelDrawGroup/PanelDraw/PanelLeft/PanelCharacter/PanelCharacterUpShow/UpCharacter2").gameObject:SetActiveEx(false)
@@ -316,7 +316,7 @@ function XUiDraw:UpdateNewUpInfo(combination)
         else
             self.GoodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(combination.GoodsId[1])
             self.ImgNewUpIco:SetRawImage(self.GoodsShowParams.Icon)
-            local quality = XCharacterConfigs.GetCharMinQuality(combination.GoodsId[1])
+            local quality = XMVCA.XCharacter:GetCharMinQuality(combination.GoodsId[1])
             self.ImgNewUpRank:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
 
             if self.GoodsShowParams.Quality then

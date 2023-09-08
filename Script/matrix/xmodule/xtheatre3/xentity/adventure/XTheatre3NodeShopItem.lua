@@ -12,6 +12,7 @@ function XTheatre3NodeShopItem:Ctor()
     self.IsLock = false
     self.Price = 0          -- 原价
     self.DiscountPrice = 0  -- 打折后价格
+    self.DiscountPercent = 0
 end
 
 --region DataUpdate
@@ -69,7 +70,12 @@ end
 ---打折
 function XTheatre3NodeShopItem:GetDiscount()
     if self:CheckIsHaveDiscount() then
-        return string.format("%0.1f", self.DiscountPrice / self.Price * 10)
+        if XTool.IsNumberValid(self.DiscountPercent) then
+            return self.DiscountPercent / 10
+        end
+        -- 化为百分制去除位数防止%0.1f format四舍五入
+        local count = math.floor(self.DiscountPrice / self.Price * 100)
+        return string.format("%0.1f", count / 10)
     end
     return 10
 end
@@ -107,6 +113,7 @@ function XTheatre3NodeShopItem:NotifyData(data)
     self.IsLock = XTool.IsNumberValid(data.IsLock)
     self.Price = data.Price
     self.DiscountPrice = data.DiscountPrice
+    self.DiscountPercent = data.DiscountPercent
 end
 
 return XTheatre3NodeShopItem

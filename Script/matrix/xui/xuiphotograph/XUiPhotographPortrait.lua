@@ -447,7 +447,7 @@ function XUiPhotographPortrait:OnDynamicActionTableEvent(evt, index, grid)
     elseif evt == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local tryFashionId = self.FashionId
         local trySceneId = self.CurrSeleSceneId
-        local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
+        local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
         if not isHas then
             XUiManager.TipPortraitMsg(self.ActionList[index].ConditionDescript)
             return
@@ -633,7 +633,7 @@ function XUiPhotographPortrait:Replay()
     end
     local tryFashionId = self.FashionId
     local trySceneId = self.CurrSeleSceneId
-    local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
+    local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
     if not isHas then
         XUiManager.TipError(data.ConditionDescript)
         return

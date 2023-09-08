@@ -265,9 +265,9 @@ function XUiPhotographPanel:OnDynamicTableActionEvent(event, index, grid)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local tryFashionId = self.RootUi.SelectFashionId
         local trySceneId = self.RootUi.CurrSeleSceneId
-        local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CurCharId).TrustLv, tryFashionId, trySceneId)
+        local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CurCharId).TrustLv, tryFashionId, trySceneId)
         if not isHas then
-            XUiManager.TipError(self.ActionList[index].ConditionDescript)
+            XUiManager.TipError(self.ActionList[index].config.ConditionDescript)
             return
         end
         if self.CurActionGrid ~= nil then
@@ -279,8 +279,8 @@ function XUiPhotographPanel:OnDynamicTableActionEvent(event, index, grid)
         self.RootUi:PlayAnimation("PanelActionEnable")
         self.CurActionIndex = index
         self.CurActionGrid = grid
-        self:SetInfoTextName(self.ActionList[index].Name)
-        self.ActionPanel:SetTxtTitle(self.ActionList[index].Name)
+        self:SetInfoTextName(self.ActionList[index].config.Name)
+        self.ActionPanel:SetTxtTitle(self.ActionList[index].config.Name)
         grid:OnActionTouched(self.ActionList[index])
     end
 end

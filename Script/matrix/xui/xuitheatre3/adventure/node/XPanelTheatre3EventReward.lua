@@ -15,7 +15,7 @@ end
 function XPanelTheatre3EventReward:Refresh(eventCfg, slot)
     self._EventCfg = eventCfg
     self._NodeSlot = slot
-    self.TxtContent.text = eventCfg.EventDesc
+    XUiHelper.SetText2LineBreak(self.TxtContent, eventCfg.EventDesc)
     if not string.IsNilOrEmpty(eventCfg.ConfirmContent) then
         self.BtnOK:SetNameByGroup(0, eventCfg.ConfirmContent)
     end
@@ -30,6 +30,31 @@ function XPanelTheatre3EventReward:Refresh(eventCfg, slot)
         grid:Refresh(itemId, eventCfg.StepRewardItemType, eventCfg.StepRewardItemCount[i])
         grid:RefreshCount(eventCfg.StepRewardItemCount[i])
     end
+    self.PanelReward.gameObject:SetActiveEx(false)
+end
+
+---@param type 
+---@param rewardId 
+function XPanelTheatre3EventReward:RefreshOnlyDialogue(content, confirmText, type, rewardId)
+    self._IsOnlyDialogue = true
+    XUiHelper.SetText2LineBreak(self.TxtContent, content)
+    if not string.IsNilOrEmpty(confirmText) then
+        self.BtnOK:SetNameByGroup(0, confirmText)
+    end
+
+    if not XTool.IsNumberValid(rewardId) then
+        self.PanelReward.gameObject:SetActiveEx(false)
+        return
+    end
+    
+    if not self._ShopRewardGrid then
+        local go = XUiHelper.Instantiate(self.PanelReward, self.PanelReward.transform.parent)
+        ---@type XUiGridTheatre3Item
+        self._ShopRewardGrid = XUiGridTheatre3Item.New(go.transform:Find("Grid256New"), self)
+    end
+    self._ShopRewardGrid:Open()
+    self._ShopRewardGrid:Refresh(rewardId, type)
+    self._ShopRewardGrid:RefreshCount()
     self.PanelReward.gameObject:SetActiveEx(false)
 end
 

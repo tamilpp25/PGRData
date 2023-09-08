@@ -22,6 +22,8 @@ local function updateFunc(newFunc, oldFunc)
     end
 end
 
+XHotReload.ReloadFunc = updateFunc
+
 local updateTable
 function updateTable(newTable, oldTable)
     if "table" ~= type(oldTable) then return end

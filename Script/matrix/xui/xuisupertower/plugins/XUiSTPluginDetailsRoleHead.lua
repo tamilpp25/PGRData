@@ -14,7 +14,7 @@ function XUiSTPluginDetailsRoleHead:RefreshData(characterId)
 end
 
 function XUiSTPluginDetailsRoleHead:RefreshName()
-    self.TxtName.text = XCharacterConfigs.GetCharacterTradeName(self.CharacterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterTradeName(self.CharacterId)
 end
 
 function XUiSTPluginDetailsRoleHead:RefreshIcon()

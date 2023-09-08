@@ -17,7 +17,7 @@ function XUiGuildWarLzTask:OnAwake()
     self.DynamicTable:SetProxy(XUiGuildWarLzTaskGrid)
     self.DynamicTable:SetDelegate(self)
 
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId }, self.PanelSpecialTool
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId }, self.PanelSpecialTool, self
     , { XDataCenter.GuildWarManager.GetMaxActionPoint() })
 end
 

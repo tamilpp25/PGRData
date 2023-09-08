@@ -16,7 +16,7 @@ end
 function XUiGridPokerGuessingStory:Refresh(data, index)
     self.GameObject:SetActiveEx(self.IsPlay)
     self.Data = data
-    self.ArchiveNpcName.text = XCharacterConfigs.GetCharacterName(data.Cfg.CharacterId)
+    self.ArchiveNpcName.text = XMVCA.XCharacter:GetCharacterName(data.Cfg.CharacterId)
     self.NPCImg:SetRawImage(data.Cfg.Icon)
     local isUnlock = self.Data.IsUnlock
     --local btnName = isUnlock and XUiHelper.GetText("PokerGuessingPlayStory") 
@@ -74,7 +74,7 @@ function XUiFubenPokerGuessingStory:OnStart()
     self.ToggleFilter.isOn = self.IsSelectFilter
     self:InitView()
     
-    XUiHelper.NewPanelActivityAsset( { XDataCenter.ItemManager.ItemId.PokerGuessingItemId }, self.PanelAsset)
+    XUiHelper.NewPanelActivityAssetSafe( { XDataCenter.ItemManager.ItemId.PokerGuessingItemId }, self.PanelAsset, self)
 end
 
 function XUiFubenPokerGuessingStory:OnGetEvents()
@@ -104,7 +104,7 @@ function XUiFubenPokerGuessingStory:InitView()
         if isClose then
             XDataCenter.PokerGuessingManager.OnActivityEnd()
             return
-end
+        end
     end)
 end
 

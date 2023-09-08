@@ -28,6 +28,7 @@ XMain.Step1 = function()
     CS.XRecord.Record("23000", "LuaXMainStart")
 
     if XMain.IsEditorDebug then
+        require("XDebug/LuaMemorySnapshotDump")
         require("XHotReload")
     end
 
@@ -207,16 +208,11 @@ XMain.Step8 = function()
     import("XScene")
     -- import("XUi")
     require("XUi/XUiCommon/XUiCommon") --XUiGridCommon,
+    require("XCommon/XFightUtil")
     CS.XApplication.SetProgress(0.68)
 end
 
 XMain.Step9 = function()
-    require("XDLCFight/XDlcScriptManager")
-    require("XCommon/XFightUtil")
-    CS.XApplication.SetProgress(0.69)
-end
-
-XMain.Step10 = function()
     LuaLockG()
     --打点
     CS.XRecord.Record("23008", "LuaXMainStartFinish")

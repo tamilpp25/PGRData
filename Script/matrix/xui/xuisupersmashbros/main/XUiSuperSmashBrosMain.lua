@@ -51,7 +51,7 @@ function XUiSuperSmashBrosMain:OnEnable()
         panel.OnEnable()
     end
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.SuperSmashBrosManager.GetLevelItem()
     self.AssetActivityPanel:Refresh({ itemId })
     local itemCount = XDataCenter.SuperSmashBrosManager.GetTeamItem()

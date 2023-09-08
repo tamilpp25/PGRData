@@ -53,7 +53,7 @@ XPracticeManagerCreator = function()
         if not winData then return end
         XPracticeManager.RefreshStagePassedBySettleDatas(winData.SettleData)
 
-        XLuaUiManager.Open("UiSettleWin", winData)
+        XLuaUiManager.Open("UiSettleWinTutorialCount", winData)
     end
 
     function XPracticeManager.CheckPracticeStageOpen(stageId)
@@ -166,7 +166,24 @@ XPracticeManagerCreator = function()
             XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
         end
     end
+    
+    function XPracticeManager.RefreshStagePassedByStageId(stageId)
+        if not XTool.IsNumberValid(stageId) then
+            return
+        end
 
+        local chapterId = XPracticeConfigs.GetPracticeChapterIdByStageId(stageId)
+        if chapterId ~= 0 then
+            if not PracticeChapterInfos[chapterId] then
+                PracticeChapterInfos[chapterId] = {}
+            end
+            PracticeChapterInfos[chapterId][stageId] = true
+            PracticeStageInfo[stageId] = true
+            XPracticeManager.RefreshStagePassed()
+            XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
+        end
+    end
+    
     function XPracticeManager.RefreshStagePassed()
         local allPracticeChapters = XPracticeConfigs.GetPracticeChapters()
         for _, chapter in pairs(allPracticeChapters) do
@@ -447,7 +464,7 @@ XPracticeManagerCreator = function()
         if not (groupId and chapterId) then
             XLog.Error("Can Not Open UiFubenPractice groupId = ", groupId, ", chapterId = ", chapterId)
         end
-        XLuaUiManager.Open("UiFubenPractice", chapterId, groupId)
+        XDataCenter.PracticeManager.OpenUiFubenPratice(chapterId, groupId)
     end
 
     -- 是否显示提示
@@ -677,9 +694,18 @@ XPracticeManagerCreator = function()
 
     ------------------副本入口扩展 start-------------------------
     function XPracticeManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
-            XLuaUiManager.Open("UiFubenPractice")
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
         end
+        XPracticeManager.OpenUiFubenPratice()
+    end
+    
+    function XPracticeManager.OpenUiFubenPratice(...)
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+
+        XLuaUiManager.Open("UiFubenPractice", ...)
     end
     
     ------------------副本入口扩展 end-------------------------

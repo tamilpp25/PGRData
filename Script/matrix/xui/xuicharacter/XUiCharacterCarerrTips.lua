@@ -14,7 +14,7 @@ function XUiCharacterCarerrTips:OnStart(characterId)
     self.CareerGrids = {}
     local careerIds = {}
     if XTool.IsNumberValid(characterId) then
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
         careerIds = XDataCenter.CharacterManager.GetCareerIdsByCharacterType(characterType)
     else
         careerIds = XCharacterConfigs.GetAllCharacterCareerIds()

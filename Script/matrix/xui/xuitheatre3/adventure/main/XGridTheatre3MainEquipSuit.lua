@@ -15,6 +15,12 @@ function XGridTheatre3MainEquipSuit:Refresh(suitId)
     elseif not string.IsNilOrEmpty(suitCfg.Icon) then
         self.PanelSetCover:SetRawImage(suitCfg.Icon)
     end
+    if self.ImgEquipmentBg and self.ImgEquipmentBg.sprite then
+        local icon = self._Control:GetClientConfig("EquipUseTypeIcon", suitCfg.UseType)
+        if not string.IsNilOrEmpty(icon) then
+            self.ImgEquipmentBg:SetSprite(icon)
+        end
+    end
 
     for i, SuitEquip in ipairs(self._SuitEquipList) do
         if equipCfgList[i] then

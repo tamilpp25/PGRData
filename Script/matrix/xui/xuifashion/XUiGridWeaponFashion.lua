@@ -47,7 +47,7 @@ function XUiGridWeaponFashion:Refresh(fashionId, characterId)
     if XWeaponFashionConfigs.IsDefaultId(fashionId) then
         local templateId
         if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
-            templateId = XCharacterConfigs.GetCharacterDefaultEquipId(characterId)
+            templateId = XMVCA.XCharacter:GetCharacterDefaultEquipId(characterId)
         else
             local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
             templateId = XDataCenter.EquipManager.GetEquipTemplateId(equipId)

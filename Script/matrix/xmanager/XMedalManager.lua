@@ -1183,6 +1183,31 @@ XMedalManagerCreator = function()
     end
 
     ------------------------------------------铭牌--------------------------------------
+    
+    -- 打开勋章界面，统一入口
+    function XMedalManager.OpenUiMedalMain()
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Medal) then
+            return
+        end
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
+        XLuaUiManager.Open("UiAchievementMedal")
+    end
+    
+    -- 打开铭牌界面，统一入口
+    function XMedalManager.OpenUiNameplateMain()
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Nameplate) then
+            return
+        end
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
+        XLuaUiManager.Open("UiAchievementNameplate")
+    end
+
     XMedalManager.Init()
     return XMedalManager
 end

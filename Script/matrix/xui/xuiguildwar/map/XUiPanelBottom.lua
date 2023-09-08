@@ -1,15 +1,13 @@
-local XUiPanelBottom = XClass(nil, "XUiPanelBottom")
+---@class XUiPanelBottom:XUiNode
+local XUiPanelBottom = XClass(XUiNode, "XUiPanelBottom")
 local CSTextManagerGetText = CS.XTextManager.GetText
 local MAX_CHAT_WIDTH = 470
 local CHAT_SUB_LENGTH = 30
 local Normal = CS.UiButtonState.Normal
 local Select = CS.UiButtonState.Select
-function XUiPanelBottom:Ctor(ui, base, battleManager)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Base = base
+
+function XUiPanelBottom:OnStart(ui, base, battleManager)
     self.BattleManager = battleManager
-    XTool.InitUiObject(self)
     self:InitButton()
     self.IsMenuOn = false
 end
@@ -55,7 +53,7 @@ function XUiPanelBottom:InitButton()
     self.BtnLz.CallBack = function()
         self:OnBtnBossRewardClick()
     end
-    XRedPointManager.AddRedPointEvent(self.BtnSupport, self.OnSupportRedPointEvent, self, {
+    self:AddRedPointEvent(self.BtnSupport, self.OnSupportRedPointEvent, self, {
         XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY,
         XRedPointConditions.Types.CONDITION_GUILDWAR_ASSISTANT
     })
@@ -77,9 +75,9 @@ function XUiPanelBottom:UpdateMenu()
 
     if self.IsMenuOn then
         self.PanelBtn.gameObject:SetActiveEx(true)
-        self.Base:PlayAnimationWithMask("ButtonEnable")
+        self.Parent:PlayAnimationWithMask("ButtonEnable")
     else
-        self.Base:PlayAnimationWithMask("ButtonDisable", function()
+        self.Parent:PlayAnimationWithMask("ButtonDisable", function()
             self.PanelBtn.gameObject:SetActiveEx(false)
         end)
     end
@@ -133,7 +131,7 @@ function XUiPanelBottom:OnBtnMapClick()
         XUiManager.TipText("GuildWarNoInRound")
         return
     end
-    self.Base:PathEdit()
+    self.Parent:PathEdit()
 end
 
 function XUiPanelBottom:OnBtnMenuClick()
@@ -146,7 +144,7 @@ function XUiPanelBottom:OnBtnChatClick()
         return
     end
 
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Guild, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Guild, ChatChannelType.World)
 end
 
 function XUiPanelBottom:OnBtnMeClick()
@@ -193,19 +191,7 @@ function XUiPanelBottom:OnBtnBossRewardClick()
 end
 
 function XUiPanelBottom:UpdateBossReward()
-    ---@type XGWNode
-    local node = XDataCenter.GuildWarManager.GetBattleManager():GetNodeBossRoot()
-    local configs = XGuildWarConfig.GetBossReward(node:GetDifficultyId())
-    local isShowRedPoint = false
-    for i = 1, #configs do
-        local config = configs[i]
-        local id = config.Id
-        if not XDataCenter.GuildWarManager.GetBattleManager():IsRewardReceived(id)
-                and XGuildWarConfig.IsBossRewardCanReceive(node, config)
-        then
-            isShowRedPoint = true
-        end
-    end
+    local isShowRedPoint = XDataCenter.GuildWarManager.IsShowRedPointBossReward()
     self.BtnLz:ShowReddot(isShowRedPoint)
 end
 

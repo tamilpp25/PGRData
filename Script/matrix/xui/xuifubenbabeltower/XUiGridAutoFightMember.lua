@@ -13,7 +13,7 @@ function XUiGridAutoFightMember:UpdateMember(characterId, isLock)
 
     if isExistChar then
         self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
-        self.TxtNickName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        self.TxtNickName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     end
     self.TxtLock.gameObject:SetActiveEx(isLock)
 end

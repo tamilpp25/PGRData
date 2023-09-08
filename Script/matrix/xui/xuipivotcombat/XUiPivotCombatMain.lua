@@ -332,8 +332,8 @@ function XUiPivotCombatMain:InitCB()
     self.BtnCenter.CallBack = function()
         self:OnClickBtnCenter()
     end
-    self.BtnTeaching.CallBack = function() 
-        XLuaUiManager.Open("UiFubenPractice", XPracticeConfigs.CharacterTabIndex.Isomer)
+    self.BtnTeaching.CallBack = function()
+        XDataCenter.PracticeManager.OpenUiFubenPratice(XPracticeConfigs.CharacterTabIndex.Isomer)
     end
 end
 

@@ -7,7 +7,7 @@ function XGridTheatre3EventShop:OnStart()
     XEventManager.AddEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_SHOP_AFTER_BUY, self._RefreshCost, self)
 end
 
-function XGridTheatre3EventShop:OnRelease()
+function XGridTheatre3EventShop:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_SHOP_AFTER_BUY, self._RefreshCost, self)
 end
 
@@ -73,12 +73,15 @@ function XGridTheatre3EventShop:_RefreshItem()
 end
 
 function XGridTheatre3EventShop:_RefreshCost()
-    local costItemId = XEnumConst.THEATRE3.Theatre3InnerCoin
-    local canBuy = XDataCenter.ItemManager.GetCount(costItemId) >= self._ShopItem:GetPrice()
-    local colorCode = self._Control:GetClientConfig("ShopItemCostColor", canBuy and 1 or 2)
+    local colorCode = self._Control:GetClientConfig("ShopItemCostColor", self:_CheckCanBuy() and 1 or 2)
     if not string.IsNilOrEmpty(colorCode) then
         self.TxtCostCount.color = XUiHelper.Hexcolor2Color(colorCode)
     end
+end
+
+function XGridTheatre3EventShop:_CheckCanBuy()
+    local costItemId = XEnumConst.THEATRE3.Theatre3InnerCoin
+    return XDataCenter.ItemManager.GetCount(costItemId) >= self._ShopItem:GetPrice()
 end
 
 --region Ui - BtnListener
@@ -97,6 +100,10 @@ function XGridTheatre3EventShop:OnBtnBuyClick()
 end
 
 function XGridTheatre3EventShop:_OnBtnBuyClick()
+    if not self:_CheckCanBuy() then
+        XUiManager.TipErrorWithKey("PokemonUpgradeItemNotEnough")
+        return
+    end
     self._Control:RequestAdventureShopBuyItem(self._ShopItem:GetUid(), function()
         self._ShopItem:SetBuy()
         self:Refresh(self._ShopItem)

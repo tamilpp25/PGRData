@@ -7,7 +7,7 @@ function XUiNierShop:OnAwake()
     self.GridShop.gameObject:SetActiveEx(false)
     self.TxtTime.gameObject:SetActiveEx(false)
     self.HintTxt.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
     self:InitDynamicTable()
     self:InitPanels()
 end

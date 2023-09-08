@@ -72,7 +72,7 @@ function XUiBiancaTheatreChoice:OnAwake()
 
     self:RegisterUiEvents()
     self:InitItemChange()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.BiancaTheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.BiancaTheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
 end
 
 function XUiBiancaTheatreChoice:OnStart(data)

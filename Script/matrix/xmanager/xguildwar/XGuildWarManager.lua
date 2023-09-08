@@ -1846,33 +1846,7 @@ XGuildWarManagerCreator = function()
 
     --打开派送援助角色UI
     function XGuildWarManager.OpenUiSendAssistant()
-        local supportData = {
-            CanSupportCancel = true,
-            HideBtnRecommend = true,
-            CheckInSupportCb = function(characterId)
-                return XDataCenter.GuildWarManager.GetAssistantCharacterId() == characterId
-            end,
-            SetCharacterCb = function(characterId)
-                XLuaUiManager.Close("UiCharacter")
-                XDataCenter.GuildWarManager.SendAssistant(characterId)
-                return true
-            end,
-            CancelCharacterCb = function(characterId)
-                XLuaUiManager.Close("UiCharacter")
-                XDataCenter.GuildWarManager.CancelAssistant(characterId)
-            end,
-            --显示高优先级图标
-            CheckHighPriority = function(characterId)
-                -- 特攻角色
-                local isSpecialRole = XDataCenter.GuildWarManager.CheckIsSpecialRole(characterId)
-                local icon = false
-                if isSpecialRole then
-                    icon = XDataCenter.GuildWarManager.GetSpecialRoleIcon(characterId)
-                end
-                return isSpecialRole, icon
-            end
-        }
-        XLuaUiManager.Open("UiCharacter", nil, nil, nil, nil, nil, nil, supportData)
+        XLuaUiManager.Open("UiSelectAssistanceGuildWar")
     end
 
     --获取援助角色能力
@@ -2327,6 +2301,34 @@ XGuildWarManagerCreator = function()
                 XDataCenter.GuildWarManager.RequestPopup()
             end)
         end
+    end
+    
+    function XGuildWarManager.IsShowRedPointBossReward()
+        local battleManager = XGuildWarManager.GetBattleManager()
+        if not battleManager then
+            return false
+        end
+        ---@type XGWNode
+        local node = battleManager:GetNodeBossRoot()
+        if not node then
+            return false
+        end
+        local configs = XGuildWarConfig.GetBossReward(node:GetDifficultyId())
+        if not configs then
+            return false
+        end
+        local isShowRedPoint = false
+        for i = 1, #configs do
+            local config = configs[i]
+            local id = config.Id
+            if not battleManager:IsRewardReceived(id)
+                    and XGuildWarConfig.IsBossRewardCanReceive(node, config)
+            then
+                isShowRedPoint = true
+                break
+            end
+        end
+        return isShowRedPoint
     end
 
     XGuildWarManager.Init()

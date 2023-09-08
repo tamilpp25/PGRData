@@ -61,7 +61,7 @@ function XUiBabelTowerAutoFight:OnBtnAutoFightClik()
         end
     end
     if hasBlackListMember and blackListMemberId > 0 then
-        local blackName = XCharacterConfigs.GetCharacterFullNameStr(blackListMemberId)
+        local blackName = XMVCA.XCharacter:GetCharacterFullNameStr(blackListMemberId)
         XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerCharacterLock", blackName))
         return
     end

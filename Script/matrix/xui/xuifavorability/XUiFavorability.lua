@@ -1,5 +1,8 @@
+--2.7标记：已弃用
 local XUiFavorability = XLuaUiManager.Register(XLuaUi, "UiFavorability")
 local XUiPanelSignBoard = require("XUi/XUiMain/XUiChildView/XUiPanelSignBoard")
+local XUiPanelFavorabilityDocument=require("XUi/XUiFavorability/XUiPanelFavorabilityDocument")
+local XUiPanelFavorabilityExchangeRole=require("XUi/XUiFavorability/XUiPanelFavorabilityExchangeRole")
 
 local XFavorabilityType = {
     UILikeMain = 1,
@@ -243,7 +246,7 @@ end
 function XUiFavorability:PlayCvContent(cvId)
     if not self.SignBoard then return end
     self.SignBoard:Stop()
-    local content = XFavorabilityConfigs.GetCvContentByIdAndType(cvId, self.CvType)
+    local content = XMVCA.XFavorability:GetCvContentByIdAndType(cvId, self.CvType)
     self.SignBoard:ShowContent(content)
 end
 

@@ -6,7 +6,7 @@ local XUiSkillTipsPanel = require("XUi/XUiBiancaTheatre/Strength/XUiSkillTipsPan
 local XUiBiancaTheatreSkill = XLuaUiManager.Register(XLuaUi, "UiBiancaTheatreSkill")
 
 function XUiBiancaTheatreSkill:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, nil, handler(self, self.OnBtnClick))
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self, nil, handler(self, self.OnBtnClick))
     self:InitButtonCallBack()
 
     local clickGridCb = handler(self, self.ClickGrid)

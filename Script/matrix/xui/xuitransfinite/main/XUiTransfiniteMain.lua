@@ -13,8 +13,13 @@ local XUiTransfiniteMain = XLuaUiManager.Register(XLuaUi, "UiTransfiniteMain")
 function XUiTransfiniteMain:Ctor()
     ---@type XViewModelTransfinite
     self._ViewModel = XViewModelTransfinite.New()
+    ---@type XUiGridCommon[]
+    self._RewardGridList = {}
 
     self._Timer = false
+
+    self._State = STATE.NORMAL
+    XDataCenter.TransfiniteManager.GetStageGroup()
 end
 
 function XUiTransfiniteMain:OnAwake()
@@ -36,19 +41,10 @@ function XUiTransfiniteMain:OnAwake()
         self.GridIcon = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane/PanelMain/BtnGift/PanelIcon/GridIcon", "RectTransform")
     end
 
-    ---@type XUiGridCommon
-    self._GridCommon1 = XUiGridCommon.New(self.UiRoot, self.GridIcon)
-
-    local gridIcon2 = CS.UnityEngine.Object.Instantiate(self.GridIcon, self.GridIcon.parent.transform)
-    ---@type XUiGridCommon
-    self._GridCommon2 = XUiGridCommon.New(self.UiRoot, gridIcon2)
-
     self.DynamicTable = XDynamicTableNormal.New(self.SViewLostList)
     self.DynamicTable:SetProxy(XUiTransfiniteMainGridIsland)
     self.DynamicTable:SetDelegate(self)
     self.PanelLost.gameObject:SetActiveEx(false)
-
-    self._State = STATE.NORMAL
 
     ---@type XUiTransfiniteMainStageFlag[]
     self._StageFlag = {}
@@ -58,10 +54,11 @@ function XUiTransfiniteMain:OnAwake()
     util.HideEffectHuan(self)
 
     XDataCenter.TransfiniteManager.SetUiShowed(true)
+    XDataCenter.TransfiniteManager.RequestSeasonSettle()
 end
 
 function XUiTransfiniteMain:OnEnable()
-    self:Update()
+    self:UpdateUiByState()
     self:UpdateTime()
     if not self._Timer then
         self._Timer = XScheduleManager.ScheduleForever(function()
@@ -76,6 +73,7 @@ function XUiTransfiniteMain:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_TRANSFINITE_UPDATE_ROOM, self.Update, self)
     XEventManager.AddEventListener(XEventId.EVENT_TASK_SYNC, self.Update, self)
     XEventManager.AddEventListener(XEventId.EVENT_FINISH_TASK, self.Update, self)
+    XEventManager.AddEventListener(XEventId.EVENT_TRANSFINITE_SUCCESS_REFRESH, self.UpdateUiByState, self)
 end
 
 function XUiTransfiniteMain:UnSchedule()
@@ -85,10 +83,10 @@ end
 
 function XUiTransfiniteMain:OnDisable()
     self:UnSchedule()
-
     XEventManager.RemoveEventListener(XEventId.EVENT_TRANSFINITE_UPDATE_ROOM, self.Update, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.Update, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_FINISH_TASK, self.Update, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_TRANSFINITE_SUCCESS_REFRESH, self.UpdateUiByState, self)
 end
 
 function XUiTransfiniteMain:OnDestroy()
@@ -147,17 +145,24 @@ function XUiTransfiniteMain:Update()
         end
     end
 
-    if self._GridCommon1 then
-        self._GridCommon1:Refresh(data.NextScoreReward)
-        self._GridCommon1:SetReceived(data.NextScoreRewardReceived)
-    end
-    if self._GridCommon2 then
-        self._GridCommon2:Refresh(data.NextChallengeReward)
-        self._GridCommon2:SetReceived(data.NextChallengeRewardReceived)
-    end
+    XUiHelper.RefreshCustomizedList(self.PanelIcon, self.GridIcon, #data.DisplayReward, Handler(self, self.RefreshRewardGrid))
 
     self.BtnGift:SetRawImage(data.ImgScore)
     self.BtnNote:ShowReddot(data.RedPointRecord)
+end
+
+function XUiTransfiniteMain:RefreshRewardGrid(i, grid)
+    local gridCommon = self._RewardGridList[i]
+    local data = self._ViewModel.Data
+
+    if not gridCommon then
+        gridCommon = XUiGridCommon.New(self.UiRoot, grid)
+        
+        self._RewardGridList[i] = gridCommon
+    end
+    
+    gridCommon:Refresh(data.DisplayReward[i].Item)
+    gridCommon:SetReceived(data.DisplayReward[i].IsReceived)
 end
 
 function XUiTransfiniteMain:UpdateTime()
@@ -181,33 +186,42 @@ end
 
 function XUiTransfiniteMain:OnClickSuccess()
     local stageGroup = self._ViewModel:GetStageGroup()
-
     XLuaUiManager.Open("UiTransfiniteSuccess", stageGroup)
 end
 
-function XUiTransfiniteMain:OnClickIsland()
-    self.SViewLostList.gameObject:SetActiveEx(true)
-    self.PanelMain.gameObject:SetActiveEx(false)
-    self.BtnLost.gameObject:SetActiveEx(false)
-    --self.BtnPresent.gameObject:SetActiveEx(true)
+function XUiTransfiniteMain:UpdateUiByState()
+    if self._State == STATE.NORMAL then
+        self.SViewLostList.gameObject:SetActiveEx(false)
+        self.PanelMain.gameObject:SetActiveEx(true)
+        self.BtnLost.gameObject:SetActiveEx(true)
+        self:Update()
 
-    self._ViewModel:UpdateIsland()
-    self.DynamicTable:SetDataSource(self._ViewModel.DataIsland.DataSource)
-    self.DynamicTable:ReloadDataSync(1)
+    elseif self._State == STATE.ISLAND then
+        self.SViewLostList.gameObject:SetActiveEx(true)
+        self.PanelMain.gameObject:SetActiveEx(false)
+        self.BtnLost.gameObject:SetActiveEx(false)
+        self._ViewModel:UpdateIsland()
+        self.DynamicTable:SetDataSource(self._ViewModel.DataIsland.DataSource)
+        self.DynamicTable:ReloadDataSync(1)
+    end
+end
+
+function XUiTransfiniteMain:OnClickIsland()
     self._State = STATE.ISLAND
+    self:UpdateUiByState()
 end
 
 function XUiTransfiniteMain:OnClickStageGroup()
-    self.SViewLostList.gameObject:SetActiveEx(false)
-    self.PanelMain.gameObject:SetActiveEx(true)
-    self.BtnLost.gameObject:SetActiveEx(true)
-    --self.BtnPresent.gameObject:SetActiveEx(false)
     self._State = STATE.NORMAL
+    self:UpdateUiByState()
 end
 
 ---@param grid XUiTransfiniteMainGridIsland
 function XUiTransfiniteMain:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
+        grid:SetViewModel(self._ViewModel)
+
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.DynamicTable:GetData(index)
         grid:Update(data)
     end
@@ -222,6 +236,14 @@ function XUiTransfiniteMain:OnClickBack()
         self:Close()
         return
     end
+end
+
+function XUiTransfiniteMain:OnReleaseInst()
+    return self._State
+end
+
+function XUiTransfiniteMain:OnResume(value)
+    self._State = value
 end
 
 return XUiTransfiniteMain

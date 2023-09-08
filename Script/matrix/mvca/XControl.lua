@@ -18,6 +18,10 @@ function XControl:Ctor(id, mainControl)
     self._SubControls = {} --子control, 支持多个control
     self._Class2NameMap = {}
     self._IsRelease = false
+
+end
+
+function XControl:CallInit()
     self:OnInit()
     self:AddAgencyEvent()
 end
@@ -58,6 +62,7 @@ function XControl:AddSubControl(cls)
     if not self._SubControls[cls2Name] then
         local control = cls.New(self._Id, self) --使用本control的id,这样才能保证获取的model一样
         self._SubControls[cls2Name] = control
+        control:CallInit()
         return control
     else
         XLog.Error("请勿重复添加子control!")

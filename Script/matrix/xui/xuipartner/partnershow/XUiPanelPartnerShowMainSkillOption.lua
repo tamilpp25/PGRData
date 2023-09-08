@@ -111,7 +111,7 @@ end
 function XUiPanelPartnerShowMainSkillOption:GetCharacterName()
     local result = CS.XTextManager.GetText("PartnerNoBadyCarry")
     if self.Partner:GetIsCarry() then
-        result = XCharacterConfigs.GetCharacterLogName(self.Partner:GetCharacterId())
+        result = XMVCA.XCharacter:GetCharacterLogName(self.Partner:GetCharacterId())
     end
     return result
 end
@@ -119,7 +119,7 @@ end
 function XUiPanelPartnerShowMainSkillOption:GetCharacterElementIcon()
     local result
     if self.Partner:GetIsCarry() then
-        local element = XCharacterConfigs.GetCharacterElement(self.Partner:GetCharacterId())
+        local element = XMVCA.XCharacter:GetCharacterElement(self.Partner:GetCharacterId())
         result = XCharacterConfigs.GetCharElement(element).Icon2
     end
     return result

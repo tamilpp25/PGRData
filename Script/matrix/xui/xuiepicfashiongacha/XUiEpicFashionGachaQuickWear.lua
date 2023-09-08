@@ -48,8 +48,8 @@ function XUiEpicFashionGachaQuickWear:OnBtnWearClick()
 
     self.BtnWear:SetDisable(true)
     if self.LockUse then
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
-        local text = CS.XTextManager.GetText("NotOwnCurRole")..charConfig.Name..charConfig.TradeName
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
+        local text = CS.XTextManager.GetText("LottoKareninaNotOwnTip", charConfig.Name, charConfig.TradeName)
         XUiManager.TipError(text)
         return 
     end
@@ -66,7 +66,7 @@ function XUiEpicFashionGachaQuickWear:OnBtnSetAssistantClick()
     self.BtnSetAssistant.gameObject:SetActiveEx(false)
 
     local showTipFun = function ()
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
         local name = charConfig.Name.. "·"..charConfig.TradeName
         XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilitySetChiefAssistSucc", name))
     end

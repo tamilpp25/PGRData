@@ -157,8 +157,8 @@ function XFashionStoryConfigs.GetTaskLimitId(id)
     return cfg.TaskLimitId
 end
 
-function XFashionStoryConfigs.GetFashionStorySkipId(id)
-    local cfg=GetFashionStoryCfg(id)
+function XFashionStoryConfigs.GetFashionStorySkipId(activityId,id)
+    local cfg=GetFashionStoryCfg(activityId)
     return cfg.SkipId[id]
 end
 
@@ -288,6 +288,11 @@ end
 function XFashionStoryConfigs.GetSingleLineChapterBg(id)
     local cfg=GetSingleLineCfg(id)
     return cfg.ChapterBg
+end
+
+function XFashionStoryConfigs.GetActivityBannerIcon(id)
+    local cfg=GetSingleLineCfg(id)
+    return cfg.ActivityBannerIcon
 end
 ----------------------------------------------FashionStoryStage.tab----------------------------------------------------------
 

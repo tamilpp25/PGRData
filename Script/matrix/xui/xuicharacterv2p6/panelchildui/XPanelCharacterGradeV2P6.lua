@@ -409,7 +409,7 @@ function XPanelCharacterGradeV2P6:RemoveEventListener()
     XDataCenter.ItemManager.RemoveCountUpdateListener(self.TxtCosumeOn)
 end
 
-function XPanelCharacterGradeV2P6:OnRelease()
+function XPanelCharacterGradeV2P6:OnDestroy()
     self:RemoveEventListener()
 end
 

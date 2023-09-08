@@ -1,9 +1,10 @@
+local XTeam = require("XEntity/XTeam/XTeam")
+
 XFubenNewCharActivityManagerCreator = function()
     local XFubenNewCharActivityManager = {}
     local TreasureRecord = {}
     local StarRecords = {}
     local KoroLastOpenPanel
-
     -- 注册出战界面代理
     local function RegisterEditBattleProxy()
         XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.NewCharAct, require("XUi/XUiNewChar/XUiNewCharNewRoomSingle"))
@@ -112,14 +113,14 @@ XFubenNewCharActivityManagerCreator = function()
         preFight.StageId = stage.StageId
 
         if not stage.RobotId or #stage.RobotId <= 0 then
-            local teamData = XDataCenter.TeamManager.GetTeamData(teamId)
-            for i, v in pairs(teamData) do
+            local teamData = XFubenNewCharActivityManager.LoadTeamByTeamId(teamId)
+            for i, v in pairs(teamData.EntitiyIds) do
                 local isRobot = XRobotManager.CheckIsRobotId(v)
                 preFight.RobotIds[i] = isRobot and v or 0
                 preFight.CardIds[i] =  isRobot and 0 or v
             end
-            preFight.CaptainPos = XDataCenter.TeamManager.GetTeamCaptainPos(teamId)
-            preFight.FirstFightPos = XDataCenter.TeamManager.GetTeamFirstFightPos(teamId)
+            preFight.CaptainPos = teamData:GetCaptainPos()
+            preFight.FirstFightPos = teamData:GetFirstFightPos()
         end
 
         return preFight
@@ -239,7 +240,7 @@ XFubenNewCharActivityManagerCreator = function()
         if not winData then return end
 
         XFubenNewCharActivityManager.RefreshStagePassed()
-        XLuaUiManager.Open("UiSettleWinMainLine", winData)
+        XLuaUiManager.Open("UiSettleWinTutorialCount", winData,nil,nil,nil,true)
     end
 
     function XFubenNewCharActivityManager.IsTreasureGet(treasureId)
@@ -394,6 +395,106 @@ XFubenNewCharActivityManagerCreator = function()
         end
         return true
     end
+    
+    --region 2.8
+
+    local function GetCookieKeyTeam(activityId)
+        if not XTool.IsNumberValid(activityId) then return end
+        return string.format("XFubenNewCharActivityManager_CookieKeyTeam_%d_%d", XPlayer.Id, activityId)
+    end
+    
+    -- 读取本地编队信息
+    function XFubenNewCharActivityManager.LoadTeamLocal(activityId)
+        local teamId = GetCookieKeyTeam(activityId)
+        local team=XSaveTool.GetData(teamId)
+        if not teamId or XTool.IsTableEmpty(team) then
+            team = XTeam.New(teamId)
+        end
+        local ids = team:GetEntityIds()
+        local tmpIds = XTool.Clone(ids)
+        for pos, id in ipairs(ids) do
+            if not XDataCenter.CharacterManager.IsOwnCharacter(id)
+                    and not XRobotManager.CheckIsRobotId(id) then
+                tmpIds[pos] = 0
+            end
+        end
+        team:UpdateEntityIds(tmpIds)
+        return team
+    end
+    
+    function XFubenNewCharActivityManager.LoadTeamByTeamId(teamId)
+        local team=XSaveTool.GetData(teamId)
+        if not teamId or XTool.IsTableEmpty(team) then
+            team = XTeam.New(teamId)
+        end
+        local ids = team:GetEntityIds()
+        local tmpIds = XTool.Clone(ids)
+        for pos, id in ipairs(ids) do
+            if not XDataCenter.CharacterManager.IsOwnCharacter(id)
+                    and not XRobotManager.CheckIsRobotId(id) then
+                tmpIds[pos] = 0
+            end
+        end
+        team:UpdateEntityIds(tmpIds)
+        return team
+    end
+    
+    function XFubenNewCharActivityManager.GetProcess()
+        --获取所有有效的活动
+        local actlist=XFubenNewCharActivityManager.GetAvailableActs()
+        if not XTool.IsTableEmpty(actlist) then
+            local curAct=actlist[1]
+            local curActTemplate=XFubenNewCharConfig.GetActTemplates()[curAct.Id]
+            local curStar=XFubenNewCharActivityManager.GetKoroStarProgressById(curAct.Id)
+            local hasCount=#curActTemplate.TreasureId
+            local passCount=0
+            for i, v in pairs(curActTemplate.TreasureId) do
+                if XFubenNewCharActivityManager.CheckTreasureAchieved(v,curStar) then
+                    passCount=passCount+1
+                end
+            end
+            return passCount,hasCount
+        end
+    end
+    
+    --活动入口进度提示
+    function XFubenNewCharActivityManager.GetProgressTips()
+        --获取所有有效的活动
+        local passCount,hasCount=XFubenNewCharActivityManager.GetProcess()
+        return XUiHelper.GetText('NewCharActivity',passCount,hasCount)
+    end
+    
+    function XFubenNewCharActivityManager.CheckTreasureAchieved(treasureId,curStar)
+        local cfg=XFubenNewCharConfig.GetTreasureCfg(treasureId)
+        if cfg.Type==XFubenNewCharConfig.TreasureType.RequireStar then --任务完成要求星星数
+            local requireStars = cfg.RequireStar
+            return requireStars > 0 and curStar >= requireStars
+        elseif cfg.Type==XFubenNewCharConfig.TreasureType.RequireStage then --任务完成要求通关指定关卡
+            return XDataCenter.FubenManager.CheckStageIsPass(cfg.RequireStage)
+        end
+    end
+    
+    function XFubenNewCharActivityManager.GetShowTaskId(activityId)
+        local actCfg=XFubenNewCharConfig.GetActTemplates()[activityId]
+        local curStar=XFubenNewCharActivityManager.GetKoroStarProgressById(activityId)
+        local hasAchieve=false
+        for i, v in pairs(actCfg.TreasureId) do
+            if XFubenNewCharActivityManager.CheckTreasureAchieved(v,curStar) then
+                hasAchieve=true
+                if not XFubenNewCharActivityManager.IsTreasureGet(v) then
+                    return v,false
+                end
+            else
+                return actCfg.TreasureId[i],false
+            end
+        end
+        if not hasAchieve then
+            return actCfg.TreasureId[1],false
+        else
+            return actCfg.TreasureId[#actCfg.TreasureId],true
+        end
+    end
+    --endregion
         
     XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, Init)
     return XFubenNewCharActivityManager

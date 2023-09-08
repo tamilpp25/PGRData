@@ -17,26 +17,26 @@ end
 
 function XEntityHelper.GetRobotCharacterType(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    return XCharacterConfigs.GetCharacterType(characterId)
+    return XMVCA.XCharacter:GetCharacterType(characterId)
 end
 
 function XEntityHelper.GetCharacterName(entityId)
     local characterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    local config = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local config = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     if not config then return "none" end
     return config.Name
 end
 
 function XEntityHelper.GetCharacterTradeName(entityId)
     local characterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    local config = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local config = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     if not config then return "none" end
     return config.TradeName
 end
 
 function XEntityHelper.GetCharacterLogName(entityId)
     local characterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    local config = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local config = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     if not config then return "none" end
     return config.LogName
 end
@@ -50,7 +50,7 @@ end
 
 function XEntityHelper.GetCharacterType(entityId)
     local characterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    return XCharacterConfigs.GetCharacterType(characterId)
+    return XMVCA.XCharacter:GetCharacterType(characterId)
 end
 
 function XEntityHelper.GetCharacterAbility(entityId)

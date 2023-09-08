@@ -1,15 +1,15 @@
 ---@class XUiTaikoMasterSetting:XLuaUi
+---@field _Control XTaikoMasterControl
 local XUiTaikoMasterSetting = XLuaUiManager.Register(XLuaUi, "UiTaikoMasterSetting")
 
-function XUiTaikoMasterSetting:Ctor()
-    self._IsSettingChanged = false
-    self._SettingAppearScale = XDataCenter.TaikoMasterManager.GetSettingAppearScale()
-    self._SettingJudgeScale = XDataCenter.TaikoMasterManager.GetSettingJudgeScale()
-end
-
 function XUiTaikoMasterSetting:OnStart(isPlayEnableAnimation)
-    self:RegisterButtonClick()
+    local uiData = self._Control:GetUiData()
+    self._IsSettingChanged = false
+    self._SettingAppearScale = uiData.SettingAppearScale
+    self._SettingJudgeScale = uiData.SettingJudgeScale
+    
     self:InitSlider()
+    self:RegisterButtonClick()
     if isPlayEnableAnimation then
         self:PlayAnimation("Enable")
         self.BtnTimeline.gameObject:SetActiveEx(true)
@@ -18,7 +18,7 @@ end
 
 function XUiTaikoMasterSetting:RequestSaveSetting()
     if self._IsSettingChanged then
-        XDataCenter.TaikoMasterManager.RequestSaveSetting(self._SettingAppearScale, self._SettingJudgeScale)
+        self._Control:RequestSaveSetting(self._SettingAppearScale, self._SettingJudgeScale)
         self._IsSettingChanged = false
     end
 end
@@ -34,14 +34,15 @@ function XUiTaikoMasterSetting:CloseAndRequest()
 end
 
 function XUiTaikoMasterSetting:EnterTrainingStage()
+    local uiData = self._Control:GetUiData()
     self:RequestSaveSetting()
-    XDataCenter.TaikoMasterManager.OpenUiRoom(XDataCenter.TaikoMasterManager.GetSettingStageId())
+    self._Control:OpenBattleRoom(uiData.SettingStageId)
 end
 
 function XUiTaikoMasterSetting:InitSlider()
     local XUiTaikoMasterSlider = require("XUi/XUiTaikoMaster/XUiTaikoMasterSlider")
     local sliderAppear = XUiTaikoMasterSlider.New(self.PanelVisuals)
-    sliderAppear:SetData(XTaikoMasterConfigs.GetSettingAppearScale())
+    sliderAppear:SetData(self._Control:GetSettingAppearScale())
     sliderAppear:SetValue(self._SettingAppearScale)
     sliderAppear:SetOnChanged(
         function()
@@ -51,7 +52,7 @@ function XUiTaikoMasterSetting:InitSlider()
     )
 
     local sliderJudge = XUiTaikoMasterSlider.New(self.PanelOffset)
-    sliderJudge:SetData(XTaikoMasterConfigs.GetSettingJudgeScale())
+    sliderJudge:SetData(self._Control:GetSettingJudgeScale())
     sliderJudge:SetValue(self._SettingJudgeScale)
     sliderJudge:SetOnChanged(
         function()

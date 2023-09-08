@@ -286,6 +286,10 @@ function XSoundManager.Stop(cueId)
     CSXAudioManager.Stop(cueId)
 end
 
+function XSoundManager.StopByInfo(info)
+    CSXAudioManager.Stop(info)
+end
+
 function XSoundManager.StopAll()
     CSXAudioManager.StopAll()
 end

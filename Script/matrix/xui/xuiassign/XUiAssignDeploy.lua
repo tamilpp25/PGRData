@@ -76,6 +76,14 @@ function XUiAssignDeploy:AutoCheckTeamToRefresh()
     -- 先检查队伍是否为空
     -- 若为空则往前查找有队伍信息的group 
     if not XDataCenter.FubenAssignManager.CheckGroupHadRecordTeam(self.GroupId) then
+        -- 且自动填充前清除队伍数据
+        for k, teamId in pairs(self.ListData) do
+            local teamData = teamId and XDataCenter.FubenAssignManager.GetTeamDataById(teamId) or nil
+            if teamData then
+                teamData:SetMemberList(nil)
+            end
+        end
+
         local targetPreGroupTeamData = nil
         local teamRecords = XDataCenter.FubenAssignManager.GetGroupTeamRecords()
         for i = #teamRecords, 1, -1 do
@@ -99,7 +107,8 @@ function XUiAssignDeploy:AutoCheckTeamToRefresh()
                 if teamData then
                     for index, charId in pairs(teamList) do
                         if index > teamData:GetNeedCharacter() then
-                            table.remove(teamList, index)
+                            -- table.remove(teamList, index)
+                            teamList[index] = nil
                         end
                     end
                 end
@@ -118,9 +127,12 @@ function XUiAssignDeploy:AutoCheckTeamToRefresh()
 
                 -- 清除多余队伍
                 if i > #self.ListData then
-                    table.remove(targetPreGroupTeamData.TeamInfoList, i)
-                    table.remove(targetPreGroupTeamData.FirstFightPosList, i)
-                    table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    -- table.remove(targetPreGroupTeamData.TeamInfoList, i)
+                    -- table.remove(targetPreGroupTeamData.FirstFightPosList, i)
+                    -- table.remove(targetPreGroupTeamData.CaptainPosList, i)
+                    targetPreGroupTeamData.TeamInfoList[i] = nil
+                    targetPreGroupTeamData.FirstFightPosList[i] = nil
+                    targetPreGroupTeamData.CaptainPosList[i] = nil
                 end
 
                 -- 设置修改后的数据
@@ -183,7 +195,7 @@ function XUiAssignDeploy:OnBtnFightClick()
         local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(self.ChapterId)
         XDataCenter.FubenAssignManager.SetEnterLoadingData(targetIndex, teamCharList[targetIndex], groupData, chapterData, true)
         XDataCenter.FubenManager.EnterAssignFight(targetStageId, teamCharList[targetIndex], captainPosList[targetStageId], nil, nil, firstFightPosList[targetIndex])
-
+        XDataCenter.FubenAssignManager.AssignGetDataRequest() -- 同步数据
         -- 打开战斗前loading界面
         -- XLuaUiManager.Open("UiAssignInfo", self.ChapterId, self.GroupId, teamCharList, captainPosList, firstFightPosList)
     end)

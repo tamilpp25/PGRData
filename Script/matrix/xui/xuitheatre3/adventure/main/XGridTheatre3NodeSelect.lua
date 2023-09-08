@@ -71,7 +71,7 @@ function XGridTheatre3NodeSelect:_RefreshNode()
         if self.Bg3 then
             self.Bg3.gameObject:SetActiveEx(false)
         end
-        self.Grid128.gameObject:SetActiveEx(false)
+        self._Reward:Close()
     else
         self._NodeReward = rewardList[1]
         self:_RefreshRewardGrid()

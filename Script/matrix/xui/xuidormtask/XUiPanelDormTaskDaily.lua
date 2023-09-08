@@ -1,13 +1,8 @@
-XUiPanelDormTaskDaily = XClass(nil, "XUiPanelDormTaskDaily")
+XUiPanelDormTaskDaily = XClass(XUiNode, "XUiPanelDormTaskDaily")
 
 local DailyTimeSchedule = nil
 
-function XUiPanelDormTaskDaily:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
-
-    XTool.InitUiObject(self)
+function XUiPanelDormTaskDaily:OnStart()
     self.BtnWeekActive.CallBack = function() self:OnBtnBackClick() end
 
     self:InitPanelActiveGrid()
@@ -24,10 +19,10 @@ function XUiPanelDormTaskDaily:Ctor(ui, parent)
     self:ShowDailyPanel()
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTaskDailyList.gameObject)
-    self.DynamicTable:SetProxy(XDynamicDailyTask)
+    self.DynamicTable:SetProxy(XDynamicDailyTask,self)
     self.DynamicTable:SetDelegate(self)
 
-    XRedPointManager.AddRedPointEvent(self.ImgWeek, self.CheckWeeKActiveRedDot, self, { XRedPointConditions.Types.CONDITION_TASK_WEEK_ACTIVE })
+    self:AddRedPointEvent(self.ImgWeek, self.CheckWeeKActiveRedDot, self, { XRedPointConditions.Types.CONDITION_TASK_WEEK_ACTIVE })
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.DailyActiveness, function()
         self:UpdateActiveness()
         self.Parent:CheckDailyTask()
@@ -99,14 +94,14 @@ end
 
 function XUiPanelDormTaskDaily:ShowPanel()
     self:StartSchedule()
-    self.GameObject:SetActive(true)
+    self:Open()
 
     self:Refresh()
 end
 
 function XUiPanelDormTaskDaily:HidePanel()
     self:StopSchedule()
-    self.GameObject:SetActive(false)
+    self:Close()
 end
 
 function XUiPanelDormTaskDaily:Refresh()

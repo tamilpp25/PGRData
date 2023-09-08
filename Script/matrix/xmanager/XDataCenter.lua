@@ -4,7 +4,6 @@
 ---@field RestaurantManager XRestaurantManager
 ---@field RpgMakerGameManager XRpgMakerGameManager
 ---@field ActivityBriefManager XActivityBriefManager
----@field DlcManager XDlcManager
 ---@field GuildDormManager GuildDormManager
 ---@field FurnitureManager XFurnitureManager
 ---@field ItemManager XItemManager
@@ -40,7 +39,6 @@
 ---@field DisplayManager XDisplayManager
 ---@field FashionManager XFashionManager
 ---@field TransfiniteManager XTransfiniteManager
----@field NewActivityCalendarManager XNewActivityCalendarManager
 ---@field KillZoneManager XKillZoneManager
 ---@field PurchaseManager XPurchaseManager
 ---@field CharacterManager XCharacterManager
@@ -53,6 +51,15 @@
 ---@field FubenFestivalActivityManager XFubenFestivalActivityManager
 ---@field PlayerInfoManager XPlayerInfoManager
 ---@field GuildManager XGuildManager
+---@field FunctionalSkipManager XFunctionalSkipManager
+---@field GachaManager XGachaManager
+---@field GuildWarManager XGuildWarManager
+---@field UiQueueManager XUiQueueManager
+---@field MovieManager XMovieManager
+---@field RiftManager XRiftManager
+---@field SameColorActivityManager XSameColorActivityManager
+---@field TeamManager XTeamManager
+---@field WeaponFashionManager XWeaponFashionManager
 XDataCenter = XDataCenter or {}
 
 local IsWindowsEditor = XMain.IsWindowsEditor
@@ -96,8 +103,6 @@ function XDataCenter.Init()
 
     XAnalyticsEvent.Init()
 
-    InitManager("DlcManager", XDlcManagerCreator)
-
     InitManager("UploadLogManager", XUploadLogManagerCreator)
     InitManager("AntiAddictionManager", XAntiAddictionManagerCreator)
     InitManager("GuideManager", XGuideManagerCreator)
@@ -109,7 +114,6 @@ function XDataCenter.Init()
 
     --fuben
     InitManager("FubenManagerEx", XFubenManagerExCreator)
-    InitManager("TwoSideTowerManager",XTwoSideTowerManagerCreator)
     InitManager("FubenMainLineManager", XFubenMainLineManagerCreator)
     InitManager("FubenDailyManager", XFubenDailyManagerCreator)
     InitManager("FubenResourceManager", XFubenResourceManagerCreator)
@@ -220,7 +224,6 @@ function XDataCenter.Init()
     InitManager("WeekChallengeManager", XWeekChallengeManagerCreator)
     InitManager("RpgMakerGameManager", XRpgMakerGameManagerCreator)
     InitManager("MultiDimManager", XMultiDimManagerCreator)
-    InitManager("TaikoMasterManager", XTaikoMasterManagerCreator)
     InitManager("MoeWarManager", XMoeWarManagerCreator)
     InitManager("DlcHuntManager", XDlcHuntManagerCreator)
     InitManager("MazeManager", XMazeManagerCreator)
@@ -228,8 +231,6 @@ function XDataCenter.Init()
     InitManager("TransfiniteManager", XTransfiniteManagerCreator)
     InitManager("FubenManager", XFubenManagerCreator)
     InitManager("PokerGuessingManager", XPokerGuessingMangerCreator)
-
-    InitManager("PassportManager", XPassportManagerCreator)
 
     InitManager("SignBoardManager", XSignBoardManagerCreator)
     InitManager("VoteManager", XVoteManagerCreator)
@@ -321,7 +322,7 @@ function XDataCenter.Init()
 
     InitManager("KujiequManager", XKujiequManagerCreator)
     InitManager("SlotMachineManager", XSlotMachineManagerCreator)
-    InitManager("NewActivityCalendarManager", XNewActivityCalendarManagerCreator)
+    InitManager("UiQueueManager", XUiQueueManagerCreator)
 
     XDataCenter.FubenManagerEx.Init()
 

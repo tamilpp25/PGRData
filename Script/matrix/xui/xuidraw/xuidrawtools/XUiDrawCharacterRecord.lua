@@ -31,8 +31,8 @@ end
 
 local GetDecomposeData = function(goods)
     local characterId = goods.TemplateId
-    local template = XCharacterConfigs.GetCharacterTemplate(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
+    local template = XMVCA.XCharacter:GetCharacterTemplate(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
     local decomposeCount = XCharacterConfigs.GetDecomposeCount(characterType, goods.Quality)
     return { TemplateId = template.ItemId, Count = decomposeCount }
 end

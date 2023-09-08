@@ -72,7 +72,7 @@ local CreateGoodsFunc = {
     end,
 
     [XRewardType.Character] = function(templateId, count, args)
-        local template = XCharacterConfigs.GetCharacterBorderTemplate(templateId)
+        local template = XMVCA.XCharacter:GetCharacterBorderTemplate(templateId)
         if not template then
             local path = XCharacterConfigs.GetCharacterElementPath()
             XLog.ErrorTableDataNotFound("CreateGoodsFunc", "template", path, "templateId", tostring(templateId))
@@ -321,15 +321,15 @@ local SortCharacters = function(a, b)
     local tmpId1 = a.TemplateId and a.TemplateId or a.Id
     local tmpId2 = b.TemplateId and b.TemplateId or b.Id
 
-    local quality1 = a.Quality and a.Quality or XCharacterConfigs.GetCharMinQuality(tmpId1)
-    local quality2 = b.Quality and b.Quality or XCharacterConfigs.GetCharMinQuality(tmpId2)
+    local quality1 = a.Quality and a.Quality or XMVCA.XCharacter:GetCharMinQuality(tmpId1)
+    local quality2 = b.Quality and b.Quality or XMVCA.XCharacter:GetCharMinQuality(tmpId2)
 
     if quality1 ~= quality2 then
         return quality1 > quality2
     end
 
-    local priority1 = XCharacterConfigs.GetCharacterPriority(tmpId1)
-    local priority2 = XCharacterConfigs.GetCharacterPriority(tmpId2)
+    local priority1 = XMVCA.XCharacter:GetCharacterPriority(tmpId1)
+    local priority2 = XMVCA.XCharacter:GetCharacterPriority(tmpId2)
 
     if priority1 ~= priority2 then
         return priority1 > priority2

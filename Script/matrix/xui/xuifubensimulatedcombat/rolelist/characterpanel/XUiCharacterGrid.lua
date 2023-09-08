@@ -26,7 +26,7 @@ function XUiSimulatedCombatListCharacterGrid:RefreshDatas(data)
     
     
     --self.RImgMember:SetRawImage(XRobotManager.GetRobotSmallHeadIcon(self.ResInfo.RobotId))
-    --self.TxtName.text = XCharacterConfigs.GetCharacterName()
+    --self.TxtName.text = XMVCA.XCharacter:GetCharacterName()
     
     
     self.RImgHeadIcon:SetRawImage(XRobotManager.GetRobotSmallHeadIcon(self.RobotId))

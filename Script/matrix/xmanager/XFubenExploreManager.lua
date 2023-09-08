@@ -381,9 +381,16 @@ XFubenExploreManagerCreator = function()
     end
 
     function XFubenExploreManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenExplore) then
-            XLuaUiManager.Open("UiFubenExploreChapter")
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenExplore) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+
+        XLuaUiManager.Open("UiFubenExploreChapter")
     end
     
     ------------------副本入口扩展 end-------------------------

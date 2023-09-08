@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local ATTR_COLOR = {
     EQUAL = XUiHelper.Hexcolor2Color("1B3750"), -- 属性与当前装备一样
@@ -21,6 +21,16 @@ function XUiEquipReplaceV2P6:OnAwake()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self:SetButtonCallBack()
     self:InitDynamicTable()
+
+    self.PanelAddEffect = self.PanelAdd.transform:Find("Effect")
+    self.PanelAdd2Effect = self.PanelAdd2.transform:Find("Effect")
+    self.GridEquipResonanceEffect1 = self.GridEquipResonance1.transform:Find("Effect")
+    self.GridEquipResonanceEffect2 = self.GridEquipResonance2.transform:Find("Effect")
+    self.GridEquipResonanceEffect3 = self.GridEquipResonance3.transform:Find("Effect")
+    self.GridEquipResonanceEffect1.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect2.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect3.gameObject:SetActiveEx(false)
+    self.OverrunBlindEffect = self.BtnOverrunBlind.transform:Find("Normal/Effect")
 end
 
 function XUiEquipReplaceV2P6:OnStart(charId, closecallback, notShowStrengthenBtn)
@@ -34,6 +44,8 @@ function XUiEquipReplaceV2P6:OnStart(charId, closecallback, notShowStrengthenBtn
 end
 
 function XUiEquipReplaceV2P6:OnEnable()
+    self.PanelAddEffect.gameObject:SetActiveEx(false)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(false)
     self:UpdateView()
 end
 
@@ -59,9 +71,19 @@ function XUiEquipReplaceV2P6:OnNotify(evt, ...)
     if evt == XEventId.EVENT_EQUIP_PUTON_NOTYFY then
         self.UsingEquipId = equipId
         self:OnPutOnEquip()
-    elseif XEventId.EVENT_EQUIP_RESONANCE_NOTYFY then
-        XUiManager.TipText("EquipResonanceChangeSuccess")
+        
+        local grid = self.DynamicTable:GetGridByIndex(1)
+        local effect = grid.Transform:Find("Effect")
+        effect.gameObject:SetActive(false)
+        effect.gameObject:SetActive(true)
+    elseif evt == XEventId.EVENT_EQUIP_RESONANCE_NOTYFY then
+        XMVCA:GetAgency(ModuleId.XEquip):TipEquipOperation(nil, XUiHelper.GetText("DormTemplateSelectSuccess"))
         self:UpdateEquipResonance()
+
+        local slots = args[2]
+        for _, pos in ipairs(slots) do
+            self["GridEquipResonanceEffect"..pos].gameObject:SetActiveEx(true)
+        end
     end
 end
 
@@ -121,7 +143,7 @@ function XUiEquipReplaceV2P6:OnBtnTakeOnClick()
             return
         end
 
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         local content = string.gsub(CS.XTextManager.GetText("EquipReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(CS.XTextManager.GetText("TipTitle"), content, XUiManager.DialogType.Normal, function() end, function()
             XMVCA:GetAgency(ModuleId.XEquip):PutOn(self.CharacterId, self.SelectEquipId)
@@ -184,6 +206,7 @@ function XUiEquipReplaceV2P6:OnBtnOverrunClick()
 
     XLuaUiManager.Open("UiEquipOverrunSelect", self.SelectEquipId, function()
         self:UpdateOverrun()
+        self.OverrunBlindEffect.gameObject:SetActiveEx(true)
     end)
 end
 
@@ -233,6 +256,7 @@ function XUiEquipReplaceV2P6:OnDynamicTableEvent(event, index, grid)
         if isSelected then
             self.LastSelectGrid = grid
         end
+        grid.Transform:Find("Effect").gameObject:SetActiveEx(false)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self.SelectEquipId = self.WeaponIdList[index]
         self:UpdateEquipDetail()
@@ -350,6 +374,7 @@ function XUiEquipReplaceV2P6:UpdateEquipResonanceSkill(pos)
     local isEquip = XDataCenter.EquipManager.CheckEquipPosResonanced(self.SelectEquipId, pos) ~= nil
     local uiObj = self["GridEquipResonance" .. pos]
     uiObj:GetComponent("XUiButton"):SetDisable(not isEquip)
+    self["GridEquipResonanceEffect"..pos].gameObject:SetActiveEx(false)
     if isEquip then
         if not self.ResonanceSkillDic then 
             self.ResonanceSkillDic = {} 
@@ -428,6 +453,7 @@ function XUiEquipReplaceV2P6:UpdateOverrun()
         stateObj:GetObject("RImgSuit"):SetRawImage(iconPath)
         stateObj:GetObject("ImgNotMatching").gameObject:SetActiveEx(not isMatch)
     end
+    self.OverrunBlindEffect.gameObject:SetActiveEx(false)
 end
 
 -- 刷新按钮状态
@@ -453,12 +479,20 @@ end
 function XUiEquipReplaceV2P6:ShowPanelSkill()
     self.IsShowExtend = false
     self:PlayAnimation("AnimUnFold")
+    self.PanelAddEffect.gameObject:SetActiveEx(false)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(true)
+    self.GridEquipResonanceEffect1.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect2.gameObject:SetActiveEx(false)
+    self.GridEquipResonanceEffect3.gameObject:SetActiveEx(false)
+    self.OverrunBlindEffect.gameObject:SetActiveEx(false)
 end
 
 -- 显示扩展面板
 function XUiEquipReplaceV2P6:ShowPanelExtend()
     self.IsShowExtend = true
     self:PlayAnimation("AnimFold")
+    self.PanelAddEffect.gameObject:SetActiveEx(true)
+    self.PanelAdd2Effect.gameObject:SetActiveEx(false)
 end
 
 return XUiEquipReplaceV2P6

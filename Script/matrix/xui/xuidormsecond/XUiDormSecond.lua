@@ -483,8 +483,8 @@ function XUiDormSecond:OnEnable()
     XDataCenter.DormManager.StartDormRedTimer()
 
     local types = XRedPointConditions.Types
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { types.CONDITION_DORM_MAIN_TASK_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnMenu.ReddotObj, self.OnCheckBuildFurniture, self, { types.CONDITION_FURNITURE_CREATE })
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { types.CONDITION_DORM_MAIN_TASK_RED })
+    self:AddRedPointEvent(self.BtnMenu.ReddotObj, self.OnCheckBuildFurniture, self, { types.CONDITION_FURNITURE_CREATE })
 
     self:RefreshTaskInfo()
     self.SkipFun = self.SkipDormUpdateData

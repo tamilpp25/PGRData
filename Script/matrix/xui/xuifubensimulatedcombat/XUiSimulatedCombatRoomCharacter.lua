@@ -7,7 +7,7 @@ local CSXTextManagerGetText = CS.XTextManager.GetText
 
 function XUiSimulatedCombatRoomCharacter:OnAwake()
     XTool.InitUiObject(self)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
     local root = self.UiModelGo.transform
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")

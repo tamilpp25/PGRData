@@ -54,7 +54,7 @@ end
 
 -- partner : XPartner
 function XUiPanelCharAllOther:UpdatePanel(character, weapon, awareness, partner)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
 
     self.TxtName.text = charConfig.Name

@@ -10,7 +10,7 @@ function XUiChessPursuitRankLineupRoleGrid:Refresh(characterId, index)
     if not characterId then return end
 
     local id = XRobotManager.CheckIdToCharacterId(characterId)
-    if XCharacterConfigs.GetCharacterTemplate(id) then
+    if XMVCA.XCharacter:GetCharacterTemplate(id) then
         local headInfo = XDataCenter.ChessPursuitManager.GetRankDetailCharacterHeadInfo(index, characterId) or {}
         local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(id, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
         self.RawImage:SetRawImage(charIcon)

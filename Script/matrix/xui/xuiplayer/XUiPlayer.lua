@@ -18,9 +18,9 @@ function XUiPlayer:OnStart(closeCb, selectIdx, achiveIdx,medalViewType)
     self.AchiveIdx = achiveIdx
 
     self.TabBtnGroup:SelectIndex(self.SelectIdx or self.TagPage.PlayerInfo)
-    XRedPointManager.AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME, XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnAchievement, self.OnCheckAcchiveRedPoint, self, { XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE })
-    XRedPointManager.AddRedPointEvent(self.BtnCollect, self.OnCheckMedalRedPoint, self, { XRedPointConditions.Types.CONDITION_MEDAL_RED })
+    self:AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME, XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
+    self:AddRedPointEvent(self.BtnAchievement, self.OnCheckAcchiveRedPoint, self, { XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE })
+    self:AddRedPointEvent(self.BtnCollect, self.OnCheckMedalRedPoint, self, { XRedPointConditions.Types.CONDITION_MEDAL_RED })
     -- 功能屏蔽
     self.BtnAchievement.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.PlayerAchievement))
 end

@@ -10,7 +10,7 @@ local XUiTRPGExploreRegion = XLuaUiManager.Register(XLuaUi, "UiTRPGExploreRegion
 function XUiTRPGExploreRegion:OnAwake()
     Object = CS.UnityEngine.Object
     self:AutoAddListener()
-    XUiTRPGPanelPlotTab.New(self.PanelPlotTab)
+    self.PanelPlotTab = XUiTRPGPanelPlotTab.New(self.PanelPlotTab)
     self.TaskPanel = XUiTRPGPanelTask.New(self.PanelTask, self)
     self.LevelPanel = XUiTRPGPanelLevel.New(self.PanelLevel)
 
@@ -43,6 +43,7 @@ end
 function XUiTRPGExploreRegion:OnDestroy()
     self.TaskPanel:Delete()
     self.LevelPanel:Delete()
+    self.PanelPlotTab:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TRPG_GET_REWARD, self.OnCheckBtnTreasureRedPoint, self)
 end
 

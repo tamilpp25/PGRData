@@ -83,7 +83,7 @@ XDlcRoomManagerCreator = function()
                     and not XLuaUiManager.IsUiShow("UiDlcHuntSettleLose")
                     and not XLuaUiManager.IsUiPushing("UiDlcHuntSettleLose")
             then
-                XLuaUiManager.Open("UiBiancaTheatreBlack")
+                --XLuaUiManager.Open("UiBiancaTheatreBlack")
             end
         end)
         CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_WORLD_EXIT, function(eventName, params, c, d)

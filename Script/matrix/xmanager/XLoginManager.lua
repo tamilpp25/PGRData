@@ -1094,7 +1094,9 @@ function XLoginManager.OnReconnectFailed()
     XLuaUiManager.SetAnimationMask("DoLogin", true, 1)
 
     if XFightUtil.IsFighting() then
-        XLuaUiManager.Open("UiSettleLose")
+        if not XFightUtil.IsDlcFighting() then
+            XLuaUiManager.Open("UiSettleLose")
+        end
         XFightUtil.ClearFight()
     end
     

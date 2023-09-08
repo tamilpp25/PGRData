@@ -19,13 +19,25 @@ function XUiGridTheatre3Equipment:Refresh(id)
     if self.ImgEquipmentBg2 then
         self.ImgEquipmentBg2.gameObject:SetActiveEx(equipConfig.UseType == 2)
     end
+    if self.ImgEquipmentBg3 then
+        self.ImgEquipmentBg3.gameObject:SetActiveEx(equipConfig.UseType == 1)
+    end
+    if self.ImgEquipmentBg4 then
+        self.ImgEquipmentBg4.gameObject:SetActiveEx(equipConfig.UseType == 2)
+    end
     if equipConfig.UseType == 1 then
         if self.ImgEquipment1 then
             self.ImgEquipment1:SetRawImage(equipConfig.Icon)
         end
+        if self.ImgEquipment3 then
+            self.ImgEquipment3:SetRawImage(equipConfig.Icon)
+        end
     else
         if self.ImgEquipment2 then
             self.ImgEquipment2:SetRawImage(equipConfig.Icon)
+        end
+        if self.ImgEquipment4 then
+            self.ImgEquipment4:SetRawImage(equipConfig.Icon)
         end
     end
     self:RefreshStatus()
@@ -33,8 +45,8 @@ function XUiGridTheatre3Equipment:Refresh(id)
 end
 
 function XUiGridTheatre3Equipment:RefreshStatus()
-    local isDistable = not self._Control:CheckEquipIdUnlock(self.Id)
-    self.EquipmentGrid:SetDisable(isDistable)
+    local isDisable = not self._Control:CheckEquipIdUnlock(self.Id)
+    self.EquipmentGrid:SetDisable(isDisable)
 end
 
 function XUiGridTheatre3Equipment:RefreshRedPoint()

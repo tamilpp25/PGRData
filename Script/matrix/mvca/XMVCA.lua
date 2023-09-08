@@ -15,13 +15,23 @@ require("MVCA/XAgency")
 require("MVCA/MVCAEventId")
 
 local IsWindowsEditor = XMain.IsWindowsEditor
+
 ---@class XMVCACls : XMVCAEvent
 ---@field _AgencyDict table<string, XAgency>
 ---@field _ControlDict table<string, XControl>
 ---@field _ModelDict table<string, XModel>
 ---@field XCharacter XCharacterAgency
+---@field XCommonCharacterFilt XCommonCharacterFiltAgency
+---@field XEquip XEquipAgency
 ---@field XTheatre3 XTheatre3Agency
 ---@field XFuben XFubenAgency
+---@field XPassport XPassportAgency
+---@field XUiMain XUiMainAgency
+---@field XConnectingLine XConnectingLineAgency
+---@field XSubPackage XSubPackageAgency
+---@field XPreload XPreloadAgency
+---@field XTaikoMaster XTaikoMasterAgency
+---@field XSameColor XSameColorAgency
 local XMVCACls = XClass(XMVCAEvent, "XMVCACls")
 
 function XMVCACls:Ctor()
@@ -34,7 +44,22 @@ function XMVCACls:Ctor()
         setmetatable(self._ControlProfiler, { __mode = "kv"})
         self._ConfigProfiler = {}
         setmetatable(self._ConfigProfiler, { __mode = "kv"})
+        self._PreloadConfig = {}
+        
+        setmetatable(self, {
+            __index = function(t, k)
+                if ModuleId[k] and not self._AgencyDict[k] then
+                    XLog.Error("未注册Agency：" .. tostring(k) .. ", 请先在XMVCACls:InitModule 进行注册！")
+                end
+                local value = self.__class[k] or XMVCACls[k] or GetClassVituralTable(self.__class)[k]
+                if not value then
+                    XLog.Error("未获取到Key为" .. tostring(k) .. "的值，如果是Agency请先在XMVCACls:InitModule 进行注册！")
+                end
+                return value
+            end
+        })
     end
+    
 end
 
 ---注册模块
@@ -82,6 +107,10 @@ end
 ---获取Agency
 ---@return XAgency
 function XMVCACls:GetAgency(id)
+    if not self._AgencyDict[id] then
+        XLog.Error("未注册Agency：" .. tostring(id) .. ", 请先在XMVCACls:InitModule 进行注册！")
+        return
+    end
     return self._AgencyDict[id]
 end
 
@@ -93,8 +122,10 @@ function XMVCACls:_RegisterControl(id)
         XLog.Error("请勿重复初始化Control: " .. id)
     else
         local cls = XMVCAUtil.GetControlCls(id)
+        ---@type XControl
         local control = cls.New(id)
         self._ControlDict[id] = control
+        control:CallInit()
         if IsWindowsEditor then
             self._ControlProfiler[control] = control:GetId()
         end
@@ -125,7 +156,7 @@ end
 ---@return boolean
 function XMVCACls:_CheckControlRef(id)
     local control = self._ControlDict[id]
-    if control and control:HasViewRef() then
+    if control then
         return true
     end
     return false
@@ -235,9 +266,13 @@ function XMVCACls:_HotReloadModel(id)
 end
 
 function XMVCACls:_CloneModel(oldModel, newModel)
+    local ReloadFunc = XHotReload.ReloadFunc
     for key, value in pairs(oldModel) do
         if key ~= "_ConfigUtil" then
             newModel[key] = XTool.Clone(value)
+            if type(value) == "function" then
+                ReloadFunc(value)
+            end
         end
     end
 end
@@ -253,7 +288,20 @@ function XMVCACls:InitModule()
     self:RegisterAgency(ModuleId.XFuben)
     self:RegisterAgency(ModuleId.XFubenEx)
     self:RegisterAgency(ModuleId.XTheatre3)
+    self:RegisterAgency(ModuleId.XBlackRockChess)
     self:RegisterAgency(ModuleId.XTurntable)
+    self:RegisterAgency(ModuleId.XBlackRockStage)
+    self:RegisterAgency(ModuleId.XPassport)
+    self:RegisterAgency(ModuleId.XTaikoMaster)
+    self:RegisterAgency(ModuleId.XUiMain)
+    self:RegisterAgency(ModuleId.XNewActivityCalendar)
+    self:RegisterAgency(ModuleId.XTwoSideTower)
+    self:RegisterAgency(ModuleId.XFavorability)
+    self:RegisterAgency(ModuleId.XSameColor)
+    
+    self:RegisterAgency(ModuleId.XConnectingLine)
+    self:RegisterAgency(ModuleId.XSubPackage)
+    self:RegisterAgency(ModuleId.XPreload)
 end
 
 --XMVCA:Profiler()
@@ -263,12 +311,19 @@ function XMVCACls:Profiler()
         collectgarbage("collect") --得调用Lua Profiler界面的GC才能释放干净
         XLog.Debug("XMVCACls:ControlProfiler", self._ControlProfiler)
         XLog.Debug("XMVCACls:ConfigProfiler", self._ConfigProfiler)
+        XLog.Debug("XMVCACls:PreloadConfig", self._PreloadConfig)
     end
 end
 
 function XMVCACls:AddConfigProfiler(configTable, tag)
     if IsWindowsEditor then
         self._ConfigProfiler[configTable] = tag
+    end
+end
+
+function XMVCACls:AddPreloadConfig(path)
+    if IsWindowsEditor then
+        table.insert(self._PreloadConfig, path)
     end
 end
 

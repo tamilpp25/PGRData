@@ -53,7 +53,7 @@ function XUiMineSweepingMain:Init()
     self.SettlementPanel = XUiPanelSettlement.New(self.PanelSettlement, self)
     self.StartPanel = XUiPanelStart.New(self.PanelStart, self)
      
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     local itemId = XDataCenter.MineSweepingManager.GetMineSweepingCoinItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
             self.AssetActivityPanel:Refresh({ itemId })

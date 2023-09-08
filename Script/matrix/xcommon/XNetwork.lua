@@ -129,9 +129,14 @@ function XNetwork.ConnectGateServer(args)
                     elseif response.Code == XCode.LoginApplicationVersionError then
                         -- 处于调试模式时进错服显示取消按钮，否则不显示
                         local cancelCb = XMain.IsDebug and function() end or nil
-                        CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
-                        CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"),
-                        CS.XInfo.Version), cancelCb, function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
+                        local tmpStr
+                        if XDataCenter.UiPcManager.IsPc() then
+                            tmpStr = CS.XStringEx.Format(CS.XApplication.GetText("PCUpdateApplication"), CS.XInfo.Version)
+                        else
+                            tmpStr = CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"), CS.XInfo.Version)
+                        end
+                        CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),tmpStr, cancelCb, 
+                            function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
                     elseif response.Code == XCode.LoginDocumentVersionError then
                         XUiManager.DialogTip("", CS.XTextManager.GetCodeText(response.Code), XUiManager.DialogType.OnlySure, nil, function()
                             CS.XApplication.Exit()

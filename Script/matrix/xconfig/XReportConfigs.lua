@@ -69,7 +69,7 @@ end
 local GetReportConfig = function(id)
     local config = ReportCfg[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetReportConfig", "ReportCfg", TABLE_REPORT_PATH, "Id", id)
+        XLog.ErrorTableDataNotFound("XReportConfigs.GetReportConfig", "ReportCfg", TABLE_REPORT_PATH, "Id", id)
         return
     end
     return config
@@ -107,7 +107,7 @@ end
 local GetReportEntryConfig = function(id)
     local config = ReportEntryCfg[id]
     if not config then
-        XLog.ErrorTableDataNotFound("XPassportConfigs.GetReportEntryConfig", "ReportEntryCfg", TABLE_REPORT_ENTRY_PATH, "Id", id)
+        XLog.ErrorTableDataNotFound("XReportConfigs.GetReportEntryConfig", "ReportEntryCfg", TABLE_REPORT_ENTRY_PATH, "Id", id)
         return
     end
     return config

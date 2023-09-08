@@ -81,7 +81,7 @@ function XUiHostelMissionComplete:Refresh()
 
     -- local char = XDataCenter.CharacterManager.GetCharacter(self.CharId)
     self:SetUiSprite(self.ImgHeadIcon, XDataCenter.CharacterManager.GetCharBigHeadIcon(self.CharId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(self.CharId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(self.CharId)
 
     self.TxtDesc.text = CS.XTextManager.GetText("HostelWorkReward")
     self:SetUiSprite(self.ImgRewardIcon, XDataCenter.ItemManager.GetItemIcon(data.Id))

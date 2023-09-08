@@ -53,7 +53,7 @@ function XUiPanelCharSkillOther:HideSkillItemPanel()
 end
 
 function XUiPanelCharSkillOther:UpdatePanel(character)
-    local skills = XCharacterConfigs.GetCharacterSkillsByCharacter(character)
+    local skills = XMVCA.XCharacter:GetCharacterSkillsByCharacter(character)
 
     if (self.SkillGrids and #self.SkillGrids > 0) then
         for i = 1, XCharacterConfigs.MAX_SHOW_SKILL_POS do

@@ -108,7 +108,7 @@ end
 
 function XUiWhiteValenMainButtonPanel:RemoveEventListeners()
     if not self.ListenersAdded then return end
-    self:RemoveRedPointEvents()
+    self:RemoveAllRedPoints()
     XEventManager.RemoveEventListener(XEventId.EVENT_WHITEVALENTINE_SHOW_PLACE, self.RefreshPanel, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.RefreshMission, self)
     self.ListenersAdded = false
@@ -149,7 +149,7 @@ end
 --================
 --注销页面红点事件
 --================
-function XUiWhiteValenMainButtonPanel:RemoveRedPointEvents()
+function XUiWhiteValenMainButtonPanel:RemoveAllRedPoints()
     if not self.AlreadyAddRed then return end
     for _, eventId in pairs(self.RedEvents) do
         XRedPointManager.RemoveRedPointEvent(eventId)

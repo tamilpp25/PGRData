@@ -207,7 +207,7 @@ function XUiGuildWarTeamAreaCharacterSelectSelf:UpdateCharacterData()
     self:SetJoinBtnIsActive(not (member:GetEntityId() == characterId and member:GetPlayerId() == XPlayer.Id))
 
     -- name
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 

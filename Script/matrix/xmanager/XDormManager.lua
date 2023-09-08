@@ -4,6 +4,7 @@
 XDormManagerCreator = function()
     ---@class XDormManager 宿舍业务管理器
     local XDormManager = {}
+    XDormManager.IsDormDataNotify = false
     
     local CharacterData = {}  -- 构造体数据
     ---@type table<number, XHomeRoomData>
@@ -2389,6 +2390,9 @@ XDormManagerCreator = function()
     end
 
     function XDormManager.UpdateDormRed()
+        if not XDormManager.DormWorkRedFun() then
+            return
+        end
         XEventManager.DispatchEvent(XEventId.EVENT_DORM_WORK_REDARD)
         --XEventManager.DispatchEvent(XEventId.EVENT_FURNITURE_CREATE_CHANGED)
     end
@@ -2666,6 +2670,16 @@ XDormManagerCreator = function()
         return CharacterData
     end
 
+    function XDormManager.SetIsDormDataNotifyFalse()
+        XDormManager.IsDormDataNotify = false
+    end
+  
+    function XDormManager.Init()
+        XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XDormManager.SetIsDormDataNotifyFalse)
+    end
+
+    XDormManager.Init()
+
     return XDormManager
 end
 
@@ -2724,6 +2738,9 @@ XRpc.NotifyDormitoryData = function(data)
     XDataCenter.DormManager.InitBindRelationData(data.BindRelations)
     XDataCenter.FurnitureManager.InitData(data.FurnitureList)
     XDataCenter.DormQuestManager.InitQuestData(data.DormQuestData)
+    
+    XDataCenter.DormManager.IsDormDataNotify = true
+    XEventManager.DispatchEvent(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA)
 end
 
 XRpc.NotifyAddDormCharacter = function(data)

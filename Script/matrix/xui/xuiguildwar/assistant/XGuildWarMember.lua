@@ -40,7 +40,7 @@ function XGuildWarMember:GetAbility()
 
     local ability = 0
     if self:IsMyCharacter() then
-        ability = XDataCenter.CharacterManager.GetCharacterAbilityById(self.EntityId, self.PlayerId)
+        ability = XMVCA.XCharacter:GetCharacterAbilityById(self.EntityId)
     else
         ability = XDataCenter.GuildWarManager.GetAssistantCharacterAbility(self.EntityId, self.PlayerId)
     end

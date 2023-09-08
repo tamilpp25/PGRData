@@ -12,7 +12,7 @@ function XUiRpgMakerGameMain:OnAwake()
     self.NewStageId = 0    --最近解锁的关卡
     self:InitObj()
     self:UpdateCurChapterGroupId()
-    XUiHelper.NewPanelActivityAsset({XDataCenter.ItemManager.ItemId.RpgMakerGameHintCoin}, self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe({XDataCenter.ItemManager.ItemId.RpgMakerGameHintCoin}, self.PanelSpecialTool, self)
     self:AutoAddListener()
     self:InitTabGroup()
 

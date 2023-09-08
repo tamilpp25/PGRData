@@ -211,7 +211,7 @@ end
 
 -- 改变状态
 function XGuildDormCharAgent:ChangeStatus(state,ignoreBehaviorChange)
-    if state == XGuildDormConfig.RoleFSMType.IDLE then
+    if state == XGuildDormConfig.RoleFSMType.IDLE or state== XGuildDormConfig.RoleFSMType.PATROL_IDLE then
         self.Role:UpdateInteractStatus(XGuildDormConfig.InteractStatus.End,ignoreBehaviorChange)
         self.Role:EnableCharacterController(true)
     end

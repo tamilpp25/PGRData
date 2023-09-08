@@ -16,7 +16,7 @@ function XUiGridFubenInfestorExploreMember:Refresh(characterId, isCaptain, isFir
     if not characterId then return end
 
     if self.TxtName then
-        self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     end
 
     if self.RImgHead then

@@ -650,7 +650,7 @@ function XFubenConfigs.IsCharacterFitTeamBuff(teamBuffId, characterId)
 
     local config = GetTeamBuffCfg(teamBuffId)
 
-    local initQuality = characterId and characterId > 0 and XCharacterConfigs.GetCharMinQuality(characterId)
+    local initQuality = characterId and characterId > 0 and XMVCA.XCharacter:GetCharMinQuality(characterId)
     if not initQuality or initQuality <= 0 then return false end
 
     for _, quality in pairs(config.Quality) do
@@ -673,7 +673,7 @@ function XFubenConfigs.GetTeamBuffFitCharacterCount(teamBuffId, characterIds)
     end
 
     for _, characterId in pairs(characterIds) do
-        local initQuality = characterId > 0 and XCharacterConfigs.GetCharMinQuality(characterId)
+        local initQuality = characterId > 0 and XMVCA.XCharacter:GetCharMinQuality(characterId)
         fitCount = checkDic[initQuality] and fitCount + 1 or fitCount
     end
 
@@ -775,9 +775,9 @@ end
 --是否为关卡推荐角色
 function XFubenConfigs.IsStageRecommendCharacterType(stageId, Id)
     local characterId = XRobotManager.GetCharacterId(Id)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
     local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId)
-    local element = XCharacterConfigs.GetCharacterElement(characterId)
+    local element = XMVCA.XCharacter:GetCharacterElement(characterId)
     local recommendElement = XFubenConfigs.GetStageRecommendCharacterElement(stageId) or 0
     --(废弃)特殊逻辑：如果为授格者，一定是推荐(废弃)
     --if characterType == XCharacterConfigs.CharacterType.Isomer and recommendType == characterType then
@@ -861,7 +861,7 @@ function XFubenConfigs.GetPreStageId(stageId)
     return (config or {}).PreStageId
 end
 
-local function GetStageTypeCfg(stageId)
+function XFubenConfigs.GetStageTypeCfg(stageId)
     local config = StageTypeConfigs[stageId]
     if not config then
         return
@@ -872,12 +872,12 @@ end
 ---
 --- 活动特殊关卡配置机器人列表获取
 function XFubenConfigs.GetStageTypeRobot(stageType)
-    local config = GetStageTypeCfg(stageType)
+    local config = XFubenConfigs.GetStageTypeCfg(stageType)
     return (config or {}).RobotId
 end
 
 function XFubenConfigs.IsAllowRepeatChar(stageType)
-    local config = GetStageTypeCfg(stageType)
+    local config = XFubenConfigs.GetStageTypeCfg(stageType)
     return (config or {}).MatchCharIdRepeat
 end
 

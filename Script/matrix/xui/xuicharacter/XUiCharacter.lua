@@ -228,7 +228,7 @@ function XUiCharacter:UpdateCharacterList(characterId, doNotSort)
     if characterId then
         --选中角色与当前类型页签不符时，强制选中对应角色类型页签
         self.CharacterId = characterId
-        local paramCharacterType = XCharacterConfigs.GetCharacterType(characterId)
+        local paramCharacterType = XMVCA.XCharacter:GetCharacterType(characterId)
         if paramCharacterType ~= characterType then
             if XCharacterConfigs.IsIsomer(characterId) then
                 self.LastSelectIsomerCharacterId = characterId
@@ -304,7 +304,7 @@ function XUiCharacter:OnDynamicTableEvent(event, index, grid)
         end
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local characterId = self.CharacterList[index].Id
-        if XCharacterConfigs.IsCharacterForeShow(characterId) then
+        if XMVCA.XCharacter:IsCharacterForeShow(characterId) then
             if self.CharacterId ~= characterId then
                 if self.CurSelectGrid then
                     self.CurSelectGrid:SetSelect(false)

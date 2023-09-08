@@ -4,7 +4,7 @@ function XUiPlanetPropertyShop:OnAwake()
     self:AddBtnClickListener()
     self.CurShopIdList = XDataCenter.PlanetManager.GetViewModel():GetActivityShopIdList()
     self.ItemList = XUiPanelItemList.New(self.PanelItemList, self, nil, self.UiParams, handler(self, self.OnRefreshGrid))
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.PlanetRunningShopActivity }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.PlanetRunningShopActivity }, self.PanelSpecialTool, self)
 
     self.CurSelectIndex = 1
     XDataCenter.PlanetManager.SetSceneActive(false)

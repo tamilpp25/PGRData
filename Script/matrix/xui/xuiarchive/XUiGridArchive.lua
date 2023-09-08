@@ -1,30 +1,27 @@
-XUiGridArchive = XClass(nil, "XUiGridArchive")
+XUiGridArchive = XClass(XUiNode, "XUiGridArchive")
 
-function XUiGridArchive:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchive:OnStart()
     self:SetButtonCallBack()
 end
 
 function XUiGridArchive:AddRedPointEvent(type)
     if type == XArchiveConfigs.SubSystemType.Monster then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL })
     elseif type == XArchiveConfigs.SubSystemType.Weapon then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON })
     elseif type == XArchiveConfigs.SubSystemType.Awareness then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS })
     elseif type == XArchiveConfigs.SubSystemType.CG then
-        XRedPointManager.AddRedPointEvent(self.ArchiveBtn,
+        self:AddRedPointEvent(self.ArchiveBtn,
             self.OnCheckArchiveRedPoint,
             self,
             { XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })

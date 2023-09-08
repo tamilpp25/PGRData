@@ -33,11 +33,11 @@ function XUiPanelPlayerInfo:OnStart()
     self.BtnFeedback.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Feedback))
     self.PanelDuihuan.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ExchangeCode))
 
-    XRedPointManager.AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME })
-    XRedPointManager.AddRedPointEvent(self.ImgExhibitionNew, self.OnCheckExhibition, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW })
-    XRedPointManager.AddRedPointEvent(self.NewHead, self.OnCheckHeadPortrait, self, { XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnArchive, self.OnCheckArchive, self, { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL, XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON, XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS, XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })
-    XRedPointManager.AddRedPointEvent(self.BtnBirModify, self.OnCheckBirthDay, self, { XRedPointConditions.Types.CONDITION_PLAYER_BIRTHDAY })
+    self:AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME })
+    self:AddRedPointEvent(self.ImgExhibitionNew, self.OnCheckExhibition, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW })
+    self:AddRedPointEvent(self.NewHead, self.OnCheckHeadPortrait, self, { XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
+    self:AddRedPointEvent(self.BtnArchive, self.OnCheckArchive, self, { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL, XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON, XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS, XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })
+    self:AddRedPointEvent(self.BtnBirModify, self.OnCheckBirthDay, self, { XRedPointConditions.Types.CONDITION_PLAYER_BIRTHDAY })
 
     self:UpdatePlayerLevelInfo()
 end
@@ -275,7 +275,7 @@ function XUiPanelPlayerInfo:UpdateAssistInfo()
     self.RImgCharacterRank:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
     self.RImgAssist:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(id))
     self.TxtRoleRank.text = character.Level
-    self.TxtRoleName.text = XCharacterConfigs.GetCharacterName(id)
+    self.TxtRoleName.text = XMVCA.XCharacter:GetCharacterName(id)
 end
 
 function XUiPanelPlayerInfo:SetName(name)
@@ -334,7 +334,7 @@ end
 function XUiPanelPlayerInfo:OnBtnArchiveClick()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive) then
         self:RecordAnimation()
-        XLuaUiManager.Open("UiArchiveMain")
+        XDataCenter.ArchiveManager.OpenUiArchiveMain()
     end
 end
 

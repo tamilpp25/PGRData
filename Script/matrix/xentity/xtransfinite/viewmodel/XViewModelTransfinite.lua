@@ -13,10 +13,7 @@ function XViewModelTransfinite:Ctor()
         ScoreNumber2 = false,
         ScoreRatio = 0,
         ScoreReward = false,
-        NextScoreReward = false,
-        NextChallengeReward = false,
-        NextScoreRewardReceived = false,
-        NextChallengeRewardReceived = false,
+        DisplayReward = {},
 
         ImgScore = false,
         RedPointRecord = false,
@@ -63,6 +60,7 @@ function XViewModelTransfinite:Update()
     local data = self.Data
     local stageGroup = self._StageGroup
     local region = self._Region
+    local displayRewardList = region:GetRewardIds()
 
     --data.Name = stageGroup:GetName()
     data.RegionName = region:GetName()
@@ -86,63 +84,15 @@ function XViewModelTransfinite:Update()
     data.ScoreReward = XDataCenter.TransfiniteManager.IsRewardScoreAchieved()
             or XDataCenter.TransfiniteManager.IsRewardChallengeAchieved()
 
-    --周期奖励: 奖励内容抽取下一个未领取的积分与挑战任务图标显示，若全都领取了则显示最后一个
-    -- 积分奖励
-    local rewardScore
-    local rewardList = region:GetScoreRewardIdCanReceive()
-    local rewardId = rewardList[1]
-    if rewardId then
-        rewardScore = XRewardManager.GetRewardList(rewardId)[1]
-    else
-        local scoreArray, rewardIdArray = region:GetScoreAndRewardArray()
-        for i = 1, #rewardIdArray do
-            if not region:IsRewardReceived(i) then
-                rewardId = rewardIdArray[i]
-                break
-            end
-        end
-        if not rewardId then
-            rewardId = rewardIdArray[#rewardIdArray]
-        end
-        if rewardId then
-            rewardScore = XRewardManager.GetRewardList(rewardId)[1]
-        end
+    local isAllReceive = region:IsAllScoreRewardReceived() and region:IsAllChallengeRewardReceived()
+    for i = 1, #displayRewardList do
+        local reward = {
+            Item = XRewardManager.GetRewardList(displayRewardList[i])[1],
+            IsReceived = isAllReceive,
+        }
+        
+        data.DisplayReward[i] = reward
     end
-    data.NextScoreReward = rewardScore
-    data.NextScoreRewardReceived = region:IsAllScoreRewardReceived()
-
-    local rewardChallenge
-    -- 挑战奖励
-    -- 优先, 可领取奖励
-    local taskGroupId = region:GetChallengeTaskGroupId()
-    local taskIdList = XTransfiniteConfigs.GetTaskTaskIds(taskGroupId)
-    local taskDataList = XDataCenter.TaskManager.GetTaskIdListData(taskIdList, false)
-    for i = 1, #taskDataList do
-        local taskData = taskDataList[i]
-        if taskData.State == XDataCenter.TaskManager.TaskState.Achieved then
-            rewardChallenge = XDataCenter.TransfiniteManager.GetRewardByTaskId(taskData.Id, 1)
-            break
-        end
-    end
-    -- 然后, 未完成
-    if not rewardChallenge then
-        for i = 1, #taskDataList do
-            local taskData = taskDataList[i]
-            if taskData.State == XDataCenter.TaskManager.TaskState.Accepted
-                    or taskData.State == XDataCenter.TaskManager.TaskState.Active
-            then
-                rewardChallenge = XDataCenter.TransfiniteManager.GetRewardByTaskId(taskData.Id, 1)
-                break
-            end
-        end
-    end
-    -- 都完成了, 显示最后一个
-    if not rewardChallenge then
-        local lastTaskId = taskIdList[#taskIdList]
-        rewardChallenge = XDataCenter.TransfiniteManager.GetRewardByTaskId(lastTaskId, 1)
-    end
-    data.NextChallengeReward = rewardChallenge
-    data.NextChallengeRewardReceived = region:IsAllChallengeRewardReceived()
 
     data.ImgScore = XItemConfigs.GetItemIconById(XDataCenter.ItemManager.ItemId.TransfiniteScore)
     data.RedPointRecord = self:IsNewRecord()
@@ -164,7 +114,7 @@ function XViewModelTransfinite:Update()
     data.StageAmount = stageAmount
     data.IsShowWinAmount = stageGroup:IsBegin()
     data.StageGroupName = stageGroup:GetName()
-
+    data.IslandReward = false
     --local islandGroup = self._IslandGroup
     --local firstIsland = islandGroup:GetStage(1)
     --data.IslandName = firstIsland:GetName()
@@ -174,6 +124,13 @@ function XViewModelTransfinite:Update()
     local islandGroupIdArray = self._Region:GetIslandStageGroupIdArray()
     if islandGroupIdArray then
         data.IsShowIsland = #islandGroupIdArray > 0
+        for i = 1, #islandGroupIdArray do
+            local islandStageGroup = XDataCenter.TransfiniteManager.GetStageGroup(islandGroupIdArray[i])
+
+            if islandStageGroup:IsAchievementAchieved() then
+                data.IslandReward = true
+            end
+        end 
     else
         data.IsShowIsland = false
     end
@@ -197,6 +154,7 @@ function XViewModelTransfinite:UpdateIsland()
     local dataSource = {}
     data.DataSource = dataSource
     local groupIdArray = self._Region:GetIslandStageGroupIdArray()
+    local islandImage = XTransfiniteConfigs.GetIslandImage(self._Region:GetIslandId())
     for i = 1, #groupIdArray do
         local groupId = groupIdArray[i]
         local stageGroup = XDataCenter.TransfiniteManager.GetStageGroup(groupId)
@@ -217,8 +175,9 @@ function XViewModelTransfinite:UpdateIsland()
                 TextProgress = amountClear .. "/" .. amount,
                 Progress = progress,
                 AchievementAmount = achievementProgress .. "/" .. achievementAllCount,
-                IsEnableReward = false,
+                IsEnableReward = stageGroup:IsAchievementAchieved(),
                 StageGroup = stageGroup,
+                IslandImage = islandImage,
             }
             dataSource[#dataSource + 1] = dataIsland
         end
@@ -229,11 +188,12 @@ function XViewModelTransfinite:GetStageGroup()
     return self._StageGroup
 end
 
-function XViewModelTransfinite:GetMedal()
+function XViewModelTransfinite:GetMedal(stageGroup)
+    stageGroup = stageGroup or self._StageGroup
     local XTransfiniteMedal = require("XEntity/XTransfinite/XTransfiniteMedal")
     ---@type XTransfiniteMedal
     local medal = XTransfiniteMedal.New()
-    medal:SetTime(self._StageGroup:GetBestClearTime())
+    medal:SetTime(stageGroup:GetBestClearTime())
     return medal
 end
 
@@ -241,8 +201,8 @@ function XViewModelTransfinite:GetHelpKey()
     return "Transfinite"
 end
 
-function XViewModelTransfinite:OnClickRecord()
-    local stageGroup = self:GetStageGroup()
+function XViewModelTransfinite:OnClickRecord(stageGroup)
+    stageGroup = stageGroup or self:GetStageGroup()
     local bestTime = stageGroup:GetBestClearTime()
     if bestTime <= 0 then
         XUiManager.TipText("SSBStageNotClear")
@@ -253,7 +213,7 @@ function XViewModelTransfinite:OnClickRecord()
         self._NewRecordTime = bestTime
         self.Data.RedPointRecord = false
     end
-    XLuaUiManager.Open("UiTransfiniteBestTime", self:GetMedal())
+    XLuaUiManager.Open("UiTransfiniteBestTime", self:GetMedal(stageGroup))
 end
 
 function XViewModelTransfinite:IsNewRecord()

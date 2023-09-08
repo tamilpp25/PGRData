@@ -461,7 +461,7 @@ function XUiPanelSetting:OnBtnCharacter(index)
     -- 根据选中的角色类型打开对应的页签
     local characterType
     if curTeam[index] and curTeam[index] ~= 0 then
-        characterType = XCharacterConfigs.GetCharacterType(curTeam[index])
+        characterType = XMVCA.XCharacter:GetCharacterType(curTeam[index])
     else
         -- 添加新角色时，默认打开构造体页签
         characterType = XCharacterConfigs.CharacterType.Normal
@@ -566,7 +566,7 @@ function XUiPanelSetting:OnBtnView()
 
         --成员涂装
         tmpData.FashionShow = {}
-        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionStatus()) do
+        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionDataDic()) do
             table.insert(tmpData.FashionShow, k)
         end
 

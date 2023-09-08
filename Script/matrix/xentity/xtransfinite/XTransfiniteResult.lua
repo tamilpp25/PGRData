@@ -78,9 +78,21 @@ function XTransfiniteResult:SetDataFromServer(settleData)
     self._IsNewRecord = false
 
     if stage:IsExtraMission() then
-        self._IsShowExtraCondition = true
-        self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
-        self._TextCondition = stage:GetExtraMissionText()
+        if stageGroup:IsIsland() then
+            if self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.FirstHideExtra then
+                self._IsShowExtraCondition = false
+            elseif self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.SecondHideExtra then
+                self._IsShowExtraCondition = false
+            elseif self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.ShowOtherExtra then
+                self._IsShowExtraCondition = true
+                self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
+                self._TextCondition = stage:GetExtraMissionText(true)
+            end
+        else
+            self._IsShowExtraCondition = true
+            self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
+            self._TextCondition = stage:GetExtraMissionText()
+        end
     else
         self._IsShowExtraCondition = false
     end

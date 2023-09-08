@@ -137,6 +137,7 @@ function XUiRestaurantBuffChange:OnSelectBuffType(tabIndex)
         return
     end
     
+    self:PlayAnimation("QieHuan")
     self.BuffIndex = tabIndex
     self.LastBuffBtn = nil
     self:SetupBuffDynamic()
@@ -234,6 +235,7 @@ function XUiRestaurantBuffChange:OnSelectBuffBtn(index, grid)
     if self.LastBuffBtn then
         self.LastBuffBtn:RefreshState(selectId)
     end
+    self:PlayAnimation("QieHuan")
     grid:RefreshState(selectId)
     grid:MarkRedPoint()
     self.SelectBuffId[BuffTypeTab[self.BuffIndex]] = selectId

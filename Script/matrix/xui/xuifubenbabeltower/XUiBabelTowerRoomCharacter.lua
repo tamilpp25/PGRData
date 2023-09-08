@@ -270,7 +270,7 @@ function XUiBabelTowerRoomCharacter:UpdateCharacterList(charlist)
 
     if not selectId or selectId == 0
     or not self.CharacterGrids[selectId]
-    or characterType ~= XCharacterConfigs.GetCharacterType(selectId)
+    or characterType ~= XMVCA.XCharacter:GetCharacterType(selectId)
     or not charDic[selectId]
     then
         selectId = charlist[1].Id
@@ -455,7 +455,7 @@ function XUiBabelTowerRoomCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = XCharacterConfigs.GetCharacterType(selectId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(selectId)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -508,7 +508,7 @@ end
 function XUiBabelTowerRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end

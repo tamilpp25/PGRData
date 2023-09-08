@@ -36,9 +36,6 @@ function XUiTheatre3EquipmentSuit:SetSuitId(suitId, slotId, isShowBg, isShowBtn)
     self._Equips = self._Control:GetAllSuitEquip(suitId)
     self.PanelEmpty.gameObject:SetActiveEx(false)
     self.PanelCancel.gameObject:SetActiveEx(false)
-    self:SetEquip(1)
-    self:SetEquip(2)
-    self:SetEquip(3)
     self:ShowHideCompleteBg(isShowBg and self._Control:IsSuitComplete(suitId) or false)
     self:ShowHideBtnOpen(isShowBtn)
     self:ResetState()
@@ -162,6 +159,11 @@ function XUiTheatre3EquipmentSuit:UpdateShowState(showType, state)
     self.PanelOpen.gameObject:SetActiveEx(self._CurShowType == ShowType.Open)
     self.PanelEmpty.gameObject:SetActiveEx(self._CurShowType == ShowType.Empty)
     self.PanelCancel.gameObject:SetActiveEx(self._CurShowType == ShowType.Cancel)
+    if self._CurShowType == ShowType.Open then
+        self:SetEquip(1)
+        self:SetEquip(2)
+        self:SetEquip(3)
+    end
 
     self.ImgBgSelect.gameObject:SetActiveEx(self._CurState == CS.UiButtonState.Select)
     self.ImgSelectOpen.gameObject:SetActiveEx(self._CurState == CS.UiButtonState.Select and self._IsShowOpen)
@@ -204,11 +206,12 @@ function XUiTheatre3EquipmentSuit:OnBtnWear()
 end
 
 function XUiTheatre3EquipmentSuit:OnBtnDisableMask()
-    if self._Control:IsSuitComplete(self.SuitConfig.Id) then
-        XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildSuitComplete"))
-    end
     if not self._Control:IsWorkshopHasTimes() then
         XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildNoTimes"))
+        return
+    end
+    if self._Control:IsSuitComplete(self.SuitConfig.Id) then
+        XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildSuitComplete"))
     end
 end
 

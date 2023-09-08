@@ -71,6 +71,7 @@ function XUiFubenMainLine3D:OnDestroy()
     self.GridTreasureList = {}
     self.GridMultipleWeeksTaskList = {}
     self.LineDic = {}
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
 end
 
 function XUiFubenMainLine3D:InitStageCfg()

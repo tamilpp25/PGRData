@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
@@ -155,8 +155,7 @@ end
 
 function XUiEquipAwarenessPopup:UpdateSelectPanel()
     if not self.SelectEquipGrid then
-        self.SelectEquipGrid = XUiGridEquip.New(self.GridEquipSelect, self, nil, true)
-        self.SelectEquipGrid:InitRootUi(self)
+        self.SelectEquipGrid = XUiGridEquip.New(self.GridEquipSelect, self)
     end
     self.SelectEquipGrid:Refresh(self.EquipId)
 
@@ -234,8 +233,7 @@ function XUiEquipAwarenessPopup:UpdateUsingPanel()
     end
 
     if not self.UsingEquipGrid then
-        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing, self, nil, true)
-        self.UsingEquipGrid:InitRootUi(self)
+        self.UsingEquipGrid = XUiGridEquip.New(self.GridEquipUsing, self)
     end
     self.UsingEquipGrid:Refresh(self.UsingEquipId)
 
@@ -363,7 +361,7 @@ function XUiEquipAwarenessPopup:OnBtnPutOnClick()
 
     local wearingCharacterId = XDataCenter.EquipManager.GetEquipWearingCharacterId(equipId)
     if wearingCharacterId and wearingCharacterId > 0 then
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(wearingCharacterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(wearingCharacterId)
         local content = string.gsub(CSXTextManagerGetText("EquipAwarenessReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(
             CSXTextManagerGetText("TipTitle"),

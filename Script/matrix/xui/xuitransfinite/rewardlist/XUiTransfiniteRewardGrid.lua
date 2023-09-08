@@ -33,9 +33,6 @@ function XUiTransfiniteRewardGrid:RefreshAchievementReward()
     local isNormalComplete = data.NormalTaskState == achievedState or data.NormalTaskState == finishState
     local isSeniorComplete = data.SeniorTaskState == achievedState or data.SeniorTaskState == finishState
 
-    if not self.TxtFinishTask then
-        self.TxtFinishTask = XUiHelper.TryGetComponent(self.Transform, "PanelTask/PanelTaskDescribe/TxtTask", "Text")
-    end
     self.TxtFinishTask.text = data.Desc
     self.ImgComplete.gameObject:SetActiveEx(isNormalComplete and isSeniorComplete)
 
@@ -117,12 +114,14 @@ end
 
 function XUiTransfiniteRewardGrid:ReceiveNormalReward()
     XDataCenter.TransfiniteManager.RequestFinishTask(self._Data.NormalTaskId, function(rewardGood)
+        XEventManager.DispatchEvent(XEventId.EVENT_TRANSFINITE_SUCCESS_REFRESH)
         XUiManager.OpenUiObtain(rewardGood)
     end)
 end
 
 function XUiTransfiniteRewardGrid:ReceiveSeniorReward()
     XDataCenter.TransfiniteManager.RequestFinishTask(self._Data.SeniorTaskId, function(rewardGood)
+        XEventManager.DispatchEvent(XEventId.EVENT_TRANSFINITE_SUCCESS_REFRESH)
         XUiManager.OpenUiObtain(rewardGood)
     end)
 end

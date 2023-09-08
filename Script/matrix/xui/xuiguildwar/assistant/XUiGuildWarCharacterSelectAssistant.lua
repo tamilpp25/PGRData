@@ -112,7 +112,7 @@ function XUiGuildWarCharacterSelectAssistant:GetEntities(notFilter)
         end
         return ID1 > ID2
     end
-    local team = XDataCenter.GuildWarManager.GetBattleManager():GetTeam()
+    local team = self._Team
     table.sort(list, function(CA, CB)
         local EntityIdA = CA.Id
         local EntityIdB = CB.Id
@@ -152,7 +152,6 @@ function XUiGuildWarCharacterSelectAssistant:GetEntities(notFilter)
     end)
 
     -- 队伍中的优先, 支援角色最多一个
-    local team = XDataCenter.GuildWarManager.GetBattleManager():GetTeam()
     local flag = 1
     for i = 1, #list do
         local data = list[i]

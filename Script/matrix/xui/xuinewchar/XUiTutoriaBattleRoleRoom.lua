@@ -1,4 +1,6 @@
 local XUiBattleRoleRoomDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoleRoomDefaultProxy")
+
+---@class XUiTutoriaBattleRoleRoom:XUiBattleRoleRoomDefaultProxy
 local XUiTutoriaBattleRoleRoom = XClass(XUiBattleRoleRoomDefaultProxy, "XUiTutoriaBattleRoleRoom")
 
 function XUiTutoriaBattleRoleRoom:Ctor(team, stageId)
@@ -39,6 +41,11 @@ function XUiTutoriaBattleRoleRoom:GetRoleDetailProxy()
         GetDefaultCharacterType = function (proxy)
             local defaultCharacterType = XFubenNewCharConfig:GetTryCharacterCharacterType(self.StageId)
             return XTool.IsNumberValid(defaultCharacterType) and defaultCharacterType or XCharacterConfigs.CharacterType.Normal 
+        end,
+        GetFilterControllerConfig = function()
+            ---@type XCharacterAgency
+            local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+            return characterAgency:GetModelCharacterFilterController()["UiFunbenKoroTutoriaTeachingDetail"]
         end
     }
 end

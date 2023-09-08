@@ -8,7 +8,7 @@ function XUiPanelShop:Ctor(ui, rootUi)
     self.RootUi = rootUi
     XTool.InitUiObject(self)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     self.ItemActivity = XUiPanelItemList.New(self.PanelItemActivity, self, self.RootUi)
 end
 

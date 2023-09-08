@@ -830,7 +830,7 @@ function XFubenInfestorExploreConfigs.GetEventTypeTipContent(eventType, eventArg
         return stringFormat(des, hpPer)
     elseif eventType == XFubenInfestorExploreConfigs.EventType.ChangeCharacterHpPer then
         local hpPer, characterId = tableUnpack(eventArgs)
-        local characterName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        local characterName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         if hpPer < 0 then
             hpPer = -hpPer
             des = GetEventTypeConfig(eventType).DescriptionRevert

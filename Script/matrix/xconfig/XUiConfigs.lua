@@ -24,6 +24,8 @@ XUiConfigs.SubMenuType = {
     Operate = 2, --运营按钮
 }
 
+XUiConfigs.SubMenuDefaultStyleType='Loading'
+
 function XUiConfigs.Init()
     UiComponentTemplates = XTableManager.ReadByStringKey(TABLE_UICOMPONENT_PATH, XTable.XTableUiComponent, "Key")
     UiThemeTemplates = XTableManager.ReadByIntKey(TABLE_SCENE_THEME_MATCHING_PATH, XTable.XTableUiMainThemeMatching, "Id")
@@ -99,6 +101,8 @@ function XUiConfigs.GetDynamicSubMenuIconPath(styleType)
             XLog.ErrorTableDataNotFound('二级菜单指定的图片路径为空:','键名为'..styleType..'的图片路径',TABLE_UI_MAIN_SUB_MENU_DYNAMIC_PATH,imgPathData.StyleType,imgPathData.ImgPath)
         end
         return imgPathData.ImgPath
+    elseif styleType==XUiConfigs.SubMenuDefaultStyleType then
+        XLog.Warning("二级菜单列表为空，使用了默认数据，图片key："..XUiConfigs.SubMenuDefaultStyleType.." 但未在配置表"..TABLE_UI_MAIN_SUB_MENU_DYNAMIC_PATH.."中对自定义的图片进行配置，请自行确认是否需要进行配置")
     else
         XLog.ErrorTableDataNotFound('二级菜单指定的图片路径键不存在,请检查配置表数据与后台二级菜单填入数据是否一致，或需重启游戏以读取配置信息','键名为'..styleType..'的',TABLE_UI_MAIN_SUB_MENU_DYNAMIC_PATH)
     end

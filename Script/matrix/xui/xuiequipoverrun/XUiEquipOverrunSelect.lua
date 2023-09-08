@@ -108,7 +108,7 @@ function XUiEquipOverrunSelect:GetSuitDataList()
     local bindType = overrunSuitCfg.ChipBindType
     -- 类型配置为0的武器，装备在角色身上时，需额外判断，只显示与当前角色匹配的意识套装
     if bindType == XEquipConfig.UserType.All and self.Equip:IsWearing() then
-        bindType = XCharacterConfigs.GetCharacterType(self.Equip.CharacterId)
+        bindType = XMVCA.XCharacter:GetCharacterType(self.Equip.CharacterId)
     end
     local suitIdList = XEquipConfig.GetSuitIdListByCharacterType(bindType, XEquipConfig.OVERRUN_BLIND_SUIT_MIN_QUALITY, true, true)
 
@@ -238,9 +238,11 @@ function XUiEquipOverrunSelect:RefreshSuitDetail(suitData)
             uiObj:GetObject("TxtSkill").text = info.SkillDes
 
             -- 超限激活状态
-            local txtState = XUiHelper.TryGetComponent(uiObj.transform, "PanelTitle/TxtState", "Text")
-            txtState.gameObject:SetActiveEx(info.IsActiveByOverrun)
+            local imgState = XUiHelper.TryGetComponent(uiObj.transform, "PanelTitle/ImgState")
+            imgState.gameObject:SetActiveEx(info.IsActiveByOverrun)
             if info.IsActiveByOverrun then
+                local txtState = XUiHelper.TryGetComponent(uiObj.transform, "PanelTitle/ImgState/TxtState", "Text")
+                txtState.gameObject:SetActiveEx(true)
                 txtState.text = XUiHelper.GetText("EquipOverrunActive")
             end
 

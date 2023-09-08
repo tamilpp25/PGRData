@@ -28,7 +28,7 @@ function XUiGridRiftMultiMonster:Refresh(xStage, xStageGroup, index)
             grid = XUiGridRiftMonsterDetail.New(trans)
             self.GridMonsterDic[k] = grid
         end
-        grid:Refresh(xMonster, self.XStageGroup)
+        grid:Refresh(xMonster, self.XStageGroup, self.XStage:CheckHasPassed())
         grid.GameObject:SetActiveEx(true)
     end
     self.GridMonster.gameObject:SetActiveEx(false)

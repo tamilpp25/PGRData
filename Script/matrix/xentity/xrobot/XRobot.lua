@@ -114,7 +114,7 @@ local CreatePartnerSkillData = function(robotPartnerCfg, charId) --未配技能�
     local unlockSkillGroup = {}
     local mainSkillGroup = robotPartnerCfg.MainSkillGroup
     local mainskill = XPartnerMainSkillGroup.New(robotPartnerCfg.MainSkillGroup)
-    local charElement = XCharacterConfigs.GetCharacterElement(charId)
+    local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
     local mainskillId = mainskill:GetSkillIdByElement(charElement)
 
     local tmpData = {

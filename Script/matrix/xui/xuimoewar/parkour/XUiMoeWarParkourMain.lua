@@ -119,7 +119,7 @@ function XUiMoeWarParkourMain:InitView()
     end
     
     local itemId = XDataCenter.ItemManager.ItemId.MoeWarRespondItemId
-    XUiHelper.NewPanelActivityAsset( { itemId }, self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe( { itemId }, self.PanelSpecialTool, self)
     
 end
 

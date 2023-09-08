@@ -226,7 +226,7 @@ function XUiBiancaTheatrePlayMain:OnAwake()
     self.AdventureManager = self.TheatreManager.GetCurrentAdventureManager()
     self.CurrentChapter = self.AdventureManager:GetCurrentChapter()
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, self, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
     self:RegisterUiEvents()
     -- 当前节点 XUiBiancaTheatreNode
     self.CurrentNodeItems = {}

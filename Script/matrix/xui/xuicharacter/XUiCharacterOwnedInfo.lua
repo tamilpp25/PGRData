@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local XUiCharacterOwnedInfo = XLuaUiManager.Register(XLuaUi, "UiCharacterOwnedInfo")
 
@@ -50,7 +50,7 @@ end
 function XUiCharacterOwnedInfo:UpdateView(characterId)
     self.CharacterId = characterId
 
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
@@ -58,7 +58,7 @@ function XUiCharacterOwnedInfo:UpdateView(characterId)
     self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
     self.TxtLv.text = math.floor(character.Ability)
 
-    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self, nil, true)
+    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self)
     local usingWeaponId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
     self.WeaponGrid:Refresh(usingWeaponId)
     
@@ -76,15 +76,15 @@ function XUiCharacterOwnedInfo:UpdateView(characterId)
     self.WearingAwarenessGrids = self.WearingAwarenessGrids or {}
     local curr = 0
     for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
-        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self, nil, true)
+        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self)
         self.WearingAwarenessGrids[equipSite].Transform:SetParent(self["PanelAwareness" .. equipSite], false)
 
         local equipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite)
         if not equipId then
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(false)
+            self.WearingAwarenessGrids[equipSite]:Close()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(true)
         else
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(true)
+            self.WearingAwarenessGrids[equipSite]:Open()
             self["BtnAwarenessReplace" .. equipSite].transform:SetAsLastSibling()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(false)
             self.WearingAwarenessGrids[equipSite]:Refresh(equipId)

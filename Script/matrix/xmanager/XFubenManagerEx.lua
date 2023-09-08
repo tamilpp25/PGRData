@@ -1,4 +1,7 @@
 local XExFubenActivityManager = require("XEntity/XFuben/XExFubenActivityManager")
+local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
+local XFubenBaseAgency = require("XModule/XBase/XFubenBaseAgency")
+
 XFubenManagerExCreator = function()
     ---@class FubenManagerEx
     local FubenManagerEx = {}
@@ -15,21 +18,23 @@ XFubenManagerExCreator = function()
         local activityConfigs = XFubenConfigs.GetAllConfigs(XFubenConfigs.TableKey.FubenActivity)
         local manager = nil
         for _, config in ipairs(activityConfigs) do
-            if string.IsNilOrEmpty(config.ManagerName) then
-                manager = CreateAnonClassInstance({}, XExFubenActivityManager, nil, config)
-            else
-                manager = XDataCenter[config.ManagerName]
-                if manager == nil then
-                    XLog.Error("FubenManagerEx.Init Failed: XDataCenter." .. config.ManagerName .. " is nil !!")
-                end
-                if not CheckClassSuper(manager, XExFubenActivityManager) then
-                    if manager.__cname ~= "XExFubenActivityManager" then
-                        local method = manager.ExOverrideBaseMethod and manager:ExOverrideBaseMethod() or {}
-                        manager = CreateAnonClassInstance(method, XExFubenActivityManager, nil, config)
+            if config.IsAgency == 0 then
+                if string.IsNilOrEmpty(config.ManagerName) then
+                    manager = CreateAnonClassInstance({}, XExFubenActivityManager, nil, config)
+                else
+                    manager = XDataCenter[config.ManagerName]
+                    if manager == nil then
+                        XLog.Error("FubenManagerEx.Init Failed: XDataCenter." .. config.ManagerName .. " is nil !!")
+                    end
+                    if not CheckClassSuper(manager, XExFubenActivityManager) then
+                        if manager.__cname ~= "XExFubenActivityManager" then
+                            local method = manager.ExOverrideBaseMethod and manager:ExOverrideBaseMethod() or {}
+                            manager = CreateAnonClassInstance(method, XExFubenActivityManager, nil, config)
+                        end
                     end
                 end
+                table.insert(ActivityManagers, manager)
             end
-            table.insert(ActivityManagers, manager)
         end
     end
 
@@ -440,6 +445,14 @@ XFubenManagerExCreator = function()
         local key = FubenManagerEx.GetHideChapterKey(chapterId)
         local updateTime = XTime.GetSeverTomorrowFreshTime()
         XSaveTool.SaveData(key, updateTime)
+    end
+    
+    function FubenManagerEx.IsFubenBase(cls)
+        if not cls then
+            return false
+        end
+        
+        return CheckClassSuper(cls, XExFubenBaseManager) or CheckClassSuper(cls, XFubenBaseAgency)
     end
 
     return FubenManagerEx

@@ -14,8 +14,8 @@ function XUiGuildWarStageDetail:OnAwake()
     self.TimeId = nil
     self.CurrentChildPanel = nil
     self:RegisterUiEvents()
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId }
-    , self.PanelSpecialTool, { self.GuildWarManager.GetMaxActionPoint() })
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId }
+    , self.PanelSpecialTool, self, { self.GuildWarManager.GetMaxActionPoint() })
     -- 子面板信息配置
     self.ChildPanelInfoDic = {
         [XGuildWarConfig.NodeType.Sentinel] = {

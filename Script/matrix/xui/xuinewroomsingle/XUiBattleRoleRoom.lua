@@ -302,6 +302,7 @@ function XUiBattleRoleRoom:OnBtnLeaderClicked()
         characterViewModelDic[pos] = self.Proxy:GetCharacterViewModelByEntityId(entityId)
     end
     XLuaUiManager.Open("UiBattleRoleRoomCaptain", characterViewModelDic, self.Team:GetCaptainPos(), function(newCaptainPos)
+        if self.Proxy:AOPOnCaptainPosChangeBefore(newCaptainPos, self.Team) then return end
         self.Team:UpdateCaptainPos(newCaptainPos)
         self:RefreshCaptainPosInfo()
     end)
@@ -350,6 +351,7 @@ function XUiBattleRoleRoom:OnBtnCharacter3LongClickUp()
 end
 
 function XUiBattleRoleRoom:OnBtnCharacterLongClick(index, time)
+    if not self.Proxy:CheckIsCanMoveUpCharacter(index, time) then return end
     if not self.Proxy:CheckIsCanEditorTeam(self.StageId) then return end
     if not self.Proxy:CheckIsCanDrag(self.StageId) then return end
     -- 无实体直接不处理
@@ -378,6 +380,7 @@ function XUiBattleRoleRoom:OnBtnCharacterLongClickUp(index)
     end
     -- 相同直接不处理
     if index == targetIndex then return end
+    if not self.Proxy:CheckIsCanMoveDownCharacter(targetIndex) then return end
     self.Team:SwitchEntityPos(index, targetIndex)
     -- 刷新角色信息
     self:ActiveSelectColorEffect(targetIndex)
@@ -443,7 +446,10 @@ function XUiBattleRoleRoom:OnBtnEnterFightClicked()
 end
 
 function XUiBattleRoleRoom:OnEnterSortBtnGroupClicked(index)
-    self.Team:UpdateFirstFightPos(index)
+    if self.Proxy:AOPOnFirstFightBtnClick(self.FirstEnterBtnGroup, index, self.Team) then return end
+    if self.Team:GetFirstFightPos() ~= index then
+        self.Team:UpdateFirstFightPos(index)
+    end
     self:RefreshFirstFightInfo()
 end
 

@@ -78,7 +78,7 @@ function XUiPicComposition:InitData()
     self.HeadPortraitSelect = XUiHeadPortraitSelect.New(self,self.HeadPotrait)
     self.PicCompositionTask = XUiPicCompositionTask.New(self,self.PanelTask)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 
 end
 

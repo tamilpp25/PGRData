@@ -37,7 +37,7 @@ function XUiUnionKillGridTeamCard:Refresh(shareInfo)
     local characterId = shareInfo.Character.Id
     local character = shareInfo.Character
     self.RImgCharacterHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
-    self.TxtCharacterName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    self.TxtCharacterName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.TxtCharacterLevel.text = character.Level
     self.TxtCharacterAbilibty.text = math.floor(character.Ability)
     self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))

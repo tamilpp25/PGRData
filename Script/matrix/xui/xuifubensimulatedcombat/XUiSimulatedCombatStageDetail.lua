@@ -3,7 +3,7 @@ local XUiGridStageBuffIcon = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiG
 local XUiSimulatedCombatStageDetail = XLuaUiManager.Register(XLuaUi, "UiSimulatedCombatStageDetail")
 function XUiSimulatedCombatStageDetail:OnAwake()
     XTool.InitUiObject(self)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self.AssetActivityPanel:SetQueryFunc(XDataCenter.FubenSimulatedCombatManager.GetCurrencyByItem)
 end
 

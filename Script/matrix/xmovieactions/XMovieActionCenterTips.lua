@@ -8,6 +8,7 @@ function XMovieActionCenterTips:Ctor(actionData)
     self.FontSize = params[3]
     self.FontColor = params[4]
     self.IsLeft = params[5] == "1"
+    self.IsBgHide = params[6] == "1"
 end
 
 function XMovieActionCenterTips:OnInit()
@@ -28,6 +29,7 @@ function XMovieActionCenterTips:OnInit()
     self.UiRoot.TxtCenterTipDescMid.gameObject:SetActiveEx(not self.IsLeft)
     self.UiRoot.TxtCenterTipDescLeft.text = content
     self.UiRoot.TxtCenterTipDescLeft.gameObject:SetActiveEx(self.IsLeft)
+    self.UiRoot.PanelCenterTipBg.enabled = not self.IsBgHide
 end
 
 return XMovieActionCenterTips

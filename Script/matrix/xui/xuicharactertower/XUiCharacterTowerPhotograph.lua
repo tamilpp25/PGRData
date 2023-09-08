@@ -14,7 +14,7 @@ end
 
 function XUiCharacterTowerPhotograph:OnStart(signBoardActionId)
     self.SignBoardActionId = signBoardActionId
-    local actionConfig = XFavorabilityConfigs.GetCharacterActionBySignBoardActionId(signBoardActionId)
+    local actionConfig = XMVCA.XFavorability:GetCharacterActionBySignBoardActionId(signBoardActionId)
     self.CurCharacterId = actionConfig.CharacterId
     self:InitLoadScene()
     self.Parent = self

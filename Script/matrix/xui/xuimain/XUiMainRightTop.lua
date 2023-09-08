@@ -37,8 +37,8 @@ function XUiMainRightTop:OnStart(rootUi)
     self.BtnWindows.CallBack = function() self:OnBtnWindows() end
     
     --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnPic, self.OnCheckPicNews, self, RedPointConditionGroup.Pic)
-    XRedPointManager.AddRedPointEvent(self.BtnWindows, self.OnCheckWindowsNews, self, RedPointConditionGroup.Windows)
+    self:AddRedPointEvent(self.BtnPic, self.OnCheckPicNews, self, RedPointConditionGroup.Pic)
+    self:AddRedPointEvent(self.BtnWindows, self.OnCheckWindowsNews, self, RedPointConditionGroup.Windows)
 
     --Filter
     self:CheckFilterFunctions()

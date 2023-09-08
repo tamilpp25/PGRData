@@ -44,8 +44,6 @@ function XUiPanelStrongholdRoomCharacterOthersV2P6:Show(teamList, teamId, member
     self.GroupId = groupId
 
     self:UpdateUseTimes()
-
-    self.GameObject:SetActiveEx(true)
 end
 
 function XUiPanelStrongholdRoomCharacterOthersV2P6:UpdateUseTimes()
@@ -154,8 +152,11 @@ function XUiPanelStrongholdRoomCharacterOthersV2P6:OnClickBtnRefresh()
         local groupId = self.GroupId
         local teamList = self.TeamList
         XDataCenter.StrongholdManager.KickOutInvalidMembersInTeamList(teamList, groupId)
-        self:Refresh()
         self.Parent:ImportSupportList()
+        ---@type XUiPanelCommonCharacterFilterV2P6
+        local parentFilter = self.Parent.PanelFilter
+        parentFilter:SetForceSeleCbTrigger()
+        parentFilter:RefreshList()
     end
     XDataCenter.StrongholdManager.GetStrongholdAssistCharacterListRequest(cb)
 end
@@ -219,7 +220,7 @@ function XUiPanelStrongholdRoomCharacterOthersV2P6:OnClickBtnJoinTeam()
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList, playerId)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, setTeamFunc)
         else
@@ -348,7 +349,7 @@ function XUiPanelStrongholdRoomCharacterOthersV2P6:GetCharacterType(characterId)
     if not IsNumberValid(characterId) then return end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 return XUiPanelStrongholdRoomCharacterOthersV2P6

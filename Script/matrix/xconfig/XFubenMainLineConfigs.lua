@@ -179,6 +179,10 @@ function XFubenMainLineConfigs.GetSkipLoadingTypeByStageId(stageId)
     return LoadingType.Fight
 end
 
+function XFubenMainLineConfigs.GetTeleportCfg(stageId)
+    return MainLineTeleportCfg[stageId]
+end
+
 function XFubenMainLineConfigs.GetStageClearContrByStageId(stageId)
     local config = MainLineStageClearContrCfg[stageId]
     if not config then

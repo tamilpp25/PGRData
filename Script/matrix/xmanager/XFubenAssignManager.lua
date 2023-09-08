@@ -416,7 +416,7 @@ XFubenAssignManagerCreator = function()
 
                 local i
                 for charIndex, char in ipairs(ownCharacters) do
-                    local charType = XCharacterConfigs.GetCharacterType(char.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(char.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto CONTINUE
                     end
@@ -874,11 +874,10 @@ XFubenAssignManagerCreator = function()
         local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList(charType)
         -- 排序 未编队>已编队  等级＞品质＞优先级
         local weights = {} -- 编队[1位] + 等级[3位] + 品质[1位] + 优先级[5位]
-        local GetCharacterPriority = XCharacterConfigs.GetCharacterPriority
         for _, character in ipairs(ownCharacters) do
             local teamOrder = inTeamIdMap[character.Id]
             local stateOrder = teamOrder and (9 - teamOrder) or 9
-            local priority = GetCharacterPriority(character.Id)
+            local priority = XMVCA.XCharacter:GetCharacterPriority(character.Id)
             local weightOrder = stateOrder * 1000000000
             local weightLevel = character.Level * 1000000
             local weightQuality = character.Quality * 100000
@@ -1088,9 +1087,16 @@ XFubenAssignManagerCreator = function()
     end
 
     function XFubenAssignManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-            XLuaUiManager.Open("UiAssignAwarenessSelect")
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
+        
+        XLuaUiManager.Open("UiAssignAwarenessSelect")
     end
     
     ------------------副本入口扩展 end-------------------------

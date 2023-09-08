@@ -24,7 +24,7 @@ function XUiPanelEnhanceSkillItems:ShowPanel(character)
         if skillGroup then
             local gridSkillGroup = self.GridSkillGroupList[index]
             if not gridSkillGroup then
-                local characterType = XCharacterConfigs.GetCharacterType(character:GetId())
+                local characterType = XMVCA.XCharacter:GetCharacterType(character:GetId())
                 if characterType == XCharacterConfigs.CharacterType.Normal then
                     gridSkillGroup = XUiGridEnhanceSkillItem.New(self["GridSkillItem"..index], self.SelectCallBack)
                 else

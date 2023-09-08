@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridEquipReplaceAttr = require("XUi/XUiEquipReplaceNew/XUiGridEquipReplaceAttr")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local XUiEquipOverrunDetail = require("XUi/XUiEquipOverrun/XUiEquipOverrunDetail")
@@ -318,7 +318,7 @@ function XUiEquipReplaceNew:OnBtnTakeOnClick()
             return
         end
 
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         local content = string.gsub(CS.XTextManager.GetText("EquipReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(CS.XTextManager.GetText("TipTitle"), content, XUiManager.DialogType.Normal, function() end, function()
             XMVCA:GetAgency(ModuleId.XEquip):PutOn(self.CharacterId, self.SelectEquipId)

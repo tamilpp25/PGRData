@@ -1,3 +1,4 @@
+---@class XUiSCBattleGridSkill
 local XUiGridSkill = XClass(nil, "XUiGridSkill")
 local CSTextManagerGetText = CS.XTextManager.GetText
 
@@ -9,6 +10,7 @@ local CONDITION_COLOR = {
 function XUiGridSkill:Ctor(ui,base, IsMainSkill)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
+    ---@type XUiSCBattlePanelRoleSkill
     self.Base = base
     self.IsMainSkill = IsMainSkill
     self.BattleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
@@ -36,6 +38,11 @@ function XUiGridSkill:SetButtonCallBack()
 end
 
 function XUiGridSkill:OnBtnClick()
+    --- 技能释放时不能用其他技能
+    local prepSkill = self.BattleManager:GetPrepSkill()
+    if prepSkill and prepSkill:IsInUsed() then
+        return
+    end
     if self.Skill and self.BtnClick.ButtonState ~= CS.UiButtonState.Disable then
         if self.BattleManager:GetCurEnergy() >= self.Skill:GetEnergyCost() then
             self.Base:SelectSkill(self.Skill)
@@ -54,11 +61,10 @@ function XUiGridSkill:OnBtnSwitch()
     self.AnimeQieHuan:PlayTimelineAnimation()
 end
 
-
+---@param skill XSCBattleRoleSkill
 function XUiGridSkill:UpdateGrid(skill)
     self.Skill = skill
     if skill then
-        
         self.EngText.text = string.gsub(CSTextManagerGetText("SameColorGameSkillEnergy", skill:GetEnergyCost()), "\\n", "\n")
         self.EngText.color = CONDITION_COLOR[self.BattleManager:GetCurEnergy() >= skill:GetEnergyCost()]
         

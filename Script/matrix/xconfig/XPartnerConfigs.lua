@@ -287,6 +287,11 @@ function XPartnerConfigs.GetPartnerTemplateById(id)
     return PartnerTemplateCfg[id]
 end
 
+function XPartnerConfigs.GetPartnerRecommendCharacterId(id)
+    local partnerCfg = XPartnerConfigs.GetPartnerTemplateById(id)
+    return partnerCfg.RecommendCharacterId
+end
+
 function XPartnerConfigs.GeQualityBgPath(quality)
     if not quality then
         XLog.Error("XPartnerConfigs.GeQualityBgPath 函数错误: 参数quality不能为空")

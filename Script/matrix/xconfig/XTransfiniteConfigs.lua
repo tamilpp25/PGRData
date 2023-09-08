@@ -65,7 +65,18 @@ local _RegionTypeEnum = enum({
     Senior = 2, --高级组Id
 })
 
+---@class IslandSpecialStage
+---@field FirstHideExtra number 隐藏特殊目标的关卡索引
+---@field SecondHideExtra number 隐藏特殊目标的关卡索引
+---@field ShowOtherExtra number 其他特殊目标的关卡索引
+local _IslandSpecialStage = enum({
+    FirstHideExtra = 11,
+    SecondHideExtra = 12,
+    ShowOtherExtra = 13,
+})
+
 XTransfiniteConfigs.RegionType = _RegionTypeEnum
+XTransfiniteConfigs.IslandSpecialStage = _IslandSpecialStage
 
 XTransfiniteConfigs.TeamId = 22
 XTransfiniteConfigs.TeamTypeId = 160
@@ -155,6 +166,10 @@ function XTransfiniteConfigs.GetIslandStageGroupId(id)
     return GetIsland(id).StageGroupId
 end
 
+function XTransfiniteConfigs.GetIslandImage(id)
+    return GetIsland(id).IslandImage
+end
+
 function XTransfiniteConfigs.GetIslandOrder(id)
     return GetIsland(id).Order
 end
@@ -213,6 +228,10 @@ end
 
 function XTransfiniteConfigs.GetRegionIconLv(id)
     return GetRegion(id).IconLv
+end
+
+function XTransfiniteConfigs.GetRegionDisplayRewardIds(id)
+    return GetRegion(id).RewardId
 end
 
 function XTransfiniteConfigs.GetAllRegion()
@@ -373,6 +392,10 @@ end
 function XTransfiniteConfigs.GetStrengthenImg(id)
     return GetStrengthen(id).Img
 end
+
+function XTransfiniteConfigs.GetStrengthenType(id)
+    return GetStrengthen(id).Type
+end
 --endregion Strengthen
 
 --region Medal
@@ -464,8 +487,7 @@ end
 ---@return table<number, XTransfiniteAchievementConfig>
 function XTransfiniteConfigs.GetAchievementListByStageGroupId(id)
     local achievementDic = GetAchievementDic()
-
-    return achievementDic[id]
+    return achievementDic[id] or {}
 end
 --endregion
 

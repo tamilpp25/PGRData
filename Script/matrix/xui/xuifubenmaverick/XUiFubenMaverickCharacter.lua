@@ -77,7 +77,7 @@ function XUiFubenMaverickCharacter:SetPanelLvActive(active)
 end
 
 function XUiFubenMaverickCharacter:InitPanelAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
             {
                 XDataCenter.MaverickManager.LvUpConsumeItemId,

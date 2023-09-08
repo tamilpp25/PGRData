@@ -8,7 +8,7 @@ local XUiStrongholdFightMain = XLuaUiManager.Register(XLuaUi, "UiStrongholdFight
 function XUiStrongholdFightMain:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(
         itemId,

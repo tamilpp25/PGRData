@@ -4,6 +4,8 @@ local AnimeLayer = {
     Body = 0,
     Face = 1
 }
+
+local DefaultRoleAnimaName = "StandAct0101"
 --==============================--
 --- RoleModelPool = {["model"] = model, ["weaponList"] = list, ["characterId"] = characterId}
 --==============================--
@@ -42,6 +44,9 @@ useMultiModel)
     self.CueId = nil
     self.UiStandCallBack = {}
     self.NowFashionId = nil
+    self.PlayUiStandCallBackList = {}
+    self.AnimaPlayedCallBackList = {}
+    self.IsStandAnimaHideNode = false
     if useMultiModel == nil then
         self.UseMultiModel = true
     end
@@ -204,11 +209,12 @@ needFightController)
     local uiStandVoiceCb = function(model)
         if cueId then
             if CS.XAudioManager.IsOpenFashionVoice == 1 then
+                local cueInfo = { CueId = cueId, Info = nil }
                 self:SetUiStandAnimaFinishCallback(model, function()
-                    XSoundManager.Stop(cueId)
-                    XSoundManager.PlaySoundByType(cueId, XSoundManager.SoundType.Sound)
+                    XSoundManager.Stop(cueInfo.CueId)
+                    cueInfo.Info = XSoundManager.PlaySoundByType(cueInfo.CueId, XSoundManager.SoundType.Sound)
                 end, function()
-                    XSoundManager.Stop(cueId)
+                    XSoundManager.StopByInfo(cueInfo.Info)
                 end,false, true)
             end
         end
@@ -338,6 +344,57 @@ IsReLoadController) --更新加载同一个模型时重新加载动画
     end
 end
 
+local function GetDefaultAnimaName(loadAnimationClip)
+    if not XTool.UObjIsNil(loadAnimationClip) and loadAnimationClip.Clips.Length > 0 then
+        return loadAnimationClip.Clips[0].name
+    end
+    
+    return ""
+end
+
+function XUiPanelRoleModel:SetPlayRoleAnimationCallback(model)
+    local playRoleAnimation = model.gameObject:GetComponent(typeof(CS.XPlayRoleAnimation))
+
+    if XTool.UObjIsNil(playRoleAnimation) then
+        return
+    end
+    playRoleAnimation:SetPlayCallback(function(animaName, leftTime)
+        for i = 1, #self.PlayUiStandCallBackList do
+            self.PlayUiStandCallBackList[i](animaName, leftTime)
+        end
+    end)
+end
+
+local function RestoreModelNode(model, modelName, actionName)
+    XModelManager.HandleUiModelNodeActive(actionName, modelName, model, true)
+end
+
+---设置播放UiStand时根据动画名隐藏或显示躯干的回调
+function XUiPanelRoleModel:InitPlayUiStandCallBackList(model, defaultAnimaName)
+    local curRoleName = self.CurRoleName
+    local preAnimaName = ""
+    
+    self.PlayUiStandCallBackList = {}
+    if curRoleName then
+        if defaultAnimaName then
+            XModelManager.HandleUiModelNodeActive(defaultAnimaName, curRoleName, model, false)
+            preAnimaName = defaultAnimaName
+        end
+        
+        self:AddUiStandPlayCallback(function(animaName, leftTime)
+            if not string.IsNilOrEmpty(animaName) then
+                if preAnimaName == animaName then
+                    return
+                end
+
+                RestoreModelNode(model, curRoleName, preAnimaName)
+                XModelManager.HandleUiModelNodeActive(animaName, curRoleName, model, false)
+                preAnimaName = animaName
+            end
+        end)
+    end
+end
+
 function XUiPanelRoleModel:LoadAnimationClips(model, defaultAnimation, cb)
     if model == nil or not model:Exist() then
         XLog.Error("XUiPanelRoleModel.LoadAnimation 函数错误，参数model不能为空")
@@ -432,11 +489,25 @@ function XUiPanelRoleModel:RoleModelLoaded(name, uiName, cb, runtimeControllerNa
         CS.XGraphicManager.Focus = model.transform
     end
 
+    -- UiStand通过动作控制节点显隐回调注册
+    if self.LoadClip then
+        local loadAnimationClip = model.gameObject:GetComponent(typeof(CS.XLoadAnimationClip))
+
+        -- 在Callback前初始化回调列表
+        if not XTool.UObjIsNil(loadAnimationClip) then
+            self:SetPlayRoleAnimationCallback(model)
+            self:InitPlayUiStandCallBackList(model, GetDefaultAnimaName(loadAnimationClip))
+        end
+    end
+
     if cb then
         cb(model)
     end
     uiName = uiName or self.RefName
-    XModelManager.HandleUiModelNodeActive(uiName, name, model)
+
+    if not self.InitLoadClip then
+        self.IsStandAnimaHideNode = XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, name, model, false)
+    end
 
     -- 阴影要放在武器模型加载完之后
     if self.ShowShadow then
@@ -602,11 +673,13 @@ function XUiPanelRoleModel:LoadCharacterUiEquipEffect(model, characterId, fashio
     end
     local idList, rootName2EffectPath = {}, {}
     for _, equipModelId in ipairs(equipModelIdList or {}) do
-        local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
-        if effectId then
-            table.insert(idList, effectId)
-            for rootName, effectList in pairs(name2EffectMap or {}) do
-                rootName2EffectPath[rootName] = effectList
+        if equipModelId and equipModelId ~= 0 then
+            local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
+            if effectId then
+                table.insert(idList, effectId)
+                for rootName, effectList in pairs(name2EffectMap or {}) do
+                    rootName2EffectPath[rootName] = effectList
+                end
             end
         end
     end
@@ -619,11 +692,13 @@ function XUiPanelRoleModel:LoadCharacterUiEquipEffectOther(model, equip, fashion
     local idList, rootName2EffectPath = {}, {}
     local equipModelIdList = XDataCenter.EquipManager.GetEquipModelIdListByEquipData(equip, weaponFashionId)
     for _, equipModelId in ipairs(equipModelIdList or {}) do
-        local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
-        if effectId then
-            table.insert(idList, effectId)
-            for rootName, effectList in pairs(name2EffectMap or {}) do
-                rootName2EffectPath[rootName] = effectList
+        if equipModelId ~= 0 then
+            local effectId, name2EffectMap = XCharacterUiEffectConfig.GetEquipEffectInfo(equipModelId, fashionId, actionId)
+            if effectId then
+                table.insert(idList, effectId)
+                for rootName, effectList in pairs(name2EffectMap or {}) do
+                    rootName2EffectPath[rootName] = effectList
+                end
             end
         end
     end
@@ -808,7 +883,7 @@ isNotSelf)
     if not modelName then
         return
     end
-
+    
     self.IsStandAnimaShowWeapon = XDataCenter.EquipManager.CheckHasLoadEquipBySignboard(characterId, self.NowFashionId)
     self:SetCueId(self.NowFashionId)
     
@@ -938,7 +1013,7 @@ cb)
             self:UpdateCharacterWeaponModelsOther(character, weapon, weaponFashionId, modelName)
         end
 
-        local fashionId = character.FashionId or XCharacterConfigs.GetCharacterTemplate(character.Id).DefaultNpcFashtionId
+        local fashionId = character.FashionId or XMVCA.XCharacter:GetCharacterTemplate(character.Id).DefaultNpcFashtionId
         self:UpdateCharacterLiberationLevelEffect(modelName, characterId, character.LiberateLv, fashionId)
 
         if cb then
@@ -957,7 +1032,7 @@ function XUiPanelRoleModel:LoadCharacterUiEffectOther(character, actionId, weapo
     if not character then
         return
     end
-    local fashionId = character.FashionId or XCharacterConfigs.GetCharacterTemplate(character.Id).DefaultNpcFashtionId
+    local fashionId = character.FashionId or XMVCA.XCharacter:GetCharacterTemplate(character.Id).DefaultNpcFashtionId
     local id, rootName, effectPath = XCharacterUiEffectConfig.GetEffectInfo(character.Id, fashionId, actionId)
     local model = self.RoleModelPool[self.CurRoleName]
 
@@ -1100,7 +1175,7 @@ function XUiPanelRoleModel:UpdateRobotModelPublicNew(weaponFashionId,characterId
             CS.XGraphicManager.FixUICharacterLightDir(model.gameObject)
         end
     end, nil, needDisplayController)
-    
+
     self:LoadResCharacterUiEffect(characterId, fashionId, weaponFashionId, nil, equipTemplateId)
 end
 
@@ -1152,7 +1227,7 @@ showDefaultFx)
         end
     end)
     
-    local defaultFashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    local defaultFashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     local fashionId
     if growUpLevel == 2 then --growUpLevel 2为第一套解放衣服 3，4为第二套解放衣服，解放的时装Id跟默认时装Id紧挨且按顺序+1
         fashionId = defaultFashionId + 1
@@ -1312,7 +1387,12 @@ function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, 
 end
 
 function XUiPanelRoleModel:UpdateEquipsModelsByFightNpcData(charModel, fightNpcData, modelName)
-    XModelManager.LoadRoleWeaponModelByFight(charModel, fightNpcData, self.RefName, self.GameObject, modelName)
+    local weaponModelList = {}
+    local tempWeaponCb = function(weaponModel)
+        weaponModelList[#weaponModelList + 1] = weaponModel
+    end
+    XModelManager.LoadRoleWeaponModelByFight(charModel, fightNpcData, self.RefName, self.GameObject, modelName, tempWeaponCb)
+    self:WeaponAnimationSync(weaponModelList, modelName)
 end
 
 --==============================--
@@ -1467,13 +1547,32 @@ function XUiPanelRoleModel:PlayAnima(AnimaName, fromBegin, callBack, errorCb, la
             animator:Play(AnimaName, animatorlaye)
         end
 
-        local isLoadWeapon = self:PlayWeaponAnima(AnimaName, animator, delay, callBack, animatorlaye)
-
-        if callBack and not isLoadWeapon then
-            XScheduleManager.ScheduleOnce(function()
-                AddPlayingAnimCallBack(self, animator, AnimaName, callBack, animatorlaye)
-            end, delay)
+        self.AnimaPlayedCallBackList = {}
+        --根据当前角色动画判断躯干显隐
+        local hideNodeFunc = self:HideOrShowModelWithAction(AnimaName)
+        local loadWeaponFunc = self:PlayWeaponAnima(AnimaName)
+        if callBack then
+            self:AddPlayedAnimCallBack(callBack)
         end
+
+        local callBackList = self.AnimaPlayedCallBackList
+        XScheduleManager.ScheduleOnce(function()
+            if loadWeaponFunc then
+                loadWeaponFunc()
+            end
+            if hideNodeFunc then
+                hideNodeFunc()
+            end
+            if callBackList and #callBackList ~= 0 then
+                AddPlayingAnimCallBack(self, animator, AnimaName, function()
+                    for i = 1, #callBackList do
+                        if callBackList[i] then
+                            callBackList[i]()
+                        end
+                    end
+                end, animatorlaye)
+            end
+        end, delay)
     else
         if errorCb then
             errorCb()
@@ -1506,13 +1605,32 @@ function XUiPanelRoleModel:PlayAnimaCross(AnimaName, fromBegin, callBack, errorC
             --animator:Play(AnimaName, animatorlaye)
         end
         
-        local isLoadWeapon = self:PlayWeaponAnima(AnimaName, animator, delay * 1000 + 1, callBack, animatorlaye)
-        
-        if callBack and not isLoadWeapon then
-            XScheduleManager.ScheduleOnce(function() 
-                AddPlayingAnimCallBack(self, animator, AnimaName, callBack, animatorlaye)
-            end, delay * 1000 + 1)
+        self.AnimaPlayedCallBackList = {}
+        --根据当前角色动画判断躯干显隐
+        local hideNodeFunc = self:HideOrShowModelWithAction(AnimaName)
+        local loadWeaponFunc = self:PlayWeaponAnima(AnimaName)
+        if callBack then
+            self:AddPlayedAnimCallBack(callBack)
         end
+        
+        local callBackList = self.AnimaPlayedCallBackList
+        XScheduleManager.ScheduleOnce(function()
+            if loadWeaponFunc then
+                loadWeaponFunc()
+            end
+            if hideNodeFunc then
+                hideNodeFunc()
+            end
+            if callBackList and #callBackList ~= 0 then
+                AddPlayingAnimCallBack(self, animator, AnimaName, function()
+                    for i = 1, #callBackList do
+                        if callBackList[i] then
+                            callBackList[i]()
+                        end
+                    end
+                end, animatorlaye)
+            end
+        end, delay * XScheduleManager.SECOND + 1)
     else
         if errorCb then
             errorCb()
@@ -1521,16 +1639,72 @@ function XUiPanelRoleModel:PlayAnimaCross(AnimaName, fromBegin, callBack, errorC
     return IsCanPlay
 end
 
-function XUiPanelRoleModel:PlayWeaponAnima(actionId, animator, delay, callBack, animatorLayer)
+function XUiPanelRoleModel:HideOrShowModelWithAction(animaName)
+    if not self.CurRoleName then
+        return
+    end
+    
+    local modelInfo = self.RoleModelPool[self.CurRoleName]
+    if not modelInfo then
+        return
+    end
+    
+    local model = modelInfo.Model
+    local modelName = self.CurRoleName
+    if not model or not modelName then
+        return 
+    end
+
+    local isStandAnimaHide = self.IsStandAnimaHideNode
+    local isHide = XModelManager.CheckUiModelNodeActive(animaName, modelName, model)
+    local playCallback = nil
+    local hideNodeFunc = function()
+        if isStandAnimaHide then
+            XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, true)
+        end
+        XModelManager.HandleUiModelNodeActive(animaName, modelName, model, false)
+    end
+    
+    if isHide then
+        if isStandAnimaHide then
+            playCallback = function()
+                RestoreModelNode(model, modelName, animaName)
+                XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, false)
+            end
+        else
+            playCallback = function()
+                RestoreModelNode(model, modelName, animaName)
+            end
+        end
+    else
+        if isStandAnimaHide then
+            playCallback = function()
+                XModelManager.HandleUiModelNodeActive(DefaultRoleAnimaName, modelName, model, false)
+            end
+        end
+    end
+
+    if playCallback then
+        self:AddPlayedAnimCallBack(playCallback)
+    end
+    
+    return hideNodeFunc
+end
+
+function XUiPanelRoleModel:AddPlayedAnimCallBack(callback)
+    if callback then
+        self.AnimaPlayedCallBackList[#self.AnimaPlayedCallBackList + 1] = callback
+    end
+end
+
+function XUiPanelRoleModel:PlayWeaponAnima(actionId)
     local weaponModelList = self.StandAnimaShowWeaponList
     local isStandAnimaShowWeapon = self.IsStandAnimaShowWeapon
-    local newCallBack = function()
-        for i = 1, #weaponModelList do
-            weaponModelList[i].gameObject:SetActiveEx(isStandAnimaShowWeapon)
-        end
-
-        if callBack then
-            callBack()
+    local animaCallback = function()
+        if weaponModelList then
+            for i = 1, #weaponModelList do
+                weaponModelList[i].gameObject:SetActiveEx(isStandAnimaShowWeapon)
+            end
         end
     end
 
@@ -1538,31 +1712,27 @@ function XUiPanelRoleModel:PlayWeaponAnima(actionId, animator, delay, callBack, 
         weaponModelList = self:LoadWeaponModelWhenPlayAnima(actionId)
 
         if weaponModelList then
-            XScheduleManager.ScheduleOnce(function()
+            local callback = function()
                 for i = 1, #weaponModelList do
                     weaponModelList[i].gameObject:SetActiveEx(true)
                 end
-                AddPlayingAnimCallBack(self, animator, actionId, newCallBack, animatorLayer)
-            end, delay)
+            end
 
-            return true
+            self:AddPlayedAnimCallBack(animaCallback)
+            return callback
         end
-
-        return false
     end
     
     if not self:CheckHasLoadEquipWhenPlayAnima(actionId) and isStandAnimaShowWeapon then
-        XScheduleManager.ScheduleOnce(function()
+        local callback = function()
             for i = 1, #self.StandAnimaShowWeaponList do
                 self.StandAnimaShowWeaponList[i].gameObject:SetActiveEx(false)
             end
-            AddPlayingAnimCallBack(self, animator, actionId, newCallBack, animatorLayer)
-        end, delay)
-        
-        return true
+        end
+
+        self:AddPlayedAnimCallBack(animaCallback)
+        return callback
     end
-    
-    return false
 end
 
 function XUiPanelRoleModel:CheckHasLoadEquipWhenPlayAnima(actionId)
@@ -1866,7 +2036,7 @@ end
 
 -- 由于2.0版本 新增同一角色可佩戴不同角色的手环，需要进行位置修正
 function XUiPanelRoleModel:FixAurolePos(auroeTrans, characterId, modelInfo)
-    local defaultFashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+    local defaultFashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     local aureoleId = XFashionConfigs.GetAllConfigs(XFashionConfigs.TableKey.Fashion)[defaultFashionId].AureoleId
     local aureoleConfig = aureoleId and XFashionConfigs.GetAllConfigs(XFashionConfigs.TableKey.FashionAureole)[aureoleId]
 
@@ -2161,6 +2331,11 @@ function XUiPanelRoleModel:RemoveRoleModelPool()
     self.RoleModelPool = {}
 end
 
+function XUiPanelRoleModel:UpdateCuteModelWithoutUiEffect(robotId, isNotCuteUiEffect)
+    self:UpdateCuteModel(robotId, nil, nil, nil, nil, nil,
+            nil, nil, nil, isNotCuteUiEffect)
+end
+
 ---=================================================
 ---更新Q版角色模型 参数都是复制自UpdateRobotModel
 ---希望以后统一通用接口,所以进行了二次封装并加上一定注解
@@ -2176,14 +2351,14 @@ end
 ---@param targetUiName
 ---=================================================
 function XUiPanelRoleModel:UpdateCuteModel(robotId, characterId, weaponCb, fashionId, equipTemplateId, modelCb, needDisplayController
-    , targetPanelRole, targetUiName)
+    , targetPanelRole, targetUiName, isNotCuteUiEffect)
     if not characterId then
         characterId = XRobotManager.GetCharacterId(robotId)
     end
     local modelName = XCharacterCuteConfig.GetCuteModelModelName(characterId)
     local weaponFashionId = XRobotManager.GetRobotWeaponFashionId(robotId)
     self:UpdateCuteModelByModelName(characterId, fashionId, equipTemplateId, weaponFashionId, weaponCb, modelName,
-            modelCb, needDisplayController, targetPanelRole, targetUiName)
+            modelCb, needDisplayController, targetPanelRole, targetUiName, isNotCuteUiEffect)
 end
 
 ---=================================================
@@ -2200,7 +2375,7 @@ end
 ---@param targetUiName
 ---=================================================
 function XUiPanelRoleModel:UpdateCuteModelByModelName(characterId, fashionId, equipTemplateId, weaponFashionId, weaponCb, modelName
-, modelCb, needDisplayController, targetPanelRole, targetUiName)
+, modelCb, needDisplayController, targetPanelRole, targetUiName, isNotCuteUiEffect)
     if not modelName or modelName == "" then
         return
     end
@@ -2226,6 +2401,9 @@ function XUiPanelRoleModel:UpdateCuteModelByModelName(characterId, fashionId, eq
         self:CloseRootMotion(model)
     end, nil, needDisplayController)
 
+    if isNotCuteUiEffect then
+        return
+    end
     self:LoadCharacterCuteUiEffect(characterId)
 end
 
@@ -2362,7 +2540,7 @@ function XUiPanelRoleModel:WeaponAnimationSync(weaponModelList, modelName)
             break
         end
     end
-    playRoleAnimation:SetPlayCallback(function(leftTime)
+    self:AddUiStandPlayCallback(function(animaName, leftTime)
         local layerIndex = 0
         for _, weaponModel in pairs(weaponModelList or {}) do
             if XTool.UObjIsNil(weaponModel) then
@@ -2384,6 +2562,11 @@ function XUiPanelRoleModel:WeaponAnimationSync(weaponModelList, modelName)
             :: CONTINUE ::
         end
     end)
+end
+
+---将添加UiStand完成时的回调队列
+function XUiPanelRoleModel:AddUiStandPlayCallback(callback)
+    self.PlayUiStandCallBackList[#self.PlayUiStandCallBackList + 1] = callback
 end
 
 return XUiPanelRoleModel

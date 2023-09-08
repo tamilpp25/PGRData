@@ -48,35 +48,54 @@ function XUiTheatre3Settlement:OnBtnBack()
 end
 
 function XUiTheatre3Settlement:OnBtnNext()
+    if self._Page == Page.Proficiency then
+        self._Proficiency:StopCharacterExpAnim()
+    end
     if not self._IsNeedShowProficiency and self._Page == Page.Member then
         self._Page = self._Page + 2
     else
         self._Page = self._Page + 1
     end
+    if self._Page == Page.Member then
+        self:PlayAnimation("PanelStep1To2")
+    elseif self._Page == Page.Proficiency then
+        self:PlayAnimation("PanelStep2To3", function() 
+            self._Proficiency:PlayCharacterExpAnim()
+        end)
+    elseif self._Page == Page.Census then
+        if self._IsNeedShowProficiency then
+            self:PlayAnimation("PanelStep3To4")
+        else
+            self:PlayAnimation("PanelStep2To4")
+        end
+    end
     self:UpdateView()
 end
 
 function XUiTheatre3Settlement:OnBtnLast()
+    if self._Page == Page.Proficiency then
+        self._Proficiency:StopCharacterExpAnim()
+    end
     if not self._IsNeedShowProficiency and self._Page == Page.Census then
         self._Page = self._Page - 2
     else
         self._Page = self._Page - 1
     end
+    if self._Page == Page.Collection then
+        self:PlayAnimation("PanelStep2To1")
+    elseif self._Page == Page.Member then
+        if self._IsNeedShowProficiency then
+            self:PlayAnimation("PanelStep3To2")
+        else
+            self:PlayAnimation("PanelStep4To2")
+        end
+    elseif self._Page == Page.Proficiency then
+        self:PlayAnimation("PanelStep4To3")
+    end
     self:UpdateView()
 end
 
 function XUiTheatre3Settlement:UpdateView()
-    -- 没有动画资源 先这样
-    if self._Page == Page.Collection then
-        self.Scroll.localPosition = Vector3(2546, -882, 0)
-    elseif self._Page == Page.Member then
-        self.Scroll.localPosition = Vector3(979, 465, 0)
-    elseif self._Page == Page.Proficiency then
-        self.Scroll.localPosition = Vector3(-737, -758, 0)
-    else
-        self.Scroll.localPosition = Vector3(-2600, 465, 0)
-    end
-
     self.BtnLast.gameObject:SetActiveEx(self._Page ~= Page.Collection)
     self.BtnNext.gameObject:SetActiveEx(self._Page ~= Page.Census)
     self.BtnFinish.gameObject:SetActiveEx(self._Page == Page.Census)

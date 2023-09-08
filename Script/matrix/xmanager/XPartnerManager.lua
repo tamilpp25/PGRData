@@ -201,17 +201,22 @@ XPartnerManagerCreator = function()
 
     function XPartnerManager.GoPartnerCarry(characterId, IsCanSkipProperty, closeCallback)--跳转至伙伴装备界面
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Partner) then
-            return
+            return false
         end
+
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return false
+        --end
 
         if XPartnerManager.IsPartnerListEmpty() then
             XUiManager.TipText("PartnerListIsEmpty")
             if IsCanSkipProperty then
-                XLuaUiManager.Open("UiPartnerMain")
+                XPartnerManager.OpenUiPartnerMain(false)
             end
-            return
+            return false
         end
         XLuaUiManager.Open("UiPartnerCarry", characterId, IsCanSkipProperty, closeCallback)
+        return true
     end
 
     function XPartnerManager.GetPartnerPhotographData()
@@ -648,7 +653,7 @@ XPartnerManagerCreator = function()
         if not XTool.IsNumberValid(characterId) then
             return skillList[DEFAULT_ACTIVE_SKILL_INDEX]
         end
-        local charElement = XCharacterConfigs.GetCharacterElement(characterId)
+        local charElement = XMVCA.XCharacter:GetCharacterElement(characterId)
 
         return skillList[charElement]
     end
@@ -1220,6 +1225,21 @@ XPartnerManagerCreator = function()
         return XPartnerConfigs.GetPartnerUiEffect(modelName, effectType)
     end
     ---endregion
+    
+    --打开辅助机界面，统一入口
+    function XPartnerManager.OpenUiPartnerMain(isPopOpen, ...)
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Partner) then
+            return
+        end
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+        if isPopOpen then
+            XLuaUiManager.PopThenOpen("UiPartnerMain", ...)
+        else
+            XLuaUiManager.Open("UiPartnerMain", ...)
+        end
+    end
 
     XPartnerManager.Init()
     return XPartnerManager

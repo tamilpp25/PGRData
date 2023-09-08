@@ -1,17 +1,20 @@
--- 大秘境【作战层】实例
+---@class XRiftFightLayer 大秘境【作战层】实例
 local XRiftFightLayer = XClass(nil, "XRiftFightLayer")
 local XRiftStageGroup = require("XEntity/XRift/XRiftStageGroup")
 
 function XRiftFightLayer:Ctor(config)
+    ---@type XTableRiftLayer
     self.Config = config
+    ---@type XTableRiftLayerDetail
     self.ClientConfig = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftLayerDetail)[config.Id]
+    ---@type XRiftChapter
     self.ParentChapter = nil
     self.StageGroupCount = config.NodePositions and #config.NodePositions or 0
     -- 服务端下发后确认的数据
     self.s_Passed = nil
     self.s_Lock = true
+    ---@type XRiftStageGroup[] 对应RiftNodeRandomltem表，表示节点中包含的几个连续关卡，例如两队连战or三队连战
     self.s_StageGroupDic = {} -- 所有的关卡节点（最多3个）
-    self.s_LuckStageGroup = nil -- + 1个幸运关卡节点(不含在all内)
     self.s_RecordPluginDrop = {} -- 记录每次作战累计的插件掉落，用于层结算
     self.s_HasJumpCount = 0 -- 该跃升进行了多少层
 end
@@ -48,6 +51,7 @@ function XRiftFightLayer:GetConfig()
 end
 
 -- 【获取】父区域
+---@return XRiftChapter
 function XRiftFightLayer:GetParent()
     return self.ParentChapter
 end
@@ -134,17 +138,9 @@ function XRiftFightLayer:GetAllStageGroups()
     return self.s_StageGroupDic
 end
 
--- 【获取】幸运关卡节点
-function XRiftFightLayer:GetLuckStageGroup()
-    return self.s_LuckStageGroup
-end
-
--- 【设置】幸运关卡节点
-function XRiftFightLayer:SetLuckStageGroup(data)
-    local xStageGroup = XRiftStageGroup.New(XRiftConfig.StageGroupLuckyPos, self)
-    xStageGroup:InitRelationshipChainDown(data.StageDatas)
-    self:GetParent():SetCurrLuckFightLayer(self) -- 区域缓存唯一有幸运关卡的作战层
-    self.s_LuckStageGroup = xStageGroup
+-- 现在一个关卡只有一个节点
+function XRiftFightLayer:GetStage()
+    return self.s_StageGroupDic and self.s_StageGroupDic[1] or nil
 end
 
 -- 【获取】气泡奖励展示列表
@@ -200,6 +196,18 @@ function XRiftFightLayer:GetRecordPluginDrop()
     return self.s_RecordPluginDrop
 end
 
+function XRiftFightLayer:GetRecordPluginDropChangeCount()
+    local decomposeCount = 0
+    local additionCount = 0
+    if self.s_RecordPluginDrop then
+        for _, dropData in pairs(self.s_RecordPluginDrop) do
+            decomposeCount = decomposeCount + dropData.DecomposeCount
+            additionCount = additionCount + dropData.ExtraDecomposeCount
+        end
+    end
+    return decomposeCount, additionCount
+end
+
 -- 【保存】首次进入(跃升领奖也调用一次，功能相似)
 function XRiftFightLayer:SaveFirstEnter()
     local key = "RiftFightLayer"..XPlayer.Id..self:GetId()
@@ -217,16 +225,24 @@ function XRiftFightLayer:CheckMopupDisable()
     if XDataCenter.RiftManager.GetSweepLeftTimes() <= 0 then
         res = true
     end
-    if not self:CheckHasPassed() then
-        res = true
-    end
-    if self:CheckIsOwnFighting() then
+    local maxPass = XDataCenter.RiftManager.GetMaxPassFightLayerId()
+    if not XTool.IsNumberValid(maxPass) then
         res = true
     end
     return res
 end
 
 function XRiftFightLayer:SyncData()
+end
+
+---是否赛季层
+function XRiftFightLayer:IsSeasonLayer()
+    return XDataCenter.RiftManager:IsSeasonLayer(self.Config.ChapterId)
+end
+
+---插件掉落概率
+function XRiftFightLayer:GetPluginDrop(index)
+    return self.ClientConfig.PluginDropList[index] or 0
 end
 
 return XRiftFightLayer

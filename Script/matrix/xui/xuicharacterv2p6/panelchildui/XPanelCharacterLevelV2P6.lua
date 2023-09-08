@@ -40,10 +40,10 @@ end
 function XPanelCharacterLevelV2P6:UpdatePanel()
     local characterId = self.CharacterId
     local character = self.CharacterAgency:GetCharacter(characterId)
-    local nextLeveExp = XCharacterConfigs.GetNextLevelExp(characterId, character.Level)
+    local nextLeveExp = XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level)
     local isMaxLevel = self.CharacterAgency:IsMaxLevel(characterId)
     self.TxtCurLevel.text = character.Level
-    self.TxtMaxLevel.text = "/" .. XCharacterConfigs.GetCharMaxLevel(characterId)
+    self.TxtMaxLevel.text = "/" .. XMVCA.XCharacter:GetCharMaxLevel(characterId)
     local exp = isMaxLevel and nextLeveExp or character.Exp
     self.TxtExp.text = exp .. "/" .. nextLeveExp
     self.ImgFill.fillAmount = exp / nextLeveExp

@@ -29,6 +29,10 @@ function XUiTheatre3Handbook:OnStart()
     ---@type XUiPanelTheatre3PropDetail
     self.PanelPropDetail = XUiPanelTheatre3PropDetail.New(self.PanelDetail, self)
     self:InitLeftTabBtns()
+
+    if self.TextDescPercent2 then
+        self.TextDescPercent2.text = self._Control:GetClientConfig("HandbookPropDesc", 1)
+    end
 end
 
 function XUiTheatre3Handbook:OnEnable()
@@ -39,6 +43,7 @@ end
 
 function XUiTheatre3Handbook:OnDisable()
     self:CancelPropSelect()
+    self:_ClearRedPoint(self.SelectIndex)
 end
 
 function XUiTheatre3Handbook:InitLeftTabBtns()
@@ -51,6 +56,9 @@ function XUiTheatre3Handbook:InitLeftTabBtns()
 end
 
 function XUiTheatre3Handbook:OnSelectBtnTag(index)
+    if self.SelectIndex ~= index then
+        self:_ClearRedPoint(self.SelectIndex)
+    end
     self.SelectIndex = index
     -- 取消上一个选择
     self:CancelPropSelect()
@@ -66,6 +74,7 @@ function XUiTheatre3Handbook:OnSelectBtnTag(index)
     if self.PropScrollRect then
         self.PropScrollRect.verticalNormalizedPosition = 1
     end
+    self:PlayAnimation("QieHuan1")
 end
 
 function XUiTheatre3Handbook:RefreshUnlockProgress()
@@ -219,6 +228,7 @@ function XUiTheatre3Handbook:ClickPropGrid(grid)
     self.PanelPropDetail:Open()
     self.PanelPropDetail:Refresh(grid.Id)
     self.CurPropGrid = grid
+    self:PlayAnimation("QieHuan2")
 end
 
 function XUiTheatre3Handbook:CancelPropSelect()
@@ -262,5 +272,17 @@ end
 function XUiTheatre3Handbook:OnBtnMainUiClick()
     XLuaUiManager.RunMain()
 end
+
+--region Ui - RedPoint
+function XUiTheatre3Handbook:_ClearRedPoint(selectIndex)
+    if selectIndex == 1 then
+        self._Control:ClearEquipRedPoint()
+        self:RefreshSuitRedPoint()
+    else
+        self._Control:ClearItemRedPoint()
+        self:RefreshPropRedPoint()
+    end
+end
+--endregion
 
 return XUiTheatre3Handbook

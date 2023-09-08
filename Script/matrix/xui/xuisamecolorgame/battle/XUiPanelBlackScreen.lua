@@ -1,5 +1,5 @@
+---@class XUiSCBattlePanelBlackScreen
 local XUiPanelBlackScreen = XClass(nil, "XUiPanelBlackScreen")
-local CSTextManagerGetText = CS.XTextManager.GetText
 local OrderKey = {
     Buff = 1,
     Board = 2,
@@ -8,15 +8,15 @@ local OrderKey = {
 }
 
 function XUiPanelBlackScreen:Ctor(ui, base, role)
+    ---@type XUiSameColorGameBattle
+    self.Base = base
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Base = base
+    XTool.InitUiObject(self)
+    
     self.Role = role
     self.BattleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
-
-    XTool.InitUiObject(self)
     self.GameObject:SetActiveEx(true)
-    self:SetButtonCallBack()
 
     self.CanvasOrder = {[OrderKey.Buff] = self.PanelBuffCanvas.sortingOrder,
         [OrderKey.Board] = self.PanelBoardCanvas.sortingOrder,
@@ -29,63 +29,15 @@ function XUiPanelBlackScreen:Ctor(ui, base, role)
     end
 
     self:SetScreenMask()
+    self:AddBtnListener()
 end
 
-function XUiPanelBlackScreen:AddEventListener()
-    XEventManager.AddEventListener(XEventId.EVENT_SC_PREP_SKILL, self.SetScreenMask, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_SKILL_USED, self.OnBtnCloseClick, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_CDCHANGE, self.OnCDChange, self)  -- 主动技能进入冷却
-    XEventManager.AddEventListener(XEventId.EVENT_SC_BATTLESHOW_CLOSE_BLACKSCENE_TIPS, self.CloseSkillTips, self)
+function XUiPanelBlackScreen:OnEnable()
+    self:AddEventListener()
 end
 
-function XUiPanelBlackScreen:RemoveEventListener()
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_PREP_SKILL, self.SetScreenMask, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_SKILL_USED, self.OnBtnCloseClick, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_CDCHANGE, self.OnCDChange, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_BATTLESHOW_CLOSE_BLACKSCENE_TIPS, self.CloseSkillTips, self)
-end
-
-function XUiPanelBlackScreen:SetButtonCallBack()
-    self.BtnClose.CallBack = function()
-        self:OnBtnCloseClick()
-    end
-
-    self.PanelBuffSelect:GetObject("BtnClick").CallBack = function()
-        self:CheckClickDoSkill()
-    end
-
-    self.PanelConditionSelect:GetObject("BtnClick").CallBack = function()
-        self:CheckClickDoSkill()
-    end
-
-    self.PanelEnergySelect:GetObject("BtnClick").CallBack = function()
-        self:CheckClickDoSkill()
-    end
-
-    self.PanelSkillSelect:GetObject("BtnClick").CallBack = function()
-        self:CheckClickDoSkill()
-    end
-end
-
-function XUiPanelBlackScreen:OnBtnCloseClick()
-    if self:IsNoneMask() then
-        return
-    end
-
-    if self.Skill:GetUsedCount() == 0 then
-        self:OnSkillEnd()
-    else
-        -- v4.0移除弹窗
-        --[[ 
-        local callBack = function()
-            local skillId = self.Skill:GetSkillId()
-            local skillGroupId = self.Skill:GetSkillGroupId()
-            XDataCenter.SameColorActivityManager.RequestCancelUseItem(skillGroupId, skillId)
-        end
-        local content = CSXTextManagerGetText("SameColorGameCancelSkill", self.Skill:GetUsedCount())
-        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, callBack)
-        ]]
-    end
+function XUiPanelBlackScreen:OnDisable()
+    self:RemoveEventListener()
 end
 
 function XUiPanelBlackScreen:OnSkillEnd()
@@ -97,7 +49,7 @@ end
 function XUiPanelBlackScreen:OnCDChange(data)
     -- 使用的技能进入倒计时，技能结束
     local preSkill = self.BattleManager:GetPrepSkill()
-    if preSkill and preSkill:GetSkillId() == data.SkillGroupId then 
+    if preSkill and preSkill:GetSkillId() == data.SkillGroupId then
         self:OnSkillEnd()
     end
 end
@@ -134,30 +86,13 @@ function XUiPanelBlackScreen:CheckAutoDoSkill()
     end
 end
 
-function XUiPanelBlackScreen:CheckClickDoSkill()
-    if self:IsNoneMask() then
-        return
-    end
-    if self:IsConditionMask() then
-        self:UseNoParamSkill()
-
-    elseif self:IsBuffMask() then
-        self:UseNoParamSkill()
-
-    elseif self:IsEnergyMask() then
-        self:UseNoParamSkill()
-
-    elseif self:IsSkillMask() then
-        self:UseNoParamSkill()
-    end
-end
-
 function XUiPanelBlackScreen:CloseSkillTips()
     self.TextTipsBoard.gameObject:SetActiveEx(false)
 end
 
 -- skill参数为nil，关闭mask
 function XUiPanelBlackScreen:SetScreenMask(skill)
+    ---@type XSCRoleSkill
     self.Skill = skill
 
     local str = self:IsBuffMask() and skill:GetHintText() or ""
@@ -217,31 +152,31 @@ function XUiPanelBlackScreen:SetSortingOrder()
 end
 
 function XUiPanelBlackScreen:IsConditionMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Condition
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.CONDITION
 end
 
 function XUiPanelBlackScreen:IsBoardMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Board
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.BOARD
 end
 
 function XUiPanelBlackScreen:IsBuffMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Buff
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.BUFF
 end
 
 function XUiPanelBlackScreen:IsEnergyMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Energy
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.ENERGY
 end
 
 function XUiPanelBlackScreen:IsSkillMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Skill
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.SKILL
 end
 
 function XUiPanelBlackScreen:IsPopupMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.Popup
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.POPUP
 end
 
 function XUiPanelBlackScreen:IsNullMask()
-    return self.Skill and self.Skill:GetScreenMaskType() == XSameColorGameConfigs.ScreenMaskType.None
+    return self.Skill and self.Skill:GetScreenMaskType() == XEnumConst.SAME_COLOR_GAME.SKILL_SCREEN_MASK_TYPE.NONE
 end
 
 function XUiPanelBlackScreen:IsNoneMask()
@@ -251,5 +186,84 @@ function XUiPanelBlackScreen:IsNoneMask()
         return false
     end
 end
+
+--region Btn - Listener
+function XUiPanelBlackScreen:AddBtnListener()
+    self.BtnClose.CallBack = function()
+        self:OnBtnCloseClick()
+    end
+
+    self.PanelBuffSelect:GetObject("BtnClick").CallBack = function()
+        self:CheckClickDoSkill()
+    end
+
+    self.PanelConditionSelect:GetObject("BtnClick").CallBack = function()
+        self:CheckClickDoSkill()
+    end
+
+    self.PanelEnergySelect:GetObject("BtnClick").CallBack = function()
+        self:CheckClickDoSkill()
+    end
+
+    self.PanelSkillSelect:GetObject("BtnClick").CallBack = function()
+        self:CheckClickDoSkill()
+    end
+end
+
+function XUiPanelBlackScreen:OnBtnCloseClick()
+    if self:IsNoneMask() then
+        return
+    end
+
+    if self.Skill:GetUsedCount() == 0 then
+        self:OnSkillEnd()
+    else
+        -- v4.0移除弹窗
+        --[[ 
+        local callBack = function()
+            local skillId = self.Skill:GetSkillId()
+            local skillGroupId = self.Skill:GetSkillGroupId()
+            XDataCenter.SameColorActivityManager.RequestCancelUseItem(skillGroupId, skillId)
+        end
+        local content = CSXTextManagerGetText("SameColorGameCancelSkill", self.Skill:GetUsedCount())
+        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, callBack)
+        ]]
+    end
+end
+
+function XUiPanelBlackScreen:CheckClickDoSkill()
+    if self:IsNoneMask() then
+        return
+    end
+    if self:IsConditionMask() then
+        self:UseNoParamSkill()
+
+    elseif self:IsBuffMask() then
+        self:UseNoParamSkill()
+
+    elseif self:IsEnergyMask() then
+        self:UseNoParamSkill()
+
+    elseif self:IsSkillMask() then
+        self:UseNoParamSkill()
+    end
+end
+--endregion
+
+--region Event
+function XUiPanelBlackScreen:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_SC_PREP_SKILL, self.SetScreenMask, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_SKILL_USED, self.OnBtnCloseClick, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_CD_CHANGE, self.OnCDChange, self)  -- 主动技能进入冷却
+    XEventManager.AddEventListener(XEventId.EVENT_SC_BATTLE_CLOSE_BLACK_SCENE_TIPS, self.CloseSkillTips, self)
+end
+
+function XUiPanelBlackScreen:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_PREP_SKILL, self.SetScreenMask, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_SKILL_USED, self.OnBtnCloseClick, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_CD_CHANGE, self.OnCDChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_BATTLE_CLOSE_BLACK_SCENE_TIPS, self.CloseSkillTips, self)
+end
+--endregion
 
 return XUiPanelBlackScreen

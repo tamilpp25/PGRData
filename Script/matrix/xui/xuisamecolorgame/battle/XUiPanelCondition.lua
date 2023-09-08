@@ -1,13 +1,16 @@
+---@class XUiSCBattlePanelCondition
 local XUiPanelCondition = XClass(nil, "XUiPanelCondition")
-local CSTextManagerGetText = CS.XTextManager.GetText
 
 function XUiPanelCondition:Ctor(ui, base, boss)
+    ---@type XUiSameColorGameBattle
+    self.Base = base
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Base = base
+    XTool.InitUiObject(self)
+    
+    ---@type XSCBoss
     self.Boss = boss
     self.BattleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
-    XTool.InitUiObject(self)
     self.TxtDamage.gameObject:SetActiveEx(false)
     self.TxtDamage:GetObject("ComboCountText"):TextToSprite("0",0)
     self.OldDamageRank = 0
@@ -15,22 +18,12 @@ function XUiPanelCondition:Ctor(ui, base, boss)
     self:SetButtonCallBack()
 end
 
-function XUiPanelCondition:AddEventListener()
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.SetStep, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_SETTLESCORE, self.UpdateDamage, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ADDSTEP, self.UpdateStep, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_SUBSTEP, self.UpdateStep, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_LEFTTIME_CHANGE, self.UpdateLeftTime, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_MAPINIT, self.UpdateLeftTime, self)
+function XUiPanelCondition:OnEnable()
+    self:AddEventListener()
 end
 
-function XUiPanelCondition:RemoveEventListener()
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.SetStep, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_SETTLESCORE, self.UpdateDamage, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ADDSTEP, self.UpdateStep, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_SUBSTEP, self.UpdateStep, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_LEFTTIME_CHANGE, self.UpdateLeftTime, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_MAPINIT, self.UpdateLeftTime, self)
+function XUiPanelCondition:OnDisable()
+    self:RemoveEventListener()
 end
 
 function XUiPanelCondition:Init()
@@ -170,8 +163,39 @@ function XUiPanelCondition:ShowRankEffect(damage)
     self.OldDamageRank = damageRank
 end
 
+--region Btn - Listener
+function XUiPanelCondition:AddBtnListener()
+    self.BtnRankClick.CallBack = function()
+        self:OnBtnRankClick()
+    end
+    self.BtnRankHelp.CallBack = function()
+        self:OnBtnRankClick()
+    end
+end
+
 function XUiPanelCondition:OnBtnRankClick()
     XLuaUiManager.Open("UiSameColorGameRankDetails", self.Boss)
 end
+--endregion
+
+--region Event
+function XUiPanelCondition:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.SetStep, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_SETTLE_SCORE, self.UpdateDamage, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ADD_STEP, self.UpdateStep, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_SUB_STEP, self.UpdateStep, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_LEFT_TIME_CHANGE, self.UpdateLeftTime, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_MAP_INIT, self.UpdateLeftTime, self)
+end
+
+function XUiPanelCondition:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.SetStep, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_SETTLE_SCORE, self.UpdateDamage, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ADD_STEP, self.UpdateStep, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_SUB_STEP, self.UpdateStep, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_LEFT_TIME_CHANGE, self.UpdateLeftTime, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_MAP_INIT, self.UpdateLeftTime, self)
+end
+--endregion
 
 return XUiPanelCondition

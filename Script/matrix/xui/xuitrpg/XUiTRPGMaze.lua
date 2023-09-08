@@ -22,7 +22,7 @@ local XUiTRPGMaze = XLuaUiManager.Register(XLuaUi, "UiTRPGMaze")
 function XUiTRPGMaze:OnAwake()
     self:AutoAddListener()
 
-    XUiTRPGPanelPlotTab.New(self.PanelPlotTab)
+    self.PanelPlotTab = XUiTRPGPanelPlotTab.New(self.PanelPlotTab)
     self.TaskPanel = XUiTRPGPanelTask.New(self.PanelTask, self)
     self.LevelPanel = XUiTRPGPanelLevel.New(self.PanelLevel)
 
@@ -85,6 +85,7 @@ end
 function XUiTRPGMaze:OnDestroy()
     self.TaskPanel:Delete()
     self.LevelPanel:Delete()
+    self.PanelPlotTab:OnDestroy()
 end
 
 function XUiTRPGMaze:OnGetEvents()

@@ -130,8 +130,7 @@ function XUiBattleRoomRoleDetail:OnEnable()
     -- self.BtnTeaching.gameObject:SetActiveEx(XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Practice))
     
     -- 刷新数据
-    self.PanelFilter:OnlyRefreshData()
-    self:RefreshEntityInfo()
+    self.PanelFilter:RefreshList()
 end
 
 function XUiBattleRoomRoleDetail:OnDisable()
@@ -173,18 +172,25 @@ function XUiBattleRoomRoleDetail:InitFilter()
     -- 自定义格子proxy
     local gridProxy = self.Proxy:GetGridProxy() or XUiBattleRoomRoleGrid
     local checkInTeam = function (id)
+        if self.Proxy.CheckInTeam then
+            return self.Proxy:CheckInTeam(self.Team, id)
+        end
         return self.Team:GetEntityIdIsInTeam(id)
     end
     -- 覆写排序算法
     local sortOverrideFunTable = self.Proxy:GetFilterSortOverrideFunTable()
     self.PanelFilter:InitData(onSeleCb, onSeleTagCb, self.StageId, refreshGridsFun, gridProxy, checkInTeam, sortOverrideFunTable)
+    self.PanelFilter:SetGetCharIdFun(
+    function (entity)
+            return self.Proxy:GetFilterCharIdFun(entity)
+    end)
     self.DynamicTable = self.PanelFilter.DynamicTable
     self.PanelCharacterFilter.gameObject:SetActiveEx(true)
     self.Transform:FindTransform("CharInfo").gameObject:SetActiveEx(false)
     self.Transform:FindTransform("BtnFilter").gameObject:SetActiveEx(false)
-    local list = self.Proxy:GetEntities() 
-    self.PanelFilter:ImportList(list)
-    self.PanelFilter:DoSelectCharacter(self.CurrentEntityId) -- 自动选择点进来的角色
+    local list = self.Proxy:GetEntities()
+    local currentEntityId = self.Proxy.GetCurrentEntityId and self.Proxy:GetCurrentEntityId(self.CurrentEntityId) or self.CurrentEntityId
+    self.PanelFilter:ImportList(list, currentEntityId) -- 自动选择点进来的角色
 end
 
 function XUiBattleRoomRoleDetail:RefreshEntityInfo()
@@ -740,11 +746,11 @@ function XUiBattleRoomRoleDetail:RefreshRoleDetail()
     local viewModel = self.Proxy:GetCharacterViewModelByEntityId(self.CurrentEntityId)
     self.PanelRoleDetail.gameObject:SetActiveEx(viewModel ~= nil)
     if viewModel == nil then return end
-    local viewModelId = viewModel:GetId()
+    local viewModelId = viewModel:GetSourceEntityId()
     self.BtnType:SetRawImage(viewModel:GetProfessionIcon())
     self.TxtName.text = viewModel:GetName()
     self.TxtTradeName.text = viewModel:GetTradeName()
-    self.TxtAbility.text = self.CharacterAgency:GetCharacterHaveRobotAbilityById(viewModelId)
+    self.TxtAbility.text = self.Proxy:GetRoleAbility(self.CurrentEntityId)
     -- 初始品质
     local initQuality = self.CharacterAgency:GetCharacterInitialQuality(viewModelId)
     local initColor = self.CharacterAgency:GetModelCharacterQualityIcon(initQuality).InitColor

@@ -131,10 +131,10 @@ function XGuideAgent:IsUiActive(uiName, panel)
 end
 
 --聚焦UI
-function XGuideAgent:FocusOn(uiName, panel, eulerAngles, passEvent, sizeDelta)
+function XGuideAgent:FocusOn(uiName, panel, eulerAngles, passEvent, sizeDelta, offset)
     local target = self:FindActiveTransformInUi(uiName, panel)
     local uiGuide = self:GetUiGuide()
-    uiGuide:FocusOnPanel(target, eulerAngles, passEvent, sizeDelta)
+    uiGuide:FocusOnPanel(target, eulerAngles, passEvent, sizeDelta, offset)
 end
 
 function XGuideAgent:FocusOn3D(sceneRoot, camera, panel, eulerAngles, passEvent, offset, sizeDelta)
@@ -146,7 +146,7 @@ function XGuideAgent:FocusOn3D(sceneRoot, camera, panel, eulerAngles, passEvent,
 end
 
 --索引动态列表
-function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta)
+function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta, offset, passAll)
     local target = self:FindTransformInUi(uiName, dynamicName)
 
     local dynamicTable = target:GetComponent(typeof(CS.XDynamicTableNormal))
@@ -170,15 +170,15 @@ function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue
     end
 
     if focusTransform == nil or focusTransform == "" or focusTransform == "@" then
-        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta, offset, passAll)
     else
         local tmpTarget = grid.transform:FindTransformWithSplit(focusTransform)
-        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta, offset, passAll)
     end
 end
 
 --索引Curve动态列表 1.（索引指示）列表Grid点击 → 2.（指引卡住流程）开始索引 → 3.（不会执行）播放动画列表滚动结束 → 4.（下一个指引出现）
-function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta)
+function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta, offset, passAll)
     local target = self:FindTransformInUi(uiName, dynamicName)
 
     local dynamicTable = target:GetComponent(typeof(CS.XDynamicTableCurve))
@@ -209,10 +209,10 @@ function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, index
     end
 
     if focusTransform == nil or focusTransform == "" or focusTransform == "@" then
-        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta, offset, passAll)
     else
         local tmpTarget = grid.transform:FindTransformWithSplit(focusTransform)
-        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta, offset, passAll)
     end
 end
 
@@ -222,22 +222,23 @@ function XGuideAgent:Index3DFixedDynamicTable(sceneRoot, camera, dynamicName, in
     local cam = self:FindSceneCamera(root, camera)
     local target = self:FindSceneTransform(root, dynamicName)
 
-    local dynamicTable = target:GetComponent(typeof(CS.XDynamicTableFixed3D))
-    if not dynamicTable then
+    local dynamicTableCs = target:GetComponent(typeof(CS.XDynamicTableFixed3D))
+    if not dynamicTableCs then
         XLog.Error(string.format("XDynamicTableFixed3D is null uiName:%s dynamicName:%s", dynamicName))
         return
     end
 
-    local gridIndex = dynamicTable.LuaTableDelegate:GuideGetDynamicTableIndex(indexKey, indexValue)
-    dynamicTable:FocusIndex(gridIndex)
+    local dynamicTableLua = dynamicTableCs.LuaTableDelegate
+    local gridIndex = dynamicTableLua:GuideGetDynamicTableIndex(indexKey, indexValue)
+    local csIndex = gridIndex - 1
+    dynamicTableLua:FocusIndex(csIndex, -1)
     if gridIndex == -1 then
         XLog.Error("找不到该动态节点,请检查ID参数是否正确 KEY:" .. tostring(indexKey) .. " ID:" .. tostring(indexValue))
         return nil
     end
 
-    -- local grid = dynamicTable.LuaTableDelegate:GetGridByIndex(gridIndex)
-    local csIndex = gridIndex - 1
-    local gridGo = dynamicTable.UsingGridsList[csIndex]
+    -- local grid = dynamicTableLua:GetGridByIndex(gridIndex)
+    local gridGo = dynamicTableCs.UsingGridsList[csIndex]
     if not gridGo then
         XLog.Error("找不到该动态节点,请检查ID参数是否正确 KEY:" .. tostring(indexKey) .. " ID:" .. tostring(indexValue) .. " Index:" .. tostring(gridIndex))
         return nil
@@ -245,12 +246,17 @@ function XGuideAgent:Index3DFixedDynamicTable(sceneRoot, camera, dynamicName, in
 
     local targetTransform = gridGo.transform
     if XTool.UObjIsNil(targetTransform) then
-        targetTransform = dynamicTable.transform
+        targetTransform = dynamicTableCs.transform
     end
 
     local uiGuide = self:GetUiGuide()
     offset = offset or CS.UnityEngine.Vector3.zero
     uiGuide:FocusOn3DPanel(cam, targetTransform, offset, nil, passEvent, sizeDelta)
+end
+
+function XGuideAgent:FindTargetFilter(uiName, filterName)
+    local target = self:FindTransformInUi(uiName, filterName)
+    return target
 end
 
 --寻找Ui

@@ -7,6 +7,7 @@ XEquipConfig = XEquipConfig or {}
 XEquipConfig.MAX_STAR_COUNT = 6                 -- 最大星星数
 XEquipConfig.MAX_SUIT_SKILL_COUNT = 3           -- 最大套装激活技能个数
 XEquipConfig.MAX_RESONANCE_SKILL_COUNT = 3      -- 最大共鸣属性/技能个数
+XEquipConfig.MAX_AWAKE_COUNT = 2                -- 最大超频个数
 XEquipConfig.MIN_RESONANCE_EQUIP_STAR_COUNT = 5 -- 装备共鸣最低星级
 XEquipConfig.MAX_SUIT_COUNT = 6                 -- 套装最大数量
 XEquipConfig.DEFAULT_SUIT_ID = {                -- 用来显示全部套装数量的默认套装Id
@@ -521,6 +522,11 @@ end
 
 --=========== EquipModel接口(begin) ===========
 function XEquipConfig.GetEquipModelName(modelTransId, usage)
+    -- 修正V2.7 黑岩武器挂点，模型资源未按规范制作
+    if modelTransId == 0 then
+        return ""
+    end
+
     local template = EquipModelTemplates[modelTransId]
 
     if not template then
@@ -533,6 +539,11 @@ function XEquipConfig.GetEquipModelName(modelTransId, usage)
 end
 
 function XEquipConfig.GetEquipAnimController(modelTransId, usage)
+    -- 修正V2.7 黑岩武器挂点，模型资源未按规范制作
+    if modelTransId == 0 then
+        return ""
+    end
+    
     local template = EquipModelTemplates[modelTransId]
 
     if not template then

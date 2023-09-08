@@ -1,70 +1,77 @@
-local XUiPanelRankReward = XClass(nil, "XUiPanelRankReward")
+---@class XUiPanelRankReward : XUiNode
+local XUiPanelRankReward = XClass(XUiNode, "XUiPanelRankReward")
 local XUiGridBossRankReward = require("XUi/XUiFubenBossSingle/XUiGridBossRankReward")
 
-function XUiPanelRankReward:Ctor(rootUi, ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    self.GridBossRankList = {}
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
+function XUiPanelRankReward:OnStart(rootUi)
+    self._RootUi = rootUi
+    ---@type XUiGridBossRankReward[]
+    self._GridBossRankList = {}
+    self:_RegisterButtonListeners()
     self.GridBossRankReward.gameObject:SetActive(false)
 end
 
-function XUiPanelRankReward:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiPanelRankReward:RegisterClickEvent函数参数错误：参数func不能为空")
+function XUiPanelRankReward:OnEnable()
+    self:_Refresh()
+end
+
+function XUiPanelRankReward:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnBlock, self.Close, true)
+end
+
+function XUiPanelRankReward:_Refresh()
+    if not self._LevelType or not self._MyRankData then
         return
     end
 
-    if type(func) ~= "function" then
-        XLog.Error("XUiPanelRankReward:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
-
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
-end
-
-function XUiPanelRankReward:AutoAddListener()
-    self:RegisterClickEvent(self.BtnBlock, self.OnBtnBlockClick)
-end
-
-function XUiPanelRankReward:ShowPanel(levelType, myRankData)
+    local levelType = self._LevelType
+    local myRankData = self._MyRankData
     local cfgs = XDataCenter.FubenBossSingleManager.GetRankRewardCfg(levelType)
+
     for i = 1, #cfgs do
-        local grid = self.GridBossRankList[i]
+        local grid = self._GridBossRankList[i]
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridBossRankReward)
-            grid = XUiGridBossRankReward.New(self.RootUi, ui)
+            grid = XUiGridBossRankReward.New(ui, self, self.Parent)
             grid.Transform:SetParent(self.PanelRankContent, false)
-            self.GridBossRankList[i] = grid
+            self._GridBossRankList[i] = grid
         end
 
-        grid:Refresh(cfgs[i], myRankData.MineRankNum, myRankData.MylevelType, myRankData.TotalCount)
-        grid.GameObject:SetActive(true)
+        grid:Open()
+        grid:Refresh(cfgs[i], self:_CheckCurrentRank(cfgs[i], myRankData))
     end
 
-    for i = #cfgs + 1, #self.GridBossRankList do
-        self.GridBossRankList[i].GameObject:SetActive(false)
+    for i = #cfgs + 1, #self._GridBossRankList do
+        self._GridBossRankList[i]:Close()
     end
 
-    self.GameObject:SetActive(true)
-    XDataCenter.UiPcManager.OnUiEnable(self, "OnBtnBlockClick")
-    self.RootUi:PlayAnimation("AnimRankRewardEnable")
+    self.Parent:PlayAnimation("AnimRankRewardEnable")
 end
 
-function XUiPanelRankReward:OnBtnBlockClick()
-    self:HidePanel()
+function XUiPanelRankReward:_CheckCurrentRank(config, myRankData)
+    if not myRankData or not config then
+        return false
+    end
+
+    local myLevelType = myRankData.MylevelType
+    local myRankNum = myRankData.MineRankNum
+    local totalCount = myRankData.TotalCount
+
+    if not myLevelType or not myRankNum or not totalCount then
+        return false
+    end 
+    if myLevelType ~= config.LevelType then
+        return false
+    end
+    if myRankNum >= 1 and totalCount > 0 then
+        myRankNum = myRankNum / totalCount
+    end
+
+    return myRankNum > config.MinRank and myRankNum <= config.MaxRank
 end
 
-function XUiPanelRankReward:HidePanel()
-    self.GameObject:SetActive(false)
-    XDataCenter.UiPcManager.OnUiDisableAbandoned(true, self)
-    -- self.RootUi:PlayAnimation("AnimRankRewardDisable", function()
-    --     end)
+function XUiPanelRankReward:SetData(levelType, myRankData)
+    self._LevelType = levelType
+    self._MyRankData = myRankData
 end
 
 return XUiPanelRankReward

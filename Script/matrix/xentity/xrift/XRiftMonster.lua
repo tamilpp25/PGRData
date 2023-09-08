@@ -1,5 +1,6 @@
 -- 大秘境【怪物】实例。只提供客户端展示数据的接口，只与大秘境的monster表耦合
 -- 怪物的词缀是每次随机同关卡库下发的
+---@class XRiftMonster
 local XRiftMonster = XClass(nil, "XRiftMonster")
 
 function XRiftMonster:Ctor(config)

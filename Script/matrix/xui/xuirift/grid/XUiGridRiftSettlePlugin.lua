@@ -8,27 +8,22 @@ function XUiGridRiftSettlePlugin:Ctor(ui, rootUi)
     self.RootUi = rootUi
 
     XTool.InitUiObject(self)
+    self._Grid = XUiRiftPluginGrid.New(self.GridRiftCore)
 end
 
 function XUiGridRiftSettlePlugin:Refresh(decomposeData)
     local pluginId = decomposeData.PluginId
     local deCount = decomposeData.DecomposeCount
     local isShowPlugin = deCount <= 0
-    self.GridRiftCore.gameObject:SetActiveEx(isShowPlugin)
-    self.Grid256New.gameObject:SetActiveEx(not isShowPlugin)
-    if isShowPlugin then
-        local xPlugin = XDataCenter.RiftManager.GetPlugin(pluginId)
-        local grid = XUiRiftPluginGrid.New(self.GridRiftCore)
-        grid:Refresh(xPlugin)
+    local xPlugin = XDataCenter.RiftManager.GetPlugin(pluginId)
+    self._Grid:Refresh(xPlugin)
+    self.PanelChange.gameObject:SetActiveEx(not isShowPlugin)
+    self.PanelNew.gameObject:SetActiveEx(isShowPlugin)
+    if decomposeData.IsExtraDrop then
+        self.TxtOther.gameObject:SetActiveEx(true)
+        self.TxtOther.text = XUiHelper.GetText("RiftExtraDrop")
     else
-        local grid = XUiGridCommon.New(self.RootUi, self.Grid256New)
-        local data = 
-        {
-            Count = deCount,
-            TemplateId = XDataCenter.ItemManager.ItemId.RiftGold,
-            RewardType = 1
-        }
-        grid:Refresh(data)
+        self.TxtOther.gameObject:SetActiveEx(false)
     end
 end
 

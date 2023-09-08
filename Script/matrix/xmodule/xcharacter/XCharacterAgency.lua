@@ -48,10 +48,23 @@ end
 ---**********************************************************************************************************************************
 
 -- service config end --
+function XCharacterAgency:HasDuplicateCharId(tbl)
+    local seen = {}
+
+    for index, value in pairs(tbl) do
+        local charId = XRobotManager.GetCharacterId(value)
+        if seen[charId] then
+            return true, index
+        end
+        seen[charId] = true
+    end
+
+    return false
+end
 
 -- 是否展示独域/跃升技能
 function XCharacterAgency:CheckIsShowEnhanceSkill(charId)
-    local characterType = XCharacterConfigs.GetCharacterType(charId)
+    local characterType = self:GetCharacterType(charId)
     local character = self:GetCharacter(charId)
     local functionId = characterType == XCharacterConfigs.CharacterType.Normal and XFunctionManager.FunctionName.CharacterEnhanceSkill or XFunctionManager.FunctionName.SpCharacterEnhanceSkill
     local IsShowEnhanceSkill = character:GetIsHasEnhanceSkill() and not XFunctionManager.CheckFunctionFitter(functionId)
@@ -63,7 +76,7 @@ function XCharacterAgency:CheckIsCharOrRobot(id)
         return true
     end
 
-    if XCharacterConfigs.GetCharacterTemplate(id) then
+    if self:GetCharacterTemplate(id) then
         return true
     end
     
@@ -82,13 +95,22 @@ function XCharacterAgency:CheckIsFragment(id)
     return true
 end
 
+function XCharacterAgency:CheckIsNewStateForSort(id)
+    local char = self:GetCharacter(id)
+    if char.CollectState then
+        return false
+    end
+
+    return XTool.IsNumberValid(char.NewFlag)
+end
+
 function XCharacterAgency:GetCharUnlockFragment(templateId)
     if not templateId then
         XLog.Error("self:GetCharUnlockFragment函数参数错误, 参数templateId不能为空")
         return
     end
 
-    local curCharItemId = XCharacterConfigs.GetCharacterTemplate(templateId).ItemId
+    local curCharItemId = self:GetCharacterTemplate(templateId).ItemId
     if not curCharItemId then
         XLog.ErrorTableDataNotFound("self:GetCharUnlockFragment",
         "curCharItemId", "Share/Character/Character.tab", "templateId", tostring(templateId))
@@ -136,8 +158,8 @@ local DefaultSort = function(a, b)
         return a.Quality > b.Quality
     end
 
-    local priorityA = XCharacterConfigs.GetCharacterPriority(a.Id)
-    local priorityB = XCharacterConfigs.GetCharacterPriority(b.Id)
+    local priorityA = XMVCA.XCharacter:GetCharacterPriority(a.Id)
+    local priorityB = XMVCA.XCharacter:GetCharacterPriority(b.Id)
 
     if priorityA ~= priorityB then
         return priorityA < priorityB
@@ -167,7 +189,7 @@ function XCharacterAgency:GetCharacterList(characterType, isUseTempSelectTag, is
     end
 
     local unOwnCharList = {}
-    for k, v in pairs(XCharacterConfigs.GetCharacterTemplates()) do
+    for k, v in pairs(self:GetCharacterTemplates()) do
         if not isUseNewSort or XDataCenter.RoomCharFilterTipsManager.IsFilterSelectTag(k, characterType, isUseTempSelectTag) then
             if self._Model.OwnCharacters[k] then
                 if isNeedIsomer == nil then
@@ -705,7 +727,7 @@ end
 
 function XCharacterAgency:IsMaxLevel(templateId)
     local char = self:GetCharacter(templateId)
-    local maxLevel = XCharacterConfigs.GetCharMaxLevel(templateId)
+    local maxLevel = self:GetCharMaxLevel(templateId)
     return char and char.Level >= maxLevel
 end
 
@@ -715,10 +737,10 @@ function XCharacterAgency:CalLevelAndExp(character, exp)
     local curExp = character.Exp + exp
     local curLevel = character.Level
 
-    local maxLevel = XCharacterConfigs.GetCharMaxLevel(id)
+    local maxLevel = self:GetCharMaxLevel(id)
 
     while curLevel do
-        local nextLevelExp = XCharacterConfigs.GetNextLevelExp(id, curLevel)
+        local nextLevelExp = self:GetNextLevelExp(id, curLevel)
         if ((curExp >= nextLevelExp) and (curLevel < teamLevel)) then
             if curLevel == maxLevel then
                 curExp = nextLevelExp
@@ -742,7 +764,7 @@ function XCharacterAgency:GetMaxAvailableLevel(templateId)
         return
     end
 
-    local charMaxLevel = XCharacterConfigs.GetCharMaxLevel(templateId)
+    local charMaxLevel = self:GetCharMaxLevel(templateId)
     local playerMaxLevel = XPlayer.Level
 
     return mathMin(charMaxLevel, playerMaxLevel)
@@ -750,9 +772,9 @@ end
 
 function XCharacterAgency:GetMaxLevelNeedExp(character)
     local id = character.Id
-    local levelUpTemplateId = XCharacterConfigs.GetCharacterTemplate(id).LevelUpTemplateId
+    local levelUpTemplateId = self:GetCharacterTemplate(id).LevelUpTemplateId
     local levelUpTemplate = XCharacterConfigs.GetLevelUpTemplate(levelUpTemplateId)
-    local maxLevel = XCharacterConfigs.GetCharMaxLevel(id)
+    local maxLevel = self:GetCharMaxLevel(id)
     local totalExp = 0
     for i = character.Level, maxLevel - 1 do
         totalExp = totalExp + levelUpTemplate[i].Exp
@@ -804,7 +826,7 @@ function XCharacterAgency:IsActivateStarUseItemEnough(templateId, quality, star)
         return
     end
 
-    local template = XCharacterConfigs.GetCharacterTemplate(templateId)
+    local template = self:GetCharacterTemplate(templateId)
     if not template then
         XLog.ErrorTableDataNotFound("self:IsCharQualityStarUseItemEnough",
         "template", "Share/Character/Character.tab", "templateId", tostring(templateId))
@@ -823,7 +845,7 @@ function XCharacterAgency:IsActivateStarUseItemEnough(templateId, quality, star)
     end
 
     local itemKey = template.ItemId
-    local characterType = XCharacterConfigs.GetCharacterType(templateId)
+    local characterType = self:GetCharacterType(templateId)
     local itemCount = XCharacterConfigs.GetStarUseCount(characterType, quality, star)
 
     return self:IsUseItemEnough(itemKey, itemCount)
@@ -832,7 +854,7 @@ end
 function XCharacterAgency:IsCanPromoted(characterId)
     local character = self:GetCharacter(characterId)
     local hasCoin = XDataCenter.ItemManager.GetCoinsNum()
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
+    local characterType = self:GetCharacterType(characterId)
     local useCoin = XCharacterConfigs.GetPromoteUseCoin(characterType, character.Quality)
 
     return hasCoin >= useCoin
@@ -844,12 +866,12 @@ function XCharacterAgency:GetShowFashionId(templateId, isNotSelf)
     if isNotSelf == nil then isNotSelf = false end
     -- 不属于自身数据的直接获取本地即可
     if isNotSelf then
-        return XCharacterConfigs.GetCharacterTemplate(templateId).DefaultNpcFashtionId
+        return self:GetCharacterTemplate(templateId).DefaultNpcFashtionId
     end
     if self:IsOwnCharacter(templateId) == true then
         return self._Model.OwnCharacters[templateId].FashionId
     else
-        return XCharacterConfigs.GetCharacterTemplate(templateId).DefaultNpcFashtionId
+        return self:GetCharacterTemplate(templateId).DefaultNpcFashtionId
     end
 end
 
@@ -1075,7 +1097,7 @@ end
 
 function XCharacterAgency:GetCharQualityAttributeInfo(characterId)
     local attributeData = {}
-    local characterMinQuality = XCharacterConfigs.GetCharMinQuality(characterId)
+    local characterMinQuality = self:GetCharMinQuality(characterId)
     local characterMaxQuality = XCharacterConfigs.GetCharMaxQuality(characterId)
     local attritubues = {}
     for i = characterMinQuality, characterMaxQuality do
@@ -1100,7 +1122,7 @@ function XCharacterAgency:GetCharQualityAttributeInfo(characterId)
 end
 
 function XCharacterAgency:GetCharQualityAttributeInfoV2P6(characterId)
-    local characterMinQuality = XCharacterConfigs.GetCharMinQuality(characterId)
+    local characterMinQuality = self:GetCharMinQuality(characterId)
     local characterMaxQuality = XCharacterConfigs.GetCharMaxQuality(characterId)
     local attritubues = {}
     for i = characterMinQuality, characterMaxQuality do
@@ -1318,10 +1340,25 @@ end
 --@characterId: 卡牌数据
 --@return 技能Data
 --==============================--
-function XCharacterAgency:GetCaptainSkillInfo(characterId)
-    local captianSkillId = XCharacterConfigs.GetCharacterCaptainSkill(characterId)
+function XCharacterAgency:GetCaptainSkillInfoByCharId(characterId)
+    local captianSkillId = self:GetCharacterCaptainSkill(characterId)
     local skillLevel = self:GetSkillLevel(captianSkillId)
-    return XCharacterConfigs.GetCaptainSkillInfo(characterId, skillLevel)
+    return self:GetCaptainSkillInfo(characterId, skillLevel)
+end
+
+function XCharacterAgency:GetCaptainSkillInfo(characterId, skillLevel)
+    local captianSkillId = self:GetCharacterCaptainSkill(characterId)
+    if not skillLevel then
+        local config = SubSkillMinMaxLevelDicGrade[captianSkillId]
+        if not config then
+            XLog.ErrorTableDataNotFound("XCharacter:GetCaptainSkillInfo",
+            "SubSkillMinMaxLevelDicGrade", TABLE_CHARACTER_SKILL_GRADE, "characterId", tostring(characterId))
+            return
+        end
+        skillLevel = config.Min
+    end
+
+    return self:GetSkillGradeDesWithDetailConfig(captianSkillId, skillLevel)
 end
 
 --==============================--
@@ -1330,7 +1367,7 @@ end
 --@isOnlyShowIntro: 是否只显示技能描述
 --==============================--
 function XCharacterAgency:GetCaptainSkillDesc(characterId, isOnlyShowIntro)
-    local captianSkillInfo = self:GetCaptainSkillInfo(characterId)
+    local captianSkillInfo = self:GetCaptainSkillInfoByCharId(characterId)
     return (captianSkillInfo and captianSkillInfo.Level > 0 or isOnlyShowIntro) and captianSkillInfo.Intro or stringFormat("%s%s", captianSkillInfo.Intro, CsXTextManagerGetText("CaptainSkillLock"))
 end
 
@@ -1372,15 +1409,15 @@ function XCharacterAgency:ExchangeCharacter(templateId, cb)
         return
     end
 
-    local char = XCharacterConfigs.GetCharacterTemplate(templateId)
+    local char = self:GetCharacterTemplate(templateId)
     if not char then
         XUiManager.TipCode(XCode.CharacterManagerGetCharacterTemplateNotFound)
         return
     end
 
     local itemId = char.ItemId
-    local bornQulity = XCharacterConfigs.GetCharMinQuality(templateId)
-    local characterType = XCharacterConfigs.GetCharacterType(templateId)
+    local bornQulity = self:GetCharMinQuality(templateId)
+    local characterType = self:GetCharacterType(templateId)
     local itemCount = XCharacterConfigs.GetComposeCount(characterType, bornQulity)
 
     if not self:IsUseItemEnough(itemId, itemCount) then
@@ -1407,7 +1444,7 @@ function XCharacterAgency:OnSyncCharacter(protoData)
         self:AddCharacter(protoData)
 
         local templateId = protoData.Id
-        if XCharacterConfigs.GetCharacterNeedFirstShow(templateId) ~= 0 then
+        if self:GetCharacterNeedFirstShow(templateId) ~= 0 then
             XUiHelper.PushInFirstGetIdList(templateId, XArrangeConfigs.Types.Character)
         end
 
@@ -1538,7 +1575,7 @@ function XCharacterAgency:PromoteQuality(character, cb)
         return
     end
 
-    local characterType = XCharacterConfigs.GetCharacterType(character.Id)
+    local characterType = self:GetCharacterType(character.Id)
     if not XDataCenter.ItemManager.DoNotEnoughBuyAsset(XDataCenter.ItemManager.ItemId.Coin,
     XCharacterConfigs.GetPromoteUseCoin(characterType, character.Quality),
     1,
@@ -1663,7 +1700,7 @@ function XCharacterAgency:GetCharModel(templateId, quality)
     end
 
     if not quality then
-        quality = XCharacterConfigs.GetCharMinQuality(templateId)
+        quality = self:GetCharMinQuality(templateId)
     end
 
     local npcId = XCharacterConfigs.GetCharNpcId(templateId, quality)
@@ -1924,11 +1961,11 @@ function XCharacterAgency:CanCharacterUnlock(characterId)
         return false
     end
 
-    local character = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local character = self:GetCharacterTemplate(characterId)
 
     local itemId = character.ItemId
-    local bornQulity = XCharacterConfigs.GetCharMinQuality(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
+    local bornQulity = self:GetCharMinQuality(characterId)
+    local characterType = self:GetCharacterType(characterId)
     local itemCount = XCharacterConfigs.GetComposeCount(characterType, bornQulity)
 
     if not self:IsUseItemEnough(itemId, itemCount) then
@@ -1947,6 +1984,7 @@ function XCharacterAgency:NotifyCharacterDataList(data)
     for _, character in pairs(characterList) do
         self:OnSyncCharacter(character)
     end
+    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_SYN, characterList)
 end
 
 function XCharacterAgency:GetCharacterLevel(characterId)
@@ -1955,10 +1993,6 @@ function XCharacterAgency:GetCharacterLevel(characterId)
     end
     local ownCharacter = self:GetCharacter(characterId)
     return ownCharacter and ownCharacter.Level or 0
-end
-
-function XCharacterAgency:GetCharacterType(characterId)
-    return XCharacterConfigs.GetCharacterType(characterId)
 end
 
 -- 角色当前阶级
@@ -1978,7 +2012,7 @@ function XCharacterAgency:GetCharacterQuality(characterId)
     if ownCharacter then
         return ownCharacter.Quality or 0
     end
-    return XCharacterConfigs.GetCharMinQuality(characterId)
+    return self:GetCharMinQuality(characterId)
 end
 
 -- 角色初始品质(不是自己的角色也可以用)
@@ -1986,7 +2020,7 @@ function XCharacterAgency:GetCharacterInitialQuality(characterId)
     if XRobotManager.CheckIsRobotId(characterId) then
         characterId = XRobotManager.GetCharacterId(characterId)
     end
-    return XCharacterConfigs.GetCharMinQuality(characterId)
+    return self:GetCharMinQuality(characterId)
 end
 
 -- 职业类型(不是自己的角色也可以用)
@@ -2012,7 +2046,7 @@ function XCharacterAgency:GetCharacterElement(characterId)
     if XRobotManager.CheckIsRobotId(characterId) then
         characterId = XRobotManager.GetCharacterId(characterId)
     end
-    return XCharacterConfigs.GetCharacterElement(characterId)
+    return self._Model:GetCharacter()[characterId].Element
 end
 
 function XCharacterAgency:GetCharacterElementIcon(characterId)
@@ -2149,12 +2183,22 @@ function XCharacterAgency:GetModelCharacterElement()
     return self._Model:GetCharacterElement()
 end
 
+---@return XTableCharacterElement
+function XCharacterAgency:GetModelCharacterElementById(elementId)
+    local configs = self._Model:GetCharacterElement()
+    return configs and configs[elementId]
+end
+
 function XCharacterAgency:GetModelCharacterFilterController()
     return self._Model:GetCharacterFilterController()
 end
 
 function XCharacterAgency:GetModelCharacter()
     return self._Model:GetCharacter()
+end
+
+function XCharacterAgency:GetModelCharacterConfigById(charId)
+    return self:GetModelCharacter()[charId]
 end
 
 function XCharacterAgency:GetModelLevelUpTemplate()
@@ -2202,10 +2246,6 @@ function XCharacterAgency:GetModelCharacterQuality()
     return self._Model:GetCharacterQuality()
 end
 
-function XCharacterAgency:GetModelCharacterSkillUpgradeDes()
-    return self._Model:GetCharacterSkillUpgradeDes()
-end
-
 function XCharacterAgency:GetModelCharacterSkillExchangeDes()
     return self._Model:GetCharacterSkillExchangeDes()
 end
@@ -2214,9 +2254,52 @@ function XCharacterAgency:GetModelCharacterSkillGate()
     return self._Model:GetCharacterSkillGate()
 end
 
+function XCharacterAgency:GetModelGetCharacterSkillUpgradeDetail()
+    return self._Model:GetCharacterSkillUpgradeDetail()
+end
+
 --region getModeComplex 以下是需要对model里的get表接口做数据处理再返回的方法
+
+-- 该接口会把detail数据合并，是优化了原表后拆分，再在数据层面的合并
+function XCharacterAgency:GetSkillGradeDesWithDetailConfig(subSkillId, subSkillLevel)
+    subSkillLevel = subSkillLevel or 0
+
+    local targetId = subSkillId * 100 + subSkillLevel 
+    local allConfig = self._Model:GetCharacterSkillUpgradeDes()
+    local descConfig = XTool.Clone(allConfig[targetId])
+    -- 开始合并detail数据
+    local detailConfig = self:GetModelGetCharacterSkillUpgradeDetail()[descConfig.RefId]
+    local detailData = XTool.Clone(detailConfig)
+    -- 加载SpecificDes数据
+    for spec_Index, v in pairs(detailData.SpecificDes) do
+        local specificDesNum = descConfig.SpecificDesNum[spec_Index]
+        local spec_nums = {}
+        if not string.IsNilOrEmpty(specificDesNum) then
+            spec_nums = string.Split(descConfig.SpecificDesNum[spec_Index])
+        end
+        
+        local newText = nil
+        if XTool.IsTableEmpty(spec_nums) then
+            newText = v
+        else
+            newText = XUiHelper.FormatText(v, table.unpack(spec_nums))
+        end
+        newText = XUiHelper.ReplaceTextNewLine(newText)
+        detailData.SpecificDes[spec_Index] = newText
+    end
+    for k, v in pairs(detailData) do
+        descConfig[k] = v
+    end
+    -- 整合intro
+    descConfig.Intro = XCharacterConfigs.GetGradeDesConfigIntro(descConfig)
+    -- 合并结束
+
+    return descConfig
+end
+
 function XCharacterAgency:GetSkillIconById(skillId)
-    return XCharacterConfigs.GetSkillIconById(skillId)
+    local config = self:GetSkillGradeDesWithDetailConfig(skillId)
+    return config.Icon
 end
 
 -- 获取核心切换技能的描述
@@ -2269,24 +2352,275 @@ function XCharacterAgency:GetCharQualityPerformArea(charId, quality)
         end 
     end
 end
---endregion getModeComplex结束
 
---region XCharacterConfigs临时接口后期整改 这里的接口和XCharacterConfigs里的接口一一对应
+--clientLevel获取对应等级数据 (v2.8移植完成)
+function XCharacterAgency:GetCharacterSkillsByCharacter(character, clientLevel, selectSubSkill)
+    local templateId = character.Id
+    --
+    local SkillGateConfig = self:GetModelCharacterSkillGate()
+    --
+
+    local skills = {}
+    for i = 1, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
+        skills[i] = {}
+        skills[i].subSkills = {}
+        skills[i].configDes = {}
+
+        skills[i].config = {}
+        skills[i].config.Pos = i
+
+        if not SkillGateConfig[i] then
+            XLog.ErrorTableDataNotFound("XCharacterAgency.GetCharacterSkillsByCharacter", "SkillGateConfig", "Id", tostring(i))
+        else
+            skills[i].Icon = self:GetModelCharacterSkillGate()[i].Icon
+            skills[i].Name = SkillGateConfig[i].Name
+            skills[i].EnName = SkillGateConfig[i].EnName
+            skills[i].TotalLevel = 0
+
+            --skills[i].SkillIdList = CharacterSkillDictTemplates[templateId][i]-- todo optimize
+            --way1:construct a using skillId list
+            --way2:reconstruct this shit code
+            local skillIdList = {}
+            local posDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(templateId)
+            local skillGroupIds = posDic[i]
+
+            for _, skillGroupId in pairs(skillGroupIds) do
+                local skillId = character:GetGroupCurSkillId(skillGroupId)
+                if skillId > 0 then
+                    tableInsert(skillIdList, skillId)
+                end
+            end
+            skills[i].SkillIdList = skillIdList--forgive me to choose way1 before deadline
+
+            for _, skillId in pairs(skillIdList) do
+                local skillCo = {}
+                skillCo.SubSkillId = skillId
+
+                local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+                local selectSkillId = selectSubSkill and selectSubSkill.SubSkillId == skillId --客户端刷新只更新选中的技能
+                skillCo.Level = selectSkillId and clientLevel or character:GetSkillLevel(skillGroupId)
+                skills[i].TotalLevel = skills[i].TotalLevel + skillCo.Level
+
+                if XTool.IsNumberValid(skillId) and skillCo.Level >= 0 then
+                    skillCo.config = XCharacterConfigs.GetSkillGradeConfig(skillId, skillCo.Level)
+                    skillCo.configDes = self:GetSkillGradeDesWithDetailConfig(skillId, skillCo.Level)
+                end
+
+                tableInsert(skills[i].subSkills, skillCo)
+            end
+        end
+    end
+
+    return skills
+end
+
+-- 兼容robotId
+function XCharacterAgency:GetCharacterTemplate(templateId)
+    if XRobotManager.CheckIsRobotId(templateId) then
+        templateId = XRobotManager.GetCharacterId(templateId)
+    end
+    local template = self:GetModelCharacterConfigById(templateId)
+    if template == nil then
+        XLog.ErrorTableDataNotFound("self:GetCharacterTemplate",
+        "CharacterTemplates", "Share/Character/Character.tab", "templateId", tostring(templateId))
+        return
+    end
+
+    return template
+end
+
+function XCharacterAgency:GetCharacterTemplates()
+    local characterList = {}
+    for _, config in pairs(self:GetModelCharacter()) do
+        if self:IsCharacterCanShow(config.Id) then
+            characterList[config.Id] = config
+        end
+    end
+    return characterList
+end
+
+function XCharacterAgency:GetCharacterEquipType(templateId)
+    return self:GetModelCharacterConfigById(templateId).EquipType
+end
 
 function XCharacterAgency:GetCharacterName(templateId)
-    return XCharacterConfigs.GetCharacterName(templateId)
+    return self:GetModelCharacterConfigById(templateId).Name
 end
 
 function XCharacterAgency:GetCharacterTradeName(templateId)
-    return XCharacterConfigs.GetCharacterTradeName(templateId)
+    return self:GetModelCharacterConfigById(templateId).TradeName
 end
 
+function XCharacterAgency:GetCharacterLogName(templateId)
+    return self:GetModelCharacterConfigById(templateId).LogName
+end
+
+function XCharacterAgency:GetCharacterEnName(templateId)
+    return self:GetModelCharacterConfigById(templateId).EnName
+end
+
+function XCharacterAgency:GetCharacterItemId(templateId)
+    return self:GetModelCharacterConfigById(templateId).ItemId
+end
+
+-- function XCharacterAgency:GetCharacterElement(templateId)  -- 已经有2.6以前的移植了
+
+function XCharacterAgency:IsCharacterForeShow(templateId)
+    return self:GetModelCharacterConfigById(templateId).Foreshow == 0
+end
+
+function XCharacterAgency:GetCharacterLinkageType(templateId)
+    return self:GetModelCharacterConfigById(templateId).LinkageType or 0
+end
+
+-- 体验包保留角色
+function XCharacterAgency:IsIncludeCharacter(characterId)
+    return not self._Model.IsHideFunc or self._Model.IncludeCharacterIds[characterId]
+end
+
+--是否可展示
+function XCharacterAgency:IsCharacterCanShow(templateId)
+    if not self:GetModelCharacterConfigById(templateId) then return false end
+
+    -- 属于包体内容
+    if not self:IsIncludeCharacter(templateId) then
+        return false
+    end
+
+    -- 在展示时间内
+    local timeId = self:GetModelCharacterConfigById(templateId).ShowTimeId
+    return XFunctionManager.CheckInTimeByTimeId(timeId, true)
+end
+
+function XCharacterAgency:GetCharacterIntro(templateId)
+    return self:GetModelCharacterConfigById(templateId).Intro
+end
+
+function XCharacterAgency:GetCharacterPriority(templateId)
+    return self:GetModelCharacterConfigById(templateId).Priority
+end
+
+function XCharacterAgency:GetCharacterEmotionIcon(templateId)
+    return self:GetModelCharacterConfigById(templateId).EmotionIcon
+end
+
+function XCharacterAgency:GetCharacterCaptainSkill(templateId)
+    return self:GetModelCharacterConfigById(templateId).CaptainSkillId
+end
+
+function XCharacterAgency:GetCharacterStoryChapterId(templateId)
+    return self:GetModelCharacterConfigById(templateId).StoryChapterId
+end
+
+function XCharacterAgency:GetCharacterCodeStr(templateId)
+    return self:GetModelCharacterConfigById(templateId).Code
+end
+
+function XCharacterAgency:GetCharacterType(templateId)
+    local config = self:GetCharacterTemplate(templateId)
+    return config.Type
+end
+
+--首次获得弹窗
+function XCharacterAgency:GetCharacterNeedFirstShow(templateId)
+    return self:GetModelCharacterConfigById(templateId).NeedFirstShow
+end
+
+function XCharacterAgency:GetNextLevelExp(templateId, level)
+    local levelUpTemplateId = self:GetModelCharacterConfigById(templateId).LevelUpTemplateId
+    local levelUpTemplate = XCharacterConfigs.GetLevelUpTemplate(levelUpTemplateId)
+
+    return levelUpTemplate[level].Exp
+end
+
+function XCharacterAgency:GetCharacterTemplatesCount()
+    return self._Model.CharacterTemplatesCount
+end
+
+function XCharacterAgency:GetCharcterIdByFragmentItemId(itemId)
+    local charId = self._Model.ItemIdToCharacterIdDic[itemId]
+    if not charId then
+        for id, v in pairs(self:GetModelCharacter()) do
+            if v.ItemId == itemId then
+                charId = id
+            end
+        end
+    end
+
+    return charId
+end
+
+function XCharacterAgency:GetCharacterDefaultEquipId(templateId)
+    local template = self:GetCharacterTemplate(templateId)
+    if template then
+        return template.EquipId
+    end
+end
+
+function XCharacterAgency:GetCharacterBorderTemplate(templateId) -- 替换 CharBorderTemplates 字典
+    local data = self._Model.CharBorderTemplates[templateId]
+    if not data then
+        XLog.Error("边界属性无数据 id:", templateId)
+    end
+    return data
+end
+
+-- 升级相关begin --
+function XCharacterAgency:GetCharMaxLevel(templateId)
+    if not templateId then
+        XLog.Error("XCharacterAgency:GetCharMaxLevel函数参数templateId不能为空")
+        return
+    end
+
+    return self:GetCharacterBorderTemplate(templateId).MaxLevel
+end
+
+function XCharacterAgency:GetCharMinQuality(templateId)
+    if not templateId then
+        XLog.Error("XCharacterAgency:GetCharMinQuality函数参数templateId不能为空")
+        return
+    end
+
+    if not self:GetCharacterBorderTemplate(templateId) then
+        return
+    end
+
+    return self:GetCharacterBorderTemplate(templateId).MinQuality
+end
+
+function XCharacterAgency:GetCharMaxQuality(templateId)
+    if not templateId then
+        XLog.Error("XCharacterAgency:GetCharMaxQuality函数参数templateId为空")
+        return
+    end
+
+    return self:GetCharacterBorderTemplate(templateId).MaxQuality
+end
+
+function XCharacterAgency:GetCharMaxGrade(templateId)
+    return self:GetCharacterBorderTemplate(templateId).MaxGrade
+end
+
+function XCharacterAgency:GetCharMinGrade(templateId)
+    return self:GetCharacterBorderTemplate(templateId).MinGrade
+end
+
+--endregion getModeComplex结束
+
+--region XCharacterConfigs临时接口后期整改 这里的接口和XCharacterConfigs里的接口一一对应
 function XCharacterAgency:GetCharMaxQuality(templateId)
     return XCharacterConfigs.GetCharMaxQuality(templateId)
 end
 
 function XCharacterAgency:GetQualityTemplate(templateId, quality)
     return XCharacterConfigs.GetQualityTemplate(templateId, quality)
+end
+
+function XCharacterAgency:GetCharacterFullNameStr(templateId)
+    local name = self:GetCharacterName(templateId)
+    local tradeName = self:GetCharacterTradeName(templateId)
+
+    return XUiHelper.GetText("CharacterFullName", name, tradeName)
 end
 
 --endregion
