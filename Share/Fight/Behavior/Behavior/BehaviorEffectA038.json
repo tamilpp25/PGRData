@@ -82,7 +82,7 @@
     },
     {
         "Id": 108847,
-        "Type": "OnFrame",
+        "Type": "OnAfterDamage",
         "Priority": 3,
         "PrefixRoot": 620381657,
         "Root": 620381659.0,
@@ -252,7 +252,7 @@
         "RemoveRoot": null
     },
     {
-        "Id": 108812,
+        "Id": 108813,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 620381135,
@@ -383,6 +383,33 @@
         "Priority": 3,
         "PrefixRoot": 620381634,
         "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 108876,
+        "Type": "OnDodge",
+        "Priority": 3,
+        "PrefixRoot": 620381653,
+        "Root": 620381706.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 108878,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 620381707,
+        "Root": 620381709.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 108882,
+        "Type": "OnBeHit",
+        "Priority": 3,
+        "PrefixRoot": 620380597,
+        "Root": 620380872.0,
         "PreLoadRoot": null,
         "RemoveRoot": null
     }
