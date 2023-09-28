@@ -6,20 +6,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            1.0,
-            1.0,
-            1.0,
+        "PeriodFightEventIds": [
+            1,
+            1,
+            1,
             1
         ],
-        "CoinCount": 50,
-        "RewardId": 16328,
+        "CoinCount": 90,
+        "RewardId": 62102,
         "PluginDropTypeGroupId": 1,
         "NodeRandomGroupIds": [
             101
@@ -43,7 +37,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 1,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": [
+            620.0,
+            782.0
+        ]
     },
     {
         "Id": 2,
@@ -52,20 +53,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            2,
+            2,
+            2,
+            2
         ],
-        "FightEventLevels": [
-            2.0,
-            2.0,
-            1.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16329,
+        "CoinCount": 90,
+        "RewardId": 62103,
         "PluginDropTypeGroupId": 1,
         "NodeRandomGroupIds": [
             201
@@ -89,7 +84,13 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 1,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": [
+            1127.0
+        ]
     },
     {
         "Id": 3,
@@ -98,20 +99,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            3,
+            3,
+            3,
+            3
         ],
-        "FightEventLevels": [
-            3.0,
-            3.0,
-            1.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16330,
+        "CoinCount": 90,
+        "RewardId": 62104,
         "PluginDropTypeGroupId": 1,
         "NodeRandomGroupIds": [
             301
@@ -135,7 +130,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 1,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": [
+            1131.0,
+            1136.0
+        ]
     },
     {
         "Id": 4,
@@ -144,26 +146,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            4,
+            4,
+            4,
+            4
         ],
-        "FightEventLevels": [
-            4.0,
-            4.0,
-            1.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16331,
+        "CoinCount": 90,
+        "RewardId": 62105,
         "PluginDropTypeGroupId": 1,
         "NodeRandomGroupIds": [
             401
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "A1"
@@ -181,7 +177,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 1,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 5,
@@ -190,14 +190,14 @@
         "Type": 2,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "PeriodFightEventIds": [
+            5,
+            5,
+            5,
+            5
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16332,
+        "CoinCount": 90,
+        "RewardId": 62106,
         "PluginDropTypeGroupId": 1,
         "NodeRandomGroupIds": [
             501
@@ -221,7 +221,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 1,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 6,
@@ -230,26 +234,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            6,
+            6,
+            6,
+            6
         ],
-        "FightEventLevels": [
-            6.0,
-            6.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16333,
+        "CoinCount": 90,
+        "RewardId": 62107,
         "PluginDropTypeGroupId": 2,
         "NodeRandomGroupIds": [
             601
         ],
         "NodePositions": [
-            5
+            1
         ],
         "NodeName": [
             "A1"
@@ -267,7 +265,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 2,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 7,
@@ -276,26 +278,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            7,
+            7,
+            7,
+            7
         ],
-        "FightEventLevels": [
-            7.0,
-            7.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16334,
+        "CoinCount": 90,
+        "RewardId": 62108,
         "PluginDropTypeGroupId": 2,
         "NodeRandomGroupIds": [
             701
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "A1"
@@ -313,7 +309,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 2,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 8,
@@ -322,20 +322,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            8,
+            8,
+            8,
+            8
         ],
-        "FightEventLevels": [
-            8.0,
-            8.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16335,
+        "CoinCount": 90,
+        "RewardId": 62109,
         "PluginDropTypeGroupId": 2,
         "NodeRandomGroupIds": [
             801
@@ -359,7 +353,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 2,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 9,
@@ -368,26 +366,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            9,
+            9,
+            9,
+            9
         ],
-        "FightEventLevels": [
-            9.0,
-            9.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16336,
+        "CoinCount": 90,
+        "RewardId": 62110,
         "PluginDropTypeGroupId": 2,
         "NodeRandomGroupIds": [
             901
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "A1"
@@ -405,7 +397,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 2,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 10,
@@ -414,20 +410,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
+        "PeriodFightEventIds": [
+            10,
+            10,
+            10,
+            10
         ],
-        "FightEventLevels": [
-            10.0,
-            10.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 50,
-        "RewardId": 16337,
+        "CoinCount": 90,
+        "RewardId": 62111,
         "PluginDropTypeGroupId": 2,
         "NodeRandomGroupIds": [
             1001
@@ -451,7 +441,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 10,
         "LuckyPluginDropCountMin": 4,
-        "LuckyPluginDropCountMax": 4
+        "LuckyPluginDropCountMax": 4,
+        "SweepPluginDropTypeGroupId": 2,
+        "SweepPluginDropCountMin": 4,
+        "SweepPluginDropCountMax": 4,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 11,
@@ -460,26 +454,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            11,
+            11,
+            11,
+            11
         ],
-        "FightEventLevels": [
-            11.0,
-            11.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16338,
+        "CoinCount": 120,
+        "RewardId": 62112,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1101
         ],
         "NodePositions": [
-            3
+            2
         ],
         "NodeName": [
             "B1"
@@ -497,7 +485,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": [
+            1013.0,
+            1018.0
+        ]
     },
     {
         "Id": 12,
@@ -506,26 +501,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            12,
+            12,
+            12,
+            12
         ],
-        "FightEventLevels": [
-            12.0,
-            12.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16339,
+        "CoinCount": 120,
+        "RewardId": 62113,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1201
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "B1"
@@ -543,7 +532,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": [
+            1022.0,
+            797.0
+        ]
     },
     {
         "Id": 13,
@@ -552,26 +548,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            13,
+            13,
+            13,
+            13
         ],
-        "FightEventLevels": [
-            13.0,
-            13.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16340,
+        "CoinCount": 120,
+        "RewardId": 62114,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1301
         ],
         "NodePositions": [
-            2
+            4
         ],
         "NodeName": [
             "B1"
@@ -589,7 +579,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": [
+            785.0,
+            801.0
+        ]
     },
     {
         "Id": 14,
@@ -598,20 +595,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            14,
+            14,
+            14,
+            14
         ],
-        "FightEventLevels": [
-            14.0,
-            14.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16341,
+        "CoinCount": 120,
+        "RewardId": 62115,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1401
@@ -635,7 +626,14 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": [
+            793.0,
+            789.0
+        ]
     },
     {
         "Id": 15,
@@ -643,15 +641,15 @@
         "Order": 15,
         "Type": 2,
         "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "JumpLayerMaxCount": 10,
+        "PeriodFightEventIds": [
+            15,
+            15,
+            15,
+            15
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16342,
+        "CoinCount": 120,
+        "RewardId": 62116,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1501
@@ -675,7 +673,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 16,
@@ -684,26 +686,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            16,
+            16,
+            16,
+            16
         ],
-        "FightEventLevels": [
-            16.0,
-            16.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16343,
+        "CoinCount": 120,
+        "RewardId": 62117,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1601
         ],
         "NodePositions": [
-            3
+            4
         ],
         "NodeName": [
             "B1"
@@ -721,7 +717,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 17,
@@ -730,20 +730,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            17,
+            17,
+            17,
+            17
         ],
-        "FightEventLevels": [
-            17.0,
-            17.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16344,
+        "CoinCount": 120,
+        "RewardId": 62118,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1701
@@ -767,7 +761,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 18,
@@ -776,26 +774,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            18,
+            18,
+            18,
+            18
         ],
-        "FightEventLevels": [
-            18.0,
-            18.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16345,
+        "CoinCount": 120,
+        "RewardId": 62119,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1801
         ],
         "NodePositions": [
-            2
+            3
         ],
         "NodeName": [
             "B1"
@@ -813,7 +805,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 19,
@@ -822,26 +818,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            19,
+            19,
+            19,
+            19
         ],
-        "FightEventLevels": [
-            19.0,
-            19.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16346,
+        "CoinCount": 120,
+        "RewardId": 62120,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             1901
         ],
         "NodePositions": [
-            1
+            2
         ],
         "NodeName": [
             "B1"
@@ -859,7 +849,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 20,
@@ -868,20 +862,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            20,
+            20,
+            20,
+            20
         ],
-        "FightEventLevels": [
-            20.0,
-            20.0,
-            5.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16347,
+        "CoinCount": 120,
+        "RewardId": 62121,
         "PluginDropTypeGroupId": 3,
         "NodeRandomGroupIds": [
             2001
@@ -905,7 +893,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 11,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 3,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 21,
@@ -914,26 +906,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            21,
+            21,
+            21,
+            21
         ],
-        "FightEventLevels": [
-            21.0,
-            21.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16348,
+        "CoinCount": 120,
+        "RewardId": 62122,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2101
         ],
         "NodePositions": [
-            2
+            1
         ],
         "NodeName": [
             "B1"
@@ -951,7 +937,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 22,
@@ -960,26 +950,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            22,
+            22,
+            22,
+            22
         ],
-        "FightEventLevels": [
-            22.0,
-            22.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16349,
+        "CoinCount": 120,
+        "RewardId": 62123,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2201
         ],
         "NodePositions": [
-            3
+            2
         ],
         "NodeName": [
             "B1"
@@ -997,7 +981,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 23,
@@ -1006,26 +994,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            23,
+            23,
+            23,
+            23
         ],
-        "FightEventLevels": [
-            23.0,
-            23.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16350,
+        "CoinCount": 120,
+        "RewardId": 62124,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2301
         ],
         "NodePositions": [
-            2
+            3
         ],
         "NodeName": [
             "B1"
@@ -1043,7 +1025,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 24,
@@ -1052,26 +1038,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            24,
+            24,
+            24,
+            24
         ],
-        "FightEventLevels": [
-            24.0,
-            24.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16351,
+        "CoinCount": 120,
+        "RewardId": 62125,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2401
         ],
         "NodePositions": [
-            2
+            4
         ],
         "NodeName": [
             "B1"
@@ -1089,7 +1069,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 25,
@@ -1098,14 +1082,14 @@
         "Type": 2,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "PeriodFightEventIds": [
+            25,
+            25,
+            25,
+            25
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16352,
+        "CoinCount": 120,
+        "RewardId": 62126,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2501
@@ -1129,7 +1113,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 26,
@@ -1138,26 +1126,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            26,
+            26,
+            26,
+            26
         ],
-        "FightEventLevels": [
-            26.0,
-            26.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16353,
+        "CoinCount": 120,
+        "RewardId": 62127,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2601
         ],
         "NodePositions": [
-            1
+            2
         ],
         "NodeName": [
             "B1"
@@ -1175,7 +1157,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 27,
@@ -1184,26 +1170,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            27,
+            27,
+            27,
+            27
         ],
-        "FightEventLevels": [
-            27.0,
-            27.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16354,
+        "CoinCount": 120,
+        "RewardId": 62128,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2701
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "B1"
@@ -1221,7 +1201,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 28,
@@ -1230,26 +1214,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            28,
+            28,
+            28,
+            28
         ],
-        "FightEventLevels": [
-            28.0,
-            28.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16355,
+        "CoinCount": 120,
+        "RewardId": 62129,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2801
         ],
         "NodePositions": [
-            2
+            1
         ],
         "NodeName": [
             "B1"
@@ -1267,7 +1245,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 29,
@@ -1276,26 +1258,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            29,
+            29,
+            29,
+            29
         ],
-        "FightEventLevels": [
-            29.0,
-            29.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16356,
+        "CoinCount": 120,
+        "RewardId": 62130,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             2901
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "B1"
@@ -1313,7 +1289,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 30,
@@ -1322,20 +1302,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
+        "PeriodFightEventIds": [
+            30,
+            30,
+            30,
+            30
         ],
-        "FightEventLevels": [
-            30.0,
-            30.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 75,
-        "RewardId": 16357,
+        "CoinCount": 120,
+        "RewardId": 62131,
         "PluginDropTypeGroupId": 4,
         "NodeRandomGroupIds": [
             3001
@@ -1359,7 +1333,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 12,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 4,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 31,
@@ -1368,26 +1346,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            31,
+            31,
+            31,
+            31
         ],
-        "FightEventLevels": [
-            31.0,
-            31.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16358,
+        "CoinCount": 150,
+        "RewardId": 62132,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3101
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "C1"
@@ -1405,7 +1377,13 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": [
+            1091.0
+        ]
     },
     {
         "Id": 32,
@@ -1414,26 +1392,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            32,
+            32,
+            32,
+            32
         ],
-        "FightEventLevels": [
-            32.0,
-            32.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16359,
+        "CoinCount": 150,
+        "RewardId": 62133,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3201
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "C1"
@@ -1451,7 +1423,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 33,
@@ -1460,20 +1436,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            33,
+            33,
+            33,
+            33
         ],
-        "FightEventLevels": [
-            33.0,
-            33.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16360,
+        "CoinCount": 150,
+        "RewardId": 62134,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3301
@@ -1497,7 +1467,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 34,
@@ -1506,26 +1480,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            34,
+            34,
+            34,
+            34
         ],
-        "FightEventLevels": [
-            34.0,
-            34.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16361,
+        "CoinCount": 150,
+        "RewardId": 62135,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3401
         ],
         "NodePositions": [
-            3
+            1
         ],
         "NodeName": [
             "C1"
@@ -1543,7 +1511,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 35,
@@ -1551,15 +1523,15 @@
         "Order": 35,
         "Type": 2,
         "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "JumpLayerMaxCount": 10,
+        "PeriodFightEventIds": [
+            35,
+            35,
+            35,
+            35
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16362,
+        "CoinCount": 150,
+        "RewardId": 62136,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3501
@@ -1583,7 +1555,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 36,
@@ -1592,26 +1568,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            36,
+            36,
+            36,
+            36
         ],
-        "FightEventLevels": [
-            36.0,
-            36.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16363,
+        "CoinCount": 150,
+        "RewardId": 62137,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3601
         ],
         "NodePositions": [
-            3
+            4
         ],
         "NodeName": [
             "C1"
@@ -1629,7 +1599,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 37,
@@ -1638,20 +1612,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            37,
+            37,
+            37,
+            37
         ],
-        "FightEventLevels": [
-            37.0,
-            37.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16364,
+        "CoinCount": 150,
+        "RewardId": 62138,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3701
@@ -1675,7 +1643,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 38,
@@ -1684,20 +1656,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            38,
+            38,
+            38,
+            38
         ],
-        "FightEventLevels": [
-            38.0,
-            38.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16365,
+        "CoinCount": 150,
+        "RewardId": 62139,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3801
@@ -1721,7 +1687,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 39,
@@ -1730,20 +1700,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            39,
+            39,
+            39,
+            39
         ],
-        "FightEventLevels": [
-            39.0,
-            39.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16366,
+        "CoinCount": 150,
+        "RewardId": 62140,
         "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             3901
@@ -1767,7 +1731,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 13,
         "LuckyPluginDropCountMin": 6,
-        "LuckyPluginDropCountMax": 6
+        "LuckyPluginDropCountMax": 6,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 6,
+        "SweepPluginDropCountMax": 6,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 40,
@@ -1776,21 +1744,15 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
+        "PeriodFightEventIds": [
+            40,
+            40,
+            40,
+            40
         ],
-        "FightEventLevels": [
-            40.0,
-            40.0,
-            2.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16367,
-        "PluginDropTypeGroupId": 6,
+        "CoinCount": 150,
+        "RewardId": 62141,
+        "PluginDropTypeGroupId": 5,
         "NodeRandomGroupIds": [
             4001
         ],
@@ -1813,7 +1775,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 5,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 41,
@@ -1822,26 +1788,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            41,
+            41,
+            41,
+            41
         ],
-        "FightEventLevels": [
-            41.0,
-            41.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16368,
+        "CoinCount": 150,
+        "RewardId": 62142,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4101
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "C1"
@@ -1859,7 +1819,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 42,
@@ -1868,20 +1832,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            42,
+            42,
+            42,
+            42
         ],
-        "FightEventLevels": [
-            42.0,
-            42.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16369,
+        "CoinCount": 150,
+        "RewardId": 62143,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4201
@@ -1905,7 +1863,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 43,
@@ -1914,20 +1876,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            43,
+            43,
+            43,
+            43
         ],
-        "FightEventLevels": [
-            43.0,
-            43.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16370,
+        "CoinCount": 150,
+        "RewardId": 62144,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4301
@@ -1951,7 +1907,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 44,
@@ -1960,26 +1920,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            44,
+            44,
+            44,
+            44
         ],
-        "FightEventLevels": [
-            44.0,
-            44.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16371,
+        "CoinCount": 150,
+        "RewardId": 62145,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4401
         ],
         "NodePositions": [
-            2
+            4
         ],
         "NodeName": [
             "C1"
@@ -1997,7 +1951,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 45,
@@ -2006,14 +1964,14 @@
         "Type": 2,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "PeriodFightEventIds": [
+            45,
+            45,
+            45,
+            45
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16372,
+        "CoinCount": 150,
+        "RewardId": 62146,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4501
@@ -2037,7 +1995,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 46,
@@ -2046,26 +2008,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            46,
+            46,
+            46,
+            46
         ],
-        "FightEventLevels": [
-            46.0,
-            46.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16373,
+        "CoinCount": 150,
+        "RewardId": 62147,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4601
         ],
         "NodePositions": [
-            1
+            2
         ],
         "NodeName": [
             "C1"
@@ -2083,7 +2039,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 47,
@@ -2092,26 +2052,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            47,
+            47,
+            47,
+            47
         ],
-        "FightEventLevels": [
-            47.0,
-            47.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16374,
+        "CoinCount": 150,
+        "RewardId": 62148,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4701
         ],
         "NodePositions": [
-            2
+            3
         ],
         "NodeName": [
             "C1"
@@ -2129,7 +2083,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 48,
@@ -2138,26 +2096,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            48,
+            48,
+            48,
+            48
         ],
-        "FightEventLevels": [
-            48.0,
-            48.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16375,
+        "CoinCount": 150,
+        "RewardId": 62149,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4801
         ],
         "NodePositions": [
-            2
+            1
         ],
         "NodeName": [
             "C1"
@@ -2175,7 +2127,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 49,
@@ -2184,26 +2140,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            49,
+            49,
+            49,
+            49
         ],
-        "FightEventLevels": [
-            49.0,
-            49.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16376,
+        "CoinCount": 150,
+        "RewardId": 62150,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             4901
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "C1"
@@ -2221,7 +2171,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 50,
@@ -2230,20 +2184,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
+        "PeriodFightEventIds": [
+            50,
+            50,
+            50,
+            50
         ],
-        "FightEventLevels": [
-            50.0,
-            50.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 160,
-        "RewardId": 16377,
+        "CoinCount": 150,
+        "RewardId": 62151,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5001
@@ -2267,7 +2215,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 14,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 51,
@@ -2276,26 +2228,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            51,
+            51,
+            51,
+            51
         ],
-        "FightEventLevels": [
-            51.0,
-            51.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16378,
+        "CoinCount": 240,
+        "RewardId": 62152,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5101
         ],
         "NodePositions": [
-            2
+            4
         ],
         "NodeName": [
             "D1"
@@ -2313,7 +2259,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 52,
@@ -2322,23 +2272,61 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            52,
+            52,
+            52,
+            52
         ],
-        "FightEventLevels": [
-            52.0,
-            52.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16379,
+        "CoinCount": 240,
+        "RewardId": 62153,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5201
+        ],
+        "NodePositions": [
+            1
+        ],
+        "NodeName": [
+            "D1"
+        ],
+        "NodeDesc": [
+            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+        ],
+        "PluginDropCountMins": [
+            3
+        ],
+        "PluginDropCountMaxs": [
+            6
+        ],
+        "LuckyNodeRandomGroupId": 60001,
+        "LuckyNodeRewardId": null,
+        "LuckyPluginDropTypeGroupId": 15,
+        "LuckyPluginDropCountMin": 8,
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
+    },
+    {
+        "Id": 53,
+        "ChapterId": 4,
+        "Order": 53,
+        "Type": 1,
+        "UnlockByPrevLayer": 1,
+        "JumpLayerMaxCount": 0,
+        "PeriodFightEventIds": [
+            53,
+            53,
+            53,
+            53
+        ],
+        "CoinCount": 240,
+        "RewardId": 62154,
+        "PluginDropTypeGroupId": 6,
+        "NodeRandomGroupIds": [
+            5301
         ],
         "NodePositions": [
             2
@@ -2359,53 +2347,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
-    },
-    {
-        "Id": 53,
-        "ChapterId": 4,
-        "Order": 53,
-        "Type": 1,
-        "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            53.0,
-            53.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16380,
-        "PluginDropTypeGroupId": 6,
-        "NodeRandomGroupIds": [
-            5301
-        ],
-        "NodePositions": [
-            1
-        ],
-        "NodeName": [
-            "D1"
-        ],
-        "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
-        ],
-        "PluginDropCountMins": [
-            3
-        ],
-        "PluginDropCountMaxs": [
-            6
-        ],
-        "LuckyNodeRandomGroupId": 60001,
-        "LuckyNodeRewardId": null,
-        "LuckyPluginDropTypeGroupId": 15,
-        "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 54,
@@ -2414,26 +2360,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            54,
+            54,
+            54,
+            54
         ],
-        "FightEventLevels": [
-            54.0,
-            54.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16381,
+        "CoinCount": 240,
+        "RewardId": 62155,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5401
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "D1"
@@ -2451,7 +2391,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 55,
@@ -2459,15 +2403,15 @@
         "Order": 55,
         "Type": 2,
         "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "JumpLayerMaxCount": 10,
+        "PeriodFightEventIds": [
+            55,
+            55,
+            55,
+            55
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16382,
+        "CoinCount": 240,
+        "RewardId": 62156,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5501
@@ -2491,7 +2435,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 56,
@@ -2500,26 +2448,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            56,
+            56,
+            56,
+            56
         ],
-        "FightEventLevels": [
-            56.0,
-            56.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16383,
+        "CoinCount": 240,
+        "RewardId": 62157,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5601
         ],
         "NodePositions": [
-            2
+            1
         ],
         "NodeName": [
             "D1"
@@ -2537,7 +2479,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 57,
@@ -2546,26 +2492,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            57,
+            57,
+            57,
+            57
         ],
-        "FightEventLevels": [
-            57.0,
-            57.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16384,
+        "CoinCount": 240,
+        "RewardId": 62158,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5701
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "D1"
@@ -2583,7 +2523,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 58,
@@ -2592,20 +2536,14 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            58,
+            58,
+            58,
+            58
         ],
-        "FightEventLevels": [
-            58.0,
-            58.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16385,
+        "CoinCount": 240,
+        "RewardId": 62159,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5801
@@ -2629,7 +2567,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 59,
@@ -2638,26 +2580,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            59,
+            59,
+            59,
+            59
         ],
-        "FightEventLevels": [
-            59.0,
-            59.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16386,
+        "CoinCount": 240,
+        "RewardId": 62160,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             5901
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "D1"
@@ -2675,7 +2611,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 60,
@@ -2684,20 +2624,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
+        "PeriodFightEventIds": [
+            60,
+            60,
+            60,
+            60
         ],
-        "FightEventLevels": [
-            60.0,
-            60.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 300,
-        "RewardId": 16387,
+        "CoinCount": 240,
+        "RewardId": 62161,
         "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6001
@@ -2721,7 +2655,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 15,
         "LuckyPluginDropCountMin": 8,
-        "LuckyPluginDropCountMax": 8
+        "LuckyPluginDropCountMax": 8,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 8,
+        "SweepPluginDropCountMax": 8,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 61,
@@ -2730,21 +2668,15 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            61,
+            61,
+            61,
+            61
         ],
-        "FightEventLevels": [
-            61.0,
-            61.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16388,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62162,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6101
         ],
@@ -2767,7 +2699,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 62,
@@ -2776,26 +2712,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            62,
+            62,
+            62,
+            62
         ],
-        "FightEventLevels": [
-            62.0,
-            62.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16389,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62163,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6201
         ],
         "NodePositions": [
-            2
+            4
         ],
         "NodeName": [
             "D1"
@@ -2813,7 +2743,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 63,
@@ -2822,26 +2756,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            63,
+            63,
+            63,
+            63
         ],
-        "FightEventLevels": [
-            63.0,
-            63.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16390,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62164,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6301
         ],
         "NodePositions": [
-            1
+            3
         ],
         "NodeName": [
             "D1"
@@ -2859,7 +2787,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 64,
@@ -2868,21 +2800,15 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            64,
+            64,
+            64,
+            64
         ],
-        "FightEventLevels": [
-            64.0,
-            64.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16391,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62165,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6401
         ],
@@ -2905,7 +2831,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 65,
@@ -2914,15 +2844,15 @@
         "Type": 2,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "PeriodFightEventIds": [
+            65,
+            65,
+            65,
+            65
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16392,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62166,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6501
         ],
@@ -2945,7 +2875,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 66,
@@ -2954,26 +2888,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            66,
+            66,
+            66,
+            66
         ],
-        "FightEventLevels": [
-            66.0,
-            66.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16393,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62167,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6601
         ],
         "NodePositions": [
-            2
+            3
         ],
         "NodeName": [
             "D1"
@@ -2991,7 +2919,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 67,
@@ -3000,21 +2932,15 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            67,
+            67,
+            67,
+            67
         ],
-        "FightEventLevels": [
-            67.0,
-            67.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16394,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62168,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6701
         ],
@@ -3037,7 +2963,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 68,
@@ -3046,21 +2976,15 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            68,
+            68,
+            68,
+            68
         ],
-        "FightEventLevels": [
-            68.0,
-            68.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16395,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62169,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6801
         ],
@@ -3083,7 +3007,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 69,
@@ -3092,26 +3020,20 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            69,
+            69,
+            69,
+            69
         ],
-        "FightEventLevels": [
-            69.0,
-            69.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16396,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62170,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             6901
         ],
         "NodePositions": [
-            1
+            4
         ],
         "NodeName": [
             "D1"
@@ -3129,7 +3051,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 70,
@@ -3138,21 +3064,15 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
+        "PeriodFightEventIds": [
+            70,
+            70,
+            70,
+            70
         ],
-        "FightEventLevels": [
-            70.0,
-            70.0,
-            3.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16397,
-        "PluginDropTypeGroupId": 7,
+        "CoinCount": 600,
+        "RewardId": 62171,
+        "PluginDropTypeGroupId": 6,
         "NodeRandomGroupIds": [
             7001
         ],
@@ -3175,7 +3095,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 16,
         "LuckyPluginDropCountMin": 10,
-        "LuckyPluginDropCountMax": 10
+        "LuckyPluginDropCountMax": 10,
+        "SweepPluginDropTypeGroupId": 6,
+        "SweepPluginDropCountMin": 10,
+        "SweepPluginDropCountMax": 10,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 71,
@@ -3184,50 +3108,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            71,
+            71,
+            71,
+            71
         ],
-        "FightEventLevels": [
-            71.0,
-            71.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16398,
+        "CoinCount": 600,
+        "RewardId": 62172,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7101,
-            7102.0
+            7101
         ],
         "NodePositions": [
-            1,
-            2.0
+            4
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 72,
@@ -3236,50 +3152,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            72,
+            72,
+            72,
+            72
         ],
-        "FightEventLevels": [
-            72.0,
-            72.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16399,
+        "CoinCount": 600,
+        "RewardId": 62173,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7201,
-            7202.0
+            7201
         ],
         "NodePositions": [
-            1,
-            2.0
+            3
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 73,
@@ -3288,50 +3196,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            73,
+            73,
+            73,
+            73
         ],
-        "FightEventLevels": [
-            73.0,
-            73.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16400,
+        "CoinCount": 600,
+        "RewardId": 62174,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7301,
-            7302.0
+            7301
         ],
         "NodePositions": [
-            1,
-            2.0
+            2
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 74,
@@ -3340,50 +3240,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            74,
+            74,
+            74,
+            74
         ],
-        "FightEventLevels": [
-            74.0,
-            74.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16401,
+        "CoinCount": 600,
+        "RewardId": 62175,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7401,
-            7402.0
+            7401
         ],
         "NodePositions": [
-            1,
-            2.0
+            1
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 75,
@@ -3391,15 +3283,15 @@
         "Order": 75,
         "Type": 2,
         "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "JumpLayerMaxCount": 10,
+        "PeriodFightEventIds": [
+            75,
+            75,
+            75,
+            75
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16402,
+        "CoinCount": 600,
+        "RewardId": 62176,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
             7501
@@ -3423,7 +3315,11 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 76,
@@ -3432,50 +3328,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            76,
+            76,
+            76,
+            76
         ],
-        "FightEventLevels": [
-            76.0,
-            76.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16403,
+        "CoinCount": 600,
+        "RewardId": 62177,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7601,
-            7602.0
+            7601
         ],
         "NodePositions": [
-            1,
-            2.0
+            1
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 77,
@@ -3484,50 +3372,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            77,
+            77,
+            77,
+            77
         ],
-        "FightEventLevels": [
-            77.0,
-            77.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16404,
+        "CoinCount": 600,
+        "RewardId": 62178,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7701,
-            7702.0
+            7701
         ],
         "NodePositions": [
-            1,
-            2.0
+            3
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 78,
@@ -3536,50 +3416,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            78,
+            78,
+            78,
+            78
         ],
-        "FightEventLevels": [
-            78.0,
-            78.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16405,
+        "CoinCount": 600,
+        "RewardId": 62179,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7801,
-            7802.0
+            7801
         ],
         "NodePositions": [
-            1,
-            2.0
+            4
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 79,
@@ -3588,50 +3460,42 @@
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            79,
+            79,
+            79,
+            79
         ],
-        "FightEventLevels": [
-            79.0,
-            79.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16406,
+        "CoinCount": 600,
+        "RewardId": 62180,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
-            7901,
-            7902.0
+            7901
         ],
         "NodePositions": [
-            1,
-            2.0
+            2
         ],
         "NodeName": [
-            "E1",
-            "E2"
+            "E1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            3,
-            3.0
+            3
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 80,
@@ -3640,20 +3504,14 @@
         "Type": 3,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
+        "PeriodFightEventIds": [
+            80,
+            80,
+            80,
+            80
         ],
-        "FightEventLevels": [
-            80.0,
-            80.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16407,
+        "CoinCount": 600,
+        "RewardId": 62181,
         "PluginDropTypeGroupId": 7,
         "NodeRandomGroupIds": [
             8001
@@ -3677,255 +3535,203 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 17,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 7,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 81,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 81,
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
+        "PeriodFightEventIds": [
+            81,
+            81,
+            81,
+            81
         ],
-        "FightEventLevels": [
-            81.0,
-            81.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16408,
+        "CoinCount": 600,
+        "RewardId": 62182,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            8101,
-            8102.0,
-            8103.0
+            8101
         ],
         "NodePositions": [
-            1,
-            2.0,
-            3.0
+            2
         ],
         "NodeName": [
-            "F1",
-            "F2",
-            "F3"
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
+            4
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 82,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 82,
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
+        "PeriodFightEventIds": [
+            82,
+            82,
+            82,
+            82
         ],
-        "FightEventLevels": [
-            82.0,
-            82.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16409,
+        "CoinCount": 600,
+        "RewardId": 62183,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            8201,
-            8202.0,
-            8203.0
+            8201
         ],
         "NodePositions": [
-            1,
-            2.0,
-            3.0
+            3
         ],
         "NodeName": [
-            "F1",
-            "F2",
-            "F3"
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
+            4
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 83,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 83,
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
+        "PeriodFightEventIds": [
+            83,
+            83,
+            83,
+            83
         ],
-        "FightEventLevels": [
-            83.0,
-            83.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16410,
+        "CoinCount": 600,
+        "RewardId": 62184,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            8301,
-            8302.0,
-            8303.0
+            8301
         ],
         "NodePositions": [
-            1,
-            2.0,
-            3.0
+            1
         ],
         "NodeName": [
-            "F1",
-            "F2",
-            "F3"
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
+            4
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 84,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 84,
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
+        "PeriodFightEventIds": [
+            84,
+            84,
+            84,
+            84
         ],
-        "FightEventLevels": [
-            84.0,
-            84.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16411,
+        "CoinCount": 600,
+        "RewardId": 62185,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            8401,
-            8402.0,
-            8403.0
+            8401
         ],
         "NodePositions": [
-            1,
-            2.0,
-            3.0
+            4
         ],
         "NodeName": [
-            "F1",
-            "F2",
-            "F3"
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
+            4
         ],
         "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 85,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 85,
         "Type": 2,
         "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 5,
-        "FightEvents": [
-            2230515
+        "JumpLayerMaxCount": 4,
+        "PeriodFightEventIds": [
+            85,
+            85,
+            85,
+            85
         ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16412,
+        "CoinCount": 600,
+        "RewardId": 62186,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
             8501
@@ -3949,261 +3755,33 @@
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 86,
-        "ChapterId": 6,
+        "ChapterId": 5,
         "Order": 86,
         "Type": 1,
         "UnlockByPrevLayer": 1,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
+        "PeriodFightEventIds": [
+            86,
+            86,
+            86,
+            86
         ],
-        "FightEventLevels": [
-            86.0,
-            86.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16413,
+        "CoinCount": 600,
+        "RewardId": 62187,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            8601,
-            8602.0,
-            8603.0
+            8601
         ],
         "NodePositions": [
-            1,
-            2.0,
-            3.0
-        ],
-        "NodeName": [
-            "F1",
-            "F2",
-            "F3"
-        ],
-        "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
-        ],
-        "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
-        ],
-        "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
-        ],
-        "LuckyNodeRandomGroupId": 60001,
-        "LuckyNodeRewardId": null,
-        "LuckyPluginDropTypeGroupId": 18,
-        "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
-    },
-    {
-        "Id": 87,
-        "ChapterId": 6,
-        "Order": 87,
-        "Type": 1,
-        "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            87.0,
-            87.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16414,
-        "PluginDropTypeGroupId": 8,
-        "NodeRandomGroupIds": [
-            8701,
-            8702.0,
-            8703.0
-        ],
-        "NodePositions": [
-            1,
-            2.0,
-            3.0
-        ],
-        "NodeName": [
-            "F1",
-            "F2",
-            "F3"
-        ],
-        "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
-        ],
-        "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
-        ],
-        "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
-        ],
-        "LuckyNodeRandomGroupId": 60001,
-        "LuckyNodeRewardId": null,
-        "LuckyPluginDropTypeGroupId": 18,
-        "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
-    },
-    {
-        "Id": 88,
-        "ChapterId": 6,
-        "Order": 88,
-        "Type": 1,
-        "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            88.0,
-            88.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16415,
-        "PluginDropTypeGroupId": 8,
-        "NodeRandomGroupIds": [
-            8801,
-            8802.0,
-            8803.0
-        ],
-        "NodePositions": [
-            1,
-            2.0,
-            3.0
-        ],
-        "NodeName": [
-            "F1",
-            "F2",
-            "F3"
-        ],
-        "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
-        ],
-        "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
-        ],
-        "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
-        ],
-        "LuckyNodeRandomGroupId": 60001,
-        "LuckyNodeRewardId": null,
-        "LuckyPluginDropTypeGroupId": 18,
-        "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
-    },
-    {
-        "Id": 89,
-        "ChapterId": 6,
-        "Order": 89,
-        "Type": 1,
-        "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            89.0,
-            89.0,
-            4.0,
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16416,
-        "PluginDropTypeGroupId": 8,
-        "NodeRandomGroupIds": [
-            8901,
-            8902.0,
-            8903.0
-        ],
-        "NodePositions": [
-            1,
-            2.0,
-            3.0
-        ],
-        "NodeName": [
-            "F1",
-            "F2",
-            "F3"
-        ],
-        "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d",
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
-        ],
-        "PluginDropCountMins": [
-            4,
-            4.0,
-            4.0
-        ],
-        "PluginDropCountMaxs": [
-            6,
-            6.0,
-            6.0
-        ],
-        "LuckyNodeRandomGroupId": 60001,
-        "LuckyNodeRewardId": null,
-        "LuckyPluginDropTypeGroupId": 18,
-        "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
-    },
-    {
-        "Id": 90,
-        "ChapterId": 6,
-        "Order": 90,
-        "Type": 2,
-        "UnlockByPrevLayer": 1,
-        "JumpLayerMaxCount": 30,
-        "FightEvents": [
-            2230515
-        ],
-        "FightEventLevels": [
-            1
-        ],
-        "CoinCount": 800,
-        "RewardId": 16417,
-        "PluginDropTypeGroupId": 8,
-        "NodeRandomGroupIds": [
-            9001
-        ],
-        "NodePositions": [
-            5
+            3
         ],
         "NodeName": [
             "F1"
@@ -4212,16 +3790,214 @@
             "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
         ],
         "PluginDropCountMins": [
-            7
+            4
         ],
         "PluginDropCountMaxs": [
-            10
+            6
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
+    },
+    {
+        "Id": 87,
+        "ChapterId": 5,
+        "Order": 87,
+        "Type": 1,
+        "UnlockByPrevLayer": 1,
+        "JumpLayerMaxCount": 0,
+        "PeriodFightEventIds": [
+            87,
+            87,
+            87,
+            87
+        ],
+        "CoinCount": 600,
+        "RewardId": 62188,
+        "PluginDropTypeGroupId": 8,
+        "NodeRandomGroupIds": [
+            8701
+        ],
+        "NodePositions": [
+            4
+        ],
+        "NodeName": [
+            "F1"
+        ],
+        "NodeDesc": [
+            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+        ],
+        "PluginDropCountMins": [
+            4
+        ],
+        "PluginDropCountMaxs": [
+            6
+        ],
+        "LuckyNodeRandomGroupId": 60001,
+        "LuckyNodeRewardId": null,
+        "LuckyPluginDropTypeGroupId": 18,
+        "LuckyPluginDropCountMin": 12,
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
+    },
+    {
+        "Id": 88,
+        "ChapterId": 5,
+        "Order": 88,
+        "Type": 1,
+        "UnlockByPrevLayer": 1,
+        "JumpLayerMaxCount": 0,
+        "PeriodFightEventIds": [
+            88,
+            88,
+            88,
+            88
+        ],
+        "CoinCount": 600,
+        "RewardId": 62189,
+        "PluginDropTypeGroupId": 8,
+        "NodeRandomGroupIds": [
+            8801
+        ],
+        "NodePositions": [
+            1
+        ],
+        "NodeName": [
+            "F1"
+        ],
+        "NodeDesc": [
+            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+        ],
+        "PluginDropCountMins": [
+            4
+        ],
+        "PluginDropCountMaxs": [
+            6
+        ],
+        "LuckyNodeRandomGroupId": 60001,
+        "LuckyNodeRewardId": null,
+        "LuckyPluginDropTypeGroupId": 18,
+        "LuckyPluginDropCountMin": 12,
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
+    },
+    {
+        "Id": 89,
+        "ChapterId": 5,
+        "Order": 89,
+        "Type": 1,
+        "UnlockByPrevLayer": 1,
+        "JumpLayerMaxCount": 0,
+        "PeriodFightEventIds": [
+            89,
+            89,
+            89,
+            89
+        ],
+        "CoinCount": 600,
+        "RewardId": 62190,
+        "PluginDropTypeGroupId": 8,
+        "NodeRandomGroupIds": [
+            8901
+        ],
+        "NodePositions": [
+            2
+        ],
+        "NodeName": [
+            "F1"
+        ],
+        "NodeDesc": [
+            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+        ],
+        "PluginDropCountMins": [
+            4
+        ],
+        "PluginDropCountMaxs": [
+            6
+        ],
+        "LuckyNodeRandomGroupId": 60001,
+        "LuckyNodeRewardId": null,
+        "LuckyPluginDropTypeGroupId": 18,
+        "LuckyPluginDropCountMin": 12,
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
+    },
+    {
+        "Id": 90,
+        "ChapterId": 6,
+        "Order": 90,
+        "Type": 2,
+        "UnlockByPrevLayer": 1,
+        "JumpLayerMaxCount": 30,
+        "PeriodFightEventIds": [
+            90,
+            121,
+            152,
+            183
+        ],
+        "CoinCount": 600,
+        "RewardId": 62191,
+        "PluginDropTypeGroupId": 8,
+        "NodeRandomGroupIds": [
+            9002,
+            9003.0,
+            9004.0,
+            9005.0
+        ],
+        "NodePositions": [
+            5,
+            5.0,
+            5.0,
+            5.0
+        ],
+        "NodeName": [
+            "F1",
+            "F1",
+            "F1",
+            "F1"
+        ],
+        "NodeDesc": [
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
+        ],
+        "PluginDropCountMins": [
+            7,
+            7.0,
+            7.0,
+            7.0
+        ],
+        "PluginDropCountMaxs": [
+            10,
+            10.0,
+            10.0,
+            10.0
+        ],
+        "LuckyNodeRandomGroupId": 60001,
+        "LuckyNodeRewardId": null,
+        "LuckyPluginDropTypeGroupId": 18,
+        "LuckyPluginDropCountMin": 12,
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 91,
@@ -4230,44 +4006,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            91.0,
-            91.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            91,
+            122,
+            153,
+            184
         ],
         "CoinCount": 1200,
-        "RewardId": 16418,
+        "RewardId": 62192,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9101
+            9101,
+            29101.0,
+            39101.0,
+            49101.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 92,
@@ -4276,44 +4068,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            92.0,
-            92.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            92,
+            123,
+            154,
+            185
         ],
         "CoinCount": 1200,
-        "RewardId": 16419,
+        "RewardId": 62193,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9201
+            9201,
+            29201.0,
+            39201.0,
+            49201.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 93,
@@ -4322,44 +4130,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            93.0,
-            93.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            93,
+            124,
+            155,
+            186
         ],
         "CoinCount": 1200,
-        "RewardId": 16420,
+        "RewardId": 62194,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9301
+            9301,
+            29301.0,
+            39301.0,
+            49301.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 94,
@@ -4368,44 +4192,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            94.0,
-            94.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            94,
+            125,
+            156,
+            187
         ],
         "CoinCount": 1200,
-        "RewardId": 16421,
+        "RewardId": 62195,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9401
+            9401,
+            29401.0,
+            39401.0,
+            49401.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 95,
@@ -4414,44 +4254,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230507.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            95.0,
-            95.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            95,
+            126,
+            157,
+            188
         ],
         "CoinCount": 1200,
-        "RewardId": 16422,
+        "RewardId": 62196,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9501
+            9501,
+            29501.0,
+            39501.0,
+            49501.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\uff0c\u4f9d\u636e\u51fb\u8d25\u654c\u65b9\u7684\u6ce2\u6570\uff0c\u8dc3\u5347\u5f00\u653e\u66f4\u6df1\u5c42\u533a\u57df"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 96,
@@ -4460,44 +4316,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            96.0,
-            96.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            96,
+            127,
+            158,
+            189
         ],
         "CoinCount": 1200,
-        "RewardId": 16423,
+        "RewardId": 62197,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9601
+            9601,
+            29601.0,
+            39601.0,
+            49601.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 97,
@@ -4506,44 +4378,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            97.0,
-            97.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            97,
+            128,
+            159,
+            190
         ],
         "CoinCount": 1200,
-        "RewardId": 16424,
+        "RewardId": 62198,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9701
+            9701,
+            29701.0,
+            39701.0,
+            49701.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 98,
@@ -4552,44 +4440,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            98.0,
-            98.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            98,
+            129,
+            160,
+            191
         ],
         "CoinCount": 1200,
-        "RewardId": 16425,
+        "RewardId": 62199,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9801
+            9801,
+            29801.0,
+            39801.0,
+            49801.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 99,
@@ -4598,44 +4502,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            99.0,
-            99.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            99,
+            130,
+            161,
+            192
         ],
         "CoinCount": 1200,
-        "RewardId": 16426,
+        "RewardId": 62200,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            9901
+            9901,
+            29901.0,
+            39901.0,
+            49901.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 100,
@@ -4644,44 +4564,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230508.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            100.0,
-            100.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            100,
+            131,
+            162,
+            193
         ],
         "CoinCount": 1200,
-        "RewardId": 16427,
+        "RewardId": 62201,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10001
+            10001,
+            210001.0,
+            310001.0,
+            410001.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 101,
@@ -4690,44 +4626,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            101.0,
-            101.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            101,
+            132,
+            163,
+            194
         ],
         "CoinCount": 1200,
-        "RewardId": 16428,
+        "RewardId": 62202,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10101
+            10101,
+            210101.0,
+            310101.0,
+            410101.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 102,
@@ -4736,44 +4688,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            102.0,
-            102.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            102,
+            133,
+            164,
+            195
         ],
         "CoinCount": 1200,
-        "RewardId": 16429,
+        "RewardId": 62203,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10201
+            10201,
+            210201.0,
+            310201.0,
+            410201.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 103,
@@ -4782,44 +4750,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            103.0,
-            103.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            103,
+            134,
+            165,
+            196
         ],
         "CoinCount": 1200,
-        "RewardId": 16430,
+        "RewardId": 62204,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10301
+            10301,
+            210301.0,
+            310301.0,
+            410301.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 104,
@@ -4828,44 +4812,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            104.0,
-            104.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            104,
+            135,
+            166,
+            197
         ],
         "CoinCount": 1200,
-        "RewardId": 16431,
+        "RewardId": 62205,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10401
+            10401,
+            210401.0,
+            310401.0,
+            410401.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 105,
@@ -4874,44 +4874,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230509.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            105.0,
-            105.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            105,
+            136,
+            167,
+            198
         ],
         "CoinCount": 1200,
-        "RewardId": 16432,
+        "RewardId": 62206,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10501
+            10501,
+            210501.0,
+            310501.0,
+            410501.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\uff0c\u4f9d\u636e\u51fb\u8d25\u654c\u65b9\u7684\u6ce2\u6570\uff0c\u8dc3\u5347\u5f00\u653e\u66f4\u6df1\u5c42\u533a\u57df"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 106,
@@ -4920,44 +4936,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            106.0,
-            106.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            106,
+            137,
+            168,
+            199
         ],
         "CoinCount": 1200,
-        "RewardId": 16433,
+        "RewardId": 62207,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10601
+            10601,
+            210601.0,
+            310601.0,
+            410601.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 107,
@@ -4966,44 +4998,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            107.0,
-            107.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            107,
+            138,
+            169,
+            200
         ],
         "CoinCount": 1200,
-        "RewardId": 16434,
+        "RewardId": 62208,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10701
+            10701,
+            210701.0,
+            310701.0,
+            410701.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 108,
@@ -5012,44 +5060,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            108.0,
-            108.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            108,
+            139,
+            170,
+            201
         ],
         "CoinCount": 1200,
-        "RewardId": 16435,
+        "RewardId": 62209,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10801
+            10801,
+            210801.0,
+            310801.0,
+            410801.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 109,
@@ -5058,44 +5122,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            109.0,
-            109.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            109,
+            140,
+            171,
+            202
         ],
         "CoinCount": 1200,
-        "RewardId": 16436,
+        "RewardId": 62210,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            10901
+            10901,
+            210901.0,
+            310901.0,
+            410901.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 110,
@@ -5104,44 +5184,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230510.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            110.0,
-            110.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            110,
+            141,
+            172,
+            203
         ],
         "CoinCount": 1200,
-        "RewardId": 16437,
+        "RewardId": 62211,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11001
+            11001,
+            211001.0,
+            311001.0,
+            411001.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 111,
@@ -5150,44 +5246,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            111.0,
-            111.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            111,
+            142,
+            173,
+            204
         ],
         "CoinCount": 1200,
-        "RewardId": 16438,
+        "RewardId": 62212,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11101
+            11101,
+            211101.0,
+            311101.0,
+            411101.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 112,
@@ -5196,44 +5308,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230511.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            112.0,
-            112.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            112,
+            143,
+            174,
+            205
         ],
         "CoinCount": 1200,
-        "RewardId": 16439,
+        "RewardId": 62213,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11201
+            11201,
+            211201.0,
+            311201.0,
+            411201.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 113,
@@ -5242,44 +5370,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            113.0,
-            113.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            113,
+            144,
+            175,
+            206
         ],
         "CoinCount": 1200,
-        "RewardId": 16440,
+        "RewardId": 62214,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11301
+            11301,
+            211301.0,
+            311301.0,
+            411301.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 114,
@@ -5288,44 +5432,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            114.0,
-            114.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            114,
+            145,
+            176,
+            207
         ],
         "CoinCount": 1200,
-        "RewardId": 16441,
+        "RewardId": 62215,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11401
+            11401,
+            211401.0,
+            311401.0,
+            411401.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 115,
@@ -5334,44 +5494,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230512.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            115.0,
-            115.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            115,
+            146,
+            177,
+            208
         ],
         "CoinCount": 1200,
-        "RewardId": 16442,
+        "RewardId": 62216,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11501
+            11501,
+            211501.0,
+            311501.0,
+            411501.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\uff0c\u4f9d\u636e\u51fb\u8d25\u654c\u65b9\u7684\u6ce2\u6570\uff0c\u8dc3\u5347\u5f00\u653e\u66f4\u6df1\u5c42\u533a\u57df"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 116,
@@ -5380,44 +5556,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            116.0,
-            116.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            116,
+            147,
+            178,
+            209
         ],
         "CoinCount": 1200,
-        "RewardId": 16443,
+        "RewardId": 62217,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11601
+            11601,
+            211601.0,
+            311601.0,
+            411601.0
         ],
         "NodePositions": [
-            5
+            4,
+            4.0,
+            4.0,
+            4.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 117,
@@ -5426,44 +5618,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            117.0,
-            117.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            117,
+            148,
+            179,
+            210
         ],
         "CoinCount": 1200,
-        "RewardId": 16444,
+        "RewardId": 62218,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11701
+            11701,
+            211701.0,
+            311701.0,
+            411701.0
         ],
         "NodePositions": [
-            5
+            2,
+            2.0,
+            2.0,
+            2.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 118,
@@ -5472,44 +5680,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230513.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            118.0,
-            118.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            118,
+            149,
+            180,
+            211
         ],
         "CoinCount": 1200,
-        "RewardId": 16445,
+        "RewardId": 62219,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11801
+            11801,
+            211801.0,
+            311801.0,
+            411801.0
         ],
         "NodePositions": [
-            5
+            1,
+            1.0,
+            1.0,
+            1.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 119,
@@ -5518,44 +5742,60 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            119.0,
-            119.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            119,
+            150,
+            181,
+            212
         ],
         "CoinCount": 1200,
-        "RewardId": 16446,
+        "RewardId": 62220,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            11901
+            11901,
+            211901.0,
+            311901.0,
+            411901.0
         ],
         "NodePositions": [
-            5
+            3,
+            3.0,
+            3.0,
+            3.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     },
     {
         "Id": 120,
@@ -5564,43 +5804,59 @@
         "Type": 3,
         "UnlockByPrevLayer": 0,
         "JumpLayerMaxCount": 0,
-        "FightEvents": [
-            2230500.0,
-            2230506.0,
-            2230514.0,
-            2230515
-        ],
-        "FightEventLevels": [
-            120.0,
-            120.0,
-            5.0,
-            1
+        "PeriodFightEventIds": [
+            120,
+            151,
+            182,
+            213
         ],
         "CoinCount": 1200,
-        "RewardId": 16447,
+        "RewardId": 62221,
         "PluginDropTypeGroupId": 8,
         "NodeRandomGroupIds": [
-            12001
+            12001,
+            212001.0,
+            312001.0,
+            412001.0
         ],
         "NodePositions": [
-            5
+            5,
+            5.0,
+            5.0,
+            5.0
         ],
         "NodeName": [
-            "X"
+            "X",
+            "X",
+            "F1",
+            "F1"
         ],
         "NodeDesc": [
-            "\u9650\u5b9a\u65f6\u95f4\u5185\u51fb\u8d25\u6240\u6709\u654c\u65b9\u5355\u4f4d"
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b30\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
         ],
         "PluginDropCountMins": [
-            4
+            4,
+            4.0,
+            7.0,
+            7.0
         ],
         "PluginDropCountMaxs": [
-            6
+            6,
+            6.0,
+            10.0,
+            10.0
         ],
         "LuckyNodeRandomGroupId": 60001,
         "LuckyNodeRewardId": null,
         "LuckyPluginDropTypeGroupId": 18,
         "LuckyPluginDropCountMin": 12,
-        "LuckyPluginDropCountMax": 12
+        "LuckyPluginDropCountMax": 12,
+        "SweepPluginDropTypeGroupId": 8,
+        "SweepPluginDropCountMin": 12,
+        "SweepPluginDropCountMax": 12,
+        "FirstPassDropPluginIds": []
     }
 ]

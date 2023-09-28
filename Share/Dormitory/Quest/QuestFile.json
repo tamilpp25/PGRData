@@ -3054,5 +3054,205 @@
         "PreFileId": [],
         "Weight": 50,
         "Announcer": 7
+    },
+    {
+        "Id": 1015001,
+        "FilePoolId": 130701,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1015002,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 1015003,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 5015001,
+        "FilePoolId": 80401,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015001,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31218.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015002,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015003,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015002.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015004,
+        "FilePoolId": 10301,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015003.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015005,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015006,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015005.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015007,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015006.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015008,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015007.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015009,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015008.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015010,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [
+            10015009.0
+        ],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015011,
+        "FilePoolId": 30502,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10015012,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
+    },
+    {
+        "Id": 10025001,
+        "FilePoolId": 20201,
+        "Condition": [
+            31200.0,
+            31220.0
+        ],
+        "PreFileId": [],
+        "Weight": 50,
+        "Announcer": 200
     }
 ]

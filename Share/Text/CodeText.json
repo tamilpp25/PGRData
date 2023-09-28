@@ -1570,6 +1570,11 @@
         "Text": "20009062\u8be5\u89d2\u8272\u4e0d\u80fd\u8bbe\u7f6e\u7ec8\u89e3\u7403\u989c\u8272"
     },
     {
+        "Id": 20009063,
+        "Key": "CharacterCollectStateRepeatSet",
+        "Text": "20009063\u8be5\u72b6\u6001\u5df2\u88ab\u8bbe\u7f6e\uff0c\u4e0d\u80fd\u91cd\u590d\u8bbe\u7f6e"
+    },
+    {
         "Id": 20010001,
         "Key": "FashionManagerGetFashionNotFound",
         "Text": "\u6d82\u88c5\u672a\u627e\u5230"
@@ -4146,26 +4151,31 @@
     },
     {
         "Id": 20044038,
+        "Key": "ArenaActivityNotValid",
+        "Text": "20044038\u6218\u533a\u5f53\u524d\u670d\u52a1\u5668\u6d3b\u52a8\u4e0d\u662f\u6709\u6548\u7684"
+    },
+    {
+        "Id": 20044039,
         "Key": "ArenaActivityOperateFail",
         "Text": "\u64cd\u4f5c\u5931\u8d25"
     },
     {
-        "Id": 20044039,
+        "Id": 20044040,
         "Key": "ArenaActivityInviteTargetIsNotJoin",
         "Text": "\u9080\u8bf7\u5931\u8d25\uff0c\u8be5\u73a9\u5bb6\u5c1a\u672a\u8fdb\u5165\u672c\u671f\u6218\u533a"
     },
     {
-        "Id": 20044040,
+        "Id": 20044041,
         "Key": "ArenaActivityStageCanNotAutoFight",
         "Text": "\u8be5\u526f\u672c\u4e0d\u80fd\u81ea\u52a8\u4f5c\u6218"
     },
     {
-        "Id": 20044041,
+        "Id": 20044042,
         "Key": "ArenaActivityStageAutoFightNotUnlock",
         "Text": "\u8be5\u526f\u672c\u81ea\u52a8\u4f5c\u6218\u6682\u672a\u89e3\u9501"
     },
     {
-        "Id": 20044042,
+        "Id": 20044043,
         "Key": "ArenaActivityStageMaxPointCanNotAutoFight",
         "Text": "\u6ee1\u5206\u4e0d\u80fd\u8fdb\u884c\u81ea\u52a8\u4f5c\u6218"
     },
@@ -4363,6 +4373,11 @@
         "Id": 20045039,
         "Key": "MatchRoomFightAlreadyFinish",
         "Text": "20045039\u6218\u6597\u5df2\u7ecf\u7ed3\u675f"
+    },
+    {
+        "Id": 20045040,
+        "Key": "MatchRoomCannotFoundDlcServer",
+        "Text": "20045040\u6218\u6597\u670d\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20046001,
@@ -5423,6 +5438,11 @@
         "Id": 20060081,
         "Key": "DormRemoduleCountTooMuch",
         "Text": "20060081\u6539\u88c5\u5bb6\u5177\u6570\u91cf\u8fc7\u591a"
+    },
+    {
+        "Id": 20060082,
+        "Key": "DormFurnitureIsInDorm",
+        "Text": "20060082\u5bb6\u5177\u5df2\u7ecf\u88ab\u6446\u653e"
     },
     {
         "Id": 20061001,
@@ -8080,6 +8100,31 @@
         "Text": "20069015\u8bf7\u53d6\u6d88\u51c6\u5907\u72b6\u6001"
     },
     {
+        "Id": 20069016,
+        "Key": "MatchServiceNoFightServerAvailable",
+        "Text": "20069016\u65e0\u53ef\u7528\u6218\u6597\u670d"
+    },
+    {
+        "Id": 20069017,
+        "Key": "MatchServiceFightServerMaxLoadError",
+        "Text": "20069017\u6218\u6597\u670d\u8d1f\u8f7d\u8d85\u51fa\u4e0a\u9650"
+    },
+    {
+        "Id": 20069018,
+        "Key": "MatchServiceClientVersionNoNotMap",
+        "Text": "20069018\u8be5\u5ba2\u6237\u7aef\u7248\u672c\u53f7\u65e0\u5339\u914d\u7684\u6218\u6597\u670d\u7248\u672c"
+    },
+    {
+        "Id": 20069019,
+        "Key": "MatchServiceVersionMapNotExist",
+        "Text": "20069019\u65e0\u53ef\u7528\u7684\u6218\u6597\u670d\u7248\u672c"
+    },
+    {
+        "Id": 20069020,
+        "Key": "MatchServiceClientVersionNoNotMapRoomVersion",
+        "Text": "20069020\u8be5\u5ba2\u6237\u7aef\u7248\u672c\u53f7\u4e0e\u623f\u4e3b\u7248\u672c\u53f7\u4e0d\u5339\u914d"
+    },
+    {
         "Id": 20070001,
         "Key": "ArenaOnlineNotOpen",
         "Text": "\u6d3b\u52a8\u5c1a\u672a\u5f00\u542f"
@@ -10593,6 +10638,16 @@
         "Id": 20107008,
         "Key": "TeachingActivityRobotIdsIsNull",
         "Text": "\u4f7f\u7528\u89d2\u8272\u5217\u8868\u4e0d\u80fd\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20107009,
+        "Key": "TeachingActivityTreasureRequireStageNotPass",
+        "Text": "20107009\u5b9d\u7bb1\u6240\u9700\u5173\u5361\u672a\u901a\u5173"
+    },
+    {
+        "Id": 20107010,
+        "Key": "TeachingActivityTreasureTypeError",
+        "Text": "20107010\u5b9d\u7bb1\u7c7b\u578b\u914d\u7f6e\u9519\u8bef"
     },
     {
         "Id": 20108001,
@@ -14087,42 +14142,47 @@
     {
         "Id": 20143025,
         "Key": "SameColorGameCountDownError",
-        "Text": "20143025\u5012\u6570\u4e2d"
+        "Text": "\u5012\u6570\u4e2d"
     },
     {
         "Id": 20143026,
         "Key": "SameColorGameNotLimitTimeStageError",
-        "Text": "20143026\u4e0d\u662f\u9650\u65f6\u5173\u5361"
+        "Text": "\u4e0d\u662f\u9650\u65f6\u5173\u5361"
     },
     {
         "Id": 20143027,
         "Key": "SameColorGamePauseError",
-        "Text": "20143027\u6682\u505c\u4e2d"
+        "Text": "\u6682\u505c\u4e2d"
     },
     {
         "Id": 20143028,
         "Key": "SameColorGameMaxTime",
-        "Text": "20143028\u5df2\u8fbe\u5230\u65f6\u95f4\u4e0a\u9650"
+        "Text": "\u5df2\u8fbe\u5230\u65f6\u95f4\u4e0a\u9650"
     },
     {
         "Id": 20143029,
         "Key": "SameColorGameSkillConfigError",
-        "Text": "20143029\u6280\u80fd\u914d\u7f6e\u9519\u8bef"
+        "Text": "\u6280\u80fd\u914d\u7f6e\u9519\u8bef"
     },
     {
         "Id": 20143030,
         "Key": "SameColorGameEnterMapRepeatError",
-        "Text": "20143030\u8fdb\u5165\u5730\u56fe\u592a\u9891\u7e41"
+        "Text": "\u8fdb\u5165\u5730\u56fe\u592a\u9891\u7e41"
     },
     {
         "Id": 20143031,
         "Key": "SameColorGameNotCountDownError",
-        "Text": "20143031\u4e0d\u5728\u5012\u6570\u4e2d"
+        "Text": "\u4e0d\u5728\u5012\u6570\u4e2d"
     },
     {
         "Id": 20143032,
         "Key": "SameColorGameSkillOver",
-        "Text": "20143032\u6280\u80fd\u5df2\u7ecf\u7ed3\u675f"
+        "Text": "\u6280\u80fd\u5df2\u7ecf\u7ed3\u675f"
+    },
+    {
+        "Id": 20143033,
+        "Key": "SameColorGameSkillMakeError",
+        "Text": "\u6280\u80fd\u751f\u6548\u9519\u8bef"
     },
     {
         "Id": 20144001,
@@ -17592,252 +17652,312 @@
     {
         "Id": 20179001,
         "Key": "RiftIsNotOpen",
-        "Text": "20179001\u5927\u79d8\u5883\u6d3b\u52a8\u672a\u5f00\u542f"
+        "Text": "20179001\u6620\u50cf\u6f5c\u6e0a\u6d3b\u52a8\u672a\u5f00\u542f"
     },
     {
         "Id": 20179002,
         "Key": "RiftInvalidActivityId",
-        "Text": "20179002\u5927\u79d8\u5883\u65e0\u6548\u7684\u6d3b\u52a8ID"
+        "Text": "20179002\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u6d3b\u52a8ID"
     },
     {
         "Id": 20179003,
         "Key": "RiftInvalidChapterId",
-        "Text": "20179003\u5927\u79d8\u5883\u65e0\u6548\u7684\u7ae0\u8282ID"
+        "Text": "20179003\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u7ae0\u8282ID"
     },
     {
         "Id": 20179004,
         "Key": "RiftInvalidLayerId",
-        "Text": "20179004\u5927\u79d8\u5883\u65e0\u6548\u7684\u5c42ID"
+        "Text": "20179004\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u5c42ID"
     },
     {
         "Id": 20179005,
         "Key": "RiftInvalidLayerOrder",
-        "Text": "20179005\u5927\u79d8\u5883\u65e0\u6548\u7684\u5c42Order"
+        "Text": "20179005\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u5c42Order"
     },
     {
         "Id": 20179006,
         "Key": "RiftInvalidNodeId",
-        "Text": "20179005\u5927\u79d8\u5883\u65e0\u6548\u7684\u8282\u70b9ID"
+        "Text": "20179005\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u8282\u70b9ID"
     },
     {
         "Id": 20179007,
         "Key": "RiftInvalidStageId",
-        "Text": "20179006\u5927\u79d8\u5883\u65e0\u6548\u7684\u5173\u5361ID"
+        "Text": "20179006\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u5173\u5361ID"
     },
     {
         "Id": 20179008,
         "Key": "RiftRandomNodeFailed",
-        "Text": "20179007\u5927\u79d8\u5883\u968f\u673a\u8282\u70b9\u5931\u8d25"
+        "Text": "20179007\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u8282\u70b9\u5931\u8d25"
     },
     {
         "Id": 20179009,
         "Key": "RiftRandomMonsterWareFailed",
-        "Text": "20179008\u5927\u79d8\u5883\u968f\u673a\u602a\u7269\u6ce2\u6b21\u5931\u8d25"
+        "Text": "20179008\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u602a\u7269\u6ce2\u6b21\u5931\u8d25"
     },
     {
         "Id": 20179010,
         "Key": "RiftRandomMonsterFailed",
-        "Text": "20179009\u5927\u79d8\u5883\u968f\u673a\u602a\u7269\u5931\u8d25"
+        "Text": "20179009\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u602a\u7269\u5931\u8d25"
     },
     {
         "Id": 20179011,
         "Key": "RiftRandomMonsterBuffFailed",
-        "Text": "20179010\u5927\u79d8\u5883\u968f\u673a\u602a\u7269\u8bcd\u7f00\u5931\u8d25"
+        "Text": "20179010\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u602a\u7269\u8bcd\u7f00\u5931\u8d25"
     },
     {
         "Id": 20179012,
         "Key": "RiftChapterDataNotFound",
-        "Text": "20179011\u5927\u79d8\u5883\u7ae0\u8282\u6570\u636e\u4e0d\u5b58\u5728"
+        "Text": "20179011\u6620\u50cf\u6f5c\u6e0a\u7ae0\u8282\u6570\u636e\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20179013,
         "Key": "RiftLayerIdNotUnlocked",
-        "Text": "20179013\u5927\u79d8\u5883\u5c42\u672a\u89e3\u9501"
+        "Text": "20179013\u6620\u50cf\u6f5c\u6e0a\u5c42\u672a\u89e3\u9501"
     },
     {
         "Id": 20179014,
         "Key": "RiftLayerNotStart",
-        "Text": "20179012\u5927\u79d8\u5883\u672a\u5f00\u59cb\u5f53\u524d\u5c42"
+        "Text": "20179012\u6620\u50cf\u6f5c\u6e0a\u672a\u5f00\u59cb\u5f53\u524d\u5c42"
     },
     {
         "Id": 20179015,
         "Key": "RiftLuckyNodeNotStart",
-        "Text": "20179015\u5927\u79d8\u5883\u672a\u5f00\u59cb\u5e78\u8fd0\u5173"
+        "Text": "20179015\u6620\u50cf\u6f5c\u6e0a\u672a\u5f00\u59cb\u798f\u97f3\u6620\u50cf"
     },
     {
         "Id": 20179016,
         "Key": "RiftLuckyNodeStarted",
-        "Text": "20179016\u5927\u79d8\u5883\u672a\u5e78\u8fd0\u5173\u5df2\u5b58\u5728"
+        "Text": "20179016\u6620\u50cf\u6f5c\u6e0a\u672a\u798f\u97f3\u6620\u50cf\u5df2\u5b58\u5728"
     },
     {
         "Id": 20179017,
         "Key": "RiftPreFightNotCurLayer",
-        "Text": "20179013\u5927\u79d8\u5883\u76ee\u6807\u5173\u5361\u4e0d\u5c5e\u4e8e\u5f53\u524d\u5c42"
+        "Text": "20179013\u6620\u50cf\u6f5c\u6e0a\u76ee\u6807\u5173\u5361\u4e0d\u5c5e\u4e8e\u5f53\u524d\u5c42"
     },
     {
         "Id": 20179018,
         "Key": "RiftPreFightStageIsPassed",
-        "Text": "20179014\u5927\u79d8\u5883\u5f53\u524d\u5173\u5361\u5df2\u901a\u5173"
+        "Text": "20179014\u6620\u50cf\u6f5c\u6e0a\u5f53\u524d\u5173\u5361\u5df2\u901a\u5173"
     },
     {
         "Id": 20179019,
         "Key": "RiftAddRoleDataInvalidTeam",
-        "Text": "20179019\u5927\u79d8\u5883\u4f5c\u6218\u961f\u4f0d\u4e0d\u7b26\u5408\u8981\u6c42"
+        "Text": "20179019\u6620\u50cf\u6f5c\u6e0a\u4f5c\u6218\u961f\u4f0d\u4e0d\u7b26\u5408\u8981\u6c42"
     },
     {
         "Id": 20179020,
         "Key": "RiftAddRoleDataInvalidRobotId",
-        "Text": "20179019\u5927\u79d8\u5883\u65e0\u6548\u7684\u673a\u5668\u4ebaID"
+        "Text": "20179019\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u673a\u5668\u4ebaID"
     },
     {
         "Id": 20179021,
         "Key": "RiftFubenWinLayerRewardConfigFailed",
-        "Text": "20179014\u5927\u79d8\u5883\u83b7\u53d6\u5c42\u9996\u901a\u5956\u52b1\u914d\u7f6e\u5931\u8d25"
+        "Text": "20179014\u6620\u50cf\u6f5c\u6e0a\u83b7\u53d6\u5c42\u9996\u901a\u5956\u52b1\u914d\u7f6e\u5931\u8d25"
     },
     {
         "Id": 20179022,
         "Key": "RiftStartLuckyNodeValueNotEnough",
-        "Text": "20179015\u5927\u79d8\u5883\u5e78\u8fd0\u503c\u4e0d\u8db3"
+        "Text": "20179015\u6620\u50cf\u6f5c\u6e0a\u798f\u97f3\u503c\u4e0d\u8db3"
     },
     {
         "Id": 20179023,
         "Key": "RiftSetAttrSetInvalidSetId",
-        "Text": "20179016\u5927\u79d8\u5883\u65e0\u6548\u7684\u5c5e\u6027\u6a21\u677fID"
+        "Text": "20179016\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u5c5e\u6027\u6a21\u677fID"
     },
     {
         "Id": 20179024,
         "Key": "RiftSetAttrSetInvalidAttrId",
-        "Text": "20179023\u5927\u79d8\u5883\u65e0\u6548\u7684\u5c5e\u6027ID"
+        "Text": "20179023\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u5c5e\u6027ID"
     },
     {
         "Id": 20179025,
         "Key": "RiftSetAttrSetDuplicatedAttrId",
-        "Text": "20179024\u5927\u79d8\u5883\u91cd\u590d\u7684\u5c5e\u6027ID"
+        "Text": "20179024\u6620\u50cf\u6f5c\u6e0a\u91cd\u590d\u7684\u5c5e\u6027ID"
     },
     {
         "Id": 20179026,
         "Key": "RiftSetAttrSetOutOfLimit",
-        "Text": "20179017\u5927\u79d8\u5883\u5c5e\u6027\u503c\u8d85\u51fa\u4e0a\u9650"
+        "Text": "20179017\u6620\u50cf\u6f5c\u6e0a\u5c5e\u6027\u503c\u8d85\u51fa\u4e0a\u9650"
     },
     {
         "Id": 20179027,
         "Key": "RiftSetPluginInvalidCharIdOrRobotId",
-        "Text": "20179020\u5927\u79d8\u5883\u8bbe\u63d2\u4ef6\u65e0\u6548\u7684\u89d2\u8272\u53c2\u6570"
+        "Text": "20179020\u6620\u50cf\u6f5c\u6e0a\u8bbe\u63d2\u4ef6\u65e0\u6548\u7684\u89d2\u8272\u53c2\u6570"
     },
     {
         "Id": 20179028,
         "Key": "RiftSetPluginInvalidCharId",
-        "Text": "20179018\u5927\u79d8\u5883\u65e0\u6548\u7684\u89d2\u8272"
+        "Text": "20179018\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u89d2\u8272"
     },
     {
         "Id": 20179029,
         "Key": "RiftSetPluginInvalidRobotId",
-        "Text": "20179022\u5927\u79d8\u5883\u8bbe\u63d2\u4ef6\u65e0\u6548\u7684\u673a\u5668\u4eba"
+        "Text": "20179022\u6620\u50cf\u6f5c\u6e0a\u8bbe\u63d2\u4ef6\u65e0\u6548\u7684\u673a\u5668\u4eba"
     },
     {
         "Id": 20179030,
         "Key": "RiftSetPluginInvalidPluginId",
-        "Text": "20179019\u5927\u79d8\u5883\u65e0\u6548\u7684\u63d2\u4ef6ID"
+        "Text": "20179019\u6620\u50cf\u6f5c\u6e0a\u65e0\u6548\u7684\u63d2\u4ef6ID"
     },
     {
         "Id": 20179031,
         "Key": "RiftSetPluginIdLocked",
-        "Text": "20179020\u5927\u79d8\u5883\u63d2\u4ef6ID\u672a\u89e3\u9501"
+        "Text": "20179020\u6620\u50cf\u6f5c\u6e0a\u63d2\u4ef6ID\u672a\u89e3\u9501"
     },
     {
         "Id": 20179032,
         "Key": "RiftSetPluginIdTypeDuplicated",
-        "Text": "20179031\u5927\u79d8\u5883\u8bbe\u63d2\u4ef6\u63d2\u4ef6\u7c7b\u578b\u91cd\u590d"
+        "Text": "20179031\u6620\u50cf\u6f5c\u6e0a\u8bbe\u63d2\u4ef6\u63d2\u4ef6\u7c7b\u578b\u91cd\u590d"
     },
     {
         "Id": 20179033,
         "Key": "RiftSetPluginIdCharacterIdNotMatch",
-        "Text": "20179032\u5927\u79d8\u5883\u8bbe\u63d2\u4ef6\u89d2\u8272\u4e0d\u7b26\u5408"
+        "Text": "20179032\u6620\u50cf\u6f5c\u6e0a\u8bbe\u63d2\u4ef6\u89d2\u8272\u4e0d\u7b26\u5408"
     },
     {
         "Id": 20179034,
         "Key": "RiftSetPluginPeakLoadLimited",
-        "Text": "20179021\u5927\u79d8\u5883\u8d1f\u8f7d\u4e0d\u8db3"
+        "Text": "20179021\u6620\u50cf\u6f5c\u6e0a\u8d1f\u8f7d\u4e0d\u8db3"
     },
     {
         "Id": 20179035,
         "Key": "RiftRandomItemInvalidType",
-        "Text": "20179022\u5927\u79d8\u5883\u968f\u673a\u9879\u76ee\u4e0d\u652f\u6301\u7684\u7c7b\u578b"
+        "Text": "20179022\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u9879\u76ee\u4e0d\u652f\u6301\u7684\u7c7b\u578b"
     },
     {
         "Id": 20179036,
         "Key": "RiftRandomItemInvalidGroupId",
-        "Text": "20179023\u5927\u79d8\u5883\u968f\u673a\u9879\u76ee\u65e0\u6548\u7684\u7ec4ID"
+        "Text": "20179023\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u9879\u76ee\u65e0\u6548\u7684\u7ec4ID"
     },
     {
         "Id": 20179037,
         "Key": "RiftRandomItemAllSkipped",
-        "Text": "20179034\u5927\u79d8\u5883\u968f\u673a\u9879\u76ee\u6240\u6709\u9879\u90fd\u88ab\u8df3\u8fc7"
+        "Text": "20179034\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u9879\u76ee\u6240\u6709\u9879\u90fd\u88ab\u8df3\u8fc7"
     },
     {
         "Id": 20179038,
         "Key": "RiftRandomItemRandomFailed",
-        "Text": "20179025\u5927\u79d8\u5883\u968f\u673a\u9879\u76ee\u672a\u968f\u673a\u5230\u5185\u5bb9"
+        "Text": "20179025\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u9879\u76ee\u672a\u968f\u673a\u5230\u5185\u5bb9"
     },
     {
         "Id": 20179039,
         "Key": "RiftRandomPluginInvalidDropTypeId",
-        "Text": "20179036\u5927\u79d8\u5883\u968f\u673a\u63d2\u4ef6\u65e0\u6548\u7684\u7c7b\u578bId"
+        "Text": "20179036\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u63d2\u4ef6\u65e0\u6548\u7684\u7c7b\u578bId"
     },
     {
         "Id": 20179040,
         "Key": "RiftRandomPluginInvalidDropTypeGroupId",
-        "Text": "20179037\u5927\u79d8\u5883\u968f\u673a\u63d2\u4ef6\u65e0\u6548\u7684\u7c7b\u578b\u7ec4Id"
+        "Text": "20179037\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u63d2\u4ef6\u65e0\u6548\u7684\u7c7b\u578b\u7ec4Id"
     },
     {
         "Id": 20179041,
         "Key": "RiftRandomPluginDropTypeRandomFailed",
-        "Text": "20179038\u5927\u79d8\u5883\u968f\u673a\u63d2\u4ef6\u7c7b\u578b\u968f\u673a\u5931\u8d25"
+        "Text": "20179038\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u63d2\u4ef6\u7c7b\u578b\u968f\u673a\u5931\u8d25"
     },
     {
         "Id": 20179042,
         "Key": "RiftRandomPluginDropRandomFailed",
-        "Text": "20179039\u5927\u79d8\u5883\u968f\u673a\u63d2\u4ef6\u9879\u968f\u673a\u5931\u8d25"
+        "Text": "20179039\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u63d2\u4ef6\u9879\u968f\u673a\u5931\u8d25"
     },
     {
         "Id": 20179043,
         "Key": "RiftSweepSomeStagePassed",
-        "Text": "20179040\u5927\u79d8\u5883\u626b\u8361\u5b58\u5728\u90e8\u5206\u5173\u5361\u88ab\u901a\u5173"
+        "Text": "20179040\u6620\u50cf\u6f5c\u6e0a\u626b\u8361\u5b58\u5728\u6b63\u5728\u8fdb\u884c\u4e2d\u7684\u5173\u5361"
     },
     {
         "Id": 20179044,
         "Key": "RiftSweepTimesLimited",
-        "Text": "20179030\u5927\u79d8\u5883\u626b\u8361\u6b21\u6570\u4e0d\u8db3"
+        "Text": "20179030\u6620\u50cf\u6f5c\u6e0a\u626b\u8361\u6b21\u6570\u4e0d\u8db3"
     },
     {
         "Id": 20179045,
         "Key": "RiftSweepInvalidLayerType",
-        "Text": "20179031\u5927\u79d8\u5883\u626b\u8361\u4e0d\u53ef\u626b\u8361\u7684\u5c42\u7c7b\u578b"
+        "Text": "20179031\u6620\u50cf\u6f5c\u6e0a\u626b\u8361\u4e0d\u53ef\u626b\u8361\u7684\u5c42\u7c7b\u578b"
     },
     {
         "Id": 20179046,
         "Key": "RiftBuyPluginInvalidGoodsId",
-        "Text": "20179043\u5927\u79d8\u5883\u4e70\u63d2\u4ef6\u65e0\u6548\u7684\u5546\u54c1ID"
+        "Text": "20179043\u6620\u50cf\u6f5c\u6e0a\u4e70\u63d2\u4ef6\u65e0\u6548\u7684\u5546\u54c1ID"
     },
     {
         "Id": 20179047,
         "Key": "RiftBuyPluginGoodsIdUnavailable",
-        "Text": "20179044\u5927\u79d8\u5883\u4e70\u63d2\u4ef6\u5546\u54c1\u4e0d\u5728\u751f\u6548\u65f6\u95f4"
+        "Text": "20179044\u6620\u50cf\u6f5c\u6e0a\u4e70\u63d2\u4ef6\u5546\u54c1\u4e0d\u5728\u751f\u6548\u65f6\u95f4"
     },
     {
         "Id": 20179048,
         "Key": "RiftBuyPluginAlreadyUnlocked",
-        "Text": "20179045\u5927\u79d8\u5883\u4e70\u63d2\u4ef6\u63d2\u4ef6\u5df2\u5b58\u5728"
+        "Text": "20179045\u6620\u50cf\u6f5c\u6e0a\u4e70\u63d2\u4ef6\u63d2\u4ef6\u5df2\u5b58\u5728"
     },
     {
         "Id": 20179049,
         "Key": "RiftLayerNotFirstPassed",
-        "Text": "20179047\u5927\u79d8\u5883\u672a\u9996\u901a\u5c42"
+        "Text": "20179047\u6620\u50cf\u6f5c\u6e0a\u672a\u9996\u901a\u5c42"
     },
     {
         "Id": 20179050,
         "Key": "RiftRankInvalidRankId",
-        "Text": "20179050\u5927\u79d8\u5883\u6392\u884c\u699c\u6807\u8bc6\u9519\u8bef"
+        "Text": "20179050\u6620\u50cf\u6f5c\u6e0a\u6392\u884c\u699c\u6807\u8bc6\u9519\u8bef"
+    },
+    {
+        "Id": 20179051,
+        "Key": "RiftPeriodNotOpen",
+        "Text": "20179051\u8be5\u65f6\u5e8f\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 20179052,
+        "Key": "RiftPeriodAlreadyChange",
+        "Text": "20179052\u5df2\u5f00\u542f\u65b0\u65f6\u5e8f"
+    },
+    {
+        "Id": 20179053,
+        "Key": "RiftConditionNotFinish",
+        "Text": "20179053\u6620\u50cf\u6f5c\u6e0a\u6761\u4ef6\u672a\u8fbe\u6210"
+    },
+    {
+        "Id": 20179054,
+        "Key": "RiftNodeRandomItemCfgNotExist",
+        "Text": "20179054\u672a\u627e\u5230\u6620\u50cf\u6f5c\u6e0a\u968f\u673a\u63d2\u4ef6\u914d\u7f6e"
+    },
+    {
+        "Id": 20179055,
+        "Key": "RiftCollectTypeNotExist",
+        "Text": "20179055\u6620\u50cf\u6f5c\u6e0a\u56fe\u9274\u7c7b\u578b\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20179056,
+        "Key": "RiftCollectAlreadyMaxLevel",
+        "Text": "20179056\u6620\u50cf\u6f5c\u6e0a\u56fe\u9274\u5df2\u8fbe\u5230\u6700\u5927\u7b49\u7ea7"
+    },
+    {
+        "Id": 20179057,
+        "Key": "RiftCollectCfgNotFound",
+        "Text": "20179057\u672a\u627e\u5230\u6620\u50cf\u6f5c\u6e0a\u56fe\u9274\u914d\u7f6e"
+    },
+    {
+        "Id": 20179058,
+        "Key": "RiftFightEventCfgNotFound",
+        "Text": "20179058\u672a\u627e\u5230\u6620\u50cf\u6f5c\u6e0a\u6218\u6597\u6548\u679c\u914d\u7f6e"
+    },
+    {
+        "Id": 20179059,
+        "Key": "RiftAttrLevelSetChangeNameIsNull",
+        "Text": "20179059\u547d\u540d\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20179060,
+        "Key": "RiftAttrLevelSetChangeNameIsInvalid",
+        "Text": "20179060\u6539\u540d\u542b\u6709\u975e\u6cd5\u5b57\u7b26"
+    },
+    {
+        "Id": 20179061,
+        "Key": "RiftAttrLevelSetChangeNameTooLong",
+        "Text": "20179061\u547d\u540d\u592a\u957f"
+    },
+    {
+        "Id": 20179062,
+        "Key": "RiftAttrLevelSetNotFound",
+        "Text": "20179062\u627e\u4e0d\u5230\u8981\u4fee\u6539\u7684\u5c5e\u6027\u6a21\u677f"
     },
     {
         "Id": 20180001,
@@ -20115,6 +20235,36 @@
         "Text": "20206063\u589e\u63f4\u68cb\u5b50\u4e0d\u5339\u914d"
     },
     {
+        "Id": 20206064,
+        "Key": "BlackRockChessBuffCfgNotExist",
+        "Text": "20206064\u672a\u627e\u5230buff\u914d\u7f6e"
+    },
+    {
+        "Id": 20207001,
+        "Key": "ConnectingLineActivityNotOpen",
+        "Text": "20207001\u6d3b\u52a8\u6682\u672a\u5f00\u653e"
+    },
+    {
+        "Id": 20207002,
+        "Key": "ConnectingLineStageLock",
+        "Text": "20207002\u5f53\u524d\u5173\u5361\u672a\u89e3\u9501"
+    },
+    {
+        "Id": 20207003,
+        "Key": "ConnectingLineStageUnlockAlready",
+        "Text": "20207003\u5f53\u524d\u5173\u5361\u5df2\u89e3\u9501"
+    },
+    {
+        "Id": 20207004,
+        "Key": "ConnectingLineStageNotComplete",
+        "Text": "20207004\u5f53\u524d\u5173\u5361\u672a\u5b8c\u6210"
+    },
+    {
+        "Id": 20207005,
+        "Key": "ConnectingLineStageAward",
+        "Text": "20207005\u5f53\u524d\u5173\u5361\u5df2\u9886\u5956"
+    },
+    {
         "Id": 25000001,
         "Key": "DlcWorldInfoTemplateNotFound",
         "Text": "25000001Dlc\u4e16\u754c\u4fe1\u606f\u914d\u7f6e\u4e0d\u5b58\u5728"
@@ -20408,6 +20558,21 @@
         "Id": 25003013,
         "Key": "DlcUpdateRankError",
         "Text": "25003013\u66f4\u65b0\u6392\u884c\u699c\u6570\u636e\u9519\u8bef"
+    },
+    {
+        "Id": 25003014,
+        "Key": "DlcServerThreadIsMax",
+        "Text": "25003014\u4eba\u6570\u8fbe\u5230\u4e0a\u9650"
+    },
+    {
+        "Id": 25003015,
+        "Key": "DlcServerStageThreadIsMax",
+        "Text": "25003015\u5f53\u524dStageNo\u914d\u7f6e\u7684\u4eba\u6570\u8fbe\u5230\u4e0a\u9650"
+    },
+    {
+        "Id": 25003016,
+        "Key": "DlcServerError",
+        "Text": "25003016DlcServer\u5185\u90e8\u9519\u8bef"
     },
     {
         "Id": 30002001,

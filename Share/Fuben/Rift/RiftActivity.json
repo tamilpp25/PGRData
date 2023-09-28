@@ -10,6 +10,9 @@
         "PluginPeakloadInit": 7,
         "PluginPeakloadMax": 30,
         "AttrLevelSetCount": 5,
+        "AttrSetNameLength": 7,
+        "MaxLuckyValue": 50,
+        "RankLayerLimit": null,
         "ShopId": [
             1236,
             1235
@@ -17,11 +20,16 @@
         "TaskGroupId": [
             171,
             172
-        ]
+        ],
+        "SeasonTaskGroupId": 172,
+        "PeriodName": [],
+        "PeriodDesc": [],
+        "PeriodTimeIds": [],
+        "BackLayers": []
     },
     {
         "Id": 2,
-        "TimeId": 28.0,
+        "TimeId": 22001.0,
         "Name": "\u6620\u50cf\u6f5c\u6e0a",
         "ResetNoCdTimes": 0,
         "ResetCdIncrease": 1,
@@ -30,13 +38,42 @@
         "PluginPeakloadInit": 7,
         "PluginPeakloadMax": 30,
         "AttrLevelSetCount": 5,
+        "AttrSetNameLength": 7,
+        "MaxLuckyValue": 50,
+        "RankLayerLimit": 90.0,
         "ShopId": [
-            1236,
-            1235
+            1296,
+            1295,
+            1290.0
         ],
         "TaskGroupId": [
-            171,
-            172
+            277,
+            278
+        ],
+        "SeasonTaskGroupId": 282,
+        "PeriodName": [
+            "\u6e90\u521d\u65f6\u5e8f",
+            "\u6f14\u53d8\u65f6\u5e8f",
+            "\u7ec8\u672b\u65f6\u5e8f",
+            "\u5faa\u73af\u65f6\u5e8f"
+        ],
+        "PeriodDesc": [
+            "\u6e90\u521d\u65f6\u5e8f:\u602a\u7269\u9644\u5e26\u8f90\u5c04\u6548\u679c\u5bf9\u6240\u6709\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u89d2\u8272\u5728\u573a\u6bcf10\u79d2\u4f1a\u589e\u52a015%\u989d\u5916\u4f24\u5bb3\uff0c\u6700\u9ad8225%\u79bb\u573a\u540e\u6e05\u7a7a",
+            "\u6f14\u53d8\u65f6\u5e8f:\u602a\u7269\u5728\u5b58\u6d3b15\u79d2\u540e\u4f1a\u751f\u6210\u62a4\u76fe",
+            "\u7ec8\u672b\u65f6\u5e8f:\u602a\u72695\u7c73\u8303\u56f4\u5185\u6ca1\u6709\u5176\u4ed6\u602a\u7269\u65f6\uff0c\u9020\u6210\u4f24\u5bb3\u4e0e\u51cf\u4f24\u90fd\u4f1a\u589e\u52a0",
+            "\u5faa\u73af\u65f6\u5e8f:\u6740\u6b7b\u602a\u7269\u4f1a\u63d0\u5347\u89d2\u8272\u9020\u6210\u4f24\u5bb3\uff0c\u6301\u7eed5\u79d2\uff0c\u91cd\u590d\u89e6\u53d1\u5237\u65b0\u5e76\u53e0\u52a0\u5c42\u6570"
+        ],
+        "PeriodTimeIds": [
+            22002.0,
+            22003.0,
+            22004.0,
+            22005.0
+        ],
+        "BackLayers": [
+            90.0,
+            90.0,
+            90.0,
+            90.0
         ]
     }
 ]
