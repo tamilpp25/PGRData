@@ -16,8 +16,8 @@
         "Id": 2,
         "OpenTimeId": 136,
         "OneCycleSeconds": 1123200,
-        "AutoBeginSeconds": 259200,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1123200,
         "DistributionId": [
             1,
             1,
@@ -29,8 +29,8 @@
         "Id": 3,
         "OpenTimeId": 137,
         "OneCycleSeconds": 1209600,
-        "AutoBeginSeconds": 345600,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
         "DistributionId": [
             2,
             3,
@@ -42,8 +42,8 @@
         "Id": 4,
         "OpenTimeId": 138,
         "OneCycleSeconds": 1209600,
-        "AutoBeginSeconds": 345600,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
         "DistributionId": [
             1,
             2,
@@ -55,8 +55,8 @@
         "Id": 16,
         "OpenTimeId": 139,
         "OneCycleSeconds": 1209600,
-        "AutoBeginSeconds": 345600,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
         "DistributionId": [
             1,
             2,
@@ -68,8 +68,8 @@
         "Id": 19,
         "OpenTimeId": 140,
         "OneCycleSeconds": 1209600,
-        "AutoBeginSeconds": 345600,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
         "DistributionId": [
             1,
             2,
@@ -81,12 +81,27 @@
         "Id": 23,
         "OpenTimeId": 141,
         "OneCycleSeconds": 1209600,
-        "AutoBeginSeconds": 345600,
-        "FightContinueSeconds": 864000,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
         "DistributionId": [
             1,
             2,
             3
+        ],
+        "IsNoPrize": null
+    },
+    {
+        "Id": 24,
+        "OpenTimeId": 141,
+        "OneCycleSeconds": 1209600,
+        "AutoBeginSeconds": 0,
+        "FightContinueSeconds": 1209600,
+        "DistributionId": [
+            1,
+            2,
+            3,
+            4.0,
+            5.0
         ],
         "IsNoPrize": null
     }

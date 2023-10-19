@@ -3257,32 +3257,32 @@
     {
         "Key": "AprilFoolsDayStartTime",
         "Type": "string",
-        "Value": "2022/4/1 0:00"
+        "Value": "2022-4-1 0:00"
     },
     {
         "Key": "AprilFoolsDayEndTime",
         "Type": "string",
-        "Value": "2022/4/2 0:00"
+        "Value": "2022-4-2 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleStartTime",
         "Type": "string",
-        "Value": "2023/4/1 0:00"
+        "Value": "2023-4-1 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleEndTime",
         "Type": "string",
-        "Value": "2023/4/2 0:00"
+        "Value": "2023-4-2 0:00"
     },
     {
         "Key": "AprilFoolsDayCuteModeltartTime",
         "Type": "string",
-        "Value": "2023/4/1 0:00"
+        "Value": "2023-4-1 0:00"
     },
     {
         "Key": "AprilFoolsDayCuteModelEndTime",
         "Type": "string",
-        "Value": "2023/4/2 0:00"
+        "Value": "2023-4-2 0:00"
     },
     {
         "Key": "CharSkillQualityNor",
@@ -3372,12 +3372,12 @@
     {
         "Key": "UiLoginMovieTimeStr",
         "Type": "string",
-        "Value": "2022/4/29 0:00"
+        "Value": "2022-4-29 0:00"
     },
     {
         "Key": "UiLoginMovieTimeEnd",
         "Type": "string",
-        "Value": "2022/5/10 0:00"
+        "Value": "2022-5-10 0:00"
     },
     {
         "Key": "CourseLessonStagePrfab",
@@ -4017,7 +4017,7 @@
     {
         "Key": "PanelCharacterLevelSkipIds",
         "Type": "string",
-        "Value": "89024|10013"
+        "Value": "4104|10013"
     },
     {
         "Key": "EquipResonanceRandomSkillIcon",
@@ -4168,5 +4168,30 @@
         "Key": "SubpackageTaskId",
         "Type": "int",
         "Value": "9999910"
+    },
+    {
+        "Key": "CharacterEnhanceSkillTipsBlackList",
+        "Type": "string",
+        "Value": "1011002|1021002|1031003|1081003|1141003|1131002|1051003|1021003|1041003"
+    },
+    {
+        "Key": "BirthdaySingleStoryShowDay",
+        "Type": "int",
+        "Value": "4"
+    },
+    {
+        "Key": "AnniversaryReviewPngCreatorPath",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/AnniversaryReviewPngCreator.prefab"
+    },
+    {
+        "Key": "AnniversaryReviewFixPosSpeed",
+        "Type": "float",
+        "Value": "1000"
+    },
+    {
+        "Key": "AnniversaryReviewJPGQuality",
+        "Type": "int",
+        "Value": "98"
     }
 ]

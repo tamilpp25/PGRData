@@ -655,14 +655,27 @@
     {
         "GroupId": 1081004,
         "CharacterId": 1081004,
-        "Name": "\u5c18\u94ed",
-        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR2Blackrock1.png",
-        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassA.png",
-        "ActivityTimeId": null,
-        "ActivityCondition": [],
-        "OpenCondition": [
+        "Name": "\u6e21\u8fb9",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR4Dubian1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
+        "ActivityTimeId": 28.0,
+        "ActivityCondition": [
+            100000.0
+        ],
+        "OpenCondition": [],
+        "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
+    },
+    {
+        "GroupId": 1521004,
+        "CharacterId": 1521004,
+        "Name": "\u4e0d\u660e",
+        "Icon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadR4Dubian1.png",
+        "BackGroundImage": "Assets/Product/Texture/Image/UiFubenPracticeCharacter/UiFubenPracticeCharacterClassS.png",
+        "ActivityTimeId": 200002.0,
+        "ActivityCondition": [
             200000.0
         ],
+        "OpenCondition": [],
         "PrefabName": "Assets/Product/Ui/ComponentPrefab/PracticeCharacterDetail/FubenPracticeMainline.prefab"
     }
 ]

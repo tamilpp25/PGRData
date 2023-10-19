@@ -198,6 +198,24 @@
         ]
     },
     {
+        "Id": 101901,
+        "Names": [
+            "RotationSpeed"
+        ],
+        "Values": [
+            3.0
+        ]
+    },
+    {
+        "Id": 101902,
+        "Names": [
+            "RotationSpeed"
+        ],
+        "Values": [
+            0.0
+        ]
+    },
+    {
         "Id": 849502,
         "Names": [
             "DefaultMovementCoefficient",
@@ -392,6 +410,65 @@
             0.8,
             7.0,
             0.8
+        ]
+    },
+    {
+        "Id": 856703,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "MaxHeight"
+        ],
+        "Values": [
+            25.0,
+            45.0,
+            2.5
+        ]
+    },
+    {
+        "Id": 856741,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            25.0,
+            45.0
+        ]
+    },
+    {
+        "Id": 856743,
+        "Names": [
+            "DefaultMaxDistance",
+            "FocusMaxDistance",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            15.0,
+            30.0,
+            45.0
+        ]
+    },
+    {
+        "Id": 856812,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            25.0,
+            45.0
+        ]
+    },
+    {
+        "Id": 856813,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            25.0,
+            45.0
         ]
     }
 ]

@@ -3358,7 +3358,7 @@
         "Id": 109882000,
         "Name": "ChangeTimeScale",
         "Level": [
-            "1.2|4|1|0"
+            "1.5|9|0|0"
         ]
     },
     {
@@ -4015,6 +4015,13 @@
         ]
     },
     {
+        "Id": 108810000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108810"
+        ]
+    },
+    {
         "Id": 108811,
         "Name": "AddBuff",
         "Level": [
@@ -4198,7 +4205,7 @@
         "Id": 108824000,
         "Name": "AddProtector",
         "Level": [
-            "31|0|1|1000|1"
+            "31|0|1|3000|1"
         ]
     },
     {
@@ -4676,13 +4683,6 @@
         ]
     },
     {
-        "Id": 108862000,
-        "Name": "AddBehavior",
-        "Level": [
-            "108862"
-        ]
-    },
-    {
         "Id": 108863,
         "Name": "AddBuff",
         "Level": [
@@ -4719,9 +4719,9 @@
     },
     {
         "Id": 108865000,
-        "Name": "AddTimeScaleBuff",
+        "Name": "SetCameraPositionOffset",
         "Level": [
-            "0.1"
+            "0|0|-0.2|0.1|0.5|1"
         ]
     },
     {
@@ -4774,6 +4774,13 @@
         ]
     },
     {
+        "Id": 108870,
+        "Name": "SetCameraPositionOffset",
+        "Level": [
+            "0|0|0|0.1|0|1"
+        ]
+    },
+    {
         "Id": 108871,
         "Name": "AddBuff",
         "Level": [
@@ -4798,7 +4805,7 @@
         "Id": 108872000,
         "Name": "SetCameraFov",
         "Level": [
-            "70|0.1|0.5"
+            "65|0.1|0.5"
         ]
     },
     {
@@ -4806,6 +4813,34 @@
         "Name": "ResetBuffDurationByBuffId",
         "Level": [
             "108871"
+        ]
+    },
+    {
+        "Id": 108874,
+        "Name": "AddBuff",
+        "Level": [
+            "108874"
+        ]
+    },
+    {
+        "Id": 108874000,
+        "Name": "SetCameraPosition",
+        "Level": [
+            "0|0|0|0.1|0"
+        ]
+    },
+    {
+        "Id": 108875,
+        "Name": "AddBuff",
+        "Level": [
+            "108875"
+        ]
+    },
+    {
+        "Id": 108875000,
+        "Name": "SetCameraRotation",
+        "Level": [
+            "0|0|0|0.1|0|1|1"
         ]
     },
     {
@@ -4897,6 +4932,174 @@
         "Name": "AddBehavior",
         "Level": [
             "108882"
+        ]
+    },
+    {
+        "Id": 108883,
+        "Name": "AddBuff",
+        "Level": [
+            "108883"
+        ]
+    },
+    {
+        "Id": 108883000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108883"
+        ]
+    },
+    {
+        "Id": 108884,
+        "Name": "AddBuff",
+        "Level": [
+            "108884"
+        ]
+    },
+    {
+        "Id": 108884000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108884"
+        ]
+    },
+    {
+        "Id": 108885,
+        "Name": "AddBuff",
+        "Level": [
+            "108885"
+        ]
+    },
+    {
+        "Id": 108886,
+        "Name": "AddBuff",
+        "Level": [
+            "108886"
+        ]
+    },
+    {
+        "Id": 108887,
+        "Name": "AddBuff",
+        "Level": [
+            "108887"
+        ]
+    },
+    {
+        "Id": 108887000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108887"
+        ]
+    },
+    {
+        "Id": 108888,
+        "Name": "AddBuff",
+        "Level": [
+            "108888"
+        ]
+    },
+    {
+        "Id": 108888000,
+        "Name": "AddTimeScaleBuff",
+        "Level": [
+            "0"
+        ]
+    },
+    {
+        "Id": 108889,
+        "Name": "AddBuff",
+        "Level": [
+            "108889"
+        ]
+    },
+    {
+        "Id": 108889000,
+        "Name": "AddTimeScaleBuff",
+        "Level": [
+            "0"
+        ]
+    },
+    {
+        "Id": 108890,
+        "Name": "AddBuff",
+        "Level": [
+            "108890"
+        ]
+    },
+    {
+        "Id": 108891,
+        "Name": "PlayCV",
+        "Level": [
+            "145066|"
+        ]
+    },
+    {
+        "Id": 108892,
+        "Name": "PlayCV",
+        "Level": [
+            "145097|"
+        ]
+    },
+    {
+        "Id": 108893,
+        "Name": "PlayCV",
+        "Level": [
+            "145099|"
+        ]
+    },
+    {
+        "Id": 108894,
+        "Name": "PlayCV",
+        "Level": [
+            "145064|"
+        ]
+    },
+    {
+        "Id": 108895,
+        "Name": "PlayCV",
+        "Level": [
+            "145100|"
+        ]
+    },
+    {
+        "Id": 108896,
+        "Name": "PlayCV",
+        "Level": [
+            "145101|"
+        ]
+    },
+    {
+        "Id": 108897,
+        "Name": "PlayCV",
+        "Level": [
+            "145067|"
+        ]
+    },
+    {
+        "Id": 108898,
+        "Name": "AddBuff",
+        "Level": [
+            "108898"
+        ]
+    },
+    {
+        "Id": 108898000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108898"
+        ]
+    },
+    {
+        "Id": 108899,
+        "Name": "AddBuff",
+        "Level": [
+            "108899"
+        ]
+    },
+    {
+        "Id": 108899000,
+        "Name": "AddBehavior",
+        "Level": [
+            "108899"
         ]
     }
 ]
