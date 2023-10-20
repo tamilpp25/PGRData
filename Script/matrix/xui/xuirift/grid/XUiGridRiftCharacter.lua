@@ -35,7 +35,7 @@ function XUiGridRiftCharacter:Refresh(xRole, isMultiTeam)
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(xRole:GetQuality()))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(xRole:GetQuality()))
     end
 
     if self.RImgHeadIcon then

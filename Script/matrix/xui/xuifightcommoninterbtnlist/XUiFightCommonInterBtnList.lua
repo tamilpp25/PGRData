@@ -15,6 +15,11 @@ function XUiFightCommonInterBtnList:OnAwake()
     self.BtnOption.gameObject:SetActiveEx(false)
     self.OnPcClickCb = handler(self, self.OnPcClick)
     self.BtnOptionXUiButtons = {}
+    self.CSWorldToViewPoint = CS.XFightUiManager.WorldToViewPoint
+    self.CSXRLManagerCamera = CS.XRLManager.Camera
+    self.OriginOptionsPos = self.Options.transform.anchoredPosition
+    self.OriginOptionsAnchorMin = self.Options.transform.anchorMin
+    self.OriginOptionsAnchorMax = self.Options.transform.anchorMax
 end
 
 function XUiFightCommonInterBtnList:OnStart()
@@ -47,6 +52,8 @@ end
 local Scroll
 local Delay = 0
 function XUiFightCommonInterBtnList:Update()
+    self:UpdateFollowNpc()
+    
     if not XDataCenter.UiPcManager.IsPc() or Delay > 0 then
         Delay = Delay - 1
         return
@@ -62,6 +69,25 @@ function XUiFightCommonInterBtnList:Update()
     end
 
     Delay = 10
+end
+
+function XUiFightCommonInterBtnList:UpdateFollowNpc()
+    if not self.FollowNpc then
+        return
+    end
+
+    if not self.FollowNpc.IsActivate then
+        self.Options.gameObject:SetActiveEx(false)
+    else
+        local pos = self.FollowNode.position
+        if self.CSXRLManagerCamera:CheckInView(pos) and not XTool.IsTableEmpty(self.GridDataList) then
+            local viewPoint = self.CSWorldToViewPoint(pos)
+            self.Options.transform.anchoredPosition = Vector2(viewPoint.x, viewPoint.y) + self.Offset
+            self.Options.gameObject:SetActiveEx(true)
+        else
+            self.Options.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XUiFightCommonInterBtnList:OnGetEvents()
@@ -169,7 +195,7 @@ function XUiFightCommonInterBtnList:Refresh()
             return a.Order < b.Order
         end
     end)
-    XUiHelper.CreateTemplates(self, self.CommonInterBtnPool, self.GridDataList, XUiCommonInterBtn.New, self.BtnOption.gameObject, self.Options.transform, onCreate)
+    XUiHelper.CreateTemplates(self, self.CommonInterBtnPool, self.GridDataList, XUiCommonInterBtn.New, self.BtnOption.gameObject, self.Line.transform, onCreate)
     
     --PC端按钮
     local dataCount = #self.GridDataList
@@ -188,6 +214,8 @@ function XUiFightCommonInterBtnList:Refresh()
     end
     self.Options:Init(xUiButtons, handler(self, self.OnOptionsSelect), self.CurBtnOptionPcIndex)
     self:UpdateOptions()
+    
+    self.Options.gameObject:SetActiveEx(not XTool.IsTableEmpty(self.GridDataList))
 end
 
 function XUiFightCommonInterBtnList:UpdateCurBtnOptionPcIndex(gridDataList)
@@ -210,11 +238,28 @@ function XUiFightCommonInterBtnList:UpdateCurBtnOptionPcIndex(gridDataList)
         return
     end
     self.BtnOptionPC.transform:SetParent(commonInterBtn:GetTransform())
-    self.BtnOptionPC.transform.localPosition = Vector3(self.BtnOptionPC.transform.localPosition.x, 0, 0)
+    self.BtnOptionPC.transform.anchoredPosition = Vector2(self.BtnOptionPC.transform.anchoredPosition.x, -5)
 end
 
-function XUiFightCommonInterBtnList:SetCommonInterBtn(id, key, icon, text, order, isDisable)
-    self.GridDatas[id] = {Id = id, Key = key, Icon = icon, Text = text, Order = order, IsDisable = isDisable}
+function XUiFightCommonInterBtnList:SetCommonInterBtn(...)
+    local data = {...}
+    local id = data[1]
+    self.GridDatas[id] = {Id = id, Key = data[2], Icon = data[3], Text = data[4], Order = data[5], IsDisable = data[6]}
+    self:Refresh()
+end
+
+function XUiFightCommonInterBtnList:SetFollowNpc(...)
+    local data = {...}
+    local targetNpc, jointName, offsetX, offsetY = data[1], data[2], data[3], data[4]
+    if string.IsNilOrEmpty(jointName) then
+        jointName = CS.XStealthManager.XTargetIndicator.NameMarkCase
+    end
+
+    self.FollowNpc = targetNpc
+    self.FollowNode = self.FollowNpc.RLNpc:GetJoint(jointName)
+    self.Offset = Vector2(offsetX, offsetY)
+    self.Options.transform.anchorMin = Vector2.zero
+    self.Options.transform.anchorMax = Vector2.zero
     self:Refresh()
 end
 
@@ -226,6 +271,12 @@ function XUiFightCommonInterBtnList:RemoveCommonInterBtn(id)
     end
 
     if XTool.IsTableEmpty(self.GridDatas) then
+        self.FollowNpc = nil
+        self.FollowNode = nil
+        self.Options.transform.anchorMin = self.OriginOptionsAnchorMin
+        self.Options.transform.anchorMax = self.OriginOptionsAnchorMax
+        self.Options.transform.anchoredPosition = self.OriginOptionsPos
+        self.Options.gameObject:SetActiveEx(true)
         self:Close()
         return
     end

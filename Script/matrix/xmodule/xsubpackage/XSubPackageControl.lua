@@ -2,7 +2,6 @@
 ---@field private _Model XSubPackageModel
 local XSubPackageControl = XClass(XControl, "XSubPackageControl")
 function XSubPackageControl:OnInit()
-    XMVCA.XSubPackage:StartTimer()
 end
 
 function XSubPackageControl:AddAgencyEvent()
@@ -14,7 +13,6 @@ function XSubPackageControl:RemoveAgencyEvent()
 end
 
 function XSubPackageControl:OnRelease()
-    XMVCA.XSubPackage:StopTimer()
 end
 
 --region   ------------------Group start-------------------
@@ -58,6 +56,10 @@ end
 ---@return XSubpackage
 function XSubPackageControl:GetSubpackageItem(subpackageId)
     return self._Model:GetSubpackageItem(subpackageId)
+end
+
+function XSubPackageControl:GetNecessarySubIds()
+    return self._Model:GetNecessarySubIds()
 end
 
 --endregion------------------SubPackage finish------------------

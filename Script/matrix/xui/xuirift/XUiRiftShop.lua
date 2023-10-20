@@ -1,5 +1,5 @@
 local ShopItemTextColor = {
-    CanBuyColor = "34AFF8FF",
+    CanBuyColor = "FFFFFFFF",
     CanNotBuyColor = "C64141FF"
 }
 
@@ -12,7 +12,6 @@ function XUiRiftShop:OnAwake()
     self.GridShop.gameObject:SetActiveEx(false)
     self:InitDynamicTable()
 
-    self:InitActivityAsset()
     self:InitTimes()
 end
 
@@ -28,8 +27,11 @@ function XUiRiftShop:OnStart()
         end
         -- 商店消耗货币
         local shopGoods = XShopManager.GetShopGoodsList(shopId)
-        self.CurrencyIds[i] = shopGoods[1].ConsumeList[1].Id
+        if shopGoods[1] and shopGoods[1].ConsumeList[1] then
+            self.CurrencyIds[i] = shopGoods[1].ConsumeList[1].Id
+        end
     end
+    self:InitActivityAsset()
 end
 
 function XUiRiftShop:OnEnable()
@@ -66,11 +68,7 @@ end
 
 function XUiRiftShop:InitActivityAsset()
     self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-        {XDataCenter.ItemManager.ItemId.RiftCoin},
-        handler(self, self.UpdateAssets),
-        self.AssetActivityPanel
-    )
+    XDataCenter.ItemManager.AddCountUpdateListener(self.CurrencyIds, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 end
 
 function XUiRiftShop:UpdateAssets()

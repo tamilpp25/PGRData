@@ -305,23 +305,36 @@ XFubenNewCharActivityManagerCreator = function()
         for _, var in ipairs(targetList) do
             local treasureCfg = XFubenNewCharConfig.GetTreasureCfg(var)
             if treasureCfg then
-                local requireStars = treasureCfg.RequireStar
-                local starCount = 0
-                local stageList = template.ChallengeStage or template.StageId
+                --判断奖励类型
+                if treasureCfg.Type==XFubenNewCharConfig.TreasureType.RequireStar then
+                    local requireStars = treasureCfg.RequireStar
+                    local starCount = 0
+                    local stageList = template.ChallengeStage or template.StageId
 
 
-                for _, stageId in ipairs(stageList) do
-                    local _, star = XFubenNewCharActivityManager.GetStarMap(stageId)
-                    starCount = starCount + star
-                end
+                    for _, stageId in ipairs(stageList) do
+                        local _, star = XFubenNewCharActivityManager.GetStarMap(stageId)
+                        starCount = starCount + star
+                    end
 
-                if requireStars > 0 and requireStars <= starCount then
-                    local isGet = XFubenNewCharActivityManager.IsTreasureGet(treasureCfg.TreasureId)
-                    if not isGet then
-                        hasReward = true
-                        break
+                    if requireStars > 0 and requireStars <= starCount then
+                        local isGet = XFubenNewCharActivityManager.IsTreasureGet(treasureCfg.TreasureId)
+                        if not isGet then
+                            hasReward = true
+                            break
+                        end
+                    end
+                elseif treasureCfg.Type==XFubenNewCharConfig.TreasureType.RequireStage then
+                    local ispass=XDataCenter.FubenManager.CheckStageIsPass(treasureCfg.RequireStage)
+                    if ispass then
+                        local isGet= XDataCenter.FubenNewCharActivityManager.IsTreasureGet(treasureCfg.TreasureId)
+                        if not isGet then
+                            hasReward = true
+                            break
+                        end
                     end
                 end
+                
             end
         end
 
@@ -346,10 +359,32 @@ XFubenNewCharActivityManagerCreator = function()
         if not koroCfg then
             return false
         end
+        --先判断是否解锁，只有解锁了才显示
+        local isOpen,desc = XConditionManager.CheckCondition(koroCfg.ChallengeCondition)
+        if not isOpen then
+            return false
+        end
+        local challengeStageIds = koroCfg.ChallengeStage
+        if challengeStageIds then
+            for _, v in pairs(challengeStageIds) do
+                if not XFubenNewCharActivityManager.CheckStagePass(v) then
+                    return true
+                end
+            end
+        end
+
+        return false
+    end
+
+    function XFubenNewCharActivityManager.CheckTaskRedPoint()
+        local koroCfg = XFubenNewCharConfig.GetNewCharKoroCfg()
+        if not koroCfg then
+            return false
+        end
 
         return XDataCenter.FubenNewCharActivityManager.CheckTreasureReward(koroCfg.Id)
     end
-
+    
     function XFubenNewCharActivityManager.CheckTeachingRedPoint()
         local koroCfg = XFubenNewCharConfig.GetNewCharKoroCfg()
         if not koroCfg then
@@ -474,11 +509,14 @@ XFubenNewCharActivityManagerCreator = function()
         end
     end
     
+    --获取显示的奖励id
+    --规则：有待领取的，显示第一个待领取的，否则顺位显示第一个。全部领取完则显示最后一个
     function XFubenNewCharActivityManager.GetShowTaskId(activityId)
         local actCfg=XFubenNewCharConfig.GetActTemplates()[activityId]
         local curStar=XFubenNewCharActivityManager.GetKoroStarProgressById(activityId)
         local hasAchieve=false
         for i, v in pairs(actCfg.TreasureId) do
+            --判断是否达成、领取
             if XFubenNewCharActivityManager.CheckTreasureAchieved(v,curStar) then
                 hasAchieve=true
                 if not XFubenNewCharActivityManager.IsTreasureGet(v) then

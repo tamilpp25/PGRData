@@ -29,7 +29,7 @@ function XUiGridQualitySkillV2P6:Refresh(skillApartId, characterId)
     
     self.TxtLv.text = XCharacterConfigs.GetCharQualityDesc(skillQuality) .. (XTool.IsNumberValid(skillPhase) and skillPhase or "")
     self.TxtSkillDescribe.text = skillIntro
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(skillQuality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(skillQuality))
 
     -- 当前节点是否激活
     local character = self.CharacterAgency:GetCharacter(characterId)

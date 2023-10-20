@@ -48,12 +48,12 @@ end
 
 function XUiArchiveMonsterSelectTag:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTagScroll)
-    self.DynamicTable:SetProxy(XUiGridArchiveTag)
+    self.DynamicTable:SetProxy(XUiGridArchiveTag,self)
     self.DynamicTable:SetDelegate(self)
 end
 
 function XUiArchiveMonsterSelectTag:SetupDynamicTable()
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchiveTagList(self.Base.TagGroupId)
+    self.PageDatas = self._Control:GetArchiveTagList(self.Base.TagGroupId)
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(1)
 end

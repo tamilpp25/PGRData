@@ -73,7 +73,7 @@ function XUiGridRogueLikeCharacter:UpdateGrid(template)
 
     if self.RImgQuality then
         local quality = self.IsCharacterType and self.Template.Quality or self.Template.CharacterQuality
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
     end
 
     if self.RImgHeadIcon then

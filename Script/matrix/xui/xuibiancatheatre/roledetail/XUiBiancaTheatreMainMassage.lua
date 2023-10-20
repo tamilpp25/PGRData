@@ -29,10 +29,9 @@ function XUiBiancaTheatreMainMassage:Init()
     self.AdventureManager = XDataCenter.BiancaTheatreManager.GetCurrentAdventureManager()
 
     self:InitPanelAsset()
-    self:InitFilter()
     self:InitRoleDetail()
-
     self:InitModel()
+    self:InitFilter()
 end
 
 --region Data - Getter

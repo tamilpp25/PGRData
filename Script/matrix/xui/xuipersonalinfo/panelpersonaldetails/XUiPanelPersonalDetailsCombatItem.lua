@@ -60,7 +60,7 @@ function XUiPanelPersonalDetailsCombatItem:Refresh(data)
     if data then
         self.TxtLevel.text = data.Level
         self.Parent:SetUiSprite(self.ImgIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(data.CharacterId))
-        self.Parent:SetUiSprite(self.ImgRoleQulity, XCharacterConfigs.GetCharacterQualityIcon(data.Quality))
+        self.Parent:SetUiSprite(self.ImgRoleQulity, XMVCA.XCharacter:GetCharacterQualityIcon(data.Quality))
 
         self.PanelHaveData.gameObject:SetActive(true)
         self.PanelNoData.gameObject:SetActive(false)

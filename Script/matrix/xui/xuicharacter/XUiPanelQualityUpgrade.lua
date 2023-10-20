@@ -78,19 +78,19 @@ function XUiPanelQualityUpgrade:HideLevelInfo()
 end
 
 function XUiPanelQualityUpgrade:OldCharUpgradeInfo(character)
-    local attrbis = XCharacterConfigs.GetNpcPromotedAttribByQuality(character.Id, character.Quality)
+    local attrbis = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(character.Id, character.Quality)
     self.TxtOldAttack.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.AttackNormal]))
     self.TxtOldLife.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Life]))
     self.TxtOldDefense.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.DefenseNormal]))
     self.TxtOldCrit.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Crit]))
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharQualityIcon(character.Quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(character.Quality))
 end
 
 function XUiPanelQualityUpgrade:CurCharUpgradeInfo(character)
-    local attrbis = XCharacterConfigs.GetNpcPromotedAttribByQuality(character.Id, character.Quality or 0)
+    local attrbis = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(character.Id, character.Quality or 0)
     self.TxtCurAttack.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.AttackNormal]))
     self.TxtCurLife.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Life]))
     self.TxtCurDefense.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.DefenseNormal]))
     self.TxtCurCrit.text = stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Crit]))
-    self.RImgQuality1:SetRawImage(XCharacterConfigs.GetCharQualityIcon(character.Quality))
+    self.RImgQuality1:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(character.Quality))
 end

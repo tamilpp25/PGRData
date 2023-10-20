@@ -1,3 +1,4 @@
+---@class XUiGridLogisticSkill
 local XUiGridLogisticSkill = XClass(nil, "XUiGridLogisticSkill")
 
 function XUiGridLogisticSkill:Ctor(ui, viewData)

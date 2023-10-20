@@ -213,9 +213,8 @@ function XConfigUtil:Get(path)
                     funcData[1](funcData[2], config)
                 end
                 if args[4] == XConfigUtil.CacheType.Temp then --临时配置表
-                    XMVCA:AddConfigProfiler(config, path)
+                    WeakRefCollector.AddRef(WeakRefCollector.Type.Config, config, path)
                 elseif args[4] == XConfigUtil.CacheType.Private then --私有配置表都需要检测弱引用
-                    XMVCA:AddConfigProfiler(config, path)
                     if not XMVCA:_CheckControlRef(self._Id) then
                         XLog.Error(string.format("配置表为私有 %s, 但目前暂无control使用.", path))
                     end
@@ -248,9 +247,13 @@ function XConfigUtil:ClearPrivate()
     for path, arg in pairs(self._ConfigArgs) do
         local cacheType = arg[4]
         if cacheType == XConfigUtil.CacheType.Private then
-            if self._Configs[path] then
+            local config = self._Configs[path]
+            if config then
                 XTableManager.ReleaseTable(path)
                 self._Configs[path] = nil
+                if IsWindowsEditor then
+                    WeakRefCollector.AddRef(WeakRefCollector.Type.Config, config, path)
+                end
             end
         end
     end

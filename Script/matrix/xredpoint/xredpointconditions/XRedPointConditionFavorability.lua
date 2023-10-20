@@ -24,27 +24,27 @@ function XRedPointConditionFavorability.Check(currCharacter)
         if isOwn and not isCurrCharacter then
             local args = {}
             args.CharacterId = v.Id
-            if XRedPointConditionFavorabilityInfo.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_INFO, args) then
                 return true
             end
 
-            if XRedPointConditionFavorabilityRumor.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_RUMOR, args) then
                 return true
             end
 
-            if XRedPointConditionFavorabilityAudio.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_AUDIO, args) then
                 return true
             end
 
-            if XRedPointConditionFavorabilityAction.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_ACTION, args) then
                 return true
             end
 
-            if XRedPointConditionFavorabilityPlot.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_PLOT, args) then
                 return true
             end
 
-            if XRedPointConditionFavorabilityGift.Check(args) then
+            if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_GIFT, args) then
                 return true
             end
         end

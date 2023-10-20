@@ -28,10 +28,10 @@ function XUiCharacterUnOwnedInfo:UpdateView(characterId)
 
     local curFragment = XDataCenter.CharacterManager.GetCharUnlockFragment(characterId)
     local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
-    local bornGrade = XCharacterConfigs.GetCharMinGrade(characterId)
+    local bornGrade = XMVCA.XCharacter:GetCharMinGrade(characterId)
     local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
     local needFragment = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
-    local npcId = XCharacterConfigs.GetCharNpcId(characterId, bornQuality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(characterId, bornQuality)
     local npc = CS.XNpcManager.GetNpcTemplate(npcId)
 
     self.TxtIntroduce.text = CSXTextManagerGetText("CharacterUnowenedIntroduce"
@@ -45,7 +45,7 @@ function XUiCharacterUnOwnedInfo:UpdateView(characterId)
     local isCanUnlock = curFragment >= needFragment
     self.BtnUnlock:SetDisable(not isCanUnlock)
 
-    self.RImgBornQuality:SetRawImage(XCharacterConfigs.GetCharQualityIcon(bornQuality))
+    self.RImgBornQuality:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(bornQuality))
     self.RImgBornGradeIcon:SetRawImage(XCharacterConfigs.GetCharGradeIcon(characterId, bornGrade))
     self.RImgUnownedTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(npc.Type))
 
@@ -88,10 +88,10 @@ function XUiCharacterUnOwnedInfo:OnBtnUnlockClick()
 end
 
 function XUiCharacterUnOwnedInfo:OnBtnGetClick()
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    return
+    --end
 
     local useItemId = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId).ItemId
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(useItemId))

@@ -127,7 +127,7 @@ end
 
 function XUiNewRoomSingle:OnDisable()
     XUiNewRoomSingle.Super.OnDisable(self)
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
     XEventManager.RemoveEventListener(XEventId.EVENT_ROOM_CHANGE_STAGE, self.OnSetStageId, self)
 end
 
@@ -170,12 +170,12 @@ function XUiNewRoomSingle:InitInfo(stageId, data)
 end
 
 function XUiNewRoomSingle:InitEffectPositionInfo()
-    if self.StageInfos.Type ~= XDataCenter.FubenManager.StageType.InfestorExplore then
-        self.PanelEffectPosition.gameObject:SetActiveEx(false)
-        return
-    end
-    self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
-    self.PanelEffectPosition.gameObject:SetActiveEx(true)
+    self.PanelEffectPosition.gameObject:SetActiveEx(false)
+    --if self.StageInfos.Type ~= XDataCenter.FubenManager.StageType.InfestorExplore then
+    --    return
+    --end
+    --self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
+    --self.PanelEffectPosition.gameObject:SetActiveEx(true)
 end
 
 function XUiNewRoomSingle:InitCharacterLimit()
@@ -285,10 +285,10 @@ function XUiNewRoomSingle:OnClickTabCallBack(tabIndex)
     self.CurTeam.CaptainPos = tabIndex
     self:SetCaptainPosWithProxy(tabIndex)
     self:SetTeamByProxy()
-    local isUnionKillType = self:IsUnionKillType()
-    if isUnionKillType then
-        self:UpdateTeamCaptionPos()
-    end
+    --local isUnionKillType = self:IsUnionKillType()
+    --if isUnionKillType then
+    --    self:UpdateTeamCaptionPos()
+    --end
 
     if self:IsBabelTower() then
         local cb = self.BabelTowerData.Cb
@@ -434,9 +434,9 @@ function XUiNewRoomSingle:OnBtnUnLockLongUp()
             self:HandleSwitchTeamPosWithProxy(changeIndex, targetIndex)
             self:UpdateTeam(teamData)
 
-            if self:IsUnionKillType() then
-                self:SwitchCacheTeam(changeIndex, targetIndex)
-            end
+            --if self:IsUnionKillType() then
+            --    self:SwitchCacheTeam(changeIndex, targetIndex)
+            --end
 
             if self:IsRogueLikeType() and self.RogueLikeIsRobot then
                 local teamCache = self.ChooseRobots
@@ -559,13 +559,13 @@ function XUiNewRoomSingle:InitTeamData()
     self:LimitCharacterByProxy(curTeam)
 
     -- 初始化爬塔阵容
-    if self:IsRogueLikeType() then
-        curTeam = self:RogueLikeInitTeam(curTeam)
-    end
+    --if self:IsRogueLikeType() then
+    --    curTeam = self:RogueLikeInitTeam(curTeam)
+    --end
     -- 初始化狙击战阵容
-    if self:IsUnionKillType() then
-        curTeam = self:UnionKillInitTeam(curTeam)
-    end
+    --if self:IsUnionKillType() then
+    --    curTeam = self:UnionKillInitTeam(curTeam)
+    --end
     self.CurTeam = curTeam
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.CurrentStageId)
     local RobotIds = self:GetRobotIdsByProxy(self.CurrentStageId)
@@ -1066,14 +1066,14 @@ function XUiNewRoomSingle:OnBtnMainUiClick()
 end
 
 function XUiNewRoomSingle:HandleCharClick(charPos)
-    if self:IsRogueLikeType() and self.RogueLikeIsRobot then
-        self:OnRogueLikeChangeRole(charPos)
-        return
-    end
-    if self:IsUnionKillType() then
-        self:OnUnionKillChangeRole(charPos)
-        return
-    end
+    --if self:IsRogueLikeType() and self.RogueLikeIsRobot then
+    --    self:OnRogueLikeChangeRole(charPos)
+    --    return
+    --end
+    --if self:IsUnionKillType() then
+    --    self:OnUnionKillChangeRole(charPos)
+    --    return
+    --end
 
     local stageId = self.CurrentStageId
 
@@ -1097,20 +1097,20 @@ function XUiNewRoomSingle:HandleCharClick(charPos)
         })
     elseif self:IsBabelTower() then
         self:OpenBabelRoomCharacter(teamData, charPos)
-    elseif self:IsWorldBossType() then
-        local worldBossActivity = XDataCenter.WorldBossManager.GetCurWorldBossActivity()
-        if worldBossActivity then
-            local robotBuffIdList = worldBossActivity:GetGetedRobotIdList()
-            local robotIdList = {}
-            for _, buffId in pairs(robotBuffIdList) do
-                local buffData = XDataCenter.WorldBossManager.GetWorldBossBuffById(buffId)
-                table.insert(robotIdList, buffData:GetCustomizeId())
-            end
-
-            XLuaUiManager.Open("UiRoomCharacter", teamData, charPos, function(resTeam)
-                self:UpdateTeam(resTeam)
-            end, stageInfo.Type, nil, { RobotIdList = robotIdList })
-        end
+    --elseif self:IsWorldBossType() then
+    --    local worldBossActivity = XDataCenter.WorldBossManager.GetCurWorldBossActivity()
+    --    if worldBossActivity then
+    --        local robotBuffIdList = worldBossActivity:GetGetedRobotIdList()
+    --        local robotIdList = {}
+    --        for _, buffId in pairs(robotBuffIdList) do
+    --            local buffData = XDataCenter.WorldBossManager.GetWorldBossBuffById(buffId)
+    --            table.insert(robotIdList, buffData:GetCustomizeId())
+    --        end
+    --
+    --        XLuaUiManager.Open("UiRoomCharacter", teamData, charPos, function(resTeam)
+    --            self:UpdateTeam(resTeam)
+    --        end, stageInfo.Type, nil, { RobotIdList = robotIdList })
+    --    end
     elseif self:IsNieRType() then
         local robotList = XDataCenter.NieRManager.GetChapterCharacterList(self.Args[1], self.Args[2])
         XLuaUiManager.Open("UiSelectCharacterWin", function(resTeam)
@@ -1167,8 +1167,8 @@ function XUiNewRoomSingle:UpdateTeam(teamData, isUsePrefab)
         end
     elseif self:IsNieRType() then
         XDataCenter.NieRManager.SetPlayerTeamData(self.CurTeam, self.CurrentStageId)
-    elseif self:IsChessPursuit() then
-        XDataCenter.ChessPursuitManager.SetPlayerTeamData(self.CurTeam, self.ChessPursuitData.MapId, self.ChessPursuitData.TeamGridIndex, isUsePrefab)
+    --elseif self:IsChessPursuit() then
+    --    XDataCenter.ChessPursuitManager.SetPlayerTeamData(self.CurTeam, self.ChessPursuitData.MapId, self.ChessPursuitData.TeamGridIndex, isUsePrefab)
     elseif self:GetIsSaveTeamData() then
         XDataCenter.TeamManager.SetPlayerTeam(self.CurTeam, false) -- 保存数据
     end
@@ -1285,22 +1285,22 @@ function XUiNewRoomSingle:OnBtnEnterFightClick()
     end
 
     -- 爬塔玩法出站人数必须为3人
-    if self:IsRogueLikeType() then
-        self:HandleEnterRogueLike(stage)
-        return
-    end
+    --if self:IsRogueLikeType() then
+    --    self:HandleEnterRogueLike(stage)
+    --    return
+    --end
 
     --追击玩法
-    if self:IsChessPursuit() then
-        self:HandleSaveChessPursuit(stage)
-        return
-    end
+    --if self:IsChessPursuit() then
+    --    self:HandleSaveChessPursuit(stage)
+    --    return
+    --end
 
     -- 世界boss进入战斗
-    if self:IsWorldBossType() then
-        self:HandleEnterWorldBoss(stage)
-        return
-    end
+    --if self:IsWorldBossType() then
+    --    self:HandleEnterWorldBoss(stage)
+    --    return
+    --end
 
     -- 尼尔玩法进入战斗
     if self:IsNieRType() then
@@ -1315,10 +1315,10 @@ function XUiNewRoomSingle:OnBtnEnterFightClick()
     end
 
     --杀戮无双进入战斗
-    if self:IsKillZone() then
-        self:HandleEnterKillZone(stage)
-        return
-    end
+    --if self:IsKillZone() then
+    --    self:HandleEnterKillZone(stage)
+    --    return
+    --end
 
     --全服决战进入战斗
     if self:IsAreaWar() then
@@ -1415,154 +1415,155 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------狙击战相关
 function XUiNewRoomSingle:IsUnionKillType()
-    return self.StageInfos.Type == XDataCenter.FubenManager.StageType.UnionKill
+    --return self.StageInfos.Type == XDataCenter.FubenManager.StageType.UnionKill
+    return false
 end
 
-function XUiNewRoomSingle:UpdateTeamCaptionPos()
-    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-    local captainPos = self.CurTeam.CaptainPos
-    for i = 1, MAX_CHAR_COUNT do
-        local memberInfo = teamCache[i]
-        if memberInfo then
-            memberInfo.IsTeamLeader = captainPos == i
-        end
-    end
-end
+--function XUiNewRoomSingle:UpdateTeamCaptionPos()
+--    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+--    local captainPos = self.CurTeam.CaptainPos
+--    for i = 1, MAX_CHAR_COUNT do
+--        local memberInfo = teamCache[i]
+--        if memberInfo then
+--            memberInfo.IsTeamLeader = captainPos == i
+--        end
+--    end
+--end
 
 -- 初始化阵容
-function XUiNewRoomSingle:UnionKillInitTeam(curTeam)
-    -- UiUnionKillTipCardShare
-    --
-    -- 显示共享角色
-    --
-    local fightData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
-    if fightData and fightData.UnionKillPlayerInfos and not fightData.IsShowShareCharacter then
-        local shareInfos = {}
-        for _, v in pairs(fightData.UnionKillPlayerInfos) do
-            if v.Id ~= XPlayer.Id then
-                table.insert(shareInfos, v.ShareNpcData)
-            end
-        end
-        if #shareInfos > 0 then
-            XLuaUiManager.Open("UiUnionKillTipCardShare", shareInfos)
-        end
-        fightData.IsShowShareCharacter = true
-    end
-
-    local isTrialBoss = XDataCenter.FubenUnionKillManager.IsTrialStage(self.CurrentStageId) and XDataCenter.FubenUnionKillManager.CurIsTrialBoss()
-    local isUseShare = XDataCenter.FubenUnionKillManager.GetTrialUseShare()
-    -- 是试炼关清掉共享角色
-    if isTrialBoss and not isUseShare then
-        local adjustCache = {}
-        local shareTeamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-        for i = 1, MAX_CHAR_COUNT do
-            local characterInfo = shareTeamCache[i]
-            if characterInfo and not characterInfo.IsShare then
-                adjustCache[i] = {}
-                adjustCache[i].CharacterId = characterInfo.CharacterId
-                adjustCache[i].IsShare = false
-                adjustCache[i].PlayerId = characterInfo.PlayerId
-                adjustCache[i].IsTeamLeader = characterInfo.IsTeamLeader
-            end
-        end
-        XDataCenter.FubenUnionKillManager.UpdateCacheTeam(adjustCache)
-    end
-
-    local unionTeam = XTool.Clone(curTeam)
-    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-    unionTeam.CaptainPos = 1
-    for i = 1, MAX_CHAR_COUNT do
-        unionTeam.TeamData[i] = 0
-        local characterInfo = teamCache[i]
-        if characterInfo then
-            unionTeam.TeamData[i] = characterInfo.CharacterId
-            if characterInfo.IsTeamLeader then
-                unionTeam.CaptainPos = i
-            end
-        end
-    end
-
-    curTeam = unionTeam
-    return curTeam
-end
+--function XUiNewRoomSingle:UnionKillInitTeam(curTeam)
+--    -- UiUnionKillTipCardShare
+--    --
+--    -- 显示共享角色
+--    --
+--    local fightData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
+--    if fightData and fightData.UnionKillPlayerInfos and not fightData.IsShowShareCharacter then
+--        local shareInfos = {}
+--        for _, v in pairs(fightData.UnionKillPlayerInfos) do
+--            if v.Id ~= XPlayer.Id then
+--                table.insert(shareInfos, v.ShareNpcData)
+--            end
+--        end
+--        if #shareInfos > 0 then
+--            XLuaUiManager.Open("UiUnionKillTipCardShare", shareInfos)
+--        end
+--        fightData.IsShowShareCharacter = true
+--    end
+--
+--    local isTrialBoss = XDataCenter.FubenUnionKillManager.IsTrialStage(self.CurrentStageId) and XDataCenter.FubenUnionKillManager.CurIsTrialBoss()
+--    local isUseShare = XDataCenter.FubenUnionKillManager.GetTrialUseShare()
+--    -- 是试炼关清掉共享角色
+--    if isTrialBoss and not isUseShare then
+--        local adjustCache = {}
+--        local shareTeamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+--        for i = 1, MAX_CHAR_COUNT do
+--            local characterInfo = shareTeamCache[i]
+--            if characterInfo and not characterInfo.IsShare then
+--                adjustCache[i] = {}
+--                adjustCache[i].CharacterId = characterInfo.CharacterId
+--                adjustCache[i].IsShare = false
+--                adjustCache[i].PlayerId = characterInfo.PlayerId
+--                adjustCache[i].IsTeamLeader = characterInfo.IsTeamLeader
+--            end
+--        end
+--        XDataCenter.FubenUnionKillManager.UpdateCacheTeam(adjustCache)
+--    end
+--
+--    local unionTeam = XTool.Clone(curTeam)
+--    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+--    unionTeam.CaptainPos = 1
+--    for i = 1, MAX_CHAR_COUNT do
+--        unionTeam.TeamData[i] = 0
+--        local characterInfo = teamCache[i]
+--        if characterInfo then
+--            unionTeam.TeamData[i] = characterInfo.CharacterId
+--            if characterInfo.IsTeamLeader then
+--                unionTeam.CaptainPos = i
+--            end
+--        end
+--    end
+--
+--    curTeam = unionTeam
+--    return curTeam
+--end
 
 -- 缓存阵容切换
-function XUiNewRoomSingle:SwitchCacheTeam(changeIndex, targetIndex)
-    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-    local temp = teamCache[changeIndex]
-    teamCache[changeIndex] = teamCache[targetIndex]
-    teamCache[targetIndex] = temp
-    for i = 1, MAX_CHAR_COUNT do
-        local characterInfo = teamCache[i]
-        if characterInfo then
-            characterInfo.IsTeamLeader = i == self.CurTeam.CaptainPos
-        end
-    end
-end
+--function XUiNewRoomSingle:SwitchCacheTeam(changeIndex, targetIndex)
+--    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+--    local temp = teamCache[changeIndex]
+--    teamCache[changeIndex] = teamCache[targetIndex]
+--    teamCache[targetIndex] = temp
+--    for i = 1, MAX_CHAR_COUNT do
+--        local characterInfo = teamCache[i]
+--        if characterInfo then
+--            characterInfo.IsTeamLeader = i == self.CurTeam.CaptainPos
+--        end
+--    end
+--end
 
 -- 狙击战换人
-function XUiNewRoomSingle:OnUnionKillChangeRole(index)
-
-    local args = {}
-    args.StageId = self.CurrentStageId
-    args.DefaultSelectId = self.CurTeam.TeamData[index]
-    args.Index = index
-    args.CallBack = function(selectItem, isJoin)
-        self:OnUnionKillSelectRole(index, selectItem, isJoin)
-    end
-
-    args.InTeamList = {}
-    args.CharacterInTeamList = {}
-    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-    for i = 1, MAX_CHAR_COUNT do
-        if teamCache[i] then
-            local characterId = teamCache[i].CharacterId
-            local playerId = teamCache[i].PlayerId
-            local key = string.format("%s_%s", tostring(playerId), tostring(characterId))
-            args.InTeamList[key] = true
-            args.CharacterInTeamList[tostring(characterId)] = true
-        end
-    end
-    if teamCache[index] then
-        args.DefaultSelectOwner = teamCache[index].PlayerId
-    else
-        args.DefaultSelectOwner = XPlayer.Id
-    end
-
-    -- 我的角色
-    args.CharacterList = {}
-    local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
-    for _, v in pairs(ownCharacters or {}) do
-        table.insert(args.CharacterList, {
-            Id = v.Id,
-            OwnerId = XPlayer.Id,
-            Flag = XFubenUnionKillConfigs.UnionKillCharType.Own,
-            Ability = math.floor(v.Ability)
-        })
-    end
-
-    -- 共享角色
-    local unionFightRoomData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
-    local isTrialBoss = XDataCenter.FubenUnionKillManager.IsTrialStage(self.CurrentStageId) and XDataCenter.FubenUnionKillManager.CurIsTrialBoss()
-    local isUseShare = XDataCenter.FubenUnionKillManager.GetTrialUseShare()
-    local dontShare = isTrialBoss and not isUseShare
-    if unionFightRoomData and not dontShare then
-        for id, playerInfo in pairs(unionFightRoomData.UnionKillPlayerInfos or {}) do
-            if id ~= XPlayer.Id then
-                local character = playerInfo.ShareNpcData.Character
-                table.insert(args.CharacterList, {
-                    Id = character.Id,
-                    OwnerId = id,
-                    Flag = XFubenUnionKillConfigs.UnionKillCharType.Share,
-                    OwnerInfo = playerInfo,
-                    Ability = math.floor(character.Ability)
-                })
-            end
-        end
-    end
-
-    XLuaUiManager.Open("UiUnionKillXuanRen", args)
-end
+--function XUiNewRoomSingle:OnUnionKillChangeRole(index)
+--
+--    local args = {}
+--    args.StageId = self.CurrentStageId
+--    args.DefaultSelectId = self.CurTeam.TeamData[index]
+--    args.Index = index
+--    args.CallBack = function(selectItem, isJoin)
+--        self:OnUnionKillSelectRole(index, selectItem, isJoin)
+--    end
+--
+--    args.InTeamList = {}
+--    args.CharacterInTeamList = {}
+--    local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+--    for i = 1, MAX_CHAR_COUNT do
+--        if teamCache[i] then
+--            local characterId = teamCache[i].CharacterId
+--            local playerId = teamCache[i].PlayerId
+--            local key = string.format("%s_%s", tostring(playerId), tostring(characterId))
+--            args.InTeamList[key] = true
+--            args.CharacterInTeamList[tostring(characterId)] = true
+--        end
+--    end
+--    if teamCache[index] then
+--        args.DefaultSelectOwner = teamCache[index].PlayerId
+--    else
+--        args.DefaultSelectOwner = XPlayer.Id
+--    end
+--
+--    -- 我的角色
+--    args.CharacterList = {}
+--    local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+--    for _, v in pairs(ownCharacters or {}) do
+--        table.insert(args.CharacterList, {
+--            Id = v.Id,
+--            OwnerId = XPlayer.Id,
+--            Flag = XFubenUnionKillConfigs.UnionKillCharType.Own,
+--            Ability = math.floor(v.Ability)
+--        })
+--    end
+--
+--    -- 共享角色
+--    local unionFightRoomData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
+--    local isTrialBoss = XDataCenter.FubenUnionKillManager.IsTrialStage(self.CurrentStageId) and XDataCenter.FubenUnionKillManager.CurIsTrialBoss()
+--    local isUseShare = XDataCenter.FubenUnionKillManager.GetTrialUseShare()
+--    local dontShare = isTrialBoss and not isUseShare
+--    if unionFightRoomData and not dontShare then
+--        for id, playerInfo in pairs(unionFightRoomData.UnionKillPlayerInfos or {}) do
+--            if id ~= XPlayer.Id then
+--                local character = playerInfo.ShareNpcData.Character
+--                table.insert(args.CharacterList, {
+--                    Id = character.Id,
+--                    OwnerId = id,
+--                    Flag = XFubenUnionKillConfigs.UnionKillCharType.Share,
+--                    OwnerInfo = playerInfo,
+--                    Ability = math.floor(character.Ability)
+--                })
+--            end
+--        end
+--    end
+--
+--    XLuaUiManager.Open("UiUnionKillXuanRen", args)
+--end
 
 function XUiNewRoomSingle:UpdateUnionKillTeamCache(teamData)
     local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
@@ -1672,26 +1673,26 @@ end
 
 --------------------------------------------------------------------------------------------------------------------------爬塔活动相关
 -- 初始化阵容
-function XUiNewRoomSingle:RogueLikeInitTeam(curTeam)
-    local rogueLikeTeam = XTool.Clone(curTeam)
-    local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
-    for i = 1, MAX_CHAR_COUNT do
-        local characterInfo = characterInfos[i]
-        if characterInfo then
-            rogueLikeTeam.TeamData[characterInfo.TeamPos] = characterInfo.Id
-            if characterInfo.Captain == 1 then
-                rogueLikeTeam.CaptainPos = characterInfo.TeamPos
-            end
-            if characterInfo.FirstFight == 1 then
-                rogueLikeTeam.FirstFightPos = characterInfo.TeamPos
-            end
-        else
-            rogueLikeTeam.TeamData[i] = 0
-        end
-    end
-    curTeam = rogueLikeTeam
-    return curTeam
-end
+--function XUiNewRoomSingle:RogueLikeInitTeam(curTeam)
+--    local rogueLikeTeam = XTool.Clone(curTeam)
+--    local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
+--    for i = 1, MAX_CHAR_COUNT do
+--        local characterInfo = characterInfos[i]
+--        if characterInfo then
+--            rogueLikeTeam.TeamData[characterInfo.TeamPos] = characterInfo.Id
+--            if characterInfo.Captain == 1 then
+--                rogueLikeTeam.CaptainPos = characterInfo.TeamPos
+--            end
+--            if characterInfo.FirstFight == 1 then
+--                rogueLikeTeam.FirstFightPos = characterInfo.TeamPos
+--            end
+--        else
+--            rogueLikeTeam.TeamData[i] = 0
+--        end
+--    end
+--    curTeam = rogueLikeTeam
+--    return curTeam
+--end
 
 
 -- 爬塔活动玩法
@@ -1700,7 +1701,8 @@ function XUiNewRoomSingle:IsRogueLikeType()
 end
 
 function XUiNewRoomSingle:IsRogueLikeIsTiral()
-    return XDataCenter.FubenRogueLikeManager.IsSectionPurgatory()
+    --return XDataCenter.FubenRogueLikeManager.IsSectionPurgatory()
+    return false
 end
 
 -- 特训关活动玩法
@@ -1710,7 +1712,8 @@ end
 
 --追击玩法
 function XUiNewRoomSingle:IsChessPursuit()
-    return self.StageInfos.Type == XDataCenter.FubenManager.StageType.ChessPursuit
+    --return self.StageInfos.Type == XDataCenter.FubenManager.StageType.ChessPursuit
+    return false
 end
 
 --世界boss玩法
@@ -1725,7 +1728,8 @@ end
 
 --杀戮无双
 function XUiNewRoomSingle:IsKillZone()
-    return self.StageInfos.Type == XDataCenter.FubenManager.StageType.KillZone
+    --return self.StageInfos.Type == XDataCenter.FubenManager.StageType.KillZone
+    return false
 end
 
 --全服决战
@@ -1744,20 +1748,20 @@ function XUiNewRoomSingle:IsPracticeBoss()
 end
 
 -- 更换爬塔助战角色
-function XUiNewRoomSingle:OnRogueLikeChangeRole(index)
-    local currentActivityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
-    local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(currentActivityId)
-    local args = {}
-    args.TeamSelectPos = index
-    args.TeamCharIdMap = self.ChooseRobots
-    args.Type = XFubenRogueLikeConfig.SelectCharacterType.Robot
-    args.CharacterLimitType = activityTemplate.CharacterLimitType
-    args.LimitBuffId = XFubenConfigs.GetLimitShowBuffId(activityTemplate.LimitBuffId)
-    args.CallBack = function(selectId, isJoin, isReset)
-        self:HandleSelectRobot(index, selectId, isJoin, isReset)
-    end
-    XLuaUiManager.Open("UiRogueLikeRoomCharacter", args)
-end
+--function XUiNewRoomSingle:OnRogueLikeChangeRole(index)
+--    local currentActivityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
+--    local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(currentActivityId)
+--    local args = {}
+--    args.TeamSelectPos = index
+--    args.TeamCharIdMap = self.ChooseRobots
+--    args.Type = XFubenRogueLikeConfig.SelectCharacterType.Robot
+--    args.CharacterLimitType = activityTemplate.CharacterLimitType
+--    args.LimitBuffId = XFubenConfigs.GetLimitShowBuffId(activityTemplate.LimitBuffId)
+--    args.CallBack = function(selectId, isJoin, isReset)
+--        self:HandleSelectRobot(index, selectId, isJoin, isReset)
+--    end
+--    XLuaUiManager.Open("UiRogueLikeRoomCharacter", args)
+--end
 
 -- 选完机器人回来
 function XUiNewRoomSingle:HandleSelectRobot(index, selectRobot, isJoin, isReset)
@@ -1817,60 +1821,60 @@ end
 
 -- 爬塔活动切换助战角色
 function XUiNewRoomSingle:OnBtnSwitchRoleClick()
-    if not self:CanRogueLikeSwitchAssist() and not self.RogueLikeIsRobot then
-        XUiManager.TipMsg(CSXTextManagerGetText("RogueLikeNeed3SupportChars"))
-        return
-    end
-    self.RogueLikeIsRobot = not self.RogueLikeIsRobot
-    if self.CurTeam then
-        local teamData = {}
-        self.PanelTeamLeader.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
-        self.PanelBtnLeader.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
-        if self.RogueLikeIsRobot then
-            for i = 1, MAX_CHAR_COUNT do
-                local robotId = self.ChooseRobots[i]
-                if robotId then
-                    local characterId = XRobotManager.GetCharacterId(robotId)
-                    teamData[i] = characterId
-                else
-                    teamData[i] = 0
-                end
-            end
-
-            -- 设置队长位与首发位为1
-            self.CurTeam.CaptainPos = 1
-            self.CurTeam.FirstFightPos = 1
-
-            self:InitPanelTeam()
-            self:SetRogueLikeRobotTips()
-        else
-            -- 获取NotifyRogueLikeData下发的参战列表，并检查是不是首发或者队长
-            -- 切换队长与首发时，爬塔活动不保存阵容，只在开始战斗时保存阵容
-            local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
-            for i = 1, MAX_CHAR_COUNT do
-                local characterInfo = characterInfos[i]
-                if characterInfo then
-                    teamData[characterInfo.TeamPos] = characterInfo.Id
-                    if characterInfo.Captain == 1 then
-                        self.CurTeam.CaptainPos = characterInfo.TeamPos
-                        self:InitPanelTeam()
-                    end
-
-                    if characterInfo.FirstFight == 1 then
-                        self.CurTeam.FirstFightPos = characterInfo.TeamPos
-                        self:InitPanelTeam()
-                    end
-                else
-                    teamData[i] = 0
-                end
-            end
-            self:SetRogueLikeCharacterTips()
-        end
-        self:UpdateTeam(teamData)
-        self:PlayAnimation("AnimEnable")
-        self.BtnSwitchRole01.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
-        self.BtnSwitchRole02.gameObject:SetActiveEx(self.RogueLikeIsRobot)
-    end
+--    if not self:CanRogueLikeSwitchAssist() and not self.RogueLikeIsRobot then
+--        XUiManager.TipMsg(CSXTextManagerGetText("RogueLikeNeed3SupportChars"))
+--        return
+--    end
+--    self.RogueLikeIsRobot = not self.RogueLikeIsRobot
+--    if self.CurTeam then
+--        local teamData = {}
+--        self.PanelTeamLeader.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
+--        self.PanelBtnLeader.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
+--        if self.RogueLikeIsRobot then
+--            for i = 1, MAX_CHAR_COUNT do
+--                local robotId = self.ChooseRobots[i]
+--                if robotId then
+--                    local characterId = XRobotManager.GetCharacterId(robotId)
+--                    teamData[i] = characterId
+--                else
+--                    teamData[i] = 0
+--                end
+--            end
+--
+--            -- 设置队长位与首发位为1
+--            self.CurTeam.CaptainPos = 1
+--            self.CurTeam.FirstFightPos = 1
+--
+--            self:InitPanelTeam()
+--            self:SetRogueLikeRobotTips()
+--        else
+--            -- 获取NotifyRogueLikeData下发的参战列表，并检查是不是首发或者队长
+--            -- 切换队长与首发时，爬塔活动不保存阵容，只在开始战斗时保存阵容
+--            local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
+--            for i = 1, MAX_CHAR_COUNT do
+--                local characterInfo = characterInfos[i]
+--                if characterInfo then
+--                    teamData[characterInfo.TeamPos] = characterInfo.Id
+--                    if characterInfo.Captain == 1 then
+--                        self.CurTeam.CaptainPos = characterInfo.TeamPos
+--                        self:InitPanelTeam()
+--                    end
+--
+--                    if characterInfo.FirstFight == 1 then
+--                        self.CurTeam.FirstFightPos = characterInfo.TeamPos
+--                        self:InitPanelTeam()
+--                    end
+--                else
+--                    teamData[i] = 0
+--                end
+--            end
+--            self:SetRogueLikeCharacterTips()
+--        end
+--        self:UpdateTeam(teamData)
+--        self:PlayAnimation("AnimEnable")
+--        self.BtnSwitchRole01.gameObject:SetActiveEx(not self.RogueLikeIsRobot)
+--        self.BtnSwitchRole02.gameObject:SetActiveEx(self.RogueLikeIsRobot)
+--    end
 end
 
 function XUiNewRoomSingle:SetSwitchRole()
@@ -1880,10 +1884,10 @@ function XUiNewRoomSingle:SetSwitchRole()
     self.BtnSwitchRole01:SetDisable(not self:CanRogueLikeSwitchAssist())
     self.ChooseRobots = {}
     if #self.ChooseRobots < MAX_CHAR_COUNT then
-        local robots = XDataCenter.FubenRogueLikeManager.GetAssistRobots()
-        for i = 1, MAX_CHAR_COUNT do
-            self.ChooseRobots[i] = robots[i] and robots[i].Id or nil
-        end
+        --local robots = XDataCenter.FubenRogueLikeManager.GetAssistRobots()
+        --for i = 1, MAX_CHAR_COUNT do
+        --    self.ChooseRobots[i] = robots[i] and robots[i].Id or nil
+        --end
     end
 
     local teamPrefabState = (self:IsRogueLikeType() or self:IsWorldBossType()) and XUiButtonState.Disable or XUiButtonState.Normal
@@ -1897,107 +1901,107 @@ function XUiNewRoomSingle:SetRogueLikeCharacterTips()
         return self.Proxy.SetRogueLikeCharacterTips(self)
     end
 
-    local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
-    if not activityId then return end
-    local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
-    if not activityTemplate then return end
-    self.PanelEnduranceRogueLike.gameObject:SetActiveEx(not self:IsRogueLikeIsTiral())
-    self.TxtActionPointNum.text = CSXTextManagerGetText("RogueLikeCostAction", activityTemplate.FightNeedPoint)
-    self.TxtTeamMemberCount.text = CSXTextManagerGetText("RogueLikeTeamNeedCount", XDataCenter.FubenRogueLikeManager:GetTeamMemberCount())
+    --local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
+    --if not activityId then return end
+    --local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
+    --if not activityTemplate then return end
+    --self.PanelEnduranceRogueLike.gameObject:SetActiveEx(not self:IsRogueLikeIsTiral())
+    --self.TxtActionPointNum.text = CSXTextManagerGetText("RogueLikeCostAction", activityTemplate.FightNeedPoint)
+    --self.TxtTeamMemberCount.text = CSXTextManagerGetText("RogueLikeTeamNeedCount", XDataCenter.FubenRogueLikeManager:GetTeamMemberCount())
 end
 
 function XUiNewRoomSingle:SetRogueLikeRobotTips()
     --self.PanelEnduranceRogueLike.gameObject:SetActiveEx(false)
-    local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
-    if not activityId then return end
-    local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
-    if not activityTemplate then return end
-    self.TxtActionPointNum.text = CSXTextManagerGetText("RogueLikeCostAction", activityTemplate.FightNeedPoint) --CSXTextManagerGetText("RogueLikeNotCostAction")
-    self.TxtTeamMemberCount.text = CSXTextManagerGetText("RogueLikeDefaultSupportChar")
+    --local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
+    --if not activityId then return end
+    --local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
+    --if not activityTemplate then return end
+    --self.TxtActionPointNum.text = CSXTextManagerGetText("RogueLikeCostAction", activityTemplate.FightNeedPoint) --CSXTextManagerGetText("RogueLikeNotCostAction")
+    --self.TxtTeamMemberCount.text = CSXTextManagerGetText("RogueLikeDefaultSupportChar")
 end
 
 -- 是否为爬塔并且不可以切换上阵角色
 function XUiNewRoomSingle:IsRogueLikeLockCharacter()
-    return self:IsRogueLikeType() and XDataCenter.FubenRogueLikeManager.IsRogueLikeCharacterLock()
+    return self:IsRogueLikeType() --and XDataCenter.FubenRogueLikeManager.IsRogueLikeCharacterLock()
 end
 
 -- 是否为爬塔并且可以切换为助战角色
 function XUiNewRoomSingle:CanRogueLikeSwitchAssist()
-    return self:IsRogueLikeType() and XDataCenter.FubenRogueLikeManager.CanSwitch2Assist()
+    return self:IsRogueLikeType() --and XDataCenter.FubenRogueLikeManager.CanSwitch2Assist()
 end
 
 -- 爬塔进入战斗并保存阵容
-function XUiNewRoomSingle:HandleEnterRogueLike(stage)
-    local curTeamMemberCount = 0
-    local isAssist = self.RogueLikeIsRobot and 1 or 0
-    for i = 1, #self.CurTeam.TeamData do
-        if self.CurTeam.TeamData[i] > 0 then
-            curTeamMemberCount = curTeamMemberCount + 1
-        end
-    end
-    if XDataCenter.FubenRogueLikeManager.GetTeamMemberCount() > curTeamMemberCount then
-        XUiManager.TipMsg(CSXTextManagerGetText("RogueLikeTeamMaxMember"))
-        return
-    end
+--function XUiNewRoomSingle:HandleEnterRogueLike(stage)
+--    local curTeamMemberCount = 0
+--    local isAssist = self.RogueLikeIsRobot and 1 or 0
+--    for i = 1, #self.CurTeam.TeamData do
+--        if self.CurTeam.TeamData[i] > 0 then
+--            curTeamMemberCount = curTeamMemberCount + 1
+--        end
+--    end
+--    if XDataCenter.FubenRogueLikeManager.GetTeamMemberCount() > curTeamMemberCount then
+--        XUiManager.TipMsg(CSXTextManagerGetText("RogueLikeTeamMaxMember"))
+--        return
+--    end
+--
+--    XDataCenter.FubenRogueLikeManager.UpdateRogueLikeStageRobots(self.CurrentStageId, isAssist, self.ChooseRobots)
+--
+--    -- function参数是PreFightRequest协议返回之后的回调函数
+--    XDataCenter.FubenManager.EnterRogueLikeFight(stage, self.CurTeam, isAssist, self.NodeId, function()
+--        for _, robotId in pairs(self.ChooseRobots or {}) do
+--            XDataCenter.FubenRogueLikeManager.UpdateNewRobots(robotId)
+--        end
+--        -- 非机器人
+--        -- 更新位置、队长位置、首发位置
+--        if not self.RogueLikeIsRobot then
+--            local id2Index = {}
+--            local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
+--            for i = 1, #self.CurTeam.TeamData do
+--                id2Index[self.CurTeam.TeamData[i]] = i
+--            end
+--            for i = 1, #characterInfos do
+--                local characterInfo = characterInfos[i]
+--                local characterId = characterInfo.Id
+--                characterInfo.TeamPos = id2Index[characterId]
+--                characterInfo.Captain = (self.CurTeam.CaptainPos == id2Index[characterId]) and 1 or 0
+--                characterInfo.FirstFight = (self.CurTeam.FirstFightPos == id2Index[characterId]) and 1 or 0
+--            end
+--        end
+--    end)
+--end
 
-    XDataCenter.FubenRogueLikeManager.UpdateRogueLikeStageRobots(self.CurrentStageId, isAssist, self.ChooseRobots)
-
-    -- function参数是PreFightRequest协议返回之后的回调函数
-    XDataCenter.FubenManager.EnterRogueLikeFight(stage, self.CurTeam, isAssist, self.NodeId, function()
-        for _, robotId in pairs(self.ChooseRobots or {}) do
-            XDataCenter.FubenRogueLikeManager.UpdateNewRobots(robotId)
-        end
-        -- 非机器人
-        -- 更新位置、队长位置、首发位置
-        if not self.RogueLikeIsRobot then
-            local id2Index = {}
-            local characterInfos = XDataCenter.FubenRogueLikeManager.GetCharacterInfos()
-            for i = 1, #self.CurTeam.TeamData do
-                id2Index[self.CurTeam.TeamData[i]] = i
-            end
-            for i = 1, #characterInfos do
-                local characterInfo = characterInfos[i]
-                local characterId = characterInfo.Id
-                characterInfo.TeamPos = id2Index[characterId]
-                characterInfo.Captain = (self.CurTeam.CaptainPos == id2Index[characterId]) and 1 or 0
-                characterInfo.FirstFight = (self.CurTeam.FirstFightPos == id2Index[characterId]) and 1 or 0
-            end
-        end
-    end)
-end
-
-function XUiNewRoomSingle:HandleSaveChessPursuit(stage)
-    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckCaptainNil")
-        return
-    end
-    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckFirstFightNil")
-        return
-    end
-
-    if self.ChessPursuitData.SceneUiType == XChessPursuitCtrl.SCENE_UI_TYPE.BOSS_ROUND then
-        XDataCenter.ChessPursuitManager.RequestChessPursuitChangeTeam(self.ChessPursuitData.TeamGridIndex)
-    else
-        XDataCenter.ChessPursuitManager.SaveTempTeamData(self.ChessPursuitData.MapId)
-    end
-
-    self:Close()
-end
+--function XUiNewRoomSingle:HandleSaveChessPursuit(stage)
+--    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckCaptainNil")
+--        return
+--    end
+--    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckFirstFightNil")
+--        return
+--    end
+--
+--    if self.ChessPursuitData.SceneUiType == XChessPursuitCtrl.SCENE_UI_TYPE.BOSS_ROUND then
+--        XDataCenter.ChessPursuitManager.RequestChessPursuitChangeTeam(self.ChessPursuitData.TeamGridIndex)
+--    else
+--        XDataCenter.ChessPursuitManager.SaveTempTeamData(self.ChessPursuitData.MapId)
+--    end
+--
+--    self:Close()
+--end
 
 -- 世界boss进入战斗,检查队长位与首发位是否为空
-function XUiNewRoomSingle:HandleEnterWorldBoss(stage)
-    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckCaptainNil")
-        return
-    end
-    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckFirstFightNil")
-        return
-    end
-    local stageLevel = XDataCenter.WorldBossManager.GetBossStageLevel()
-    XDataCenter.FubenManager.EnterWorldBossFight(stage, self.CurTeam, stageLevel)
-end
+--function XUiNewRoomSingle:HandleEnterWorldBoss(stage)
+--    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckCaptainNil")
+--        return
+--    end
+--    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckFirstFightNil")
+--        return
+--    end
+--    local stageLevel = XDataCenter.WorldBossManager.GetBossStageLevel()
+--    XDataCenter.FubenManager.EnterWorldBossFight(stage, self.CurTeam, stageLevel)
+--end
 
 -- 尼尔玩法进入战斗,检查队长位与首发位是否为空
 function XUiNewRoomSingle:HandleEnterNieR(stage)
@@ -2025,17 +2029,17 @@ function XUiNewRoomSingle:HandleEnterTRPGWorldBoss(stage)
     XDataCenter.FubenManager.EnterTRPGWorldBossFight(stage, self.CurTeam)
 end
 
-function XUiNewRoomSingle:HandleEnterKillZone(stage)
-    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckCaptainNil")
-        return
-    end
-    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
-        XUiManager.TipText("TeamManagerCheckFirstFightNil")
-        return
-    end
-    XDataCenter.FubenManager.EnterKillZoneFight(stage, self.CurTeam)
-end
+--function XUiNewRoomSingle:HandleEnterKillZone(stage)
+--    if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckCaptainNil")
+--        return
+--    end
+--    if self.CurTeam.TeamData[self.CurTeam.FirstFightPos] == nil or self.CurTeam.TeamData[self.CurTeam.FirstFightPos] <= 0 then
+--        XUiManager.TipText("TeamManagerCheckFirstFightNil")
+--        return
+--    end
+--    XDataCenter.FubenManager.EnterKillZoneFight(stage, self.CurTeam)
+--end
 
 function XUiNewRoomSingle:HandleEnterAreaWar(stage)
     if self.CurTeam.TeamData[self.CurTeam.CaptainPos] == nil or self.CurTeam.TeamData[self.CurTeam.CaptainPos] <= 0 then
@@ -2074,11 +2078,11 @@ function XUiNewRoomSingle:HandleEnterPracticeBoss(stage)
 end
 
 function XUiNewRoomSingle:GetCharacterLimitType()
-    if self:IsRogueLikeType() then
-        local currentActivityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
-        local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(currentActivityId)
-        return activityTemplate.CharacterLimitType
-    end
+    --if self:IsRogueLikeType() then
+    --    local currentActivityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
+    --    local activityTemplate = XFubenRogueLikeConfig.GetRougueLikeTemplateById(currentActivityId)
+    --    return activityTemplate.CharacterLimitType
+    --end
 
     local stageId = self.CurrentStageId
     return stageId and XFubenConfigs.GetStageCharacterLimitType(stageId)

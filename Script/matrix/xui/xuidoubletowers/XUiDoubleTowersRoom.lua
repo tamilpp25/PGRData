@@ -240,9 +240,9 @@ function XUiDoubleTowersRoom:OnBtnCharClicked()
                 return
             end
             -- 播放音效
-            local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+            local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
             if team:GetCaptainPos() == index then
-                soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+                soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
             end
             XMVCA.XFavorability:PlayCvByType(XEntityHelper.GetCharacterIdByEntityId(newEntityId), soundType)
             XDataCenter.DoubleTowersManager.SetRoleId(newEntityId)

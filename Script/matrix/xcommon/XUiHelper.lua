@@ -17,6 +17,7 @@ local CSTextManagerGetText = CS.XTextManager.GetText
 local CSVector2 = CS.UnityEngine.Vector2
 local CSVector3 = CS.UnityEngine.Vector3
 local CSQuaternion = CS.UnityEngine.Quaternion
+local CSXTimerManager = CS.XTimerManager
 
 local STR_MONTH = CSTextManagerGetText("Mouth")
 local STR_WEEK = CSTextManagerGetText("Week")
@@ -33,6 +34,7 @@ local H = 3600
 local D = 3600 * 24
 local W = 3600 * 24 * 7
 local M = 3600 * 24 * 30
+local TicksPerSecond = 10000000
 
 XUiHelper = XUiHelper or {}
 XUiHelper.TimeFormatType = {
@@ -1071,9 +1073,9 @@ end
 --@return 定时器
 --==============================--
 function XUiHelper.Tween(duration, onRefresh, onFinish, easeMethod)
-    local startTicks = os.clock()
+    local startTicks = CSXTimerManager.Ticks
     local refresh = function(timer)
-        local t = (os.clock() - startTicks) / duration
+        local t = (CSXTimerManager.Ticks - startTicks) / duration / TicksPerSecond
         t = mathMin(1, t)
         t = mathMax(0, t)
         if easeMethod then
@@ -1880,4 +1882,20 @@ function XUiHelper.OpenUiChatServeMain(isMain, channelType, channelTypeEx)
        return
    end
    XLuaUiManager.Open("UiChatServeMain", isMain, channelType, channelTypeEx)
+end
+
+--- 限制连续点击
+---@param btn XUiComponent.XUiButton
+--------------------------
+function XUiHelper.LimitContinuousClick(btn)
+    if XTool.UObjIsNil(btn) then
+        return
+    end
+    btn.enabled = false
+    XScheduleManager.ScheduleOnce(function()
+        if XTool.UObjIsNil(btn) then
+            return
+        end
+        btn.enabled = true
+    end, 100)
 end

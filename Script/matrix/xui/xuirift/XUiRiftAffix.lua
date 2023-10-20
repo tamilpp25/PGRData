@@ -37,9 +37,8 @@ function XUiRiftAffix:InitDynamicTable()
     end)
 end
 
-function XUiRiftAffix:OnStart(xStageGroup, targetXMonster)
-    self.XStageGroup = xStageGroup
-    self.MonsterList = self.XStageGroup:GetAllEntityMonsters()
+function XUiRiftAffix:OnStart(xStageGroup, targetXMonster, isLucky)
+    self.MonsterList = isLucky and XDataCenter.RiftManager:GetLuckMonster() or xStageGroup:GetAllEntityMonsters()
     self.CurrMonsterListIndex = 1
     if targetXMonster then
         for index, xMonster in pairs(self.MonsterList) do

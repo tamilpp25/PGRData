@@ -37,6 +37,7 @@ function XUiGridRiftFightLayer:SetState(state)
     self.Btn:SetButtonState(state)
     self.Lock.gameObject:SetActiveEx(state == CS.UiButtonState.Disable)
     self.Unlock.gameObject:SetActiveEx(state ~= CS.UiButtonState.Disable)
+    self.Select.gameObject:SetActiveEx(state == CS.UiButtonState.Select)
 end
 
 function XUiGridRiftFightLayer:SetSelect(value)

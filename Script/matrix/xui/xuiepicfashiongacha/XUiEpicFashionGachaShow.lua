@@ -51,6 +51,8 @@ function XUiEpicFashionGachaShow:OnDestroy()
 
     -- 播放背景获得
     self:ShowBackgroundObtain()
+
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.GACHA, false)
 end
 
 function XUiEpicFashionGachaShow:RegisterButton()

@@ -42,7 +42,7 @@ function XUiSelectCharacterGrid:UpdateNormalInfo()
     local characterData = XDataCenter.CharacterManager.GetCharacter(self.Data.Id)
     self.Data.CharacterData = characterData
     self.TxtLevel.text = characterData.Level
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(characterData.Quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(characterData.Quality))
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterData.Id))
     self.TxtFight.text = characterData.Ability
 
@@ -81,7 +81,7 @@ function XUiSelectCharacterGrid:UpdateTryInfo()
     local robotTemplate = XRobotManager.GetRobotTemplate(self.Data.Id)
     self.Data.RobotData = robotTemplate
     self.TxtLevel.text = robotTemplate.CharacterLevel
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(robotTemplate.CharacterQuality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(robotTemplate.CharacterQuality))
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(robotTemplate.CharacterId, true))
 
     local detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)

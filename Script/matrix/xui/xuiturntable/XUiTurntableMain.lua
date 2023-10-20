@@ -575,6 +575,7 @@ end
 function XUiTurntableMain:OnBtnObtainClick()
     self.PanelSettllement01.gameObject:SetActiveEx(false)
     self.PanelSettllement02.gameObject:SetActiveEx(false)
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.TURNTABLE, true)
 end
 
 function XUiTurntableMain:OnDestroy()

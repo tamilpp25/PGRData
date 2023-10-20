@@ -415,9 +415,9 @@ function XUiReform:RefreshModel(npcId)
     end
     self.MosterHideParts = {}
     self.MosterEffects = {}
-    local transDatas = XArchiveConfigs.GetMonsterTransDatas(npcId, 1)
-    local effectDatas = XArchiveConfigs.GetMonsterEffectDatas(npcId, 1)
-    local modelId = XArchiveConfigs.GetMonsterModel(npcId)
+    local transDatas = XMVCA.XArchive:GetMonsterTransDatas(npcId, 1)
+    local effectDatas = XMVCA.XArchive:GetMonsterEffectDatas(npcId, 1)
+    local modelId = XMVCA.XArchive:GetMonsterModel(npcId)
     self.UiPanelRoleModel:SetDefaultAnimation(transDatas and transDatas.StandAnime)
     self.UiPanelRoleModel:UpdateArchiveMonsterModel(modelId, XModelManager.MODEL_UINAME.UiReform)
     self.UiPanelRoleModel:ShowRoleModel()

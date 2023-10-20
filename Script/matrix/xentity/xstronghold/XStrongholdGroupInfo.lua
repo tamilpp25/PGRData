@@ -17,7 +17,7 @@ local Default = {
     _UsedSystemElectricEnergy = -1, --通关当前据点使用的系统电量
 }
 
---超级据点据点信息
+---@class XStrongholdGroupInfo 超级据点据点信息
 local XStrongholdGroupInfo = XClass(nil, "XStrongholdGroupInfo")
 
 function XStrongholdGroupInfo:Ctor(id, isHistory)
@@ -48,6 +48,7 @@ function XStrongholdGroupInfo:GetStageDataByIndex(stageIndex)
     return self:GetStageData(stageId)
 end
 
+---@return XStrongholdStageData
 function XStrongholdGroupInfo:GetStageData(stageId)
     if not isNumberValid(stageId) then
         XLog.Error("XStrongholdGroupInfo:GetStageData error: stageId illegal, stageId is: ", stageId)
@@ -62,7 +63,7 @@ function XStrongholdGroupInfo:GetStageData(stageId)
     return stageData
 end
 
-function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
+function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId, extendBuffId)
     self._StageIds = {}
 
     for _, stageId in ipairs(stageIds or {}) do
@@ -71,7 +72,7 @@ function XStrongholdGroupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
 
         local buffId = stageBuffIdDic[stageId]
         if isNumberValid(buffId) then
-            stageData:SetBuff(buffId)
+            stageData:SetBuff(buffId, extendBuffId)
         end
     end
 
@@ -124,6 +125,11 @@ end
 function XStrongholdGroupInfo:GetStageBuffId(stageIndex)
     local stageData = self:GetStageDataByIndex(stageIndex)
     return stageData and stageData:GetBuffId() or 0
+end
+
+function XStrongholdGroupInfo:GetStageExtendBuffId(stageIndex)
+    local stageData = self:GetStageDataByIndex(stageIndex)
+    return stageData and stageData:GetExtendBuffId() or 0
 end
 
 function XStrongholdGroupInfo:IsStageFinished(stageIndex)

@@ -70,6 +70,7 @@ end
 function XUiNewDrawMain:OnDestroy()
     self:RemoveEventListener()
     self:MarkAllNewTag()
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.DRAW, false)
 end
 
 function XUiNewDrawMain:Refresh()
@@ -610,8 +611,8 @@ function XUiNewDrawMain:OnSelectedTog(index)
     local btn = self.AllBtnList[index]
     ---@type XDrawTabBtnEntity
     local entity = self.AllTabEntityList[btn.SubGroupIndex > 0 and btn.SubGroupIndex or btn.GroupIndex]
-    if entity and not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.DRAW_ENTRY_TYPE, entity:GetId()) then
-        self.PanelNoticeTitleBtnGroup:SelectIndex(self.CurSelectId, false)
+    if entity and not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.DRAW, entity:GetId()) then
+        self.PanelNoticeTitleBtnGroup:SelectIndex(self.CurSelectId or 1, false)
         return
     end
     if self.AllTabEntityList[index] then

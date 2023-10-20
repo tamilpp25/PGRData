@@ -14,18 +14,18 @@ function XRedPointConditionMaverickMain.Check()
         return false
     end
     
-    if XRedPointConditionMaverickTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAVERICK_TASK) then
         return true
     end
 
-    if XRedPointConditionMaverickCharacterMain.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAVERICK_CHARACTER_MAIN) then
         return true
     end
     
     local patternIds = XDataCenter.MaverickManager.GetPatternIds()
 
     for _, patternId in ipairs(patternIds) do
-        if XRedPointConditionMaverickPattern.Check(patternId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAVERICK_PATTERN, patternId) then
             return true
         end
     end

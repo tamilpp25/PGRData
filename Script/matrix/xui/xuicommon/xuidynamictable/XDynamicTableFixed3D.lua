@@ -144,6 +144,10 @@ function XDynamicTableFixed3D:OnDynamicTableEvent(event, index, gridGo)
     end
 end
 
+function XDynamicTableFixed3D:DebugLogDataSource()
+    XLog.Debug("XDynamicTableFixed3D name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
+end
+
 -- 兼容XUiNode
 function XDynamicTableFixed3D:SetActive(flag)
     if not self.Imp then

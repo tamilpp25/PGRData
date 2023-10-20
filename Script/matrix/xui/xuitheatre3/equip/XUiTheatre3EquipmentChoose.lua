@@ -174,7 +174,7 @@ function XUiTheatre3EquipmentChoose:OnSelectEquipment(index)
     self:PlayChooseAnim()
     for i = 1, 3 do
         local isCurSelect = i == index
-        if not isCurSelect then
+        if not isCurSelect and self._TipMap[i] then
             self._TipMap[i]:CloseEffectDetail()
         end
         if not self._CharacterCells[i] then
@@ -254,7 +254,9 @@ end
 
 function XUiTheatre3EquipmentChoose:OnCloseAllBuffDetail()
     for i = 1, 3 do
-        self._TipMap[i]:CloseEffectDetail()
+        if self._TipMap[i] then
+            self._TipMap[i]:CloseEffectDetail()
+        end
     end
 end
 

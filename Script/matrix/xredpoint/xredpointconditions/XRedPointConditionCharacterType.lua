@@ -21,7 +21,7 @@ function XRedPointConditionCharacterType.Check(type)
 
     for i = 1, count do
         local character = characterList[i]
-        if XRedPointConditionCharacter.Check(character.Id) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER, character.Id) then
             if type == XCharacterConfigs.CharacterType.Normal and (not XCharacterConfigs.IsIsomer(character.Id)) then
                 isEnough = true
                 break

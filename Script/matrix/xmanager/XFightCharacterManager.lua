@@ -8,7 +8,7 @@ local function Awake()
 end
 
 local function GetQualityTemplate(templateId, quality)
-    local qualityTemplate = XCharacterConfigs.GetQualityTemplate(templateId, quality)
+    local qualityTemplate = XMVCA.XCharacter:GetQualityTemplate(templateId, quality)
 
     if not qualityTemplate then
         return XCode.CharacterManagerGetQualityTemplateNotFound, nil

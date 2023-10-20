@@ -43,6 +43,7 @@ function XUiDrawShowNew:OnDestroy()
     for _, grid in pairs(self.GridRewardList) do
         grid:OnDestroy()
     end
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.DRAW, false)
 end
 
 function XUiDrawShowNew:RegisterButton()

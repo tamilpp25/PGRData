@@ -921,6 +921,11 @@ function XUiDormSecond:PcClose()
 end
 
 function XUiDormSecond:OnBtnReturnClick()
+    local room = XHomeDormManager.GetRoom(self.CurDormId)
+    --等待家具加载完毕后才给返回
+    if room and not room.IsFurnitureLoadComplete then
+        return
+    end
     if not XLuaUiManager.IsUiLoad("UiDormMain") then
         XHomeSceneManager.LeaveScene()
         XEventManager.DispatchEvent(XEventId.EVENT_DORM_CLOSE_COMPONET)

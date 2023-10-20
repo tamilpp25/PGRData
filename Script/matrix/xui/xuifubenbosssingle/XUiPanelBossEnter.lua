@@ -5,11 +5,10 @@ local XUiPanelScoreInfo = require("XUi/XUiFubenBossSingle/XUiPanelScoreInfo")
 local XUiPanelGroupInfo = require("XUi/XUiFubenBossSingle/XUiPanelGroupInfo")
 local XUiGridBossRankReward = require("XUi/XUiFubenBossSingle/XUiGridBossRankReward")
 
-local FUBEN_BOSS_SINGLE_TAG = 2
-
 function XUiPanelBossEnter:OnStart()
     self._CurScoreRewardId = -1
     self._GridRewardList = {}
+    self.GridBossRankReward.gameObject:SetActiveEx(false)
     self._EventId = self:AddRedPointEvent(self.ImgRedHint, self.OnCheckRewardNews, self, { XRedPointConditions.Types.CONDITION_BOSS_SINGLE_REWARD })
     self.BtnTrial:ShowReddot(false)
     self:_RegisterButtonListeners()
@@ -33,6 +32,7 @@ end
 function XUiPanelBossEnter:_RegisterButtonListeners()
     XUiHelper.RegisterClickEvent(self, self.BtnRank, self.OnBtnRankClick, true)
     XUiHelper.RegisterClickEvent(self, self.BtnReward, self.OnBtnRewardClick, true)
+    XUiHelper.RegisterClickEvent(self, self.PanelNoneReward, self.OnBtnRewardClick, true)
     XUiHelper.RegisterClickEvent(self, self.BtnShop, self.OnBtnShopClick, true)
     XUiHelper.RegisterClickEvent(self, self.BtnTrial, self.OnBtnOpenTrialClick, true)
     XUiHelper.RegisterClickEvent(self, self.GridBossRankReward, self.OnBtnGridBossRankRewardClick, true)
@@ -73,7 +73,7 @@ function XUiPanelBossEnter:_InitRankPanel(bossSingleData)
     end
 end
 
-function XUiPanelBossEnter:Refresh(isRefresh, isSync)
+function XUiPanelBossEnter:Refresh(isRefresh)
     self:CheckRedPoint()
     
     local bossSingleData = self.Parent:GetBossSingleData()
@@ -93,12 +93,14 @@ function XUiPanelBossEnter:Refresh(isRefresh, isSync)
         local isInLevelTypeHigh = XDataCenter.FubenBossSingleManager.IsInLevelTypeHigh()
         local isChooseLevelTypeConditionOk = XDataCenter.FubenBossSingleManager.IsChooseLevelTypeConditionOk()
 
+        if self.PanelChooseLevelConditionOk.parent then
+            local bottom = self.PanelChooseLevelConditionOk.parent
+
+            bottom.gameObject:SetActiveEx(isInLevelTypeHigh)
+        end
+
         self.PanelChooseLevelConditionOk.gameObject:SetActiveEx(isInLevelTypeHigh and isChooseLevelTypeConditionOk)
         self.PanelChooseLevelConditionBad.gameObject:SetActiveEx(isInLevelTypeHigh and not isChooseLevelTypeConditionOk)
-    end
-    
-    if not isSync then
-        self.Parent:PlayAnimation("AnimEnable1")
     end
 
     self.BtnTrial.gameObject:SetActiveEx(bossTrialEnable)
@@ -143,7 +145,7 @@ function XUiPanelBossEnter:_RefreshBossRank()
             else
                 self.TxtRank.gameObject:SetActiveEx(true)
                 self.TxtNoneRank.gameObject:SetActiveEx(false)
-                local num = math.ceil(rank / totalRank * 100)
+                local num = math.floor(rank / totalRank * 100)
                 if num < 1 then
                     num = 1
                 end
@@ -287,6 +289,7 @@ function XUiPanelBossEnter:OnCheckRewardNews(count)
     if self.ImgRedHint then
         self.ImgRedHint.gameObject:SetActiveEx(count > 0)
     end
+    self.PanelNoneReward:ShowReddot(count > 0)
 end
 
 return XUiPanelBossEnter

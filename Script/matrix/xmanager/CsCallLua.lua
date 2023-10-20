@@ -1,5 +1,6 @@
 local Fuben = {}
 local Character = {}
+local DlcFuben = {}
 
 function Fuben.CheckSettleFight()
     return XDataCenter.FubenManager.CheckSettleFight()
@@ -45,6 +46,19 @@ function Character.GetCharacter(id)
     return XMVCA.XCharacter:GetCharacter(id)
 end
 
+function Character.GetCharacterNpcDic(id)
+    return XMVCA.XCharacter:GetCharacterNpcDic(id)
+end
+
+function Character.GetCharacterIdByNpcId(id)
+    return XMVCA.XCharacter:GetCharacterIdByNpcId(id)
+end
+
+function DlcFuben.GetWorldType(worldId)
+    return XMVCA.XDlcWorld:GetWorldTypeById(worldId)
+end
+
 CsCallLua = {}
 CsCallLua.Fuben = Fuben
 CsCallLua.Character = Character
+CsCallLua.DlcFuben = DlcFuben

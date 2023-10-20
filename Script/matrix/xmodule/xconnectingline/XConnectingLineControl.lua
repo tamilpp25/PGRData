@@ -88,7 +88,7 @@ function XConnectingLineControl:IsCanStartGame()
     local itemAmount = XDataCenter.ItemManager.GetCount(itemId)
     local uiData = self:GetUiData()
     local needAmount = uiData.NeedMoney
-    return itemAmount > needAmount
+    return itemAmount >= needAmount
 end
 
 function XConnectingLineControl:GetStatus()

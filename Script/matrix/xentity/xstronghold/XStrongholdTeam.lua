@@ -19,6 +19,8 @@ local Default = {
     _ElementId = 0, --队伍属性
 }
 
+---@class XStrongholdTeam
+---@field _TeamMemberDic XStrongholdTeamMember[]
 local XStrongholdTeam = XClass(nil, "XStrongholdTeam")
 
 function XStrongholdTeam:Ctor(id)
@@ -82,6 +84,7 @@ function XStrongholdTeam:SetMemberForce(pos, member)
     self._TeamMemberDic[pos] = member
 end
 
+---@return XStrongholdTeamMember
 function XStrongholdTeam:GetMember(pos)
     if not IsNumberValid(pos) then return end
     local member = self._TeamMemberDic[pos]
@@ -92,6 +95,7 @@ function XStrongholdTeam:GetMember(pos)
     return member
 end
 
+---@type XStrongholdTeamMember[]
 function XStrongholdTeam:GetAllMembers()
     local members = {}
     for _, member in pairs(self._TeamMemberDic) do
@@ -214,6 +218,7 @@ function XStrongholdTeam:ExistDifferentCharacterType(characterType)
 end
 
 function XStrongholdTeam:InitPlugins()
+    ---@type XStrongholdPlugin[]
     self._PluginDic = {}
     local pluginIds = XStrongholdConfigs.GetPluginIds()
     for _, pluginId in ipairs(pluginIds) do
@@ -229,6 +234,7 @@ function XStrongholdTeam:GetAllPlugins()
     return plugins
 end
 
+---@return XStrongholdPlugin
 function XStrongholdTeam:GetPlugin(pluginId)
     local plugin = self._PluginDic[pluginId]
     if not plugin then
@@ -260,6 +266,14 @@ function XStrongholdTeam:GetUseElectricEnergy()
     return useElectric
 end
 
+function XStrongholdTeam:GetUseCount()
+    local count = 0
+    for _, plugin in pairs(self._PluginDic) do
+        count = count + plugin:GetCount()
+    end
+    return count
+end
+
 --获取已上阵成员总战力
 function XStrongholdTeam:GetTeamAbility()
     local addAbility = 0
@@ -278,11 +292,10 @@ function XStrongholdTeam:GetPluginAddAbility()
     return addAbility
 end
 
---队伍内成员战力 = 成员战力 + 已激活插件额外增加战力
+--队伍内成员战力 = 成员战力
 function XStrongholdTeam:GetTeamMemberAbility(pos)
-    local extraAbility = self:GetPluginAddAbility()
     local member = self:GetMember(pos)
-    return extraAbility + member:GetAbility()
+    return member:GetAbility()
 end
 
 function XStrongholdTeam:CheckPosEmpty(pos)
@@ -454,11 +467,22 @@ function XStrongholdTeam:IsRuneUsing(runeId)
     and self._RuneId == runeId
 end
 
+--是否装备符文
+function XStrongholdTeam:IsRune()
+    return XTool.IsNumberValid(self._RuneId)
+end
+
 --获取符文描述
 function XStrongholdTeam:GetRuneDesc()
     local runeId = self._RuneId
     if not XTool.IsNumberValid(runeId) then return "" end
     return XStrongholdConfigs.GetRuneBrief(runeId)
+end
+
+function XStrongholdTeam:GetRuneName()
+    local runeId = self._RuneId
+    if not XTool.IsNumberValid(runeId) then return "" end
+    return XStrongholdConfigs.GetRuneName(runeId)
 end
 
 --获取符文颜色
@@ -474,6 +498,34 @@ end
 
 function XStrongholdTeam:GetElementId()
     return self._ElementId
+end
+
+--兼容旧编队系统
+---@return XTeam
+function XStrongholdTeam:CreateTempTeam()
+    local teamData = {}
+    teamData.FirstFightPos = self._FirstPos
+    teamData.CaptainPos = self._CaptainPos
+    teamData.TeamData = {}
+    for pos, member in pairs(self._TeamMemberDic) do
+        teamData.TeamData[pos] = member:GetRoleId()
+    end
+
+    ---@type XTeam
+    local xTeam = XDataCenter.TeamManager.CreateTeam(self._Id)
+    xTeam:UpdateAutoSave(true)
+    xTeam:UpdateLocalSave(false)
+    xTeam:Clear()
+    xTeam:UpdateFromTeamData(teamData)
+    xTeam:UpdateSaveCallback(function(inTeam)
+        self:SetCaptainPos(xTeam:GetCaptainPos())
+        self:SetFirstPos(xTeam:GetFirstFightPos())
+        for pos, id in pairs(xTeam.EntitiyIds) do
+            self._TeamMemberDic[pos]:ResetCharacters()
+            self._TeamMemberDic[pos]:SetInTeam(id, XPlayer.Id)
+        end
+    end)
+    return xTeam
 end
 
 return XStrongholdTeam

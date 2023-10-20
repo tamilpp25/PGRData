@@ -16,7 +16,7 @@ function XUiPanelLottoPreview:Ctor(ui, base, data)
 end
 
 --region V2.6 Kalie
-function XUiPanelLottoPreview:UpdateKaliePanel()
+function XUiPanelLottoPreview:UpdateTwoLevelPanel()
     self:_RefreshKalieReward(self.PanelCore, self.RewardCore, XLottoConfigs.RareLevel.One)
     self:_RefreshKalieReward(self.PanelSecond, self.RewardFirst, XLottoConfigs.RareLevel.Two)
     self:_UpdateExReward()

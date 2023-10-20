@@ -1,4 +1,4 @@
-XUiArchiveMonsterSynopsis = XClass(nil, "XUiArchiveMonsterSynopsis")
+XUiArchiveMonsterSynopsis = XClass(XUiNode, "XUiArchiveMonsterSynopsis")
 
 local tableInsert = table.insert
 local Object = CS.UnityEngine.Object
@@ -8,17 +8,14 @@ local CSTextManagerGetText = CS.XTextManager.GetText
 local childUiComment = "UiArchiveMonsterComment"
 local childUiEvaluate = "UiArchiveMonsterEvaluate"
 
-local EvaluateOneForAll = XArchiveConfigs.EvaluateOnForAll
+local EvaluateOneForAll = nil
 local InfoMax = 4
 local TagMax = 3
 local ScoreMax = 5
 local DifficultyMax = 5
 
-function XUiArchiveMonsterSynopsis:Ctor(ui, data, base)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiArchiveMonsterSynopsis:OnStart(data, base)
+    EvaluateOneForAll=self._Control:GetEvaluateOnForAll()
     self.Data = data
     self.Base = base
     self.MonsterInfo = {}
@@ -107,13 +104,13 @@ function XUiArchiveMonsterSynopsis:InitObjGroup()
 end
 
 function XUiArchiveMonsterSynopsis:InitRedPoint()
-    XRedPointManager.AddRedPointEvent(self.MonsterInfo.BtnMore, self.OnCheckInfoRedDot, self,
+    self:AddRedPointEvent(self.MonsterInfo.BtnMore, self.OnCheckInfoRedDot, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_INFO }, self.Data:GetId())
 
-    XRedPointManager.AddRedPointEvent(self.MonsterSetting.BtnSet, self.OnCheckSettingRedDot, self,
+    self:AddRedPointEvent(self.MonsterSetting.BtnSet, self.OnCheckSettingRedDot, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_SETTING }, self.Data:GetId())
 
-    XRedPointManager.AddRedPointEvent(self.MonsterSetting.BtnSkill, self.OnCheckSkillRedDot, self,
+    self:AddRedPointEvent(self.MonsterSetting.BtnSkill, self.OnCheckSkillRedDot, self,
         { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_SKILL }, self.Data:GetId())
 end
 
@@ -149,13 +146,13 @@ function XUiArchiveMonsterSynopsis:SetButtonCallBack()
 end
 
 function XUiArchiveMonsterSynopsis:InitEvaluate()
-    self.EvaluateList = XDataCenter.ArchiveManager.GetArchiveMonsterEvaluateList()
-    self.MySelfEvaluateList = XDataCenter.ArchiveManager.GetArchiveMonsterMySelfEvaluateList()
+    self.EvaluateList = self._Control:GetArchiveMonsterEvaluateList()
+    self.MySelfEvaluateList = self._Control:GetArchiveMonsterMySelfEvaluateList()
 
     for _, npcId in pairs(self.Data:GetNpcId()) do
         self.IsLikeInit[npcId] = false
-        self.LikeStatus[npcId] = self.MySelfEvaluateList[npcId] and self.MySelfEvaluateList[npcId].LikeStatus or XArchiveConfigs.EquipLikeType.NULL
-        self.OldLikeStatus[npcId] = self.MySelfEvaluateList[npcId] and self.MySelfEvaluateList[npcId].LikeStatus or XArchiveConfigs.EquipLikeType.NULL
+        self.LikeStatus[npcId] = self.MySelfEvaluateList[npcId] and self.MySelfEvaluateList[npcId].LikeStatus or XEnumConst.Archive.EquipLikeType.NULL
+        self.OldLikeStatus[npcId] = self.MySelfEvaluateList[npcId] and self.MySelfEvaluateList[npcId].LikeStatus or XEnumConst.Archive.EquipLikeType.NULL
         self.DisCount[npcId] = self.EvaluateList[npcId] and self.EvaluateList[npcId].DislikeCount or 0
         self.LikeCount[npcId] = self.EvaluateList[npcId] and self.EvaluateList[npcId].LikeCount or 0
     end
@@ -180,14 +177,14 @@ function XUiArchiveMonsterSynopsis:InitLikeAndDis()
         self.LikeBtnGroupList[npcId].CurSelectId = -1
         self.LikeBtnGroupList[npcId].CanDisSelect = true
 
-        if self.LikeStatus[npcId] ~= XArchiveConfigs.EquipLikeType.NULL then
+        if self.LikeStatus[npcId] ~= XEnumConst.Archive.EquipLikeType.NULL then
             self.IsLikeInit[npcId] = true
             self.LikeBtnGroupList[npcId]:SelectIndex(self.LikeStatus[npcId])
         else
             self:ChangeLikeCount(npcId)
         end
 
-        if EvaluateOneForAll == XArchiveConfigs.OnForAllState.On then
+        if EvaluateOneForAll == XEnumConst.Archive.OnForAllState.On then
             break
         end
     end
@@ -197,7 +194,7 @@ end
 function XUiArchiveMonsterSynopsis:SelectLikeOrDis(npcId, index)
     if not self.IsLikeInit[npcId] then
         if index == self.LikeStatus[npcId] then
-            self.LikeStatus[npcId] = XArchiveConfigs.EquipLikeType.NULL
+            self.LikeStatus[npcId] = XEnumConst.Archive.EquipLikeType.NULL
         else
             self.LikeStatus[npcId] = index
         end
@@ -210,10 +207,10 @@ function XUiArchiveMonsterSynopsis:SelectLikeOrDis(npcId, index)
 end
 
 function XUiArchiveMonsterSynopsis:ChangeLikeCount(npcId)
-    if self.LikeStatus[npcId] == XArchiveConfigs.EquipLikeType.Dis then
+    if self.LikeStatus[npcId] == XEnumConst.Archive.EquipLikeType.Dis then
         self.MyDisCount = 1
         self.MyLikeCount = 0
-    elseif self.LikeStatus[npcId] == XArchiveConfigs.EquipLikeType.Like then
+    elseif self.LikeStatus[npcId] == XEnumConst.Archive.EquipLikeType.Like then
         self.MyDisCount = 0
         self.MyLikeCount = 1
     else
@@ -221,20 +218,21 @@ function XUiArchiveMonsterSynopsis:ChangeLikeCount(npcId)
         self.MyLikeCount = 0
     end
 
-    if self.OldLikeStatus[npcId] == XArchiveConfigs.EquipLikeType.Dis then
+    if self.OldLikeStatus[npcId] == XEnumConst.Archive.EquipLikeType.Dis then
         self.MyDisCount = self.MyDisCount - 1
-    elseif self.OldLikeStatus[npcId] == XArchiveConfigs.EquipLikeType.Like then
+    elseif self.OldLikeStatus[npcId] == XEnumConst.Archive.EquipLikeType.Like then
         self.MyLikeCount = self.MyLikeCount - 1
     end
 
     self.LikeBtnObjList[npcId].BtnStep:SetName(CSTextManagerGetText("ChannelNumberLabel",
-            XArchiveConfigs.GetCountUnitChange(self.DisCount[npcId] + self.MyDisCount)))
+            self._Control:GetCountUnitChange(self.DisCount[npcId] + self.MyDisCount)))
 
     self.LikeBtnObjList[npcId].BtnLike:SetName(CSTextManagerGetText("ChannelNumberLabel",
-            XArchiveConfigs.GetCountUnitChange(self.LikeCount[npcId] + self.MyLikeCount)))
+            self._Control:GetCountUnitChange(self.LikeCount[npcId] + self.MyLikeCount)))
 end
 
 function XUiArchiveMonsterSynopsis:SelectType(index)
+    self:Open()
     self:SetMonsterInfoData(index)
     self:SetMonsterSettingData(index)
     self:SetMonsterFeaturesData()
@@ -242,12 +240,12 @@ function XUiArchiveMonsterSynopsis:SelectType(index)
 end
 
 function XUiArchiveMonsterSynopsis:SetMonsterInfoData(type)
-    local infoList = XDataCenter.ArchiveManager.GetArchiveMonsterInfoList(self.Data:GetNpcId(type), XArchiveConfigs.MonsterInfoType.Short)
+    local infoList = self._Control:GetArchiveMonsterInfoList(self.Data:GetNpcId(type), XEnumConst.Archive.MonsterInfoType.Short)
 
     self.MonsterInfo.LockedGroup.gameObject:SetActiveEx(self.Data:GetIsLockMain())
     self.MonsterInfo.UnLock.gameObject:SetActiveEx(not self.Data:GetIsLockMain())
     self.MonsterInfo.MonsterNameTex.text = self.Data:GetIsLockMain() and LockNameText or
-    ((EvaluateOneForAll == XArchiveConfigs.OnForAllState.On) and self.Data:GetName() or self.Data:GetRealName(self.Data:GetNpcId(type)))
+    ((EvaluateOneForAll == XEnumConst.Archive.OnForAllState.On) and self.Data:GetName() or self.Data:GetRealName(self.Data:GetNpcId(type)))
 
     if self.Data:GetIsLockMain() then
         return
@@ -279,7 +277,7 @@ function XUiArchiveMonsterSynopsis:SetMonsterInfoData(type)
 end
 
 function XUiArchiveMonsterSynopsis:SetMonsterSettingData(type)
-    local skillList = XDataCenter.ArchiveManager.GetArchiveMonsterSkillList(self.Data:GetNpcId(type))
+    local skillList = self._Control:GetArchiveMonsterSkillList(self.Data:GetNpcId(type))
     self.MonsterSetting.UnLock.gameObject:SetActiveEx(not self.Data:GetIsLockMain())
     self.MonsterSetting.BtnSkill.gameObject:SetActiveEx(#skillList > 0)
 end
@@ -303,10 +301,10 @@ function XUiArchiveMonsterSynopsis:SetMonsterFeaturesData()
                 self.MonsterFeatures.TagItem[index].GameObject = self.MonsterFeatures.TagItemObj[index].gameObject
                 XTool.InitUiObject(self.MonsterFeatures.TagItem[index])
             end
-            self.MonsterFeatures.TagItem[index].TxtTag.text = XArchiveConfigs.GetArchiveTagCfgById(featuresIds[index]).Name
-            local hexColor = XArchiveConfigs.GetArchiveTagCfgById(featuresIds[index]).Color
+            self.MonsterFeatures.TagItem[index].TxtTag.text = self._Control:GetArchiveTagCfgById(featuresIds[index]).Name
+            local hexColor = self._Control:GetArchiveTagCfgById(featuresIds[index]).Color
             self.MonsterFeatures.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(hexColor)
-            local bgImg = XArchiveConfigs.GetArchiveTagCfgById(featuresIds[index]).Bg
+            local bgImg = self._Control:GetArchiveTagCfgById(featuresIds[index]).Bg
             if bgImg then self.Base:SetUiSprite(self.MonsterFeatures.TagItem[index].Bg, bgImg) end
         end
         self.MonsterFeatures.TagItemObj[index].gameObject:SetActiveEx(featuresIds[index] and true or false)
@@ -324,7 +322,7 @@ function XUiArchiveMonsterSynopsis:SetPlayerEvaluateData(type)
         return
     end
 
-    NpcType = (EvaluateOneForAll == XArchiveConfigs.OnForAllState.On) and 1 or type
+    NpcType = (EvaluateOneForAll == XEnumConst.Archive.OnForAllState.On) and 1 or type
     evaluate = self.EvaluateList[self.Data:GetNpcId(NpcType)]
 
     if evaluate then
@@ -348,10 +346,10 @@ function XUiArchiveMonsterSynopsis:SetPlayerEvaluateData(type)
                 self.PlayerEvaluate.TagItem[index].GameObject = self.PlayerEvaluate.TagItemObj[index].gameObject
                 XTool.InitUiObject(self.PlayerEvaluate.TagItem[index])
             end
-            self.PlayerEvaluate.TagItem[index].TxtTag.text = XArchiveConfigs.GetArchiveTagCfgById(evaluate.Tags[index].Id).Name
-            local hexColor = XArchiveConfigs.GetArchiveTagCfgById(evaluate.Tags[index].Id).Color
+            self.PlayerEvaluate.TagItem[index].TxtTag.text = self._Control:GetArchiveTagCfgById(evaluate.Tags[index].Id).Name
+            local hexColor = self._Control:GetArchiveTagCfgById(evaluate.Tags[index].Id).Color
             self.PlayerEvaluate.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(hexColor)
-            local bgImg = XArchiveConfigs.GetArchiveTagCfgById(evaluate.Tags[index].Id).Bg
+            local bgImg = self._Control:GetArchiveTagCfgById(evaluate.Tags[index].Id).Bg
             if bgImg then self.Base:SetUiSprite(self.PlayerEvaluate.TagItem[index].Bg, bgImg) end
         end
         self.PlayerEvaluate.TagItemObj[index].gameObject:SetActiveEx((evaluate and evaluate.Tags and evaluate.Tags[index]) and true or false)
@@ -387,7 +385,7 @@ function XUiArchiveMonsterSynopsis:GiveLikeStatus()
         end
     end
     if #changedLikeList > 0 then
-        XDataCenter.ArchiveManager.MonsterGiveLike(changedLikeList)
+        self._Control:MonsterGiveLike(changedLikeList)
     end
 end
 
@@ -403,18 +401,18 @@ function XUiArchiveMonsterSynopsis:OnBtnEvaluateClick()
 end
 
 function XUiArchiveMonsterSynopsis:OnMonsterInfoBtnClick()
-    self.Base:SelectDetailState(XArchiveConfigs.MonsterDetailType.Info)
-    XDataCenter.ArchiveManager.ClearDetailRedPoint(XArchiveConfigs.MonsterDetailType.Info, { self.Data })
+    self.Base:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Info)
+    self._Control:ClearDetailRedPoint(XEnumConst.Archive.MonsterDetailType.Info, { self.Data })
 end
 
 function XUiArchiveMonsterSynopsis:OnMonsterSetBtnClick()
-    self.Base:SelectDetailState(XArchiveConfigs.MonsterDetailType.Setting)
-    XDataCenter.ArchiveManager.ClearDetailRedPoint(XArchiveConfigs.MonsterDetailType.Setting, { self.Data })
+    self.Base:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Setting)
+    self._Control:ClearDetailRedPoint(XEnumConst.Archive.MonsterDetailType.Setting, { self.Data })
 end
 
 function XUiArchiveMonsterSynopsis:OnMonsterSkillStateBtnClick()
-    self.Base:SelectDetailState(XArchiveConfigs.MonsterDetailType.Skill)
-    XDataCenter.ArchiveManager.ClearDetailRedPoint(XArchiveConfigs.MonsterDetailType.Skill, { self.Data })
+    self.Base:SelectDetailState(XEnumConst.Archive.MonsterDetailType.Skill)
+    self._Control:ClearDetailRedPoint(XEnumConst.Archive.MonsterDetailType.Skill, { self.Data })
 end
 
 function XUiArchiveMonsterSynopsis:OnCheckInfoRedDot(count)

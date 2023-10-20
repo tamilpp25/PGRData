@@ -10,7 +10,7 @@ end
 
 function XUiArenaFightResult:OnEnable()
     self:Refresh()
-    self:RefreshUnionKill()
+    --self:RefreshUnionKill()
 end
 
 function XUiArenaFightResult:AutoAddListener()
@@ -34,10 +34,10 @@ function XUiArenaFightResult:OnBtnNextClick()
 end
 
 function XUiArenaFightResult:OnBtnReFightClick()
-    if self:IsUnionKillType() then
-        self:UnionKillHandelRefight()
-        return
-    end
+    --if self:IsUnionKillType() then
+    --    self:UnionKillHandelRefight()
+    --    return
+    --end
 
     if XDataCenter.ArenaManager.JudgeGotoMainWhenFightOver() then
         return
@@ -63,11 +63,11 @@ end
 
 function XUiArenaFightResult:OnBtnExitFightClick()
 
-    if self:IsUnionKillType() then
-        self:StopAudio()
-        self:Close()
-        return
-    end
+    --if self:IsUnionKillType() then
+    --    self:StopAudio()
+    --    self:Close()
+    --    return
+    --end
 
     if XDataCenter.ArenaManager.JudgeGotoMainWhenFightOver() then
         return
@@ -92,123 +92,123 @@ function XUiArenaFightResult:StopAudio()
     end
 end
 
-function XUiArenaFightResult:IsUnionKillType()
-    if not self.WinData then return false end
-    local stageId = self.WinData.SettleData.StageId
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    return stageInfo.Type == XDataCenter.FubenManager.StageType.UnionKill
-end
+--function XUiArenaFightResult:IsUnionKillType()
+--    if not self.WinData then return false end
+--    local stageId = self.WinData.SettleData.StageId
+--    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+--    return stageInfo.Type == XDataCenter.FubenManager.StageType.UnionKill
+--end
 
 -- 玩家点击了狙击战的重打
-function XUiArenaFightResult:UnionKillHandelRefight()
-
-    local fightRoomData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
-    -- 过期
-    if fightRoomData and fightRoomData.LeaveReson and fightRoomData.LeaveReson > 0 then
-        self:StopAudio()
-        self:Close()
-        return
-    end
-
-    -- trial
-    if fightRoomData.BossHpLeft <= 0 then
-        self:StopAudio()
-        self:Close()
-
-        local unionKill = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
-        if unionKill and unionKill.CurSectionId > 0 then
-            local sectionTemplate = XFubenUnionKillConfigs.GetUnionSectionById(unionKill.CurSectionId)
-            XLuaUiManager.Open("UiBattleRoleRoom", sectionTemplate.TrialStage)
-        end
-    else
-        self:StopAudio()
-        self:Close()
-        -- boss
-        local stageId = self.WinData.SettleData.StageId
-        XLuaUiManager.Open("UiBattleRoleRoom", stageId)
-    end
-end
+--function XUiArenaFightResult:UnionKillHandelRefight()
+--
+--    local fightRoomData = XDataCenter.FubenUnionKillManager.GetCurRoomData()
+--    -- 过期
+--    if fightRoomData and fightRoomData.LeaveReson and fightRoomData.LeaveReson > 0 then
+--        self:StopAudio()
+--        self:Close()
+--        return
+--    end
+--
+--    -- trial
+--    if fightRoomData.BossHpLeft <= 0 then
+--        self:StopAudio()
+--        self:Close()
+--
+--        local unionKill = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
+--        if unionKill and unionKill.CurSectionId > 0 then
+--            local sectionTemplate = XFubenUnionKillConfigs.GetUnionSectionById(unionKill.CurSectionId)
+--            XLuaUiManager.Open("UiBattleRoleRoom", sectionTemplate.TrialStage)
+--        end
+--    else
+--        self:StopAudio()
+--        self:Close()
+--        -- boss
+--        local stageId = self.WinData.SettleData.StageId
+--        XLuaUiManager.Open("UiBattleRoleRoom", stageId)
+--    end
+--end
 
 --[[狙击战]]
 --[[失败：通用失败界面]]
 --[[成功：点赞界面(如果有) --> 事件关（角色结算）--> 核心关（当前界面）]]
-function XUiArenaFightResult:RefreshUnionKill()
-    if not self.WinData or not self.WinData.SettleData or
-    not self.WinData.SettleData.UnionKillResult then
-        return
-    end
-    self.BtnReFight.gameObject:SetActiveEx(false)
-
-    local stageId = self.WinData.SettleData.StageId
-    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
-
-    local data = self.WinData.SettleData.UnionKillResult
-    local scoreResultInfos = data.ScoreResultInfo
-    local time = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
-
-    self.PanelBossLoseHp.gameObject:SetActiveEx(true)
-    self.PanelSurplusHp.gameObject:SetActiveEx(true)
-    self.PanelLeftTime.gameObject:SetActiveEx(true)
-    self.PanelGroupCount.gameObject:SetActiveEx(false)
-
-    local SetMaxTextDesc = function(text, ponit)
-        if ponit > 0 then
-            text.text = CS.XTextManager.GetText("ArenaMaxSingleScore", ponit)
-        else
-            text.text = CS.XTextManager.GetText("ArenaMaxSingleNoScore")
-        end
-    end
-
-    local scoreRuleConfig = XFubenUnionKillConfigs.GetUnionScoreRuleById(stageId)
-
-    SetMaxTextDesc(self.TxtHitSocreMax, scoreRuleConfig ~= nil and scoreRuleConfig.DamageMaxScore or 0)
-    SetMaxTextDesc(self.TxtRemainHpScoreMax, scoreRuleConfig ~= nil and scoreRuleConfig.HpMaxScore or 0)
-    SetMaxTextDesc(self.TxtRemainTimeScoreMax, scoreRuleConfig ~= nil and scoreRuleConfig.TimeMaxScore or 0)
-
-    -- Region
-    self.TxtTile.text = stageCfg.Name
-    self.PanelNewRecord.gameObject:SetActiveEx(scoreResultInfos.Point > scoreResultInfos.OldPoint)
-
-    XUiHelper.Tween(time, function(f)
-        if XTool.UObjIsNil(self.Transform) then
-            return
-        end
-
-        -- PanelBossLoseHp
-        local hitCombo = math.floor(f * scoreResultInfos.EnemyHurt)
-        local hitScore = '+' .. math.floor(f * scoreResultInfos.EnemyPoint)
-        self.TxtHitCombo.text = hitCombo
-        self.TxtHitScore.text = hitScore
-
-        -- PanelSurplusHp
-        local remainHp = math.floor(f * scoreResultInfos.MyHpLeft) .. "%"
-        local remainHpScore = '+' .. math.floor(f * scoreResultInfos.MyHpPoint)
-        self.TxtRemainHp.text = remainHp
-        self.TxtRemainHpScore.text = remainHpScore
-
-        -- PanelLeftTime
-        local remainTime = XUiHelper.GetTime(math.floor(f * scoreResultInfos.TimeLeft), XUiHelper.TimeFormatType.SHOP)
-        local remainTimeSacore = '+' .. math.floor(f * scoreResultInfos.TimePoint)
-        self.TxtRemainTime.text = remainTime
-        self.TxtRemainTimeScore.text = remainTimeSacore
-
-        -- StageTime
-        local costTime = XUiHelper.GetTime(math.floor(f * scoreResultInfos.FightTime), XUiHelper.TimeFormatType.SHOP)
-        self.TxtCostTime.text = costTime
-
-        -- -- 当前总分
-        local point = math.floor(f * scoreResultInfos.Point)
-        self.TxtPoint.text = point
-
-        -- -- 历史最高分
-        local highScore = math.floor(f * scoreResultInfos.OldPoint)
-        self.TxtHighScore.text = highScore
-
-    end, function()
-        self:StopAudio()
-    end)
-
-end
+--function XUiArenaFightResult:RefreshUnionKill()
+--    if not self.WinData or not self.WinData.SettleData or
+--    not self.WinData.SettleData.UnionKillResult then
+--        return
+--    end
+--    self.BtnReFight.gameObject:SetActiveEx(false)
+--
+--    local stageId = self.WinData.SettleData.StageId
+--    local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+--
+--    local data = self.WinData.SettleData.UnionKillResult
+--    local scoreResultInfos = data.ScoreResultInfo
+--    local time = CS.XGame.ClientConfig:GetFloat("BossSingleAnimaTime")
+--
+--    self.PanelBossLoseHp.gameObject:SetActiveEx(true)
+--    self.PanelSurplusHp.gameObject:SetActiveEx(true)
+--    self.PanelLeftTime.gameObject:SetActiveEx(true)
+--    self.PanelGroupCount.gameObject:SetActiveEx(false)
+--
+--    local SetMaxTextDesc = function(text, ponit)
+--        if ponit > 0 then
+--            text.text = CS.XTextManager.GetText("ArenaMaxSingleScore", ponit)
+--        else
+--            text.text = CS.XTextManager.GetText("ArenaMaxSingleNoScore")
+--        end
+--    end
+--
+--    local scoreRuleConfig = XFubenUnionKillConfigs.GetUnionScoreRuleById(stageId)
+--
+--    SetMaxTextDesc(self.TxtHitSocreMax, scoreRuleConfig ~= nil and scoreRuleConfig.DamageMaxScore or 0)
+--    SetMaxTextDesc(self.TxtRemainHpScoreMax, scoreRuleConfig ~= nil and scoreRuleConfig.HpMaxScore or 0)
+--    SetMaxTextDesc(self.TxtRemainTimeScoreMax, scoreRuleConfig ~= nil and scoreRuleConfig.TimeMaxScore or 0)
+--
+--    -- Region
+--    self.TxtTile.text = stageCfg.Name
+--    self.PanelNewRecord.gameObject:SetActiveEx(scoreResultInfos.Point > scoreResultInfos.OldPoint)
+--
+--    XUiHelper.Tween(time, function(f)
+--        if XTool.UObjIsNil(self.Transform) then
+--            return
+--        end
+--
+--        -- PanelBossLoseHp
+--        local hitCombo = math.floor(f * scoreResultInfos.EnemyHurt)
+--        local hitScore = '+' .. math.floor(f * scoreResultInfos.EnemyPoint)
+--        self.TxtHitCombo.text = hitCombo
+--        self.TxtHitScore.text = hitScore
+--
+--        -- PanelSurplusHp
+--        local remainHp = math.floor(f * scoreResultInfos.MyHpLeft) .. "%"
+--        local remainHpScore = '+' .. math.floor(f * scoreResultInfos.MyHpPoint)
+--        self.TxtRemainHp.text = remainHp
+--        self.TxtRemainHpScore.text = remainHpScore
+--
+--        -- PanelLeftTime
+--        local remainTime = XUiHelper.GetTime(math.floor(f * scoreResultInfos.TimeLeft), XUiHelper.TimeFormatType.SHOP)
+--        local remainTimeSacore = '+' .. math.floor(f * scoreResultInfos.TimePoint)
+--        self.TxtRemainTime.text = remainTime
+--        self.TxtRemainTimeScore.text = remainTimeSacore
+--
+--        -- StageTime
+--        local costTime = XUiHelper.GetTime(math.floor(f * scoreResultInfos.FightTime), XUiHelper.TimeFormatType.SHOP)
+--        self.TxtCostTime.text = costTime
+--
+--        -- -- 当前总分
+--        local point = math.floor(f * scoreResultInfos.Point)
+--        self.TxtPoint.text = point
+--
+--        -- -- 历史最高分
+--        local highScore = math.floor(f * scoreResultInfos.OldPoint)
+--        self.TxtHighScore.text = highScore
+--
+--    end, function()
+--        self:StopAudio()
+--    end)
+--
+--end
 
 --[[纷争战区]]
 function XUiArenaFightResult:Refresh()

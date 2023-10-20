@@ -12,6 +12,10 @@ end
 
 function XUiFubenBossSingleHeadGrid:SetCharacterId(characterId)
     self._CharacterId = characterId
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 function XUiFubenBossSingleHeadGrid:_InitUi()

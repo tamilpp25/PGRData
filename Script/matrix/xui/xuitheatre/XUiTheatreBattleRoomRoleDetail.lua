@@ -102,4 +102,9 @@ function XUiTheatreBattleRoomRoleDetail:GetCurrentEntityId(currentEntityId)
     return self._IdDir[currentEntityId] and self._IdDir[currentEntityId] or currentEntityId
 end
 
+---@param entity XTheatreAdventureRole
+function XUiTheatreBattleRoomRoleDetail:GetFilterCharIdFun(entity)
+    return entity:GetId()
+end
+
 return XUiTheatreBattleRoomRoleDetail

@@ -5,8 +5,8 @@ function XUiSettleUrgentEvent:OnAwake()
 end
 
 function XUiSettleUrgentEvent:OnStart(urgentId)
-    local urgentCfg = XDataCenter.FubenUrgentEventManager.GetUrgentEventCfg(urgentId)
-    self.TxtUrgentDesc.color = XUiHelper.Hexcolor2Color(urgentCfg.BgColor)
+    --local urgentCfg = XDataCenter.FubenUrgentEventManager.GetUrgentEventCfg(urgentId)
+    --self.TxtUrgentDesc.color = XUiHelper.Hexcolor2Color(urgentCfg.BgColor)
 end
 
 -- auto

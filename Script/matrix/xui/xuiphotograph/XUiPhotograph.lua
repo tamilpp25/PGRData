@@ -33,7 +33,7 @@ function XUiPhotograph:OnAwake()
     self.ImgGlory = self.TxtLevel.transform.parent:Find("Icon")
 
     local signBoardPlayer = require("XCommon/XSignBoardPlayer").New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
 end
@@ -80,7 +80,7 @@ function XUiPhotograph:OnEnable()
     --self:PlayAnimation("PanelSceneListEnable")
     XEventManager.DispatchEvent(XEventId.EVENT_PHOTO_ENTER)
     self:UpdateView()
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
 
     -- 开启时钟
     self.ClockTimer = XUiHelper.SetClockTimeTempFun(self)
@@ -146,7 +146,7 @@ function XUiPhotograph:OnDisable()
 
     self.Enable = false
     XEventManager.DispatchEvent(XEventId.EVENT_PHOTO_LEAVE)
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
 
     -- 关闭时钟
     if self.ClockTimer then
@@ -330,7 +330,7 @@ end
 function XUiPhotograph:ForcePlay(signBoardActionId, actionId)
     self.SignBoardActionId = signBoardActionId
     self.ActionId = actionId or self.ActionId -- characterAction表的主键
-    local config = XSignBoardConfigs.GetSignBoardConfigById(signBoardActionId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(signBoardActionId)
     if self.SignBoardPlayer:GetInterruptDetection() and self.SignBoardPlayer.PlayerData.PlayingElement.Id ~= config.Id then
         self:PlayChangeActionEffect()
     end
@@ -432,7 +432,7 @@ function XUiPhotograph:Replay()
         return
     end
 
-    local configs = XFavorabilityConfigs.GetCharacterActionById(self.SelectCharacterId)
+    local configs = XMVCA.XFavorability:GetCharacterActionById(self.SelectCharacterId)
     local data = nil
     for k, v in pairs(configs) do
         if v.config.Id == self.ActionId then
@@ -601,20 +601,20 @@ function XUiPhotograph:PlaySceneAnim(element)
     local animRoot = self.UiModelGo.transform
     local sceneId = XDataCenter.PhotographManager.GetCurSelectSceneId()
     local sighBoardId = element.SignBoardConfig.Id
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 function XUiPhotograph:PlayRoleActionUiDisableAnim(signBoardid)
     self:SetActionMask(true)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
 
 function XUiPhotograph:PlayRoleActionUiEnableAnim(signBoardid)
     self:SetActionMask(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end

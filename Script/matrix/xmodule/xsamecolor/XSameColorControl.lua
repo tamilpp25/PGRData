@@ -123,6 +123,11 @@ function XSameColorControl:GetCfgAssetItemIds()
     end
     return result
 end
+
+function XSameColorControl:GetCfgBossBattleBgmCueId()
+    local value = self:GetClientCfgStringValue("BossBattleBgmCueId")
+    return value and tonumber(value)
+end
 --endregion
 
 --region Cfg - BattleShowRole

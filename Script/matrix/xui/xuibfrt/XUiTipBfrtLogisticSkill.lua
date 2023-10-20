@@ -2,6 +2,7 @@ local ANIMATION_OPEN = "AniTipJudianBegin"
 -- local ANIMATION_END = "AniTipJudianEnd"
 local CLOSE_TIME = 3
 
+---@class XUiTipBfrtLogisticSkill:XLuaUi
 local XUiTipBfrtLogisticSkill = XLuaUiManager.Register(XLuaUi, "UiTipBfrtLogisticSkill")
 
 function XUiTipBfrtLogisticSkill:OnStart(groupId)

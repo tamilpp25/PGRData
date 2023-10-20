@@ -395,14 +395,6 @@ XUiPcManagerCreator = function()
             -- XUiPcManager.ExitGame()
             return
         end
-        -- 战斗中
-        local fight = CS.XFight.Instance
-        if fight then
-            if fight.IsClosedLoading and fight.State == CS.XFightState.Fight then
-                fight.UiManager:GetUi(typeof(CS.XUiFight)):OnClickExit(nil)
-            end
-            return
-        end
         -- 剧情
         if XLuaUiManager.IsUiShow("UiMovie") then
             return

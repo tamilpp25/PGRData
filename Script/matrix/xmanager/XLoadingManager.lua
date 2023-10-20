@@ -23,7 +23,8 @@ XLoadingManagerCreator = function()
             return
         end
 
-        if XUiManager.IsHideFunc then
+        --未完成分包下载时，不读取图鉴资源
+        if XUiManager.IsHideFunc or not XMVCA.XSubPackage:CheckNecessaryComplete() then
             CustomLoadingState = XSetConfigs.LoadingType.Default
             type = XLoadingConfig.DEFAULT_TYPE
         end
@@ -32,7 +33,7 @@ XLoadingManagerCreator = function()
                 and #CustomLoadingList >= 1
                 and math.random(1, 10000) <= XLoadingConfig.GetCustomRate() then
             local id = CustomLoadingList[math.random(#CustomLoadingList)]
-            return XDataCenter.ArchiveManager.GetArchiveCgEntity(id), XSetConfigs.LoadingType.Custom
+            return XMVCA.XArchive:GetArchiveCgEntity(id), XSetConfigs.LoadingType.Custom
         else
             local loadingList = XLoadingConfig.GetCfgByType(type)
 

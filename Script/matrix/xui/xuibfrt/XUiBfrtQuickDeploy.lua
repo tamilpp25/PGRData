@@ -40,7 +40,7 @@ end
 function XUiBfrtQuickDeploy:GetTeamCharacterType(team)
     for _, characterId in pairs(team or {}) do
         if characterId ~= 0 then
-            return XMVCA.XCharacter:GetCharacterType(characterId)
+            return XCharacterConfigs.GetCharacterType(characterId)
         end
     end
 end

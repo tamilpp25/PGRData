@@ -116,7 +116,6 @@ function XUiPanelBoard:InitPos()
     end
 
     self.PanelBallParent.sizeDelta = Vector2(boardCol * self.GridPos.sizeDelta.x ,boardRow * self.GridPos.sizeDelta.y)
-    self:_PrepareBallPosEffect()
 end
 --endregion
 
@@ -217,8 +216,10 @@ end
 -- 清除所有分数Item的定时器
 function XUiPanelBoard:ClearScoreTimer()
     for item, timerId in pairs(self.ScoreItemDic) do
-        XScheduleManager.UnSchedule(timerId)
-        self.ScoreItemDic[item] = 0
+        if XTool.IsNumberValid(timerId) then
+            XScheduleManager.UnSchedule(timerId)
+            self.ScoreItemDic[item] = 0
+        end
     end
 end
 --endregion
@@ -506,12 +507,12 @@ end
 ---@param skillEffectParam XSCBattleSkillEffectParam
 function XUiPanelBoard:_DoRemoveBall(data, gridBallList, ballList, animNotMask, skillEffectParam)
     -- 消除特效
+    local curUsingSkillId = data.CurrentSkillId or self.BattleManager:GetCurUsingSkillId()
     XScheduleManager.ScheduleOnce(function()
         local time = self:_DoShowSkillEffect(XEnumConst.SAME_COLOR_GAME.SKILL_EFFECT_TIME_TYPE.REMOVE, skillEffectParam)
         -- 有技能特效且技能特效无特殊消球特效则取消普通消球特效
-        local curUsingSkillId = self.BattleManager:GetCurUsingSkillId()
         if not time or (curUsingSkillId and not XTool.IsTableEmpty(self._Control:GetCfgSkillBallRemoveEffect(curUsingSkillId))) then
-            self:_DoShowRemoveEffect(ballList)
+            self:_DoShowRemoveEffect(ballList, curUsingSkillId)
         end
         self:_DoSetRemoveBallAfterSkill()
     end, RemoveEffectWaitTime)
@@ -1028,11 +1029,11 @@ function XUiPanelBoard:_CheckCurSkillWhenRemove(ballList)
 end
 
 ---@param ballList XSCBattleBallInfo[]
-function XUiPanelBoard:_DoShowRemoveEffect(ballList)
+function XUiPanelBoard:_DoShowRemoveEffect(ballList, skillId)
     for _,ballData in pairs(ballList or {}) do
         local removePosKey = XSameColorGameConfigs.CreatePosKey(ballData.PositionX, ballData.PositionY)
         local removeGridPos = self.GridPosDic[removePosKey]
-        removeGridPos:ShowRemoveEffect(ballData.ItemId)
+        removeGridPos:ShowRemoveEffect(ballData.ItemId, skillId)
     end
 end
 
@@ -1089,16 +1090,10 @@ end
 ---@param skillEffectParam XSCBattleSkillEffectParam
 function XUiPanelBoard:_PlayLifuSkillEffect(skillEffectParam, effectUrl, time)
     XScheduleManager.ScheduleOnce(function()
-        ---@type UnityEngine.Material
-        --local material
         --XLog.Error(skillEffectParam.LifuEffectPos)
         for i, isRow in ipairs(skillEffectParam.LifuEffectIsRowList) do
             local effectObj1, _ = self:PlayEffect(effectUrl, false, skillEffectParam.EffectPositionList[i], time)
             local effectObj2, _ = self:PlayEffect(effectUrl, false, skillEffectParam.EffectPositionList[i], time)
-            --if effectObj1 and not material then
-            --    local object = XUiHelper.TryGetComponent(effectObj1.transform:GetChild(0), "Ray/L4")
-            --    material = object:GetComponent("Renderer").sharedMaterial
-            --end
             --effectObj1.name = "a"..i
             --effectObj2.name = "d"..i
             --XLog.Error(i)
@@ -1120,36 +1115,7 @@ function XUiPanelBoard:_PlayLifuSkillEffect(skillEffectParam, effectUrl, time)
                 effectObj2.transform.localRotation = CS.UnityEngine.Quaternion.Euler(0, 0, 180)
             end
         end
-        --local offsetName = "_MaskTex"
-        --if material and material:HasProperty(offsetName) then
-        --    local startOffsetX = -0.69
-        --    local addOffsetX = startOffsetX * 2
-        --    XUiHelper.Tween(time / XScheduleManager.SECOND, function(f)
-        --        XLog.Error(1)
-        --        material:SetTextureOffset(offsetName, Vector2(f * addOffsetX + startOffsetX, 0))
-        --    end, function()
-        --        material:SetTextureOffset(offsetName, Vector2(addOffsetX + startOffsetX, 0))
-        --    end)
-        --end
     end, 0)
-end
-
----预加载消球特效
-function XUiPanelBoard:_PrepareBallPosEffect()
-    local boardRow = self.Role:GetRow()
-    local boardCol = self.Role:GetCol()
-    local col, row = 1, 1
-    XScheduleManager.Schedule(function()
-        local key = XSameColorGameConfigs.CreatePosKey(col, row)
-        if self.GridPosDic[key] then
-            self.GridPosDic[key]:PrepareDefaultEffect()
-        end
-        col = col + 1
-        if col > boardCol then
-            col = 1
-            row = row + 1
-        end
-    end, 0, boardRow * boardCol, 0)
 end
 --endregion
 

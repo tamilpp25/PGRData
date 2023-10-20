@@ -1,6 +1,7 @@
 local XUiCerberusGameDetail = XLuaUiManager.Register(XLuaUi, "UiCerberusGameDetail")
 
 function XUiCerberusGameDetail:OnAwake()
+    self.GridReward = {}
     self.GridStarDic = {}
     self.GridBuffDic = {}
     self:InitButton()
@@ -21,7 +22,7 @@ function XUiCerberusGameDetail:OnStart(xStoryPoint, chapterId, currDifficulty, g
 end
 
 function XUiCerberusGameDetail:OnEnable()
-    XDataCenter.CerberusGameManager.SetLastSelectXStoryPoint(self.XStoryPoint)
+    XMVCA.XCerberusGame:SetLastSelectXStoryPoint(self.XStoryPoint)
     self:RefreshUi()
 end
 
@@ -103,10 +104,14 @@ function XUiCerberusGameDetail:OnBtnEnterClick()
         return
     end
 
+    local canSeleRole = XMVCA.XCerberusGame:GetCanSelectRoleListForStoryMode()
     local xStage = self.XStoryPoint:GetXStage()
-    local xTeam = xStage:GetXTeam()
-    XDataCenter.CerberusGameManager.ReInitXTeam(self.GridStage.GridIndex, xStage.StageId, 
-        XDataCenter.CerberusGameManager.GetCanSelectRoleListForStoryMode(XCharacterConfigs.CharacterType.Normal), self.ChapterId, self.CurrDifficulty)
+    local xTeam = XMVCA.XCerberusGame:GetXTeamByChapterId(self.ChapterId)
+    XMVCA.XCerberusGame:ReInitXTeamV2P9(canSeleRole, self.ChapterId)
+    
+    -- local xTeam = xStage:GetXTeam()
+    -- XMVCA.XCerberusGame:ReInitXTeam(self.GridStage.GridIndex, xStage.StageId, 
+    -- canSeleRole, self.ChapterId, self.CurrDifficulty)
 
     XLuaUiManager.Open("UiBattleRoleRoom", xStage.StageId, xTeam, require("XUi/XUiCerberusGame/Proxy/XUiCerberusGameBattleRoomProxy"))
 end

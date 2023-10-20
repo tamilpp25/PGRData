@@ -6,10 +6,9 @@ local XUiStrongholdRewardTip = XLuaUiManager.Register(XLuaUi, "UiStrongholdRewar
 
 function XUiStrongholdRewardTip:OnAwake()
     self:AutoAddListener()
-    self:InitRewardGroup()
     self:InitDynamicTable()
 
-    self.GridPrequelCheckPointReward.gameObject:SetActiveEx(false)
+    self.GridTask.gameObject:SetActiveEx(false)
 end
 
 function XUiStrongholdRewardTip:OnStart(levelId)
@@ -22,13 +21,16 @@ function XUiStrongholdRewardTip:OnStart(levelId)
         self.TxtTitle.text = CsXTextManagerGetText("StrongholdRewardTipTitleDefault")
     end
 
-    self:DefaultSelectTab()
+    local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
+    if not self.AssetPanel then
+        self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
+    else
+        self.AssetPanel:Refresh({ itemId })
+    end
 end
 
 function XUiStrongholdRewardTip:OnEnable()
-
     self:UpdateRewards()
-    self:UpdateRedPoint()
 end
 
 function XUiStrongholdRewardTip:OnDisable()
@@ -44,44 +46,23 @@ end
 function XUiStrongholdRewardTip:OnNotify(evt, ...)
     if evt == XEventId.EVENT_STRONGHOLD_FINISH_REWARDS_CHANGE then
         self:UpdateRewards()
-        self:UpdateRedPoint()
     end
-end
-
-function XUiStrongholdRewardTip:DefaultSelectTab()
-    local rewardGroupList = XStrongholdConfigs.GetRewardGroupList()
-    local index
-    for i, rewardType in ipairs(rewardGroupList) do
-        if XDataCenter.StrongholdManager.IsAnyRewardCanGet(rewardType) then
-            index = i
-            break
-        end
-    end
-    self.PanelTab:SelectIndex(index or 1)
-end
-
-function XUiStrongholdRewardTip:InitRewardGroup()
-    self.BtnGroupList = {}
-    local rewardGroupList = XStrongholdConfigs.GetRewardGroupList()
-    for i, rewardType in ipairs(rewardGroupList) do
-        local gridTab = i == 1 and self.GridTab or XUiHelper.Instantiate(self.GridTab, self.PanelTab.transform)
-        gridTab:SetName(XStrongholdConfigs.GetRewardGroupName(rewardType))
-        table.insert(self.BtnGroupList, gridTab)
-    end
-
-    self.PanelTab:Init(self.BtnGroupList, function(index) self:OnSelectedTag(index) end)
-    self.RewardGroupList = rewardGroupList
 end
 
 function XUiStrongholdRewardTip:InitDynamicTable()
-    self.DynamicTable = XDynamicTableNormal.New(self.SViewRewardList)
+    self.DynamicTable = XDynamicTableNormal.New(self.SViewTask)
     self.DynamicTable:SetProxy(XUiGridRewardTip)
     self.DynamicTable:SetDelegate(self)
 end
 
 function XUiStrongholdRewardTip:UpdateRewards()
-    local rewardType = self.CurrSelectTagIndex and self.RewardGroupList[self.CurrSelectTagIndex]
-    self.RewardIds = XDataCenter.StrongholdManager.GetAllRewardIds(self.LevelId, rewardType)
+    self.RewardIds = XDataCenter.StrongholdManager.GetAllRewardIds(self.LevelId)
+    for _, reward in pairs(self.RewardIds) do
+        if XDataCenter.StrongholdManager.IsRewardCanGet(reward) then
+            table.insert(self.RewardIds, 1, -1) -- 一键领取标记
+            break
+        end
+    end
     self.DynamicTable:SetDataSource(self.RewardIds)
     self.DynamicTable:ReloadDataASync()
 end
@@ -96,23 +77,10 @@ function XUiStrongholdRewardTip:OnDynamicTableEvent(event, index, grid)
 end
 
 function XUiStrongholdRewardTip:AutoAddListener()
-    self.BtnTanchuangClose.CallBack = function() self:Close() end
+    self:RegisterClickEvent(self.BtnBack, self.Close)
+    self:RegisterClickEvent(self.BtnMainUi, self.OnClickBtnMainUi)
 end
 
-function XUiStrongholdRewardTip:OnSelectedTag(index)
-    if self.CurrSelectTagIndex == index then
-        return
-    end
-
-    self.CurrSelectTagIndex = index
-    self:UpdateRewards()
-end
-
-function XUiStrongholdRewardTip:UpdateRedPoint()
-    local rewardGroupList = XStrongholdConfigs.GetRewardGroupList()
-    local isShow
-    for i, rewardType in ipairs(rewardGroupList) do
-        isShow = XDataCenter.StrongholdManager.IsAnyRewardCanGet(rewardType)
-        self.BtnGroupList[i]:ShowReddot(isShow)
-    end
+function XUiStrongholdRewardTip:OnClickBtnMainUi()
+    XLuaUiManager.RunMain()
 end

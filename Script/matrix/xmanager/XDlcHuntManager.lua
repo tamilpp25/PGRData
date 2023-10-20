@@ -312,9 +312,9 @@ XDlcHuntManagerCreator = function()
     return XDlcHuntManager
 end
 
-XRpc.DlcBossSettleResponse = function(res)
-    XDataCenter.DlcHuntManager.OnNotifyFightSettle(res.SettleData)
-end
+-- XRpc.DlcBossSettleResponse = function(res)
+--     XDataCenter.DlcHuntManager.OnNotifyFightSettle(res.SettleData)
+-- end
 
 XRpc.NotifyDlcPlayerDataDb = function(res)
     XDataCenter.DlcHuntManager.SetDlcPlayerData(res.DlcPlayerData)

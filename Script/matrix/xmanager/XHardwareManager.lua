@@ -1,7 +1,7 @@
 XHardwareManager = XHardwareManager or {}
 
 local XQualityManager = CS.XQualityManager.Instance
-
+local IosHardwareTable = "Client/Hardware/IosHardware.tab";
 
 local XRenderQuality = {
     Lowest = 0,
@@ -11,6 +11,7 @@ local XRenderQuality = {
     Highest = 4
 }
 
+local Inited_IOS = false
 
 --ios默认高档配置，其他需要指定的在这里写
 local IOS_TABLE = {
@@ -139,9 +140,15 @@ local IOS_TABLE = {
     ["iPhone12,8"] = XRenderQuality.Highest,
     ["iPhone12,9"] = XRenderQuality.Highest,
 
+    --iphone 13
+
+    --iphone 14
+
+    --iphone 15
 }
 
 function XHardwareManager.CheckIOS()
+    XHardwareManager.InitIOSTable()
     local iosName = CS.UnityEngine.SystemInfo.deviceModel
     XLog.Debug("IOS Model name:" .. tostring(iosName))
 
@@ -157,6 +164,22 @@ function XHardwareManager.CheckIOS()
 
     return quality
 end
+
+function XHardwareManager.InitIOSTable()
+    if Inited_IOS then
+        return
+    end
+    Inited_IOS = true
+
+    -- 加载IOS配置
+    local config = XTableManager.ReadAllByStringKey(IosHardwareTable, XTable.XTableIosHardware, "PhoneName");
+    for k, v in pairs(config) do
+        if IOS_TABLE[k] == nil then
+            IOS_TABLE[k] = v["Quality"]
+        end
+    end
+end
+
 
 --设置硬件相关分辨率
 function XHardwareManager.SetHardwareResolution()
@@ -190,84 +213,19 @@ function XHardwareManager.CheckGpuAdreno(tokens)
     for i = 1, #tokens do
         seriesNum = tonumber(tokens[i])
         if seriesNum then
-
-            if seriesNum == 540 then
-                --835
-                return XRenderQuality.High
-            end
-
-            if seriesNum == 618 then
-                --855+
-                return XRenderQuality.High
-            end
-
-            if seriesNum == 616 then
-                --710
-                return XRenderQuality.High
-            end
-
-            if seriesNum < 400 then
-                return XRenderQuality.Lowest
-            elseif seriesNum <= 509 then
-                return XRenderQuality.Lowest
-            elseif seriesNum < 510 then
-                return XRenderQuality.Low
-            elseif seriesNum < 600 then
-                return XRenderQuality.Middle
+            if seriesNum >= 680 then
+                return XRenderQuality.Highest;
+            elseif 640 <= seriesNum and seriesNum < 680 or seriesNum == 620 or seriesNum == 618 then
+                return XRenderQuality.High;
+            elseif 616 <= seriesNum and seriesNum < 618 or 530 <= seriesNum and seriesNum < 640  then
+                return XRenderQuality.Middle;
+            elseif 509 < seriesNum and seriesNum <= 510 then
+                return XRenderQuality.Low;
             else
-
-                if seriesNum >= 600 and seriesNum < 700 then
-
-                    if seriesNum <= 627 then
-                        --616
-                        return XRenderQuality.Middle
-                    else
-                        if seriesNum >= 640 then
-                            --640
-                            return XRenderQuality.Highest
-                        else
-                            --630
-                            return XRenderQuality.High
-                        end
-
-                    end
-
-                elseif seriesNum >= 700 and seriesNum < 800 then
-                    --700系列都是高端
-                    return XRenderQuality.Middle
-
-                else
-                    --800
-                    if seriesNum <= 900 then
-
-                        if seriesNum <= 806 then
-                            --800 ~ 806
-                            return XRenderQuality.Middle
-                        else
-
-                            if seriesNum >= 820 then
-                                --820以上为最高端
-                                return XRenderQuality.Middle
-                            else
-                                --806~820
-                                return XRenderQuality.Middle
-                            end
-
-                        end
-
-                    else
-                        --未知系列默认返回高端机
-                        return XRenderQuality.Middle
-                    end
-
-                    --默认返回中端机
-                    -- return XRenderQuality.Middle
-                end
-
+                return XRenderQuality.Middle;
             end
         end
     end
-
     XLog.Warning("XHardwareManager.CheckGpuAdreno: Getting quality fail, unknow device.")
     return XRenderQuality.Middle
 end
@@ -276,22 +234,7 @@ function XHardwareManager.CheckGpuPowerVR(tokens)
     -- local tag = "XHardwareManager.CheckGpuPowerVR "
     -- -- XLog.Debug(tag .. "Begin")
     for i = 1, #tokens do
-        local token = tokens[i]
-
-        if token == "sgx" then
-            -- XLog.Debug(tag .. "sgx")
-            return XRenderQuality.Lowest
-        end
-
-        if token == "furian" then
-            -- XLog.Debug(tag .. "furian")
-            return XRenderQuality.Lowest
-        end
-
-        local quality = XHardwareManager.GetQualityByPowerVRSeriesNum(token)
-        if quality then
-            return quality
-        end
+        local quality = XHardwareManager.GetQualityByPowerVRSeriesNum(tokens[i]);
     end
     XLog.Warning("XHardwareManager.CheckGpuAdreno: Getting quality fail, unknow device.")
     return XRenderQuality.Lowest
@@ -326,15 +269,17 @@ function XHardwareManager.GetQualityByPowerVRSeriesNum(token)
     -- XLog.Debug(tag .. "series number = " .. seriesNum)
     -- Return by series number
     if seriesNum > 0 then
-        if seriesNum >= 9400 then
-            -- XLog.Debug(tag .. "seriesNum >= 9400")
-            return XRenderQuality.Middle
-        elseif seriesNum >= 8300 then
-            -- XLog.Debug(tag .. "seriesNum >= 8300")
-            return XRenderQuality.Low
-        else -- redmi 6 GE8320 Huawei Y5 2018 GE8100
-            -- XLog.Debug(tag .. "else")
-            return XRenderQuality.Lowest
+        if seriesNum >= 8320 then
+            return XRenderQuality.High;
+        end
+        if 6200 <= seriesNum and seriesNum < 8320 then
+            return XRenderQuality.Middle;
+        end
+        if 9446 <= seriesNum then
+            return XRenderQuality.Middle;
+        end
+        if seriesNum >= 8300 then
+            return XRenderQuality.Low;
         end
     end
 end
@@ -381,44 +326,46 @@ function XHardwareManager.GetQualityByMaliSeriesNum(seriesNum, gFlag, tFlag)
 
     -- G series
     if gFlag then
-        -- XLog.Debug("Mali G series " .. seriesNum)
-        if seriesNum >= 76 then
-            -- XLog.Debug("seriesNum >= 76")
-            return XRenderQuality.High
-        elseif seriesNum >= 72 then -- MP value
-            -- XLog.Debug("seriesNum >= 72")
-            --G72
-            return XRenderQuality.Middle
-        elseif seriesNum >= 71 then -- MP value
-            return XRenderQuality.Middle
-        elseif seriesNum >= 52 then
-            --kirin 810
-            return XRenderQuality.High
-        else -- huawei Lite G51 G71
-            return XRenderQuality.Middle
+        -- new
+        if seriesNum >= 619 then
+            return XRenderQuality.Highest;
+        end
+        if seriesNum >= 610 then
+            return XRenderQuality.Highest;
+        end
+        if seriesNum >= 77 then
+            return XRenderQuality.Highest;
+        end
+        if 57 <= seriesNum and seriesNum < 71 or 76 <= seriesNum and seriesNum < 77 then
+            return XRenderQuality.High;
+        end
+        if 71 <= seriesNum and seriesNum < 76 then
+            return XRenderQuality.Middle;
+        end
+        if seriesNum < 52 then
+            return XRenderQuality.Middle;
         end
     end
 
     -- T series Opengl ES 3.1
     if tFlag then
-        -- XLog.Debug("Mali T series " .. seriesNum)
-        if seriesNum >= 780 then -- MTK MP NightMare
-            -- XLog.Debug("seriesNum >= 780")
-            return XRenderQuality.Middle
-        else -- 720 760
-            return XRenderQuality.Low
+        if seriesNum >= 780 then
+            return XRenderQuality.Middle;
+        end
+        if seriesNum < 780 then
+            return XRenderQuality.Low;
         end
     end
 
-    -- Other series
-    -- XLog.Debug(tag .. "Mali other series name: " .. seriesNum)
-    if seriesNum < 600 and seriesNum >= 200 then
-        -- XLog.Debug("seriesNum < 600 and seriesNum >= 200")
-        return XRenderQuality.Low
-    else
-        -- XLog.Debug(tag .. "else")
-        return XRenderQuality.Middle
+    if seriesNum < 200 or seriesNum >= 600 then
+        return XRenderQuality.Middle;
     end
+
+    if 200 <= seriesNum and seriesNum < 600 then
+        return XRenderQuality.Low;
+    end
+
+    return XRenderQuality.Middle;
 end
 
 function XHardwareManager.CheckGpuMali(tokens)
@@ -475,7 +422,7 @@ function XHardwareManager.CheckGpuTegra(tokens)
 end
 
 function XHardwareManager.CheckGpuAndroid(gpuName)
-
+    
     XQualityManager.IsSimulator = false
 
     if not gpuName or gpuName == "" then
@@ -513,9 +460,9 @@ function XHardwareManager.CheckGpuAndroid(gpuName)
     end
 
     --检查模拟器
-    if string.match(gpuName, "direct3d") or string.match(gpuName, "geforce") or string.match(gpuName, "gtx")
-    or string.match(cpuName, "intel") or string.match(cpuName, "amd")
-    or string.match(gpuName, "mumu") or string.match(gpuName, "nvidia") or string.match(deviceModel, "mumu") then
+    if string.match(gpuName, "direct3d") or string.match(gpuName, "geforce") or string.match(gpuName, "gtx") or string.match(gpuName, "mumu") or string.match(gpuName, "nvidia")
+    or string.match(cpuName, "intel") or string.match(cpuName, "amd") or string.match(cpuName, "Kirin9000s")
+    or string.match(deviceModel, "mumu") then
         XLog.Debug("XHardwareManager.SetAndroidSimulator")
         XQualityManager.IsSimulator = true
         return XRenderQuality.Highest

@@ -17,8 +17,8 @@ function XUiGridActivityBanner:Refresh(chapter, uiRoot)
     self:ReSetActivityBanner()
     if chapter.Type == XDataCenter.FubenManager.ChapterType.BossOnline then
         self:RefreshBossOnline(chapter, uiRoot)
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ActivtityBranch then
-        self:RefreshActivtityBranch(chapter, uiRoot)
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ActivtityBranch then
+    --    self:RefreshActivtityBranch(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ActivityBossSingle then
         self:RefreshActivityBossSingle(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.Christmas or
@@ -32,8 +32,8 @@ function XUiGridActivityBanner:Refresh(chapter, uiRoot)
         self:RefreshBabelTowerBanner(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RepeatChallenge then
         self:RefreshRepeatChallenge(chapter, uiRoot)
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
-        self:RefreshRogueLikeBanner(chapter, uiRoot)
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
+    --    self:RefreshRogueLikeBanner(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ArenaOnline then
         self:RefreshArenaOnline(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.UnionKill then
@@ -64,8 +64,8 @@ function XUiGridActivityBanner:Refresh(chapter, uiRoot)
         self:RefreshPokerGuessingBanner(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.Hack then
         self:RefreshHackBanner(chapter, uiRoot)
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.CoupleCombat then
-        self:RefreshCoupleCombatBanner(chapter, uiRoot)
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.CoupleCombat then
+    --    self:RefreshCoupleCombatBanner(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.FashionStory then
         self:RefreshFashionStory(chapter, uiRoot)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.KillZone then
@@ -198,34 +198,34 @@ function XUiGridActivityBanner:RefreshActivityBossSingle(chapter, uiRoot)
 end
 
 -- 活动支线副本
-function XUiGridActivityBanner:RefreshActivtityBranch(chapter, uiRoot)
-    local sectionId = chapter.Id
-    local chapterId = XDataCenter.FubenActivityBranchManager.GetCurChapterId(sectionId)
-    local chapterCfg = XFubenActivityBranchConfigs.GetChapterCfg(chapterId)
-    local finishCount = XDataCenter.FubenActivityBranchManager.GetChapterFinishCount(chapterId)
-    local totalCount = #chapterCfg.StageId
-
-    self.TxtName.text = chapterCfg.Name
-    self.PanelActivityTag.gameObject:SetActiveEx(true)
-    self.RImgIcon:SetRawImage(chapterCfg.Cover)
-
-    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenActivityBranch) then
-        self.PanelLock.gameObject:SetActiveEx(true)
-        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.FubenActivityBranch)
-    else
-        self.PanelLock.gameObject:SetActiveEx(false)
-    end
-
-    if not XDataCenter.FubenActivityBranchManager.IsSelectDifficult() then
-        self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBranchNormalProcess", finishCount, totalCount)
-    else
-        self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBranchDifficultProcess", finishCount, totalCount)
-    end
-
-    local fightEndTime = XDataCenter.FubenActivityBranchManager.GetFightEndTime()
-    local activityEndTime = XDataCenter.FubenActivityBranchManager.GetActivityEndTime()
-    self:CreateActivityTimer(fightEndTime, activityEndTime, XDataCenter.FubenActivityBranchManager.OnActivityEnd)
-end
+--function XUiGridActivityBanner:RefreshActivtityBranch(chapter, uiRoot)
+--    local sectionId = chapter.Id
+--    local chapterId = XDataCenter.FubenActivityBranchManager.GetCurChapterId(sectionId)
+--    local chapterCfg = XFubenActivityBranchConfigs.GetChapterCfg(chapterId)
+--    local finishCount = XDataCenter.FubenActivityBranchManager.GetChapterFinishCount(chapterId)
+--    local totalCount = #chapterCfg.StageId
+--
+--    self.TxtName.text = chapterCfg.Name
+--    self.PanelActivityTag.gameObject:SetActiveEx(true)
+--    self.RImgIcon:SetRawImage(chapterCfg.Cover)
+--
+--    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenActivityBranch) then
+--        self.PanelLock.gameObject:SetActiveEx(true)
+--        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.FubenActivityBranch)
+--    else
+--        self.PanelLock.gameObject:SetActiveEx(false)
+--    end
+--
+--    if not XDataCenter.FubenActivityBranchManager.IsSelectDifficult() then
+--        self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBranchNormalProcess", finishCount, totalCount)
+--    else
+--        self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBranchDifficultProcess", finishCount, totalCount)
+--    end
+--
+--    local fightEndTime = XDataCenter.FubenActivityBranchManager.GetFightEndTime()
+--    local activityEndTime = XDataCenter.FubenActivityBranchManager.GetActivityEndTime()
+--    self:CreateActivityTimer(fightEndTime, activityEndTime, XDataCenter.FubenActivityBranchManager.OnActivityEnd)
+--end
 
 -- 联机BOSS
 function XUiGridActivityBanner:RefreshBossOnline(chapter, uiRoot)
@@ -642,55 +642,55 @@ function XUiGridActivityBanner:RefreshUnionKillBanner(chapter, uiRoot)
     end
 end
 
-function XUiGridActivityBanner:RefreshRogueLikeBanner(chapter, uiRoot)
-    local activityId = chapter.Id
-    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(activityId)
-    local config = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
-    if not activityConfig then
-        return
-    end
-    self.TxtName.text = activityConfig.Name
-    self.PanelActivityTag.gameObject:SetActiveEx(true)
-    self.RImgIcon:SetRawImage(chapter.BannerBg)
-
-    if activityConfig.FunctionalOpenId > 0 and not XFunctionManager.JudgeCanOpen(activityConfig.FunctionalOpenId) then
-        self.PanelLock.gameObject:SetActiveEx(true)
-        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(activityConfig.FunctionalOpenId)
-    else
-        self.PanelLock.gameObject:SetActiveEx(false)
-    end
-
-    local index = XDataCenter.FubenRogueLikeManager.GetRogueLikeLevel()
-    local maxTier = XDataCenter.FubenRogueLikeManager.GetMaxTier()
-    self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBossSingleProcess", index, maxTier)
-    local now = XTime.GetServerNowTimestamp()
-
-    local fightTime = XFunctionManager.GetEndTimeByTimeId(config.FightTimeId)
-    local endTime = XFunctionManager.GetEndTimeByTimeId(config.ActivityTimeId)
-    local resetTime = XDataCenter.FubenRogueLikeManager.GetWeekRefreshTime()
-    local desc = ""
-    if fightTime > now then
-        resetTime = fightTime
-        desc = CsXTextManager.GetText("RogueLikeWeekResetTime")
-    else
-        resetTime = endTime
-        desc = CsXTextManager.GetText("RogueLikeEndTime")
-    end
-
-    if not resetTime then
-        self.PanelLeftTime.gameObject:SetActiveEx(false)
-        return
-    end
-
-    if XDataCenter.FubenRogueLikeManager.IsInActivity() then
-        self:CreateCommonTimer(now, resetTime, function()
-            uiRoot:SetupDynamicTable()
-        end, desc)
-
-    else
-        self.PanelLeftTime.gameObject:SetActiveEx(false)
-    end
-end
+--function XUiGridActivityBanner:RefreshRogueLikeBanner(chapter, uiRoot)
+--    local activityId = chapter.Id
+--    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(activityId)
+--    local config = XFubenRogueLikeConfig.GetRougueLikeTemplateById(activityId)
+--    if not activityConfig then
+--        return
+--    end
+--    self.TxtName.text = activityConfig.Name
+--    self.PanelActivityTag.gameObject:SetActiveEx(true)
+--    self.RImgIcon:SetRawImage(chapter.BannerBg)
+--
+--    if activityConfig.FunctionalOpenId > 0 and not XFunctionManager.JudgeCanOpen(activityConfig.FunctionalOpenId) then
+--        self.PanelLock.gameObject:SetActiveEx(true)
+--        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(activityConfig.FunctionalOpenId)
+--    else
+--        self.PanelLock.gameObject:SetActiveEx(false)
+--    end
+--
+--    local index = XDataCenter.FubenRogueLikeManager.GetRogueLikeLevel()
+--    local maxTier = XDataCenter.FubenRogueLikeManager.GetMaxTier()
+--    self.TxtConsumeCount.text = CsXTextManager.GetText("ActivityBossSingleProcess", index, maxTier)
+--    local now = XTime.GetServerNowTimestamp()
+--
+--    local fightTime = XFunctionManager.GetEndTimeByTimeId(config.FightTimeId)
+--    local endTime = XFunctionManager.GetEndTimeByTimeId(config.ActivityTimeId)
+--    local resetTime = XDataCenter.FubenRogueLikeManager.GetWeekRefreshTime()
+--    local desc = ""
+--    if fightTime > now then
+--        resetTime = fightTime
+--        desc = CsXTextManager.GetText("RogueLikeWeekResetTime")
+--    else
+--        resetTime = endTime
+--        desc = CsXTextManager.GetText("RogueLikeEndTime")
+--    end
+--
+--    if not resetTime then
+--        self.PanelLeftTime.gameObject:SetActiveEx(false)
+--        return
+--    end
+--
+--    if XDataCenter.FubenRogueLikeManager.IsInActivity() then
+--        self:CreateCommonTimer(now, resetTime, function()
+--            uiRoot:SetupDynamicTable()
+--        end, desc)
+--
+--    else
+--        self.PanelLeftTime.gameObject:SetActiveEx(false)
+--    end
+--end
 
 function XUiGridActivityBanner:RefreshArenaOnline(chapter, uiRoot)
     self.TxtName.text = chapter.Name
@@ -1029,35 +1029,35 @@ function XUiGridActivityBanner:RefreshHackBanner(chapter, uiRoot)
 end
 
 --双人下场玩法
-function XUiGridActivityBanner:RefreshCoupleCombatBanner(chapter, uiRoot)
-    self.TxtName.text = chapter.Name
-    self.RImgIcon:SetRawImage(chapter.Icon)
-    self.PanelActivityTag.gameObject:SetActiveEx(true)
-    self.TxtConsumeCount.gameObject:SetActiveEx(true)
-
-    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenCoupleCombat) then
-        self.PanelLock.gameObject:SetActiveEx(true)
-        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.FubenCoupleCombat)
-    else
-        self.PanelLock.gameObject:SetActiveEx(false)
-    end
-
-    XRedPointManager.CheckOnce(self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_COUPLE_COMBAT_TASK_REWARD })
-
-    local cur, count = XDataCenter.FubenCoupleCombatManager.GetChapterSchedule()
-    self.TxtConsumeCount.text = CS.XTextManager.GetText("ActivityBossSingleProcess", cur, count)
-
-    local startTimeSecond = XDataCenter.FubenCoupleCombatManager.GetStartTime()
-    local endTimeSecond = XDataCenter.FubenCoupleCombatManager.GetEndTime()
-    local now = XTime.GetServerNowTimestamp()
-    if startTimeSecond and endTimeSecond and now >= startTimeSecond and now <= endTimeSecond then
-        self:CreateCommonTimer(startTimeSecond, endTimeSecond, function()
-            uiRoot:SetupDynamicTable()
-        end)
-    else
-        self.PanelLeftTime.gameObject:SetActiveEx(false)
-    end
-end
+--function XUiGridActivityBanner:RefreshCoupleCombatBanner(chapter, uiRoot)
+--    self.TxtName.text = chapter.Name
+--    self.RImgIcon:SetRawImage(chapter.Icon)
+--    self.PanelActivityTag.gameObject:SetActiveEx(true)
+--    self.TxtConsumeCount.gameObject:SetActiveEx(true)
+--
+--    if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.FubenCoupleCombat) then
+--        self.PanelLock.gameObject:SetActiveEx(true)
+--        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.FubenCoupleCombat)
+--    else
+--        self.PanelLock.gameObject:SetActiveEx(false)
+--    end
+--
+--    XRedPointManager.CheckOnce(self.OnCheckRedPoint, self, { XRedPointConditions.Types.CONDITION_COUPLE_COMBAT_TASK_REWARD })
+--
+--    local cur, count = XDataCenter.FubenCoupleCombatManager.GetChapterSchedule()
+--    self.TxtConsumeCount.text = CS.XTextManager.GetText("ActivityBossSingleProcess", cur, count)
+--
+--    local startTimeSecond = XDataCenter.FubenCoupleCombatManager.GetStartTime()
+--    local endTimeSecond = XDataCenter.FubenCoupleCombatManager.GetEndTime()
+--    local now = XTime.GetServerNowTimestamp()
+--    if startTimeSecond and endTimeSecond and now >= startTimeSecond and now <= endTimeSecond then
+--        self:CreateCommonTimer(startTimeSecond, endTimeSecond, function()
+--            uiRoot:SetupDynamicTable()
+--        end)
+--    else
+--        self.PanelLeftTime.gameObject:SetActiveEx(false)
+--    end
+--end
 
 -- 系列涂装剧情活动
 function XUiGridActivityBanner:RefreshFashionStory(chapter, uiRoot)

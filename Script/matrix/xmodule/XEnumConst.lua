@@ -76,7 +76,7 @@ XEnumConst = {
             SWORD = 6, -- 大剑
             HCAN = 7, -- 巨炮
             DOUBLE_SWORDS = 8, -- 双短刀
-            SICKLE = 9, -- 镰刀
+            SCYTHE = 9, -- 镰刀
             ISOMER_SWORD = 10, -- 感染者专用大剑
             FOOD = 99, -- 狗粮
         },
@@ -130,14 +130,14 @@ XEnumConst = {
             RepeatChallenge = 20, --复刷本
             RogueLike = 21, --爬塔玩法
             Assign = 22, -- 边界公约
-            UnionKill = 23, --列阵
-            ArenaOnline = 24, --合众战局
+            ArenaOnline = 23, --合众战局
+            UnionKill = 24, --列阵
             ExtraChapter = 25, --番外关卡
-            SpecialTrain = 26, --特训关
-            InfestorExplore = 27, --感染体玩法
+            InfestorExplore = 26, --感染体玩法
+            SpecialTrain = 27, --特训关
             GuildBoss = 28, --工会boss
-            Expedition = 29, --虚像地平线
-            WorldBoss = 30, --世界Boss
+            WorldBoss = 29, --世界Boss
+            Expedition = 30, --虚像地平线
             RpgTower = 31, --兵法蓝图
             MaintainerAction = 32, --大富翁
             TRPG = 33, --跑团玩法
@@ -148,7 +148,8 @@ XEnumConst = {
             ChessPursuit = 38, --追击玩法
             Stronghold = 39, --超级据点
             SimulatedCombat = 40, --模拟作战
-            Hack = 41, --骇入玩法
+            MoeWarPreparation = 41, -- 萌战赛事筹备
+            Hack = 42, --骇入玩法
             PartnerTeaching = 43, --宠物教学
             Reform = 44, --改造关卡
             KillZone = 45, --杀戮无双
@@ -191,6 +192,7 @@ XEnumConst = {
             CerberusGame = 82, -- 三头犬小队玩法
             Transfinite = 83, -- 超限连战
             Theatre3 = 84, -- 肉鸽3.0
+            DlcCasual = 85, -- Dlc魔方嘉年华
         },
         ChapterType = {
             MainLine = 0,
@@ -286,7 +288,16 @@ XEnumConst = {
             CerberusGame = 90,
             Transfinite = 91, -- 超限连战
             Theatre3 = 92, -- 肉鸽3.0
-        }
+            RogueSim = 93, -- 肉鸽模拟经营
+            DlcCasual = 94, -- Dlc魔方嘉年华
+        },
+        CharacterLimitType = {
+            All = 0, --构造体/感染体
+            Normal = 1, --构造体
+            Isomer = 2, --感染体
+            IsomerDebuff = 3, --构造体/感染体(Debuff) [AKA:低浓度区]
+            NormalDebuff = 4, --构造体(Debuff)/感染体 [AKA:重灾区]
+        },
     },
     CHARACTER = {
         MAX_SHOW_SKILL_POS = 4,
@@ -320,6 +331,19 @@ XEnumConst = {
             PropertyLvUp = 2.1,
             PropertyGrade = 2.2,
             PropertySkill = 2.3,
+        },
+    },
+    Filter = {
+        TagName = {
+            BtnAll = "BtnAll",
+            BtnUniframe = "BtnUniframe",
+            BtnRed = "BtnRed",
+            BtnSupport = "BtnSupport",
+            BtnElement1 = "BtnElement1",
+            BtnElement2 = "BtnElement2",
+            BtnElement3 = "BtnElement3",
+            BtnElement4 = "BtnElement4",
+            BtnElement5 = "BtnElement5",
         },
     },
     THEATRE3 = {
@@ -752,7 +776,7 @@ XEnumConst = {
             DROP_RAND_ITEM_COLOR = 11,  -- 下落的n个球指定为随机配置种的某1种颜色
         },
         SOUND = {
-            BATTLE_BG = 223,
+            BATTLE_BG = 237,
             SWAP_BALL = 2989,
             REMOVE_BALL = 2990,
         },
@@ -796,6 +820,51 @@ XEnumConst = {
             Normal = 1, -- 普通
             Communication = 2, -- 触发通讯的道具
         },
+        RewardUnlockType = {
+            FightAbility = 1,
+            TrustLv = 2,
+            CharacterLv = 3,
+            Quality = 4,
+        },
+        XSignBoardEventType = {
+            CLICK = 10001, --点击
+            ROCK = 10002, --摇晃
+            LOGIN = 101, --登录
+            COMEBACK = 102, --n天未登录
+            WIN = 103, --胜利
+            WINBUT = 104, -- 胜利，看板不在队里
+            LOST = 105, --失败
+            LOSTBUT = 106, --失败，不在队伍
+            MAIL = 107, --邮件
+            TASK = 108, --任务奖励
+            DAILY_REWARD = 109, --日常活跃奖励
+            LOW_POWER = 110, -- 低电量
+            PLAY_TIME = 111, --游戏时长
+            RECEIVE_GIFT = 112, --收到礼物
+            GIVE_GIFT = 113, --赠送礼物
+            IDLE = 1, --待机
+            FAVOR_UP = 2, --好感度提升
+            CHANGE = 120, --改变角色
+        },
+        XSignBoardUiShowType = {
+            UiPhotograph = 1,           --拍照界面
+            UiPhotographPortrait = 2,   --拍照界面(竖屏)
+            UiMain = 3,                 --主界面
+            UiFavorabilityNew = 4,      --看板娘界面
+        },
+        XSignBoardUiAnimType = {
+            Normal = 0,
+            Self = 1,
+            None = 2,
+        },
+        REQUEST_NAME = { --请求协议
+            ClickRequest = "TouchBoardMutualRequest",
+        },
+        ShowTimesType = {
+            Normal = 0, --可以重复播放
+            PerLogin = 1, --每次登陆只会播放一次
+            Daily = 2  --每日只能播放一次
+        },
     },
     CONNECTING_LINE = {
         OPERATION_TYPE = {
@@ -825,6 +894,8 @@ XEnumConst = {
             FINISH_ALL = 7,
             DEFAULT = 8,
         },
+        HELP_KEY = "ConnectingLineGame",
+        COMPLETE_LINE_SOUND = 4271,
     },
     ---临时处理常量，一些特殊情况如：特定物品文本有误时特殊处理，将物品Id定义在这里，写明注释
     SpecialHandling = {
@@ -865,13 +936,486 @@ XEnumConst = {
             DOWNLOADING         = 4, --下载中
             COMPLETE            = 5, --完全下载
         },
-        RESOURCE_ENTRY_TYPE = 9998, --战斗-资源-入口检测参数
-        DRAW_ENTRY_TYPE = 9999, --研发检测参数
+        CUSTOM_SUBPACKAGE_ID = {
+            INVALID = -1, --无效Id
+            NECESSARY = 0, --必要资源
+        },
+        ENTRY_TYPE = {
+            CHARACTER_VOICE = 9997, --CV-入口检测参数
+            MATERIAL_COLLECTION = 9998, --战斗-资源-入口检测参数
+            DRAW = 9999, --研发检测参数
+        },
+        SUBPACKAGE_TYPE = {
+            NECESSARY = 1, --必要资源
+            OPTIONAL = 2, --可选资源
+        },
     },
     CV_TYPE = {
         JPN = 1,
         CN = 2,
         HK = 3,
         EN = 4,
-    }
+    },
+    KICK_OUT = {
+        LOCK = {
+            NONE = 0,
+            FIGHT = 1 << 0,
+            DRAW = 1 << 1,
+            GACHA = 1 << 2,
+            TURNTABLE = 1 << 3,
+            RECHARGE = 1 << 4,
+        }
+    },
+    RogueSim = {
+        -- 章节移动参数
+        ChapterMove = {
+            MinX = -500,
+            MaxX = -300,
+            TargetX = -400,
+            Duration = 0.5,
+        },
+        IsDebug = true,                         -- 打印参数
+        IsMapOptimization = false,              -- 是否启用地图优化
+        MapGridSize = 0.5,                      -- 场景里六边形格子的大小
+        MapExploredConst = 1,                   -- 地图探索消耗行动力
+        MapDarkenValue = 0.7,                   -- 地图压黑的的程度 0为最黑 1为原亮度
+        MapDarkToLightTime = 0.5,               -- 地图压黑变亮的时间(单位：秒)
+        MapCloudAnimTime = 0.5,                 -- 地图云雾动画的时间(单位：秒)
+        CameraMoveSpeed = 4,                    -- 镜头移动速度
+        -- 地貌类型
+        LandformType = {
+            Main = 1,                           -- 主城
+            City = 2,                           -- 城邦
+            Building = 3,                       -- 建筑
+            Event = 4,                          -- 事件
+            Prop = 5,                           -- 道具
+            Resource = 6,                       -- 资源
+            Decoration = 7,                     -- 装饰
+        },
+        -- 格子周围的6个格子
+        AroundGridsOffset0 = {{x = -1, y = 1}, {x = -1, y = 0}, {x = 0, y = -1}, {x = 0, y = 1}, {x = 1, y = 1}, {x = 1, y = 0}},
+        AroundGridsOffset1 = {{x = -1, y =-1}, {x = -1, y = 0}, {x = 0, y = -1}, {x = 0, y = 1}, {x = 1, y =-1}, {x = 1, y = 0}},
+        -- 已探索的来源类型
+        ExploredType = {
+            Explore = 0,        -- 消耗行动点探索格子获得
+            Building = 1,       -- 赠送建筑获得
+        },
+        -- 资源Id
+        ResourceId = {
+            Invalid = 0,        --无效
+            Exp = 1,            --经验
+            Gold = 2,           --金币
+            Population = 3,     --人口
+            ActionPoint = 4,    --行动点
+            SightRange = 5,     --视野范围
+        },
+        -- 货物Ids
+        CommodityIds = {1, 2, 3},
+        StageType = {
+            Teach = 1,       -- 教学关
+            Normal = 2,      -- 普通关
+        },
+        -- 奖励类型
+        RewardType = {
+            Assorted = 0,    -- 混合
+            Resource = 1,    -- 资源
+            Commodity = 2,   -- 货物
+            Prop = 3,        -- 道具
+            Building = 4,    -- 建筑
+            Event = 5,       -- 事件
+            City = 6,        -- 城邦
+            Buff = 7,        -- buff 奖励弹框使用
+        },
+        -- 来源类型
+        SourceType = {
+            None = 0,
+            Volatility = 1, -- 波动
+            Prop = 2,       -- 道具
+            Tech = 3,       -- 科技
+            City = 4,       -- 城邦
+            Building = 5,   -- 建筑
+            Event = 6,      -- 事件
+            Token = 7,      -- 信物
+            Explore = 8,    -- 探索
+            Cheat = 99,     -- 作弊
+        },
+        -- 视野增加类型
+        AddVisibleGridIdType = {
+            ByParent = 1,           -- 按父节点增加
+            ByArea = 2,             -- 按区域增加
+        },
+        -- 统计类型
+        StatisticsType = {
+            CommoditySale = 1,   -- 商品销售统计
+            CommodityProduce = 2,-- 商品生产统计
+            EventTrigger = 3,    -- 事件触发 
+            GoldAdd = 4,         -- 金币增加统计
+            GoldInTurnAdd = 5,   -- 回合内金币增加统计
+            ExpAdd = 6,          -- 经验增加统计
+        },
+        -- 图鉴类型
+        IllustrateType = {
+            Props = 1,           -- 道具
+            Build = 2,           -- 建筑
+            City = 3,            -- 城邦
+            Event = 4,           -- 事件
+        },
+        -- 任务状态
+        TaskState = {
+            Activated = 1,
+            Achieved = 2,
+            Finished = 3,
+        },
+        -- 杂项加成
+        MiscAdd = {
+            BuildingDiscount = 1,       -- 建筑折扣
+            TechDiscount = 2,           -- 科技点亮折扣
+            MainDiscount = 3,           -- 主城升级折扣
+            ExploreExpFixAdd = 4,       -- 繁荣度获取效率提升（固定值）
+            ExploreExpRateAdd = 5,      -- 繁荣度获取效率提升（万分比）
+            ActionPoint = 6,            -- 行动点上限
+            ExploreGoldFixAdd = 7,      -- 探索金币获取效率提升（固定值）
+            ExploreGoldRateAdd = 8,     -- 探索金币获取效率提升（万分比）
+            BuildingGoldRateAdd = 9,    -- 建筑金币获取效率提升（万分比）
+        },
+        -- 资源属性类型
+        CommodityAttrType = {
+            Stock = 0,                -- 库存
+            StockLimit = 1,           -- 库存上限
+            StockLimitAdd = 2,        -- 库存上限加成
+            PriceRateLockMax = 3,     -- 波动上限锁定
+            PriceRateLockMin = 4,     -- 波动下限锁定
+            StockTurnFixAdd = 5,      -- 库存回合开始时固定增减属性
+            StockTurnRatioAdd = 6,    -- 库存回合开始时比率增减属性
+
+            Price = 100,              -- 结算售价
+            PriceBase = 101,          -- 基础售价
+            PriceCrit = 102,          -- 售价暴击率
+            PriceCritHurt = 103,      -- 售价暴伤率
+
+            Produce = 200,            -- 结算产量
+            ProduceBase = 201,        -- 基础产量
+            ProduceCrit = 202,        -- 产量暴击率
+            ProduceCritHurt = 203,    -- 产量暴伤率
+
+            PriceAddBase = 1001,      -- 售价基础加成
+            PriceAddFixed = 1002,     -- 售价固定加成
+            PriceAddRatioA = 1003,    -- 售价比率加成
+            PriceAddRatioB = 1004,    -- 售价波动（2级比率加成）
+            PriceCritAdd = 1005,      -- 售价暴击率加成
+            PriceCritHurtAdd = 1006,  -- 售价暴伤率加成
+            PriceMaxRateAdd = 1007,   -- 市场波动上限加成
+            PriceMinRateAdd = 1008,   -- 市场波动下限加成
+
+            ProduceAddBase = 2001,    -- 产量基础加成
+            ProduceAddFixed = 2002,   -- 产量固定加成
+            ProduceAddRatioA = 2003,  -- 产量比率加成
+            ProduceAddRatioB = 2004,  -- 产量波动（2级比率加成） 预留
+            ProduceCritAdd = 2005,    -- 产量暴击率加成
+            ProduceCritHurtAdd = 2006 -- 产量暴伤率加成
+        },
+        -- 科技树科技类型
+        TechType = {
+            Normal = 1,               -- 普通科技
+            Level = 2,                -- 关键科技
+        },
+        Alignment = {
+            Default = 0,             -- 默认
+            LT = 1,                  -- 左上(目标UI的RT)
+            RT = 2,                  -- 右上(目标UI的LT)
+            LB = 3,                  -- 左下(目标UI的RB)
+            RB = 4,                  -- 右下(目标UI的LB)
+            CT = 5,                  -- 中上(目标UI的CB)
+            CB = 6,                  -- 中下(目标UI的CT)
+            LC = 7,                  -- 左中(目标UI的RC)
+            RC = 8,                  -- 右中(目标UI的LC)
+            LTB = 9,                 -- 左上(目标UI的LB)
+            RTB = 10,                -- 右上(目标UI的RB)
+        },
+        -- 弹框类型
+        PopupType = {
+            None = 0,
+            Buff = 1,                -- Buff弹框
+            PropSelect = 2,          -- 道具选择弹框
+            Reward = 3,              -- 奖励弹框
+            Task = 4,                -- 城邦任务完成弹框
+            TurnReward = 5,          -- 回合奖励弹框
+            MainLevelUp = 6,         -- 主城升级弹框
+            ExploreGrid = 10,        -- 探索格子信息
+            VisibleGrid = 11,        -- 额外格子信息(镜头移动)
+        },
+        -- 条件操作类型
+        ConditionOperateType = {
+            None = 0,
+            Greater = 1,             -- 大于
+            GreaterEqual = 2,        -- 大于等于
+            Equal = 3,               -- 等于
+            LessEqual = 4,           -- 小于等于
+            Less = 5,                -- 小于
+        },
+        BubbleType = {
+            None = 0,
+            Buff = 1,                -- buff气泡
+            AssetDetail = 2,         -- 货物详情气泡
+            Population = 3,          -- 人口气泡
+            Property = 4,            -- 属性气泡
+        },
+    },
+    DlcRoom = {
+        RECONNECT_FAIL = {
+            TEAM_SUCCESS = 1,
+            TEAM_FAIL = 2,
+            TIME_OUT = 3,
+        },
+        RoomSelect = {
+            Character = 0,
+            Chip = 1,
+            None = 1001,
+        },
+        PlayerState = {
+            Normal = 0,
+            Ready = 1,
+            Select = 2,
+            Clump = 3,
+            Fight = 4,
+            Settle = 5,
+            None = 1001,
+        },
+        RoomState = {
+            Normal = 0,
+            Fight = 1, --战斗
+            Settle = 2, --结算
+            None = 1001,
+        },
+        RoomUiType = {
+            Room = 1,
+            Loading = 2,
+            ChallengeLose = 3,
+            QuitDialog = 4,
+            ReconnectDialog = 5,
+            CancelMatchDialog = 6,
+        },
+    },
+    DlcCasualGame = {
+        WorldMode = {
+            Easy = 1,
+            Difficulty = 2,
+        },
+        TaskGroupType = {
+            Daily = 1,
+            Normal = 2,
+        },
+        ActivityType = {
+            Cube = 1,  --Dlc魔方嘉年华
+        }
+    },
+    DlcWorld = {
+        WorldType = {
+            Hunt = 1,  --狩猎
+            Cube = 2,  --Dlc魔方嘉年华
+        },
+        SettleState = {
+            None = 0,  --正常结算
+            Exit = 1,  --中途退出
+            LeaderExit = 2, --房主主动退出
+        },
+    },
+    StrongHold = {
+        AttrPluginId = 1, --攻击插件Id
+    },
+    CerberusGame = {
+        ChapterIdIndex = {
+            Story = 1,
+            Challenge = 2,
+            FashionStory = 3,
+            FashionChallenge = 4,
+        },
+        StageDifficulty = {
+            Normal = 1,
+            Hard = 2,
+        },
+        StoryPointType = 
+        {
+            Story = 1,
+            Communicate = 2,
+            Battle = 3,
+        },
+        StoryPointShowType = 
+        {
+            [1] = "GirdStageFight",
+            [2] = "GirdStageFightSpecial",
+            [3] = "GridBossPrefab",
+            [4] = "GridStory1",
+            [5] = "GridStory2",
+        },
+        -- 默认队伍
+        ChallengeStageStar = 
+        {
+            [0] = "CerberusGameChallengeStageStar0",
+            [1] = "CerberusGameChallengeStageStar1",
+            [2] = "CerberusGameChallengeStageStar2",
+            [3] = "CerberusGameChallengeStageStar3",
+        },
+    },
+    BFRT = {
+        CAPTIAN_MEMBER_INDEX = 1,
+        FIRST_FIGHT_MEMBER_INDEX = 1,
+        MEMBER_POS_COLOR = {
+            "FF1111FF", -- red
+            "4F99FFFF", -- blue
+            "F9CB35FF", -- yellow
+        }
+    },
+    Archive={
+        SubSystemType = {
+            Monster = 1,
+            Weapon = 2,
+            Awareness = 3,
+            Story = 4,
+            CG = 5,
+            NPC = 6,
+            Email = 7,
+            Partner = 8,
+            PV = 9,
+        },
+        SettingType = {
+            All = 0,
+            Setting = 1,
+            Story = 2,
+        },
+        -- 设定位置
+        SettingIndex = {
+            First = 1,
+        },
+        WeaponCamera = {
+            Main = 1, --  武器详情默认是主镜头
+            Setting = 2,
+        },
+        MonsterType = {
+            Pawn = 1,
+            Elite = 2,
+            Boss = 3,
+        },
+        MonsterInfoType = {
+            Short = 1,
+            Long = 2,
+        },
+        MonsterSettingType = {
+            Setting = 1,
+            Story = 2,
+        },
+        MonsterDetailType = {
+            Synopsis = 1,
+            Info = 2,
+            Setting = 3,
+            Skill = 4,
+            Zoom = 5,
+            ScreenShot = 6,
+        },
+        EquipStarType = {
+            All = 0,
+            One = 1,
+            Two = 2,
+            Three = 3,
+            Four = 4,
+            Five = 5,
+            Six = 6,
+        },
+        EquipLikeType = {
+            NULL = 0,
+            Dis = 1,
+            Like = 2,
+        },
+        OnForAllState = {
+            Off = 0,
+            On = 1,
+        },
+        NpcGridState = {
+            Open = 0,
+            Close = 1,
+        },
+        EmailType = {
+            Email = 1,
+            Communication = 2,
+        },
+        PartnerSettingType = {
+            Setting = 1,
+            Story = 2,
+        },
+        MonsterDetailUiType = {
+            Default = 1, -- 默认图鉴打开
+            Show = 2, -- 只负责显示，屏蔽玩家操作
+        },
+        SpecialData = { --特判数据（仅武器天狼星使用）
+            PayRewardId = 5,
+            Equip = {--天狼星
+                ResonanceCount = 0,
+                Level = 1,
+                Breakthrough = 0,
+                Id = 2026003,
+            },
+        },
+        EntityType = {
+            Info = 1,
+            Setting = 2,
+            Skill = 3,
+        },
+        EquipInfoChildUiType = {
+            Details = 1,
+            Setting = 2,
+        },
+        MonsterRedPointType = {
+            Monster = 1,
+            MonsterInfo = 2,
+            MonsterSkill = 3,
+            MonsterSetting = 4,
+        },
+        METHOD_NAME = {
+            GetEvaluateRequest = "GetEvaluateRequest",
+            GetStoryEvaluateRequest = "GetStoryEvaluateRequest",
+            ArchiveEvaluateRequest = "ArchiveEvaluateRequest",
+            ArchiveGiveLikeRequest = "ArchiveGiveLikeRequest",
+            UnlockMonsterSettingRequest = "UnlockMonsterSettingRequest",
+            UnlockArchiveMonsterRequest = "UnlockArchiveMonsterRequest",
+            UnlockMonsterInfoRequest = "UnlockMonsterInfoRequest",
+            UnlockMonsterSkillRequest = "UnlockMonsterSkillRequest",
+
+            UnlockArchiveWeaponRequest = "UnlockArchiveWeaponRequest",
+            UnlockArchiveAwarenessRequest = "UnlockArchiveAwarenessRequest",
+            UnlockWeaponSettingRequest = "UnlockWeaponSettingRequest",
+            UnlockAwarenessSettingRequest = "UnlockAwarenessSettingRequest",
+        },
+        SYNC_EVALUATE_SECOND = 5,
+    },
+    Anniversary={
+      ActivityType={
+        SignIn=1,--签到
+        DayDraw=2,--每日抽卡
+        AnniversaryDraw=3,--周年卡池
+        Review=4,--周年回顾
+        RepeatChallenge=5,--复刷关
+        FirstRecharge=6,--首充
+      },
+      ShareResult={
+          Success=0,--分享成功
+          ErrCodeUnInstalled=1, --应用未安装
+          ErrCodeInvalidParameter=2, --传递参数错误
+          ErrCodeImageExceedsTheSizeLimit=3, --图片大小超过限制
+          ErrCodeInvalid=4, --未知错误
+      },
+      ReviewDataType={
+        None=0,--没有数据
+        PlayerBaseData=1, --昵称、入坑时间、加入的公会名
+        ActionData=2, --今年 登录天数、消耗血清、消耗螺母
+        CharaData1=3,--战力最高角色及其战力参数，出战次数最高的角色，及其出战次数，拥有辅助机的数量
+        CharaData2=4, --在宿舍中被抚摸次数最高的角色，以及其次数|作为看板娘被点击次数最高的角色，及其次数|在宿舍中执勤次数最高的角色，以及其次数|拥有多少个达到爱意好感度的角色
+        ActivityProcess1=5, --主线进度,边境公约进度已通关数,序列公约已通关数
+        ActivityProcess2=6, --玩家在战区结算时，最高两个段位的达成次数|玩家在囚笼结算时累计的讨伐值|玩家在矿区结算时，最高一个矿区关底关卡的过关次数
+        Reward1=7, --勋章展示
+        Reward2=8, --收藏品展示
+      },
+      SharePlatform={
+          KJQ_Share=1, --分享到库街区
+      }
+    },
 }

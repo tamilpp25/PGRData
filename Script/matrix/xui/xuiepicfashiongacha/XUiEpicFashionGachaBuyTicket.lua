@@ -101,6 +101,9 @@ function XUiEpicFashionGachaBuyTicket:CheckBuyAmountLimit(count)
         if leftCanBuy <= 0 then
             leftCanBuy = 1
         end
+        if leftCanBuy > BuyCountMax then
+            return BuyCountMax
+        end
         return leftCanBuy
     elseif count > BuyCountMax then
         return BuyCountMax

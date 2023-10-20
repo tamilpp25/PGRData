@@ -34,7 +34,7 @@ end
 
 ----------------------------宠物图鉴基础属性--------------------------------
 function XArchivePartnerEntity:GetArchivePartnerCfg()
-    return XArchiveConfigs.GetPartnerConfigById(self.TemplateId)
+    return XMVCA.XArchive:GetPartnerConfigById(self.TemplateId)
 end
 
 function XArchivePartnerEntity:GetGroupId()

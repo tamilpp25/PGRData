@@ -136,7 +136,7 @@ function XUiMain:OnEnable()
 
     self:AreanOnlineInviteNotify()
     XEventManager.AddEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.OnBackGroupPreview, self)
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
     if not XLoginManager.IsFirstOpenMainUi() then
         self:PlayEquipGuide(false)
     end
@@ -163,7 +163,7 @@ function XUiMain:OnDisable()
     --self.Down:OnDisable()
     
     XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.OnBackGroupPreview, self)
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
     --界面重新打开
     self.NewOpen = false
     self:ClearSceneReference()
@@ -512,7 +512,7 @@ function XUiMain:OnUiSceneLoaded(particleGroupName)
 end
 
 function XUiMain:IsShowTerminal()
-    return RightMidType == MenuType.Second
+    return RightMidType == MenuType.Second or (self.PanelRightMidSecond.gameObject and self.PanelRightMidSecond.gameObject.activeInHierarchy)
 end
 
 function XUiMain:IsShowCalendar()
@@ -539,10 +539,10 @@ end
 -- ===================================================
 
 function XUiMain:PlayRoleActionUiDisableAnim(signBoardid, stopTime)
-    XDataCenter.SignBoardManager.StartBreakTimer(stopTime)
+    XMVCA.XFavorability:StartBreakTimer(stopTime)
     -- 关闭福利按钮特效
     self:SetBtnWelfareTagActive(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
@@ -550,7 +550,7 @@ end
 function XUiMain:PlayRoleActionUiEnableAnim(signBoardid)
     -- 检查福利按钮特效
     self.LeftBottom:OnRefreshFirstRechargeId()
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end

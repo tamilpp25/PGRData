@@ -734,7 +734,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        return character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id)
+        return character.Quality >= XMVCA.XCharacter:GetCharMaxQuality(character.Id)
     end
 
     function XCharacterManager.IsMaxQualityById(characterId)
@@ -743,7 +743,7 @@ XCharacterManagerCreator = function()
         end
 
         local character = XCharacterManager.GetCharacter(characterId)
-        return character and character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id)
+        return character and character.Quality >= XMVCA.XCharacter:GetCharMaxQuality(character.Id)
     end
 
     function XCharacterManager.IsCanActivateStar(character)
@@ -752,7 +752,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        if character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id) then
+        if character.Quality >= XMVCA.XCharacter:GetCharMaxQuality(character.Id) then
             return false
         end
 
@@ -1065,7 +1065,7 @@ XCharacterManagerCreator = function()
     -- 品质相关end --
     -- 改造相关begin --
     function XCharacterManager.IsMaxCharGrade(character)
-        return character.Grade >= XCharacterConfigs.GetCharMaxGrade(character.Id)
+        return character.Grade >= XMVCA.XCharacter:GetCharMaxGrade(character.Id)
     end
 
     function XCharacterManager.IsPromoteGradeUseItemEnough(templateId, grade)
@@ -1372,7 +1372,7 @@ XCharacterManagerCreator = function()
             return
         end
 
-        local oldAttribs = XCharacterConfigs.GetCharStarAttribs(character.Id, character.Quality, character.Star)
+        local oldAttribs = XMVCA.XCharacter:GetCharStarAttribs(character.Id, character.Quality, character.Star)
 
         XNetwork.Call(METHOD_NAME.ActivateStar, { TemplateId = character.Id }, function(res)
             if res.Code ~= XCode.Success then
@@ -1544,7 +1544,7 @@ XCharacterManagerCreator = function()
             quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
         end
 
-        local npcId = XCharacterConfigs.GetCharNpcId(templateId, quality)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(templateId, quality)
 
         if npcId == nil then
             return

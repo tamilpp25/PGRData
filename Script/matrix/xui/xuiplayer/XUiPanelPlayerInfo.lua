@@ -248,7 +248,7 @@ end
 function XUiPanelPlayerInfo:UpdatePlayerInfo()
     self.TxtPlayerIdNum.text = XPlayer.Id
     self.TxtPlayerName.text = XPlayer.Name
-    self:SetBirthday(XPlayer.Birthday)
+    self:SetBirthday(XMVCA.XBirthdayPlot:GetBirthday())
     XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
     self:UpdateAssistInfo()
     local sign = XPlayer.Sign
@@ -272,7 +272,7 @@ end
 function XUiPanelPlayerInfo:UpdateAssistInfo()
     local id = XDataCenter.AssistManager.GetAssistCharacterId()
     local character = XDataCenter.CharacterManager.GetCharacter(id)
-    self.RImgCharacterRank:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.RImgCharacterRank:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     self.RImgAssist:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(id))
     self.TxtRoleRank.text = character.Level
     self.TxtRoleName.text = XMVCA.XCharacter:GetCharacterName(id)
@@ -289,12 +289,12 @@ function XUiPanelPlayerInfo:SetSign(sign)
 end
 
 function XUiPanelPlayerInfo:SetBirthday(birthday)
-    if (birthday == nil) then
+    if not XMVCA.XBirthdayPlot:IsSetBirthday() then
         self.TxtDate.text = CS.XTextManager.GetText("Birthday", "--", "--")
     else
         self.TxtDate.text = CS.XTextManager.GetText("Birthday", birthday.Mon, birthday.Day)
     end
-    self.BtnBirModify.gameObject:SetActiveEx(not XPlayer.IsChangedBirthday())
+    self.BtnBirModify.gameObject:SetActiveEx(XMVCA.XBirthdayPlot:CheckCanChangeBirthday())
 end
 
 function XUiPanelPlayerInfo:OnBtnSignSureClick()
@@ -334,7 +334,7 @@ end
 function XUiPanelPlayerInfo:OnBtnArchiveClick()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive) then
         self:RecordAnimation()
-        XDataCenter.ArchiveManager.OpenUiArchiveMain()
+        XMVCA.XArchive:OpenUiArchiveMain()
     end
 end
 
@@ -366,7 +366,7 @@ end
 
 function XUiPanelPlayerInfo:ChangeBirthdayCallback()
     self:HidePanelSetBirthday()
-    self:SetBirthday(XPlayer.Birthday)
+    self:SetBirthday(XMVCA.XBirthdayPlot:GetBirthday())
 end
 
 function XUiPanelPlayerInfo:HidePanelSetBirthday()

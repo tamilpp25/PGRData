@@ -23,7 +23,7 @@ function XUiCharacterQualityDetailsBubbleV2P6:OnStart(seleStar, seleQuality, cha
     self.TxtStateOff.gameObject:SetActiveEx(not isActive)
 
     -- 属性加成文本
-    local attribs = XCharacterConfigs.GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
+    local attribs = XMVCA.XCharacter:GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
     for k, v in pairs(attribs or {}) do
         local value = FixToDouble(v)
         if value > 0 then

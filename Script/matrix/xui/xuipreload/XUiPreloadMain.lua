@@ -15,6 +15,7 @@ function XUiPreloadMain:OnStart()
     --self.ErrorTimeFunc = function (err)
     --    XLog.Error("XMVCA.XPreload:GetLeftDownloadTime():::" .. tostring(XMVCA.XPreload:GetLeftDownloadTime()))
     --end
+    self._IsFixErrorDownloadFlag = false
     self.DownloadEffectPos = nil
     self.DownloadMaxWidth = 0
     self.DownloadProgressEffectTrans = nil
@@ -41,6 +42,7 @@ function XUiPreloadMain:RegisterUiEvents()
     XUiHelper.RegisterClickEvent(self, self.BtnMainUi, self.OnBtnMainUiClick)
     XUiHelper.RegisterClickEvent(self, self.BtnDownload, self.OnBtnDownloadClick)
     XUiHelper.RegisterClickEvent(self, self.BtnDownload2, self.OnBtnDownloadClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnFullDownload, self.OnBtnFullDownloadClick)
     if XMain.IsEditorDebug then
         XUiHelper.RegisterClickEvent(self, self.BtnClear, self.OnBtnClearClick)
         XUiHelper.RegisterClickEvent(self, self.BtnMove, self.OnBtnMoveClick)
@@ -67,6 +69,46 @@ function XUiPreloadMain:OnBtnMoveClick()
     end)
 end
 
+function XUiPreloadMain:OnBtnFullDownloadClick()
+    local preloadAgency = XMVCA.XPreload
+    if not preloadAgency:IsComplete() then
+        local state = preloadAgency:GetCurState()
+        if state == XEnumConst.Preload.State.Downloading then
+            if preloadAgency:GetIsMultiThreadDownloading() then --如果已经是多线程下载直接切单线程就可以了
+                preloadAgency:SetIsMultiThread(false) --直接切单线程
+            else
+                if not CS.XNetworkReachability.IsViaLocalArea() then --不是wifi状态提示
+                    local content = XUiHelper.GetText("PreloadNetworkTip")
+                    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+                        self:ChangeMultiThreadDownload()
+                    end)
+                else
+                    self:ChangeMultiThreadDownload()
+                end
+            end
+        else
+            XUiManager.TipText("PreloadNotStarted", XUiManager.UiTipType.Tip)
+        end
+    end
+end
+
+--切换到多线程下载
+function XUiPreloadMain:ChangeMultiThreadDownload()
+    local content = XUiHelper.GetText("PreloadFullDownloadTip")
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+        self:ConfirmMultiThreadDownload()
+    end)
+end
+
+--确认多线程现在
+function XUiPreloadMain:ConfirmMultiThreadDownload()
+    local preloadAgency = XMVCA.XPreload
+    if not preloadAgency:GetIsChangeMultiThread() then --线程正在切换不可以再设置
+        preloadAgency:SetIsMultiThread(not preloadAgency:GetIsMultiThreadDownloading()) --切换线程
+    end
+end
+
+
 function XUiPreloadMain:OnBtnDownloadClick()
     local preloadAgency = XMVCA.XPreload
     local state = preloadAgency:GetCurState()
@@ -83,22 +125,42 @@ function XUiPreloadMain:OnBtnDownloadClick()
         if not CS.XNetworkReachability.IsViaLocalArea() then --不是wifi状态提示
             local content = XUiHelper.GetText("PreloadNetworkTip")
             XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
-                self:ClickResume()
+                self:ConfirmResume()
             end)
         else
-            self:ClickResume()
+            self:ConfirmResume()
         end
     elseif state == XEnumConst.Preload.State.Downloading then
-        preloadAgency:SetIsPause(true)
-        preloadAgency:SetAutoResume(false) --自己暂停不用再检查网络状态切换
-        XUiManager.TipText("PreloadBtnLabelPause", XUiManager.UiTipType.Tip)
+        if preloadAgency:GetIsMultiThreadDownloading() then
+            local content = XUiHelper.GetText("PreloadUnableToExit")
+            XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+                preloadAgency:SetIsMultiThread(false) --全速下载只能退出全速再暂停
+                self:ConfirmPause()
+            end)
+        else
+            self:ConfirmPause()
+        end
     end
 end
 
-function XUiPreloadMain:ClickResume()
+function XUiPreloadMain:ConfirmPause()
     local preloadAgency = XMVCA.XPreload
-    preloadAgency:SetIsPause(false)
-    XUiManager.TipText("PreloadBtnLabelResume", XUiManager.UiTipType.Tip)
+    preloadAgency:SetIsPause(true)
+    preloadAgency:SetAutoResume(false) --自己暂停不用再检查网络状态切换
+    XUiManager.TipText("PreloadBtnLabelPause", XUiManager.UiTipType.Tip)
+end
+
+function XUiPreloadMain:ConfirmResume()
+    local preloadAgency = XMVCA.XPreload
+    if preloadAgency:IsComplete() then
+        XUiManager.TipText("PreloadBtnLabelComplete", XUiManager.UiTipType.Tip)
+    else
+        local state = preloadAgency:GetCurState()
+        if state ~= XEnumConst.Preload.State.Downloading then --不在下载的时候才设置
+            preloadAgency:SetIsPause(false)
+            XUiManager.TipText("PreloadBtnLabelResume", XUiManager.UiTipType.Tip)
+        end
+    end
 end
 
 function XUiPreloadMain:ClickStartPreload()
@@ -262,6 +324,9 @@ function XUiPreloadMain:UpdateInfo()
 
     --self.PanelLoading.gameObject:SetActiveEx(preloadAgency:GetIsDownloading()) --正在下载要显示
     self:UpdateBtnState()
+    self:UpdateFullDownloadBtn()
+    self:UpdateTile()
+    self._IsFixErrorDownloadFlag = preloadAgency:GetIsFixErrorDownload() --记录一下免得一直刷新字符串
     self:UpdateMessage()
     self:UpdateLoading()
     self:UpdateProcess()
@@ -280,6 +345,32 @@ function XUiPreloadMain:UpdateNotice()
     else
         self.ImgLoading.gameObject:SetActiveEx(true)
         return false
+    end
+end
+
+--更新全速下载按钮状态
+function XUiPreloadMain:UpdateFullDownloadBtn()
+    local preloadAgency = XMVCA.XPreload
+    local isDisable = preloadAgency:IsComplete()
+    local btnLabel = nil
+    if preloadAgency:GetIsMultiThreadDownloading() then
+        btnLabel = XUiHelper.GetText("PreloadBtnLabelFullExit")
+    else
+        btnLabel = XUiHelper.GetText("PreloadBtnLabelFull")
+    end
+    self.BtnFullDownload:SetName(btnLabel)
+    self.BtnFullDownload:SetDisable(isDisable)
+end
+
+--更新标题
+function XUiPreloadMain:UpdateTile()
+    local preloadAgency = XMVCA.XPreload
+    if preloadAgency:GetIsMultiThreadDownloading() then
+        self.PanelName.gameObject:SetActiveEx(false)
+        self.PanelName2.gameObject:SetActiveEx(true)
+    else
+        self.PanelName.gameObject:SetActiveEx(true)
+        self.PanelName2.gameObject:SetActiveEx(false)
     end
 end
 
@@ -322,7 +413,16 @@ end
 
 function XUiPreloadMain:UpdateMessage()
     local preloadAgency = XMVCA.XPreload
-    self.TxtMessage.text = preloadAgency:GetCurStateMessage()
+    local state = preloadAgency:GetCurState()
+    if state == XEnumConst.Preload.State.Downloading then --下载过程中需要区分是否是在修复下载失败文件
+        if preloadAgency:GetIsFixErrorDownload() then
+            self.TxtMessage.text = XUiHelper.GetText("PreloadFixErrorDownload")
+        else
+            self.TxtMessage.text = preloadAgency:GetCurStateMessage()
+        end
+    else
+        self.TxtMessage.text = preloadAgency:GetCurStateMessage()
+    end
 end
 
 --更新进度面板
@@ -337,6 +437,27 @@ function XUiPreloadMain:UpdateLoading()
         end
     else
         self.PanelLoading.gameObject:SetActiveEx(false)
+    end
+end
+
+--检测是否是退出多线程下载
+function XUiPreloadMain:CheckExitMultiThread()
+    local preloadAgency = XMVCA.XPreload
+    if not preloadAgency:IsComplete() and not preloadAgency:GetIsMultiThread() then --直接判断线程数
+        XUiManager.TipText("QuitFullDownloadTip", XUiManager.UiTipType.Tip)
+    end
+end
+
+function XUiPreloadMain:CheckPreloadComplete()
+    local preloadAgency = XMVCA.XPreload
+    local state = preloadAgency:GetCurState()
+    if state == XEnumConst.Preload.State.Complete then
+        if preloadAgency:GetIsMultiThreadDownloading() then --现在只判断多线程下载
+            local content = XUiHelper.GetText("PreloadBtnLabelComplete")
+            XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+                self:Close()
+            end)
+        end
     end
 end
 
@@ -362,6 +483,12 @@ function XUiPreloadMain:UpdateProcess()
 
     self:UpdateSpeed()
     self:UpdateLeftTime()
+
+    local isFixErrorDownload = preloadAgency:GetIsFixErrorDownload()
+    if isFixErrorDownload ~= self._IsFixErrorDownloadFlag then
+        self._IsFixErrorDownloadFlag = isFixErrorDownload
+        self:UpdateMessage()
+    end
 end
 
 function XUiPreloadMain:UpdateDownloadProgressEffect(progress)
@@ -404,6 +531,8 @@ function XUiPreloadMain:OnEnable()
     XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_STATE_UPDATE, self.OnPreloadStateUpdate, self)
     XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_PROCESS, self.OnPreloadProcess, self)
     XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_NOTICE_UPDATE, self.UpdateNotice, self)
+    XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_MUlTI_THREAD_CHANGE, self.OnPreloadMultiThreadChange, self)
+    XMVCA.XPreload:AddAgencyEvent(XAgencyEventId.EVENT_PRELOAD_NETWORK_CHANGE_PAUSE, self.OnPreloadNetWorkChangePause, self)
     self:UpdateInfo()
 end
 
@@ -411,25 +540,73 @@ function XUiPreloadMain:OnDisable()
     XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_STATE_UPDATE, self.OnPreloadStateUpdate, self)
     XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_PROCESS, self.OnPreloadProcess, self)
     XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_NOTICE_UPDATE, self.UpdateNotice, self)
+    XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_MUlTI_THREAD_CHANGE, self.OnPreloadMultiThreadChange, self)
+    XMVCA.XPreload:RemoveAgencyEvent(XAgencyEventId.EVENT_PRELOAD_NETWORK_CHANGE_PAUSE, self.OnPreloadNetWorkChangePause, self)
 end
 
 function XUiPreloadMain:OnPreloadStateUpdate()
     self:UpdateMessage()
     self:UpdateBtnState()
+    self:UpdateFullDownloadBtn()
     self:UpdateLoading()
+    self:CheckPreloadComplete()
 end
-
 
 function XUiPreloadMain:OnPreloadProcess()
     self:UpdateProcess()
 end
 
+function XUiPreloadMain:OnPreloadMultiThreadChange()
+    self:UpdateFullDownloadBtn()
+    self:UpdateTile()
+    self:CheckExitMultiThread()
+end
+
+function XUiPreloadMain:OnPreloadNetWorkChangePause()
+    if not CS.XNetworkReachability.IsViaLocalArea() then --不是wifi状态提示
+        local content = XUiHelper.GetText("PreloadNetworkTip")
+        XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, function()
+            local preloadAgency = XMVCA.XPreload
+            local state = preloadAgency:GetCurState()
+            if state ~= XEnumConst.Preload.State.Downloading then --自动切换网络会回复下载，所以不做处理
+                preloadAgency:SetAutoResume(false) --自己取消继续下载就不用再检查网络了
+                if not preloadAgency:IsComplete() then
+                    preloadAgency:SetIsMultiThread(false)
+                end
+            end
+        end, function()
+            self:ConfirmResume()
+        end)
+    end
+end
+
 function XUiPreloadMain:OnBtnBackClick()
-    self:Close()
+    local preloadAgency = XMVCA.XPreload
+    if preloadAgency:GetIsMultiThreadDownloading() then
+        local content = XUiHelper.GetText("PreloadUnableToExit")
+        XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+            local preloadAgency = XMVCA.XPreload
+            preloadAgency:SetIsMultiThread(false)
+            self:Close()
+        end)
+    else
+        self:Close()
+    end
+
 end
 
 function XUiPreloadMain:OnBtnMainUiClick()
-    XLuaUiManager.RunMain()
+    local preloadAgency = XMVCA.XPreload
+    if preloadAgency:GetIsMultiThreadDownloading() then
+        local content = XUiHelper.GetText("PreloadUnableToExit")
+        XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+            local preloadAgency = XMVCA.XPreload
+            preloadAgency:SetIsMultiThread(false)
+            XLuaUiManager.RunMain()
+        end)
+    else
+        XLuaUiManager.RunMain()
+    end
 end
 
 function XUiPreloadMain:OnDestroy()

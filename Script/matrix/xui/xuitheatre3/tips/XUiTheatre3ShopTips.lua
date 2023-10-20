@@ -25,7 +25,8 @@ function XUiTheatre3ShopTips:OnStart(shopItem, closeCb, sureCb)
         self.RImgIcon:SetRawImage(icon)
     end
     -- 描述
-    self.TxtDescription.text = XUiHelper.FormatText(self._Control:GetEventStepItemDesc(self.TemplateId, self.Type), "")
+    local desc = XUiHelper.FormatText(self._Control:GetEventStepItemDesc(self.TemplateId, self.Type), "")
+    self.TxtDescription.text = XUiHelper.ConvertLineBreakSymbol(desc)
     -- 表现
     self.Tag.gameObject:SetActiveEx(false)
 

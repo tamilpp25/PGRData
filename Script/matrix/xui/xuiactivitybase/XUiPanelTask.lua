@@ -35,12 +35,19 @@ end
 
 function XUiPanelTask:OnDestroy()
     self:RemoveTimer()
+    self:RemoveRedPoint()
 end
 
 function XUiPanelTask:RemoveTimer()
     if self.Timer then
         XScheduleManager.UnSchedule(self.Timer)
         self.Timer = nil
+    end
+end
+
+function XUiPanelTask:RemoveRedPoint()
+    for _, redId in pairs(self.BtnGoRedPointIdDic or {}) do
+        XRedPointManager.RemoveRedPointEvent(redId)
     end
 end
 

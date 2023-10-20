@@ -288,7 +288,7 @@ end
 
 function XUiArchivePartnerDetail:OnBtnStorySkipClick()
     local storyChapterId = self.Data:GetStoryChapterId()
-    local storyChapter = XDataCenter.ArchiveManager.GetArchiveStoryChapter(storyChapterId)
+    local storyChapter = self._Control:GetArchiveStoryChapter(storyChapterId)
 
     if not storyChapter then
         XLog.Error("storyChapterId Is Not In Share/Archive/StoryChapter.tab Id:" .. storyChapterId)

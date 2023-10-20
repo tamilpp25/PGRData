@@ -105,7 +105,7 @@ end
 --==================
 function XBaseRole:GetQualityIcon()
     local quality = self:GetQuality()
-    return XCharacterConfigs.GetCharacterQualityIcon(quality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(quality)
 end
 --==================
 --获取当前角色战力

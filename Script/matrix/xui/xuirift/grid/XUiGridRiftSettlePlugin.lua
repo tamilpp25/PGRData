@@ -18,7 +18,7 @@ function XUiGridRiftSettlePlugin:Refresh(decomposeData)
     local xPlugin = XDataCenter.RiftManager.GetPlugin(pluginId)
     self._Grid:Refresh(xPlugin)
     self.PanelChange.gameObject:SetActiveEx(not isShowPlugin)
-    self.PanelNew.gameObject:SetActiveEx(isShowPlugin)
+    self.PanelNew.gameObject:SetActiveEx(false)
     if decomposeData.IsExtraDrop then
         self.TxtOther.gameObject:SetActiveEx(true)
         self.TxtOther.text = XUiHelper.GetText("RiftExtraDrop")

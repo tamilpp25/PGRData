@@ -135,22 +135,22 @@ function XUiFubenChallengeBanner:OnClickChapterGrid(chapter)
                 XLuaUiManager.Open(chapter.NameEn)
             end)
         end
-    elseif chapterType == XDataCenter.FubenManager.ChapterType.InfestorExplore then
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
-            if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
-                    or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
-                local openCb = function()
-                    self.ParentUi:PushUi(function()
-                        XLuaUiManager.Open("UiInfestorExploreRank")
-                    end)
-                end
-                XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
-            elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
-                XUiManager.TipText("InfestorExploreEnterSectionEnd")
-            elseif not XDataCenter.FubenInfestorExploreManager.IsOpen() then
-                XUiManager.TipText("InfestorExploreEnterSectionEnd")
-            end
-        end
+    --elseif chapterType == XDataCenter.FubenManager.ChapterType.InfestorExplore then
+    --    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
+    --        if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
+    --                or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
+    --            local openCb = function()
+    --                self.ParentUi:PushUi(function()
+    --                    XLuaUiManager.Open("UiInfestorExploreRank")
+    --                end)
+    --            end
+    --            XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
+    --        elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
+    --            XUiManager.TipText("InfestorExploreEnterSectionEnd")
+    --        elseif not XDataCenter.FubenInfestorExploreManager.IsOpen() then
+    --            XUiManager.TipText("InfestorExploreEnterSectionEnd")
+    --        end
+    --    end
     elseif chapterType == XDataCenter.FubenManager.ChapterType.MaintainerAction then
         self:OnClickMaintainerAction()
     elseif chapterType == XDataCenter.FubenManager.ChapterType.Stronghold then

@@ -53,6 +53,9 @@ XItemManagerCreator = function()
         PokemonStarUpItem = 57,
         PokemonLowStarUpItem = 58,
         PassportExp = 60,
+        OptionalCharacterCoin = 96, --累充商店角色货币
+        OptionalEquipCoin = 97, --累充商店武器货币
+        OptionalPartnerCoin = 98, --累充商店辅助机货币
         DormQuestCoin = 103, -- 宿舍委托道具Id
         SEllaFragment = 559, -- 逆元碎片-万华
         TRPGTalen = 61000,
@@ -91,6 +94,7 @@ XItemManagerCreator = function()
         CerberusGameCoin2 = 97008,-- 三头犬玩法货币2
         TransfiniteScore = 105,-- 超限连战积分
         ConnectingLine = 1044,
+        RogueSimCoin = 96193, -- 渡边模拟器货币
     }
 
     --时效性道具初始时间计算方式

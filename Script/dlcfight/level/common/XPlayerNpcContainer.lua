@@ -1,5 +1,4 @@
 local XPlayerNpcContainer = XClass(nil, "XPlayerNpcContainer")
-local FuncSet = CS.StatusSyncFight.XFightScriptFuncs
 
 ---@param proxy StatusSyncFight.XFightScriptProxy
 function XPlayerNpcContainer:Ctor(proxy)

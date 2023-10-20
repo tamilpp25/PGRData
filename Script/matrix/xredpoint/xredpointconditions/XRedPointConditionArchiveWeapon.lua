@@ -16,7 +16,7 @@ function XRedPointConditionArchiveWeapon.GetSubEvents()
 end
 
 function XRedPointConditionArchiveWeapon.Check()
-    return (XDataCenter.ArchiveManager.IsHaveNewWeapon() or XDataCenter.ArchiveManager.IsHaveNewWeaponSetting())
+    return (XMVCA.XArchive:IsHaveNewWeapon() or XMVCA.XArchive:IsHaveNewWeaponSetting())
     and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
 end
 

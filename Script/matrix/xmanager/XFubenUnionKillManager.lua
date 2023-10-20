@@ -624,52 +624,50 @@ end
 
 -- 同步登陆数据
 XRpc.NotifyUnionKillLoginData = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillLoginData(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillLoginData(notifyData)
 end
 
 -- 同步活动数据
 XRpc.NotifyUnionKillActivityData = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillActivityData(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillActivityData(notifyData)
 end
 
 -- 同步房间内数据
 XRpc.NotifyUnionKillFightRoomData = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillFightRoomData(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillFightRoomData(notifyData)
 end
 
 -- 同步boss血量
 XRpc.NotifyUnionKillBossHp = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillBossHp(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillBossHp(notifyData)
 end
 
 -- 通知玩家状态
 XRpc.NotifyUnionKillPlayerInfo = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillPlayerInfo(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillPlayerInfo(notifyData)
 end
 
 -- 通知关卡信息
 XRpc.NotifyUnionKillStageInfo = function(notifyData)
-
-    XDataCenter.FubenUnionKillManager.SyncUnionKillStageInfo(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillStageInfo(notifyData)
 end
 
 -- 通知击杀boss
 XRpc.NotifyUnionKillBossCount = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillBossCount(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillBossCount(notifyData)
 end
 
 -- tips通知
 XRpc.NotifyUnionKillTipsMessage = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillTipsMessage(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillTipsMessage(notifyData)
 end
 
 -- 通知玩家离开战斗房间
 XRpc.NotifyUnionKillLeaveRoom = function(notifyData)
-    XDataCenter.FubenUnionKillManager.SyncUnionKillLeaveRoom(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillLeaveRoom(notifyData)
 end
 
 -- 通知章节信息
 XRpc.NotifyUnionKillSectionData = function(notifyData)
-
-    XDataCenter.FubenUnionKillManager.SyncUnionKillSectionData(notifyData)
+    --XDataCenter.FubenUnionKillManager.SyncUnionKillSectionData(notifyData)
 end

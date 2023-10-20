@@ -353,6 +353,7 @@ end
 
 XRpc.NotifyGatherRewardList = function(data)
     XDataCenter.ExhibitionManager.HandleExhibitionInfo(data)
+    XDataCenter.FashionManager.RefreshAllHeadPortraitIsOwnDicByExhibitionDataNotify()
 end
 
 XRpc.NotifyGatherReward = function(data)

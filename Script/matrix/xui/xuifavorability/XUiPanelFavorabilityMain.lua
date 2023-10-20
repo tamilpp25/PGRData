@@ -32,6 +32,10 @@ function XUiPanelFavorabilityMain:OnStart()
     self:InitData()
     self:InitUiAfterAuto()
 end
+
+function XUiPanelFavorabilityMain:OnDisable()
+    self.FavorabilityShow:UnSchedulePlay()
+end
 --endregion
 
 --region 初始化
@@ -103,9 +107,9 @@ function XUiPanelFavorabilityMain:InitUiAfterAuto()
 
     self.CurSelectedPanel = nil
     local selected = self:GetAvailableSelectTab()
-    self:OnBtnTabListClick(selected)
-    self.CurrentSelectTab = selected
-    self.MenuBtnGroup:SelectIndex(self.CurrentSelectTab)
+    --self:OnBtnTabListClick(selected)
+    --self.CurrentSelectTab = selected
+    self.MenuBtnGroup:SelectIndex(selected)
 end
 
 --endregion
@@ -542,10 +546,11 @@ function XUiPanelFavorabilityMain:OnBtnTabListClick(index)
     if self.LastSelectTab then
         self.Parent:PlayBaseTabAnim()
     end
-
+    local nextFrame=false
     if index == self.CurrentSelectTab then
         if self._forceUpdate then
             self._forceUpdate=false
+            nextFrame=true
         else
             return
         end
@@ -575,10 +580,19 @@ function XUiPanelFavorabilityMain:OnBtnTabListClick(index)
     elseif index == FuncType.Gift then
         self.CurSelectedPanel = self.FavorabilityGift
     end
+    
+    local selectFunc=function()
+        self:PanelCvTypeShow()
+        self.CurSelectedPanel:OnSelected(true)
+        self.Parent:PlayAnimation('QieHuan')
+    end
+    
+    if nextFrame then
+        XScheduleManager.ScheduleNextFrame(selectFunc)
+    else
+        selectFunc()
+    end
 
-    self:PanelCvTypeShow()
-    self.CurSelectedPanel:OnSelected(true)
-    self.Parent:PlayAnimation('QieHuan')
 end
 
 function XUiPanelFavorabilityMain:PanelCvTypeShow()

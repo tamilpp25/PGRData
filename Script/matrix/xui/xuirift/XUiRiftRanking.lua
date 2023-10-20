@@ -75,8 +75,13 @@ function XUiRiftRanking:InitTimes()
 end
 
 function XUiRiftRanking:RefreshMyRank()
-    local rankInfo = XDataCenter.RiftManager.GetMyRankInfo()
-    self.MyRank:Refresh(rankInfo)
+    local hasRank = XDataCenter.RiftManager.IsHasRank()
+    self.PanelInfo.gameObject:SetActiveEx(hasRank)
+    self.TxtNoRank.gameObject:SetActiveEx(not hasRank)
+    if hasRank then
+        local rankInfo = XDataCenter.RiftManager.GetMyRankInfo()
+        self.MyRank:Refresh(rankInfo)
+    end
 end
 
 ---------------------------------------- 动态列表 start ----------------------------------------

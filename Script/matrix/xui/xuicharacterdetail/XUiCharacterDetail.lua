@@ -208,14 +208,14 @@ function XUiCharacterDetail:UpdateRightElementView()
 
     --人物名字，名称，icon等
     local quality = XMVCA.XCharacter:GetCharMinQuality(self.CharacterId)
-    local npcId = XCharacterConfigs.GetCharNpcId(self.CharacterId, quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(self.CharacterId, quality)
     local npc = CS.XNpcManager.GetNpcTemplate(npcId)
 
     if not npc then
         return
     end
 
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
     self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId))
     self.TxtCharacterName.text = charConfig.Name
     self.TxtCharacterDesName.text = charConfig.TradeName

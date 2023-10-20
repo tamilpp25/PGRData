@@ -11,9 +11,12 @@ XFubenManagerExCreator = function()
     local _IsInCheckShowFinish = false
     local _InCheckShowTimeCache = 0
 
+    local AgencyAutoCreator = {}
+
     -- 初始化
     function FubenManagerEx.Init()
         _IsInCheckShowFinish = false
+        AgencyAutoCreator = {}
         -- 注册FubenActivity配置的活动
         local activityConfigs = XFubenConfigs.GetAllConfigs(XFubenConfigs.TableKey.FubenActivity)
         local manager = nil
@@ -24,18 +27,40 @@ XFubenManagerExCreator = function()
                 else
                     manager = XDataCenter[config.ManagerName]
                     if manager == nil then
-                        XLog.Error("FubenManagerEx.Init Failed: XDataCenter." .. config.ManagerName .. " is nil !!")
+                        if ModuleId[config.ManagerName] then
+                            table.insert(AgencyAutoCreator, config) --塞到待初始化队列里
+                        else
+                            XLog.Error("FubenManagerEx.Init Failed: XDataCenter." .. config.ManagerName .. " is nil !!")
+                        end
                     end
-                    if not CheckClassSuper(manager, XExFubenActivityManager) then
+                    if manager and not CheckClassSuper(manager, XExFubenActivityManager) then
                         if manager.__cname ~= "XExFubenActivityManager" then
                             local method = manager.ExOverrideBaseMethod and manager:ExOverrideBaseMethod() or {}
                             manager = CreateAnonClassInstance(method, XExFubenActivityManager, nil, config)
                         end
                     end
                 end
-                table.insert(ActivityManagers, manager)
+                if manager then
+                    table.insert(ActivityManagers, manager)
+                end
             end
         end
+    end
+
+    function FubenManagerEx.RegisterAutoAgency()
+        local XFubenActivityAgency = require("XModule/XBase/XFubenActivityAgency")
+        for _, config in ipairs(AgencyAutoCreator) do
+            local targetAgency = XMVCA:GetAgency(config.ManagerName)
+            if not CheckClassSuper(targetAgency, XFubenActivityAgency) then
+                if targetAgency.__cname ~= "XFubenActivityAgency" then
+                    local method = targetAgency.ExOverrideBaseMethod and targetAgency:ExOverrideBaseMethod() or {}
+                    -- 这里实际上生成的是匿名的manager
+                    targetAgency = CreateAnonClassInstance(method, XExFubenActivityManager, nil, config)
+                end
+            end
+            table.insert(ActivityManagers, targetAgency)
+        end
+        AgencyAutoCreator = {}
     end
 
     --兼容XMVCA注册活动manager

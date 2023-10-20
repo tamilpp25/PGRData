@@ -45,6 +45,16 @@ function XUiPanelModelV2P6:InitCamera()
         self.UiCamNearQualityUpgradeDetail,
         self.UiCamNearCharLeftMove,
     }
+
+    self.CameraUis = 
+    {
+        self.UiCamUiMain,
+        false,
+        self.UiCamUiQuality,
+        false,
+        self.UiCamUiQualitySingle,
+        false,
+    }
 end
 
 -- 子界面通过该接口设置相机
@@ -56,6 +66,14 @@ function XUiPanelModelV2P6:SetCamera(targetIndex)
     for i, cameraTrans in pairs(self.CameraNears) do
         cameraTrans.gameObject:SetActiveEx(targetIndex == i)
     end
+
+    for i, cameraTrans in pairs(self.CameraUis) do
+        if cameraTrans then
+            cameraTrans.gameObject:SetActiveEx(targetIndex == i)
+        end
+    end
+
+    self:FixUiCameraMainToEffectBall()
 end
 
 function XUiPanelModelV2P6:SetSelectQuality(quality)
@@ -175,7 +193,7 @@ function XUiPanelModelV2P6:RefreshBubbleInfo(index)
         infoRootTrans:FindTransform("TxtStateOff").gameObject:SetActiveEx(not isActive)
     
         -- 属性加成文本
-        local attribs = XCharacterConfigs.GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
+        local attribs = XMVCA.XCharacter:GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
         for k, v in pairs(attribs or {}) do
             local value = FixToDouble(v)
             if value > 0 then
@@ -519,10 +537,6 @@ end
 function XUiPanelModelV2P6:SetDynamicTableActive(flag)
     -- self.PanelBallList.gameObject:SetActiveEx(flag)
     self.DynamicTable3D:SetActive(flag)
-end
-
-function XUiPanelModelV2P6:SetCameraQualityActive(flag)
-    self.UiCamUiQuality.gameObject:SetActiveEx(flag)
 end
 --endregion 动态列表相关结束
 

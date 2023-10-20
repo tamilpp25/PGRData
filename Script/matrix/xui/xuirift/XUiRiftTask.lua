@@ -66,12 +66,40 @@ function XUiRiftTask:UpdateDynamicTable()
     if index == SeasonTaskTabIdx then
         self.TaskDataList = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(self.SeasonTaskGroupId)
         appendArray(self.TaskDataList, XDataCenter.TaskManager.GetRiftTaskList())
+        table.sort(self.TaskDataList, self.SortTask)
     else
         self.TaskDataList = XDataCenter.TaskManager.GetTimeLimitTaskListByGroupId(self.TaskGroupIdList[index])
     end
     self.DynamicTable:SetDataSource(self.TaskDataList)
     self.DynamicTable:ReloadDataASync()
     self.ImgEmpty.gameObject:SetActiveEx(XTool.IsTableEmpty(self.TaskDataList))
+end
+
+function XUiRiftTask.SortTask(a, b)
+    local aState = XUiRiftTask.GetTaskStateSort(a)
+    local bState = XUiRiftTask.GetTaskStateSort(b)
+    if aState ~= bState then
+        return aState < bState
+    end
+
+    local templatesTaskA = XDataCenter.TaskManager.GetTaskTemplate(a.Id)
+    local templatesTaskB = XDataCenter.TaskManager.GetTaskTemplate(b.Id)
+    return templatesTaskA.Priority > templatesTaskB.Priority
+end
+
+--可领取>未完成>未解锁>已完成
+function XUiRiftTask.GetTaskStateSort(task)
+    local taskSeason = XDataCenter.RiftManager:GetTaskSeason(task.Id)
+    local isUnlock = XDataCenter.RiftManager:CheckSeasonOpen(taskSeason)
+    if not isUnlock then
+        return 3 + taskSeason -- 按赛季索引排序
+    elseif task.State == XDataCenter.TaskManager.TaskState.Achieved then
+        return 1
+    elseif task.State == XDataCenter.TaskManager.TaskState.Active then
+        return 2
+    else
+        return 99
+    end
 end
 
 ---@param grid XDynamicGridTask

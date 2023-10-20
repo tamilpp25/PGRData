@@ -2251,22 +2251,22 @@ end
 
 --     -------------------(服务器推送)begin------------------
 XRpc.NotifyInfestorStatus = function(data)
-    XDataCenter.FubenInfestorExploreManager.NotifyInfestorStatus(data)
+    --XDataCenter.FubenInfestorExploreManager.NotifyInfestorStatus(data)
 end
 
 XRpc.NotifyInfestorDailyReset = function(data)
-    XDataCenter.FubenInfestorExploreManager.NotifyInfestorDailyReset(data)
+    --XDataCenter.FubenInfestorExploreManager.NotifyInfestorDailyReset(data)
 end
 
 XRpc.NotifyInfestorCharacterList = function(data)
-    XDataCenter.FubenInfestorExploreManager.NotifyInfestorCharacterList(data)
+    --XDataCenter.FubenInfestorExploreManager.NotifyInfestorCharacterList(data)
 end
 
 XRpc.NotifyFlopRewardInfoList = function(data)
-    XDataCenter.FubenInfestorExploreManager.NotifyFlopRewardInfoList(data)
+    --XDataCenter.FubenInfestorExploreManager.NotifyFlopRewardInfoList(data)
 end
 
 XRpc.NotifyInfestorPlayerInfoList = function(data)
-    XDataCenter.FubenInfestorExploreManager.NotifyInfestorPlayerInfoList(data)
+    --XDataCenter.FubenInfestorExploreManager.NotifyInfestorPlayerInfoList(data)
 end
 --     -------------------(服务器推送)end------------------

@@ -39,7 +39,7 @@ function XUiRiftLuckStageDetail:RefreshUiShow()
             grid = XUiGridRiftMonsterDetail.New(trans)
             self.GridMonsterDic[k] = grid
         end
-        grid:Refresh(xMonster, self.XStageGroup)
+        grid:Refresh(xMonster, self.XStageGroup, nil, true)
         grid.GameObject:SetActiveEx(true)
     end
     -- 掉落插件

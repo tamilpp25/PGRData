@@ -10,6 +10,7 @@ function XTheatre3Team:Ctor()
 end
 
 function XTheatre3Team:UpdateCardIdsAndRobotIds(cardIds, robotIds)
+    local result = {0, 0, 0}
     for i = 1, 3 do -- 三个槽位
         local id = 0
         if XTool.IsNumberValid(cardIds[i]) then
@@ -17,8 +18,9 @@ function XTheatre3Team:UpdateCardIdsAndRobotIds(cardIds, robotIds)
         elseif XTool.IsNumberValid(robotIds[i]) then
             id = robotIds[i]
         end
-        self:UpdateEntityTeamPos(id, i, true)
+        result[i] = id
     end
+    self:UpdateEntityIds(result)
 end
 
 function XTheatre3Team:Clear()

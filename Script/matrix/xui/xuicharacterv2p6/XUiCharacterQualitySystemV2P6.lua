@@ -62,7 +62,6 @@ function XUiCharacterQualitySystemV2P6:OnEnable()
     local character = self.ParentUi.CurCharacter
     local fragmentItemId = XMVCA.XCharacter:GetCharacterItemId(character.Id)
     self.ParentUi:SetPanelAsset(XDataCenter.ItemManager.ItemId.FreeGem, fragmentItemId, XDataCenter.ItemManager.ItemId.Coin)
-    self.ParentUi.PanelModel:SetCameraQualityActive(true)
 end
 
 -- 不是真的子ui，是panel
@@ -172,7 +171,6 @@ end
 
 function XUiCharacterQualitySystemV2P6:OnDisable()
     self.IsEvoPerform = false
-    self.ParentUi.PanelModel:SetCameraQualityActive(false)
 end
 
 return XUiCharacterQualitySystemV2P6

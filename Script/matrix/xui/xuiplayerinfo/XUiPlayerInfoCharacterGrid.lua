@@ -73,7 +73,7 @@ function XUiPlayerInfoCharacterGrid:UpdateGrid(character, appearanceShowType, as
 
         if not isLocked then
             self.TxtLevel.text = self.Character.Level
-            self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Character.Quality))
+            self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Character.Quality))
             -- 是否为支援角色
             if assistCharacterDetail and self.Character.Id == assistCharacterDetail.Id then
                 self.ImgInSupport.gameObject:SetActiveEx(true)
@@ -88,7 +88,7 @@ function XUiPlayerInfoCharacterGrid:UpdateGrid(character, appearanceShowType, as
         self.ImgInSupport.gameObject:SetActiveEx(false)
 
         self.TxtLevel.text = self.Character.Level
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Character.Quality))
         local headInfo = self.Character.CharacterHeadInfo or {}
         self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.Character.Id, true, headInfo.HeadFashionId, headInfo.HeadFashionType))
 

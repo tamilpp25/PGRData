@@ -184,8 +184,10 @@ function XTurntableControl:SignDontShow72hoursRedPoint()
 end
 
 function XTurntableControl:RequestDrawReward(times, cb)
+    XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.TURNTABLE)
     XNetwork.CallWithAutoHandleErrorCode(RequestProto.TurntableDrawRewardRequest, { Times = times }, function(res)
         if res.Code ~= XCode.Success then
+            XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.TURNTABLE, true)
             XUiManager.TipCode(res.Code)
             return
         end

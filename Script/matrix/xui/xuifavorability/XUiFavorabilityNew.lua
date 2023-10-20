@@ -56,7 +56,7 @@ function XUiFavorabilityNew:OnEnable()
     if self.FavorabilityMain then
         self.FavorabilityMain:UpdateAllInfos()
     end
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
 
     -- 开启时钟
     self.ClockTimer = XUiHelper.SetClockTimeTempFun(self)
@@ -69,7 +69,7 @@ function XUiFavorabilityNew:OnDisable()
     if self.SignBoard then
         self.SignBoard:OnDisable()
     end
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
 
     -- 关闭时钟
     if self.ClockTimer then
@@ -329,7 +329,7 @@ end
 
 function XUiFavorabilityNew:OnCurrentCharacterFavorabilityLevelChanged()
     local characterId = self:GetCurrFavorabilityCharacter()
-    local favorUp = XSignBoardConfigs.GetSignBoardConfigByRoldIdAndCondition(characterId, XSignBoardEventType.FAVOR_UP)
+    local favorUp = XMVCA.XFavorability:GetSignBoardConfigByRoldIdAndCondition(characterId, XEnumConst.Favorability.XSignBoardEventType.FAVOR_UP)
     favorUp = self._Control:FilterSignBoardActionsByFavorabilityUnlock(favorUp)
     if favorUp and #favorUp > 0 and (not self.SignBoard:IsPlaying()) then
         local index = math.random(1, #favorUp)
@@ -437,14 +437,14 @@ end
 -- ===================================================
 
 function XUiFavorabilityNew:PlayRoleActionUiDisableAnim(signBoardid, stopTime)
-    XDataCenter.SignBoardManager.StartBreakTimer(stopTime)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    XMVCA.XFavorability:StartBreakTimer(stopTime)
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
 
 function XUiFavorabilityNew:PlayRoleActionUiEnableAnim(signBoardid)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end

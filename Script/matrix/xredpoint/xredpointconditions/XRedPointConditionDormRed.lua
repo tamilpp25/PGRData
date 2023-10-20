@@ -15,21 +15,21 @@ end
 
 
 function XRedPointConditionDormRed.Check()
-    local red = XRedPointConditionDormWork.Check()
+    local red = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DORM_WORK_RED)
     if red then
         return true
     end
 
-    red = XRedPointConditionFurnitureCreate.Check()
+    red = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FURNITURE_CREATE)
     if red then
         return true
     end
-    red = XRedPointConditionDormTaskType.Check(XDataCenter.TaskManager.TaskType.DormNormal)
-        or XRedPointConditionDormTaskType.Check(XDataCenter.TaskManager.TaskType.DormDaily)
+    red = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DORM_TASK, XDataCenter.TaskManager.TaskType.DormNormal)
+        or XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DORM_TASK, XDataCenter.TaskManager.TaskType.DormDaily)
     if red then
         return true
     end
-    red = XRedPointConditionDormQuestTerminal.Check()
+    red = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DORM_QUEST_TERMINAL)
     if red then
         return true
     end

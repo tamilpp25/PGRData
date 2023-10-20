@@ -23,9 +23,9 @@ function XUiGridPos:ShowGrid(IsShow)
 end
 
 --region Ui - Anim
-function XUiGridPos:ShowRemoveEffect(ballId)
+function XUiGridPos:ShowRemoveEffect(ballId, skillId)
     local battleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
-    local curUsingSkillId = battleManager:GetCurUsingSkillId()
+    local curUsingSkillId = skillId or battleManager:GetCurUsingSkillId()
     local SkillMoveEffectList = self._Control:GetCfgSkillBallRemoveEffect(curUsingSkillId)
     local effectUrl = self._Control:GetClientCfgStringValue("BattleBallRemoveEffect")
 

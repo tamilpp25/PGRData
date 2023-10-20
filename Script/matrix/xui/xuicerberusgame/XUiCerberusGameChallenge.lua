@@ -3,12 +3,12 @@ local XUiGridCerberusGameStage2 = require("XUi/XUiCerberusGame/Grid/XUiGridCerbe
 
 local DicName = 
 {
-    [XCerberusGameConfig.StageDifficulty.Normal] = "GridNormalStageDic",
-    [XCerberusGameConfig.StageDifficulty.Hard] = "GridHardStageDic",
+    [XEnumConst.CerberusGame.StageDifficulty.Normal] = "GridNormalStageDic",
+    [XEnumConst.CerberusGame.StageDifficulty.Hard] = "GridHardStageDic",
 }
 
 function XUiCerberusGameChallenge:OnAwake()
-    self.ChapterId = XDataCenter.CerberusGameManager.GetChapterIdList()[2]  -- 挑战是第二个chapter 写死
+    self.ChapterId = XMVCA.XCerberusGame:GetChapterIdList()[2]  -- 挑战是第二个chapter 写死
     self.GridNormalStageDic = {}
     self.GridHardStageDic = {}
     self.CurrDifficulty = nil
@@ -27,7 +27,7 @@ function XUiCerberusGameChallenge:InitButton()
 end
 
 function XUiCerberusGameChallenge:InitTimes()
-    local timeId = XDataCenter.CerberusGameManager.GetActivityConfig().TimeId
+    local timeId = XMVCA.XCerberusGame:GetActivityConfig().TimeId
     if not timeId then
         return
     end
@@ -51,7 +51,7 @@ function XUiCerberusGameChallenge:OnSelected(targetIndex)
         return
     end
 
-    if targetIndex == XCerberusGameConfig.StageDifficulty.Hard and self:GetDifficultyIsLock(targetIndex) then
+    if targetIndex == XEnumConst.CerberusGame.StageDifficulty.Hard and self:GetDifficultyIsLock(targetIndex) then
         XUiManager.TipError(CS.XTextManager.GetText("CerbrusGameChallengeLimit"))
         return
     end
@@ -75,7 +75,7 @@ function XUiCerberusGameChallenge:OnSelected(targetIndex)
 end
 
 function XUiCerberusGameChallenge:RefreshStageList(difficulty)
-    local bossList = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameBoss)
+    local bossList = XMVCA.XCerberusGame:GetModelCerberusGameBoss()
     for k, v in pairs(bossList) do
         local stageId = v.StageId[difficulty]
         if stageId then
@@ -112,14 +112,14 @@ function XUiCerberusGameChallenge:RefreshButtonState()
 end
 
 function XUiCerberusGameChallenge:GetDifficultyIsLock(difficulty)
-    local bossList = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameBoss)
+    local bossList = XMVCA.XCerberusGame:GetModelCerberusGameBoss()
     local stageList = {}
     for k, v in pairs(bossList) do
         table.insert(stageList, v.StageId[difficulty])
     end
 
     for k, stageId in pairs(stageList) do
-        local xStage = XDataCenter.CerberusGameManager.GetXStageById(stageId)
+        local xStage = XMVCA.XCerberusGame:GetXStageById(stageId)
         if xStage:GetIsOpen() then
             return false
         end
@@ -129,9 +129,9 @@ function XUiCerberusGameChallenge:GetDifficultyIsLock(difficulty)
 end
 
 function XUiCerberusGameChallenge:OnGridStoryPointClick(stageId, bossIndex)
-    local xStage = XDataCenter.CerberusGameManager.GetXStageById(stageId)    
+    local xStage = XMVCA.XCerberusGame:GetXStageById(stageId)    
     if not xStage:GetIsOpen() then
-        local preStageId = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameChallenge)[stageId].PreStageId
+        local preStageId = XMVCA.XCerberusGame:GetModelCerberusGameChallenge()[stageId].PreStageId
         local preStageCfg = XDataCenter.FubenManager.GetStageCfg(preStageId)
         XUiManager.TipError(CS.XTextManager.GetText("FubenPreStage", preStageCfg.Name))
         return

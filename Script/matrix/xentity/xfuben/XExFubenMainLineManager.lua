@@ -164,9 +164,16 @@ function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, diffic
     if subChapterId ~= nil and subChapterId > 0 then
         result = CreateAnonClassInstance({
             CheckHasRedPoint = function(proxy)
-                return XRedPointConditionChapterReward.Check(proxy:GetId())
+                return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAINLINE_CHAPTER_REWARD, proxy:GetId())
             end,
             CheckHasNewTag = function(proxy)
+                local hideId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterMainId, XDataCenter.FubenMainLineManager.DifficultHard)
+                if XTool.IsNumberValid(hideId) then
+                    local hideNew = XDataCenter.FubenMainLineManager.CheckChapterNew(hideId)
+                    local normalNew = XDataCenter.FubenMainLineManager.CheckChapterNew(proxy:GetId())
+                    return hideNew or normalNew
+                end
+
                 return XDataCenter.FubenMainLineManager.CheckChapterNew(proxy:GetId())
             end,
             CheckIsPassed = function(proxy)

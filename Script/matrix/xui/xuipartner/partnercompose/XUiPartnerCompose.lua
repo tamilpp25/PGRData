@@ -52,10 +52,10 @@ function XUiPartnerCompose:OnBtnComposeClick()
 end
 
 function XUiPartnerCompose:OnBtnGetClick()
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    return
+    --end
 
     local useItemId = self.Data:GetChipItemId()
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(useItemId))

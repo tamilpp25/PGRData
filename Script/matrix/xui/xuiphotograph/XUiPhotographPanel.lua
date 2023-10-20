@@ -100,7 +100,7 @@ function XUiPhotographPanel:OnSelectMenuBtn(index, isDefault)
         self.DynamicTableOther:ReloadDataASync()
     elseif index == MenuBtnType.Action then
         self.PanelOtherList.gameObject:SetActiveEx(true)
-        self.ActionList = XFavorabilityConfigs.GetCharacterActionById(self.CurCharId) or {}
+        self.ActionList = XMVCA.XFavorability:GetCharacterActionById(self.CurCharId) or {}
         self.DynamicTableOther:SetDataSource(self.ActionList)
         self.DynamicTableOther:ReloadDataASync(self.CurActionIndex)
     elseif index == MenuBtnType.Partner then

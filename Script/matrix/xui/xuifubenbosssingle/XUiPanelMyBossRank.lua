@@ -70,6 +70,10 @@ end
 
 function XUiPanelMyBossRank:SetData(rankMyData)
     self.RankMyData = rankMyData    
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 return XUiPanelMyBossRank

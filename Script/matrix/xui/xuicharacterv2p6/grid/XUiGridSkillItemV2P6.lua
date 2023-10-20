@@ -14,7 +14,7 @@ end
 function XUiGridSkillItemV2P6:UpdateEnhanceSkillInfo(characterId, skillInfo)
     self.Btn:SetNameByGroup(0, skillInfo.Name)
     self.Btn:SetRawImage(skillInfo.Icon)
-    local isShowRed = XRedPointManager.CheckConditions({ XRedPointConditions.Types.CONDITION_CHARACTER_ENHANCESKILL }, characterId)
+    local isShowRed = XRedPointManager.CheckConditions({ XRedPointConditions.Types.CONDITION_CHARACTER_ENHANCESKILL, XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS }, characterId)
     self.Btn:ShowReddot(isShowRed)
 end
 

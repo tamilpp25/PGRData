@@ -11,7 +11,7 @@ function XUiGridCerberusGameStage2:Ctor(ui, index, rootui)
 end
 
 function XUiGridCerberusGameStage2:Refresh(stageId, bossCfg)
-    local xStage = XDataCenter.CerberusGameManager.GetXStageById(stageId)
+    local xStage = XMVCA.XCerberusGame:GetXStageById(stageId)
     self.XStage = xStage
     if self.PanelStageLock then
         self.PanelStageLock.gameObject:SetActiveEx(not xStage:GetIsOpen())
@@ -37,7 +37,7 @@ function XUiGridCerberusGameStage2:Refresh(stageId, bossCfg)
         starCount = MaxStarCount
     end 
 
-    local iconPath = CS.XGame.ClientConfig:GetString(XCerberusGameConfig.ChallengeStageStar[starCount])
+    local iconPath = CS.XGame.ClientConfig:GetString(XEnumConst.CerberusGame.ChallengeStageStar[starCount])
     if self.Progress then
         self.Progress:SetRawImage(iconPath)
     end

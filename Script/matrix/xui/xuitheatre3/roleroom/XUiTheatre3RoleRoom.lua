@@ -29,6 +29,7 @@ function XUiTheatre3RoleRoom:OnStart(isBattle,isStartAdventure)
     self._GraphicRaycaster = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane", "GraphicRaycaster")
 
     self:InitCompnent()
+    self._IsDirty = false
 end
 
 function XUiTheatre3RoleRoom:OnEnable()
@@ -47,6 +48,7 @@ function XUiTheatre3RoleRoom:OnDisable()
     if self._EnableTimer then
         XScheduleManager.UnSchedule(self._EnableTimer)
     end
+    self._IsDirty = true
 end
 
 function XUiTheatre3RoleRoom:InitCompnent()
@@ -132,7 +134,13 @@ end
 
 function XUiTheatre3RoleRoom:OnBattle()
     if not self._IsStartAdventure and not self._IsBattle then
-        self:Close()
+        if self._IsDirty then
+            self._Control:RequestSetTeam(function()
+                self:Close()
+            end)
+        else
+            self:Close()
+        end
         return
     end
     

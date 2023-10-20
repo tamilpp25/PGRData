@@ -359,7 +359,7 @@ end
 --================
 function XRpgTowerCharacter:GetCharaQualityIcon()
     local cfg = XRobotManager.GetRobotTemplate(self.RobotId)
-    return XCharacterConfigs.GetCharacterQualityIcon(cfg.CharacterQuality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(cfg.CharacterQuality)
 end
 --================
 --获取角色天赋类型

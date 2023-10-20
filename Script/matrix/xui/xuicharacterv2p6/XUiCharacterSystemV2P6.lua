@@ -3,10 +3,6 @@ local XUiPanelModelV2P6 = require("XUi/XUiCharacterV2P6/Grid/XUiPanelModelV2P6")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 function XUiCharacterSystemV2P6:OnAwake()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    
     self.OpenChildStack = XStack.New()
     self.CurCharacter = nil --所有的子界面都通过该字段同步、获取角色
     self.FilterCurSelectTagBtnName = nil --同步子界面的筛选器标签。子界面切换了标签后，成员界面的标签也要切换
@@ -46,6 +42,15 @@ function XUiCharacterSystemV2P6:SetCurCharacter(char)
     if not char then
         return
     end
+
+    -- 如果跳转出去抽出了角色，回来需要刷新数据。因为如果不刷新，使用的还是筛选器缓存的数据，筛选器的数据是导入时的数据，不是最新的
+    -- 并且监听获取新角色的数据只在Onenable的时候注册了，抽卡的时候是无法监听刷新的。只能通过返回来时触发OnEnable，Onenable再次SetCurCharacter的时候刷新
+    local isFragment = XMVCA.XCharacter:CheckIsFragment(char.Id)  
+    if not isFragment then
+        self.CurCharacter = XMVCA.XCharacter:GetCharacter(char.Id)
+        return
+    end
+
     self.CurCharacter = char
 end
 
@@ -61,7 +66,7 @@ function XUiCharacterSystemV2P6:RefreshRoleModel(cb)
     local subCb = function (model)
         -- 切换特效 只有换人才播放
         if model ~= self.CurModelTransform then
-            if self.CharacterAgency:GetIsIsomer(self.CurCharacter.Id) then
+            if XMVCA.XCharacter:GetIsIsomer(self.CurCharacter.Id) then
                 self.PanelModel.ImgEffectHuanren1.gameObject:SetActiveEx(true)
             else
                 self.PanelModel.ImgEffectHuanren.gameObject:SetActiveEx(true)

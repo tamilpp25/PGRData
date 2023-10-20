@@ -6,7 +6,7 @@ function XFightUtil.ClearFight()
         CS.XFight.ClearFight()
     end
     if CS.StatusSyncFight.XFightClient.FightInstance ~= nil then
-        CS.StatusSyncFight.XFightClient.OnExitFight(true)
+        CS.StatusSyncFight.XFightClient.ExitFight(true, true)
     end
 end
 

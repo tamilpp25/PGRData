@@ -13,7 +13,7 @@ function XArchiveNpcEntity:UpdateData(playerData)
 end
 
 function XArchiveNpcEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveStoryNpcConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveStoryNpcConfigById(self.Id)
 end
 
 function XArchiveNpcEntity:GetId()

@@ -107,33 +107,7 @@ XNewbieTaskManagerCreator = function()
             return elements[1]
         end
 
-        --获取权重总和
-        local sum = 0
-        for _, v in ipairs(elements) do
-            sum = sum + v.Weight
-        end
-
-        --设置随机数种子
-        math.randomseed(os.time())
-
-        --随机数加上权重，越大的权重，数值越大
-        local weightList = {}
-        for i, v in ipairs(elements) do
-            local rand = math.random(0, sum)
-            local seed = {}
-            seed.Index = i
-            seed.Weight = rand + v.Weight
-            table.insert(weightList, seed)
-        end
-
-        --排序
-        table.sort(weightList, function(x, y)
-            return x.Weight > y.Weight
-        end)
-
-        --返回最大的权重值
-        local index = weightList[1].Index
-        return elements[index]
+        return XTool.WeightRandomSelect(elements)
     end
     
     -- 获取进度奖励

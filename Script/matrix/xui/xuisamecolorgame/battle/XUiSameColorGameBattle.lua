@@ -50,6 +50,7 @@ end
 
 function XUiSameColorGameBattle:OnDestroy()
     self:OnDestroyScene()
+    XDataCenter.SameColorActivityManager.StopRecordRunningTime()
 end
 
 --region Data - Boss
@@ -144,7 +145,8 @@ function XUiSameColorGameBattle:CloseMusicVolume(isClose, isNotSave)
     if isClose then
         CSXAudioManager.StopMusic()
     else
-        CSXAudioManager.PlayMusic(XEnumConst.SAME_COLOR_GAME.SOUND.BATTLE_BG)
+        local musicId = self._Control:GetCfgBossBattleBgmCueId()
+        CSXAudioManager.PlayMusic(musicId and musicId or XEnumConst.SAME_COLOR_GAME.SOUND.BATTLE_BG)
     end
 
     if isNotSave then return end

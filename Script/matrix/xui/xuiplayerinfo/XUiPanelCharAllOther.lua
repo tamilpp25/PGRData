@@ -60,7 +60,7 @@ function XUiPanelCharAllOther:UpdatePanel(character, weapon, awareness, partner)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
     self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     self.ImgUniframe.gameObject:SetActiveEx(self.CharacterAgency:GetIsIsomer(character.Id))
 
     local ability = self.CharacterAgency:GetCharacterAbilityOther(character, self.EquipList, self.AssignChapterRecords, partner)

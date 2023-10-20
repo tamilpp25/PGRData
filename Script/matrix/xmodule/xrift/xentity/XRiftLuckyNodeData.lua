@@ -7,6 +7,7 @@ function XRiftLuckyNodeData:Ctor()
     self._LuckyValue = 0
     self._AllMonsters = {}
     self._MaxLuckyValue = XDataCenter.RiftManager:GetMaxLuckyValue()
+    self._PassTime = 0
 end
 
 function XRiftLuckyNodeData:RefreshNode(data)
@@ -73,6 +74,14 @@ end
 function XRiftLuckyNodeData:GetLuckMonster()
     local stageId = self:GetLuckStageId()
     return XDataCenter.RiftManager:GetMonsterByStageId(stageId)
+end
+
+function XRiftLuckyNodeData:SetPassTime(time)
+    self._PassTime = time
+end
+
+function XRiftLuckyNodeData:GetPassTime()
+    return self._PassTime
 end
 
 return XRiftLuckyNodeData

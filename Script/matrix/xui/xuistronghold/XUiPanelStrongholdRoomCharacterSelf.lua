@@ -40,6 +40,7 @@ function XUiPanelStrongholdRoomCharacterSelf:Hide()
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:Show(teamList, teamId, memberIndex, groupId, isSelectIsomer, pos)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
     self.TeamId = teamId
     self.MemberIndex = memberIndex

@@ -71,7 +71,7 @@ function XUiGridTeamRole:SetHave(chrId)
     end
     
     self.ImgIcon:SetSprite(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
-    self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 end
 
 function XUiGridTeamRole:Refresh(curPos, teamData, characterLimitType, limitBuffId)

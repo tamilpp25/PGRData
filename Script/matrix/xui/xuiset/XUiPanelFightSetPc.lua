@@ -100,6 +100,7 @@ end
 
 function XUiPanelFightSetPc:UpdatePanel()
     if self.CurPageType == self.PageType.Touch then
+        self.Parent.BtnSave.gameObject:SetActiveEx(true)
         self.Parent.BtnDefault.gameObject:SetActiveEx(true)
     elseif self.CurPageType == self.PageType.GameController then
         local enableInputJoystick = XInputManager.EnableInputJoystick

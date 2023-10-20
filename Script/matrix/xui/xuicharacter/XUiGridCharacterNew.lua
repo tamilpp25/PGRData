@@ -65,7 +65,7 @@ end
 function XUiGridCharacterNew:UpdateOwnInfo()
     self.TxtLevel.text = self.Character.Level
     self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(self.Character.Id, self.Character.Grade or XDataCenter.CharacterManager.GetCharacterGrade(self.Character.Id)))
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(self.Character.Id)))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(self.Character.Id)))
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.Character.Id))
     if self.IconEquipGuide then
         self.IconEquipGuide.gameObject:SetActiveEx(XDataCenter.EquipGuideManager.IsEquipGuideCharacter(self.Character.Id))

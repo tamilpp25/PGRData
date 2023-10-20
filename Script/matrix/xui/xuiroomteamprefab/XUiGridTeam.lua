@@ -49,9 +49,7 @@ function XUiGridTeam:AddListener()
     end
 
     local func
-    if self:IsChessPursuit() then
-        func = handler(self, self.OnChessPursuitBtnChoicesClick)
-    elseif self:IsPivotCombat() then
+    if self:IsPivotCombat() then
         func = handler(self, self.OnPivotCombatBtnChoicesClick)
     else
         func = handler(self, self.OnSelectCallback)
@@ -253,32 +251,6 @@ function XUiGridTeam:OnPivotCombatBtnChoicesClick()
     else
         self:OnSelectCallback()
     end
-end
-
-function XUiGridTeam:OnChessPursuitBtnChoicesClick()
-    local isInOtherTeam = false
-    local isInOtherTeamTemp, teamGridIndex, teamIndex, inOtherTeamCharId
-    local teamData = XTool.Clone(self.TeamData.TeamData)
-    table.sort(teamData, function(charIdA, charIdB)
-        return charIdA < charIdB
-    end)
-    for _, charId in ipairs(teamData) do
-        isInOtherTeamTemp, teamGridIndex = XDataCenter.ChessPursuitManager.CheckIsInChessPursuit(nil, charId, self.TeamGridId)
-        if isInOtherTeamTemp then
-            inOtherTeamCharId = charId
-            isInOtherTeam = true
-            break
-        end
-    end
-    if isInOtherTeam then
-        local name = XMVCA.XCharacter:GetCharacterFullNameStr(inOtherTeamCharId)
-        local content = CSXTextManagerGetText("ChessPursuitUsePrefabTipsContent", name, teamGridIndex)
-        content = string.gsub(content, " ", "\u{00A0}") --不换行空格
-        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, function() self:OnSelectCallback() end)
-        return
-    end
-
-    self:OnSelectCallback()
 end
 
 function XUiGridTeam:OnBtnChoicesClick()
@@ -505,10 +477,6 @@ function XUiGridTeam:IsSameTeam(teamData)
     end
     
     return true
-end
-
-function XUiGridTeam:IsChessPursuit()
-    return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
 end
 
 --==============================

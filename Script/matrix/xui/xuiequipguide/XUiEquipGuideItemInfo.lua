@@ -32,7 +32,7 @@ function XUiEquipGuideItemInfo:InitView()
                     grid.TxtDescription.text = tmp.Name
                 end
         )
-        self.TxtType.text = XArchiveConfigs.GetWeaponGroupName(XDataCenter.EquipManager.GetEquipTypeByTemplateId(self.Id))
+        self.TxtType.text = XMVCA.XArchive:GetWeaponGroupName(XDataCenter.EquipManager.GetEquipTypeByTemplateId(self.Id))
         self.ImgQuality:SetSprite(XDataCenter.EquipManager.GetEquipQualityPath(self.Id))
     elseif self.EquipType == XEquipGuideConfigs.EquipType.Suit then --意识
         local template = XEquipConfig.GetEquipSuitCfg(self.Id)

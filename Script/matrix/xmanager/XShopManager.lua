@@ -39,6 +39,7 @@ XShopManager.ShopType = {
     Common = 1, -- 普通商店
     Activity = 2, -- 活动商店
     Points = 3, -- 活动商店
+    Recharge = 4, -- 累充商店
     Dorm = 101,
     Boss = 102,
     Arena = 103,
@@ -105,6 +106,13 @@ XShopManager.DecompositionShopId = {
         [5] = 405,
         [6] = 406,
     }
+}
+
+--累充商店分类
+XShopManager.RechargeShopType = {
+    CharacterShop = 1001,
+    EquipShop = 1002,
+    PartnerShop = 1003,
 }
 
 function XShopManager.ClearBaseInfoData()
@@ -556,6 +564,10 @@ function XShopManager.GetShopInfo(shopId, cb, pleaseDoNotTip)
 
     XNetwork.Call(METHOD_NAME.GetShopInfo, { Id = shopId }, function(res)
         if res.Code ~= XCode.Success then
+            if res.Code == XCode.ItemCountNotEnough then
+                XEventManager.DispatchEvent(XEventId.EVENT_SHOP_ITEM_NOT_ENOUGH, res.Code, shopId, ShopDict[shopId] ~= nil)
+                return
+            end
             if not pleaseDoNotTip then
                 XUiManager.TipCode(res.Code)
             end

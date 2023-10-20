@@ -509,8 +509,8 @@ function XGoodsCommonManager.GetGoodsCurrentCount(templateId)
     --战区贡献道具不在背包，需要特殊处理
     if templateId == XArenaConfigs.CONTRIBUTESCORE_ID then
         return XDataCenter.ArenaManager.GetContributeScore()
-    elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
-        return XDataCenter.ChessPursuitManager.GetSumCoinCount()
+    --elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
+    --    return XDataCenter.ChessPursuitManager.GetSumCoinCount()
     elseif templateId == XDataCenter.StrongholdManager.GetBatteryItemId() then
         return XDataCenter.StrongholdManager.GetTotalElectricEnergy()
     --elseif templateId == XDataCenter.ReformActivityManager.GetScoreItemId() then

@@ -150,7 +150,7 @@ function XPartnerBase:GetStoryEntityList()
     for _,entity in pairs(self.StoryEntityDic or {}) do
         table.insert(list, entity)
     end
-    return XArchiveConfigs.SortByOrder(list)
+    return XMVCA.XArchive:SortByOrder(list)
 end
 
 function XPartnerBase:GetSettingEntityList()
@@ -158,7 +158,7 @@ function XPartnerBase:GetSettingEntityList()
     for _,entity in pairs(self.StorySettingDic or {}) do
         table.insert(list, entity)
     end
-    return XArchiveConfigs.SortByOrder(list)
+    return XMVCA.XArchive:SortByOrder(list)
 end
 
 return XPartnerBase

@@ -11,6 +11,7 @@ local Default = {
     _CostElectric = 0, --总消耗电能
 }
 
+---@class XStrongholdPlugin
 local XStrongholdPlugin = XClass(nil, "XStrongholdPlugin")
 
 function XStrongholdPlugin:Ctor(id)

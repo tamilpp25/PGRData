@@ -1,47 +1,41 @@
-local XUiGridStrongholdBuff = require("XUi/XUiStronghold/XUiGridStrongholdBuff")
-
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
-local CSXTextManagerGetText = CS.XTextManager.GetText
 
-local INTERVAL = XScheduleManager.SECOND
-
+---@class XUiStrongholdAnimation : XLuaUi
 local XUiStrongholdAnimation = XLuaUiManager.Register(XLuaUi, "UiStrongholdAnimation")
 
 function XUiStrongholdAnimation:OnAwake()
-    self.GridBuffBase.gameObject:SetActiveEx(false)
     self.GridBuffBoss.gameObject:SetActiveEx(false)
+    self:RegisterClickEvent(self.BtnClose, self.OnClickClose)
 end
 
 function XUiStrongholdAnimation:OnStart(groupId, closeCb)
     self.CloseCb = closeCb
     self.BossBuffGrids = {}
-    self.BaseBuffGrids = {}
 
     self.TxtNameTitle.text = XStrongholdConfigs.GetGroupName(groupId)
-    local isClickBtnUseDialog = true
 
     --据点BossBuff
     local bossBuffIds = XDataCenter.StrongholdManager.GetGroupBossBuffIds(groupId)
     local showBossBuff = #bossBuffIds > 0
     self.PanelBossBuffs.gameObject:SetActiveEx(showBossBuff)
 
-    local isBossBuff = true
     for index, buffId in ipairs(bossBuffIds) do
+        ---@type XUiGridStrongholdAnimation
         local grid = self.BossBuffGrids[index]
         if not grid then
             local go = index == 1 and self.GridBuffBoss or CSUnityEngineObjectInstantiate(self.GridBuffBoss, self.PanelBossBuffs)
-            grid = XUiGridStrongholdBuff.New(go, nil, nil, handler(self, self.StopTimes), handler(self, self.StartTimes), isClickBtnUseDialog)
+            grid = require("XUi/XUiStronghold/Grid/XUiGridStrongholdAnimation").New(go, self)
             self.BossBuffGrids[index] = grid
         end
 
-        grid:Refresh(buffId, isBossBuff)
-        grid.GameObject:SetActiveEx(true)
+        grid:Refresh(buffId, true)
+        grid:Open()
     end
 
     for index = #bossBuffIds + 1, #self.BossBuffGrids do
         local grid = self.BossBuffGrids[index]
         if grid then
-            grid.GameObject:SetActiveEx(false)
+            grid:Close()
         end
     end
 
@@ -50,56 +44,27 @@ function XUiStrongholdAnimation:OnStart(groupId, closeCb)
     local showBaseBuff = #baseBuffIds > 0
     self.PanelBaseBuffs.gameObject:SetActiveEx(showBaseBuff)
 
-    local isBossBuff = false
-    for index, buffId in ipairs(baseBuffIds) do
-        local grid = self.BaseBuffGrids[index]
-        if not grid then
-            local go = index == 1 and self.GridBuffBase or CSUnityEngineObjectInstantiate(self.GridBuffBase, self.PanelBaseBuffs)
-            grid = XUiGridStrongholdBuff.New(go, nil, nil, handler(self, self.StopTimes), handler(self, self.StartTimes), isClickBtnUseDialog)
-            self.BaseBuffGrids[index] = grid
-        end
-
-        grid:Refresh(buffId, isBossBuff)
-        grid.GameObject:SetActiveEx(true)
-    end
-
-    for index = #baseBuffIds + 1, #self.BaseBuffGrids do
-        local grid = self.BaseBuffGrids[index]
-        if grid then
-            grid.GameObject:SetActiveEx(false)
+    for i = 1, 3 do
+        local go = self["GridBuffBase" .. i]
+        if go then
+            local buffId = baseBuffIds[i]
+            ---@type XUiGridStrongholdAnimation
+            local grid = require("XUi/XUiStronghold/Grid/XUiGridStrongholdAnimation").New(go, self)
+            if XTool.IsNumberValid(buffId) then
+                grid.GridBuffBoss.gameObject:SetActiveEx(true)
+                grid.ImgVacant.gameObject:SetActiveEx(false)
+                grid:Refresh(buffId, false)
+            else
+                grid.GridBuffBoss.gameObject:SetActiveEx(false)
+                grid.ImgVacant.gameObject:SetActiveEx(true)
+            end
         end
     end
-
-    self.TimeSecond = XStrongholdConfigs.GetCommonConfig("UiStrongholdAnimationCloseTime")
-    self:StartTimes()
 end
 
-function XUiStrongholdAnimation:OnDisable()
-    self:StopTimes()
-end
-
-function XUiStrongholdAnimation:StartTimes()
-    self:StopTimes()
-    self.TxtTime.text = CSXTextManagerGetText("StrongholdAnimationClose", self.TimeSecond)
-    self.Times = XScheduleManager.ScheduleForever(function()
-        self.TimeSecond = self.TimeSecond - 1
-        if self.TimeSecond == 0 then
-            self.CloseCb()
-            return
-        end
-
-        if self.TimeSecond < 0 then
-            self:Close()
-            return
-        end
-
-        self.TxtTime.text = CSXTextManagerGetText("StrongholdAnimationClose", self.TimeSecond)
-    end, INTERVAL)
-end
-
-function XUiStrongholdAnimation:StopTimes()
-    if self.Times then
-        XScheduleManager.UnSchedule(self.Times)
-        self.Times = nil
+function XUiStrongholdAnimation:OnClickClose()
+    self:Close()
+    if self.CloseCb then
+        self.CloseCb()
     end
 end

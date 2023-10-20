@@ -460,38 +460,38 @@ end
 
 -- 匹配成功：队长队员处理：收下收到的数据
 XRpc.UnionKillMatchNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncMatchData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncMatchData(notifyData)
 end
 
 -- 踢出队伍：一般只有队员能收到，队长变为队员也能收到
 XRpc.UnionKillKickOutNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncKickOutData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncKickOutData(notifyData)
 end
 
 -- 同步玩家数据变化：队长？状态？角色？拆分成3条,减少数据同步量
 XRpc.UnionKillTeamLeaderChangeNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncRoomLeaderData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncRoomLeaderData(notifyData)
 end
 
 XRpc.UnionKillTeamPlayerStatusChangeNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncPlayerStatusData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncPlayerStatusData(notifyData)
 end
 
 XRpc.UnionKillTeamPlayerFightNpcChangeNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncPlayerFightNpcData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncPlayerFightNpcData(notifyData)
 end
 
 -- 玩家加入：队长队员的处理：新增加入队员的数据->刷新界面
 XRpc.UnionKillPlayerEnterNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncPlayerEnterData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncPlayerEnterData(notifyData)
 end
 
 -- 玩家离队：队长队员的处理：清除离队队员的数据->刷新界面
 XRpc.UnionKillPlayerLeaveNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncPlayerLeaveData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncPlayerLeaveData(notifyData)
 end
 
 -- 快速匹配数据同步
 XRpc.UnionKillAutoMatchChangeNotify = function(notifyData)
-    XDataCenter.FubenUnionKillRoomManager.SyncAutoMatchData(notifyData)
+    --XDataCenter.FubenUnionKillRoomManager.SyncAutoMatchData(notifyData)
 end

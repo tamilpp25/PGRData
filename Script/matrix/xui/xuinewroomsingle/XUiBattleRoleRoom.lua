@@ -41,7 +41,6 @@ function XUiBattleRoleRoom:OnAwake()
     -- 重定义 end
     self.FubenManager = XDataCenter.FubenManager
     self.TeamManager = XDataCenter.TeamManager
-    self.FavorabilityManager = XDataCenter.FavorabilityManager
     -- XTeam
     self.Team = nil
     self.StageId = nil
@@ -172,7 +171,7 @@ end
 
 function XUiBattleRoleRoom:OnDisable()
     XUiBattleRoleRoom.Super.OnDisable(self)
-    self.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 function XUiBattleRoleRoom:OnDestroy()
@@ -182,7 +181,7 @@ function XUiBattleRoleRoom:OnDestroy()
         and self.ChildPanelData.instanceProxy.OnDestroy then
         self.ChildPanelData.instanceProxy:OnDestroy()
     end
-    self.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 
     for k, cuteRandomControllers in pairs(self.CuteRandomControllers) do
         if cuteRandomControllers then
@@ -267,26 +266,26 @@ function XUiBattleRoleRoom:OnBtnTeamPrefabClicked()
         if signalCode ~= XSignalCode.SUCCESS then return end
         teamData = self.Proxy:FilterPresetTeamEntitiyIds(teamData)
         local playEntityId = 0
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         -- 优先队长音效
         local captainEntityId = teamData.TeamData[teamData.CaptainPos]
         -- PS:这里GetCaptainPos初版应该写错了，刚好造成设置队伍预设时导致永远播放预设中的队长进场音效
         -- 如果改回GetCaptainPosEntityId应该是符合初版的逻辑：队长音效优先，按顺序队员。后面如果有相关反馈，可以和策划对下用哪个逻辑即可。
         if captainEntityId ~= self.Team:GetCaptainPos() then
             playEntityId = captainEntityId
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         else -- 其次队员音效
             for pos, newEntityId in ipairs(teamData.TeamData) do
                 if self.Team:GetEntityIdByTeamPos(pos) ~= newEntityId then
                     playEntityId = newEntityId
-                    soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+                    soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
                     break
                 end
             end
         end
         self.Team:UpdateFromTeamData(teamData)
         if playEntityId <= 0 then return end
-        self.FavorabilityManager.PlayCvByType(self.Proxy:GetCharacterIdByEntityId(playEntityId)
+        XMVCA.XFavorability:PlayCvByType(self.Proxy:GetCharacterIdByEntityId(playEntityId)
         , soundType)
     end)
 end
@@ -406,11 +405,11 @@ function XUiBattleRoleRoom:OnBtnCharacterClicked(index)
         if oldEntityId == newEntityId then return end
         if self.Team:GetEntityIdByTeamPos(index) <= 0 then return end
         -- 播放音效
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         if self.Team:GetCaptainPos() == index then
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         end
-        self.FavorabilityManager.PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId)
+        XMVCA.XFavorability:PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId)
         , soundType)
 
         -- 播放脚底选中特效

@@ -204,7 +204,7 @@ function XUiEquipDetailOther:UpdateEquipInfo()
     self.TxtWeaponType.gameObject:SetActiveEx(self.IsWeapon)
     if self.IsWeapon then 
         local equipType = XMVCA:GetAgency(ModuleId.XEquip):GetEquipType(self.TemplateId)
-        local weaponGroupCfg = XArchiveConfigs.GetWeaponGroupByType(equipType)
+        local weaponGroupCfg = XMVCA.XArchive:GetWeaponGroupByType(equipType)
         self.TxtWeaponType.text = weaponGroupCfg and weaponGroupCfg.GroupName or ""
     end
 end

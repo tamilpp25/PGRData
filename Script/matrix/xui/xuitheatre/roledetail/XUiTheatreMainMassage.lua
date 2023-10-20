@@ -31,10 +31,9 @@ function XUiTheatreMainMassage:Init()
     self.AdventureManager = XDataCenter.TheatreManager.GetCurrentAdventureManager()
     
     self:InitPanelAsset()
-    self:InitFilter()
     self:InitRoleDetail()
-    
     self:InitModel()
+    self:InitFilter()
 end
 
 --region Data - Getter

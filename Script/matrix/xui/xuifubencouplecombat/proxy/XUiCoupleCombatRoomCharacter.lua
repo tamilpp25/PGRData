@@ -225,7 +225,7 @@ end
 
 function XUiCoupleCombatRoomCharacter.OnResetEvent()
     XLuaUiManager.RunMain()
-    XDataCenter.FubenHackManager.OnActivityEnd()
+    --XDataCenter.FubenHackManager.OnActivityEnd()
 end
 
 return XUiCoupleCombatRoomCharacter

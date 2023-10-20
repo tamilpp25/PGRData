@@ -71,6 +71,7 @@ XFunctionManager.FunctionName = {
     ShopCommon = 1001, --普通商店
     ShopActive = 1002, --活动商店
     ShopPoints = 1003, --积分商店
+    ShopRecharge = 1004, --累充商店
     Dispatch = 1201, --派遣
     BountyTask = 1301, --赏金
     MaintainerAction = 1302, --维持者行动（大富翁）
@@ -223,6 +224,7 @@ XFunctionManager.FunctionName = {
     Theatre3 = 10453, -- 肉鸽3.0
     BlackRockChess = 10455, -- 国际战棋
     Turntable = 10454, -- 夏日幸运星
+    RogueSim = 10457, -- 肉鸽模拟经营
 }
 
 XFunctionManager.FunctionType = {
@@ -526,8 +528,8 @@ function XFunctionManager.CheckSkipActivityOpen()
 
     if stageType == stageTypes.Mainline then
         return XDataCenter.FubenMainLineManager.IsMainLineActivityOpen()
-    elseif stageType == stageTypes.ActivtityBranch then
-        return XDataCenter.FubenActivityBranchManager.IsOpen()
+    --elseif stageType == stageTypes.ActivtityBranch then
+    --    return XDataCenter.FubenActivityBranchManager.IsOpen()
     elseif stageType == stageTypes.ActivityBossSingle then
         return XDataCenter.FubenActivityBossSingleManager.IsOpen()
     end

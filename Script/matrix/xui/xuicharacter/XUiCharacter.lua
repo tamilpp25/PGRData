@@ -148,7 +148,7 @@ function XUiCharacter:OnDestroy()
     self.FiltSortListTypeDic = nil
     XDataCenter.CommonCharacterFiltManager.ClearCacheData() --清除筛选缓存数据
     --界面销毁如果有正在播放的角色语音，则停止播放
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 
     if self.CuteRandomController then
         self.CuteRandomController:Stop()

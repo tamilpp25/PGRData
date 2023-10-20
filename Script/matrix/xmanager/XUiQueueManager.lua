@@ -12,6 +12,29 @@ XUiQueueManagerCreator = function()
         XLog.Error(_TimerTimeOut)
     end
 
+    function XUiQueueManager.CallFunc(uiName, func, ...)
+        if _Queue:IsEmpty() then
+            func(...)
+            local element = {
+                UiName = uiName,
+                Func = func,
+                IsOpened = true,
+            }
+            _Queue:Enqueue(element)
+            XUiQueueManager._StartListen()
+            return
+        end
+
+        local element = {
+            UiName = uiName,
+            Func = func,
+            PackData = table.pack(...),
+            IsOpened = false,
+        }
+        _Queue:Enqueue(element)
+        XUiQueueManager._StartListen()
+    end
+
     function XUiQueueManager.Open(uiName, ...)
         if _Queue:IsEmpty() then
             XLuaUiManager.Open(uiName, ...)
@@ -56,17 +79,22 @@ XUiQueueManagerCreator = function()
             return
         end
         nextElement.IsOpened = true
-        if nextElement.PackData then
-            XLuaUiManager.Open(nextElement.UiName, table.unpack(nextElement.PackData))
+        if nextElement.Func then
+            nextElement.Func(table.unpack(nextElement.PackData))
+            nextElement.Func = nil
         else
-            XLuaUiManager.Open(nextElement.UiName)
+            if nextElement.PackData then
+                XLuaUiManager.Open(nextElement.UiName, table.unpack(nextElement.PackData))
+            else
+                XLuaUiManager.Open(nextElement.UiName)
+            end
         end
     end
 
-    function XUiQueueManager._OnUiDestroy(uiName)
+    function XUiQueueManager._OnUiChanged()
         ---@type XUiQueueElement
         local element = _Queue:Peek()
-        if element and element.UiName == uiName then
+        if element and not XLuaUiManager.IsUiLoad(element.UiName) then
             _Queue:Dequeue()
         end
         XUiQueueManager._CheckNextUi()
@@ -87,7 +115,8 @@ XUiQueueManagerCreator = function()
         if not _TimerTimeOut then
             _TimerTimeOut = XScheduleManager.ScheduleForever(XUiQueueManager._OnTimeOut, _TimeOut)
         end
-        XEventManager.AddEventListener(XEventId.EVENT_UI_DESTROY, XUiQueueManager._OnUiDestroy)
+        CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_UI_ENABLE, XUiQueueManager._OnUiChanged)
+        XEventManager.AddEventListener(XEventId.EVENT_UI_DESTROY, XUiQueueManager._OnUiChanged)
         XEventManager.AddEventListener(XEventId.EVENT_MAINUI_ENABLE, XUiQueueManager._OnMainUiEnable)
     end
 
@@ -96,7 +125,8 @@ XUiQueueManagerCreator = function()
             XScheduleManager.UnSchedule(_TimerTimeOut)
             _TimerTimeOut = nil
         end
-        XEventManager.RemoveEventListener(XEventId.EVENT_UI_DESTROY, XUiQueueManager._OnUiDestroy)
+        CS.XGameEventManager.Instance:RemoveEvent(CS.XEventId.EVENT_UI_ENABLE, XUiQueueManager._OnUiChanged)
+        XEventManager.RemoveEventListener(XEventId.EVENT_UI_DESTROY, XUiQueueManager._OnUiChanged)
         XEventManager.RemoveEventListener(XEventId.EVENT_MAINUI_ENABLE, XUiQueueManager._OnMainUiEnable)
     end
 

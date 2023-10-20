@@ -72,6 +72,10 @@ end
 function XUiPanelRankReward:SetData(levelType, myRankData)
     self._LevelType = levelType
     self._MyRankData = myRankData
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 return XUiPanelRankReward

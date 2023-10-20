@@ -5,13 +5,8 @@ local XFubenActivityAgency = require("XModule/XBase/XFubenActivityAgency")
 local XTwoSideTowerAgency = XClass(XFubenActivityAgency, "XTwoSideTowerAgency")
 function XTwoSideTowerAgency:OnInit()
     --初始化一些变量
-    ---@type XFubenExAgency
-    local fubenExAgency = XMVCA:GetAgency(ModuleId.XFubenEx)
-    fubenExAgency:RegisterActivityAgency(self)
-
-    ---@type XFubenAgency
-    local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
-    fubenAgency:RegisterFuben(XEnumConst.FuBen.StageType.TwoSideTower, ModuleId.XTwoSideTower)
+    self:RegisterActivityAgency()
+    self:RegisterFuben(XEnumConst.FuBen.StageType.TwoSideTower)
 end
 
 function XTwoSideTowerAgency:InitRpc()
@@ -202,6 +197,10 @@ function XTwoSideTowerAgency:ExGetChapterType()
 end
 
 function XTwoSideTowerAgency:ExCheckInTime()
+    -- 保持FubenActivity表TimeId清空功能有效
+    if not self.Super.ExCheckInTime(self) then
+        return false
+    end
     local timeId = self._Model:GetActivityTimeId()
     return XFunctionManager.CheckInTimeByTimeId(timeId)
 end

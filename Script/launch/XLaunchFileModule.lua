@@ -125,6 +125,8 @@ local module_creator = function()
     local DlcNeedFileMap = nil
     local CheckFixDlcRecord
 
+    local CSUriPrefix = nil
+
     -- 本地测试
     local NeedLaunchTest = CS.XResourceManager.NeedLaunchTest -- 调试用，debug环境下测试下载流程 ("Tools/本地下载测试/开启")
     local LaunchTestPath = UnityApplication.dataPath .. "/../../../Product/Temp/LocalCdn" 
@@ -134,6 +136,8 @@ local module_creator = function()
     local InitDocumentIndexTest
 
     function XLaunchFileModule.Check(resFileType, appPathModule, appVersionModule, completeCb,progressCb,exitCb)
+        CSUriPrefix = CS.XUriPrefix.CreateUriPrefix() --要创建一个出来才可以获取cdn
+
         ResFileType = resFileType
         AppPathModule = appPathModule
         AppVersionModule = appVersionModule
@@ -321,7 +325,7 @@ local module_creator = function()
         end
         --CsLog.Debug("index download DocumentUrl:"..DocumentUrl)
         local uriPrefixStr = DocumentUrl .. "/" .. newVersion .. "/" .. ResFileType .. "/" .. INDEX
-        local downloader = CS.XUriPrefixDownloader(uriPrefixStr, documentFilePath, false, sha1, indexSize)
+        local downloader = CS.XUriPrefixDownloader(uriPrefixStr, documentFilePath, false, sha1, indexSize, TIMEOUT, RETRY)
         CsTool.WaitCoroutine(downloader:Send(), function()
             if downloader.State ~= CS.XDownloaderState.Success then
                 ShowStartErrorDialog("FileManagerInitVersionDownLoadError")
@@ -867,6 +871,8 @@ local module_creator = function()
         -- 1:基础资源 2:完整资源
         local downloadMode = XLaunchDlcManager.IsFullDownload(CsInfo.Version) and 2 or 1
         local dict = {["type"] = ResFileType, ["version"] = NewVersion, ["size"] = UpdateSize, ["mode"] = downloadMode }
+        dict["app_channel_id"] = CS.XHeroSdkAgent.GetAppChannelId()
+        dict["cdn"] = CSUriPrefix:GetFirstCdn() --因为cdn会轮询有多个，所以只能取第一个
         DoRecord(dict, "80011", "StartDownloadNewFiles")
         START_TIME = os.time()
 
@@ -1039,7 +1045,7 @@ local module_creator = function()
         local useCache = true
         local lastProgress = nil
         local currentUpdateSize = 0
-
+        
         Loop = function()
             key, info = iter(t, iterKey)
 
@@ -1051,7 +1057,7 @@ local module_creator = function()
             if not key then
                 CompleteDownload()
                 XLaunchFileModule.ReleaseDownloader()
-                 return
+                return
             end
             count = count + 1
 
@@ -1067,7 +1073,7 @@ local module_creator = function()
                 path = LaunchTestDirDoc .. "/" .. ResFileType .. "/" .. name
             end
 
-            local downloader = CS.XUriPrefixDownloader(url, path, useCache, sha1, fileSize, TIMEOUT, RETRY, READ_TIMEOUT)
+            local downloader = CS.XUriPrefixDownloader.CreateBySource(DOWNLOAD_SOURCE.DEFAULT, url, path, useCache, sha1, fileSize, TIMEOUT, RETRY, READ_TIMEOUT)
             CurrentDownloader = downloader
             local size = 0
 
@@ -1360,6 +1366,8 @@ local module_creator = function()
         -- 1:基础资源 2:完整资源
         local downloadMode = XLaunchDlcManager.IsFullDownload(CsInfo.Version) and 2 or 1
         local dict = {["type"] = ResFileType, ["version"] = NewVersion, ["size"] = UpdateSize, ["mode"] = downloadMode, ["cost"] = cost_time, ["speed"] = speed}
+        dict["app_channel_id"] = CS.XHeroSdkAgent.GetAppChannelId()
+        dict["cdn"] = CSUriPrefix:GetFirstCdn() --因为cdn会轮询有多个，所以只能取第一个
         DoRecord(dict, "80012", "DownloadNewFilesEnd")
 
         OnCompleteResFilesInit()

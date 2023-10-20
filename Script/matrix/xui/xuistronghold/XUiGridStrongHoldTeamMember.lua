@@ -22,12 +22,14 @@ function XUiGridStrongHoldTeamMember:Ctor(ui)
 end
 
 function XUiGridStrongHoldTeamMember:Refresh(teamList, teamId, index, groupId)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
     self.TeamId = teamId
     self.MemberIndex = index
     self.GroupId = groupId
     self.Pos = index
 
+    ---@type XStrongholdTeam
     local team = teamList[teamId]
 
     local leaderIndex = team:GetCaptainPos()
@@ -62,20 +64,14 @@ function XUiGridStrongHoldTeamMember:Refresh(teamList, teamId, index, groupId)
     if not isEmpty then
         local headIcon = member:GetSmallHeadIcon()
         self.RImgRoleHead:SetRawImage(headIcon)
+        self.RImgType:SetRawImage(member:GetElementIcon())
     end
     self.RImgRoleHead.gameObject:SetActiveEx(not isEmpty)
 end
 
 function XUiGridStrongHoldTeamMember:OnMemberClick()
-    local cb = function()
-        XLuaUiManager.Open("UiStrongholdRoomCharacterV2P6", self.TeamList, self.TeamId, self.MemberIndex, self.GroupId, self.Pos)
-    end
-
-    if XDataCenter.StrongholdManager.CheckAssitantListWaitInit() then
-        XDataCenter.StrongholdManager.GetStrongholdAssistCharacterListRequest(cb)
-    else
-        cb()
-    end
+    -- 走矿区自己特殊的BattleRoleRoom
+    XLuaUiManager.Open("UiStrongholdBattleRoleRoom", self.TeamList, self.TeamId, self.GroupId, self.Pos)
 end
 
 return XUiGridStrongHoldTeamMember

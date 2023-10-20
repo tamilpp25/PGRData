@@ -15,13 +15,15 @@ local CsApplication = CS.XApplication
 local UnityApplication = CS.UnityEngine.Application
 local UnityRuntimePlatform = CS.UnityEngine.RuntimePlatform
 local CSPlayerPrefs = CS.UnityEngine.PlayerPrefs
-local DownloadType = 1
+local DownloadType = DOWNLOAD_SOURCE.PRELOAD
 
 local DOWNLOADING = false
 
+local SingleThread = 1 --单线程数量
+local MultiThread = 5 --多线程数量
 
 local State = XEnumConst.Preload.State
-
+local CSXMTDownloadTaskGroupState = CS.XMTDownloadTaskGroupState
 local XLaunchPreloadModuleCls = require("XLaunchPreloadModule")
 
 ---@class XPreloadAgency : XAgency
@@ -47,14 +49,15 @@ function XPreloadAgency:OnInit()
     self._AllDownloadSize = 0 --所有下载资源大小
     self._AllDownloadSizeMB = 0 --所有下载资源大小, 转MB
 
+    self._CurDownloadThreadCount = SingleThread --当前下载的线程数
+    self._IsWaitChangeThread = false --是否等待线程数切换
+    self._IsChangeThread = false --表示当前是否正在切换线程数量
     self._CurDownloader = nil --当前的下载器
-    self._DownloadIterator = nil --下载的迭代器
-    self._IteratorKey = nil --当前迭代器key
-    self._CurDownloadKey = nil
-    self._CurDownloadInfo = nil
+    self._CurTaskGroup = nil --当前下载器的group
     self._CurDownloadSize = 0 --当前下载的资源大小
     self._CurProgressSize = 0 --正在下载的尺寸
     self._CurProgress = 0 --当前更新进度
+    self._IsFixErrorDownload = false --是否正在处理下载失败文件
     self._TickTimer = 0 --用来间隔计算下载大小
     self._LastTickProgress = 0 --上一次计算速度的进度
     self._TickSpeed = 0 --用来显示速度的
@@ -65,6 +68,7 @@ function XPreloadAgency:OnInit()
 
     self._NoticeHtmlContent = nil --公告内容
     self._CheckNetWork = false --检查网络情况
+    self._AutoResumeDownload = false --网络切换太快，下载器还在暂停中，导致没办法正常回复需要在接受到暂停后再给它恢复下载
 
     self._StateMsg = {
         [State.IndexDownloadFail] = "PreloadIndexDownloadFail",
@@ -85,16 +89,19 @@ function XPreloadAgency:OnInit()
     self:InitPreloadConfig()
     self._OnNetworkReachabilityChangedCb = handler(self, self.OnNetworkReachabilityChanged)
     self._OnExitFightCb = handler(self, self.OnExitFight)
+    self._OnDownloadStateUpdate = handler(self, self.DownloadStateUpdate)
+    self._OnDownloadProgressUpdate = handler(self, self.DownloadProgressUpdate)
 end
 
 ---下载完成清理所有数据
 function XPreloadAgency:ClearAllDownload()
     self._AllDownloadAssets = nil --所有下载资源列表
-    self._CurDownloader = nil --当前的下载器
-    self._DownloadIterator = nil --下载的迭代器
-    self._IteratorKey = nil --当前迭代器key
-    self._CurDownloadKey = nil
-    self._CurDownloadInfo = nil
+    if self._CurDownloader then
+        self._CurDownloader = nil --当前的下载器
+        self._CurTaskGroup.NotifyStateChanged = nil
+        self._CurTaskGroup.NotifyProgressChanged = nil
+        self._CurTaskGroup = nil
+    end
 end
 
 ---设置是否自动恢复下载
@@ -169,6 +176,11 @@ function XPreloadAgency:TestMovePreFiles(onProgress, onComplete)
     end
 end
 
+---返回是否正在修复下载失败的文件
+function XPreloadAgency:GetIsFixErrorDownload()
+    return self._IsFixErrorDownload
+end
+
 function XPreloadAgency:GetTickSpeed()
     return self._TickSpeed
 end
@@ -202,15 +214,76 @@ function XPreloadAgency:SetIsPause(value)
 
     if value then --需要暂停
         if self._State == State.Downloading then
-            self:SetStatus(State.Pausing)
+            self:PauseDownload()
         end
     else
-        if self._State == State.Pausing then
-            self:SetStatus(State.Downloading) -- 直接设置为下载等待下次
-        elseif self._State == State.Pause then
+        if self._State == State.Pause then
             self:ResumeDownload()
         end
     end
+end
+
+---设置是否多线程下载
+---@return boolean 返回是否允许切换
+function XPreloadAgency:SetIsMultiThread(value)
+    if self._State < State.Downloading or self._State == State.Complete then --下载中或者完成了不能再暂停
+        XLog.Debug("[Preload] 当前无法切换线程下载")
+        return false
+    end
+
+    local threadCount = value and MultiThread or SingleThread
+    if threadCount == self._CurDownloadThreadCount then
+        XLog.Debug("[Preload] 当前线程数相同, 无需切换")
+        return false
+    end
+
+    if value and self._State ~= State.Downloading then --切换到多线程只能在下载状态的时候才可用
+        XLog.Debug("[Preload] 当前无法切换多线程数下载")
+        return false
+    end
+
+    if threadCount ~= self._CurDownloadThreadCount then
+        self._IsChangeThread = true
+        self._CurDownloadThreadCount = threadCount
+        self._CurDownloader:SetThreadNumber(threadCount)
+        if not self._IsWaitChangeThread then
+            self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_MUlTI_THREAD_CHANGE) --这里不等待就直接抛出去
+        end
+        return true
+    end
+    return false
+end
+
+function XPreloadAgency:ResetMultiThread()
+    if self._CurDownloadThreadCount ~= SingleThread then
+        self._CurDownloadThreadCount = SingleThread
+        self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_MUlTI_THREAD_CHANGE)
+    end
+end
+
+---返回是否正在多线程下载
+---@return boolean
+function XPreloadAgency:GetIsMultiThreadDownloading()
+    if self._State == State.Downloading then
+        return self._CurDownloadThreadCount == MultiThread
+    end
+    return false
+end
+
+---返回现在设置的是否是多线程
+---@return boolean
+function XPreloadAgency:GetIsMultiThread()
+    return self._CurDownloadThreadCount == MultiThread
+end
+
+---返回是否正在切换多线程
+function XPreloadAgency:GetIsChangeMultiThread()
+    if self._State == State.Downloading then
+        if self._IsWaitChangeThread then
+            return self._CurDownloader:GetCurrentRunningTaskNumber() ~= self._CurDownloadThreadCount
+        end
+    end
+    return false
 end
 
 function XPreloadAgency:IsComplete()
@@ -238,7 +311,6 @@ end
 function XPreloadAgency:CheckAndStart()
     if self._State > State.None then
         CsLog.Debug("[Preload] 当前状态不能开始")
-        self:SetStatus(State.PreloadDisable)
         return false
     end
     local result = self:CheckPreload(true, true)
@@ -252,7 +324,6 @@ function XPreloadAgency:CheckAndStart()
 
     self:SetStatus(State.Start)
     self._StartTimer = os.time()
-    self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_START) --抛出开始预下载事件
     self:CheckPreloadIndex()
 
     CS.XRecord.Record("88802", "PreloadStart") --预下载开始埋点
@@ -294,7 +365,7 @@ function XPreloadAgency:CheckPreload(showLog, checkComplete)
 
     local curDocumentVersion = self._Model:GetLocalDocVersion()
     local curPreloadVersion = self._Model:GetPreloadVersion()
-    if curDocumentVersion >= curPreloadVersion then
+    if self:CompareVersions(curDocumentVersion, curPreloadVersion) >= 0 then
         if showLog then
             CsLog.Debug(string.format("XPreloadAgency:CheckPreload 预下载版本号过期: %s , 当前版本号: %s", curPreloadVersion, curDocumentVersion))
         end
@@ -306,13 +377,14 @@ end
 
 ---检查渠道是否开放下载
 function XPreloadAgency:CheckChannelEnable()
-    local channelId = CS.XHeroSdkAgent.GetAppChannelId()
-    if string.IsNilOrEmpty(channelId) then
-        return true
-    end
     local openChannels =  CS.XRemoteConfig.PreloadAppChannel --字符串, 直接判断是否包含在里面
     if string.IsNilOrEmpty(openChannels) then
         return true
+    end
+
+    local channelId = CS.XHeroSdkAgent.GetAppChannelId()
+    if string.IsNilOrEmpty(channelId) then
+        return false
     end
     return string.find(openChannels, channelId)
 end
@@ -436,13 +508,12 @@ function XPreloadAgency:ResolvePreloadIndex()
 
     if CS.XInfo.IsDlcBuild then
         local subPackageAgency = XMVCA.XSubPackage
-        local launchManager = subPackageAgency:GetLaunchDlcManager()
         for dlcId, dlcTable in pairs(preDlcAssetTable) do --遍历所有的dlc
             local needDownload = false --表示这个dlc是否需要下载
             if hasDlcData then
                 needDownload = dlcIds[dlcId]
             else
-                needDownload = not subPackageAgency:IsOpen() or launchManager.HasDownloadedDlc(dlcId) --如果分包功能没开启或者该分包有下载
+                needDownload = subPackageAgency:CheckSubpackageComplete(dlcId) --如果分包功能没开启或者该分包有下载
                 if needDownload then
                     dlcIds[dlcId] = true --标记起来
                 end
@@ -540,18 +611,29 @@ function XPreloadAgency:StartDownload()
         return
     end
     self:SetStatus(State.Downloading)
-    self:TraditionalDownload()
+    self:MultiThreadDownload()
+end
+
+--暂停下载
+function XPreloadAgency:PauseDownload()
+    self:SetStatus(State.Pausing)
+    if self._CurDownloader then
+        self._CurDownloader:PauseAll()
+    end
 end
 
 --恢复下载
 function XPreloadAgency:ResumeDownload()
     self._CheckNetWork = CS.XNetworkReachability.IsViaLocalArea() --重新检测网络状态
     self:ResumeTimer() --剔除暂停时间
-    if self._DownloadIterator then
-        self:SetStatus(State.Downloading)
-        self:DownloadNext()
-    else
-        self:StartDownload()
+    self:SetStatus(State.Downloading)
+    if self._CurDownloader then
+        local state = self._CurTaskGroup.State
+        if state == CSXMTDownloadTaskGroupState.CompleteError then
+            self._CurDownloader:SetFailedTaskGroupMethod(1) --重试
+        else
+            self._CurDownloader:StartAll()
+        end
     end
 end
 
@@ -560,92 +642,111 @@ function XPreloadAgency:PreloadComplete()
     self._TickSpeed = 0
     self._LeftDownloadTime = 0
     self._CurProgress = 1
+    self._IsFixErrorDownload = false
+    self._CheckNetWork = false
     self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_PROCESS) --抛出多一次, 就整界面展示数据
+
     self._Model:SavePreloadCompleteVersion()
     self:SetStatus(State.Complete)
+    self:ResetMultiThread()
+    self:ClearAllDownload()
 
     local costTime = os.time() - self._StartTimer
-
     CsLog.Debug(string.format("[Preload] 预下载完成, 耗时: %s 秒", tostring(costTime)))
-
     local dict = {}
     dict.time = costTime
     CS.XRecord.Record(dict, "88803", "PreloadComplete") --预下载完成埋点
-    self:ClearAllDownload()
 end
 
-function XPreloadAgency:TraditionalDownload()
-    self._DownloadIterator = pairs(self._AllDownloadAssets)
-    self._IteratorKey = nil
+function XPreloadAgency:PrintDownloaderInfo()
+    --if self._CurDownloader then
+    --    XLog.Debug(self._CurDownloader:Info())
+    --    XLog.Debug("TaskStack.Count: " .. tostring(self._CurTaskGroup.TaskStack.Count))
+    --end
+end
+
+--多线程下载
+function XPreloadAgency:MultiThreadDownload()
+    --重置各种状态
     self._CurDownloadSize = 0
     self._CurProgress = 0
     self._TickTimer = 0
     self._TickSpeed = 0
     self._LeftDownloadTime = 0
     self._LastTickProgress = 0
-    self:DownloadNext()
-end
-
-function XPreloadAgency:DownloadNext()
-    self._CurDownloadKey, self._CurDownloadInfo = self._DownloadIterator(self._AllDownloadAssets, self._IteratorKey)
-
-    if not self._CurDownloadKey then --迭代器返回key值为空了, 表示遍历完了
-        self:PreloadComplete()
-        return
-    end
-
-    if self._State == State.Pausing then --暂停了
-        self:SetPauseTimer()
-        self:SetStatus(State.Pause)
-        return
-    end
+    self._IsFixErrorDownload = false
+    self._CurDownloadThreadCount = SingleThread --开始的时候是单线程的
+    self._AutoResumeDownload = false
 
     local preloadVersion = self._Model:GetPreloadVersion()
-    local name = self._CurDownloadKey
-    local sha1 = self._CurDownloadInfo[2]
-    local fileSize = self._CurDownloadInfo[3]
-    local cache = true
 
-    local url = string.format("%s/%s/%s/%s", self._PreloadCdnUrl, preloadVersion, ResFileType, name)
-    local path = self._PreloadDirPath .. "/" .. ResFileType .. "/" .. name
-    self._CurDownloader = CS.XUriPrefixDownloader.CreateBySource(DownloadType, url, path, cache, sha1, fileSize, TIMEOUT, RETRY, READ_TIMEOUT)
-    self._CurProgressSize = 0
+    self._CurDownloader = CS.XMTDownloadCenter()
+    self._CurDownloader:SetThreadNumber(self._CurDownloadThreadCount) --先设置一次线程数量
+    self._CurTaskGroup = CS.XMTDownloadTaskGroup(1)
+    self._CurTaskGroup.NotifyStateChanged = self._OnDownloadStateUpdate
+    self._CurTaskGroup.NotifyProgressChanged = self._OnDownloadProgressUpdate
 
-    CsTool.WaitCoroutinePerFrame(self._CurDownloader:Send(), function(isComplete)
-        if not isComplete then
-            self._CurProgressSize = self._CurDownloader.CurrentSize
-            self:CheckProgress()
-        else
-            if self._CurDownloader.State ~= CS.XDownloaderState.Success then --埋点
-                local msg = "[Preload] error, state error,  name: " .. tostring(name) .. " state: " .. tostring(self._CurDownloader.State)
-                XLog.Error(msg)
-                local dict = {}
-                dict.file = name
-                CS.XRecord.Record(dict, "88804", "PreloadDownloadFail")
-                --失败不做处理, 直接进行下一个资源下载
+    for name, info in pairs(self._AllDownloadAssets) do
+        local url = string.format("%s/%s/%s/%s", self._PreloadCdnUrl, preloadVersion, ResFileType, name)
+        local path = self._PreloadDirPath .. "/" .. ResFileType .. "/" .. name
+        local sha1 = info[2]
+        local fileSize = info[3]
+        self._CurTaskGroup:AddTask(url, path, fileSize, sha1)
+    end
+    self._CurDownloader:RegisterTaskGroup(self._CurTaskGroup)
+    self._CurDownloader:Run()
 
-                self._CurDownloader = nil --清空
-                self:ErrorPause()
-                return
-            end
-            --XLog.Debug("[Preload] Download Complete " .. self._CurDownloadKey)
-            self._CurProgressSize = 0 --完成了要置空, 直接加上
-            self._CurDownloadSize = self._CurDownloadSize + self._CurDownloadInfo[3] --纠正直接加上完整的, 兼容失败跳过的文件
-            self:CheckProgress()
-
-            self._CurDownloader = nil --清空
-            self._IteratorKey = self._CurDownloadKey --更新迭代器key, 这样才能下载下一个
-            self:DownloadNext()
-        end
-    end)
+    self._CurDownloader:StartAll()
 end
 
-function XPreloadAgency:CheckProgress()
-    local updateProgress = (self._CurDownloadSize + self._CurProgressSize) / self._AllDownloadSize
+function XPreloadAgency:DownloadStateUpdate()
+    local state = self._CurTaskGroup.State
+    XLog.Error("下载器刷新: " .. tostring(state))
+    if state == CSXMTDownloadTaskGroupState.Registered then --暂停后会回到这个状态
+        self:CheckPauseStatus()
+    elseif state == CSXMTDownloadTaskGroupState.Downloading then --下载中
+
+    elseif state == CSXMTDownloadTaskGroupState.Complete then --下载完成
+        self:PreloadComplete()
+    elseif state == CSXMTDownloadTaskGroupState.CompleteError then --下载完成但是存在失败文件
+        self:PreloadCompleteWithError()
+    end
+end
+
+function XPreloadAgency:DownloadProgressUpdate()
+    self:CheckMultiThreadChange() --策划说不做等待
+    self:CheckDownloadProgress()
+end
+
+--检查是否切换暂停状态
+function XPreloadAgency:CheckPauseStatus()
+    if self._State == State.Pausing then --如果当前正在暂停中
+        self:SetPauseTimer()
+        self:SetStatus(State.Pause)
+
+        --这里检测是否是因为网络状态切换触发的暂停
+        if self._CheckNetWork and self:GetIsMultiThread() then --全速下载是不能自己暂停的
+            self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_NETWORK_CHANGE_PAUSE) --网络问题导致需要暂停
+        end
+        if self._AutoResumeDownload then --这里又要给恢复回去
+            self._AutoResumeDownload = false
+            self:SetIsPause(false)
+        end
+    end
+end
+
+function XPreloadAgency:CheckDownloadProgress()
+    self._CurDownloadSize = self._CurTaskGroup.DownloadedBytes
+    local updateProgress = self._CurDownloadSize / self._AllDownloadSize
     local callEvent = false
-    if updateProgress > self._CurProgress then
-        self._CurProgress = updateProgress
+    if updateProgress ~= self._CurProgress then
         callEvent = true
+        if updateProgress > self._CurProgress then
+            self._CurProgress = updateProgress
+            self._IsFixErrorDownload = false
+        else --小于或者等于都是在修复下载失败文件导致回退的情况
+            self._IsFixErrorDownload = true
+        end
     end
 
     if self:TickSpeed() then
@@ -653,9 +754,37 @@ function XPreloadAgency:CheckProgress()
     end
 
     if callEvent then
-         --计算速度及剩余时间
+        --计算速度及剩余时间
         self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_PROCESS)
     end
+end
+
+--检测线程数是否变化
+function XPreloadAgency:CheckMultiThreadChange()
+    if self._IsChangeThread and self._IsWaitChangeThread then
+        if self._CurDownloader:GetCurrentRunningTaskNumber() == self._CurDownloadThreadCount then
+            --相等的证明线程切换完成了
+            self._IsChangeThread = true
+            self:SendAgencyEvent(XAgencyEventId.EVENT_PRELOAD_MUlTI_THREAD_CHANGE)
+        end
+    end
+end
+
+---下载完成了但是有下载失败的
+function XPreloadAgency:PreloadCompleteWithError()
+    --local msg = "[Preload] error, state error,  name: " .. tostring(name) .. " state: " .. tostring(self._CurDownloader.State)
+    --XLog.Error(msg)
+    self:ErrorPause()
+    self:PrintDownloaderInfo()
+
+    --收集下载失败的文件
+    --local dict = {}
+    --local files = {}
+    --dict.files = files
+    --for _, v in pairs(self._CurTaskGroup.FailedTaskQueue) do
+    --    table.insert(files, v.ResourceName)
+    --end
+    --CS.XRecord.Record(dict, "88804", "PreloadDownloadFail")
 end
 
 function XPreloadAgency:ShowErrorDialog()
@@ -748,7 +877,10 @@ function XPreloadAgency:OnNetworkReachabilityChanged()
     local isWifi = CS.XNetworkReachability.IsViaLocalArea()
     if isWifi then
         if self._CheckNetWork then --需要检查网络的才恢复
-            if self._State == State.Pausing or self._State == State.Pause then
+            if self._State == State.Pausing then
+                --暂停中的无法立马切换下载器
+                self._AutoResumeDownload = true
+            elseif self._State == State.Pause then
                 self:SetIsPause(false)
             end
         else
@@ -758,6 +890,7 @@ function XPreloadAgency:OnNetworkReachabilityChanged()
         end
     else
         if self._CheckNetWork or CS.XNetworkReachability.IsNotReachable() then --如果需要检查网络或者是没有网络了都暂停
+            self._AutoResumeDownload = false
             if self._State == State.Downloading then
                 self:SetIsPause(true)
             end
@@ -845,21 +978,44 @@ end
 
 function XPreloadAgency:OnRelease()
     if self._State == State.Downloading then --释放的暂停, 这只在开发模式才会触发
+        self:SetIsMultiThread(false)
         self:SetIsPause(true)
     end
 end
 
----判断版本号
-function XPreloadAgency:CompareVersion(version1, version2)
-    if version1 == version2 then
-        print(string.format("%s == %s", version1, version2))
-        return XEnumConst.Preload.VersionCompare.Equal
-    elseif version1 > version2 then
-        print(string.format("%s > %s", version1, version2))
-        return XEnumConst.Preload.VersionCompare.Greater
-    elseif version1 < version2 then
-        print(string.format("%s < %s", version1, version2))
-        return XEnumConst.Preload.VersionCompare.Less
+-- 版本号比较函数
+-- 返回值：
+--   如果版本号1大于版本号2，返回1
+--   如果版本号1小于版本号2，返回-1
+--   如果版本号1等于版本号2，返回0
+function XPreloadAgency:CompareVersions(version1, version2)
+    local v1 = {}
+    local v2 = {}
+
+    for num in version1:gmatch("(%d+)") do
+        table.insert(v1, tonumber(num))
+    end
+
+    for num in version2:gmatch("(%d+)") do
+        table.insert(v2, tonumber(num))
+    end
+
+    local minLength = math.min(#v1, #v2)
+
+    for i = 1, minLength do
+        if v1[i] < v2[i] then
+            return -1
+        elseif v1[i] > v2[i] then
+            return 1
+        end
+    end
+
+    if #v1 < #v2 then
+        return -1
+    elseif #v1 > #v2 then
+        return 1
+    else
+        return 0
     end
 end
 

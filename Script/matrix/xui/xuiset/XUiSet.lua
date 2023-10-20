@@ -75,6 +75,9 @@ function XUiSet:OnStart(isFight, panelIndex)
         -- Portraits[index].Select();
         -- XUiAnimationManager.PlayUi(Ui, ANIM_BEGIN, null, null);
         -- TxtScheme.text = XCustomUi.Instance.SchemeName;
+        if CS.StatusSyncFight.XFightClient.FightInstance then
+            CS.StatusSyncFight.XFightClient.FightInstance:OnPauseForClient()
+        end
     end
 
     self.IsStartAnimCommon = true
@@ -134,6 +137,9 @@ function XUiSet:OnDisable()
         if CS.XFight.IsRunning then
             CS.XFight.Instance:Resume()
             XDataCenter.FightWordsManager.Resume()
+        end
+        if CS.StatusSyncFight.XFightClient.FightInstance then
+            CS.StatusSyncFight.XFightClient.FightInstance:OnResumeForClient()
         end
     end
 
@@ -583,7 +589,7 @@ function XUiSet:OnBtnRetreat()
     local title, content = self:GetRetreatTitleAndContent()
     local confirmCb = function()
         self:CsRecord(XSetConfigs.RecordOperationType.Retreat)
-        CS.XFightInterface.Exit()
+        CS.XFightInterface.Exit(true)
         self.Super.Close(self)
     end
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, confirmCb)

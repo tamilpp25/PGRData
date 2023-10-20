@@ -1,5 +1,6 @@
 local handler = handler
 
+---@class XUiGridStrongholdBuff
 local XUiGridStrongholdBuff = XClass(nil, "XUiGridStrongholdBuff")
 
 function XUiGridStrongholdBuff:Ctor(ui, hideClick, skipCb, openSkillDetailsCb, closeSkillDetailsCb, isClickBtnUseDialog)

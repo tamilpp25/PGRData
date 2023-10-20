@@ -321,14 +321,14 @@ XPartnerManagerCreator = function()
     end
 
     function XPartnerManager.UpdateAllPartnerStory()--更新所有宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         for _, entity in pairs(PartnerEntityDic or {}) do
             entity:UpdateStoryEntity(PartnerUnLockStoryList)
         end
     end
 
     function XPartnerManager.UpdatePartnerStoryByEntity(entity)--更新某个宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         entity:UpdateStoryEntity(PartnerUnLockStoryList)
     end
 

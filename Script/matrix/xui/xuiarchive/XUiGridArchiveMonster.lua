@@ -1,11 +1,8 @@
-XUiGridArchiveMonster = XClass(nil, "XUiGridArchiveMonster")
+XUiGridArchiveMonster = XClass(XUiNode, "XUiGridArchiveMonster")
 
 local LockNameText = CS.XTextManager.GetText("ArchiveLockNameText")
 
-function XUiGridArchiveMonster:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveMonster:OnStart()
     self:SetButtonCallBack()
 end
 
@@ -20,7 +17,7 @@ function XUiGridArchiveMonster:OnBtnSelect()
         XUiManager.TipText("ArchiveMonsterLock")
         return
     end
-    XDataCenter.ArchiveManager.GetMonsterEvaluateFromSever(self.Chapter:GetNpcId(), function()
+    XMVCA.XArchive:GetMonsterEvaluateFromSever(self.Chapter:GetNpcId(), function()
         XLuaUiManager.Open("UiArchiveMonsterDetail", self.ChapterList, self.CurIndex)
     end)
 end
@@ -62,7 +59,7 @@ function XUiGridArchiveMonster:SetMonsterData(chapter)
             self.MonsterImg:SetRawImage(chapter:GetLockPic())
         end
     else
-        self.MonsterName.text = XDataCenter.ArchiveManager.GetMonsterArchiveName(chapter)
+        self.MonsterName.text = self._Control:GetMonsterArchiveName(chapter)
         if chapter:GetPic() and #chapter:GetPic() > 0 then
             self.MonsterImg:SetRawImage(chapter:GetPic())
         end

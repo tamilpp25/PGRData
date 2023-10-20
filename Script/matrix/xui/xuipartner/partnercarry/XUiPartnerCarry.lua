@@ -157,7 +157,7 @@ function XUiPartnerCarry:UpdatePanelPartnerCarryInfo(data)
         self.BtnTakeChange.gameObject:SetActiveEx(IsTakeOn and carryPartnerId)
         self.BtnStrengthen.gameObject:SetActiveEx(self.IsCanSkipProperty)
 
-        local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality())
+        local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality())
         self.RImgPartnerIcon:SetRawImage(data:GetIcon())
         self.RawImageQuality:SetRawImage(qualityIcon)
 

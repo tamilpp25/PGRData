@@ -337,21 +337,21 @@ XActivityManagerCreator = function()
         or skipType == XActivityConfigs.TaskPanelSkipType.CanZhangHeMing_LuNa
         or skipType == XActivityConfigs.TaskPanelSkipType.CanZhangHeMing_SP
         then
-            return XRedPointConditionFuBenDragPuzzleGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FUBEN_DRAGPUZZLEGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.ChrismasTree_Dress then
-            return XRedPointConditionChristmasTree.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHRISTMAS_TREE)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.Couplet_Game then
-            return XRedPointConditionCoupletGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_COUPLET_GAME)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.InvertCard_Game then
-            return XRedPointConditionInvertCardGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_INVERTCARDGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.LivWarmPop_Game then
-            return XRedPointConditionLivWarmActivity.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.DiceGame then
-            return XRedPointConditionDiceGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DICEGAME_RED)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.BodyCombineGame then
-            return XRedPointBodyCombineGameMain.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BODYCOMBINEGAME_MAIN)
         elseif skipType == XActivityConfigs.TaskPanelSkipType.InvertCardGame2 then
-            return XRedPointConditionInvertCardGameRed.Check()
+            return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_INVERTCARDGAME_RED)
         end
     end
     

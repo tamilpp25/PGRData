@@ -62,13 +62,13 @@ end
 
 function XUiMonsterCombatBattlePrepare:OnDisable()
     self.Super.OnDisable(self)
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 function XUiMonsterCombatBattlePrepare:OnDestroy()
     self.Super.OnDestroy(self)
     self:UnRegisterListeners()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 function XUiMonsterCombatBattlePrepare:InitUiPanelRoleModel()
@@ -236,9 +236,9 @@ function XUiMonsterCombatBattlePrepare:OnBtnCharacterClicked(index)
             return
         end
         -- 播放音效
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         if self.MonsterTeam:GetCaptainPos() == index then
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         end
         XMVCA.XFavorability:PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId), soundType)
     end)

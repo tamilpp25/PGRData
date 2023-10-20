@@ -1155,6 +1155,10 @@ function XTheatre3Control:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     self._Model.ActivityData:UpdateEntityTeamPos(entityId, teamPos, isJoin)
 end
 
+function XTheatre3Control:UpdateTeamEntityIdList(entityIdList)
+    self._Model.ActivityData:UpdateTeamEntityIdList(entityIdList)
+end
+
 --- 交换队伍位置
 function XTheatre3Control:SwapEntityTeamPos(teamPosA, teamPosB)
     self._Model.ActivityData:SwapEntityTeamPos(teamPosA, teamPosB)

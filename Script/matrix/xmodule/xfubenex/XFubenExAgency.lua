@@ -25,6 +25,7 @@ end
 --兼容老的manager
 function XFubenExAgency:AfterInitManager()
     --往XFubenManagerEx添加
+    XDataCenter.FubenManagerEx.RegisterAutoAgency()
     XDataCenter.FubenManagerEx.RegisterActivityAgency(self._ActivityAgencyList)
     XDataCenter.FubenManagerEx.RegisterFubenAgency(self._ChapterAgencyList)
 end

@@ -13,6 +13,7 @@ local Default = {
     _OthersAbility = 0 --角色战力（援助角色）
 }
 
+---@class XStrongholdTeamMember
 local XStrongholdTeamMember = XClass(nil, "XStrongholdTeamMember")
 
 function XStrongholdTeamMember:Ctor(pos)
@@ -36,6 +37,16 @@ function XStrongholdTeamMember:SetPos(pos)
         return
     end
     self._Pos = pos
+end
+
+function XStrongholdTeamMember:GetRoleId()
+    if XTool.IsNumberValid(self._CharacterId) then
+        return self._CharacterId
+    elseif XTool.IsNumberValid(self._RobotId) then
+        return self._RobotId
+    else
+        return 0
+    end
 end
 
 function XStrongholdTeamMember:GetCharacterId()
@@ -284,6 +295,15 @@ function XStrongholdTeamMember:Compare(cMember)
     return self._CharacterId == cMember:GetCharacterId() and self._RobotId == cMember:GetRobotId() and
         self._PlayerId == cMember:GetPlayerId() and
         self._Pos == cMember:GetPos()
+end
+
+function XStrongholdTeamMember:GetElementIcon()
+    local roleId = self._CharacterId
+    if self:IsRobot() then
+        roleId = XRobotManager.GetCharacterId(self._RobotId)
+    end
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(roleId)
+    return XCharacterConfigs.GetCharElement(charConfig.Element).Icon
 end
 
 return XStrongholdTeamMember

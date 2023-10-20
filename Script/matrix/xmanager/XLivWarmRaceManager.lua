@@ -278,10 +278,10 @@ end
 
 ---------------------(服务器推送)begin------------------
 XRpc.NotifyRunGameData = function(data)
-    XDataCenter.LivWarmRaceManager.NotifyRunGameData(data)
+    --XDataCenter.LivWarmRaceManager.NotifyRunGameData(data)
 end
 
 XRpc.NotifyRunGameStageData = function(data)
-    XDataCenter.LivWarmRaceManager.NotifyRunGameStageData(data)
+    --XDataCenter.LivWarmRaceManager.NotifyRunGameStageData(data)
 end
 ---------------------(服务器推送)end--------------------

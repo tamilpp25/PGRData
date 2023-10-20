@@ -295,6 +295,9 @@ XFubenBossOnlineManagerCreator = function()
     end
 
     function XFubenBossOnlineManager.OpenBossOnlineUi(selectIdx)
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossOnline) then
+            return
+        end
         XFubenBossOnlineManager.RefreshBossData(function()
             if not XDataCenter.FubenBossOnlineManager.CheckBossDataCorrect() then
                 XLuaUiManager.RunMain()
@@ -396,11 +399,12 @@ XFubenBossOnlineManagerCreator = function()
     end
 
     function XFubenBossOnlineManager:ExOpenMainUi()
-        --分包资源检查
-        if not XMVCA.XSubPackage:CheckSubpackage() then
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityOnlineBoss) then
             return
         end
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenActivityOnlineBoss) then
+
+        --分包资源检查
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossOnline) then
             return
         end
 

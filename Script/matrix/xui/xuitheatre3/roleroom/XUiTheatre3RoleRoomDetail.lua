@@ -20,10 +20,10 @@ end
 
 function XUiTheatre3RoleRoomDetail:OnStart(slotId)
     self._SlotId = slotId
+    self:InitSceneRoot()
     self:InitEnergy()
     self:InitFilter()
     self:InitSuitList(slotId)
-    self:InitSceneRoot()
     
     self:UpdateEnergy()
     self.TxtTitle.text = XUiHelper.GetText("Theatre3RoleRoomTitle")

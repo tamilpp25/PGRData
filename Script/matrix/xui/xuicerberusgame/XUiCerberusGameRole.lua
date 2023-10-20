@@ -46,9 +46,13 @@ function XUiCerberusGameRole:OnEnable()
     self:RefreshRightInfoByIndex(CharIndex.Team)
 end
 
+function XUiCerberusGameRole:GetConfig(index)
+    local allConfig = XMVCA.XCerberusGame:GetModelCerberusGameCharacterInfo()
+    return allConfig[index]
+end
+
 function XUiCerberusGameRole:RefreshRightInfoByIndex(index)
-    local allConfig = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameCharacterInfo)
-    local config = allConfig[index]
+    local config = self:GetConfig(index)
     self.TxtTeamTitle.text = config.TeamTitle
     self.TxtTeamInfo.text = config.TeamInfo
     self.TxtCharacter.text = config.CharacterInfo

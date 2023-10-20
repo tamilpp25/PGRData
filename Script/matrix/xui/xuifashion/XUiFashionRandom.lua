@@ -41,7 +41,7 @@ end
 
 function XUiFashionRandom:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnBtnBackClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnMainUi, function() XLuaUiManager.RunMain() end)
+    XUiHelper.RegisterClickEvent(self, self.BtnMainUi, self.OnBtnMainUiClick)
     XUiHelper.RegisterClickEvent(self, self.BtnAllRandom, self.OnBtnAllRandomClick)
     XUiHelper.RegisterClickEvent(self, self.BtnAllCancel, self.OnBtnAllCancelClick)
     XUiHelper.RegisterClickEvent(self, self.BtnRandom, self.OnBtnRandomClick)
@@ -49,10 +49,21 @@ function XUiFashionRandom:InitButton()
 end
 
 function XUiFashionRandom:InitDynamicTable()
-    self.DynamicTable = XDynamicTableCurve.New(self.FashionList)
+    self.DynamicTableF = XDynamicTableCurve.New(self.FashionList)
     local grid = require("XUi/XUiFashion/XUiGridFashionRandom")
-    self.DynamicTable:SetProxy(grid, self)
-    self.DynamicTable:SetDelegate(self)
+    self.DynamicTableF:SetProxy(grid, self)
+    self.DynamicTableF:SetDelegate(self)
+    self.DynamicTableF:SetDynamicEventDelegate(function (event, index, grid, ...)
+        self:OnDynamicTableEvent(event, index, grid, ...)
+    end)
+    
+    self.DynamicTableP = XDynamicTableNormal.New(self.FashionPointList)
+    local grid = require("XUi/XUiFashion/XUiGridFashionRandomPoint")
+    self.DynamicTableP:SetProxy(grid, self)
+    self.DynamicTableP:SetDelegate(self)
+    self.DynamicTableP:SetDynamicEventDelegate(function (event, index, grid, ...)
+        self:OnDynamicTableEventP(event, index, grid, ...)
+    end)
 end
 
 function XUiFashionRandom:OnStart(characterId)
@@ -83,34 +94,55 @@ function XUiFashionRandom:RefreshDynamicTable(luaIndex)
     end
     self.InitFashionId = nil
 
-    self.DynamicTable:SetDataSource(dataList)
-    self.DynamicTable:ReloadData((luaIndex or 0) - 1)
+    self.DynamicTableF:SetDataSource(dataList)
+    self.DynamicTableF:ReloadData((luaIndex or 0) - 1)
+
+    self.DynamicTableP:SetDataSource(dataList)
+    self.DynamicTableP:ReloadDataSync((luaIndex or 0) - 1)
 end
 
 function XUiFashionRandom:OnDynamicTableEvent(event, index, grid, curSelectLuaIndex)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local luaIndex = index + 1
-        local fashionId = self.DynamicTable.DataSource[luaIndex]
+        local fashionId = self.DynamicTableF.DataSource[luaIndex]
         grid:Refresh(fashionId, luaIndex)
         if curSelectLuaIndex == luaIndex then
             self:OnCurSelect(fashionId, curSelectLuaIndex)
         end
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_END_DRAG then
-        local fashionId = self.DynamicTable.DataSource[curSelectLuaIndex]
+        local fashionId = self.DynamicTableF.DataSource[curSelectLuaIndex]
         self:OnCurSelect(fashionId, curSelectLuaIndex)
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_TWEEN_OVER then
+        local fashionId = self.DynamicTableF.DataSource[curSelectLuaIndex]
+        XScheduleManager.ScheduleOnce(function () -- 下一帧再执行
+            self:OnCurSelect(fashionId, curSelectLuaIndex)
+        end, 0)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        local luaIndex = index + 1
-        local fashionId = self.DynamicTable.DataSource[luaIndex]
-        self:OnCurSelect(fashionId, luaIndex)
+        -- local luaIndex = index + 1
+        -- local fashionId = self.DynamicTableF.DataSource[luaIndex]
+        -- self:OnCurSelect(fashionId, luaIndex)
     end
 end
 
-function XUiFashionRandom:OnlyRefreshDynamicTableData()
-    local allGrid = self.DynamicTable:GetGrids()
+function XUiFashionRandom:OnDynamicTableEventP(event, index, grid)
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
+        grid:Refresh(self.CurSelectIndex == index, index)
+    end
+end
+
+function XUiFashionRandom:OnlyRefreshDynamicTableFData()
+    local allGrid = self.DynamicTableF:GetGrids()
     for k, grid in pairs(allGrid) do
         local luaIndex = k + 1
-        local fashionId = self.DynamicTable.DataSource[luaIndex]
+        local fashionId = self.DynamicTableF.DataSource[luaIndex]
         grid:Refresh(fashionId, luaIndex)
+    end
+end
+
+function XUiFashionRandom:OnlyRefreshDynamicTablePData(curSelectIndex)
+    local allGrid = self.DynamicTableP:GetGrids()
+    for k, grid in pairs(allGrid) do
+        grid:Refresh(curSelectIndex == k, k)
     end
 end
 
@@ -119,14 +151,20 @@ function XUiFashionRandom:OnCurSelect(fashionId, curSelectIndex)
     self:RefreshAllSelectBtns()
     self:RefreshBtnRandomState(fashionId, curSelectIndex)
     self:RefreshModel(fashionId)
-    self:OnlyRefreshDynamicTableData()
-   
+    self:OnlyRefreshDynamicTablePData(curSelectIndex)
+    
     local template = XDataCenter.FashionManager.GetFashionTemplate(fashionId)
     self.TxtFashionName.text = template.Name
+
+    self.CurSelectFashionId = fashionId or self.CurSelectFashionId
+    self.CurSelectIndex = curSelectIndex or self.CurSelectIndex
+
+    self:OnlyRefreshDynamicTableFData(curSelectIndex)
 end
 
 -- 绑定的武器涂装切换时调用，由动态列表的gridProxy调用
 function XUiFashionRandom:OnBindWeaponFashionChange(fashionId, weaponFashionId, index)
+    self.ChangedBindWeaponTrigger = true
     self.BindWeaponFashionDic[fashionId] = weaponFashionId
     self:RefreshDynamicTable(index)
     self:OnRecordDataChange()
@@ -147,11 +185,23 @@ function XUiFashionRandom:OnRecordDataChange()
 end
 
 function XUiFashionRandom:RefreshModel(fashionId)
+    if fashionId == self.CurSelectFashionId and not self.ChangedBindWeaponTrigger then
+        return
+    end
+    self.ChangedBindWeaponTrigger = false -- 绑定武器的脏标记检测
+
+    local targetWeaponFashionId = self.BindWeaponFashionDic[fashionId]
     local template = XDataCenter.FashionManager.GetFashionTemplate(fashionId)
     self.RoleModelPanel:UpdateCharacterResModel(template.ResourcesId, template.CharacterId, XModelManager.MODEL_UINAME.XUiFashion, function (model)
-        if model == self.CurModel then
+        if model == self.CurModel and self.CurWeaponId == targetWeaponFashionId then
             return
         end
+        if self.CurModel then
+            local uiCueId = 1051 
+            CS.XAudioManager.PlaySound(uiCueId)
+        end
+
+        self.PanelDrag.Target = model.transform
 
         self.ImgEffectHuanren.gameObject:SetActiveEx(false)
         self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
@@ -162,14 +212,14 @@ function XUiFashionRandom:RefreshModel(fashionId)
         end
 
         self.CurModel = model
-    end, nil, self.BindWeaponFashionDic[fashionId])
+        self.CurWeaponId = targetWeaponFashionId
+    end, nil, targetWeaponFashionId)
 end
 
 -- 刷新【编入随机】这个按钮的状态，每次动态列表选择涂装时调用
 function XUiFashionRandom:RefreshBtnRandomState(fashionId, curSelectIndex)
-    self.CurSelectFashionId = fashionId or self.CurSelectFashionId
-    self.CurSelectIndex = curSelectIndex or self.CurSelectIndex
-    if self.RandomFashionListReadyToRequset[self.CurSelectFashionId] then
+    local fId = fashionId or self.CurSelectFashionId
+    if self.RandomFashionListReadyToRequset[fId] then
         self.BtnRandom:SetButtonState(CS.UiButtonState.Select)
     else
         self.BtnRandom:SetButtonState(CS.UiButtonState.Normal)
@@ -209,7 +259,7 @@ function XUiFashionRandom:OnBtnRandomClick()
         self:RefreshBtnRandomState()
         return
     end
-    self:OnlyRefreshDynamicTableData()
+    self:OnlyRefreshDynamicTableFData()
     self:OnRecordDataChange()
 end
 
@@ -219,7 +269,7 @@ function XUiFashionRandom:OnBtnAllRandomClick()
     end
     self:RefreshAllSelectBtns()
     self:RefreshBtnRandomState()
-    self:OnlyRefreshDynamicTableData()
+    self:OnlyRefreshDynamicTableFData()
     self:OnRecordDataChange()
     XUiManager.TipError(CS.XTextManager.GetText("RandomFashionAllSelect"))
 end
@@ -231,7 +281,7 @@ function XUiFashionRandom:OnBtnAllCancelClick()
     self.RandomFashionListReadyToRequset[self.CurSelectFashionId] = true
     self:RefreshAllSelectBtns()
     self:RefreshBtnRandomState()
-    self:OnlyRefreshDynamicTableData()
+    self:OnlyRefreshDynamicTableFData()
     self:OnRecordDataChange()
     XUiManager.TipError(CS.XTextManager.GetText("RandomFashionAllCancel"))
 end
@@ -262,6 +312,23 @@ function XUiFashionRandom:OnBtnBackClick()
         return    
     end
     self:Close()
+end
+
+function XUiFashionRandom:OnBtnMainUiClick()
+    local isDataSame = self:IsDataSame()
+    if not isDataSame then
+        local cancelCb = function ()
+            XLuaUiManager.RunMain()
+        end
+        local confirmCb = function ()
+            self:DoSaveDataByRPC()
+            XLuaUiManager.RunMain()
+        end
+        XLuaUiManager.Open("UiDialog", CS.XTextManager.GetText("MissionTeamCountTipTile"), CS.XTextManager.GetText("SettingCheckSave"), XUiManager.DialogType.Normal, cancelCb, confirmCb)
+        return    
+    end
+
+    XLuaUiManager.RunMain()
 end
 
 function XUiFashionRandom:DoSaveDataByRPC(cb)

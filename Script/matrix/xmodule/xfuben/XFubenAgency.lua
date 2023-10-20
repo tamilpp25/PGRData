@@ -327,10 +327,10 @@ end
 
 ---返回stage对应的类型
 function XFubenAgency:GetStageType(stageId)
-    local config = self._Model:GetStageCfg(stageId)
-    if config and XTool.IsNumberValid(config.Type) then --增加多一列, 优先读取配置的
-        return config.Type
-    end
+    --local config = self._Model:GetStageCfg(stageId)
+    --if config and XTool.IsNumberValid(config.Type) then --增加多一列, 优先读取配置的
+    --    return config.Type
+    --end
     local stageInfo = self._Model:GetStageInfo(stageId)
     if stageInfo then
         return stageInfo.Type
@@ -852,7 +852,7 @@ function XFubenAgency:GetCurrentStageType()
     end
 end
 
-function XFubenAgency:RecordFightBeginData(stageId, charList, isHasAssist, assistPlayerData, challengeCount, roleData)
+function XFubenAgency:RecordFightBeginData(stageId, charList, isHasAssist, assistPlayerData, challengeCount, roleData, fightData)
     local beginData = {
         CharExp = {},
         RoleExp = 0,
@@ -863,7 +863,8 @@ function XFubenAgency:RecordFightBeginData(stageId, charList, isHasAssist, assis
         CharList = charList,
         StageId = stageId,
         ChallengeCount = challengeCount, -- 记录挑战次数
-        RoleData = roleData
+        RoleData = roleData,
+        FightData = fightData
     }
     self._Model:SetBeginData(beginData)
 
@@ -1016,7 +1017,7 @@ function XFubenAgency:DoEnterRealFight(preFightData, fightData)
         end
     end
 
-    self:RecordFightBeginData(fightData.StageId, charList, preFightData.IsHasAssist, assistInfo, preFightData.ChallengeCount, roleData)
+    self:RecordFightBeginData(fightData.StageId, charList, preFightData.IsHasAssist, assistInfo, preFightData.ChallengeCount, roleData, fightData)
 
     -- 提示加锁
     XTipManager.Suspend()
@@ -1423,6 +1424,9 @@ function XFubenAgency:OpenFubenByStageId(stageId)
             XUiManager.TipMsg(CSTextManagerGetText("FubenMainLineNoneOpen"))
             return
         end
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MainLine, chapter.ChapterId) then
+            return
+        end
         XLuaUiManager.Open("UiFubenMainLineChapter", chapter, stageId)
     elseif stageType == StageType.Bfrt then
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenNightmare) then
@@ -1430,6 +1434,10 @@ function XFubenAgency:OpenFubenByStageId(stageId)
         end
 
         local chapter = XDataCenter.BfrtManager.GetChapterCfg(stageInfo.ChapterId)
+
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Bfrt, chapter.ChapterId) then
+            return
+        end
         XLuaUiManager.Open("UiFubenMainLineChapter", chapter, stageId)
     elseif stageType == StageType.ActivtityBranch then
         if not XDataCenter.FubenActivityBranchManager.IsOpen() then
@@ -1442,11 +1450,7 @@ function XFubenAgency:OpenFubenByStageId(stageId)
     elseif stageType == StageType.ActivityBossSingle then
         XDataCenter.FubenActivityBossSingleManager.ExOpenMainUi()
     elseif stageType == StageType.Assign then
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-            XLog.Debug("Assign Stage not open ", stageId)
-            return
-        end
-        XLuaUiManager.Open("UiPanelAssignMain", stageId)
+        XDataCenter.FubenAssignManager.OpenUi(stageId)
     end
 end
 

@@ -6,7 +6,7 @@ function XUiConnectingLineBubble:Ctor()
     ---@type XConnectingLineModelBubble[]
     self._BubbleDict = false
     self._BubbleType = XEnumConst.CONNECTING_LINE.BUBBLE.DEFAULT
-    self._IdleTime = 15000
+    self._IdleTime = math.huge
 end
 
 function XUiConnectingLineBubble:OnEnable()
@@ -64,6 +64,7 @@ function XUiConnectingLineBubble:OnBubbleChange(bubbleType)
         end
     end
     if bubbleType == XEnumConst.CONNECTING_LINE.BUBBLE.DEFAULT then
+        self._IdleTime = bubble.Duration
         self:StartIdle()
         return
     end

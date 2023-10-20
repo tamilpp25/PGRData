@@ -1080,10 +1080,16 @@ XFubenAssignManagerCreator = function()
         return XFubenAssignManager.CheckIsShowRedPoint() or XDataCenter.FubenAwarenessManager.CheckIsShowRedPoint()
     end
 
-    function XFubenAssignManager.OpenUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-            XLuaUiManager.Open("UiPanelAssignMain")
+    function XFubenAssignManager.OpenUi(stageId)
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
         end
+
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+            return
+        end
+
+        XLuaUiManager.Open("UiPanelAssignMain", stageId)
     end
 
     function XFubenAssignManager:ExOpenMainUi()
@@ -1092,7 +1098,7 @@ XFubenAssignManagerCreator = function()
         end
 
         --分包资源检测
-        if not XMVCA.XSubPackage:CheckSubpackage() then
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
             return
         end
         

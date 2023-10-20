@@ -257,7 +257,7 @@ end
 
 function XUiFavorability:OnCurrentCharacterFavorabilityLevelChanged()
     local characterId = self:GetCurrFavorabilityCharacter()
-    local favorUp = XSignBoardConfigs.GetSignBoardConfigByRoldIdAndCondition(characterId, XSignBoardEventType.FAVOR_UP)
+    local favorUp = XMVCA.XFavorability:GetSignBoardConfigByRoldIdAndCondition(characterId, XEnumConst.Favorability.XSignBoardEventType.FAVOR_UP)
     if favorUp and favorUp[1] and (not self.SignBoard:IsPlaying()) then
         self.SignBoard:ForcePlay(favorUp[1].Id)
     end

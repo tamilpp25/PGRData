@@ -347,8 +347,7 @@ function XUiFubenBossSingleDetail:_RefreshDesc()
         XUiHelper.GetText("BossSingleFightCharCountHB", self._CurBossStageConfig.FightCharCount) or
         XUiHelper.GetText("BossSingleFightCharCount", self._CurBossStageConfig.FightCharCount)
     self.TxtBossDes.text = sectionCfg.Desc
-    self.TxtLevel.text = isHideBoss and XUiHelper.GetText("BossSingleLevelHideBoss", level) or
-        XUiHelper.GetText("BossSingleLevel", level)
+    self.TxtLevel.text = XUiHelper.GetText("BossSingleDetailAllScore", level)
     self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
     self.TxtChangeNums.text = isHideBoss and XUiHelper.GetText("BossSingleChallgeCountHB", leftNums, allNums) or
         XUiHelper.GetText("BossSingleChallgeCount", leftNums, allNums)
@@ -359,8 +358,7 @@ function XUiFubenBossSingleDetail:_RefreshDesc()
         self.TxtRepeatDesc.text = XUiHelper.ReplaceTextNewLine(XUiHelper.GetText("BossSingleRepeartDesc"))
     end
 
-    self.TxtAllScore.text = isHideBoss and XUiHelper.GetText("BossSingleLevelHideBoss", bossCurScore) or
-        XUiHelper.GetText("BossSingleLevel", bossCurScore)
+    self.TxtAllScore.text = XUiHelper.GetText("BossSingleDetailAllScore", bossCurScore)
     self.ImagBossTileBg.gameObject:SetActiveEx(not isHideBoss)
     self.ImagBossTileBgHb.gameObject:SetActiveEx(isHideBoss)
     self.PanelEffectHb.gameObject:SetActiveEx(isHideBoss)

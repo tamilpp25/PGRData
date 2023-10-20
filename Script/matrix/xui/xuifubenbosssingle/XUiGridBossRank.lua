@@ -54,6 +54,10 @@ end
 function XUiGridBossRank:SetData(rankMetaData, curLevelType)
     self._RankMetaData = rankMetaData
     self._CurLevelType = curLevelType
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 function XUiGridBossRank:OnBtnDetailClick()

@@ -5,7 +5,7 @@ local XUiGridBossScore = require("XUi/XUiFubenBossSingle/XUiGridBossScore")
 
 function XUiPanelScoreInfo:OnStart(rootUi)
     self._RootUi = rootUi
-    ---@type XUiGridBossScore
+    ---@type XUiGridBossScore[]
     self._GridBossScoreList = {}
     self.GridBossScore.gameObject:SetActive(false)
     self:_RegisterButtonListeners()

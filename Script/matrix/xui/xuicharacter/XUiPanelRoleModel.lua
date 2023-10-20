@@ -1233,7 +1233,10 @@ showDefaultFx)
         fashionId = defaultFashionId + 1
     elseif growUpLevel >= 3 then
         fashionId = defaultFashionId + 2
-    else
+    end
+
+    local allFashionConfig = XFashionConfigs.GetFashionTemplates()
+    if not fashionId or not allFashionConfig[fashionId] then
         fashionId = defaultFashionId
     end
     if fashionId then
@@ -1347,9 +1350,17 @@ IsReLoadController)
     end
 end
 
-function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, isCute, needDisplayController,customizeWeaponData)
+function XUiPanelRoleModel:UpdateCharacterModelByFightNpcData(fightNpcData, cb, isCute, needDisplayController, customizeWeaponData, isSelfPlayer)
     local char = fightNpcData.Character
     if char then
+        if isSelfPlayer then
+            local charId = char.Id
+            local tempChar = XMVCA.XCharacter:GetCharacter(charId)
+            if tempChar then
+                char = tempChar
+            end
+        end
+
         local modelName
         local fashionId = char.FashionId
         if isCute then

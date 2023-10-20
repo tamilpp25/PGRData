@@ -52,7 +52,7 @@ end
 
 function XGridCharacterV2P6:UpdateBaseCharacterInfo()
     self.TxtLevel.text = self.Character.Level
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(self.Character.Id)))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(self.Character.Id)))
 
     -- self:UpdateGrade()
     -- self:UpdateFight()

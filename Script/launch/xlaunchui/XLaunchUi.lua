@@ -142,7 +142,7 @@ local Creator = function()
         self.LastUpdateTime = 0
         self.LastProgress = 0
 
-        self.CurrentDownloadSelect = 1
+        self.CurrentDownloadSelect = 2
         self.SizeWindow = NewQueue()
         self.TimeWindow = NewQueue()
         self.WindowTimeSum = 0
@@ -326,6 +326,20 @@ local Creator = function()
         end
         return StringFormat("%02d:%02d:%02d", hour, min, seconds)
     end
+    
+    local function ConvertUnits(mbSize)
+        if mbSize > 1 then
+            return mbSize, "MB"
+        else
+            mbSize = mbSize * 1024
+        end
+
+        if mbSize > 1 then
+            return mbSize, "KB"
+        else
+            return mbSize * 1024, "B"
+        end
+    end
 
     function XUiLaunchUi:OnGetEvents()
         return { CS.XEventId.EVENT_LAUNCH_SETMESSAGE,
@@ -353,7 +367,8 @@ local Creator = function()
             self.CustomFormat = args[3]
 
             if self.NeedUnit then
-                self.TxtDownloadSize.text = StringFormat("(0MB/%dMB)", MathFloor(self.MBSize))
+                local size, unit = ConvertUnits(self.MBSize)
+                self.TxtDownloadSize.text = StringFormat("(0%s/%d%s)", unit, MathFloor(size), unit)
                 self.TxtDownloadTime.gameObject:SetActiveEx(true)
             else
                 self.TxtDownloadSize.text = StringFormat("(0/%d)", MathFloor(self.MBSize))
@@ -455,7 +470,8 @@ local Creator = function()
                 -- 进度
                 self.TxtDownloadProgress.text = StringFormat("%d%%", MathFloor(progress * 100))
                 if self.NeedUnit then
-                    self.TxtDownloadSize.text = StringFormat(self.CustomFormat or "(%dMB/%dMB)", MathFloor(self.MBSize * progress), MathFloor(self.MBSize))
+                    local size, unit = ConvertUnits(self.MBSize)
+                    self.TxtDownloadSize.text = StringFormat(self.CustomFormat or "(%d%s/%d%s)", MathFloor(size * progress), unit, MathFloor(size), unit)
                 else
                     self.TxtDownloadSize.text = StringFormat(self.CustomFormat or "(%d/%d)", MathFloor(self.MBSize * progress), MathFloor(self.MBSize))
                 end

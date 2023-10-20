@@ -76,7 +76,7 @@ end
 function XUiPlayerEx:OnClickBtnArchive()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive) then
         self.PanelPlayerInfoEx:RecordAnimation()
-        XDataCenter.ArchiveManager.OpenUiArchiveMain()
+        XMVCA.XArchive:OpenUiArchiveMain()
     end
 end
 

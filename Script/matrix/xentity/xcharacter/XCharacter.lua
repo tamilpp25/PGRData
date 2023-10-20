@@ -37,10 +37,6 @@ end
 
 function XCharacter:Ctor(data)
     -- XCharacterViewModel
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
     self.CharacterViewModel = nil
     self.UpdatedData = nil
     for key, value in pairs(Default) do
@@ -144,7 +140,7 @@ function XCharacter:IsSkillUsing(skillId)
 end
 
 function XCharacter:RefreshAttribs(ignoreChangeAbility)
-    local attribs = self.CharacterAgency:GetCharacterAttribs(self)
+    local attribs = XMVCA.XCharacter:GetCharacterAttribs(self)
     if attribs then
         self.Attribs = attribs
     end
@@ -163,11 +159,11 @@ function XCharacter:GetAttributes()
 end
 
 function XCharacter:RefreshAbility()
-    self.Ability = self.CharacterAgency:GetCharacterAbility(self)
+    self.Ability = XMVCA.XCharacter:GetCharacterAbility(self)
 end
 
 function XCharacter:ChangeNpcId()
-    local npcId = XCharacterConfigs.GetCharNpcId(self.Id, self.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(self.Id, self.Quality)
     if npcId == nil then
         return
     end

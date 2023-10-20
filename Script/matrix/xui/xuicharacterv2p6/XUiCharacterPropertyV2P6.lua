@@ -55,6 +55,9 @@ function XUiCharacterPropertyV2P6:InitFilter()
 
     local onTagClickCb = function (targetBtn)
         self.ParentUi.FilterCurSelectTagBtnName = targetBtn.gameObject.name
+
+        local enumId = XGlobalVar.BtnUiCharacterSystemV2P6[self.ParentUi.FilterCurSelectTagBtnName]
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, enumId, self.ParentUi.CurCharacter.Id)
     end
     
     self.PanelFilter:InitData(onSeleCb, onTagClickCb)
@@ -106,7 +109,7 @@ function XUiCharacterPropertyV2P6:OnEnable()
 end
 
 function XUiCharacterPropertyV2P6:OnDisable()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 -- 刷新当前展示的内容
@@ -157,7 +160,7 @@ function XUiCharacterPropertyV2P6:RefreshTabBtns()
     -- 红点
     self.BtnTabLevel:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_LEVEL}, charId))
     self.BtnTabGrade:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_GRADE}, charId))
-    self.BtnTabSkill:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_SKILL}, charId))
+    self.BtnTabSkill:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_SKILL, XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS}, charId))
 end
 
 function XUiCharacterPropertyV2P6:OnSelectCharacter(character)
@@ -232,12 +235,14 @@ function XUiCharacterPropertyV2P6:ShowOrHideFilter()
     activeSelf = self.PanelCharacterFilter.gameObject.activeSelf
     self.PanelCharacterFilter.gameObject:SetActiveEx(not activeSelf)
     -- 打开的时候刷新
+    local charId = self.ParentUi.CurCharacter.Id
     if not activeSelf then
         self.PanelFilter:DoSelectTag("BtnAll")
-        local charId = self.ParentUi.CurCharacter.Id
         self.PanelFilter:DoSelectCharacter(charId)
         self.PanelFilter:Open()
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnExchange, charId)
     else
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnCloseFilter, charId)
         self.PanelFilter:Close()
     end
 

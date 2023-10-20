@@ -64,8 +64,10 @@ function XUiReform2ndBattleRoomRoleDetail:AOPOnDynamicTableEventAfter(rootUi, ev
             isInList = true
         end
     end
-    
-    grid.PanelRecommend.gameObject:SetActiveEx(isInList)
+
+    if grid.PanelRecommend then
+        grid.PanelRecommend.gameObject:SetActiveEx(isInList)
+    end
 end
 
 -- 获取子面板数据，主要用来增加编队界面自身玩法信息，就不用污染通用的预制体

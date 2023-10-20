@@ -520,7 +520,7 @@ XSignBoardManagerCreator = function()
         end
         local configs = {}
         for _, v in ipairs(elements) do
-            local isUnlock , conditionDescript = XMVCA.XFavorability:CheckCharacterActionUnlockBySignBoardActionId(v.Id)
+            local isUnlock , conditionDescript = XDataCenter.FavorabilityManager.CheckCharacterActionUnlockBySignBoardActionId(v.Id)
             if isUnlock then
                 table.insert(configs, v)
             end
@@ -617,7 +617,6 @@ XSignBoardManagerCreator = function()
     -- v1.32 角色特殊动作动画相关
     --================================================================================
     local sceneAnim = XSignBoardCamAnim.New()
-    local sceneAnimPrefab
 
     -- 场景动画
     ----------------------------------------------------------------------------------
@@ -630,8 +629,9 @@ XSignBoardManagerCreator = function()
             XSignBoardManager.UnLoadAnim()
             -- 由于LoadPrefab()加载同url的是相同的gameobject，当不同signBoardId配置相同prefab url时unloadanim会报错
             local prefabName = XSignBoardConfigs.GetSignBoardSceneAnim(signBoardId)
-            sceneAnimPrefab = CS.XResourceManager.Load(prefabName)
-            local animPrefab = XUiHelper.Instantiate(sceneAnimPrefab.Asset, rootNode)
+            local prefab = CS.XResourceManager.Load(prefabName)
+            local animPrefab = XUiHelper.Instantiate(prefab.Asset, rootNode)
+            CS.XResourceManager.Unload(prefab)
 
             sceneAnim:UpdateData(sceneId, signBoardId, ui)
             sceneAnim:UpdateAnim(animPrefab, farCam, nearCam)
@@ -639,9 +639,6 @@ XSignBoardManagerCreator = function()
     end
 
     function XSignBoardManager.UnLoadAnim()
-        if sceneAnimPrefab then
-            CS.XResourceManager.Unload(sceneAnimPrefab)
-        end
         if not sceneAnim then
             sceneAnim = XSignBoardCamAnim.New()
         else

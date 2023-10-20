@@ -9,7 +9,7 @@ function XRedPointConditionRepeatChallengeEntrance.GetSubConditions()
 end
 
 function XRedPointConditionRepeatChallengeEntrance.Check()
-    return XRedPointConditionRepeatChallengeReward.Check() or XRedPointConditionRepeatChallengeCoin.Check()
+    return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_REWARD) or XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_COIN)
 end
 
 return XRedPointConditionRepeatChallengeEntrance

@@ -42,8 +42,8 @@ function XPanelQualityUpgradeDetailV2P6:Refresh(afterEvoQuality)
     local showUniframe = XCharacterConfigs.IsIsomer(characterId)
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
     
-    local oldAttribute = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, afterEvoQuality - 1)
-    local newAttribute = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, afterEvoQuality)
+    local oldAttribute = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(characterId, afterEvoQuality - 1)
+    local newAttribute = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(characterId, afterEvoQuality)
     
     for name, index in pairs(AttributeShow) do
         local panel = self["PanelChar".. index]

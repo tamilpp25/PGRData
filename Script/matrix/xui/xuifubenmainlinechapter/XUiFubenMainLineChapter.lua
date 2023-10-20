@@ -2,18 +2,22 @@ local XUiGridChapter = require("XUi/XUiFubenMainLineChapter/XUiGridChapter")
 local XUiGridExploreChapter = require("XUi/XUiFubenMainLineChapter/XUiGridExploreChapter")
 local XUiPanelStoryJump = require("XUi/XUiFubenMainLineChapter/XUiPanelStoryJump")
 
+---@class XUiFubenMainLineChapter:XLuaUi
 local XUiFubenMainLineChapter = XLuaUiManager.Register(XLuaUi, "UiFubenMainLineChapter")
 
 function XUiFubenMainLineChapter:OnAwake()
     self:InitAutoScript()
 end
 
+---@param chapter XTableBfrtChapter
 function XUiFubenMainLineChapter:OnStart(chapter, stageId, hideDiffTog)
+    ---@type UnityEngine.Transform
     self.UnderBg = self.Transform:Find("SafeAreaContentPane/ImageUnder")
+    ---@type UnityEngine.Transform
     self.SafeAreaContentPane = self.Transform:Find("SafeAreaContentPane")
+    ---@type UnityEngine.Camera
     self.Camera = self.Transform:GetComponent("Canvas").worldCamera
-    self.Chapter = chapter
-    self.StageId = stageId
+    
     if self.LastData then
         self.Chapter = self.LastData.Chapter or chapter
         self.StageId = self.LastData.StageId or stageId
@@ -26,11 +30,14 @@ function XUiFubenMainLineChapter:OnStart(chapter, stageId, hideDiffTog)
     end
     self.Opened = false
     self.IsOnZhouMu = false
+    ---@type XUiGridTreasureGrade[]
     self.GridTreasureList = {}
+    ---@type XUiGridTreasureGrade[]
     self.GridMultipleWeeksTaskList = {}
     self.GridChapterList = {} --存的是各种Chapter的预制体实例列表
     self.QuickJumpBtnList = {}
     self.PanelExploreBottom = {}
+    ---@type XUiGridChapter
     self.CurChapterGrid = nil
     self.CurChapterGridName = ""
     self.PanelStageDetailInst = nil
@@ -49,7 +56,7 @@ function XUiFubenMainLineChapter:OnStart(chapter, stageId, hideDiffTog)
     self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_MAINLINE_TREASURE }, self.Chapter.ChapterId, false)
     self.RedPointZhouMuId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
 
-    self.RedPointBfrtId = XRedPointManager.AddRedPointEvent(self.ImgRedProgressA, self.OnCheckBfrtRewards, self, { XRedPointConditions.Types.CONDITION_BFRT_CHAPTER_REWARD }, nil, false)
+    self:InitBfrtRedPoint()
     self.RedPointBtnExItemId = XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXPLORE_ITEM_GET }, self.MainChapterId)
 
     -- 注册stage事件
@@ -82,6 +89,7 @@ function XUiFubenMainLineChapter:OnEnable()
         self.ZhouMuNumber = XDataCenter.FubenZhouMuManager.GetZhouMuNumber(self.ZhouMuId)
         self.PanelMultipleWeeksInfo.gameObject:SetActiveEx(self.ZhouMuNumber ~= 0)
     end
+    self:RefreshBfrtProgress()
     if self.GridChapterList then
         for _, v in pairs(self.GridChapterList) do
             v:OnEnable()
@@ -107,6 +115,7 @@ function XUiFubenMainLineChapter:OnEnable()
         -- 清理缓存
         XDataCenter.FubenMainLineManager.RemoveTeleportRewardCache(self.Chapter.ChapterId)
     end
+    self:AddEventListener()
 end
 
 function XUiFubenMainLineChapter:OnDisable()
@@ -121,6 +130,7 @@ function XUiFubenMainLineChapter:OnDisable()
         self:CloseChildUi(childUi)
         self:OnCloseStageDetail()
     end
+    self:RemoveEventListener()
 end
 
 function XUiFubenMainLineChapter:OnDestroy()
@@ -134,6 +144,38 @@ function XUiFubenMainLineChapter:OnDestroy()
     XRedPointManager.RemoveRedPointEvent(self.RedPointBfrtId)
     XRedPointManager.RemoveRedPointEvent(self.RedPointBtnExItemId)
 end
+
+function XUiFubenMainLineChapter:OnReleaseInst()
+    return {Chapter = self.Chapter, StageId = self.StageId, HideDiffTog = self.HideDiffTog}
+end
+
+function XUiFubenMainLineChapter:OnResume(data)
+    self.LastData = data
+end
+
+function XUiFubenMainLineChapter:OnGetEvents()
+    return {
+        XEventId.EVENT_FINISH_TASK,
+        XEventId.EVENT_TASK_SYNC,
+        XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL, 
+        XEventId.EVENT_FUBEN_ENTERFIGHT
+    }
+end
+
+--事件监听
+function XUiFubenMainLineChapter:OnNotify(evt, ...)
+    if evt == XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL then
+        self:OnCloseStageDetail()
+    elseif evt == XEventId.EVENT_FUBEN_ENTERFIGHT then
+        self:EnterFight(...)
+    elseif evt == XEventId.EVENT_FINISH_TASK or evt == XEventId.EVENT_TASK_SYNC then
+        if self:CheckIsBfrtType() then
+            self:UpdatePanelBfrtTask()
+        end
+    end
+end
+
+
 
 function XUiFubenMainLineChapter:OnOpenInit()
     XDataCenter.FubenManager.UiFubenMainLineChapterInst = self
@@ -320,188 +362,6 @@ function XUiFubenMainLineChapter:AutoAddListener()
     end
 end
 -- auto
-function XUiFubenMainLineChapter:OnBtnCloseDetailClick()
-    self:OnCloseStageDetail()
-end
-
-function XUiFubenMainLineChapter:OnBtnCloseDifficultClick()
-    self:UpdateDifficultToggles()
-end
-
-function XUiFubenMainLineChapter:OnScrollbarClick()
-
-end
-
-function XUiFubenMainLineChapter:OnBtnSkipClick()
-
-end
-
-function XUiFubenMainLineChapter:OnBtnBountyTaskClick()
-
-end
-
-function XUiFubenMainLineChapter:OnBtnExItemClick()
-    XLuaUiManager.Open("UiFubenExItemTip", self)
-end
-
-function XUiFubenMainLineChapter:OnBtnBackClick()
-    if self:CloseStageDetail() then
-        return
-    end
-    self:Close()
-end
-
-function XUiFubenMainLineChapter:OnBtnMainUiClick()
-    XLuaUiManager.RunMain()
-end
-
-function XUiFubenMainLineChapter:OpenDifficultPanel()
-
-end
-
-function XUiFubenMainLineChapter:OnBtnNormalClick(IsAutoMove)
-    if self.IsShowDifficultPanel then
-        if self.CurDiff ~= XDataCenter.FubenManager.DifficultNormal then
-            local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultNormal, self.Chapter.OrderId)
-            if not (chapterInfo and chapterInfo.Unlock) then
-                XUiManager.TipMsg(XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage), XUiManager.UiTipType.Wrong)
-                return false
-            end
-            self.CurDiff = XDataCenter.FubenManager.DifficultNormal
-            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
-            self:RefreshForChangeDiff(IsAutoMove)
-        end
-        self:UpdateDifficultToggles()
-    else
-        self:UpdateDifficultToggles(true)
-    end
-    return true
-end
-
-function XUiFubenMainLineChapter:OnBtnHardClick(IsAutoMove)
-    if self.IsShowDifficultPanel then
-        if self.CurDiff ~= XDataCenter.FubenManager.DifficultHard then
-            -- 检查主线副本活动
-            local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultHard, self.Chapter.OrderId)
-            if not chapterInfo then
-                return false
-            end
-
-            -- 检查困难开启
-            if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenDifficulty) then
-                return false
-            end
-
-            if chapterInfo.IsActivity then
-                local chapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
-                local ret, desc = XDataCenter.FubenMainLineManager.CheckActivityCondition(chapterId)
-                if not ret then
-                    XUiManager.TipMsg(desc, XUiManager.UiTipType.Wrong)
-                    return false
-                end
-            end
-            
-            -- 检查困难这个章节解锁
-            -- if not chapterInfo or not chapterInfo.IsOpen then
-            if XDataCenter.FubenMainLineManager:ExGetChapterIsLockAndLockTip(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard) then
-                local chapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
-                local isOpen, desc = XDataCenter.FubenMainLineManager.CheckOpenCondition(chapterId)
-                if not isOpen then
-                    XUiManager.TipMsg(desc)
-                    return false
-                end
-                local tipMsg = XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage)
-                XUiManager.TipMsg(tipMsg)
-                --XUiManager.TipMsg(CS.XTextManager.GetText("FubenNeedComplatePreChapter"), XUiManager.UiTipType.Wrong)
-                return false
-            end
-            self.CurDiff = XDataCenter.FubenManager.DifficultHard
-            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
-            self:RefreshForChangeDiff(IsAutoMove)
-        end
-        self:UpdateDifficultToggles()
-    else
-        self:UpdateDifficultToggles(true)
-    end
-    return true
-end
-
-function XUiFubenMainLineChapter:OnBtnVtClick(IsAutoMove)
-    if self.IsShowDifficultPanel then
-        if self.CurDiff ~= XDataCenter.FubenManager.DifficultVariations then
-            self.CurDiff = XDataCenter.FubenManager.DifficultVariations
-            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
-            self:RefreshForChangeDiff(IsAutoMove)
-        end
-        self:UpdateDifficultToggles()
-    else
-        self:UpdateDifficultToggles(true)
-    end
-end
-
--- 点击切换到周目模式
-function XUiFubenMainLineChapter:OnBtnSwitch1MultipleWeeksClick()
-    self.IsOnZhouMu = true
-    self.TxtCurMWNum.text = self.ZhouMuNumber
-    local zhouMuChapter = XDataCenter.FubenZhouMuManager.GetZhouMuChapterData(self.MainChapterId, false)
-
-    for _, v in pairs(self.GridChapterList) do
-        v:Hide()
-    end
-
-    local data = {
-        Chapter = zhouMuChapter,
-        HideStageCb = handler(self, self.HideStageDetail),
-        ShowStageCb = handler(self, self.ShowStageDetail),
-    }
-    data.StageList = XFubenZhouMuConfigs.GetZhouMuChapterStages(zhouMuChapter.Id)
-
-    local grid = self.CurChapterGrid
-    local prefabName = zhouMuChapter.PrefabName
-    if self.CurChapterGridName ~= prefabName then
-        local gameObject = self.PanelChapter:LoadPrefab(prefabName)
-        if gameObject == nil or not gameObject:Exist() then
-            return
-        end
-
-        grid = XUiGridChapter.New(self, gameObject, nil, true)
-        grid.Transform:SetParent(self.PanelChapter, false)
-        self.CurChapterGridName = prefabName
-        self.CurChapterGrid = grid
-        self.GridChapterList[prefabName] = grid
-    end
-
-    if self:CheckDetailOpen() then
-        self:HideStageDetail()
-    end
-
-    grid:UpdateChapterGrid(data)
-    grid:Show()
-
-    self:UpdateChapterStars()
-    self:UpdateChapterTxt()
-    self:SetPanelBottomActive(true)
-
-    self.BtnSwitch1MultipleWeeks.gameObject:SetActiveEx(false)
-    self.BtnSwitch2Normal.gameObject:SetActiveEx(true)
-    self.TxtCurMWNum.gameObject:SetActiveEx(true)
-    self.PanelTopDifficult.gameObject:SetActiveEx(false)
-    self:PlayAnimation("AnimEnable2")
-end
-
-function XUiFubenMainLineChapter:OnBtnSwitch2NormalClidk()
-    self.IsOnZhouMu = false
-    self:RefreshForChangeDiff(true)
-
-    self.BtnSwitch1MultipleWeeks.gameObject:SetActiveEx(true)
-    self.BtnSwitch2Normal.gameObject:SetActiveEx(false)
-    self.TxtCurMWNum.gameObject:SetActiveEx(false)
-    if XUiManager.IsHideFunc then
-        self.PanelTopDifficult.gameObject:SetActiveEx(false)
-    else
-        self.PanelTopDifficult.gameObject:SetActiveEx(true)
-    end
-end
 
 function XUiFubenMainLineChapter:UpdateDifficultToggles(showAll)
     if showAll then
@@ -578,7 +438,7 @@ function XUiFubenMainLineChapter:SetBtnTogleActive(isNormal, isHard, isVt)
         if hardChapter then
             local viewModel = XDataCenter.FubenManagerEx.GetMainLineManager():ExGetChapterViewModelById(self.MainChapterId, XDataCenter.FubenManager.DifficultHard, self.Chapter.OrderId)
             local isUnFinAndUnEnter = XDataCenter.FubenManagerEx.CheckHideChapterRedPoint(viewModel) --v1.30 新入口红点规则，未完成隐藏且没点击过
-            local hardRed = XRedPointConditionChapterReward.Check(hardChapter.ChapterId) or isUnFinAndUnEnter
+            local hardRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAINLINE_CHAPTER_REWARD, hardChapter.ChapterId) or isUnFinAndUnEnter
 
             self.BtnNormal:ShowReddot(not isHard and hardRed)
             self.BtnHard:ShowReddot(hardRed) 
@@ -591,7 +451,7 @@ function XUiFubenMainLineChapter:SetBtnTogleActive(isNormal, isHard, isVt)
         local chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultNormal)
         local normalChapter = XDataCenter.FubenMainLineManager.GetChapterCfg(chapterList[self.Chapter.OrderId])
         if normalChapter then
-            local normalRed = XRedPointConditionChapterReward.Check(normalChapter.ChapterId)
+            local normalRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAINLINE_CHAPTER_REWARD, normalChapter.ChapterId)
             self.BtnHard:ShowReddot(not isNormal and normalRed)
             self.BtnNormal:ShowReddot(normalRed)
         else
@@ -662,7 +522,7 @@ function XUiFubenMainLineChapter:UpdateCurChapter(chapter)
         data.StageList = XDataCenter.BfrtManager.GetBaseStageList(self.Chapter.ChapterId)
     else
         data.StageList = XDataCenter.FubenMainLineManager.GetStageList(self.Chapter.ChapterId)
-    end
+        end
 
     local grid = self.CurChapterGrid
     local prefabName = self.Chapter.PrefabName
@@ -670,6 +530,21 @@ function XUiFubenMainLineChapter:UpdateCurChapter(chapter)
         local gameObject = self.PanelChapter:LoadPrefab(prefabName)
         if gameObject == nil or not gameObject:Exist() then
             return
+        end
+        --获取引用列表
+        self.chapterTable={}
+        XTool.InitUiObjectByUi(self.chapterTable,gameObject)
+        --隐藏除第一个以外的所有节点
+        if self.chapterTable['Effect1'] then
+            self.CurEffect=self.chapterTable['Effect1']
+            self.chapterTable['Effect1'].gameObject:SetActiveEx(true)
+        end
+        for i=2,100 do
+            if self.chapterTable['Effect'..i] then
+                self.chapterTable['Effect'..i].gameObject:SetActiveEx(false)
+            else
+                break    
+            end
         end
 
         if self.IsExploreMod then
@@ -693,6 +568,15 @@ function XUiFubenMainLineChapter:UpdateCurChapter(chapter)
                         end
                         if isPlayAnim then
                             gameObject:FindTransform("BgQieHuan"..seletBgIndex):PlayTimelineAnimation()
+                            --追加特效节点切换
+                            local effect=self.chapterTable["Effect"..math.abs(seletBgIndex)]
+                            if effect then
+                                if self.CurEffect then
+                                    self.CurEffect.gameObject:SetActiveEx(false)
+                                end
+                                self.CurEffect=effect
+                                self.CurEffect.gameObject:SetActiveEx(true)
+                            end
                         end
                         -- 切换标题、剩余时间、星数进度文本颜色
                         if self.Chapter.ChapterTextColor then
@@ -812,29 +696,6 @@ function XUiFubenMainLineChapter:UpdateCurChapter(chapter)
     end
 end
 
-function XUiFubenMainLineChapter:UpdateExploreBottom()
-    if not self.IsExploreMod then
-        return
-    end
-    self.CanPlayList = {}
-
-    local chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultNormal)
-    local normalChapter = XDataCenter.FubenMainLineManager.GetChapterCfg(chapterList[self.Chapter.OrderId])
-
-    chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultHard)
-    local hardChapter = XDataCenter.FubenMainLineManager.GetChapterCfg(chapterList[self.Chapter.OrderId])
-
-    self:SetCanPlayStageList(normalChapter, XDataCenter.FubenManager.DifficultNormal)
-    self:SetCanPlayStageList(hardChapter, XDataCenter.FubenManager.DifficultHard)
-
-    self:ReSetQuickJumpButton(normalChapter, XDataCenter.FubenManager.DifficultNormal, self.PanelExploreBottom.BtnNormalJump)
-    self:ReSetQuickJumpButton(hardChapter, XDataCenter.FubenManager.DifficultHard, self.PanelExploreBottom.BtnHardlJump)
-
-    if self.CurChapterGrid then
-        self.CurChapterGrid:SetCanPlayList(self.CanPlayList[self.CurDiff])
-    end
-end
-
 function XUiFubenMainLineChapter:SetCanPlayStageList(chapter, diff)
     for index, stageId in pairs(chapter.StageId) do
         if not self.CanPlayList[diff] then
@@ -922,92 +783,11 @@ function XUiFubenMainLineChapter:OnQuickJumpClick(diff, index)
     end
 end
 
-function XUiFubenMainLineChapter:CheckDetailOpen()
-    local childUi = self:GetCurDetailChildUi()
-    return XLuaUiManager.IsUiShow(childUi)
-end
-
-function XUiFubenMainLineChapter:ShowStageDetail(stage)
-    self.PanelMoney.gameObject:SetActiveEx(false)
-    self.Stage = stage
-    if self.IsExploreMod or self.IsOnZhouMu then
-        self:OpenExploreDetail()
-    else
-        local childUi = self:GetCurDetailChildUi()
-        self:OpenOneChildUi(childUi, self)
-    end
-end
-
 function XUiFubenMainLineChapter:OnEnterStory(stageId)
+    ---@type XTableStage
     self.Stage = XDataCenter.FubenManager.GetStageCfg(stageId)
     local childUi = self:GetCurDetailChildUi()
     self:OpenOneChildUi(childUi, self)
-end
-
-function XUiFubenMainLineChapter:HideStageDetail()
-    if not self.Stage then
-        return
-    end
-
-    local childUi = self:GetCurDetailChildUi()
-    local childUiObj = self:FindChildUiObj(childUi)
-    if childUiObj then
-        childUiObj:Hide()
-    end
-end
-
-function XUiFubenMainLineChapter:OnCloseStageDetail()
-    if self.BountyInfo and #self.BountyInfo.TaskCards > 0 then
-        local taskCards = self.BountyInfo.TaskCards
-        for i = 1, XDataCenter.BountyTaskManager.MAX_BOUNTY_TASK_COUNT do
-            if taskCards[i] and taskCards[i].Status ~= XDataCenter.BountyTaskManager.BountyTaskStatus.AcceptReward then
-                self.PanelMoney.gameObject:SetActiveEx(true and not self.IsExploreMod)
-            end
-        end
-    end
-    if self.CurChapterGrid then
-        self.CurChapterGrid:CancelSelect()
-    end
-end
-
-function XUiFubenMainLineChapter:UpdateBfrtRewards()
-    local chapterId = self.Chapter.ChapterId
-    local taskId = XDataCenter.BfrtManager.GetBfrtTaskId(chapterId)
-    local taskConfig = XDataCenter.TaskManager.GetTaskTemplate(taskId)
-    local rewardId = taskConfig.RewardId
-    local rewards = XRewardManager.GetRewardList(rewardId)
-
-    self.BfrtRewardGrids = self.BfrtRewardGrids or {}
-    local rewardsNum = #rewards
-    for i = 1, rewardsNum do
-        local grid = self.BfrtRewardGrids[i]
-        if not grid then
-            local go = i == 1 and self.GridCommonPopUp or CS.UnityEngine.Object.Instantiate(self.GridCommonPopUp)
-            grid = XUiGridCommon.New(self, go)
-            self.BfrtRewardGrids[i] = grid
-        end
-        grid:Refresh(rewards[i])
-        grid.Transform:SetParent(self.PanelBfrtRewrds, false)
-        grid.GameObject:SetActiveEx(true)
-    end
-    for i = rewardsNum + 1, #self.BfrtRewardGrids do
-        self.BfrtRewardGrids[i].GameObject:SetActiveEx(false)
-    end
-end
-
-function XUiFubenMainLineChapter:OnCheckBfrtRewards(count)
-    self.ImgRedProgressA.gameObject:SetActiveEx(count >= 0)
-end
-
-function XUiFubenMainLineChapter:UpdatePanelBfrtTask()
-    local chapterId = self.Chapter.ChapterId
-    self.ImgJindu.gameObject:SetActiveEx(false)
-    self.ImgLingqu.gameObject:SetActiveEx(XDataCenter.BfrtManager.CheckAllTaskRewardHasGot(chapterId))
-    self.PanelDesc.gameObject:SetActiveEx(false)
-    self.PanelBfrtTask.gameObject:SetActiveEx(true)
-
-    self:UpdateBfrtRewards()
-    XRedPointManager.Check(self.RedPointBfrtId, self.Chapter.ChapterId)
 end
 
 -- 更新左下角的奖励按钮的状态
@@ -1061,20 +841,7 @@ function XUiFubenMainLineChapter:OnBtnTreasureClick()
         return
     end
     if self:CheckIsBfrtType() then
-        local chapterId = self.Chapter.ChapterId
-        if XDataCenter.BfrtManager.CheckAllTaskRewardHasGot(chapterId) then
-            XUiManager.TipText("TaskAlreadyFinish")
-            return
-        elseif not XDataCenter.BfrtManager.CheckAnyTaskRewardCanGet(chapterId) then
-            XUiManager.TipText("TaskDoNotFinish")
-            return
-        end
-
-        local taskId = XDataCenter.BfrtManager.GetBfrtTaskId(chapterId)
-        XDataCenter.TaskManager.FinishTask(taskId, function(rewardGoodsList)
-            XUiManager.OpenUiObtain(rewardGoodsList)
-            self:UpdatePanelBfrtTask()
-        end)
+        self:_OnClickBfrtReward()
     else
         self:InitTreasureGrade()
         self.PanelTreasure.gameObject:SetActiveEx(true)
@@ -1082,17 +849,6 @@ function XUiFubenMainLineChapter:OnBtnTreasureClick()
         self:SetPanelBottomActive(true)
     end
     self:PlayAnimation("TreasureEnable")
-end
-
-function XUiFubenMainLineChapter:CloseStageDetail()
-    if self:CheckDetailOpen() then
-        if self.CurChapterGrid then
-            self.CurChapterGrid:ScrollRectRollBack()
-        end
-        self:HideStageDetail()
-        return true
-    end
-    return false
 end
 
 function XUiFubenMainLineChapter:OnBtnTreasureBgClick()
@@ -1242,12 +998,9 @@ function XUiFubenMainLineChapter:SetupBountyTask()
     end
 end
 
-function XUiFubenMainLineChapter:CheckIsBfrtType()
-    return self.CurDiff and self.CurDiff == XDataCenter.FubenManager.DifficultNightmare
-end
-
 function XUiFubenMainLineChapter:GetChapterCfgByStageId(stageId)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    ---@type XTableChapter|XTableBfrtChapter
     local chapter
     if XDataCenter.BfrtManager.CheckStageTypeIsBfrt(stageId) then
         chapter = XDataCenter.BfrtManager.GetChapterCfg(stageInfo.ChapterId)
@@ -1258,19 +1011,6 @@ function XUiFubenMainLineChapter:GetChapterCfgByStageId(stageId)
     end
 
     return chapter
-end
-
-function XUiFubenMainLineChapter:OnGetEvents()
-    return { XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL, XEventId.EVENT_FUBEN_ENTERFIGHT }
-end
-
---事件监听
-function XUiFubenMainLineChapter:OnNotify(evt, ...)
-    if evt == XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL then
-        self:OnCloseStageDetail()
-    elseif evt == XEventId.EVENT_FUBEN_ENTERFIGHT then
-        self:EnterFight(...)
-    end
 end
 
 function XUiFubenMainLineChapter:UpdateActivityTime()
@@ -1284,11 +1024,6 @@ function XUiFubenMainLineChapter:UpdateActivityTime()
 
     local curDiffHasActivity = XDataCenter.FubenMainLineManager.CheckDiffHasAcitivity(self.Chapter)
     self.PanelActivityTime.gameObject:SetActiveEx(curDiffHasActivity)
-end
-
-function XUiFubenMainLineChapter:UpdateFubenExploreItem()
-    local itemCurCount = #XDataCenter.FubenMainLineManager.GetChapterExploreItemList(self.MainChapterId)
-    self.PanelFubenExItem.gameObject:SetActiveEx(itemCurCount > 0 and self.IsExploreMod)
 end
 
 function XUiFubenMainLineChapter:CreateActivityTimer()
@@ -1322,6 +1057,35 @@ function XUiFubenMainLineChapter:DestroyActivityTimer()
     end
 end
 
+function XUiFubenMainLineChapter:GoToStage(stageId)
+    if self.CurChapterGrid then
+        self.CurChapterGrid:GoToStage(stageId)
+    end
+end
+
+function XUiFubenMainLineChapter:OnAutoFightStart(stageId)
+    if self.Stage.StageId == stageId and self.IsExploreMod then
+        if self.CurChapterGrid then
+            self.CurChapterGrid:ScaleBack()
+        end
+        self:OnCloseStageDetail()
+        XLuaUiManager.Remove("UiFubenExploreDetail")
+    end
+end
+
+--region Ui - StageDetail
+---@param stage XTableStage
+function XUiFubenMainLineChapter:ShowStageDetail(stage)
+    self.PanelMoney.gameObject:SetActiveEx(false)
+    self.Stage = stage
+    if self.IsExploreMod or self.IsOnZhouMu then
+        self:OpenExploreDetail()
+    else
+        local childUi = self:GetCurDetailChildUi()
+        self:OpenOneChildUi(childUi, self)
+    end
+end
+
 function XUiFubenMainLineChapter:GetCurDetailChildUi()
     local stageCfg = self.Stage
     if not stageCfg then return "" end
@@ -1335,10 +1099,165 @@ function XUiFubenMainLineChapter:GetCurDetailChildUi()
     end
 end
 
-function XUiFubenMainLineChapter:GoToStage(stageId)
-    if self.CurChapterGrid then
-        self.CurChapterGrid:GoToStage(stageId)
+function XUiFubenMainLineChapter:CheckDetailOpen()
+    local childUi = self:GetCurDetailChildUi()
+    return XLuaUiManager.IsUiShow(childUi)
+end
+
+function XUiFubenMainLineChapter:HideStageDetail()
+    if not self.Stage then
+        return
     end
+
+    local childUi = self:GetCurDetailChildUi()
+    local childUiObj = self:FindChildUiObj(childUi)
+    if childUiObj then
+        childUiObj:Hide()
+    end
+end
+
+function XUiFubenMainLineChapter:OnCloseStageDetail()
+    if self.BountyInfo and #self.BountyInfo.TaskCards > 0 then
+        local taskCards = self.BountyInfo.TaskCards
+        for i = 1, XDataCenter.BountyTaskManager.MAX_BOUNTY_TASK_COUNT do
+            if taskCards[i] and taskCards[i].Status ~= XDataCenter.BountyTaskManager.BountyTaskStatus.AcceptReward then
+                self.PanelMoney.gameObject:SetActiveEx(true and not self.IsExploreMod)
+            end
+        end
+    end
+    if self.CurChapterGrid then
+        self.CurChapterGrid:CancelSelect()
+    end
+end
+
+function XUiFubenMainLineChapter:CloseStageDetail()
+    if self:CheckDetailOpen() then
+        if self.CurChapterGrid then
+            self.CurChapterGrid:ScrollRectRollBack()
+        end
+        self:HideStageDetail()
+        return true
+    end
+    return false
+end
+--endregion
+
+--region Ui - Bfrt
+function XUiFubenMainLineChapter:CheckIsBfrtType()
+    return self.CurDiff and self.CurDiff == XDataCenter.FubenManager.DifficultNightmare
+end
+
+function XUiFubenMainLineChapter:InitBfrtRedPoint()
+    self.RedPointBfrtId = XRedPointManager.AddRedPointEvent(self.ImgRedProgressA, self.OnCheckBfrtRewards, self, { XRedPointConditions.Types.CONDITION_BFRT_CHAPTER_REWARD }, nil, false)
+end
+
+function XUiFubenMainLineChapter:OnCheckBfrtRewards(count)
+    self.ImgRedProgressA.gameObject:SetActiveEx(count >= 0)
+end
+
+function XUiFubenMainLineChapter:_UpdateBfrtRewards()
+    local chapterId = self.Chapter.ChapterId
+    local rewards = XDataCenter.BfrtManager.GetChapterTaskRewardList(chapterId)
+
+    self.BfrtRewardGrids = self.BfrtRewardGrids or {}
+    local rewardsNum = #rewards
+    for i = 1, rewardsNum do
+        local grid = self.BfrtRewardGrids[i]
+        if not grid then
+            local go = i == 1 and self.GridCommonPopUp or CS.UnityEngine.Object.Instantiate(self.GridCommonPopUp)
+            grid = XUiGridCommon.New(self, go)
+            self.BfrtRewardGrids[i] = grid
+        end
+        grid:Refresh(rewards[i])
+        grid.Transform:SetParent(self.PanelBfrtRewrds, false)
+        grid.GameObject:SetActiveEx(true)
+    end
+    for i = rewardsNum + 1, #self.BfrtRewardGrids do
+        self.BfrtRewardGrids[i].GameObject:SetActiveEx(false)
+    end
+end
+
+function XUiFubenMainLineChapter:_OnClickBfrtReward()
+    local chapterId = self.Chapter.ChapterId
+    XLuaUiManager.Open("UiBfrtChapterReward", chapterId)
+    --if XDataCenter.BfrtManager.CheckAllTaskRewardHasGot(chapterId) then
+    --    XUiManager.TipText("TaskAlreadyFinish")
+    --    return
+    --elseif not XDataCenter.BfrtManager.CheckAnyTaskRewardCanGet(chapterId) then
+    --    XUiManager.TipText("TaskDoNotFinish")
+    --    return
+    --end
+    --local taskId = XDataCenter.BfrtManager.GetBfrtTaskId(chapterId)
+    --XDataCenter.TaskManager.FinishTask(taskId, function(rewardGoodsList)
+    --    XUiManager.OpenUiObtain(rewardGoodsList)
+    --    self:UpdatePanelBfrtTask()
+    --end)
+end
+
+function XUiFubenMainLineChapter:UpdatePanelBfrtTask()
+    local chapterId = self.Chapter.ChapterId
+    self.ImgJindu.gameObject:SetActiveEx(false)
+    self.ImgLingqu.gameObject:SetActiveEx(XDataCenter.BfrtManager.CheckAllTaskRewardHasGot(chapterId))
+    self.PanelDesc.gameObject:SetActiveEx(false)
+    self.PanelBfrtTask.gameObject:SetActiveEx(true)
+
+    self:_UpdateBfrtRewards()
+    XRedPointManager.Check(self.RedPointBfrtId, self.Chapter.ChapterId)
+end
+
+function XUiFubenMainLineChapter:RefreshBfrtProgress()
+    if not self.PanelBfrtSiteProgress then
+        return
+    end
+    if not self:CheckIsBfrtType() then
+        self.PanelBfrtSiteProgress.gameObject:SetActiveEx(false)
+    else
+        local passCount = XDataCenter.BfrtManager.GetChapterPassCount(self.Chapter.ChapterId)
+        local allCount = XDataCenter.BfrtManager.GetChapterGroupCount(self.Chapter.ChapterId)
+        self.PanelBfrtSiteProgress.gameObject:SetActiveEx(true)
+        self.TxtBfrtProgress.text = XUiHelper.GetText("BfrtChapterProgressMainLine", passCount, allCount)
+    end
+end
+
+function XUiFubenMainLineChapter:RefreshBfrtGroup()
+    if self.CurChapterGrid and self.Chapter then
+        self:UpdateCurChapter(self.Chapter)
+        self:RefreshBfrtProgress()
+    end
+end
+--endregion
+
+--region Ui - FubenExplore
+function XUiFubenMainLineChapter:UpdateExploreBottom()
+    if not self.IsExploreMod then
+        return
+    end
+    self.CanPlayList = {}
+
+    local chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultNormal)
+    local normalChapter = XDataCenter.FubenMainLineManager.GetChapterCfg(chapterList[self.Chapter.OrderId])
+
+    chapterList = XDataCenter.FubenMainLineManager.GetChapterList(XDataCenter.FubenManager.DifficultHard)
+    local hardChapter = XDataCenter.FubenMainLineManager.GetChapterCfg(chapterList[self.Chapter.OrderId])
+
+    self:SetCanPlayStageList(normalChapter, XDataCenter.FubenManager.DifficultNormal)
+    self:SetCanPlayStageList(hardChapter, XDataCenter.FubenManager.DifficultHard)
+
+    self:ReSetQuickJumpButton(normalChapter, XDataCenter.FubenManager.DifficultNormal, self.PanelExploreBottom.BtnNormalJump)
+    self:ReSetQuickJumpButton(hardChapter, XDataCenter.FubenManager.DifficultHard, self.PanelExploreBottom.BtnHardlJump)
+
+    if self.CurChapterGrid then
+        self.CurChapterGrid:SetCanPlayList(self.CanPlayList[self.CurDiff])
+    end
+end
+
+function XUiFubenMainLineChapter:UpdateFubenExploreItem()
+    local itemCurCount = #XDataCenter.FubenMainLineManager.GetChapterExploreItemList(self.MainChapterId)
+    self.PanelFubenExItem.gameObject:SetActiveEx(itemCurCount > 0 and self.IsExploreMod)
+end
+
+function XUiFubenMainLineChapter:OnCheckExploreItemNews(count)
+    self.BtnExItem:ShowReddot(count >= 0)
 end
 
 function XUiFubenMainLineChapter:OpenExploreDetail()
@@ -1349,25 +1268,205 @@ function XUiFubenMainLineChapter:OpenExploreDetail()
         self:OnCloseStageDetail()
     end)
 end
+--endregion
 
-function XUiFubenMainLineChapter:OnCheckExploreItemNews(count)
-    self.BtnExItem:ShowReddot(count >= 0)
+--region Ui - BtnListener
+function XUiFubenMainLineChapter:OnBtnCloseDetailClick()
+    self:OnCloseStageDetail()
 end
 
-function XUiFubenMainLineChapter:OnAutoFightStart(stageId)
-    if self.Stage.StageId == stageId and self.IsExploreMod then
-        if self.CurChapterGrid then
-            self.CurChapterGrid:ScaleBack()
+function XUiFubenMainLineChapter:OnBtnCloseDifficultClick()
+    self:UpdateDifficultToggles()
+end
+
+function XUiFubenMainLineChapter:OnScrollbarClick()
+
+end
+
+function XUiFubenMainLineChapter:OnBtnSkipClick()
+
+end
+
+function XUiFubenMainLineChapter:OnBtnBountyTaskClick()
+
+end
+
+function XUiFubenMainLineChapter:OnBtnExItemClick()
+    XLuaUiManager.Open("UiFubenExItemTip", self)
+end
+
+function XUiFubenMainLineChapter:OnBtnBackClick()
+    if self:CloseStageDetail() then
+        return
+    end
+    self:Close()
+end
+
+function XUiFubenMainLineChapter:OnBtnMainUiClick()
+    XLuaUiManager.RunMain()
+end
+
+function XUiFubenMainLineChapter:OpenDifficultPanel()
+
+end
+
+function XUiFubenMainLineChapter:OnBtnNormalClick(IsAutoMove)
+    if self.IsShowDifficultPanel then
+        if self.CurDiff ~= XDataCenter.FubenManager.DifficultNormal then
+            local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultNormal, self.Chapter.OrderId)
+            if not (chapterInfo and chapterInfo.Unlock) then
+                XUiManager.TipMsg(XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage), XUiManager.UiTipType.Wrong)
+                return false
+            end
+            self.CurDiff = XDataCenter.FubenManager.DifficultNormal
+            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
+            self:RefreshForChangeDiff(IsAutoMove)
         end
-        self:OnCloseStageDetail()
-        XLuaUiManager.Remove("UiFubenExploreDetail")
+        self:UpdateDifficultToggles()
+    else
+        self:UpdateDifficultToggles(true)
+    end
+    return true
+end
+
+function XUiFubenMainLineChapter:OnBtnHardClick(IsAutoMove)
+    if self.IsShowDifficultPanel then
+        if self.CurDiff ~= XDataCenter.FubenManager.DifficultHard then
+            -- 检查主线副本活动
+            local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultHard, self.Chapter.OrderId)
+            if not chapterInfo then
+                return false
+            end
+
+            -- 检查困难开启
+            if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenDifficulty) then
+                return false
+            end
+
+            if chapterInfo.IsActivity then
+                local chapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
+                local ret, desc = XDataCenter.FubenMainLineManager.CheckActivityCondition(chapterId)
+                if not ret then
+                    XUiManager.TipMsg(desc, XUiManager.UiTipType.Wrong)
+                    return false
+                end
+            end
+
+            -- 检查困难这个章节解锁
+            -- if not chapterInfo or not chapterInfo.IsOpen then
+            if XDataCenter.FubenMainLineManager:ExGetChapterIsLockAndLockTip(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard) then
+                local chapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
+                local isOpen, desc = XDataCenter.FubenMainLineManager.CheckOpenCondition(chapterId)
+                if not isOpen then
+                    XUiManager.TipMsg(desc)
+                    return false
+                end
+                local tipMsg = XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage)
+                XUiManager.TipMsg(tipMsg)
+                --XUiManager.TipMsg(CS.XTextManager.GetText("FubenNeedComplatePreChapter"), XUiManager.UiTipType.Wrong)
+                return false
+            end
+            self.CurDiff = XDataCenter.FubenManager.DifficultHard
+            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
+            self:RefreshForChangeDiff(IsAutoMove)
+        end
+        self:UpdateDifficultToggles()
+    else
+        self:UpdateDifficultToggles(true)
+    end
+    return true
+end
+
+function XUiFubenMainLineChapter:OnBtnVtClick(IsAutoMove)
+    if self.IsShowDifficultPanel then
+        if self.CurDiff ~= XDataCenter.FubenManager.DifficultVariations then
+            self.CurDiff = XDataCenter.FubenManager.DifficultVariations
+            XDataCenter.FubenMainLineManager.SetCurDifficult(self.CurDiff)
+            self:RefreshForChangeDiff(IsAutoMove)
+        end
+        self:UpdateDifficultToggles()
+    else
+        self:UpdateDifficultToggles(true)
     end
 end
 
-function XUiFubenMainLineChapter:OnReleaseInst()
-    return {Chapter = self.Chapter, StageId = self.StageId, HideDiffTog = self.HideDiffTog}
+-- 点击切换到周目模式
+function XUiFubenMainLineChapter:OnBtnSwitch1MultipleWeeksClick()
+    self.IsOnZhouMu = true
+    self.TxtCurMWNum.text = self.ZhouMuNumber
+    local zhouMuChapter = XDataCenter.FubenZhouMuManager.GetZhouMuChapterData(self.MainChapterId, false)
+
+    for _, v in pairs(self.GridChapterList) do
+        v:Hide()
+    end
+
+    local data = {
+        Chapter = zhouMuChapter,
+        HideStageCb = handler(self, self.HideStageDetail),
+        ShowStageCb = handler(self, self.ShowStageDetail),
+    }
+    data.StageList = XFubenZhouMuConfigs.GetZhouMuChapterStages(zhouMuChapter.Id)
+
+    local grid = self.CurChapterGrid
+    local prefabName = zhouMuChapter.PrefabName
+    if self.CurChapterGridName ~= prefabName then
+        local gameObject = self.PanelChapter:LoadPrefab(prefabName)
+        if gameObject == nil or not gameObject:Exist() then
+            return
+        end
+
+        grid = XUiGridChapter.New(self, gameObject, nil, true)
+        grid.Transform:SetParent(self.PanelChapter, false)
+        self.CurChapterGridName = prefabName
+        self.CurChapterGrid = grid
+        self.GridChapterList[prefabName] = grid
+    end
+
+    if self:CheckDetailOpen() then
+        self:HideStageDetail()
+    end
+
+    grid:UpdateChapterGrid(data)
+    grid:Show()
+
+    self:UpdateChapterStars()
+    self:UpdateChapterTxt()
+    self:SetPanelBottomActive(true)
+
+    self.BtnSwitch1MultipleWeeks.gameObject:SetActiveEx(false)
+    self.BtnSwitch2Normal.gameObject:SetActiveEx(true)
+    self.TxtCurMWNum.gameObject:SetActiveEx(true)
+    self.PanelTopDifficult.gameObject:SetActiveEx(false)
+    self:PlayAnimation("AnimEnable2")
 end
 
-function XUiFubenMainLineChapter:OnResume(data)
-    self.LastData = data
+function XUiFubenMainLineChapter:OnBtnSwitch2NormalClidk()
+    self.IsOnZhouMu = false
+    self:RefreshForChangeDiff(true)
+
+    self.BtnSwitch1MultipleWeeks.gameObject:SetActiveEx(true)
+    self.BtnSwitch2Normal.gameObject:SetActiveEx(false)
+    self.TxtCurMWNum.gameObject:SetActiveEx(false)
+    if XUiManager.IsHideFunc then
+        self.PanelTopDifficult.gameObject:SetActiveEx(false)
+    else
+        self.PanelTopDifficult.gameObject:SetActiveEx(true)
+    end
 end
+--endregion
+
+--region Event
+function XUiFubenMainLineChapter:AddEventListener()
+    if self:CheckIsBfrtType() then
+        XEventManager.AddEventListener(XEventId.EVENT_BFRT_CHAPTER_REWARD_RECV, self.UpdatePanelBfrtTask, self)
+        XEventManager.AddEventListener(XEventId.EVENT_BFRT_FAST_PASS, self.RefreshBfrtGroup, self)
+    end
+end
+
+function XUiFubenMainLineChapter:RemoveEventListener()
+    if self:CheckIsBfrtType() then
+        XEventManager.RemoveEventListener(XEventId.EVENT_BFRT_CHAPTER_REWARD_RECV, self.UpdatePanelBfrtTask, self)
+        XEventManager.RemoveEventListener(XEventId.EVENT_BFRT_FAST_PASS, self.RefreshBfrtGroup, self)
+    end
+end
+--endregion

@@ -35,9 +35,17 @@ end
 
 function XUiFubenBossSingleDetailTip:SetBossStageConfig(bossStageConfig)
     self._BossStageConfig = bossStageConfig
+    
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 function XUiFubenBossSingleDetailTip:_Refresh()
+    if not self._BossStageConfig then
+        return
+    end
+
     local bossStageCfg = self._BossStageConfig
     local buffDetailIds = bossStageCfg.BuffDetailsId
     local featuresIds = bossStageCfg.FeaturesId

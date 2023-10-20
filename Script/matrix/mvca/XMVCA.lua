@@ -32,6 +32,14 @@ local IsWindowsEditor = XMain.IsWindowsEditor
 ---@field XPreload XPreloadAgency
 ---@field XTaikoMaster XTaikoMasterAgency
 ---@field XSameColor XSameColorAgency
+---@field XRogueSim XRogueSimAgency
+---@field XBirthdayPlot XBirthdayPlotAgency
+---@field XFavorability XFavorabilityAgency
+---@field XDlcRoom XDlcRoomAgency
+---@field XDlcWorld XDlcWorldAgency
+---@field XDlcCasual XDlcCasualAgency
+---@field XFubenEx XFubenExAgency
+---@field XCerberusGame XCerberusGameAgency
 local XMVCACls = XClass(XMVCAEvent, "XMVCACls")
 
 function XMVCACls:Ctor()
@@ -40,10 +48,6 @@ function XMVCACls:Ctor()
     self._ModelDict = {}
     self._OneKeyReLogin = false
     if IsWindowsEditor then
-        self._ControlProfiler = {}
-        setmetatable(self._ControlProfiler, { __mode = "kv"})
-        self._ConfigProfiler = {}
-        setmetatable(self._ConfigProfiler, { __mode = "kv"})
         self._PreloadConfig = {}
         
         setmetatable(self, {
@@ -126,9 +130,6 @@ function XMVCACls:_RegisterControl(id)
         local control = cls.New(id)
         self._ControlDict[id] = control
         control:CallInit()
-        if IsWindowsEditor then
-            self._ControlProfiler[control] = control:GetId()
-        end
     end
 end
 
@@ -299,26 +300,17 @@ function XMVCACls:InitModule()
     self:RegisterAgency(ModuleId.XFavorability)
     self:RegisterAgency(ModuleId.XSameColor)
     
+    self:RegisterAgency(ModuleId.XDlcRoom)
+    self:RegisterAgency(ModuleId.XDlcWorld)
+    self:RegisterAgency(ModuleId.XDlcCasual)
     self:RegisterAgency(ModuleId.XConnectingLine)
     self:RegisterAgency(ModuleId.XSubPackage)
     self:RegisterAgency(ModuleId.XPreload)
-end
-
---XMVCA:Profiler()
----检测control释放
-function XMVCACls:Profiler()
-    if IsWindowsEditor then
-        collectgarbage("collect") --得调用Lua Profiler界面的GC才能释放干净
-        XLog.Debug("XMVCACls:ControlProfiler", self._ControlProfiler)
-        XLog.Debug("XMVCACls:ConfigProfiler", self._ConfigProfiler)
-        XLog.Debug("XMVCACls:PreloadConfig", self._PreloadConfig)
-    end
-end
-
-function XMVCACls:AddConfigProfiler(configTable, tag)
-    if IsWindowsEditor then
-        self._ConfigProfiler[configTable] = tag
-    end
+    self:RegisterAgency(ModuleId.XRogueSim)
+    self:RegisterAgency(ModuleId.XBirthdayPlot)
+    self:RegisterAgency(ModuleId.XCerberusGame)
+    self:RegisterAgency(ModuleId.XArchive)
+    self:RegisterAgency(ModuleId.XAnniversary)
 end
 
 function XMVCACls:AddPreloadConfig(path)

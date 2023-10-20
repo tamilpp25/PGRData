@@ -23,16 +23,16 @@ function XUiCerberusGameTips:OnEnable()
 end
 
 function XUiCerberusGameTips:RefreshUiShow()
-    local xStage = XDataCenter.CerberusGameManager.GetXStageById(self.StageId)
+    local xStage = XMVCA.XCerberusGame:GetXStageById(self.StageId)
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
-    local bossCfg = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameBoss)[self.BossIndex]
+    local bossCfg = XMVCA.XCerberusGame:GetModelCerberusGameBoss()[self.BossIndex]
 
     -- 关卡信息
     self.TxtStageName.text = stageCfg.Name
     self.BossIcon1:SetRawImage(bossCfg.BossImg)
     self.BossIcon2:SetRawImage(bossCfg.BossImg)
-    self.Normal.gameObject:SetActiveEx(self.CurrDifficulty == XCerberusGameConfig.StageDifficulty.Normal)
-    self.Hard.gameObject:SetActiveEx(self.CurrDifficulty == XCerberusGameConfig.StageDifficulty.Hard)
+    self.Normal.gameObject:SetActiveEx(self.CurrDifficulty == XEnumConst.CerberusGame.StageDifficulty.Normal)
+    self.Hard.gameObject:SetActiveEx(self.CurrDifficulty == XEnumConst.CerberusGame.StageDifficulty.Hard)
 
     -- 星级
     self.GridStar.gameObject:SetActiveEx(false)
@@ -79,7 +79,7 @@ function XUiCerberusGameTips:RefreshUiShow()
 
     -- buff
     self.GridBuff.gameObject:SetActiveEx(false)
-    local challengeStageCfg = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameChallenge)[self.StageId]
+    local challengeStageCfg = XMVCA.XCerberusGame:GetModelCerberusGameChallenge()[self.StageId]
     for k, title in pairs(challengeStageCfg.BuffTitle) do
         local gridBuff = self.GridBuffDic[k]
         if not gridBuff then
@@ -99,13 +99,17 @@ function XUiCerberusGameTips:RefreshUiShow()
 end
 
 function XUiCerberusGameTips:OnBtnEnterClick()
-    local xStage = XDataCenter.CerberusGameManager.GetXStageById(self.StageId)
+    local canSeleRole = XMVCA.XCerberusGame:GetCanSelectRoleListForChallengeMode(self.StageId)
+    local xTeam = XMVCA.XCerberusGame:GetXTeamByChapterId(self.ChapterId)
+    local xStage = XMVCA.XCerberusGame:GetXStageById(self.StageId)
+    XMVCA.XCerberusGame:ReInitXTeamV2P9(canSeleRole, self.ChapterId)
+
     -- 检查队伍
-    XDataCenter.CerberusGameManager.ReInitXTeam(self.BossIndex, self.StageId,
-        XDataCenter.CerberusGameManager.GetCanSelectRoleListForChallengeMode(self.StageId), self.ChapterId, self.CurrDifficulty)
+    -- XMVCA.XCerberusGame:ReInitXTeam(self.BossIndex, self.StageId,
+    -- canSeleRole, self.ChapterId, self.CurrDifficulty)
 
     XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId
-            , xStage:GetXTeam()
+            , xTeam
             , require("XUi/XUiCerberusGame/Proxy/XUiCerberusGameBattleRoomProxy"))
 end
 

@@ -821,7 +821,7 @@ XTaskForceManagerCreator = function()
     local Condition = {
         [18105] = function(condition, characterId) -- 派遣中拥有指定数量指定兵种构造
             local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-            local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+            local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
             local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
             if npcTemplate.Type == condition.Params[1] then
                 return true

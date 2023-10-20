@@ -13,7 +13,7 @@ function XUiGridSelectCharacter:Refresh(character, chapterData)
     local characterId = character.Id
     
     self.TxtLevel.text = character.Level
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(characterId)))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(characterId)))
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
     self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(characterId, self.Character.Grade or XDataCenter.CharacterManager.GetCharacterGrade(characterId)))
     self.PanelCurrOccupy.gameObject:SetActiveEx(chapterData:GetCharacterId() == characterId)

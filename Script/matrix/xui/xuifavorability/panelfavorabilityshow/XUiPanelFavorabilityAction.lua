@@ -23,7 +23,11 @@ function XUiPanelFavorabilityAction:OnDisable()
         self.UiRoot.SignBoard:SetClickTrigger(true)
         self.UiRoot.SignBoard:SetRoll(true)
     end
-    --self.DynamicTableAction:RecycleAllTableGrid()
+    self.DynamicTableAction:RecycleAllTableGrid()
+end
+
+function XUiPanelFavorabilityAction:OnDestroy()
+    self:UnScheduleAction()
 end
 
 function XUiPanelFavorabilityAction:OnSelected(isSelected)
@@ -36,7 +40,7 @@ end
 
 function XUiPanelFavorabilityAction:Refresh()
     local currentCharacterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local actionDatas = XFavorabilityConfigs.GetCharacterActionById(currentCharacterId)
+    local actionDatas = XMVCA.XFavorability:GetCharacterActionById(currentCharacterId)
 
     self:UpdateActionList(actionDatas)
 end

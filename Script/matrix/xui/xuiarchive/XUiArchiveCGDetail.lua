@@ -19,7 +19,7 @@ function XUiArchiveCGDetail:Init(dataList, index)
         self.DataIndex = index
         self:SetMonsterData()
         self:CheckNextMonsterAndPreMonster()
-        XDataCenter.ArchiveManager.ClearCGRedPointById(data:GetId())
+        self._Control:ClearCGRedPointById(data:GetId())
     end
     self.BtnShowUI.gameObject:SetActiveEx(false)
     self.BtnHideUI.gameObject:SetActiveEx(true)

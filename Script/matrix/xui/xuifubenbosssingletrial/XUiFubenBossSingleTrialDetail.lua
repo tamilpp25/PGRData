@@ -120,8 +120,7 @@ function XUiFubenBossSingleTrialDetail:OnBtnStartClick()
 
     if XTool.USENEWBATTLEROOM then
         XLuaUiManager.Open("UiBattleRoleRoom", stageId,
-            XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdBossSingle")),
-            require("XUi/XUiFubenBossSingle/XUiBossSingleBattleRoleRoom"))
+            XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdBossSingle")))
     else
         XDataCenter.FubenManager.OpenRoomSingle(stageCfg, data)
     end
@@ -265,8 +264,7 @@ function XUiFubenBossSingleTrialDetail:_RefreshDesc()
         XUiHelper.GetText("BossSingleFightCharCountHB", self._CurBossStageConfig.FightCharCount) or
         XUiHelper.GetText("BossSingleFightCharCount", self._CurBossStageConfig.FightCharCount)
     self.TxtBossDes.text = sectionCfg.Desc
-    self.TxtLevel.text = isHideBoss and XUiHelper.GetText("BossSingleLevelHideBoss", level) or
-        XUiHelper.GetText("BossSingleLevel", level)
+    self.TxtLevel.text = XUiHelper.GetText("BossSingleDetailAllScore", level)
     self.TxtATNums.text = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
 
     if preFullScore > 0 then
@@ -276,8 +274,7 @@ function XUiFubenBossSingleTrialDetail:_RefreshDesc()
         self.TxtRepeatDesc.text = XUiHelper.ReplaceTextNewLine(XUiHelper.GetText("BossSingleRepeartDesc"))
     end
 
-    self.TxtAllScore.text = isHideBoss and XUiHelper.GetText("BossSingleLevelHideBoss", bossCurScore) or
-        XUiHelper.GetText("BossSingleLevel", bossCurScore)
+    self.TxtAllScore.text = XUiHelper.GetText("BossSingleDetailAllScore", bossCurScore)
     self.ImagBossTileBg.gameObject:SetActiveEx(not isHideBoss)
     self.ImagBossTileBgHb.gameObject:SetActiveEx(isHideBoss)
     self.PanelEffectHb.gameObject:SetActiveEx(isHideBoss)

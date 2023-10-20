@@ -290,6 +290,7 @@ function XUiBag:OnDynamicTableEvent(event, index, grid)
         if self.PageRecord == XItemConfigs.PageType.Equip or self.PageRecord == XItemConfigs.PageType.Awareness then
             grid:SetupEquip(data, gridSize)
             grid:SetSelectedEquip(self.SelectList[data])
+            grid:ResetCanvasAlpha()
         elseif self.PageRecord == XItemConfigs.PageType.SuitCover then
             grid:SetupSuit(data, self.PageDatas, gridSize)
         elseif self.PageRecord == XItemConfigs.PageType.Partner then --zhang

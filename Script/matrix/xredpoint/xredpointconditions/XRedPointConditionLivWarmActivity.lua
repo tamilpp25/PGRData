@@ -13,19 +13,19 @@ function XRedPointConditionLivWarmActivity.GetSubConditions()
 end
 
 function XRedPointConditionLivWarmActivity.Check()
-    if XRedPointConditionLivWarmActivityReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY_REWARD) then
         return true
     end
 
-    if XRedPointConditionLivWarmActivityCanChallenge.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY_CAN_CHALLENGE) then
         return true
     end
     
-    if XRedPointConditionLivWarmSoundsNewStage.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_SOUNDS_ACTIVITY_CAN_CHALLENGE) then
         return true
     end
     
-    if XRedPointConditionLivWarmSoundsTaskAward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_SOUNDS_ACTIVITY_REWARD) then
         return true
     end
     

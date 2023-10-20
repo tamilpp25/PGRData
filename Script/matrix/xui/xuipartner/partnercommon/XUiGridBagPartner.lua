@@ -38,7 +38,7 @@ function XUiGridBagPartner:UpdateGrid(data, isInPrefab)
     self.Data = data
     if data then
         self.RImgIcon:SetRawImage(data:GetIcon())
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality()))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality()))
         self.ImgBreak:SetSprite(data:GetBreakthroughIcon())
         self.TxtLevel.text = data:GetLevel()
         self.TxtName.text = data:GetName()

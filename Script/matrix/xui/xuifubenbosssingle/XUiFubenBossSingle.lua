@@ -34,7 +34,6 @@ function XUiFubenBossSingle:OnEnable()
     end
 
     self:_Refresh()
-    self:PlayAnimation("AnimEnable1")
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, self.OnSyncBossData, self)
     XEventManager.AddEventListener(XEventId.EVENT_BOSS_SINGLE_GET_REWARD, self.OnRewardGet, self)
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_SINGLE_BOSS_RESET, self.OnActivityEnd, self)
@@ -69,11 +68,11 @@ function XUiFubenBossSingle:_Refresh()
     self:OnSyncBossData()
 end
 
-function XUiFubenBossSingle:_OpenMainPanel(isRefresh, isSync)
+function XUiFubenBossSingle:_OpenMainPanel(isRefresh)
     self._IsShowMainPanel = true
     self._BossList:Open()
     self._BossEnter:Open()
-    self._BossEnter:Refresh(isRefresh, isSync)
+    self._BossEnter:Refresh(isRefresh)
     self._BossRankInfo:Close()
 end
 
@@ -85,7 +84,7 @@ function XUiFubenBossSingle:_OpenRankPanel()
 end
 
 function XUiFubenBossSingle:OnSyncBossData()
-    self:_OpenMainPanel(true, true)
+    self:_OpenMainPanel(true)
 end
 
 function XUiFubenBossSingle:OnRewardGet()

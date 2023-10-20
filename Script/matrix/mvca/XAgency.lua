@@ -2,6 +2,7 @@
 --- Created by Jaylin.
 --- DateTime: 2023-03-06-006 11:29
 ---
+local IsWindowsEditor = XMain.IsWindowsEditor
 
 ---@class XAgency : XMVCAEvent
 XAgency = XClass(XMVCAEvent, "XAgency")
@@ -57,6 +58,9 @@ function XAgency:Release()
     self:RemoveEvent()
     self:Clear()
     self:OnRelease()
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Agency, self)
+    end
 end
 
 ---保留函数, 热重载model

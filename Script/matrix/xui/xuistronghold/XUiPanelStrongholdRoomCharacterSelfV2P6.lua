@@ -17,6 +17,9 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:OnStart(selectCharacterCb, clos
     self.DialogTipCount = 0 --打开弹窗的数量，确定时不减少
     self.IsHasOpenDialogTip = false --是否有打开过弹窗
 
+    ---@type XCharacterAgency
+    self.CharacterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+
     self:AutoAddListener()
 
     self.GridCharacter.gameObject:SetActiveEx(false)
@@ -34,49 +37,55 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:Show(teamList, teamId, memberIn
     self.IsSelectIsomer = isSelectIsomer
     self.Pos = pos
 
-    if self:IsPrefab() then
-        self.TxtEchelonName.text = CsXTextManagerGetText("StrongholdTeamTitle", teamId)
-        self.PanelTxt.gameObject:SetActiveEx(false)
-    else
-        local stageIndex = self.TeamId
-        self.TxtEchelonName.text = XDataCenter.StrongholdManager.GetGroupStageName(groupId, stageIndex)
-        local requireAbility = XDataCenter.StrongholdManager.GetGroupRequireAbility(groupId)
-        self.TxtRequireAbility.text = requireAbility
-        self.PanelTxt.gameObject:SetActiveEx(true)
-    end
-
     self.PlayAnimationCb("ShuaXin")
 end
 
-function XUiPanelStrongholdRoomCharacterSelfV2P6:RefreshCharacterTypeTips()
-    if self:IsPrefab() then
-        return
+function XUiPanelStrongholdRoomCharacterSelfV2P6:RefreshRoleDetail()
+    ---@type XCharacterViewModel
+    local viewModel = self:GetCharacterViewModelByEntityId(self.Parent.CharacterId)
+    self.PanelContent.gameObject:SetActiveEx(viewModel ~= nil)
+    if viewModel == nil then return end
+    local viewModelId = viewModel:GetSourceEntityId()
+    self.BtnType:SetRawImage(viewModel:GetProfessionIcon())
+    self.TxtName.text = viewModel:GetName()
+    self.TxtNameOther.text = viewModel:GetTradeName()
+    self.TxtAbility.text = self:GetRoleAbility(self.Parent.CharacterId)
+    -- 初始品质
+    local initQuality = self.CharacterAgency:GetCharacterInitialQuality(viewModelId)
+    local initColor = self.CharacterAgency:GetModelCharacterQualityIcon(initQuality).InitColor
+    self.QualityRail.color = XUiHelper.Hexcolor2Color(initColor)
+
+    local elementIcons = viewModel:GetObtainElementIcons()
+    XUiHelper.RefreshCustomizedList(self.BtnElementDetail.transform, self.RImgCharElement, #elementIcons, function(index, grid)
+        grid:GetComponent("RawImage"):SetRawImage(elementIcons[index])
+    end)
+end
+
+function XUiPanelStrongholdRoomCharacterSelfV2P6:GetCharacterViewModelByEntityId(id)
+    if id > 0 then
+        local entity = nil
+        if XEntityHelper.GetIsRobot(id) then
+            entity = XRobotManager.GetRobotById(id)
+        else
+            entity = XMVCA.XCharacter:GetCharacter(id)
+        end
+        if entity == nil then
+            XLog.Error(string.format("找不到id%s的角色", id))
+            return
+        end
+        return entity:GetCharacterViewModel()
     end
+    return nil
+end
 
-    local groupId = self.GroupId
-    local stageIndex = self.TeamId
-    local stageId = XDataCenter.StrongholdManager.GetGroupStageId(groupId, stageIndex)
-    local characterLimitType = XFubenConfigs.GetStageCharacterLimitType(stageId)
-
-    if not XFubenConfigs.IsStageCharacterLimitConfigExist(characterLimitType) then
-        self.PanelRequireCharacter.gameObject:SetActiveEx(false)
-        return
+function XUiPanelStrongholdRoomCharacterSelfV2P6:GetRoleAbility(entityId)
+    local viewModel = self:GetCharacterViewModelByEntityId(entityId)
+    if not viewModel then
+        ---@type XCharacterAgency
+        local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+        return ag:GetCharacterHaveRobotAbilityById(entityId)
     end
-
-    local icon = XFubenConfigs.GetStageCharacterLimitImageTeamEdit(characterLimitType)
-    self.ImgRequireCharacter:SetSprite(icon)
-
-
-    self.PanelRequireCharacter.gameObject:SetActiveEx(true)
-    if characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff
-            or characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        local text = XFubenConfigs.GetStageMixCharacterLimitTips(characterLimitType, self:GetTeamDynamicCharacterTypes(), true)
-        self.TxtRequireCharacter.text = text
-        return
-    end
-    local limitBuffId = XFubenConfigs.GetStageCharacterLimitBuffId(stageId)
-    local tips = XFubenConfigs.GetStageCharacterLimitTextSelectCharacter(characterLimitType, self:GetSelectCharacterType(), limitBuffId)
-    self.TxtRequireCharacter.text = tips
+    return viewModel:GetAbility()
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:GetTeamDynamicCharacterTypes()
@@ -125,7 +134,7 @@ end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:Refresh()
     self:RefreshOperationBtns()
-    self:RefreshCharacterTypeTips()
+    self:RefreshRoleDetail()
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:RefreshOperationBtns()
@@ -145,16 +154,27 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:RefreshOperationBtns()
     self.BtnFashion:SetDisable(not useFashion, useFashion)
     self.BtnConsciousness:SetDisable(isRobot, not isRobot)
     self.BtnWeapon:SetDisable(isRobot, not isRobot)
+    local isSomer = self.CharacterAgency:GetIsIsomer(characterId)
+    self.BtnUniframeTip.gameObject:SetActiveEx(isSomer)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:AutoAddListener()
     CsXUiHelper.RegisterClickEvent(self.BtnJoinTeam, handler(self, self.OnClickBtnJoinTeam))
     CsXUiHelper.RegisterClickEvent(self.BtnQuitTeam, handler(self, self.OnBtnQuitTeamClick))
-    CsXUiHelper.RegisterClickEvent(self.BtnTeamPrefab, handler(self, self.OnBtnTeamPrefabClick))
     self.BtnPartner.CallBack = function() self:OnClickBtnPartner() end
     self.BtnFashion.CallBack = function() self:OnClickBtnFashion() end
     self.BtnConsciousness.CallBack = function() self:OnBtnConsciousnessClick() end
     self.BtnWeapon.CallBack = function() self:OnBtnWeaponClick() end
+    XUiHelper.RegisterClickEvent(self, self.BtnUniframeTip, self.OnBtnUniframeTipClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnElementDetail, self.OnBtnElementDetailClicked)
+end
+
+function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnElementDetailClicked()
+    XLuaUiManager.Open("UiCharacterElementDetail", self:GetCharacterViewModelByEntityId(self.Parent.CharacterId):GetId())
+end
+
+function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnUniframeTipClick()
+    XLuaUiManager.Open("UiCharacterUniframeBubbleV2P6")
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:OnClickBtnPartner()
@@ -332,26 +352,6 @@ function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnQuitTeamClick()
     member:KickOutTeam()
 
     self.CloseUiFunc()
-end
-
-function XUiPanelStrongholdRoomCharacterSelfV2P6:OnBtnTeamPrefabClick()
-    --如果从主界面的队伍预设进入，GroupId为空，采用上次拿到的GroupId，
-    local groupId = self.GroupId and self.GroupId or XDataCenter.StrongholdManager.GetLastGroupId()
-    if not groupId then return end
-    local stageIndex = self.TeamId
-    local stageId = XDataCenter.StrongholdManager.GetGroupStageId(groupId, stageIndex)
-    local characterLimitType = IsNumberValid(stageId) and XFubenConfigs.GetStageCharacterLimitType(stageId)
-    local limitBuffId = IsNumberValid(stageId) and XFubenConfigs.GetStageCharacterLimitBuffId(stageId)
-    local stageInfo = IsNumberValid(stageId) and XDataCenter.FubenManager.GetStageInfo(stageId) or {}
-    local stageType = stageInfo.Type
-    local closeCb = function()
-        if self.IsUpdateTeamPrefab and (XTool.IsNumberValid(self.DialogTipCount) or not self.IsHasOpenDialogTips) then
-            self.CloseUiFunc()
-        end
-        self.IsUpdateTeamPrefab = false
-        self.DialogTipCount = 0
-    end
-    XLuaUiManager.Open("UiRoomTeamPrefab", nil, nil, characterLimitType, limitBuffId, stageType, nil, closeCb, stageId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelfV2P6:GetTeam()

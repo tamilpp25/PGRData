@@ -56,6 +56,10 @@ function XUiPanelWorldChatMyMsgEmoji:OnBtnViewClick()
         --在房间中不能在聊天打开自己详情面板
         return
     end
+    if XMVCA.XDlcRoom:IsInRoom() and self.playerId == XPlayer.Id then
+        --在房间中不能在聊天打开自己详情面板
+        return
+    end
     XDataCenter.PersonalInfoManager.ReqShowInfoPanel(self.playerId)
 end
 

@@ -1,14 +1,12 @@
-XUiArchiveMonsterInfo = XClass(nil, "XUiArchiveMonsterInfo")
+XUiArchiveMonsterInfo = XClass(XUiNode, "XUiArchiveMonsterInfo")
 
 local CSTextManagerGetText = CS.XTextManager.GetText
-local EvaluateOneForAll = XArchiveConfigs.EvaluateOnForAll
+local EvaluateOneForAll = nil
 local InfoShortMax = 4
 local InfoLongMax = 5
-function XUiArchiveMonsterInfo:Ctor(ui, data, base)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
 
+function XUiArchiveMonsterInfo:OnStart(data, base)
+    EvaluateOneForAll=self._Control:GetEvaluateOnForAll()
     self.Data = data
     self.Base = base
 
@@ -28,19 +26,20 @@ function XUiArchiveMonsterInfo:Ctor(ui, data, base)
 end
 
 function XUiArchiveMonsterInfo:SelectType(index)
+    self:Open()
     self:SetMonsterBaseInfoData(index)
     self:SetMonsterShortInfoData(index)
     self:SetMonsterLongInfoData(index)
 end
 
 function XUiArchiveMonsterInfo:SetMonsterBaseInfoData(type)
-    self.MonsterNameTex.text = (EvaluateOneForAll == XArchiveConfigs.OnForAllState.On) and self.Data:GetName() or self.Data:GetRealName(self.Data:GetNpcId()[type])
+    self.MonsterNameTex.text = (EvaluateOneForAll == XEnumConst.Archive.OnForAllState.On) and self.Data:GetName() or self.Data:GetRealName(self.Data:GetNpcId()[type])
     self.KillCount.text = CSTextManagerGetText("ArchiveMonsterKillText", self.Data.Kill[self.Data:GetNpcId()[type]])
     self.ImgIcon:SetRawImage(self.Data:GetIcon())
 end
 
 function XUiArchiveMonsterInfo:SetMonsterShortInfoData(type)
-    local infoList = XDataCenter.ArchiveManager.GetArchiveMonsterInfoList(self.Data:GetNpcId()[type], XArchiveConfigs.MonsterInfoType.Short)
+    local infoList = self._Control:GetArchiveMonsterInfoList(self.Data:GetNpcId()[type], XEnumConst.Archive.MonsterInfoType.Short)
 
     for index = 1, InfoShortMax do
         if infoList[index] then
@@ -63,7 +62,7 @@ function XUiArchiveMonsterInfo:SetMonsterShortInfoData(type)
 end
 
 function XUiArchiveMonsterInfo:SetMonsterLongInfoData(type)
-    local infoList = XDataCenter.ArchiveManager.GetArchiveMonsterInfoList(self.Data:GetNpcId()[type], XArchiveConfigs.MonsterInfoType.Long)
+    local infoList = self._Control:GetArchiveMonsterInfoList(self.Data:GetNpcId()[type], XEnumConst.Archive.MonsterInfoType.Long)
 
     for index = 1, InfoLongMax do
         if infoList[index] then

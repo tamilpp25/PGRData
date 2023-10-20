@@ -72,7 +72,7 @@ function XUiTheatreRoleDetails:UpdateElement()
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActive(true)
-            local elementConfig = XExpeditionConfig.GetCharacterElementById(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetModelCharacterElementById(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActive(false)

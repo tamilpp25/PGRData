@@ -12,6 +12,7 @@
 ---@field AddBallList XSCBattleBallInfo[]
 ---@field RemoveBallList XSCBattleBallInfo[]
 ---@field DropBallList XSCBattleDropBallInfo[]
+---@field CurrentSkillId number
 
 ---@class XSCBattleBallInfo
 ---@field ItemId number
@@ -61,6 +62,10 @@ XSameColorGameActivityManagerCreator = function()
     local Config = nil
     local FirstOpenObtainKey = "FirstOpenObtainKey"
     local IsPause = false -- 当前是否暂停
+    ---@type number
+    local _GameRunningTime = 0
+    ---@type number
+    local _GameRunningTimer = false
 
     -- 初始化
     function XSameColorGameActivityManager.Init()
@@ -73,6 +78,9 @@ XSameColorGameActivityManagerCreator = function()
         
         script = require("XEntity/XSameColorGame/Battle/XSCBattleManager")
         BattleManager = script.New()
+
+        _GameRunningTime = 0
+        XSameColorGameActivityManager.StopRecordRunningTime()
     end
 
     -- data { ActivityId, BossRecords : List<XSameColorGameBossRecord> }
@@ -188,6 +196,27 @@ XSameColorGameActivityManagerCreator = function()
     end
     --endregion
 
+    --region GameRunning
+    function XSameColorGameActivityManager.GetGameRunningRecordTime()
+        return _GameRunningTime
+    end
+    
+    function XSameColorGameActivityManager.StartRecordRunningTime()
+        _GameRunningTime = 0
+        local time = CS.UnityEngine.Time
+        _GameRunningTimer = XScheduleManager.ScheduleForever(function()
+            _GameRunningTime = _GameRunningTime + time.deltaTime
+        end, 0, 0)
+    end
+
+    function XSameColorGameActivityManager.StopRecordRunningTime()
+        if _GameRunningTimer then
+            XScheduleManager.UnSchedule(_GameRunningTimer)
+        end
+        _GameRunningTimer = nil
+    end
+    --endregion
+    
     --region Cache
     function XSameColorGameActivityManager.GetLocalSaveKey()
         return Config.Id .. "_" .. XPlayer.Id .. "XSameColorGameActivityManager"
@@ -299,7 +328,7 @@ XSameColorGameActivityManagerCreator = function()
                 end
             end)
     end
-
+    
     function XSameColorGameActivityManager.RequestEnterStage(roleId, bossId, skillGroupIds, callback)
         local requestBody = {
             BossId = bossId,
@@ -312,6 +341,7 @@ XSameColorGameActivityManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
+            XSameColorGameActivityManager.StartRecordRunningTime()
             IsPause = false
             BossManager:SetCurrentChallengeBoss(BossManager:GetBoss(bossId))
             BattleManager:SetCurRole(RoleManager:GetRole(roleId))

@@ -26,7 +26,7 @@ function XPanelCharacterUnOwnedInfoV2P6:RefreshUiShow()
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
 
     -- 品质
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(characterId)))
+    self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(characterId)))
 
     -- 元素
     local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
@@ -140,10 +140,10 @@ function XPanelCharacterUnOwnedInfoV2P6:OnBtnUnlockClick()
 end
 
 function XPanelCharacterUnOwnedInfoV2P6:OnBtnGetClick()
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    return
+    --end
 
     local useItemId = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId).ItemId
     XLuaUiManager.Open("UiTip", XDataCenter.ItemManager.GetItem(useItemId))

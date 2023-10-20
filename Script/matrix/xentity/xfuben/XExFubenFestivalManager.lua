@@ -107,7 +107,7 @@ function XExFubenFestivalManager:ExGetChapterViewModels(uiType)
                 return XFunctionManager.GetFunctionOpenCondition(chapterCofig.FunctionOpenId)
             end,
             CheckHasRedPoint = function(proxy)
-                return XRedPointConditionActivityFestival.Check(proxy:GetId()) and proxy:CheckHasNewTag()
+                return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ACTIVITY_FESTIVAL, proxy:GetId()) and proxy:CheckHasNewTag()
             end,
             CheckIsOpened = function(proxy)
                 return chapter:GetIsOpen()

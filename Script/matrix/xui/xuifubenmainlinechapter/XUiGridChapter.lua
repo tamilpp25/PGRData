@@ -1,6 +1,7 @@
 local XUiGridStage = require("XUi/XUiFubenMainLineChapter/XUiGridStage")
 local XUiGridMainLineSkipStage = require("XUi/XUiFubenMainLineChapter/XUiGridMainLineSkipStage")
 
+---@class XUiGridChapter
 local XUiGridChapter = XClass(nil, "XUiGridChapter")
 
 local MAX_STAGE_COUNT = CS.XGame.ClientConfig:GetInt("MainLineStageMaxCount")
@@ -507,7 +508,6 @@ function XUiGridChapter:SetStageList()
         XLog.Error("Chapter have no id " .. self.Chapter.ChapterId)
         return
     end
-
     -- 初始化副本显示列表，i作为order id，从1开始
     for i = 1, #self.NormalStageList do
         local stageId = self.NormalStageList[i]
@@ -585,11 +585,8 @@ function XUiGridChapter:SetStageList()
                             self.LineAnimFun = nil
                         end
                     end
-
                 end
-
             end
-
         end
     end
 

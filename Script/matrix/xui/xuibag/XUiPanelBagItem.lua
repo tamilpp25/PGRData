@@ -22,6 +22,10 @@ function XUiPanelBagItem:Init(rootUi, page, isfirstanimation)
     self.SuitGrid = XUiGridSuitDetail.New(self.GridSuitSimple, rootUi, clickCb)
     self.BagItemGrid = XUiBagItem.New(rootUi, self.GridBagItem, nil, clickCb)
     self.BagPartnerGrid = XUiGridBagPartner.New(self.GridPartner, clickCb)
+
+    ---@type UnityEngine.CanvasGroup
+    self._GridEquipCanvas = XUiHelper.TryGetComponent(self.Transform, "GridEquip/GridEquipRectangle", "CanvasGroup")
+    self._IsResetAlpha = false
 end
 
 function XUiPanelBagItem:SetupCommon(data, pageType, operation, gridSize)
@@ -79,7 +83,12 @@ function XUiPanelBagItem:PlayAnimation()
 
     self.IsFirstAnimation = false
     if self.Page == XItemConfigs.PageType.Equip or self.Page == XItemConfigs.PageType.Awareness then
-        self:PlayTimelineAnimation(self.GridEquipTimeline.gameObject)
+        self:PlayTimelineAnimation(self.GridEquipTimeline.gameObject, function()
+            -- bug 在动画播放到一半时，滚动列表，导致透明度错误
+            if self._GridEquipCanvas and self._GridEquipCanvas.alpha < 1 then
+                self._IsResetAlpha = true
+            end
+        end)
     elseif self.Page == XItemConfigs.PageType.SuitCover then
         self:PlayTimelineAnimation(self.GridSuitSimpleTimeline.gameObject)
     elseif self.Page == XItemConfigs.PageType.Partner then
@@ -100,6 +109,12 @@ function XUiPanelBagItem:PlayTimelineAnimation(gameObject, finish, begin, wrapMo
     end
     wrapMode = wrapMode or CS.UnityEngine.Playables.DirectorWrapMode.Hold
     gameObject:PlayTimelineAnimation(finish, begin, wrapMode)
+end
+
+function XUiPanelBagItem:ResetCanvasAlpha()
+    if self._IsResetAlpha and self._GridEquipCanvas then
+        self._GridEquipCanvas.alpha = 1
+    end
 end
 
 return XUiPanelBagItem

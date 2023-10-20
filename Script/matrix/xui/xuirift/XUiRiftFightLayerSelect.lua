@@ -29,9 +29,9 @@ function XUiRiftFightLayerSelect:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnTask, self.OnClickBtnTask)
     XUiHelper.RegisterClickEvent(self, self.BtnTask2, self.OnBtnFuncUnlockClick)
     XUiHelper.RegisterClickEvent(self, self.BtnAttribute, self.OnBtnAttributeClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnPluginBag, function() XLuaUiManager.Open("UiRiftPluginBag") end)
-    XUiHelper.RegisterClickEvent(self, self.BtnShop, function() XDataCenter.RiftManager.OpenUiShop() end)
-    XUiHelper.RegisterClickEvent(self, self.BtnCharacter, function() XLuaUiManager.Open("UiRiftCharacter", nil, nil, nil, true) end)
+    XUiHelper.RegisterClickEvent(self, self.BtnPluginBag, self.OnBtnPluginBagClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnShop, self.OnBtnShopClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnCharacter, self.OnBtnCharacterClick)
     XUiHelper.RegisterClickEvent(self, self.BtnLuck, self.OnBtnLuckClick)
     XUiHelper.RegisterClickEvent(self, self.BtnStart, self.OnShowDetail)
     XUiHelper.RegisterClickEvent(self, self.BtnStartAgain, self.OnShowDetail)
@@ -58,9 +58,10 @@ function XUiRiftFightLayerSelect:OnStart(parentUi, panel3D, jumpLayerId)
 end
 
 function XUiRiftFightLayerSelect:RemoveTimer()
-    if not self.BubbleTimer then return end
-    XScheduleManager.UnSchedule(self.BubbleTimer)
-    self.BubbleTimer = nil
+    if self.Timer then
+        XScheduleManager.UnSchedule(self.Timer)
+        self.Timer = nil
+    end
 end
 
 function XUiRiftFightLayerSelect:OnGetEvents()
@@ -122,7 +123,9 @@ function XUiRiftFightLayerSelect:OnEnable()
     end
     self.JumpLayerId = nil
     self:RefreshDynamicTable()
-    self:PlayLayerNodeAnim(isLayerIdTrigger)
+    XScheduleManager.ScheduleNextFrame(function()
+        self:PlayLayerNodeAnim(isLayerIdTrigger)
+    end)
     self:Refresh()
 
     -- 检测区域是否全部通关 弹提示，必现要在跃升奖励之后再弹该提示
@@ -131,6 +134,16 @@ function XUiRiftFightLayerSelect:OnEnable()
             self.ParentUi:AutoPositioningToOpenBubbleByChapterId(nextChapter:GetId())
             self:OnBtnMapClick()
         end)
+    end
+
+    if self.ParentUi.CurrSelectIndex >= 6 then
+        self.PanelTask0.gameObject:SetActiveEx(true)
+        self:CountDown()
+        self.Timer = XScheduleManager.ScheduleForever(function()
+            self:CountDown()
+        end, XScheduleManager.SECOND, 0)
+    else
+        self.PanelTask0.gameObject:SetActiveEx(false)
     end
 end
 
@@ -144,6 +157,13 @@ function XUiRiftFightLayerSelect:ShowNewLayerTip(isLayerIdTrigger)
     self.PanelBegin.gameObject:SetActiveEx(true)
     self.PanelBeginEnable:Play()
     self.TxtBegin.text = CS.XTextManager.GetText("RiftLayerStartByAuto", isLayerIdTrigger)
+end
+
+function XUiRiftFightLayerSelect:ClearAnim()
+    self.PanelBeginJumpEnable:Stop()
+    self.PanelBeginEnable:Stop()
+    self.PanelBeginJump.gameObject:SetActiveEx(false)
+    self.PanelBegin.gameObject:SetActiveEx(false)
 end
 
 function XUiRiftFightLayerSelect:Refresh()
@@ -251,9 +271,7 @@ end
 
 -- 自动定位层级 
 -- 如果传了id，定位到该id对应的层
--- 没传的话 则自动定位到当前已经在作战中的层
--- 如果没有在作战中的层，则定位到上一次战斗过的层
--- 如果没有上一次战斗的层级，则定位到上一次进入查看过的层级
+-- 没传的话 则自动定位到最新可以打的那层
 -- 如果都不满足则定位到列表的第一个
 function XUiRiftFightLayerSelect:AutoPositioningByLayerId(layerId)
     self.LayerListData = self.XChapter:GetAllFightLayersOrderList()
@@ -261,19 +279,10 @@ function XUiRiftFightLayerSelect:AutoPositioningByLayerId(layerId)
     local curLayerId = self.LayerListData[1]:GetId() -- 默认选第一个
     if layerId then
         curLayerId = layerId
-    else  
-        local curPlayingLayer = self.XChapter:GetCurPlayingFightLayer()
-        local lastFightStage = XDataCenter.RiftManager.GetLastFightXStage()
-        if curPlayingLayer then
-            curLayerId = curPlayingLayer:GetId()
-        elseif lastFightStage then
-            curLayerId = lastFightStage:GetParent():GetParent():GetId()
-        else
-            local lastFightLayerData = XDataCenter.RiftManager.GetLastRecordFightLayer()
-            if not XTool.IsTableEmpty(lastFightLayerData) then
-                curLayerId = lastFightLayerData.FightLayerId
-            end
-        end
+    else
+        local curStageMaxLayer = self.LayerListData[#self.LayerListData]:GetId()
+        local maxUnlock = XDataCenter.RiftManager.GetMaxUnLockFightLayerId()
+        curLayerId = math.min(curStageMaxLayer, maxUnlock)
     end
     -- 找到这个作战层在列表里的序号index， 如果该作战层不属于该chapter则还是定位到默认index=1的作战层
     ---@type XRiftFightLayer
@@ -400,6 +409,7 @@ function XUiRiftFightLayerSelect:OnBtnLuckClick()
         self:StartLayer(luckyLayer, function()
             local group = luckyLayer:GetStage()
             XDataCenter.RiftManager.SetCurrSelectRiftStage(group)
+            XDataCenter.RiftManager.SetCurrSelectRiftLayerId(self.CurrSelectXFightLayer:GetId())
             XLuaUiManager.Open("UiRiftLuckStageDetail", group, handler(self, self.Refresh))
         end)
     end
@@ -444,11 +454,27 @@ end
 function XUiRiftFightLayerSelect:OnBtnAttributeClick()
     local isUnlock = XDataCenter.RiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.Attribute)
     if isUnlock then
+        self:RecordCurLayer()
         XLuaUiManager.Open("UiRiftAttribute")
     else
         local funcUnlockCfg = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftFuncUnlock, XRiftConfig.FuncUnlockId.Attribute)
         XUiManager.TipError(funcUnlockCfg.Desc)
     end
+end
+
+function XUiRiftFightLayerSelect:OnBtnCharacterClick()
+    self:RecordCurLayer()
+    XLuaUiManager.Open("UiRiftCharacter", nil, nil, nil, true)
+end
+
+function XUiRiftFightLayerSelect:OnBtnPluginBagClick()
+    self:RecordCurLayer()
+    XLuaUiManager.Open("UiRiftPluginBag")
+end
+
+function XUiRiftFightLayerSelect:OnBtnShopClick()
+    self:RecordCurLayer()
+    XDataCenter.RiftManager.OpenUiShop()
 end
 
 function XUiRiftFightLayerSelect:OnCheckAttribute(count)
@@ -460,6 +486,7 @@ function XUiRiftFightLayerSelect:OnDisable()
     self.Panel3D:ClearAllStageGroup()
     self.Panel3D:SetDragComponentEnable(true)
     self:RemoveTimer()
+    self:ClearAnim()
 end
 
 function XUiRiftFightLayerSelect:InitComponent()
@@ -501,8 +528,12 @@ function XUiRiftFightLayerSelect:RefreshFuncUnlock()
     end
 end
 
-function XUiRiftFightLayerSelect:OnClickBtnTask()
+function XUiRiftFightLayerSelect:RecordCurLayer()
     self.JumpLayerId = self.CurrSelectXFightLayer:GetId()
+end
+
+function XUiRiftFightLayerSelect:OnClickBtnTask()
+    self:RecordCurLayer()
     XLuaUiManager.Open("UiRiftTask")
 end
 
@@ -521,6 +552,22 @@ function XUiRiftFightLayerSelect:PlayLayerNodeAnim(jumpLayerId)
                 self.ImgNodeProgress.fillAmount = self:GetNodePorgress(self.HasPassCount - jumpLayerId + layerId)
             end, (layerId - old - 1) * 300)
         end
+    end
+end
+
+function XUiRiftFightLayerSelect:CountDown()
+    local time = XDataCenter.RiftManager:GetSeasonEndTime()
+    if time > 0 then
+        self.TxtTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER)
+    end
+    local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+    local config = XDataCenter.RiftManager.GetCurrentConfig()
+    if seasonIndex == 1 then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonName())
+    elseif seasonIndex == #config.PeriodName then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc2")
+    else
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc3")
     end
 end
 

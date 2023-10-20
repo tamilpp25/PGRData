@@ -139,6 +139,12 @@ function XUiMainLeftTop:InitActivityButton()
         self.BtnTurntable.CallBack = function() self:OnBtnTurntableClick() end
         self.TurntableRedPoint = self:AddRedPointEvent(self.BtnTurntable, self.CheckTurntableRedPoint, self, RedPointConditionGroup.Turntable)
     end
+
+    if self.BtnBrithday then
+        self.BtnBrithday.CallBack = function() 
+            XMVCA.XBirthdayPlot:OnEnterSingleStory(false)
+        end
+    end
     --TODO 后续新增入口时，注意分包资源检测
 end
 
@@ -156,6 +162,7 @@ function XUiMainLeftTop:OnEnable()
     self:BtnKujiequUpdate()
     self:OnSummerSignOpenStatusUpdate()
     self:OnTurntableOpenStateUpdate()
+    self:OnBirthdayStateUpdate()
 
     self:AddEventListener()
 end
@@ -307,6 +314,7 @@ function XUiMainLeftTop:AddEventListener()
     XEventManager.AddEventListener(XEventId.EVENT_FUNCTION_EVENT_END, self.OnNewActivityCalendarPlayEffect, self)
     XEventManager.AddEventListener(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE, self.OnNewActivityCalendarOpenStatusUpdate, self)
     XEventManager.AddEventListener(XEventId.EVENT_TURNTABLE_PROGRESS_REWARD, self.OnTurntableOpenStateUpdate, self)
+    XEventManager.AddEventListener(XEventId.EVENT_PLAYER_SET_BIRTHDAY, self.OnBirthdayStateUpdate, self)
 end
 
 function XUiMainLeftTop:RemoveEventListener()
@@ -318,6 +326,7 @@ function XUiMainLeftTop:RemoveEventListener()
     XEventManager.RemoveEventListener(XEventId.EVENT_FUNCTION_EVENT_END, self.OnNewActivityCalendarPlayEffect, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE, self.OnNewActivityCalendarOpenStatusUpdate, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_TURNTABLE_PROGRESS_REWARD, self.OnTurntableOpenStateUpdate, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_PLAYER_SET_BIRTHDAY, self.OnBirthdayStateUpdate, self)
 end
 --endregion------------------事件监听 finish------------------
 
@@ -596,6 +605,12 @@ end
 --region   ------------------库街区 start-------------------
 -- 库街区按钮点击响应
 function XUiMainLeftTop:OnClickBtnKujiequ()
+    --todo remove: 临时征用为四周年主界面入口
+    if true then
+        XLuaUiManager.Open('UiAnniversaryMain')
+        return
+    end    
+    --end remove
     XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnKuJieQu)
     XDataCenter.KujiequManager.OpenKujiequ()
 end
@@ -603,6 +618,12 @@ end
 -- 库街区按钮入口刷新
 function XUiMainLeftTop:BtnKujiequUpdate()
     if self.BtnKujiequ then
+        --todo remove :临时征用为四周年主界面入口
+        if true then
+            self.BtnKujiequ.gameObject:SetActiveEx(true)  
+            return
+        end        
+        --end remove
         local isShow = XDataCenter.KujiequManager:IsShowEntrance()
         self.BtnKujiequ.gameObject:SetActiveEx(isShow)
     end
@@ -728,5 +749,17 @@ function XUiMainLeftTop:CheckTurntableRedPoint(count)
 end
 
 --endregion------------------大转盘 finish-------------------
+
+function XUiMainLeftTop:OnBirthdayStateUpdate()
+    if not self.BtnBrithday then
+        return
+    end
+    if not self.TxtBirthday then
+        self.TxtBirthday = self.BtnBrithday.transform:Find("TxtNewRegressionLeftTime"):GetComponent("Text")
+        self.TxtBirthday.gameObject:SetActiveEx(true)
+    end
+    self.TxtBirthday.text = XMVCA.XBirthdayPlot:GetLeftTime()
+    self.BtnBrithday.gameObject:SetActiveEx(XMVCA.XBirthdayPlot:IsShowBirthdayBtn())
+end
 
 return XUiMainLeftTop

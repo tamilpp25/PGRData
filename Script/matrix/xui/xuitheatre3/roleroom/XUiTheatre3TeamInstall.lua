@@ -154,11 +154,13 @@ function XUiTheatre3TeamInstall:OnSave()
         XUiManager.TipText("TeamManagerCheckFirstFightNil")
         return
     end
+    local resultEntityIdList = {}
     for pos, ColorId in pairs(self._Colors) do
         local slotInfo = self._Control:GetSlotInfo(pos)
         slotInfo:UpdateEquipPosColorId(ColorId)
-        self._Control:UpdateEntityTeamPos(slotInfo:GetRoleId(), ColorId, true)
+        resultEntityIdList[ColorId] = slotInfo:GetRoleId()
     end
+    self._Control:UpdateTeamEntityIdList(resultEntityIdList)
     self._Control:UpdateCaptainPosAndFirstFightPos(slotInfo1:GetColorId(), slotInfo2:GetColorId())
     self._Control:RequestSetTeam()
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_THEATRE3_SAVE_TEAM)

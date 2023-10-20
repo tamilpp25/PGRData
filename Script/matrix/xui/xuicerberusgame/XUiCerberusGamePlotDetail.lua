@@ -37,12 +37,12 @@ function XUiCerberusGamePlotDetail:OnBtnEnterStoryClick()
     if stageInfo.Passed then
         XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId)
         if not self.XStoryPoint:GetIsPassed() then
-            XDataCenter.CerberusGameManager.CerberusGamePassStoryPointRequest(self.XStoryPoint:GetId())
+            XMVCA.XCerberusGame:CerberusGamePassStoryPointRequest(self.XStoryPoint:GetId())
         end
     else
         XDataCenter.FubenManager.FinishStoryRequest(stageId, function()
             XDataCenter.MovieManager.PlayMovie(stageCfg.BeginStoryId, function ()
-                XDataCenter.CerberusGameManager.CerberusGamePassStoryPointRequest(self.XStoryPoint:GetId())
+                XMVCA.XCerberusGame:CerberusGamePassStoryPointRequest(self.XStoryPoint:GetId())
             end)
         end)
     end

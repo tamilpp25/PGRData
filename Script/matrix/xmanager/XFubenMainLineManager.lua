@@ -12,6 +12,7 @@ XFubenMainLineManagerCreator = function()
     }
 
     local ChapterMainTemplates = {}
+    ---@type XTableChapter[]
     local ChapterCfg = {}
     local TreasureCfg = {}
     local NewChaperId = -1
@@ -127,14 +128,15 @@ XFubenMainLineManagerCreator = function()
                 end
                 -- 跳过黑名单表 MainlineIgnoreStageList
                 if stageInfo.Passed and not table.contains(XFubenMainLineConfigs.GetMainlineIgnoreStageListByOrder(), v) then
-    
+                   
+                    passStageNum = passStageNum + 1
+                    stars = stars + stageInfo.Stars
+                end
+
+                if not table.contains(XFubenMainLineConfigs.GetMainlineIgnoreStageListByOrder(), v) then
                     if not stageInfo.Passed then
                         allPassed = false
-                    else
-                        passStageNum = passStageNum + 1
                     end
-    
-                    stars = stars + stageInfo.Stars
                 end
             end
 
@@ -363,6 +365,7 @@ XFubenMainLineManagerCreator = function()
         return ChapterMainTemplates[chapterMainId]
     end
 
+    ---@return XTableChapter
     function XFubenMainLineManager.GetChapterCfg(chapterId)
         return ChapterCfg[chapterId]
     end

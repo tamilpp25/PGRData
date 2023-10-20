@@ -38,7 +38,7 @@ end
 -- v2.6 v2.7 幻痛囚笼部分模型要使用图鉴的配置来控制, v2.7还无望公用此功能
 function XUiModelUtility.UpdateModelByArchive(ui, panelRoleModel, modelId, targetUiName, npcState)
     if modelId == "Mb1BruceloongMd010001UI" or modelId == "Mb1StarknightMd010001UI" then
-        local npcId = XArchiveConfigs.GetMonsterNpcIdByModelId(modelId)
+        local npcId = XMVCA.XArchive:GetMonsterNpcIdByModelId(modelId)
         if not npcId then
             panelRoleModel:UpdateBossModel(modelId, targetUiName)
             panelRoleModel:ShowRoleModel()
@@ -73,9 +73,9 @@ function XUiModelUtility.UpdateModelByArchiveMonsterNpcData(ui, panelRoleModel, 
     ui.ModelUtilHideParts = {}
     ui.ModelUtilEffects = {}
 
-    local transData = XArchiveConfigs.GetMonsterTransDatas(npcId, npcState)
-    local effectDatas = XArchiveConfigs.GetMonsterEffectDatas(npcId, npcState)
-    local modelId = XArchiveConfigs.GetMonsterModel(npcId)
+    local transData = XMVCA.XArchive:GetMonsterTransDatas(npcId, npcState)
+    local effectDatas = XMVCA.XArchive:GetMonsterEffectDatas(npcId, npcState)
+    local modelId = XMVCA.XArchive:GetMonsterModel(npcId)
 
     panelRoleModel:SetDefaultAnimation(transData and transData.StandAnime)
     panelRoleModel:UpdateArchiveMonsterModel(modelId, targetUiName, nil, updateModelCallback)

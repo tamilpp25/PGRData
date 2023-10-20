@@ -10,7 +10,7 @@ function XRedPointConditionPlayerBirthDay.GetSubEvents()
 end
 
 function XRedPointConditionPlayerBirthDay.Check()
-    return not XPlayer.IsChangedBirthday()
+    return not XMVCA.XBirthdayPlot:IsChangedBirthday()
 end
 
 return XRedPointConditionPlayerBirthDay

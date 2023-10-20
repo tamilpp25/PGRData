@@ -11,7 +11,7 @@ function XRedPointConditionFuBenClickClearGameRed.GetSubConditions()
 end
 
 function XRedPointConditionFuBenClickClearGameRed.Check()
-    local f = XRedPointConditionClickClearReward.Check()
+    local f = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CLICKCLEARGAME_REWARD)
     if f then
         return true
     end

@@ -96,7 +96,7 @@ local function AddMoeWar()
     Panel:AddButton(
         "萌战投票",
         function()
-            XDataCenter.MoeWarManager.GetPlayer(playerId):RequestVote(itemNo, itemCount)
+            --XDataCenter.MoeWarManager.GetPlayer(playerId):RequestVote(itemNo, itemCount)
         end
     )
 
@@ -257,7 +257,7 @@ end
 
 local function AddArchiveFunction()
     Panel:AddSubMenu("SVN操作\n(beta)", AddSvnFunction)
-    Panel:AddSubMenu("萌战相关", AddMoeWar)
+    --Panel:AddSubMenu("萌战相关", AddMoeWar)
     Panel:AddButton(
         "开启活动",
         function()
@@ -961,6 +961,24 @@ function XGmTestManager.Init()
     Panel:AddButton("新旧装备界面切换", function()
         XEnumConst.EQUIP.IS_TEST_V2P6 = not XEnumConst.EQUIP.IS_TEST_V2P6
     end)
+    Panel:AddSubMenu("渡边模拟器压黑程度", function()
+        Panel:AddInput(XEnumConst.RogueSim.MapDarkenValue, function(value)
+            XEnumConst.RogueSim.MapDarkenValue = tonumber(value)
+            XUiManager.TipMsgEnqueue("压黑设置为".. tostring(value))
+        end)
+    end, true)
+    Panel:AddSubMenu("渡边模拟器黑变亮时间", function()
+        Panel:AddInput(XEnumConst.RogueSim.MapDarkToLightTime, function(value)
+            XEnumConst.RogueSim.MapDarkToLightTime = tonumber(value)
+            XUiManager.TipMsgEnqueue("黑变亮时间设置为".. tostring(value))
+        end)
+    end, true)
+    Panel:AddSubMenu("渡边模拟器云散时间", function()
+        Panel:AddInput(XEnumConst.RogueSim.MapDissolveCloudTime, function(value)
+            XEnumConst.RogueSim.MapDissolveCloudTime = tonumber(value)
+            XUiManager.TipMsgEnqueue("云散时间设置为".. tostring(value))
+        end)
+    end, true)
 end
 --------------Ui组件创建 end----------------
 

@@ -86,11 +86,11 @@ function XUiGuildWarBattleRoleRoom:AOPOnCharacterClickBefore(rootUi, index)
         if oldEntityId == newEntityId then return end
         if not rootUi.Team:GetMember(index) then return end
         -- 播放音效
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         if rootUi.Team:GetCaptainPos() == index then
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         end
-        rootUi.FavorabilityManager.PlayCvByType(newMemberData.EntityId, soundType)
+        XMVCA.XFavorability:PlayCvByType(newMemberData.EntityId, soundType)
     end)
     return true
 end

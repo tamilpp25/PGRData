@@ -20,10 +20,10 @@ function XRedPointConditionMemorySaveAllRedPoint.Check()
     end
     local chapterIds = XDataCenter.MemorySaveManager.GetActivityChapterIds()
     for _, chapterId in ipairs(chapterIds) do
-        if XRedPointConditionMemorySaveChapterRewardNewChapter.Check(chapterId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MEMORYSAVE_CHAPTER_REWARD_NEW_CHAPTER, chapterId) then
             return true
         end
-        if XRedPointConditionMemorySaveChapterReward.Check(chapterId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MEMORYSAVE_CHAPTER_REWARD, chapterId) then
             return true
         end
     end

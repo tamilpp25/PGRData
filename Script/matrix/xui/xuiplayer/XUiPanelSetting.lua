@@ -545,7 +545,7 @@ function XUiPanelSetting:OnBtnView()
         tmpData.Sign = XPlayer.Sign
         tmpData.Level = XPlayer.Level
         tmpData.Likes = XPlayer.Likes
-        tmpData.Birthday = XPlayer.Birthday
+        tmpData.Birthday = XMVCA.XBirthdayPlot:GetBirthday()
         tmpData.CurrHeadFrameId = XPlayer.CurrHeadFrameId
         tmpData.CurrHeadPortraitId = XPlayer.CurrHeadPortraitId
         tmpData.AppearanceShowType = self.CurCharactersAppearanceType   --角色展示类型

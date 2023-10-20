@@ -113,13 +113,14 @@ end
 
 function XUiPanelFightSet:Update()
     if self.CurSelectBtn and self.CurSelectKey and XInputManager.GetCurEditKeyNum() > 0 then
-        if self:GetCurKeySetType() == CS.KeySetType.Keyboard then
+        local curKeySetType = self:GetCurKeySetType()
+        if curKeySetType == CS.KeySetType.Keyboard then
             self.TxtInput.text = XInputManager.GetCurEditKeyString() .. CS.XTextManager.GetText("SetInputFirstKey")
             self.PanelJoypadKeyIcon.gameObject:SetActiveEx(false)
         else
             self.TxtInput.text = ""
-            local mainKeyIcon = XInputManager.GetCurEditKeyIcon(CS.KeyPos.MainKey)
-            local subKeyIcon = XInputManager.GetCurEditKeyIcon(CS.KeyPos.SubKey)
+            local mainKeyIcon = XInputManager.GetCurEditKeyIcon(CS.KeyPos.MainKey, curKeySetType)
+            local subKeyIcon = XInputManager.GetCurEditKeyIcon(CS.KeyPos.SubKey, curKeySetType)
             if not string.IsNilOrEmpty(mainKeyIcon) then
                 self.JoypadIcon1:SetSprite(mainKeyIcon)
             end

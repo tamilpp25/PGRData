@@ -1,4 +1,4 @@
-XUiGridArchiveEmail = XClass(nil, "XUiGridArchiveEmail")
+XUiGridArchiveEmail = XClass(XUiNode, "XUiGridArchiveEmail")
 
 local GridState = {Close = false ,Open = true}
 local TabState = {
@@ -7,10 +7,7 @@ local TabState = {
     Select = 2,
     Disable = 3,
 }
-function XUiGridArchiveEmail:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveEmail:OnStart()
     self:SetButtonCallBack()
 end
 

@@ -1211,15 +1211,15 @@ XRoomManagerCreator = function()
         local roomType = tonumber(result[3])
         
         -- 处理开房链接，狙击战走这里，其他走通用
-        local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-        if unionFightData and unionFightData.Id then
-            XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
-            return
-        end
-        if MultipleRoomType.UnionKill == roomType then
-            XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
-            return
-        end
+        --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+        --if unionFightData and unionFightData.Id then
+        --    XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
+        --    return
+        --end
+        --if MultipleRoomType.UnionKill == roomType then
+        --    XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
+        --    return
+        --end
 
         local tempStageId = stageId
         if MultipleRoomType.ArenaOnline == roomType then
@@ -1227,8 +1227,9 @@ XRoomManagerCreator = function()
             tempStageId = XDataCenter.ArenaOnlineManager.GetStageIdByIdAndLevel(stageId, level)
         end
 
-        if MultipleRoomType.DlcHunt == roomType then
-            XDataCenter.DlcRoomManager.ClickEnterRoomHref(roomId, stageId, createTime)
+        if MultipleRoomType.DlcWorld == roomType then
+            XMVCA.XDlcRoom:ClickEnterRoomHref(roomId, stageId, createTime)
+            -- XDataCenter.DlcRoomManager.ClickEnterRoomHref(roomId, stageId, createTime)
             return
         end
 

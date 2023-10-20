@@ -28,8 +28,9 @@ XMain.Step1 = function()
     CS.XRecord.Record("23000", "LuaXMainStart")
 
     if XMain.IsEditorDebug then
-        require("XDebug/LuaMemorySnapshotDump")
+        require("XDebug/LuaProfilerTool")
         require("XHotReload")
+        require("XDebug/WeakRefCollector")
     end
 
     require("XCommon/XRpc")

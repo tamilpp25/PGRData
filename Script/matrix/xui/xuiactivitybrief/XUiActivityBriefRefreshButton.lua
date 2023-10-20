@@ -414,16 +414,6 @@ function XUiActivityBriefRefreshButton:RefreshActivityBranch()
     end)
 end
 
--- v2.6 超难关
-function XUiActivityBriefRefreshButton:RefreshActivityBossSingle()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        local isShowRed = XDataCenter.FubenActivityBossSingleManager.CheckRedPoint()
-        btn:ShowReddot(isShowRed)
-    end
-end
-
 function XUiActivityBriefRefreshButton:RefreshActivityBossOnline()
     local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.BossOnline)
     if not activityBrieButton then
@@ -490,15 +480,6 @@ function XUiActivityBriefRefreshButton:RefreshActivityRogueLike() -- 爬塔
 
         XFunctionManager.SkipInterface(skipId)
     end)
-end
-
---常驻 复刷关
-function XUiActivityBriefRefreshButton:RefreshActivityRepeateChallenge()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_REWARD })
-    end
 end
 
 function XUiActivityBriefRefreshButton:RefreshActivityArenaOnline()
@@ -586,20 +567,20 @@ function XUiActivityBriefRefreshButton:RefreshNewCharActivity()
     self:RefreshNormal()
     local btn = self.TlActivityBrieButton[self.ActivityGroupId]
     if btn then
-        btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYMAINRED })
         local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.NewCharActivity)
         local skipList = XFunctionConfig.GetSkipList(config.SkipId)
         local actId = skipList.CustomParams[1]
+        btn:Refresh(actId)
+        -- btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYMAINRED })
         -- local isShowTag = XDataCenter.FubenNewCharActivityManager.IsChallengeable(actId)
         -- btn:ShowTag(isShowTag)
-        btn:Refresh(actId)
     end
 end
 
 --常驻 涂装试玩
 function XUiActivityBriefRefreshButton:RefreshFubenActivityTrial()
     self:RefreshNormal()
-    -- local btn = self.TlActivityBrieButton[self.ActivityGroupId]
+     --local btn = self.TlActivityBrieButton[self.ActivityGroupId]
     -- if btn then
         -- btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_FASHION_STORY_HAVE_STAGE })
         -- local isShowTag = XDataCenter.FubenExperimentManager.CheckSkinTrialRedPoint()
@@ -649,7 +630,7 @@ function XUiActivityBriefRefreshButton:RefreshPokemon()
     end
 
     activityBrieButton:Refresh()
-    local isShowRed = XRedPointConditionPokemonRed.Check()
+    local isShowRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_POKEMON_RED)
     activityBrieButton:ShowReddot(isShowRed)
     activityBrieButton:SetOnClick(function()
         local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Pokemon)
@@ -660,42 +641,42 @@ function XUiActivityBriefRefreshButton:RefreshPokemon()
 end
 
 --追击玩法
-function XUiActivityBriefRefreshButton:RefreshPursuit()
-    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Pursuit)
-    if not activityBrieButton then
-        return
-    end
-
-    activityBrieButton:Refresh()
-    local isShowRed = XDataCenter.ChessPursuitManager.CheckIsCanFightTips()
-    activityBrieButton:ShowTag(isShowRed)
-    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_CHESSPURSUIT_REWARD_RED })
-    activityBrieButton:SetOnClick(function()
-        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Pursuit)
-        local skipId = config.SkipId
-
-        XFunctionManager.SkipInterface(skipId)
-    end)
-end
+--function XUiActivityBriefRefreshButton:RefreshPursuit()
+--    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Pursuit)
+--    if not activityBrieButton then
+--        return
+--    end
+--
+--    activityBrieButton:Refresh()
+--    local isShowRed = XDataCenter.ChessPursuitManager.CheckIsCanFightTips()
+--    activityBrieButton:ShowTag(isShowRed)
+--    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_CHESSPURSUIT_REWARD_RED })
+--    activityBrieButton:SetOnClick(function()
+--        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Pursuit)
+--        local skipId = config.SkipId
+--
+--        XFunctionManager.SkipInterface(skipId)
+--    end)
+--end
 
 --模拟战
-function XUiActivityBriefRefreshButton:RefreshSimulate()
-    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Simulate)
-    if not activityBrieButton then
-        return
-    end
-
-    activityBrieButton:Refresh()
-    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT })
-    local isShowTag = XDataCenter.FubenSimulatedCombatManager.IsChallengeable()
-    activityBrieButton:ShowTag(isShowTag)
-    activityBrieButton:SetOnClick(function()
-        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Simulate)
-        local skipId = config.SkipId
-
-        XFunctionManager.SkipInterface(skipId)
-    end)
-end
+--function XUiActivityBriefRefreshButton:RefreshSimulate()
+--    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Simulate)
+--    if not activityBrieButton then
+--        return
+--    end
+--
+--    activityBrieButton:Refresh()
+--    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT })
+--    local isShowTag = XDataCenter.FubenSimulatedCombatManager.IsChallengeable()
+--    activityBrieButton:ShowTag(isShowTag)
+--    activityBrieButton:SetOnClick(function()
+--        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Simulate)
+--        local skipId = config.SkipId
+--
+--        XFunctionManager.SkipInterface(skipId)
+--    end)
+--end
 
 --据点
 function XUiActivityBriefRefreshButton:RefreshStrongHold()
@@ -705,7 +686,7 @@ function XUiActivityBriefRefreshButton:RefreshStrongHold()
     end
 
     activityBrieButton:Refresh()
-    local isShowRed = XRedPointConditionStrongholdMineralLeft.Check() or XDataCenter.StrongholdManager.IsAnyRewardCanGet()
+    local isShowRed = XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionStrongholdMineralLeft) or XDataCenter.StrongholdManager.IsAnyRewardCanGet()
     activityBrieButton:ShowReddot(isShowRed)
     local isShowTag = XDataCenter.StrongholdManager.CheckHasUnFinishedCanFightGroup()
     activityBrieButton:ShowTag(isShowTag)
@@ -801,21 +782,21 @@ function XUiActivityBriefRefreshButton:RefreshRpgMaker()
 end
 
 --骇客
-function XUiActivityBriefRefreshButton:RefreshHack()
-    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Hack)
-    if not activityBrieButton then
-        return
-    end
-    activityBrieButton:Refresh()
-    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_FUBEN_HACK_STAR })
-    local isShowTag = XDataCenter.FubenHackManager.IsChallengeable()
-    activityBrieButton:ShowTag(isShowTag)
-    activityBrieButton:SetOnClick(function()
-        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Hack)
-        local skipId = config.SkipId
-        XFunctionManager.SkipInterface(skipId)
-    end)
-end
+--function XUiActivityBriefRefreshButton:RefreshHack()
+--    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.Hack)
+--    if not activityBrieButton then
+--        return
+--    end
+--    activityBrieButton:Refresh()
+--    activityBrieButton:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_FUBEN_HACK_STAR })
+--    local isShowTag = XDataCenter.FubenHackManager.IsChallengeable()
+--    activityBrieButton:ShowTag(isShowTag)
+--    activityBrieButton:SetOnClick(function()
+--        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.Hack)
+--        local skipId = config.SkipId
+--        XFunctionManager.SkipInterface(skipId)
+--    end)
+--end
 
 --v2.4 改造(界限构解)4.0
 function XUiActivityBriefRefreshButton:RefreshReform()
@@ -830,21 +811,21 @@ function XUiActivityBriefRefreshButton:RefreshReform()
 end
 
 --v1.32 双人同行(分光双星)4.0
-function XUiActivityBriefRefreshButton:RefreshCoupleCombat()
-    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.CoupleCombat)
-    if not activityBrieButton then
-        return
-    end
-    activityBrieButton:Refresh()
-    activityBrieButton:AddRedPointEvent({XRedPointConditions.Types.CONDITION_COUPLE_COMBAT_TASK_REWARD})
-    local isShowTag = XDataCenter.FubenCoupleCombatManager.IsChallengeable()
-    activityBrieButton:ShowTag(isShowTag)
-    activityBrieButton:SetOnClick(function()
-        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.CoupleCombat)
-        local skipId = config.SkipId
-        XFunctionManager.SkipInterface(skipId)
-    end)
-end
+--function XUiActivityBriefRefreshButton:RefreshCoupleCombat()
+--    local activityBrieButton = self:GetActivityBrieButton(XActivityBriefConfigs.ActivityGroupId.CoupleCombat)
+--    if not activityBrieButton then
+--        return
+--    end
+--    activityBrieButton:Refresh()
+--    activityBrieButton:AddRedPointEvent({XRedPointConditions.Types.CONDITION_COUPLE_COMBAT_TASK_REWARD})
+--    local isShowTag = XDataCenter.FubenCoupleCombatManager.IsChallengeable()
+--    activityBrieButton:ShowTag(isShowTag)
+--    activityBrieButton:SetOnClick(function()
+--        local config = XActivityBriefConfigs.GetActivityGroupConfig(XActivityBriefConfigs.ActivityGroupId.CoupleCombat)
+--        local skipId = config.SkipId
+--        XFunctionManager.SkipInterface(skipId)
+--    end)
+--end
 
 --v1.32 超级爬塔
 function XUiActivityBriefRefreshButton:RefreshSuperTower()
@@ -1088,26 +1069,6 @@ function XUiActivityBriefRefreshButton:RefreshSecondActivityPanel()
     end)
 end
 
---v2.7 音游
-function XUiActivityBriefRefreshButton:RefreshTaiKoMaster()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:AddRedPointEvent({XRedPointConditions.Types.CONDITION_ACTIVITY_TAIKO_MASTER_TASK})
-        --btn:AddNewTagEvent({XRedPointConditions.Types.CONDITION_ACTIVITY_TAIKO_MASTER_CD_UNLOCK})
-    end
-end
-
---v1.27 多维挑战
-function XUiActivityBriefRefreshButton:RefreshMultiDim()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:ShowReddot(XDataCenter.MultiDimManager.CheckLimitTaskGroup())
-        btn:ShowTag(XDataCenter.MultiDimManager.CheckTeamIsOpen())
-    end
-end
-
 --v2.2 正逆塔
 function XUiActivityBriefRefreshButton:RefreshTwoSideTower()
     self:RefreshNormal()
@@ -1127,15 +1088,6 @@ function XUiActivityBriefRefreshButton:RefreshGuildBoss()
     end
 end
 
---v2.6 节日 - 七夕
-function XUiActivityBriefRefreshButton:RefreshActivityFestival()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_POKER_GUESSING_RED})
-    end
-end
-
 --v1.32 角色塔 - 本我回廊
 function XUiActivityBriefRefreshButton:RefreshActivityCharacterTower()
     self:RefreshNormal()
@@ -1143,16 +1095,6 @@ function XUiActivityBriefRefreshButton:RefreshActivityCharacterTower()
     if btn then
         btn:ShowReddot(XDataCenter.CharacterTowerManager:ExCheckIsShowRedPoint())
         btn:ShowTag(XDataCenter.CharacterTowerManager.CheckNewCharacterTowerChapterOpen())
-    end
-end
-
---v1.32 战双大秘境
-function XUiActivityBriefRefreshButton:RefreshActivityRift()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_RIFT_ENTRANCE })
-        btn:ShowTag(XDataCenter.RiftManager.CheckIsHasFightLayerRedPoint())
     end
 end
 
@@ -1229,15 +1171,6 @@ function XUiActivityBriefRefreshButton:RefreshTheatre3()
         ---@type XTheatre3Agency
         local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
         btn:ShowReddot(agency:ExCheckIsShowRedPoint())
-    end
-end
-
---v2.7 黑岩战棋
-function XUiActivityBriefRefreshButton:RefreshBlackChess()
-    self:RefreshNormal()
-    local btn = self.TlActivityBrieButton[self.ActivityGroupId]
-    if btn then
-        btn:AddRedPointEvent({ XRedPointConditions.Types.CONDITION_BLACK_ROCK_CHESS_ENTRANCE })
     end
 end
 --endregion

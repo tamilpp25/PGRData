@@ -7,6 +7,7 @@ local CsXUGuiDragProxy = CS.XUguiDragProxy
 local MinDragYDistance = CS.XGame.ClientConfig:GetFloat("MinDragYDistance")
 
 local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
+---@class XUiMainRightMid:XUiMainPanelBase
 local XUiMainRightMid = XClass(XUiMainPanelBase, "XUiMainRightMid")
 
 local SubPanelState = "SubPanelState"
@@ -364,7 +365,7 @@ function XUiMainRightMid:RefreshFubenProgress()
         if not chapterId then return end
         local chapterCfg = XDataCenter.BfrtManager.GetChapterCfg(chapterId)
         progressOrder = XDataCenter.BfrtManager.GetChapterPassCount(chapterId)
-        curStageCount = XDataCenter.BfrtManager.GetGroupCount(chapterId)
+        curStageCount = XDataCenter.BfrtManager.GetChapterGroupCount(chapterId)
         chapterNew = XDataCenter.BfrtManager.CheckChapterNew(chapterId)
         self.TxtCurChapter.text = chapterCfg.ChapterEn
         local chapterPassedStr = progressOrder == curStageCount and CSXTextManagerGetText("BfrtStatePassed") or CSXTextManagerGetText("BfrtStateNotPassed")
@@ -534,16 +535,26 @@ function XUiMainRightMid:OnDragSwitch(state, eventData)
         if math.abs(subY) < MinDragYDistance then
             return
         end
-        self:RefreshSubPanelState(tmpY > self.DragY)
+        local isShow = tmpY > self.DragY
+        self:RefreshSubPanelState(isShow)
+
+        -- 埋点
+        if isShow then
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.DragAnimPanelRightMidSecond)
+        else
+            XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.DragAnimPanelRightMid)
+        end
     end
 end
 
 function XUiMainRightMid:OnBtnOpenClick()
     self:RefreshSubPanelState(true)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.ClickAnimPanelRightMidSecond)
 end
 
 function XUiMainRightMid:OnBtnCloseClick()
     self:RefreshSubPanelState(false)
+    XUiHelper.RecordBuriedSpotTypeLevelOne(XGlobalVar.BtnBuriedSpotTypeLevelOne.ClickAnimPanelRightMid)
 end
 
 function XUiMainRightMid:RefreshSubPanelState(show)

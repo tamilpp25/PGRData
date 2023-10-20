@@ -105,8 +105,11 @@ function XSignBoardCamAnim:OnScenePlayStart()
     if not self.UiAnimNodeRoot then
         return
     end
-    if XSignBoardConfigs.CheckIsUseSelfUiAnim(self.SignBoardId, self.UiAnimNodeRoot.name) then
-        self:_PlayUiAnim("UiDisable")
+    if XMVCA.XFavorability:CheckIsUseSelfUiAnim(self.SignBoardId, self.UiAnimNodeRoot.name) then
+        XLuaUiManager.SetMask(true)
+        self:_PlayUiAnim("UiDisable", function()
+            XLuaUiManager.SetMask(false)
+        end)
     end
 end
 
@@ -114,8 +117,11 @@ function XSignBoardCamAnim:OnScenePlayStop()
     if not self.UiAnimNodeRoot then
         return
     end
-    if XSignBoardConfigs.CheckIsUseSelfUiAnim(self.SignBoardId, self.UiAnimNodeRoot.name) then
-        self:_PlayUiAnim("UiEnable")
+    if XMVCA.XFavorability:CheckIsUseSelfUiAnim(self.SignBoardId, self.UiAnimNodeRoot.name) then
+        XLuaUiManager.SetMask(true)
+        self:_PlayUiAnim("UiEnable", function()
+            XLuaUiManager.SetMask(false)
+        end)
     end
 end
 
@@ -168,7 +174,7 @@ end
 
 function XSignBoardCamAnim:_InitCam(farCam, nearCam)
     -- v2.3 支持self.FarAnimNode和self.NearAnimNode使用Cam的position和rotation
-    local isUseCamPosAndRot = XSignBoardConfigs.CheckIsUseCamPosAndRot(self.SignBoardId)
+    local isUseCamPosAndRot = XMVCA.XFavorability:CheckIsUseCamPosAndRot(self.SignBoardId)
 
     --同步Far镜头相对空间位置 Far镜头可能是场景本身的
     self.FarCamRoot.position = farCam.transform.position

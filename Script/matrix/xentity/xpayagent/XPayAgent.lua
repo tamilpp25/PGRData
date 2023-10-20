@@ -106,6 +106,7 @@ function XPayAgent:TipsPaySuccess()
     
     XUiManager.TipMsg(text, XUiManager.UiTipType.Success, function()
         self:TipsPaySuccess()
+        XEventManager.DispatchEvent(XEventId.EVENT_SUCCESS_PAY)
     end)
 end
 

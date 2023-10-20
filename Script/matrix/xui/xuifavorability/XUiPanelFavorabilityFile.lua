@@ -103,13 +103,12 @@ end
 
 -- [打开剧情界面]
 function XUiPanelFavorabilityFile:OpenPlotView()
-    if not self.NoneStory then
-        local currentCharacterId = self.UiRoot:GetCurrFavorabilityCharacter()
-        XLuaUiManager.Open('UiFavorabilityStory',currentCharacterId)
-    else
-        XUiManager.TipText('FavorabilityStoryNoOne')
+    if self.NoneStory then
+        XUiManager.TipText("FavorabilityStoryNoOne")
+        return
     end
-
+    local currentCharacterId = self.UiRoot:GetCurrFavorabilityCharacter()
+    XMVCA.XFavorability:OpenUiStory(currentCharacterId)
 end
 
 return XUiPanelFavorabilityFile

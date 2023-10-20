@@ -143,6 +143,7 @@ function XUiGridShop:UpdateData(data, shopItemTextColor, shopId)
     self:RemoveTimer()
     self:RemoveOnSaleTimer()
     self:RefreshBuyCount()
+    self:RefreshAlreadyTip()
     -- 全部隐藏，如果<开售时间显示开售时间，如果>=开售时间，显示结束时间
     self:HideAllTimeGos()
     -- 未到开售时间
@@ -509,6 +510,46 @@ function XUiGridShop:RefreshShowLock()
         else
             self.TxtLock.gameObject:SetActiveEx(false)
         end
+    end
+end
+
+function XUiGridShop:RefreshAlreadyTip()
+    if self.ShopId ~= XShopManager.RechargeShopType.CharacterShop 
+        and self.ShopId ~= XShopManager.RechargeShopType.EquipShop
+        and self.ShopId ~= XShopManager.RechargeShopType.PartnerShop then
+        if self.PanelAlreadyownedRole then
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        end
+
+        return
+    end
+    if not self.PanelAlreadyownedRole or not self.TxtAlready then
+        return
+    end
+    if not self.Data then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        return
+    end
+
+    local rewardGoods = self.Data.RewardGoods
+    local rewardType = rewardGoods.RewardType
+    local templateId = rewardGoods.TemplateId
+
+    if XRewardManager.IsRewardCharacter(rewardType, templateId) then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+        self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasCharacterTip")
+    elseif XRewardManager.IsRewardEquip(rewardType, templateId) then
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+        self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasEquipTip")
+    elseif rewardType == XRewardManager.XRewardType.Partner then
+        if XDataCenter.PartnerManager.GetPartnerCountByTemplateId(templateId) > 0 then
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(true)
+            self.TxtAlready.text = XUiHelper.GetText("ShopAlreadyHasPartnerTip")
+        else
+            self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
+        end
+    else
+        self.PanelAlreadyownedRole.gameObject:SetActiveEx(false)
     end
 end
 

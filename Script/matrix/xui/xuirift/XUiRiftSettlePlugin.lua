@@ -23,7 +23,7 @@ function XUiRiftSettlePlugin:OnStart(settleData, nextStageGroup, nextStageIndex)
     self.NextStageIndex = nextStageIndex
 
     self.DataList = self.SettleData.RiftSettleResult.PluginDropRecords
-    table.sort(self.DataList, self.DropPluginSortFunc)
+    table.sort(self.DataList, XDataCenter.RiftManager.SortDropPluginBase)
 end
 
 function XUiRiftSettlePlugin:OnEnable()
@@ -69,22 +69,6 @@ function XUiRiftSettlePlugin:InitDynamicTable()
     self.DynamicTable:SetDelegate(self)
 end
 
-function XUiRiftSettlePlugin.DropPluginSortFunc(dropDataA, dropDataB)
-    local isDecomposeA = dropDataA.DecomposeCount > 0
-    local isDecomposeB = dropDataB.DecomposeCount > 0
-    if isDecomposeA ~= isDecomposeB then
-        return not isDecomposeA
-    end
-
-    local pluginA = XDataCenter.RiftManager.GetPlugin(dropDataA.PluginId)
-    local pluginB = XDataCenter.RiftManager.GetPlugin(dropDataB.PluginId)
-    if pluginA:GetStar() ~= pluginB:GetStar() then
-        return pluginA:GetStar() > pluginB:GetStar()
-    end
-
-    return pluginA:GetId() > pluginB:GetId()
-end
-
 function XUiRiftSettlePlugin:RefreshDynamicTable()
     self._PluginShowMap = {}
     self.DynamicTable:SetDataSource(self.DataList)
@@ -96,13 +80,17 @@ function XUiRiftSettlePlugin:OnDynamicTableEvent(event, index, grid)
         local dropData = self.DataList[index]
         grid:Refresh(dropData)
         grid:RefreshBg()
+        grid:SetClickCallBack(handler(self, self.OnBtnContinueClick))
         table.insert(self._PluginShowMap, grid)
     end
 end
 
 function XUiRiftSettlePlugin:OnBtnContinueClick()
-    for _, v in pairs(self._PluginShowMap) do
-        v:DoOverturn()
+    if not self._HasPlayAnimation then
+        self._HasPlayAnimation = true
+        for _, v in pairs(self._PluginShowMap) do
+            v:DoOverturn()
+        end
     end
     self.BtnContinue.gameObject:SetActiveEx(false)
 end
@@ -117,6 +105,8 @@ function XUiRiftSettlePlugin:SetMouseVisible()
         local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
         inputKeyboard.HideMouseEvenByDrag = false
     end
+    CS.UnityEngine.Cursor.lockState = CS.UnityEngine.CursorLockMode.None
+    CS.UnityEngine.Cursor.visible = true
 end
 
 return XUiRiftSettlePlugin

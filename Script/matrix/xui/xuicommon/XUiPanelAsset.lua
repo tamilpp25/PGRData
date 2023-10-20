@@ -110,15 +110,15 @@ end
 
 function XUiPanelAsset:BuyJump(index)
     -- 联机中不给跳转，防止跳出联机房间
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
-        return
-    end
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
+    --    return
+    --end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
+    --    return
+    --end
 
     if XLuaUiManager.IsUiShow("UiMain") then
         if self.ItemIds[index] == XDataCenter.ItemManager.ItemId.FreeGem then

@@ -43,10 +43,12 @@ function XUiLotto:OnEnable()
     --self.PlayableDirector = self.BackGround:GetComponent("PlayableDirector")
     --self.PlayableDirector:Stop()
     --self.PlayableDirector:Evaluate()
+    self:AddEventListener()
 end
 
 function XUiLotto:OnDisable()
-   self:StopTimer()
+    self:StopTimer()
+    self:RemoveEventListener()
 end
 
 function XUiLotto:SetBtnCallBack()
@@ -155,9 +157,7 @@ function XUiLotto:OnDraw()
     local needItemCount = drawData:GetConsumeCount()
     if needItemCount > curItemCount then
         XUiManager.TipMsg(CSTextManagerGetText("DrawNotEnoughSkipText"))
-        XLuaUiManager.Open("UiLottoTanchuang", drawData, function()
-            self:UpdateAllPanel()
-        end)
+        XLuaUiManager.Open("UiLottoTanchuang", drawData)
         return
     end
 
@@ -244,3 +244,13 @@ function XUiLotto:StopTimer()
         self.Timer = nil
     end
 end
+
+--region Event
+function XUiLotto:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.UpdateAllPanel, self)
+end
+
+function XUiLotto:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.UpdateAllPanel, self)
+end
+--endregion

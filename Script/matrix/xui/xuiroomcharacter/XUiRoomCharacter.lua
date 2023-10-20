@@ -23,6 +23,7 @@ local stagePass = false
 local XUiRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiRoomCharacter")
 
 function XUiRoomCharacter:OnAwake()
+    XLog.Error("[XUiRoomCharacter] 这个界面应该是弃用了，如果您发现没有，请通知ZLB，谢谢")
     self:InitAutoScript()
     self:InitDynamicTable()
 
@@ -751,7 +752,8 @@ function XUiRoomCharacter:IsWorldBossType()
 end
 
 function XUiRoomCharacter:IsChessPursuitType()
-    return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
+    --return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
+    return false
 end
 
 function XUiRoomCharacter:IsCoutpleCombatType()
@@ -898,21 +900,21 @@ function XUiRoomCharacter:OnBtnJoinTeamClick()
         end
     end
 
-    if self:IsChessPursuitType() then
-        local isIn, gridId, teamDataIndex = self:CheckIsInChessPursuit(id)
-        if isIn then
-            local content = CSXTextManagerGetText("ChessPursuitDeploySwitchTipsContent", gridId)
-            local sureCallBack = function()
-                if not XDataCenter.ChessPursuitManager.CheckIsSwapTeamPos(gridId, teamDataIndex, self.TeamGridIndex, self.TeamSelectPos) then
-                    XUiManager.TipText("ChessPursuitNotSwitchCharacter")
-                    return
-                end
-                joinFunc()
-            end
-            XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, sureCallBack)
-            return
-        end
-    end
+    --if self:IsChessPursuitType() then
+    --    local isIn, gridId, teamDataIndex = self:CheckIsInChessPursuit(id)
+    --    if isIn then
+    --        local content = CSXTextManagerGetText("ChessPursuitDeploySwitchTipsContent", gridId)
+    --        local sureCallBack = function()
+    --            if not XDataCenter.ChessPursuitManager.CheckIsSwapTeamPos(gridId, teamDataIndex, self.TeamGridIndex, self.TeamSelectPos) then
+    --                XUiManager.TipText("ChessPursuitNotSwitchCharacter")
+    --                return
+    --            end
+    --            joinFunc()
+    --        end
+    --        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, sureCallBack)
+    --        return
+    --    end
+    --end
 
     joinFunc()
 end

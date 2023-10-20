@@ -81,7 +81,7 @@ function XUiPanelDetailTeamItem:UpdateView(recommendConfig, rank, curCharacterId
         grid:Refresh(templateId)
 
         local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
-        self["RImgQuality" .. i]:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+        self["RImgQuality" .. i]:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
         self["TxtName" .. i].text = XMVCA.XCharacter:GetCharacterFullNameStr(templateId)
     end
 

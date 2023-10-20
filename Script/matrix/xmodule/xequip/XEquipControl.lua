@@ -252,6 +252,18 @@ function XEquipControl:GetSuitInfoList(characterId, site)
     return suitInfoList
 end
 
+-- 获取套装最大数量
+function XEquipControl:GetSuitMaxCnt(suitId)
+    local suitCfg = self._Model:GetConfigEquipSuit(suitId)
+    local maxCnt = 0
+    for i, des in pairs(suitCfg.SkillDescription) do
+        if des and i > maxCnt then
+            maxCnt = i
+        end
+    end
+    return maxCnt
+end
+
 --------------------endregion 意识 --------------------
 
 -- 获取装备匹配角色

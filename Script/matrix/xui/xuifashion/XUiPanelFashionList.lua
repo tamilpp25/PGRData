@@ -31,7 +31,7 @@ function XUiPanelFashionList:UpdateViewList(fashionList, defualtSelectId, charac
     self.CharacterId = characterId
     self.FashionList = fashionList
     self.LastSelectId = defualtSelectId or self.LastSelectId
-    self.GridTouchCb(self.LastSelectId)
+    self.GridTouchCb(self.LastSelectId, self.LastSelectGrid)
     self.DynamicTable:SetDataSource(fashionList)
     self.DynamicTable:ReloadDataSync()
 end
@@ -59,7 +59,7 @@ function XUiPanelFashionList:OnDynamicTableEvent(event, index, grid)
         self.LastSelectGrid = grid
         self.LastSelectGrid:SetSelect(true)
 
-        self.GridTouchCb(fashionId)
+        self.GridTouchCb(fashionId, grid)
     end
 end
 

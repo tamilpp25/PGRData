@@ -1018,7 +1018,7 @@ function XUiMultiplayerRoom:GetJopCount(type)
     for _, v in pairs(roomData.PlayerDataList) do
         local charId = v.FightNpcData.Character.Id
         local quality = v.FightNpcData.Character.Quality
-        local npcId = XCharacterConfigs.GetCharNpcId(charId, quality)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(charId, quality)
         local tempType = XCharacterConfigs.GetCharacterCareerType(npcId)
         if type == tempType then
             count = count + 1

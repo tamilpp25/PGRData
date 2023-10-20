@@ -6,10 +6,13 @@ local XUiPanelNewCharTask=require('XUi/XUiNewChar/XUiPanelNewCharTask')
 function XUiFunbenWeiLaTutorial:OnAwake()
     self:InitAutoScript()
     self.RedPointBtnAchievementId=self:AddRedPointEvent(self.BtnAchievement,self.RefreshBtnTaskRedDot,self,{
-        XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYCHALLENGERED,
+        XRedPointConditions.Types.CONDITION_NEWCHARACTIVITYTASK,
     })
     self.RedPointBtnTeachingId = self:AddRedPointEvent(self.BtnTeaching, self.RefreshBtnTeachingRedDot, self, {
         XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYTEACHINGRED,
+    })
+    self.RedPointBtnChallengeId = self:AddRedPointEvent(self.BtnChallenge, self.RefreshBtnChallengeRedDot, self, {
+        XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYCHALLENGERED,
     })
     --self.PanelRoot = self.PanelStageRoot.parent:Find("PanelRoot")
 end
@@ -60,6 +63,7 @@ end
 function XUiFunbenWeiLaTutorial:CheckRedPoint()
     XRedPointManager.Check(self.RedPointBtnAchievementId)
     XRedPointManager.Check(self.RedPointBtnTeachingId)
+    XRedPointManager.Check(self.RedPointBtnChallengeId)
     --self.BtnChapter:ShowReddot(false)
 end
 
@@ -228,17 +232,23 @@ end
 
 --2.8 刷新主界面的任务相关内容
 function XUiFunbenWeiLaTutorial:RefreshMainTask()
-    
-    local treasureId, isAllFinish = XDataCenter.FubenNewCharActivityManager.GetShowTaskId(self.Id)
-    if not XTool.IsNumberValid(treasureId) then
-        self.PanelTips.gameObject:SetActiveEx(false)
-        return
+    local actCfg=XFubenNewCharConfig.GetActTemplates()[self.Id]
+    local rewardId=0
+    if XTool.IsNumberValid(actCfg.ShowRewardId) then --显示配置的数据
+        rewardId=actCfg.ShowRewardId
+    else --采用原逻辑按顺序显示
+        XLog.Error('任务奖励入口显示未配置固定显示，执行按优先级筛选显示逻辑--2.8版本显示需求')
+        local treasureId, isAllFinish = XDataCenter.FubenNewCharActivityManager.GetShowTaskId(self.Id)
+        if not XTool.IsNumberValid(treasureId) then
+            self.PanelTips.gameObject:SetActiveEx(false)
+            return
+        end
+        local config = XFubenNewCharConfig.GetTreasureCfg(treasureId)
+        rewardId = config.RewardId
     end
     self.PanelTips.gameObject:SetActiveEx(true)
-    local config = XFubenNewCharConfig.GetTreasureCfg(treasureId)
     self.GridMainTaskReward = self.GridMainTaskReward or {}
-    local rewardId = config.RewardId
-    local rewards = XRewardManager.GetRewardList(rewardId)
+    local rewards=XRewardManager.GetRewardListNotCount(rewardId)
     local rewardsNum = #rewards
     for i = 1, rewardsNum do
         local grid = self.GridMainTaskReward[i]
@@ -248,7 +258,6 @@ function XUiFunbenWeiLaTutorial:RefreshMainTask()
             self.GridMainTaskReward[i] = grid
         end
         grid:Refresh(rewards[i])
-        grid:SetReceived(isAllFinish)
         grid.GameObject:SetActiveEx(true)
     end
     for i = rewardsNum + 1, #self.GridMainTaskReward do

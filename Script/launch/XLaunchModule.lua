@@ -18,6 +18,15 @@ RES_FILE_TYPE = {
     CG_FILE = "cg",
 }
 
+DOWNLOAD_SOURCE = {
+    -- 默认下载源
+    DEFAULT = 0,
+    -- 预下载下载源
+    PRELOAD = 1,
+    -- 分包下载源
+    SUBPACKAGE = 2
+}
+
 local APP_PATH_MODULE_NAME = "XLaunchAppPathModule"
 local APP_VERSION_MODULE_NAME = "XLaunchAppVersionModule"
 local FILE_MODULE_NAME = "XLaunchFileModule"

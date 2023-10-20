@@ -1,6 +1,9 @@
 ---@class XFavorabilityControl : XControl
 ---@field private _Model XFavorabilityModel
 local XFavorabilityControl = XClass(XControl, "XFavorabilityControl")
+local ClientConfig = CS.XGame.ClientConfig
+
+
 function XFavorabilityControl:OnInit()
     --初始化内部变量
 end
@@ -14,7 +17,7 @@ function XFavorabilityControl:RemoveAgencyEvent()
 end
 
 function XFavorabilityControl:OnRelease()
-    XLog.Error("这里执行Control的释放")
+
 end
 
 --[剧情是否可解锁]

@@ -55,7 +55,7 @@ function XUiPhotographPortrait:OnEnable()
     end
     
     self:UpdateView()
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
 
     -- 开启时钟
     self.ClockTimer = XUiHelper.SetClockTimeTempFun(self)
@@ -83,7 +83,7 @@ function XUiPhotographPortrait:OnDisable()
     if self.SignBoardPlayer then
         self.SignBoardPlayer:OnDisable()
     end
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
 
     -- 关闭时钟
     if self.ClockTimer then
@@ -270,7 +270,7 @@ function XUiPhotographPortrait:InitUi()
     --Player
     self.Parent = self --奇怪的操作
     local signBoardPlayer = require("XCommon/XSignBoardPlayer").New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
     --ActionPanel
@@ -315,7 +315,7 @@ function XUiPhotographPortrait:SetupDynamicTable(tableType)
         self.DynamicFashionTable:ReloadDataASync(self.CurFashionIndex - MAX_FASHION_MEMBER_LINE)
     elseif self.CurTableType == DynamicTableType.Action then
         self.PanelActionList.gameObject:SetActiveEx(true)
-        self.ActionList = XFavorabilityConfigs.GetCharacterActionById(self.CharacterId) or {}
+        self.ActionList = XMVCA.XFavorability:GetCharacterActionById(self.CharacterId) or {}
         self.DynamicActionTable:SetDataSource(self.ActionList)
         self.DynamicActionTable:ReloadDataASync()
     end
@@ -508,7 +508,7 @@ end
 function XUiPhotographPortrait:ForcePlay(signBoardActionId, actionId)
     self.SignBoardActionId = signBoardActionId
     self.ActionId = actionId or self.ActionId -- characterAction表的主键
-    local config = XSignBoardConfigs.GetSignBoardConfigById(signBoardActionId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(signBoardActionId)
     if self.SignBoardPlayer:GetInterruptDetection() and self.SignBoardPlayer.PlayerData.PlayingElement.Id ~= config.Id then
         self:PlayChangeActionEffect()
     end
@@ -621,7 +621,7 @@ function XUiPhotographPortrait:Replay()
         return
     end
 
-    local configs = XFavorabilityConfigs.GetCharacterActionById(self.CharacterId)
+    local configs = XMVCA.XFavorability:GetCharacterActionById(self.CharacterId)
     local data = nil
     for k, v in pairs(configs) do
         if v.Id == self.ActionId then
@@ -959,20 +959,20 @@ function XUiPhotographPortrait:PlaySceneAnim(element)
     local animRoot = self.UiModelGo.transform
     local sceneId = XDataCenter.PhotographManager.GetCurSelectSceneId()
     local sighBoardId = element.SignBoardConfig.Id
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 function XUiPhotographPortrait:PlayRoleActionUiDisableAnim(signBoardid)
     self:SetActionMask(true)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
 
 function XUiPhotographPortrait:PlayRoleActionUiEnableAnim(signBoardid)
     self:SetActionMask(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end

@@ -15,9 +15,13 @@ function XUiTransfiniteBattleSettlement:OnAwake()
 end
 
 function XUiTransfiniteBattleSettlement:SetMouseVisible()
-    local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
-    
-    inputKeyboard.HideMouseEvenByDrag = false
+    -- 这里只有PC端开启了键鼠以后才能获取到设备
+    if CS.XFight.Instance and CS.XFight.Instance.InputSystem then
+        local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
+        inputKeyboard.HideMouseEvenByDrag = false
+    end
+    CS.UnityEngine.Cursor.lockState = CS.UnityEngine.CursorLockMode.None
+    CS.UnityEngine.Cursor.visible = true
 end
 
 ---@param result XTransfiniteResult

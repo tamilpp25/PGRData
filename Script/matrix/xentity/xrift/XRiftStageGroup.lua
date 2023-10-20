@@ -76,6 +76,11 @@ function XRiftStageGroup:GetDesc()
     return self.s_ParentFightLayer:GetConfig().NodeDesc[self.NodePositionIndex]
 end
 
+function XRiftStageGroup:GetSeasonDesc()
+    local index = XDataCenter.RiftManager:GetSeasonIndex()
+    return self.s_ParentFightLayer:GetConfig().NodeDesc[index] or ""
+end
+
 -- 【获取】Pos
 function XRiftStageGroup:GetPos()
     return self.s_ParentFightLayer:GetConfig().NodePositions[self.NodePositionIndex] or self.NodePositionIndex -- 如果父节点没配NodePositionIndex，一般是幸运节点

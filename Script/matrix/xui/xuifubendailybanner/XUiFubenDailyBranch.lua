@@ -214,6 +214,8 @@ function XUiFubenDailyBranch:EnterFight(stage)
 end
 
 function XUiFubenDailyBranch:ShowPanelAsset(IsShow)
+    if XTool.UObjIsNil(self.GameObject) or not self.GameObject.activeInHierarchy then return end
+
     if IsShow then
         self.AssetPanel:Open()
     else

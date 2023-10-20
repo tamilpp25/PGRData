@@ -1,6 +1,6 @@
+local XCerberusGameTeam = require("XEntity/XCerberusGame/XCerberusGameTeam")
 ---@class XCerberusGameStage
 local XCerberusGameStage = XClass(nil, "XCerberusGameStage")
-local XCerberusGameTeam = require("XEntity/XCerberusGame/XCerberusGameTeam")
 
 -- 剧情节点
 function XCerberusGameStage:Ctor(stageId)
@@ -94,7 +94,7 @@ function XCerberusGameStage:GetStarsCount()
 end
 
 function XCerberusGameStage:GetIsOpen()
-    local allConfigs = XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameChallenge)
+    local allConfigs = XMVCA.XCerberusGame:GetModelCerberusGameChallenge()
     local stageConfig = allConfigs[self.StageId]
     if not stageConfig then
         return true
@@ -105,7 +105,7 @@ function XCerberusGameStage:GetIsOpen()
         return true
     end
 
-    local xStage = XDataCenter.CerberusGameManager.GetXStageById(preStageId)
+    local xStage = XMVCA.XCerberusGame:GetXStageById(preStageId)
     return xStage:GetIsPassed()
 end
 

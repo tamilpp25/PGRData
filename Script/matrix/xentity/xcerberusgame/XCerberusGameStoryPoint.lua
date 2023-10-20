@@ -6,7 +6,7 @@ function XCerberusGameStoryPoint:Ctor(config)
     self.Id = config.Id
     self.Config = config
     self.Type = config.StoryPointType
-    if self.Type == XCerberusGameConfig.StoryPointType.Communicate then
+    if self.Type == XEnumConst.CerberusGame.StoryPointType.Communicate then
         self.CommunicationId = tonumber(config.StoryPointTypeParams[1])
     else
         self.StageId = tonumber(config.StoryPointTypeParams[1])
@@ -42,7 +42,7 @@ function XCerberusGameStoryPoint:GetIsShow()
         return true
     end
     for k, preStortyPointId in pairs(configs) do
-        local xPreStoryPoint = XDataCenter.CerberusGameManager.GetXStoryPointById(preStortyPointId)
+        local xPreStoryPoint = XMVCA.XCerberusGame:GetXStoryPointById(preStortyPointId)
         if xPreStoryPoint:GetIsPassed() then
             return true
         end
@@ -66,7 +66,7 @@ function XCerberusGameStoryPoint:GetXStage()
     if not self.StageId then
         return
     end
-    return XDataCenter.CerberusGameManager.GetXStageById(self.StageId)
+    return XMVCA.XCerberusGame:GetXStageById(self.StageId)
 end
 
 function XCerberusGameStoryPoint:GetCommunicationId()
@@ -74,7 +74,7 @@ function XCerberusGameStoryPoint:GetCommunicationId()
 end
 
 function XCerberusGameStoryPoint:GetStoryLineId()
-    for k, v in pairs(XCerberusGameConfig.GetAllConfigs(XCerberusGameConfig.TableKey.CerberusGameStoryLine)) do
+    for k, v in pairs(XMVCA.XCerberusGame:GetModelCerberusGameStoryLine()) do
         if table.contains(v.StoryPointIds, self:GetId()) then
             return v.Id
         end
@@ -83,7 +83,7 @@ end
 
 -- 获取上阵的指定角色
 function XCerberusGameStoryPoint:GetTargetCharacterList()
-    if self:GetType() ~= XCerberusGameConfig.StoryPointType.Battle then
+    if self:GetType() ~= XEnumConst.CerberusGame.StoryPointType.Battle then
         return nil
     end
 

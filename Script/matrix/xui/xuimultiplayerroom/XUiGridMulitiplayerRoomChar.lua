@@ -125,7 +125,7 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
     -- 战斗类型
     local charId = playerData.FightNpcData.Character.Id
     local quality = playerData.FightNpcData.Character.Quality
-    local npcId = XCharacterConfigs.GetCharNpcId(charId, quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(charId, quality)
     local npcTemplate = XCharacterConfigs.GetNpcTemplate(npcId)
     self.RImgArms:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type))
 
@@ -193,7 +193,7 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
         if XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo) then
             self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController,true)
         else
-            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController)
+            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController, nil, playerData.Id == XPlayer.Id)
         end
     end
     local char = playerData.FightNpcData.Character

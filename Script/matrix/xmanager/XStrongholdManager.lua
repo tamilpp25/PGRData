@@ -45,7 +45,7 @@ XStrongholdManagerCreator = function()
     local _EndTime = 0 --活动结束时间
     local _CurDay = 0 --当前天数（挑战开始后）
     local _TotalDay = 0 --挑战总天数（挑战开始后）
-    local _TargetCountDownTime -- 倒计时的目标时间戳
+    local _TargetCountDownTime = 0 -- 倒计时的目标时间戳
     local _ActivityEnd = false --活动是否重置
 
     local function ClearActivityTimer()
@@ -275,7 +275,7 @@ XStrongholdManagerCreator = function()
         end
 
         --分包资源检测
-        if not XMVCA.XSubPackage:CheckSubpackage() then
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Stronghold) then
             return
         end
 
@@ -899,6 +899,7 @@ XStrongholdManagerCreator = function()
         end
     end
 
+    ---@return XStrongholdGroupInfo
     local function GetGroupInfo(groupId)
         local groupInfo = _GroupInfos[groupId]
         if not groupInfo and not _LogGroupIdDic[groupId] then
@@ -950,7 +951,7 @@ XStrongholdManagerCreator = function()
             local groupInfo = GetGroupInfo(groupId, true)
 
             if groupInfo then
-                groupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
+                groupInfo:InitStageData(stageIds, stageBuffIdDic, supportId, stageData.ExtendBuffId)
             end
         end
 
@@ -1121,8 +1122,11 @@ XStrongholdManagerCreator = function()
     end
 
     function XStrongholdManager.GetGroupStageId(groupId, stageIndex)
+        if not groupId then
+            return nil
+        end
         local groupInfo = GetGroupInfo(groupId)
-        return groupInfo and groupInfo:GetStageId(stageIndex) or 0
+        return groupInfo and groupInfo:GetStageId(stageIndex) or nil
     end
 
     function XStrongholdManager.GetGroupStageName(groupId, stageIndex)
@@ -1133,6 +1137,12 @@ XStrongholdManagerCreator = function()
     function XStrongholdManager.GetGroupStageBuffDesc(groupId, stageIndex)
         local groupInfo = GetGroupInfo(groupId)
         local buffId = groupInfo:GetStageBuffId(stageIndex)
+        return buffId > 0 and XStrongholdConfigs.GetBuffDesc(buffId) or ""
+    end
+
+    function XStrongholdManager.GetGroupStageExtendBuffDesc(groupId, stageIndex)
+        local groupInfo = GetGroupInfo(groupId)
+        local buffId = groupInfo:GetStageExtendBuffId(stageIndex)
         return buffId > 0 and XStrongholdConfigs.GetBuffDesc(buffId) or ""
     end
 
@@ -1655,6 +1665,7 @@ XStrongholdManagerCreator = function()
     
     -----------------据点相关 end------------------
     -----------------队伍相关 begin------------------
+    ---@type XStrongholdTeam[]
     local _TeamList = {} --队伍列表
     local _MaxTeamNum = 0 --最大队伍数量
 
@@ -1844,6 +1855,7 @@ XStrongholdManagerCreator = function()
     end
     
     --据说TeamList的数据会直接保存至服务器，为了解决预设梯队跟当前关卡队伍不一样的问题新建一个FighterTeamList
+    ---@return XStrongholdTeam[]
     function XStrongholdManager.GetFighterTeamListTemp(teamList,groupId)
         local requireTeamIds = XStrongholdManager.GetGroupRequireTeamIds(groupId)
         local fighterTeamList = {}
@@ -2056,6 +2068,7 @@ XStrongholdManagerCreator = function()
     end
 
     --检查队伍列表平均战力是否符合要求
+    ---@param teamList XStrongholdTeam[]
     function XStrongholdManager.CheckTeamListAverageAbility(requireAbility, teamList)
         local groupId = XStrongholdManager.GetCurrentSelectGroupId()
         if not IsNumberValid(groupId) then
@@ -2075,6 +2088,7 @@ XStrongholdManagerCreator = function()
                     memberCount = memberCount + 1
                 end
             end
+            totalAbility = totalAbility + team:GetPluginAddAbility()
         end
 
         local averageAbility = memberCount > 0 and totalAbility / memberCount or 0
@@ -2994,6 +3008,16 @@ public class StrongholdAssistCharacterDetail
         return rewardIds
     end
 
+    function XStrongholdManager.GetCanReceiveReward()
+        local rewardIds = {}
+        for _, rewardId in pairs(XStrongholdManager.GetAllRewardIds()) do
+            if XStrongholdManager.IsRewardCanGet(rewardId) then
+                table.insert(rewardIds, rewardId)
+            end
+        end
+        return rewardIds
+    end
+
     function XStrongholdManager.IsRewardFinished(rewardId)
         return _FinishedRewardIdDic[rewardId]
     end
@@ -3023,8 +3047,8 @@ public class StrongholdAssistCharacterDetail
     end
 
     --领取奖励
-    function XStrongholdManager.GetStrongholdRewardRequest(rewardId, cb)
-        local req = {Id = rewardId}
+    function XStrongholdManager.GetStrongholdRewardRequest(rewardIds, cb)
+        local req = { Ids = rewardIds }
         XNetwork.Call(
             "GetStrongholdRewardRequest",
             req,
@@ -3034,7 +3058,7 @@ public class StrongholdAssistCharacterDetail
                     return
                 end
 
-                UpdateFinishedRewardIds({rewardId})
+                UpdateFinishedRewardIds(res.SuccessIds)
 
                 local rewardGoods = res.RewardGoodsList
                 if cb then
@@ -3384,6 +3408,10 @@ public class StrongholdAssistCharacterDetail
 
         --根据分区初始化关卡信息
         InitGroupInfos()
+    end
+
+    function XStrongholdManager.GetChaptersByLevel()
+        return XStrongholdConfigs.GetLevelChapterIds(_LevelId)
     end
 
     --是否已经选择过分区
@@ -3756,7 +3784,7 @@ public class StrongholdAssistCharacterDetail
     end
 
     function XStrongholdManager:ExCheckIsShowRedPoint()
-        return XRedPointConditionStrongholdRewardCanGet.Check()
+        return XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionStrongholdRewardCanGet)
     end
 
     -- 获取进度提示

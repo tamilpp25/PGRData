@@ -169,6 +169,7 @@ M.DoneSelect = function(appVer)
     --UnityPlayerPrefs.SetInt(HAS_SELECT_DOWNLOAD_PART_KEY .. appVer, STATE_START)
     --调整为只有新包才会弹
     UnityPlayerPrefs.SetInt(HAS_SELECT_DOWNLOAD_PART_KEY, STATE_START)
+    UnityPlayerPrefs.Save()
 end
 
 --- 是否是整包下载
@@ -211,7 +212,7 @@ end
 local FileModule = nil
 local VersionModule = nil
 
-M.GetPathmodule = function()
+M.GetPathModule = function()
     if not PathModule then
         PathModule = require("XLaunchAppPathModule")
     end
@@ -221,7 +222,7 @@ end
 
 ---@return XLaunchFileModule
 --------------------------
-M.GetFilemodule = function()
+M.GetFileModule = function()
     if not FileModule then
         local FileModuleCreator = require("XLaunchFileModule")
         FileModule = FileModuleCreator()
@@ -229,7 +230,7 @@ M.GetFilemodule = function()
     return FileModule
 end
 
-M.GetVersionmodule = function()
+M.GetVersionModule = function()
     if not VersionModule then
         VersionModule = require("XLaunchAppVersionModule")
     end
@@ -237,9 +238,9 @@ M.GetVersionmodule = function()
 end
 
 M.DoDownloadDlc = function(progressCb, doneCb, exitCb)
-    local PathModule = M.GetPathmodule()
-    local DocFileModule = M.GetFilemodule()
-    local VersionModule = M.GetVersionmodule()
+    local PathModule = M.GetPathModule()
+    local DocFileModule = M.GetFileModule()
+    local VersionModule = M.GetVersionModule()
     DocFileModule.SetIsInGame(IsInGame)
     XMVCA.XSubPackage:SetFileModule(DocFileModule)
     DocFileModule.Check(RES_FILE_TYPE.MATRIX_FILE, PathModule, VersionModule, doneCb, progressCb, exitCb)
@@ -270,7 +271,6 @@ M.DownloadDlc = function (ids, processCb, doneCb, exitCb)
             end)
     -- end)
 end
-
 
 M.GetIndexInfo = function()
     return DlcIndexInfo

@@ -13,7 +13,67 @@ function XUiSameColorGameSetUp:OnStart(isMusicClose, isSoundClose, closeMusicFun
     self.RePlayFunc = rePlayFunc
     self.ContinueFunc = continueFunc
     self:Refresh()
+    self:_InitReplayBtn()
+    self:_RefreshReplayBtn()
 end
+
+function XUiSameColorGameSetUp:OnEnable()
+    self:_StartRefreshReplayBtn()
+end
+
+function XUiSameColorGameSetUp:OnDisable()
+    self:_StopRefreshReplayBtn()
+end
+
+--region Replay
+function XUiSameColorGameSetUp:_InitReplayBtn()
+    ---@type UnityEngine.UI.Text
+    self._TxtReplayObjList = {
+        XUiHelper.TryGetComponent(self.BtnRePlay.transform, "Normal/Text (1)", "Text"),
+        XUiHelper.TryGetComponent(self.BtnRePlay.transform, "Press/Text (2)", "Text"),
+        XUiHelper.TryGetComponent(self.BtnRePlay.transform, "Disable/Text (2)", "Text")
+    }
+    if XTool.IsTableEmpty(self._TxtReplayObjList) then
+        self._IsCanReplay = true
+        return
+    end
+    self._ReplayTxt = self._TxtReplayObjList[1].text
+    self._ReplayCD = 5  -- 策划要写死
+end
+
+function XUiSameColorGameSetUp:_StartRefreshReplayBtn()
+    self._Timer = XScheduleManager.ScheduleForever(function()
+        if self._IsCanReplay or XTool.UObjIsNil(self.Transform) then
+            self:_StopRefreshReplayBtn()
+        end
+        self:_RefreshReplayBtn()
+    end, 0, 0)
+end
+
+function XUiSameColorGameSetUp:_StopRefreshReplayBtn()
+    if self._Timer then
+        XScheduleManager.UnSchedule(self._Timer)
+    end
+end
+
+function XUiSameColorGameSetUp:_RefreshReplayBtn()
+    if XTool.IsTableEmpty(self._TxtReplayObjList) then
+        return
+    end
+    local time = XDataCenter.SameColorActivityManager.GetGameRunningRecordTime()
+    self._IsCanReplay = time >= self._ReplayCD
+    self:_UpdateReplayText(self._IsCanReplay, math.floor(self._ReplayCD - time))
+end
+
+function XUiSameColorGameSetUp:_UpdateReplayText(isCanReplay, cdTime)
+    for _, text in ipairs(self._TxtReplayObjList) do
+        if text then
+            text.text = isCanReplay and self._ReplayTxt or self._ReplayTxt.."("..cdTime.."s)"
+        end
+    end
+    self.BtnRePlay:SetDisable(not isCanReplay)
+end
+--endregion
 
 function XUiSameColorGameSetUp:SetButtonCallBack()
     XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnClickBtnBack)
@@ -29,6 +89,9 @@ function XUiSameColorGameSetUp:OnClickBtnBack()
 end
 
 function XUiSameColorGameSetUp:OnClickBtnRePlay()
+    if not self._IsCanReplay then
+        return
+    end
     self:Close()
     self.RePlayFunc()
 end

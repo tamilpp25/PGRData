@@ -22,7 +22,7 @@ function XRedPointConditionSimulatedCombatChallenge.Check()
         return true
     end
 
-    if XRedPointConditionSimulatedCombatStar.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SIMULATED_COMBAT_STAR) then
         return true
     end
     

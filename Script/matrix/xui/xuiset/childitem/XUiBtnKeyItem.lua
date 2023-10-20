@@ -4,7 +4,7 @@ local XInputManager = CS.XInputManager
 local ToInt32 = CS.System.Convert.ToInt32
 
 function XUiBtnKeyItem:OnStart()
-    self._KeySetType = false
+    self._KeySetType = self._KeySetType or false
 
     if self.BtnClear then
         XUiHelper.RegisterClickEvent(self, self.BtnClear, self.OnBtnClearClick)

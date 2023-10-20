@@ -37,6 +37,12 @@ function XUiGridWeaponFashion:SetSelect(isSelect)
     end
 end
 
+function XUiGridWeaponFashion:SetRedPoint(isSelect)
+    if self.ImgRedPoint then
+        self.ImgRedPoint.gameObject:SetActiveEx(isSelect)
+    end
+end
+
 function XUiGridWeaponFashion:Refresh(fashionId, characterId)
     self.CharacterId = characterId
     self.FashionId = fashionId
@@ -89,6 +95,7 @@ function XUiGridWeaponFashion:UpdateStatus()
         self.ImgUse.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 1)
     end
+    self:SetRedPoint(XDataCenter.WeaponFashionManager.GetAllWeaponFashionIsOwnDic(self.FashionId).IsNew)
 end
 
 return XUiGridWeaponFashion

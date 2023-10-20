@@ -9,7 +9,6 @@ local YKUiTypes
 -- local TabExConfig
 local UiTypeCfg = {}
 local XUiPurchasePay = require("XUi/XUiPurchase/XUiPurchasePay")
-local XUiPurchasePayAdd = require("XUi/XUiPurchase/XUiPurchasePayAdd")
 local XUiPurchaseLB = require("XUi/XUiPurchase/XUiPurchaseLB")
 local XUiPurchaseYK = require("XUi/XUiPurchase/XUiPurchaseYK")
 local XUiPurchaseYKList = require("XUi/XUiPurchase/XUiPurchaseYKList")
@@ -43,9 +42,8 @@ function XUiPurchase:OnEnable()
     if self.CurUiView then
         self.CurUiView:ShowPanel()
     end
-    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_UPDATE, self.OnAccumulatedUpdate, self)
-    XEventManager.AddEventListener(XEventId.EVENT_ACCUMULATED_REWARD, self.OnAccumulatedGeted, self)
     XEventManager.AddEventListener(XEventId.EVENT_ONPCSELECT_MONEYCARD_CHANGED, self.OnPcSelectedIdChanged, self)
+    XEventManager.AddEventListener(XEventId.EVENT_PURCHASE_RECOMMEND_RED, self.UpdateRecommendRed, self)
     if not self.TimeId then
         self.TimeId = XScheduleManager.ScheduleForever(function()
             self:RefreshTimeData()
@@ -121,9 +119,9 @@ function XUiPurchase:OnBtnMainUiClick()
 end
 
 function XUiPurchase:OnBtnPayAddClick()
-    self.PanelLjcz.gameObject:SetActive(true)
-    self:PlayAnimationWithMask("PanelLjczEnable")
-    self.UiPurchasePayAdd:OnRefresh()
+    -- self.PanelLjcz.gameObject:SetActive(true)
+    -- self:PlayAnimationWithMask("PanelLjczEnable")
+    XLuaUiManager.Open("UiAccumulateRecharge")
 end
 
 function XUiPurchase:OnBtnPCSwitchClick()
@@ -216,7 +214,9 @@ function XUiPurchase:InitUi()
     self.UiPanel[PanelExNameConfig.PanelHksd] = XUiPurchaseHKShop.New(self.PanelHksdEx, self)
     self.UiPanel[PanelExNameConfig.PanelCoatingLb] = XUiPurchaseCoatingLB.New(self.PanelCoatingLbEx, self, purchaseLBCb)
 
-    self.UiPurchasePayAdd = XUiPurchasePayAdd.New(self.PanelLjcz, self)
+    if self.PanelLjcz then
+        self.PanelLjcz.gameObject:SetActiveEx(false)
+    end
     if XDataCenter.UiPcManager.IsPc() then
         local id = XPlayer.GetPcSelectMoneyCardId()
         self:ShowCurrentRainbowCard(id)
@@ -522,20 +522,12 @@ function XUiPurchase:GroupTabSkip(tab)
     self:PlayAnimationWithMask("QieHuanSmall")
 end
 
-function XUiPurchase:OnAccumulatedUpdate()
-end
-
-function XUiPurchase:OnAccumulatedGeted()
-    self.UiPurchasePayAdd:SetListData()
-end
-
 function XUiPurchase:OnDisable()
     if self.CurUiView then
         self.CurUiView:HidePanel()
     end
-    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_UPDATE, self.OnAccumulatedUpdate, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_ACCUMULATED_REWARD, self.OnAccumulatedGeted, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_ONPCSELECT_MONEYCARD_CHANGED, self.OnPcSelectedIdChanged, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_PURCHASE_RECOMMEND_RED, self.UpdateRecommendRed, self)
 
     if self.TimeId then
         XScheduleManager.UnSchedule(self.TimeId)

@@ -71,6 +71,38 @@ function XCharacterAgency:CheckIsShowEnhanceSkill(charId)
     return IsShowEnhanceSkill
 end
 
+-- 是否展示跃升技能开启的提示
+function XCharacterAgency:CheckIsShowNewEnhanceTips(characterId)
+    -- 只有泛用机的跃升技能才提示
+    if self:GetIsIsomer(characterId) then
+        return false
+    end
+
+    if XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterEnhanceSkill) then
+        return false
+    end
+
+    -- 已经查看过了
+    local character = self:GetCharacter(characterId)
+    if not character or character.IsEnhanceSkillNotice then
+        return false
+    end
+
+    -- 角色是否有开启跃升技能功能
+    if not character:GetIsHasEnhanceSkill() then
+        return false
+    end
+
+    -- 黑名单
+    local blackList = CS.XGame.ClientConfig:GetString("CharacterEnhanceSkillTipsBlackList")
+    blackList = string.Split(blackList)
+    if table.contains(blackList, tostring(characterId)) then
+        return false
+    end
+
+    return true
+end
+
 function XCharacterAgency:CheckIsCharOrRobot(id)
     if XRobotManager.CheckIsRobotId(id) then
         return true
@@ -790,7 +822,7 @@ function XCharacterAgency:IsMaxQuality(character)
         return
     end
 
-    return character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id)
+    return character.Quality >= self:GetCharMaxQuality(character.Id)
 end
 
 function XCharacterAgency:IsMaxQualityById(characterId)
@@ -799,7 +831,7 @@ function XCharacterAgency:IsMaxQualityById(characterId)
     end
 
     local character = self:GetCharacter(characterId)
-    return character and character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id)
+    return character and character.Quality >= self:GetCharMaxQuality(character.Id)
 end
 
 function XCharacterAgency:IsCanActivateStar(character)
@@ -808,7 +840,7 @@ function XCharacterAgency:IsCanActivateStar(character)
         return
     end
 
-    if character.Quality >= XCharacterConfigs.GetCharMaxQuality(character.Id) then
+    if character.Quality >= self:GetCharMaxQuality(character.Id) then
         return false
     end
 
@@ -1098,10 +1130,10 @@ end
 function XCharacterAgency:GetCharQualityAttributeInfo(characterId)
     local attributeData = {}
     local characterMinQuality = self:GetCharMinQuality(characterId)
-    local characterMaxQuality = XCharacterConfigs.GetCharMaxQuality(characterId)
+    local characterMaxQuality = self:GetCharMaxQuality(characterId)
     local attritubues = {}
     for i = characterMinQuality, characterMaxQuality do
-        local attrbis = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, i)
+        local attrbis = self:GetNpcPromotedAttribByQuality(characterId, i)
         local temp = {}
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Life])))
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.AttackNormal])))
@@ -1123,10 +1155,10 @@ end
 
 function XCharacterAgency:GetCharQualityAttributeInfoV2P6(characterId)
     local characterMinQuality = self:GetCharMinQuality(characterId)
-    local characterMaxQuality = XCharacterConfigs.GetCharMaxQuality(characterId)
+    local characterMaxQuality = self:GetCharMaxQuality(characterId)
     local attritubues = {}
     for i = characterMinQuality, characterMaxQuality do
-        local attrbis = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, i)
+        local attrbis = self:GetNpcPromotedAttribByQuality(characterId, i)
         local temp = {}
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Life])))
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.AttackNormal])))
@@ -1143,7 +1175,7 @@ function XCharacterAgency:GetCharQualityAddAttributeTotalInfoV2P6(characterId, t
     local char = self:GetCharacter(characterId)
     local addAttrRes = {}
     for starIndex = 1, (targetStarIndex or char.Star) do
-        local attribs = XCharacterConfigs.GetCharCurStarAttribsV2P6(characterId, targetQuality or char.Quality, starIndex)
+        local attribs = self:GetCharCurStarAttribsV2P6(characterId, targetQuality or char.Quality, starIndex)
         for k, v in pairs(attribs or {}) do
             local value = FixToDouble(v)
             if value > 0 then
@@ -1161,7 +1193,7 @@ end
 -- 品质相关end --
 -- 改造相关begin --
 function XCharacterAgency:IsMaxCharGrade(character)
-    return character.Grade >= XCharacterConfigs.GetCharMaxGrade(character.Id)
+    return character.Grade >= self:GetCharMaxGrade(character.Id)
 end
 
 function XCharacterAgency:IsPromoteGradeUseItemEnough(templateId, grade)
@@ -1530,7 +1562,7 @@ function XCharacterAgency:ActivateStar(character, cb)
         return
     end
 
-    local oldAttribs = XCharacterConfigs.GetCharStarAttribs(character.Id, character.Quality, character.Star)
+    local oldAttribs = self:GetCharStarAttribs(character.Id, character.Quality, character.Star)
 
     XNetwork.Call(METHOD_NAME.ActivateStar, { TemplateId = character.Id }, function(res)
         if res.Code ~= XCode.Success then
@@ -1703,7 +1735,7 @@ function XCharacterAgency:GetCharModel(templateId, quality)
         quality = self:GetCharMinQuality(templateId)
     end
 
-    local npcId = XCharacterConfigs.GetCharNpcId(templateId, quality)
+    local npcId = self:GetCharNpcId(templateId, quality)
 
     if npcId == nil then
         return
@@ -2231,7 +2263,7 @@ function XCharacterAgency:GetModelGetCharacterLiberationIcon()
 end
 
 function XCharacterAgency:GetModelCharacterQualityIcon(quality)
-    return self._Model:GetCharacterQualityIcon(quality)
+    return self._Model:GetCharacterQualityIconByQuality(quality)
 end
 
 function XCharacterAgency:GetModelCharacterSkillQualityApart()
@@ -2439,6 +2471,13 @@ function XCharacterAgency:GetCharacterTemplates()
     return characterList
 end
 
+function XCharacterAgency:GetCharacterFullNameStr(templateId)
+    local name = self:GetCharacterName(templateId)
+    local tradeName = self:GetCharacterTradeName(templateId)
+
+    return XUiHelper.GetText("CharacterFullName", name, tradeName)
+end
+
 function XCharacterAgency:GetCharacterEquipType(templateId)
     return self:GetModelCharacterConfigById(templateId).EquipType
 end
@@ -2605,25 +2644,202 @@ function XCharacterAgency:GetCharMinGrade(templateId)
     return self:GetCharacterBorderTemplate(templateId).MinGrade
 end
 
---endregion getModeComplex结束
+--==============================--
+--desc: 获取所有角色Id和对应的NpcId（C#调试用）
+--@return: characterList
+--==============================--
+function XCharacterAgency:GetCharacterNpcDic()
+    local characterDic = {}
+    for _, config in pairs(self._Model.CharQualityTemplates) do
+        for _, v in pairs(config) do
+            characterDic[v.CharacterId] = v.NpcId
+            break
+        end
+    end
+    return characterDic
+end
 
---region XCharacterConfigs临时接口后期整改 这里的接口和XCharacterConfigs里的接口一一对应
-function XCharacterAgency:GetCharMaxQuality(templateId)
-    return XCharacterConfigs.GetCharMaxQuality(templateId)
+--==============================--
+--desc: 获取NpcId对应的角色Id（C#调试用）
+--@return: characterId
+--==============================--
+function XCharacterAgency:GetCharacterIdByNpcId(npcId)
+    for _, config in pairs(self._Model.CharQualityTemplates) do
+        for _, v in pairs(config) do
+            if v.NpcId == npcId then
+                return v.CharacterId
+            end
+        end
+    end
+
+    return 0
 end
 
 function XCharacterAgency:GetQualityTemplate(templateId, quality)
-    return XCharacterConfigs.GetQualityTemplate(templateId, quality)
+    if templateId == nil or quality == nil then
+        XLog.Error("XCharacterAgency:GetQualityTemplate 函数参数不能为空")
+        return
+    end
+
+    if quality <= 0 then
+        XLog.Error("XCharacterAgency:GetQualityTemplate 函数参数quality：" .. quality .. "不能小于等于0")
+        return
+    end
+
+    local config = self._Model.CharQualityTemplates[templateId]
+    if not config then
+        XLog.ErrorTableDataNotFound("XCharacterAgency:GetQualityTemplate",
+        "self._Model.CharQualityTemplates", "Share/Character/Quality/CharacterQuality.tab", "templateId", tostring(templateId))
+        return
+    end
+
+    local qualityConfig = config[quality]
+    if qualityConfig == nil then
+        XLog.ErrorTableDataNotFound("XCharacterAgency:GetQualityTemplate",
+        "self._Model.CharQualityTemplates", "Share/Character/Quality/CharacterQuality.tab", "templateId", tostring(templateId))
+        return
+    end
+
+    return qualityConfig
 end
 
-function XCharacterAgency:GetCharacterFullNameStr(templateId)
-    local name = self:GetCharacterName(templateId)
-    local tradeName = self:GetCharacterTradeName(templateId)
+function XCharacterAgency:GetCharNpcId(templateId, quality)
+    local qualityConfig = self:GetQualityTemplate(templateId, quality)
+    if not qualityConfig then
+        return
+    end
 
-    return XUiHelper.GetText("CharacterFullName", name, tradeName)
+    return qualityConfig.NpcId
 end
 
+function XCharacterAgency:GetNpcPromotedAttribByQuality(templateId, quality)
+    local npcId = self:GetCharNpcId(templateId, quality)
+    local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
+    return XAttribManager.GetPromotedAttribs(npcTemplate.PromotedId)
+end
+
+function XCharacterAgency:GetCharStarAttribId(templateId, quality, star)
+    if not templateId then
+        XLog.Error("XCharacterAgency:GetCharStarAttribIdca函数参数templateId为空")
+        return
+    end
+
+    if not quality or (quality < 1 or quality > self:GetCharMaxQuality(templateId)) then
+        XLog.Error("XCharacterAgency:GetCharStarAttribId函数参数不规范，参数是quality：" .. quality)
+        return
+    end
+
+    if not star or (star < 1 or star > XEnumConst.CHARACTER.MAX_QUALITY_STAR) then
+        XLog.Error("XCharacterAgency:GetCharStarAttribId函数参数不规范，参数是star：" .. star)
+        return
+    end
+
+    local template = self._Model.CharQualityTemplates[templateId]
+    if not template[quality] then
+        XLog.ErrorTableDataNotFound("XCharacterAgency:GetCharStarAttribId",
+        "CharQualityTemplates", "Share/Character/Quality/CharacterQuality.tab", "templateId", tostring(templateId))
+        return
+    end
+
+    local attrIds = template[quality].AttrId
+
+    if attrIds and attrIds[star] then
+        if attrIds[star] > 0 then
+            return attrIds[star]
+        end
+    end
+end
+
+function XCharacterAgency:GetCharStarAttribs(templateId, quality, star)
+    if not templateId and not quality and not star then
+        XLog.Error("XCharacterAgency:GetCharStarAttribs函数参数不规范，参数是templateId, quality, star", templateId, quality, star)
+        return
+    end
+
+    if star < XEnumConst.CHARACTER.MAX_QUALITY_STAR then
+        local attrId = self:GetCharStarAttribId(templateId, quality, star + 1)
+        if not attrId then
+            XLog.Error("XCharacterAgency:GetCharStarAttribs CharacterQuality.tab could not find :", templateId, quality, star)
+            return
+        end
+
+        return XAttribManager.GetBaseAttribs(attrId)
+    end
+end
+
+function XCharacterAgency:GetCharCurStarAttribsV2P6(templateId, quality, star)
+    if not templateId and not quality and not star then
+        XLog.Error("XCharacterAgency.GetCharCurStarAttribsV2P6 函数参数不规范，参数是templateId, quality, star")
+        return
+    end
+
+    if star <= XEnumConst.CHARACTER.MAX_QUALITY_STAR then
+        local attrId = self:GetCharStarAttribId(templateId, quality, star)
+        if not attrId then
+            XLog.Error("XCharacterAgency:GetCharCurStarAttribsV2P6 CharacterQuality.tab could not find :", templateId, quality, star)
+            return
+        end
+
+        return XAttribManager.GetBaseAttribs(attrId)
+    end
+end
+
+-- 获取品质字母图标 B-A-S-SS-SSS
+function XCharacterAgency:GetCharQualityIcon(quality)
+    if not quality or quality < 1 then
+        XLog.Error("XCharacterAgency:GetCharQualityIcon函数参数不规范，参数是quality：", quality)
+        return
+    end
+
+    local template = self:GetModelCharacterQualityIcon(quality)
+    return template.Icon
+end
+
+-- 获取品质字母图标 B-A-S-SS-SSS
+function XCharacterAgency:GetCharacterQualityIcon(quality)
+    if not quality or quality < 1 then
+        XLog.Error("XCharacterAgency:GetCharacterQualityIcon函数参数不规范，参数是quality：", quality)
+        return
+    end
+
+    local template = self:GetModelCharacterQualityIcon(quality)
+    return template.IconCharacter
+end
+
+function XCharacterAgency:GetCharQualityIconGoods(quality)
+    if not quality or quality < 1 then
+        XLog.Error("XCharacterAgency:GetCharQualityIconGoods函数参数不规范，参数是quality：", quality)
+        return
+    end
+
+    local template = self:GetModelCharacterQualityIcon(quality)
+    return template.IconGoods
+end
+
+function XCharacterAgency:GetCharQualityDesc(quality)
+    if not quality or quality < 1 then
+        XLog.Error("XCharacterAgency:GetCharQualityDesc函数参数不规范，参数是quality：", quality)
+        return
+    end
+
+    local template = self:GetModelCharacterQualityIcon(quality)
+    return template.Desc
+end
+
+--endregion getModeComplex结束
+
+--region XCharacterConfigs临时接口后期整改 这里的接口和XCharacterConfigs里的接口一一对应
 --endregion
+
+-- 埋点
+function XCharacterAgency:BuryingUiCharacterAction(uiName, actionType, characterId)
+    local dict = {}
+    dict["ui_name"] = uiName -- 当前的ui
+    dict["action_type"] = actionType or 0  -- 当前的交互枚举(枚举：1进化界面入口按钮，2培养界面入口按钮，3装备推荐按钮 ........  10. 拖拽装备界面)
+    dict["character_id"] = characterId or 0 -- 当前操作的角色Id
+    dict["role_id"] = XPlayer.Id -- 玩家id
+    CS.XRecord.Record(dict, "1000001", "UiCharacterV2P6")
+end
 
 -- Notify协议相关
 

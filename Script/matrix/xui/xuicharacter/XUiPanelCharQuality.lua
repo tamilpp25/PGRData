@@ -245,7 +245,7 @@ end
 --===========================================================================
 function XUiPanelCharQuality:UpdateWaferCircuit(character)
     local isMaxQuality = XDataCenter.CharacterManager.IsMaxQuality(character)
-    local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(character.Quality)
+    local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality)
     local isMaxStar = character.Star == XEnumConst.CHARACTER.MAX_QUALITY_STAR
 
     self.ImgPromoteQulityMax.gameObject:SetActive(isMaxQuality)
@@ -261,7 +261,7 @@ function XUiPanelCharQuality:UpdateWaferCircuit(character)
         self.RImgQualitySkillText.text = skillText
         self.RImgQualityTxtSkill.gameObject:SetActive(not string.IsNilOrEmpty(skillText))
         -- 属性加成文本
-        local attribs = XCharacterConfigs.GetCharStarAttribs(character.Id, character.Quality, character.Star)
+        local attribs = XMVCA.XCharacter:GetCharStarAttribs(character.Id, character.Quality, character.Star)
         for k, v in pairs(attribs) do
             local value = FixToDouble(v)
             if value > 0 then
@@ -274,7 +274,7 @@ function XUiPanelCharQuality:UpdateWaferCircuit(character)
 
     if isMaxQuality then
         self:ClearAttrs()
-        self.RImgQualityMax:SetRawImage(XCharacterConfigs.GetCharQualityIcon(character.Quality))
+        self.RImgQualityMax:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(character.Quality))
         self.PanelRImgQuality.gameObject:SetActive(false)
         self.BtnAdvanced.gameObject:SetActive(false)
         self.PanelCondition.gameObject:SetActive(false)
@@ -420,8 +420,8 @@ function XUiPanelCharQuality:OpenAdvanced(characterType, quality)
     self.BtnPreview.gameObject:SetActive(false)
     self.BtnHelp.gameObject:SetActive(false)
 
-    self.RImgQualityBefore:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
-    self.RImgQualityAfter:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality + 1))
+    self.RImgQualityBefore:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
+    self.RImgQualityAfter:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality + 1))
 
     local itemId = XCharacterConfigs.GetPromoteItemId(characterType, quality)
     local useCoin = XCharacterConfigs.GetPromoteUseCoin(characterType, quality)

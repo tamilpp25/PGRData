@@ -54,13 +54,13 @@ function XUiPanelExhibitionSuperInfo:SetLiberationEffect(aureoleId)
 
     -- 刷新手环
     local rootName, _ = XDataCenter.FashionManager.GetFashionLiberationEffectRootAndPath(self.Character.FashionId) -- 获取该角色手环挂点名字
-    local modelId = XDataCenter.CharacterManager.GetCharLiberationLevelModelId(self.CharacterId,  XCharacterConfigs.GrowUpLevel.Super)
+    local modelId = XMVCA.XCharacter:GetCharLiberationLevelModelId(self.CharacterId,  XCharacterConfigs.GrowUpLevel.Super)
     self.RootUi.RoleModelPanel:SetLiberationEffect(modelId, rootName, aureoleId, self.CharacterId)
 end
 
 -- exhibitionRewardConfig 是 ExhibitionReward.tab的数据 这个是share表
 function XUiPanelExhibitionSuperInfo:Refresh(characterId, exhibitionRewardConfig)
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     local levelId = exhibitionRewardConfig.LevelId
     local currLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
     local isSuper = currLevel >= XCharacterConfigs.GrowUpLevel.Super
@@ -175,7 +175,7 @@ function XUiPanelExhibitionSuperInfo:Refresh(characterId, exhibitionRewardConfig
             local subSkillConfigDesc = allSkillList.subSkills[i].configDes
             allBallList[i] = {Id = tonumber(magicIdList[i]), Icon = subSkillConfigDesc.Icon}
         end
-        local currIndex = XDataCenter.CharacterManager.CheckHasSuperExhibitionBallColor(characterId) or 1 -- 如果设置过超解球 拿到超解球的颜色
+        local currIndex = XMVCA.XCharacter:CheckHasSuperExhibitionBallColor(characterId) or 1 -- 如果设置过超解球 拿到超解球的颜色
         gridBall:GetObject("RImgQiu"):SetRawImage(allBallList[currIndex].Icon)
         gridBall:GetObject("Red").gameObject:SetActiveEx(false)
         local btn = gridBall:GetObject("BtnReplace")

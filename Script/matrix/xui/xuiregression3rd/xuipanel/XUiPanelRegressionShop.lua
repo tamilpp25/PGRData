@@ -3,16 +3,16 @@ local XUiPanelRegressionBase = require("XUi/XUiRegression3rd/XUiPanel/XUiPanelRe
 local XUiGridRegressionShop = require("XUi/XUiRegression3rd/XUiGrid/XUiGridRegressionShop")
 local XUiPanelRegressionShop = XClass(XUiPanelRegressionBase, "XUiPanelRegressionShop")
 
-function XUiPanelRegressionShop:Ctor(ui, rootUi)
+function XUiPanelRegressionShop:OnEnable()
+    self:RefreshView()
 end
 
 function XUiPanelRegressionShop:Show()
-    self:RefreshView()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
 end
 
 function XUiPanelRegressionShop:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionShop:InitUi()

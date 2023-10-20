@@ -67,13 +67,49 @@ local module_creator = function()
             end
         end)
     end
+
+    -- 版本号比较函数
+    -- 返回值：
+    --   如果版本号1大于版本号2，返回1
+    --   如果版本号1小于版本号2，返回-1
+    --   如果版本号1等于版本号2，返回0
+    function XLaunchPreloadModule.CompareVersions(version1, version2)
+        local v1 = {}
+        local v2 = {}
+
+        for num in version1:gmatch("(%d+)") do
+            table.insert(v1, tonumber(num))
+        end
+
+        for num in version2:gmatch("(%d+)") do
+            table.insert(v2, tonumber(num))
+        end
+
+        local minLength = math.min(#v1, #v2)
+
+        for i = 1, minLength do
+            if v1[i] < v2[i] then
+                return -1
+            elseif v1[i] > v2[i] then
+                return 1
+            end
+        end
+
+        if #v1 < #v2 then
+            return -1
+        elseif #v1 > #v2 then
+            return 1
+        else
+            return 0
+        end
+    end
     
 
     --开始移动文件
     function XLaunchPreloadModule.StartMovePreFiles()
         local preloadVersion = CSPlayerPrefs.GetString(PrefKeys.PreloadIndexKey, "")
         CsLog.Debug("[XLaunchPreloadModule] 预下载版本号, preloadVersion: " .. preloadVersion)
-        if (preloadVersion and #preloadVersion > 0) and preloadVersion <= NewVersion then
+        if (preloadVersion and #preloadVersion > 0) and XLaunchPreloadModule.CompareVersions(preloadVersion, NewVersion) <= 0 then
             if CSDirectory.Exists(PreloadDirPath) and CSDirectory.Exists(DocumentDir) then
                 CsLog.Debug("[XLaunchPreloadModule] 开始移动预下载文件...")
 

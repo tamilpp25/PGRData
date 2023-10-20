@@ -255,7 +255,7 @@ XPracticeManagerCreator = function()
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
         if (isInTime) and (groupId == 0 or XPracticeConfigs.GetSimulateTrainMonsterGroupId(archiveId) == groupId) then
-            if XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+            if XMVCA.XArchive:IsArchiveMonsterUnlockByArchiveId(archiveId) then
                 return true
             end
         end
@@ -328,7 +328,7 @@ XPracticeManagerCreator = function()
 
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
-        if isInTime and XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+        if isInTime and XMVCA.XArchive:IsArchiveMonsterUnlockByArchiveId(archiveId) then
             return true
         end
         return false

@@ -57,7 +57,7 @@ end
 function XUiPanelQualityPreview:InitQualityPreviewData(characterId, skillStar)
     self.CharacterId = characterId
     self.CharacterMinQuality = XMVCA.XCharacter:GetCharMinQuality(self.CharacterId)
-    self.CharacterMaxQuality = XCharacterConfigs.GetCharMaxQuality(self.CharacterId)
+    self.CharacterMaxQuality = XMVCA.XCharacter:GetCharMaxQuality(self.CharacterId)
     self.Character = XDataCenter.CharacterManager.GetCharacter(self.CharacterId)
     --技能节点打开的位置
     self.SkillStar = skillStar
@@ -65,7 +65,7 @@ function XUiPanelQualityPreview:InitQualityPreviewData(characterId, skillStar)
     self.AttributeData = {}
     local attritubues = {}
     for i = self.CharacterMinQuality, self.CharacterMaxQuality do
-        local attrbis = XCharacterConfigs.GetNpcPromotedAttribByQuality(self.CharacterId, i)
+        local attrbis = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(self.CharacterId, i)
         local temp = {}
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.Life])))
         table.insert(temp, stringFormat("%.2f", FixToDouble(attrbis[XNpcAttribType.AttackNormal])))

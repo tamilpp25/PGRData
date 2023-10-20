@@ -226,7 +226,6 @@ function XLevelBossFightHunt01:InitBlackDragon()
     else
         self._blackDragonNpcId = id
     end
-    --self._proxy:RegisterBehavior2ScriptMsgEvent(self._blackDragonNpcId)
     XLog.Debug("<color=#F0D800>[SceneHunt01]</color>召唤npc黑龙完成")
 end
 
@@ -682,7 +681,7 @@ function XLevelBossFightHunt01:BossFly()
     end
 
     --关闭外围空气墙对boss的限制
-    self:EnableAirWallToNpc(false, self._blackDragonNpcId)
+    self:EnableAirWallToNpc(true, self._blackDragonNpcId)
 end
 
 ---boss落地挨打
@@ -751,7 +750,7 @@ function XLevelBossFightHunt01:OnBossFlyEnd()
     end
 
     --恢复外围空气墙对boss的限制
-    self:EnableAirWallToNpc(true, self._blackDragonNpcId)
+    self:EnableAirWallToNpc(false, self._blackDragonNpcId)
 
     --关闭平台可勾
     self:EnablePlatforms(false)
@@ -881,7 +880,14 @@ function XLevelBossFightHunt01:EnablePlatforms(enable)
 end
 
 function XLevelBossFightHunt01:Terminate()
+    self._proxy:UnregisterEvent(EWorldEvent.SceneObjectTrigger)
+    self._proxy:UnregisterEvent(EWorldEvent.FightHuntQteStatusMsg)
+    self._proxy:UnregisterEvent(EWorldEvent.NpcInteractComplete)
+    self._proxy:UnregisterEvent(EWorldEvent.NpcCastSkill)
+    self._proxy:UnregisterEvent(EWorldEvent.NpcExitSkill)
+    self._proxy:UnregisterEvent(EWorldEvent.Behavior2ScriptMsg) --行为树传递到脚本的消息
     self._proxy = nil
+
 end
 
 return XLevelBossFightHunt01

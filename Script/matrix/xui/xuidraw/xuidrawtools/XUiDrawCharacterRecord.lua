@@ -37,10 +37,14 @@ local GetDecomposeData = function(goods)
     return { TemplateId = template.ItemId, Count = decomposeCount }
 end
 
+---@class XUiDrawCharacterRecord
 local CharacterRecord = {}
 
+---@type function
 CharacterRecord.Record = Record
+---@type function(characterId)
 CharacterRecord.IsOwnCharacter = IsOwnCharacter
+---@type function(goods)
 CharacterRecord.GetDecomposeData = GetDecomposeData
 
 return CharacterRecord

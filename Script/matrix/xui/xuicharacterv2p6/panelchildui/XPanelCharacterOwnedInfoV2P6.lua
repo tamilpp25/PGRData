@@ -2,10 +2,7 @@
 local XPanelCharacterOwnedInfoV2P6 = XClass(XUiNode, "XPanelCharacterOwnedInfoV2P6")
 
 function XPanelCharacterOwnedInfoV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    ag = XMVCA:GetAgency(ModuleId.XEquip)
+    local ag = XMVCA:GetAgency(ModuleId.XEquip)
     ---@type XEquipAgency
     self.EquipAgency = ag
 
@@ -56,7 +53,7 @@ end
 function XPanelCharacterOwnedInfoV2P6:OnEnable()
     -- 红点
     self.RedBtnFree = XRedPointManager.AddRedPointEvent(self.BtnFree, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, self.CharacterId)
-    self.RedBtnTrain = XRedPointManager.AddRedPointEvent(self.BtnTrain, self.OnCheckTrainRedPoint, self, { XRedPointConditions.Types.CONDITION_CHARACTER_GRADE }, self.CharacterId)
+    self.RedBtnTrain = XRedPointManager.AddRedPointEvent(self.BtnTrain, self.OnCheckTrainRedPoint, self, { XRedPointConditions.Types.CONDITION_CHARACTER_GRADE, XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS }, self.CharacterId)
     self.RedBtnEvolution = XRedPointManager.AddRedPointEvent(self.BtnEvolution, self.OnCheckEvolutionRedPoint, self, { XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY }, self.CharacterId)
 end
 
@@ -73,7 +70,7 @@ function XPanelCharacterOwnedInfoV2P6:RefreshUiShow()
     self.TxtNameOther.text = charConfig.TradeName
 
     -- 职业
-    local career = self.CharacterAgency:GetCharacterCareer(characterId)
+    local career = XMVCA.XCharacter:GetCharacterCareer(characterId)
     local careerIcon = XCharacterConfigs.GetNpcTypeIcon(career)
     self.BtnType:SetRawImage(careerIcon)
 
@@ -81,10 +78,10 @@ function XPanelCharacterOwnedInfoV2P6:RefreshUiShow()
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
 
     -- 品质
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(characterId)))
+    self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(characterId)))
     -- 初始品质
-    local initQuality = self.CharacterAgency:GetCharacterInitialQuality(characterId)
-    local initColor = self.CharacterAgency:GetModelCharacterQualityIcon(initQuality).InitColor
+    local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(characterId)
+    local initColor = XMVCA.XCharacter:GetModelCharacterQualityIcon(initQuality).InitColor
     self.QualityRail.color = XUiHelper.Hexcolor2Color(initColor)
 
     -- 元素
@@ -113,7 +110,7 @@ function XPanelCharacterOwnedInfoV2P6:RefreshUiShow()
 
     -- 解放按钮
     local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(self.CharacterId, true)
-    local configs = self.CharacterAgency:GetModelGetCharacterLiberationIcon()[growUpLevel]
+    local configs = XMVCA.XCharacter:GetModelGetCharacterLiberationIcon()[growUpLevel]
     if not configs then
         return
     end
@@ -168,24 +165,28 @@ function XPanelCharacterOwnedInfoV2P6:OnBtnFreeClick()
 end
 
 function XPanelCharacterOwnedInfoV2P6:OnBtnTrainClick()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Parent.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnTrain, self.Parent.CurCharacter.Id)
     self.Parent.ParentUi:OpenChildUi("UiCharacterPropertyV2P6")
 end
 
 function XPanelCharacterOwnedInfoV2P6:OnBtnEvolutionClick()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Parent.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnEvolution, self.Parent.CurCharacter.Id)
     self.Parent.ParentUi:OpenChildUi("UiCharacterQualitySystemV2P6")
 end
 
 function XPanelCharacterOwnedInfoV2P6:OnDragUp()
-    self.PanelEquips:OnBtnUnFoldClick()
+    self.PanelEquips:DoUnFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Parent.Name, XGlobalVar.BtnUiCharacterSystemV2P6.DragUpPanelEquip, self.Parent.CurCharacter.Id)
 end
 
 function XPanelCharacterOwnedInfoV2P6:OnDragDown()
-    self.PanelEquips:OnBtnFoldClick()
+    self.PanelEquips:DoFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Parent.Name, XGlobalVar.BtnUiCharacterSystemV2P6.DragDownPanelEquip, self.Parent.CurCharacter.Id)
 end
 
 -- 更新战斗力
 function XPanelCharacterOwnedInfoV2P6:UpdateAbility()
-    self.TxtFight.text = self.CharacterAgency:GetCharacterHaveRobotAbilityById(self.CharacterId)
+    self.TxtFight.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(self.CharacterId)
 end
 
 return XPanelCharacterOwnedInfoV2P6

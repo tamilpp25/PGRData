@@ -7,8 +7,7 @@ function XBlackRockStageAgency:OnInit()
     --初始化一些变量
 
     --添加到Manager里
-    local instance = XMVCA:GetAgency(ModuleId.XFubenEx)
-    instance:RegisterActivityAgency(self)
+    self:RegisterActivityAgency()
 end
 
 function XBlackRockStageAgency:InitRpc()
@@ -41,6 +40,9 @@ function XBlackRockStageAgency:ExOpenMainUi()
 end
 
 function XBlackRockStageAgency:ExCheckInTime()
+    if not XBlackRockStageAgency.Super.ExCheckInTime(self) then
+        return false
+    end
     return self:IsOpen()
 end
 

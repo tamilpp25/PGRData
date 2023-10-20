@@ -19,6 +19,10 @@ local function GetConfig(fashionId)
 end
 
 local function GetResConfig(fashionId)
+    if not XTool.IsNumberValid(fashionId) then
+        return {}
+    end
+
     local tab = WeaponFashionResTemplates[fashionId]
     if tab == nil then
         XLog.ErrorTableDataNotFound("XWeaponFashionConfigs.GetResConfig", "WeaponFashionRes", TABLE_WEAPON_FASHION_RES_PATH, "Id", tostring(fashionId))
@@ -97,7 +101,7 @@ function XWeaponFashionConfigs.GetFashionSkipIdParams(fashionId)
 end
 
 function XWeaponFashionConfigs.GetFashionPriority(fashionId)
-    return GetResConfig(fashionId).Priority
+    return GetResConfig(fashionId).Priority or 0
 end
 
 function XWeaponFashionConfigs.GetWeaponResonanceModelId(case, fashionId, resonanceCount)

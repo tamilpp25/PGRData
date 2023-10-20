@@ -108,7 +108,7 @@ function XUiPanelCharInfoWithEquip:UpdateRoleView()
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
 
     -- 品质
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(characterId)))
+    self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.CharacterAgency:GetCharacterQuality(characterId)))
     -- 初始品质
     local initQuality = self.CharacterAgency:GetCharacterInitialQuality(characterId)
     local initColor = self.CharacterAgency:GetModelCharacterQualityIcon(initQuality).InitColor

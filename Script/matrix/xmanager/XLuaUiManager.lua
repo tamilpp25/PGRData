@@ -43,22 +43,6 @@ local XUiNodeState = {
 
 ---@class XUiNode
 XUiNode = XClass(nil, "XUiNode")
-if IsWindowsEditor then
-    XUiNode._profiler = {}
-    setmetatable(XUiNode._profiler, {__mode = "kv"})
-    XUiNode._Profiler = function ()
-        collectgarbage("collect") --得调用Lua Profiler界面的GC才能释放干净
-        XLog.Debug("XUiNode._Profiler", XUiNode._profiler)
-    end
-    XUiNode._ProfilerNode = function (key)
-        for node, classname in pairs(XUiNode._profiler) do
-            if classname == key then
-                LuaMemorySnapshotDump.SnapshotObject(node)
-                break
-            end
-        end
-    end
-end
 --XUiNode._Profiler()
 --XUiNode._ProfilerNode("XUiGridCharacterNew")
 
@@ -75,11 +59,6 @@ function XUiNode:InitNode(ui, parent, ...)
     self.Transform = ui.transform
     self.Parent = parent
     XTool.InitUiObject(self)
-
-    if IsWindowsEditor then
-        XUiNode._profiler[self] = self.__cname
-        self:OverrideGameObject()
-    end
 
     ---@type XUiNode[]
     self._ChildNodes = {} --子节点
@@ -101,27 +80,6 @@ function XUiNode:InitNode(ui, parent, ...)
         self:Open()
     end
 end
-
-function XUiNode:OverrideGameObject()
-    --self.TempGameObject = self.GameObject
-    --local GameObjectTbl = {}
-    --setmetatable(GameObjectTbl, {
-    --    __index = self.TempGameObject
-    --})
-    --
-    --function GameObjectTbl:SetActive(value)
-    --    self.TempGameObject:SetActive(value)
-    --    XLog.Error(string.format("请勿在外部调用%s.GameObject.SetActive", self.__cname))
-    --end
-    --
-    --function GameObjectTbl:SetActiveEx(value)
-    --    self.TempGameObject:SetActiveEx(value)
-    --    XLog.Error(string.format("请勿在外部调用%s.GameObject.SetActiveEx", self.__cname))
-    --end
-    --self.GameObject = GameObjectTbl
-    --XLog.Error("self.GameObject:Exist() " .. tostring(self.GameObject:Exist()))
-end
-
 
 ---返回该子节点是否有效
 function XUiNode:IsValid()
@@ -397,6 +355,9 @@ function XUiNode:Release()
     self.Parent = nil
     self._LuaEvents = nil
     self._arg = nil
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.UI, self)
+    end
 end
 
 function XUiNode:ReleaseChildNodes()
@@ -603,6 +564,7 @@ function XLuaUi:SetGameObject()
     self.Transform = self.Ui.Transform
     self.GameObject = self.Ui.GameObject
     self.UiAnimation = self.Ui.UiAnimation
+    ---@type XUiSceneInfo
     self.UiSceneInfo = self.Ui.UiSceneInfo
     self.UiModelGo = self.Ui.UiModelGo
     self.UiModel = self.Ui.UiModel
@@ -663,6 +625,7 @@ function XLuaUi:OnDestroyUi()
     self:ReleaseRedPoint()
     self:DestroyChildNodes()
     self:OnDestroy()
+    XEventManager.DispatchEvent(XEventId.EVENT_UI_DESTROY)
 end
 
 function XLuaUi:OnDestroy()
@@ -767,6 +730,9 @@ function XLuaUi:OnRelease()
     self:ReleaseChildNodes()
 
     XTool.ReleaseUiObjectIndex(self)
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.UI, self)
+    end
 end
 
 --CS.XEventId.EVENT_UI_ALLOWOPERATE 允许UI操作事件（可以理解为动画播放完成后的回调）
@@ -1607,42 +1573,45 @@ function XLuaUiManager.RunMain(notDialogTip)
         XDataCenter.DlcRoomManager.DialogTipQuitRoom(function()
             CsXUiManager.Instance:RunMain()
         end)
-        
+    elseif XMVCA.XDlcRoom:IsInRoom() then
+        XMVCA.XDlcRoom:Quit(function()
+            CsXUiManager.Instance:RunMain()
+        end)
     else
 
-        local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-        local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
-        local inActivity = false
-        if unionInfo and unionInfo.Id and unionInfo.Id > 0 then
-            inActivity = XFubenUnionKillConfigs.UnionKillInActivity(unionInfo.Id)
-        end
+        --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+        --local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
+        --local inActivity = false
+        --if unionInfo and unionInfo.Id and unionInfo.Id > 0 then
+        --    inActivity = XFubenUnionKillConfigs.UnionKillInActivity(unionInfo.Id)
+        --end
 
-        if inActivity and unionFightData and unionFightData.Id then
-            if notDialogTip then
-                XDataCenter.FubenUnionKillRoomManager.LeaveUnionTeamRoom(function()
-                    CsXUiManager.Instance:RunMain()
-                end)
-                return
-            end
-
-            local title = CsXTextManagerGetText("TipTitle")
-            local cancelMatchMsg = CsXTextManagerGetText("UnionKillExitRoom")
-            XUiManager.DialogTip(
-                title,
-                cancelMatchMsg,
-                XUiManager.DialogType.Normal,
-                nil, function()
-                    XDataCenter.FubenUnionKillRoomManager.LeaveUnionTeamRoom(function()
-                        CsXUiManager.Instance:RunMain()
-                    end)
-                end
-            )
-        else
-            if XLoginManager.IsFirstOpenMainUi() then
-                CS.XCustomUi.Instance:GetData()
-            end
-            CsXUiManager.Instance:RunMain()
+        --if inActivity and unionFightData and unionFightData.Id then
+        --    if notDialogTip then
+        --        XDataCenter.FubenUnionKillRoomManager.LeaveUnionTeamRoom(function()
+        --            CsXUiManager.Instance:RunMain()
+        --        end)
+        --        return
+        --    end
+        --
+        --    local title = CsXTextManagerGetText("TipTitle")
+        --    local cancelMatchMsg = CsXTextManagerGetText("UnionKillExitRoom")
+        --    XUiManager.DialogTip(
+        --        title,
+        --        cancelMatchMsg,
+        --        XUiManager.DialogType.Normal,
+        --        nil, function()
+        --            XDataCenter.FubenUnionKillRoomManager.LeaveUnionTeamRoom(function()
+        --                CsXUiManager.Instance:RunMain()
+        --            end)
+        --        end
+        --    )
+        --else
+        if XLoginManager.IsFirstOpenMainUi() then
+            CS.XCustomUi.Instance:GetData()
         end
+        CsXUiManager.Instance:RunMain()
+        --end
     end
 end
 

@@ -39,7 +39,7 @@ function XUiArchiveWeapon:OnStart()
     self.IsStarAscendOrder = false
 
     self.SecondHierarchyFilterSelectIndex = self.DrdSort.value + 1
-    self.WeaponDataDic = XArchiveConfigs.GetWeaponTypeToIdsDic()
+    self.WeaponDataDic = self._Control:GetWeaponTypeToIdsDic()
 
     self:InitDynamicTable()
     self:InitTabBtnGroup()
@@ -59,19 +59,19 @@ function XUiArchiveWeapon:OnEnable()
 end
 
 function XUiArchiveWeapon:OnDestroy()
-    XDataCenter.ArchiveManager.HandleCanUnlockWeapon()
-    XDataCenter.ArchiveManager.HandleCanUnlockWeaponSetting()
+    self._Control:HandleCanUnlockWeapon()
+    self._Control:HandleCanUnlockWeaponSetting()
 end
 
 function XUiArchiveWeapon:InitTabBtnGroup()
     self.TabBtnList = {}
-    self.BtnGroupTypeList = XArchiveConfigs.GetShowedWeaponTypeList()
+    self.BtnGroupTypeList = XMVCA.XArchive:GetShowedWeaponTypeList()
     for _, v in pairs(self.BtnGroupTypeList) do
         local btn = Object.Instantiate(self.BtnTog)
         btn.gameObject:SetActive(true)
         btn.transform:SetParent(self.TabBtnGroup.transform, false)
         local btncs = btn:GetComponent("XUiButton")
-        local name = XArchiveConfigs.GetWeaponGroupName(v)
+        local name = XMVCA.XArchive:GetWeaponGroupName(v)
         btncs:SetName(name or "")
         table.insert(self.TabBtnList, btncs)
     end
@@ -90,7 +90,7 @@ end
 
 function XUiArchiveWeapon:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiGridArchiveWeapon)
+    self.DynamicTable:SetProxy(XUiGridArchiveWeapon,self,handler(self, self.OnGridClick),self)
     self.DynamicTable:SetDelegate(self)
 end
 
@@ -121,13 +121,13 @@ function XUiArchiveWeapon:SecondHierarchyFilter(firstHierarchyFilterDataList, fi
         return firstHierarchyFilterDataList
     elseif filterType == OwnStatusType.Owned then
         for _, templateId in ipairs(firstHierarchyFilterDataList) do
-            if XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+            if XMVCA.XArchive:IsWeaponGet(templateId) then
                 table.insert(dataList, templateId)
             end
         end
     elseif filterType == OwnStatusType.NotOwned then
         for _, templateId in ipairs(firstHierarchyFilterDataList) do
-            if not XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+            if not XMVCA.XArchive:IsWeaponGet(templateId) then
                 table.insert(dataList, templateId)
             end
         end
@@ -205,7 +205,7 @@ end
 
 function XUiArchiveWeapon:UpdateCollection()
     local selectEquipType = self.BtnGroupTypeList[self.FirstHierarchyFilterSelectIndex]
-    self.TxtCollectionDesc.text = XArchiveConfigs.GetWeaponGroupName(selectEquipType)
+    self.TxtCollectionDesc.text = XMVCA.XArchive:GetWeaponGroupName(selectEquipType)
 
     local sumNum = #self.FirstHierarchyFilterDataList
     if sumNum == 0 then
@@ -215,23 +215,23 @@ function XUiArchiveWeapon:UpdateCollection()
 
     local collectionNum = 0
     for _, templateId in ipairs(self.FirstHierarchyFilterDataList) do
-        if XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+        if XMVCA.XArchive:IsWeaponGet(templateId) then
             collectionNum = collectionNum + 1
         end
     end
-    local percentNum = XDataCenter.ArchiveManager.GetPercent(collectionNum * 100 / sumNum)
+    local percentNum = self._Control:GetPercent(collectionNum * 100 / sumNum)
     self.TxtCollectionRate.text = percentNum
 end
 
 function XUiArchiveWeapon:UpdateAchievement()
     local selectEquipType = self.BtnGroupTypeList[self.FirstHierarchyFilterSelectIndex]
-    local groupData = XArchiveConfigs.GetWeaponGroupByType(selectEquipType)
+    local groupData = XMVCA.XArchive:GetWeaponGroupByType(selectEquipType)
     local needCollectNumList = groupData.CollectNum
     local achievementNum = needCollectNumList and #needCollectNumList or 0
 
     local haveCollectNum = 0
     for _, templateId in ipairs(self.FirstHierarchyFilterDataList) do
-        if XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+        if XMVCA.XArchive:IsWeaponGet(templateId) then
             haveCollectNum = haveCollectNum + 1
         end
     end
@@ -272,14 +272,14 @@ end
 
 function XUiArchiveWeapon:SaveCollectionDefaultData()
     for _,type in pairs(self.BtnGroupTypeList) do
-        local groupData = XArchiveConfigs.GetWeaponGroupByType(type)
+        local groupData = XMVCA.XArchive:GetWeaponGroupByType(type)
         local needCollectNumList = groupData.CollectNum
         local achievementNum = needCollectNumList and #needCollectNumList or 0
 
         local haveCollectNum = 0
         local dataList = self:FirstHierarchyFilter(self.WeaponDataDic, type)
         for _, templateId in ipairs(dataList) do
-            if XDataCenter.ArchiveManager.IsWeaponGet(templateId) then
+            if XMVCA.XArchive:IsWeaponGet(templateId) then
                 haveCollectNum = haveCollectNum + 1
             end
         end
@@ -293,12 +293,12 @@ function XUiArchiveWeapon:SaveCollectionDefaultData()
             end
             nextAchievementIndex = i
         end
-        XDataCenter.ArchiveManager.SaveWeaponsCollectionDefaultData(type,nextAchievementIndex)
+        self._Control:SaveWeaponsCollectionDefaultData(type,nextAchievementIndex)
     end
 end
 
 function XUiArchiveWeapon:CheckLevelUp(selectEquipType,level,groupData)
-    local IsLevel,OldLevel = XDataCenter.ArchiveManager.CheckWeaponsCollectionLevelUp(selectEquipType,level)
+    local IsLevel,OldLevel = self._Control:CheckWeaponsCollectionLevelUp(selectEquipType,level)
     if IsLevel then
         local firstIndex = 1
         local levelData = {}
@@ -314,8 +314,7 @@ end
 -----------------------------------事件相关----------------------------------------->>>
 function XUiArchiveWeapon:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:InitRootUi(self)
-        grid:SetClickCallback(handler(self, self.OnGridClick))
+
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:Refresh(self.DynamicTableDataList,index)
     end
@@ -330,8 +329,8 @@ function XUiArchiveWeapon:OnTabBtnGroupClick(index)
 
     if self.FirstHierarchyFilterSelectIndex then
         local oldFilterType = self.BtnGroupTypeList[self.FirstHierarchyFilterSelectIndex]
-        XDataCenter.ArchiveManager.HandleCanUnlockWeaponByWeaponType(oldFilterType)
-        XDataCenter.ArchiveManager.HandleCanUnlockWeaponSettingByWeaponType(oldFilterType)
+        self._Control:HandleCanUnlockWeaponByWeaponType(oldFilterType)
+        self._Control:HandleCanUnlockWeaponSettingByWeaponType(oldFilterType)
     end
 
     local filterType = self.BtnGroupTypeList[index]
@@ -376,13 +375,13 @@ function XUiArchiveWeapon:OnCheckWeaponRedPoint()
     for type, _ in pairs(self.WeaponDataDic) do
         btn = self.TabBtnTypeDic[type]
         if btn then
-            isShowTag = XDataCenter.ArchiveManager.IsHaveNewWeaponByWeaponType(type)
+            isShowTag = self._Control:IsHaveNewWeaponByWeaponType(type)
             if isShowTag then
                 btn:ShowTag(true)
                 btn:ShowReddot(false)
             else
                 btn:ShowTag(false)
-                btn:ShowReddot(XDataCenter.ArchiveManager.IsHaveNewWeaponSettingByWeaponType(type))
+                btn:ShowReddot(self._Control:IsHaveNewWeaponSettingByWeaponType(type))
             end
         end
     end

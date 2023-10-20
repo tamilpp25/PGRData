@@ -52,13 +52,18 @@ function XUiSettleLose:OnEnable()
                 self:Close()
             end, 0)
     end
-    self.UiStageSettleSound:PlaySettleSound()
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:PlaySettleSound()
+    end
 end
 
 function XUiSettleLose:OnDestroy()
     XDataCenter.AntiAddictionManager.EndFightAction()
     XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_FINISH_LOSEUI_CLOSE)
-    self.UiStageSettleSound:StopSettleSound()
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:StopSettleSound()
+        self.UiStageSettleSound = nil
+    end
 end
 
 ---
@@ -150,12 +155,6 @@ function XUiSettleLose:OnBtnLoseClick()
         return
     end
     if XDataCenter.ArenaOnlineManager.JudgeGotoMainWhenFightOver(beginData.StageId) then
-        return
-    end
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.Expedition and XDataCenter.ExpeditionManager.GetIfBackMain() then
-        XLuaUiManager.RunMain()
-        XUiManager.TipMsg(CS.XTextManager.GetText("ExpeditionOnClose"))
         return
     end
     self:Close()

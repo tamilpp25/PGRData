@@ -1,3 +1,7 @@
+---@class XLottoUiData
+---@field IsAfterFirstEnable boolean
+---@field IsAfterDraw boolean
+
 XLottoManagerCreator = function()
     local XLottoGroupEntity = require("XEntity/XLotto/XLottoGroupEntity")
     ---@class XLottoManager
@@ -53,6 +57,60 @@ XLottoManagerCreator = function()
     function XLottoManager.OnActivityEnd()
         XUiManager.TipText("LottoActivityOver")
         XLuaUiManager.RunMain()
+    end
+
+    --- 三头犬联动薇拉皮肤卡池接口
+    ---@field ui XLuaUi
+    function XLottoManager.OpenVeraLotto(ui)
+        if XLuaUiManager.IsUiLoad("UiLottoVera") then
+            ui:Close()
+        else
+            local skipId = XLottoConfigs.GetLottoClientConfigNumber("VeraLottoSkipId", 1)
+            if XTool.IsNumberValid(skipId) then
+                XFunctionManager.SkipInterface(skipId)
+            else
+                XLog.Error("[Error]Config 'VeraLottoSkipId' is null")
+            end
+        end
+    end
+    --endregion
+    
+    --region Ui - ShowData
+    function XLottoManager.HandleDrawShowRewardEffect(rewardList, effectId)
+        if XTool.IsTableEmpty(rewardList) or not XTool.IsNumberValid(effectId) then
+            return rewardList
+        end
+        -- 处理奖励特殊特效
+        for _, reward in ipairs(rewardList) do
+            reward.SpecialDrawEffectGroupId = effectId
+        end
+        return rewardList
+    end
+    
+    ---@return XLottoUiData
+    function XLottoManager.CreateLottoUiData()
+        ---@type XLottoUiData
+        local uiData = {}
+        uiData.IsAfterFirstEnable = false
+        return uiData
+    end
+    --endregion
+    
+    --region Data
+    function XLottoManager.GetTemplateQuality(templateId)
+        local templateIdData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(templateId)
+        local Type = XTypeManager.GetTypeById(templateId)
+        local quality
+        if Type == XArrangeConfigs.Types.Wafer then
+            quality = templateIdData.Star
+        elseif Type == XArrangeConfigs.Types.Weapon then
+            quality = templateIdData.Star
+        elseif Type == XArrangeConfigs.Types.Character then
+            quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
+        else
+            quality = XTypeManager.GetQualityById(templateId)
+        end
+        return quality
     end
     --endregion
     
@@ -177,7 +235,7 @@ XLottoManagerCreator = function()
                 return
             end
             XLottoManager.UpdateLottoDrawData(lottoId, res)
-            if cb then cb(res.RewardList, res.ExtraRewardList) end
+            if cb then cb(res.RewardList, res.ExtraRewardList, res.LottoRewardId) end
         end)
     end
 
@@ -190,22 +248,6 @@ XLottoManagerCreator = function()
             local reward = XRewardManager.CreateRewardGoodsByTemplate({ TemplateId = res.ItemId, Count = res.ItemCount })
             if cb then cb({ reward }) end
         end)
-    end
-    
-    function XLottoManager.GetTemplateQuality(templateId)
-        local templateIdData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(templateId)
-        local Type = XTypeManager.GetTypeById(templateId)
-        local quality
-        if Type == XArrangeConfigs.Types.Wafer then
-            quality = templateIdData.Star
-        elseif Type == XArrangeConfigs.Types.Weapon then
-            quality = templateIdData.Star
-        elseif Type == XArrangeConfigs.Types.Character then
-            quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
-        else
-            quality = XTypeManager.GetQualityById(templateId)
-        end
-        return quality
     end
 
     XLottoManager.Init()

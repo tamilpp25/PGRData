@@ -2,7 +2,6 @@
 local XUiRiftCharacter = XLuaUiManager.Register(XLuaUi, "UiRiftCharacter")
 local XUiRiftPluginGrid = require("XUi/XUiRift/Grid/XUiRiftPluginGrid")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-local XUiPanelModelV2P6 = require("XUi/XUiCharacterV2P6/Grid/XUiPanelModelV2P6")
 
 local TipCount = 0
 
@@ -26,6 +25,7 @@ function XUiRiftCharacter:OnAwake()
 end
 
 function XUiRiftCharacter:OnStart(isMultiTeam, xTeam, teamPos, hideTeamPefabBtn)
+    self.IsInit = true
     self.IsMultiTeam = isMultiTeam --是否是多队伍进入的
     self.XTeam = xTeam or XDataCenter.RiftManager.GetSingleTeamData()
     self.TeamPos = teamPos
@@ -72,16 +72,6 @@ function XUiRiftCharacter:InitFilter()
 
     self.PanelFilter:InitData(onSeleCb, nil, nil, refreshFun, require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleGrid"), checkInTeam)
 
-    -- 接入折叠功能
-    local foldCb = function (isInitFoldState)
-        self.PanelModel:SetCamera(XEnumConst.CHARACTER.CameraV2P6.CharLeftMove)
-    end
-
-    local unFoldCb = function (isInitFoldState)
-        self.PanelModel:SetCamera(XEnumConst.CHARACTER.CameraV2P6.Main)
-    end
-    self.PanelFilter:SetFoldCallback(foldCb, unFoldCb)
-
     self.FiltAgecy:SetNotSortTrigger()
     self:RefresFilter()
 end
@@ -115,17 +105,18 @@ function XUiRiftCharacter:InitModel()
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")
     self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
     self.ImgEffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
-    ---@type XUiPanelModelV2P6
-    self.PanelModel = XUiPanelModelV2P6.New(self.UiModelGo, self)
     self.RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true, nil, true)
 end
 
 function XUiRiftCharacter:OnEnable()
     self.Super.OnEnable(self)
-    self.PanelModel:SetCamera(XEnumConst.CHARACTER.CameraV2P6.Main)
     self.PanelFilter:InitFoldState()
     self:UpdateRightCharacterInfo()
     self:UpdateRoleModel()
+    if not self.IsInit then
+        self:RefresFilter()
+    end
+    self.IsInit = false
 end
 
 -- 角色被选中

@@ -33,6 +33,7 @@ XGuideManagerCreator = function()
         UiPartnerPopupTip   = "UiPartnerPopupTip",
         UiRestaurantRadio   = "UiRestaurantRadio",
         UiLeftPopupTips     = "UiLeftPopupTips",
+        UiRogueSimComponent = "UiRogueSimComponent",
     }
     
     -- 该事件类型包括了引导的触发、完成类型
@@ -197,7 +198,8 @@ XGuideManagerCreator = function()
     --创建引导主体
     function XGuideManager:CreateGuideAgent()
         local guideAgent = CS.UnityEngine.GameObject("GuideAgent")
-
+        --进入战斗后会销毁NormalScene, 所以放到DonDestroyOnLoad场景中,由引导统一控制
+        CS.UnityEngine.Object.DontDestroyOnLoad(guideAgent)
         GuideAgent = guideAgent:AddComponent(typeof(CS.BehaviorTree.XAgent))
         GuideAgent.ProxyType = "Guide"
         GuideAgent:InitProxy()

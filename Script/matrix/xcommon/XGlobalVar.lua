@@ -54,6 +54,11 @@ XGlobalVar = {
         BtnUiMainBtnEquipGuide      = 36, --主界面点击装备目标
         BtnUiMainBtnKuJieQu         = 37, --主界面点击库街区
         BtnUiMainBtnCalendar        = 38, --主界面点击新周历
+
+        DragAnimPanelRightMidSecond = 39, --主界面拖拽展开【宿舍、公会】
+        DragAnimPanelRightMid       = 40, --主界面拖拽收起【宿舍、公会】
+        ClickAnimPanelRightMidSecond= 41, --主界面点击展开【宿舍、公会】
+        ClickAnimPanelRightMid      = 42, --主界面点击收起【宿舍、公会】
     },
     BtnBuriedSpotTypeLevelTwo = {
         BtnUiPurchaseBtnTabSkip1 = 1,
@@ -102,4 +107,41 @@ XGlobalVar = {
         BtnUiDormBtnEntrust = 1, --委托
         BtnUiDormBtnFileDetails = 2, --文件详情
     },
+    BtnUiCharacterSystemV2P6 = {
+        BtnEvolution = 1, -- 进化入口按钮
+        BtnTrain = 2, -- 培养入口按钮
+        BtnRecommend = 3, -- 装备推荐按钮
+        BtnWeaponReplace = 4, -- 武器按钮
+        BtnCarryPartner = 5, -- 辅助机按钮
+        BtnUnFold = 6, -- 意识总览按钮(展开意识面板)
+        BtnFold = 7, -- 基础属性按钮(折叠意识面板)
+        BtnAwarenessOcuupy = 8, -- 公约加成按钮
+        BtnAwarenessReplace = 9, -- 意识位按钮
+        BtnAutoTakeOff = 10, -- 一键卸载意识按钮
+        BtnAwarenessSuit = 11, -- 意识组合按钮
+        BtnAddition = 12, -- 意识套装技能按钮
+        BtnGridResnanceSkill = 13, -- 意识共鸣位按钮
+        CharacterPanelDrag = 14, -- 点击角色模型区域
+        BtnFilterFold = 15, -- 筛选按钮(展开筛选器)
+        BtnFilterUnFold = 16, -- 收起按钮(折叠筛选器)
+        BtnCollect = 17, -- 收藏按钮
+        BtnFilterTag = 18, -- 筛选项按钮
+        BtnFashion = 19, -- 涂装按钮
+        BtnOwnedDetail = 20, -- 详情按钮
+        BtnAll = 21, -- 全选筛选项
+        BtnElement1 = 22, -- 物理筛选项
+        BtnElement2 = 23, -- 火筛选项
+        BtnElement3 = 24, -- 冰筛选项
+        BtnElement4 = 25, -- 雷筛选项
+        BtnElement5 = 26, -- 暗筛选项
+        BtnUniframe = 27, -- 独域筛选项
+        BtnSupport = 28, -- 支援筛选项
+        BtnRed = 29, -- 红点筛选项
+        BtnExchange = 30, -- 更多成员按钮
+        BtnCloseFilter = 31, -- 收起成员按钮
+        BtnGridSkillItem4 = 32, -- 进化效果技能入口按钮
+        DragUpPanelEquip = 33, -- 向上滑动装备面板
+        DragDownPanelEquip = 34, -- 向下滑动装备面板
+        BtnTeaching = 35, -- 教学按钮
+    }
 }

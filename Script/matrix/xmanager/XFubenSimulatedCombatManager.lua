@@ -869,13 +869,13 @@ XFubenSimulatedCombatManagerCreator = function()
 end
 
 XRpc.NotifySimulatedCombatData = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyData(data.Data)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyData(data.Data)
 end
 
 XRpc.NotifySimulatedCombatDailyReset = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyDailyReset(data)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyDailyReset(data)
 end
 
 XRpc.NotifySimulatedCombatStageData = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyStageData(data.SimulatedCombatStageData)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyStageData(data.SimulatedCombatStageData)
 end

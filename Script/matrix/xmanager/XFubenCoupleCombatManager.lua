@@ -534,13 +534,13 @@ XFubenCoupleCombatManagerCreator = function()
 end
 
 XRpc.NotifyCoupleCombatData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyData(data)
 end
 
 XRpc.NotifyCoupleCombatStageData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyStageData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyStageData(data)
 end
 
 XRpc.NotifyCoupleCombatDailyData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyDailyData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyDailyData(data)
 end

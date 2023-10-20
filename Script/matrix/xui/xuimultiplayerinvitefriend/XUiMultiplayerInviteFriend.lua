@@ -70,6 +70,23 @@ function XUiMultiplayerInviteFriend:Refresh()
             
             return a.OnlineFlag > b.OnlineFlag
         end)
+    elseif self.MultipleRoomType == MultipleRoomType.DlcWorld then
+        local friends = XDataCenter.SocialManager.GetFriendList()
+        local levelLimit = XMVCA.XDlcCasual:GetOpenLevelLimit()
+
+        for _, friend in pairs(friends) do
+            if friend.Level >= levelLimit then
+                friend.OnlineFlag = friend.IsOnline and 1 or 0
+                table.insert(self.FriendList, friend) 
+            end
+        end
+        table.sort(self.FriendList, function(a, b)
+            if a.OnlineFlag == b.OnlineFlag then
+                return false
+            end
+            
+            return a.OnlineFlag > b.OnlineFlag
+        end)
     else
         self.FriendList = XDataCenter.SocialManager.GetFriendList()
     end
@@ -81,17 +98,35 @@ end
 function XUiMultiplayerInviteFriend:OnClickInvite(data)
     local content
     local roomtType = self.MultipleRoomType
-    if self.MultipleRoomType == MultipleRoomType.UnionKill then
-        local unionRoomData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-        if not unionRoomData then
+    --if self.MultipleRoomType == MultipleRoomType.UnionKill then
+    --    local unionRoomData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --    if not unionRoomData then
+    --        return
+    --    end
+    --    content = XChatData.EncodeRoomMsg(
+    --            RoomMsgContentId.FrinedInvite,
+    --            XPlayer.Id,
+    --            0,
+    --            unionRoomData.Id,
+    --            roomtType)
+    if self.MultipleRoomType == MultipleRoomType.DlcWorld then
+        if not XMVCA.XDlcRoom:IsInRoom() then
             return
         end
-        content = XChatData.EncodeRoomMsg(
-                RoomMsgContentId.FrinedInvite,
-                XPlayer.Id,
-                0,
-                unionRoomData.Id,
-                roomtType)
+
+        local roomData = XMVCA.XDlcRoom:GetRoomData()
+
+        if not roomData then
+            return
+        end
+
+        local contentId = RoomMsgContentId.FrinedInvite
+        local worldId = roomData:GetWorldId()
+        local roomId = roomData:GetId()
+        local roomType = self.MultipleRoomType
+        local stateLevel = 0
+
+        content = XChatData.EncodeRoomMsg(contentId, XPlayer.Id, worldId, roomId, roomType, stateLevel)
     else
         local roomId = XDataCenter.RoomManager.RoomData.Id
         local stageId = XDataCenter.RoomManager.RoomData.StageId

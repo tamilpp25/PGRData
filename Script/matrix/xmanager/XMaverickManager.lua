@@ -663,9 +663,9 @@ end
 -- =========        =========
 --活动数据初始化
 XRpc.NotifyMaverickData = function(data)
-    XDataCenter.MaverickManager.InitData(data.MaverickData)
+    --XDataCenter.MaverickManager.InitData(data.MaverickData)
 end
 --通关后推送的数据
 XRpc.NotifyMaverickUnlockMemberData = function(data)
-    XDataCenter.MaverickManager.UpdateMemberData(data.MemberDataInfos)
+    --XDataCenter.MaverickManager.UpdateMemberData(data.MemberDataInfos)
 end

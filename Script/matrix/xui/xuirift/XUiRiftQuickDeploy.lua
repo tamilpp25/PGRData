@@ -109,10 +109,14 @@ function XUiRiftQuickDeploy:SwapTeamPos(oldTeamId, oldPos, newTeamId, newPos, su
     end
 
     -- 交换位置
-    local oldRoleId = oldTeam:GetEntityIdByTeamPos(oldPos)
-    local newRoleId = newTeam:GetEntityIdByTeamPos(newPos)
-    oldTeam:UpdateEntityTeamPos(newRoleId, oldPos, true)
-    newTeam:UpdateEntityTeamPos(oldRoleId, newPos, true)
+    if oldTeam == newTeam then --队内互换用这个接口
+        oldTeam:SwitchEntityPos(oldPos, newPos)
+    else
+        local oldRoleId = oldTeam:GetEntityIdByTeamPos(oldPos)
+        local newRoleId = newTeam:GetEntityIdByTeamPos(newPos)
+        oldTeam:UpdateEntityTeamPos(newRoleId, oldPos, true)
+        newTeam:UpdateEntityTeamPos(oldRoleId, newPos, true)
+    end
 
     sucCb()
 end

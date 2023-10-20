@@ -66,7 +66,6 @@ XCharacterConfigs.MAX_LEBERATION_SKILL_POS_INDEX = 13
 
 XCharacterConfigs.MAX_SHOW_SKILL_POS = 4--展示用技能组数量
 
-local TABLE_CHARACTER_PATH = "Share/Character/Character.tab"
 local TABLE_LEVEL_UP_TEMPLATE_PATH = "Share/Character/LevelUpTemplate/"
 local TABLE_CHARACTER_QUALITY_FRAGMENT_PATH = "Share/Character/Quality/CharacterQualityFragment.tab"
 --v1.28-升阶拆分：角色升级技能配置
@@ -108,7 +107,6 @@ local TABLE_CHARACTER_ENHANCESKILL_TYPE = "Share/Character/EnhanceSkill/EnhanceS
 local TABLE_CHARACTER_ENHANCESKILL_GRADE = "Share/Character/EnhanceSkill/EnhanceSkillUpgrade.tab"
 
 -- 配置相关
-local CharacterTemplates = {}               -- 角色配置
 local LevelUpTemplates = {}                 -- 升级模板
 local CharQualityTemplates = {}             -- 角色品质配置
 local CharQualityFragmentTemplates = {}     -- 品质对应碎片
@@ -116,7 +114,6 @@ local CharQualityIconTemplates = {}         -- 角色品质图标
 local CharSkillQualityApart = {}            -- 角色升阶技能拆分
 local CharSkillQualityApartDic = {}         -- 角色升阶技能拆分字典
 local CharGradeTemplates = {}               -- 角色改造配置
-local CharBorderTemplates = {}              -- 角色边界属性
 local CharacterCareerTemplates = {}             -- npc类型图标配置
 local SubSkillMinMaxLevelDicGrade = {}     -- 副技能最小最大等级配置(from TABLE_CHARACTER_SKILL_GRADE)
 local SubSkillMinMaxLevelDicLevel = {}     -- 副技能最小最大等级配置(from TABLE_CHARACTER_SKILL_LEVEL)
@@ -137,7 +134,6 @@ local CharacterSkillType = {}               -- 角色技能Id分类
 local SkillTypePlusConfig = {}              -- 角色技能分类加成
 local CharPoolIdToSkillInfoDic = {}         -- 角色技能共鸣池PoolId映射技能信息字典
 local CharSkillIdToCharacterIdDic = {}      -- SkillId映射CharacterId字典
-local ItemIdToCharacterIdDic = {}           -- 角色碎片Id映射CharacterId字典
 local CharLiberationTemplates = {}          -- 角色解放配置
 local NpcTemplates = {}                     -- npc配置表
 local CharMaxLiberationSkillIdDic = {}      -- 角色终阶解放技能Id字典
@@ -165,7 +161,6 @@ local EnhanceSkillMaxLevelDic = {}       -- 角色补强技能最大等级字典
 local CharacterRecommendTemplates   --角色推荐表
 local EquipRecommendTemplates       --装备推荐表
 local CharacterTabToVoteGroupMap    --角色标签转投票组表
-local CharacterTemplatesCount       --角色总数量
 local CharSkillGroupTemplates       --技能组表
 
 -- 体验包保留角色
@@ -180,36 +175,6 @@ local IsIncludeCharacter = function(characterId)
     return not IsHideFunc or IncludeCharacterIds[characterId]
 end
 
-local CompareQuality = function(templateId, quality)
-    local template = CharBorderTemplates[templateId]
-    if not template then
-        return
-    end
-
-    if not template.MinQuality or template.MinQuality > quality then
-        template.MinQuality = quality
-    end
-
-    if not template.MaxQuality or template.MaxQuality < quality then
-        template.MaxQuality = quality
-    end
-end
-
-local CompareGrade = function(templateId, grade)
-    local template = CharBorderTemplates[templateId]
-    if not template then
-        return
-    end
-
-    if not template.MinGrade or template.MinGrade > grade then
-        template.MinGrade = grade
-    end
-
-    if not template.MaxGrade or template.MaxGrade < grade then
-        template.MaxGrade = grade
-    end
-end
-
 local InitCharQualityConfig = function()
     -- 角色品质对应配置
     local tab = XTableManager.ReadByIntKey(TABLE_CHARACTER_QUALITY_PATH, XTable.XTableCharacterQuality, "Id")
@@ -218,7 +183,6 @@ local InitCharQualityConfig = function()
             CharQualityTemplates[config.CharacterId] = {}
         end
         CharQualityTemplates[config.CharacterId][config.Quality] = config
-        CompareQuality(config.CharacterId, config.Quality)
     end
 
     CharQualityIconTemplates = XTableManager.ReadByIntKey(TABLE_CHARACTER_QUALITY_ICON_PATH, XTable.XTableCharacterQualityIcon, "Quality")
@@ -272,7 +236,6 @@ local InitCharGradeConfig = function()
         end
 
         CharGradeTemplates[config.CharacterId][config.Grade] = config
-        CompareGrade(config.CharacterId, config.Grade)
     end
 end
 
@@ -282,20 +245,6 @@ local InitCharLevelConfig = function()
         local key = tonumber(XTool.GetFileNameWithoutExtension(path))
         LevelUpTemplates[key] = XTableManager.ReadByIntKey(path, XTable.XTableEquipLevelUp, "Level")
     end)
-end
-
-local InitMaxLevelConfig = function()
-    for id, template in pairs(CharacterTemplates) do
-        local levelTemplate = LevelUpTemplates[template.LevelUpTemplateId]
-        if not levelTemplate then
-            XLog.ErrorTableDataNotFound("InitMaxLevelConfig",
-            "LevelUpTemplates", TABLE_LEVEL_UP_TEMPLATE_PATH, "LevelUpTemplateId", tostring(template.LevelUpTemplateId))
-            return
-        end
-
-        CharBorderTemplates[id].MinLevel = 1
-        CharBorderTemplates[id].MaxLevel = #levelTemplate
-    end
 end
 
 local IntCharSubSkillConfig = function()
@@ -516,7 +465,6 @@ local IntEnhanceSkillConfig = function()
 end
 --------------------------------------------------------------------------------------------------------------------
 function XCharacterConfigs.Init()
-    CharacterTemplates = XTableManager.ReadByIntKey(TABLE_CHARACTER_PATH, XTable.XTableCharacter, "Id")
     CharDetailTemplates = XTableManager.ReadByIntKey(TABLE_CHARACTER_DETAIL, XTable.XTableCharDetail, "Id")
     CharTeachSkill = XTableManager.ReadByIntKey(TABLE_CHARACTER_SKILL_TEACH, XTable.XTableCharacterSkillTeach, "Id")
     CharElementTemplates = XTableManager.ReadByIntKey(TABLE_CHARACTER_ELEMENT_CONFIG, XTable.XTableCharacterElement, "Id")
@@ -530,27 +478,15 @@ function XCharacterConfigs.Init()
     local templates = XTableManager.ReadByIntKey(TABLE_CHARACTER_RECOMMEND_TAB_CONFIG, XTable.XTableCharacterTabId, "Id")
     InitRecommendConfig(templates)
 
-    local characterTemplatesCount = 0
-    for id, template in pairs(CharacterTemplates) do
-        CharBorderTemplates[id] = {}
-        ItemIdToCharacterIdDic[template.ItemId] = id
-        characterTemplatesCount = characterTemplatesCount + 1
-    end
-    CharacterTemplatesCount = characterTemplatesCount
-
     InitCharLevelConfig()
     InitCharQualityConfig()
     IniCharQualityFragmentConfig()
     InitCharSkillQualityApart()
     InitCharLiberationConfig()
     InitCharGradeConfig()
-    InitMaxLevelConfig()
     IntCharSubSkillConfig()
     InitCharacterSkillPoolConfig()
     IntEnhanceSkillConfig()
-    
-    -- CharBorderTemplates = CharBorderTemplates
-    --ItemIdToCharacterIdDic = XReadOnlyTable.Create(ItemIdToCharacterIdDic)
 end
 
 local GetCharQualityFragmentConfig = function(characterType, quality)
@@ -745,38 +681,6 @@ function XCharacterConfigs.GetRecommendTabMap(characterId, recommendType)
     return tabMap
 end
 
---==============================--
---desc: 获取所有角色Id和对应的NpcId（C#调试用）
---@return: characterList
---==============================--
-function XCharacterConfigs.GetCharacterNpcDic()
-    local characterDic = {}
-    for _, config in pairs(CharQualityTemplates) do
-        for _, v in pairs(config) do
-            characterDic[v.CharacterId] = v.NpcId
-            break
-        end
-    end
-    return characterDic
-end
-
---==============================--
---desc: 获取NpcId对应的角色Id（C#调试用）
---@return: characterId
---==============================--
-function XCharacterConfigs.GetCharacterIdByNpcId(npcId)
-    for _, config in pairs(CharQualityTemplates) do
-        for _, v in pairs(config) do
-            --XLog.Warning(config)
-            if v.NpcId == npcId then
-                return v.CharacterId
-            end
-        end
-    end
-
-    return 0
-end
-
 function XCharacterConfigs.GetAllCharElments()
     return CharElementTemplates
 end
@@ -790,43 +694,6 @@ function XCharacterConfigs.GetCharElement(elementId)
         return
     end
     return template
-end
-
-function XCharacterConfigs.GetQualityTemplate(templateId, quality)
-    if templateId == nil or quality == nil then
-        XLog.Error("XCharacterConfigs.GetQualityTemplate函数参数不能为空")
-        return
-    end
-
-    if quality <= 0 then
-        XLog.Error("XCharacterConfigs.GetQualityTemplate函数参数quality：" .. quality .. "不能小于等于0")
-        return
-    end
-
-    local config = CharQualityTemplates[templateId]
-    if not config then
-        XLog.ErrorTableDataNotFound("XCharacterConfigs.GetQualityTemplate",
-        "CharQualityTemplates", TABLE_CHARACTER_QUALITY_PATH, "templateId", tostring(templateId))
-        return
-    end
-
-    local qualityConfig = config[quality]
-    if qualityConfig == nil then
-        XLog.ErrorTableDataNotFound("XCharacterConfigs.GetQualityTemplate",
-        "CharQualityTemplates", TABLE_CHARACTER_QUALITY_PATH, "templateId", tostring(templateId))
-        return
-    end
-
-    return qualityConfig
-end
-
-function XCharacterConfigs.GetCharNpcId(templateId, quality)
-    local qualityConfig = XCharacterConfigs.GetQualityTemplate(templateId, quality)
-    if not qualityConfig then
-        return
-    end
-
-    return qualityConfig.NpcId
 end
 
 function XCharacterConfigs.GetAllCharacterCareerIds()
@@ -877,13 +744,6 @@ function XCharacterConfigs.GetNpcTypeSortId(typeId)
     local config = XCharacterConfigs.GetNpcTypeTemplate(typeId)
     return config.SortId
 end
-
-function XCharacterConfigs.GetNpcPromotedAttribByQuality(templateId, quality)
-    local npcId = XCharacterConfigs.GetCharNpcId(templateId, quality)
-    local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
-    return XAttribManager.GetPromotedAttribs(npcTemplate.PromotedId)
-end
-
 -- 卡牌信息begin --
 
 function XCharacterConfigs.IsIsomer(templateId)
@@ -903,38 +763,6 @@ end
 --===========================================================================
 -- v1.28 品质升阶相关begin
 --===========================================================================
-function XCharacterConfigs.GetCharQualityIcon(quality)
-    if not quality or quality < 1 then
-        XLog.Error("XCharacterConfigs.GetCharQualityIcon函数参数不规范，参数是quality：" .. quality)
-        return
-    end
-
-    local template = CharQualityIconTemplates[quality]
-    if not template then
-        XLog.ErrorTableDataNotFound("XCharacterConfigs.GetCharQualityIcon",
-        "CharQualityIconTemplates", TABLE_CHARACTER_QUALITY_ICON_PATH, "quality", tostring(quality))
-        return
-    end
-
-    return template.Icon
-end
-
-function XCharacterConfigs.GetCharacterQualityIcon(quality)
-    if not quality or quality < 1 then
-        XLog.Error("XCharacterConfigs.GetCharacterQualityIcon函数参数不规范，参数是quality：" .. quality)
-        return
-    end
-
-    local template = CharQualityIconTemplates[quality]
-    if not template then
-        XLog.ErrorTableDataNotFound("XCharacterConfigs.GetCharacterQualityIcon",
-        "CharQualityIconTemplates", TABLE_CHARACTER_QUALITY_ICON_PATH, "quality", tostring(quality))
-        return
-    end
-
-    return template.IconCharacter
-end
-
 function XCharacterConfigs.GetCharQualityIconGoods(quality)
     if not quality or quality < 1 then
         XLog.Error("XCharacterConfigs.GetCharQualityIconGoods函数参数不规范，参数是quality：" .. quality)
@@ -1001,83 +829,6 @@ end
 function XCharacterConfigs.GetPromoteItemId(characterType, quality)
     local config = GetCharQualityFragmentConfig(characterType, quality)
     return config.PromoteItemId
-end
-
-function XCharacterConfigs.GetCharStarAttribId(templateId, quality, star)
-    if not templateId then
-        XLog.Error("XCharacterConfigs.GetCharStarAttribIdca函数参数templateId为空")
-        return
-    end
-
-    if not quality or (quality < 1 or quality > XCharacterConfigs.GetCharMaxQuality(templateId)) then
-        XLog.Error("XCharacterConfigs.GetCharStarAttribId函数参数不规范，参数是quality：" .. quality)
-        return
-    end
-
-    if not star or (star < 1 or star > XEnumConst.CHARACTER.MAX_QUALITY_STAR) then
-        XLog.Error("XCharacterConfigs.GetCharStarAttribId函数参数不规范，参数是star：" .. star)
-        return
-    end
-
-    local template = CharQualityTemplates[templateId]
-    if not template[quality] then
-        XLog.ErrorTableDataNotFound("XCharacterConfigs.GetCharStarAttribId",
-        "CharQualityTemplates", TABLE_CHARACTER_QUALITY_PATH, "templateId", tostring(templateId))
-        return
-    end
-
-    local attrIds = template[quality].AttrId
-
-    if attrIds and attrIds[star] then
-        if attrIds[star] > 0 then
-            return attrIds[star]
-        end
-    end
-end
-
-function XCharacterConfigs.GetCharStarAttribs(templateId, quality, star)
-    if not templateId and not quality and not star then
-        XLog.Error("XCharacterConfigs.GetCharStarAttribs函数参数不规范，参数是templateId, quality, star")
-        return
-    end
-
-    if star < XEnumConst.CHARACTER.MAX_QUALITY_STAR then
-        local attrId = XCharacterConfigs.GetCharStarAttribId(templateId, quality, star + 1)
-        if not attrId then
-            XLog.ErrorTableDataNotFound("XCharacterConfigs.GetCharStarAttribs",
-            "CharQualityTemplates", TABLE_CHARACTER_QUALITY_PATH, "templateId", tostring(templateId))
-            return
-        end
-
-        return XAttribManager.GetBaseAttribs(attrId)
-    end
-end
-
-function XCharacterConfigs.GetCharCurStarAttribsV2P6(templateId, quality, star)
-    if not templateId and not quality and not star then
-        XLog.Error("XCharacterConfigs.GetCharStarAttribs函数参数不规范，参数是templateId, quality, star")
-        return
-    end
-
-    if star <= XEnumConst.CHARACTER.MAX_QUALITY_STAR then
-        local attrId = XCharacterConfigs.GetCharStarAttribId(templateId, quality, star)
-        if not attrId then
-            XLog.ErrorTableDataNotFound("XCharacterConfigs.GetCharStarAttribs",
-            "CharQualityTemplates", TABLE_CHARACTER_QUALITY_PATH, "templateId", tostring(templateId))
-            return
-        end
-
-        return XAttribManager.GetBaseAttribs(attrId)
-    end
-end
-
-function XCharacterConfigs.GetCharMaxQuality(templateId)
-    if not templateId then
-        XLog.Error("XCharacterConfigs.GetCharMaxQuality函数参数templateId为空")
-        return
-    end
-
-    return CharBorderTemplates[templateId].MaxQuality
 end
 
 function XCharacterConfigs.GetCharGraphTemplate(graphId)
@@ -1161,14 +912,6 @@ end
 --===========================================================================
 
 -- 改造相关begin --
-function XCharacterConfigs.GetCharMaxGrade(templateId)
-    return CharBorderTemplates[templateId].MaxGrade
-end
-
-function XCharacterConfigs.GetCharMinGrade(templateId)
-    return CharBorderTemplates[templateId].MinGrade
-end
-
 function XCharacterConfigs.GetQualityUpgradeItemId(templateId, grade)
     return CharGradeTemplates[templateId][grade].UseItemId
 end
@@ -1182,7 +925,7 @@ function XCharacterConfigs.GetGradeTemplates(templateId, grade)
 end
 
 function XCharacterConfigs.GetCharGradeName(templateId, grade)
-    grade = grade or XCharacterConfigs.GetCharMinGrade(templateId)
+    grade = grade or XMVCA.XCharacter:GetCharMinGrade(templateId)
     return CharGradeTemplates[templateId][grade].GradeName
 end
 

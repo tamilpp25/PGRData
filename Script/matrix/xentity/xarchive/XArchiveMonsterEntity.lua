@@ -7,7 +7,7 @@ function XArchiveMonsterEntity:Ctor(id)
     self.RealName = {}
     for _,npcid in pairs(self:GetNpcId() or {}) do
         self.Kill[npcid] = 0
-        self.RealName[npcid] = XArchiveConfigs.GetMonsterRealName(npcid)
+        self.RealName[npcid] = XMVCA.XArchive:GetMonsterRealName(npcid)
     end
 end
 
@@ -18,7 +18,7 @@ function XArchiveMonsterEntity:UpdateData(playerData)
 end
 
 function XArchiveMonsterEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveMonsterConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveMonsterConfigById(self.Id)
 end
 
 function XArchiveMonsterEntity:GetId()

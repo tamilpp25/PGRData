@@ -149,7 +149,7 @@ function XUiPartnerPreview:UpdateCamera()
 end
 
 function XUiPartnerPreview:UpdatePartnerInfo()
-    local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetInitQuality())
+    local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetInitQuality())
 
     self.TxtPartnerMainName.text = self.Data:GetOriginalName()
     self.RawQuality:SetRawImage(qualityIcon)

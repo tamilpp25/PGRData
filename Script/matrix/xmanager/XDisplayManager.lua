@@ -9,8 +9,7 @@ XDisplayManagerCreator = function()
     local CurDisplayChar
     local CurDisplayCharNew
     local NextCharId = nil
-    local LoadStates = {}
-
+    
     function XDisplayManager.Init()
         DisplayTable = XDisplayConfigs.GetDisplayTable()
         ContentTable = XDisplayConfigs.GetContentTable()
@@ -212,11 +211,9 @@ XDisplayManagerCreator = function()
 
     -- 更换模型和加载展示状态机，完成后调用回调。
     function XDisplayManager.UpdateRoleModel(panelRoleModel, id, cb, fashionId)
-
         local state = {}
 
         -- 初始化信息
-        LoadStates[panelRoleModel] = state
         state.Panel = panelRoleModel
         state.Id = id
         --state.Callback = cb
@@ -304,14 +301,6 @@ XDisplayManagerCreator = function()
         if state.Callback then
             state.Callback(state.Model)
         end
-    end
-
-    function XDisplayManager.PlayAnimation(panelRoleModel, animation)
-        local state = LoadStates[panelRoleModel]
-        if state.IsLoading or not state.Animator or not state.Model.activeSelf then
-            return
-        end
-        state.Animator:SetTrigger(animation)
     end
 
     XDisplayManager.Init()

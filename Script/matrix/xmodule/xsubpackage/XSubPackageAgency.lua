@@ -2,81 +2,105 @@
 ---@field private _Model XSubPackageModel
 ---@field private _DownloadQueue number[] 分包下载Id列表
 ---@field private _LaunchDlcManager XLaunchDlcManager 下载管理器
----@field private _FileModule XLaunchFileModule 下载文件管理器
+---@field private _DownloadCenter XMTDownloadCenter 多线程下载器
 local XSubPackageAgency = XClass(XAgency, "XSubPackageAgency")
 
 local MIN_SIZE = 1024
 
-local UPDATE_INTERVAL = 200 --下载中时，每200ms更新一下
-
 local CheckStageId = 10030304
 
---必要资源GroupId
-local NecessaryDownloadGroupId = { 1, }
+local LaunchTestPath = CS.UnityEngine.Application.dataPath .. "/../../../Product/Temp/LocalCdn"
+local LaunchTestDirApp = CS.UnityEngine.Application.dataPath .. "/../../../Product/Temp/LocalDirApp"
+local LaunchTestDirDoc = CS.UnityEngine.Application.dataPath .. "/../../../Product/Temp/LocalDirDoc"
+
+local SingleThreadCount = 1 --单线程线程数
+local MultiThreadCount = 5 --多线程线程数
+
+--分包下载源
+local DownloadType = DOWNLOAD_SOURCE.SUBPACKAGE
+
+local CsXApplication = CS.XApplication
 
 function XSubPackageAgency:OnInit()
-    
+
     self._DownloadQueue = {}
-    
+
     self._IsDownloading = false
     self._DownloadPackageId = 0
     self._IsDownloadGroup = false --是否为一组同时下载
     self._PreparePauseId = 0 --准备暂停的Id
-    
+    self._IsPause = false
+
+    self._ThreadCount = SingleThreadCount --线程数
+
     self._OnPreEnterFightCb = handler(self, self.OnPreEnterFight)
     self._OnExitFightCb = handler(self, self.OnExitFight)
-    self._OnUpdateDownloadCb = handler(self, self.OnUpdateDownload)
     self._OnNetworkReachabilityChangedCb = handler(self, self.OnNetworkReachabilityChanged)
     self._OnLoginSuccessCb = handler(self, self.OnLoginSuccess)
-    self._OnDownloadReleaseCb = handler(self, self.OnDownloadRelease)
-    
+    self._OnSingleTaskFinishCb = handler(self, self.OnSingleTaskFinish)
+
     self._LaunchDlcManager = require("XLaunchDlcManager")
-    
+
     self._SubIndexInfo = self._LaunchDlcManager.GetIndexInfo()
-    
-    self._SubIndexInfoDict = {}
-    
+
     self._TipDialog = false
-    
-    self._ShowErrorDialog = nil
+
+    self._ErrorSubpackageId = nil
+    --是否需要测试
+    self._IsNeedLaunchTest = CS.XResourceManager.NeedLaunchTest
+
+    self._DocumentUrl = self._LaunchDlcManager.GetPathModule().GetDocumentUrl()
+
+    self._DocumentVersion = self._LaunchDlcManager.GetVersionModule().GetNewDocVersion()
+
+    self._DocumentFilePath = self._LaunchDlcManager.GetPathModule().GetDocumentFilePath()
+
+    self._DownloadCenter = nil
+
+    self._RecordRegisterGroup = {} --记录已经注册的Group, 不想一股脑全部注册
 end
 
 function XSubPackageAgency:InitRpc()
-    
+
+end
+
+function XSubPackageAgency:AfterInitManager()
+    self:ResolveResIndex()
 end
 
 function XSubPackageAgency:InitEvent()
     --进入战斗
     XEventManager.AddEventListener(XEventId.EVENT_PRE_ENTER_FIGHT, self._OnPreEnterFightCb)
     CS.XGameEventManager.Instance:RegisterEvent(XEventId.EVENT_DLC_FIGHT_ENTER, self._OnPreEnterFightCb)
-    
+
     --退出战斗
     CS.XGameEventManager.Instance:RegisterEvent(XEventId.EVENT_FIGHT_EXIT, self._OnExitFightCb)
     CS.XGameEventManager.Instance:RegisterEvent(XEventId.EVENT_DLC_FIGHT_EXIT, self._OnExitFightCb)
-    
-    --下载器释放（下载器正式暂停，可以继续下一个下载, 或者其他操作， 在下载器正式暂停之前不允许进行其他包的下载）
-    CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_LAUNCH_DOWNLOAD_RELEASE, self._OnDownloadReleaseCb)
-    
+
+    --单个文件下载完毕
+    CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_MT_DOWNLOAD_SINGLE_TASK_FINISH, self._OnSingleTaskFinishCb)
+
     --网络状态改变
     CS.XNetworkReachability.AddListener(self._OnNetworkReachabilityChangedCb)
-    
+
     --主界面可以操作
     XEventManager.AddEventListener(XEventId.EVENT_FIRST_ENTER_UI_MAIN, self._OnLoginSuccessCb)
 end
 
 function XSubPackageAgency:RemoveEvent()
     XEventManager.RemoveEventListener(XEventId.EVENT_PRE_ENTER_FIGHT, self._OnPreEnterFightCb)
-    
+
     CS.XGameEventManager.Instance:RemoveEvent(XEventId.EVENT_DLC_FIGHT_ENTER, self._OnPreEnterFightCb)
     CS.XGameEventManager.Instance:RemoveEvent(XEventId.EVENT_FIGHT_EXIT, self._OnExitFightCb)
     CS.XGameEventManager.Instance:RemoveEvent(XEventId.EVENT_DLC_FIGHT_EXIT, self._OnExitFightCb)
-    
-    CS.XGameEventManager.Instance:RemoveEvent(CS.XEventId.EVENT_LAUNCH_DOWNLOAD_RELEASE, self._OnDownloadReleaseCb)
-    
+
+    --单个文件下载完毕
+    CS.XGameEventManager.Instance:RemoveEvent(CS.XEventId.EVENT_MT_DOWNLOAD_SINGLE_TASK_FINISH, self._OnSingleTaskFinishCb)
+
     CS.XNetworkReachability.RemoveListener(self._OnNetworkReachabilityChangedCb)
-    
+
     XEventManager.RemoveEventListener(XEventId.EVENT_FIRST_ENTER_UI_MAIN, self._OnLoginSuccessCb)
-    
+
 end
 
 function XSubPackageAgency:IsOpen()
@@ -87,7 +111,7 @@ function XSubPackageAgency:OpenUiMain(groupId)
     if not self:IsOpen() then
         return
     end
-    
+
     XLuaUiManager.Open("UiDownLoadMain", groupId)
 end
 
@@ -123,42 +147,28 @@ function XSubPackageAgency:MergeTable(src, dst)
 end
 
 function XSubPackageAgency:GetSubpackageTotalSize(subpackageId)
-    local template = self._Model:GetSubpackageTemplate(subpackageId)
     local size = 0
-    for _, patchId in pairs(template.PatchId) do
-        local indexInfo = self._SubIndexInfo[patchId]
-        if not indexInfo then
-            local str = string.format("分包Id = %s中，PatchId = %s 不存在IndexInfo", subpackageId, patchId)
-            XLog.Warning(str)
-            goto continue
-        end
-
-        for assetPath, info in pairs(indexInfo) do
-            size = size + info[3]
-        end
-
-        ::continue::
+    local indexInfo = self._SubIndexInfo[subpackageId]
+    if not indexInfo then
+        local str = string.format("分包 SubpackageId = %s 不存在IndexInfo", subpackageId)
+        XLog.Warning(str)
+        return 0
     end
-    
+
+    for assetPath, info in pairs(indexInfo) do
+        size = size + info[3]
+    end
+
     return size
 end
 
 --已经下载的大小
 function XSubPackageAgency:GetSubpackageDownloadSize(subpackageId)
-    local indexInfo = self._SubIndexInfoDict[subpackageId]
+    local indexInfo = self._SubIndexInfo[subpackageId]
     if not indexInfo then
-        indexInfo = {}
-        local template = self._Model:GetSubpackageTemplate(subpackageId)
-        for _, patchId in pairs(template.PatchId) do
-            local info = self._SubIndexInfo[patchId]
-            if not info then
-                local str = string.format("分包Id = %s中，PatchId = %s 不存在IndexInfo", subpackageId, patchId)
-                XLog.Warning(str)
-            else
-                indexInfo = self:MergeTable(indexInfo, info)
-            end
-        end
-        self._SubIndexInfoDict[subpackageId] = indexInfo
+        local str = string.format("分包 SubpackageId = %s 不存在IndexInfo", subpackageId)
+        XLog.Warning(str)
+        return 0
     end
 
     local size = 0
@@ -167,10 +177,11 @@ function XSubPackageAgency:GetSubpackageDownloadSize(subpackageId)
             size = size + info[3]
         end
     end
-    
+
     return size
 end
 
+--添加到下载队列
 function XSubPackageAgency:AddToDownload(subpackageId)
     if not self:IsOpen() then
         return
@@ -189,26 +200,40 @@ function XSubPackageAgency:AddToDownload(subpackageId)
     table.insert(self._DownloadQueue, subpackageId)
     self._Model:GetSubpackageItem(subpackageId):PrepareDownload()
 
-    if not self._IsDownloading then
+    if not self._IsDownloading and not self._IsShowingWifiTip then
         self:StartDownload()
     end
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_PREPARE, subpackageId)
 end
 
+--开始下载
 function XSubPackageAgency:StartDownload()
+    --没有需要下载的了
+    if XTool.IsTableEmpty(self._DownloadQueue) then
+        return
+    end
     local isWifi = CS.XNetworkReachability.IsViaLocalArea()
     --wifi or 已经弹过提示
     if isWifi or self._TipDialog then
         self:DoDownload()
         return
     end
-    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("DlcDownloadWIFIText"), 
-            nil, handler(self, self.PauseAll), function()
-                self._TipDialog = true
-                self.DoDownload()
-            end)
+
+    if self._IsShowingWifiTip then
+        return
+    end
+    self._IsShowingWifiTip = true
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("DlcDownloadWIFIText"), nil, function()
+        self:PauseAll()
+        self._IsShowingWifiTip = false
+    end, function()
+        self._IsShowingWifiTip = false
+        self._TipDialog = true
+        self:DoDownload()
+    end)
 end
 
+--执行下载逻辑
 function XSubPackageAgency:DoDownload()
     if not self:IsOpen() then
         return
@@ -221,40 +246,24 @@ function XSubPackageAgency:DoDownload()
     table.remove(self._DownloadQueue, index)
     self._DownloadPackageId = subpackageId
     self._IsDownloading = true
-    
+
     --更新状态
     self._Model:GetSubpackageItem(subpackageId):StartDownload()
-    --这个接口仅恢复下载状态
-    if self._FileModule then
-        self._FileModule.ResumeDownload()
-    end
+    --恢复下载状态
+    self._IsPause = false
     --开始下载
-    local template = self._Model:GetSubpackageTemplate(subpackageId)
-    self._LaunchDlcManager.DownloadDlc(template.PatchId, nil, handler(self, self.OnComplete), function()
-        if self._IsDownloading then
-            self._ShowErrorDialog = self._DownloadPackageId
-        end
-        self:PauseAll()
-        if self._FileModule then
-            self._FileModule.ReleaseDownloader()
-        end
-    end)
-    
+    self:MultiThreadDownload(subpackageId)
     --事件通知
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_START, subpackageId)
-    self:StartTimer()
 end
 
+--标记为暂停状态
 function XSubPackageAgency:PauseDownload(subpackageId)
     self._Model:GetSubpackageItem(subpackageId):PreparePause()
-    if self._FileModule then
-        self._FileModule.PauseDownload()
-    end
+    self._IsPause = true
+    self._DownloadCenter:PauseById(subpackageId)
     --等待暂停
     self._PreparePauseId = subpackageId
-    --停掉定时器，避免玩家发现异常
-    self:StopTimer()
-
     --事件通知
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_PREPARE, subpackageId)
 end
@@ -273,10 +282,41 @@ function XSubPackageAgency:PauseAll()
         item:InitState()
     end
     self._DownloadQueue = {}
-    
+    self:ChangeThread(true, true)
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_COMPLETE)
 end
 
+--释放下载器
+function XSubPackageAgency:OnDownloadRelease()
+    if not self:IsOpen() then
+        return
+    end
+    --将当前下载的
+    if self._DownloadCenter then
+        self._DownloadCenter:SetFailedTaskGroupMethod(2)
+    end
+    if XTool.IsNumberValid(self._PreparePauseId) then
+        local item = self._Model:GetSubpackageItem(self._PreparePauseId)
+        item:Pause()
+        self._TipDialog = false
+
+        XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_PAUSE, self._PreparePauseId)
+    end
+    --下载队列为空了
+    if XTool.IsTableEmpty(self._DownloadQueue) then
+        --切换为单线程下载
+        self:ChangeThread(true)
+    end
+    self._IsDownloading = false
+    self._IsDownloadGroup = false
+    self._DownloadPackageId = 0
+    self._PreparePauseId = 0
+    self._Downloader = nil
+
+    self:StartDownload()
+end
+
+--处理等待中
 function XSubPackageAgency:ProcessPrepare(subpackageId)
     if not self:IsOpen() then
         return
@@ -302,68 +342,205 @@ function XSubPackageAgency:ProcessPrepare(subpackageId)
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_PREPARE, subpackageId)
 end
 
-function XSubPackageAgency:OnComplete(isPause)
-    --暂停回调不在这里处理
-    if isPause then
-        return
-    end
+--单个分包下载完毕
+function XSubPackageAgency:OnComplete()
     self._IsDownloading = false
     local id = self._DownloadPackageId
     self._CompleteIdCache = id
     self._DownloadPackageId = 0
-    self._FileModule = nil
-
-    self:StopTimer()
 
     XUiManager.PopupLeftTip(XUiHelper.GetText("DlcDownloadCompleteTitle"), self._Model:GetSubPackageName(id))
     local item = self._Model:GetSubpackageItem(id)
     item:Complete()
     XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_COMPLETE)
-    
+
     if not self.IsSyncScene and self:CheckNecessaryComplete() then
         self.IsSyncScene = true
         XEventManager.DispatchEvent(XEventId.EVENT_PHOTO_SYNC_CHANGE_TO_MAIN)
     end
-    
+
     --埋点
     self:DoRecordComplete(id)
 end
 
-function XSubPackageAgency:SetFileModule(fileModule)
-    if self._FileModule ~= fileModule then
-        fileModule.ResumeDownload()
+function XSubPackageAgency:OnProgressUpdate(progress)
+    local item = self._Model:GetSubpackageItem(self._DownloadPackageId)
+    if item then
+        item:UpdateMaxProgress(progress)
     end
-    self._FileModule = fileModule
+    XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_UPDATE, self._DownloadPackageId, progress)
 end
 
-function XSubPackageAgency:OnUpdateDownload()
-    if not self._IsDownloading then
-        self:StopTimer()
+function XSubPackageAgency:ResolveResIndex()
+    if not self:IsOpen() then
         return
     end
+    if self._IsResolve then
+        return
+    end
+    for subpackageId, indexInfo in pairs(self._SubIndexInfo) do
+        if not XTool.IsNumberValid(subpackageId) then
+            goto continue
+        end
+        local item = self._Model:GetSubpackageItem(subpackageId)
+        if not item then
+            goto continue
+        end
+        for assetPath, info in pairs(indexInfo) do
+            item:InitFileInfo(assetPath, info)
+        end
+        item:FileInitComplete()
+        :: continue ::
+    end
+    self._IsResolve = true
+end
+
+--多线程下载
+function XSubPackageAgency:MultiThreadDownload(subpackageId)
+    local item = self._Model:GetSubpackageItem(subpackageId)
+    if not item then
+        return
+    end
+    self:InitDownloader()
+    self._DownloadCenter:StartById(subpackageId)
+end
+
+function XSubPackageAgency:InitDownloader()
+    if not self._DownloadCenter then
+        self._DownloadCenter = CS.XMTDownloadCenter()
+        self._DownloadCenter:SetThreadNumber(self._ThreadCount)
+        local groupIds = self._Model:GetGroupIdList()
+        for _, groupId in ipairs(groupIds) do
+            local group = self._Model:GetGroupTemplate(groupId)
+            for _, subpackageId in ipairs(group.SubPackageId) do
+                local item = self._Model:GetSubpackageItem(subpackageId)
+                if item and not item:IsComplete() then
+                    local taskGroup = item:GetTaskGroup()
+                    taskGroup.NotifyStateChanged = handler(self, self.OnStateChanged)
+                    taskGroup.NotifyProgressChanged = handler(self, self.OnProgressUpdate)
+                    self._DownloadCenter:RegisterTaskGroup(taskGroup)
+                end
+            end
+        end
+    end
+
+    self._DownloadCenter:Run()
+end
+
+function XSubPackageAgency:GetSavePath(fileName)
+    if self._IsNeedLaunchTest then
+        return string.format("%s/%s/%s", LaunchTestDirDoc, RES_FILE_TYPE.MATRIX_FILE, fileName)
+    end
+    return string.format("%s/%s/%s", self._DocumentFilePath, RES_FILE_TYPE.MATRIX_FILE, fileName)
+end
+
+function XSubPackageAgency:GetUrlPath(fileName)
     
-    XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_UPDATE, self._DownloadPackageId)
+    return string.format("%s/%s", self:GetUrlPrefix(), fileName)
 end
 
-function XSubPackageAgency:StartTimer()
-    if self.Timer then
-        return
+function XSubPackageAgency:GetUrlPrefix()
+    if self._UrlPrefix then
+        return self._UrlPrefix
     end
-
-    if not self._IsDownloading then
-        self:StopTimer()
-        return
+    if self._IsNeedLaunchTest then
+        self._UrlPrefix = string.format("%s/%s/%s", "client/patch/com.kurogame.haru.internal.debug.subpack/1.0.0/android", CS.XRemoteConfig.DocumentVersion, RES_FILE_TYPE.MATRIX_FILE)
+        return self._UrlPrefix
     end
+    self._UrlPrefix = string.format("%s/%s/%s", self._DocumentUrl, CS.XRemoteConfig.DocumentVersion, RES_FILE_TYPE.MATRIX_FILE)
     
-    self.Timer = XScheduleManager.ScheduleForever(self._OnUpdateDownloadCb, UPDATE_INTERVAL)
+    return self._UrlPrefix
 end
 
-function XSubPackageAgency:StopTimer()
-    if not self.Timer then
+function XSubPackageAgency:ChangeThread(isSingle, isForce)
+    if not self._IsDownloading and not isForce then
         return
     end
-    XScheduleManager.UnSchedule(self.Timer)
-    self.Timer = nil
+    local count = isSingle and SingleThreadCount or MultiThreadCount
+    if count == self._ThreadCount and not isForce then
+        return
+    end
+    self._ThreadCount = count
+    if self._DownloadCenter then
+        self._DownloadCenter:SetThreadNumber(self._ThreadCount)
+    end
+
+    if isSingle and self._IsDownloading then
+        XUiManager.TipText("QuitFullDownloadTip")
+    end
+
+    XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_MULTI_COUNT_CHANGED)
+end
+
+function XSubPackageAgency:IsMultiThread()
+    if not self._IsDownloading then
+        return false
+    end
+    return self._ThreadCount == MultiThreadCount
+end
+
+--正在切换线程数量
+function XSubPackageAgency:IsChangingThread()
+    if not self._IsDownloading then
+        return false
+    end
+
+    if not self._DownloadCenter then
+        return false
+    end
+    return self._DownloadCenter:GetCurrentRunningTaskNumber() ~= self._ThreadCount
+end
+
+function XSubPackageAgency:IsDownloading()
+    return self._IsDownloading
+end
+
+function XSubPackageAgency:OnStateChanged(subpackageId, state)
+    local item = self._Model:GetSubpackageItem(subpackageId)
+    if item then
+        item:OnStateChanged(state)
+    end
+end
+
+---判断分包是否下载完成
+---@return boolean
+function XSubPackageAgency:CheckSubpackageComplete(subpackageId)
+    if not self:IsOpen() then
+        return true
+    end
+
+    --无需下载
+    if subpackageId == XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.INVALID then
+        return true
+    elseif subpackageId == XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.NECESSARY then --检测必要资源
+        return self:CheckNecessaryComplete()
+    end
+
+    local item = self._Model:GetSubpackageItem(subpackageId)
+    if not item then
+        return true
+    end
+
+    --当前分包未下载完
+    if not item:IsComplete() then
+        return false
+    end
+    local complete = true
+    local template = self._Model:GetSubpackageTemplate(subpackageId)
+    local bindIds = template.BindSubIds
+    if XTool.IsTableEmpty(bindIds) then
+        return complete
+    end
+    --检查当前分包绑定的分包是否下载完毕
+    for _, bindId in ipairs(bindIds) do
+        local item = self._Model:GetSubpackageItem(bindId)
+        if item and not item:IsComplete() then
+            complete = false
+            break
+        end
+    end
+
+    return complete
 end
 
 -- 检查必要资源是否下载完毕
@@ -372,7 +549,24 @@ function XSubPackageAgency:CheckNecessaryComplete()
         return true
     end
     local complete = true
-    for _, groupId in ipairs(NecessaryDownloadGroupId) do
+    local necessaryIds = self._Model:GetNecessarySubIds()
+    for _, subpackageId in ipairs(necessaryIds) do
+        local item = self._Model:GetSubpackageItem(subpackageId)
+        if item and not item:IsComplete() then
+            complete = false
+            break
+        end
+    end
+    return complete
+end
+
+function XSubPackageAgency:CheckAllComplete()
+    if not self:IsOpen() then
+        return true
+    end
+    local complete = true
+    local groupIds = self._Model:GetGroupIdList()
+    for _, groupId in pairs(groupIds) do
         local template = self._Model:GetGroupTemplate(groupId)
         for _, subpackageId in ipairs(template.SubPackageId) do
             local item = self._Model:GetSubpackageItem(subpackageId)
@@ -385,6 +579,7 @@ function XSubPackageAgency:CheckNecessaryComplete()
             break
         end
     end
+
     return complete
 end
 
@@ -392,8 +587,9 @@ function XSubPackageAgency:CheckSubpackage(enterType, param)
     if not self:IsOpen() then
         return true
     end
+    local subId = self._Model:GetEntrySubpackageId(enterType, param)
     --需要拦截，并且未下载必要资源
-    if self._Model:CheckIntercept(enterType, param) and not self:CheckNecessaryComplete() then
+    if not self:CheckSubpackageComplete(subId) then
         self:DoRecordIntercept(enterType, param)
         XLuaUiManager.Open("UiDownloadPreview")
         return false
@@ -404,9 +600,12 @@ end
 function XSubPackageAgency:CheckSubpackageByCvType(cvType)
     local isComplete = self:CheckCvDownload(cvType)
     if not isComplete then
-        local template = self._Model:GetVoiceIntercept(cvType)
-        local subpackageIds = template.SubpackageId
-        XLuaUiManager.Open("UiDownloadPreview", subpackageIds)
+        local subpackageIds = self._Model:GetAllSubpackageIds(XEnumConst.SUBPACKAGE.ENTRY_TYPE.CHARACTER_VOICE, cvType)
+        if not XTool.IsTableEmpty(subpackageIds) then
+            XLuaUiManager.Open("UiDownloadPreview", subpackageIds)
+        else
+            isComplete = true
+        end
     end
     return isComplete
 end
@@ -416,22 +615,8 @@ function XSubPackageAgency:CheckCvDownload(cvType)
         return true
     end
 
-    local template = self._Model:GetVoiceIntercept(cvType)
-    local subpackageIds = template.SubpackageId
-    if XTool.IsTableEmpty(subpackageIds) then
-        return true
-    end
-
-    local isComplete = true
-    for _, subpackageId in ipairs(subpackageIds) do
-        local item = self._Model:GetSubpackageItem(subpackageId)
-        if not item:IsComplete() then
-            isComplete = false
-            break
-        end
-    end
-
-    return isComplete
+    local subId = self._Model:GetEntrySubpackageId(XEnumConst.SUBPACKAGE.ENTRY_TYPE.CHARACTER_VOICE, cvType)
+    return self:CheckSubpackageComplete(subId)
 end
 
 function XSubPackageAgency:DownloadAllByGroup(groupId)
@@ -455,8 +640,8 @@ function XSubPackageAgency:DownloadAllByGroup(groupId)
             end
         end
     end
-    
-    table.sort(need, function(a, b) 
+
+    table.sort(need, function(a, b)
         return a < b
     end)
     for _, subId in ipairs(need) do
@@ -465,17 +650,15 @@ function XSubPackageAgency:DownloadAllByGroup(groupId)
     self._IsDownloadGroup = true
 end
 
-function XSubPackageAgency:GetNecessaryGroupIds()
-    return NecessaryDownloadGroupId
-end
-
 function XSubPackageAgency:IsNecessaryGroup(groupId)
-    for _, gId in pairs(NecessaryDownloadGroupId) do
-        if gId == groupId then
-            return true
-        end
+    local template = self._Model:GetGroupTemplate(groupId)
+    local subIds = template and template.SubPackageId or {}
+    local subId = subIds[1]
+    if not XTool.IsNumberValid(subId) then
+        return false
     end
-    return false
+    local subT = self._Model:GetSubpackageTemplate(subId)
+    return subT.Type == XEnumConst.SUBPACKAGE.SUBPACKAGE_TYPE.NECESSARY
 end
 
 ---@return string
@@ -510,36 +693,65 @@ function XSubPackageAgency:SetWifiAutoState(groupId, value)
     else
         self._Model:SaveWifiAutoSelect(groupId, value)
     end
-    
+
     self:OnNetworkReachabilityChanged()
 end
 
 function XSubPackageAgency:OnPreEnterFight()
-    
+
 end
 
 function XSubPackageAgency:OnExitFight()
-    if not self._ShowErrorDialog then
+    if not self._ErrorSubpackageId then
         return
     end
-    
-    local errorCode = "FileManagerInitFileTableInGameDownloadError"
+    self:ErrorDialog("FileManagerInitFileTableInGameDownloadError", nil, function()
+        self:AddToDownload(self._ErrorSubpackageId)
+        self._ErrorSubpackageId = nil
+    end, nil, CsXApplication.GetText("Retry"))
+
+end
+
+function XSubPackageAgency:MarkErrorDialogOnFight(subpackageId)
+    self:PauseAll()
+    self._ErrorSubpackageId = subpackageId
+end
+
+function XSubPackageAgency:DoDownloadError(subpackageId)
+    --如果在战斗中
+    if not CS.XFightInterface.IsOutFight then
+        self:MarkErrorDialogOnFight(subpackageId)
+        return
+    end
+    self:PauseAll()
+    self:ErrorDialog("FileManagerInitFileTableInGameDownloadError", nil, function()
+        self:AddToDownload(subpackageId)
+    end, nil, CsXApplication.GetText("Retry"))
+end
+
+function XSubPackageAgency:ErrorDialog(errorCode, cancelCb, confirmCb, cancelStr, confirmStr)
+
     CS.XHeroBdcAgent.BdcStartUpError(errorCode)
-    local csApp = CS.XApplication
-    CS.XTool.WaitCoroutine(csApp.CoDialog(csApp.GetText("Tip"), csApp.GetText(errorCode), 
-            function()
-            end, 
-            function() 
-                self:AddToDownload(self._ShowErrorDialog)
-                self._ShowErrorDialog = nil
-            end, nil, csApp.GetText("Retry")))
-    
+    cancelCb = cancelCb or function()
+    end
+    confirmCb = confirmCb or function()
+    end
+
+    CS.XTool.WaitCoroutine(CsXApplication.CoDialog(CsXApplication.GetText("Tip"),
+            CsXApplication.GetText(errorCode), cancelCb, confirmCb, cancelStr, confirmStr))
 end
 
 function XSubPackageAgency:OnNetworkReachabilityChanged()
     if not self:IsOpen() then
         return
     end
+
+    local notConnected = CS.XNetworkReachability.IsNotReachable()
+    if notConnected and self._IsDownloading then
+        self:DoDownloadError(self._DownloadPackageId)
+        return
+    end
+
     local isWifi = CS.XNetworkReachability.IsViaLocalArea()
 
     if isWifi then
@@ -558,7 +770,7 @@ function XSubPackageAgency:OnLoginSuccess()
     if not self:IsOpen() then
         return
     end
-    self:RequestTask()
+    --self:RequestTask()
     --已经在下载了，就不用处理了
     if self._IsDownloading then
         return
@@ -572,29 +784,20 @@ function XSubPackageAgency:OnLoginSuccess()
         return
     end
     --开始下载必要资源
-    for _, groupId in pairs(NecessaryDownloadGroupId) do
-        self:DownloadAllByGroup(groupId)
+    local subIds = self._Model:GetNecessarySubIds()
+    for _, subId in ipairs(subIds) do
+        self:AddToDownload(subId)
     end
 end
 
-function XSubPackageAgency:OnDownloadRelease()
-    if not self:IsOpen() then
-        return
-    end
-    if XTool.IsNumberValid(self._PreparePauseId) then
-        local item = self._Model:GetSubpackageItem(self._PreparePauseId)
-        item:Pause()
-        self._TipDialog = false
-        
-        XEventManager.DispatchEvent(XEventId.EVENT_SUBPACKAGE_PAUSE, self._PreparePauseId)
-    end
-    
-    self._IsDownloading = false
-    self._IsDownloadGroup = false
-    self._DownloadPackageId = 0
-    self._PreparePauseId = 0
-    
-    self:StartDownload()
+function XSubPackageAgency:OnSingleTaskFinish(eventName, args)
+    local resourceName = args[0]
+    --resourceName 是带前缀的
+    local fullLen = string.len(resourceName)
+    local prefixLen = string.len(self:GetUrlPrefix())
+    --Lua 下标从1开始，去掉斜杠
+    local fileName = string.sub(resourceName, prefixLen + 2, fullLen)
+    self._LaunchDlcManager.SetDownloadedFile(fileName, true)
 end
 
 function XSubPackageAgency:IsPreparePause()
@@ -607,16 +810,8 @@ end
 
 --是否为可选资源
 function XSubPackageAgency:IsOptional(subpackageId)
-    local groupId = self._Model:GetSubpackageGroupId(subpackageId)
-    local isOptional = true
-    for _, gId in pairs(NecessaryDownloadGroupId) do
-        if gId == groupId then
-            isOptional = false
-            break
-        end
-    end
-    
-    return isOptional
+    local template = self._Model:GetSubpackageTemplate(subpackageId)
+    return template.Type == XEnumConst.SUBPACKAGE.SUBPACKAGE_TYPE.OPTIONAL
 end
 
 function XSubPackageAgency:CheckRedPoint()
@@ -642,12 +837,12 @@ function XSubPackageAgency:RequestTask()
     if not data then
         return
     end
-    
-    if data.State == XDataCenter.TaskManager.TaskState.Achieved 
+
+    if data.State == XDataCenter.TaskManager.TaskState.Achieved
             or data.State == XDataCenter.TaskManager.TaskState.Finish then
         return
     end
-    
+
     XDataCenter.TaskManager.RequestClientTaskFinish(taskId)
 end
 
@@ -691,5 +886,14 @@ function XSubPackageAgency:DoRecordIntercept(entryType, param)
     CS.XRecord.Record(dict, "80035", "SubpackageIntercept")
 end
 
+function XSubPackageAgency:DoRecordDownloadError(fileName, fileSize)
+    local dict = {}
+    dict["file_name"] = fileName
+    dict["file_size"] = fileSize
+    dict["version"] = self._DocumentVersion
+    dict["type"] = RES_FILE_TYPE.MATRIX_FILE
+
+    CS.XRecord.Record(dict, "80007", "XFileManagerDownloadError")
+end
 
 return XSubPackageAgency

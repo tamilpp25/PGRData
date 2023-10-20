@@ -121,12 +121,20 @@ function XDynamicTableCurve:OnDynamicTableEvent(event, index, grid)
         self:SetProxyDisplay(proxy, false)
     end
 
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_DEBUG_LOG_DATASOURCE then
+        self:DebugLogDataSource()
+    end
+
     local curSelectLuaIndex = self:GetImpl().StartIndex + 1
     if self.DynamicEventDelegate then
         self.DynamicEventDelegate(event, index, proxy, curSelectLuaIndex)
     else
         self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy, curSelectLuaIndex)
     end
+end
+
+function XDynamicTableCurve:DebugLogDataSource()
+    XLog.Debug("XDynamicTableCurve name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
 end
 
 -- 兼容XUiNode

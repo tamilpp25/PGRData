@@ -19,7 +19,7 @@ function XUiGridUnionShareCharItem:Refresh(shareInfos)
     self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
     self.TxtLevel.text = character.Level
     self.TxtFight.text = math.floor(character.Ability)
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 end
 
 return XUiGridUnionShareCharItem

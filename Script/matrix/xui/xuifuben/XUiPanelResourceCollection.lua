@@ -141,7 +141,7 @@ function XUiPanelResourceCollection:SetupDynamicTable(bReload, targetTabIndex)
         else
             dynamicTable.Imp.gameObject:SetActiveEx(false)  --其他不显示的则隐藏，且格子也要隐藏（alpha设为0）
             for index, grid in pairs(dynamicTable:GetGrids()) do
-                grid:SetAlphaZero()
+                grid:SetAlphaOne()
             end
         end
     end
@@ -185,7 +185,7 @@ function XUiPanelResourceCollection:OnClickChapterGrid(ChapterViewModel)
         ChapterViewModel:GetOpenDayString()))
         return
     end
-    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.RESOURCE_ENTRY_TYPE, ChapterViewModel:GetId()) then
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.MATERIAL_COLLECTION, ChapterViewModel:GetId()) then
         return
     end
     ChapterViewModel:OpenUi()

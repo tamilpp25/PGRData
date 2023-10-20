@@ -86,7 +86,7 @@ function XUiPanelOnLineLoadingDetailItem:Refresh(data)
     if icon then
         self.RootUi:SetUiSprite(self.ImgIcon, icon)
     end
-    local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
     local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
     local logo = XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type)
     if logo then

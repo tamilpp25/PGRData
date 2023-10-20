@@ -14,6 +14,10 @@ end
 function XUiGridBossScore:SetData(scoreCfg, totalScore)
     self._TotalScore = totalScore
     self._ScoreCfg = scoreCfg
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 function XUiGridBossScore:_RegisterButtonListeners()

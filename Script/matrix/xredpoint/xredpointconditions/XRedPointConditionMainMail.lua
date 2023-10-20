@@ -15,7 +15,7 @@ end
 function XRedPointConditionMainMail.Check()
     ---@type XMailAgency
     local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
-    return mailAgency:GetHasUnDealMail() + XRedPointConditionMailFavoriteBox.Check() + XRedPointConditionMailFavorite.Check()
+    return mailAgency:GetHasUnDealMail() + XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAIL_FAVORITE_BOX) + XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAIL_FAVORITE)
 end
 
 return XRedPointConditionMainMail

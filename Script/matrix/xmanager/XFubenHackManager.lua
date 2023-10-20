@@ -671,17 +671,17 @@ XFubenHackManagerCreator = function()
 end
 
 XRpc.NotifyHackLoginData = function(data)
-    XDataCenter.FubenHackManager.NotifyData(data)
+    --XDataCenter.FubenHackManager.NotifyData(data)
 end
 
 XRpc.NotifyHackLevelData = function(data)
-    XDataCenter.FubenHackManager.NotifyHackLevelData(data)
+    --XDataCenter.FubenHackManager.NotifyHackLevelData(data)
 end
 
 XRpc.NotifyHackStageInfoChange = function(data)
-    XDataCenter.FubenHackManager.NotifyStageData(data.StageInfo)
+    --XDataCenter.FubenHackManager.NotifyStageData(data.StageInfo)
 end
 
 XRpc.NotifyHackTicketGetState = function(data)
-    XDataCenter.FubenHackManager.NotifyHackTicketGetState(data)
+    --XDataCenter.FubenHackManager.NotifyHackTicketGetState(data)
 end

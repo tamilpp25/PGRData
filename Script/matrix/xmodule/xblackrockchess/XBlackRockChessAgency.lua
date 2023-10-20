@@ -7,8 +7,7 @@ function XBlackRockChessAgency:OnInit()
     --初始化一些变量
     
     --添加到Manager里
-    local instance = XMVCA:GetAgency(ModuleId.XFubenEx)
-    instance:RegisterActivityAgency(self)
+    self:RegisterActivityAgency()
     
     self._IsFighting = false
     
@@ -47,6 +46,9 @@ function XBlackRockChessAgency:ExOpenMainUi()
 end
 
 function XBlackRockChessAgency:ExCheckInTime()
+    if not XFubenActivityAgency.ExCheckInTime(self) then
+        return false
+    end
     return self:IsOpen()
 end
 

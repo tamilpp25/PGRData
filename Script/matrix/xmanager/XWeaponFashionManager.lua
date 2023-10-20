@@ -9,7 +9,9 @@ XWeaponFashionManagerCreator = function()
     ---@class XWeaponFashionManager XWeaponFashionManager
     local XWeaponFashionManager = {}
 
+    local InitWeaponFashionsCount = 0
     local OwnWeaponFashions = {}
+    local AllWeaponFashionIsOwnDic = {}
 
     XWeaponFashionManager.FashionStatus = {
         UnOwned = 0, -- 未拥有
@@ -19,12 +21,31 @@ XWeaponFashionManagerCreator = function()
 
     local IsNotifyWeaponFashionTransform = false
 
+    function XWeaponFashionManager.Init()
+        local allWeaponFashion = XWeaponFashionConfigs.GetWeaponFashionResTemplates()
+        for id, v in pairs(allWeaponFashion) do
+            AllWeaponFashionIsOwnDic[id] = { IsOwn = false,IsNew = false }
+        end
+        AllWeaponFashionIsOwnDic[XWeaponFashionConfigs.DefaultWeaponFashionId] = { IsOwn = false, IsNew = false }
+        InitWeaponFashionsCount = 0
+    end
+
     function XWeaponFashionManager.InitWeaponFashions(fashions)
         if not fashions then return end
 
         for _, data in pairs(fashions) do
             OwnWeaponFashions[data.Id] = XWeaponFashion.New(data)
+
+            local beforeData = AllWeaponFashionIsOwnDic[data.Id]
+            if beforeData and not beforeData.IsOwn then
+                beforeData.IsOwn = true
+                if InitWeaponFashionsCount > 0 and data.Id ~= XWeaponFashionConfigs.DefaultWeaponFashionId then
+                    beforeData.IsNew = true
+                end
+            end
         end
+
+        InitWeaponFashionsCount = InitWeaponFashionsCount + 1
     end
 
     function XWeaponFashionManager.RecycleWeaponFashions(fashionIds)
@@ -51,6 +72,18 @@ XWeaponFashionManagerCreator = function()
             local rewards = { { TemplateId = data.ItemId, Count = data.ItemCount } }
             XUiManager.OpenUiObtain(rewards)
         end
+    end
+
+    function XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(fashionId)
+        return AllWeaponFashionIsOwnDic[fashionId]
+    end
+
+    function XWeaponFashionManager.SetWeaponFashionIsOwnNewUnactive(fashionId)
+        local data = XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(fashionId)
+        if not data then
+            return
+        end
+        data.IsNew = false
     end
 
     function XWeaponFashionManager.GetIsNotifyWeaponFashionTransform()
@@ -173,6 +206,17 @@ XWeaponFashionManagerCreator = function()
         return res
     end
 
+    function XWeaponFashionManager.GetCurrCharHaveNewWeaponFashion(characterId)
+        local ownWeaponFashionList = XWeaponFashionManager.GetOwnWeaponFashionList(characterId)
+        for k, id in pairs(ownWeaponFashionList) do
+            local data = XWeaponFashionManager.GetAllWeaponFashionIsOwnDic(id)
+            if data and data.IsNew then
+                return true
+            end
+        end
+        return false
+    end
+
     function XWeaponFashionManager.GetFashionStatus(fashionId, characterId)
         if XWeaponFashionConfigs.IsDefaultId(fashionId) then
             for _, fashion in pairs(OwnWeaponFashions) do
@@ -263,7 +307,10 @@ XWeaponFashionManagerCreator = function()
 
         XNetwork.Call("WeaponFashionUseRequest", { Id = fashionId, CharacterId = characterId }, function(res)
             if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
+                if res.Code ~= XCode.WeaponFashionCharacterDressRepeat then
+                    XUiManager.TipCode(res.Code)
+                end
+
                 return
             end
 
@@ -291,7 +338,7 @@ XWeaponFashionManagerCreator = function()
         end
         return nil
     end
-
+    XWeaponFashionManager.Init()
     return XWeaponFashionManager
 end
 

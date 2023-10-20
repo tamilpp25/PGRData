@@ -134,7 +134,7 @@ end
 -- 职业类型
 function XCharacterViewModel:GetProfessionType()
     if self.ProfessionType == nil then
-        local npcId = XCharacterConfigs.GetCharNpcId(self.Config.Id, self.Quality)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(self.Config.Id, self.Quality)
         local npcConfig = XCharacterConfigs.GetNpcTemplate(npcId)
         self.ProfessionType = npcConfig and npcConfig.Type or 0
     end
@@ -148,7 +148,7 @@ end
 
 -- 品质图标
 function XCharacterViewModel:GetQualityIcon()
-    return XCharacterConfigs.GetCharacterQualityIcon(self.Quality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(self.Quality)
 end
 
 function XCharacterViewModel:GetSmallHeadIcon()

@@ -102,7 +102,7 @@ function XUiArchiveMonsterEvaluate:OnBtnSubmitClick()
     end
 
     if IsScoreChange or IsDifficultyChange or IsTagChange then
-        XDataCenter.ArchiveManager.MonsterGiveEvaluate(self.Base.Data:GetNpcId(self.Base.CurType), self.MyScore, self.MyDifficulty, self.MyTagIds, function()
+        self._Control:MonsterGiveEvaluate(self.Base.Data:GetNpcId(self.Base.CurType), self.MyScore, self.MyDifficulty, self.MyTagIds, function()
             self:Close()
         end, self.CallBack)
     else
@@ -156,9 +156,9 @@ function XUiArchiveMonsterEvaluate:SetPanelTag()
                     self:OnBtnTag()
                 end
             end
-            self.PanelTag.TagItem[index].TxtTag.text = XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Name
-            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Color)
-            local bgImg = XArchiveConfigs.GetArchiveTagCfgById(self.MyTagIds[index]).Bg
+            self.PanelTag.TagItem[index].TxtTag.text = self._Control:GetArchiveTagCfgById(self.MyTagIds[index]).Name
+            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(self._Control:GetArchiveTagCfgById(self.MyTagIds[index]).Color)
+            local bgImg = self._Control:GetArchiveTagCfgById(self.MyTagIds[index]).Bg
             if bgImg then self:SetUiSprite(self.PanelTag.TagItem[index].Bg, bgImg) end
         end
         self.PanelTag.TagItemObj[index].gameObject:SetActiveEx(self.MyTagIds[index] and true or false)

@@ -441,7 +441,8 @@ function XUiPanelOtherSet:OnFocusTypeChanged(index)
 end
 
 function XUiPanelOtherSet:OnFocusTypeDlcHuntChanged(index)
-    if XDataCenter.DlcRoomManager.IsInTutorialWorld() then
+    -- if XDataCenter.DlcRoomManager.IsInTutorialWorld() then
+    if XMVCA.XDlcRoom:IsInTutorialWorld() then
         local teachingIndex = self:GetFocusIndexDlcHunt(XSetConfigs.FocusTypeDlcHunt.Auto)
         if teachingIndex ~= index then
             self.TGroupFocusTypeDlcHunt:SelectIndex(teachingIndex)

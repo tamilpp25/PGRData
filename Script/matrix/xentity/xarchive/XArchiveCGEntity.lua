@@ -13,7 +13,7 @@ function XArchiveCGEntity:UpdateData(playerData)
 end
 
 function XArchiveCGEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveCGDetailConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveCGDetailConfigById(self.Id)
 end
 
 function XArchiveCGEntity:GetId()

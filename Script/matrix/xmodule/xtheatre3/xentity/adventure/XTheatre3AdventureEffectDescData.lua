@@ -85,7 +85,7 @@ function XTheatre3AdventureEffectDescData:GetSuitPassFightCount(suitId)
 end
 
 function XTheatre3AdventureEffectDescData:GetSuitPassBossFightCount(suitId)
-    if XTool.IsTableEmpty(self._SuitDataDir[equipId]) then
+    if XTool.IsTableEmpty(self._SuitDataDir[suitId]) then
         return 0
     end
     return self._SuitDataDir[suitId].PassBossFightCount

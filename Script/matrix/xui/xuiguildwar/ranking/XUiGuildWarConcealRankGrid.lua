@@ -23,8 +23,6 @@ function XUiGuildWarConcealGrid:RefreshData(data)
     --排名显示
     local ranking = data.Rank
     if ranking <= 100 then
-        --local icon = XDataCenter.SuperSmashBrosManager.GetRankingSpecialIcon(ranking)
-        --if icon then self.RootUi:SetUiSprite(self.ImgRankSpecial, icon) end
         self.TxtRankNormal.gameObject:SetActive(true)--icon == nil)
         self.ImgRankSpecial.gameObject:SetActive(false)--icon ~= nil)
         self.TxtRankNormal.text = ranking == 0 and "-" or ranking

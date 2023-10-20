@@ -88,6 +88,7 @@ function XUiLotto:OnEnable()
     end
 
     CS.XGlobalIllumination.EnableDistortionInUI = true
+    self:AddEventListener()
 end
 
 function XUiLotto:PlayStartAnimation()
@@ -114,6 +115,7 @@ end
 function XUiLotto:OnDisable()
     self:StopTimer()
     CS.XGlobalIllumination.EnableDistortionInUI = false
+    self:RemoveEventListener()
 end
 
 function XUiLotto:SetBtnCallBack()
@@ -243,9 +245,7 @@ function XUiLotto:OnDraw()
     local needItemCount = drawData:GetConsumeCount()
     if needItemCount > curItemCount then
         XUiManager.TipMsg(CSTextManagerGetText("DrawNotEnoughSkipText"))
-        XLuaUiManager.Open("UiLottoTanchuang", drawData, function()
-            self:UpdateAllPanel()
-        end)
+        XLuaUiManager.Open("UiLottoTanchuang", drawData)
         return
     end
 
@@ -381,3 +381,13 @@ function XUiLotto:PlayDrawSecondAnimation()
         end
     end, CS.UnityEngine.Playables.DirectorWrapMode.None)
 end
+
+--region Event
+function XUiLotto:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.UpdateAllPanel, self)
+end
+
+function XUiLotto:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.UpdateAllPanel, self)
+end
+--endregion

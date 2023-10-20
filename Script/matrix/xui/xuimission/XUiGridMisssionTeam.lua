@@ -19,7 +19,7 @@ function XUiGridMisssionTeam:UpdateGrid(character)
     self.Character = character
     self.ImgInTeam.gameObject:SetActive(self.Character.IsWorking and self.Character.IsWorking > 0)
     self.TxtLevel.text = self.Character.Level
-    self.RootUi:SetUiSprite(self.ImgQuality, XCharacterConfigs.GetCharacterQualityIcon(self.Character.Quality))
+    self.RootUi:SetUiSprite(self.ImgQuality, XMVCA.XCharacter:GetCharacterQualityIcon(self.Character.Quality))
     self.RootUi:SetUiSprite(self.ImgHeadIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.Character.Id))
 end
 

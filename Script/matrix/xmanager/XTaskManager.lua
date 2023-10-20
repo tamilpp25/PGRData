@@ -1,3 +1,10 @@
+---@class XTaskData
+---@field Id number taskId
+---@field Schedule table<number, table>
+---@field State number XTaskManager.TaskState
+---@field ActivityId number 活动编号
+---@field RecordTime number 领取时间
+
 TaskType = {
     Story = 1, -- 普通/剧情
     Daily = 2, -- 每日
@@ -132,6 +139,7 @@ XTaskManagerCreator = function()
     -- 创建新系统或者优化原有系统时请使用新的通用任务接口
     -------------------------------------------------------
     local CourseData = {}
+    ---@type XTaskData[]
     local TotalTaskData = {}
     local StoryTaskData = {}
     local DailyTaskData = {}
@@ -156,6 +164,7 @@ XTaskManagerCreator = function()
     local BabelTowerTaskData = {}
     local RogueLikeTaskData = {}
     local WorldBossTaskData = {}
+    local RiftTaskData = {}
 
     --师徒任务
     local MentorGrowTaskData = {}
@@ -404,6 +413,8 @@ XTaskManagerCreator = function()
                 PassportTaskData[k] = v
             elseif taskType == XTaskManager.TaskType.LivWarmSoundsActivity then
                 LivWarmSoundsActivityTaskData[k] = v
+            elseif taskType == XTaskManager.TaskType.Rift then
+                RiftTaskData[k] = v
                 -------------------------------------------------------
             elseif taskType and taskType ~= XTaskManager.TaskType.OffLine then
                 -- XLog.Warning(taskType, k, v, "TaskDataGroup",TaskDataGroup)
@@ -1085,8 +1096,13 @@ XTaskManagerCreator = function()
         return GetTaskList(XTaskManager.GetTaskDataByTaskType(XTaskManager.TaskType.InfestorWeekly))
     end
 
+    -- 包括已完成的任务
     function XTaskManager.GetRiftTaskList()
-        return GetTaskList(XTaskManager.GetTaskDataByTaskType(XTaskManager.TaskType.Rift))
+        local tasks = {}
+        for _, v in pairs(RiftTaskData) do
+            tableInsert(tasks, v)
+        end
+        return tasks
     end
 
     -- 包括已完成的任务
@@ -1200,20 +1216,20 @@ XTaskManagerCreator = function()
 
     function XTaskManager.GetWorldBossFullTaskList()
         local tasks = {}
-        local bossTaskDataDic = XDataCenter.WorldBossManager.GetWorldBossBossTaskDataDic()
-
-        for _, v in pairs(WorldBossTaskData) do
-            local IsCanShow = true
-            for _, data in pairs(bossTaskDataDic and bossTaskDataDic[v.Id] or {}) do
-                if data:GetIsLock() then
-                    IsCanShow = false
-                    break
-                end
-            end
-            if IsCanShow then
-                table.insert(tasks, v)
-            end
-        end
+        --local bossTaskDataDic = XDataCenter.WorldBossManager.GetWorldBossBossTaskDataDic()
+        --
+        --for _, v in pairs(WorldBossTaskData) do
+        --    local IsCanShow = true
+        --    for _, data in pairs(bossTaskDataDic and bossTaskDataDic[v.Id] or {}) do
+        --        if data:GetIsLock() then
+        --            IsCanShow = false
+        --            break
+        --        end
+        --    end
+        --    if IsCanShow then
+        --        table.insert(tasks, v)
+        --    end
+        --end
         return tasks
     end
 
@@ -1436,6 +1452,7 @@ XTaskManagerCreator = function()
     end
 
     -- 读取一串taskid的数据
+    ---@return XTaskData[]
     function XTaskManager.GetTaskIdListData(taskIds, isSort)
         if isSort == nil then isSort = true end
         local taskDatas = {}
@@ -1636,6 +1653,8 @@ XTaskManagerCreator = function()
             datas = PokerGuessingTaskData
         elseif taskType == XTaskManager.TaskType.Passport then
             datas = PassportTaskData
+        elseif taskType == XTaskManager.TaskType.Rift then
+            datas = RiftTaskData
         elseif taskType then
             datas = TaskDataGroup[taskType] or {}
         end
@@ -1949,6 +1968,8 @@ XTaskManagerCreator = function()
                 PassportTaskData[value.Id] = value
             elseif taskType == XTaskManager.TaskType.LivWarmSoundsActivity then
                 LivWarmSoundsActivityTaskData[value.Id] = value
+            elseif taskType == XTaskManager.TaskType.Rift then
+                RiftTaskData[value.Id] = value
             else
                 if not TaskDataGroup[taskType] then
                     TaskDataGroup[taskType] = {}
@@ -2042,6 +2063,8 @@ XTaskManagerCreator = function()
             taskList = PassportTaskData
         elseif taskType == XTaskManager.TaskType.LivWarmSoundsActivity then
             taskList = LivWarmSoundsActivityTaskData
+        elseif taskType == XTaskManager.TaskType.Rift then
+            taskList = RiftTaskData
         else
             taskList = TaskDataGroup[taskType]
         end

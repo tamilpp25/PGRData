@@ -2,8 +2,9 @@ local tableInsert = table.insert
 ---@class XTeam
 local XTeam = XClass(nil, "XTeam")
 
-function XTeam:Ctor(id)
+function XTeam:Ctor(id, isStandAlone)
     self.Id = id or -1
+    self.IsStandAlone = isStandAlone
     -- CharacterId | RobotId
     self.EntitiyIds = {0, 0, 0}
     self.FirstFightPos = 1
@@ -38,7 +39,7 @@ end
 
 function XTeam:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     if isJoin then
-        if self:CheckHasSameCharacterId(entityId) then
+        if self:CheckHasSameCharacterId(entityId) and XTool.IsNumberValid(entityId) then
             local content = string.format("joinEntity:%s", entityId)
             XLog.BuglyLog("XTeam", "UpdateEntityTeamPos JoinId:", entityId, "AllEntityIdInTeam", self.EntitiyIds)
             return
@@ -57,9 +58,11 @@ end
 
 -- teamData : 旧系统的队伍数据
 function XTeam:UpdateFromTeamData(teamData)
-    local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(teamData.TeamData)
-    if isSameEntityId then
-        teamData.TeamData[index] = 0
+    if not self.IsStandAlone then
+        local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(teamData.TeamData)
+        if isSameEntityId then
+            teamData.TeamData[index] = 0
+        end
     end
 
     self.FirstFightPos = teamData.FirstFightPos
@@ -72,9 +75,11 @@ function XTeam:UpdateFromTeamData(teamData)
 end
 
 function XTeam:UpdateEntityIds(value)
-    local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(value)
-    if isSameEntityId then
-        value[index] = 0
+    if not self.IsStandAlone then
+        local isSameEntityId, index = XMVCA.XCharacter:HasDuplicateCharId(value)
+        if isSameEntityId then
+            value[index] = 0
+        end
     end
 
     self.EntitiyIds = value
@@ -208,9 +213,28 @@ function XTeam:GetEntityIdPos(entityId)
 end
 
 function XTeam:CheckHasSameCharacterId(entityId)
+    if self.IsStandAlone then
+        return false
+    end
+
     local checkCharacterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
     for pos, entityId in pairs(self:GetEntityIds()) do
         if XEntityHelper.GetCharacterIdByEntityId(entityId) == checkCharacterId then
+            return true, pos
+        end
+    end
+    return false, -1
+end
+
+-- 检查自机和机器人是否有相同的角色id
+function XTeam:CheckHasSameCharacterIdButNotEntityId(entityId)
+    if self.IsStandAlone then
+        return false
+    end
+    
+    local checkCharacterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
+    for pos, entityIdInTeam in pairs(self:GetEntityIds()) do
+        if XEntityHelper.GetCharacterIdByEntityId(entityIdInTeam) == checkCharacterId and entityIdInTeam ~= entityId then
             return true, pos
         end
     end

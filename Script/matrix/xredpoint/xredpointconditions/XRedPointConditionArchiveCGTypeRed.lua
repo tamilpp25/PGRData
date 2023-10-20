@@ -11,7 +11,7 @@ function XRedPointConditionArchiveCGTypeRed.GetSubEvents()
 end
 
 function XRedPointConditionArchiveCGTypeRed.Check(groupId)
-    return XDataCenter.ArchiveManager.CheckCGRedPointByGroup(groupId)
+    return XMVCA.XArchive:CheckCGRedPointByGroup(groupId)
 end
 
 return XRedPointConditionArchiveCGTypeRed

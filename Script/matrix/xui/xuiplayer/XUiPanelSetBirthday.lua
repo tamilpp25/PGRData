@@ -81,16 +81,16 @@ function XUiPanelSetBirthday:OnBtnBirSureClick()
 
     -- 对话框确认事件
     local onConfirmCb = function ()
-        local currBir = XPlayer.Birthday
+        local currBir = XMVCA.XBirthdayPlot:GetBirthday()
         if currBir then
-            local isChanged = XPlayer.IsChangedBirthday()
+            local isChanged = XMVCA.XBirthdayPlot:IsChangedBirthday()
             if (currBir.Mon and mon == currBir.Mon) and (currBir.Day and day == currBir.Day) and isChanged then
                 self.Base:HidePanelSetBirthday()
                 return
             end
         end
-
-        XPlayer.ChangeBirthday(mon, day, function()
+        
+        XMVCA.XBirthdayPlot:RequestChangeBirthday(mon, day, function()
             self.Base:ChangeBirthdayCallback()
         end)
     end
@@ -98,8 +98,9 @@ function XUiPanelSetBirthday:OnBtnBirSureClick()
     -- 提示对话框的层级比修改生日弹框的层级低，先将修改生日弹框关闭
     self:OnBtnBirCancelClick()
     local desc
-    if XPlayer.Birthday then
-        desc = CS.XTextManager.GetText("BirthdayChangeTips", XPlayer.Birthday.Mon, XPlayer.Birthday.Day, mon, day)
+    local birthday = XMVCA.XBirthdayPlot:GetBirthday()
+    if XMVCA.XBirthdayPlot:IsSetBirthday() then
+        desc = CS.XTextManager.GetText("BirthdayChangeTips", birthday.Mon, birthday.Day, mon, day)
     else
         desc = CS.XTextManager.GetText("BirthdayFirstSetTips", mon, day)
     end

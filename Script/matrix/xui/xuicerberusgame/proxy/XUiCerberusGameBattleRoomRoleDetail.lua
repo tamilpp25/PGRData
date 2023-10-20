@@ -23,15 +23,15 @@ function XUiCerberusGameBattleRoomRoleDetail:AOPOnDynamicTableEventAfter(rootUi,
 end
 
 -- 
-function XUiCerberusGameBattleRoomRoleDetail:GetEntities(characterType)
+function XUiCerberusGameBattleRoomRoleDetail:GetEntities()
     local roleList = {}
-    local xConfig = XCerberusGameConfig.CheckIsChallengeStage(self.StageId)
+    local xConfig = XMVCA.XCerberusGame:CheckIsChallengeStage(self.StageId)
     if xConfig then
         -- 如果是挑战模式
-        roleList = XDataCenter.CerberusGameManager.GetCanSelectRoleListForChallengeMode(self.StageId)
+        roleList = XMVCA.XCerberusGame:GetCanSelectRoleListForChallengeMode(self.StageId)
     else
         -- 如果是剧情模式
-        roleList = XDataCenter.CerberusGameManager.GetCanSelectRoleListForStoryMode(characterType)
+        roleList = XMVCA.XCerberusGame:GetCanSelectRoleListForStoryMode()
     end
 
     table.sort(roleList, function (a, b)

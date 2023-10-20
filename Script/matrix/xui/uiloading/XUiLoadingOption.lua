@@ -39,7 +39,7 @@ function XUiLoadingOption:InitUi()
 end
 
 function XUiLoadingOption:SetupDynamicTable(type)
-    self.EntityList = XDataCenter.ArchiveManager.GetArchiveCGDetailList(type)
+    self.EntityList = XMVCA.XArchive:GetArchiveCGDetailList(type)
     self.DynamicTable:SetDataSource(self.EntityList)
     self.DynamicTable:ReloadDataASync(1)
 end
@@ -87,7 +87,7 @@ function XUiLoadingOption:OnGridClick(id, grid)
 end
 
 function XUiLoadingOption:InitTypeButton()
-    self.GroupList = XDataCenter.ArchiveManager.GetArchiveCGGroupList(true)
+    self.GroupList = XMVCA.XArchive:GetArchiveCGGroupList(true)
     self.CurType = 1
     self.CGGroupBtn = {}
     for _, v in pairs(self.GroupList) do

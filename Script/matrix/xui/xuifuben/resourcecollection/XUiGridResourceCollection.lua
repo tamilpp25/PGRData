@@ -32,9 +32,10 @@ function XUiGridResourceCollection:PlayEnableAnime(index) --该index是当前使
     end, (index - 1) * 95)
 end
 
-function XUiGridResourceCollection:SetAlphaZero()
+function XUiGridResourceCollection:SetAlphaOne()
     local canvasGroup = self.Transform:Find("Grid"):GetComponent("CanvasGroup")
-    canvasGroup.alpha = 0
+    canvasGroup.alpha = 1
+    self.GameObject:SetActiveEx(false)
 end
 
 function XUiGridResourceCollection:SetHasPlay(flag)
@@ -46,6 +47,7 @@ function XUiGridResourceCollection:GetHasPlay()
 end
 
 function XUiGridResourceCollection:UpdateGrid(chapterViewModel, index, currUseMinIndex)
+    self.GameObject:SetActiveEx(true)
     currUseMinIndex = currUseMinIndex or 1
     self:PlayEnableAnime(index - (currUseMinIndex - 1))
     self.RImgBg:SetRawImage(chapterViewModel:GetExtralData().Bg)

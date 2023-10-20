@@ -17,6 +17,11 @@ function XUiDownLoadMain:OnStart(groupId)
     self:InitView(groupId)
 end
 
+function XUiDownLoadMain:Close()
+    self.Super.Close(self)
+    XMVCA.XSubPackage:ChangeThread(true)
+end
+
 function XUiDownLoadMain:InitUi()
     -- 页签
     local tab = {}
@@ -39,8 +44,27 @@ function XUiDownLoadMain:InitUi()
     self.PanelDynamic:Open()
 end
 
+function XUiDownLoadMain:OnGetLuaEvents()
+    return {
+        XEventId.EVENT_SUBPACKAGE_MULTI_COUNT_CHANGED
+    }
+end
+
+function XUiDownLoadMain:OnNotify(evt, ...)
+    if evt == XEventId.EVENT_SUBPACKAGE_MULTI_COUNT_CHANGED then
+        self:RefreshSpeedView()
+    end
+end
+
 function XUiDownLoadMain:InitCb()
-    self:BindExitBtns()
+
+    self.BtnBack.CallBack = function() 
+        self:OnBtnBackClick()
+    end
+    
+    self.BtnMainUi.CallBack = function() 
+        self:OnBtnMainUiClick()
+    end
 
     self.BtnInfo.CallBack = function()
         self:OnBtnInfoClick()
@@ -53,6 +77,10 @@ function XUiDownLoadMain:InitCb()
     self.BtnReportType.CallBack = function() 
         self:OnBtnReportTypeClick()
     end
+    
+    self.BtnSpeedUp.CallBack = function() 
+        self:OnBtnSpeedUpClick()
+    end
 end
 
 function XUiDownLoadMain:InitView(groupId)
@@ -61,6 +89,7 @@ function XUiDownLoadMain:InitView(groupId)
 
     self.TabBtnGroup:SelectIndex(self:GetTabIndexByGroupId(groupId))
     
+    self:RefreshSpeedView()
 end
 
 function XUiDownLoadMain:OnSelectTab(tabIndex)
@@ -97,6 +126,26 @@ function XUiDownLoadMain:GetTabIndexByGroupId(groupId)
     return DefaultIndex
 end
 
+function XUiDownLoadMain:OnBtnBackClick()
+    self:OnQuitSpeedUp(handler(self, self.Close))
+end
+
+function XUiDownLoadMain:OnBtnMainUiClick()
+    self:OnQuitSpeedUp(XLuaUiManager.RunMain)
+end
+
+function XUiDownLoadMain:OnQuitSpeedUp(sureCb)
+    if not XMVCA.XSubPackage:IsMultiThread() then
+        if sureCb then sureCb() end
+        return
+    end
+    local content = XUiHelper.GetText("PreloadUnableToExit")
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, XUiManager.DialogType.Normal, nil, function()
+        XMVCA.XSubPackage:ChangeThread(true)
+        if sureCb then sureCb() end
+    end)
+end
+
 function XUiDownLoadMain:OnBtnInfoClick()
     local title = XUiHelper.GetText("DlcDownloadTitle")
     local content = XUiHelper.ReplaceTextNewLine(XUiHelper.GetText("DlcDownloadPreviewTip"))
@@ -113,4 +162,33 @@ end
 function XUiDownLoadMain:OnBtnReportTypeClick()
     local isSelect = self.BtnReportType:GetToggleState()
     XMVCA.XSubPackage:SetWifiAutoState(self.GroupIds[self.TabIndex], isSelect)
+end
+
+function XUiDownLoadMain:OnBtnSpeedUpClick()
+    self:ChangeMultiCount()
+    self:RefreshSpeedView()
+end
+
+function XUiDownLoadMain:ChangeMultiCount()
+    if not XMVCA.XSubPackage:IsDownloading() then
+        XUiManager.TipText("DlcDownloadNoDownloadTask")
+        return
+    end
+    
+    local isMultiThread = XMVCA.XSubPackage:IsMultiThread()
+    if isMultiThread then
+        self:OnQuitSpeedUp(function()
+            XMVCA.XSubPackage:ChangeThread(true)
+        end)
+        return
+    end
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("PreloadFullDownloadTip"), XUiManager.DialogType.Normal, nil, function()
+        XMVCA.XSubPackage:ChangeThread(false)
+    end)
+end
+
+function XUiDownLoadMain:RefreshSpeedView()
+    local isMultiThread = XMVCA.XSubPackage:IsMultiThread()
+    self.AssetPanel.GameObject:SetActiveEx(not isMultiThread)
+    self.BtnSpeedUp:SetButtonState(isMultiThread and CS.UiButtonState.Select or CS.UiButtonState.Normal)
 end

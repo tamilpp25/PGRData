@@ -11,14 +11,16 @@ local PassportTypeIndex = {
 local OneMinSeconds = 60
 
 --region   ------------------重写父类方法 start-------------------
-
-function XUiPanelRegressionPassport:Show()
-    self.GameObject:SetActiveEx(true)
+function XUiPanelRegressionPassport:OnEnable()
     self:RefreshView()
 end
 
+function XUiPanelRegressionPassport:Show()
+    self:Open()
+end
+
 function XUiPanelRegressionPassport:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionPassport:InitUi()
@@ -28,7 +30,7 @@ function XUiPanelRegressionPassport:InitUi()
     self.DynamicTable:SetDelegate(self)
     self.GridTask.gameObject:SetActiveEx(false)
     
-    XRedPointManager.AddRedPointEvent(self.BtnReceiveAll, self.OnCheckBtnRedPoint, self, { XRedPointConditions.Conditions.CONDITION_REGRESSION3_PASSPORT })
+    self:AddRedPointEvent(self.BtnReceiveAll, self.OnCheckBtnRedPoint, self, { XRedPointConditions.Types.CONDITION_REGRESSION3_PASSPORT })
 end
 
 function XUiPanelRegressionPassport:InitCb()

@@ -100,13 +100,13 @@ function XUiGridSkillEffectBall3D:Refresh(characterId, curQuality, isEvo)
         -- local offseset = cameText - cameBallOffset
 
         -- 修正位置text : 解二元一次方程 0.8045 = 1.05a + b， 1.06 = 1.299a + b
-        self.TempV3 = self.EffectBallSmallTxt.transform.position
-        self.TempV3.y = 1.0251 * UiCamUiQuality.transform.position.y - 0.272 - self.BOffsetData[curQuality]
-        self.EffectBallSmallTxt.transform.position = self.TempV3
-        --
-        self.TempV3 = self.EffectBallSmallBtnBg.transform.position
-        self.TempV3.y = 1.0251 * UiCamUiQuality.transform.position.y - 0.272 - 0.005 - self.BOffsetData[curQuality]
-        self.EffectBallSmallBtnBg.transform.position = self.TempV3
+        -- self.TempV3 = self.EffectBallSmallTxt.transform.position
+        -- self.TempV3.y = 1.0251 * UiCamUiQuality.transform.position.y - 0.272 - self.BOffsetData[curQuality]
+        -- self.EffectBallSmallTxt.transform.position = self.TempV3
+        -- --
+        -- self.TempV3 = self.EffectBallSmallBtnBg.transform.position
+        -- self.TempV3.y = 1.0251 * UiCamUiQuality.transform.position.y - 0.272 - 0.005 - self.BOffsetData[curQuality]
+        -- self.EffectBallSmallBtnBg.transform.position = self.TempV3
     end
 end
 

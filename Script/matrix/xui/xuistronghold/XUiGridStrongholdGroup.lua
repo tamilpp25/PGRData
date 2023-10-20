@@ -32,7 +32,8 @@ function XUiGridStrongholdGroup:Refresh(groupId)
     end
 
     if self.RImgBossIcon then
-        local icon = XStrongholdConfigs.GetGroupIconBoss(groupId)
+        local stageId = XDataCenter.StrongholdManager.GetGroupStageId(groupId, 1)
+        local icon = XStrongholdConfigs.GetGroupBossIcon(groupId, stageId)
         if icon then
             self.RImgBossIcon:SetRawImage(icon)
         end

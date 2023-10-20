@@ -386,7 +386,7 @@ XFubenExploreManagerCreator = function()
         end
 
         --分包资源检测
-        if not XMVCA.XSubPackage:CheckSubpackage() then
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Explore) then
             return
         end
 

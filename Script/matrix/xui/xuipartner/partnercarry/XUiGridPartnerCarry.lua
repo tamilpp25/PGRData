@@ -55,7 +55,7 @@ end
 function XUiGridPartnerCarry:ShowInfo()
     self.RImgHeadIcon:SetRawImage(self.Data:GetIcon())
     self.PanelLv:GetObject("TxtLevel").text = self.Data:GetLevel()
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetQuality()))
     self.ImgLock.gameObject:SetActiveEx(self.Data:GetIsLock())
 
     --v1.28 装备头像

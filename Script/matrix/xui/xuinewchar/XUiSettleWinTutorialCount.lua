@@ -10,9 +10,10 @@ local SyncStageType=
 
 --region 生命周期
 function XUiSettleWinTutorialCount:OnAwake()
+    self.PanelRight.gameObject:SetActiveEx(true)
+    XTool.InitUiObjectByUi(self,self.PanelRight)
     self:InitAutoScript()
     self.GridReward.gameObject:SetActive(false)
-    self.GridReward2.gameObject:SetActive(false)
 end
 
 function XUiSettleWinTutorialCount:OnStart(data, cb, closeCb, onlyTouchBtn,displayStar)
@@ -131,8 +132,9 @@ function XUiSettleWinTutorialCount:InitInfo(data)
     self:SetStageInfo(data)
     self:UpdatePlayerInfo(data)
     self:InitRewardCharacterList(data)
-    self:InitRewardList(data.RewardGoodsList)
-    self:InitSyncPassedStageRewardList()
+    self:SetRewardDisplay(data)
+    --self:InitRewardList(data.RewardGoodsList)
+    --self:InitSyncPassedStageRewardList()
     XTipManager.Add(function()
         if data.UrgentId > 0 then
             XLuaUiManager.Open("UiSettleUrgentEvent", data.UrgentId)
@@ -216,6 +218,61 @@ function XUiSettleWinTutorialCount:UpdatePlayerInfo(data)
 end
 
 -- 物品奖励列表
+function XUiSettleWinTutorialCount:SetRewardDisplay(data)
+    --判断是否有联通奖励
+    local hasSyncRewards=self.HasSyncPassedStage and not XTool.IsTableEmpty(self.SyncPassedResult.LinkStageRewardGoodsList)
+    --判断是否存在奖励（自己关卡或联通的）
+    local hasRewards=not XTool.IsTableEmpty(data.RewardGoodsList) or hasSyncRewards
+    self.RewardList.gameObject:SetActiveEx(hasRewards)
+    --下方的文本仅当有联通但不存在联通奖励时显示
+    self.Txt01.gameObject:SetActiveEx(not hasSyncRewards and self.HasSyncPassedStage)
+    --上方的文本仅当有联通且存在联通奖励时显示，当前规则中，若有联通奖励，则当前关卡必然无奖励
+    self.Describe02.gameObject:SetActiveEx(hasSyncRewards and self.HasSyncPassedStage)
+    --若存在联通奖励，则奖励标题文本需要更换
+    self.TxTtitle.gameObject:SetActiveEx(hasSyncRewards)
+    --除了在联通奖励下交换显示。当无联通或本关卡有奖励时，默认显示
+    self.Text1.gameObject:SetActiveEx(not hasSyncRewards and not self.HasSyncPassedStage or not XTool.IsTableEmpty(data.RewardGoodsList))
+
+    --设置联通文本
+    if self.HasSyncPassedStage then
+        if self.SyncType==SyncStageType.PracticeFight then
+            if hasSyncRewards then
+                self.Describe02.text=XUiHelper.GetText('SettleWinTutorialSyncPractice',XFubenNewCharConfig.GetNewCharKoroCfg().Name,XDataCenter.FubenManager.GetStageDes(self.CurrentStageId))
+            else
+                self.Txt01.text=XUiHelper.GetText('SettleWinTutorialSyncPractice',XFubenNewCharConfig.GetNewCharKoroCfg().Name,XDataCenter.FubenManager.GetStageDes(self.CurrentStageId))
+            end
+        elseif self.SyncType==SyncStageType.TeachingActivity then
+            if hasSyncRewards then
+                self.Describe02.text=XUiHelper.GetText('SettleWinTutorialSyncTeaching',XDataCenter.FubenManager.GetStageDes(self.CurrentStageId))
+            else
+                self.Txt01.text=XUiHelper.GetText('SettleWinTutorialSyncTeaching',XDataCenter.FubenManager.GetStageDes(self.CurrentStageId))
+            end
+            XDataCenter.PracticeManager.RefreshStagePassedByStageId(self.SyncPassedResult.LinkStageId)
+        end
+    end
+    
+    --设置奖励列表
+    self.GridRewardList = {}
+    if hasRewards then
+        local rewardGoodsList = XTool.IsTableEmpty(data.RewardGoodsList) and self.SyncPassedResult.LinkStageRewardGoodsList or data.RewardGoodsList
+        -- 获取跳转缓存数据
+        for _, info in pairs(self.TeleportRewardCache or {}) do
+            local rewardList = info.RewardGoodsList or {}
+            rewardGoodsList = XTool.MergeArray(rewardGoodsList, rewardList)
+        end
+        
+        local rewards = XRewardManager.MergeAndSortRewardGoodsList(rewardGoodsList)
+        for _, item in ipairs(rewards) do
+            local ui = CS.UnityEngine.Object.Instantiate(self.GridReward)
+            local grid = XUiGridCommon.New(self, ui)
+            grid.Transform:SetParent(self.PanelRewardContent, false)
+            grid:Refresh(item, nil, nil, true)
+            grid.GameObject:SetActive(false)
+            table.insert(self.GridRewardList, grid)
+        end
+    end
+end
+
 function XUiSettleWinTutorialCount:InitRewardList(rewardGoodsList)
     self.RewardList.gameObject:SetActiveEx(true)
     self.Txt01.gameObject:SetActiveEx(self.HasSyncPassedStage)
@@ -316,9 +373,8 @@ function XUiSettleWinTutorialCount:PlayRewardAnimation()
     local this = self
 
     local noRewardList=XTool.IsTableEmpty(self.GridRewardList)
-    local noRewardList2=XTool.IsTableEmpty(self.GridRewardList2)
     -- 没有奖励则直接播放第二个动画
-    if noRewardList and noRewardList2 then
+    if noRewardList then
         XScheduleManager.ScheduleOnce(function()
             this:PlaySecondAnimation()
         end, delay)
@@ -326,48 +382,20 @@ function XUiSettleWinTutorialCount:PlayRewardAnimation()
     end
 
     self.RewardAnimationIndex = 1
-    self.RewardAnimationIndex2 = 1
     self.RewardListAnimEnd=noRewardList and true or false
-    self.RewardList2AnimEnd=noRewardList2 and true or false
     self.HasPlaySecondAnim=false
     --自身关卡奖励显示演出
     if not noRewardList then
         XScheduleManager.Schedule(function()
             if this.RewardAnimationIndex == #self.GridRewardList then
-                self.RewardListAnimEnd=true
-                if self.RewardList2AnimEnd and not self.HasPlaySecondAnim then
-                    self.HasPlaySecondAnim=true
-                    this:PlayReward(this.RewardAnimationIndex, function()
-                        this:PlaySecondAnimation()
-                    end)
-                else
-                    this:PlayReward(this.RewardAnimationIndex)
-                end
+                this:PlayReward(this.RewardAnimationIndex, function()
+                    this:PlaySecondAnimation()
+                end)
             else
                 this:PlayReward(this.RewardAnimationIndex)
             end
             this.RewardAnimationIndex = this.RewardAnimationIndex + 1
         end, interval, #self.GridRewardList, delay)
-    end
-
-    --同步关卡奖励显示演出
-    if not noRewardList2 then
-        XScheduleManager.Schedule(function()
-            if this.RewardAnimationIndex2==#self.GridRewardList2 then
-                self.RewardList2AnimEnd=true
-                if self.RewardListAnimEnd and not self.HasPlaySecondAnim then
-                    self.HasPlaySecondAnim=true
-                    this:PlayReward2(this.RewardAnimationIndex2, function()
-                        this:PlaySecondAnimation()
-                    end)
-                else
-                    this:PlayReward2(this.RewardAnimationIndex2)
-                end
-            else
-                this:PlayReward2(this.RewardAnimationIndex2)
-            end
-            this.RewardAnimationIndex2 = this.RewardAnimationIndex2 + 1
-        end, interval, #self.GridRewardList2, delay)
     end
 end
 

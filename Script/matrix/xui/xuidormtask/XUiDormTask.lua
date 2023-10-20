@@ -41,7 +41,7 @@ function XUiDormTask:Init()
     local lastSelectTab = XDataCenter.TaskManager.GetNewPlayerHint(XDataCenter.TaskManager.DormTaskLastSelectTab, PANEL_INDEX.Story)
     self.CurToggleType = self.CurToggleType or lastSelectTab
     -- 红点
-    self:AddRedPointEvent()
+    self:InitRedPointEvent()
 end
 
 function XUiDormTask:CheckTogLockStatus()
@@ -74,9 +74,9 @@ function XUiDormTask:OnDestroy()
 end
 
 --添加点事件
-function XUiDormTask:AddRedPointEvent()
-    XRedPointManager.AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self, { XRedPointConditions.Types.CONDITION_DORM_TASK }, XDataCenter.TaskManager.TaskType.DormNormal)
-    self.DailyPointId = XRedPointManager.AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self, { XRedPointConditions.Types.CONDITION_DORM_TASK }, XDataCenter.TaskManager.TaskType.DormDaily)
+function XUiDormTask:InitRedPointEvent()
+    self:AddRedPointEvent(self.ImgStoryNewTag, self.RefreshStoryTabRedDot, self, { XRedPointConditions.Types.CONDITION_DORM_TASK }, XDataCenter.TaskManager.TaskType.DormNormal)
+    self.DailyPointId = self:AddRedPointEvent(self.ImgDailyNewTag, self.RefreshDailyTabRedDot, self, { XRedPointConditions.Types.CONDITION_DORM_TASK }, XDataCenter.TaskManager.TaskType.DormDaily)
 end
 
 function XUiDormTask:CheckDailyTask()

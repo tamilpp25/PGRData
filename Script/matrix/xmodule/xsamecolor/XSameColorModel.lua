@@ -85,9 +85,9 @@ end
 function XSameColorModel:GetClientCfgStringValue(key, index)
     local cfg = self:_GetClientCfg(key)
     if index then
-        return cfg.Values[index]
+        return cfg and cfg.Values[index]
     end
-    return cfg.Values[1]
+    return cfg and cfg.Values[1]
 end
 --endregion
 

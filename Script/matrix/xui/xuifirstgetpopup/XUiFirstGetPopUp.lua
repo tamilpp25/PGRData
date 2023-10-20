@@ -37,7 +37,7 @@ function XUiFirstGetPopUp:Refresh(data)
     if self.Type == XArrangeConfigs.Types.Character then
         local character = XDataCenter.CharacterManager.GetCharacter(self.TempateId)
         self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(self.TempateId)
-        self.RImgCharacterQualityIcon:SetRawImage(XCharacterConfigs.GetCharQualityIcon(character.Quality))
+        self.RImgCharacterQualityIcon:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(character.Quality))
         self.RImgCharacter:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(self.TempateId))
         self.PanelCharacter.gameObject:SetActive(true)
     elseif self.Type == XArrangeConfigs.Types.Weapon then

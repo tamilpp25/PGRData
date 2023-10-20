@@ -1,5 +1,6 @@
 local XUiGridChapterBfrt = require("XUi/XUiFubenMainLineBanner/XUiGridChapterBfrt")
 
+---@class XUiPanelChapterBfrt
 local XUiPanelChapterBfrt = XClass(nil, "XUiPanelChapterBfrt")
 
 function XUiPanelChapterBfrt:Ctor(ui, rootUi)

@@ -322,6 +322,11 @@ XFurnitureManagerCreator = function()
     function XFurnitureManager.GetFurnitureDatas()
         return FurnitureDatas
     end
+    
+    --获取玩家是否拥有当前家具
+    function XFurnitureManager.CheckFurnitureExist(furnitureId)
+        return FurnitureDatas[furnitureId] ~= nil
+    end
 
     --获取所擁有家具总数
     function XFurnitureManager.GetAllFurnitureCount()
@@ -1457,11 +1462,10 @@ XFurnitureManagerCreator = function()
 
             -- 清除消耗的家具
             local removeIds = {}
-            for _, param in ipairs(params) do
-                for _, furnitureId in ipairs(param.FurnitureIds) do
-                    XFurnitureManager.RemoveFurniture(furnitureId)
-                    table.insert(removeIds, furnitureId)
-                end
+            local deleteIds = res.RemovedIds or {}
+            for _, furnitureId in ipairs(deleteIds) do
+                XFurnitureManager.RemoveFurniture(furnitureId)
+                table.insert(removeIds, furnitureId)
             end
 
             -- 添加新增的家具
@@ -1597,7 +1601,8 @@ XFurnitureManagerCreator = function()
             end
 
             -- 将分解成功的家具从缓存中移除
-            for _, id in ipairs(furnitureIds) do
+            local deleteIds = res.RemovedIds or {}
+            for _, id in ipairs(deleteIds) do
                 XFurnitureManager.RemoveFurniture(id)
             end
 

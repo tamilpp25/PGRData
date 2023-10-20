@@ -26,7 +26,7 @@ function XRedPointConditionCharacterLevel.Check(characterId)
     end
 
     -- v2.6把解放单独拆出去了
-    -- if XRedPointConditionExhibitionNew.Check(characterId) then
+    -- if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXHIBITION_NEW, characterId) then
     --     return true
     -- end
 

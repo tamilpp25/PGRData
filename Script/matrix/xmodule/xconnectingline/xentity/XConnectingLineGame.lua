@@ -241,6 +241,7 @@ function XConnectingLineGame:Execute(operation)
             end
 
             self:AddLine(linePainting)
+            XSoundManager.PlaySoundByType(XEnumConst.CONNECTING_LINE.COMPLETE_LINE_SOUND, XSoundManager.SoundType.Sound)
             if isRemoveExistLine then
                 XEventManager.DispatchEvent(XEventId.EVENT_CONNECTING_LINE_BUBBLE, XEnumConst.CONNECTING_LINE.BUBBLE.CONNECT_CHANGE)
             else
@@ -407,6 +408,7 @@ end
 
 function XConnectingLineGame:GetFinishState()
     local linkCount = #self._LineOnBoard
+    -- 秒通
     --if linkCount > 0 then
     --    return XEnumConst.CONNECTING_LINE.FINISH_STATE.PERFECT_COMPLETE
     --end
@@ -497,6 +499,17 @@ function XConnectingLineGame:GetConnectedAvatarMap()
         dictLight[tailGrid:GetAvatarId()] = true
     end
     return dictLight
+end
+
+function XConnectingLineGame:ClearBoard()
+    self._BufferLine = {}
+    self._LineOnBoard = {}
+    self._LinePainting = nil
+    for column, grids in pairs(self._Map) do
+        for row, grid in pairs(grids) do
+            grid:SetAvatarId(0)
+        end
+    end
 end
 
 return XConnectingLineGame

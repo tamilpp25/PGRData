@@ -106,7 +106,7 @@ end
 function XRobotManager.GetRobotNpcTemplate(robotId)
     local RobotCfg = RobotTemplates[robotId]
     if not RobotCfg then return end
-    local npcId = XCharacterConfigs.GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
     local template = XCharacterConfigs.GetNpcTemplate(npcId)
     return template
 end

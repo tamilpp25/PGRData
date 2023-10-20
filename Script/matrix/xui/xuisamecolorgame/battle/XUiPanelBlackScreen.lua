@@ -92,7 +92,7 @@ end
 
 -- skill参数为nil，关闭mask
 function XUiPanelBlackScreen:SetScreenMask(skill)
-    ---@type XSCRoleSkill
+    ---@type XSCBattleRoleSkill
     self.Skill = skill
 
     local str = self:IsBuffMask() and skill:GetHintText() or ""

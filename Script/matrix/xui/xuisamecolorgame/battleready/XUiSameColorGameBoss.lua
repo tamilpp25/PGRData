@@ -51,6 +51,19 @@ function XUiSameColorGameBoss:OnEnable()
         self.LastSelectableRole = self.RoleManager:GetRole(lastRoleId)
         self:SetIsSelected(lastRoleId == self.CurrentRole:GetId())
         self:UpdateReadyBtnStatus()
+    elseif self.CurrentChildType == XEnumConst.SAME_COLOR_GAME.UI_BOSS_CHILD_PANEL_TYPE.MAIN then
+        -- 因为5期添加了MAIN -> READY动画
+        -- 会导致进入战斗后boss节点被上述动画影响错位
+        -- 因此需要切换到READY -> MAIN动画的最后一帧保持
+        local panelType = XEnumConst.SAME_COLOR_GAME.UI_BOSS_CHILD_PANEL_TYPE
+        ---@type UnityEngine.Playables.PlayableDirector
+        local animReadyBack = self.NearCameraAnimDic[panelType.READY][panelType.MAIN]
+        if animReadyBack.state ~= CS.Playable.PlayState.Playing and animReadyBack.time <= animReadyBack.duration then
+            animReadyBack:Play()
+            animReadyBack.time = animReadyBack.duration
+        end
+        self:UpdateChildPanel(self.CurrentChildType)
+        self:UpdateReadyBtnStatus()
     else
         self:UpdateChildPanel(self.CurrentChildType)
         self:UpdateReadyBtnStatus()
@@ -227,9 +240,9 @@ end
 --region Scene - Model
 function XUiSameColorGameBoss:InitSceneModel(uiNearRootObj)
     ---@type XUiPanelRoleModel
-    self.UiPanelRoleModel = XUiPanelRoleModel.New(uiNearRootObj:GetObject("PanelRoleModel"), self.Name)
+    self.UiPanelRoleModel = XUiPanelRoleModel.New(uiNearRootObj:GetObject("PanelRoleModel"), self.Name, nil, true)
     ---@type XUiPanelRoleModel
-    self.UiPanelBossModel = XUiPanelRoleModel.New(uiNearRootObj:GetObject("PanelBossModel"), self.Name)
+    self.UiPanelBossModel = XUiPanelRoleModel.New(uiNearRootObj:GetObject("PanelBossModel"), self.Name, nil, true)
 end
 
 function XUiSameColorGameBoss:UpdateCurrentRole(role)
@@ -294,6 +307,7 @@ function XUiSameColorGameBoss:InitSceneCamera(uiNearRootObj)
         [childPanelType.MAIN] = {
             [childPanelType.BOSS] = uiNearRootObj:GetObject("NearCameraBossEnable"),
             [childPanelType.ROLE] = uiNearRootObj:GetObject("NearCameraRoleEnable"),
+            [childPanelType.READY] = uiNearRootObj:GetObject("NearCameraRoleEnable2"),
         }
     }
     -- 角色摄像机
@@ -342,9 +356,9 @@ function XUiSameColorGameBoss:SetCameraType(panelType, fromType)
             self:SetModelActive(self.UiPanelRoleModel, roleActive)
         end, math.floor(time * 1000))
     end
-    --if anim then
-    --    anim:Play()
-    --end
+    if anim then
+        anim:Play()
+    end
 end
 --endregion
 

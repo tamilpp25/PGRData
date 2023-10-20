@@ -21,14 +21,9 @@ function XUiMainOther:OnEnable()
         local displayCharacterId = XDataCenter.DisplayManager.GetRandomDisplayCharByList().Id
 
         -- 刷新
-        local refreshFun = function ()
-            XDataCenter.DisplayManager.SetNextDisplayChar(nil)
-            self.SignBoard:SetDisplayCharacterId(displayCharacterId)
-            self.SignBoard:OnEnable()
-        end
-
-        -- 随机涂装
-        XDataCenter.FashionManager.SetCharacterRandomFashion(displayCharacterId, refreshFun)
+        XDataCenter.DisplayManager.SetNextDisplayChar(nil)
+        self.SignBoard:SetDisplayCharacterId(displayCharacterId)
+        self.SignBoard:OnEnable()
     end
 end
 

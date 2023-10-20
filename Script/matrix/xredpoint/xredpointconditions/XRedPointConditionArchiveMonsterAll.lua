@@ -13,7 +13,7 @@ function XRedPointConditionArchiveMonsterAll.GetSubEvents()
 end
 
 function XRedPointConditionArchiveMonsterAll.Check()
-    return XDataCenter.ArchiveManager.IsMonsterHaveRedPointByAll() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
+    return XMVCA.XArchive:IsMonsterHaveRedPointByAll() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
 end
 
 return XRedPointConditionArchiveMonsterAll

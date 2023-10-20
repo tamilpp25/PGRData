@@ -371,29 +371,29 @@ XFunctionalSkipManagerCreator = function()
 
     -- 被感染的守林人
     function XFunctionalSkipManager.OnOpenUiActivityBranch(list)
-
-        -- 开启时间限制
-        if not XDataCenter.FubenActivityBranchManager.IsOpen() then
-            XUiManager.TipText("ActivityBranchNotOpen")
-            return
-        end
-
-        local param1 = (list.CustomParams[1] ~= 0) and list.CustomParams[1] or 1
-        local param2 = (list.CustomParams[2] ~= 0) and list.CustomParams[2] or nil
-
-        if param1 == XDataCenter.FubenActivityBranchManager.BranchType.Difficult then
-            if not XDataCenter.FubenActivityBranchManager.IsStatusEqualChallengeBegin() then
-                XUiManager.TipText("ActivityBranchNotOpen")
-                return
-            end
-        end
-
-        if XFunctionalSkipManager.IsStageLock(param2) then
-            return
-        end
-
-        local sectionId = XDataCenter.FubenActivityBranchManager.GetCurSectionId()
-        XLuaUiManager.Open("UiActivityBranch", sectionId, param1, param2)
+    --
+    --    -- 开启时间限制
+    --    if not XDataCenter.FubenActivityBranchManager.IsOpen() then
+    --        XUiManager.TipText("ActivityBranchNotOpen")
+    --        return
+    --    end
+    --
+    --    local param1 = (list.CustomParams[1] ~= 0) and list.CustomParams[1] or 1
+    --    local param2 = (list.CustomParams[2] ~= 0) and list.CustomParams[2] or nil
+    --
+    --    if param1 == XDataCenter.FubenActivityBranchManager.BranchType.Difficult then
+    --        if not XDataCenter.FubenActivityBranchManager.IsStatusEqualChallengeBegin() then
+    --            XUiManager.TipText("ActivityBranchNotOpen")
+    --            return
+    --        end
+    --    end
+    --
+    --    if XFunctionalSkipManager.IsStageLock(param2) then
+    --        return
+    --    end
+    --
+    --    local sectionId = XDataCenter.FubenActivityBranchManager.GetCurSectionId()
+    --    XLuaUiManager.Open("UiActivityBranch", sectionId, param1, param2)
     end
 
     -- 超难关
@@ -618,26 +618,26 @@ XFunctionalSkipManagerCreator = function()
 
     -- 爬塔活动
     function XFunctionalSkipManager.OnOpenRogueLikeActivity()
-        local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
-        if activityId == nil or activityId <= 0 then
-            XUiManager.TipMsg(CS.XTextManager.GetText("RougeLikeNotInActivityTime"))
-            return
-        end
-        local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(activityId)
-
-        if not activityConfig then
-            return
-        end
-        if not XDataCenter.FubenRogueLikeManager.IsInActivity() then
-            XUiManager.TipMsg(CS.XTextManager.GetText("RougeLikeNotInActivityTime"))
-            return
-        end
-
-        if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
-            return
-        end
-
-        XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
+        --local activityId = XDataCenter.FubenRogueLikeManager.GetRogueLikeActivityId()
+        --if activityId == nil or activityId <= 0 then
+        --    XUiManager.TipMsg(CS.XTextManager.GetText("RougeLikeNotInActivityTime"))
+        --    return
+        --end
+        --local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(activityId)
+        --
+        --if not activityConfig then
+        --    return
+        --end
+        --if not XDataCenter.FubenRogueLikeManager.IsInActivity() then
+        --    XUiManager.TipMsg(CS.XTextManager.GetText("RougeLikeNotInActivityTime"))
+        --    return
+        --end
+        --
+        --if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
+        --    return
+        --end
+        --
+        --XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
     end
 
     -- 打开主线、隐藏线、据点战
@@ -702,21 +702,21 @@ XFunctionalSkipManagerCreator = function()
 
     -- 狙击战跳转
     function XFunctionalSkipManager.OnOpenUnionKill()
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenUnionKill) then
-            return
-        end
-        local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
-        if not unionInfo or not unionInfo.Id or unionInfo.Id <= 0 then
-            XUiManager.TipMsg(CS.XTextManager.GetText("UnionKillMainNotInActivity"))
-            return
-        end
-
-        if not XFubenUnionKillConfigs.UnionKillInActivity(unionInfo.Id) then
-            XUiManager.TipMsg(CS.XTextManager.GetText("UnionKillMainNotInActivity"))
-            return
-        end
-
-        XLuaUiManager.Open("UiUnionKillMain")
+        --if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenUnionKill) then
+        --    return
+        --end
+        --local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
+        --if not unionInfo or not unionInfo.Id or unionInfo.Id <= 0 then
+        --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionKillMainNotInActivity"))
+        --    return
+        --end
+        --
+        --if not XFubenUnionKillConfigs.UnionKillInActivity(unionInfo.Id) then
+        --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionKillMainNotInActivity"))
+        --    return
+        --end
+        --
+        --XLuaUiManager.Open("UiUnionKillMain")
     end
 
     -- 公会
@@ -759,23 +759,23 @@ XFunctionalSkipManagerCreator = function()
     -- 跳转图鉴
     function XFunctionalSkipManager.OnOpenArchive(list)
         local param1 = (list.CustomParams[1] ~= 0) and list.CustomParams[1] or nil
-        if param1 == XArchiveConfigs.SubSystemType.Monster then
+        if param1 == XEnumConst.Archive.SubSystemType.Monster then
             XLuaUiManager.Open("UiArchiveMonster")
-        elseif param1 == XArchiveConfigs.SubSystemType.Weapon then
+        elseif param1 == XEnumConst.Archive.SubSystemType.Weapon then
             XLuaUiManager.Open("UiArchiveWeapon")
-        elseif param1 == XArchiveConfigs.SubSystemType.Awareness then
+        elseif param1 == XEnumConst.Archive.SubSystemType.Awareness then
             XLuaUiManager.Open("UiArchiveAwareness")
-        elseif param1 == XArchiveConfigs.SubSystemType.Story then
+        elseif param1 == XEnumConst.Archive.SubSystemType.Story then
             XLuaUiManager.Open("UiArchiveStory")
-        elseif param1 == XArchiveConfigs.SubSystemType.CG then
+        elseif param1 == XEnumConst.Archive.SubSystemType.CG then
             XLuaUiManager.Open("UiArchiveCG")
-        elseif param1 == XArchiveConfigs.SubSystemType.NPC then
+        elseif param1 == XEnumConst.Archive.SubSystemType.NPC then
             XLuaUiManager.Open("UiArchiveNpc")
-        elseif param1 == XArchiveConfigs.SubSystemType.Email then
+        elseif param1 == XEnumConst.Archive.SubSystemType.Email then
             XLuaUiManager.Open("UiArchiveEmail")
-        elseif param1 == XArchiveConfigs.SubSystemType.Partner then
+        elseif param1 == XEnumConst.Archive.SubSystemType.Partner then
             XLuaUiManager.Open("UiArchivePartner")
-        elseif param1 == XArchiveConfigs.SubSystemType.PV then
+        elseif param1 == XEnumConst.Archive.SubSystemType.PV then
             XLuaUiManager.Open("UiArchivePV")
         end
     end
@@ -842,14 +842,14 @@ XFunctionalSkipManagerCreator = function()
 
     -- 跳转世界Boss
     function XFunctionalSkipManager.OnOpenWorldBoss()
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.WorldBoss) then
-            return
-        end
-        if not XDataCenter.WorldBossManager.IsInActivity() then
-            XUiManager.TipMsg(CS.XTextManager.GetText("WorldBossNotInActivityTime"))
-            return
-        end
-        XDataCenter.WorldBossManager.OpenWorldMainWind()
+        --if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.WorldBoss) then
+        --    return
+        --end
+        --if not XDataCenter.WorldBossManager.IsInActivity() then
+        --    XUiManager.TipMsg(CS.XTextManager.GetText("WorldBossNotInActivityTime"))
+        --    return
+        --end
+        --XDataCenter.WorldBossManager.OpenWorldMainWind()
     end
 
     -- 跳转大富翁
@@ -932,17 +932,17 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.FubenInfesotorExplore()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
-            if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
-                    or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
-                local openCb = function()
-                    XLuaUiManager.Open("UiInfestorExploreRank")
-                end
-                XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
-            elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
-                XUiManager.TipText("InfestorExploreEnterSectionEnd")
-            end
-        end
+    --    if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenInfesotorExplore) then
+    --        if XDataCenter.FubenInfestorExploreManager.IsInSectionOne()
+    --                or XDataCenter.FubenInfestorExploreManager.IsInSectionTwo() then
+    --            local openCb = function()
+    --                XLuaUiManager.Open("UiInfestorExploreRank")
+    --            end
+    --            XDataCenter.FubenInfestorExploreManager.OpenEntranceUi(openCb)
+    --        elseif XDataCenter.FubenInfestorExploreManager.IsInSectionEnd() then
+    --            XUiManager.TipText("InfestorExploreEnterSectionEnd")
+    --        end
+    --    end
     end
 
     --跳转到尼尔彩蛋界面
@@ -970,7 +970,7 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.Expedition()
-        XDataCenter.ExpeditionManager.JumpToExpedition()
+        --XDataCenter.ExpeditionManager.JumpToExpedition()
     end
 
     function XFunctionalSkipManager.RpgTower()
@@ -992,11 +992,11 @@ XFunctionalSkipManagerCreator = function()
 
     --跳转到追击玩法主界面
     function XFunctionalSkipManager.SkipToPursuit()
-        if XChessPursuitConfig.GetChessPursuitInTimeMapGroup() then
-            XLuaUiManager.Open("UiChessPursuitMain")
-        else
-            XUiManager.TipText("ChessPursuitNotInTime")
-        end
+        --if XChessPursuitConfig.GetChessPursuitInTimeMapGroup() then
+        --    XLuaUiManager.Open("UiChessPursuitMain")
+        --else
+        --    XUiManager.TipText("ChessPursuitNotInTime")
+        --end
     end
 
     function XFunctionalSkipManager.SkipToSpringFestivalActivity()
@@ -1095,37 +1095,38 @@ XFunctionalSkipManagerCreator = function()
 
     -- 跳转模拟作战
     function XFunctionalSkipManager.SkipToSimulatedCombat(list)
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenSimulatedCombat) then
-            return
-        end
-
-        local mode, childUiType = list.CustomParams[1], list.CustomParams[2]
-        local isOpen, desc = XDataCenter.FubenSimulatedCombatManager.CheckModeOpen(mode)
-        if not isOpen then
-            XUiManager.TipMsg(desc)
-            return
-        end
-
-        XLuaUiManager.Remove("UiSimulatedCombatMain")
-        XLuaUiManager.Open("UiSimulatedCombatMain", mode, childUiType)
+        --if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenSimulatedCombat) then
+        --    return
+        --end
+        --
+        --local mode, childUiType = list.CustomParams[1], list.CustomParams[2]
+        --local isOpen, desc = XDataCenter.FubenSimulatedCombatManager.CheckModeOpen(mode)
+        --if not isOpen then
+        --    XUiManager.TipMsg(desc)
+        --    return
+        --end
+        --
+        --XLuaUiManager.Remove("UiSimulatedCombatMain")
+        --XLuaUiManager.Open("UiSimulatedCombatMain", mode, childUiType)
     end
 
     function XFunctionalSkipManager.SkipToMoeWar()
-        XDataCenter.MoeWarManager.OnOpenMain()
+        --XDataCenter.MoeWarManager.OnOpenMain()
+        XUiManager.TipText("MoeWarNotOpen")
     end
 
     function XFunctionalSkipManager.SkipToFubenHack(list)
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenHack) then
-            return
-        end
-        local isEnd, isNotOpen = XDataCenter.FubenHackManager.GetIsActivityEnd()
-        if isNotOpen then
-            XUiManager.TipText("CommonActivityNotStart")
-        elseif isEnd then
-            XUiManager.TipText("ActivityMainLineEnd")
-        else
-            XLuaUiManager.Open("UiFubenHack")
-        end
+        --if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenHack) then
+        --    return
+        --end
+        --local isEnd, isNotOpen = XDataCenter.FubenHackManager.GetIsActivityEnd()
+        --if isNotOpen then
+        --    XUiManager.TipText("CommonActivityNotStart")
+        --elseif isEnd then
+        --    XUiManager.TipText("ActivityMainLineEnd")
+        --else
+        --    XLuaUiManager.Open("UiFubenHack")
+        --end
     end
 
     function XFunctionalSkipManager.SkipToMineSweeping()
@@ -1154,15 +1155,15 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.SkipToFubenCoupleCombat(list)
-        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenCoupleCombat) then
-            return
-        end
-        if XDataCenter.FubenCoupleCombatManager.GetIsActivityEnd() then
-            XUiManager.TipText("FubenRepeatNotInActivityTime")
-            return
-        end
-
-        XLuaUiManager.Open("UiCoupleCombatChapter")
+        --if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenCoupleCombat) then
+        --    return
+        --end
+        --if XDataCenter.FubenCoupleCombatManager.GetIsActivityEnd() then
+        --    XUiManager.TipText("FubenRepeatNotInActivityTime")
+        --    return
+        --end
+        --
+        --XLuaUiManager.Open("UiCoupleCombatChapter")
     end
 
     function XFunctionalSkipManager.SkipToMovieAssemble(skipDatas)
@@ -1207,7 +1208,7 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.SkipToKillZone()
-        XDataCenter.KillZoneManager.EnterUiMain()
+        --XDataCenter.KillZoneManager.EnterUiMain()
     end
 
     function XFunctionalSkipManager.SkipToSameColorGame()
@@ -1240,7 +1241,7 @@ XFunctionalSkipManagerCreator = function()
     --跳转到超限乱斗
     --================
     function XFunctionalSkipManager.SkipToSuperSmashBros()
-        XDataCenter.SuperSmashBrosManager.JumpTo()
+        --XDataCenter.SuperSmashBrosManager.JumpTo()
     end
 
     --================
@@ -1276,18 +1277,18 @@ XFunctionalSkipManagerCreator = function()
     end
 
     function XFunctionalSkipManager.SkipToFubenMaverick()
-        local notInActivity, notStart = XDataCenter.MaverickManager.IsActivityEnd()
-        if notStart then
-            XUiManager.TipText("MaverickNotStart")
-            return
-        end
-
-        if notInActivity then
-            XUiManager.TipText("MaverickEnd")
-            return
-        end
-
-        XLuaUiManager.Open("UiFubenMaverickMain")
+        --local notInActivity, notStart = XDataCenter.MaverickManager.IsActivityEnd()
+        --if notStart then
+        --    XUiManager.TipText("MaverickNotStart")
+        --    return
+        --end
+        --
+        --if notInActivity then
+        --    XUiManager.TipText("MaverickEnd")
+        --    return
+        --end
+        --
+        --XLuaUiManager.Open("UiFubenMaverickMain")
     end
 
     --跳转到大逃杀玩法主界面
@@ -1297,7 +1298,7 @@ XFunctionalSkipManagerCreator = function()
 
     --跳转到枢纽作战
     function XFunctionalSkipManager.SkipToPivotCombat()
-        XDataCenter.PivotCombatManager.JumpTo()
+        --XDataCenter.PivotCombatManager.JumpTo()
     end
 
     --跳转到哈卡玛小游戏
@@ -1312,7 +1313,7 @@ XFunctionalSkipManagerCreator = function()
 
     --跳转到动作塔防
     function XFunctionalSkipManager.SkipToDoubleTowers()
-        XDataCenter.DoubleTowersManager.OnOpenMain()
+        --XDataCenter.DoubleTowersManager.OnOpenMain()
     end
 
     --登录弹窗提示，跳转到周任务挑战
@@ -1579,12 +1580,11 @@ XFunctionalSkipManagerCreator = function()
 
     -- 打开三头犬
     function XFunctionalSkipManager.OnOpenCerberusGame()
-        if not XDataCenter.CerberusGameManager.CheckIsActivityOpen() then
+        if not XMVCA.XCerberusGame:CheckIsActivityOpen() then
             XUiManager.TipError(CS.XTextManager.GetText("CommonActivityNotStart"))
             return
         end
-
-        XLuaUiManager.Open("UiCerberusGameMain")
+        XMVCA.XCerberusGame:ExOpenMainUi()
     end
 
     -- 调色板战争
@@ -1908,7 +1908,20 @@ XFunctionalSkipManagerCreator = function()
             XUiManager.TipError(CS.XTextManager.GetText("CharNeedWearSixStarEquip2"))
         end
     end
-    -- EquipGuideDrawNoWeaponTip
+
+    -- 肉鸽模拟经营
+    function XFunctionalSkipManager:SkipToRogueSim()
+        ---@type XRogueSimAgency
+        local rogueSimAgency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        rogueSimAgency:ExOpenMainUi()
+    end
+
+    function XFunctionalSkipManager:SkipToDlcCasualGames()
+        ---@type XDlcCasualAgency
+        local agency = XMVCA:GetAgency(ModuleId.XDlcCasual)
+
+        agency:ExOpenMainUi()
+    end
 
     return XFunctionalSkipManager
 end

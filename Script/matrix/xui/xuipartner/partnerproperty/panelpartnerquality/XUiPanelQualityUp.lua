@@ -26,7 +26,7 @@ end
 
 function XUiPanelQualityUp:UpdatePartnerInfo()
     local nextQuality = self.Data:GetQuality() + 1
-    local icon = XCharacterConfigs.GetCharacterQualityIcon(nextQuality)
+    local icon = XMVCA.XCharacter:GetCharacterQualityIcon(nextQuality)
     self.TxtCurCount.text = self.Data:GetQualitySkillColumnCount()
     self.TxtNextCount.text = self.Data:GetQualitySkillColumnCount(nextQuality)
     self.RawImageQuality:SetRawImage(icon)

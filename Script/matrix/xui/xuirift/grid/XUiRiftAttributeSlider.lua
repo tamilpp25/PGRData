@@ -18,6 +18,9 @@ function XUiRiftAttributeSlider:Ctor(ui, base, index)
     XTool.InitUiObject(self)
     self:RegisterEvent()
     self:InitView()
+	XScheduleManager.ScheduleOnce(function()
+		self:InitSystemPropNodePos()  -- 异形屏适配 延迟执行
+	end, 1)
 	---@type XUiPanelRiftSysAttribute
 	self.Bubble = XUiPanelRiftSysAttribute.New(self.PanelBuffBubble, self.Base, index)
 end
@@ -103,14 +106,19 @@ function XUiRiftAttributeSlider:InitSystemPropNode()
 	local attrs = XDataCenter.RiftManager:GetSystemAttr(self.Index)
 	for _, value in pairs(attrs.Values) do
 		if value > 0 then
-			local pos = value / self.Config.LimitMax * self.ImgBg.rect.width
 			local go = XUiHelper.Instantiate(self.GridBuff, self.ImgBg)
 			go.gameObject:SetActiveEx(true)
-			go.transform.anchoredPosition = CS.UnityEngine.Vector2(pos, 0)
 			local uiObject = {}
 			XTool.InitUiObjectByUi(uiObject, go)
 			self.Pool[value] = uiObject
 		end
+	end
+end
+
+function XUiRiftAttributeSlider:InitSystemPropNodePos()
+	for value, uiObject in pairs(self.Pool) do
+		local pos = value / self.Config.LimitMax * self.ImgBg.rect.width
+		uiObject.Transform.anchoredPosition = CS.UnityEngine.Vector2(pos, 0)
 	end
 end
 

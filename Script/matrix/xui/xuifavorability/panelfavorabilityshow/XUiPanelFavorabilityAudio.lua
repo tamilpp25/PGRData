@@ -20,7 +20,11 @@ end
 
 function XUiPanelFavorabilityAudio:OnDisable()
     loadGridComplete = false
-    --self.DynamicTableAudios:RecycleAllTableGrid()
+    self.DynamicTableAudios:RecycleAllTableGrid()
+end
+
+function XUiPanelFavorabilityAudio:OnDestroy()
+    self:UnScheduleAudio()
 end
 
 function XUiPanelFavorabilityAudio:RefreshDatas()

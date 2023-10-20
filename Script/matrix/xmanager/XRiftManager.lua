@@ -68,6 +68,7 @@ XRiftManagerCreator = function()
     local HandbookEffectMap = nil -- 图鉴加成
     local RobotDic = {}
     local IsCharacterRedPoint = false -- 掉落插件显示红点，进入插件选择界面后取消
+    local CurSelectLayerId = nil
 
     function XRiftManager.Init()
         XRiftManager.RegisterEvents()
@@ -134,6 +135,14 @@ XRiftManagerCreator = function()
     function XRiftManager.GetCurrSelectRiftStageGroup()
         return CurrSelectRiftStageGroup
     end
+
+    function XRiftManager.SetCurrSelectRiftLayerId(layerId)
+        CurSelectLayerId = layerId
+    end
+
+    function XRiftManager.GetCurrSelectRiftLayerId()
+        return CurSelectLayerId
+    end
     
     function XRiftManager.GetMaxUnLockFightLayerId()
         return MaxUnLockFightLayerOrder
@@ -170,9 +179,7 @@ XRiftManagerCreator = function()
     end
 
     function XRiftManager.SetNewLayerTrigger(newFightLayerId)
-        if not XRiftManager.IsLayerPass(newFightLayerId) then
-            NewLayerIdTrigger = newFightLayerId
-        end
+        NewLayerIdTrigger = newFightLayerId
     end
 
     function XRiftManager.GetIsOpenLayerSelectTrigger() --(Trigger)触发后关闭
@@ -701,16 +708,10 @@ XRiftManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
-            -- 弹出层结算
-            local currXFightLayer = LastFightXStage and LastFightXStage:GetParent():GetParent()
-            local isShowSettle = currXFightLayer and currXFightLayer:CheckIsOwnFighting()
-            if isShowSettle then -- 放弃作战时，只有打过任意一关才能结算
-                XLuaUiManager.Open("UiRiftSettleWin", currXFightLayer:GetId(), nil, true)
-            end
 
             -- 清空数据
             XRiftManager.RefreshRandomDataByServer(res.LayerData)
-            if not isShowSettle and cb then
+            if cb then
                 cb()
             end
         end)
@@ -812,6 +813,7 @@ XRiftManagerCreator = function()
             [1] = riftSettleResult.ChapterData
         }
         XDataCenter.RiftManager.RefreshChapterData(chapterData)
+        XRiftManager:SetLuckPassTime(riftSettleResult.PassTime)
         -- 记录插件掉落
         LastFightXStage:GetParent():GetParent():AddRecordPluginDrop(riftSettleResult.PluginDropRecords)
         -- 解锁插件
@@ -935,6 +937,29 @@ XRiftManagerCreator = function()
     function XRiftManager.CheckAutoExitFight(stageId)
         return false
     end
+
+    function XRiftManager.SortDropPlugin(aDrop, bDrop)
+        if aDrop.IsExtraDrop ~= bDrop.IsExtraDrop then
+            return not aDrop.IsExtraDrop
+        end
+
+        return XRiftManager.SortDropPluginBase(aDrop, bDrop)
+    end
+
+    function XRiftManager.SortDropPluginBase(aDrop, bDrop)
+        local aPlugin = XRiftManager.GetPlugin(aDrop.PluginId)
+        local bPlugin = XRiftManager.GetPlugin(bDrop.PluginId)
+        if aPlugin:GetQuality() ~= bPlugin:GetQuality() then
+            return aPlugin:GetQuality() > bPlugin:GetQuality()
+        end
+
+        if aPlugin.Config.Sort ~= bPlugin.Config.Sort then
+            return aPlugin.Config.Sort < bPlugin.Config.Sort
+        end
+
+        return aPlugin:GetId() < bPlugin:GetId()
+    end
+
     -------------------------------------------------- 5加点 begin --------------------------------------------------
 
     function XRiftManager.GenerateAttrTemplate()
@@ -1181,36 +1206,49 @@ XRiftManagerCreator = function()
         local filterSetting = self:GetFilterSertting(XEnumConst.Rift.FilterSetting.PluginChoose)
         local propTagId = tonumber(self:GetClientConfig("PropStrengthTagId"))
         local characterTagId = XRiftManager:GetCharacterExclusiveTagId()
-        for _, plugin in pairs(AllPluginDicById) do
-            if plugin:GetHave() and not plugin:GetIsDisplay() then
-                local star = plugin:GetStar()
-                local data = filterSetting[XEnumConst.Rift.Filter.Star]
-                if not XTool.IsTableEmpty(data) and not data[star] then
-                    goto CONTINUE
-                end
-                local tags = plugin:GetFilterTags()
-                local datas = filterSetting[XEnumConst.Rift.Filter.Tag] or {}
-                for tag, _ in pairs(datas) do
-                    local isPluginHasTag = table.indexof(tags, tag)
-                    if tag == characterTagId then
-                        -- 保留通用插件，去掉其他角色的插件
-                        if isPluginHasTag and plugin.Config.CharacterId ~= 0 and plugin.Config.CharacterId ~= roleId then
-                            goto CONTINUE
-                        end
-                    else
-                        -- 没配置就不显示
-                        if not isPluginHasTag then
-                            goto CONTINUE
-                        end
 
-                        if tag == propTagId then
-                            -- 根据所选角色类型进行筛选
-                            if element ~= plugin.Config.Element then
-                                goto CONTINUE
-                            end
-                        end
+        local CheckStar = function(datas, plugin)
+            local star = plugin:GetStar()
+            return datas[star]
+        end
+
+        local CheckTag = function(datas, plugin)
+            local tags = plugin:GetFilterTags()
+            for tag, _ in pairs(datas) do
+                local isPluginHasTag = table.indexof(tags, tag)
+                if tag == characterTagId then
+                    -- 保留通用插件，去掉其他角色的插件
+                    if isPluginHasTag and (plugin.Config.CharacterId == 0 or plugin.Config.CharacterId == roleId) then
+                        return true
+                    end
+                elseif tag == propTagId then
+                    -- 根据所选角色类型进行筛选
+                    if isPluginHasTag and element == plugin.Config.Element then
+                        return true
+                    end
+                else
+                    if isPluginHasTag then
+                        return true
                     end
                 end
+            end
+            return false
+        end
+
+        local starData = filterSetting[XEnumConst.Rift.Filter.Star] or {}
+        local tagDatas = filterSetting[XEnumConst.Rift.Filter.Tag] or {}
+        local isStarEmpty = XTool.IsTableEmpty(starData)
+        local isTagEmpty = XTool.IsTableEmpty(tagDatas)
+
+        for _, plugin in pairs(AllPluginDicById) do
+            if plugin:GetHave() and not plugin:GetIsDisplay() then
+                -- 同中筛选类型取交集，不同筛选类型取并集
+                local star = isStarEmpty and true or CheckStar(starData, plugin)
+                local tag = isTagEmpty and true or CheckTag(tagDatas, plugin)
+                if not star or not tag then
+                    goto CONTINUE
+                end
+
                 table.insert(pluginList, plugin)
                 :: CONTINUE ::
             end
@@ -1229,18 +1267,23 @@ XRiftManagerCreator = function()
         end
 
         table.sort(pluginList, function(a, b)
+            if a:GetStar() ~= b:GetStar() then
+                return a:GetStar() > b:GetStar()
+            end
+
             local isHaveA = a:GetHave()
             local isHaveB = b:GetHave()
-
-            if isHaveA == isHaveB then
-                if a:GetStar() ==  b:GetStar() then 
-                    return a:GetId() > b:GetId()
-                else
-                    return a:GetStar() > b:GetStar()
-                end
-            else
+            if isHaveA ~= isHaveB then
                 return isHaveA
             end
+
+            local aSort = a.Config.Sort
+            local bSort = b.Config.Sort
+            if aSort ~= bSort then
+                return aSort < bSort
+            end
+
+            return a:GetId() < b:GetId()
         end)
 
         return pluginList
@@ -1498,10 +1541,15 @@ XRiftManagerCreator = function()
                 if XTool.IsTableEmpty(tags) then
                     goto CONTINUE
                 else
+                    local hasTag = false
                     for _, tag in pairs(tags) do
-                        if not data[tag] then
-                            goto CONTINUE
+                        if data[tag] then
+                            hasTag = true
+                            break
                         end
+                    end
+                    if not hasTag then
+                        goto CONTINUE
                     end
                 end
             end
@@ -1577,6 +1625,10 @@ XRiftManagerCreator = function()
 
     function XRiftManager.GetRankingList()
         return RankData.RankPlayerInfos
+    end
+
+    function XRiftManager.IsHasRank()
+        return XTool.IsNumberValid(RankData.Rank)
     end
 
     function XRiftManager.GetMyRankInfo()
@@ -1858,6 +1910,14 @@ XRiftManagerCreator = function()
         return 0
     end
 
+    function XRiftManager:GetSeasonStartTimeByIndex(index)
+        local timeId = CurrentConfig.PeriodTimeIds[index]
+        if XTool.IsNumberValid(timeId) then
+            return XFunctionManager.GetStartTimeByTimeId(timeId) - XTime.GetServerNowTimestamp()
+        end
+        return 0
+    end
+
     function XRiftManager:IsSeasonLayer(ChapterId)
         -- 最后一关就是赛季关
         return ChapterId >= MaxChapterId
@@ -1959,6 +2019,16 @@ XRiftManagerCreator = function()
             end
         end
         return datas
+    end
+
+    function XRiftManager:SetLuckPassTime(time)
+        if LuckyNodeData then
+            LuckyNodeData:SetPassTime(time)
+        end
+    end
+
+    function XRiftManager:GetLuckPassTime()
+        return LuckyNodeData and LuckyNodeData:GetPassTime() or 0
     end
 
     --endregion

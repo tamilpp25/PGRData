@@ -35,6 +35,7 @@ end
 
 function XUiDownloadPreview:InitView()
     local dataList = self:GetSubpackageIds()
+    self.DataList = dataList
     self.PanelDynamic:SetupDynamicTable(dataList)
 end
 
@@ -42,21 +43,15 @@ function XUiDownloadPreview:GetSubpackageIds()
     if not XTool.IsTableEmpty(self.SubpackageIds) then
         return self.SubpackageIds
     end
-    local dataList = {}
-    local groupIds = XMVCA.XSubPackage:GetNecessaryGroupIds()
-    for _, groupId in pairs(groupIds) do
-        local subIds = self._Control:GetSubpackageIds(groupId)
-        dataList = XTool.MergeArray(dataList, subIds)
-    end
+    local dataList = self._Control:GetNecessarySubIds()
     return dataList
 end
 
 function XUiDownloadPreview:OnBtnDownloadBClick()
     
     local downloadCb = function()
-        local groupIds = XMVCA.XSubPackage:GetNecessaryGroupIds()
-        for _, groupId in pairs(groupIds) do
-            XMVCA.XSubPackage:DownloadAllByGroup(groupId)
+        for _, subId in pairs(self.DataList) do
+            XMVCA.XSubPackage:AddToDownload(subId)
         end
         self:Close()
     end

@@ -72,6 +72,7 @@ function XCharacterModel:OnInit()
     self.ItemIdToCharacterIdDic = {}
     self.LevelUpTemplates = {}
     self.CharBorderTemplates = {} -- 边界属性
+    self.CharQualityTemplates = {} -- CharacterQuality.tab表的字典  [charId] = { [QualityA = value1, QualityB = value2 ....]}
 
     self:InitOwnCharacter()
     self:InitCharLevelConfig()
@@ -90,8 +91,16 @@ function XCharacterModel:GetCharacterFilterController()
     return self._ConfigUtil:GetByTableKey(CharacterTableKey.CharacterFilterController)
 end
 
-function XCharacterModel:GetCharacterQualityIcon(quality)
-    return self._ConfigUtil:GetByTableKey(CharacterTableKey.CharacterQualityIcon)[quality]
+function XCharacterModel:GetCharacterQualityIcon()
+    return self._ConfigUtil:GetByTableKey(CharacterTableKey.CharacterQualityIcon)
+end
+
+function XCharacterModel:GetCharacterQualityIconByQuality(quality)
+    local config = self._ConfigUtil:GetByTableKey(CharacterTableKey.CharacterQualityIcon)[quality]
+    if not config then
+        XLog.Error("Can not found quality in CharacterQualityIcon.tab", quality)
+    end
+    return config
 end
 
 function XCharacterModel:GetCharacter()
@@ -189,6 +198,7 @@ function XCharacterModel:InitOwnCharacter()
     })
 end
 
+-- 角色等级边界数据
 function XCharacterModel:InitCharLevelConfig()
     local TABLE_LEVEL_UP_TEMPLATE_PATH = "Share/Character/LevelUpTemplate/"
     local paths = CS.XTableManager.GetPaths(TABLE_LEVEL_UP_TEMPLATE_PATH)
@@ -198,6 +208,25 @@ function XCharacterModel:InitCharLevelConfig()
     end)
 end
 
+-- 初始化character.tab的相关数据
+function XCharacterModel:InitCharacterRelatedData()
+    self.CharacterTemplatesCount = 0
+
+    local allCharConfig = self:GetCharacter()
+    for charId, v in pairs(allCharConfig) do
+        local levelTemplate = self.LevelUpTemplates[v.LevelUpTemplateId]
+        if not self.CharBorderTemplates[charId] then
+            self.CharBorderTemplates[charId] = {}
+        end
+        self.CharBorderTemplates[charId].MinLevel = 1
+        self.CharBorderTemplates[charId].MaxLevel = #levelTemplate
+
+        self.ItemIdToCharacterIdDic[v.ItemId] = charId
+        self.CharacterTemplatesCount = self.CharacterTemplatesCount + 1
+    end
+end
+
+-- 下面依赖的检测函数
 function XCharacterModel:CompareQuality(templateId, quality)
     local template = self.CharBorderTemplates[templateId]
     if not template then
@@ -213,6 +242,7 @@ function XCharacterModel:CompareQuality(templateId, quality)
     end
 end
 
+-- 下面依赖的检测函数
 function XCharacterModel:CompareGrade(templateId, grade)
     local template = self.CharBorderTemplates[templateId]
     if not template then
@@ -232,10 +262,10 @@ function XCharacterModel:InitCharQualityConfig()
     -- 角色品质对应配置
     local tab = self:GetCharacterQuality()
     for _, config in pairs(tab) do
-        -- if not CharQualityTemplates[config.CharacterId] then
-        --     CharQualityTemplates[config.CharacterId] = {}
-        -- end
-        -- CharQualityTemplates[config.CharacterId][config.Quality] = config
+        if not self.CharQualityTemplates[config.CharacterId] then
+            self.CharQualityTemplates[config.CharacterId] = {}
+        end
+        self.CharQualityTemplates[config.CharacterId][config.Quality] = config
         self:CompareQuality(config.CharacterId, config.Quality)
     end
     -- CharQualityIconTemplates = XTableManager.ReadByIntKey(TABLE_CHARACTER_QUALITY_ICON_PATH, XTable.XTableCharacterQualityIcon, "Quality")
@@ -250,24 +280,6 @@ function XCharacterModel:InitCharGradeConfig()
         -- end
         -- CharGradeTemplates[config.CharacterId][config.Grade] = config
         self:CompareGrade(config.CharacterId, config.Grade)
-    end
-end
-
--- 初始化character.tab的相关数据
-function XCharacterModel:InitCharacterRelatedData()
-    self.CharacterTemplatesCount = 0
-
-    local allCharConfig = self:GetCharacter()
-    for charId, v in pairs(allCharConfig) do
-        local levelTemplate = self.LevelUpTemplates[v.LevelUpTemplateId]
-        if not self.CharBorderTemplates[charId] then
-            self.CharBorderTemplates[charId] = {}
-        end
-        self.CharBorderTemplates[charId].MinLevel = 1
-        self.CharBorderTemplates[charId].MaxLevel = #levelTemplate
-
-        self.ItemIdToCharacterIdDic[v.ItemId] = charId
-        self.CharacterTemplatesCount = self.CharacterTemplatesCount + 1
     end
 end
 -- 初始化相关数据 结束

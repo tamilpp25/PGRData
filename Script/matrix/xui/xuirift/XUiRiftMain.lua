@@ -19,8 +19,6 @@ function XUiRiftMain:OnAwake()
     self:Init3DPanel()
     self:InitComponent()
     self:SetDragCallBack()
-
-    CsXGameEventManager.Instance:RegisterEvent(XEventId.EVENT_GUIDE_START, handler(self, self.OnGuideStart))
 end
 
 function XUiRiftMain:InitButton()
@@ -169,6 +167,7 @@ function XUiRiftMain:AutoPositioning()
     if not self.SafeAreaContentPane.gameObject.activeSelf then
         if XTool.IsNumberValid(self.CurrSelectIndex) then
             self.Panel3D:ImmediatelyGoToNodeIndex(self.CurrSelectIndex)
+            self:UpdateArrow()
         end
         return -- 关卡选择界面开着时，直接移动到选中层
     end
@@ -197,6 +196,7 @@ function XUiRiftMain:AutoPositioningToOpenBubbleByChapterId(chapterId)
         self.CurrSelectChapter = XDataCenter.RiftManager.GetEntityChapterById(chapterId)
         self:RefreshChapterInfoShow(self.CurrSelectChapter)
         self:SetChapterInfoBubbleActive(true)
+        self:UpdateArrow()
     end)
 end
 
@@ -206,6 +206,7 @@ function XUiRiftMain:SetDragCallBack()
         self.CurrSelectIndex = self.CurrSelectChapter:GetId()
         self:RefreshChapterInfoShow(self.CurrSelectChapter)
         self:SetChapterInfoBubbleActive(true)
+        self:UpdateArrow()
     end, function()
         self:SetChapterInfoBubbleActive(false)
     end)
@@ -293,8 +294,10 @@ end
 function XUiRiftMain:SetTimer()
     self:StopTimer()
     self:SetResetTime()
+    self:CountDown()
     self.Timer = XScheduleManager.ScheduleForever(function()
-            self:SetResetTime()
+        self:SetResetTime()
+        self:CountDown()
     end, XScheduleManager.SECOND, 0)
 end
 
@@ -333,12 +336,24 @@ function XUiRiftMain:OnGuideStart()
     end
 end
 
+function XUiRiftMain:OnGetEvents()
+    return {
+        XEventId.EVENT_GUIDE_START,
+    }
+end
+
+function XUiRiftMain:OnNotify(evt)
+    if evt == XEventId.EVENT_GUIDE_START then
+        self:OnGuideStart()
+    end
+end
+
 function XUiRiftMain:OnDisable()
     self:StopTimer()
 end
 
 function XUiRiftMain:OnDestroy()
-    CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_GUIDE_START, handler(self, self.OnGuideStart))
+
 end
 
 -- 记录战斗前后数据
@@ -395,6 +410,33 @@ function XUiRiftMain:RefreshShopReward()
         end
         
         grid:Refresh({TemplateId = itemId})
+    end
+end
+
+function XUiRiftMain:UpdateArrow()
+    self.ImgUp.gameObject:SetActiveEx(self.CurrSelectIndex > 1)
+    self.ImgDown.gameObject:SetActiveEx(self.CurrSelectIndex < 6)
+end
+
+function XUiRiftMain:CountDown()
+    local time = XDataCenter.RiftManager:GetSeasonEndTime()
+    if time > 0 then
+        self.TxtSeasonTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER)
+    else
+        -- 赛季未开始时显示第一赛季的开启时间
+        time = XDataCenter.RiftManager:GetSeasonStartTimeByIndex(1)
+        self.TxtSeasonTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER)
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonNameByIndex(1))
+        return
+    end
+    local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+    local config = XDataCenter.RiftManager.GetCurrentConfig()
+    if seasonIndex == 1 then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonName())
+    elseif seasonIndex == #config.PeriodName then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc2")
+    else
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc3")
     end
 end
 

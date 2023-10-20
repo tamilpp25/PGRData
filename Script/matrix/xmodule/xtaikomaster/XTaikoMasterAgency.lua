@@ -4,13 +4,8 @@ local XFubenActivityAgency = require("XModule/XBase/XFubenActivityAgency")
 ---@field private _Model XTaikoMasterModel
 local XTaikoMasterAgency = XClass(XFubenActivityAgency, "XTaikoMasterAgency")
 function XTaikoMasterAgency:OnInit()
-    ---@type XFubenExAgency
-    local fubenExAgency = XMVCA:GetAgency(ModuleId.XFubenEx)
-    fubenExAgency:RegisterActivityAgency(self)
-
-    ---@type XFubenAgency
-    local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
-    fubenAgency:RegisterFuben(XEnumConst.FuBen.StageType.TaikoMaster, ModuleId.XTaikoMaster)
+    self:RegisterActivityAgency()
+    self:RegisterFuben(XEnumConst.FuBen.StageType.TaikoMaster)
 end
 
 function XTaikoMasterAgency:InitRpc()
@@ -114,6 +109,10 @@ function XTaikoMasterAgency:ExOpenMainUi()
 end
 
 function XTaikoMasterAgency:ExCheckInTime()
+    -- 保持FubenActivity表TimeId清空功能有效
+    if not self.Super.ExCheckInTime(self) then
+        return false
+    end
     return self:CheckIsActivityOpen()
 end
 

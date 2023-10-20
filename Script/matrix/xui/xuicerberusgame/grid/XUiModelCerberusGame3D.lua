@@ -1,20 +1,6 @@
 ---@class XUiModelCerberusGame3D
 local XUiModelCerberusGame3D = XClass(nil, "XUiModelCerberusGame3D")
 
-local ModelDic = 
-{
-    [1] = "R3TwentyoneMd010031",
-    [2] = "R2NuoketiMd010031",
-    [3] = "R3WeilaMd010031",
-}
-
-local CameraPos = 
-{
-    [1] = 6,
-    [2] = 22.6,
-    [3] = 40.8,
-}
-
 function XUiModelCerberusGame3D:Ctor(ui, rootui)
     self.RootUi2D = rootui
     self.GameObject = ui.gameObject
@@ -25,9 +11,29 @@ function XUiModelCerberusGame3D:Ctor(ui, rootui)
     self:InitInfo()
 end
 
+function XUiModelCerberusGame3D:InitModelAndPosInfo()
+    self.ModelDic = 
+    {
+        [1] = "R3TwentyoneMd010031",
+        [2] = "R2NuoketiMd010031",
+        [3] = "R3WeilaMd010031",
+    }
+    self.CameraPos = 
+    {
+        [1] = 6,
+        [2] = 22.6,
+        [3] = 40.8,
+    }
+    self.TrackMoveDuration = 3
+    self.TrackMoveSpeed = 0.6
+    self.RoundLength = 53
+end
+
 function XUiModelCerberusGame3D:InitInfo()
+    self:InitModelAndPosInfo()
+
     -- 阴影要放在武器模型加载完之后
-    for k, key in pairs(ModelDic) do
+    for k, key in pairs(self.ModelDic) do
         CS.XShadowHelper.AddShadow(self[key].gameObject, true)
     end
 end
@@ -51,7 +57,7 @@ function XUiModelCerberusGame3D:SetModelSelect(index)
         return
     end
 
-    for modelIndex, modelKey in pairs(ModelDic) do
+    for modelIndex, modelKey in pairs(self.ModelDic) do
         self["UiCamFar0"..modelIndex].gameObject:SetActiveEx(modelIndex == index)
         self["UiCamNear0"..modelIndex].gameObject:SetActiveEx(modelIndex == index)
         if modelIndex ~= index then
@@ -63,12 +69,12 @@ function XUiModelCerberusGame3D:SetModelSelect(index)
 end
         
 function XUiModelCerberusGame3D:SetTrackSelect(index, cb)
-    self:SetTrackPathPosition(CameraPos[index], cb)
+    self:SetTrackPathPosition(self.CameraPos[index], cb)
 end
 
 function XUiModelCerberusGame3D:CheckLeftOrRight(currentValue, targetValue)
-    local inc = (targetValue - currentValue + 53) % 53 -- 虚拟相机一圈的值是53
-    local dec = (currentValue - targetValue + 53) % 53
+    local inc = (targetValue - currentValue + self.RoundLength) % self.RoundLength -- 虚拟相机一圈的值是53
+    local dec = (currentValue - targetValue + self.RoundLength) % self.RoundLength
     if inc <= dec then
         return true
     else
@@ -84,14 +90,16 @@ function XUiModelCerberusGame3D:SetTrackPathPosition(value, cb)
     local trackDollyNear = self.CamNearMain:GetCinemachineComponent(CS.Cinemachine.CinemachineCore.Stage.Body, typeof(CS.Cinemachine.CinemachineTrackedDolly))
     local trackDollyFar = self.CamFarMain:GetCinemachineComponent(CS.Cinemachine.CinemachineCore.Stage.Body, typeof(CS.Cinemachine.CinemachineTrackedDolly))
         
-    local duration = 3
-    local moveSpeed = 0.6
+    local duration = self.TrackMoveDuration
+    local moveSpeed = self.TrackMoveSpeed
     local targetValue = tonumber(string.format("%.f", value))
     local orgPath = tonumber(string.format("%.f", trackDollyNear.m_PathPosition))
 
     self.ChangeTimer = XUiHelper.Tween(duration, function ()
         local currPath = tonumber(string.format("%.f", trackDollyNear.m_PathPosition))
         if currPath == targetValue then
+            trackDollyNear.m_PathPosition = value
+            trackDollyFar.m_PathPosition = value
             self:StopTimer()
             if cb then
                 cb()
@@ -106,7 +114,7 @@ function XUiModelCerberusGame3D:SetTrackPathPosition(value, cb)
             addNum = -1 * moveSpeed
         end
         -- 由于虚拟相机绕一圈值会叠加，所以需要减一圈的值
-        local res = (trackDollyNear.m_PathPosition + addNum)%53
+        local res = (trackDollyNear.m_PathPosition + addNum) % self.RoundLength
   
         trackDollyNear.m_PathPosition = res
         trackDollyFar.m_PathPosition = res
@@ -121,7 +129,7 @@ function XUiModelCerberusGame3D:StopTimer()
 end
 
 function XUiModelCerberusGame3D:SetTargetModelUnSelect(index)
-    local modelKey = ModelDic[index]
+    local modelKey = self.ModelDic[index]
     local animator = self[modelKey]
     if not animator then
         return
@@ -134,7 +142,7 @@ function XUiModelCerberusGame3D:SetTargetModelUnSelect(index)
 end
 
 function XUiModelCerberusGame3D:SetTargerModelSelect(index)
-    local modelKey = ModelDic[index]
+    local modelKey = self.ModelDic[index]
     local animator = self[modelKey]
     if not animator then
         return
@@ -148,13 +156,13 @@ function XUiModelCerberusGame3D:SetTargerModelSelect(index)
 end
 
 function XUiModelCerberusGame3D:SetAllModelUnSelect()
-    for modelIndex, modelKey in pairs(ModelDic) do
+    for modelIndex, modelKey in pairs(self.ModelDic) do
         self:SetTargetModelUnSelect(modelIndex)
     end
 end
 
 function XUiModelCerberusGame3D:SetAllModelCamFalse()
-    for modelIndex, modelKey in pairs(ModelDic) do
+    for modelIndex, modelKey in pairs(self.ModelDic) do
         self["UiCamFar0"..modelIndex].gameObject:SetActiveEx(false)
         self["UiCamNear0"..modelIndex].gameObject:SetActiveEx(false)
     end

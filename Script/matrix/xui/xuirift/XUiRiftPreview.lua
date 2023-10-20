@@ -65,7 +65,7 @@ function XUiRiftPreview:OnEnable()
     for i, grid in pairs(self.GridPluginList) do
         grid.GameObject:SetActiveEx(false)
     end
-    local pluginIds = self.XFightLayer.ClientConfig.PluginList
+    local pluginIds = self.IsLuck and self.XFightLayer.ClientConfig.LuckPluginList or self.XFightLayer.ClientConfig.PluginList
     for i, pluginId in ipairs(pluginIds) do
         local grid =  self.GridPluginList[i]
         if not grid then

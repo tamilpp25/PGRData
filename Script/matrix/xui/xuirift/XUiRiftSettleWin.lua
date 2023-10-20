@@ -36,7 +36,10 @@ function XUiRiftSettleWin:OnEnable()
     self:OnHidePluginTip()
     self:SetMouseVisible()
     -- 打开层结算界面，说明层作战结束，清除关卡数据, 在刷新ui之后清除，因为清除数据要在数据展示之后
-    XDataCenter.RiftManager.ClearStageGroupRelationshipChain(self.LayerId)
+    local _, fightLayer = XDataCenter.RiftManager.GetCurrPlayingChapter()
+    if fightLayer then
+        XDataCenter.RiftManager.ClearStageGroupRelationshipChain(fightLayer:GetId())
+    end
 end
 
 function XUiRiftSettleWin:InitPluginShow()
@@ -45,10 +48,12 @@ function XUiRiftSettleWin:InitPluginShow()
     self.PanelShow.gameObject:SetActiveEx(true)
     self.PanelWin.gameObject:SetActiveEx(false)
     local datas = self.Data and self.Data.PluginDropRecords or self.CurrXFightLayer:GetRecordPluginDrop()
+    table.sort(datas, XDataCenter.RiftManager.SortDropPluginBase)
     self:RefreshTemplateGrids(self.GridShow, datas, self.GridShow.parent, nil, "UiRiftSettleWinPluginShow", function(grid, data)
         local pluginTip = require("XUi/XUiRift/Grid/XUiGridRiftPluginDrop").New(grid.GridRiftPluginTips, self)
         pluginTip:Refresh(data)
         pluginTip:RefreshBg()
+        pluginTip:SetClickCallBack(handler(self, self.OnBtnContinueClick))
         table.insert(self._PluginShowMap, pluginTip)
     end)
 end
@@ -58,7 +63,13 @@ function XUiRiftSettleWin:Refresh()
     local currXFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(self.LayerId)
     self.CurrXFightLayer = currXFightLayer
     self.TxtName.text = CS.XTextManager.GetText("RiftDepthSettle", currXFightLayer:GetId())
-    self.TxtStageTime.text = XUiHelper.GetTime(math.floor(currXFightLayer:GetTotalStagePassTime()))
+    local passTime = 0
+    if self.IsLuckyStage then
+        passTime = XDataCenter.RiftManager:GetLuckPassTime()
+    else
+        passTime = currXFightLayer:GetTotalStagePassTime()
+    end
+    self.TxtStageTime.text = XUiHelper.GetTime(math.floor(passTime))
 
     local datas = {}
     local isFirst = nil
@@ -117,7 +128,9 @@ function XUiRiftSettleWin:Refresh()
     
     -- 金币
     datas = {}
-    table.insert(datas, self:CreateReward(currXFightLayer:GetConfig().CoinCount))
+    if not self.IsLuckyStage then
+        table.insert(datas, self:CreateReward(currXFightLayer:GetConfig().CoinCount))
+    end
     local coinRaise = 0
     if riftSettleResult then
         coinRaise = riftSettleResult.CoinRaise
@@ -139,7 +152,9 @@ function XUiRiftSettleWin:Refresh()
     end)
 
     -- 分解插件
-    self:RefreshTemplateGrids(self.GridPlugin, currXFightLayer:GetRecordPluginDrop(), self.GridPlugin.parent, nil, "UiRiftSettleWinPlugin", function(grid, data)
+    local pluginDrops = currXFightLayer:GetRecordPluginDrop()
+    table.sort(pluginDrops, XDataCenter.RiftManager.SortDropPlugin)
+    self:RefreshTemplateGrids(self.GridPlugin, pluginDrops, self.GridPlugin.parent, nil, "UiRiftSettleWinPlugin", function(grid, data)
         local plugin = XUiGridRiftSettlePlugin.New(grid.Transform, self)
         plugin:Refresh(data)
         self:RegisterClickEvent(grid.Transform, function()
@@ -313,7 +328,12 @@ function XUiRiftSettleWin:OnBtnJumpClick()
 end
 
 function XUiRiftSettleWin:OnBtnCloseClick()
-    XDataCenter.RiftManager.SetOpenLayerSelectTrigger(self.CurrXFightLayer:GetId())
+    if self.IsLuckyStage then
+        local backLayerId = XDataCenter.RiftManager.GetCurrSelectRiftLayerId()
+        XDataCenter.RiftManager.SetOpenLayerSelectTrigger(backLayerId)
+    else
+        XDataCenter.RiftManager.SetOpenLayerSelectTrigger(self.CurrXFightLayer:GetId())
+    end
     self:Close()
 end
 
@@ -344,7 +364,6 @@ function XUiRiftSettleWin:OnBtnMopupClick()
 end
 
 function XUiRiftSettleWin:OnBtnContinueClick()
-    -- 待接：翻卡动画
     if self._NeedPlayAnimation then
         self._NeedPlayAnimation = false
         for _, v in pairs(self._PluginShowMap) do
@@ -378,6 +397,8 @@ function XUiRiftSettleWin:SetMouseVisible()
         local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
         inputKeyboard.HideMouseEvenByDrag = false
     end
+    CS.UnityEngine.Cursor.lockState = CS.UnityEngine.CursorLockMode.None
+    CS.UnityEngine.Cursor.visible = true
 end
 
 return XUiRiftSettleWin

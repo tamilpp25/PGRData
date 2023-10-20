@@ -37,7 +37,7 @@ local HeartbeatInterval = HeartbeatIntervalDefault
 local HeartbeatTimeout = CS.XGame.Config:GetInt("HeartbeatTimeout")
 local HeartbeatTimeOutTimer = nil
 local HeartbeatNextTimer = nil
-local ClearHeartbeartTimer
+local ClearHeartbeatTimer
 local ClearTimeOutTimer
 local MaxDisconnectTime = CS.XGame.Config:GetInt("MaxDisconnectTime") --最大断线重连时间（服务器保留时间）
 local ReconnectInterval = CS.XGame.Config:GetInt("ReconnectInterval") --重连间隔
@@ -167,7 +167,7 @@ local ConnectGate = function(cb, bReconnect)
 end
 
 function XLoginManager.Disconnect(bReconnect)
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
 
     CS.XNetwork.Disconnect()
     IsConnected = false
@@ -255,7 +255,7 @@ local function CheckHeartbeatTimeout()
     StartReconnect()
 end
 
-function ClearHeartbeartTimer()
+function ClearHeartbeatTimer()
     if HeartbeatTimeOutTimer then
         XScheduleManager.UnSchedule(HeartbeatTimeOutTimer)
         HeartbeatTimeOutTimer = nil
@@ -270,7 +270,7 @@ end
 local function OnHeartbeatResp(res)
     XTime.SyncTime(res.UtcServerTime, HearbeatRequestTime, SinceStartupTime())
 
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     -- if XNetwork.IsShowNetLog then
     --     XLog.Debug("tcp heartbeat response.")
     -- end
@@ -309,7 +309,7 @@ StartReconnect = function()
             if XNetwork.IsShowNetLog then
                 XLog.Debug("超过服务器保留最长时间")
             end
-            ClearHeartbeartTimer()
+            ClearHeartbeatTimer()
             XScheduleManager.UnSchedule(MaxReconnectTimer)
             XLoginManager.DoDisconnect()
         end
@@ -696,7 +696,7 @@ function ClearTimeOutTimer()
 end
 
 function XLoginManager.ClearAllTimer()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     ClearTimeOutTimer()
 
     if GateHandshakeTimer then
@@ -958,10 +958,10 @@ XRpc.NotifyLogin = function(data)
     XDataCenter.FubenDailyManager.InitFubenDailyData(data.FubenDailyData)
     fubenDailyProfiler:Stop()
 
-    local fubenUrgentEventProfiler = loginProfiler:CreateChild("FubenUrgentEventManager")
-    fubenUrgentEventProfiler:Start()
-    XDataCenter.FubenUrgentEventManager.InitData(data.FubenUrgentEventData)
-    fubenUrgentEventProfiler:Stop()
+    --local fubenUrgentEventProfiler = loginProfiler:CreateChild("FubenUrgentEventManager")
+    --fubenUrgentEventProfiler:Start()
+    --XDataCenter.FubenUrgentEventManager.InitData(data.FubenUrgentEventData)
+    --fubenUrgentEventProfiler:Stop()
 
     local autoFightProfiler = loginProfiler:CreateChild("AutoFightManager")
     autoFightProfiler:Start()
@@ -1126,7 +1126,7 @@ end
 function XLoginManager.SpeedUpHearbeatInterval()
     HeartbeatInterval = 200
     if HeartbeatNextTimer then -- 等待下一次心跳发送
-        ClearHeartbeartTimer()
+        ClearHeartbeatTimer()
         DoHeartbeat()
     end
 end
@@ -1140,7 +1140,7 @@ end
 XRpc.ForceLogoutNotify = function(res)
     XLoginManager.Disconnect()
     CS.XFightNetwork.Disconnect()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), CS.XTextManager.GetCodeText(res.Code), XUiManager.DialogType.OnlySure, nil, function()
         XFightUtil.ClearFight()
         if XDataCenter.MovieManager then
@@ -1174,7 +1174,7 @@ end
 XRpc.GameUpdateNotify = function(res)
     XLoginManager.Disconnect()
     CS.XFightNetwork.Disconnect()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
 
     XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), res.Msg, XUiManager.DialogType.OnlySure, nil, function()
         XFightUtil.ClearFight()

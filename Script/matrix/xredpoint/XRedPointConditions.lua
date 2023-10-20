@@ -4,7 +4,8 @@ XRedPointEvent = require("XRedPoint/XRedPointEvent")
 XRedPointEventElement = require("XRedPoint/XRedPointEventElement")
 
 XRedPointConditions = XRedPointConditions or {}
-XRedPointConditions.Conditions = {
+---@class XRedPointConditionType
+local type = {
     --角色界面红点相关UiCharacter-----------------------------------------------
     CONDITION_CHARACTER_TYPE = "XRedPointConditionCharacterType", --角色类型按钮红点(构造体、授格者)
     CONDITION_CHARACTER = "XRedPointConditionCharacter", --角色列表红点，培养
@@ -14,6 +15,7 @@ XRedPointConditions.Conditions = {
     CONDITION_CHARACTER_LEVEL = "XRedPointConditionCharacterLevel", --升级标签
     CONDITION_CHARACTER_UNLOCK = "XRedPointConditionCharacterUnlock", --解锁
     CONDITION_CHARACTER_ENHANCESKILL = "XRedPointConditionCharacterEnhanceSkill", --补强技能标签
+    CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS = "XRedPointConditionCharacterNewEnhanceSkillTips", --补强技能标签
     --好友红点相关 UiSocial-----------------------------------------------
     CONDITION_FRIEND_WAITPASS = "XRedPointConditionFriendWaitPass", --等待通过
     CONDITION_FRIEND_CONTACT = "XRedPointConditionFriendContact", --私聊信息标签
@@ -50,12 +52,13 @@ XRedPointConditions.Conditions = {
     CONDITION_TASK_WEEK_ACTIVE = "XRedPointConditionTaskWeekActive", --是否有周活跃任务奖励
     CONDITION_TASK_LIMIT_TYPE = "XRedPointConditionTaskLimited",
     --赏金任务
-    CONDITION_BOUNTYTASK = "XRedPointConditionBountyTask", --是否有赏金任务奖励
+    --CONDITION_BOUNTYTASK = "XRedPointConditionBountyTask", --是否有赏金任务奖励
     --竞技
     CONDITION_ARENA_APPLY = "XRedPointConditionArenaApply", --是否有申请数据
     --玩家章节红点相关 UiFuBen-----------------------------------------------
+    CONDITION_BFRT_CHAPTER_REWARD = "XBfrt/XRedPointConditionBfrtChapterReward",   --是否有据点战章节进度奖励
+    CONDITION_BFRT_COURSE_REWARD = "XBfrt/XRedPointConditionBfrtCourseReward",     --是否有据点战历程奖励
     CONDITION_MAINLINE_CHAPTER_REWARD = "XRedPointConditionChapterReward", --是否有主线章节进度奖励(包括收集进度与周目挑战任务)
-    CONDITION_BFRT_CHAPTER_REWARD = "XRedPointConditionBfrtChapterReward", --是否有据点战章节进度奖励
     CONDITION_CHALLEGE_NEW = "XRedPointConditionNewChallenge", --是否有在版本新玩法出现后点击过挑战页签
     CONDITION_EXTRA_CHAPTER_REWARD = "XRedPointConditionExtraChapterReward", --是否有番外章节进度奖励(包括收集进度与周目挑战任务)
     CONDITION_SHORT_STORY_CHAPTER_REWARD = "XRedPointConditionShortStoryChapterReward", --是否有故事集章节进度奖励(包括收集进度与周目挑战任务)
@@ -185,9 +188,9 @@ XRedPointConditions.Conditions = {
     CONDITION_ACTIVITY_NEW_MAINENTRY = "XRedPointConditionBriefEntry", --Brief活动入口处红点
     CONDITION_ACTIVITY_NEW_ILLUSTRATEDHANDBOOK = "XRedPointConditionShortStory", --短篇故事新开启
     --虚像地平线相关红点
-    CONDITION_EXPEDITION_CAN_RECRUIT = "XRedPointConditionExpeditionRecruit", --活动入口处红点
+    --CONDITION_EXPEDITION_CAN_RECRUIT = "XRedPointConditionExpeditionRecruit", --活动入口处红点
     --世界boss相关红点
-    CONDITION_WORLDBOSS_RED = "XRedPointConditionWorldBossRed", --活动入口处红点
+    --CONDITION_WORLDBOSS_RED = "XRedPointConditionWorldBossRed", --活动入口处红点
     -- 点消小游戏红点
     CONDITION_FUBEN_CLICKCLEARGAME_RED = "XRedPointConditionFuBenClickClearGameRed", --中元节点消小游戏副本入口红点
     CONDITION_CLICKCLEARGAME_DIFFICULT_UNLOCK = "XRedPointConditionClickClearDifficultUnlock", -- 点消小游戏难度红点
@@ -218,22 +221,21 @@ XRedPointConditions.Conditions = {
     CONDITION_TRPG_ROLE_TALENT = "XRedPointTRPGRoleTalent", --调查员天赋
     CONDITION_TRPG_SECOND_MAIN_REWARD = "XRedPointTRPGSecondMainReward", --常规主线奖励
     --活动入口可挑战
-    CONDITION_ACTIVITYBRIE_ROGUELIKEMAIN = "XRedPointConditionRogueLikeMain", --roguelike爬塔红点
+    --CONDITION_ACTIVITYBRIE_ROGUELIKEMAIN = "XRedPointConditionRogueLikeMain", --roguelike爬塔红点
     CONDITION_ACTIVITYBRIE_BABELTOWER = "XRedPointConditionBabelTower", --巴别塔红点
-    CONDITION_ACTIVITYBRIE_BOSSSINGLE = "XRedPointConditionBossSingle", --超难关
     CONDITION_ACTIVITYBRIE_EXTRA = "XRedPointConditionExtra", --番外剧情
     CONDITION_ACTIVITYBRIE_PREQUEL = "XRedPointConditionPrequel", --间章剧情
-    CONDITION_ACTIVITYBRIE_NIER = "XRedPointConditionNierCanFight", --尼尔玩法可挑战
+    --CONDITION_ACTIVITYBRIE_NIER = "XRedPointConditionNierCanFight", --尼尔玩法可挑战
     -- 兵法蓝图玩法红点
     CONDITION_RPGTOWER_TEAM_RED = "XRedPointConditionRpgTowerTeamRed", --有可升星角色时
     CONDITION_RPGTOWER_TASK_RED = "XRedPointConditionRpgTowerTaskRed", --有可领取奖励的任务时
     CONDITION_RPGTOWER_DAILYREWARD_RED = "XRedPointConditionRpgTowerDailyRewardRed", --有每日奖励可领取时
     -- 尼尔玩法红点
-    CONDITION_NIER_RED = "XRedPointConditionNieRRed",
-    CONDITION_NIER_TASK_RED = "XRedPointConditionNieRTaskRed",
-    CONDITION_NIER_POD_RED = "XRedPointConditionNieRPODRed",
-    CONDITION_NIER_REPEAT_RED = "XRedPointConditionNieRRepeatRed",
-    CONDITION_NIER_CHARACTER_RED = "XRedPointConditionNieRCharacterRed",
+    --CONDITION_NIER_RED = "XRedPointConditionNieRRed",
+    --CONDITION_NIER_TASK_RED = "XRedPointConditionNieRTaskRed",
+    --CONDITION_NIER_POD_RED = "XRedPointConditionNieRPODRed",
+    --CONDITION_NIER_REPEAT_RED = "XRedPointConditionNieRRepeatRed",
+    --CONDITION_NIER_CHARACTER_RED = "XRedPointConditionNieRCharacterRed",
     -- 特训关三期红点显示
     CONDITION_SPECIALTRAIN_RED = "XRedPointConditionSpecialTrain",
     CONDITION_SPECIALTRAINPOINT_RED = "XRedPointConditionSpecialTrainPointAndTask",
@@ -245,23 +247,23 @@ XRedPointConditions.Conditions = {
     --炸服押注红点
     CONDITION_GUARD_CAMP_RED = "XRedPointConditionGuardCampRed",
     --口袋战双红点
-    CONDITION_POKEMON_TIME_SUPPLY_RED = "XRedPointConditionPokemonCanGetTimeSupply", --口袋战双时间奖励红点
-    CONDITION_POKEMON_RED = "XRedPointConditionPokemonRed", --口袋战双入口红点
-    CONDITION_POKEMON_TASK_RED = "XRedPointConditionPokemonTaskRed", --口袋战双任务红点
-    CONDITION_POKEMON_NEW_ROLE = "XRedPointConditionPokemonNewRole", --口袋战双培养界面新角色
+    --CONDITION_POKEMON_TIME_SUPPLY_RED = "XRedPointConditionPokemonCanGetTimeSupply", --口袋战双时间奖励红点
+    --CONDITION_POKEMON_RED = "XRedPointConditionPokemonRed", --口袋战双入口红点
+    --CONDITION_POKEMON_TASK_RED = "XRedPointConditionPokemonTaskRed", --口袋战双任务红点
+    --CONDITION_POKEMON_NEW_ROLE = "XRedPointConditionPokemonNewRole", --口袋战双培养界面新角色
     -- 模拟作战红点
-    CONDITION_SIMULATED_COMBAT = "XRedPointConditionSimulatedCombat",
-    CONDITION_SIMULATED_COMBAT_CHALLENGE = "XRedPointConditionSimulatedCombatChallenge",
-    CONDITION_SIMULATED_COMBAT_POINT = "XRedPointConditionSimulatedCombatPoint",
-    CONDITION_SIMULATED_COMBAT_STAR = "XRedPointConditionSimulatedCombatStar",
-    CONDITION_SIMULATED_COMBAT_TASK = "XRedPointConditionSimulatedCombatTask",
+    --CONDITION_SIMULATED_COMBAT = "XRedPointConditionSimulatedCombat",
+    --CONDITION_SIMULATED_COMBAT_CHALLENGE = "XRedPointConditionSimulatedCombatChallenge",
+    --CONDITION_SIMULATED_COMBAT_POINT = "XRedPointConditionSimulatedCombatPoint",
+    --CONDITION_SIMULATED_COMBAT_STAR = "XRedPointConditionSimulatedCombatStar",
+    --CONDITION_SIMULATED_COMBAT_TASK = "XRedPointConditionSimulatedCombatTask",
     -- 骇入玩法
-    CONDITION_FUBEN_HACK_STAR = "XRedPointConditionFubenHackStar", -- 星级奖励
-    CONDITION_FUBEN_HACK_BUFF = "XRedPointConditionFubenHackBuff", -- Buff解锁
+    --CONDITION_FUBEN_HACK_STAR = "XRedPointConditionFubenHackStar", -- 星级奖励
+    --CONDITION_FUBEN_HACK_BUFF = "XRedPointConditionFubenHackBuff", -- Buff解锁
     -- 双人玩法
-    CONDITION_COUPLE_COMBAT_TASK_REWARD = "XRedPointConditionCoupleCombatTaskReward", --任务奖励可领取
+    --CONDITION_COUPLE_COMBAT_TASK_REWARD = "XRedPointConditionCoupleCombatTaskReward", --任务奖励可领取
     --追击玩法奖励可以领取
-    CONDITION_CHESSPURSUIT_REWARD_RED = "XRedPointConditionChessPursuitReward",
+    --CONDITION_CHESSPURSUIT_REWARD_RED = "XRedPointConditionChessPursuitReward",
     --超级据点
     XRedPointConditionStrongholdMineralLeft = "XRedPointConditionStrongholdMineralLeft", --有剩余矿石可领取
     XRedPointConditionStrongholdRewardCanGet = "XRedPointConditionStrongholdRewardCanGet", --有任务奖励未领取
@@ -283,16 +285,17 @@ XRedPointConditions.Conditions = {
     CONDITION_FINGERGUESSING_TASK = "XRedPointConditionFingerGuessingTaskRed", --猜拳小游戏任务红点
     --库洛姆人物活动红点
     CONDITION_KOROMCHARACTIVITYMAINRED = "XRedPointConditionKoroCharActivity", --库洛姆人物活动主界面红点
+    CONDITION_NEWCHARACTIVITYTASK = "XRedPointConditionNewCharTask", --试玩活动主界面任务红点
     CONDITION_KOROMCHARACTIVITYCHALLENGERED = "XRedPointConditionKoroCharActivityChallenge", --挑战关红点
     CONDITION_KOROMCHARACTIVITYTEACHINGRED = "XRedPointConditionKoroCharActivityTeaching", --教学关红点
     --萌战红点
-    CONDITION_MOEWAR_PREPARATION = "XRedPointConditionMoeWarPreparation", --筹备红点
-    CONDITION_MOEWAR_PREPARATION_REWARD = "XRedPointConditionMoeWarPreparationReward", --筹备奖励可领取
-    CONDITION_MOEWAR_PREPARATION_OPEN_STAGE = "XRedPointConditionMoeWarPreparationOpenStage", --筹备关卡开启数量达到配置提醒的数量及以上
-    CONDITION_MOEWAR_RECRUIT = "XRedPointConditionMoeWarRecruit", --招募通讯中
-    CONDITION_MOEWAR_TASK_TAB = "XRedPointConditionMoeWarTaskTab", --任务面板红点
-    CONDITION_MOEWAR_TASK = "XRedPointConditionMoeWarTask", --任务面板红点
-    CONDITION_MOEWAR_DRAW = "XRedPointConditionMoeWarDrawRed", --抽奖红点
+    --CONDITION_MOEWAR_PREPARATION = "XRedPointConditionMoeWarPreparation", --筹备红点
+    --CONDITION_MOEWAR_PREPARATION_REWARD = "XRedPointConditionMoeWarPreparationReward", --筹备奖励可领取
+    --CONDITION_MOEWAR_PREPARATION_OPEN_STAGE = "XRedPointConditionMoeWarPreparationOpenStage", --筹备关卡开启数量达到配置提醒的数量及以上
+    --CONDITION_MOEWAR_RECRUIT = "XRedPointConditionMoeWarRecruit", --招募通讯中
+    --CONDITION_MOEWAR_TASK_TAB = "XRedPointConditionMoeWarTaskTab", --任务面板红点
+    --CONDITION_MOEWAR_TASK = "XRedPointConditionMoeWarTask", --任务面板红点
+    --CONDITION_MOEWAR_DRAW = "XRedPointConditionMoeWarDrawRed", --抽奖红点
     --翻牌猜大小红点
     CONDITION_POKER_GUESSING_RED = "XRedPointConditionPokerGuessingRed", --翻牌猜大小活动列表红点
     -- 改造玩法红点
@@ -316,12 +319,12 @@ XRedPointConditions.Conditions = {
     CONDITION_FASHION_STORY_TASK="XRedPointConditionFashionStoryTask", --有任务待领取
     CONDITION_FASHION_STORY_NEWCHAPTER_UNLOCK="XRedPointConditionFashionStoryNewChapterUnLock", --有待查看的新解锁章节
     --杀戮空间
-    XRedPointConditionKillZoneActivity = "XRedPointConditionKillZoneActivity", --入口红点
-    XRedPointConditionKillZoneNewChapter = "XRedPointConditionKillZoneNewChapter", --有新章节可挑战
-    XRedPointConditionKillZoneNewDiff = "XRedPointConditionKillZoneNewDiff", --挑战模式已开启
-    XRedPointConditionKillZoneStarReward = "XRedPointConditionKillZoneStarReward", --星级奖励可领取
-    XRedPointConditionKillZoneDailyStarReward = "XRedPointConditionKillZoneDailyStarReward", --每日星级奖励可领取
-    XRedPointConditionKillZonePluginOperate = "XRedPointConditionKillZonePluginOperate", --插件待操作
+    --XRedPointConditionKillZoneActivity = "XRedPointConditionKillZoneActivity", --入口红点
+    --XRedPointConditionKillZoneNewChapter = "XRedPointConditionKillZoneNewChapter", --有新章节可挑战
+    --XRedPointConditionKillZoneNewDiff = "XRedPointConditionKillZoneNewDiff", --挑战模式已开启
+    --XRedPointConditionKillZoneStarReward = "XRedPointConditionKillZoneStarReward", --星级奖励可领取
+    --XRedPointConditionKillZoneDailyStarReward = "XRedPointConditionKillZoneDailyStarReward", --每日星级奖励可领取
+    --XRedPointConditionKillZonePluginOperate = "XRedPointConditionKillZonePluginOperate", --插件待操作
     --推箱子解密
     CONDITION_RPG_MAKER_GAME_RED = "XRedPointConditionRpgMakerGame",
     --战斗通行证
@@ -348,7 +351,7 @@ XRedPointConditions.Conditions = {
     --丽芙宣发
     CONDITION_LIV_WARM_EXT_ACTIVITY = "XRedPointConditionLivWarmExtActivity", --丽芙宣发活动
     --二周年预热-赛跑小游戏
-    CONDITION_LIV_WARM_RACE_REWARD = "XRedPointConditionLivWarmRaceReward", --奖励可领取
+    --CONDITION_LIV_WARM_RACE_REWARD = "XRedPointConditionLivWarmRaceReward", --奖励可领取
     --全服决战
     XRedPointConditionAreaWarActivity = "XRedPointConditionAreaWarActivity", --活动入口
     XRedPointConditionAreaWarActivityTag = "AreaWar/XRedPointConditionAreaWarActivityTag", --活动入口Tag
@@ -360,7 +363,7 @@ XRedPointConditions.Conditions = {
     -- 新回归
     CONDITION_NEWREGRESSION_All_RED_POINT = "XRedPointConditionNewRegressionAllRedPoint", -- 新回归所有红点
     --超限乱斗
-    CONDITION_SUPERSMASHBROS_HAVE_REWARD = "XRedPointConditionSuperSmashBrosHaveReward", --有未领取奖励时， 活动入口蓝点
+    --CONDITION_SUPERSMASHBROS_HAVE_REWARD = "XRedPointConditionSuperSmashBrosHaveReward", --有未领取奖励时， 活动入口蓝点
     --赛利卡补习班
     CONDITION_PRACTICE_ALL_RED_POINT = "XRedPointConditionPracticeAllRedPoint", --入口
     CONDITION_PRACTICE_BOSS_CHALLENGE_NEW = "XRedPointConditionPracticeBossChallengeNew", --是否有在怪物图鉴激活后点击过数据演习页签
@@ -371,11 +374,11 @@ XRedPointConditions.Conditions = {
     --元旦预热-骰子小游戏
     CONDITION_DICEGAME_RED = "XRedPointConditionDiceGameRed",
     --二周年射击玩法
-    CONDITION_MAVERICK_MAIN = "XRedPointConditionMaverickMain",
-    CONDITION_MAVERICK_TASK = "XRedPointConditionMaverickTask",
-    CONDITION_MAVERICK_PATTERN = "XRedPointConditionMaverickPattern",
-    CONDITION_MAVERICK_CHARACTER = "XRedPointConditionMaverickCharacter",
-    CONDITION_MAVERICK_CHARACTER_MAIN = "XRedPointConditionMaverickCharacterMain",
+    --CONDITION_MAVERICK_MAIN = "XRedPointConditionMaverickMain",
+    --CONDITION_MAVERICK_TASK = "XRedPointConditionMaverickTask",
+    --CONDITION_MAVERICK_PATTERN = "XRedPointConditionMaverickPattern",
+    --CONDITION_MAVERICK_CHARACTER = "XRedPointConditionMaverickCharacter",
+    --CONDITION_MAVERICK_CHARACTER_MAIN = "XRedPointConditionMaverickCharacterMain",
     --异构阵线2.0
     CONDITION_MAVERICK2 = "XRedPointConditionMaverick2",
     --肉鸽玩法
@@ -389,9 +392,9 @@ XRedPointConditions.Conditions = {
     XRedPointConditionDoomsdayActivity = "XRedPointConditionDoomsdayActivity", --活动入口
     XRedPointConditionDoomsdayTask = "XRedPointConditionDoomsdayTask", --任务奖励
     --SP枢纽作战
-    CONDITION_PIVOTCOMBAT_ALL_RED_POINT = "XRedPointConditionPivotCombatAllRedPoint", --活动入口
-    CONDITION_PIVOTCOMBAT_TASK_REWARD_RED_POINT = "XRedPointConditionPivotCombatTaskRewardRedPoint", --有可领取的任务奖励
-    CONDITION_PIVOTCOMBAT_NEW_AREA_OPEN_RED_POINT = "XRedPointConditionPivotCombatNewAreaOpenRedPoint", --新区域开放
+    --CONDITION_PIVOTCOMBAT_ALL_RED_POINT = "XRedPointConditionPivotCombatAllRedPoint", --活动入口
+    --CONDITION_PIVOTCOMBAT_TASK_REWARD_RED_POINT = "XRedPointConditionPivotCombatTaskRewardRedPoint", --有可领取的任务奖励
+    --CONDITION_PIVOTCOMBAT_NEW_AREA_OPEN_RED_POINT = "XRedPointConditionPivotCombatNewAreaOpenRedPoint", --新区域开放
     --大逃杀
     XRedPointConditionEscapeTask = "XEscape/XRedPointConditionEscapeTask", --任务奖励
     CONDITION_ESCAPE_ACTIVITY_CHALLENGE = "XEscape/XRedPointConditionEscapeActivityChallenge", --任务奖励
@@ -410,8 +413,8 @@ XRedPointConditions.Conditions = {
     CONDITION_GUILDWAR_ASSISTANT = "XRedPointConditionGuildWarAssistant",  -- 提供支援角色
 
     --动作塔防
-    CONDITION_DOUBLE_TOWERS = "XRedPointConditionDoubleTowers",
-    CONDITION_DOUBLE_TOWERS_SLOT_UNLOCKED = "XRedPointConditionDoubleTowersSlotUnlocked", --插槽解锁
+    --CONDITION_DOUBLE_TOWERS = "XRedPointConditionDoubleTowers",
+    --CONDITION_DOUBLE_TOWERS_SLOT_UNLOCKED = "XRedPointConditionDoubleTowersSlotUnlocked", --插槽解锁
     
     --琥虎符福
     CONDITION_ACTIVITY_NEW_YEAR_FUBEN = "XRedPointConditionActivityNewYearFuben",
@@ -434,7 +437,9 @@ XRedPointConditions.Conditions = {
     CONDITION_ACTIVITY_TAIKO_MASTER_CD_UNLOCK = "XRedPointConditionActivityTaikoMasterCdUnlock",
     CONDITION_ACTIVITY_TAIKO_MASTER_TASK = "XRedPointConditionActivityTaikoMasterTask",
     -- 多维挑战
-    CONDITION_MULTI_DIM_FIRST_REWARD = "XRedPointConditionMultiDimFirstReward",
+    --CONDITION_MULTI_DIM_FIRST_REWARD = "XMultiDim/XRedPointConditionMultiDimFirstReward",
+    --CONDITION_MULTI_DIM_REWARD = "XMultiDim/XRedPointConditionMultiDimReward",
+    --CONDITION_MULTI_DIM_IS_CHALLENGE = "XMultiDim/XRedPointConditionMultiDimIsChallenge",
     --正逆塔
     CONDITION_TWO_SIDE_TOWER_TASK = "XRedPointTwoSideTowerTask",
     CONDITION_TWO_SIDE_TOWER_NEW_CHAPTER = "XRedPointTwoSideTowerNewChapter",
@@ -451,6 +456,7 @@ XRedPointConditions.Conditions = {
     -- 大秘境
     CONDITION_RIFT_ENTRANCE = "XRedPointConditionRiftEntrance", -- 活动入口
     CONDITION_RIFT_ATTRIBUTE = "XRedPointConditionRiftAttribute", -- 属性加点界面入口
+    CONDITION_RIFT_ACTIVITY_TAG = "XRedPointConditionRiftActivityTag", -- 活动入口Tag
     -- 调色板战争
     CONDITION_COLORTABLE_ENTRANCE = "XRedPointConditionColorTableEntrance", -- 活动入口
 
@@ -488,7 +494,9 @@ XRedPointConditions.Conditions = {
     -- 新活动周历
     CONDITION_NEW_ACTIVITY_CALENDAR_RED = "XRedPointConditionNewActivityCalendarRed", -- 活动入口
     --超难关剧情
-    CONDITION_ACTIVITY_BOSS_SINGLE_NEW="XRedPointActivityBossSingleStoryNew", --超难关新解锁剧情
+    CONDITION_ACTIVITYBRIE_BOSSSINGLE = "XActivityBossSingle/XRedPointConditionBossSingle", --超难关
+    CONDITION_ACTIVITY_BOSS_SINGLE_REWARD = "XActivityBossSingle/XRedPointConditionActivityBossSingleReward", --超难关 奖励
+    CONDITION_ACTIVITY_BOSS_SINGLE_NEW ="XActivityBossSingle/XRedPointActivityBossSingleStoryNew", --超难关新解锁剧情
     --超限连战
     CONDITION_TRANSFINITE = "XTransfinite/XRedPointTransfinite", -- 有奖励
     --黄金矿工
@@ -503,20 +511,73 @@ XRedPointConditions.Conditions = {
     CONDITION_BLACK_ROCK_STAGE = "XRedPointConditionBlackRockStage", -- 黑岩剧情关
     --连线小游戏
     CONDITION_CONNECTING_LINE = "XRedPointConditionConnectingLine", -- 连线小游戏
+    -- 肉鸽模拟经营
+    CONDITION_ROGUESIM_ACTIVITY = "XRedPointConditionRoguesimActivity", -- 活动入口
+    -- 三头犬
+    CERBERUSE_GAME_CHECK_BTN_FASHION_STORY_RED = "XRedPointCerberuseGameCheckBtnFashionStoryRed",  -- 二期路线图关卡入口蓝点
+    CERBERUSE_GAME_CHECK_BTN_FASHION_CHALLENGE_RED = "XRedPointCerberuseGameCheckBtnFashionChallengeRed",  -- 二期挑战入口蓝点
 }
+XRedPointConditions.Conditions = type
+
+local modules = {}
+
+local function RequireModule(conditionKey) 
+    local modulePath = type[conditionKey]
+    local module = require("XRedPoint/XRedPointConditions/" .. modulePath)
+    modules[conditionKey] = module
+    
+    return module
+end
 --注册所有条件
 function XRedPointConditions.RegisterAllConditions()
     if not XRedPointConditions.Conditions then
         return
     end
 
+    ---@type XRedPointConditionType
     XRedPointConditions.Types = {}
+    --按需Require
     for key, value in pairs(XRedPointConditions.Conditions) do
-        local m = require("XRedPoint/XRedPointConditions/" .. value)
-        rawset(_G, value, m)
-        XRedPointConditions[key] = m
         XRedPointConditions.Types[key] = key
     end
+   
+    setmetatable(XRedPointConditions, {
+        __index = function(t, k)
+            local value = modules[k]
+            if value then
+                return value
+            end
+
+            -- 需要require
+            if type[k] then
+                return RequireModule(k)
+            end
+
+            value = rawget(XRedPointConditions, k)
+
+            return value
+        end
+    })
+end
+
+function XRedPointConditions.GetModule(conditionKey)
+    if not type[conditionKey] then
+        XLog.Error("XRedPointConditions.Conditions内，不存在Key值：" .. tostring(conditionKey))
+        return
+    end
+    if modules[conditionKey] then
+        return modules[conditionKey]
+    end
+    
+    return RequireModule(conditionKey)
+end
+
+function XRedPointConditions.Check(condition, ...)
+    local module = XRedPointConditions.GetModule(condition)
+    if not module then
+        return false
+    end
+    return module.Check(...)
 end
 
 XRedPointConditions.RegisterAllConditions()

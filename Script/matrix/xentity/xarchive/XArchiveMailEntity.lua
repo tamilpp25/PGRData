@@ -13,7 +13,7 @@ function XArchiveMailEntity:UpdateData(playerData)
 end
 
 function XArchiveMailEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveMailsConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveMailsConfigById(self.Id)
 end
 
 function XArchiveMailEntity:GetId()

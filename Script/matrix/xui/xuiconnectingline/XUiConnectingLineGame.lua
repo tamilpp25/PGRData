@@ -28,11 +28,14 @@ function XUiConnectingLineGame:Ctor()
     self._Bubble = false
 
     self._Timer = false
+
+    self._IsCanPlayAnimationInfoChanged = false
 end
 
 function XUiConnectingLineGame:OnAwake()
     --XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.ConnectingLine }, self.PanelAsset, self)
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.ConnectingLine)
+    self:BindHelpBtn(self.BtnHelp, XEnumConst.CONNECTING_LINE.HELP_KEY)
 
     self.LineNormal.gameObject:SetActiveEx(false)
     self.LineEnable.gameObject:SetActiveEx(false)
@@ -54,7 +57,7 @@ end
 function XUiConnectingLineGame:OnStart()
     if not self._Control:IsActivityOpen() then
         self:Close()
-        XUiManager.TipMsg("ActivityBranchNotOpen")
+        XUiManager.TipText("CommonActivityNotStart")
         return
     end
     self._Control:InitStage()
@@ -66,9 +69,14 @@ function XUiConnectingLineGame:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_CONNECTING_LINE_RESET_STAGE, self.OnResetStage, self)
     XEventManager.AddEventListener(XEventId.EVENT_CONNECTING_LINE_UPDATE, self.OnStatusUpdate, self)
 
+    if not self._Control:IsActivityOpen() then
+        return
+    end
+
     self:OnStatusUpdate()
     self:UpdateTime()
     self:StartTimer()
+    self._IsCanPlayAnimationInfoChanged = true
 end
 
 function XUiConnectingLineGame:OnDisable()
@@ -361,8 +369,25 @@ end
 function XUiConnectingLineGame:UpdateGameInfo()
     self._Control:UpdateGameInfo()
     local uiData = self._Control:GetUiData()
-    self.TextGrid.text = uiData.TextLightGrid
-    self.TextCharacter.text = uiData.TextLink
+    local isInfoChanged = false
+    if self.TextGrid.text ~= uiData.TextLightGrid then
+        self.TextGrid.text = uiData.TextLightGrid
+        isInfoChanged = true
+    end
+    if self.TextCharacter.text ~= uiData.TextLink then
+        self.TextCharacter.text = uiData.TextLink
+        isInfoChanged = true
+    end
+    -- 信息变化
+    if self._IsCanPlayAnimationInfoChanged and isInfoChanged then
+        self:PlayAnimation("TextTips")
+    end
+    if uiData.PlayAnimationGridLoop then
+        self:PlayAnimation("TextTipsLoop", nil, nil, CS.UnityEngine.Playables.DirectorWrapMode.Loop)
+    else
+        self:StopAnimation("TextTipsLoop")
+    end
+
     ---@type XUiComponent.XUiButton
     local buttonReset = self.ButtonReset
     if uiData.IsEnableReset then
@@ -429,6 +454,14 @@ function XUiConnectingLineGame:StartGame()
     self:UpdateInfo()
 end
 
+function XUiConnectingLineGame:SetEmpty()
+    self:InitGame()
+    self:ClearBoard()
+    self:SetUiAvatar()
+    self:UpdatePainting()
+    self:UpdateInfo()
+end
+
 function XUiConnectingLineGame:ShowPanelStart()
     self.PanelStart.gameObject:SetActiveEx(true)
     local uiData = self._Control:GetUiData()
@@ -456,7 +489,7 @@ function XUiConnectingLineGame:CheckFinish()
     local game = self._Control:GetGame()
     if game:GetFinishState() == XEnumConst.CONNECTING_LINE.FINISH_STATE.PERFECT_COMPLETE then
         if self._Control:IsLastStage() then
-            XEventManager.DispatchEvent(XEventId.EVENT_CONNECTING_LINE_BUBBLE, XEnumConst.CONNECTING_LINE.BUBBLE.FINISH_ALL)
+            self:ClearBoard()
         else
             XEventManager.DispatchEvent(XEventId.EVENT_CONNECTING_LINE_BUBBLE, XEnumConst.CONNECTING_LINE.BUBBLE.FINISH)
         end
@@ -499,11 +532,17 @@ function XUiConnectingLineGame:OnStatusUpdate()
         return
     end
     if status == XEnumConst.CONNECTING_LINE.STAGE_STATUS.REWARD then
-        if not self._Control:IsGameInit() then
-            self:StartGame()
-        end
         self:ShowPanelFinish()
-        self:UpdateInfo()
+
+        if self._Control:IsLastStage() then
+            self:SetEmpty()
+            XEventManager.DispatchEvent(XEventId.EVENT_CONNECTING_LINE_BUBBLE, XEnumConst.CONNECTING_LINE.BUBBLE.FINISH_ALL)
+        else
+            if not self._Control:IsGameInit() then
+                self:StartGame()
+            end
+            self:UpdateInfo()
+        end
         return
     end
 end
@@ -525,6 +564,7 @@ function XUiConnectingLineGame:StartTimer()
             -- kick out
             if not self._Control:IsActivityOpen() then
                 XUiManager.TipText("CommonActivityNotStart")
+                self:Close()
                 return
             end
         end, XScheduleManager.SECOND)
@@ -600,6 +640,11 @@ function XUiConnectingLineGame:ResetAnimation()
         local uiGrid = self._GridList[i]
         uiGrid:ResetAnimation()
     end
+end
+
+function XUiConnectingLineGame:ClearBoard()
+    local game = self._Control:GetGame()
+    game:ClearBoard()
 end
 
 return XUiConnectingLineGame

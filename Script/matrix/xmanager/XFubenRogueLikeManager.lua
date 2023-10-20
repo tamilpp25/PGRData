@@ -1154,40 +1154,40 @@ end
 
 -- 通知玩法数据
 XRpc.NotifyRogueLikeData = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncRogueLikeInfo(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncRogueLikeInfo(notifyData)
 end
 
 -- 通知buff
 XRpc.NotifyBuffData = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncBuffData(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncBuffData(notifyData)
 end
 
 -- 更新章节数据
 XRpc.NotifySectionInfoChange = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncSectionInfoChange(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncSectionInfoChange(notifyData)
 end
 
 
 XRpc.NotifyNodeShopInfo = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncNodeShopInfo(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncNodeShopInfo(notifyData)
 end
 
 -- 通知助战机器人改变
 XRpc.NotifyAssistRobot = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncAssistRobot(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncAssistRobot(notifyData)
 end
 
 -- 刷新行动点和角色信息
 XRpc.NotifyActionPointAndCharacterInfo = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncActionPointAndCharacterInfo(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncActionPointAndCharacterInfo(notifyData)
 end
 
 -- 刷新队伍效果
 XRpc.NotifyTeamEffect = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncTeamEffect(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncTeamEffect(notifyData)
 end
 
 --通关显示试炼积分
 XRpc.NotifyTrialPoint = function(notifyData)
-    XDataCenter.FubenRogueLikeManager.AsyncTrialPoint(notifyData)
+    --XDataCenter.FubenRogueLikeManager.AsyncTrialPoint(notifyData)
 end

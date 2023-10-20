@@ -21,10 +21,6 @@ function XUiTheatre3TipReward:OnStart(rewardGoodsList, innerItemList, closeCb)
     self.InnerItems = {}
     self:Refresh(rewardGoodsList, innerItemList)
     self:CheckIsTimelimitGood(rewardGoodsList)
-    if not XTool.IsTableEmpty(innerItemList) then
-        -- 音效
-        self._Control:PlayGetRewardSound(XEnumConst.THEATRE3.NodeRewardType.ItemBox)
-    end
 end
 
 function XUiTheatre3TipReward:Refresh(rewardGoodsList, innerItemList)

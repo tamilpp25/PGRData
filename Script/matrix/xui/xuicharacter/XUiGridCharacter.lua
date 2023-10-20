@@ -141,7 +141,7 @@ function XUiGridCharacter:UpdateRobotGrid()
     local robotId = self.Character.Id
     local robotTemplate = XRobotManager.GetRobotTemplate(robotId)
     local level = robotTemplate.CharacterLevel
-    local quality = XCharacterConfigs.GetCharacterQualityIcon(robotTemplate.CharacterQuality)
+    local quality = XMVCA.XCharacter:GetCharacterQualityIcon(robotTemplate.CharacterQuality)
     local head = self.CharacterAgency:GetCharSmallHeadIcon(robotTemplate.CharacterId, true)
     local grade = XCharacterConfigs.GetCharGradeIcon(robotTemplate.CharacterId, robotTemplate.CharacterGrade)
     local ability = self.Character.Ability or XRobotManager.GetRobotAbility(robotId)
@@ -297,7 +297,7 @@ function XUiGridCharacter:UpdateOwnInfo()
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Character.Quality))
     end
 
     if self.RImgHeadIcon then

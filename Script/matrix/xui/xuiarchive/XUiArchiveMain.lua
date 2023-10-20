@@ -1,7 +1,7 @@
 local XUiArchiveMain = XLuaUiManager.Register(XLuaUi, "UiArchiveMain")
 
 function XUiArchiveMain:OnEnable()
-    self.ArchiveDatas = XDataCenter.ArchiveManager.GetArchives()
+    self.ArchiveDatas = self._Control:GetArchives()
     for index, archive in pairs(self.ArchiveList) do
         archive:UpdateGrid(self.ArchiveDatas[index], self, index)
     end
@@ -11,27 +11,26 @@ function XUiArchiveMain:OnStart()
     self:SetButtonCallBack()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 
-    self.ArchiveObj = {[XArchiveConfigs.SubSystemType.Monster] = self.GridArchive1,
-        [XArchiveConfigs.SubSystemType.Weapon] = self.GridArchive2,
-        [XArchiveConfigs.SubSystemType.Awareness] = self.GridArchive3,
-        [XArchiveConfigs.SubSystemType.Story] = self.GridArchive4,
-        [XArchiveConfigs.SubSystemType.CG] = self.GridArchive5,
-        [XArchiveConfigs.SubSystemType.NPC] = self.GridArchive6,
-        [XArchiveConfigs.SubSystemType.Email] = self.GridArchive7,
-        [XArchiveConfigs.SubSystemType.Partner] = self.GridArchive8,
-        [XArchiveConfigs.SubSystemType.PV] = self.GridArchive9 }
+    self.ArchiveObj = {[XEnumConst.Archive.SubSystemType.Monster] = self.GridArchive1,
+        [XEnumConst.Archive.SubSystemType.Weapon] = self.GridArchive2,
+        [XEnumConst.Archive.SubSystemType.Awareness] = self.GridArchive3,
+        [XEnumConst.Archive.SubSystemType.Story] = self.GridArchive4,
+        [XEnumConst.Archive.SubSystemType.CG] = self.GridArchive5,
+        [XEnumConst.Archive.SubSystemType.NPC] = self.GridArchive6,
+        [XEnumConst.Archive.SubSystemType.Email] = self.GridArchive7,
+        [XEnumConst.Archive.SubSystemType.Partner] = self.GridArchive8,
+        [XEnumConst.Archive.SubSystemType.PV] = self.GridArchive9 }
 
     self:InitArchiveList()
-    XDataCenter.ArchiveManager.UpdateStoryData()
-    XDataCenter.ArchiveManager.UpdateStoryNpcData()
-    XDataCenter.ArchiveManager.UpdateMailAndCommunicationData()
+    self._Control:UpdateStoryData()
+    self._Control:UpdateStoryNpcData()
+    self._Control:UpdateMailAndCommunicationData()
 end
 
 function XUiArchiveMain:InitArchiveList()
     self.ArchiveList = {}
     for index, archiveObj in pairs(self.ArchiveObj) do
-        self.ArchiveList[index] = XUiGridArchive.New(archiveObj,self)
-        self.ArchiveList[index]:AddRedPointEvent(index)
+        self.ArchiveList[index] = XUiGridArchive.New(archiveObj,self,index)
     end
 end
 

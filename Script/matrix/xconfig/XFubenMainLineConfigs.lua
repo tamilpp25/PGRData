@@ -30,6 +30,7 @@ local TABLE_MAINLINE_NEXT_CHAPTER = "Client/Fuben/MainLine/MainLineNextChapter.t
 
 local MainLineActivityCfg = {}
 local ChapterMainTemplates = {}
+---@type XTableChapter[]
 local ChapterCfg = {}
 local TreasureCfg = {}
 local ExploreGroupCfg = {}

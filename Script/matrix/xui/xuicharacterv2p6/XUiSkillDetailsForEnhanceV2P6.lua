@@ -1,3 +1,5 @@
+---@class XUiSkillDetailsForEnhanceV2P6 XUiSkillDetailsForEnhanceV2P6
+---@field _Control XCharacterControl
 local XUiSkillDetailsForEnhanceV2P6 = XLuaUiManager.Register(XLuaUi, "UiSkillDetailsForEnhanceV2P6")
 local XUiPanelSkillDetailsInfoV2P6 = require("XUi/XUiCharacterV2P6/Grid/XUiPanelSkillDetailsInfoV2P6")
 
@@ -11,10 +13,6 @@ function XUiSkillDetailsForEnhanceV2P6:OnAwake()
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.SkillPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.BtnTog.gameObject:SetActiveEx(false)     --信号球技能（红黄蓝)
     self.BtnSpecial.gameObject:SetActiveEx(false)
-
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
 
     self.SkillBtnGrids = {}
     self:InitButton()
@@ -34,7 +32,25 @@ end
 
 function XUiSkillDetailsForEnhanceV2P6:OnStart(characterId)
     self.CharacterId = characterId
-    self.Character = self.CharacterAgency:GetCharacter(characterId)
+    self.Character = XMVCA.XCharacter:GetCharacter(characterId)
+
+    self:RecordViewPageAndTips()
+end
+
+-- 记录是否查看过该成员的跃升界面
+function XUiSkillDetailsForEnhanceV2P6:RecordViewPageAndTips()
+    local characterId = self.CharacterId
+
+    if not XMVCA.XCharacter:CheckIsShowNewEnhanceTips(characterId) then
+        return
+    end
+
+    self._Control:CharacterEnhanceSkillNoticeRequest(characterId, function ()
+        local charFullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
+        local title =  CS.XTextManager.GetText("EnhanceTip")
+        local content = CS.XTextManager.GetText("StartEnhance", charFullName)
+        XUiManager.PopupLeftTip(title, content)
+    end)
 end
 
 function XUiSkillDetailsForEnhanceV2P6:OnEnable()
@@ -47,7 +63,7 @@ function XUiSkillDetailsForEnhanceV2P6:RefreshUiShow()
     self.PanelTagGroup:SelectIndex(self.CurrentSkillSelect or 1)
 
     -- 刷新技能类型文本
-    local characterSkillGateConfig = self.CharacterAgency:GetModelCharacterSkillGate()
+    local characterSkillGateConfig = XMVCA.XCharacter:GetModelCharacterSkillGate()
     local configId = CharacterTypeSkillGateIdDic[XMVCA.XCharacter:GetCharacterType(self.CharacterId)]
     local config = characterSkillGateConfig[configId]
     self.TxtName.text = config.Name
@@ -76,8 +92,8 @@ function XUiSkillDetailsForEnhanceV2P6:InitSkillBtn()
         local levelStr = level <= 0 and "" or CS.XTextManager.GetText("HostelDeviceLevel") .. ':' .. level
         btn:SetNameByGroup(0, levelStr)
 
-        local IsPassCondition,_ = self.CharacterAgency:GetEnhanceSkillIsPassCondition(skillGroup, self.CharacterId)
-        local IsShowRed = IsPassCondition and self.CharacterAgency:CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup)
+        local IsPassCondition,_ = XMVCA.XCharacter:GetEnhanceSkillIsPassCondition(skillGroup, self.CharacterId)
+        local IsShowRed = IsPassCondition and XMVCA.XCharacter:CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup)
         btn:ShowReddot(IsShowRed)
 
         local ImgLocks = {

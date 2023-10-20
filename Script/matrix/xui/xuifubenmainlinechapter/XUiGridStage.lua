@@ -332,7 +332,8 @@ function XUiGridStage:SetNormalStage(stageInfo, nextStageInfo, stageCfg, stageId
          chapter = XFubenShortStoryChapterConfigs.CheckChapterDetailsByChapterId(stageInfo.ChapterId)
     end
     if stageType == XFubenConfigs.STAGETYPE_STORY or stageType == XFubenConfigs.STAGETYPE_STORYEGG then
-        if stageInfo.Unlock then
+        local isUnlock = self:CheckCurrentStageUnlock(stageCfg, stageInfo)
+        if isUnlock then
             self:SetStoryStageActive()
             if (not (nextStageInfo and nextStageInfo.Unlock or stageInfo.Passed)) and not IsEgg then
                 if not self.IsMainLineExplore then

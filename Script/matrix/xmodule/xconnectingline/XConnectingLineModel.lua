@@ -34,6 +34,7 @@ function XConnectingLineModel:OnInit()
         BubbleDataSource = {},
         TextStageName = false,
         TextReward = false,
+        PlayAnimationGridLoop = false,
     }
 
     self._UiDataReward = {
@@ -52,19 +53,22 @@ function XConnectingLineModel:ClearPrivate()
     --这里执行内部数据清理
     self._UiData = {}
     self._Game = false
-    --self._StageList = {}
 end
 
 function XConnectingLineModel:ResetAll()
     --这里执行重登数据清理
     self._ActivityId = 0
     self._CurrentStageId = 0
+    self._StageList = nil
     self._Status = XEnumConst.CONNECTING_LINE.STAGE_STATUS.LOCK
 end
 
 ----------public start----------
 ---XConnectingLineData
 function XConnectingLineModel:SetDataFromServer(data, sendEvent)
+    if self._ActivityId ~= data.ActivityId then
+        self._StageList = nil
+    end
     self._ActivityId = data.ActivityId or 0
     self._CurrentStageId = data.StageId
     self:SetStatus(data.Status)
@@ -95,7 +99,11 @@ function XConnectingLineModel:GetGame()
 end
 
 function XConnectingLineModel:IsActivityOpen()
-    return self._ActivityId > 0
+    if self._ActivityId > 0 then
+        local timeId = self:GetTimerId()
+        return XFunctionManager.CheckInTimeByTimeId(timeId)
+    end
+    return false
 end
 
 function XConnectingLineModel:GetUiData()
@@ -120,22 +128,47 @@ end
 function XConnectingLineModel:UpdateGameInfo()
     local uiData = self._UiData
 
-    local linkedAmount = self._Game:GetLinkedAmount()
-    local avatarCount = self._Game:GetAvatarAmount()
-    uiData.TextLink = linkedAmount .. "/" .. avatarCount
-    uiData.IsEnableReset = linkedAmount > 0 and not self:IsFinish()
+    local isFinish = self:IsFinish()
 
-    local lightGridAmount = self._Game:GetLightGridAmount()
+    local linkedAmount
+    local avatarCount = self._Game:GetAvatarAmount()
+    if isFinish then
+        linkedAmount = avatarCount
+    else
+        linkedAmount = self._Game:GetLinkedAmount()
+    end
+    uiData.TextLink = linkedAmount .. "/" .. avatarCount
+    uiData.IsEnableReset = linkedAmount > 0 and not isFinish
+
+    local lightGridAmount
     local gridAmount = self._Game:GetGridAmount()
+    if isFinish then
+        lightGridAmount = gridAmount
+    else
+        lightGridAmount = self._Game:GetLightGridAmount()
+    end
     uiData.TextLightGrid = lightGridAmount .. "/" .. gridAmount
+
+    if linkedAmount == avatarCount and not isFinish then
+        uiData.PlayAnimationGridLoop = true
+    else
+        uiData.PlayAnimationGridLoop = false
+    end
+end
+
+function XConnectingLineModel:GetTimerId()
+    local activityConfig = self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.ConnectingLineActivity, self._ActivityId)
+    if activityConfig then
+        local timeId = activityConfig.TimeId
+        return timeId
+    end
+    return false
 end
 
 function XConnectingLineModel:UpdateTime()
     local uiData = self._UiData
-
-    local activityConfig = self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.ConnectingLineActivity, self._ActivityId)
-    if activityConfig then
-        local timeId = activityConfig.TimeId
+    local timeId = self:GetTimerId()
+    if timeId then
         local endTime = XFunctionManager.GetEndTimeByTimeId(timeId)
         local currentTime = XTime.GetServerNowTimestamp()
         local remainTime = endTime - currentTime
@@ -207,8 +240,12 @@ function XConnectingLineModel:IsNextStageCanChallenge()
     if self:IsFinish() then
         return false
     end
-    local stageId = self:GetNextStage()
-    if stageId then
+    if self:GetStatus() == XEnumConst.CONNECTING_LINE.STAGE_STATUS.UNLOCK then
+        return true
+    end
+
+    local stageId = self._CurrentStageId
+    if stageId and stageId > 0 then
         local cost = self:GetCostItemNum(stageId)
         local itemId = XDataCenter.ItemManager.ItemId.ConnectingLine
         return XDataCenter.ItemManager.CheckItemCountById(itemId, cost)

@@ -10,15 +10,15 @@ local TableKey = {
     --分包
     SubPackage = { CacheType = XConfigUtil.CacheType.Normal, DirPath = XConfigUtil.DirectoryType.Client },
     --分包拦截检测
-    SubPackageIntercept = { CacheType = XConfigUtil.CacheType.Temp ,DirPath = XConfigUtil.DirectoryType.Client, Identifier = "EntryType" },
-    --语言拦截
-    SubPackageVoiceIntercept = {CacheType = XConfigUtil.CacheType.Normal, DirPath = XConfigUtil.DirectoryType.Client },
+    SubPackageIntercept = { CacheType = XConfigUtil.CacheType.Temp ,DirPath = XConfigUtil.DirectoryType.Client },
 }
 
 function XSubPackageModel:OnInit()
     self._ConfigUtil:InitConfigByTableKey("DlcRes", TableKey)
 
     self._SubpackageDict = {}
+    
+    self._NecessarySubIds = nil --必要资源
     
     self._SubId2GroupId = {}
     
@@ -43,14 +43,14 @@ function XSubPackageModel:IsOpen()
 end
 
 function XSubPackageModel:CheckChannelEnable()
-    local channelId = CS.XHeroSdkAgent.GetAppChannelId()
-    if string.IsNilOrEmpty(channelId) then
-        return true
-    end
-    
     local channels = CS.XRemoteConfig.SubPackAppChannel --字符串，直接判断是否包含对应Id
     if string.IsNilOrEmpty(channels) then
         return true
+    end
+
+    local channelId = CS.XHeroSdkAgent.GetAppChannelId()
+    if string.IsNilOrEmpty(channelId) then
+        return false
     end
     
     return string.find(channels, channelId)
@@ -66,6 +66,7 @@ end
 
 function XSubPackageModel:ClearTemp()
     self._GroupIdList = nil
+    self._NecessarySubIds = nil
 end
 
 function XSubPackageModel:GetGroupIdList()
@@ -98,8 +99,12 @@ function XSubPackageModel:InitSubIntercept()
         if not self._SubIntercept[template.EntryType] then
             self._SubIntercept[template.EntryType] = {}
         end
-        for _, param in pairs(template.Params) do
-            self._SubIntercept[template.EntryType][param] = param
+        if XTool.IsTableEmpty(template.Params) then
+            self._SubIntercept[template.EntryType][0] = template.SubPackageId
+        else
+            for _, param in pairs(template.Params) do
+                self._SubIntercept[template.EntryType][param] = template.SubPackageId
+            end
         end
     end
 end
@@ -127,6 +132,11 @@ end
 
 ---@return XSubpackage
 function XSubPackageModel:GetSubpackageItem(subpackageId)
+    local groupId = self:GetSubpackageGroupId(subpackageId)
+    if not groupId then
+        XLog.Warning("Could not found subpackageId = " .. tostring(subpackageId))
+        return
+    end
     local item = self._SubpackageDict[subpackageId]
     if not item then
         if not XSubpackage then
@@ -139,22 +149,22 @@ function XSubPackageModel:GetSubpackageItem(subpackageId)
     return item
 end
 
-function XSubPackageModel:CheckIntercept(entryType, param)
-    --不填，默认需要拦截检测
-    if not entryType then
-        return true
+function XSubPackageModel:GetNecessarySubIds()
+    if self._NecessarySubIds then
+        return self._NecessarySubIds
     end
-    if not self._SubIntercept then
-        self:InitSubIntercept()
+    ---@type table<number, XTableSubPackage>
+    local templates = self._ConfigUtil:GetByTableKey(TableKey.SubPackage)
+    local nType = XEnumConst.SUBPACKAGE.SUBPACKAGE_TYPE.NECESSARY
+    local list = {}
+    for _, template in pairs(templates) do
+        if template.Type == nType then
+            table.insert(list, template.Id)
+        end
     end
-    --不存在类型，不拦截
-    if not self._SubIntercept[entryType] then
-        return false
-    end
-    if not self._SubIntercept[entryType][param] then
-        return true
-    end
-    return false
+    self._NecessarySubIds = list
+    
+    return self._NecessarySubIds
 end
 
 function XSubPackageModel:GetSubpackageGroupId(subpackageId)
@@ -174,7 +184,40 @@ function XSubPackageModel:GetSubpackageGroupId(subpackageId)
     return self._SubId2GroupId[subpackageId]
 end
 
----@return XTableSubPackageVoiceIntercept
+function XSubPackageModel:GetEntrySubpackageId(entryType, param)
+    --不填，检测必要资源
+    if not entryType then
+        return XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.NECESSARY
+    end
+    param = param or 0
+    if not self._SubIntercept then
+        self:InitSubIntercept()
+    end
+    local subId = self._SubIntercept[entryType][param]
+    --未找到，检测必要资源
+    if not subId then
+        return XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.NECESSARY
+    end
+    
+    return subId
+end
+
+--玩法入口依赖的所有Subpackage
+function XSubPackageModel:GetAllSubpackageIds(entryType, param)
+    local subId = self:GetEntrySubpackageId(entryType, param)
+    --不依赖分包
+    if subId == XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.INVALID then
+        return nil
+    elseif subId == XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.NECESSARY then
+        return self:GetNecessarySubIds()
+    else
+        local template = self:GetSubpackageTemplate(subId)
+        local list = {subId}
+        list = XTool.MergeArray(list, template.BindSubIds)
+        return list
+    end
+end
+
 function XSubPackageModel:GetVoiceIntercept(cvType)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.SubPackageVoiceIntercept, cvType)
 end

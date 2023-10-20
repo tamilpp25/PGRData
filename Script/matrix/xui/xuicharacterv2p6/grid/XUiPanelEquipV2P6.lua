@@ -245,7 +245,7 @@ function XUiPanelEquipV2P6:UpdatePanelResonanceSkill()
         local grid = self.DoubleResonanceList[index]
         if not grid then
             local go = CSInstantiate(self.GridDoubleResonanceSkill, self.PanelResonanceSkill)
-            grid = XUiGridResonanceDoubleSkillV2P6.New(go)
+            grid = XUiGridResonanceDoubleSkillV2P6.New(go, self.RootUi)
             self.DoubleResonanceList[index] = grid
             grid.GameObject:SetActive(true)
         end
@@ -260,15 +260,18 @@ function XUiPanelEquipV2P6:OnBtnWeaponReplaceClick()
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnWeaponReplace, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnCarryPartnerClick()
     if self.ForbidGotoEquip then return end
     XDataCenter.PartnerManager.GoPartnerCarry(self.CharacterId, true)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnCarryPartner, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnAwarenessOcuupyClick()
     XLuaUiManager.Open("UiAwarenessOccupyProgress", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessOcuupy, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnAwarenessClick(site)
@@ -277,15 +280,25 @@ function XUiPanelEquipV2P6:OnAwarenessClick(site)
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwarenessReplace(self.CharacterId, site)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessReplace, self.CharacterId)
+end
+
+function XUiPanelEquipV2P6:OnBtnUnFoldClick()
+    self:DoUnFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnUnFold, self.CharacterId)
 end
 
 -- 展开意识面板
-function XUiPanelEquipV2P6:OnBtnUnFoldClick()
+function XUiPanelEquipV2P6:DoUnFold()
+    if not self.GameObject.activeInHierarchy then
+        return
+    end
+
     if self.IsShowPanelAwareness then
         return
     end
 
-    self.PanelEquipEnable:PlayTimelineAnimation()
+    self:PlayAnimationWithMask("AnimUnFold")
     self.IsShowPanelAwareness = true
     self:InitUnFoldButton()
     self:UpdateAwarenessView()
@@ -294,8 +307,17 @@ function XUiPanelEquipV2P6:OnBtnUnFoldClick()
     end
 end
 
--- 展开角色面板
 function XUiPanelEquipV2P6:OnBtnFoldClick()
+    self:DoFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnFold, self.CharacterId)
+end
+
+-- 展开角色面板
+function XUiPanelEquipV2P6:DoFold()
+    if not self.GameObject.activeInHierarchy then
+        return
+    end
+
     if not self.IsShowPanelAwareness then
         return
     end
@@ -303,7 +325,7 @@ function XUiPanelEquipV2P6:OnBtnFoldClick()
     for _, grid in pairs(self.WearingAwarenessGrids) do
         grid:Close()
     end
-    self.PanelBaseEnable:PlayTimelineAnimation()
+    self:PlayAnimationWithMask("AnimFold")
     self.IsShowPanelAwareness = false
     self:UpdateRoleView()
     if self.OnFoldCb then
@@ -318,18 +340,22 @@ function XUiPanelEquipV2P6:OnBtnAutoTakeOffClick()
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):TakeOff(wearingEquipIds)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAutoTakeOff, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnRecommendClick()
     XDataCenter.EquipGuideManager.OpenEquipGuideView(self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnRecommend, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnAwarenessSuitClick()
     XLuaUiManager.Open("UiEquipAwarenessSuitPrefab", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessSuit, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnPanelAdditionClick()
     XLuaUiManager.Open("UiEquipSuitSkillV2P6", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAddition, self.CharacterId)
 end
 
 -- 卸下/一键卸下装备事件

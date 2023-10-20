@@ -48,7 +48,18 @@ end
 function XUiRiftSeasonStageDetail:CountDown()
     local time = XDataCenter.RiftManager:GetSeasonEndTime()
     if time > 0 then
-        self.TxtTime.text = XUiHelper.GetText("TurntableTime", XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER))
+        local time = XDataCenter.RiftManager:GetSeasonEndTime()
+        local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+        local config = XDataCenter.RiftManager.GetCurrentConfig()
+        local txt
+        if seasonIndex == 1 then
+            txt = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonName())
+        elseif seasonIndex == #config.PeriodName then
+            txt = XUiHelper.GetText("RiftCountDownDesc2")
+        else
+            txt = XUiHelper.GetText("RiftCountDownDesc3")
+        end
+        self.TxtTime.text = string.format("%s%s", txt, XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER))
     end
 end
 

@@ -2510,19 +2510,6 @@ XArchiveManagerCreator = function()
     function XArchiveManager.GetPercent(percent)
         return (percent > 0 and percent < 1) and 1 or math.floor(percent)
     end
-    
-    -- 打开图鉴接口，统一入口
-    function XArchiveManager.OpenUiArchiveMain()
-        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive) then
-            return
-        end
-        --资源检测
-        if not XMVCA.XSubPackage:CheckSubpackage() then
-            return
-        end
-
-        XLuaUiManager.Open("UiArchiveMain")
-    end
 
     XArchiveManager.Init()
     return XArchiveManager

@@ -8,15 +8,16 @@ local ButtonState = {
 }
 
 --region   ------------------重写父类方法 start-------------------
-
-
-function XUiPanelRegressionActivity:Show()
-    self.GameObject:SetActiveEx(true)
+function XUiPanelRegressionActivity:OnEnable()
     self:RefreshView()
 end
 
+function XUiPanelRegressionActivity:Show()
+    self:Open()
+end
+
 function XUiPanelRegressionActivity:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionActivity:InitUi()

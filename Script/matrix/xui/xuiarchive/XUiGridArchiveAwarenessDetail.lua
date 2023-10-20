@@ -2,13 +2,9 @@
 -- Author: wujie
 -- Note: 图鉴意识详情格子
 
-local XUiGridArchiveAwarenessDetail = XClass(nil, "XUiGridArchiveAwarenessDetail")
+local XUiGridArchiveAwarenessDetail = XClass(XUiNode, "XUiGridArchiveAwarenessDetail")
 
-function XUiGridArchiveAwarenessDetail:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    XTool.InitUiObject(self)
+function XUiGridArchiveAwarenessDetail:OnStart()
     self.BtnClick.CallBack = function() self:OnBtnClick() end
 end
 

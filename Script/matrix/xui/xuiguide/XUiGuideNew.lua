@@ -57,11 +57,12 @@ end
 
 function XUiGuideNew:OnDestroy()
     -- CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_GUIDE_FIGHT_BTNDOWN, function(evt, args)
-    --     if self.Callback and not self.IsWeakGuide then
-    --         self.Callback = nil
-    --     end
+    if self.Callback then
+        self.Callback = nil
+    end
     -- end)
-    if XMain.IsDebug and XFightUtil.IsFighting() then
+    
+    if XMain.IsDebug and XFightUtil.IsFighting() and CS.XFight.Instance.InputControl and CS.XFight.Instance.InputControl.OnCloseGuideOperation then
         CS.XFight.Instance.InputControl:OnCloseGuideOperation()
     end
 end

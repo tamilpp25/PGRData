@@ -2,6 +2,7 @@
 --- Created by Jaylin.
 --- DateTime: 2023-03-06-006 11:41
 ---
+local IsWindowsEditor = XMain.IsWindowsEditor
 
 ---@class XControl : XMVCAEvent
 ---@field private _Model XModel
@@ -146,6 +147,9 @@ function XControl:Release()
     self._SubControls = nil
     self._MainControl = nil
     self:OnRelease()
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Control, self)
+    end
 end
 
 ---热重载的释放得特殊处理
@@ -162,6 +166,9 @@ function XControl:_HotReloadRelease()
     self._SubControls = nil
     self._MainControl = nil
     self:OnRelease()
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Control, self)
+    end
 end
 
 function XControl:_HotReloadControl(oldCls, newCls)

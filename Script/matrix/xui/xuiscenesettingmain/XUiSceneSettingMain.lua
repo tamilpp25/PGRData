@@ -141,10 +141,17 @@ function XUiSceneSettingMain:RefreshRightTagPanel()
 end
 
 function XUiSceneSettingMain:RefreshSceneDisplay()
+    local curSceneId=self.SceneList:GetCurDisplaySceneId()
     --获取当前场景的配置
-    local template=XDataCenter.PhotographManager.GetSceneTemplateById(self.SceneList:GetCurDisplaySceneId())
+    local template=XDataCenter.PhotographManager.GetSceneTemplateById(curSceneId)
     --切换场景
-    self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad)
+    if not firstLoad then
+        self:PlayAnimation('Loading',function()
+            self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad,curSceneId)
+        end)
+    else
+        self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad,curSceneId)
+    end
 end
 
 function XUiSceneSettingMain:RefreshSyncBtnState()

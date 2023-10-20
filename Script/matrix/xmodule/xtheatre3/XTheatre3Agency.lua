@@ -1,7 +1,7 @@
-local XFubenBaseAgency = require("XModule/XBase/XFubenBaseAgency")
----@class XTheatre3Agency : XFubenBaseAgency
+local XFubenSimulationChallengeAgency = require("XModule/XBase/XFubenSimulationChallengeAgency")
+---@class XTheatre3Agency : XFubenSimulationChallengeAgency
 ---@field _Model XTheatre3Model
-local XTheatre3Agency = XClass(XFubenBaseAgency, "XTheatre3Agency")
+local XTheatre3Agency = XClass(XFubenSimulationChallengeAgency, "XTheatre3Agency")
 function XTheatre3Agency:OnInit()
     --初始化一些变量
     ---@type XFubenExAgency

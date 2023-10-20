@@ -19,6 +19,9 @@ function XUiGridFashionWeaponRandomSelect:Refresh(weaponFashionId)
     else
         icon = XWeaponFashionConfigs.GetFashionIcon(weaponFashionId)
     end
+    local fashionName = XDataCenter.WeaponFashionManager.GetWeaponFashionName(weaponFashionId, characterId)
+    self.TxtName.text = fashionName
+
     self.Weapon:SetRawImage(icon)
     self.PanelDefault.gameObject:SetActiveEx(isDefault)
 

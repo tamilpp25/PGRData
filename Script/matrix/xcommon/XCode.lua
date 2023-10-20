@@ -23,8 +23,8 @@ function XCode.Init()
     XCodeKeyMap = {}
 
     local TABLE_CODE_TEXT = "Share/Text/CodeText.tab"
-    local codeTextTemplates = XTableManager.ReadByStringKey(TABLE_CODE_TEXT, XTable.XTableCodeText, "Key")
+    local codeTextTemplates = XTableManager.ReadByStringKey(TABLE_CODE_TEXT, XTable.XTableCodeText, "Id")
     for k, v in pairs(codeTextTemplates) do
-        XCodeKeyMap[k] = v.Id
+        XCodeKeyMap[v.Key] = v.Id
     end
 end

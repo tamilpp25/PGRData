@@ -108,6 +108,11 @@ function XUiPanelActivityCalendar:OnBtnDormClick()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.DormQuest) then
         return
     end
+    local dict = {}
+    dict["ui_first_button"] = XGlobalVar.BtnBuriedSpotTypeLevelOne.BtnUiMainBtnCalendar
+    dict["role_level"] = XPlayer.GetLevel()
+    dict["ui_second_button"] = XGlobalVar.BtnDorm.BtnUiDormBtnEntrust
+    CS.XRecord.Record(dict, "200004", "UiOpen")
     XHomeDormManager.EnterDorm(XPlayer.Id, nil, false, function()
         XLuaUiManager.Open("UiDormTerminalSystem")
     end)

@@ -58,9 +58,11 @@ XPayManagerCreator = function()
             return
         end
 
+        XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.RECHARGE)
         XNetwork.Call(METHOD_NAME.Initiated, { Key = productKey }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
                 return
             end
             --BDC

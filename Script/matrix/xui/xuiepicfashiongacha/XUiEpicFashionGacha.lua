@@ -727,6 +727,7 @@ function XUiEpicFashionGacha:OnBtnGachaClick(gachaCount)
     if not self:CheckIsCanGacha(gachaCount) then
         return
     end
+    XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.GACHA)
 
     self.BtnStoryLine:ShowReddot(false) -- 因为红点是用粒子特效做的，动画无法隐藏，必须程序控制抽卡时隐藏红点
     self:SetXPostFaicalControllerActive(false)

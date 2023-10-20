@@ -24,6 +24,8 @@ XFashionManagerCreator = function()
     }
     
     local OwnFashionDataDic = {}           -- 已拥有的时装
+    local AllFashionIsOwnDic = {} -- 时装对应的【new】标签
+    local AllHeadPortraitIsOwnDic = {} -- 头像对应的【new】标签
     local CharFashions = {}     -- 角色对应时装列表
     local ResToFashionTab = {} -- 资源Id对应时装表
     local FashionHeadPortraitDic = {} -- 涂装头像Dic
@@ -129,11 +131,49 @@ XFashionManagerCreator = function()
         return status and XFashionManager.FashionStatus.Lock or XFashionManager.FashionStatus.UnLock
     end
 
+    -- 战后随机
+    function XFashionManager.DoFashionRandomByFightEnd(settle, multiCharid)
+        if multiCharid and multiCharid <= 0 then
+            return
+        end
+
+        if multiCharid and XMVCA.XCharacter:IsOwnCharacter(multiCharid) then
+            XFashionManager.SetCharacterRandomFashion(multiCharid)
+            return
+        end
+
+        local beginData = XDataCenter.FubenManager.GetFightBeginData()
+        if not beginData then
+            beginData = XMVCA.XFuben:GetFightBeginData()
+        end
+        local roleData = beginData.FightData.RoleData[1]
+        if not roleData then
+            return
+        end
+
+        for k, v in pairs(roleData.NpcData or {}) do 
+            local isRobot = v.IsRobot
+            local charId = v.Character.Id
+            if not isRobot and charId and XMVCA.XCharacter:IsOwnCharacter(charId) then
+                XFashionManager.SetCharacterRandomFashion(charId)
+            end
+        end
+    end
+
     function XFashionManager.Init()
+        -- XEventManager.AddEventListener(XEventId.EVENT_FUBEN_SETTLE_REWARD, XFashionManager.DoFashionRandomByFightEnd)
+
         local defaultHeadIconCheck = {}--默认头像只允许配置一种
         local liberationHeadIconCheck = {}--终解头像只允许配置一种
         local allFashionTemplates = XFashionConfigs.GetFashionTemplates()
         for id, template in pairs(allFashionTemplates or {}) do
+            -- 设置拥有标记
+            AllFashionIsOwnDic[id] = 
+            {
+                IsOwn = false,
+                IsNew = false, -- 当本地的IsOwn数据变化由false变为true时，IsNew会被打上true
+            }
+
             local characterId = template.CharacterId
 
             local list = CharFashions[characterId]
@@ -185,6 +225,21 @@ XFashionManagerCreator = function()
                 }
             end
         end
+
+        for charId, v in pairs(FashionHeadPortraitDic) do
+            for headIconPath, v2 in pairs(v) do
+                local targetId = v2.HeadFashionId * 100 + v2.HeadFashionType
+                AllHeadPortraitIsOwnDic[targetId] = {IsOwn = false, IsNew = false, FashionData = v2, CharacterId = charId} -- 头像临时id由时装id和头像类型拼接
+            end
+        end
+    end
+
+    -- 必须要在涂装信息、解放信息下发后才能刷新头像，因为依赖这俩数据。而且顺序是，先发涂装，再发解放
+    function XFashionManager.RefreshAllHeadPortraitIsOwnDicByExhibitionDataNotify()
+        -- 刷新头像相关数据
+        for targetId, v in pairs(AllHeadPortraitIsOwnDic) do
+            AllHeadPortraitIsOwnDic[targetId].IsOwn = XFashionManager.IsFashionHeadUnLock(v.FashionData.HeadFashionId, v.FashionData.HeadFashionType, v.CharacterId)
+        end
     end
 
     function XFashionManager.InitFashions(fashions)
@@ -193,6 +248,7 @@ XFashionManagerCreator = function()
             fashionDic[data.Id] = data
         end
 
+        -- 刷新涂装相关数据
         OwnFashionDataDic = fashionDic
     end
 
@@ -207,6 +263,13 @@ XFashionManagerCreator = function()
                     HeadFashionId = oHeadInfo.HeadFashionId,
                     HeadFashionType = oHeadInfo.HeadFashionType,
                 })
+            end
+
+            -- 头像
+            local beforeData = XFashionManager.GetAllHeadPortraitIsOwnDic(oHeadInfo.HeadFashionId, oHeadInfo.HeadFashionType)
+            if beforeData and not beforeData.IsOwn and XFashionManager.IsFashionHeadUnLock(oHeadInfo.HeadFashionId, oHeadInfo.HeadFashionType, characterId) then
+                beforeData.IsOwn = true
+                beforeData.IsNew = true
             end
         end
 
@@ -294,6 +357,15 @@ XFashionManagerCreator = function()
         end
 
         for _, tmpData in ipairs(fashions) do
+            local fashionData = XFashionManager.GetOwnFashionDataById(tmpData.Id)
+            if not fashionData then
+                AllFashionIsOwnDic[tmpData.Id].IsOwn = true
+                local charId = XFashionConfigs.GetFashionCfgById(tmpData.Id).CharacterId
+                if tmpData.Id ~= XMVCA.XCharacter:GetCharacterTemplate(charId).DefaultNpcFashtionId then
+                    AllFashionIsOwnDic[tmpData.Id].IsNew = true
+                end
+            end
+
             OwnFashionDataDic[tmpData.Id] = tmpData
         end
     end
@@ -845,7 +917,7 @@ XFashionManagerCreator = function()
         return false
     end
 
-    -- 判断当前角色有没有新获得的时装
+    -- 判断当前角色有没有新获得的时装(2.8以前的旧时装检测红点，2.8删除了【已获得未解锁】状态)
     function XFashionManager.GetCurrCharHaveCanUnlockFashion(charId)
         local fashions = CharFashions[charId]
 
@@ -856,6 +928,53 @@ XFashionManagerCreator = function()
             end
         end
 
+        return false
+    end
+
+    function XFashionManager.GetAllFashionIsOwnDic(fashionId)
+        return AllFashionIsOwnDic[fashionId]
+    end
+
+    function XFashionManager.SetFashionIsOwnNewUnactive(fashionId)
+        local data = AllFashionIsOwnDic[fashionId]
+        if not data then
+            return
+        end
+        data.IsNew = false
+    end
+
+    function XFashionManager.GetAllHeadPortraitIsOwnDic(headFashionId, headFashionType)
+        local targetId = headFashionId * 100 + headFashionType
+        return AllHeadPortraitIsOwnDic[targetId]
+    end
+
+    function XFashionManager.SetAllPortraitIsOwnNewUnactive(headFashionId, headFashionType)
+        local data = XFashionManager.GetAllHeadPortraitIsOwnDic(headFashionId, headFashionType)
+        if not data then
+            return
+        end
+        data.IsNew = false
+    end
+
+    function XFashionManager.GetCurrCharHaveNewFashion(charId)
+        local fashions = CharFashions[charId]
+        for k, fashionId in pairs(fashions) do
+            if AllFashionIsOwnDic[fashionId].IsNew then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    function XFashionManager.GetCurrCharHaveNewHeadPortrait(charId)
+        local allHeadPortraitList = XFashionManager.GetFashionHeadPortraitList(charId)
+        for k, v in pairs(allHeadPortraitList) do
+            local data = XFashionManager.GetAllHeadPortraitIsOwnDic(v.HeadFashionId, v.HeadFashionType)
+            if data and data.IsNew then
+                return true
+            end
+        end
         return false
     end
 
@@ -880,13 +999,27 @@ XFashionManagerCreator = function()
     end
     --endregion
 
-    function XFashionManager.GetCharacterRandomFashionList(characterId)
+    -- 获得当前可随机的涂装池（不包含当前穿戴的涂装）
+    function XFashionManager.GetCharacterCanRandomFashionList(characterId)
         local res = {}
         local character = XMVCA.XCharacter:GetCharacter(characterId)
         local allFashion = XFashionManager.GetCurrentTimeFashionByCharId(characterId)
         for k, fashionId in pairs(allFashion) do
             local fashionData = XFashionManager.GetOwnFashionDataById(fashionId)
-            if fashionData and fashionData.IsRandom and character.FashionId ~= fashionId then
+            if fashionData and fashionData.IsRandom and (character.FashionId ~= fashionId) then
+                table.insert(res, fashionId)
+            end
+        end
+        return res
+    end
+
+    -- 获得当前所有的随机涂装（包含当前穿戴的涂装）
+    function XFashionManager.GetCharacterAllRandomFashionList(characterId)
+        local res = {}
+        local allFashion = XFashionManager.GetCurrentTimeFashionByCharId(characterId)
+        for k, fashionId in pairs(allFashion) do
+            local fashionData = XFashionManager.GetOwnFashionDataById(fashionId)
+            if fashionData and fashionData.IsRandom then
                 table.insert(res, fashionId)
             end
         end
@@ -894,8 +1027,8 @@ XFashionManagerCreator = function()
     end
 
     function XFashionManager.GetNextRandomFashionId(characterId)
-        local randomList = XFashionManager.GetCharacterRandomFashionList(characterId)
-        if XTool.IsTableEmpty(randomList) or #randomList <= 1 then
+        local randomList = XFashionManager.GetCharacterCanRandomFashionList(characterId)
+        if XTool.IsTableEmpty(randomList) then
             return
         end
 
@@ -929,7 +1062,7 @@ XFashionManagerCreator = function()
         end)
     end
 
-    -- 随机涂装协议
+    -- 随机涂装功能开启协议
     function XFashionManager.FashionRandomActiveRequest(characterId, enable, cb)
         local char = XMVCA.XCharacter:GetCharacter(characterId)
         if not char then

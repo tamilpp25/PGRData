@@ -31,7 +31,7 @@ function XUiGridArenaAreaCharacter:Refresh(characterId, partnerId, fightScore, q
         self.TxtFight.text = fightScore
     end
     if quality and quality ~= 0 then
-        self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+        self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
     end
 end
 

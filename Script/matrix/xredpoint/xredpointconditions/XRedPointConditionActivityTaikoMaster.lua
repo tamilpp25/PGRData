@@ -13,7 +13,8 @@ function XRedPointConditionActivityTaikoMaster.GetSubConditions()
 end
 
 function XRedPointConditionActivityTaikoMaster.Check()
-    return XRedPointConditionActivityTaikoMasterCdUnlock.Check() or XRedPointConditionActivityTaikoMasterTask.Check()
+    return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ACTIVITY_TAIKO_MASTER_CD_UNLOCK) 
+            or XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ACTIVITY_TAIKO_MASTER_TASK)
 end
 
 return XRedPointConditionActivityTaikoMaster

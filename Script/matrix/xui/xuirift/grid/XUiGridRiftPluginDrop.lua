@@ -4,7 +4,11 @@ local XUiRiftPluginGrid = require("XUi/XUiRift/Grid/XUiRiftPluginGrid")
 local XUiGridRiftPluginDrop = XClass(XUiNode, "UiGridRiftPluginDrop")
 
 function XUiGridRiftPluginDrop:OnStart()
+    XUiHelper.RegisterClickEvent(self, self.Transform, self.OnBtnClick)
+end
 
+function XUiGridRiftPluginDrop:SetClickCallBack(cb)
+    self._ClickCb = cb
 end
 
 function XUiGridRiftPluginDrop:Refresh(dropData)
@@ -60,6 +64,7 @@ function XUiGridRiftPluginDrop:RefreshByPlugin(plugin)
     self.TxtGold.text = plugin:GetGoldDesc()
     self.TxtLoad.text = plugin.Config.Load
     self.TxtLock.text = lockTxt
+    self.TxtLock.gameObject:SetActiveEx(lockTxt ~= "")
 
     local quality = self._Plugin:GetQuality()
     for i = 1, 5 do
@@ -118,6 +123,12 @@ function XUiGridRiftPluginDrop:OnDestroy()
     if self.Timer then
         XScheduleManager.UnSchedule(self.Timer)
         self.Timer = nil
+    end
+end
+
+function XUiGridRiftPluginDrop:OnBtnClick()
+    if self._ClickCb then
+        self._ClickCb()
     end
 end
 

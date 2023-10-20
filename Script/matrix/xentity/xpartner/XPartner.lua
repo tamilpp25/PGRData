@@ -106,11 +106,11 @@ function XPartner:GetQuality()
 end
 
 function XPartner:GetQualityIcon()
-    return XCharacterConfigs.GetCharQualityIcon(self:GetQuality())
+    return XMVCA.XCharacter:GetCharQualityIcon(self:GetQuality())
 end
 
 function XPartner:GetCharacterQualityIcon()
-    return XCharacterConfigs.GetCharacterQualityIcon(self:GetQuality())
+    return XMVCA.XCharacter:GetCharacterQualityIcon(self:GetQuality())
 end
 
 function XPartner:GetQualityLimit()
@@ -747,7 +747,7 @@ end
 
 function XPartner:CreateStoryEntityDic()
     self.StoryEntityDic = {}
-    local storyEntityList = XDataCenter.ArchiveManager.GetArchivePartnerSetting(self.TemplateId,XArchiveConfigs.PartnerSettingType.Story)
+    local storyEntityList = XMVCA.XArchive:GetArchivePartnerSetting(self.TemplateId,XEnumConst.Archive.PartnerSettingType.Story)
     for _,Entity in pairs(storyEntityList or {}) do
         self.StoryEntityDic[Entity:GetId()] = Entity
     end

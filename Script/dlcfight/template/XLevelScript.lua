@@ -1,4 +1,5 @@
-local XLevelScriptXXX = XDlcScriptManager.RegLevelScript(0000, "XLevelXXX") --注册脚本类到管理器
+local XLevelScriptXXX = XDlcScriptManager.RegLevelLogicScript(0000, "XLevelXXX") --注册脚本类到管理器（逻辑脚本注册
+--local XLevelScriptXXX = XDlcScriptManager.RegLevelPresentScript(0000, "XLevelXXX") --表现脚本注册
 
 ---@param proxy StatusSyncFight.XFightScriptProxy
 function XLevelScriptXXX:Ctor(proxy) --构造函数，用于执行与外部无关的内部构造逻辑（例如：创建内部变量等）

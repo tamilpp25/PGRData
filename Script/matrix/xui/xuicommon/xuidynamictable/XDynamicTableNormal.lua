@@ -9,6 +9,7 @@ XDynamicTableNormal = {}
     DYNAMIC_TWEEN_OVER = 5,
     DYNAMIC_BEGIN_DRAG = 6,
     DYNAMIC_END_DRAG = 7,
+    DYNAMIC_DEBUG_LOG_DATASOURCE = 8,--打印数据源
 
     DYNAMIC_GRID_INIT = 100
 }
@@ -140,11 +141,19 @@ function XDynamicTableNormal:OnDynamicTableEvent(event, index, grid)
         XEventManager.DispatchEvent(XEventId.EVENT_GUIDE_STEP_OPEN_EVENT, self.Imp.name)
     end
 
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_DEBUG_LOG_DATASOURCE then
+        self:DebugLogDataSource()
+    end
+
     if self.DynamicEventDelegate then
         self.DynamicEventDelegate(event, index, proxy)
     else
         self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy)
     end
+end
+
+function XDynamicTableNormal:DebugLogDataSource()
+    XLog.Debug("XDynamicTableNormal name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
 end
 
 -- 兼容XUiNode

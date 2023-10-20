@@ -41,14 +41,14 @@ function XUiBfrtRoomCharacter:OnAwake()
         local leftAbility = leftCharacter.Ability
         local leftLevel = leftCharacter.Level
         local leftQuality = leftCharacter.Quality
-        local leftPriority = XMVCA.XCharacter:GetCharacterPriority(leftCharacter.Id)
+        local leftPriority = XCharacterConfigs.GetCharacterPriority(leftCharacter.Id)
 
         local rightNotInTeam = not self:CheckCharacterInTeam(rightCharacter.Id)
         local rightNotInTeamList = self.CheckIsInTeamListCb(rightCharacter.Id) == nil
         local rightAbility = rightCharacter.Ability
         local rightLevel = rightCharacter.Level
         local rightQuality = rightCharacter.Quality
-        local rightPriority = XMVCA.XCharacter:GetCharacterPriority(rightCharacter.Id)
+        local rightPriority = XCharacterConfigs.GetCharacterPriority(rightCharacter.Id)
 
         if leftNotInTeam ~= rightNotInTeam then
             return leftNotInTeam
@@ -297,7 +297,7 @@ function XUiBfrtRoomCharacter:UpdateCharacterList(charlist)
     local selectId = teamCharIdMap[teamSelectPos]
     if not selectId or selectId == 0
     or not self.CharacterGrids[selectId]
-    or characterType ~= XMVCA.XCharacter:GetCharacterType(selectId)
+    or characterType ~= XCharacterConfigs.GetCharacterType(selectId)
     or not charDic[selectId]
     then
         selectId = charlist[1].Id
@@ -525,7 +525,7 @@ function XUiBfrtRoomCharacter:OnJoinTeam(characterId, teamSelectPos, isNotClose,
             end
 
             local title = CS.XTextManager.GetText("BfrtDeployTipTitle")
-            local characterName = XMVCA.XCharacter:GetCharacterName(characterId)
+            local characterName = XCharacterConfigs.GetCharacterName(characterId)
             local oldEchelon = XDataCenter.BfrtManager.GetEchelonNameTxt(echelonType, echelonIndex)
             local newEchelon = XDataCenter.BfrtManager.GetEchelonNameTxt(self.EchelonType, self.EchelonIndex)
             local content = CS.XTextManager.GetText("BfrtDeployTipContent", characterName, oldEchelon, newEchelon)
@@ -549,7 +549,7 @@ function XUiBfrtRoomCharacter:OnJoinTeam(characterId, teamSelectPos, isNotClose,
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = characterId and characterId ~= 0 and XMVCA.XCharacter:GetCharacterType(characterId)
+        local characterType = characterId and characterId ~= 0 and XCharacterConfigs.GetCharacterType(characterId)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -624,7 +624,7 @@ end
 function XUiBfrtRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharacterIdList) do
         if v ~= 0 then
-            return XMVCA.XCharacter:GetCharacterType(v)
+            return XCharacterConfigs.GetCharacterType(v)
         end
     end
 end

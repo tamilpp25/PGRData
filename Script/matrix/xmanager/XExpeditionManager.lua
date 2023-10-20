@@ -790,17 +790,17 @@ end
 --        List<XExpeditionAlternative> AlternativeCharacters
 --        List<XExpeditionStage> Stages
 XRpc.NotifyExpeditionData = function(data)
-    XDataCenter.ExpeditionManager.InitData(data)
+    --XDataCenter.ExpeditionManager.InitData(data)
 end
 --================
 --刷新招募相关信息
 --================
 XRpc.NotifyExpeditionRefreshTimes = function(data)
-    XDataCenter.ExpeditionManager.UpdateRecruitTimes(data)
+    --XDataCenter.ExpeditionManager.UpdateRecruitTimes(data)
 end
 --================
 --刷新关卡状态相关信息
 --================
 XRpc.NotifyExpeditionStage = function(data)
-    XDataCenter.ExpeditionManager.RefreshStageInfos(data)
+    --XDataCenter.ExpeditionManager.RefreshStageInfos(data)
 end

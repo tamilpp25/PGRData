@@ -29,6 +29,7 @@ function XUiRiftChoosePlugin:OnStart(role)
     self:RefreshUIShow()
     self:RefreshAllPluginList()
     self:RefreshOwnPluginList()
+    self.BtnUnwear.gameObject:SetActiveEx(not XTool.IsTableEmpty(self._OwnPluginList))
     XDataCenter.RiftManager:SetCharacterRedPoint(false)
 end
 
@@ -54,20 +55,18 @@ function XUiRiftChoosePlugin:RefreshAllPluginList()
     local bagPluginList = XDataCenter.RiftManager:GetOwnPluginList(roleElement, self._Role.Id)
     table.sort(bagPluginList, handler(self, self.SortBagList))
 
-    if not self._TempListCount or self._TempListCount ~= #bagPluginList then
-        self._PluginPageDats = {}
-        self._TempListCount = #bagPluginList
-        local count = XDataCenter.RiftManager:GetPluginPageCount()
-        local index = 1
-        for i, v in ipairs(bagPluginList) do
-            if not self._PluginPageDats[index] then
-                self._PluginPageDats[index] = {}
-            end
-            table.insert(self._PluginPageDats[index], v)
-            self._PluginIndexMap[v:GetId()] = index
-            if i % count == 0 then
-                index = index + 1
-            end
+    self._PluginPageDats = {}
+    self._TempListCount = #bagPluginList
+    local count = XDataCenter.RiftManager:GetPluginPageCount()
+    local index = 1
+    for i, v in ipairs(bagPluginList) do
+        if not self._PluginPageDats[index] then
+            self._PluginPageDats[index] = {}
+        end
+        table.insert(self._PluginPageDats[index], v)
+        self._PluginIndexMap[v:GetId()] = index
+        if i % count == 0 then
+            index = index + 1
         end
     end
 
@@ -97,9 +96,10 @@ function XUiRiftChoosePlugin:ShowPluginPage(pageIndex, dimPluginId)
     else
         self.PanelPluginScrollList.verticalNormalizedPosition = 1
     end
-    self.TxtPage.text = string.format("%s/%s", pageIndex, #self._PluginPageDats)
-    self.BtnLast.gameObject:SetActiveEx(pageIndex > 1)
-    self.BtnNext.gameObject:SetActiveEx(pageIndex < #self._PluginPageDats)
+    local isNoEmpty = not XTool.IsTableEmpty(self._PluginPageDats)
+    self.TxtPage.text = isNoEmpty and string.format("%s/%s", pageIndex, #self._PluginPageDats) or ""
+    self.BtnLast.gameObject:SetActiveEx(isNoEmpty and pageIndex > 1)
+    self.BtnNext.gameObject:SetActiveEx(isNoEmpty and pageIndex < #self._PluginPageDats)
 end
 
 --region 排序
@@ -186,8 +186,11 @@ end
 
 function XUiRiftChoosePlugin:RefreshAllBagGrid(pluginId)
     -- 仅刷新
-    for i, grid in ipairs(self._BagPluginGrids) do
-        self:SetGrid(grid, self._CurPageData[i], DynamicTableType.All)
+    for i, data in pairs(self._CurPageData) do
+        local grid = self._BagPluginGrids[i]
+        if grid then
+            self:SetGrid(grid, data, DynamicTableType.All)
+        end
     end
 end
 
@@ -198,8 +201,10 @@ end
 function XUiRiftChoosePlugin:RefreshOwnGrid()
     for i, grid in pairs(self._OwnPluginGrids) do
         local data = self._OwnPluginList[i]
-        grid:Refresh(data, self._IsDetail)
-        grid:SetSelected(data:GetId() == self._CurPluginId)
+        if data then
+            grid:Refresh(data, self._IsDetail)
+            grid:SetSelected(data:GetId() == self._CurPluginId)
+        end
     end
 end
 

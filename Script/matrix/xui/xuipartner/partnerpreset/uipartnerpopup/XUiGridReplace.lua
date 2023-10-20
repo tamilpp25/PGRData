@@ -42,7 +42,7 @@ function XUiGridTeamPresetRole:Refresh(pos, teamData, isPrefabTeam)
         end
 
         self.ImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
-        self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     else
         self.ImgLeftnull.color = XDataCenter.TeamManager.GetTeamMemberColor(pos)
         self.ImgRightnull.color = XDataCenter.TeamManager.GetTeamMemberColor(pos)

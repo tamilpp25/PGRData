@@ -117,6 +117,10 @@ function XUiPanelInfo:OnBtnDorm()
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
         return
     end
+    if XMVCA.XDlcRoom:IsInRoom() then
+        XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
+        return
+    end
 
     if XDataCenter.GuildDormManager.GetIsRunning() then
         XDataCenter.GuildDormManager.RequestExitRoom(function()
@@ -131,11 +135,11 @@ function XUiPanelInfo:OnBtnDorm()
         end)
     end
 
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
+    --    return
+    --end
 
     local data = self.RootUi.Data
     if data and data.Id and data.DormDetail and data.DormDetail.DormitoryId then
@@ -154,11 +158,15 @@ function XUiPanelInfo:OnBtnExhibition()
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
+    if XMVCA.XDlcRoom:IsInRoom() then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
+    --    return
+    --end
 
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.CharacterExhibition) then
         XLuaUiManager.Open("UiExhibition", false)

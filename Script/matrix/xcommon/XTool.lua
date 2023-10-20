@@ -848,7 +848,7 @@ function XTool.DeepCompare(tbl1, tbl2)
 
     for k, v in pairs(tbl1) do
         if type(v) == "table" then
-            if not deepCompare(v, tbl2[k]) then
+            if not XTool.DeepCompare(v, tbl2[k]) then
                 return false
             end
         elseif v ~= tbl2[k] then
@@ -858,7 +858,7 @@ function XTool.DeepCompare(tbl1, tbl2)
 
     for k, v in pairs(tbl2) do
         if type(v) == "table" then
-            if not deepCompare(v, tbl1[k]) then
+            if not XTool.DeepCompare(v, tbl1[k]) then
                 return false
             end
         elseif v ~= tbl1[k] then
@@ -867,4 +867,95 @@ function XTool.DeepCompare(tbl1, tbl2)
     end
 
     return true
+end
+
+--XTool.AbandonedTable = {}
+local function ErrorAbandon()
+    if XMain.IsDebug then
+        XLog.Error("[XConfigUtil] config已被移除,如果看到此提示,麻烦您通知ZLB,谢谢")
+        --local str = debug.traceback()
+        --XTool.AbandonedTable[str] = true
+    end
+end
+
+local function GetTableNonsense()
+    local t = {}
+    local tableUsed = {
+        Init = function()
+        end,
+        __Configs = false
+    }
+    local metatable =  {
+        __newindex = function(table, key, value)
+            tableUsed[key] = value
+        end,
+        __index = function(table, key)
+            if type(key) == "number" then 
+                return nil
+            end
+            if tableUsed[key] ~= nil then
+                return tableUsed[key]
+            end
+            ErrorAbandon()
+            return t
+        end,
+        __call = function()
+            ErrorAbandon()
+            return t
+        end,
+        __add = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __sub = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __mul = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __div = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __unm = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __mod = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __pow = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __concat = function()
+            ErrorAbandon()
+            return ""
+        end,
+        __eq = function()
+            --ErrorAbandon()
+            return false
+        end,
+        __lt = function()
+            ErrorAbandon()
+            return true
+        end,
+        __le = function()
+            ErrorAbandon()
+            return false
+        end,
+        __tostring = function()
+            ErrorAbandon()
+            return ""
+        end
+    }
+    setmetatable(t, metatable)
+    return t
+end
+
+function XTool.GetNoneSenseTable()
+    return GetTableNonsense()
 end

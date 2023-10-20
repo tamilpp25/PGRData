@@ -14,11 +14,11 @@ function XRedPointConditionFuBenDragPuzzleGameRed.GetSubConditions()
 end
 
 function XRedPointConditionFuBenDragPuzzleGameRed.Check()
-    if XRedPointConditionDragPuzzleSwitch.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DRAG_PUZZLE_GAME_SWITCH) then
         return true
     end
 
-    if XRedPointConditionDragPuzzleAward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_DRAG_PUZZLE_GAME_AWARD) then
         return true
     end
 

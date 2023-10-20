@@ -210,7 +210,7 @@ function XUiGridEchelonMember:GetProxyInstance(viewData)
                     finishCallback()
                 end    
                 local title = CS.XTextManager.GetText("BfrtDeployTipTitle")
-                local characterName = XMVCA.XCharacter:GetCharacterName(newCharacterId)
+                local characterName = XCharacterConfigs.GetCharacterName(newCharacterId)
                 local oldEchelon = XDataCenter.BfrtManager.GetEchelonNameTxt(inEchelonType, inEchelonIndex)
                 local newEchelon = XDataCenter.BfrtManager.GetEchelonNameTxt(viewData.EchelonType, viewData.EchelonIndex)
                 local content = CS.XTextManager.GetText("BfrtDeployTipContent", characterName, oldEchelon, newEchelon)

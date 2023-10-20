@@ -2,14 +2,10 @@
 -- Author: wujie
 -- Note: 图鉴意识详细设定格子信息
 
-local XUiGridArchiveAwarenessSetting = XClass(nil, "XUiGridArchiveAwarenessSetting")
+local XUiGridArchiveAwarenessSetting = XClass(XUiNode, "XUiGridArchiveAwarenessSetting")
 
-function XUiGridArchiveAwarenessSetting:Ctor(rootUi, ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
+function XUiGridArchiveAwarenessSetting:OnStart(rootUi, ui)
 
-    XTool.InitUiObject(self)
 end
 
 function XUiGridArchiveAwarenessSetting:Refresh(data)

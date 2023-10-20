@@ -53,7 +53,7 @@ function XUiPanelSignBoard:Init()
     end
     self.Acceleration.EndAction = handler(self, self.OnRoll)
     local signBoardPlayer = require("XCommon/XSignBoardPlayer").New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
 
@@ -83,11 +83,11 @@ end
 
 function XUiPanelSignBoard:SetDisplayCharacterId(displayCharacterId)
     self.DisplayCharacterId = displayCharacterId
-    self.IdleTab = XSignBoardConfigs.GetSignBoardConfigByRoldIdAndCondition(self.DisplayCharacterId, XSignBoardEventType.IDLE)
+    self.IdleTab = XMVCA.XFavorability:GetSignBoardConfigByRoldIdAndCondition(self.DisplayCharacterId, XEnumConst.Favorability.XSignBoardEventType.IDLE)
 
-    self.IdleTab = XDataCenter.SignBoardManager.FitterPlayElementByFavorLimit(self.IdleTab, displayCharacterId)
-    self.IdleTab = XDataCenter.SignBoardManager.FitterCurLoginPlayed(self.IdleTab)
-    self.IdleTab = XDataCenter.SignBoardManager.FitterDailyPlayed(self.IdleTab)
+    self.IdleTab = XMVCA.XFavorability:FitterPlayElementByFavorLimit(self.IdleTab, displayCharacterId)
+    self.IdleTab = XMVCA.XFavorability:FitterCurLoginPlayed(self.IdleTab)
+    self.IdleTab = XMVCA.XFavorability:FitterDailyPlayed(self.IdleTab)
 end
 
 function XUiPanelSignBoard:RefreshCharModel()
@@ -108,7 +108,7 @@ function XUiPanelSignBoard:RefreshCharacterModelById(templateId)
 end
 
 function XUiPanelSignBoard:OnNotify(event, ...)
-    XDataCenter.SignBoardManager.OnNotify(event, ...)
+    XMVCA.XFavorability:OnNotify(event, ...)
 end
 
 --晃动手机
@@ -119,13 +119,13 @@ function XUiPanelSignBoard:OnRoll(time)
 
     self.CanBreakTrigger = false
 
-    local config = XDataCenter.SignBoardManager.GetRandomPlayElementsByRoll(time, self.DisplayCharacterId)
+    local config = XMVCA.XFavorability:GetRandomPlayElementsByRoll(time, self.DisplayCharacterId)
     if config ~= nil then self:ForcePlay(config.Id, nil, self.FromBegin, true) end
 end
 
 function XUiPanelSignBoard:ResetPlayList()
 
-    local playList = XDataCenter.SignBoardManager.GetPlayElements(self.DisplayCharacterId)
+    local playList = XMVCA.XFavorability:GetPlayElements(self.DisplayCharacterId)
     if not playList then
         return
     end
@@ -134,11 +134,17 @@ function XUiPanelSignBoard:ResetPlayList()
 end
 
 function XUiPanelSignBoard:CheckBtnReplaceDisable()
-    local char = XDataCenter.DisplayManager.GetDisplayChar()
-    local isOnlyOneCharInDisList = #XPlayer.DisplayCharIdList <= 1
-    local isCurCharRandom = char.RandomFashion
-    local isOnlyOneFashionRandom = #XDataCenter.FashionManager.GetCharacterRandomFashionList(char.Id) == 1
-    local isDisable = (isOnlyOneCharInDisList and not isCurCharRandom) or (isOnlyOneCharInDisList and isOnlyOneFashionRandom)
+    local curDisChar = XDataCenter.DisplayManager.GetDisplayChar()
+
+    -- 当前助理队列只有1人
+    local isOnlyOneCharInDisList = #XPlayer.DisplayCharIdList <= 1  
+
+    -- 当前助理是否开启了涂装随机功能
+    local isCurListHaveCharRandom = curDisChar.RandomFashion
+
+    -- 当前助理随机涂装数量是否大于1
+    local isCurCharHaveOneFashionInRandomList = #XDataCenter.FashionManager.GetCharacterAllRandomFashionList(curDisChar.Id) == 1
+    local isDisable = (isOnlyOneCharInDisList and not isCurListHaveCharRandom) or (isOnlyOneCharInDisList and isCurCharHaveOneFashionInRandomList)
     return isDisable
 end
 
@@ -171,7 +177,7 @@ function XUiPanelSignBoard:OnEnable()
         self.MultClickHelper:OnEnable()
     end
 
-    local playList = XDataCenter.SignBoardManager.GetPlayElements(self.DisplayCharacterId)
+    local playList = XMVCA.XFavorability:GetPlayElements(self.DisplayCharacterId)
     if not playList then
         return
     end
@@ -207,7 +213,7 @@ function XUiPanelSignBoard:OnDisable()
         self.PlayingCv = nil
     end
 
-    XDataCenter.SignBoardManager.SetStandType(0)
+    XMVCA.XFavorability:SetStandType(0)
 
     self.Enable = false
 end
@@ -257,12 +263,12 @@ function XUiPanelSignBoard:Update()
     if self.IdleTab and self.IdleTab[1] then
         local idle = self.IdleTab[1]
         local bBeyondignBoardWaitInterval = XTime.GetServerNowTimestamp() - self.SignBoardPlayer.LastPlayTime >= idle.ConditionParam
-        local standType = XDataCenter.SignBoardManager.GetStandType()
+        local standType = XMVCA.XFavorability:GetStandType()
 
         if self.SignBoardPlayer.Status == 0 and self.SignBoardPlayer.LastPlayTime > 0 and standType == 0 and bBeyondignBoardWaitInterval and self.AutoPlay then
             self:ForcePlay(idle.Id, nil, self.FromBegin, true)
 
-            if idle.ShowType ~= XDataCenter.SignBoardManager.ShowType.Normal then
+            if idle.ShowType ~= XEnumConst.Favorability.ShowTimesType.Normal then
                 -- 该idle动作限制每次登录或者每天只播放一次
                 table.remove(self.IdleTab, 1)
             end
@@ -523,8 +529,8 @@ function XUiPanelSignBoard:PlaySceneAnim(element)
     if not cameraFar or not cameraNear then
         return
     end
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, cameraFar, cameraNear, XDataCenter.PhotographManager.GetCurSceneId(), element.SignBoardConfig.Id, self.Parent)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, cameraFar, cameraNear, XDataCenter.PhotographManager.GetCurSceneId(), element.SignBoardConfig.Id, self.Parent)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 -- v1.32 播放角色特殊动作播放动画
@@ -704,7 +710,7 @@ function XUiPanelSignBoard:OnStop(playingElement, force)
     self:ShowNormalContent(false)
 
     if playingElement then
-        local isChanged = XDataCenter.SignBoardManager.ChangeStandType(playingElement.SignBoardConfig.ChangeToStandType)
+        local isChanged = XMVCA.XFavorability:ChangeStandType(playingElement.SignBoardConfig.ChangeToStandType)
         if isChanged then
             self:ResetPlayList()
         end
@@ -729,7 +735,7 @@ function XUiPanelSignBoard:TrasformPlayConfigByFavorability(config)
         return config
     end
     --如果没满足则从同样播放条件的动作里随机抽取
-    local SignBoardActionDatas = XSignBoardConfigs.GetSignBoardConfigByRoldIdAndCondition(tonumber(config.RoleId), config.ConditionId)
+    local SignBoardActionDatas = XMVCA.XFavorability:GetSignBoardConfigByRoldIdAndCondition(tonumber(config.RoleId), config.ConditionId)
     local randomDatas = {}
     for _, signBoardActionData in ipairs(SignBoardActionDatas) do
         if signBoardActionData.ConditionParam == config.ConditionParam and XMVCA.XFavorability:CheckCharacterActionUnlockBySignBoardActionId(signBoardActionData.Id) then
@@ -748,7 +754,7 @@ end
 -- 当动作页签调用时，会传入当前选择的CvType
 -- isRecord决定是否记录当前播放的动作
 function XUiPanelSignBoard:ForcePlay(playId, cvType, fromBegin, isRecord)
-    local config = XSignBoardConfigs.GetSignBoardConfigById(playId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(playId)
     --好感度系统检查动作播放
     config = self:TrasformPlayConfigByFavorability(config)
     if config == nil then return end
@@ -761,7 +767,7 @@ end
 -- 当动作页签调用时，会传入当前选择的CvType
 -- isRecord决定是否记录当前播放的动作
 function XUiPanelSignBoard:ForcePlayCross(playId, cvType, fromBegin, isRecord)
-    local config = XSignBoardConfigs.GetSignBoardConfigById(playId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(playId)
     --好感度系统检查动作播放
     config = self:TrasformPlayConfigByFavorability(config)
     if config == nil then return end
@@ -783,7 +789,7 @@ function XUiPanelSignBoard:OnMultClick(clickTimes)
     dict["ui_second_button"] = param
     CS.XRecord.Record(dict, "200004", "UiOpen")
 
-    XDataCenter.SignBoardManager.RequestTouchBoard(self.DisplayCharacterId)
+    XMVCA.XFavorability:RequestTouchBoard(self.DisplayCharacterId)
     
     local config
     if self.SignBoardPlayer:IsPlaying() and not self.CanBreakTrigger then
@@ -791,7 +797,7 @@ function XUiPanelSignBoard:OnMultClick(clickTimes)
     end
     self.CanBreakTrigger = false
     -- 从头开始播放动画，避免重复播放同一动画时继承上一个动画的进度
-    config = XDataCenter.SignBoardManager.GetRandomPlayElementsByClick(clickTimes, self.DisplayCharacterId)
+    config = XMVCA.XFavorability:GetRandomPlayElementsByClick(clickTimes, self.DisplayCharacterId)
     -- 特殊动作屏蔽处理（本我回廊功能）
     if config ~= nil and self.SpecialFilterAnimId and self.SpecialFilterAnimId[config.Id] then
         return

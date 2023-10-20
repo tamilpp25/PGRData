@@ -4,7 +4,7 @@ local XUiRiftAttributeEffectGrid = XClass(XUiNode, "UiRiftAttributeEffectGrid")
 local Color = {
     black = XUiHelper.Hexcolor2Color("E5635E"),
     red = XUiHelper.Hexcolor2Color("d11227"),
-    blue = XUiHelper.Hexcolor2Color("0f70bc"),
+    blue = XUiHelper.Hexcolor2Color("00FFD6"),
 }
 
 function XUiRiftAttributeEffectGrid:Refresh(index, effectData)

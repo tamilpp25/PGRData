@@ -1037,9 +1037,9 @@ XChessPursuitManagerCreator = function()
 end
 
 XRpc.NotifyChessPursuitBossAction = function(data)
-    XDataCenter.ChessPursuitManager.NotifyChessPursuitBossAction(data)
+    --XDataCenter.ChessPursuitManager.NotifyChessPursuitBossAction(data)
 end
 
 XRpc.NotifyChessPursuitGroupInfo = function(data)
-    XDataCenter.ChessPursuitManager.NotifyChessPursuitGroupInfo(data)
+    --XDataCenter.ChessPursuitManager.NotifyChessPursuitGroupInfo(data)
 end

@@ -55,7 +55,6 @@ XDrawConfigs.DrawTargetTipType = {
 
 local TABLE_DRAW_PREVIEW = "Client/Draw/DrawPreview.tab"
 local TABLE_DRAW_PREVIEW_GOODS = "Client/Draw/DrawPreviewGoods.tab"
-local TABLE_DRAW_COMBINATIONS = "Client/Draw/DrawCombinations.tab"
 local TABLE_DRAW_PROB = "Client/Draw/DrawProbShow.tab"
 local TABLE_GROUP_RULE = "Client/Draw/DrawGroupRule.tab"
 local TABLE_AIMPROBABILITY = "Client/Draw/DrawAimProbability.tab"
@@ -73,6 +72,8 @@ local TABLE_DRAW_SCENE = "Client/Draw/DrawScene.tab"
 local TABLE_DRAW_ACTIVITY_TARGET_SHOW = "Client/Draw/DrawActivityTargetShow.tab"
 local TABLE_DRAW_ACTIVITY_TARGET_ROLE_BG = "Client/Draw/DrawActivityTargetRoleBg.tab"
 local TABLE_DRAW_CLIENT_CONFIG = "Client/Draw/DrawClientConfig.tab"
+
+local TABLE_DRAW_COMBINATIONS = "Share/Draw/DrawCombinations.tab"
 local TABLE_DRAW_TICKET = "Share/DrawTicket/DrawTicket.tab"
 
 local DrawPreviews = {}

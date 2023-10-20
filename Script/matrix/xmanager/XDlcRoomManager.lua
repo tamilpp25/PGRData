@@ -62,31 +62,31 @@ XDlcRoomManagerCreator = function()
             end
         end)
 
-        CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_DLC_FIGHT_PRE_EXIT, function(eventName, params)
-            local worldData = CS.StatusSyncFight.XFightClient.FightInstance.WorldData
-            if not worldData then
-                return
-            end
-            if worldData.IsLocalDebug then
-                return
-            end
-            if worldData.IsTeaching then
-                return
-            end
-            if not worldData.Online then
-                return
-            end
-            if not XLuaUiManager.IsUiShow("UiDlcHuntSettlement")
-                    and not XLuaUiManager.IsUiPushing("UiDlcHuntSettlement")
-                    and not XLuaUiManager.IsUiShow("UiDlcHuntPowerSettleLose")
-                    and not XLuaUiManager.IsUiPushing("UiDlcHuntPowerSettleLose")
-                    and not XLuaUiManager.IsUiShow("UiDlcHuntSettleLose")
-                    and not XLuaUiManager.IsUiPushing("UiDlcHuntSettleLose")
-            then
-                --XLuaUiManager.Open("UiBiancaTheatreBlack")
-            end
-        end)
-        CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_WORLD_EXIT, function(eventName, params, c, d)
+        -- CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_DLC_FIGHT_PRE_EXIT, function(eventName, params)
+        --     local worldData = CS.StatusSyncFight.XFightClient.FightInstance.WorldData
+        --     if not worldData then
+        --         return
+        --     end
+        --     if worldData.IsLocalDebug then
+        --         return
+        --     end
+        --     if worldData.IsTeaching then
+        --         return
+        --     end
+        --     if not worldData.Online then
+        --         return
+        --     end
+        --     if not XLuaUiManager.IsUiShow("UiDlcHuntSettlement")
+        --             and not XLuaUiManager.IsUiPushing("UiDlcHuntSettlement")
+        --             and not XLuaUiManager.IsUiShow("UiDlcHuntPowerSettleLose")
+        --             and not XLuaUiManager.IsUiPushing("UiDlcHuntPowerSettleLose")
+        --             and not XLuaUiManager.IsUiShow("UiDlcHuntSettleLose")
+        --             and not XLuaUiManager.IsUiPushing("UiDlcHuntSettleLose")
+        --     then
+        --         --XLuaUiManager.Open("UiBiancaTheatreBlack")
+        --     end
+        -- end)
+        CS.XGameEventManager.Instance:RegisterEvent(CS.XEventId.EVENT_DLC_FIGHT_EXIT, function(eventName, params, c, d)
             if OldFocusTypeDlcHunt then
                 XDataCenter.SetManager.SetFocusTypeDlcHunt(OldFocusTypeDlcHunt)
                 OldFocusTypeDlcHunt = false
@@ -273,9 +273,10 @@ XDlcRoomManagerCreator = function()
             worldData.LevelId = levelId
             worldData.Online = false
             worldData.IsTeaching = true
+            worldData.WorldType = XMVCA.XDlcWorld:GetWorldTypeById(worldId)
             worldData.Players:Add(playerData)
 
-            CS.StatusSyncFight.XFightClient.ExitFight()
+            CS.StatusSyncFight.XFightClient.RequestExitFight()
             CS.StatusSyncFight.XFightClient.EnterFight(worldData, playerId)
             return
         end
@@ -349,7 +350,7 @@ XDlcRoomManagerCreator = function()
             if CS.StatusSyncFight.XFightClient.FightInstance == nil then
                 return
             end
-            CS.StatusSyncFight.XFightClient.OnExitFight(true)
+            CS.StatusSyncFight.XFightClient.ExitFight(true)
             -- XDataCenter.FubenManager.CloseFightLoading()
             --XDlcRoomManager.DialogReconnect()
         end
@@ -812,6 +813,25 @@ XDlcRoomManagerCreator = function()
         end)
     end
 
+    function XDlcRoomManager.OnDlcKickOutNotify(response)
+        XLog.Debug("============================> " .. response.Code)
+        if response.Code and response.Code ~= XCode.Success and response.Code ~= XCode.MatchPlayerOffline then
+            XUiManager.TipCode(response.Code)
+        end
+        if XFightNetwork.IsConnected() then
+            --现有规则下，进入战斗前会踢出房间，受网速影响会造成推送来的太慢导致进游戏前就断开连接----------------TODO张爽---------可能要改
+            -- 退出房间时如果已经连接战斗服，则断开连接
+            --CS.XFightNetwork.Disconnect()
+        end
+        XDataCenter.DlcRoomManager.SetRoomData(false)
+        XEventManager.DispatchEvent(XEventId.EVENT_ROOM_LEAVE_ROOM)
+        XEventManager.DispatchEvent(XEventId.EVENT_ROOM_KICKOUT)
+    end
+
+    function XDlcRoomManager.OnDlcAddLikeNotify(response)
+        XEventManager.DispatchEvent(XEventId.EVENT_ROOM_ADD_LIKE_NOTIFY, response)
+    end
+
     XDlcRoomManager.Init()
     return XDlcRoomManager
 end
@@ -819,60 +839,60 @@ end
 
 
 --region ------------------------------------notify-------------------------------------
-XRpc.DlcSelectRewardNotify = function(data)
-    XEventManager.DispatchEvent(XEventId.EVENT_ONLINEBOSS_DROPREWARD_NOTIFY, data)
-end
+-- XRpc.DlcSelectRewardNotify = function(data)
+--     XEventManager.DispatchEvent(XEventId.EVENT_ONLINEBOSS_DROPREWARD_NOTIFY, data)
+-- end
 
---踢出房间
-XRpc.DlcKickOutNotify = function(response)
-    XLog.Debug("============================> " .. response.Code)
-    if response.Code and response.Code ~= XCode.Success and response.Code ~= XCode.MatchPlayerOffline then
-        XUiManager.TipCode(response.Code)
-    end
-    if XFightNetwork.IsConnected() then
-        --现有规则下，进入战斗前会踢出房间，受网速影响会造成推送来的太慢导致进游戏前就断开连接----------------TODO张爽---------可能要改
-        -- 退出房间时如果已经连接战斗服，则断开连接
-        --CS.XFightNetwork.Disconnect()
-    end
-    XDataCenter.DlcRoomManager.SetRoomData(false)
-    XEventManager.DispatchEvent(XEventId.EVENT_ROOM_LEAVE_ROOM)
-    XEventManager.DispatchEvent(XEventId.EVENT_ROOM_KICKOUT)
-end
+-- --踢出房间
+-- XRpc.DlcKickOutNotify = function(response)
+--     XLog.Debug("============================> " .. response.Code)
+--     if response.Code and response.Code ~= XCode.Success and response.Code ~= XCode.MatchPlayerOffline then
+--         XUiManager.TipCode(response.Code)
+--     end
+--     if XFightNetwork.IsConnected() then
+--         --现有规则下，进入战斗前会踢出房间，受网速影响会造成推送来的太慢导致进游戏前就断开连接----------------TODO张爽---------可能要改
+--         -- 退出房间时如果已经连接战斗服，则断开连接
+--         --CS.XFightNetwork.Disconnect()
+--     end
+--     XDataCenter.DlcRoomManager.SetRoomData(false)
+--     XEventManager.DispatchEvent(XEventId.EVENT_ROOM_LEAVE_ROOM)
+--     XEventManager.DispatchEvent(XEventId.EVENT_ROOM_KICKOUT)
+-- end
 
---匹配通知
-XRpc.DlcMatchNotify = function(response)
-    XDataCenter.DlcRoomManager.OnDlcMatchNotify(response)
-end
+-- --匹配通知
+-- XRpc.DlcMatchNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnDlcMatchNotify(response)
+-- end
 
-XRpc.DlcPlayerSyncInfoNotify = function(response)
-    XDataCenter.DlcRoomManager.OnPlayerInfoUpdate(response)
-end
+-- XRpc.DlcPlayerSyncInfoNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnPlayerInfoUpdate(response)
+-- end
 
-XRpc.NewJoinWorldNotify = function(response)
-    XDataCenter.DlcRoomManager.OnNewJoinWorldNotify(response, false)
-end
+-- XRpc.NewJoinWorldNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnNewJoinWorldNotify(response, false)
+-- end
 
-XRpc.DlcRoomInfoChangeNotify = function(response)
-    XDataCenter.DlcRoomManager.OnRoomInfoUpdate(response)
-end
+-- XRpc.DlcRoomInfoChangeNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnRoomInfoUpdate(response)
+-- end
 
-XRpc.DlcRoomStateNotify = function(response)
-    XDataCenter.DlcRoomManager.SetRoomState(response.State)
-end
+-- XRpc.DlcRoomStateNotify = function(response)
+--     XDataCenter.DlcRoomManager.SetRoomState(response.State)
+-- end
 
-XRpc.DlcPlayerEnterNotify = function(response)
-    XDataCenter.DlcRoomManager.OnPlayerEnterNotify(response)
-end
+-- XRpc.DlcPlayerEnterNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnPlayerEnterNotify(response)
+-- end
 
-XRpc.DlcPlayerLeaveNotify = function(response)
-    XDataCenter.DlcRoomManager.OnPlayerLeaveNotify(response)
-end
+-- XRpc.DlcPlayerLeaveNotify = function(response)
+--     XDataCenter.DlcRoomManager.OnPlayerLeaveNotify(response)
+-- end
 
-XRpc.DlcReportWorldResult = function(response)
-end
+-- XRpc.DlcReportWorldResult = function(response)
+-- end
 
-XRpc.DlcAddLikeNotify = function(response)
-    XEventManager.DispatchEvent(XEventId.EVENT_ROOM_ADD_LIKE_NOTIFY, response)
-end
+-- XRpc.DlcAddLikeNotify = function(response)
+--     XEventManager.DispatchEvent(XEventId.EVENT_ROOM_ADD_LIKE_NOTIFY, response)
+-- end
 
 --endregion

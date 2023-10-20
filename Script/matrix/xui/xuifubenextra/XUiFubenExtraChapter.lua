@@ -389,7 +389,7 @@ function XUiFubenExtraChapter:SetBtnTogleActive(isNormal, isHard)
         if hideChapterId then
             local viewModel = XDataCenter.ExtraChapterManager:ExGetChapterViewModelById(self.Chapter.ChapterId, XDataCenter.FubenManager.DifficultHard)
             local isUnFinAndUnEnter = XDataCenter.FubenManagerEx.CheckHideChapterRedPoint(viewModel) --v1.30 新入口红点规则，未完成隐藏且没点击过
-            local hardRed = XRedPointConditionExtraChapterReward.Check(hideChapterId) or isUnFinAndUnEnter
+            local hardRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, hideChapterId) or isUnFinAndUnEnter
             self.BtnNormal:ShowReddot(not isHard and hardRed)
             self.BtnHard:ShowReddot(hardRed) 
         else
@@ -399,7 +399,7 @@ function XUiFubenExtraChapter:SetBtnTogleActive(isNormal, isHard)
     -- 隐藏模式下
     elseif self.CurDiff == XDataCenter.FubenManager.DifficultHard then
         if normalChapterId then
-            local normalRed = XRedPointConditionExtraChapterReward.Check(normalChapterId)
+            local normalRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, normalChapterId)
             self.BtnHard:ShowReddot(not isNormal and normalRed)
             self.BtnNormal:ShowReddot(normalRed)
         else

@@ -815,7 +815,7 @@ XTheatreManagerCreator = function()
 
     -- 检查是否展示红点
     function XTheatreManager:ExCheckIsShowRedPoint()
-        return XRedPointConditionTheatreAllRedPoint.Check()
+        return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_THEATRE_ALL_RED_POINT)
     end
 
     ---商店买空即为Clear

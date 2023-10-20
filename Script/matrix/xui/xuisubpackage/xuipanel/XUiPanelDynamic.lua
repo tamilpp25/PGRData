@@ -24,12 +24,14 @@ end
 
 function XUiPanelDynamic:OnNotify(evt, ...)
     if evt == XEventId.EVENT_SUBPACKAGE_START
-            or evt == XEventId.EVENT_SUBPACKAGE_UPDATE
             or evt == XEventId.EVENT_SUBPACKAGE_PAUSE
             or evt == XEventId.EVENT_SUBPACKAGE_PREPARE then
         self:RefreshSingleGrid(...)
     elseif evt == XEventId.EVENT_SUBPACKAGE_COMPLETE then
         self:SetupDynamicTable(self.DataList)
+        self:CheckPopDialog()
+    elseif evt == XEventId.EVENT_SUBPACKAGE_UPDATE then
+        self:RefreshSingleProgress(...)
     end
 end
 
@@ -38,6 +40,15 @@ function XUiPanelDynamic:SetupDynamicTable(dataList)
     self.DataList = dataList
     self.DynamicTable:SetDataSource(dataList)
     self.DynamicTable:ReloadDataSync()
+end
+
+function XUiPanelDynamic:CheckPopDialog()
+    if not XMVCA.XSubPackage:CheckAllComplete() then
+        return
+    end
+    
+    XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("DlcDownloadReStartTip"), 
+            XUiManager.DialogType.OnlySure, nil, CS.XApplication.Exit)
 end
 
 ---
@@ -74,7 +85,8 @@ function XUiPanelDynamic:SortSubpackage(subpackageIds)
     return subpackageIds
 end
 
-function XUiPanelDynamic:RefreshSingleGrid(subpackageId)
+---@return XUiGridDownload
+function XUiPanelDynamic:GetGrid(subpackageId)
     local grids = self.DynamicTable:GetGrids()
     local temp
     for _, grid in pairs(grids) do
@@ -83,18 +95,34 @@ function XUiPanelDynamic:RefreshSingleGrid(subpackageId)
             break
         end
     end
-    
 
-    if temp then
-        local index
-        for idx, subId in ipairs(self.DataList) do
-            if subId == subpackageId then
-                index = idx
-                break
-            end
-        end
-        temp:Refresh(index, subpackageId)
+    return temp
+end
+
+function XUiPanelDynamic:RefreshSingleGrid(subpackageId)
+    local temp = self:GetGrid(subpackageId)
+    if not temp then
+        return
     end
+
+
+    local index
+    for idx, subId in ipairs(self.DataList) do
+        if subId == subpackageId then
+            index = idx
+            break
+        end
+    end
+    temp:Refresh(index, subpackageId)
+end
+
+function XUiPanelDynamic:RefreshSingleProgress(subpackageId, progress)
+    local temp = self:GetGrid(subpackageId)
+    if not temp then
+        return
+    end
+    
+    temp:RefreshProgressOnly(progress)
 end
 
 return XUiPanelDynamic

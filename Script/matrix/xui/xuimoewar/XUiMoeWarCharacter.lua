@@ -264,12 +264,12 @@ function XUiMoeWarCharacter:InitRequireCharacterInfo()
 end
 
 function XUiMoeWarCharacter:InitEffectPositionInfo()
-    if self.StageType ~= XDataCenter.FubenManager.StageType.InfestorExplore then
-        self.PanelEffectPosition.gameObject:SetActiveEx(false)
-        return
-    end
-    self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
-    self.PanelEffectPosition.gameObject:SetActiveEx(true)
+    self.PanelEffectPosition.gameObject:SetActiveEx(false)
+    --if self.StageType ~= XDataCenter.FubenManager.StageType.InfestorExplore then
+    --    return
+    --end
+    --self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
+    --self.PanelEffectPosition.gameObject:SetActiveEx(true)
 end
 
 function XUiMoeWarCharacter:RefreshCharacterTypeTips()

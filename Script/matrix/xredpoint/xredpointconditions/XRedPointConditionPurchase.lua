@@ -11,11 +11,11 @@ function XRedPointConditionPurchase.GetSubConditions()
 end
 
 function XRedPointConditionPurchase.Check()
-    local f = XRedPointConditionPurchaseLB.Check()
+    local f = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PURCHASE_LB_RED)
     if f then
         return true
     end
-    f = XRedPointConditionPurchaseAccumulate.Check()
+    f = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_ACCUMULATE_PAY_RED)
     if f then
         return true
     end

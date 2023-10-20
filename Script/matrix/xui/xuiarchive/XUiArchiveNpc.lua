@@ -5,7 +5,7 @@ function XUiArchiveNpc:OnEnable()
     self:SetRoteData()
     self.BtnCloseGird.gameObject:SetActiveEx(false)
     if self.IsInit then
-        self.GridState = XArchiveConfigs.NpcGridState.Open
+        self.GridState = XEnumConst.Archive.NpcGridState.Open
         self.CurIndex = #self.PageDatas + 1
         self.IsInit = false
     end
@@ -25,13 +25,13 @@ end
 
 function XUiArchiveNpc:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelArchiveList)
-    self.DynamicTable:SetProxy(XUiGridArchiveNpc)
+    self.DynamicTable:SetProxy(XUiGridArchiveNpc,self)
     self.DynamicTable:SetDelegate(self)
     self.GridArchiveNpc.gameObject:SetActiveEx(false)
 end
 
 function XUiArchiveNpc:SetupDynamicTable()
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchiveStoryNpcList()
+    self.PageDatas = self._Control:GetArchiveStoryNpcList()
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(1)
 end
@@ -79,7 +79,7 @@ function XUiArchiveNpc:SetGridDic(npcIndex,npcGrid)
 end
 
 function XUiArchiveNpc:CheckGirdState(index,grid)
-    if self.GridState == XArchiveConfigs.NpcGridState.Open then
+    if self.GridState == XEnumConst.Archive.NpcGridState.Open then
         if index < self.CurIndex then
             grid:SetLeftEndPos()
             grid:SetStartScale()
@@ -99,7 +99,7 @@ function XUiArchiveNpc:CheckGirdState(index,grid)
             grid:SetDetailEndAlpha()
             grid:StopTween()
         end
-    elseif self.GridState == XArchiveConfigs.NpcGridState.Close then
+    elseif self.GridState == XEnumConst.Archive.NpcGridState.Close then
         grid:SetStartPos()
         grid:SetStartScale()
         grid:SetEndAlpha()
@@ -125,7 +125,7 @@ function XUiArchiveNpc:SelectNpc(Index)
         self.CurIndex = Index
         self:OpenGird()
     end
-    self.GridState = XArchiveConfigs.NpcGridState.Open
+    self.GridState = XEnumConst.Archive.NpcGridState.Open
 end
 
 function XUiArchiveNpc:UnSelectNpc()
@@ -133,7 +133,7 @@ function XUiArchiveNpc:UnSelectNpc()
         self:CloseGird(nil)
         self.CurIndex = nil
     end
-    self.GridState = XArchiveConfigs.NpcGridState.Close
+    self.GridState = XEnumConst.Archive.NpcGridState.Close
 end
 
 function XUiArchiveNpc:LeftOpenGird(cb)

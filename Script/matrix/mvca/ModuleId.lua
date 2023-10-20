@@ -19,4 +19,12 @@ ModuleId = {
   XPreload = "XPreload",
   XSubPackage = "XSubPackage",
   XSameColor = "XSameColor",
+  XRogueSim = "XRogueSim",
+  XBirthdayPlot = "XBirthdayPlot",
+  XDlcCasual = "XDlcCasual",
+  XDlcRoom = "XDlcRoom",
+  XDlcWorld = "XDlcWorld",
+  XCerberusGame = "XCerberusGame",
+  XArchive = "XArchive",
+  XAnniversary = "XAnniversary",
 }

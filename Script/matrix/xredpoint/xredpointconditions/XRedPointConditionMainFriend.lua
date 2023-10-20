@@ -5,12 +5,12 @@ local XRedPointConditionMainFriend = {}
 local SubConditions = nil
 
 function XRedPointConditionMainFriend.Check()
-    local count = XRedPointConditionFriendContact.Check()
+    local count = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FRIEND_CONTACT)
     if count > 0 then
         return count
     end
 
-    if XRedPointConditionFriendWaitPass.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FRIEND_WAITPASS) then
         return true
     end
 end

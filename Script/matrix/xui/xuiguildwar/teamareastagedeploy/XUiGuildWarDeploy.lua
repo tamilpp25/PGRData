@@ -107,11 +107,11 @@ function XUiGuildWarDeploy:OnMemberClick(childNode,memberIndex)
         if signalCode ~= XSignalCode.SUCCESS then return end
         self:UpdateView()
         ---- 播放音效
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         if rootUi.Team:GetCaptainPos() == memberIndex then
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         end
-        rootUi.FavorabilityManager.PlayCvByType(newMemberData.EntityId, soundType)
+        XMVCA.XFavorability:PlayCvByType(newMemberData.EntityId, soundType)
     end)
     return true
 end

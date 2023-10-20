@@ -64,7 +64,7 @@ function XUiSkillDetailsParentV2P6:OnStart(characterId, type, pos, gridIndex)
 end
 
 function XUiSkillDetailsParentV2P6:OnDisable()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 return XUiSkillDetailsParentV2P6

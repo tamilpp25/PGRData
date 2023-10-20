@@ -35,6 +35,7 @@ function XUiLottoKarenina:OnEnable()
     self:SetGlobalIllumination(true)
 
     self:PlayEnableAnim()
+    self:AddEventListener()
 end
 
 function XUiLottoKarenina:OnDisable()
@@ -44,6 +45,7 @@ function XUiLottoKarenina:OnDisable()
 
     self.PanelDrawGroup.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.SHOW))
     self.PanelStory.gameObject:SetActiveEx(self:CheckPanelType(PANEL_TYPE.STAGE))
+    self:RemoveEventListener()
 end
 
 function XUiLottoKarenina:OnDestroy()
@@ -108,12 +110,6 @@ end
 
 function XUiLottoKarenina:CheckPanelType(type)
     return self._PanelType == type
-end
---endregion
-
---region Ui - PanelDraw
-function XUiLottoKarenina:RefreshDraw()
-    
 end
 --endregion
 
@@ -249,7 +245,7 @@ function XUiLottoKarenina:InitReward()
 end
 
 function XUiLottoKarenina:RefreshReward()
-    self._PanelLottoPreview:UpdateKaliePanel()
+    self._PanelLottoPreview:UpdateTwoLevelPanel()
 end
 --endregion
 
@@ -431,15 +427,14 @@ end
 function XUiLottoKarenina:OnDraw()
     local drawData = self._LottoGroupData:GetDrawData()
     characterRecord.Record()
-    XDataCenter.LottoManager.DoLotto(drawData:GetId(), function(rewardList, extraRewardList)
+    XDataCenter.LottoManager.DoLotto(drawData:GetId(), function(rewardList, extraRewardList, lottoRewardId)
         self._PanelType = PANEL_TYPE.SHOW
         XDataCenter.AntiAddictionManager.BeginDrawCardAction()
+        local lottoRewardEntity = self._LottoGroupData:GetDrawData():GetRewardDataById(lottoRewardId)
         self._ExtraRewardList = extraRewardList
-        self._RewardList = self:HandleDrawShowReward(rewardList)
-        self._IsCanDraw = true
+        self._RewardList = XDataCenter.LottoManager.HandleDrawShowRewardEffect(rewardList, lottoRewardEntity:GetShowEffectId())
+        self._DrawTimeLine = lottoRewardEntity:GetShowTimeLineName()
         self:EnableDrawAnim(handler(self, self.AfterDrawAnim))
-    end, function()
-        self._IsCanDraw = true
     end)
 end
 
@@ -448,7 +443,6 @@ function XUiLottoKarenina:AfterDrawAnim()
     local openResult = function()
         --UiDrawResult
         XLuaUiManager.Open("UiDrawShowNew", drawData, self._RewardList, nil, 1, function()
-            self.IsDrawBack = true
             self:Refresh()
             self:DisableDrawAnim()
         end)
@@ -464,17 +458,6 @@ function XUiLottoKarenina:AfterDrawAnim()
     end
 end
 
-function XUiLottoKarenina:HandleDrawShowReward(rewardList)
-    if XTool.IsTableEmpty(rewardList) then
-        return {}
-    end
-    for _, reward in ipairs(rewardList) do
-        local quality = XDataCenter.LottoManager.GetTemplateQuality(reward.TemplateId)
-        reward.SpecialDrawEffectGroupId = XLottoConfigs.GetLottoKalieDrawEffectGroupId(reward.TemplateId, quality)
-    end
-    return rewardList
-end
-
 function XUiLottoKarenina:EnableDrawAnim(cb)
     if self.BtnSkip then
         self.BtnSkip.gameObject:SetActiveEx(true)
@@ -487,10 +470,9 @@ function XUiLottoKarenina:EnableDrawAnim(cb)
         cb()
         return
     end
-    self._DrawTimeLine = "ChoukaVioletEnable"
-    for _, reward in ipairs(self._RewardList) do
-        local quality = XDataCenter.LottoManager.GetTemplateQuality(reward.TemplateId)
-        self._DrawTimeLine = XLottoConfigs.GetLottoKalieDrawTimeLine(reward.TemplateId, quality)
+    if not self._DrawTimeLine or not self._CamAnimDrawDir[self._DrawTimeLine] then
+        cb()
+        return
     end
     self:PlayAnimationWithMask("UiDisable")
     if not self._CamAnimDrawDir[self._DrawTimeLine].gameObject.activeSelf then
@@ -729,9 +711,7 @@ function XUiLottoKarenina:OnBtnBeDrawClick()
     local needItemCount = drawData:GetConsumeCount()
     if needItemCount > curItemCount then
         --XUiManager.TipErrorWithKey("DrawNotEnoughSkipText")
-        XLuaUiManager.Open("UiLottoTanchuang", drawData, function()
-            self:Refresh()
-        end)
+        XLuaUiManager.Open("UiLottoTanchuang", drawData)
         return
     end
 
@@ -750,5 +730,15 @@ function XUiLottoKarenina:OnBtnSkipDrawClick()
     self._IsSkipDrawAnim = true
     self._CamAnimDrawDir[self._DrawTimeLine].gameObject:SetActiveEx(false)
     self._CamAnimDrawDir[self._DrawTimeLine].gameObject:SetActiveEx(true)
+end
+--endregion
+
+--region Event
+function XUiLottoKarenina:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.Refresh, self)
+end
+
+function XUiLottoKarenina:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET, self.Refresh, self)
 end
 --endregion

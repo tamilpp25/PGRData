@@ -62,9 +62,9 @@ function XUiPanelTheatre3PropDetail:RefreshView()
             end
         end
         -- 效果 解锁条件 简介
-        self.PanelPropUi.TxtWorldDesc.text = itemConfig.WorldDesc
+        self.PanelPropUi.TxtWorldDesc.text = XUiHelper.ConvertLineBreakSymbol(itemConfig.WorldDesc)
         -- 屏蔽 道具 动态效果描述
-        self.PanelPropUi.TxtDesc.text = XUiHelper.FormatText(itemConfig.Description, "")
+        self.PanelPropUi.TxtDesc.text = XUiHelper.ConvertLineBreakSymbol(XUiHelper.FormatText(itemConfig.Description, ""))
 
         self.GridPropUi.PanelLock.gameObject:SetActiveEx(not isUnlock)
         self.PanelPropUi.PanelWorldDesc.gameObject:SetActiveEx(isUnlock)
@@ -92,7 +92,7 @@ function XUiPanelTheatre3PropDetail:RefreshView()
         end
         if isUnlock then
             self.PanelSetUi.TxtDesc.gameObject:SetActiveEx(false)
-            self.PanelSetUi.TxtDesc.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(equipSuitConfig.Desc, equipSuitConfig.TraitName)))
+            self.PanelSetUi.TxtDesc.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(equipSuitConfig.Desc, "")))
             self.PanelSetUi.TxtDesc.gameObject:SetActiveEx(true)
             --self.PanelSetUi.TxtStory.text = equipSuitConfig.StoryDesc
             self.PanelSetUi.BtnBuff.CallBack = function()

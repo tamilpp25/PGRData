@@ -13,7 +13,7 @@ function XArchiveStoryDetailEntity:UpdateData(playerData)
 end
 
 function XArchiveStoryDetailEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveStoryDetailConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveStoryDetailConfigById(self.Id)
 end
 
 function XArchiveStoryDetailEntity:GetId()

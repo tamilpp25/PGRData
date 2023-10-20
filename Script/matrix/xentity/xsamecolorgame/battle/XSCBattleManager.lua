@@ -79,6 +79,7 @@ XSCBattleManager.DoAction = {
         param.ActionType = action.ActionType
         param.RemoveBallList = ChangeItemPosList(action.ItemList)
         param.CurrentScore = math.floor(action.CurrentScore * ShowScorePara)
+        param.CurrentSkillId = self:GetCurUsingSkillId()
         
         self:DoCountCombo(action.CurrentCombo)
         self.IsActionPlayingDic[action.ActionType] = true

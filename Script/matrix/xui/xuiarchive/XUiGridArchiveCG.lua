@@ -1,11 +1,8 @@
-XUiGridArchiveCG = XClass(nil, "XUiGridArchiveCG")
+XUiGridArchiveCG = XClass(XUiNode, "XUiGridArchiveCG")
 local Rect = CS.UnityEngine.Rect(1, 1, 1, 1)
 local LockNameText = CS.XTextManager.GetText("ArchiveLockNameText")
 local LockCGIconAspectRatio = CS.XGame.ClientConfig:GetFloat("LockStoryIconAspectRatio")
-function XUiGridArchiveCG:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveCG:OnStart()
     self:SetButtonCallBack()
 end
 

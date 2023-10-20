@@ -702,7 +702,7 @@ XFubenBossSingleManagerCreator = function()
     end
 
     function XFubenBossSingleManager.OpenBossSingleView()
-        if not XMVCA.XSubPackage:CheckSubpackage() then
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BossSingle) then
             return
         end
         local func = function()
@@ -750,7 +750,7 @@ XFubenBossSingleManagerCreator = function()
         preFight.IsHasAssist = isAssist and true or false
         preFight.ChallengeCount = challengeCount or 1
         local isArenaOnline = XDataCenter.ArenaOnlineManager.CheckStageIsArenaOnline(stage.StageId)
-        local isSimulatedCombat = XDataCenter.FubenSimulatedCombatManager.CheckStageIsSimulatedCombat(stage.StageId)
+        local isSimulatedCombat = false--XDataCenter.FubenSimulatedCombatManager.CheckStageIsSimulatedCombat(stage.StageId)
         -- 如果有试玩角色，则不读取玩家队伍信息
         if not stage.RobotId or #stage.RobotId <= 0 then
             local teamData = XDataCenter.TeamManager.GetTeamData(teamId)

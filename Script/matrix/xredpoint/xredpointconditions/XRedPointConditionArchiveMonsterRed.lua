@@ -13,8 +13,8 @@ function XRedPointConditionArchiveMonsterRed.GetSubEvents()
 end
 
 function XRedPointConditionArchiveMonsterRed.Check(monsterId)
-    return XDataCenter.ArchiveManager.IsMonsterHaveRedPointById(monsterId) and
-    not XDataCenter.ArchiveManager.IsMonsterHaveNewTagById(monsterId)
+    return XMVCA.XArchive:IsMonsterHaveRedPointById(monsterId) and
+    not XMVCA.XArchive:IsMonsterHaveNewTagById(monsterId)
 end
 
 return XRedPointConditionArchiveMonsterRed

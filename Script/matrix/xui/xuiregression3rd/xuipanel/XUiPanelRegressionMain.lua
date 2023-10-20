@@ -4,6 +4,9 @@ local XUiPanelRegressionBase = require("XUi/XUiRegression3rd/XUiPanel/XUiPanelRe
 local XUiPanelRegressionMain = XClass(XUiPanelRegressionBase, "XUiPanelRegressionMain")
 
 --region   ------------------重写父类方法 start-------------------
+function XUiPanelRegressionBase:OnEnable()
+    self:RefreshView()
+end
 
 function XUiPanelRegressionMain:InitCb()
     self.BtnShop.CallBack = function() 
@@ -20,12 +23,11 @@ function XUiPanelRegressionMain:InitCb()
 end
 
 function XUiPanelRegressionMain:Show()
-    self:RefreshView()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
 end
 
 function XUiPanelRegressionMain:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionMain:UpdateTime()

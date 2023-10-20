@@ -29,6 +29,7 @@ end
 
 
 function XUiGridDownload:Refresh(index, subpackageId)
+    self.Id = subpackageId
     self.TxtName.text = string.format("%02d %s", index, self._Control:GetSubPackageName(subpackageId))
     self.TxtDescribe.text = self._Control:GetSubPackageDesc(subpackageId)
     local item = self._Control:GetSubpackageItem(subpackageId)
@@ -39,15 +40,10 @@ function XUiGridDownload:Refresh(index, subpackageId)
     if not string.IsNilOrEmpty(imgBanner) then
         self.BgImage:SetRawImage(imgBanner)
     end
-    
-    
+
+    local progress = item:GetMaxProgress()
     local state = item:GetState()
-    local progress = item:GetProgress()
-    local progressPercent = math.floor(progress * 100) .. "%"
-    self.ImgProgress.fillAmount = progress
-    
-    self.BtnPause:SetNameByGroup(0, progressPercent)
-    self.BtnDownLoading:SetNameByGroup(0, progressPercent)
+    self:RefreshProgressOnly(progress)
     if self.IsPreview then
         self.BtnDownLoad.gameObject:SetActiveEx(false)
         self.BtnPause.gameObject:SetActiveEx(state == XEnumConst.SUBPACKAGE.DOWNLOAD_STATE.PAUSE 
@@ -63,9 +59,16 @@ function XUiGridDownload:Refresh(index, subpackageId)
         self.BtnComplete.gameObject:SetActiveEx(state == XEnumConst.SUBPACKAGE.DOWNLOAD_STATE.COMPLETE)
         self.BtnPrepare.gameObject:SetActiveEx(state == XEnumConst.SUBPACKAGE.DOWNLOAD_STATE.PREPARE_DOWNLOAD)
     end
-    
-    
-    self.Id = subpackageId
+end
+
+function XUiGridDownload:RefreshProgressOnly(progress)
+    local progressPercent = math.floor(progress * 100) .. "%"
+    self.ImgProgress.fillAmount = progress
+
+    local item = self._Control:GetSubpackageItem(self.Id)
+    local isInCheck = item and item:IsProgressLess() or false
+    self.BtnPause:SetNameByGroup(0, progressPercent)
+    self.BtnDownLoading:SetNameByGroup(0, isInCheck and XUiHelper.GetText("FileChecking") or progressPercent)
 end
 
 function XUiGridDownload:OnBtnDownLoadClick()

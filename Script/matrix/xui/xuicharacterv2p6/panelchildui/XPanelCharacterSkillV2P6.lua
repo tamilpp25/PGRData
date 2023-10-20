@@ -104,6 +104,10 @@ end
 
 function XPanelCharacterSkillV2P6:OnGotoSkillDetail(i)
     XLuaUiManager.Open("UiSkillDetailsParentV2P6", self.CharacterId, XCharacterConfigs.SkillDetailsType.Normal, i)
+    local skillEvoIndex = 4
+    if i == skillEvoIndex then
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Parent.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnGridSkillItem4, self.CharacterId)
+    end
 end
 
 function XPanelCharacterSkillV2P6:OnGotoEnhanceSkillDetail()

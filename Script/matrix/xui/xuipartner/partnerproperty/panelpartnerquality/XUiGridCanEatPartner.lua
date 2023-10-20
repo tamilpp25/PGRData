@@ -25,7 +25,7 @@ function XUiGridCanEatPartner:UpdateGrid(data, base)
 
     if data then
         self.RImgHeadIcon:SetRawImage(data:GetIcon())
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality()))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality()))
         self.ImgBreak:SetSprite(data:GetBreakthroughIcon())
         self.TxtLevel.text = data:GetLevel()
         self.Txtname.text = data:GetName()

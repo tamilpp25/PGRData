@@ -28,7 +28,7 @@ function XRedPointConditionPassport.Check()
         return false
     end
 
-    if XRedPointConditionPassportPanelReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_PANEL_REWARD_RED) then
         return true
     end
 
@@ -37,15 +37,15 @@ function XRedPointConditionPassport.Check()
     local level = baseInfo:GetLevel()
     local maxLevel = XMVCA.XPassport:GetPassportMaxLevel()
     if level < maxLevel then
-        if XRedPointConditionPassportTaskDaily.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_DAILY_RED) then
             return true
         end
 
-        if XRedPointConditionPassportTaskWeekly.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_WEEKLY_RED) then
             return true
         end
 
-        if XRedPointConditionPassportTaskActivity.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_ACTIVITY_RED) then
             return true
         end
     end

@@ -62,7 +62,7 @@ function XUiGridAssignDeployMember:Refresh(groupId, teamOrder, teamData, memberO
         self.TxtNowAbility.color = CONDITION_COLOR[ability >= teamData:GetRequireAbility()]
         self.TxtNowAbility.text = ability
 
-        self.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
         self.PanelMember.gameObject:SetActiveEx(true)
         self.PanelEmpty.gameObject:SetActiveEx(false)
 

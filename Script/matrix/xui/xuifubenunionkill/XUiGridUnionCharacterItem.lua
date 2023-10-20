@@ -35,7 +35,7 @@ function XUiGridUnionCharacterItem:UpdateOwnInfo(character)
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
 
     if self.RImgHeadIcon then

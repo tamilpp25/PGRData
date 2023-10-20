@@ -5,6 +5,7 @@ local UIBindControl = {
     XUiPanelCommonCharacterFilterV2P6 = ModuleId.XCharacter,
     UiCharacterV2P6 = ModuleId.XCharacter,
     XGridCharacterV2P6 = ModuleId.XCharacter,
+    UiSkillDetailsForEnhanceV2P6 = ModuleId.XCharacter,
     -- 装备
     UiEquipDetailChildV2P6 = ModuleId.XEquip,
     UiEquipDetailV2P6 = ModuleId.XEquip,
@@ -126,7 +127,6 @@ local UIBindControl = {
     UiFavorabilityStory=ModuleId.XFavorability,
     UiFavorabilityLineRoomCharacter=ModuleId.XFavorability,
     UiFavorabilityLineRoomCharacterSelect=ModuleId.XFavorability,
-    UiFavorabilityStory=ModuleId.XFavorability,
     UiFavorabilityLineRoomCharacterMainSelect=ModuleId.XFavorability,
     --endregion
     
@@ -161,5 +161,78 @@ local UIBindControl = {
     UiSameColorGameSkillDetails = ModuleId.XSameColor,
     UiSameColorGameEffectDetails = ModuleId.XSameColor,
     --endregion
+    
+    --region 肉鸽模拟经营
+    UiRogueSimMain = ModuleId.XRogueSim,
+    UiRogueSimChapter = ModuleId.XRogueSim,
+    UiRogueSimChapterDetail = ModuleId.XRogueSim,
+    UiRogueSimBattle = ModuleId.XRogueSim,
+    UiRogueSimLv = ModuleId.XRogueSim,
+    UiRogueSimLoading = ModuleId.XRogueSim,
+    UiRogueSimBuildBag = ModuleId.XRogueSim,
+    UiRogueSimPropBag = ModuleId.XRogueSim,
+    UiRogueSimScience = ModuleId.XRogueSim,
+    UiRogueSimChooseScience = ModuleId.XRogueSim,
+    UiRogueSimCityBag = ModuleId.XRogueSim,
+    UiRogueSimSell = ModuleId.XRogueSim,
+    UiRogueSimProduce = ModuleId.XRogueSim,
+    UiRogueSimComponent = ModuleId.XRogueSim,
+    UiRogueSimRewardPopup = ModuleId.XRogueSim,
+    UiRogueSimSettlement = ModuleId.XRogueSim,
+    UiRogueSimChoose = ModuleId.XRogueSim,
+    UiRogueSimTask = ModuleId.XRogueSim,
+    UiRogueSimShop = ModuleId.XRogueSim,
+    UiRogueSimStory = ModuleId.XRogueSim,
+    UiRogueSimHandbook = ModuleId.XRogueSim,
+    UiRogueSimOutpost = ModuleId.XRogueSim,
+    UiRogueSimThreeTip = ModuleId.XRogueSim,
+    --endregion
+
+    --region 魔方嘉年华DLC
+    UiDlcCasualGamesMain = ModuleId.XDlcCasual,
+    UiDlcCasualGamesExchange = ModuleId.XDlcCasual,
+    UiDlcCasualGamesTask = ModuleId.XDlcCasual,
+    UiDlcCasualGameRank = ModuleId.XDlcCasual,
+    UiDlcCasualplayerSettlement = ModuleId.XDlcCasual,
+    UiDlcCasualDate = ModuleId.XDlcCasual,
+    UiDlcCasualplayerRoomCute = ModuleId.XDlcCasual,
+    UiDlcCasualGameLoading = ModuleId.XDlcCasual,
+    UiDlcCasualGamesRoomExchange = ModuleId.XDlcCasual,
+    --endregion
+    
+    --region 生日剧情
+    UiBirthdayPlotSingleStory = ModuleId.XBirthdayPlot,
+    --endregion
+    
+    --region 图鉴
+    UiArchiveAwareness=ModuleId.XArchive,
+    UiArchiveAwarenessDetail=ModuleId.XArchive,
+    UiArchiveCG=ModuleId.XArchive,
+    UiArchiveCGDetail=ModuleId.XArchive,
+    UiArchiveEmail=ModuleId.XArchive,
+    UiArchiveMain=ModuleId.XArchive,
+    UiArchiveMonster=ModuleId.XArchive,
+    UiArchiveMonsterComment=ModuleId.XArchive,
+    UiArchiveMonsterDetail=ModuleId.XArchive,
+    UiArchiveMonsterEvaluate=ModuleId.XArchive,
+    UiArchiveMonsterSelectTag=ModuleId.XArchive,
+    UiArchiveNpc=ModuleId.XArchive,
+    UiArchivePartner=ModuleId.XArchive,
+    UiArchivePartnerDetail=ModuleId.XArchive,
+    UiArchiveStory=ModuleId.XArchive,
+    UiArchiveStoryDetail=ModuleId.XArchive,
+    UiArchiveStoryDialog=ModuleId.XArchive,
+    UiArchiveWeapon=ModuleId.XArchive,
+    UiArchiveWeaponAchievement=ModuleId.XArchive,
+    UiArchiveWeaponDetail=ModuleId.XArchive,
+    UiArchiveWeaponsCollectionTips=ModuleId.XArchive,
+    UiArchivePV=ModuleId.XArchive,
+    --endregion
+    
+    --region 四周年
+    UiAnniversaryMain=ModuleId.XAnniversary,
+    UiAnniversaryReview=ModuleId.XAnniversary,
+    --endregion
 }
+
 return UIBindControl

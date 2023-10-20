@@ -106,7 +106,7 @@ function XExFubenShortStoryManager:ExGetChapterViewModelById(id, difficulty)
                 return normalCurStars, normalTotalStars
             end,
             CheckHasRedPoint = function(proxy)
-                return XRedPointConditionShortStoryChapterReward.Check(proxy:GetId())
+                return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SHORT_STORY_CHAPTER_REWARD, proxy:GetId())
             end,
             CheckHasNewTag = function(proxy)
                 return XDataCenter.ShortStoryChapterManager.CheckChapterNew(proxy:GetId())

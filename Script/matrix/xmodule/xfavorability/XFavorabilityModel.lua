@@ -15,6 +15,7 @@ local TABLE_CHARACTER_GROUP = "Share/FestivalMail/FestivalCharacterGroup.tab"
 local TABLE_FESTIVAL = "Share/FestivalMail/Festival.tab"
 local TABLE_STORY_LAYOUT="Client/Trust/StoryLayout.tab"
 local TABLE_CHARACTER_COLLABORATION = "Client/Trust/CharacterCollaboration.tab"
+local TABLE_SIGNBOARD_FEEDBACK = "Client/Signboard/SignBoardFeedback.tab";
 
 function XFavorabilityModel:OnInit()
     --初始化内部变量
@@ -31,6 +32,8 @@ function XFavorabilityModel:OnInit()
         [TABLE_CV_SPLIT]={XConfigUtil.ReadType.Int,XTable.XTableCvSplit,"Id",XConfigUtil.CacheType.Preload},
 
         [TABLE_LIKE_BASEDATA]={XConfigUtil.ReadType.Int,XTable.XTableCharacterBaseData,"CharacterId",XConfigUtil.CacheType.Normal},
+        [TABLE_SIGNBOARD_FEEDBACK]={XConfigUtil.ReadType.Int,XTable.XTableSignBoardFeedback,"Id",XConfigUtil.CacheType.Normal},
+
 
         [TABLE_STORY_LAYOUT]={XConfigUtil.ReadType.Int,XTable.XTableStoryLayout,"CharacterId",XConfigUtil.CacheType.Private},
         [TABLE_CHARACTER_COLLABORATION]={XConfigUtil.ReadType.Int,XTable.XTableCharacterCollaboration,"CharacterId",XConfigUtil.CacheType.Private},
@@ -63,6 +66,26 @@ function XFavorabilityModel:OnInit()
     self._CharacterAction=nil
     self._CharacterActionUnlockLv=nil
     self._CharacterActionKeySignBoardActionId=nil
+    
+    --signBoard相关数据
+    self._TableSignBoardRoleIdIndexs=nil
+    self._TableSignBoardIndexs=nil
+    self._TableSignBoardBreak=nil
+    self._ChangeDisplayId = -1
+    self._LoginTime=-1
+    self._LastLoginTime = -1
+    self._SignBoarEvents={}
+    --默认 0 普通待机，1 待机站立
+    self._StandType = 0
+    self._PreLoginPlayedList = {}
+    self._PlayerData=nil
+    self._RequestTouchBoardLock=false
+    self._Timer=nil
+    self._StopTime=0
+    self._Delay = 10
+    self._sceneAnim=require("XEntity/XSignBoard/XSignBoardCamAnim").New()
+    self._sceneAnimPrefab=nil
+    self._PlayedList={}
     
     self._CharacterFavorabilityDatas= {}
     self._CharacterGiftReward={}
@@ -122,6 +145,21 @@ function XFavorabilityModel:ResetAll()
     self._PlayingCvInfo = nil
     
     self._ConfigUtil:Clear(TABLE_LIKE_BASEDATA)
+
+    self._ChangeDisplayId = -1
+    self._LoginTime=-1
+    self._LastLoginTime = -1
+    self._SignBoarEvents={}
+    self._StandType = 0
+    self._PreLoginPlayedList = {}
+    self._PlayerData=nil
+    self._RequestTouchBoardLock=false
+    self._Timer=nil
+    self._StopTime=0
+    self._Delay = 10
+    self._sceneAnim=require("XEntity/XSignBoard/XSignBoardCamAnim").New()
+    self._sceneAnimPrefab=nil
+    self._PlayedList={}
 end
 
 ----------public start----------
@@ -355,6 +393,31 @@ function XFavorabilityModel:CheckCharacterActionDataDone()
     end
 end
 
+function XFavorabilityModel:CheckSignBoardDataDone()
+    if XTool.IsTableEmpty(self._TableSignBoardRoleIdIndexs) or XTool.IsTableEmpty(self._TableSignBoardIndexs) then
+        self._TableSignBoardRoleIdIndexs={}
+        for _, var in pairs(self._ConfigUtil:Get(TABLE_SIGNBOARD_FEEDBACK)) do
+            if not var.RoleId then
+                self._TableSignBoardIndexs = self._TableSignBoardIndexs or {}
+                self._TableSignBoardIndexs[var.ConditionId] = self._TableSignBoardIndexs[var.ConditionId] or {}
+                table.insert(self._TableSignBoardIndexs[var.ConditionId], var)
+            elseif var.RoleId == "None" then
+                self._TableSignBoardBreak = var
+            else
+                local roleIds = string.Split(var.RoleId, "|")
+                if roleIds then
+                    for _, roleId in ipairs(roleIds) do
+                        roleId = tonumber(roleId)
+                        self._TableSignBoardRoleIdIndexs[roleId] = self._TableSignBoardRoleIdIndexs[roleId] or {}
+                        self._TableSignBoardRoleIdIndexs[roleId][var.ConditionId] = self._TableSignBoardRoleIdIndexs[roleId][var.ConditionId] or {}
+                        table.insert(self._TableSignBoardRoleIdIndexs[roleId][var.ConditionId], var)
+                    end
+                end
+            end
+        end
+    end
+end
+
 ----------private end----------
 
 ----------config start----------
@@ -402,7 +465,7 @@ end
 function XFavorabilityModel:GetAllCharacterSendGift()
     self:CheckCharacterTrustItemDataDone()
     if not self._CharacterSendGift then
-        XLog.Error("XFavorabilityConfigs.GetAllCharacterSendGift 函数错误, 配置表：" .. TABLE_LIKE_TRUSTITEM .. " 读取失败, 检查配置表")
+        XLog.Error("XFavorabilityModel.GetAllCharacterSendGift 函数错误, 配置表：" .. TABLE_LIKE_TRUSTITEM .. " 读取失败, 检查配置表")
         return
     end
     return self._CharacterSendGift
@@ -422,7 +485,7 @@ function XFavorabilityModel:GetCharacterInformationUnlockLvById(characterId)
     self:CheckInformationDataDone()
     local informationUnlockDatas = self._CharacterInformationUnlockLv[characterId]
     if not informationUnlockDatas then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterInformationUnlockLvById",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterInformationUnlockLvById",
                 "UnlockLv", TABLE_LIKE_INFORMATION, "characterId", tostring(characterId))
         return
     end
@@ -433,7 +496,7 @@ function XFavorabilityModel:GetCharacterStoryUnlockLvsById(characterId)
     self:CheckStoryDataDone()
     local storyUnlockDatas = self._CharacterStoryUnlockLv[characterId]
     if not storyUnlockDatas then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterStoryUnlockLvsById",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterStoryUnlockLvsById",
                 "CharacterStoryUnlockLv", TABLE_LIKE_STORY, "characterId", tostring(characterId))
         return
     end
@@ -445,7 +508,7 @@ function XFavorabilityModel:GetTrustExpById(characterId)
     self:CheckTrustExpDataDone()
     local trustExp = self._CharacterTrustExp[characterId]
     if not trustExp then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetTrustExpById", "CharacterTrustExp",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetTrustExpById", "CharacterTrustExp",
                 TABLE_LIKE_TRUSTEXP, "characterId", tostring(characterId))
         return
     end
@@ -455,7 +518,7 @@ end
 function XFavorabilityModel:GetLikeTrustItemCfg(itemId)
     local cfg = self._ConfigUtil:Get(TABLE_LIKE_TRUSTITEM)[itemId]
     if not cfg then
-        XLog.Error("XFavorabilityConfigs.GetLikeTrustItemCfg 函数错误, 配置表：" .. TABLE_LIKE_TRUSTITEM .. " 读取失败, 检查配置表")
+        XLog.Error("XFavorabilityModel.GetLikeTrustItemCfg 函数错误, 配置表：" .. TABLE_LIKE_TRUSTITEM .. " 读取失败, 检查配置表")
         return
     end
     return cfg
@@ -465,7 +528,7 @@ end
 function XFavorabilityModel:GetCharacterBaseDataById(characterId)
     local baseData = self:GetCharacterBaseData()[characterId]
     if not baseData then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterBaseDataById",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterBaseDataById",
                 "CharacterBaseData", TABLE_LIKE_BASEDATA, "characterId", characterId)
         return
     end
@@ -476,7 +539,7 @@ end
 function XFavorabilityModel:GetCharacterTeamIconById(characterId)
     local baseData = self:GetCharacterBaseData()[characterId]
     if not baseData or not baseData.TeamIcon then
-        --XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterBaseDataById",
+        --XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterBaseDataById",
         --        "CharacterBaseData", TABLE_LIKE_BASEDATA, "characterId", characterId)
 
         local logo=XExhibitionConfigs.GetExhibitionGroupLogoConfig()[characterId]
@@ -488,7 +551,7 @@ end
 function XFavorabilityModel:GetFavorabilityLevel(characterId, totalExp, startLevel)
     local characterFavorabilityLevelDatas = self:GetTrustExpById(characterId)
     if not characterFavorabilityLevelDatas then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetMaxFavorabilityLevel",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetMaxFavorabilityLevel",
                 "CharacterTrustExp", TABLE_LIKE_TRUSTEXP, "characterId", tostring(characterId))
         return
     end
@@ -531,7 +594,7 @@ end
 function XFavorabilityModel:GetCharacterGiftRewardById(characterId)
     local giftReward = self._CharacterGiftReward[characterId]
     if not giftReward then
-        XLog.Error("XFavorabilityConfigs.GetCharacterGiftRewardById error: not data found by characterId " .. tostring(characterId))
+        XLog.Error("XFavorabilityModel.GetCharacterGiftRewardById error: not data found by characterId " .. tostring(characterId))
         return
     end
     return giftReward
@@ -539,7 +602,7 @@ end
 
 function XFavorabilityModel:GetLikeRewardById(rewardId)
     if not self._likeReward then
-        XLog.Error("XFavorabilityConfigs.GetLikeRewardById error: not data found by rewardId " .. tostring(rewardId))
+        XLog.Error("XFavorabilityModel.GetLikeRewardById error: not data found by rewardId " .. tostring(rewardId))
         return
     end
     return self._likeReward[rewardId]
@@ -548,7 +611,7 @@ end
 function XFavorabilityModel:GetFavorabilityLevelCfg(level)
     local cfgs = self:GetCharacterFavorability()[level]
     if not cfgs then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetFavorabilityLevelCfg",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetFavorabilityLevelCfg",
                 "CharacterFavorabilityConfig", TABLE_LIKE_LEVELCONFIG, "level", tostring(level))
     end
     return cfgs
@@ -562,7 +625,7 @@ end
 function XFavorabilityModel:GetCharacterGroupId(characterId)
     local cfg = self:GetCharacterGroup()[characterId]
     if not cfg then
-        XLog.Error("XFavorabilityConfigs.GetCharacterGroupId 函数错误, 配置表：" .. TABLE_CHARACTER_GROUP .."CharacterId = "..characterId.." 读取失败, 检查配置表")
+        XLog.Error("XFavorabilityModel.GetCharacterGroupId 函数错误, 配置表：" .. TABLE_CHARACTER_GROUP .."CharacterId = "..characterId.." 读取失败, 检查配置表")
         return
     end
     return cfg.GroupId
@@ -582,7 +645,7 @@ function XFavorabilityModel:GetCharacterVoiceUnlockLvsById(characterId)
     self:CheckCharacterVoiceDataDone()
     local voiceUnlockDatas = self._CharacterVoiceUnlockLv[characterId]
     if not voiceUnlockDatas then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterVoiceUnlockLvsById",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterVoiceUnlockLvsById",
                 "CharacterVoiceUnlockLv", TABLE_LIKE_VOICE, "characterId", tostring(characterId))
         return
     end
@@ -592,7 +655,7 @@ end
 function XFavorabilityModel:GetCharacterActionUnlockLvsById(characterId)
     local actionUnlockDatas = self._CharacterActionUnlockLv[characterId]
     if not actionUnlockDatas then
-        XLog.ErrorTableDataNotFound("XFavorabilityConfigs.GetCharacterActionUnlockLvsById",
+        XLog.ErrorTableDataNotFound("XFavorabilityModel.GetCharacterActionUnlockLvsById",
                 "CharacterActionUnlockLv", TABLE_LIKE_ACTION, "characterId", tostring(characterId))
         return
     end
@@ -649,6 +712,52 @@ function XFavorabilityModel:GetQualityIconByQuality(quality)
     end
     return self._GiftQualityIcon[quality]
 end
+
+--region signboard相关
+function XFavorabilityModel:GetSignBoardConfig()
+    return self._ConfigUtil:Get(TABLE_SIGNBOARD_FEEDBACK)
+end
+
+--获取角色所有事件
+function XFavorabilityModel:GetSignBoardConfigByRoldId(roleId)
+    self:CheckSignBoardDataDone()
+    local all = {}
+
+    if self._TableSignBoardRoleIdIndexs and self._TableSignBoardRoleIdIndexs[roleId] then
+        for _, v in pairs(self._TableSignBoardRoleIdIndexs[roleId]) do
+            for _, var in ipairs(v) do
+                table.insert(all, var)
+            end
+        end
+    end
+
+    if self._TableSignBoardIndexs then
+        for _, v in pairs(self._TableSignBoardIndexs) do
+            for _, var in ipairs(v) do
+                table.insert(all, var)
+            end
+        end
+    end
+
+    return all
+end
+
+function XFavorabilityModel:GetSignBoardSceneAnim(signBoardid)
+    local signBoard = self:GetSignBoardConfig()[signBoardid]
+    if not signBoard then
+        return nil
+    end
+    return signBoard.SceneCamAnimPrefab
+end
+
+function XFavorabilityModel:GetIsUseSelfUiAnim(signBoardid, uiName)
+    local signBoard = self:GetSignBoardConfig()[signBoardid]
+    if not signBoard or XTool.IsTableEmpty(signBoard.IsUseSelfUiAnims) or not uiName then
+        return nil
+    end
+    return signBoard.IsUseSelfUiAnims[XEnumConst.Favorability.XSignBoardUiShowType[uiName]]
+end
+--endregion
 ----------config end----------
 
 

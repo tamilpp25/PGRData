@@ -1249,10 +1249,10 @@ XKillZoneManagerCreator = function()
 end
 ---------------------Notify begin------------------
 XRpc.NotifyKillZoneActivityData = function(data)
-    XDataCenter.KillZoneManager.NotifyKillZoneActivityData(data)
+    --XDataCenter.KillZoneManager.NotifyKillZoneActivityData(data)
 end
 
 XRpc.NotifyKillZoneActivityDailyReset = function(data)
-    XDataCenter.KillZoneManager.NotifyKillZoneActivityDailyReset(data)
+    --XDataCenter.KillZoneManager.NotifyKillZoneActivityDailyReset(data)
 end
 ---------------------Notify end------------------    

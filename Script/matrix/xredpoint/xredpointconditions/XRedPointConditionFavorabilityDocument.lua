@@ -21,15 +21,15 @@ function XRedPointConditionFavorabilityDocument.Check(checkArgs)
     local characterId = checkArgs.CharacterId
     if characterId == nil then return false end
 
-    if XRedPointConditionFavorabilityInfo.Check(checkArgs) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_INFO, checkArgs) then
         return true
     end
 
-    if XRedPointConditionFavorabilityRumor.Check(checkArgs) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_RUMOR, checkArgs) then
         return true
     end
 
-    if XRedPointConditionFavorabilityAudio.Check(checkArgs) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FAVORABILITY_DOCUMENT_AUDIO, checkArgs) then
         return true
     end
 

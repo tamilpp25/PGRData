@@ -171,7 +171,7 @@ end
 function XUiExhibitionInfo:UpdateCharacterModel(growUpLevel)
     local characterId = self.CharacterId
     growUpLevel = growUpLevel or XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
-    local modelId = XDataCenter.CharacterManager.GetCharLiberationLevelModelId(characterId, growUpLevel)
+    local modelId = XMVCA.XCharacter:GetCharLiberationLevelModelId(characterId, growUpLevel)
 
     self.RoleModelPanel:UpdateCharacterModelByModelId(modelId, characterId, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiExhibitionInfo, function(model)
         self.PanelDrag.Target = model.transform

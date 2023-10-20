@@ -1,3 +1,4 @@
+
 local XRedPointConditionMoeWarPreparation = {}
 local SubConditions = nil
 
@@ -16,11 +17,11 @@ function XRedPointConditionMoeWarPreparation.Check()
         return false
     end
 
-    if XRedPointConditionMoeWarPreparationReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MOEWAR_PREPARATION_REWARD) then
         return true
     end
 
-    if XRedPointConditionMoeWarPreparationOpenStage.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MOEWAR_PREPARATION_OPEN_STAGE) then
         return true
     end
 

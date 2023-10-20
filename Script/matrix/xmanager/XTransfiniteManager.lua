@@ -151,10 +151,6 @@ XTransfiniteManagerCreator = function()
     end
 
     function XTransfiniteManager.OpenMain()
-        --分包拦截
-        if not XMVCA.XSubPackage:CheckSubpackage() then
-            return
-        end
         if not _Data:IsOpen() then
             local text = XTransfiniteManager:ExGetLockTip()
             if text then
@@ -163,6 +159,11 @@ XTransfiniteManagerCreator = function()
             end
             XUiManager.TipText("ActivityBranchNotOpen")
             return false
+        end
+        
+        --分包拦截
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Transfinite) then
+            return
         end
         XLuaUiManager.Open("UiTransfiniteMain")
         return true

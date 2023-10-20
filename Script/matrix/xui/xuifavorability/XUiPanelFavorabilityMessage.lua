@@ -49,7 +49,7 @@ end
 
 function XUiPanelFavorabilityMessage:RefreshDatas()
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local informations = XFavorabilityConfigs.GetCharacterInformationById(characterId)
+    local informations = XMVCA.XFavorability:GetCharacterInformationById(characterId)
     self:UpdateDataList(informations, 1)
     self.Parent:CheckDataReddot()
 end

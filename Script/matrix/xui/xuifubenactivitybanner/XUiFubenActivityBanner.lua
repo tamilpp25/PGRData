@@ -2,6 +2,7 @@ local XUiGridActivityBanner = require("XUi/XUiFubenActivityBanner/XUiGridActivit
 local XUiFubenActivityBanner = XLuaUiManager.Register(XLuaUi, "UiFubenActivityBanner")
 
 function XUiFubenActivityBanner:OnAwake()
+    XLog.Error("[XUiFubenActivityBanner] 这个界面应该是弃用了，如果您发现没有，请通知ZLB，谢谢")
     self.DynamicTable = XDynamicTableNormal.New(self.PanelChapterList)
     self.DynamicTable:SetProxy(XUiGridActivityBanner)
     self.DynamicTable:SetDelegate(self)
@@ -114,8 +115,8 @@ function XUiFubenActivityBanner:ClickChapterGrid(chapter)
                 XLuaUiManager.Open("UiFubenRepeatchallenge")
             end
         )
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
-        self:OnClickRogueLikeActivity(chapter.Id)
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
+    --    self:OnClickRogueLikeActivity(chapter.Id)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ArenaOnline then
         self:OnClicArenaOnlineActivity(chapter.Id)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.UnionKill then
@@ -225,7 +226,7 @@ function XUiFubenActivityBanner:OnClickSuperTower()
 end
 
 function XUiFubenActivityBanner:OnClickSuperSmashBros()
-    XDataCenter.SuperSmashBrosManager.JumpTo()
+    --XDataCenter.SuperSmashBrosManager.JumpTo()
 end
 
 function XUiFubenActivityBanner:OnClickNieR()
@@ -295,21 +296,21 @@ function XUiFubenActivityBanner:OnClickBabelTowerActivity()
     )
 end
 
-function XUiFubenActivityBanner:OnClickRogueLikeActivity(rogueLikeId)
-    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(rogueLikeId)
-
-    if not activityConfig then
-        return
-    end
-    if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
-        return
-    end
-    self.ParentUi:PushUi(
-        function()
-            XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
-        end
-    )
-end
+--function XUiFubenActivityBanner:OnClickRogueLikeActivity(rogueLikeId)
+--    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(rogueLikeId)
+--
+--    if not activityConfig then
+--        return
+--    end
+--    if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
+--        return
+--    end
+--    self.ParentUi:PushUi(
+--        function()
+--            XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
+--        end
+--    )
+--end
 
 function XUiFubenActivityBanner:OnClicArenaOnlineActivity(chapterId)
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ArenaOnline) then

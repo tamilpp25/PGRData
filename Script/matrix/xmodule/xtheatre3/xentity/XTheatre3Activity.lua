@@ -143,9 +143,6 @@ end
 function XTheatre3Activity:UpdateTeamData(data)
     if not self.CurTeamData then
         self.CurTeamData = XTheatre3Team.New("XTheatre3Team")
-        if not self.CurTeamData:GetIsEmpty() then
-            return --登录时使用本地保存的数据
-        end
     end
     if XTool.IsTableEmpty(data) then
         self.CurTeamData:Clear()
@@ -517,6 +514,11 @@ end
 function XTheatre3Activity:UpdateEntityTeamPos(entityId, teamPos, isJoin)
     self.CurTeamData:UpdateEntityTeamPos(entityId, teamPos, isJoin)
 end
+
+function XTheatre3Activity:UpdateTeamEntityIdList(entityIdList)
+    self.CurTeamData:UpdateEntityIds(entityIdList)
+end
+
 
 function XTheatre3Activity:SwapEntityTeamPos(teamPosA, teamPosB)
     self.CurTeamData:SwitchEntityPos(teamPosA, teamPosB)

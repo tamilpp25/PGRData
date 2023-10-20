@@ -14,7 +14,7 @@ function XUiArchiveCG:OnStart()
 end
 
 function XUiArchiveCG:OnDestroy()
-    XDataCenter.ArchiveManager.ClearCGRedPointByGroup()
+    self._Control:ClearCGRedPointByGroup()
 end
 
 function XUiArchiveCG:InitRedPoint(btn,type)
@@ -28,13 +28,13 @@ end
 
 function XUiArchiveCG:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiGridArchiveCG)
+    self.DynamicTable:SetProxy(XUiGridArchiveCG,self)
     self.DynamicTable:SetDelegate(self)
     self.GridCGItem.gameObject:SetActiveEx(false)
 end
 
 function XUiArchiveCG:SetupDynamicTable(type)
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchiveCGDetailList(type)
+    self.PageDatas = XMVCA.XArchive:GetArchiveCGDetailList(type)
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync()
 end
@@ -62,7 +62,7 @@ function XUiArchiveCG:SetButtonCallBack()
 end
 
 function XUiArchiveCG:InitTypeButton()
-    self.GroupList = XDataCenter.ArchiveManager.GetArchiveCGGroupList()
+    self.GroupList = XMVCA.XArchive:GetArchiveCGGroupList()
     self.CurType = 1
     self.CGGroupBtn = {}
     for _, v in pairs(self.GroupList) do
@@ -88,7 +88,7 @@ function XUiArchiveCG:SelectType(index)
     self:ShowCGRateInfo(index)
 
     if self.OldType then
-        XDataCenter.ArchiveManager.ClearCGRedPointByGroup(self.GroupList[self.OldType].Id)
+        self._Control:ClearCGRedPointByGroup(self.GroupList[self.OldType].Id)
     end
 
     self.OldType = index
@@ -104,5 +104,5 @@ end
 
 function XUiArchiveCG:ShowCGRateInfo(index)
     self.TxtCollectionDesc.text = self.GroupList[index].Name
-    self.RateNum.text = string.format("%d%s", XDataCenter.ArchiveManager.GetCGCompletionRate(self.GroupList[index].Id), "%")
+    self.RateNum.text = string.format("%d%s", self._Control:GetCGCompletionRate(self.GroupList[index].Id), "%")
 end

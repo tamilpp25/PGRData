@@ -400,9 +400,9 @@ end
 
 function XUiManager.OpenGoodDetailUi(goodId, fromUiName, customData, hideSkipBtn)
     -- 匹配中
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        return
-    end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    return
+    --end
     local goodsShowParams = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(goodId)
     local uiType = XLuaUiManager.FindTopUi(fromUiName).UiProxy.Ui.UiData.UiType
     if goodsShowParams.RewardType == XRewardManager.XRewardType.Character then

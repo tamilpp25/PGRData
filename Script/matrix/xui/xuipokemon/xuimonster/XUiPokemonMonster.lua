@@ -560,7 +560,7 @@ function XUiPokemonMonster:CheckTabRedDot()
         local monsters = XDataCenter.PokemonManager.GetOwnMonsterIdsByCareer(career)
         local isShowRed = true
         for _, id in pairs(monsters) do
-            isShowRed = isShowRed and XRedPointConditionPokemonNewRole.Check(id)
+            isShowRed = isShowRed and XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_POKEMON_NEW_ROLE, id)
         end
         self.TabBtns[index]:ShowReddot(not isShowRed)
     end
