@@ -905,6 +905,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
+            "1",
             "Pfaff",
             "If you don't destroy their power connectors, they might get back up again. ",
             1.0
@@ -1117,7 +1118,7 @@
         "Type": 101,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": null,
+        "BeginAnim": "DialogDisable",
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
@@ -1137,8 +1138,8 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
-            "2"
+            "2",
+            1.0
         ]
     },
     {
@@ -1148,69 +1149,35 @@
         "Type": 201,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "500210",
-            1460.0
-        ]
-    },
-    {
-        "Id": 72,
-        "ActionId": 6901,
-        "NextActionId": null,
-        "Type": 203,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "1",
-            "0"
-        ]
-    },
-    {
-        "Id": 73,
-        "ActionId": 70,
-        "NextActionId": null,
-        "Type": 203,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": null,
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "1",
-            "0.5",
-            -200.0
-        ]
-    },
-    {
-        "Id": 74,
-        "ActionId": 71,
-        "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
         "BeginAnim": "AniZhuanchangEnd",
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
             "1",
-            "Rosetta is cautiously hiding behind a fallen tree. She sniffs the air.",
+            "500210",
+            -100.0
+        ]
+    },
+    {
+        "Id": 72,
+        "ActionId": 71,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            "Rosetta cautiously hides behind a fallen tree and sniffed the air.",
             1.0
         ]
     },
     {
-        "Id": 75,
+        "Id": 73,
         "ActionId": 72,
         "NextActionId": null,
         "Type": 203,
@@ -1222,12 +1189,11 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "0.5",
-            0.0
+            "0.25"
         ]
     },
     {
-        "Id": 76,
+        "Id": 74,
         "ActionId": 73,
         "NextActionId": null,
         "Type": 301,
@@ -1239,12 +1205,12 @@
         "EndDelay": null,
         "Params": [
             "Rosetta",
-            "The smell of vital fluid... They're still moving up the mountain!",
+            "Vital fluid... They're still moving up the mountain!",
             1.0
         ]
     },
     {
-        "Id": 77,
+        "Id": 75,
         "ActionId": 74,
         "NextActionId": null,
         "Type": 204,
@@ -1260,7 +1226,7 @@
         ]
     },
     {
-        "Id": 78,
+        "Id": 76,
         "ActionId": 75,
         "NextActionId": null,
         "Type": 301,
@@ -1277,7 +1243,7 @@
         ]
     },
     {
-        "Id": 79,
+        "Id": 77,
         "ActionId": 76,
         "NextActionId": null,
         "Type": 301,
@@ -1288,12 +1254,12 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Rosetta is keeping her promise with Pfaff\u2014to not speak or meet with outsiders.",
+            "But she couldn't break the promise she made to her grandfather to not speak or meet with outsiders.",
             1.0
         ]
     },
     {
-        "Id": 80,
+        "Id": 78,
         "ActionId": 77,
         "NextActionId": null,
         "Type": 301,
@@ -1305,7 +1271,40 @@
         "EndDelay": null,
         "Params": [
             "Rosetta",
-            "Two options left now... Find the girls before the bionics, or...",
+            "But now there are only two choices: charge ahead of the bionics to find the girls, or...",
+            1.0
+        ]
+    },
+    {
+        "Id": 79,
+        "ActionId": 78,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta firmly grips her trusty spear.",
+            1.0
+        ]
+    },
+    {
+        "Id": 80,
+        "ActionId": 79,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": null,
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Rosetta",
+            "Or destroy all of the bionics!",
             1.0
         ]
     },

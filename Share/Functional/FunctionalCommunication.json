@@ -3,7 +3,7 @@
         "Id": 101,
         "Name": "Story Mission",
         "ConditionIds": [
-            70101
+            200000
         ],
         "Priority": 1,
         "SkipId": 21.0,
@@ -16,7 +16,7 @@
     },
     {
         "Id": 102,
-        "Name": "Get Constructs, level up",
+        "Name": "Obtain Character Liv",
         "ConditionIds": [
             70102
         ],
@@ -25,7 +25,7 @@
         "BtnContent": "I got it",
         "NpcName": "Liv",
         "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
-        "ContentsGroupId": 102,
+        "ContentsGroupId": 113,
         "Type": 1,
         "UiType": 1
     },
@@ -63,7 +63,7 @@
         "Id": 105,
         "Name": "Promote Construct",
         "ConditionIds": [
-            70105
+            200000
         ],
         "Priority": 5,
         "SkipId": 21.0,
@@ -78,7 +78,7 @@
         "Id": 1,
         "Name": "Sign-in",
         "ConditionIds": [
-            70001
+            200000
         ],
         "Priority": 6,
         "SkipId": 21.0,
@@ -91,16 +91,16 @@
     },
     {
         "Id": 2,
-        "Name": "Mission - Daily",
+        "Name": "Equipment and Training Weapon",
         "ConditionIds": [
-            70002
+            84100109
         ],
         "Priority": 7,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "Lee",
-        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLi1.png",
-        "ContentsGroupId": 2,
+        "NpcName": "Liv",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
+        "ContentsGroupId": 114,
         "Type": 1,
         "UiType": 1
     },
@@ -108,12 +108,12 @@
         "Id": 3,
         "Name": "Research System",
         "ConditionIds": [
-            70003
+            70105
         ],
         "Priority": 8,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "\uff1f\uff1f\uff1f",
+        "NpcName": "???",
         "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadYongyechao1.png",
         "ContentsGroupId": 3,
         "Type": 1,
@@ -123,7 +123,7 @@
         "Id": 111,
         "Name": "Main Quest Guide",
         "ConditionIds": [
-            70106
+            200000
         ],
         "Priority": 9,
         "SkipId": 21.0,
@@ -136,16 +136,16 @@
     },
     {
         "Id": 106,
-        "Name": "Daily - Character EXP",
+        "Name": "Guide: Unlock All Resource Stages",
         "ConditionIds": [
             70111
         ],
         "Priority": 10,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "Liv",
-        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
-        "ContentsGroupId": 106,
+        "NpcName": "Lucia",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
+        "ContentsGroupId": 115,
         "Type": 1,
         "UiType": 1
     },
@@ -166,7 +166,7 @@
     },
     {
         "Id": 5,
-        "Name": "Tutorial Stage",
+        "Name": "Enable Celica Exam",
         "ConditionIds": [
             70005
         ],
@@ -181,46 +181,46 @@
     },
     {
         "Id": 107,
-        "Name": "Skill Stage",
+        "Name": "Guide: Mentorship System",
         "ConditionIds": [
-            70107
+            200000
         ],
         "Priority": 13,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "Liv",
-        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
-        "ContentsGroupId": 107,
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 117,
         "Type": 1,
         "UiType": 1
     },
     {
         "Id": 108,
-        "Name": "Coin Stage",
+        "Name": "Guide: Guild System",
         "ConditionIds": [
-            70108
+            84100405
         ],
         "Priority": 14,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "Liv",
-        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadLifu1.png",
-        "ContentsGroupId": 108,
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 118,
         "Type": 1,
         "UiType": 1
     },
     {
         "Id": 6,
-        "Name": "Equipment EXP Stage",
+        "Name": "Guide: CUB",
         "ConditionIds": [
-            70006
+            8006
         ],
         "Priority": 15,
         "SkipId": 21.0,
         "BtnContent": "I got it",
-        "NpcName": "Lucia",
-        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/RoleHeadluxiya1.png",
-        "ContentsGroupId": 6,
+        "NpcName": "Celica",
+        "NpcHandIcon": "Assets/Product/Texture/Image/RoleCharacter/SailikaNomal01.png",
+        "ContentsGroupId": 116,
         "Type": 1,
         "UiType": 1
     },
@@ -228,7 +228,7 @@
         "Id": 7,
         "Name": "Equipment Overclock Stage",
         "ConditionIds": [
-            70007
+            200000
         ],
         "Priority": 16,
         "SkipId": 21.0,
@@ -273,7 +273,7 @@
         "Id": 109,
         "Name": "Auto Clear",
         "ConditionIds": [
-            70109
+            200000
         ],
         "Priority": 19,
         "SkipId": 21.0,
@@ -288,7 +288,7 @@
         "Id": 10,
         "Name": "High-rank Equipment Stage",
         "ConditionIds": [
-            70010
+            200000
         ],
         "Priority": 20,
         "SkipId": 21.0,
@@ -303,7 +303,7 @@
         "Id": 11,
         "Name": "Construct - Details",
         "ConditionIds": [
-            70011
+            200000
         ],
         "Priority": 21,
         "SkipId": 21.0,
@@ -318,7 +318,7 @@
         "Id": 112,
         "Name": "Trial Zone",
         "ConditionIds": [
-            70112
+            200000
         ],
         "Priority": 22,
         "SkipId": 21.0,
@@ -333,7 +333,7 @@
         "Id": 12,
         "Name": "Construct Army",
         "ConditionIds": [
-            70012
+            200000
         ],
         "Priority": 23,
         "SkipId": 21.0,
@@ -348,7 +348,7 @@
         "Id": 13,
         "Name": "Co-op",
         "ConditionIds": [
-            852201
+            200000
         ],
         "Priority": 24,
         "SkipId": 21.0,
@@ -393,7 +393,7 @@
         "Id": 15,
         "Name": "Construct - Outfit",
         "ConditionIds": [
-            70015
+            200000
         ],
         "Priority": 27,
         "SkipId": 21.0,
@@ -438,7 +438,7 @@
         "Id": 19,
         "Name": "Challenge - War Zone",
         "ConditionIds": [
-            70019
+            771801
         ],
         "Priority": 31,
         "SkipId": 21.0,

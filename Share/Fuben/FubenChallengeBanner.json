@@ -14,7 +14,12 @@
         "Priority": 3,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10203
+        "FunctionId": 10203,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": [
+            "CONDITION_BOSS_SINGLE_REWARD"
+        ]
     },
     {
         "Id": 2,
@@ -31,7 +36,10 @@
         "Priority": 1,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 1601
+        "FunctionId": 1601,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 3,
@@ -48,7 +56,10 @@
         "Priority": 2,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10204
+        "FunctionId": 10204,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 4,
@@ -62,10 +73,13 @@
         "ResetInterval": null,
         "ShopId": null,
         "IsOpen": 1,
-        "Priority": 5,
+        "Priority": 12,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10405
+        "FunctionId": 10405,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 5,
@@ -82,7 +96,10 @@
         "Priority": 7,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 1800
+        "FunctionId": 1800,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 6,
@@ -99,7 +116,10 @@
         "Priority": 6,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10311
+        "FunctionId": 10311,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 7,
@@ -116,7 +136,10 @@
         "Priority": 9,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10315
+        "FunctionId": 10315,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 8,
@@ -133,7 +156,10 @@
         "Priority": 8,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 1302
+        "FunctionId": 1302,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 9,
@@ -150,7 +176,10 @@
         "Priority": 4,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10205
+        "FunctionId": 10205,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 10,
@@ -167,7 +196,10 @@
         "Priority": 10,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 1801
+        "FunctionId": 1801,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
     },
     {
         "Id": 11,
@@ -184,6 +216,89 @@
         "Priority": 0,
         "ShowNewStartTime": null,
         "ShowNewEndTime": null,
-        "FunctionId": 10420
+        "FunctionId": 10420,
+        "SkipId": null,
+        "RewardId": 550009.0,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 12,
+        "Type": 7,
+        "NameEn": null,
+        "SimpleDesc": "Co-op",
+        "Icon": "Assets/Product/Texture/Image/UiFubenChallengeBanner/UiFubenChallengeChapter15.png",
+        "IsClose": null,
+        "ResetType": null,
+        "ResetTime": null,
+        "ResetInterval": null,
+        "ShopId": null,
+        "IsOpen": 1,
+        "Priority": 11,
+        "ShowNewStartTime": null,
+        "ShowNewEndTime": null,
+        "FunctionId": 10302,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 13,
+        "Type": 71,
+        "NameEn": null,
+        "SimpleDesc": "Stronghold",
+        "Icon": "Assets/Product/Texture/Image/UiFubenChallengeBanner/UiFubenChallengeChapter13.png",
+        "IsClose": null,
+        "ResetType": null,
+        "ResetTime": null,
+        "ResetInterval": null,
+        "ShopId": null,
+        "IsOpen": 1,
+        "Priority": 5,
+        "ShowNewStartTime": null,
+        "ShowNewEndTime": null,
+        "FunctionId": 10103,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 14,
+        "Type": 80,
+        "NameEn": null,
+        "SimpleDesc": "F.O.S. Rating Committee",
+        "Icon": "Assets/Product/Texture/Image/UiFubenChallengeBanner/UiFubenChallengeChapter16.png",
+        "IsClose": null,
+        "ResetType": null,
+        "ResetTime": null,
+        "ResetInterval": null,
+        "ShopId": null,
+        "IsOpen": 1,
+        "Priority": 0,
+        "ShowNewStartTime": null,
+        "ShowNewEndTime": null,
+        "FunctionId": 1802,
+        "SkipId": null,
+        "RewardId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 15,
+        "Type": 81,
+        "NameEn": null,
+        "SimpleDesc": "Cursed Waves",
+        "Icon": "Assets/Product/Texture/Image/UiFubenChallengeBanner/UiFubenChallengeChapter17.png",
+        "IsClose": null,
+        "ResetType": null,
+        "ResetTime": null,
+        "ResetInterval": null,
+        "ShopId": null,
+        "IsOpen": 1,
+        "Priority": 0,
+        "ShowNewStartTime": null,
+        "ShowNewEndTime": null,
+        "FunctionId": 10433,
+        "SkipId": null,
+        "RewardId": 550050.0,
+        "RedPointConditions": []
     }
 ]

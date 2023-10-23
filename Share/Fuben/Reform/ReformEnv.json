@@ -1,5 +1,980 @@
 [
     {
+        "Id": 10101,
+        "FightEventIds": [
+            97127
+        ],
+        "AddScore": 600,
+        "Name": "Death Race",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene25.png",
+        "Des": "Upon the death of a team member or an enemy, all the remaining units on the battlefield gain 20% DMG and lose 20% DMG Reduction.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Death Race"
+    },
+    {
+        "Id": 10102,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 500,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 10201,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 600,
+        "Name": "Don't Cross the Line I",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene34.png",
+        "Des": "Units will receive massive DOT after leaving the light circle.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Don't Cross the Line I"
+    },
+    {
+        "Id": 10202,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 400,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 10203,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 400,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 10301,
+        "FightEventIds": [
+            2230103
+        ],
+        "AddScore": 800,
+        "Name": "Signal Disruption",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene22.png",
+        "Des": "Dodging consumes 1 Signal Orb. Each 3-Ping grants 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Signal Disruption"
+    },
+    {
+        "Id": 10302,
+        "FightEventIds": [
+            97113
+        ],
+        "AddScore": 700,
+        "Name": "Deus Ex Machina",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene14.png",
+        "Des": "When an enemy or a team member takes lethal DMG, they will not die immediately. Instead, they receive a shield equal to their max HP, which continuously decays.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deus Ex Machina"
+    },
+    {
+        "Id": 10303,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 600,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 10401,
+        "FightEventIds": [
+            97119
+        ],
+        "AddScore": 700,
+        "Name": "Consolidated Frontline",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene23.png",
+        "Des": "Enemies will share the damage they receive evenly to all enemies.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Consolidated Frontline"
+    },
+    {
+        "Id": 10402,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 600,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 10403,
+        "FightEventIds": [
+            97102
+        ],
+        "AddScore": 500,
+        "Name": "Flame Storm",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene2.png",
+        "Des": "Periodically summons a random Flame Storm on the battlefield, dealing DMG equal to 10% of max HP to enemies and team members.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Flame Storm"
+    },
+    {
+        "Id": 10501,
+        "FightEventIds": [
+            2230100
+        ],
+        "AddScore": 650,
+        "Name": "As One",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene30.png",
+        "Des": "Each 3-Ping will increase Basic Attack DMG by 120% and reduce 3-Ping DMG by 20%. (Can stack up to 5 times.)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "As One"
+    },
+    {
+        "Id": 10502,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 550,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 10503,
+        "FightEventIds": [
+            2230103
+        ],
+        "AddScore": 550,
+        "Name": "Signal Disruption",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene22.png",
+        "Des": "Dodging consumes 1 Signal Orb. Each 3-Ping grants 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Signal Disruption"
+    },
+    {
+        "Id": 10504,
+        "FightEventIds": [
+            97120
+        ],
+        "AddScore": 450,
+        "Name": "Final Radiance",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene20.png",
+        "Des": "Upon your characters or enemies receiving lethal damage, they immediately restore full HP, gain huge movement speed and all DMG at the cost of losing 10% of Max HP every second.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Final Radiance"
+    },
+    {
+        "Id": 10601,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 800,
+        "Name": "Emergency Evasion I",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene37.png",
+        "Des": "A Deconstructor appears on the battlefield and throws a dart at your team every 15s. Unit hit will be frozen for 2s and will lose 30% HP after being hit 3 times.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Emergency Evasion I"
+    },
+    {
+        "Id": 10602,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 700,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 10603,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 700,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 10604,
+        "FightEventIds": [
+            97127
+        ],
+        "AddScore": 600,
+        "Name": "Death Race",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene25.png",
+        "Des": "Upon the death of a team member or an enemy, all the remaining units on the battlefield gain 20% DMG and lose 20% DMG Reduction.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Death Race"
+    },
+    {
+        "Id": 10701,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 750,
+        "Name": "Emergency Evasion II",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene38.png",
+        "Des": "Two Deconstructors appear on the battlefield and every 10s, a random Deconstructor will throw a dart at your team. Unit hit will be frozen for 3s and will lose 30% HP after being hit 3 times.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Emergency Evasion I"
+    },
+    {
+        "Id": 10702,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 650,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 10703,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 650,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 10704,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 550,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 10801,
+        "FightEventIds": [
+            2230104
+        ],
+        "AddScore": 900,
+        "Name": "Health Delivery",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene33.png",
+        "Des": "Upon the death of an enemy, their max HP will be shared among the remaining enemies. Enemies take 30% more DMG each time the effect is triggered.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Health Delivery"
+    },
+    {
+        "Id": 10802,
+        "FightEventIds": [
+            2230100
+        ],
+        "AddScore": 800,
+        "Name": "As One",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene30.png",
+        "Des": "Each 3-Ping will increase Basic Attack DMG by 120% and reduce 3-Ping DMG by 20%. (Can stack up to 5 times.)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "As One"
+    },
+    {
+        "Id": 10803,
+        "FightEventIds": [
+            97112
+        ],
+        "AddScore": 800,
+        "Name": "Lethal Toxin",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene13.png",
+        "Des": "All units on the battlefield will reduce HP by 2% per second and decrease heal effects by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Lethal Toxin"
+    },
+    {
+        "Id": 10804,
+        "FightEventIds": [
+            97120
+        ],
+        "AddScore": 700,
+        "Name": "Final Radiance",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene20.png",
+        "Des": "Upon your characters or enemies receiving lethal damage, they immediately restore full HP, gain huge movement speed and all DMG at the cost of losing 10% of Max HP every second.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Final Radiance"
+    },
+    {
+        "Id": 10901,
+        "FightEventIds": [
+            2230102
+        ],
+        "AddScore": 900,
+        "Name": "Quick Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene32.png",
+        "Des": "All units have 999% more ATK and will immediately resurrect upon death. Each resurrection will grant 10-second Invincibility, which will last 1s less every time the corresponding unit takes 1 attack. Interval: 1s. Max Resurrections: 3.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Quick Battle"
+    },
+    {
+        "Id": 10902,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 800,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 10903,
+        "FightEventIds": [
+            2230106
+        ],
+        "AddScore": 800,
+        "Name": "Energy Conversion",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene40.png",
+        "Des": "Dodge restores 50% faster, and movement speed reduces by 30%.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Energy Conversion"
+    },
+    {
+        "Id": 10904,
+        "FightEventIds": [
+            2230103
+        ],
+        "AddScore": 700,
+        "Name": "Signal Disruption",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene22.png",
+        "Des": "Dodging consumes 1 Signal Orb. Each 3-Ping grants 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Signal Disruption"
+    },
+    {
+        "Id": 11001,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 850,
+        "Name": "Don't Cross the Line II",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene35.png",
+        "Des": "Units will receive massive DOT after leaving the light circle. Every 25s, 1 Polar Soldier will appear, ram your team, and disappear afterward.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Don't Cross the Line II"
+    },
+    {
+        "Id": 11002,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 750,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 11003,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 750,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 11004,
+        "FightEventIds": [
+            97127
+        ],
+        "AddScore": 650,
+        "Name": "Death Race",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene25.png",
+        "Des": "Upon the death of a team member or an enemy, all the remaining units on the battlefield gain 20% DMG and lose 20% DMG Reduction.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Death Race"
+    },
+    {
+        "Id": 11101,
+        "FightEventIds": [
+            97103
+        ],
+        "AddScore": 550,
+        "Name": "Last Ditch",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene12.png",
+        "Des": "Your team gains Super Armor but only the starter character will be deployed to battle.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Last Ditch"
+    },
+    {
+        "Id": 11102,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 450,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 11103,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 450,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 11104,
+        "FightEventIds": [
+            97127
+        ],
+        "AddScore": 350,
+        "Name": "Death Race",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene25.png",
+        "Des": "Upon the death of a team member or an enemy, all the remaining units on the battlefield gain 20% DMG and lose 20% DMG Reduction.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Death Race"
+    },
+    {
+        "Id": 11201,
+        "FightEventIds": [
+            97112
+        ],
+        "AddScore": 850,
+        "Name": "Lethal Toxin",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene13.png",
+        "Des": "All units on the battlefield will reduce HP by 2% per second and decrease heal effects by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Lethal Toxin"
+    },
+    {
+        "Id": 11202,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 750,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 11203,
+        "FightEventIds": [
+            97107
+        ],
+        "AddScore": 750,
+        "Name": "Heal Infections",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene7.png",
+        "Des": "Extra heal to enemies and team members will convert into 100% DMG",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Heal Infections"
+    },
+    {
+        "Id": 11204,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 650,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 11301,
+        "FightEventIds": [
+            97126
+        ],
+        "AddScore": 1000,
+        "Name": "Frequency Block",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene24.png",
+        "Des": "Basic Attacks will not grant Signal Orbs. Dodging grants one Signal Orb at a time.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Frequency Block"
+    },
+    {
+        "Id": 11302,
+        "FightEventIds": [
+            2230104
+        ],
+        "AddScore": 900,
+        "Name": "Health Delivery",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene33.png",
+        "Des": "Upon the death of an enemy, their max HP will be shared among the remaining enemies. Enemies take 30% more DMG each time the effect is triggered.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Health Delivery"
+    },
+    {
+        "Id": 11303,
+        "FightEventIds": [
+            2230100
+        ],
+        "AddScore": 900,
+        "Name": "As One",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene30.png",
+        "Des": "Each 3-Ping will increase Basic Attack DMG by 120% and reduce 3-Ping DMG by 20%. (Can stack up to 5 times.)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "As One"
+    },
+    {
+        "Id": 11304,
+        "FightEventIds": [
+            97113
+        ],
+        "AddScore": 800,
+        "Name": "Deus Ex Machina",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene14.png",
+        "Des": "When an enemy or a team member takes lethal DMG, they will not die immediately. Instead, they receive a shield equal to their max HP, which continuously decays.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deus Ex Machina"
+    },
+    {
+        "Id": 11401,
+        "FightEventIds": [
+            2230101
+        ],
+        "AddScore": 800,
+        "Name": "Four Trials",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene31.png",
+        "Des": "Only Signal Orb and Basic Attack DMG can kill the target. Upon death, the target will resurrect with full HP, become immune to the lethal DMG type [Red Orb, Yellow Orb, Blue Orb, Basic Attack], and take 30% more damage (stacks). Max Resurrections: 3.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Four Trials"
+    },
+    {
+        "Id": 11402,
+        "FightEventIds": [
+            97111
+        ],
+        "AddScore": 600,
+        "Name": "Red Orb Burst",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene17.png",
+        "Des": "Casting Red Orb skills will summon lightning strikes, dealing you DMG equal to 10% of your max HP upon hit.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Red Orb Burst"
+    },
+    {
+        "Id": 11403,
+        "FightEventIds": [
+            97110
+        ],
+        "AddScore": 600,
+        "Name": "Yellow Orb Burst",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene16.png",
+        "Des": "Casting Yellow Orb skills will summon lightning strikes, dealing you DMG equal to 10% of your max HP upon hit",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Yellow Orb Burst"
+    },
+    {
+        "Id": 11404,
+        "FightEventIds": [
+            97109
+        ],
+        "AddScore": 600,
+        "Name": "Blue Orb Burst",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene8.png",
+        "Des": "Casting Blue Orb skills will summon lightning strikes, dealing you DMG equal to 10% of your max HP upon hit.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Blue Orb Burst"
+    },
+    {
+        "Id": 11501,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 1000,
+        "Name": "Don't Cross the Line III",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene36.png",
+        "Des": "Units will receive massive DOT after leaving the light circle. Every 15s, 2 Polar Soldiers will appear, ram your team, and disappear afterward.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Don't Cross the Line III"
+    },
+    {
+        "Id": 11502,
+        "FightEventIds": [
+            97122
+        ],
+        "AddScore": 900,
+        "Name": "Unstable Polarity",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene21.png",
+        "Des": "All enemies are immune to damage by 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Unstable Polarity"
+    },
+    {
+        "Id": 11503,
+        "FightEventIds": [
+            97103
+        ],
+        "AddScore": 900,
+        "Name": "Last Ditch",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene12.png",
+        "Des": "Your team gains Super Armor but only the starter character will be deployed to battle.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Last Ditch"
+    },
+    {
+        "Id": 11504,
+        "FightEventIds": [
+            97127
+        ],
+        "AddScore": 900,
+        "Name": "Death Race",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene25.png",
+        "Des": "Upon the death of a team member or an enemy, all the remaining units on the battlefield gain 20% DMG and lose 20% DMG Reduction.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Death Race"
+    },
+    {
+        "Id": 11505,
+        "FightEventIds": [
+            97118
+        ],
+        "AddScore": 700,
+        "Name": "Lasting Infection",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene19.png",
+        "Des": "Enemies inflict HP Deterioration on the targets upon dealing damage to them, which will make them lose 3% of Max HP every second. This effect lasts permanently.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Lasting Infection"
+    },
+    {
+        "Id": 11601,
+        "FightEventIds": [
+            97119
+        ],
+        "AddScore": 900,
+        "Name": "Consolidated Frontline",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene23.png",
+        "Des": "Enemies will share the damage they receive evenly to all enemies.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Consolidated Frontline"
+    },
+    {
+        "Id": 11602,
+        "FightEventIds": [
+            97109
+        ],
+        "AddScore": 800,
+        "Name": "Blue Orb Burst",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene8.png",
+        "Des": "Casting Blue Orb skills will summon lightning strikes, dealing you DMG equal to 10% of your max HP upon hit.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Blue Orb Burst"
+    },
+    {
+        "Id": 11603,
+        "FightEventIds": [
+            97111
+        ],
+        "AddScore": 800,
+        "Name": "Red Orb Burst",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene17.png",
+        "Des": "Casting Red Orb skills will summon lightning strikes, dealing you DMG equal to 10% of your max HP upon hit.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Red Orb Burst"
+    },
+    {
+        "Id": 11604,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 800,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 11605,
+        "FightEventIds": [
+            97120
+        ],
+        "AddScore": 700,
+        "Name": "Final Radiance",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene20.png",
+        "Des": "Upon your characters or enemies receiving lethal damage, they immediately restore full HP, gain huge movement speed and all DMG at the cost of losing 10% of Max HP every second.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Final Radiance"
+    },
+    {
+        "Id": 11701,
+        "FightEventIds": [
+            97103
+        ],
+        "AddScore": 1300,
+        "Name": "Last Ditch",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene12.png",
+        "Des": "Your team gains Super Armor but only the starter character will be deployed to battle.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Last Ditch"
+    },
+    {
+        "Id": 11702,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 1200,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
+        "Id": 11703,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 1200,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 11801,
+        "FightEventIds": [
+            2230105
+        ],
+        "AddScore": 700,
+        "Name": "Emergency Evasion III",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene39.png",
+        "Des": "Three Deconstructors appear on the battlefield and every 8s, 2 random Deconstructors will throw a dart at your team. Units hit will be frozen for 5s and will lose 30% HP after being hit 2 times.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Emergency Evasion III"
+    },
+    {
+        "Id": 11802,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 600,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 11803,
+        "FightEventIds": [
+            97101
+        ],
+        "AddScore": 600,
+        "Name": "Persistent Battle",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene1.png",
+        "Des": "Enemy and ally HP doubles, and DMG decreases by 50%",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall1.png",
+        "PreviewText": "Persistent Battle"
+    },
+    {
+        "Id": 11804,
+        "FightEventIds": [
+            97125
+        ],
+        "AddScore": 600,
+        "Name": "Life Drain",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene26.png",
+        "Des": "Restores HP equal to 10% of Max HP every time an enemy deals damage.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Life Drain"
+    },
+    {
+        "Id": 11805,
+        "FightEventIds": [
+            97122
+        ],
+        "AddScore": 500,
+        "Name": "Unstable Polarity",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene21.png",
+        "Des": "All enemies are immune to damage by 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Unstable Polarity"
+    },
+    {
+        "Id": 11901,
+        "FightEventIds": [
+            2230103
+        ],
+        "AddScore": 1200,
+        "Name": "Signal Disruption",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene22.png",
+        "Des": "Dodging consumes 1 Signal Orb. Each 3-Ping grants 1 random Signal Orb.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Signal Disruption"
+    },
+    {
+        "Id": 11902,
+        "FightEventIds": [
+            2230100
+        ],
+        "AddScore": 1000,
+        "Name": "As One",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformNormal.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene30.png",
+        "Des": "Each 3-Ping will increase Basic Attack DMG by 120% and reduce 3-Ping DMG by 20%. (Can stack up to 5 times.)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "As One"
+    },
+    {
+        "Id": 11903,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 1000,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 12001,
+        "FightEventIds": [
+            2230101
+        ],
+        "AddScore": 2500,
+        "Name": "Four Trials",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene31.png",
+        "Des": "Only Signal Orb and Basic Attack DMG can kill the target. Upon death, the target will resurrect with full HP, become immune to the lethal DMG type [Red Orb, Yellow Orb, Blue Orb, Basic Attack], and take 30% more damage (stacks). Max Resurrections: 3.",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Four Trials"
+    },
+    {
+        "Id": 12002,
+        "FightEventIds": [
+            97104
+        ],
+        "AddScore": 2000,
+        "Name": "Freeze Force Field",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformHard.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene6.png",
+        "Des": "Enemies will ignore Matrix and receives 50% extra DMG in Matrix",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall2.png",
+        "PreviewText": "Freeze Force Field"
+    },
+    {
+        "Id": 12003,
+        "FightEventIds": [
+            97105
+        ],
+        "AddScore": 2000,
+        "Name": "Deadly Blade",
+        "Icon": "Assets/Product/Texture/Image/UiReform/UiReformEasy.png",
+        "TextIcon": "Assets/Product/Texture/Image/UiReform/UiReformScene11.png",
+        "Des": "Adds 500 points of Extra DMG when enemies and teammates take DMG (reduced by Resistance)",
+        "PreviewIcon": "Assets/Product/Texture/Atlas/UiReform/UiReformSceneSmall3.png",
+        "PreviewText": "Deadly Blade"
+    },
+    {
         "Id": 100121,
         "FightEventIds": [
             97119

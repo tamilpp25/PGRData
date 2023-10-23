@@ -453,7 +453,7 @@
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EDaerwenI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EDaerwenI01002.png",
         "Name": "Darwin",
-        "Description": "Orb Clearing Boost",
+        "Description": "Orb Skill Boost",
         "SkillEffect": [
             160402.0,
             160404.0
@@ -845,6 +845,38 @@
         ]
     },
     {
+        "Id": 1630,
+        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EXueLaiI01001Sp.png",
+        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EXueLaiI01002.png",
+        "Name": "Shelley",
+        "Description": "Lightning Boost",
+        "SkillEffect": [
+            163002.0,
+            163004.0,
+            163006.0
+        ],
+        "SkillDescription": [
+            "Lightning DMG increases by 10%.",
+            "Gains Super Armor when casting a 3-Ping and Combo Strike. Whenever taking DMG during a 3-Ping, Gear-Break Combo, or Assault-Rising Combo, loses Dodge Gauge instead of HP until the DMG taken exceeds the available Dodge Gauge.",
+            "The Base DMG multiplier of Gear-Break Combo and Assault-Rising Combo doubles."
+        ]
+    },
+    {
+        "Id": 1631,
+        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EXialuodiI01001Sp.png",
+        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EXialuodiI01002.png",
+        "Name": "Charlotte",
+        "Description": "Physical Boost",
+        "SkillEffect": [
+            163102.0,
+            163104.0
+        ],
+        "SkillDescription": [
+            "Basic Attacks deal 5% more DMG. ATK increases by 7%.",
+            "Glowing Lanternlight deals 50% more Base DMG. Afterglow Shadow deals 100% more Base DMG. Every time upon entering Luminous Realm, rearranges the Signal Orbs when casting Glowing Lanternlight."
+        ]
+    },
+    {
         "Id": 20001,
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpLivlizhuangI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpLivlizhuangB01001.png",
@@ -926,6 +958,21 @@
         ]
     },
     {
+        "Id": 20002,
+        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpWeilaSummerI01001Sp.png",
+        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpWeilaSummerB01001.png",
+        "Name": "Vera - Scarlet Summers",
+        "Description": "Attack HP Recovery",
+        "SkillEffect": [
+            3000006.0,
+            3000008.0
+        ],
+        "SkillDescription": [
+            "Upon a 3-Ping, gains 5% ATK for 5s. Cooldown: 10s.",
+            "When in Matrix, restores HP equal to 200% of the current ATK next time when dealing DMG. Cooldown: 25s."
+        ]
+    },
+    {
         "Id": 20000,
         "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpI01001Sp.png",
         "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpB01001.png",
@@ -938,21 +985,6 @@
         "SkillDescription": [
             "Movement Speed +10%",
             "\u4f1a\u5fc3\u7387\u304c3%\u4e0a\u6607\u3001\u7269\u7406\u30c0\u30e1\u30fc\u30b8\u304c2%\u4e0a\u6607"
-        ]
-    },
-    {
-        "Id": 20002,
-        "IconPath": "Assets/Product/Texture/Image/IconToolsSp/EJpWeilaSummerI01001Sp.png",
-        "BigIconPath": "Assets/Product/Texture/Image/RoleWaferBag/EJpWeilaSummerB01001.png",
-        "Name": "\u30f4\u30a3\u30e9\u00b7\u30b9\u30ab\u30fc\u30ec\u30c3\u30c8\u30b5\u30de\u30fc",
-        "Description": "\u653b\u6483\u3067\u751f\u547d\u56de\u5fa9",
-        "SkillEffect": [
-            3000006.0,
-            3000008.0
-        ],
-        "SkillDescription": [
-            "3\u30c1\u30a7\u30a4\u30f3\u3067\u653b\u6483\u529b+5\uff05\u30015\u79d2\u6301\u7d9a\u3001\u51b7\u5374\u6642\u959310\u79d2",
-            "\u9ad8\u901f\u7a7a\u9593\u767a\u52d5\u4e2d\u306b\u653b\u6483\u3092\u52a0\u3048\u308b\u3068\u653b\u6483\u529b200\uff05\u76f8\u5f53\u306e\u751f\u547d\u3092\u56de\u5fa9\u51b7\u5374\u6642\u959325\u79d2"
         ]
     },
     {

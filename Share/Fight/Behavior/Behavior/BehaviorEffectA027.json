@@ -177,7 +177,7 @@
     },
     {
         "Id": 109486,
-        "Type": "OnMissileRemove",
+        "Type": "OnAfterDamage",
         "Priority": 3,
         "PrefixRoot": 620270718,
         "Root": 620270721.0,
@@ -445,30 +445,6 @@
         "Priority": 3,
         "PrefixRoot": 620271097,
         "Root": 620271099.0,
-        "PreLoadRoot": null
-    },
-    {
-        "Id": 108500,
-        "Type": "OnFrame",
-        "Priority": 3,
-        "PrefixRoot": 620271321,
-        "Root": null,
-        "PreLoadRoot": null
-    },
-    {
-        "Id": 108503,
-        "Type": "OnFrame",
-        "Priority": 3,
-        "PrefixRoot": 620271314,
-        "Root": null,
-        "PreLoadRoot": null
-    },
-    {
-        "Id": 108504,
-        "Type": "OnFrame",
-        "Priority": 3,
-        "PrefixRoot": 620271317,
-        "Root": null,
         "PreLoadRoot": null
     }
 ]

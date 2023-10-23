@@ -81,7 +81,7 @@
         "Priority": 8,
         "Hint": 1,
         "Condition": [
-            770300.0
+            770301.0
         ],
         "Type": 1
     },
@@ -182,6 +182,26 @@
         "Type": 1
     },
     {
+        "Id": 207,
+        "Name": "Equipment Goal - Recommended",
+        "Priority": 14,
+        "Hint": 1,
+        "Condition": [
+            770403.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 208,
+        "Name": "Equipment Goal - Settings",
+        "Priority": 14,
+        "Hint": 1,
+        "Condition": [
+            770404.0
+        ],
+        "Type": 1
+    },
+    {
         "Id": 301,
         "Name": "Warehouse",
         "Priority": 15,
@@ -195,7 +215,7 @@
         "Priority": 16,
         "Hint": 1,
         "Condition": [
-            770400.0
+            770402.0
         ],
         "Type": 1
     },
@@ -209,9 +229,9 @@
     },
     {
         "Id": 403,
-        "Name": "Research - Event",
+        "Name": "Research - Limited/Festival Event",
         "Priority": 17,
-        "Hint": 1,
+        "Hint": 0,
         "Condition": [
             772270.0
         ],
@@ -569,7 +589,7 @@
         "Priority": 79,
         "Hint": 1,
         "Condition": [
-            774500.0
+            774501.0
         ],
         "Type": 1
     },
@@ -580,6 +600,16 @@
         "Hint": 1,
         "Condition": [
             8006.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 1802,
+        "Name": "F.O.S. Rating Committee",
+        "Priority": 79,
+        "Hint": 1,
+        "Condition": [
+            774500.0
         ],
         "Type": 1
     },
@@ -799,7 +829,7 @@
         "Priority": 43,
         "Hint": 1,
         "Condition": [
-            771800.0
+            771801.0
         ],
         "Type": 1
     },
@@ -964,7 +994,9 @@
         "Name": "Extra Story",
         "Priority": 50,
         "Hint": 0,
-        "Condition": [],
+        "Condition": [
+            775800.0
+        ],
         "Type": 1
     },
     {
@@ -1315,12 +1347,22 @@
         "Type": 1
     },
     {
+        "Id": 10352,
+        "Name": "Floating Record",
+        "Priority": 124,
+        "Hint": 0,
+        "Condition": [
+            30406.0
+        ],
+        "Type": 1
+    },
+    {
         "Id": 10401,
         "Name": "Resource Mission",
         "Priority": 33,
         "Hint": 0,
         "Condition": [
-            772400.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1380,7 +1422,7 @@
         "Priority": 39,
         "Hint": 1,
         "Condition": [
-            772900.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1390,7 +1432,7 @@
         "Priority": 40,
         "Hint": 1,
         "Condition": [
-            773000.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1400,7 +1442,7 @@
         "Priority": 41,
         "Hint": 1,
         "Condition": [
-            773100.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1410,7 +1452,7 @@
         "Priority": 42,
         "Hint": 1,
         "Condition": [
-            773200.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1420,7 +1462,7 @@
         "Priority": 46,
         "Hint": 1,
         "Condition": [
-            773300.0
+            772800.0
         ],
         "Type": 1
     },
@@ -1511,7 +1553,7 @@
         "Priority": 106,
         "Hint": 1,
         "Condition": [
-            10450.0
+            9503.0
         ],
         "Type": 1
     },
@@ -1521,7 +1563,7 @@
         "Priority": 81,
         "Hint": 1,
         "Condition": [
-            9001.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1531,7 +1573,7 @@
         "Priority": 82,
         "Hint": 1,
         "Condition": [
-            9002.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1541,7 +1583,7 @@
         "Priority": 83,
         "Hint": 1,
         "Condition": [
-            9003.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1551,7 +1593,7 @@
         "Priority": 84,
         "Hint": 1,
         "Condition": [
-            9101.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1561,7 +1603,7 @@
         "Priority": 85,
         "Hint": 1,
         "Condition": [
-            9102.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1571,7 +1613,7 @@
         "Priority": 86,
         "Hint": 1,
         "Condition": [
-            9002.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1581,7 +1623,7 @@
         "Priority": 87,
         "Hint": 1,
         "Condition": [
-            9201.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1591,7 +1633,7 @@
         "Priority": 88,
         "Hint": 1,
         "Condition": [
-            9202.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1601,7 +1643,7 @@
         "Priority": 89,
         "Hint": 1,
         "Condition": [
-            9203.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1611,7 +1653,7 @@
         "Priority": 90,
         "Hint": 1,
         "Condition": [
-            9101.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1621,7 +1663,7 @@
         "Priority": 91,
         "Hint": 1,
         "Condition": [
-            9102.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1631,7 +1673,7 @@
         "Priority": 92,
         "Hint": 1,
         "Condition": [
-            9103.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1641,7 +1683,7 @@
         "Priority": 93,
         "Hint": 1,
         "Condition": [
-            9401.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1651,7 +1693,7 @@
         "Priority": 94,
         "Hint": 1,
         "Condition": [
-            9402.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1661,7 +1703,7 @@
         "Priority": 95,
         "Hint": 1,
         "Condition": [
-            9403.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1671,7 +1713,7 @@
         "Priority": 96,
         "Hint": 1,
         "Condition": [
-            9401.0
+            9501.0
         ],
         "Type": 2
     },
@@ -1681,7 +1723,7 @@
         "Priority": 97,
         "Hint": 1,
         "Condition": [
-            9402.0
+            9502.0
         ],
         "Type": 2
     },
@@ -1691,7 +1733,7 @@
         "Priority": 98,
         "Hint": 1,
         "Condition": [
-            9403.0
+            9503.0
         ],
         "Type": 2
     },
@@ -1794,12 +1836,52 @@
         "Type": 1
     },
     {
-        "Id": 10352,
-        "Name": "Fantasy of Whales",
-        "Priority": 54,
+        "Id": 10431,
+        "Name": "Inner World (Yin-Yang Tower)",
+        "Priority": 70,
         "Hint": 0,
         "Condition": [
-            774800.0
+            8005.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 10432,
+        "Name": "[Slumberland] Event Research",
+        "Priority": 16,
+        "Hint": 0,
+        "Condition": [
+            770402.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 10433,
+        "Name": "Alternative Interpretation - Cursed Waves",
+        "Priority": 70,
+        "Hint": 1,
+        "Condition": [
+            1005045.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 10434,
+        "Name": "Summer Thoughts",
+        "Priority": 123,
+        "Hint": 0,
+        "Condition": [
+            30404.0
+        ],
+        "Type": 1
+    },
+    {
+        "Id": 10435,
+        "Name": "For Beginning Player",
+        "Priority": 1,
+        "Hint": 1,
+        "Condition": [
+            770100.0
         ],
         "Type": 1
     },

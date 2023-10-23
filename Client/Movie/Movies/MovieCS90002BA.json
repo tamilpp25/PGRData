@@ -11,7 +11,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Texture/Image/BgStory/BgStory14.png"
+            "Assets/Product/Texture/Image/BgStory/BgStory571.jpg"
         ]
     },
     {
@@ -34,21 +34,6 @@
         "Id": 3,
         "ActionId": 3,
         "NextActionId": null,
-        "Type": 301,
-        "IsBlock": null,
-        "IsEnd": null,
-        "BeginAnim": null,
-        "EndAnim": "AniZhuanchangBegin",
-        "BeginDelay": null,
-        "EndDelay": null,
-        "Params": [
-            "\u52a8\u753b\u5207\u6362\u6d4b\u8bd5"
-        ]
-    },
-    {
-        "Id": 4,
-        "ActionId": 4,
-        "NextActionId": null,
         "Type": 105,
         "IsBlock": null,
         "IsEnd": null,
@@ -57,7 +42,23 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "Assets/Product/Effect/Prefab/FxUi/FxUiStory/FxUiStoryFunction.prefab"
+            "Assets/Product/Ui/Spine/UiSpine/UiMovieSpine/UiMovieNuoAn02/UiMovieNuoAn02.prefab"
+        ]
+    },
+    {
+        "Id": 4,
+        "ActionId": 4,
+        "NextActionId": null,
+        "Type": 106,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "buxiao",
+            1.0
         ]
     },
     {
@@ -67,12 +68,12 @@
         "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": "AniZhuanchangEnd",
+        "BeginAnim": "DialogEnable",
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u52a8\u753b\u5207\u6362\u6d4b\u8bd5"
+            "Screen Switch Test"
         ]
     },
     {
@@ -87,7 +88,7 @@
         "BeginDelay": null,
         "EndDelay": 3000.0,
         "Params": [
-            "act1-act2"
+            "buxiao-xiao"
         ]
     },
     {
@@ -102,7 +103,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "act2",
+            "xiao",
             1.0
         ]
     },
@@ -118,7 +119,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u7b11"
+            "Laugh"
         ]
     },
     {
@@ -133,7 +134,7 @@
         "BeginDelay": null,
         "EndDelay": 3000.0,
         "Params": [
-            "act2-act1"
+            "xiao-buxiao"
         ]
     },
     {
@@ -148,7 +149,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "act1",
+            "buxiao",
             1.0
         ]
     },
@@ -164,7 +165,7 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "\u4e0d\u7b11"
+            "Don't Laugh"
         ]
     }
 ]

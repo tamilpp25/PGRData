@@ -2,31 +2,43 @@
     {
         "Id": 101,
         "Name": "Deadly Strike",
-        "Dis": "Deal 750k DMG to the Siege Target. If the Siege Target is below 25% HP, deal an extra 1500k DMG."
+        "Dis": "Deals 50000 damage to the Siege Target. Damage doubled if the target has less than 25% HP.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill01.png"
     },
     {
         "Id": 102,
         "Name": "Serial Pursuit",
-        "Dis": "Deal DMG equal to 10% of DMG already inflicted to the Siege Target."
+        "Dis": "Deals damage to the Siege Target equal to 1.2% of HP lost.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill02.png"
     },
     {
         "Id": 103,
         "Name": "Heavy Bombardment",
-        "Dis": "Siege Target deals up to 8% of Max HP"
+        "Dis": "Deals damage to the Siege Target equal to 0.8% of max HP.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill03.png"
     },
     {
         "Id": 104,
         "Name": "Agile Ambush",
-        "Dis": "Siege Target deals up to 8% of Current HP"
+        "Dis": "Deals damage to the Siege Target equal to 1.2% of current HP.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill04.png"
     },
     {
         "Id": 105,
         "Name": "Battle Cry",
-        "Dis": "Deal 1000k DMG to the Siege Target"
+        "Dis": "Deals 60000 damage to the Siege Target.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill05.png"
     },
     {
         "Id": 106,
         "Name": "Skill Charge",
-        "Dis": "Increase the effect of the next Stronghold Skill by 2.5x"
+        "Dis": "Increase the effect of the next Stronghold Skill by 2.5x",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill06.png"
+    },
+    {
+        "Id": 107,
+        "Name": "Point Hypertune",
+        "Dis": "Grants 10000 Command Bureau Points when this is triggered.",
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkill06.png"
     }
 ]

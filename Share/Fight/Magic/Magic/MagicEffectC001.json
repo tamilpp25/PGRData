@@ -2256,7 +2256,7 @@
         "Id": 710266000,
         "Name": "AddAttribValue",
         "Level": [
-            "1|0|-100"
+            "1|-1|0"
         ]
     },
     {
@@ -2832,6 +2832,244 @@
         ]
     },
     {
+        "Id": 710311,
+        "Name": "AddBuff",
+        "Level": [
+            "710311"
+        ]
+    },
+    {
+        "Id": 710311000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710311"
+        ]
+    },
+    {
+        "Id": 710312,
+        "Name": "AddBuff",
+        "Level": [
+            "710312"
+        ]
+    },
+    {
+        "Id": 710312000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710312"
+        ]
+    },
+    {
+        "Id": 710313,
+        "Name": "AddBuff",
+        "Level": [
+            "710313"
+        ]
+    },
+    {
+        "Id": 710313000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710313"
+        ]
+    },
+    {
+        "Id": 710314,
+        "Name": "AddBuff",
+        "Level": [
+            "710314"
+        ]
+    },
+    {
+        "Id": 710314000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710314"
+        ]
+    },
+    {
+        "Id": 710315,
+        "Name": "AddBuff",
+        "Level": [
+            "710315"
+        ]
+    },
+    {
+        "Id": 710315000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "710315"
+        ]
+    },
+    {
+        "Id": 710316,
+        "Name": "AddBuff",
+        "Level": [
+            "710316"
+        ]
+    },
+    {
+        "Id": 710316000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710316"
+        ]
+    },
+    {
+        "Id": 710317,
+        "Name": "AddBuff",
+        "Level": [
+            "710317"
+        ]
+    },
+    {
+        "Id": 710317000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710317"
+        ]
+    },
+    {
+        "Id": 710318,
+        "Name": "AddBuff",
+        "Level": [
+            "710318"
+        ]
+    },
+    {
+        "Id": 710318000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710318"
+        ]
+    },
+    {
+        "Id": 710321,
+        "Name": "AddBuff",
+        "Level": [
+            "710321"
+        ]
+    },
+    {
+        "Id": 710321000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710321"
+        ]
+    },
+    {
+        "Id": 710322,
+        "Name": "AddBuff",
+        "Level": [
+            "710322"
+        ]
+    },
+    {
+        "Id": 710322000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710322"
+        ]
+    },
+    {
+        "Id": 710331,
+        "Name": "AddBuff",
+        "Level": [
+            "710331"
+        ]
+    },
+    {
+        "Id": 710331000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710331"
+        ]
+    },
+    {
+        "Id": 710332,
+        "Name": "AddBuff",
+        "Level": [
+            "710332"
+        ]
+    },
+    {
+        "Id": 710332000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710332"
+        ]
+    },
+    {
+        "Id": 710333,
+        "Name": "AddBuff",
+        "Level": [
+            "710333"
+        ]
+    },
+    {
+        "Id": 710333000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710333"
+        ]
+    },
+    {
+        "Id": 710334,
+        "Name": "AddBuff",
+        "Level": [
+            "710334"
+        ]
+    },
+    {
+        "Id": 710334000,
+        "Name": "AddBehavior",
+        "Level": [
+            "710334"
+        ]
+    },
+    {
+        "Id": 710335,
+        "Name": "AddBuff",
+        "Level": [
+            "710335"
+        ]
+    },
+    {
+        "Id": 710335000,
+        "Name": "SetCameraPosition",
+        "Level": [
+            "0.5|0.3|-4.5|4|4"
+        ]
+    },
+    {
+        "Id": 710336,
+        "Name": "RemoveBuff",
+        "Level": [
+            "710335|"
+        ]
+    },
+    {
+        "Id": 710337,
+        "Name": "AddBuff",
+        "Level": [
+            "710337"
+        ]
+    },
+    {
+        "Id": 710337000,
+        "Name": "SetCameraRotation",
+        "Level": [
+            "0|-20|0|4|4|1|0"
+        ]
+    },
+    {
+        "Id": 710338,
+        "Name": "RemoveBuff",
+        "Level": [
+            "710336|"
+        ]
+    },
+    {
         "Id": 711101,
         "Name": "AddBuff",
         "Level": [
@@ -3367,7 +3605,7 @@
         "Id": 713010,
         "Name": "Damage",
         "Level": [
-            "1|0|1000||||||"
+            "50|0|0|1|0|1000|||"
         ]
     },
     {
@@ -3388,14 +3626,14 @@
         "Id": 713012,
         "Name": "Damage",
         "Level": [
-            "1|0|3000||||||"
+            "50|0|0|4|0|3000|||"
         ]
     },
     {
         "Id": 713013,
         "Name": "Cure",
         "Level": [
-            "11|3|0|1000|0"
+            "11|3|0|20000|0"
         ]
     }
 ]

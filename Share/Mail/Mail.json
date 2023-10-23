@@ -1445,6 +1445,28 @@
         ]
     },
     {
+        "Id": 90070,
+        "SendName": "Babylonia Quartermaster",
+        "Title": "1 per day for 10 days",
+        "Content": "Dear Commandant, you have purchased a Sign of Summer Bundle. You will receive one reward per day over a period of 10 days.",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            900700.0
+        ]
+    },
+    {
+        "Id": 90071,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "One per day for 15 days",
+        "Content": "Dear Commandant, you have purchased Summer Clouds. You will receive one reward per day over 15 days.",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            900710.0,
+            900711.0,
+            900712.0
+        ]
+    },
+    {
         "Id": 100001,
         "SendName": "Lucia",
         "Title": "Gift from Lucia",
@@ -2356,6 +2378,22 @@
         "SendName": "Babylonia Command",
         "Title": "Tactical Assessment Manual",
         "Content": "Dear Commandant, the current season of Tactical Assessment Manual will end at 02:00 (UTC) on Aug 22. Kindly note that Intel purchases will become unavailable 20 minutes before the end.",
+        "ValidTime": 604800,
+        "RewardIds": []
+    },
+    {
+        "Id": 63008,
+        "SendName": "Babylonia Command",
+        "Title": "Tactical Assessment Manual",
+        "Content": "Dear Commandant, the current season of Tactical Assessment Manual will end at 02:00 (UTC) on Sept 26. Kindly note that Intel purchases will become unavailable 20 minutes before the end.",
+        "ValidTime": 604800,
+        "RewardIds": []
+    },
+    {
+        "Id": 63009,
+        "SendName": "E-02 'Babylonia Command Center",
+        "Title": "Tactical Assessment Manual",
+        "Content": "Dear Commandant, the current season of Tactical Assessment Manual will end at 02:00 (UTC) on Nov 9. Kindly note that Intel purchases will become unavailable 20 minutes before the end.",
         "ValidTime": 604800,
         "RewardIds": []
     },
@@ -3380,6 +3418,52 @@
         ]
     },
     {
+        "Id": 13400519,
+        "SendName": "\u7a7a\u4e2d\u5ead\u5712\u88dc\u7d66\u30bb\u30f3\u30bf\u30fc",
+        "Title": "1\u65e51\u30bb\u30c3\u30c8\u00d77\u65e5\u9593",
+        "Content": "\u656c\u611b\u306a\u308b\u6307\u63ee\u5b98\u6bbf\u3002\u3054\u8cfc\u5165\u3055\u308c\u305f\u9031\u9593\u30ab\u30fc\u30c9\u306e\u5546\u54c1\u3092\u304a\u5c4a\u3051\u3044\u305f\u3057\u307e\u3059\u3002\u30d1\u30c3\u30af\u306e\u5546\u54c1\u306f7\u65e5\u9593\u306b\u6e21\u3063\u3066\u5c4a\u304d\u307e\u3059\u3002\u3069\u3046\u305e\u304a\u53d7\u53d6\u308a\u304f\u3060\u3055\u3044\u3002",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            13000386.0,
+            13000387.0,
+            13000388.0
+        ]
+    },
+    {
+        "Id": 13400520,
+        "SendName": "\u7a7a\u4e2d\u5ead\u5712\u88dc\u7d66\u30bb\u30f3\u30bf\u30fc",
+        "Title": "1\u65e51\u30bb\u30c3\u30c8\u00d710\u65e5\u9593",
+        "Content": "\u656c\u611b\u306a\u308b\u6307\u63ee\u5b98\u6bbf\u3002 \u3054\u8cfc\u5165\u3055\u308c\u305f\u6696\u6625\u30d1\u30c3\u30af\u306e\u5546\u54c1\u3092\u304a\u5c4a\u3051\u3044\u305f\u3057\u307e\u3059\u3002\u30d1\u30c3\u30af\u306e\u5546\u54c1\u306f10\u65e5\u9593\u306b\u6e21\u3063\u3066\u5c4a\u304d\u307e\u3059\u3002\u3069\u3046\u305e\u304a\u53d7\u53d6\u308a\u304f\u3060\u3055\u3044\u3002",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            13000488.0
+        ]
+    },
+    {
+        "Id": 13400521,
+        "SendName": "\u7a7a\u4e2d\u5ead\u5712\u88dc\u7d66\u30bb\u30f3\u30bf\u30fc",
+        "Title": "1\u65e51\u30bb\u30c3\u30c8\u00d77\u65e5\u9593",
+        "Content": "\u656c\u611b\u306a\u308b\u6307\u63ee\u5b98\u6bbf\u3002\u3054\u8cfc\u5165\u3055\u308c\u305f\u9031\u9593\u30ab\u30fc\u30c9\u306e\u5546\u54c1\u3092\u304a\u5c4a\u3051\u3044\u305f\u3057\u307e\u3059\u3002\u30d1\u30c3\u30af\u306e\u5546\u54c1\u306f7\u65e5\u9593\u306b\u6e21\u3063\u3066\u5c4a\u304d\u307e\u3059\u3002\u3069\u3046\u305e\u304a\u53d7\u53d6\u308a\u304f\u3060\u3055\u3044\u3002",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            13000386.0,
+            13000387.0,
+            13000388.0
+        ]
+    },
+    {
+        "Id": 13400522,
+        "SendName": "\u7a7a\u4e2d\u5ead\u5712\u88dc\u7d66\u30bb\u30f3\u30bf\u30fc",
+        "Title": "1\u65e51\u30bb\u30c3\u30c8\u00d715\u65e5\u9593",
+        "Content": "\u656c\u611b\u306a\u308b\u6307\u63ee\u5b98\u6bbf\u3002\u3054\u8cfc\u5165\u3055\u308c\u305f\u70c8\u967d\u306e\u78a7\u96f2\u30d1\u30c3\u30af\u306e\u5546\u54c1\u3092\u304a\u5c4a\u3051\u3044\u305f\u3057\u307e\u3059\u3002\u30d1\u30c3\u30af\u306e\u5546\u54c1\u306f15\u65e5\u9593\u306b\u6e21\u3063\u3066\u5c4a\u304d\u307e\u3059\u3002\u3069\u3046\u305e\u304a\u53d7\u53d6\u308a\u304f\u3060\u3055\u3044\u3002",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            13000489.0,
+            13000490.0,
+            13000491.0
+        ]
+    },
+    {
         "Id": 15000,
         "SendName": "E-02 'Babylonia' Command",
         "Title": "Pain Cage Progress Reward",
@@ -4143,6 +4227,138 @@
             140000640.0,
             140000641.0,
             140000642.0
+        ]
+    },
+    {
+        "Id": 14000065,
+        "SendName": "E-02 'Babylonia' Command",
+        "Title": "1 per day for 10 days",
+        "Content": "Dear Commandant, here are your [Burns.] Limited-time Special Pack. You will receive one reward per day over 10 days. Please claim it.",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000650.0
+        ]
+    },
+    {
+        "Id": 14000066,
+        "SendName": "E-02 'Babylonia' Command",
+        "Title": "1 per day for 15 days",
+        "Content": "Dear Commandant, here are your [Across.] Limited-time Special Pack. You will receive one reward per day over 15 days. Please claim it.",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000660.0,
+            140000661.0,
+            140000662.0
+        ]
+    },
+    {
+        "Id": 14000067,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000068,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000069,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000070,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000071,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000072,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000073,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000670.0,
+            140000671.0
+        ]
+    },
+    {
+        "Id": 14000074,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000740.0,
+            140000741.0
+        ]
+    },
+    {
+        "Id": 14000075,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000750.0,
+            140000751.0
+        ]
+    },
+    {
+        "Id": 14000076,
+        "SendName": "E-02 'Babylonia' Quartermaster",
+        "Title": "Rewards For the Witch Cafe Web Event",
+        "Content": "Dear Commandant,<br>Thank you for participating in the [Witch Cafe Web Event]. Bianca has sent you the trainee rewards! Congratulations!",
+        "ValidTime": 2592000,
+        "RewardIds": [
+            140000760.0,
+            140000761.0
         ]
     }
 ]

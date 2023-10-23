@@ -1152,7 +1152,7 @@
     {
         "Key": "CustomerServiceUrl",
         "Type": "string",
-        "Value": "http://kf.zhengyuetech.com/Mobile/checkOption?Gid=186"
+        "Value": "http://kf.yingxiong.com/kf2.0/user-center?game_id=186"
     },
     {
         "Key": "FurnitureImgS8",
@@ -1957,7 +1957,7 @@
     {
         "Key": "MainLineStageMaxCount",
         "Type": "int",
-        "Value": "22"
+        "Value": "25"
     },
     {
         "Key": "MainLineExploreStageMaxCount",
@@ -2955,11 +2955,6 @@
         "Value": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild01.png"
     },
     {
-        "Key": "DoomsdayBuildingStateIconEmpty",
-        "Type": "string",
-        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState01.png"
-    },
-    {
         "Key": "DoomsdayBuildingStateIconWorking",
         "Type": "string",
         "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState02.png"
@@ -2967,12 +2962,22 @@
     {
         "Key": "DoomsdayBuildingStateIconWaiting",
         "Type": "string",
-        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState03.png"
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState01.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconBuilding",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState05.png"
+    },
+    {
+        "Key": "DoomsdayBuildingStateIconUnderstaffed",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState04.png"
     },
     {
         "Key": "DoomsdayBuildingStateIconPending",
         "Type": "string",
-        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState04.png"
+        "Value": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayMainState03.png"
     },
     {
         "Key": "AchievementRareIconQuality1",
@@ -3062,12 +3067,12 @@
     {
         "Key": "AprilFoolsDayStartTime",
         "Type": "string",
-        "Value": "2022/4/1 0:00"
+        "Value": "2023/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayEndTime",
         "Type": "string",
-        "Value": "2022/4/2 0:00"
+        "Value": "2023/4/2 0:00"
     },
     {
         "Key": "CharSkillQualityNor",
@@ -3113,6 +3118,141 @@
         "Key": "MoeWarSceneAnimationAddSupportDistance",
         "Type": "float",
         "Value": "1"
+    },
+    {
+        "Key": "ActivityCalendarBeforeOpenTime",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "ActivityCalendarBeforeEndTime",
+        "Type": "int",
+        "Value": "2"
+    },
+    {
+        "Key": "BackgroundChangeTimeStr",
+        "Type": "string",
+        "Value": "18:00:00"
+    },
+    {
+        "Key": "BackgroundChangeTimeEnd",
+        "Type": "string",
+        "Value": "6:00:00"
+    },
+    {
+        "Key": "ScenePreviewUiHideCD",
+        "Type": "float",
+        "Value": "3"
+    },
+    {
+        "Key": "ScenePreviewUiHideDelay",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "WaferScreenShopID",
+        "Type": "string",
+        "Value": "404/405/406"
+    },
+    {
+        "Key": "TwoSideTowerPositiveIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage01.png"
+    },
+    {
+        "Key": "TwoSideTowerNegativeIcon",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerStage02.png"
+    },
+    {
+        "Key": "ActivityBriefBaseModel",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/UiModel/UiActivityBriefBase3D/UiActivityBriefBase.prefab"
+    },
+    {
+        "Key": "DefaultFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitNor.png"
+    },
+    {
+        "Key": "PCFightBtnExitTexture",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiFight/FightButtonExitPCNor.png"
+    },
+    {
+        "Key": "UiLoginMovieTimeStr",
+        "Type": "string",
+        "Value": "2022/4/29 0:00"
+    },
+    {
+        "Key": "UiLoginMovieTimeEnd",
+        "Type": "string",
+        "Value": "2022/5/10 0:00"
+    },
+    {
+        "Key": "CourseLessonStagePrfab",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/ComponentPrefab/FuBenNor/UiCourseActivity.prefab"
+    },
+    {
+        "Key": "CourseSettleLevelSImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorS.png"
+    },
+    {
+        "Key": "CourseSettleLevelAImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorA.png"
+    },
+    {
+        "Key": "CourseSettleLevelBImgPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiSameColorGame/SameColorB.png"
+    },
+    {
+        "Key": "NewbieTaskAnimClickInterval",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "NewbieTaskAnimMultClickCountLimit",
+        "Type": "int",
+        "Value": "5"
+    },
+    {
+        "Key": "NewbieTaskAnimDelayInterval",
+        "Type": "float",
+        "Value": "1.5"
+    },
+    {
+        "Key": "UiNewbieTaskSailika01",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Spine/UiSpine/UiNewbieTaskSailika/UiNewbieTaskSailika01.prefab"
+    },
+    {
+        "Key": "UiSpecialFashionShopSkipId",
+        "Type": "int",
+        "Value": "20158"
+    },
+    {
+        "Key": "UiShopOthers",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/IconToolsSp/CLkindicon.png"
+    },
+    {
+        "Key": "BiancaTheatreTxtStartPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaTheatreBtnTxt3.png"
+    },
+    {
+        "Key": "BiancaTheatreTxtContinuePath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaTheatreBtnTxt4.png"
+    },
+    {
+        "Key": "LottoDrawGround",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/BgUi/BgFight2.png"
     },
     {
         "Key": "PhotoSave",

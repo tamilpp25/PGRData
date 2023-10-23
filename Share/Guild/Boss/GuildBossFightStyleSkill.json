@@ -1,0 +1,184 @@
+[
+    {
+        "Id": 1,
+        "Style": 1,
+        "Name": "Basic Calibration",
+        "Desc": "Character enters <color=#34aff8>Matrix</color> at the beginning of the battle and after each character swap.\\nClears character deployment cooldown for every 1000k DMG dealt.",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240378
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle05.png",
+        "IsCore": null,
+        "IsPermanent": 1.0
+    },
+    {
+        "Id": 2,
+        "Style": 1,
+        "Name": "Enhanced Matrix",
+        "Desc": "<color=#34aff8>After deployment</color>, the character will <color=#34aff8>deal 15% more DMG</color> for 15s. <color=#34aff8>Stacks up to 5 times</color>.\\n<color=#BFBFBF>Amazing!</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240379
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11011.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 3,
+        "Style": 1,
+        "Name": "Energy Recharge",
+        "Desc": "Upon deployment, the character restores <color=#34aff8>1 set of Signal Orbs</color>. If <color=#34aff8>Signal Orbs \u2264 3</color> when the character leaves the battlefield, then the next character entering the battlefield will restore <color=#34aff8>2 sets of Signal Orbs</color>.\\n<color=#BFBFBF>Show me what the new frame can do!</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240380
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21081.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 4,
+        "Style": 1,
+        "Name": "Arrived!",
+        "Desc": "Upon deployment, deals <color=#34aff8>1200% AOE DMG</color> once.\\n<color=#BFBFBF>Hmm, this is too much. I'm talking about your attack, not your weight.</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240381
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 5,
+        "Style": 1,
+        "Name": "Time Beyond",
+        "Desc": "If the character kill an enemy within <color=#34aff8>8s</color> after being deployed, the challenge time will be <color=#34aff8>extended by 20s</color>. The effect can be triggered up to 2 times.\\n<color=#BFBFBF>Time, grant me your strength!</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240382
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12121.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 6,
+        "Style": 1,
+        "Name": "Collab Core \u03b1",
+        "Desc": "Character has 1 stack of Mark upon deployment.\\n<color=#34aff8>Upon 4 stacks of Mark</color>, removes all stacks and enters <color=#34aff8>Burst Form</color> for 20s.\\n<color=#34aff8>Burst Form</color>: Gains 50% ATK and restores 1 set of Signal Orbs and 200 Dodge Gauge every second.",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240383
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle01.png",
+        "IsCore": 1.0,
+        "IsPermanent": null
+    },
+    {
+        "Id": 7,
+        "Style": 1,
+        "Name": "Collab Core \u03b2",
+        "Desc": "If the character entering the battlefield and the character leaving the battlefield are from <color=#34aff8>different classes</color>, launches an attack at a random enemy and deals DMG equal to <color=#34aff8>1000% ATK</color>.\\nAfter the effect is triggered <color=#34aff8>2 times</color>, directly reduces the target's HP by <color=#34aff8>30% of their max HP</color> when the effect is triggered <color=#34aff8>the 3rd time</color>.",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240384
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle02.png",
+        "IsCore": 1.0,
+        "IsPermanent": null
+    },
+    {
+        "Id": 8,
+        "Style": 2,
+        "Name": "Basic Calibration",
+        "Desc": "Activates another unit's QTE when a QTE is triggered. For <color=#34aff8>each new character entering the battlefield</color>, the character you control<color=#34aff8>gains 15% ATK</color> and <color=#34aff8>deals 30% more DMG</color>.\\nFor every 1000k DMG dealt, activates the QTE of 2 units.\\n<color=#A52A2A>The effect will overwrite Da Vinci Memory.</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240385
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle06.png",
+        "IsCore": null,
+        "IsPermanent": 1.0
+    },
+    {
+        "Id": 9,
+        "Style": 2,
+        "Name": "Matrix Cooldown",
+        "Desc": "Upon triggering a QTE, reduces the Matrix cooldown of the character you control by 2s and has a 10% chance to launch the character into the Matrix.\\n<color=#BFBFBF>It's beneficial for me to enter the Matrix!</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240386
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33171.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 10,
+        "Style": 2,
+        "Name": "Energy Catalyst",
+        "Desc": "After a QTE is triggered, the character you control <color=#34aff8>will restore 1 set of Signal Orbs every 4s</color>. The effect lasts 8s.\\n<color=#BFBFBF>Do we have some normal frames here?</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240387
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22120.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 11,
+        "Style": 2,
+        "Name": "I'm Here!",
+        "Desc": "After a QTE is triggered, the character you control will deal <color=#34aff8>300%</color> additional damage when performing a Basic Attack.\\n<color=#BFBFBF>Somehow the QTE triggered is more powerful than before. Maybe it's because of the character you control.</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240388
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21071.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 12,
+        "Style": 2,
+        "Name": "Time Beyond",
+        "Desc": "Killing an enemy within 8s after a QTE is triggered will <color=#34aff8>extend the challenge time by 20s</color>. The effect can be triggered up to 2 times.\\n<color=#BFBFBF>Time is not your expertise.</color>",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240389
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33111.png",
+        "IsCore": null,
+        "IsPermanent": null
+    },
+    {
+        "Id": 13,
+        "Style": 2,
+        "Name": "Solo Core \u03b1",
+        "Desc": "After a QTE is triggered, your team gains a stack of Mark. Each stack of Mark will increase <color=#34aff8>the ATK of the character you control by 3%</color>.\\n<color=#34aff8>Upon the 6th stack</color>, removes all stacks and deals <color=#34aff8>DMG equal to 30% of max HP</color> to targets within 8m.",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240390
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle03.png",
+        "IsCore": 1.0,
+        "IsPermanent": null
+    },
+    {
+        "Id": 14,
+        "Style": 2,
+        "Name": "Solo Core \u03b2",
+        "Desc": "After a QTE is triggered, the character you control gains a Mark based on their class. <color=#34aff8>Upon gaining the 2nd Mark, an effect will be triggered</color> for 4s.\\n<color=#34aff8>Same Class</color>: Gains 1% ATK Blood Draining. Basic Attacks can restore up to 4 additional Signal Orbs.\\n<color=#34aff8>Different Classes</color>: During the effect, a Basic Attack of the character you control will deal 1500% additional damage.",
+        "UnlockLv": 0,
+        "FightEventId": [
+            2240391
+        ],
+        "Icon": "Assets/Product/Texture/Image/UiGuild/IconGuildSkillStyle04.png",
+        "IsCore": 1.0,
+        "IsPermanent": null
+    }
+]

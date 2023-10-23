@@ -1,200 +1,142 @@
 [
     {
         "Id": 1,
-        "Name": "Eden Festival",
+        "Name": "Exodus Memoria",
         "SortId": 1,
-        "TimeId": 9101,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab29.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity29.png",
-        "ActivityDesc": "Requirements: Commandant Lv.52\\n\\n[Event Info]:\\n1. Each session is divided into the Voting Period where you can vote for your favorite characters and the Notice Period where the voting results will be announced. The stamps for voting can be obtained in Festival Preparation and Speed Racer.\\n2. If you have cast a certain number of votes for a character, you will be rewarded a corresponding [Character Nameplate]. Voting also gives you the item, Golden Days, which can be exchanged in Remembrance Parlor for the [Character Nameplate] of the previous festivals.\\n3. You can use the Mystery Box Machine at the Tea Stall to get a random mystery box containing rewards such as Coating [Mandala Dancer] (suitable for: Sophia: Silverfang), limited Decor Set [Mysterious Teaparty], Coating Blueprint, Event Construct R&D Ticket, Basic Construct R&D Ticket, Character Training Material, and CUB Training Material.\\n4. Special attention: The event [Festival Battleground] will be available concurrently. Join the battle for even more rewards!",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            6000106
-        ],
-        "SkipId": 11756
-    },
-    {
-        "Id": 2,
-        "Name": "Ultimate Brawl",
-        "SortId": 2,
-        "TimeId": 9301,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab30.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity30.png",
-        "ActivityDesc": "[Requirements]: Commandant Lv. 52\\n\\n [Event Info]:\\n1. There are 4 divisions with each one having a different set of modes and rules.\\n2. In each division, you can select the characters you play as and opponents you play against. Defeat all the opponents to be the winner.\\n3. Unlocking divisions will grant Super Cores. Equip them on the characters to grant them powerful Core Skills. Each core can be simultaneously equipped by multiple characters.\\n4. The first 3 divisions will grant Leap Blueprints and Remnant Data Vaults for defeating each opponent for the first time. Rewards are only given out after defeating all opponents of a session.\\n5. Leap Blueprints can be used to enhance the effects of the Super Cores. And Remnant Data Vaults can be used to upgrade team level, which will provide stat enhancement to all characters (including trial characters).",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            32004,
-            32001.0,
-            50005.0
-        ],
-        "SkipId": 20104
-    },
-    {
-        "Id": 3,
-        "Name": "Magic Square Funfair",
-        "SortId": 3,
-        "TimeId": 9004,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab31.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity31.png",
-        "ActivityDesc": "Requirements: Commandant Lv.52\\n\\n[Event Info]:\\n1. This event requires a team of three players, each controlling one character.\\n2. This stage consists of several rounds, and each round is divided into the Action Phase and the Aftermath Phase. During the Action Phase, each character will be randomly assigned a bomb of a different color and will be free to move around. During the Aftermath Phase, you are not allowed to move, and different colors of bombs will produce different explosion patterns. (Characters are immune to damage dealt by their bombs.)\\n3. The new season of Clash Wonderland is now available. Get Training Star to improve your grade in this season by completing daily missions and claiming battle rewards.\\n4. Your progress will be reset at the end of this season, and the rewards will be determined by your grade.\\n5. Get the victory by strategically positioning your team based on the colors of the bombs!",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            102,
-            8981611.0,
-            13017001.0
-        ],
-        "SkipId": 85010
-    },
-    {
-        "Id": 4,
-        "Name": "KI.GAL Archives",
-        "SortId": 4,
-        "TimeId": 9201,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab32.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity32.png",
-        "ActivityDesc": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. KI.GAL Archives - Dark Moon Corridor consists of two routes, with one route available each week.\\n2. You will engage in battle with the members you recruit and the Bonds you form.\\n3. Choose your preset team and form the Bonds in accordance with the battle situation to maximize your advantages.\\n4. You can switch to the other route if you find a stage too difficult for the time being.\\n5. Don't forget to check your stage progress and claim your rewards!",
+        "TimeId": 11301,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab41.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity41.png",
+        "ActivityDesc": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. There are a total of 5 difficulty levels, all of which are highly challenging with [Lithos] being your formidable enemy.\\n2. All members will be reset upon death during the challenge, making the challenge easier to complete.\\n3. Each stage has its own 3-star clearance conditions. Collectibles will be rewarded once you have earned a total of 3 stars. The more stars you earn, the higher the quality of the collectibles will be.",
         "FunctionId": null,
         "IsInCalendar": 1,
         "ShowItem": [
             50005,
-            102.0,
-            13017002.0
+            102,
+            13019002
         ],
-        "SkipId": 11734
+        "SkipId": 11724,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11301
+    },
+    {
+        "Id": 2,
+        "Name": "Guild Expedition II",
+        "SortId": 2,
+        "TimeId": 11202,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab42.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity42.png",
+        "ActivityDesc": "Requirements:\\nJoin the Command Bureau to participate.\\n\\nInfo:\\n1. Join forces with your Command Bureau members to defeat the final bosses, 2 Shark-speare.\\n2. Take note that the Outposts will be closer to the Base because of Shark-speare.\\n3. Clear all Guard Nodes to commence Operation Dangerous Cliff; meanwhile, Shark-speare's countdown will also begin. When the countdown is up, Shark-speare will attack the Base.\\n4. All rewards can be obtained by completing missions. Make sure to claim and exchange them for items in the shop before the event ends.\\n5. After defeating 2 Shark-speare, you can continue fighting to further enhance your Bureau's final ranking.\\n6. 70 Expedition Supplies will be given every day. You can store up to 210 Expedition Supplies in total.",
+        "FunctionId": null,
+        "IsInCalendar": 1,
+        "ShowItem": [
+            50003,
+            96004,
+            102
+        ],
+        "SkipId": 85016,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11202
+    },
+    {
+        "Id": 3,
+        "Name": "Midsummer Memento",
+        "SortId": 3,
+        "TimeId": 11102,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab43.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity43.png",
+        "ActivityDesc": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. This event requires a total of 3 players to play.\\n2. There are 3 maps available in this event, each with both Cooperation and PVP Mode. Players will be a team in the Cooperation Mode and opponents in the PVP Mode.\\n3. In this event, the closer your character is to the camera, the higher score you will reach. Each mode has its own extra points bonuses.\\n4. Complete the event missions for different rewards and a limited collectible, Sunshiny Memories. Let's make unforgettable memories together!",
+        "FunctionId": null,
+        "IsInCalendar": 1,
+        "ShowItem": [
+            50005,
+            102,
+            13019001
+        ],
+        "SkipId": 11727,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11102
+    },
+    {
+        "Id": 4,
+        "Name": "Slumberland",
+        "SortId": 4,
+        "TimeId": 11905,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab44.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity44.png",
+        "ActivityDesc": "New Coating Trial: Omniframe [Liv: Empyrea] Coating: [Dreamcatcher]",
+        "FunctionId": null,
+        "IsInCalendar": 1,
+        "ShowItem": [
+            3,
+            31104,
+            1
+        ],
+        "SkipId": 20161,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11905
     },
     {
         "Id": 5,
-        "Name": "Love Letters",
+        "Name": "Triumphant Tide",
         "SortId": 5,
-        "TimeId": 9001,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab33.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity33.png",
-        "ActivityDesc": "\u203bExchange gifts to express your true feelings and create beautiful memories on this special day.\\n\\nEvent Info:\\n1. During the event, you can get special gift item [Radiant Comradery] from event mails or by buying the Purchase Supply Pack.\\n2. On the [Members - Communication] interface, send special gifts to members to trigger 520 Comms and receive gift mails from the corresponding members.\\n3. Each character's 520 Comm can only be triggered once.\\n\u2014For example, send a special gift to [Liv: Lux] after sending one to [Liv: Eclipse] will not trigger a Comm again.\\n4. Gift mails from the characters contain special item [Voice of Thoughts]. Collect it to unlock and upgrade the corresponding collectibles.",
+        "TimeId": 11811,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab45.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity45.png",
+        "ActivityDesc": "Requirements: Commandant Lv.60\\n\\nEvent Info:\\n1. Babel Tower is a set of high-difficulty stages.\\n2. Each stage has its own affixes, which will change the way the stage works.\\n3. You can select different strategic targets each stage. They will increase the difficulty of combat.\\n4. You can select affixes for stages. The affixes can aid you in combat.\\n5. The characters you used to complete the stages will be locked and become unavailable in other stages.\\n6. You will earn collectible rewards for joining Babel Tower. Your final strategic level will earn you different resource rewards and improve the collectible's quality.",
         "FunctionId": null,
         "IsInCalendar": 1,
         "ShowItem": [
-            40802
+            102,
+            3,
+            29
         ],
-        "SkipId": 20146
+        "SkipId": 11424,
+        "ExchangeTimeId": null,
+        "TaskTimeId": 11811.0,
+        "FightTimeId": 11812
     },
     {
         "Id": 6,
-        "Name": "Voiceless Self",
+        "Name": "Starry Conversations",
         "SortId": 6,
-        "TimeId": 9002,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab34.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity34.png",
-        "ActivityDesc": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. Complete daily activity missions to obtain event item [Crumpled Paper].\\n2. Spend [Crumpled Paper] to unlock event stages. Find all safe areas in a stage to clear it.\\n3. Clear a stage to get its reward and unlock a part of the data sequence.\\n4. Complete the entire sequence to view the corresponding hidden message.",
+        "TimeId": 11701,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab46.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity46.png",
+        "ActivityDesc": "Requirements: Commandant Lv.40\\n\\nEvent Info:\\n1. Gain Astro-Mystery Boxes by playing poker guessing in Starry Conversations and completing missions.\\n2. On the Character Story screen in Starry Conversations, you can gift different characters Astro-Mystery Boxes to unlock and view their Double Seventh Festival story.\\n3. The hint function has been added to poker guessing. Now you can use it to find out whether the next card is higher or lower.",
         "FunctionId": null,
         "IsInCalendar": 1,
         "ShowItem": [
-            3,
-            102.0,
-            1.0
+            50005,
+            102,
+            30013
         ],
-        "SkipId": 20140
+        "SkipId": 11761,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11701
     },
     {
         "Id": 7,
-        "Name": "Fortune of Tiger",
-        "SortId": 2,
-        "TimeId": 7007,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab22.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity22.png",
-        "ActivityDesc": "Requirements: Commandant Lv.40.\\n\\nEvent Info:\\n1. During the event, the event mission [Fortune of Tiger] will be available for a limited time.\\n2. The first clear of each stage will grant a 1st Clear Reward!\\n3. Let's have fun together, Commandants!",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            50009,
-            102.0,
-            90015.0
-        ],
-        "SkipId": 83010
-    },
-    {
-        "Id": 8,
-        "Name": "Fortune's Favor",
-        "SortId": 1,
-        "TimeId": 7101,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab23.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity23.png",
-        "ActivityDesc": "Event Info:\\n1. Log in every day to claim [Fortune Pouches] and use them to draw rewards in the [Lucky Draw] event. You can also use Black Cards or Rainbow Cards to exchange for Fortune Pouches.\\n2. Complete various R&D Tickets and \"Fortune\" total consumption goals to earn [\"Fortune\"]. Use \"Fortune\" to exchange for amazing rewards including Bianca: Veritas Special Effect Coating [Spring Huntress] in the [Fortune Merchant] shop.",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            6410307,
-            6610307.0,
-            9090014.0
-        ],
-        "SkipId": 20120
-    },
-    {
-        "Id": 9,
-        "Name": "Rosa Tryst",
-        "SortId": 9,
-        "TimeId": 2160111,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENWhitedayTab.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENWhiteday.png",
-        "ActivityDesc": "[Requirements]: Commandant Lv. 40\\n\\n [Event Info]:\\n1. You can participate in the special event of Venus Splash Park with Constructs on such special day during the Golden Age\\n2. You can keep company with more Constructs by activating sites and completing events\\n3. You can participate in the event to collect event items and obtain rewards after completing tasks\\n4. After completing the event with each Construct, you will unlock specific communications",
+        "Name": "A Covenant of Glass",
+        "SortId": 7,
+        "TimeId": 11101,
+        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarTab47.png",
+        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiWeekCalendarActivity47.png",
+        "ActivityDesc": "Event Info: Complete event missions to obtain [Crystal-Heart Plush].",
         "FunctionId": null,
         "IsInCalendar": 1,
         "ShowItem": [
             3,
-            1.0,
-            13006600.0
+            102,
+            60002
         ],
-        "SkipId": 80011
-    },
-    {
-        "Id": 10,
-        "Name": "Weirdlands Adventure",
-        "SortId": 10,
-        "TimeId": 2160112,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENYurenjieTab.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENYurenjie.png",
-        "ActivityDesc": "[Requirements]: Commandant Lv 40\\n\\n [Event Info]: \\n1. During the event, the event instance of [Weirlands Adventure] will open for a limited time; Let's experience the amazing adventure at the Babylonia with Nanami!\\n2. You will obtain abundant of training and enhancing materials as rewards if you clear the instance of [Weirdlands Adventure] for the first time",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            3,
-            1.0
-        ],
-        "SkipId": 20068
-    },
-    {
-        "Id": 11,
-        "Name": "Energy Detector",
-        "SortId": 11,
-        "TimeId": 2160113,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENSlotmachineTab.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseENSlotmachine.png",
-        "ActivityDesc": "\\nEvent Details:\\n1. Complete the event missions to obtain Cell Batteries EX (event tokens). \\n2. There are two types of missions. [Daily missions] will refresh daily, but each [Cumulative missions] only can be completed once.\\n3. Use Cell Batteries EX to activate the Detector to scan through the area. You will be rewarded Detect Points for each detect.\\n4. After achieving the required Detect Points, you can claim corresponding rewards including serum,\\nbrand new dorm decoration and other gifts.",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            3,
-            8140107.0
-        ],
-        "SkipId": 1300233
-    },
-    {
-        "Id": 12,
-        "Name": "Azure Apocalypse",
-        "SortId": 1,
-        "TimeId": 2160134,
-        "ActivityIcon": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseKRBRole04PfTab.png",
-        "ActivityBanner": "Assets/Product/Texture/Image/UiWeekCalendar/UiActivityBaseKRBRole04Pf.png",
-        "ActivityDesc": "New Coating:\\nOmniframe [Lucia: Crimson Abyss] New Special Effect Coating: [Azure Apocalypse]\\n\\n1. During this event, [Azure Apocalypse] can be obtained in\\n\"Research - Secret Pact\" for a limited time.\\n2. [Azure Apocalypse] is guaranteed in 10 pulls.\\n3. After the event, the corresponding coating will be taken off the shelf.",
-        "FunctionId": null,
-        "IsInCalendar": 1,
-        "ShowItem": [
-            6210307,
-            12020002.0,
-            9010222.0
-        ],
-        "SkipId": 1300251
+        "SkipId": 20154,
+        "ExchangeTimeId": null,
+        "TaskTimeId": null,
+        "FightTimeId": 11101
     }
 ]

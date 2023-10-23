@@ -16,7 +16,17 @@
         "Type": null,
         "UnlockCondition": null,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            300.0,
+            300.0,
+            100.0
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 2,
@@ -35,7 +45,17 @@
         "Type": null,
         "UnlockCondition": null,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            300.0,
+            300.0,
+            50.0
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 3,
@@ -54,7 +74,17 @@
         "Type": null,
         "UnlockCondition": null,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            1200.0,
+            800.0,
+            50.0
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 4,
@@ -73,7 +103,17 @@
         "Type": null,
         "UnlockCondition": null,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            1800.0,
+            1800.0,
+            50.0
+        ],
+        "SweepLevelId": [
+            1.0,
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 5,
@@ -92,7 +132,15 @@
         "Type": null,
         "UnlockCondition": null,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            2500.0,
+            150.0
+        ],
+        "SweepLevelId": [
+            2.0,
+            3.0
+        ]
     },
     {
         "Id": 6,
@@ -108,7 +156,9 @@
         "Type": 1.0,
         "UnlockCondition": 95216.0,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [],
+        "SweepLevelId": []
     },
     {
         "Id": 7,
@@ -124,7 +174,9 @@
         "Type": 1.0,
         "UnlockCondition": 95217.0,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [],
+        "SweepLevelId": []
     },
     {
         "Id": 8,
@@ -141,7 +193,9 @@
         "Type": 1.0,
         "UnlockCondition": 95218.0,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [],
+        "SweepLevelId": []
     },
     {
         "Id": 9,
@@ -158,7 +212,9 @@
         "Type": 1.0,
         "UnlockCondition": 95219.0,
         "MaxElectricUse": null,
-        "LendCharacterDisableUse": null
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [],
+        "SweepLevelId": []
     },
     {
         "Id": 10,
@@ -176,6 +232,8 @@
         "Type": null,
         "UnlockCondition": 95312.0,
         "MaxElectricUse": 600.0,
-        "LendCharacterDisableUse": 1.0
+        "LendCharacterDisableUse": 1.0,
+        "SuggestElectric": [],
+        "SweepLevelId": []
     }
 ]

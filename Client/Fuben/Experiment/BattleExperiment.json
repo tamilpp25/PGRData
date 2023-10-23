@@ -918,5 +918,85 @@
         "Title": "Space Walk",
         "Description": "Radiant Whirlwind grants Kinetic Energy. When in the Anti-gravity status, casts Starshatter Horizon and the Signature Move will deal more damage based on Kinetic Energy accumulated.",
         "NextTrialID": 107
+    },
+    {
+        "Id": 116,
+        "CharacterID": 1571003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoan01.png",
+        "Title": "Rising Key",
+        "Description": "After Arca casts any 3-Ping, stop tapping Basic Attack or keep tapping it for a period of time to trigger a Combo Strike.",
+        "NextTrialID": 117
+    },
+    {
+        "Id": 117,
+        "CharacterID": 1571003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoan01.png",
+        "Title": "Rising Key",
+        "Description": "After a 3-Ping, tap Basic Attack to charge Rising Energy. Casting Gear-Break Combo will consume the energy charged to deal extra DMG.",
+        "NextTrialID": 118
+    },
+    {
+        "Id": 118,
+        "CharacterID": 1571003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoan01.png",
+        "Title": "Rising Key",
+        "Description": "If Gear Level is lower than 3, the Rising Energy consumed will be converted into Rotational Speed.",
+        "NextTrialID": 119
+    },
+    {
+        "Id": 119,
+        "CharacterID": 1571003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoan01.png",
+        "Title": "Rising Key",
+        "Description": "If Gear Level is lower than 3 and Rising Energy is greater than Rotational Speed when triggering a Combo Strike, Gear Level will go up by 1.",
+        "NextTrialID": 120
+    },
+    {
+        "Id": 120,
+        "CharacterID": 1571003,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR2Nuoan01.png",
+        "Title": "Rising Key",
+        "Description": "At Gear Lv.3, triggering a Combo Strike will reset Gear Level and Rotational Speed to deal massive damage.",
+        "NextTrialID": 116
+    },
+    {
+        "Id": 121,
+        "CharacterID": 1041004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Bianka.png",
+        "Title": "Glowing Lanternlight",
+        "Description": "Press and hold Dodge to trigger Luminous Realm, during which Afterglow Orbs can be pinged alongside Signal Orbs of the same color.",
+        "NextTrialID": 122
+    },
+    {
+        "Id": 122,
+        "CharacterID": 1041004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Bianka.png",
+        "Title": "Glowing Lanternlight",
+        "Description": "Pinging orbs in Luminous Realm will accumulate Afterglow Points.",
+        "NextTrialID": 123
+    },
+    {
+        "Id": 123,
+        "CharacterID": 1041004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Bianka.png",
+        "Title": "Blade Abyss",
+        "Description": "After performing the Phase I Signature, Stigmata will enter Sword Form, during which no Signal Orbs will be generated.",
+        "NextTrialID": 124
+    },
+    {
+        "Id": 124,
+        "CharacterID": 1041004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Bianka.png",
+        "Title": "Blade Abyss",
+        "Description": "In Sword Form, after the 4th hit of Basic Attack or a successful dodge, pressing and holding Basic Attack triggers Sword Dance.",
+        "NextTrialID": 125
+    },
+    {
+        "Id": 125,
+        "CharacterID": 1041004,
+        "Pic": "Assets/Product/Texture/Image/UiFightTips/UiFightTipsJiaoxueR4Bianka.png",
+        "Title": "Blade Abyss",
+        "Description": "In Sword Form, performing Signature when fully charged will unleash Illuminated Abyss.",
+        "NextTrialID": 121
     }
 ]

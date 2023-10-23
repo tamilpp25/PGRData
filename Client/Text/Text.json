@@ -461,7 +461,7 @@
     },
     {
         "Key": "OnlineInstanceQuitRoom",
-        "Text": "Confirm to leave the room?"
+        "Text": "Are you sure you want to leave the co-op team room?"
     },
     {
         "Key": "OnlineInstanceCancelMatch",
@@ -949,19 +949,19 @@
     },
     {
         "Key": "ToolMonthBefore",
-        "Text": "month(s) ago"
+        "Text": " month(s) ago"
     },
     {
         "Key": "ToolDayBrfore",
-        "Text": "day(s) ago"
+        "Text": " day(s) ago"
     },
     {
         "Key": "ToolHourBefore",
-        "Text": "hour(s) ago"
+        "Text": " hour(s) ago"
     },
     {
         "Key": "ToolMinuteBefore",
-        "Text": "minute(s) ago"
+        "Text": " minute(s) ago"
     },
     {
         "Key": "FriendCount",
@@ -981,7 +981,7 @@
     },
     {
         "Key": "FriendLatelyLogin",
-        "Text": "Last online:"
+        "Text": "Last online: "
     },
     {
         "Key": "FriendOnLine",
@@ -2128,6 +2128,10 @@
         "Text": "{0}/{1}"
     },
     {
+        "Key": "BfrtAllChapterProgress",
+        "Text": "Chapters completed: {0}/{1}"
+    },
+    {
         "Key": "BfrtChpaterLocked",
         "Text": "Locked"
     },
@@ -2433,11 +2437,11 @@
     },
     {
         "Key": "ArenaActivityBeginCountDown",
-        "Text": "Time until start "
+        "Text": "In Team: "
     },
     {
         "Key": "ArenaActivityResultCountDown",
-        "Text": "Time until next event "
+        "Text": "Tallying: "
     },
     {
         "Key": "ArenaActivityEndCountDown",
@@ -2910,6 +2914,14 @@
     {
         "Key": "PrequelCompletion",
         "Text": "Completion: {0}/{1}"
+    },
+    {
+        "Key": "PrequelFragmentReset",
+        "Text": "Resets Daily"
+    },
+    {
+        "Key": "PrequelFragmentTimeReset",
+        "Text": "Reset Time: {0}"
     },
     {
         "Key": "TrialFinish",
@@ -4805,7 +4817,7 @@
     },
     {
         "Key": "ActivityBriefShopLeftTime",
-        "Text": "Remaining: <color=#74c3f3>{0}</color>"
+        "Text": "Remaining  <color=#FFFFFF>{0}</color>"
     },
     {
         "Key": "ActivityBriefTaskLeftTime",
@@ -5154,6 +5166,10 @@
     {
         "Key": "BabelTowerStageLevelBuffChanged",
         "Text": "Difficulty changed. Some affix needs to be selected again."
+    },
+    {
+        "Key": "BabelTowerSettleLevelTips",
+        "Text": "Lv.{0}"
     },
     {
         "Key": "ResidueStockText",
@@ -6018,6 +6034,10 @@
     {
         "Key": "CharacterSkillLevelDetail",
         "Text": "\uff08+{0}\uff09"
+    },
+    {
+        "Key": "CharacterSkillTypeText",
+        "Text": "[{0}]"
     },
     {
         "Key": "RogueLikeShopBuyItemTips",
@@ -7561,7 +7581,7 @@
     },
     {
         "Key": "GuildBossLogLine3",
-        "Text": "Area Stability reaches <color=#ff6633>%d%%</color>"
+        "Text": "Triggered <color=#f58220>%d</color> times in the area"
     },
     {
         "Key": "GuildBossLogLine4",
@@ -7570,6 +7590,10 @@
     {
         "Key": "GuildBossLogLine5",
         "Text": "Stage skill has dealt <color=#f58220>%s</color> DMG."
+    },
+    {
+        "Key": "GuildBossLogLine6",
+        "Text": "Area Stability reaches <color=#f58220>%d%%</color>"
     },
     {
         "Key": "UiPanelCharacterExchangeBtnNameGouzaoti",
@@ -7616,6 +7640,18 @@
         "Text": "Tips"
     },
     {
+        "Key": "GuildBossEnterWarningStyleStr",
+        "Text": "You can select more <color=#2a5caa>School Skills</color>. They can be of great help to you in battle. It is suggested to reconsider before proceeding."
+    },
+    {
+        "Key": "GuildBossStyleWarningCountinue",
+        "Text": "Proceed Anyway"
+    },
+    {
+        "Key": "GuildBossStyleWarningGoSelect",
+        "Text": "Select School"
+    },
+    {
         "Key": "GuildBossEnterLowWarningStr",
         "Text": "Each commandant can only select 1 <color=#2a5caa>[Regular Zone]</color> stage to challenge each round of the event. Continue?"
     },
@@ -7626,6 +7662,34 @@
     {
         "Key": "GuildBossDamage",
         "Text": "Deal {0} DMG to the Siege Target"
+    },
+    {
+        "Key": "GuildBossStyleSelectSucceess",
+        "Text": "School Selected"
+    },
+    {
+        "Key": "GuildBossStyleSkillActiveSuccess",
+        "Text": "Skill Activated"
+    },
+    {
+        "Key": "GuildBossStyleSkillUninstallSuccess",
+        "Text": "Skill Removed"
+    },
+    {
+        "Key": "GuildBossStyleSkillAllUninstall",
+        "Text": "All Skills Removed"
+    },
+    {
+        "Key": "GuildBossStyleSkillMax",
+        "Text": "You have reached the capacity and can't activate this skill"
+    },
+    {
+        "Key": "GuildBossStyleSkillHasActiveCore",
+        "Text": "Only one core skill can be activated at a time"
+    },
+    {
+        "Key": "GuildBossStyleSelectLimit",
+        "Text": "You must wait for the current battle to be over before you can select a school"
     },
     {
         "Key": "ActivityGuildNotOpen",
@@ -7713,11 +7777,31 @@
     },
     {
         "Key": "GuildBossBuffActive",
-        "Text": "The stage you are challenging has already reached 100% stability. We suggest you challenge another stage with stability below 100%. Continue anyway?"
+        "Text": "The stage you wish to challenge has already been triggered for the maximum amount of times. It is advised that you challenge another stage. Continue anyway?"
     },
     {
         "Key": "GuildBossHpRewardName",
         "Text": "Can be claimed once the Siege Target's HP is reduced to <color=#3cd3ff>{0}%</color>."
+    },
+    {
+        "Key": "GuildBossSkillProgress",
+        "Text": "Triggered: {0}/{1}"
+    },
+    {
+        "Key": "GuildBossStyleSelect",
+        "Text": "Select School"
+    },
+    {
+        "Key": "GuildBossStyleSkillLock",
+        "Text": "Unlocks at Command Bureau Lv.{0}"
+    },
+    {
+        "Key": "GuildBossStyleChangeTime",
+        "Text": "Switch in {0}"
+    },
+    {
+        "Key": "GuildBossStyleSelected",
+        "Text": "Selected"
     },
     {
         "Key": "ShopItemPaidGemNotEnough",
@@ -9160,6 +9244,10 @@
         "Text": "Failed to claim reward"
     },
     {
+        "Key": "FuBenExperimentSkinTag",
+        "Text": "New Coating"
+    },
+    {
         "Key": "NieRMaxSingleScore",
         "Text": "Max {0} points"
     },
@@ -9890,6 +9978,14 @@
     {
         "Key": "LottoExtraRewardProcessText",
         "Text": "Progress "
+    },
+    {
+        "Key": "LottoTimeStr",
+        "Text": "{0}--{1}"
+    },
+    {
+        "Key": "LottoActivityOver",
+        "Text": "Event is over"
     },
     {
         "Key": "ChessPursuitShopBuyTips",
@@ -10772,6 +10868,10 @@
         "Text": "All skills have reached max level"
     },
     {
+        "Key": "PartnerPartnerAndClipNotEnough",
+        "Text": "No duplicate CUB or insufficient required Shards."
+    },
+    {
         "Key": "SpecialFashionShopDurationTime",
         "Text": "Event Time ({0} - {1})"
     },
@@ -10905,7 +11005,7 @@
     },
     {
         "Key": "StrongholdTotalElectricDes",
-        "Text": "Current electricity limit: {0}"
+        "Text": "Current Max Electricity: {0}+{1} (Generated)"
     },
     {
         "Key": "StrongholdElectricTimeTwo",
@@ -11153,11 +11253,11 @@
     },
     {
         "Key": "MoeWarMatchVoteRefreshTimeSplit",
-        "Text": " & "
+        "Text": "."
     },
     {
         "Key": "MoeWarMatchVoteRefreshTimeUnit",
-        "Text": "{0}:00 (UTC)"
+        "Text": "{0}"
     },
     {
         "Key": "MoeWarMatchVoteRefresh",
@@ -11857,7 +11957,7 @@
     },
     {
         "Key": "ReformEvolvableEnemyNameText",
-        "Text": "Enemy"
+        "Text": "Enemies and Affixes"
     },
     {
         "Key": "ReformEvolvableMemberNameText",
@@ -11873,7 +11973,7 @@
     },
     {
         "Key": "ReformBaseStageUnlockText",
-        "Text": "Unlock after {0}"
+        "Text": "Unlocks after {0}"
     },
     {
         "Key": "ReformScoreCancelLimitTip",
@@ -11889,7 +11989,7 @@
     },
     {
         "Key": "ReformEvolvableStageName0",
-        "Text": "Basic Templet"
+        "Text": "Stage"
     },
     {
         "Key": "ReformEvolvableStageName1",
@@ -11909,11 +12009,11 @@
     },
     {
         "Key": "ReformEnvPanelTopTip",
-        "Text": "Note: Swapped enemies also have initial affixes (<color={0}>{1}</color>/{2})."
+        "Text": "Tip: Amount of available environment (<color={0}>{1}</color>/{2})"
     },
     {
         "Key": "ReformEnemyPanelTopTip",
-        "Text": "Tip: Swapped enemies have initial affix as well"
+        "Text": "Tip: Add Affixes to enemies in the Affix screen"
     },
     {
         "Key": "ReformMemberPanelTopTip",
@@ -11969,7 +12069,7 @@
     },
     {
         "Key": "ReformSettleMaxScoreTip",
-        "Text": "Does not exceed <color=#828282>{0}</color>, which is the maximum number of points for this stage"
+        "Text": "You didn't reach this stage's Highest Score <color=#828282>{0}</color>"
     },
     {
         "Key": "ReformEvolvableDiffOpenTip",
@@ -11977,7 +12077,7 @@
     },
     {
         "Key": "ReformMemberPanelTopEvolableTip",
-        "Text": "<color=#828282>Tap again to delete the selection</color>"
+        "Text": "<color=#828282>Tap again to unselect </color>"
     },
     {
         "Key": "MentorDoMentorShipDisconnectFailPassHint",
@@ -12064,6 +12164,10 @@
         "Text": "Event Shop"
     },
     {
+        "Key": "PokerGuessingStory",
+        "Text": "Character Story"
+    },
+    {
         "Key": "PokerGuessingScoreOutRange",
         "Text": "Point limit reached"
     },
@@ -12104,6 +12208,38 @@
         "Text": "Event is over"
     },
     {
+        "Key": "PokerGuessingPlayStory",
+        "Text": "Play Cutscene"
+    },
+    {
+        "Key": "PokerGuessingUnlockStory",
+        "Text": "Unlock Story"
+    },
+    {
+        "Key": "PokerGuessingSendTitle",
+        "Text": "Send Gift"
+    },
+    {
+        "Key": "PokerGuessingSendContent",
+        "Text": "Sending {0} Astro-Mystery Box(es) can view the character's Double Seventh Festival story.\\nConfirm to send?"
+    },
+    {
+        "Key": "PokerGuessingGameNotStart",
+        "Text": "Game not started"
+    },
+    {
+        "Key": "PokerGuessingTipsCountDeficiency",
+        "Text": "Insufficient tip attempts"
+    },
+    {
+        "Key": "PokerGuessingCharacterSwitch",
+        "Text": "Character Switched"
+    },
+    {
+        "Key": "PokerGuessingUnlockItemDeficiency",
+        "Text": "Insufficient Astro-Mystery Boxes. To get more, please refer to the Starry Conversations instructions."
+    },
+    {
         "Key": "MentorStudentGiftCompletHint",
         "Text": "Gift sent"
     },
@@ -12118,6 +12254,10 @@
     {
         "Key": "PartnerTeachingActivityEnd",
         "Text": "Event is over"
+    },
+    {
+        "Key": "PartnerTeachingTag",
+        "Text": "New CUB"
     },
     {
         "Key": "InvertCardGameNotHaveSeverData",
@@ -12986,6 +13126,10 @@
     {
         "Key": "SummerEpisodeMischiefScore",
         "Text": "Mischief Points"
+    },
+    {
+        "Key": "SummerEpisodeWorkingScore",
+        "Text": "Cooperation Points"
     },
     {
         "Key": "ReportGuildFinish",
@@ -14081,7 +14225,7 @@
     },
     {
         "Key": "TheatreDifficultyRateTip",
-        "Text": "Difficulty coefficient {0}"
+        "Text": "Difficulty Multiplier {0}"
     },
     {
         "Key": "TheatreChapterSettleSureTitle",
@@ -14288,12 +14432,28 @@
         "Text": "Insufficient materials to create the building"
     },
     {
-        "Key": "DoomsdayNumberUp",
-        "Text": "<color=#0F70BC><size=28> (+{0})</size></color>"
+        "Key": "DoomsdayAttributeUpWithDaily",
+        "Text": "{0} increase   <color=#1873be><size=34>+{1}</size></color>/day(s)"
     },
     {
-        "Key": "DoomsdayNumberDown",
-        "Text": "<color=#E1504F><size=28> (-{0})</size></color>"
+        "Key": "DoomsdayAttributeDownWithDaily",
+        "Text": "{0} decrease   <color=#b32121><size=34>{1}</size></color>/day(s)"
+    },
+    {
+        "Key": "DoomsdayUnitDaily",
+        "Text": "/day(s)"
+    },
+    {
+        "Key": "DoomsdayUnitPeople",
+        "Text": "/member(s)"
+    },
+    {
+        "Key": "DoomsdayNumberPositiveGrowth",
+        "Text": "<color=#1873be>{0}</color>"
+    },
+    {
+        "Key": "DoomsdayNumberNegativeGrowth",
+        "Text": "<color=#b32121>{0}</color>"
     },
     {
         "Key": "DoomsdayInhabitantAttrBad",
@@ -14400,6 +14560,30 @@
         "Text": "Team occupied by an event. Unable to move."
     },
     {
+        "Key": "DoomsdayGoExplore",
+        "Text": "Explore"
+    },
+    {
+        "Key": "DoomsdayBackCamp",
+        "Text": "Return to Camp"
+    },
+    {
+        "Key": "DoomsdayEndCurStage",
+        "Text": "End the stage"
+    },
+    {
+        "Key": "DoomsdayEndToday",
+        "Text": "End the day"
+    },
+    {
+        "Key": "DoomsdayWeatherDesc",
+        "Text": "Weather is {0}\\n{1}"
+    },
+    {
+        "Key": "DoomsdayStageHasEnd",
+        "Text": "Journey ended. Unable to do this."
+    },
+    {
         "Key": "RewardSuccess",
         "Text": "Claimed"
     },
@@ -14429,11 +14613,15 @@
     },
     {
         "Key": "DoomsdayBackConfirmContent",
-        "Text": "Would you like to leave the current stage? (The stage progress is saved at the beginning of [every day]. You can resume the game later from [this day].)"
+        "Text": "Are you sure you want to leave the stage?\\nYour stage progress will be saved at the beginning of <color=#0F70BC>every day</color>. After you leave, you can resume from <color=#0F70BC>this day</color>."
     },
     {
         "Key": "DoomsdayLoseTitle",
         "Text": "We failed..."
+    },
+    {
+        "Key": "DoomsdayFinishEndTitle",
+        "Text": "End"
     },
     {
         "Key": "DoomsdayLoseReasonDieOut",
@@ -14466,6 +14654,26 @@
     {
         "Key": "DoomsdayMakeTeamFailRssLack",
         "Text": "Insufficient supplies to create exploration team"
+    },
+    {
+        "Key": "DoomsDayDaysOfPersistence",
+        "Text": "Days of Perseverance: {0}"
+    },
+    {
+        "Key": "DoomsDayReStartDoubleCheckTips",
+        "Text": "Are you sure you want to <color=#FF0033>restart</color> the stage?\\nYou will start from day 1 of the stage."
+    },
+    {
+        "Key": "DoomsDayTodayWeatherTips",
+        "Text": "Today's Weather: {0}"
+    },
+    {
+        "Key": "DoomsdayBuildReachLimit",
+        "Text": "Max building limit reached"
+    },
+    {
+        "Key": "DoomsdayPlaceUnLockTips",
+        "Text": "Now Location Discovered: {0}"
     },
     {
         "Key": "SameColorGameSkillEnergy",
@@ -14509,7 +14717,7 @@
     },
     {
         "Key": "WeekActivityEndTime",
-        "Text": "{0} End"
+        "Text": "Ends in {0}"
     },
     {
         "Key": "WeekActivityTime",
@@ -15029,7 +15237,7 @@
     },
     {
         "Key": "GuildWarNotGuildMaster",
-        "Text": "This function is only available to the Commander-in-Chief"
+        "Text": "Only Commander-in-Chief and Deputy Commander can select the difficulty level."
     },
     {
         "Key": "GuildWarNoSelectDifficulty",
@@ -15041,7 +15249,7 @@
     },
     {
         "Key": "GuildWarIsSkip",
-        "Text": "You did not create or join a Guild in time. Unable to participate in the current Expedition."
+        "Text": "You did not create a Guild in time. Unable to participate in the current Expedition."
     },
     {
         "Key": "GuildWarActionPointNotEnough",
@@ -15052,8 +15260,20 @@
         "Text": "Recommended Activity: {0}"
     },
     {
+        "Key": "GuildWarRecommendActiveNotEnough",
+        "Text": "Guild Activity: <color=#A52A2A>{0}</color>"
+    },
+    {
         "Key": "GuildWarRoundLeftTime",
         "Text": "Time for this round: <color=#34AFF9>{0}</color>"
+    },
+    {
+        "Key": "GuildWarRoundLeftTime2",
+        "Text": "Time for next round: <color=#34AFF9>{0}</color>"
+    },
+    {
+        "Key": "GuildWarRoundLeftTime3",
+        "Text": "Event remaining time: <color=#34AFF9>{0}</color>"
     },
     {
         "Key": "GuildWarSelectDifficultAutoOpen",
@@ -15072,12 +15292,16 @@
         "Text": "Difficulty confirmation"
     },
     {
-        "Key": "GWSelectDifficultyConfirmContentNotRecommend",
-        "Text": "Recommended Activity for this Difficulty is <color=#A52A2A>{0}</color>. Activity of the Command Bureau last round is {1}. <color=#A52A2A>The selected Difficulty might be too high</color>. Continue?"
+        "Key": "GuildWarSelectDifficulty",
+        "Text": "Select Difficulty"
     },
     {
-        "Key": "GWSelectDifficultyConfirmContentRecommend",
-        "Text": "Recommended Activity for this Difficulty is <color=#A52A2A>{0}</color>. Activity of the Command Bureau last round is {1}. Please make sure the Difficulty you select matches the number of active members in the Command Bureau. Continue?"
+        "Key": "GWSelectDifficultyConfirmContentNotRecommend",
+        "Text": "The Command Bureau had <color=#DC143C>no</color> or <color=#DC143C>low</color> Activity last round. It is suggested to select the difficulty level based on members' Activity.\\nNote: It can be changed anytime before the battle starts."
+    },
+    {
+        "Key": "GuildWarSelectDifficultySuccess",
+        "Text": "Difficulty selected"
     },
     {
         "Key": "GuildWarCantKickMember",
@@ -15110,6 +15334,66 @@
     {
         "Key": "GuildWarEliteNodeRankingTitle",
         "Text": "Ambusher Attack Ranking"
+    },
+    {
+        "Key": "GuildWarPandaFire",
+        "Text": "When the time is up, the Base will be attacked for {0} DMG."
+    },
+    {
+        "Key": "GuildWarPandaHitAnother",
+        "Text": "Already beat. Beat the next one asap."
+    },
+    {
+        "Key": "GuildWarAssistantLog",
+        "Text": "<color=#8d8d8d>{0}</color>  <color=#0f70bc>[{1}]</color> supported player <color=#0f70bc>[{2}]</color> to combat. Additional Supply {3} granted."
+    },
+    {
+        "Key": "GuildWarAssistantLogWithoutReward",
+        "Text": "<color=#8d8d8d>{0}</color>  <color=#0f70bc>[{1}]</color> supported player <color=#0f70bc>[{2}]</color> to combat."
+    },
+    {
+        "Key": "GuildWarAssistantSet",
+        "Text": "Support Settings"
+    },
+    {
+        "Key": "GuildWarAssistantCD",
+        "Text": "Support Cooldown: {0}"
+    },
+    {
+        "Key": "GuildWarDamageTime",
+        "Text": "(Launches in {0})"
+    },
+    {
+        "Key": "GuildWarDifficultySelect1",
+        "Text": "Next Round's Choice"
+    },
+    {
+        "Key": "GuildWarDifficultySelect2",
+        "Text": "This Round's Choice"
+    },
+    {
+        "Key": "GuildWarRemindLastRound",
+        "Text": "The difficulty level cannot be changed as this is already the final battle."
+    },
+    {
+        "Key": "GuildWarNotQualify",
+        "Text": "Because this round had started before you joined the Command Bureau,\\nyou cannot participate in this round of battles."
+    },
+    {
+        "Key": "GuildWarNotQualifySupport",
+        "Text": "Unable to proceed as this round had started before you joined the Command Bureau."
+    },
+    {
+        "Key": "GuildWarCD",
+        "Text": "In Cooldown"
+    },
+    {
+        "Key": "GuildWarNotWeakness",
+        "Text": "This stage <color=#DC143C>has not been weakened</color> and <color=#DC143C>is more difficult to clear</color>. It is suggested to challenge other stages first. Confirm to continue anyway?"
+    },
+    {
+        "Key": "GuildWarSupplyLimit",
+        "Text": "{0} <size=24>(limit reached)</size>"
     },
     {
         "Key": "GuildDormMainTopChannelName",
@@ -15174,6 +15458,34 @@
     {
         "Key": "GuildDormNetworkTimeOutTip",
         "Text": "Requesting to enter the Command Bureau Hall has timed out. Closing the access to the new Command Bureau and entering the old one.\\nIf you still want to enter the new Command Bureau, please log in and try again."
+    },
+    {
+        "Key": "GuildDormOverMaxReconnectTime",
+        "Text": "Command Bureau lobby connection timed out"
+    },
+    {
+        "Key": "GuildMusicEditDeleteTip",
+        "Text": "Song list cannot be empty"
+    },
+    {
+        "Key": "GuildDormMusicPlayerEditTip",
+        "Text": "Only Commander-in-Chief and Deputy Commander are authorized to edit."
+    },
+    {
+        "Key": "GuildDormMusicEditSaveSuccess",
+        "Text": "Playlist saved."
+    },
+    {
+        "Key": "GuildDormMusicEditCloseTitle",
+        "Text": "Exit"
+    },
+    {
+        "Key": "GuildDormMusicEditCloseContent",
+        "Text": "Save playlist changes?"
+    },
+    {
+        "Key": "GuildDormThemeChanged",
+        "Text": "Command Bureau Special Scene Expired"
     },
     {
         "Key": "BabelTowerAffixLevelInadequateTitle",
@@ -15285,7 +15597,11 @@
     },
     {
         "Key": "GuildWarSweepTip",
-        "Text": "Auto Clear based on max DMG dealt in the past. Consume {0} Expedition Supplies to deal {1}% DMG to the node (Auto Clear will only earn you {2}% of the rewards)\\nContinue?"
+        "Text": "Auto Clear based on max DMG dealt in the past. Consume <color=#4169E1>{0}</color> Supplies to deal <color=#4169E1>{1}</color>% DMG (Auto Clear will only earn you <color=#4169E1>{2}</color>% of the rewards)\\nContinue?"
+    },
+    {
+        "Key": "GuildWarSweepTipNotWeakness",
+        "Text": "Auto Clear based on max DMG dealt in the past. Consume <color=#4169E1>{0}</color> Supplies to deal <color=#4169E1>{1}</color>% DMG (This stage has not been weakened and Auto Clear will only earn you <color=#4169E1>{2}</color>% of the rewards)\\nContinue?"
     },
     {
         "Key": "GuildWarResidueNameEn",
@@ -15908,6 +16224,326 @@
         "Text": "Insufficient Mood of the character. Advance to restore?"
     },
     {
+        "Key": "ReformChallengeScoreTip",
+        "Text": "Points Earned [Highest Modification Points: {0}]"
+    },
+    {
+        "Key": "ReformRecommendScoreTip",
+        "Text": "{0} <color=#575757><size=32>(Recommend: {1})</size></color>"
+    },
+    {
+        "Key": "ReformEnemyGroupName1",
+        "Text": "WAVE 1"
+    },
+    {
+        "Key": "ReformEnemyGroupName2",
+        "Text": "WAVE 2"
+    },
+    {
+        "Key": "ReformEnemyGroupName3",
+        "Text": "WAVE 3"
+    },
+    {
+        "Key": "ReformEnemyCountTip",
+        "Text": "Enemies: {0}/{1}"
+    },
+    {
+        "Key": "ReformEnemyBuffTipsTitle2",
+        "Text": "Affixes Selected: {0}/{1}"
+    },
+    {
+        "Key": "ReformMaxScoreTip",
+        "Text": "Total Points (Max {0})"
+    },
+    {
+        "Key": "ReformRecommendScoreTip2",
+        "Text": "Recommended Points:      {0}"
+    },
+    {
+        "Key": "ReformLockChallengeTip",
+        "Text": "Cannot activate as you haven't accumulated {0} points yet"
+    },
+    {
+        "Key": "ReformEnemyBuffPanelTopTip",
+        "Text": "Stronger enemies will yield more Affix Points"
+    },
+    {
+        "Key": "ReformStageTimeTip",
+        "Text": "Adjust Stage Adjustment Duration"
+    },
+    {
+        "Key": "ReformEvolvableTimeNameText",
+        "Text": "Duration (Limit Beyond Exclusive)"
+    },
+    {
+        "Key": "ReformStageTimePreviewText",
+        "Text": "Stage Duration"
+    },
+    {
+        "Key": "ReformMaxTimeCountTip",
+        "Text": "Selection limit reached"
+    },
+    {
+        "Key": "StrongholdCanAutoFight",
+        "Text": "(Available for Auto Clear!)"
+    },
+    {
+        "Key": "StrongholdNotAutoFightTipsDesc",
+        "Text": "Auto Clear Battle is available in the current area. Continue with manual battle anyway?"
+    },
+    {
+        "Key": "StrongholdSuggestElectricTipsDesc",
+        "Text": "Electricity Used Has Gone Beyond the Recommended Value for the Chapter: <color=#0e70bd>{0} (Recommended by System) +{1} (Electricity Generated)</color>. Unable to complete some of the challenges. Start battle anyway?"
+    },
+    {
+        "Key": "StrongholdSuggestElectricTipsDesc2",
+        "Text": "Currently Electricity Used: <color=#0e70bd>{0}</color>"
+    },
+    {
+        "Key": "StrongholdDeployTxtPjzl",
+        "Text": "Average Power: <color=#{0}>{1}/</color>{2}"
+    },
+    {
+        "Key": "StrongholdSuggestElectricDesc",
+        "Text": "{0}+{1} [Generated]"
+    },
+    {
+        "Key": "ShopOthersDescription405",
+        "Text": "Weapon Enhancer"
+    },
+    {
+        "Key": "ShopOthersDescription404",
+        "Text": "Cogs, Enhancer"
+    },
+    {
+        "Key": "GuildDormNetworkFailed",
+        "Text": "Guild Dormitory network error"
+    },
+    {
+        "Key": "XTwoSideTowerChapterConditionProcess",
+        "Text": "Clear {0} to unlock"
+    },
+    {
+        "Key": "XTwoSideTowerChapterCleared",
+        "Text": "Highest Vision Points: {0}"
+    },
+    {
+        "Key": "XTwoSideTowerChapterNotCleared",
+        "Text": "Uncleared"
+    },
+    {
+        "Key": "XTwoSideTowerChapterTimeProcess",
+        "Text": "Unlocks after {0}"
+    },
+    {
+        "Key": "TwoSideTowerPositiveTitle",
+        "Text": "Downstream"
+    },
+    {
+        "Key": "TwoSideTowerNegativeTitle",
+        "Text": "Upstream"
+    },
+    {
+        "Key": "TwoSideTowerStageDetailTitle",
+        "Text": "Stage Details"
+    },
+    {
+        "Key": "TwoSideTowerResetTitle",
+        "Text": "Tips"
+    },
+    {
+        "Key": "TwoSideTowerResetContent",
+        "Text": "Resetting the chapter will <color=#e41f0a>reset your chapter progress</color>, but you will keep your highest score in the Upstream Phase.\\nAre you sure you want to start a new challenge?"
+    },
+    {
+        "Key": "TwoSideTowerSettleBuffDesc",
+        "Text": "{0}/{1}"
+    },
+    {
+        "Key": "TwoSideTowerSettleShieldDetail",
+        "Text": "You have broken through <color=#e41f0a>{1}</color> Mirage Features\\nand blocked <color=#00ffffff>{0}</color> Mirage Features in the battle of the Upstream Phase."
+    },
+    {
+        "Key": "TwoSideTowerSettlePoint",
+        "Text": "{0}/{1}"
+    },
+    {
+        "Key": "TwoSideTowerFightAgain",
+        "Text": "Challenge Again"
+    },
+    {
+        "Key": "TwoSideTowerAutoFightTitle",
+        "Text": "Tips"
+    },
+    {
+        "Key": "TwoSideTowerAutoFightContent",
+        "Text": "After resetting the chapter, you can use Auto Clear to <color=#e41f0a>skip</color> the stages that you have cleared in the Downstream Phase.\\nAre you sure you want to use Auto Clear?"
+    },
+    {
+        "Key": "TwoSideTowerSettleTitle",
+        "Text": "{0} Cleared!"
+    },
+    {
+        "Key": "TwoSideTowerProcess",
+        "Text": "Mission Completed: {0}/{1}"
+    },
+    {
+        "Key": "TwoSideTowerChangeTip1",
+        "Text": "Downstream Phase is over."
+    },
+    {
+        "Key": "TwoSideTowerChangeTip2",
+        "Text": "Entering Upstream Phase."
+    },
+    {
+        "Key": "GameExitMsg",
+        "Text": "Are you sure you want to quit the game?"
+    },
+    {
+        "Key": "CommonLockedTip",
+        "Text": "Locked"
+    },
+    {
+        "Key": "CourseGPAShow",
+        "Text": "{0}/{1}"
+    },
+    {
+        "Key": "CourseGPAUnlockConditionDesc",
+        "Text": "Total Achievement Points reached {0}"
+    },
+    {
+        "Key": "CourseChapterUnlockConditionDesc",
+        "Text": "Courses completed: {0}"
+    },
+    {
+        "Key": "CourseFinishUnlockLesson",
+        "Text": "Unlock new course: {0}"
+    },
+    {
+        "Key": "CourseFinishUnlockExam",
+        "Text": "Unlock new License Exam: {0}"
+    },
+    {
+        "Key": "CourseGPARewardTitle",
+        "Text": "Achievement Point Reward"
+    },
+    {
+        "Key": "BiancaTheatreNextTaskRefresh",
+        "Text": "Refresh in {0}"
+    },
+    {
+        "Key": "RewardPreview",
+        "Text": "Reward Preview"
+    },
+    {
+        "Key": "EquipGuideEquipNotExist",
+        "Text": "No equipment can be equipped for now."
+    },
+    {
+        "Key": "EquipGuideEquipCanEquips",
+        "Text": "Can be equipped."
+    },
+    {
+        "Key": "EquipGuideEquipGrowing",
+        "Text": "Under Training"
+    },
+    {
+        "Key": "EquipGuideEquipFullLevel",
+        "Text": "Gear Level Maxed"
+    },
+    {
+        "Key": "EquipGuideNotSetTarget",
+        "Text": "No goals have been set."
+    },
+    {
+        "Key": "EquipGuideSetTarget",
+        "Text": "Goal set."
+    },
+    {
+        "Key": "EquipGuideCancelTarget",
+        "Text": "Settings canceled."
+    },
+    {
+        "Key": "EquipGuideChangeTargetIdenticalRoleTips",
+        "Text": "Switch the Equipment Goal [Set {0}] to [Set {1}]?"
+    },
+    {
+        "Key": "EquipGuideChangeTargetInequalityRoleTips",
+        "Text": "Cancel the Equipment Goal for [{0}] and set it for [{1}]?"
+    },
+    {
+        "Key": "EquipGuideCancelTargetTips",
+        "Text": "Cancel the Equipment Goal for [{0}]?"
+    },
+    {
+        "Key": "EquipGuideCurTargetText",
+        "Text": "Current Goal"
+    },
+    {
+        "Key": "EquipGuideEquippedText",
+        "Text": "Equipped"
+    },
+    {
+        "Key": "EquipGuideNoTargetText",
+        "Text": "Set as Goal"
+    },
+    {
+        "Key": "GuildBossHighAreaLvLimit",
+        "Text": "You must reach level 52 to access Special Dispatch Area battles"
+    },
+    {
+        "Key": "GuildNoneJoinToPlay",
+        "Text": "You must join a Command Bureau to access this feature"
+    },
+    {
+        "Key": "SpecialTrainMatchTipTitle",
+        "Text": "Tips"
+    },
+    {
+        "Key": "SpecialTrainMatchTipContent",
+        "Text": "Too many players in the matching queue. Create room directly?"
+    },
+    {
+        "Key": "SpecialTrainRandomMapTip",
+        "Text": "Cannot create room after selecting a random map"
+    },
+    {
+        "Key": "CurLevel",
+        "Text": "Degraded successfully."
+    },
+    {
+        "Key": "DecreaseLevel",
+        "Text": "Degrade"
+    },
+    {
+        "Key": "DrawFreeTicketCoolDown",
+        "Text": "Expire in {0}"
+    },
+    {
+        "Key": "SummerSignInDefault",
+        "Text": "Please select to check an unopened postcard, Commandant."
+    },
+    {
+        "Key": "SummerSignInFinishSign",
+        "Text": "You have used up the check attempts today. Please come back tomorrow."
+    },
+    {
+        "Key": "SummerSignInChoseMessage",
+        "Text": "Postcard from {0} and gifted <color=#ff8105>Free Research</color>"
+    },
+    {
+        "Key": "SummerSignInViewCountFinishTip",
+        "Text": "You have used up the check attempts today. Please come back tomorrow."
+    },
+    {
+        "Key": "BiancaTheatreRestartTipsDesc",
+        "Text": "Insufficient Biomimetic Blood"
+    },
+    {
+        "Key": "GWSelectDifficultyConfirmContentRecommend",
+        "Text": "Recommended Activity for this Difficulty is <color=#A52A2A>{0}</color>. Activity of the Command Bureau last round is {1}. Please make sure the Difficulty you select matches the number of active members in the Command Bureau. Continue?"
+    },
+    {
         "Key": "MultiDimFightExitTipTitle",
         "Text": "Dead Characters"
     },
@@ -16292,10 +16928,6 @@
         "Text": "<a href=\"\"><color=#FF2D2D>\u7279\u5546\u6cd5\u7b2c12\u6761\u306e6\u306b\u95a2\u3059\u308b\u4e8b\u9805\u306f\u3053\u3061\u3089</color></a>"
     },
     {
-        "Key": "GuildBossHighAreaLvLimit",
-        "Text": "\u91cd\u7be4\u6c5a\u67d3\u533a\u57df\u3078\u306e\u6311\u6226\u306fLv52\u4ee5\u4e0a\u304c\u5fc5\u8981\u3067\u3059"
-    },
-    {
         "Key": "JPBlackCardFirstPurchaseGift",
         "Text": "\u521d\u56de\u9650\u5b9a\u304a\u307e\u3051\\n{0}"
     },
@@ -16310,6 +16942,18 @@
     {
         "Key": "JPReviewActivityButton",
         "Text": "Claim"
+    },
+    {
+        "Key": "NormalLimitTip",
+        "Text": "No Omniframes"
+    },
+    {
+        "Key": "DoomsdayNumberUp",
+        "Text": "<color=#0F70BC><size=28> (+{0})</size></color>"
+    },
+    {
+        "Key": "DoomsdayNumberDown",
+        "Text": "<color=#E1504F><size=28> (-{0})</size></color>"
     },
     {
         "Key": "Draw01",
@@ -16464,10 +17108,6 @@
         "Text": "Insufficient Rainbow Card. Go to the recharge page to purchase more?"
     },
     {
-        "Key": "GameExitMsg",
-        "Text": "Are you sure you want to quit?"
-    },
-    {
         "Key": "SetKeyConflict",
         "Text": "This key is already used by another function. Would you like to swap them?\\nCurrently used by: {0}\\nKey selected: {1}"
     },
@@ -16542,5 +17182,9 @@
     {
         "Key": "MillionEN",
         "Text": "M"
+    },
+    {
+        "Key": "FavorabilityCastEN",
+        "Text": "CV:{0}"
     }
 ]

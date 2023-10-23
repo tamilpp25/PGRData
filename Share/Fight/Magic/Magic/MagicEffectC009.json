@@ -136,7 +136,7 @@
         "Id": 748011000,
         "Name": "ChangeAttribAdditive",
         "Level": [
-            "1|0|450000"
+            "1|0|350000"
         ]
     },
     {
@@ -176,7 +176,7 @@
         "Id": 748014000,
         "Name": "ChangeAttribAdditive",
         "Level": [
-            "1|0|425000"
+            "1|0|190000"
         ]
     },
     {
@@ -190,7 +190,7 @@
         "Id": 748015000,
         "Name": "ChangeAttribAdditive",
         "Level": [
-            "1|0|72000"
+            "1|0|0"
         ]
     },
     {
@@ -358,7 +358,7 @@
         "Id": 748029000,
         "Name": "ChangeAttribValue",
         "Level": [
-            "4|0|5000"
+            "4|0|10000"
         ]
     },
     {
@@ -372,7 +372,7 @@
         "Id": 748030000,
         "Name": "ChangeAttribValue",
         "Level": [
-            "3|0|5000"
+            "3|0|10000"
         ]
     },
     {
@@ -765,6 +765,783 @@
         "Name": "AddBehavior",
         "Level": [
             "748081"
+        ]
+    },
+    {
+        "Id": 748082,
+        "Name": "AddBuff",
+        "Level": [
+            "748082"
+        ]
+    },
+    {
+        "Id": 748083,
+        "Name": "AddBuff",
+        "Level": [
+            "748083"
+        ]
+    },
+    {
+        "Id": 748083000,
+        "Name": "AddAttribValue",
+        "Level": [
+            "1|10000|0"
+        ]
+    },
+    {
+        "Id": 748084,
+        "Name": "AddBuff",
+        "Level": [
+            "748084"
+        ]
+    },
+    {
+        "Id": 748084000,
+        "Name": "AddAttribValue",
+        "Level": [
+            "1|500|"
+        ]
+    },
+    {
+        "Id": 748085,
+        "Name": "AddBuff",
+        "Level": [
+            "748085"
+        ]
+    },
+    {
+        "Id": 748086,
+        "Name": "AddBuff",
+        "Level": [
+            "748086"
+        ]
+    },
+    {
+        "Id": 748086000,
+        "Name": "Damage",
+        "Level": [
+            "0|499|0||||||"
+        ]
+    },
+    {
+        "Id": 748087,
+        "Name": "AddBuff",
+        "Level": [
+            "748087"
+        ]
+    },
+    {
+        "Id": 748088,
+        "Name": "AddBuff",
+        "Level": [
+            "748088"
+        ]
+    },
+    {
+        "Id": 748088000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748088"
+        ]
+    },
+    {
+        "Id": 748089,
+        "Name": "AddBuff",
+        "Level": [
+            "748089"
+        ]
+    },
+    {
+        "Id": 748090,
+        "Name": "AddBuff",
+        "Level": [
+            "748090"
+        ]
+    },
+    {
+        "Id": 748090000,
+        "Name": "AddNpcState",
+        "Level": [
+            "34"
+        ]
+    },
+    {
+        "Id": 748091,
+        "Name": "AddBuff",
+        "Level": [
+            "748091"
+        ]
+    },
+    {
+        "Id": 748091000,
+        "Name": "AddNpcState",
+        "Level": [
+            "25"
+        ]
+    },
+    {
+        "Id": 748092,
+        "Name": "AddBuff",
+        "Level": [
+            "748092"
+        ]
+    },
+    {
+        "Id": 748092000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "748091|"
+        ]
+    },
+    {
+        "Id": 748093,
+        "Name": "AddBuff",
+        "Level": [
+            "748093"
+        ]
+    },
+    {
+        "Id": 748093000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "742102"
+        ]
+    },
+    {
+        "Id": 748094,
+        "Name": "AddBuff",
+        "Level": [
+            "748094"
+        ]
+    },
+    {
+        "Id": 748094000,
+        "Name": "ShakeCamera",
+        "Level": [
+            "4|0.2|-0.3|10|2|0"
+        ]
+    },
+    {
+        "Id": 748095,
+        "Name": "AddBuff",
+        "Level": [
+            "748095"
+        ]
+    },
+    {
+        "Id": 748095000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "100010"
+        ]
+    },
+    {
+        "Id": 748096,
+        "Name": "AddBuff",
+        "Level": [
+            "748096"
+        ]
+    },
+    {
+        "Id": 748096000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "742102"
+        ]
+    },
+    {
+        "Id": 748097,
+        "Name": "AddBuff",
+        "Level": [
+            "748097"
+        ]
+    },
+    {
+        "Id": 748097000,
+        "Name": "PlayScreenEffect",
+        "Level": [
+            "742104"
+        ]
+    },
+    {
+        "Id": 748098,
+        "Name": "AddBuff",
+        "Level": [
+            "748098"
+        ]
+    },
+    {
+        "Id": 748098000,
+        "Name": "AddNpcState",
+        "Level": [
+            "23"
+        ]
+    },
+    {
+        "Id": 748099,
+        "Name": "AddBuff",
+        "Level": [
+            "748099"
+        ]
+    },
+    {
+        "Id": 748099000,
+        "Name": "AddNpcState",
+        "Level": [
+            "30"
+        ]
+    },
+    {
+        "Id": 748111,
+        "Name": "AddBuff",
+        "Level": [
+            "748111"
+        ]
+    },
+    {
+        "Id": 748111000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "772744|"
+        ]
+    },
+    {
+        "Id": 748112,
+        "Name": "AddBuff",
+        "Level": [
+            "748112"
+        ]
+    },
+    {
+        "Id": 748112000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "700235|"
+        ]
+    },
+    {
+        "Id": 748113,
+        "Name": "AddBuff",
+        "Level": [
+            "748113"
+        ]
+    },
+    {
+        "Id": 748113000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "700208|"
+        ]
+    },
+    {
+        "Id": 748114,
+        "Name": "AddBuff",
+        "Level": [
+            "748114"
+        ]
+    },
+    {
+        "Id": 748114000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "748099|"
+        ]
+    },
+    {
+        "Id": 748115,
+        "Name": "AddBuff",
+        "Level": [
+            "748115"
+        ]
+    },
+    {
+        "Id": 748115000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748115"
+        ]
+    },
+    {
+        "Id": 748116,
+        "Name": "AddBuff",
+        "Level": [
+            "748116"
+        ]
+    },
+    {
+        "Id": 748116000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "25|2000|0"
+        ]
+    },
+    {
+        "Id": 748117,
+        "Name": "AddBuff",
+        "Level": [
+            "748117"
+        ]
+    },
+    {
+        "Id": 748117000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "25|3000|0"
+        ]
+    },
+    {
+        "Id": 748118,
+        "Name": "AddBuff",
+        "Level": [
+            "748118"
+        ]
+    },
+    {
+        "Id": 748118000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748118"
+        ]
+    },
+    {
+        "Id": 748119,
+        "Name": "AddBuff",
+        "Level": [
+            "748119"
+        ]
+    },
+    {
+        "Id": 748119000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748119"
+        ]
+    },
+    {
+        "Id": 748120,
+        "Name": "AddBuff",
+        "Level": [
+            "748120"
+        ]
+    },
+    {
+        "Id": 748120000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "80|0|"
+        ]
+    },
+    {
+        "Id": 748121,
+        "Name": "AddBuff",
+        "Level": [
+            "748121"
+        ]
+    },
+    {
+        "Id": 748122,
+        "Name": "AddBuff",
+        "Level": [
+            "748122"
+        ]
+    },
+    {
+        "Id": 748122000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748122"
+        ]
+    },
+    {
+        "Id": 748123,
+        "Name": "AddBuff",
+        "Level": [
+            "748123"
+        ]
+    },
+    {
+        "Id": 748123000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "79||350000"
+        ]
+    },
+    {
+        "Id": 748124,
+        "Name": "AddBuff",
+        "Level": [
+            "748124"
+        ]
+    },
+    {
+        "Id": 748124000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "79||190000"
+        ]
+    },
+    {
+        "Id": 748125,
+        "Name": "AddBuff",
+        "Level": [
+            "748125"
+        ]
+    },
+    {
+        "Id": 748125000,
+        "Name": "ChangeAttribAdditive",
+        "Level": [
+            "79||0"
+        ]
+    },
+    {
+        "Id": 748126,
+        "Name": "AddBuff",
+        "Level": [
+            "748126"
+        ]
+    },
+    {
+        "Id": 748126000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "1|100000|"
+        ]
+    },
+    {
+        "Id": 748127,
+        "Name": "AddBuff",
+        "Level": [
+            "748127"
+        ]
+    },
+    {
+        "Id": 748127000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "79|100000|"
+        ]
+    },
+    {
+        "Id": 748128,
+        "Name": "AddBuff",
+        "Level": [
+            "748128"
+        ]
+    },
+    {
+        "Id": 748128000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "1|2000000|"
+        ]
+    },
+    {
+        "Id": 748129,
+        "Name": "AddBuff",
+        "Level": [
+            "748129"
+        ]
+    },
+    {
+        "Id": 748129000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "79|2000000|"
+        ]
+    },
+    {
+        "Id": 748130,
+        "Name": "AddBuff",
+        "Level": [
+            "748130"
+        ]
+    },
+    {
+        "Id": 748130000,
+        "Name": "AddNpcState",
+        "Level": [
+            "24"
+        ]
+    },
+    {
+        "Id": 748131,
+        "Name": "AddBuff",
+        "Level": [
+            "748131"
+        ]
+    },
+    {
+        "Id": 748131000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "748130|"
+        ]
+    },
+    {
+        "Id": 748132,
+        "Name": "AddBuff",
+        "Level": [
+            "748132"
+        ]
+    },
+    {
+        "Id": 748132000,
+        "Name": "AddNpcState",
+        "Level": [
+            "21"
+        ]
+    },
+    {
+        "Id": 748133,
+        "Name": "AddBuff",
+        "Level": [
+            "748133"
+        ]
+    },
+    {
+        "Id": 748134,
+        "Name": "AddBuff",
+        "Level": [
+            "748134"
+        ]
+    },
+    {
+        "Id": 748134000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "748133|"
+        ]
+    },
+    {
+        "Id": 748135,
+        "Name": "AddBuff",
+        "Level": [
+            "748135"
+        ]
+    },
+    {
+        "Id": 748135000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748135"
+        ]
+    },
+    {
+        "Id": 748136,
+        "Name": "AddBuff",
+        "Level": [
+            "748136"
+        ]
+    },
+    {
+        "Id": 748136000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "4|0|5000"
+        ]
+    },
+    {
+        "Id": 748137,
+        "Name": "AddBuff",
+        "Level": [
+            "748137"
+        ]
+    },
+    {
+        "Id": 748137000,
+        "Name": "ChangeAttribValue",
+        "Level": [
+            "3|0|5000"
+        ]
+    },
+    {
+        "Id": 748138,
+        "Name": "AddBuff",
+        "Level": [
+            "748138"
+        ]
+    },
+    {
+        "Id": 748138000,
+        "Name": "AddNpcState",
+        "Level": [
+            "33"
+        ]
+    },
+    {
+        "Id": 748139,
+        "Name": "AddBuff",
+        "Level": [
+            "748139"
+        ]
+    },
+    {
+        "Id": 748139000,
+        "Name": "ChangeModelScale",
+        "Level": [
+            "1|"
+        ]
+    },
+    {
+        "Id": 748140,
+        "Name": "AddBuff",
+        "Level": [
+            "748140"
+        ]
+    },
+    {
+        "Id": 748140000,
+        "Name": "AddNpcState",
+        "Level": [
+            "28"
+        ]
+    },
+    {
+        "Id": 748141,
+        "Name": "AddBuff",
+        "Level": [
+            "748141"
+        ]
+    },
+    {
+        "Id": 748141000,
+        "Name": "RemoveBuff",
+        "Level": [
+            "748140|"
+        ]
+    },
+    {
+        "Id": 748142,
+        "Name": "AddBuff",
+        "Level": [
+            "748142"
+        ]
+    },
+    {
+        "Id": 748142000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748142"
+        ]
+    },
+    {
+        "Id": 748143,
+        "Name": "AddBuff",
+        "Level": [
+            "748143"
+        ]
+    },
+    {
+        "Id": 748143000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748143"
+        ]
+    },
+    {
+        "Id": 748144,
+        "Name": "AddBuff",
+        "Level": [
+            "748144"
+        ]
+    },
+    {
+        "Id": 748144000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748144"
+        ]
+    },
+    {
+        "Id": 748145,
+        "Name": "AddBuff",
+        "Level": [
+            "748145"
+        ]
+    },
+    {
+        "Id": 748145000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748145"
+        ]
+    },
+    {
+        "Id": 748146,
+        "Name": "AddBuff",
+        "Level": [
+            "748146"
+        ]
+    },
+    {
+        "Id": 748146000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748146"
+        ]
+    },
+    {
+        "Id": 748147,
+        "Name": "AddBuff",
+        "Level": [
+            "748147"
+        ]
+    },
+    {
+        "Id": 748148,
+        "Name": "AddBuff",
+        "Level": [
+            "748148"
+        ]
+    },
+    {
+        "Id": 748148000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748148"
+        ]
+    },
+    {
+        "Id": 748149,
+        "Name": "AddBuff",
+        "Level": [
+            "748149"
+        ]
+    },
+    {
+        "Id": 748149000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748149"
+        ]
+    },
+    {
+        "Id": 748150,
+        "Name": "AddBuff",
+        "Level": [
+            "748150"
+        ]
+    },
+    {
+        "Id": 748150000,
+        "Name": "AddBehavior",
+        "Level": [
+            "748150"
+        ]
+    },
+    {
+        "Id": 748151,
+        "Name": "AddBuff",
+        "Level": [
+            "748151"
+        ]
+    },
+    {
+        "Id": 748151000,
+        "Name": "ChangeModelScale",
+        "Level": [
+            "0.5|1"
         ]
     }
 ]

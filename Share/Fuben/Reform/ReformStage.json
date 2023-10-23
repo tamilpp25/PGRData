@@ -1,302 +1,342 @@
 [
     {
-        "Id": 30201171,
-        "Name": "Direct Conflict",
-        "ShowNpcId": 90120,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10010,
-            10011,
-            10012
-        ],
-        "ShowFightEventIds": [
-            760211
-        ]
-    },
-    {
-        "Id": 30201172,
-        "Name": "Firepower Advantage",
-        "ShowNpcId": 90110,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10020,
-            10021,
-            10022
-        ],
-        "ShowFightEventIds": [
-            760341,
-            760394.0
-        ]
-    },
-    {
-        "Id": 30201173,
-        "Name": "Backup",
-        "ShowNpcId": 90610,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10030,
-            10031,
-            10032
-        ],
-        "ShowFightEventIds": [
-            778076,
-            778081.0
-        ]
-    },
-    {
-        "Id": 30201174,
-        "Name": "Assault Tactics",
-        "ShowNpcId": 90470,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10040,
-            10041,
-            10042
-        ],
-        "ShowFightEventIds": [
-            760131,
-            760361.0
-        ]
-    },
-    {
-        "Id": 30201175,
-        "Name": "Battlefield Mobility",
-        "ShowNpcId": 90750,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10050,
-            10051,
-            10052
-        ],
-        "ShowFightEventIds": [
-            760301,
-            760371.0
-        ]
-    },
-    {
-        "Id": 30201176,
-        "Name": "Hard to Move",
-        "ShowNpcId": 93010,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10060,
-            10061,
-            10062
-        ],
-        "ShowFightEventIds": [
-            760411,
-            760451.0
-        ]
-    },
-    {
-        "Id": 30201177,
-        "Name": "Hold Formation",
-        "ShowNpcId": 90160,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10070,
-            10071,
-            10072
-        ],
-        "ShowFightEventIds": [
-            760241,
-            760394.0
-        ]
-    },
-    {
-        "Id": 30201178,
-        "Name": "Best Partners",
-        "ShowNpcId": 90620,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10080,
-            10081,
-            10082
-        ],
-        "ShowFightEventIds": [
-            760261,
-            760211.0
-        ]
-    },
-    {
-        "Id": 30201179,
-        "Name": "Spreading Curse",
-        "ShowNpcId": 90170,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10090,
-            10091,
-            10092
-        ],
-        "ShowFightEventIds": [
-            778076,
-            778081.0
-        ]
-    },
-    {
-        "Id": 30201180,
-        "Name": "Unbreakable",
-        "ShowNpcId": 90250,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10100,
-            10101,
-            10102
-        ],
-        "ShowFightEventIds": [
-            772595,
-            772587.0
-        ]
-    },
-    {
-        "Id": 30201181,
-        "Name": "Fight Separately",
-        "ShowNpcId": 90630,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10110,
-            10111,
-            10112
-        ],
-        "ShowFightEventIds": [
-            760391,
-            760271.0
-        ]
-    },
-    {
-        "Id": 30201182,
-        "Name": "Signal Shielding",
-        "ShowNpcId": 90950,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10120,
-            10121,
-            10122
-        ],
-        "ShowFightEventIds": [
-            772583,
-            760670.0
-        ]
-    },
-    {
-        "Id": 30201183,
-        "Name": "Familiarity",
-        "ShowNpcId": 81600,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10130,
-            10131,
-            10132
-        ],
-        "ShowFightEventIds": [
-            760251,
-            760321.0
-        ]
-    },
-    {
-        "Id": 30201184,
-        "Name": "Inseparable",
-        "ShowNpcId": 83600,
-        "OpenTimeId": null,
-        "StageDiff": [
-            10140,
-            10141,
-            10142
-        ],
-        "ShowFightEventIds": [
-            760351
-        ]
-    },
-    {
-        "Id": 30201185,
-        "Name": "EX - Reunion",
+        "Id": 30162501,
+        "Name": "Limit Break - 1",
+        "RecommendScore": 2200,
+        "StageType": 1,
         "ShowNpcId": 90030,
-        "OpenTimeId": null,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10150,
-            10151,
-            10152,
-            10153.0
+            10010
         ],
-        "ShowFightEventIds": [
-            760253
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1011002,
+            1081003,
+            1031001
         ]
     },
     {
-        "Id": 30201186,
-        "Name": "EX - Adversity",
+        "Id": 30162502,
+        "Name": "Limit Break - 2",
+        "RecommendScore": 2400,
+        "StageType": 1,
+        "ShowNpcId": 90210,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10020
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1021002,
+            1091002,
+            1111002
+        ]
+    },
+    {
+        "Id": 30162503,
+        "Name": "Limit Break - 3",
+        "RecommendScore": 3000,
+        "StageType": 1,
+        "ShowNpcId": 90610,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10030
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1121003,
+            1081002,
+            1211002
+        ]
+    },
+    {
+        "Id": 30162504,
+        "Name": "Limit Break - 4",
+        "RecommendScore": 3000,
+        "StageType": 1,
+        "ShowNpcId": 90460,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10040
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1171003,
+            1221002,
+            1031001
+        ]
+    },
+    {
+        "Id": 30162505,
+        "Name": "Limit Break - 5",
+        "RecommendScore": 4000,
+        "StageType": 1,
+        "ShowNpcId": 90890,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10050
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1071004,
+            1071002,
+            1131002
+        ]
+    },
+    {
+        "Id": 30162506,
+        "Name": "Limit Break - 6",
+        "RecommendScore": 4200,
+        "StageType": 1,
+        "ShowNpcId": 90250,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10060
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1141003,
+            1031001,
+            1021003
+        ]
+    },
+    {
+        "Id": 30162507,
+        "Name": "Limit Break - 7",
+        "RecommendScore": 4400,
+        "StageType": 1,
         "ShowNpcId": 90850,
-        "OpenTimeId": null,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10160,
-            10161,
-            10162,
-            10163.0
+            10070
         ],
-        "ShowFightEventIds": [
-            760640,
-            760630.0
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1121003,
+            1031002,
+            1021004
         ]
     },
     {
-        "Id": 30201187,
-        "Name": "EX - Last Stand",
-        "ShowNpcId": 81900,
-        "OpenTimeId": null,
+        "Id": 30162508,
+        "Name": "Limit Break - 8",
+        "RecommendScore": 5300,
+        "StageType": 1,
+        "ShowNpcId": 90770,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10170,
-            10171,
-            10172,
-            10173.0
+            10080
         ],
-        "ShowFightEventIds": [
-            760251
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1041003,
+            1131003,
+            1031002
         ]
     },
     {
-        "Id": 30201188,
-        "Name": "EX - Go Beyond Fate",
-        "ShowNpcId": 84200,
-        "OpenTimeId": null,
+        "Id": 30162509,
+        "Name": "Limit Break - 9",
+        "RecommendScore": 5300,
+        "StageType": 1,
+        "ShowNpcId": 90090,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10180,
-            10181,
-            10182,
-            10183.0
+            10090
         ],
-        "ShowFightEventIds": [
-            760640
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1031004,
+            1531004,
+            1211002
         ]
     },
     {
-        "Id": 30201189,
-        "Name": "EX - Play It by Ear",
-        "ShowNpcId": 81500,
-        "OpenTimeId": null,
+        "Id": 30162510,
+        "Name": "Limit Break - 10",
+        "RecommendScore": 4800,
+        "StageType": 1,
+        "ShowNpcId": 90190,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10190,
-            10191,
-            10192,
-            10193.0
+            10100
         ],
-        "ShowFightEventIds": [
-            760630,
-            772601.0
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1071002,
+            1031004,
+            1051004
         ]
     },
     {
-        "Id": 30201190,
-        "Name": "EX - Infinite Cycle",
-        "ShowNpcId": 70020,
-        "OpenTimeId": null,
+        "Id": 30162511,
+        "Name": "Limit Break - 11",
+        "RecommendScore": 3200,
+        "StageType": 1,
+        "ShowNpcId": 93160,
+        "OpenTimeId": 10701,
         "StageDiff": [
-            10200,
-            10201,
-            10202,
-            10203.0
+            10110
         ],
-        "ShowFightEventIds": [
-            778091
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1551003,
+            1511003,
+            1541003
+        ]
+    },
+    {
+        "Id": 30162512,
+        "Name": "Limit Break - 12",
+        "RecommendScore": 5000,
+        "StageType": 1,
+        "ShowNpcId": 836000,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10120
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1031002,
+            1031003,
+            1031004
+        ]
+    },
+    {
+        "Id": 30162513,
+        "Name": "Limit Break - 13",
+        "RecommendScore": 5300,
+        "StageType": 1,
+        "ShowNpcId": 90730,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10130
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1121003,
+            1031004,
+            1051004
+        ]
+    },
+    {
+        "Id": 30162514,
+        "Name": "Limit Break - Final",
+        "RecommendScore": 4000,
+        "StageType": 1,
+        "ShowNpcId": 90250,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10140
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1011002,
+            1021002,
+            1531004
+        ]
+    },
+    {
+        "Id": 30162515,
+        "Name": "Limit Beyond - 1",
+        "RecommendScore": 7000,
+        "StageType": 2,
+        "ShowNpcId": 93230,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10150
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1031003,
+            1031002,
+            1071002
+        ]
+    },
+    {
+        "Id": 30162516,
+        "Name": "Limit Beyond - 2",
+        "RecommendScore": 6200,
+        "StageType": 2,
+        "ShowNpcId": 90470,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10160
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1171003,
+            1061003,
+            1531004
+        ]
+    },
+    {
+        "Id": 30162517,
+        "Name": "Limit Beyond - 3",
+        "RecommendScore": 6000,
+        "StageType": 2,
+        "ShowNpcId": 90220,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10170
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1551003,
+            1511003,
+            1541003
+        ]
+    },
+    {
+        "Id": 30162518,
+        "Name": "Limit Beyond - 4",
+        "RecommendScore": 5500,
+        "StageType": 2,
+        "ShowNpcId": 83500,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10180
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1051004,
+            1031004,
+            1011003
+        ]
+    },
+    {
+        "Id": 30162519,
+        "Name": "Limit Beyond - 5",
+        "RecommendScore": 6700,
+        "StageType": 2,
+        "ShowNpcId": 84400,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10190
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1171003,
+            1071004,
+            1111002
+        ]
+    },
+    {
+        "Id": 30162520,
+        "Name": "Limit Beyond - Final",
+        "RecommendScore": 12500,
+        "StageType": 2,
+        "ShowNpcId": 84310,
+        "OpenTimeId": 10701,
+        "StageDiff": [
+            10200
+        ],
+        "ShowFightEventIds": [],
+        "RecommendCharacterIds": [
+            1021004,
+            1041003,
+            1031004
         ]
     }
 ]

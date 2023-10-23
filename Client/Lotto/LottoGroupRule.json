@@ -78,6 +78,58 @@
         ]
     },
     {
+        "Id": 4,
+        "Name": "Bright Path Supplies",
+        "Tag": 2,
+        "Priority": 4,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "Guaranteed <color=#fa8f26><size=28>Core Layer</size></color> reward every <color=#fa8f26><size=28>10 pulls</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Costs",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Rewards"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will be guaranteed to obtain the [S-Rank Omniframe Choice] Pack once you complete [10X] research",
+            "Each research needs to cost a [Bright Path R&D Ticket] and the research cost increases as follows: 50/200/400/600/800/1200/1600/2000/2500/3150",
+            "When the [Bright Path R&D Ticket] for research are inadequate, you can use Event Construct R&D Tickets or Target Weapon R&D Tickets to exchange for them. Both tokens can exchange for the same amount of [Bright Path R&D Ticket]. After the event ends, the remaining unused event token [Bright Path R&D Ticket] will be converted into Basic Construct R&D Ticket at a ratio of 1:1.",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the [S-Rank Omniframe Choice] Pack starting at the [5th] research. You can advance to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain an extra [A-Rank CUB Choice]."
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Dreamcatcher",
+        "Tag": 6,
+        "Priority": 5,
+        "UiType": 1,
+        "GroupBtnBg": null,
+        "UiPrefab": "UiLotto",
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "UiBackGround": "Assets/Product/Ui/ComponentPrefab/DrawBackGround/DrawBackGround01.prefab",
+        "RuleHint": "Guaranteed <color=#fa8f26><size=28>Core Layer</size></color> reward within <color=#fa8f26><size=28>10 attempts</size></color>",
+        "BaseRuleTitles": [
+            "Rewards Description",
+            "Research Costs",
+            "Obtain Tokens",
+            "Volatility",
+            "Extra Rewards"
+        ],
+        "BaseRules": [
+            "All rewards are limited, and cannot be obtained again after drawing; you will definitely obtain the character coating [Dreamcatcher] once you complete [10X] research.",
+            "Each research costs [Woven Dream's Aurora] and the research cost increases as follows: 50/100/250/400/600/800/1200/1700/2200/2700",
+            "When the [Woven Dream's Aurora] for research is inadequate, you can use Black Card or Rainbow Card to exchange                                                     Black Card: Equivalent     Rainbow Card: Discount",
+            "The probability of obtaining various rewards for each research is different, and there is a probability of obtaining the coating [Dreamcatcher] starting at the [5th] research. You can go to [Drop Details] to check the probability.",
+            "When the [8th] research is reached, you will obtain the extra reward of [Dreamcatcher Portrait]."
+        ]
+    },
+    {
         "Id": 100001,
         "Name": "Volatile Priestess",
         "Tag": 6,

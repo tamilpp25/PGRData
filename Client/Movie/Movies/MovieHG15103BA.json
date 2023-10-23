@@ -438,8 +438,7 @@
         "EndDelay": null,
         "Params": [
             "1",
-            "1081001",
-            1.0
+            "1081001"
         ]
     },
     {
@@ -486,7 +485,6 @@
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
             "Kamui",
             "Yeah. I hadn't been able to get in contact with him since last night. He often disappeared out of nowhere like this, too, but usually he'd be back by morning.",
             "1"
@@ -948,11 +946,10 @@
         "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
-        "EndDelay": 1500.0,
+        "EndDelay": null,
         "Params": [
             "1",
-            "500175",
-            1.0
+            "500175"
         ]
     },
     {
@@ -978,12 +975,11 @@
         "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": null,
+        "BeginAnim": "DialogEnable",
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,
         "Params": [
-            "1",
             "Camu",
             "\u2014?!",
             "1"
@@ -996,7 +992,7 @@
         "Type": 301,
         "IsBlock": null,
         "IsEnd": null,
-        "BeginAnim": "DialogEnable",
+        "BeginAnim": null,
         "EndAnim": null,
         "BeginDelay": null,
         "EndDelay": null,

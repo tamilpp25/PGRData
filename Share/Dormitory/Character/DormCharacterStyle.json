@@ -895,7 +895,7 @@
         "Id": 1171003,
         "Type": 2,
         "Model": "Assets/Product/Role/Room/Prefab/QR3LunaMd010011.prefab",
-        "Name": "Luna Laurel",
+        "Name": "Luna: Laurel",
         "NameFrist": "Luna",
         "NameLast": "Laurel",
         "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadLuna3Q.png",
@@ -1237,7 +1237,7 @@
         "Id": 1561003,
         "Type": 7,
         "Model": "Assets/Product/Role/Room/Prefab/QR2HakamaMd010011.prefab",
-        "Name": "Haicma Starveil",
+        "Name": "Haicma: Starveil",
         "NameFrist": "Haicma",
         "NameLast": "Starveil",
         "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadHakama3Qnew.png",
@@ -1281,5 +1281,57 @@
             837000.0
         ],
         "HateCharIds": []
+    },
+    {
+        "Id": 1571003,
+        "Type": 6,
+        "Model": "Assets/Product/Role/Room/Prefab/QR2NuoanMd010011.prefab",
+        "Name": "Noan: Arca",
+        "NameFrist": "Noan",
+        "NameLast": "Arca",
+        "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadNuoan3Qnew.png",
+        "HeadIcon": "Assets/Product/Texture/Image/Role/RoleHeadNuoanQnew.png",
+        "ExpFondleWidgetHeight": 0.85,
+        "ExpDetailWidgetHeight": 0.7,
+        "PutOnWidgetHight": 1.2,
+        "DailogWidgetHight": 1.4,
+        "DailogTouchHight": 0.51,
+        "EffectWidgetHight": 1,
+        "TouchWidgetHight": 0.6,
+        "LoveType": 3,
+        "LikeType": 2,
+        "LikeCharIds": [
+            1081002.0,
+            1161002.0
+        ],
+        "HateCharIds": []
+    },
+    {
+        "Id": 1041004,
+        "Type": 2,
+        "Model": "Assets/Product/Role/Room/Prefab/QR4BiankaMd010011.prefab",
+        "Name": "Bianca: Stigmata",
+        "NameFrist": "Bianca",
+        "NameLast": "Stigmata",
+        "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadR4Bianka3Q.png",
+        "HeadIcon": "Assets/Product/Texture/Image/Role/RoleHeadR4BiankaQ.png",
+        "ExpFondleWidgetHeight": 0.85,
+        "ExpDetailWidgetHeight": 0.7,
+        "PutOnWidgetHight": 1.2,
+        "DailogWidgetHight": 1.4,
+        "DailogTouchHight": 0.51,
+        "EffectWidgetHight": 1,
+        "TouchWidgetHight": 0.6,
+        "LoveType": 2,
+        "LikeType": 3,
+        "LikeCharIds": [
+            1071004.0,
+            1071003.0,
+            1071002.0
+        ],
+        "HateCharIds": [
+            1081003.0,
+            1081002.0
+        ]
     }
 ]

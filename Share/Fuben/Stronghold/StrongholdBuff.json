@@ -2191,7 +2191,7 @@
         "Id": 201,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
         "Name": "Pure Site",
-        "Desc": "No bonuses,",
+        "Desc": "Damage by Uniframes reduces more Finisher Gauge value.",
         "Condition": [],
         "FightEventId": []
     },
@@ -2552,11 +2552,77 @@
     {
         "Id": 233,
         "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
-        "Name": "Affix Name 20",
+        "Name": "Limiter Release",
         "Desc": "Every after character switch: \\nCharacter on the field has permanent 20% Extra DMG Bonus (up to 200%)\\nCharacter on the field gains Super Armor and a shield equal to 30% max HP within 15s.",
         "Condition": [],
         "FightEventId": [
             200133.0
+        ]
+    },
+    {
+        "Id": 234,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Vision Event",
+        "Desc": "A black hole will appear on the battlefield at intervals.\\nThe black hole will pull in enemies within a large area over time.",
+        "Condition": [],
+        "FightEventId": [
+            200134.0
+        ]
+    },
+    {
+        "Id": 235,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon018.png",
+        "Name": "Operation Uniframe",
+        "Desc": "Upon taking Uniframe DMG, greatly reduces the Finisher Gauge. Speed Attack Skills' bonus effects will not be affected (not shown).",
+        "Condition": [],
+        "FightEventId": [
+            200135.0
+        ]
+    },
+    {
+        "Id": 236,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13021.png",
+        "Name": "Final Countdown",
+        "Desc": "After the battle starts, a flame will appear on the battlefield every 9s, which will deal Fire DMG to allies it touches. After the 20th flame is summoned, the flames will start tracking your allies.",
+        "Condition": [],
+        "FightEventId": [
+            200136.0
+        ]
+    },
+    {
+        "Id": 237,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12121.png",
+        "Name": "Ceremony Preparation",
+        "Desc": "After the stage is cleared, each flame summoned will shrink over time and start to track your 30s later.",
+        "Condition": [
+            94022.0
+        ],
+        "FightEventId": [
+            200137.0
+        ]
+    },
+    {
+        "Id": 238,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12151.png",
+        "Name": "Nowhere to Hide",
+        "Desc": "The flames' damage cannot be dodged.",
+        "Condition": [
+            94023.0
+        ],
+        "FightEventId": [
+            200138.0
+        ]
+    },
+    {
+        "Id": 239,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21212.png",
+        "Name": "Scorching Flame",
+        "Desc": "Flame deals 200% more DMG.",
+        "Condition": [
+            94024.0
+        ],
+        "FightEventId": [
+            200139.0
         ]
     }
 ]

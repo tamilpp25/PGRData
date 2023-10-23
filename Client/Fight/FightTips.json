@@ -1,5 +1,13 @@
 [
     {
+        "Id": 1,
+        "Type": 9,
+        "Title": "Recommended Graphics:",
+        "Desc": "Can be adjusted in [Settings] later",
+        "Time": 5.0,
+        "PrefabPath": null
+    },
+    {
         "Id": 1001,
         "Type": 1,
         "Title": null,
@@ -357,6 +365,14 @@
         "Title": null,
         "Desc": "You can press the special button to quickly pass a stage and obtain all resources.",
         "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1104,
+        "Type": 8,
+        "Title": "Deviation Rate",
+        "Desc": "{0}",
+        "Time": null,
         "PrefabPath": null
     },
     {
@@ -789,6 +805,110 @@
         "Title": null,
         "Desc": "All the castle units are out!",
         "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159846,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Eliminate enemies in all zones!\\n<size=27>Enemies will get stronger as you progress.</size>",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159861,
+        "Type": 8,
+        "Title": "<color=#0066CC>F</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159862,
+        "Type": 8,
+        "Title": "<color=#0066CC>F\u00b7I</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159863,
+        "Type": 8,
+        "Title": "<color=#0066CC>F\u00b7I\u00b7N</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159864,
+        "Type": 8,
+        "Title": "<color=#0066CC>F\u00b7I\u00b7N\u00b7A</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159865,
+        "Type": 8,
+        "Title": "<color=#0066CC>F\u00b7I\u00b7N\u00b7A\u00b7L</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159866,
+        "Type": 8,
+        "Title": "<color=#FF3300>F</color><color=#0066CC>\u00b7I\u00b7N\u00b7A\u00b7L</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159867,
+        "Type": 8,
+        "Title": "<color=#FF3300>F\u00b7I</color><color=#0066CC>\u00b7N\u00b7A\u00b7L</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159868,
+        "Type": 8,
+        "Title": "<color=#FF3300>F\u00b7I\u00b7N</color><color=#0066CC>\u00b7A\u00b7L</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159869,
+        "Type": 8,
+        "Title": "<color=#FF3300>F\u00b7I\u00b7N\u00b7A</color><color=#0066CC>\u00b7L</color>",
+        "Desc": "<color=#0066CC>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7159870,
+        "Type": 8,
+        "Title": "<color=#FF3300>F\u00b7I\u00b7N\u00b7A\u00b7L</color>",
+        "Desc": "<color=#FF3300>\u25c6</color>",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7160421,
+        "Type": 8,
+        "Title": "Enemies Stopped: ",
+        "Desc": "{0}",
+        "Time": -1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7160461,
+        "Type": 8,
+        "Title": "Enemies Defeated: ",
+        "Desc": "{0}",
+        "Time": -1.0,
         "PrefabPath": null
     },
     {
@@ -30848,6 +30968,14 @@
         "PrefabPath": null
     },
     {
+        "Id": 30101029,
+        "Type": 7,
+        "Title": null,
+        "Desc": "Eliminate the enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
         "Id": 301010081,
         "Type": 1,
         "Title": null,
@@ -31080,6 +31208,78 @@
         "PrefabPath": null
     },
     {
+        "Id": 301010110,
+        "Type": 1,
+        "Title": null,
+        "Desc": "You may select another Active Skill for Shimmer. Switching to [Gliding Barrage] now.",
+        "Time": 5.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301010111,
+        "Type": 8,
+        "Title": "Current Skill: ",
+        "Desc": "[Swirl Blast]",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301010112,
+        "Type": 8,
+        "Title": "Current Skill: ",
+        "Desc": "[Gliding Barrage]",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011001,
+        "Type": 8,
+        "Title": "Current Tutorial: ",
+        "Desc": "[Shining Wings] (Common)",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011002,
+        "Type": 8,
+        "Title": "Current Tutorial: ",
+        "Desc": "[Eradication of Sins] (Signature)",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011003,
+        "Type": 8,
+        "Title": "Current Tutorial: ",
+        "Desc": "[Raging Surge] (Core)",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011004,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Loading Leap Skill [Shining Wings] tutorial...",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011005,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Loading Leap Skill [Eradication of Sins] tutorial...",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301011006,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Loading Leap Skill [Raging Surge] tutorial...",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
         "Id": 301009081,
         "Type": 8,
         "Title": "Current Target:",
@@ -31120,6 +31320,22 @@
         "PrefabPath": null
     },
     {
+        "Id": 301009273,
+        "Type": 8,
+        "Title": "Stage Target:",
+        "Desc": "Defeat Vassago",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301009274,
+        "Type": 8,
+        "Title": "Stage Target: ",
+        "Desc": "Defeat Pterygota Queen.",
+        "Time": 9999.0,
+        "PrefabPath": null
+    },
+    {
         "Id": 301009171,
         "Type": 1,
         "Title": null,
@@ -31131,7 +31347,7 @@
         "Id": 301009172,
         "Type": 8,
         "Title": "Stage Target:",
-        "Desc": "Use Haicma: Starveil to defeat the enemy.",
+        "Desc": "Use Haicma: Starveil to defeat the enemies",
         "Time": 9999.0,
         "PrefabPath": null
     },
@@ -39104,6 +39320,22 @@
         "PrefabPath": null
     },
     {
+        "Id": 1018010010,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Ping the orbs till there are 3 left. Match the order and color of orbs displayed as follows: Red - Red - Yellow. (L -> R)",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1018010011,
+        "Type": 8,
+        "Title": "Talk to Medic Bot to reset the orbs",
+        "Desc": "Tips",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
         "Id": 1018011001,
         "Type": 2,
         "Title": null,
@@ -39549,6 +39781,310 @@
         "Title": null,
         "Desc": "<color=#FF0000><size=50>Perfect!</size></color>",
         "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031001,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate all the Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031002,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Traverse the Red Tide Area",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031003,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the Red Tide Projection",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031004,
+        "Type": 8,
+        "Title": "Clue 1",
+        "Desc": "The Red Tide Projection cannot move",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031005,
+        "Type": 8,
+        "Title": "Clue 2",
+        "Desc": "The Red Tide Projection will disappear when attacked",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031006,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Try to attack the Red Tide Projection",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031007,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Remove the Red Tide Projection",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031008,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Pay attention to nearby sounds",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031009,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enter and stay in the Red Tide",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031010,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Traverse the Red Tide Area",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031011,
+        "Type": 2,
+        "Title": null,
+        "Desc": "You can hear footsteps approaching from a distance...",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031101,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go down the street and eliminate all the Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031102,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies and save the Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031103,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to the Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031104,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Command Blair to eliminate the Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031105,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Try to command the Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031106,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Retreat",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031107,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Suicide",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031108,
+        "Type": 1,
+        "Title": null,
+        "Desc": "It can't go on at this rate. Try another command.",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031201,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Return to the hospital",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031202,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate all the Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031203,
+        "Type": 1,
+        "Title": null,
+        "Desc": "This Construct is dead",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031204,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Check the injured Constructs",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031205,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The corruption on Talbot has gone beyond the threshold",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031206,
+        "Type": 8,
+        "Title": "Talbot HP <color=#00FF00>\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#00FF00>Safe</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031207,
+        "Type": 8,
+        "Title": "Talbot HP <color=#00FF00>\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#00FF00>Safe</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031208,
+        "Type": 8,
+        "Title": "Talbot HP <color=#00FF00>\u2589\u2589\u2589\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#00FF00>Safe</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031209,
+        "Type": 8,
+        "Title": "Talbot HP <color=#00FF00>\u2589\u2589\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#00FF00>Safe</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031210,
+        "Type": 8,
+        "Title": "Talbot HP <color=#00FF00>\u2589\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#00FF00>Safe</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031211,
+        "Type": 8,
+        "Title": "Talbot HP <color=#FFFF00>\u2589\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#FFFF00>Injured</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031212,
+        "Type": 8,
+        "Title": "Talbot HP <color=#FFFF00>\u2589\u2589\u2589\u2589</color>",
+        "Desc": "<color=#FFFF00>Injured</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031213,
+        "Type": 8,
+        "Title": "Talbot HP <color=#FF0000>\u2589\u2589\u2589</color>",
+        "Desc": "<color=#FF0000>Dangerous</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031214,
+        "Type": 8,
+        "Title": "Talbot HP <color=#FF0000>\u2589\u2589</color>",
+        "Desc": "<color=#FF0000>Dangerous</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031215,
+        "Type": 8,
+        "Title": "Talbot HP <color=#FF0000>\u2589</color>",
+        "Desc": "<color=#FF0000>Dangerous</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031216,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use the Ascendant power to make the Corrupted self-destruct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031217,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The Corrupted shows no response...",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031218,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat <color=#FF0000>Corrupted Talbot</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502031219,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Talbot has become Corrupted",
+        "Time": 2.0,
         "PrefabPath": null
     },
     {
@@ -40499,7 +41035,7 @@
         "Id": 300601055,
         "Type": 2,
         "Title": null,
-        "Desc": "Defeat PK43 Type \"Sheriff\".                                                                   <color=#33FFFF><size=25>Upon defeating a <color=#FF9900>marked</color> enemy, Uniframe can charge the tank.</size></color>",
+        "Desc": "Defeat PK-43 Sheriff.           <color=#33FFFF><size=25>Defeating <color=#FF9900>marked</color> enemies will charge Chariot.</size></color>",
         "Time": null,
         "PrefabPath": null
     },
@@ -41264,6 +41800,46 @@
         "PrefabPath": null
     },
     {
+        "Id": 301605261,
+        "Type": 8,
+        "Title": "DMG Bonus(es) Noan gained: ",
+        "Desc": "{0} Stack(s)",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301605262,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Gear Level goes up. Gained 3 Signal Orbs of a random color!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301605263,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Successful Assault-Rising Combo. DMG bonus received!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301605291,
+        "Type": 8,
+        "Title": "Bianca's total DMG increases by",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301605292,
+        "Type": 2,
+        "Title": null,
+        "Desc": "<size=27>After pressing Dodge to activate Luminous Realm, <color=#ff0000>pinging Afterglow Orbs adjacent to the orbs of the same color</color> and <color=#ff0000>Phase II Signature Move</color> will grant Bianca a set of 3-Ping Orbs.</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
         "Id": 500001,
         "Type": 1,
         "Title": null,
@@ -41597,6 +42173,78 @@
         "Title": null,
         "Desc": "When the Dragon has <color=#FF0000>less than 80% HP</color>, it <color=#FF0000>transforms</color>. <color=#33FFFF>Use different types of Elemental DMG</color> to defeat the Dragon!",
         "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500101,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemy Wave <color=#33FFFF>1/3</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500102,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemy Wave <color=#33FFFF>2/3</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500103,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemy Wave <color=#33FFFF>3/3</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500104,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemy Wave <color=#33FFFF>1/2</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500105,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemy Wave <color=#33FFFF>2/2</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500106,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate all enemies",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500107,
+        "Type": 8,
+        "Title": null,
+        "Desc": "Arm Charge {0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500108,
+        "Type": 8,
+        "Title": null,
+        "Desc": "Shield Absorption Progress: {0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 500109,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Cutting off the arm can empty the charge.",
+        "Time": null,
         "PrefabPath": null
     },
     {
@@ -43579,7 +44227,7 @@
         "Id": 1019010904,
         "Type": 2,
         "Title": null,
-        "Desc": "Defeat the Corrupted Construct",
+        "Desc": "Defeat the Corrupted Constructs",
         "Time": null,
         "PrefabPath": null
     },
@@ -43619,7 +44267,7 @@
         "Id": 1019010909,
         "Type": 1,
         "Title": null,
-        "Desc": "Defeat the Corrupted Construct",
+        "Desc": "Defeat the Corrupted Constructs",
         "Time": 2.0,
         "PrefabPath": null
     },
@@ -43780,6 +44428,142 @@
         "Type": 8,
         "Title": "M.I.N.D. Recovery Progress",
         "Desc": "<color=#ff0000>0.0{0}%</color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010901,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to the target area and prepare to engage.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010902,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat Hetero-Creatures.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010903,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to the operator.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010904,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Select a Defense Tower to set up.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010905,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to check the situation at sea.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011201,
+        "Type": 8,
+        "Title": "Retreat from the aquarium.",
+        "Desc": "Target",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011202,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Get through Hetero-Creatures with <color=#FE2E2E>Leap</color> to avoid combat.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011203,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Pass through low-height areas with <color=#FE2E2E>Crouch</color> to avoid combat.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011204,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat all Hetero-Creatures.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011205,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use <color=#FE2E2E>Crouch</color> to stay balanced when a strong quake occurs.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011206,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the Red Tide Projection.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011401,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Tap Dodge to roll.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011402,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Hold Dodge and push down the joystick to slide quicker.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011403,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Stop the formation of Red Tide Projections.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011404,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Break through Chiko's illusionary realm.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011405,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find and touch the <color=#00FFFF>Water-Surging Ruins</color>.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011406,
+        "Type": 8,
+        "Title": "When blinking, release for swordwaves.",
+        "Desc": "Tips",
         "Time": null,
         "PrefabPath": null
     },
@@ -44045,6 +44829,1974 @@
         "Title": "This is a data tip",
         "Desc": "{0}%",
         "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625001,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 1st wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625002,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 2nd wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625003,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 3rd wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625004,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 4th wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625005,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 5th wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625006,
+        "Type": 1,
+        "Title": null,
+        "Desc": "ALERT: The 6th wave of enemies has arrived!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625007,
+        "Type": 2,
+        "Title": null,
+        "Desc": "The Polar Soldier will spawn in <color=#FFFF66>{0}</color>s",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301625008,
+        "Type": 2,
+        "Title": null,
+        "Desc": "The Deconstructor will cast Dart in <color=#FFFF66>{0}</color>s",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301902001,
+        "Type": 8,
+        "Title": "Collab Core \u03b1:",
+        "Desc": "{0}/4",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301902002,
+        "Type": 8,
+        "Title": "Collab Core \u03b2:",
+        "Desc": "{0}/2",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301902003,
+        "Type": 8,
+        "Title": "Solo Core \u03b1:",
+        "Desc": "{0}/6",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301902004,
+        "Type": 8,
+        "Title": "Solo Core \u03b2:",
+        "Desc": "{0}/2",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032101,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=50>Open Eyes</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032102,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=50>Stand Up</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032103,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=50>Move Forward</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032104,
+        "Type": 8,
+        "Title": "Frame Emergency Reboot:",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032105,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Frame Emergency Reboot Completed",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032106,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Go the upper level of the lighthouse",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032107,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go the upper level of the lighthouse",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032108,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go the upper level of the lighthouse                                                           <size=25><color=#FFFF66>Eliminated the Corrupted on the way</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032109,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Go the upper level of the lighthouse\\n<size=25><color=#FFFF66>Watch out for the M.I.N.D. corruption</color></size>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032110,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go the upper level of the lighthouse                                                           <size=25><color=#FFFF66>Watch out as M.I.N.D. is corrupted</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032111,
+        "Type": 8,
+        "Title": "M.I.N.D. Corruption",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032201,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Eliminate the threat",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032202,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find a way out                                                              <size=25><color=#FFFF66>Eliminate the threat</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032203,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Break the barrier in the passage",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032204,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find a way out                                                              <size=25><color=#FFFF66>Break the barrier in the passage</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032205,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the enemy",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032206,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemy",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032207,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Break the barrier in the passage",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032208,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Break the barrier in the passage",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032209,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Deflect objects to break the fan in the passage",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100001,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat all enemies",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100002,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat all enemies",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100003,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Only <color=#FF3333>3-Ping</color> skills can damage the enemies",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100004,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Use <color=#FF3333>3-Ping</color> skills to defeat the enemies",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100005,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies within the time limit",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100006,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the enemies within 1 minute",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100007,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Clear the stage within 60s    \u2605\u2605\u2605",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100008,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Don't forget to use <color=#FF0000>QTE/Switch</color> in battle!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100009,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Attack actively! Reducing the enemy's Execution Bar is the key to getting more stars.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100010,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The enemies will possess high resistance. Use Tank QTE Skills wisely to weaken them!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100011,
+        "Type": 1,
+        "Title": null,
+        "Desc": "We have a special enemy with Execution Bar. Use Uniframe Skills to defeat them quickly!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100012,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The Commandant must use everything they have learned in this test. Good luck!",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100013,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Clear the stage within 120s    \u2605\u2605",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100014,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Clear the stage    \u2605",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100015,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Red Orb 3-Ping + Blue Orb will trigger Core Passive. Tie the enemies down with the CUB.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100016,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The key to gaining stars is to dodge consecutive attacks by switching.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100017,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Attack the enemies with everything you have learned so far.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100018,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The key to gaining stars is to dodge consecutive attacks by switching.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100019,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Unleash everything you learned to clear the comprehensive combat trial.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100020,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The key to victory is to dodge the enemy's <color=#ff0000>intense attacks</color> by switching or find a way to deal with them.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100021,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The key to victory is to grasp the enemy's <color=#ff0000>attack rhythm</color>.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301100022,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The enemy's <color=#ff0000>claw attacks</color> can be <color=#33CCFF>deflected</color> by attacking. The key to victory is to <color=#33CCFF>deflect</color> masterfully.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032301,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Eliminate the current Corrupted",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032302,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the current Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032303,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Memory Backtrack",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032304,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Go up to the upper arm plate and attack the Signal Light!",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032305,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemy ",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032306,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<color=#FFFF66>Follow the fireflies</color>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032307,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Escape the platform                                        <size=25><color=#FFFF66>The platform is collapsing</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032308,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Escape the platform                                        <size=25><color=#FFFF66>Watch out for laser!</color></size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032309,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the enemy ",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502032310,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find the exit",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030901,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the intruding Corrupted!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030902,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Activate the scout drone!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030903,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Try to activate the defensive devices at the entrance to the medical center!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030904,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Search the vicinity for possible clue of the password!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030905,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color>",
+        "Desc": "Talbot",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030906,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color>",
+        "Desc": "Male Construct Soldier",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030907,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color>",
+        "Desc": "Female Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030908,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color>",
+        "Desc": "Talbot",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030909,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color>",
+        "Desc": "Male Construct Soldier",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030910,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color>",
+        "Desc": "Female Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030911,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color>",
+        "Desc": "Talbot",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030912,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color>",
+        "Desc": "Male Construct Soldier",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030913,
+        "Type": 8,
+        "Title": "Team Status: <color=#5FDF41>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color>",
+        "Desc": "Female Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030914,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the intruding Corrupted with the defensive devices!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030915,
+        "Type": 8,
+        "Title": "Team Status: <color=#E11505>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Talbot",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030916,
+        "Type": 8,
+        "Title": "Team Status: <color=#E11505>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Male Construct Soldier",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030917,
+        "Type": 8,
+        "Title": "Team Status: <color=#E11505>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Female Construct",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030918,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to your team",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030401,
+        "Type": 8,
+        "Title": "Combat Adaptability: <color=#FF9900>\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color>",
+        "Desc": "Basic Attack Usage",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030402,
+        "Type": 8,
+        "Title": "Combat Adaptability: <color=#FF9900>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color>",
+        "Desc": "Skill Usage",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030403,
+        "Type": 8,
+        "Title": "Combat Adaptability: <color=#FF9900>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color>",
+        "Desc": "Weapon Charge",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030404,
+        "Type": 8,
+        "Title": "Combat Adaptability: <color=#FF9900>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Signature Usage",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030405,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the Corrupted and save Talbot!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030406,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to Talbot",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1502030407,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the pursuing Corrupted",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311260,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to the Mountain God",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311261,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The Mountain God has temporarily joined you in battle",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311262,
+        "Type": 8,
+        "Title": "Materials Owned",
+        "Desc": "{0}/6",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311263,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Pick Bamboo Leaves",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311264,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Success!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311265,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Perfect!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311266,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the enemies",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311267,
+        "Type": 1,
+        "Title": null,
+        "Desc": "More enemies are woken up",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311268,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Search for bamboo leaves",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311269,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Keep searching for bamboo leaves",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311270,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311271,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the enemies",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311272,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat the ambushing enemies",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311273,
+        "Type": 1,
+        "Title": null,
+        "Desc": "All materials collected!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311290,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Keep moving",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311291,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the soldiers and keep moving",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311292,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Choose another route to shake off pursuers",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311293,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Meet with Kamui",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311294,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Meet with Kamui",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311295,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Eliminate the ambushing soldiers",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311296,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Repel the pursuing soldiers",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311320,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Sneak into the Artifact Hall",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311321,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Received a mysterious talisman",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311322,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The mysterious talisman broke the magic that concealed the trails.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311330,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat Overlord Celica",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311331,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Hold on until Lee is ready!",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311360,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The Realm Guardian has gone berserk!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311361,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Advance to the target area",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311362,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the Realm Guardian",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 301311363,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Stop the Realm Guardian",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418901,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418902,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418903,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418904,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418905,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0</color><color=#999999>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418906,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#999999>\u25a0\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Loss",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418907,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0\u25a0</color><color=#FF0000>\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418908,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0</color><color=#999999>\u25a0</color><color=#FF0000>\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418909,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0</color><color=#999999>\u25a0\u25a0</color><color=#FF0000>\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418910,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0</color><color=#999999>\u25a0\u25a0\u25a0</color><color=#FF0000>\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418911,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#999999>\u25a0\u25a0\u25a0\u25a0</color><color=#FF0000>\u25a0</color>",
+        "Desc": "Loss",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418912,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0\u25a0</color><color=#FF0000>\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418913,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0</color><color=#999999>\u25a0</color><color=#FF0000>\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418914,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0</color><color=#999999>\u25a0\u25a0</color><color=#FF0000>\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418915,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#999999>\u25a0\u25a0\u25a0</color><color=#FF0000>\u25a0\u25a0</color>",
+        "Desc": "Loss",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418916,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0\u25a0</color><color=#FF0000>\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418917,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0</color><color=#999999>\u25a0</color><color=#FF0000>\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418918,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#999999>\u25a0\u25a0</color><color=#FF0000>\u25a0\u25a0\u25a0</color>",
+        "Desc": "Loss",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418919,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#FF9900>\u25a0</color><color=#FF0000>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 74418920,
+        "Type": 8,
+        "Title": "Rifts of Will: <color=#999999>\u25a0</color><color=#FF0000>\u25a0\u25a0\u25a0\u25a0</color>",
+        "Desc": "Loss",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603331,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat Wheel of Fortune.\\n<color=#33FFFF><size=28>Chariot has joined the battle as reinforcements.</size></color>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603332,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat Wheel of Fortune.           <color=#33FFFF><size=25>Upon <color=#FF9900>finishing</color> an enemy, Uniframes will charge Chariot.</size></color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603341,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat Acid Ant.\\n<color=#33FFFF><size=28>Chariot has joined the battle as reinforcements.</size></color>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603342,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat Acid Ant.           <color=#33FFFF><size=25>Defeating <color=#FF9900>marked</color> enemies will charge Chariot.</size></color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603351,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Defeat Musashi IX.\\n<color=#33FFFF><size=28>Chariot has joined the battle as reinforcements.</size></color>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603352,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat Musashi IX.           <color=#33FFFF><size=25>Defeating <color=#FF9900>marked</color> enemies will charge Chariot.</size></color>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603511,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Weakness triggered! <size=25><color=#33FFFF>Matrix</color> will deal <color=#33FFFF>DMG equal to 20% of HP</color> once.</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603521,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Weakness triggered! Using <size=25><color=#33FFFF>Extreme Dodge 3 times</color> will interrupt the formation of phantoms.</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603522,
+        "Type": 8,
+        "Title": "Extreme Dodge: <color=#999999>\u25cf\u25cf\u25cf</color>",
+        "Desc": " 0/3",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603523,
+        "Type": 8,
+        "Title": "Extreme Dodge: <color=#FF9900>\u25cf</color><color=#999999>\u25cf\u25cf</color>",
+        "Desc": " 1/3",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603524,
+        "Type": 8,
+        "Title": "Extreme Dodge: <color=#FF9900>\u25cf\u25cf</color><color=#999999>\u25cf</color>",
+        "Desc": " 2/3",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603525,
+        "Type": 8,
+        "Title": "Extreme Dodge: <color=#FF9900>\u25cf\u25cf\u25cf</color>",
+        "Desc": "Complete",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603526,
+        "Type": 2,
+        "Title": null,
+        "Desc": "HP drops to <color=#33FFFF>60%/30%</color>.          Shark-speare <color=#33FFFF>summons data phantoms</color> to join the battle.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603527,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=45><color=#33FFFF>Matrix has no cooldown.</color></size>\\n<color=#33FFFF>Attack</color> after Matrix will deal <color=#33FFFF>DMG equal to 20% of HP</color> once.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603528,
+        "Type": 2,
+        "Title": null,
+        "Desc": "HP drops to <color=#33FFFF>60%/30%</color>.          Shark-speare casts <color=#33FFFF>Floating Combo</color>. ",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603529,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=45><color=#33FFFF>Extreme Dodge</color></size>\\nDodge <color=#33FFFF>3 times</color> to <color=#33FFFF>interrupt</color> the formation of phantoms.",
+        "Time": 1.5,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603530,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<size=45>Successful Interruption</size>",
+        "Time": 1.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603531,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Guardian will <color=#33FFFF>revive 3 times</color>.              After reviving, Guardian will become <color=#33FFFF>immune to lethal DMG</color>. ",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603532,
+        "Type": 2,
+        "Title": null,
+        "Desc": "<size=25>Basic Attack DMG increases by 200% after a 3-Ping.          3-Ping DMG decreases by 20%, stacking up to 5 times.</size>",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 300603533,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Enemies are <color=#33FFFF>unaffected by Matrix</color>.            <color=#33FFFF>DMG taken increases by 50%</color> in Matrix. ",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062601,
+        "Type": 16,
+        "Title": null,
+        "Desc": "Tides Crashing In|The next enemy wave will appear when all enemies are defeated.|Next Enemy Wave: {0}s|<color=#38bbff>Remaining Waves: {0}</color>|Placeholder",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062602,
+        "Type": 16,
+        "Title": null,
+        "Desc": "Against the Tides|Survive until the countdown ends or clear all enemy waves.|Remaining Time: {0}s|<color=#38bbff>Remaining Waves: {0}</color>|Placeholder",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062603,
+        "Type": 16,
+        "Title": null,
+        "Desc": "Feast of Tides|Enemies will no longer spawn when a certain number of enemies are defeated.|Enemies to Defeat: {0}|<color=#38bbff>Enemies Defeated: {0}</color>|Placeholder",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062604,
+        "Type": 16,
+        "Title": null,
+        "Desc": "Breaking Tides|Deal a certain amount of DMG to clear the stage.|Required DMG: {0:0}|<color=#38bbff>DMG Dealt: {0:0}</color>|Placeholder",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062605,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat all enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062606,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Darkness floods into the pupils, contaminating the boundaries of vision.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062607,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Faith begins crumbling as the boundaries of reality are not as sharp as before...",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062608,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The tide will pounce on its quarry.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062609,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The tide will tear its offering apart.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062610,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Twisted billows have constricted the body.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062611,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Twisted thunderbolts are gnawing the shell.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062612,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Turning away from the light of will, you embrace the branch of the abyss.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062613,
+        "Type": 1,
+        "Title": null,
+        "Desc": "You dive into the tide, taking in all its power.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062614,
+        "Type": 1,
+        "Title": null,
+        "Desc": "At the cost of being torn apart, you expose yourself to the storm for a glimpse into the mysteries of twisted nature.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062615,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Once again, reality falls into illusion.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062616,
+        "Type": 1,
+        "Title": null,
+        "Desc": "When they are finally gone, the world returns to the edge of reality.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062617,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The bonfire has lured the moths into dancing with its flame fueled by crisis and glory.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062618,
+        "Type": 1,
+        "Title": null,
+        "Desc": "<color=#ff0000>As the wall of will crumbles, the enemies are becoming more ferocious.</color>",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 30062619,
+        "Type": 1,
+        "Title": null,
+        "Desc": "As the wall of will crumbles, a crimson timer is counting down: 60... 59...",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7637030,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The combat-assisting robot - [Black Nat] next to you has put the enemies on high alert (receive 20% more DMG).",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7637041,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The [Saphorus White Codex] in your hand seems to have caught the enemies off guard (deal 30% more DMG).",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7637042,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The [Clyphas Black Codex] in your hand has dazed the enemies (enemies lose 1% max HP per second).",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7637051,
+        "Type": 1,
+        "Title": null,
+        "Desc": "[Merlin's Jewel] has brought certain sanity back to the enemies with its soft radiance (enemy ATK decreases by 90%).",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 7637052,
+        "Type": 1,
+        "Title": null,
+        "Desc": "[Indigo Wave Amethyst] reflects the eyes of the enemies, which are burning with rage. (enemy ATK increases by 30%).",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010200,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Tap the button to investigate using the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010201,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use the Phantom Tracer to investigate at the right timing.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010202,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Interact with Scavenger's phantom.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010203,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Follow Scavenger's phantom.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010204,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to where the survivors are.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010205,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Acquired the password of the water curtain.",
+        "Time": 3.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010206,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Cut off the water curtain's power.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010207,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Water Curtain Password: 9451",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010300,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Head downstairs.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010301,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010302,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Analyze the information with the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010303,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the glowing spot.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010304,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Head downstairs.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010305,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Stability rate decreased.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010306,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the past events.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010307,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Enemies have appeared!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010308,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010309,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Tap the button to establish a Deep M.I.N.D. connection with Bianca to stabilize her M.I.N.D.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010310,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Catch up with Scavenger(?).",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010311,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find information about the missing Construct with the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010312,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Find information about the missing Construct.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010313,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat all enemies and save Scavenger(?).",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010314,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Check on Scavenger(?).",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010315,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Enemies have appeared!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010316,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies in the way.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010317,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use the \"Phantom Tracer\" on the body.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010318,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Follow the tracing phantom for information.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010319,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010320,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Interact with Construct Soldiers to grasp the current situation.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010321,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the missing Construct Soldiers.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010322,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the mysterious red butterfly.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010323,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the Redcoral Host.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010324,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the reasons why the Redcoral Host has appeared.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010325,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the newest converted Redcoral Host.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010326,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to the dolphin show hall.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010327,
+        "Type": 8,
+        "Title": "Scavenger(?) HP: ",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010328,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Scavenger's HP has dropped below 50%!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010400,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Follow ???.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010401,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Get rid of the corruption.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010402,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to the target point.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010403,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010404,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Investigate the three phantoms.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010405,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to the target point and reboot the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010406,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat ????.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010407,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go to the target point and reboot the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010408,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Go.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010409,
+        "Type": 1,
+        "Title": null,
+        "Desc": "New enemies have appeared.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010410,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Deep M.I.N.D. connection activated. Stability rate fixed at maximum level.",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010411,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Use the Phantom Tracer.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010412,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat Hetero-Consciousness Host.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010413,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Switch form to get rid of the corruption.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010500,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies attacking the refugee child.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010501,
+        "Type": 8,
+        "Title": "Refugee Child's HP: ",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010502,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The refugee child's HP has dropped below 50%!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010503,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Talk to the refugee child.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010504,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Escort the refugee child to the hall within a limited time.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010505,
+        "Type": 1,
+        "Title": null,
+        "Desc": "More enemies have arrived!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010506,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat the enemies.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010507,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Protect Scavengers until they have retreated.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010508,
+        "Type": 8,
+        "Title": "Scavengers' HP: ",
+        "Desc": "{0}%",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010509,
+        "Type": 1,
+        "Title": null,
+        "Desc": "Scavenger's HP has dropped below 50%!",
+        "Time": 2.0,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020010510,
+        "Type": 2,
+        "Title": null,
+        "Desc": "Defeat remaining enemies and retreat.",
+        "Time": null,
+        "PrefabPath": null
+    },
+    {
+        "Id": 1020011001,
+        "Type": 1,
+        "Title": null,
+        "Desc": "The Purifying Force has joined the battle.\\n<size=25>Their statuses are displayed on the left side of the screen. Tap Jha's portrait to select the Purifying Force's tactics.</size>",
+        "Time": 5.0,
         "PrefabPath": null
     },
     {
@@ -44885,22 +47637,6 @@
         "Title": null,
         "Desc": "I'm no flop! It's Pulao!",
         "Time": 3.0,
-        "PrefabPath": null
-    },
-    {
-        "Id": 1018010010,
-        "Type": 2,
-        "Title": null,
-        "Desc": "Ping the orbs till there are 3 left. Match the order and color of orbs displayed as follows: Red - Red - Yellow. (L -> R)",
-        "Time": null,
-        "PrefabPath": null
-    },
-    {
-        "Id": 1018010011,
-        "Type": 8,
-        "Title": "Talk to Medic Bot to reset the orbs",
-        "Desc": "Tips",
-        "Time": null,
         "PrefabPath": null
     }
 ]

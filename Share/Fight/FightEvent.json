@@ -587,10 +587,60 @@
     },
     {
         "Id": 4020,
-        "Description": "Each ping increases Physical DMG by X%. Can be stacked up to Y time(s). Lasts Zs. The duration will refresh whenever it is triggered.",
+        "Description": "After a 3-Ping, Basic Attacks deal additional Dark DMG equal to 40% ATK.",
         "ConditionId": [],
         "BornMagic": [
-            740887.0
+            740912.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 4021,
+        "Description": "After a 3-Ping, Fire DMG of Basic Attacks increases by 20% for 8s. Stacks up to 10 times.",
+        "ConditionId": [],
+        "BornMagic": [
+            740931.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 4022,
+        "Description": "After a 3-Ping, Physical DMG of Basic Attacks increases by 40%. Gain 1 Red Orb.",
+        "ConditionId": [],
+        "BornMagic": [
+            740928.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 4023,
+        "Description": "After healing, Dark DMG of Signature Moves is increased by 30% for both the healer and the healed unit.",
+        "ConditionId": [],
+        "BornMagic": [
+            740905.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 4024,
+        "Description": "(Placeholder)",
+        "ConditionId": [],
+        "BornMagic": [
+            778801.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 4025,
+        "Description": "Increases CRIT Rate and CRIT DMG every time upon entering Matrix",
+        "ConditionId": [],
+        "BornMagic": [
+            778805.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -3587,6 +3637,222 @@
         "EnemyBornMagic": [
             771154.0
         ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35011,
+        "Description": "Cannot dodge mounts",
+        "ConditionId": [],
+        "BornMagic": [
+            740961.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35021,
+        "Description": "Summoning mount",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740962.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35031,
+        "Description": "Stacking mount",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740963.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35041,
+        "Description": "Phase 2 mount",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740964.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35051,
+        "Description": "Increases the charge speed",
+        "ConditionId": [],
+        "BornMagic": [
+            740979.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35061,
+        "Description": "Different broken branch",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740941.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35071,
+        "Description": "Increases different Elemental Resistance",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740950.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35081,
+        "Description": "Reduces max HP",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740951.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35091,
+        "Description": "Demon Bane",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740973.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35101,
+        "Description": "Heaven Breaker",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740974.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35111,
+        "Description": "God Slayer",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            740975.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35121,
+        "Description": "MC Solar Mount",
+        "ConditionId": [],
+        "BornMagic": [
+            740976.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35131,
+        "Description": "Glory Enhancement 1",
+        "ConditionId": [],
+        "BornMagic": [
+            740977.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35141,
+        "Description": "Glory Enhancement 2",
+        "ConditionId": [],
+        "BornMagic": [
+            740978.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35151,
+        "Description": "Lunar Enhancement 1",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35161,
+        "Description": "Lunar Enhancement 2",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35171,
+        "Description": "Dodge Gauge recovers faster",
+        "ConditionId": [],
+        "BornMagic": [
+            740980.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35181,
+        "Description": "Becomes invincible for 5s after being attacked",
+        "ConditionId": [],
+        "BornMagic": [
+            740996.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35191,
+        "Description": "Restores HP every second after a Speed Attack",
+        "ConditionId": [],
+        "BornMagic": [
+            740982.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35201,
+        "Description": "Execution Resistance Rate +10%",
+        "ConditionId": [],
+        "BornMagic": [
+            740983.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35202,
+        "Description": "Execution Resistance Rate +20%",
+        "ConditionId": [],
+        "BornMagic": [
+            740984.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 35203,
+        "Description": "Execution Resistance Rate +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            740985.0
+        ],
+        "EnemyBornMagic": [],
         "PartnerBornMagic": []
     },
     {
@@ -7697,6 +7963,1046 @@
     },
     {
         "Id": 50524,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50600,
+        "Description": "Device 4-2 Stun",
+        "ConditionId": [],
+        "BornMagic": [
+            777900.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50601,
+        "Description": "Device 4-1 Black Hole",
+        "ConditionId": [],
+        "BornMagic": [
+            777902.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50602,
+        "Description": "Device 3-2 Laser",
+        "ConditionId": [],
+        "BornMagic": [
+            777904.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50603,
+        "Description": "Device 3-1 Cannonade",
+        "ConditionId": [],
+        "BornMagic": [
+            777800.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50604,
+        "Description": "Device 2-1 Internal HP Recovery",
+        "ConditionId": [],
+        "BornMagic": [
+            777908.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50605,
+        "Description": "Device 2-2 External HP Recovery",
+        "ConditionId": [],
+        "BornMagic": [
+            777910.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50606,
+        "Description": "1-1 Internal DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            777912.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50607,
+        "Description": "Device 1-2 External DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            777914.0,
+            777896.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50608,
+        "Description": "4-2 Attack Petrifies",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777870.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50609,
+        "Description": "4-1 Black Hole + Shockwave",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777860.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50610,
+        "Description": "3-2 Movement speed increases. DMG decreases",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777855.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50611,
+        "Description": "3-1 Damages surroundings over time",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777865.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50612,
+        "Description": "2-2 Invincible. HP reduces over time",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777850.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50613,
+        "Description": "2-1 Out of control. DMG taken increases",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760221.0,
+            740863.0,
+            715713.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50614,
+        "Description": "1-2 Taking DMG decreases movement speed",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777820.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50615,
+        "Description": "1-1 Flash. DMG increases",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777923.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50616,
+        "Description": "5-2 Does not enter Matrix",
+        "ConditionId": [],
+        "BornMagic": [
+            777837.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50617,
+        "Description": "5-1 Matrix CD decreases",
+        "ConditionId": [],
+        "BornMagic": [
+            777816.0
+        ],
+        "EnemyBornMagic": [
+            777813.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50618,
+        "Description": "4-2 Signature DMG increases. Suicide",
+        "ConditionId": [],
+        "BornMagic": [
+            777834.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50619,
+        "Description": "4-1 Global DMG Bonus. Cannot cast Signature Move",
+        "ConditionId": [],
+        "BornMagic": [
+            777825.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50620,
+        "Description": "3-2 Character Switch QTE Cooldown Decreases",
+        "ConditionId": [],
+        "BornMagic": [
+            777830.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50621,
+        "Description": "3-1 Unable to switch. ATK increases over time",
+        "ConditionId": [],
+        "BornMagic": [
+            777845.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50622,
+        "Description": "2-2 Unable to obtain Signal Orbs. Energy increases",
+        "ConditionId": [],
+        "BornMagic": [
+            777827.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50623,
+        "Description": "2-1 Unable to obtain Energy. Recover bonus Signal Orb(s) each time",
+        "ConditionId": [],
+        "BornMagic": [
+            777839.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50624,
+        "Description": "1-2 Dodge Gauge recovery speed increases. DMG taken after dodge increases",
+        "ConditionId": [],
+        "BornMagic": [
+            777925.0,
+            770375.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50625,
+        "Description": "1-1 Dodge consumes all Energy",
+        "ConditionId": [],
+        "BornMagic": [
+            777927.0,
+            777932.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50626,
+        "Description": "5-2 Surviving Phantom",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777888.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50627,
+        "Description": "5-1 Dead Clone",
+        "ConditionId": [],
+        "BornMagic": [
+            777918.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50628,
+        "Description": "4-2 Surviving reduces Max HP",
+        "ConditionId": [],
+        "BornMagic": [
+            777808.0
+        ],
+        "EnemyBornMagic": [
+            777931.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50629,
+        "Description": "4-1 Domination",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            715713.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50630,
+        "Description": "3-2 HP reduces upon Death",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777806.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50631,
+        "Description": "3-1 Summon Clone with the highest HP",
+        "ConditionId": [],
+        "BornMagic": [
+            777921.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50632,
+        "Description": "2-2 Deduct Signal Orb(s)",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777804.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50633,
+        "Description": "2-1 Dynamic Calibration",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            742200.0,
+            777931.0,
+            742165.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50634,
+        "Description": "1-2 Massive DMG Reduction upon Death",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            777929.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50635,
+        "Description": "1-1 Rigid Body",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760273.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50636,
+        "Description": "3-2 Flash",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760393.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50637,
+        "Description": "3-1 Teleport",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760396.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50638,
+        "Description": "2-2 Solitude",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760323.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50639,
+        "Description": "2-1 Commander",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            760333.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50640,
+        "Description": "1-2 Dodge Gauge recovery speed decreases",
+        "ConditionId": [],
+        "BornMagic": [
+            777922.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50641,
+        "Description": "1-1 Movement speed decreases",
+        "ConditionId": [],
+        "BornMagic": [
+            772107.0
+        ],
+        "EnemyBornMagic": [
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50642,
+        "Description": "Physical Resistance -25%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            771150.0,
+            777935.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50643,
+        "Description": "Fire Resistance -25%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            771151.0,
+            777935.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50644,
+        "Description": "Lightning Resistance -25%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            771152.0,
+            777935.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50645,
+        "Description": "Ice Resistance -25%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            771153.0,
+            777935.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50646,
+        "Description": "Dark Resistance -25%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            771154.0,
+            777935.0,
+            777931.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50701,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50702,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50703,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50704,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50705,
+        "Description": "All characters have Super Armor permanently",
+        "ConditionId": [],
+        "BornMagic": [
+            701047.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50706,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50707,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50708,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50709,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50710,
+        "Description": "Obtains 1 random Signal Orb every 6s.",
+        "ConditionId": [],
+        "BornMagic": [
+            701048.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50711,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50712,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50713,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50714,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50715,
+        "Description": "Triggers Matrix once every 15s.",
+        "ConditionId": [],
+        "BornMagic": [
+            701049.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50716,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50717,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50718,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50719,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50720,
+        "Description": "No QTE cooldown",
+        "ConditionId": [],
+        "BornMagic": [
+            701050.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50721,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50722,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50723,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50724,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50801,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50802,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50803,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50804,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50805,
+        "Description": "All characters have Super Armor permanently",
+        "ConditionId": [],
+        "BornMagic": [
+            701047.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50806,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50807,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50808,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50809,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50810,
+        "Description": "Summons a black hole that pulls in enemies every 5s.",
+        "ConditionId": [],
+        "BornMagic": [
+            701048.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50811,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50812,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50813,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50814,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50815,
+        "Description": "Gains 3 Orbs of the same color every 10s.",
+        "ConditionId": [],
+        "BornMagic": [
+            701049.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50816,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50817,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50818,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50819,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50820,
+        "Description": "All members have infinite Energy.",
+        "ConditionId": [],
+        "BornMagic": [
+            701050.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50821,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50822,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50823,
+        "Description": "Extra DMG Bonus increases by 3%",
+        "ConditionId": [],
+        "BornMagic": [
+            761163.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 50824,
         "Description": "Extra DMG Bonus increases by 3%",
         "ConditionId": [],
         "BornMagic": [
@@ -14322,7 +15628,8 @@
         "Description": "We only have the leader to fight",
         "ConditionId": [],
         "BornMagic": [
-            772546.0
+            772546.0,
+            779301.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -23560,6 +24867,66 @@
         "PartnerBornMagic": []
     },
     {
+        "Id": 200134,
+        "Description": "Block 1, 2 Perfect Tactics: Summon Black Hole",
+        "ConditionId": [],
+        "BornMagic": [
+            715996.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 200135,
+        "Description": "SP Block Extra Finisher DMG Buff",
+        "ConditionId": [],
+        "BornMagic": [
+            742223.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 200136,
+        "Description": "Mine 5 End Countdown",
+        "ConditionId": [],
+        "BornMagic": [
+            715986.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 200137,
+        "Description": "Time +30s",
+        "ConditionId": [],
+        "BornMagic": [
+            715991.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 200138,
+        "Description": "Flame is affected by Matrix",
+        "ConditionId": [],
+        "BornMagic": [
+            715992.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 200139,
+        "Description": "The ring of fire deals more damage to player",
+        "ConditionId": [],
+        "BornMagic": [
+            715993.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
         "Id": 210001,
         "Description": "Moe War Best Player Mark - Palefire",
         "ConditionId": [],
@@ -31733,6 +33100,78 @@
         "PartnerBornMagic": []
     },
     {
+        "Id": 2230100,
+        "Description": "Modification 3.0 Down to One",
+        "ConditionId": [],
+        "BornMagic": [
+            746563.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230101,
+        "Description": "Modification 3.0 Four Trials",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            746564.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230102,
+        "Description": "Modification 3.0 Quick Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            746565.0
+        ],
+        "EnemyBornMagic": [
+            746565.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230103,
+        "Description": "Modification 3.0 Signal Disruption: Mod",
+        "ConditionId": [],
+        "BornMagic": [
+            746566.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230104,
+        "Description": "Modification 3.0 Health Delivery",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            746567.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230105,
+        "Description": "Modification 3.0  Custom Environment Mark (Darts and Beyond Border)",
+        "ConditionId": [],
+        "BornMagic": [
+            743161.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2230106,
+        "Description": "Modification 3.0  Energy Conversion",
+        "ConditionId": [],
+        "BornMagic": [
+            746594.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
         "Id": 2240001,
         "Description": "2-Year Anniversary Roguelike - Sky Fire Lineup - Basic Attack Skill Lv.1",
         "ConditionId": [],
@@ -34534,7 +35973,7 @@
     },
     {
         "Id": 2240280,
-        "Description": "Lightning Pass",
+        "Description": "Fire Pass",
         "ConditionId": [],
         "BornMagic": [],
         "EnemyBornMagic": [],
@@ -34550,7 +35989,7 @@
     },
     {
         "Id": 2240282,
-        "Description": "Physical Resistance Down",
+        "Description": "Lightning Resistance Down",
         "ConditionId": [],
         "BornMagic": [],
         "EnemyBornMagic": [
@@ -34590,7 +36029,7 @@
     },
     {
         "Id": 2240286,
-        "Description": "Lightning Resistance Down",
+        "Description": "Fire Resistance Down",
         "ConditionId": [],
         "BornMagic": [],
         "EnemyBornMagic": [
@@ -34610,9 +36049,11 @@
     },
     {
         "Id": 2240288,
-        "Description": "Fire Resistance Down",
+        "Description": "Physical Resistance Down",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            779881.0
+        ],
         "EnemyBornMagic": [
             778707.0
         ],
@@ -34630,10 +36071,10 @@
     },
     {
         "Id": 2240290,
-        "Description": "Energy Recovery",
+        "Description": "Signature Move Boost",
         "ConditionId": [],
         "BornMagic": [
-            778709.0
+            779882.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -35492,6 +36933,2338 @@
         "ConditionId": [],
         "BornMagic": [
             773428.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240378,
+        "Description": "Quick Swap - Basic Effect",
+        "ConditionId": [],
+        "BornMagic": [
+            746518.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240379,
+        "Description": "Quick Swap - DMG Increase",
+        "ConditionId": [],
+        "BornMagic": [
+            746519.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240380,
+        "Description": "Quick Swap - Signal Orb Replenishment",
+        "ConditionId": [],
+        "BornMagic": [
+            746520.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240381,
+        "Description": "Quick Swap - Direct DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            746521.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240382,
+        "Description": "Quick Swap - Time Extension",
+        "ConditionId": [],
+        "BornMagic": [
+            746522.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240383,
+        "Description": "Quick Swap - Transformational Skill (Stacks)",
+        "ConditionId": [],
+        "BornMagic": [
+            746523.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240384,
+        "Description": "Quick Swap - Transformational Skill (Response)",
+        "ConditionId": [],
+        "BornMagic": [
+            746524.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240385,
+        "Description": "Frontline - Basic Effect",
+        "ConditionId": [],
+        "BornMagic": [
+            746525.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240386,
+        "Description": "Frontline - Supplement Matrix",
+        "ConditionId": [],
+        "BornMagic": [
+            746526.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240387,
+        "Description": "Frontline - Signal Orb Replenishment",
+        "ConditionId": [],
+        "BornMagic": [
+            746527.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240388,
+        "Description": "Frontline - Direct DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            746528.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240389,
+        "Description": "Frontline - Time Extension",
+        "ConditionId": [],
+        "BornMagic": [
+            746529.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240390,
+        "Description": "Frontline - Transformational Skill (Stacks)",
+        "ConditionId": [],
+        "BornMagic": [
+            746530.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240391,
+        "Description": "Frontline - Transformational Skill (Response)",
+        "ConditionId": [],
+        "BornMagic": [
+            746531.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240392,
+        "Description": "Outpost Deviation",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240393,
+        "Description": "Outpost Deviation II",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240394,
+        "Description": "Black and White Sharks",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240395,
+        "Description": "Outpost/Pass Boost",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2240396,
+        "Description": "Guild Expedition - Weakness Mark",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            746600.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250001,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Physical Lv.1 - Reduces 100% DEF Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763453.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250002,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Physical Lv.2 - Reduces 50% Anti-Amplify Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763451.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250003,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Physical Lv.3 - Gains 40% CRIT Rate & 100% CRIT DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763463.0,
+            763464.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250004,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Physical Lv.4 - Enemy Receives 30% More Physical DMG",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763469.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250005,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Fire Lv.1 - Fire DMG Increases by 50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763465.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250006,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Fire Lv.2 - Reduces 50% Anti-Amplify Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763451.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250007,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Fire Lv.3 - Reduces Enemy's Fire Resistance by 70% Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763454.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250008,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Fire Lv.4 - Enemy Receives 30% More Fire DMG",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763470.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250009,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Lightning Lv.1 - Lightning DMG increases by 50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763466.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250010,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Lightning Lv.2 - Reduces 50% Anti-Amplify Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763451.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250011,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Lightning Lv.3 - Reduces Enemy's Lightning Resistance by 70% Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763455.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250012,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Lightning Lv.4 - Enemy Receives 30% More Lightning DMG",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763471.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250013,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Dark Lv.1 - Dark DMG increases by 50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763467.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250014,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Dark Lv.2 - Reduces 50% Anti-Amplify Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763451.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250015,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Dark Lv.3 - Reduces Enemy's Dark Resistance by 70% Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763456.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250016,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Dark Lv.4 - Enemy Receives 30% More Dark DMG",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763472.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250017,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Ice Lv.1 - Ice DMG increases by 50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763468.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250018,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Ice Lv.2 - Reduces 50% Anti-Amplify Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763451.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250019,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Ice Lv.3 - Reduces Enemy's Ice Resistance by 70% Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763457.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250020,
+        "Description": "Roguelike 2.0 - Bond - Stat Bond - Ice Lv.4 - Enemy Receives 30% More Ice DMG",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763473.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250031,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Lucia Lv.1 - 50% Extra DMG When in Matrix",
+        "ConditionId": [],
+        "BornMagic": [
+            747931.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250032,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Lucia Lv.2 - Reduces Matrix Cooldown by 50%",
+        "ConditionId": [],
+        "BornMagic": [
+            747932.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250033,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Liv Lv.1 - Converts Character's Overflow DMG to Healing, Rate: 1000%",
+        "ConditionId": [],
+        "BornMagic": [
+            747838.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250034,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Liv Lv.2 - Increase Healing and Recovery Effects by 100%. Becomes Immune to Healing Reduction Effects.",
+        "ConditionId": [],
+        "BornMagic": [
+            747840.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250035,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Liv Lv.3 - Restores 10% Max HP Every Second. Background Overflow Heals Current.",
+        "ConditionId": [],
+        "BornMagic": [
+            747841.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250036,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Lee Lv.1 - Deals 2,000 Fixed DMG Upon Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            747940.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250037,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Lee Lv.2 - Deals Combo DMG When Dealing DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            747941.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250038,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Strike Hawk Lv.1 - HP +50%. DMG penetrates the shield.",
+        "ConditionId": [],
+        "BornMagic": [
+            747944.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250039,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Strike Hawk Lv.2 - Super Armor, Takes No More Than 20% of the DMG Upper Limit",
+        "ConditionId": [],
+        "BornMagic": [
+            747945.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250040,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Strike Hawk Lv.3 - Deals 15\u00d7 DMG Upon Receiving DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            747946.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250041,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Little League Lv.1 - Coins: Signature Energy or DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            747970.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250042,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Little League Lv.2 - Summon: Percentage DMG or Enemy-Pulling Resistance Reduction",
+        "ConditionId": [],
+        "BornMagic": [
+            747971.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250043,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Little League Lv.3 - Guaranteed to Have All Enhancement Effects and Enhanced Coin Effects",
+        "ConditionId": [],
+        "BornMagic": [
+            747972.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250044,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Cerberus Lv.1 - Consumes 1 Energy Orb and Restores 20 Energy",
+        "ConditionId": [],
+        "BornMagic": [
+            747850.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250045,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Cerberus Lv.2 - Loses 1% Max HP and Deals AOE DMG Equal to 1% of Current HP",
+        "ConditionId": [],
+        "BornMagic": [
+            747852.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250046,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Survivor Lv.1 - Press and Hold Basic Attack for 1s. Gains a 100% DMG Bonus After 3s.",
+        "ConditionId": [],
+        "BornMagic": [
+            747835.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250047,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Survivor Lv.2 - Enters Matrix After Multiple Dodges in a Row",
+        "ConditionId": [],
+        "BornMagic": [
+            747837.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250048,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Purifying Force Lv.1 - Deals More DMG to Units With HP Above 70%",
+        "ConditionId": [],
+        "BornMagic": [
+            747955.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250049,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Purifying Force Lv.2 - Has a 40% Chance to Increase DMG of a Strike by 200%",
+        "ConditionId": [],
+        "BornMagic": [
+            747956.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250050,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Purifying Force Lv.3 - Executes Units With HP Below 30%",
+        "ConditionId": [],
+        "BornMagic": [
+            747957.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250051,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - WGAA Lv.1 - Character's DMG Bonus Increases by 15% for Each Existing Class",
+        "ConditionId": [],
+        "BornMagic": [
+            747876.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250052,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - WGAA Lv.2 - Character Has Stats Increase by 10% for Each Existing Class",
+        "ConditionId": [],
+        "BornMagic": [
+            747874.0,
+            747875.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250053,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Engineering Force Lv.1 - Summons a barrage. Increases projectiles upon great success.",
+        "ConditionId": [],
+        "BornMagic": [
+            747862.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250054,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Engineering Force Lv.2 - Summons a laser. Summons an extra laser upon great success.",
+        "ConditionId": [],
+        "BornMagic": [
+            747865.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250055,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Engineering Force Lv.3 - Summons an air strike. Fires great Ivan upon great success",
+        "ConditionId": [],
+        "BornMagic": [
+            747871.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250056,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Pulse Garnet Lv.1 - Signature DMG +50% (Signature DMG Taken by Enemies +50%. Let them take more DMG!)",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763474.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250057,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Pulse Garnet Lv.2 - Each Signature Move Launched Within 5s After the Previous One Deals 50% More DMG, up to 200%",
+        "ConditionId": [],
+        "BornMagic": [
+            747832.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250058,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Pulse Garnet Lv.3 - Reduces Anti-Amplify by 20% Upon Launching a Signature Move. Stacks up to 120%.",
+        "ConditionId": [],
+        "BornMagic": [
+            747827.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250059,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Crimson Abyss Luna Lv.1 - Extra Skill",
+        "ConditionId": [],
+        "BornMagic": [
+            747819.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250060,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Crimson Abyss Luna Lv.2 - Pinging Multiple Special Orbs in a Row Increases DMG by 20%, up to 200%",
+        "ConditionId": [],
+        "BornMagic": [
+            747823.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250061,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Crimson Abyss Luna Lv.3 - Has a 80% Chance to Obtain One Extra Special Orb",
+        "ConditionId": [],
+        "BornMagic": [
+            747826.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250062,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Empyrea Capriccio Lv.1 - Shuffles After Performing Multiple Dodges in a Row",
+        "ConditionId": [],
+        "BornMagic": [
+            747813.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250063,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Empyrea Capriccio Lv.2 - Each Signature Move Increases the Subsequent One by 20%, up to 100%",
+        "ConditionId": [],
+        "BornMagic": [
+            747816.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250064,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Empyrea Capriccio Lv.3 - Copy Signature Button",
+        "ConditionId": [],
+        "BornMagic": [
+            747817.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250065,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Entropy Tenebrion Ember Lv.1 - After 3 3-Pings, Enters Matrix and Performs an Orb Shuffle",
+        "ConditionId": [],
+        "BornMagic": [
+            747879.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250066,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Entropy Tenebrion Ember Lv.2 - Entropy Tenebrion Ember Lv.2 - Each Point of Energy Increases Ping DMG by 2%",
+        "ConditionId": [],
+        "BornMagic": [
+            747880.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250067,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Entropy Tenebrion Ember Lv.3 - Entropy Tenebrion Ember Lv.2 - Each Ping Grants the Same Number of Orb(s)",
+        "ConditionId": [],
+        "BornMagic": [
+            747883.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250068,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Luminance Rigor Lv.1 - CRIT Strikes Increase CRIT DMG by 10%, up to 300%",
+        "ConditionId": [],
+        "BornMagic": [
+            747811.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250069,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Luminance Rigor Lv.2 - CRIT Strikes Also Deals DMG Equal to 1% of Current HP. Cooldown: 0.5s.",
+        "ConditionId": [],
+        "BornMagic": [
+            747810.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250070,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Luminance Rigor Lv.3 - CRIT Strikes Reduce Physical Resistance by 80%",
+        "ConditionId": [],
+        "BornMagic": [
+            747808.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250071,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Glory Starfarer Lv.1 - Basic Attacks Restore 10% Shield",
+        "ConditionId": [],
+        "BornMagic": [
+            747960.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250072,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Glory Starfarer Lv.2 - Basic Attacks Deal Additional DMG Equal to 10\u00d7 the Shield Value. Cooldown: 1s.",
+        "ConditionId": [],
+        "BornMagic": [
+            747961.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250073,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Glory Starfarer Lv.3 - Becomes Invincible for 2s Upon Receiving DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            747962.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250074,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Scire Veritas Lv.1 - Basic Attacks Grant 1 Signal Orb",
+        "ConditionId": [],
+        "BornMagic": [
+            747854.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250075,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Scire Veritas Lv.2 - Spends Energy and Deals More Basic Attack DMG for 5s",
+        "ConditionId": [],
+        "BornMagic": [
+            747857.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250076,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Scire Veritas Lv.3 - Gains Basic Attack DMG Bonus Upon Dealing Basic Attack DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            747860.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250077,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Ice Lucia Super Bianca Lv.1 - Gains 2 Sets of Signal Orbs Upon Launching a Signature Move",
+        "ConditionId": [],
+        "BornMagic": [
+            747913.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250078,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Ice Lucia Super Bianca Lv.2 - Gains a 30% DMG Bonus for Each 3-Ping, up to 150%",
+        "ConditionId": [],
+        "BornMagic": [
+            747914.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250079,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - Ice Lucia Super Bianca Lv.3 - 1-Pings and 2-Pings Will Be Regarded as 3-Pings",
+        "ConditionId": [],
+        "BornMagic": [
+            747918.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250080,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - SP Character Lv.1 - Deals 100% More DMG for 10s After Launching a Signature Move",
+        "ConditionId": [],
+        "BornMagic": [
+            747800.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250081,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - SP Character Lv.2 - Halves Character Switch Cooldown and Gains a 30% Shield",
+        "ConditionId": [],
+        "BornMagic": [
+            747804.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250082,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - SP Character Lv.3 - Gains a 40% DMG Bonus Upon Character Switch, up to 200%",
+        "ConditionId": [],
+        "BornMagic": [
+            747802.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250083,
+        "Description": "Roguelike 2.0 - Bond - Faction Bond - SP Character Lv.4 - Enters Matrix and Gains 100 Signature Energy and 3 Sets of Orbs Upon Character Switch",
+        "ConditionId": [],
+        "BornMagic": [
+            747806.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250101,
+        "Description": "Roguelike 2.0 - Item - 10% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763481.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250102,
+        "Description": "Roguelike 2.0 - Item - 20% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763482.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250103,
+        "Description": "Roguelike 2.0 - Item - 30% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763483.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250104,
+        "Description": "Roguelike 2.0 - Item - 20% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763484.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250105,
+        "Description": "Roguelike 2.0 - Item - 50% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763485.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250106,
+        "Description": "Roguelike 2.0 - Item - 100% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763486.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250107,
+        "Description": "Roguelike 2.0 - Item - Restores 1% max HP Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763487.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250108,
+        "Description": "Roguelike 2.0 - Item - Restores 2% max HP Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763488.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250109,
+        "Description": "Roguelike 2.0 - Item - Restores 3% max HP Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763489.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250110,
+        "Description": "Roguelike 2.0 - Item - Dodge Recovery Speed +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763493.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250111,
+        "Description": "Roguelike 2.0 - Item - Dodge Recovery Speed +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763494.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250112,
+        "Description": "Roguelike 2.0 - Item - Dodge Recovery Speed +100%",
+        "ConditionId": [],
+        "BornMagic": [
+            763495.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250113,
+        "Description": "Roguelike 2.0 - Item - Restores 1 Energy Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763496.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250114,
+        "Description": "Roguelike 2.0 - Item - Restores 2 Energy Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763497.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250115,
+        "Description": "Roguelike 2.0 - Item - Restores 3 Energy Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763498.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250116,
+        "Description": "Roguelike 2.0 - Item - Max Energy +50",
+        "ConditionId": [],
+        "BornMagic": [
+            763568.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250117,
+        "Description": "Roguelike 2.0 - Item - Max Energy +100",
+        "ConditionId": [],
+        "BornMagic": [
+            763569.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250118,
+        "Description": "Roguelike 2.0 - Item - Max Energy +200",
+        "ConditionId": [],
+        "BornMagic": [
+            763570.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250119,
+        "Description": "Roguelike 2.0 - Item - 3-Ping \u00d71 Every 15s",
+        "ConditionId": [],
+        "BornMagic": [
+            763505.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250120,
+        "Description": "Roguelike 2.0 - Item - 3-Ping \u00d71 Every 10s",
+        "ConditionId": [],
+        "BornMagic": [
+            763506.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250121,
+        "Description": "Roguelike 2.0 - Item - 10% DMG Reduction",
+        "ConditionId": [],
+        "BornMagic": [
+            763507.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250122,
+        "Description": "Roguelike 2.0 - Item - 20% DMG Reduction",
+        "ConditionId": [],
+        "BornMagic": [
+            763508.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250123,
+        "Description": "Roguelike 2.0 - Item - Enemy's max HP -10%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763509.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250124,
+        "Description": "Roguelike 2.0 - Item - Enemy's max HP -15%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763510.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250125,
+        "Description": "Roguelike 2.0 - Item - Enemy's max HP -20%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763511.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250126,
+        "Description": "Roguelike 2.0 - Item - Enemy's DMG Reduction -10%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763512.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250127,
+        "Description": "Roguelike 2.0 - Item - Enemy's DMG Reduction -20%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763513.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250128,
+        "Description": "Roguelike 2.0 - Item - Enemy's DMG Reduction -30%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763514.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250129,
+        "Description": "Roguelike 2.0 - Item - Orb Cast Efficiency +25%",
+        "ConditionId": [],
+        "BornMagic": [
+            763515.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250130,
+        "Description": "Roguelike 2.0 - Item - Orb Cast Efficiency +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763516.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250131,
+        "Description": "Roguelike 2.0 - Item - Orb Cast Efficiency +100%",
+        "ConditionId": [],
+        "BornMagic": [
+            763517.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250132,
+        "Description": "Roguelike 2.0 - Item - Movement Speed +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763518.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250133,
+        "Description": "Roguelike 2.0 - Item - Movement Speed +100%",
+        "ConditionId": [],
+        "BornMagic": [
+            763519.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250134,
+        "Description": "Roguelike 2.0 - Item - QTE Cooldown -15%",
+        "ConditionId": [],
+        "BornMagic": [
+            763520.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250135,
+        "Description": "Roguelike 2.0 - Item - QTE Cooldown -25%",
+        "ConditionId": [],
+        "BornMagic": [
+            763521.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250136,
+        "Description": "Roguelike 2.0 - Item - Character Switch Cooldown -15%",
+        "ConditionId": [],
+        "BornMagic": [
+            763522.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250137,
+        "Description": "Roguelike 2.0 - Item - Character Switch Cooldown -25%",
+        "ConditionId": [],
+        "BornMagic": [
+            763523.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250138,
+        "Description": "Roguelike 2.0 - Item - Matrix Cooldown -15%",
+        "ConditionId": [],
+        "BornMagic": [
+            763502.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250139,
+        "Description": "Roguelike 2.0 - Item - 1 Extra 3-Ping Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763525.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250140,
+        "Description": "Roguelike 2.0 - Item - 2 Extra 3-Pings Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763526.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250141,
+        "Description": "Roguelike 2.0 - Item - 3 Extra 3-Pings Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763527.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250142,
+        "Description": "Roguelike 2.0 - Item - 2 Extra 3-Pings Upon Casting Signature",
+        "ConditionId": [],
+        "BornMagic": [
+            763528.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250143,
+        "Description": "Roguelike 2.0 - Item - 3 Extra 3-Pings Upon Casting Signature",
+        "ConditionId": [],
+        "BornMagic": [
+            763529.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250144,
+        "Description": "Roguelike 2.0 - Item - Fire DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763530.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250145,
+        "Description": "Roguelike 2.0 - Item - Fire DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763531.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250146,
+        "Description": "Roguelike 2.0 - Item - Lightning DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763532.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250147,
+        "Description": "Roguelike 2.0 - Item - Lightning DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763533.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250148,
+        "Description": "Roguelike 2.0 - Item - Ice DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763534.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250149,
+        "Description": "Roguelike 2.0 - Item - Ice DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763535.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250150,
+        "Description": "Roguelike 2.0 - Item - Dark DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763536.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250151,
+        "Description": "Roguelike 2.0 - Item - Dark DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763537.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250152,
+        "Description": "Roguelike 2.0 - Item - Physical DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [
+            763538.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250153,
+        "Description": "Roguelike 2.0 - Item - Physical DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763539.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250154,
+        "Description": "Roguelike 2.0 - Item - Healing +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763540.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250155,
+        "Description": "Roguelike 2.0 - Item - Healing +100%",
+        "ConditionId": [],
+        "BornMagic": [
+            763541.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250156,
+        "Description": "Roguelike 2.0 - Item - Orb DMG +15%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763542.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250157,
+        "Description": "Roguelike 2.0 - Item - Orb DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763543.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250158,
+        "Description": "Roguelike 2.0 - Item - Orb DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763544.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250159,
+        "Description": "Roguelike 2.0 - Item - Signature DMG +15%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763548.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250160,
+        "Description": "Roguelike 2.0 - Item - Signature DMG +30%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763549.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250161,
+        "Description": "Roguelike 2.0 - Item - Signature DMG +50%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763550.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250162,
+        "Description": "Roguelike 2.0 - Item - Basic Attack DMG +100%",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763554.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250163,
+        "Description": "Roguelike 2.0 - Item - Deals More DMG Over Time While Becoming More Vulnerable",
+        "ConditionId": [],
+        "BornMagic": [
+            763556.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250164,
+        "Description": "Roguelike 2.0 - Item - 3-Ping Returns 1 Orb of the Same Color",
+        "ConditionId": [],
+        "BornMagic": [
+            763559.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250165,
+        "Description": "Roguelike 2.0 - Item - Entering Matrix via Signature",
+        "ConditionId": [],
+        "BornMagic": [
+            763560.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250166,
+        "Description": "Roguelike 2.0 - Item - Signature Returns Half Energy Consumed",
+        "ConditionId": [],
+        "BornMagic": [
+            763561.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250167,
+        "Description": "Roguelike 2.0 - Item - 3-Ping Extra 5 Energy",
+        "ConditionId": [],
+        "BornMagic": [
+            763563.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250168,
+        "Description": "Roguelike 2.0 - Item - 3-Ping Extra 10 Energy",
+        "ConditionId": [],
+        "BornMagic": [
+            763564.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250169,
+        "Description": "Roguelike 2.0 - Item - QTE Will Trigger Other Character's QTE",
+        "ConditionId": [],
+        "BornMagic": [
+            747900.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250170,
+        "Description": "Roguelike 2.0 - Item - Basic Attack DMG -50%. Restores one orb every second.",
+        "ConditionId": [],
+        "BornMagic": [
+            747901.0,
+            747903.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250171,
+        "Description": "Roguelike 2.0 - Item - Basic Attack DMG +100%. Basic Attacks don't recover orbs.",
+        "ConditionId": [],
+        "BornMagic": [
+            747904.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250172,
+        "Description": "Roguelike 2.0 - Item - Dodge cost doubles. Restores 1 orb every second.",
+        "ConditionId": [],
+        "BornMagic": [
+            747906.0,
+            747907.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250173,
+        "Description": "Roguelike 2.0 - Item - Character Switch Cooldown -40%",
+        "ConditionId": [],
+        "BornMagic": [
+            747909.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250174,
+        "Description": "Roguelike 2.0 - Item - QTE Cooldown -40%",
+        "ConditionId": [],
+        "BornMagic": [
+            747910.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250175,
+        "Description": "Roguelike 2.0 - Item - Matrix Cooldown -25%",
+        "ConditionId": [],
+        "BornMagic": [
+            763503.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250176,
+        "Description": "Roguelike 2.0 - Item -80% DMG Bonus. -10% per orb.",
+        "ConditionId": [],
+        "BornMagic": [
+            747884.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250177,
+        "Description": "Roguelike 2.0 - Item - DMG per Orb +5%",
+        "ConditionId": [],
+        "BornMagic": [
+            747886.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250178,
+        "Description": "Roguelike 2.0 - Item - Restores 1% of the Remaining Energy Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            747888.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250179,
+        "Description": "Roguelike 2.0 - Item - Shield Acquisition Doubles",
+        "ConditionId": [],
+        "BornMagic": [
+            747889.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250180,
+        "Description": "Roguelike 2.0 - Item - Deals AOE DMG Equal to 500% Within 5m Around the Character Upon Entering the Battlefield",
+        "ConditionId": [],
+        "BornMagic": [
+            747990.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250181,
+        "Description": "Roguelike 2.0 - Item - Each Item Provides 10% DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            747991.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250201,
+        "Description": "Roguelike 2.0 - Event Item - The Brand of Void - Receives 10% More DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763571.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250202,
+        "Description": "Roguelike 2.0 - Event Item - The Brand of Infinity - Dodge Recovery +25%",
+        "ConditionId": [],
+        "BornMagic": [
+            763572.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250203,
+        "Description": "Roguelike 2.0 - Event Item - Merlin's Jewel - Auto Restores 1.5% Every Second",
+        "ConditionId": [],
+        "BornMagic": [
+            763573.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250204,
+        "Description": "Roguelike 2.0 - Event Item - Amethyst +10% CRIT +30% CRIT DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763574.0,
+            763575.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250205,
+        "Description": "Roguelike 2.0 - Event Item - Broken Amethyst -10% CRIT",
+        "ConditionId": [],
+        "BornMagic": [
+            763576.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250206,
+        "Description": "Roguelike 2.0 - Event Item - White Scripture - HP Recovery + Energy Recovery",
+        "ConditionId": [],
+        "BornMagic": [
+            763577.0
+        ],
+        "EnemyBornMagic": [
+            763565.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250207,
+        "Description": "Roguelike 2.0 - Event Item - Black Scripture - HP Reduction + Energy Recovery",
+        "ConditionId": [],
+        "BornMagic": [
+            763579.0
+        ],
+        "EnemyBornMagic": [
+            763565.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250208,
+        "Description": "Roguelike 2.0 - Event Item - Red Pendant - DMG Bonus +10%",
+        "ConditionId": [],
+        "BornMagic": [
+            763581.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250209,
+        "Description": "Roguelike 2.0 - Event Item - Blue Pendant - Dodge Recovery +50%",
+        "ConditionId": [],
+        "BornMagic": [
+            763582.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250210,
+        "Description": "Roguelike 2.0 - Event Item - Yellow Pendant - Restores One 3-Ping Every 15s",
+        "ConditionId": [],
+        "BornMagic": [
+            763583.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250211,
+        "Description": "Roguelike 2.0 - Event Item - Scroll - Gains 2 Orbs Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763584.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250212,
+        "Description": "Roguelike 2.0 - Event Item - Scholar's Notes - Gains 1 Orb Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763585.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250213,
+        "Description": "Roguelike 2.0 - Event Item - Notes of the Fool - Gains 2 Sets of 3-Pings Upon Entering Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763586.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250214,
+        "Description": "Roguelike 2.0 - Event Item - Proof of the Nameless +30% Extra DMG+DMG Taken",
+        "ConditionId": [],
+        "BornMagic": [
+            763587.0,
+            763588.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250215,
+        "Description": "Roguelike 2.0 - Event Item - Sword of the Nameless +30% Extra DMG -30% Recovery speed of Signal Orbs by Basic Attack",
+        "ConditionId": [],
+        "BornMagic": [
+            763589.0,
+            763590.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250216,
+        "Description": "Roguelike 2.0 - Event Item - Black Nat -20% Extra DMG",
+        "ConditionId": [],
+        "BornMagic": [
+            763591.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250217,
+        "Description": "Roguelike 2.0 - Event Item - Auto Cannon - 1 Orb Every 5s",
+        "ConditionId": [],
+        "BornMagic": [
+            763592.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250218,
+        "Description": "Roguelike 2.0 - Event Item - Vista - Gains 10% ATK Every 10s at the Frontline, up to 30%. Resets Upon Character Switch.",
+        "ConditionId": [],
+        "BornMagic": [
+            763593.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250219,
+        "Description": "Roguelike 2.0 - Event Item - Sun Bird - Gains 10% ATK for 10s Upon Character Switch, up to 30%. Resets Upon Character Switch.",
+        "ConditionId": [],
+        "BornMagic": [
+            763596.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250220,
+        "Description": "Roguelike 2.0 - Event Item - Family Crest +15% All Basic Stats",
+        "ConditionId": [],
+        "BornMagic": [
+            763598.0,
+            763599.0,
+            763600.0,
+            763601.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250221,
+        "Description": "Roguelike 2.0 - Event Item - Heavy Blade +30% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763602.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250222,
+        "Description": "Roguelike 2.0 - Event Item - Star Core - 3 Sets of Orbs at the Beginning of the Battle",
+        "ConditionId": [],
+        "BornMagic": [
+            763603.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250301,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763611.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250302,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763612.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250303,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            763613.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250304,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763614.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250305,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763615.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250306,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            763616.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250307,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763617.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250308,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% HP",
+        "ConditionId": [],
+        "BornMagic": [
+            763618.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250309,
+        "Description": "Roguelike 2.0 - Outer Loop - +5% DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            763619.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250310,
+        "Description": "Roguelike 2.0 - Outer Loop - +2% All Stats \u00d71",
+        "ConditionId": [],
+        "BornMagic": [
+            763666.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250311,
+        "Description": "Roguelike 2.0 - Outer Loop - +2% All Stats \u00d72",
+        "ConditionId": [],
+        "BornMagic": [
+            763667.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250312,
+        "Description": "Roguelike 2.0 - Outer Loop - +2% All Stats \u00d73",
+        "ConditionId": [],
+        "BornMagic": [
+            763668.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250313,
+        "Description": "Roguelike 2.0 - Outer Loop - +10% Stat DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            763669.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250401,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Easy",
+        "ConditionId": [],
+        "BornMagic": [
+            763691.0
+        ],
+        "EnemyBornMagic": [
+            763695.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250402,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Normal",
+        "ConditionId": [],
+        "BornMagic": [
+            763692.0
+        ],
+        "EnemyBornMagic": [
+            763696.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250403,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Hard",
+        "ConditionId": [],
+        "BornMagic": [
+            763693.0
+        ],
+        "EnemyBornMagic": [
+            763697.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250404,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Squad Extra Time",
+        "ConditionId": [],
+        "BornMagic": [
+            763694.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250405,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Piling Correction - Adjusts Piling Resistance According to the Difficulty",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763698.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250406,
+        "Description": "Roguelike 2.0 - Difficulty Mark - Hard Difficulty Lamia - ATK Decrease",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            763690.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250501,
+        "Description": "Roguelike 2.0 - Environment - Light Tower",
+        "ConditionId": [],
+        "BornMagic": [
+            744270.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250502,
+        "Description": "Roguelike 2.0 - Environment - Abyss",
+        "ConditionId": [],
+        "BornMagic": [
+            744264.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250503,
+        "Description": "Roguelike 2.0 - Environment - Ghost Fish",
+        "ConditionId": [],
+        "BornMagic": [
+            744265.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250504,
+        "Description": "Roguelike 2.0 - Environment - Small Fish",
+        "ConditionId": [],
+        "BornMagic": [
+            744266.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250505,
+        "Description": "Roguelike 2.0 - Environment - Tentacle",
+        "ConditionId": [],
+        "BornMagic": [
+            744267.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250506,
+        "Description": "Roguelike 2.0 - Environment - Sea Wave",
+        "ConditionId": [],
+        "BornMagic": [
+            744268.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250507,
+        "Description": "Roguelike 2.0 - Environment - Lightning",
+        "ConditionId": [],
+        "BornMagic": [
+            744269.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250601,
+        "Description": "Roguelike 2.0 - Team - Battle Team - Each Team Provides 5% Extra DMG Bonus",
+        "ConditionId": [],
+        "BornMagic": [
+            763681.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250602,
+        "Description": "Roguelike 2.0 - Star Up - Star Up +300 ATK",
+        "ConditionId": [],
+        "BornMagic": [
+            763683.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250701,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Swordsman",
+        "ConditionId": [],
+        "BornMagic": [
+            763701.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250702,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Sister",
+        "ConditionId": [],
+        "BornMagic": [
+            763702.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250703,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Musashi",
+        "ConditionId": [],
+        "BornMagic": [
+            763703.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250704,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Gabriel",
+        "ConditionId": [],
+        "BornMagic": [
+            763704.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250705,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Camu",
+        "ConditionId": [],
+        "BornMagic": [
+            763705.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250706,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Lamia",
+        "ConditionId": [],
+        "BornMagic": [
+            763706.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250707,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Siren",
+        "ConditionId": [],
+        "BornMagic": [
+            763707.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250708,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Cradle",
+        "ConditionId": [],
+        "BornMagic": [
+            763708.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2250709,
+        "Description": "Roguelike 2.0 - Dialogue - Story Stage Dialogue - Moon Eater",
+        "ConditionId": [],
+        "BornMagic": [
+            763709.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []

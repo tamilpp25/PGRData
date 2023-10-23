@@ -31,7 +31,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -75,8 +75,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011101,
@@ -110,7 +112,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -154,8 +156,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011102,
@@ -189,7 +193,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -233,8 +237,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011103,
@@ -268,7 +274,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -312,8 +318,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011104,
@@ -347,7 +355,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -391,8 +399,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011105,
@@ -426,7 +436,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -447,9 +457,7 @@
         "HitShakeIntensity": null,
         "BeHitState": null,
         "Magic": [],
-        "MagicLauncherNpc": [
-            960111052.0
-        ],
+        "MagicLauncherNpc": [],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": 1.0,
@@ -470,8 +478,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": 960111052.0,
+        "CollideMissileType": null
     },
     {
         "Id": 96011106,
@@ -505,7 +515,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -547,8 +557,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011107,
@@ -586,7 +598,7 @@
             0.0,
             0.0,
             1.0,
-            0,
+            0.0,
             0,
             0
         ],
@@ -631,8 +643,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": 1.0,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011108,
@@ -666,7 +680,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -712,8 +726,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": 1.0,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011109,
@@ -747,7 +763,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -789,8 +805,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011110,
@@ -824,7 +842,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -870,8 +888,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": 1.0,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011111,
@@ -905,7 +925,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -949,8 +969,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011112,
@@ -988,7 +1010,7 @@
             0.0,
             0.0,
             1.0,
-            0,
+            0.0,
             0,
             0
         ],
@@ -1033,8 +1055,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": 1.0,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011113,
@@ -1068,7 +1092,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1112,8 +1136,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011114,
@@ -1147,7 +1173,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1168,9 +1194,7 @@
         "HitShakeIntensity": null,
         "BeHitState": null,
         "Magic": [],
-        "MagicLauncherNpc": [
-            960111142.0
-        ],
+        "MagicLauncherNpc": [],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -1191,8 +1215,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": 960111142.0,
+        "CollideMissileType": null
     },
     {
         "Id": 96011115,
@@ -1226,7 +1252,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1270,8 +1296,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011116,
@@ -1305,7 +1333,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1349,8 +1377,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011117,
@@ -1384,7 +1414,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1428,8 +1458,93 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011118,
+        "Name": "\u51fb\u98de\u4e14\u65e0\u89c6\u78b0\u649e",
+        "Shape": 1,
+        "SizeX": 10.0,
+        "SizeY": 70.0,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 1.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": 1.0,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 1,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": 960111181.0,
+        "Magic": [
+            740452.0,
+            740433.0,
+            740459.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 1,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011119,
@@ -1463,7 +1578,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1507,8 +1622,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011120,
@@ -1542,7 +1659,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1586,8 +1703,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011121,
@@ -1621,7 +1740,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1665,8 +1784,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011122,
@@ -1700,7 +1821,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1744,8 +1865,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011123,
@@ -1779,7 +1902,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1823,8 +1946,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011124,
@@ -1860,7 +1985,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1902,8 +2027,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011125,
@@ -1939,7 +2066,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -1981,8 +2108,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011126,
@@ -2018,7 +2147,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2060,8 +2189,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011127,
@@ -2097,7 +2228,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2139,8 +2270,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011128,
@@ -2176,7 +2309,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2218,8 +2351,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011129,
@@ -2253,7 +2388,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2295,8 +2430,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011130,
@@ -2330,7 +2467,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2372,8 +2509,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011131,
@@ -2407,7 +2546,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2449,14 +2588,16 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011132,
         "Name": "S\u5361\u5217\u8dd1\u9177\u5438\u5f15\u9ed1\u6d1e",
         "Shape": 2,
-        "SizeX": 30.0,
+        "SizeX": 60.0,
         "SizeY": null,
         "OffsetX": null,
         "OffsetY": null,
@@ -2484,7 +2625,7 @@
         "ExplosionEffect": null,
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2528,8 +2669,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011133,
@@ -2563,7 +2706,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2608,8 +2751,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011134,
@@ -2643,7 +2788,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2688,8 +2833,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011135,
@@ -2723,7 +2870,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2768,8 +2915,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011136,
@@ -2803,7 +2952,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2848,8 +2997,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011137,
@@ -2883,7 +3034,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -2928,8 +3079,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011138,
@@ -2963,7 +3116,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -3008,8 +3161,10 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     },
     {
         "Id": 96011139,
@@ -3043,7 +3198,7 @@
         "ExplosionEffect": "FxTongyongDataBoxOut01",
         "LineType": 1,
         "LineParams": [
-            0,
+            0.0,
             0,
             0
         ],
@@ -3088,7 +3243,582 @@
         "ReboundTimes": null,
         "ReboundType": null,
         "CollideFilterType": null,
-        "TargetExcludeBuffId": null,
-        "NpcHitCount": null
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011140,
+        "Name": "\u7aef\u5348\u8dd1\u56e2\u72d9\u51fb\u652f\u63f4\u5b50\u5f39",
+        "Shape": 1,
+        "SizeX": 5.0,
+        "SizeY": 25.0,
+        "OffsetX": null,
+        "OffsetY": 12.5,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.1,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxR2WanshiAtk42Hit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.35,
+        "HitShakeIntensity": 0.5,
+        "BeHitState": 960111401.0,
+        "Magic": [
+            700312.0,
+            762644.0,
+            760462.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011141,
+        "Name": "\u7aef\u5348\u8dd1\u56e2\u8d5b\u4e3d\u5361\u9b54\u738b\u7279\u6548",
+        "Shape": 2,
+        "SizeX": 0.1,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 1,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 9999.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": "FxR3LunaMd010021Fire",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011142,
+        "Name": "\u7aef\u5348\u8dd1\u56e2\u5927\u6d77\u6d6a\uff08\u9700\u914d\u5408\u51cf\u901f\u53ef\u64cd\u4f5c\u5b50\u5f39\u98df\u7528\uff09",
+        "Shape": 2,
+        "SizeX": 0.1,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 50.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": "FxMb1HamuleiteAtk52",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 4,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": 0.0,
+        "DeathWithNpc": 1.0,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011143,
+        "Name": "\u7aef\u5348\u8dd1\u56e2\u5927\u6d77\u6d6a\u6301\u7eed\u4f24\u5bb3\u5b50\u5f39\uff08\u914d\u5408\u53ef\u64cd\u4f5c\u5b50\u5f39\u98df\u7528\uff09",
+        "Shape": 3,
+        "SizeX": 20.0,
+        "SizeY": 180.0,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 50.0,
+        "FillTime": 10.0,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": 1.0,
+        "HitEffect": [],
+        "DamageInterval": 2.0,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": 10.0,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 4,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [
+            801045.0,
+            849042.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 1,
+        "LockLauncherFightTarget": null,
+        "BindSkill": 0.0,
+        "DeathWithNpc": 1.0,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 1,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011144,
+        "Name": "\u8d85\u6bd4\u5b89\u5361\u51fb\u98de\u5b50\u5f3910/7s",
+        "Shape": 2,
+        "SizeX": 5.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.1,
+        "FillTime": null,
+        "DeadExplosion": 1.0,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": 1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": 1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 5,
+        "LineParams": [
+            0.0,
+            90.0,
+            0.0,
+            2.0,
+            62.8318,
+            0,
+            0,
+            1.2,
+            0.0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": 1.0,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": 960111441.0,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.3,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 1,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011145,
+        "Name": "\u8d85\u6bd4\u5b89\u5361\u9996\u5e2d\u5c04\u7ebf",
+        "Shape": 2,
+        "SizeX": 0.1,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": "FxR3LuosaitaAtk44",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
+    },
+    {
+        "Id": 96011146,
+        "Name": "\u8d85\u6bd4\u5b89\u5361\u9996\u5e2d\u5c04\u7ebf2",
+        "Shape": 1,
+        "SizeX": 1.0,
+        "SizeY": 50.0,
+        "OffsetX": null,
+        "OffsetY": 25.0,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.1,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxMe1GouzaotiMd10001Attack11Shouji"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 0,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 1,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": 960111461.0,
+        "Magic": [
+            110535.0,
+            749023.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null
     }
 ]

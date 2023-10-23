@@ -1,56 +1,56 @@
 [
     {
         "Id": 1,
-        "Name": "\u6218\u6597\u9762\u677f",
+        "Name": "Battle Screen",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/MainAggregateChapter.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconZongmianban.png",
         "ProxyPath": "XUi/XUiFuben/Main/XUiPanelMain",
         "UiParentName": "PanelMain",
-        "ConditionDesc": "\u6307\u6325\u5b98\u7b49\u7ea7\u8fbe\u52301\u7ea7\u5f00\u542f"
+        "ConditionDesc": "Unlocked when Commandant reaches Lv.1."
     },
     {
         "Id": 2,
-        "Name": "\u4e3b \u7ebf",
+        "Name": "Main",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/MainLineChapter.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconZhuxian.png",
         "ProxyPath": "XUi/XUiFuben/MainLine/XUiPanelMainLine",
         "UiParentName": "PanelMainLine",
-        "ConditionDesc": "\u6307\u6325\u5b98\u7b49\u7ea7\u8fbe\u52301\u7ea7\u5f00\u542f"
+        "ConditionDesc": "Unlocked when Commandant reaches Lv.1."
     },
     {
         "Id": 3,
-        "Name": "\u652f \u7ebf",
+        "Name": "Side",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/BranchLineChapter.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconZhixian.png",
         "ProxyPath": "XUi/XUiFuben/ExtralLine/XUiPanelExtralLine",
         "UiParentName": "PanelExtralLine",
-        "ConditionDesc": "\u901a\u5173\u666e\u901a\u5267\u60c53-8\u526f\u672c\u540e\u5f00\u542f"
+        "ConditionDesc": "Complete Normal Story 3-8 to unlock."
     },
     {
         "Id": 4,
-        "Name": "\u7814 \u4e60",
+        "Name": "Study",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/CollegeBanner.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconYanxi.png",
         "ProxyPath": "XUi/XUiFuben/XUiPanelCollegeStudy",
         "UiParentName": "PanelCollegeBanner",
-        "ConditionDesc": "\u6307\u6325\u5b98\u7b49\u7ea7\u8fbe\u52301\u7ea7\u5f00\u542f"
+        "ConditionDesc": "Unlocked when Commandant reaches Lv.1."
     },
     {
         "Id": 5,
-        "Name": "\u8d44 \u6e90",
+        "Name": "Resources",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/DailyBanner.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconZiyuan.png",
         "ProxyPath": "XUi/XUiFuben/XUiPanelResourceCollection",
         "UiParentName": "PanelResource",
-        "ConditionDesc": "\u901a\u5173\u666e\u901a\u5267\u60c52-2\u526f\u672c\u540e\u5f00\u542f"
+        "ConditionDesc": "Complete Normal Story 2-2 to unlock."
     },
     {
         "Id": 6,
-        "Name": "\u6311 \u6218",
+        "Name": "Challenge",
         "AssetPath": "Assets/Product/Ui/ComponentPrefab/FuBenNew/ChallengeBanner.prefab",
         "IconPath": "Assets/Product/Texture/Image/UiNewFuBen/NewFuBenIconTiaozhan.png",
         "ProxyPath": "XUi/XUiFuben/XUiPanelSimulationChallenge",
         "UiParentName": "PanelChallengeBanner",
-        "ConditionDesc": "\u901a\u5173\u666e\u901a\u5267\u60c52-11\u526f\u672c\u540e\u5f00\u542f"
+        "ConditionDesc": "Complete Normal Story 2-11 to unlock."
     }
 ]

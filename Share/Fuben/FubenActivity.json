@@ -1,0 +1,107 @@
+[
+    {
+        "Id": 1,
+        "Name": "Unobserved",
+        "ManagerName": "RpgTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner21.png",
+        "TimeId": null,
+        "FunctionNameId": 10321,
+        "SkipId": 11736,
+        "Order": 9,
+        "RedPointConditions": [
+            "CONDITION_RPGTOWER_TASK_RED",
+            "CONDITION_RPGTOWER_DAILYREWARD_RED"
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Babel Tower: Triumphant Tide",
+        "ManagerName": "FubenBabelTowerManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner06.png",
+        "TimeId": 11811.0,
+        "FunctionNameId": 10307,
+        "SkipId": 20015,
+        "Order": 4,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BABELTOWER_REWARD"
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Midsummer Memento",
+        "ManagerName": "FubenSpecialTrainManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner80.png",
+        "TimeId": 11102.0,
+        "FunctionNameId": 10316,
+        "SkipId": 11727,
+        "Order": 6,
+        "RedPointConditions": [
+            "CONDITION_SPECIALTRAIN_RED"
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Starry Conversations",
+        "ManagerName": "PokerGuessingManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner81.png",
+        "TimeId": 11701.0,
+        "FunctionNameId": 10333,
+        "SkipId": 11761,
+        "Order": 7,
+        "RedPointConditions": [
+            "CONDITION_POKER_GUESSING_RED"
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Abyssal Voyage",
+        "ManagerName": "FubenRepeatChallengeManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
+        "TimeId": 11501.0,
+        "FunctionNameId": 10309,
+        "SkipId": 20017,
+        "Order": 1,
+        "RedPointConditions": [
+            "CONDITION_REPEAT_CHALLENGE_REWARD"
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Exodus Memoria",
+        "ManagerName": "FubenActivityBossSingleManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner82.png",
+        "TimeId": 11301.0,
+        "FunctionNameId": 10304,
+        "SkipId": 11724,
+        "Order": 5,
+        "RedPointConditions": [
+            "CONDITION_ACTIVITYBRIE_BOSSSINGLE"
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Operation Uniframe",
+        "ManagerName": "PivotCombatManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner60.png",
+        "TimeId": null,
+        "FunctionNameId": 10422,
+        "SkipId": 82070,
+        "Order": 8,
+        "RedPointConditions": [
+            "CONDITION_PIVOTCOMBAT_ALL_RED_POINT"
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Reborn Resolve",
+        "ManagerName": "FubenNewCharActivityManager",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner84.png",
+        "TimeId": 11906.0,
+        "FunctionNameId": 10325,
+        "SkipId": 20071,
+        "Order": 2,
+        "RedPointConditions": [
+            "CONDITION_KOROMCHARACTIVITYMAINRED"
+        ]
+    }
+]

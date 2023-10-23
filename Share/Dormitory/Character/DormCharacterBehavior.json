@@ -15974,5 +15974,629 @@
         "BehaviorId": "D107100440",
         "CanClick": 0,
         "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 27039,
+        "CharacterId": 1021003,
+        "State": "GODRAWSWORD",
+        "BehaviorId": "D102100341",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 27040,
+        "CharacterId": 1021003,
+        "State": "DRAWSWORD",
+        "BehaviorId": "D102100342",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28001,
+        "CharacterId": 1571003,
+        "State": "IDLE",
+        "BehaviorId": "D157100301",
+        "CanClick": 1,
+        "StateMachine": "IDLE"
+    },
+    {
+        "Id": 28002,
+        "CharacterId": 1571003,
+        "State": "GRAB_UP",
+        "BehaviorId": "D157100302",
+        "CanClick": 0,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 28003,
+        "CharacterId": 1571003,
+        "State": "SELECTED",
+        "BehaviorId": "D157100303",
+        "CanClick": 1,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 28004,
+        "CharacterId": 1571003,
+        "State": "RELATIOM",
+        "BehaviorId": "D157100305",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28005,
+        "CharacterId": 1571003,
+        "State": "ATTRACT",
+        "BehaviorId": "D157100305",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28006,
+        "CharacterId": 1571003,
+        "State": "SIT",
+        "BehaviorId": "D157100306",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28007,
+        "CharacterId": 1571003,
+        "State": "SLEEP",
+        "BehaviorId": "D157100307",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28008,
+        "CharacterId": 1571003,
+        "State": "TIRED",
+        "BehaviorId": "D157100308",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28009,
+        "CharacterId": 1571003,
+        "State": "LAZY",
+        "BehaviorId": "D157100309",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28010,
+        "CharacterId": 1571003,
+        "State": "ANNOY",
+        "BehaviorId": "D157100310",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28011,
+        "CharacterId": 1571003,
+        "State": "BORING",
+        "BehaviorId": "D157100311",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28012,
+        "CharacterId": 1571003,
+        "State": "LOVE",
+        "BehaviorId": "D157100312",
+        "CanClick": 0,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28013,
+        "CharacterId": 1571003,
+        "State": "REWAWRD",
+        "BehaviorId": "D157100313",
+        "CanClick": 1,
+        "StateMachine": "IDLE"
+    },
+    {
+        "Id": 28014,
+        "CharacterId": 1571003,
+        "State": "FONDLE",
+        "BehaviorId": "D157100314",
+        "CanClick": 0,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 28015,
+        "CharacterId": 1571003,
+        "State": "GOSOFA",
+        "BehaviorId": "D157100315",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28016,
+        "CharacterId": 1571003,
+        "State": "GOCHAIR",
+        "BehaviorId": "D157100316",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28017,
+        "CharacterId": 1571003,
+        "State": "GOBENCH",
+        "BehaviorId": "D157100317",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28018,
+        "CharacterId": 1571003,
+        "State": "GOCABINET",
+        "BehaviorId": "D157100318",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28019,
+        "CharacterId": 1571003,
+        "State": "CABINET",
+        "BehaviorId": "D157100319",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28020,
+        "CharacterId": 1571003,
+        "State": "CHAIR",
+        "BehaviorId": "D157100320",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28021,
+        "CharacterId": 1571003,
+        "State": "BENCH",
+        "BehaviorId": "D157100321",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28022,
+        "CharacterId": 1571003,
+        "State": "WANTTOUCH",
+        "BehaviorId": "D157100322",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28023,
+        "CharacterId": 1571003,
+        "State": "HATE",
+        "BehaviorId": "D157100323",
+        "CanClick": 0,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 28024,
+        "CharacterId": 1571003,
+        "State": "WAIT",
+        "BehaviorId": "D157100324",
+        "CanClick": 1,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 28025,
+        "CharacterId": 1571003,
+        "State": "GODING",
+        "BehaviorId": "D157100325",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28026,
+        "CharacterId": 1571003,
+        "State": "PUTDING",
+        "BehaviorId": "D157100326",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28027,
+        "CharacterId": 1571003,
+        "State": "GOSWIM",
+        "BehaviorId": "D157100327",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28028,
+        "CharacterId": 1571003,
+        "State": "PUTSWIM",
+        "BehaviorId": "D157100328",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28029,
+        "CharacterId": 1571003,
+        "State": "GOMAGIC",
+        "BehaviorId": "D157100329",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28030,
+        "CharacterId": 1571003,
+        "State": "PUTMAGIC",
+        "BehaviorId": "D157100330",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28031,
+        "CharacterId": 1571003,
+        "State": "GOPlAYING",
+        "BehaviorId": "D157100331",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28032,
+        "CharacterId": 1571003,
+        "State": "PlAYING",
+        "BehaviorId": "D157100332",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28033,
+        "CharacterId": 1571003,
+        "State": "GOOPERA",
+        "BehaviorId": "D157100333",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28034,
+        "CharacterId": 1571003,
+        "State": "OPERA",
+        "BehaviorId": "D157100334",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28035,
+        "CharacterId": 1571003,
+        "State": "GOVALENTINE",
+        "BehaviorId": "D157100335",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28036,
+        "CharacterId": 1571003,
+        "State": "VALENTINE",
+        "BehaviorId": "D157100336",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28037,
+        "CharacterId": 1571003,
+        "State": "GORESTAURANT",
+        "BehaviorId": "D157100339",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 28038,
+        "CharacterId": 1571003,
+        "State": "RESTAURANT",
+        "BehaviorId": "D157100340",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29001,
+        "CharacterId": 1041004,
+        "State": "IDLE",
+        "BehaviorId": "D104100401",
+        "CanClick": 1,
+        "StateMachine": "IDLE"
+    },
+    {
+        "Id": 29002,
+        "CharacterId": 1041004,
+        "State": "SLEEP",
+        "BehaviorId": "D104100407",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29003,
+        "CharacterId": 1041004,
+        "State": "TIRED",
+        "BehaviorId": "D104100408",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29004,
+        "CharacterId": 1041004,
+        "State": "ANNOY",
+        "BehaviorId": "D104100410",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29005,
+        "CharacterId": 1041004,
+        "State": "BORING",
+        "BehaviorId": "D104100411",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29006,
+        "CharacterId": 1041004,
+        "State": "LAZY",
+        "BehaviorId": "D104100409",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29007,
+        "CharacterId": 1041004,
+        "State": "LOVE",
+        "BehaviorId": "D104100412",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29008,
+        "CharacterId": 1041004,
+        "State": "REWAWRD",
+        "BehaviorId": "D104100413",
+        "CanClick": 1,
+        "StateMachine": "IDLE"
+    },
+    {
+        "Id": 29009,
+        "CharacterId": 1041004,
+        "State": "GRAB_UP",
+        "BehaviorId": "D104100402",
+        "CanClick": 0,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 29010,
+        "CharacterId": 1041004,
+        "State": "FONDLE",
+        "BehaviorId": "D104100414",
+        "CanClick": 0,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 29011,
+        "CharacterId": 1041004,
+        "State": "SELECTED",
+        "BehaviorId": "D104100403",
+        "CanClick": 1,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 29012,
+        "CharacterId": 1041004,
+        "State": "RELATIOM",
+        "BehaviorId": "D104100405",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29013,
+        "CharacterId": 1041004,
+        "State": "SIT",
+        "BehaviorId": "D104100406",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29014,
+        "CharacterId": 1041004,
+        "State": "ATTRACT",
+        "BehaviorId": "D104100405",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29015,
+        "CharacterId": 1041004,
+        "State": "CABINET",
+        "BehaviorId": "D104100419",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29016,
+        "CharacterId": 1041004,
+        "State": "CHAIR",
+        "BehaviorId": "D104100420",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29017,
+        "CharacterId": 1041004,
+        "State": "BENCH",
+        "BehaviorId": "D104100421",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29018,
+        "CharacterId": 1041004,
+        "State": "GOSOFA",
+        "BehaviorId": "D104100415",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29019,
+        "CharacterId": 1041004,
+        "State": "GOCHAIR",
+        "BehaviorId": "D104100416",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29020,
+        "CharacterId": 1041004,
+        "State": "GOBENCH",
+        "BehaviorId": "D104100417",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29021,
+        "CharacterId": 1041004,
+        "State": "GOCABINET",
+        "BehaviorId": "D104100418",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29022,
+        "CharacterId": 1041004,
+        "State": "WANTTOUCH",
+        "BehaviorId": "D104100422",
+        "CanClick": 1,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29023,
+        "CharacterId": 1041004,
+        "State": "HATE",
+        "BehaviorId": "D104100423",
+        "CanClick": 0,
+        "StateMachine": "MOOD"
+    },
+    {
+        "Id": 29024,
+        "CharacterId": 1041004,
+        "State": "WAIT",
+        "BehaviorId": "D104100424",
+        "CanClick": 1,
+        "StateMachine": "CONTROL"
+    },
+    {
+        "Id": 29025,
+        "CharacterId": 1041004,
+        "State": "GODING",
+        "BehaviorId": "D104100425",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29026,
+        "CharacterId": 1041004,
+        "State": "PUTDING",
+        "BehaviorId": "D104100426",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29027,
+        "CharacterId": 1041004,
+        "State": "GOSWIM",
+        "BehaviorId": "D104100427",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29028,
+        "CharacterId": 1041004,
+        "State": "PUTSWIM",
+        "BehaviorId": "D104100428",
+        "CanClick": 1,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29029,
+        "CharacterId": 1041004,
+        "State": "GOMAGIC",
+        "BehaviorId": "D104100429",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29030,
+        "CharacterId": 1041004,
+        "State": "PUTMAGIC",
+        "BehaviorId": "D104100430",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29031,
+        "CharacterId": 1041004,
+        "State": "GOPlAYING",
+        "BehaviorId": "D104100431",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29032,
+        "CharacterId": 1041004,
+        "State": "PlAYING",
+        "BehaviorId": "D104100432",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29033,
+        "CharacterId": 1041004,
+        "State": "GOOPERA",
+        "BehaviorId": "D104100433",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29034,
+        "CharacterId": 1041004,
+        "State": "OPERA",
+        "BehaviorId": "D104100434",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29035,
+        "CharacterId": 1041004,
+        "State": "GOVALENTINE",
+        "BehaviorId": "D104100435",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29036,
+        "CharacterId": 1041004,
+        "State": "VALENTINE",
+        "BehaviorId": "D104100436",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29037,
+        "CharacterId": 1041004,
+        "State": "GORESTAURANT",
+        "BehaviorId": "D104100439",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
+    },
+    {
+        "Id": 29038,
+        "CharacterId": 1041004,
+        "State": "RESTAURANT",
+        "BehaviorId": "D104100440",
+        "CanClick": 0,
+        "StateMachine": "INTERACT"
     }
 ]

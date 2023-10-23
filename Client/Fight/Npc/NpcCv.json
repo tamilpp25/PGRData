@@ -1,156 +1,5506 @@
 [
     {
-        "Id": 10000,
-        "NpcId": 1017,
+        "Id": 0,
+        "NpcId": 1001,
         "Type": 0,
         "ModelId": null,
-        "CvId": 107160
+        "CvId": 101160,
+        "Desc": "Lee: Palefire"
+    },
+    {
+        "Id": 1,
+        "NpcId": 1001,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 101161,
+        "Desc": null
+    },
+    {
+        "Id": 2,
+        "NpcId": 1001,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 101162,
+        "Desc": null
+    },
+    {
+        "Id": 3,
+        "NpcId": 1001,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 101163,
+        "Desc": null
+    },
+    {
+        "Id": 4,
+        "NpcId": 1001,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 101164,
+        "Desc": null
+    },
+    {
+        "Id": 5,
+        "NpcId": 1001,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 101165,
+        "Desc": null
+    },
+    {
+        "Id": 6,
+        "NpcId": 1001,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 101166,
+        "Desc": null
+    },
+    {
+        "Id": 7,
+        "NpcId": 1001,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 101167,
+        "Desc": null
+    },
+    {
+        "Id": 8,
+        "NpcId": 1001,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 101168,
+        "Desc": null
+    },
+    {
+        "Id": 9,
+        "NpcId": 1001,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 101169,
+        "Desc": null
+    },
+    {
+        "Id": 10,
+        "NpcId": 1001,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 101170,
+        "Desc": null
+    },
+    {
+        "Id": 100,
+        "NpcId": 5001,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 101160,
+        "Desc": "Lee: Palefire (Lone Gunner Character)"
+    },
+    {
+        "Id": 101,
+        "NpcId": 5001,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 101161,
+        "Desc": null
+    },
+    {
+        "Id": 102,
+        "NpcId": 5001,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 101162,
+        "Desc": null
+    },
+    {
+        "Id": 103,
+        "NpcId": 5001,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 101163,
+        "Desc": null
+    },
+    {
+        "Id": 104,
+        "NpcId": 5001,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 101164,
+        "Desc": null
+    },
+    {
+        "Id": 105,
+        "NpcId": 5001,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 101165,
+        "Desc": null
+    },
+    {
+        "Id": 106,
+        "NpcId": 5001,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 101166,
+        "Desc": null
+    },
+    {
+        "Id": 107,
+        "NpcId": 5001,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 101167,
+        "Desc": null
+    },
+    {
+        "Id": 108,
+        "NpcId": 5001,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 101168,
+        "Desc": null
+    },
+    {
+        "Id": 109,
+        "NpcId": 5001,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 101169,
+        "Desc": null
+    },
+    {
+        "Id": 110,
+        "NpcId": 5001,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 101170,
+        "Desc": null
+    },
+    {
+        "Id": 1000,
+        "NpcId": 1011,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 101160,
+        "Desc": "Lee: Entropy"
+    },
+    {
+        "Id": 1001,
+        "NpcId": 1011,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 101161,
+        "Desc": null
+    },
+    {
+        "Id": 1002,
+        "NpcId": 1011,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 101162,
+        "Desc": null
+    },
+    {
+        "Id": 1003,
+        "NpcId": 1011,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 101163,
+        "Desc": null
+    },
+    {
+        "Id": 1004,
+        "NpcId": 1011,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 101171,
+        "Desc": null
+    },
+    {
+        "Id": 1005,
+        "NpcId": 1011,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 101165,
+        "Desc": null
+    },
+    {
+        "Id": 1006,
+        "NpcId": 1011,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 101166,
+        "Desc": null
+    },
+    {
+        "Id": 1007,
+        "NpcId": 1011,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 101167,
+        "Desc": null
+    },
+    {
+        "Id": 1008,
+        "NpcId": 1011,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 101168,
+        "Desc": null
+    },
+    {
+        "Id": 1009,
+        "NpcId": 1011,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 101169,
+        "Desc": null
+    },
+    {
+        "Id": 1010,
+        "NpcId": 1011,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 101170,
+        "Desc": null
+    },
+    {
+        "Id": 1020,
+        "NpcId": 1011,
+        "Type": 0,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101160,
+        "Desc": "Lee: Entropy"
+    },
+    {
+        "Id": 1021,
+        "NpcId": 1011,
+        "Type": 1,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101161,
+        "Desc": "Illusionist Coating"
+    },
+    {
+        "Id": 1022,
+        "NpcId": 1011,
+        "Type": 2,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101162,
+        "Desc": null
+    },
+    {
+        "Id": 1023,
+        "NpcId": 1011,
+        "Type": 3,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101163,
+        "Desc": null
+    },
+    {
+        "Id": 1024,
+        "NpcId": 1011,
+        "Type": 4,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101171,
+        "Desc": null
+    },
+    {
+        "Id": 1025,
+        "NpcId": 1011,
+        "Type": 5,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101165,
+        "Desc": null
+    },
+    {
+        "Id": 1026,
+        "NpcId": 1011,
+        "Type": 6,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101166,
+        "Desc": null
+    },
+    {
+        "Id": 1027,
+        "NpcId": 1011,
+        "Type": 7,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101167,
+        "Desc": null
+    },
+    {
+        "Id": 1028,
+        "NpcId": 1011,
+        "Type": 8,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101168,
+        "Desc": null
+    },
+    {
+        "Id": 1029,
+        "NpcId": 1011,
+        "Type": 9,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101169,
+        "Desc": null
+    },
+    {
+        "Id": 1030,
+        "NpcId": 1011,
+        "Type": 10,
+        "ModelId": "R3LiangMd019101",
+        "CvId": 101118,
+        "Desc": null
+    },
+    {
+        "Id": 2000,
+        "NpcId": 1002,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 102160,
+        "Desc": "Lucia: Lotus"
+    },
+    {
+        "Id": 2001,
+        "NpcId": 1002,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 102161,
+        "Desc": null
+    },
+    {
+        "Id": 2002,
+        "NpcId": 1002,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 102162,
+        "Desc": null
+    },
+    {
+        "Id": 2003,
+        "NpcId": 1002,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 102163,
+        "Desc": null
+    },
+    {
+        "Id": 2004,
+        "NpcId": 1002,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 102164,
+        "Desc": null
+    },
+    {
+        "Id": 2005,
+        "NpcId": 1002,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 102165,
+        "Desc": null
+    },
+    {
+        "Id": 2006,
+        "NpcId": 1002,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 102166,
+        "Desc": null
+    },
+    {
+        "Id": 2007,
+        "NpcId": 1002,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 102167,
+        "Desc": null
+    },
+    {
+        "Id": 2008,
+        "NpcId": 1002,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 102168,
+        "Desc": null
+    },
+    {
+        "Id": 2009,
+        "NpcId": 1002,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 102169,
+        "Desc": null
+    },
+    {
+        "Id": 2010,
+        "NpcId": 1002,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 102170,
+        "Desc": null
+    },
+    {
+        "Id": 2100,
+        "NpcId": 1132,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 102160,
+        "Desc": "Lucia: Lotus (Self Control Monster)"
+    },
+    {
+        "Id": 2101,
+        "NpcId": 1132,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 102161,
+        "Desc": null
+    },
+    {
+        "Id": 2102,
+        "NpcId": 1132,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 102162,
+        "Desc": null
+    },
+    {
+        "Id": 2103,
+        "NpcId": 1132,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 102163,
+        "Desc": null
+    },
+    {
+        "Id": 2104,
+        "NpcId": 1132,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 102164,
+        "Desc": null
+    },
+    {
+        "Id": 2105,
+        "NpcId": 1132,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 102165,
+        "Desc": null
+    },
+    {
+        "Id": 2106,
+        "NpcId": 1132,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 102166,
+        "Desc": null
+    },
+    {
+        "Id": 2107,
+        "NpcId": 1132,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 102167,
+        "Desc": null
+    },
+    {
+        "Id": 2108,
+        "NpcId": 1132,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 102168,
+        "Desc": null
+    },
+    {
+        "Id": 2109,
+        "NpcId": 1132,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 102169,
+        "Desc": null
+    },
+    {
+        "Id": 2110,
+        "NpcId": 1132,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 102170,
+        "Desc": null
+    },
+    {
+        "Id": 2200,
+        "NpcId": 1232,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 102160,
+        "Desc": "Lucia: Lotus (Self Control Monster 2)"
+    },
+    {
+        "Id": 2201,
+        "NpcId": 1232,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 102161,
+        "Desc": null
+    },
+    {
+        "Id": 2202,
+        "NpcId": 1232,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 102162,
+        "Desc": null
+    },
+    {
+        "Id": 2203,
+        "NpcId": 1232,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 102163,
+        "Desc": null
+    },
+    {
+        "Id": 2204,
+        "NpcId": 1232,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 102164,
+        "Desc": null
+    },
+    {
+        "Id": 2205,
+        "NpcId": 1232,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 102165,
+        "Desc": null
+    },
+    {
+        "Id": 2206,
+        "NpcId": 1232,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 102166,
+        "Desc": null
+    },
+    {
+        "Id": 2207,
+        "NpcId": 1232,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 102167,
+        "Desc": null
+    },
+    {
+        "Id": 2208,
+        "NpcId": 1232,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 102168,
+        "Desc": null
+    },
+    {
+        "Id": 2209,
+        "NpcId": 1232,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 102169,
+        "Desc": null
+    },
+    {
+        "Id": 2210,
+        "NpcId": 1232,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 102170,
+        "Desc": null
+    },
+    {
+        "Id": 3000,
+        "NpcId": 1012,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 102160,
+        "Desc": "Lucia: Dawn"
+    },
+    {
+        "Id": 3001,
+        "NpcId": 1012,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 102161,
+        "Desc": null
+    },
+    {
+        "Id": 3002,
+        "NpcId": 1012,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 102162,
+        "Desc": null
+    },
+    {
+        "Id": 3003,
+        "NpcId": 1012,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 102163,
+        "Desc": null
+    },
+    {
+        "Id": 3004,
+        "NpcId": 1012,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 102171,
+        "Desc": null
+    },
+    {
+        "Id": 3005,
+        "NpcId": 1012,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 102165,
+        "Desc": null
+    },
+    {
+        "Id": 3006,
+        "NpcId": 1012,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 102166,
+        "Desc": null
+    },
+    {
+        "Id": 3007,
+        "NpcId": 1012,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 102167,
+        "Desc": null
+    },
+    {
+        "Id": 3008,
+        "NpcId": 1012,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 102168,
+        "Desc": null
+    },
+    {
+        "Id": 3009,
+        "NpcId": 1012,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 102169,
+        "Desc": null
+    },
+    {
+        "Id": 3010,
+        "NpcId": 1012,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 102170,
+        "Desc": null
+    },
+    {
+        "Id": 4000,
+        "NpcId": 1022,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 1021037,
+        "Desc": "Lucia: Crimson Abyss"
+    },
+    {
+        "Id": 4001,
+        "NpcId": 1022,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 1021028,
+        "Desc": null
+    },
+    {
+        "Id": 4002,
+        "NpcId": 1022,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 1021029,
+        "Desc": null
+    },
+    {
+        "Id": 4003,
+        "NpcId": 1022,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 1021030,
+        "Desc": null
+    },
+    {
+        "Id": 4004,
+        "NpcId": 1022,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 1021031,
+        "Desc": null
+    },
+    {
+        "Id": 4005,
+        "NpcId": 1022,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 1021032,
+        "Desc": null
+    },
+    {
+        "Id": 4006,
+        "NpcId": 1022,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 1021033,
+        "Desc": null
+    },
+    {
+        "Id": 4007,
+        "NpcId": 1022,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 1021034,
+        "Desc": null
+    },
+    {
+        "Id": 4008,
+        "NpcId": 1022,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 1021035,
+        "Desc": null
+    },
+    {
+        "Id": 4009,
+        "NpcId": 1022,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 1021036,
+        "Desc": null
+    },
+    {
+        "Id": 4010,
+        "NpcId": 1022,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 1021038,
+        "Desc": null
+    },
+    {
+        "Id": 4011,
+        "NpcId": 1022,
+        "Type": 11,
+        "ModelId": null,
+        "CvId": 1021055,
+        "Desc": null
+    },
+    {
+        "Id": 4012,
+        "NpcId": 1022,
+        "Type": 12,
+        "ModelId": null,
+        "CvId": 1021056,
+        "Desc": null
+    },
+    {
+        "Id": 4013,
+        "NpcId": 1022,
+        "Type": 13,
+        "ModelId": null,
+        "CvId": 1021057,
+        "Desc": null
+    },
+    {
+        "Id": 4014,
+        "NpcId": 1022,
+        "Type": 14,
+        "ModelId": null,
+        "CvId": 1021058,
+        "Desc": null
+    },
+    {
+        "Id": 4015,
+        "NpcId": 1022,
+        "Type": 15,
+        "ModelId": null,
+        "CvId": 1021059,
+        "Desc": null
+    },
+    {
+        "Id": 5000,
+        "NpcId": 1032,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 1022070,
+        "Desc": "Lucia: Plume"
+    },
+    {
+        "Id": 5001,
+        "NpcId": 1032,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 1022061,
+        "Desc": null
+    },
+    {
+        "Id": 5002,
+        "NpcId": 1032,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 1022062,
+        "Desc": null
+    },
+    {
+        "Id": 5003,
+        "NpcId": 1032,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 1022063,
+        "Desc": null
+    },
+    {
+        "Id": 5004,
+        "NpcId": 1032,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 1022064,
+        "Desc": null
+    },
+    {
+        "Id": 5005,
+        "NpcId": 1032,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 1022065,
+        "Desc": null
+    },
+    {
+        "Id": 5006,
+        "NpcId": 1032,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 1022066,
+        "Desc": null
+    },
+    {
+        "Id": 5007,
+        "NpcId": 1032,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 1022067,
+        "Desc": null
+    },
+    {
+        "Id": 5008,
+        "NpcId": 1032,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 1022069,
+        "Desc": null
+    },
+    {
+        "Id": 5009,
+        "NpcId": 1032,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 1022068,
+        "Desc": null
+    },
+    {
+        "Id": 5010,
+        "NpcId": 1032,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 1022071,
+        "Desc": null
+    },
+    {
+        "Id": 5011,
+        "NpcId": 1032,
+        "Type": 11,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 6000,
+        "NpcId": 1003,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 103160,
+        "Desc": "Liv: Eclipse"
+    },
+    {
+        "Id": 6001,
+        "NpcId": 1003,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 103161,
+        "Desc": null
+    },
+    {
+        "Id": 6002,
+        "NpcId": 1003,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 103162,
+        "Desc": null
+    },
+    {
+        "Id": 6003,
+        "NpcId": 1003,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 103163,
+        "Desc": null
+    },
+    {
+        "Id": 6004,
+        "NpcId": 1003,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 103164,
+        "Desc": null
+    },
+    {
+        "Id": 6005,
+        "NpcId": 1003,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 103165,
+        "Desc": null
+    },
+    {
+        "Id": 6006,
+        "NpcId": 1003,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 103166,
+        "Desc": null
+    },
+    {
+        "Id": 6007,
+        "NpcId": 1003,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 103167,
+        "Desc": null
+    },
+    {
+        "Id": 6008,
+        "NpcId": 1003,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 103168,
+        "Desc": null
+    },
+    {
+        "Id": 6009,
+        "NpcId": 1003,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 103169,
+        "Desc": null
+    },
+    {
+        "Id": 6010,
+        "NpcId": 1003,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 103170,
+        "Desc": null
+    },
+    {
+        "Id": 6100,
+        "NpcId": 4705,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 103160,
+        "Desc": "Liv: Eclipse"
+    },
+    {
+        "Id": 6101,
+        "NpcId": 4705,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 103161,
+        "Desc": null
+    },
+    {
+        "Id": 6102,
+        "NpcId": 4705,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 103162,
+        "Desc": null
+    },
+    {
+        "Id": 6103,
+        "NpcId": 4705,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 103163,
+        "Desc": null
+    },
+    {
+        "Id": 6104,
+        "NpcId": 4705,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 103164,
+        "Desc": null
+    },
+    {
+        "Id": 6105,
+        "NpcId": 4705,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 103165,
+        "Desc": null
+    },
+    {
+        "Id": 6106,
+        "NpcId": 4705,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 103166,
+        "Desc": null
+    },
+    {
+        "Id": 6107,
+        "NpcId": 4705,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 103167,
+        "Desc": null
+    },
+    {
+        "Id": 6108,
+        "NpcId": 4705,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 103168,
+        "Desc": null
+    },
+    {
+        "Id": 6109,
+        "NpcId": 4705,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 103169,
+        "Desc": null
+    },
+    {
+        "Id": 6110,
+        "NpcId": 4705,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 103170,
+        "Desc": null
+    },
+    {
+        "Id": 7000,
+        "NpcId": 1013,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 103160,
+        "Desc": "Liv: Lux"
+    },
+    {
+        "Id": 7001,
+        "NpcId": 1013,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 103161,
+        "Desc": null
+    },
+    {
+        "Id": 7002,
+        "NpcId": 1013,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 103162,
+        "Desc": null
+    },
+    {
+        "Id": 7003,
+        "NpcId": 1013,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 103163,
+        "Desc": null
+    },
+    {
+        "Id": 7004,
+        "NpcId": 1013,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 103171,
+        "Desc": null
+    },
+    {
+        "Id": 7005,
+        "NpcId": 1013,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 103165,
+        "Desc": null
+    },
+    {
+        "Id": 7006,
+        "NpcId": 1013,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 103166,
+        "Desc": null
+    },
+    {
+        "Id": 7007,
+        "NpcId": 1013,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 103167,
+        "Desc": null
+    },
+    {
+        "Id": 7008,
+        "NpcId": 1013,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 103168,
+        "Desc": null
+    },
+    {
+        "Id": 7009,
+        "NpcId": 1013,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 103169,
+        "Desc": null
+    },
+    {
+        "Id": 7010,
+        "NpcId": 1013,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 103170,
+        "Desc": null
+    },
+    {
+        "Id": 8000,
+        "NpcId": 1023,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 103160,
+        "Desc": "Liv: Luminance"
+    },
+    {
+        "Id": 8001,
+        "NpcId": 1023,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 103161,
+        "Desc": null
+    },
+    {
+        "Id": 8002,
+        "NpcId": 1023,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 103162,
+        "Desc": null
+    },
+    {
+        "Id": 8003,
+        "NpcId": 1023,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 103163,
+        "Desc": null
+    },
+    {
+        "Id": 8004,
+        "NpcId": 1023,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 103172,
+        "Desc": null
+    },
+    {
+        "Id": 8005,
+        "NpcId": 1023,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 103165,
+        "Desc": null
+    },
+    {
+        "Id": 8006,
+        "NpcId": 1023,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 103166,
+        "Desc": null
+    },
+    {
+        "Id": 8007,
+        "NpcId": 1023,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 103167,
+        "Desc": null
+    },
+    {
+        "Id": 8008,
+        "NpcId": 1023,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 103168,
+        "Desc": null
+    },
+    {
+        "Id": 8009,
+        "NpcId": 1023,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 103169,
+        "Desc": null
+    },
+    {
+        "Id": 8010,
+        "NpcId": 1023,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 103170,
+        "Desc": null
+    },
+    {
+        "Id": 9000,
+        "NpcId": 1004,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 104160,
+        "Desc": "Bianca: Zero"
+    },
+    {
+        "Id": 9001,
+        "NpcId": 1004,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 104161,
+        "Desc": null
+    },
+    {
+        "Id": 9002,
+        "NpcId": 1004,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 104162,
+        "Desc": null
+    },
+    {
+        "Id": 9003,
+        "NpcId": 1004,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 104163,
+        "Desc": null
+    },
+    {
+        "Id": 9004,
+        "NpcId": 1004,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 104164,
+        "Desc": null
+    },
+    {
+        "Id": 9005,
+        "NpcId": 1004,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 104165,
+        "Desc": null
+    },
+    {
+        "Id": 9006,
+        "NpcId": 1004,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 104166,
+        "Desc": null
+    },
+    {
+        "Id": 9007,
+        "NpcId": 1004,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 104167,
+        "Desc": null
+    },
+    {
+        "Id": 9008,
+        "NpcId": 1004,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 104168,
+        "Desc": null
+    },
+    {
+        "Id": 9009,
+        "NpcId": 1004,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 104169,
+        "Desc": null
+    },
+    {
+        "Id": 9010,
+        "NpcId": 1004,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 104170,
+        "Desc": null
+    },
+    {
+        "Id": 10000,
+        "NpcId": 1014,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 104160,
+        "Desc": "Bianca: Veritas"
     },
     {
         "Id": 10001,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 1,
         "ModelId": null,
-        "CvId": 107161
+        "CvId": 104161,
+        "Desc": null
     },
     {
         "Id": 10002,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 2,
         "ModelId": null,
-        "CvId": 107162
+        "CvId": 104162,
+        "Desc": null
     },
     {
         "Id": 10003,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 3,
         "ModelId": null,
-        "CvId": 107163
+        "CvId": 104163,
+        "Desc": null
     },
     {
         "Id": 10004,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 4,
         "ModelId": null,
-        "CvId": 107171
+        "CvId": 104171,
+        "Desc": null
     },
     {
         "Id": 10005,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 5,
         "ModelId": null,
-        "CvId": 107165
+        "CvId": 104165,
+        "Desc": null
     },
     {
         "Id": 10006,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 6,
         "ModelId": null,
-        "CvId": 107166
+        "CvId": 104166,
+        "Desc": null
     },
     {
         "Id": 10007,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 7,
         "ModelId": null,
-        "CvId": 107167
+        "CvId": 104167,
+        "Desc": null
     },
     {
         "Id": 10008,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 8,
         "ModelId": null,
-        "CvId": 107168
+        "CvId": 104168,
+        "Desc": null
     },
     {
         "Id": 10009,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 9,
         "ModelId": null,
-        "CvId": 107169
+        "CvId": 104169,
+        "Desc": null
     },
     {
         "Id": 10010,
-        "NpcId": 1017,
+        "NpcId": 1014,
         "Type": 10,
         "ModelId": null,
-        "CvId": 107170
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 10011,
+        "NpcId": 1014,
+        "Type": 0,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104160,
+        "Desc": null
+    },
+    {
+        "Id": 10012,
+        "NpcId": 1014,
+        "Type": 1,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104161,
+        "Desc": null
+    },
+    {
+        "Id": 10013,
+        "NpcId": 1014,
+        "Type": 2,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104162,
+        "Desc": null
+    },
+    {
+        "Id": 10014,
+        "NpcId": 1014,
+        "Type": 3,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104163,
+        "Desc": null
+    },
+    {
+        "Id": 10015,
+        "NpcId": 1014,
+        "Type": 4,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104171,
+        "Desc": null
+    },
+    {
+        "Id": 10016,
+        "NpcId": 1014,
+        "Type": 5,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104165,
+        "Desc": null
+    },
+    {
+        "Id": 10017,
+        "NpcId": 1014,
+        "Type": 6,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104166,
+        "Desc": null
+    },
+    {
+        "Id": 10018,
+        "NpcId": 1014,
+        "Type": 7,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104167,
+        "Desc": null
+    },
+    {
+        "Id": 10019,
+        "NpcId": 1014,
+        "Type": 8,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104168,
+        "Desc": null
     },
     {
         "Id": 10020,
-        "NpcId": 1017,
-        "Type": 0,
-        "ModelId": "R3KalieninaMd019101",
-        "CvId": 107160
+        "NpcId": 1014,
+        "Type": 9,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104169,
+        "Desc": null
     },
     {
         "Id": 10021,
+        "NpcId": 1014,
+        "Type": 10,
+        "ModelId": "R3BiankaMd019131",
+        "CvId": 104172,
+        "Desc": null
+    },
+    {
+        "Id": 11000,
+        "NpcId": 1005,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 105160,
+        "Desc": "Nanami: Storm"
+    },
+    {
+        "Id": 11001,
+        "NpcId": 1005,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 105161,
+        "Desc": null
+    },
+    {
+        "Id": 11002,
+        "NpcId": 1005,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 105162,
+        "Desc": null
+    },
+    {
+        "Id": 11003,
+        "NpcId": 1005,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 105163,
+        "Desc": null
+    },
+    {
+        "Id": 11004,
+        "NpcId": 1005,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 105164,
+        "Desc": null
+    },
+    {
+        "Id": 11005,
+        "NpcId": 1005,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 105165,
+        "Desc": null
+    },
+    {
+        "Id": 11006,
+        "NpcId": 1005,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 105166,
+        "Desc": null
+    },
+    {
+        "Id": 11007,
+        "NpcId": 1005,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 105167,
+        "Desc": null
+    },
+    {
+        "Id": 11008,
+        "NpcId": 1005,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 105168,
+        "Desc": null
+    },
+    {
+        "Id": 11009,
+        "NpcId": 1005,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 105169,
+        "Desc": null
+    },
+    {
+        "Id": 11010,
+        "NpcId": 1005,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 105170,
+        "Desc": null
+    },
+    {
+        "Id": 12000,
+        "NpcId": 1015,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 105160,
+        "Desc": "Nanami: Pulse"
+    },
+    {
+        "Id": 12001,
+        "NpcId": 1015,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 105161,
+        "Desc": null
+    },
+    {
+        "Id": 12002,
+        "NpcId": 1015,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 105162,
+        "Desc": null
+    },
+    {
+        "Id": 12003,
+        "NpcId": 1015,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 105163,
+        "Desc": null
+    },
+    {
+        "Id": 12004,
+        "NpcId": 1015,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 105171,
+        "Desc": null
+    },
+    {
+        "Id": 12005,
+        "NpcId": 1015,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 105165,
+        "Desc": null
+    },
+    {
+        "Id": 12006,
+        "NpcId": 1015,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 105166,
+        "Desc": null
+    },
+    {
+        "Id": 12007,
+        "NpcId": 1015,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 105167,
+        "Desc": null
+    },
+    {
+        "Id": 12008,
+        "NpcId": 1015,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 105168,
+        "Desc": null
+    },
+    {
+        "Id": 12009,
+        "NpcId": 1015,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 105169,
+        "Desc": null
+    },
+    {
+        "Id": 12010,
+        "NpcId": 1015,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 105170,
+        "Desc": null
+    },
+    {
+        "Id": 13000,
+        "NpcId": 1006,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 106160,
+        "Desc": "Kamui: Bastion"
+    },
+    {
+        "Id": 13001,
+        "NpcId": 1006,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 106161,
+        "Desc": null
+    },
+    {
+        "Id": 13002,
+        "NpcId": 1006,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 106162,
+        "Desc": null
+    },
+    {
+        "Id": 13003,
+        "NpcId": 1006,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 106163,
+        "Desc": null
+    },
+    {
+        "Id": 13004,
+        "NpcId": 1006,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 106164,
+        "Desc": null
+    },
+    {
+        "Id": 13005,
+        "NpcId": 1006,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 106165,
+        "Desc": null
+    },
+    {
+        "Id": 13006,
+        "NpcId": 1006,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 106166,
+        "Desc": null
+    },
+    {
+        "Id": 13007,
+        "NpcId": 1006,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 106167,
+        "Desc": null
+    },
+    {
+        "Id": 13008,
+        "NpcId": 1006,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 106168,
+        "Desc": null
+    },
+    {
+        "Id": 13009,
+        "NpcId": 1006,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 106169,
+        "Desc": null
+    },
+    {
+        "Id": 13010,
+        "NpcId": 1006,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 106170,
+        "Desc": null
+    },
+    {
+        "Id": 14000,
+        "NpcId": 1016,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 1061012,
+        "Desc": "Kamui: Tenebrion"
+    },
+    {
+        "Id": 14001,
+        "NpcId": 1016,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 1061009,
+        "Desc": null
+    },
+    {
+        "Id": 14002,
+        "NpcId": 1016,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 1061010,
+        "Desc": null
+    },
+    {
+        "Id": 14003,
+        "NpcId": 1016,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 1061011,
+        "Desc": null
+    },
+    {
+        "Id": 14004,
+        "NpcId": 1016,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 106171,
+        "Desc": null
+    },
+    {
+        "Id": 14005,
+        "NpcId": 1016,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 1061013,
+        "Desc": null
+    },
+    {
+        "Id": 14006,
+        "NpcId": 1016,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 1061014,
+        "Desc": null
+    },
+    {
+        "Id": 14007,
+        "NpcId": 1016,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 1061015,
+        "Desc": null
+    },
+    {
+        "Id": 14008,
+        "NpcId": 1016,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 1061016,
+        "Desc": null
+    },
+    {
+        "Id": 14009,
+        "NpcId": 1016,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 1061018,
+        "Desc": null
+    },
+    {
+        "Id": 14010,
+        "NpcId": 1016,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 14011,
+        "NpcId": 1016,
+        "Type": 0,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061012,
+        "Desc": null
+    },
+    {
+        "Id": 14012,
+        "NpcId": 1016,
+        "Type": 1,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061009,
+        "Desc": null
+    },
+    {
+        "Id": 14013,
+        "NpcId": 1016,
+        "Type": 2,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061010,
+        "Desc": null
+    },
+    {
+        "Id": 14014,
+        "NpcId": 1016,
+        "Type": 3,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061011,
+        "Desc": null
+    },
+    {
+        "Id": 14015,
+        "NpcId": 1016,
+        "Type": 4,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 106171,
+        "Desc": null
+    },
+    {
+        "Id": 14016,
+        "NpcId": 1016,
+        "Type": 5,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061013,
+        "Desc": null
+    },
+    {
+        "Id": 14017,
+        "NpcId": 1016,
+        "Type": 6,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061014,
+        "Desc": null
+    },
+    {
+        "Id": 14018,
+        "NpcId": 1016,
+        "Type": 7,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061015,
+        "Desc": null
+    },
+    {
+        "Id": 14019,
+        "NpcId": 1016,
+        "Type": 8,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061016,
+        "Desc": null
+    },
+    {
+        "Id": 14020,
+        "NpcId": 1016,
+        "Type": 9,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061018,
+        "Desc": null
+    },
+    {
+        "Id": 14021,
+        "NpcId": 1016,
+        "Type": 10,
+        "ModelId": "R3ShenweiMd019131",
+        "CvId": 1061042,
+        "Desc": null
+    },
+    {
+        "Id": 14031,
+        "NpcId": 1026,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 1061012,
+        "Desc": "Main Story 8-5 Hidden Camu Voice"
+    },
+    {
+        "Id": 14032,
+        "NpcId": 1026,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 1061009,
+        "Desc": null
+    },
+    {
+        "Id": 14033,
+        "NpcId": 1026,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 1061010,
+        "Desc": null
+    },
+    {
+        "Id": 14034,
+        "NpcId": 1026,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 1061011,
+        "Desc": null
+    },
+    {
+        "Id": 14035,
+        "NpcId": 1026,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 106171,
+        "Desc": null
+    },
+    {
+        "Id": 14036,
+        "NpcId": 1026,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 1061013,
+        "Desc": null
+    },
+    {
+        "Id": 14037,
+        "NpcId": 1026,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 1061014,
+        "Desc": null
+    },
+    {
+        "Id": 14038,
+        "NpcId": 1026,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 1061015,
+        "Desc": null
+    },
+    {
+        "Id": 14039,
+        "NpcId": 1026,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 1061016,
+        "Desc": null
+    },
+    {
+        "Id": 14040,
+        "NpcId": 1026,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 1061018,
+        "Desc": null
+    },
+    {
+        "Id": 14041,
+        "NpcId": 1026,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 15000,
+        "NpcId": 1007,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 107160,
+        "Desc": "Karenina: Blast"
+    },
+    {
+        "Id": 15001,
+        "NpcId": 1007,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 107161,
+        "Desc": null
+    },
+    {
+        "Id": 15002,
+        "NpcId": 1007,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 107162,
+        "Desc": null
+    },
+    {
+        "Id": 15003,
+        "NpcId": 1007,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 107163,
+        "Desc": null
+    },
+    {
+        "Id": 15004,
+        "NpcId": 1007,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 107164,
+        "Desc": null
+    },
+    {
+        "Id": 15005,
+        "NpcId": 1007,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 107165,
+        "Desc": null
+    },
+    {
+        "Id": 15006,
+        "NpcId": 1007,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 107166,
+        "Desc": null
+    },
+    {
+        "Id": 15007,
+        "NpcId": 1007,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 107167,
+        "Desc": null
+    },
+    {
+        "Id": 15008,
+        "NpcId": 1007,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 107168,
+        "Desc": null
+    },
+    {
+        "Id": 15009,
+        "NpcId": 1007,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 107169,
+        "Desc": null
+    },
+    {
+        "Id": 15010,
+        "NpcId": 1007,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 107170,
+        "Desc": null
+    },
+    {
+        "Id": 15100,
+        "NpcId": 5002,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 107160,
+        "Desc": "Karenina: Blast (Lone Gunner)"
+    },
+    {
+        "Id": 15101,
+        "NpcId": 5002,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 107161,
+        "Desc": null
+    },
+    {
+        "Id": 15102,
+        "NpcId": 5002,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 107162,
+        "Desc": null
+    },
+    {
+        "Id": 15103,
+        "NpcId": 5002,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 107163,
+        "Desc": null
+    },
+    {
+        "Id": 15104,
+        "NpcId": 5002,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 107164,
+        "Desc": null
+    },
+    {
+        "Id": 15105,
+        "NpcId": 5002,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 107165,
+        "Desc": null
+    },
+    {
+        "Id": 15106,
+        "NpcId": 5002,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 107166,
+        "Desc": null
+    },
+    {
+        "Id": 15107,
+        "NpcId": 5002,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 107167,
+        "Desc": null
+    },
+    {
+        "Id": 15108,
+        "NpcId": 5002,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 107168,
+        "Desc": null
+    },
+    {
+        "Id": 15109,
+        "NpcId": 5002,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 107169,
+        "Desc": null
+    },
+    {
+        "Id": 15110,
+        "NpcId": 5002,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 107170,
+        "Desc": null
+    },
+    {
+        "Id": 16000,
+        "NpcId": 1017,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 107160,
+        "Desc": "Karenina: Ember"
+    },
+    {
+        "Id": 16001,
+        "NpcId": 1017,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 107161,
+        "Desc": null
+    },
+    {
+        "Id": 16002,
+        "NpcId": 1017,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 107162,
+        "Desc": null
+    },
+    {
+        "Id": 16003,
+        "NpcId": 1017,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 107163,
+        "Desc": null
+    },
+    {
+        "Id": 16004,
+        "NpcId": 1017,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 107171,
+        "Desc": null
+    },
+    {
+        "Id": 16005,
+        "NpcId": 1017,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 107165,
+        "Desc": null
+    },
+    {
+        "Id": 16006,
+        "NpcId": 1017,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 107166,
+        "Desc": null
+    },
+    {
+        "Id": 16007,
+        "NpcId": 1017,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 107167,
+        "Desc": null
+    },
+    {
+        "Id": 16008,
+        "NpcId": 1017,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 107168,
+        "Desc": null
+    },
+    {
+        "Id": 16009,
+        "NpcId": 1017,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 107169,
+        "Desc": null
+    },
+    {
+        "Id": 16010,
+        "NpcId": 1017,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 107170,
+        "Desc": null
+    },
+    {
+        "Id": 16011,
+        "NpcId": 1017,
+        "Type": 0,
+        "ModelId": "R3KalieninaMd019101",
+        "CvId": 107160,
+        "Desc": null
+    },
+    {
+        "Id": 16012,
         "NpcId": 1017,
         "Type": 1,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107161
+        "CvId": 107161,
+        "Desc": null
     },
     {
-        "Id": 10022,
+        "Id": 16013,
         "NpcId": 1017,
         "Type": 2,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107162
+        "CvId": 107162,
+        "Desc": null
     },
     {
-        "Id": 10023,
+        "Id": 16014,
         "NpcId": 1017,
         "Type": 3,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107163
+        "CvId": 107163,
+        "Desc": null
     },
     {
-        "Id": 10024,
+        "Id": 16015,
         "NpcId": 1017,
         "Type": 4,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107171
+        "CvId": 107171,
+        "Desc": null
     },
     {
-        "Id": 10025,
+        "Id": 16016,
         "NpcId": 1017,
         "Type": 5,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107165
+        "CvId": 107165,
+        "Desc": null
     },
     {
-        "Id": 10026,
+        "Id": 16017,
         "NpcId": 1017,
         "Type": 6,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107166
+        "CvId": 107166,
+        "Desc": null
     },
     {
-        "Id": 10027,
+        "Id": 16018,
         "NpcId": 1017,
         "Type": 7,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107167
+        "CvId": 107167,
+        "Desc": null
     },
     {
-        "Id": 10028,
+        "Id": 16019,
         "NpcId": 1017,
         "Type": 8,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107168
+        "CvId": 107168,
+        "Desc": null
     },
     {
-        "Id": 10029,
+        "Id": 16020,
         "NpcId": 1017,
         "Type": 9,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107169
+        "CvId": 107169,
+        "Desc": null
     },
     {
-        "Id": 10030,
+        "Id": 16021,
         "NpcId": 1017,
         "Type": 10,
         "ModelId": "R3KalieninaMd019101",
-        "CvId": 107113
+        "CvId": 107113,
+        "Desc": null
+    },
+    {
+        "Id": 16022,
+        "NpcId": 1017,
+        "Type": 0,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107160,
+        "Desc": null
+    },
+    {
+        "Id": 16023,
+        "NpcId": 1017,
+        "Type": 1,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107161,
+        "Desc": null
+    },
+    {
+        "Id": 16024,
+        "NpcId": 1017,
+        "Type": 2,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107162,
+        "Desc": null
+    },
+    {
+        "Id": 16025,
+        "NpcId": 1017,
+        "Type": 3,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107163,
+        "Desc": null
+    },
+    {
+        "Id": 16026,
+        "NpcId": 1017,
+        "Type": 4,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107171,
+        "Desc": null
+    },
+    {
+        "Id": 16027,
+        "NpcId": 1017,
+        "Type": 5,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107165,
+        "Desc": null
+    },
+    {
+        "Id": 16028,
+        "NpcId": 1017,
+        "Type": 6,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107166,
+        "Desc": null
+    },
+    {
+        "Id": 16029,
+        "NpcId": 1017,
+        "Type": 7,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107167,
+        "Desc": null
+    },
+    {
+        "Id": 16030,
+        "NpcId": 1017,
+        "Type": 8,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107168,
+        "Desc": null
+    },
+    {
+        "Id": 16031,
+        "NpcId": 1017,
+        "Type": 9,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107169,
+        "Desc": null
+    },
+    {
+        "Id": 16032,
+        "NpcId": 1017,
+        "Type": 10,
+        "ModelId": "R3KalieninaMd019161",
+        "CvId": 107170,
+        "Desc": null
+    },
+    {
+        "Id": 17000,
+        "NpcId": 1008,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 108160,
+        "Desc": "Watanabe: Nightblade"
+    },
+    {
+        "Id": 17001,
+        "NpcId": 1008,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 108161,
+        "Desc": null
+    },
+    {
+        "Id": 17002,
+        "NpcId": 1008,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 108162,
+        "Desc": null
+    },
+    {
+        "Id": 17003,
+        "NpcId": 1008,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 108163,
+        "Desc": null
+    },
+    {
+        "Id": 17004,
+        "NpcId": 1008,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 108164,
+        "Desc": null
+    },
+    {
+        "Id": 17005,
+        "NpcId": 1008,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 108165,
+        "Desc": null
+    },
+    {
+        "Id": 17006,
+        "NpcId": 1008,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 108166,
+        "Desc": null
+    },
+    {
+        "Id": 17007,
+        "NpcId": 1008,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 108167,
+        "Desc": null
+    },
+    {
+        "Id": 17008,
+        "NpcId": 1008,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 108168,
+        "Desc": null
+    },
+    {
+        "Id": 17009,
+        "NpcId": 1008,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 108169,
+        "Desc": null
+    },
+    {
+        "Id": 17010,
+        "NpcId": 1008,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 108170,
+        "Desc": null
+    },
+    {
+        "Id": 18000,
+        "NpcId": 1018,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 108151,
+        "Desc": "Watanabe: Astral"
+    },
+    {
+        "Id": 18001,
+        "NpcId": 1018,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 108161,
+        "Desc": null
+    },
+    {
+        "Id": 18002,
+        "NpcId": 1018,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 108162,
+        "Desc": null
+    },
+    {
+        "Id": 18003,
+        "NpcId": 1018,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 108163,
+        "Desc": null
+    },
+    {
+        "Id": 18004,
+        "NpcId": 1018,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 108171,
+        "Desc": null
+    },
+    {
+        "Id": 18005,
+        "NpcId": 1018,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 108165,
+        "Desc": null
+    },
+    {
+        "Id": 18006,
+        "NpcId": 1018,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 108166,
+        "Desc": null
+    },
+    {
+        "Id": 18007,
+        "NpcId": 1018,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 108167,
+        "Desc": null
+    },
+    {
+        "Id": 18008,
+        "NpcId": 1018,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 108168,
+        "Desc": null
+    },
+    {
+        "Id": 18009,
+        "NpcId": 1018,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 108169,
+        "Desc": null
+    },
+    {
+        "Id": 18010,
+        "NpcId": 1018,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 108170,
+        "Desc": null
+    },
+    {
+        "Id": 19000,
+        "NpcId": 1009,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 109036,
+        "Desc": "Ayla: Brilliance"
+    },
+    {
+        "Id": 19001,
+        "NpcId": 1009,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 109027,
+        "Desc": null
+    },
+    {
+        "Id": 19002,
+        "NpcId": 1009,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 109028,
+        "Desc": null
+    },
+    {
+        "Id": 19003,
+        "NpcId": 1009,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 109029,
+        "Desc": null
+    },
+    {
+        "Id": 19004,
+        "NpcId": 1009,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 109030,
+        "Desc": null
+    },
+    {
+        "Id": 19005,
+        "NpcId": 1009,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 109031,
+        "Desc": null
+    },
+    {
+        "Id": 19006,
+        "NpcId": 1009,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 109032,
+        "Desc": null
+    },
+    {
+        "Id": 19007,
+        "NpcId": 1009,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 109033,
+        "Desc": null
+    },
+    {
+        "Id": 19008,
+        "NpcId": 1009,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 109035,
+        "Desc": null
+    },
+    {
+        "Id": 19009,
+        "NpcId": 1009,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 109034,
+        "Desc": null
+    },
+    {
+        "Id": 19010,
+        "NpcId": 1009,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 109037,
+        "Desc": null
+    },
+    {
+        "Id": 20000,
+        "NpcId": 1101,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 110036,
+        "Desc": "Sophia: Silverfang"
+    },
+    {
+        "Id": 20001,
+        "NpcId": 1101,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 110030,
+        "Desc": null
+    },
+    {
+        "Id": 20002,
+        "NpcId": 1101,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 110028,
+        "Desc": null
+    },
+    {
+        "Id": 20003,
+        "NpcId": 1101,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 110029,
+        "Desc": null
+    },
+    {
+        "Id": 20004,
+        "NpcId": 1101,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 110027,
+        "Desc": null
+    },
+    {
+        "Id": 20005,
+        "NpcId": 1101,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 110031,
+        "Desc": null
+    },
+    {
+        "Id": 20006,
+        "NpcId": 1101,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 110032,
+        "Desc": null
+    },
+    {
+        "Id": 20007,
+        "NpcId": 1101,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 110033,
+        "Desc": null
+    },
+    {
+        "Id": 20008,
+        "NpcId": 1101,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 110035,
+        "Desc": null
+    },
+    {
+        "Id": 20009,
+        "NpcId": 1101,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 110034,
+        "Desc": null
+    },
+    {
+        "Id": 20010,
+        "NpcId": 1101,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 110037,
+        "Desc": null
+    },
+    {
+        "Id": 21000,
+        "NpcId": 1102,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 111070,
+        "Desc": "Chrome: Arclight"
+    },
+    {
+        "Id": 21001,
+        "NpcId": 1102,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 111061,
+        "Desc": null
+    },
+    {
+        "Id": 21002,
+        "NpcId": 1102,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 111062,
+        "Desc": null
+    },
+    {
+        "Id": 21003,
+        "NpcId": 1102,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 111063,
+        "Desc": null
+    },
+    {
+        "Id": 21004,
+        "NpcId": 1102,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 111064,
+        "Desc": null
+    },
+    {
+        "Id": 21005,
+        "NpcId": 1102,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 111065,
+        "Desc": null
+    },
+    {
+        "Id": 21006,
+        "NpcId": 1102,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 111066,
+        "Desc": null
+    },
+    {
+        "Id": 21007,
+        "NpcId": 1102,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 111067,
+        "Desc": null
+    },
+    {
+        "Id": 21008,
+        "NpcId": 1102,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 111069,
+        "Desc": null
+    },
+    {
+        "Id": 21009,
+        "NpcId": 1102,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 111068,
+        "Desc": null
+    },
+    {
+        "Id": 21010,
+        "NpcId": 1102,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 111071,
+        "Desc": null
+    },
+    {
+        "Id": 22000,
+        "NpcId": 1103,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 112070,
+        "Desc": "Vera: Rozen"
+    },
+    {
+        "Id": 22001,
+        "NpcId": 1103,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 112061,
+        "Desc": null
+    },
+    {
+        "Id": 22002,
+        "NpcId": 1103,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 112062,
+        "Desc": null
+    },
+    {
+        "Id": 22003,
+        "NpcId": 1103,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 112063,
+        "Desc": null
+    },
+    {
+        "Id": 22004,
+        "NpcId": 1103,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 112064,
+        "Desc": null
+    },
+    {
+        "Id": 22005,
+        "NpcId": 1103,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 112065,
+        "Desc": null
+    },
+    {
+        "Id": 22006,
+        "NpcId": 1103,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 112066,
+        "Desc": null
+    },
+    {
+        "Id": 22007,
+        "NpcId": 1103,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 112067,
+        "Desc": null
+    },
+    {
+        "Id": 22008,
+        "NpcId": 1103,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 112069,
+        "Desc": null
+    },
+    {
+        "Id": 22009,
+        "NpcId": 1103,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 112068,
+        "Desc": null
+    },
+    {
+        "Id": 22010,
+        "NpcId": 1103,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 112071,
+        "Desc": null
+    },
+    {
+        "Id": 23000,
+        "NpcId": 1104,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 113070,
+        "Desc": "Camu: Crocotta"
+    },
+    {
+        "Id": 23001,
+        "NpcId": 1104,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 113061,
+        "Desc": null
+    },
+    {
+        "Id": 23002,
+        "NpcId": 1104,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 113062,
+        "Desc": null
+    },
+    {
+        "Id": 23003,
+        "NpcId": 1104,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 113063,
+        "Desc": null
+    },
+    {
+        "Id": 23004,
+        "NpcId": 1104,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 113064,
+        "Desc": null
+    },
+    {
+        "Id": 23005,
+        "NpcId": 1104,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 113065,
+        "Desc": null
+    },
+    {
+        "Id": 23006,
+        "NpcId": 1104,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 113066,
+        "Desc": null
+    },
+    {
+        "Id": 23007,
+        "NpcId": 1104,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 113067,
+        "Desc": null
+    },
+    {
+        "Id": 23008,
+        "NpcId": 1104,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 113069,
+        "Desc": null
+    },
+    {
+        "Id": 23009,
+        "NpcId": 1104,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 113068,
+        "Desc": null
+    },
+    {
+        "Id": 23010,
+        "NpcId": 1104,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 113071,
+        "Desc": null
+    },
+    {
+        "Id": 24000,
+        "NpcId": 1105,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 114070,
+        "Desc": "Rosetta: Rigor"
+    },
+    {
+        "Id": 24001,
+        "NpcId": 1105,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 114061,
+        "Desc": null
+    },
+    {
+        "Id": 24002,
+        "NpcId": 1105,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 114062,
+        "Desc": null
+    },
+    {
+        "Id": 24003,
+        "NpcId": 1105,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 114063,
+        "Desc": null
+    },
+    {
+        "Id": 24004,
+        "NpcId": 1105,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 114064,
+        "Desc": null
+    },
+    {
+        "Id": 24005,
+        "NpcId": 1105,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 114065,
+        "Desc": null
+    },
+    {
+        "Id": 24006,
+        "NpcId": 1105,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 114066,
+        "Desc": null
+    },
+    {
+        "Id": 24007,
+        "NpcId": 1105,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 114067,
+        "Desc": null
+    },
+    {
+        "Id": 24008,
+        "NpcId": 1105,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 114069,
+        "Desc": null
+    },
+    {
+        "Id": 24009,
+        "NpcId": 1105,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 114068,
+        "Desc": null
+    },
+    {
+        "Id": 24010,
+        "NpcId": 1105,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 114071,
+        "Desc": null
+    },
+    {
+        "Id": 25000,
+        "NpcId": 1107,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 115084,
+        "Desc": "Changyu: Qilin"
+    },
+    {
+        "Id": 25001,
+        "NpcId": 1107,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 115075,
+        "Desc": null
+    },
+    {
+        "Id": 25002,
+        "NpcId": 1107,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 115076,
+        "Desc": null
+    },
+    {
+        "Id": 25003,
+        "NpcId": 1107,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 115077,
+        "Desc": null
+    },
+    {
+        "Id": 25004,
+        "NpcId": 1107,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 115078,
+        "Desc": null
+    },
+    {
+        "Id": 25005,
+        "NpcId": 1107,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 115079,
+        "Desc": null
+    },
+    {
+        "Id": 25006,
+        "NpcId": 1107,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 115080,
+        "Desc": null
+    },
+    {
+        "Id": 25007,
+        "NpcId": 1107,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 115081,
+        "Desc": null
+    },
+    {
+        "Id": 25008,
+        "NpcId": 1107,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 115083,
+        "Desc": null
+    },
+    {
+        "Id": 25009,
+        "NpcId": 1107,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 115082,
+        "Desc": null
+    },
+    {
+        "Id": 25010,
+        "NpcId": 1107,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 115085,
+        "Desc": null
+    },
+    {
+        "Id": 26000,
+        "NpcId": 1106,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 116084,
+        "Desc": "Qu: Pavo"
+    },
+    {
+        "Id": 26001,
+        "NpcId": 1106,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 116075,
+        "Desc": null
+    },
+    {
+        "Id": 26002,
+        "NpcId": 1106,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 116076,
+        "Desc": null
+    },
+    {
+        "Id": 26003,
+        "NpcId": 1106,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 116077,
+        "Desc": null
+    },
+    {
+        "Id": 26004,
+        "NpcId": 1106,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 116078,
+        "Desc": null
+    },
+    {
+        "Id": 26005,
+        "NpcId": 1106,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 116079,
+        "Desc": null
+    },
+    {
+        "Id": 26006,
+        "NpcId": 1106,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 116080,
+        "Desc": null
+    },
+    {
+        "Id": 26007,
+        "NpcId": 1106,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 116081,
+        "Desc": null
+    },
+    {
+        "Id": 26008,
+        "NpcId": 1106,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 116083,
+        "Desc": null
+    },
+    {
+        "Id": 26009,
+        "NpcId": 1106,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 116082,
+        "Desc": null
+    },
+    {
+        "Id": 26010,
+        "NpcId": 1106,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 116085,
+        "Desc": null
+    },
+    {
+        "Id": 27000,
+        "NpcId": 1108,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 120076,
+        "Desc": "Luna"
+    },
+    {
+        "Id": 27001,
+        "NpcId": 1108,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 120067,
+        "Desc": null
+    },
+    {
+        "Id": 27002,
+        "NpcId": 1108,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 120068,
+        "Desc": null
+    },
+    {
+        "Id": 27003,
+        "NpcId": 1108,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 120069,
+        "Desc": null
+    },
+    {
+        "Id": 27004,
+        "NpcId": 1108,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 120070,
+        "Desc": null
+    },
+    {
+        "Id": 27005,
+        "NpcId": 1108,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 120071,
+        "Desc": null
+    },
+    {
+        "Id": 27006,
+        "NpcId": 1108,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 120072,
+        "Desc": null
+    },
+    {
+        "Id": 27007,
+        "NpcId": 1108,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 120073,
+        "Desc": null
+    },
+    {
+        "Id": 27008,
+        "NpcId": 1108,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 120075,
+        "Desc": null
+    },
+    {
+        "Id": 27009,
+        "NpcId": 1108,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 120074,
+        "Desc": null
+    },
+    {
+        "Id": 27010,
+        "NpcId": 1108,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 120077,
+        "Desc": null
+    },
+    {
+        "Id": 28000,
+        "NpcId": 1201,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 117062,
+        "Desc": "2B"
+    },
+    {
+        "Id": 28001,
+        "NpcId": 1201,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 117053,
+        "Desc": null
+    },
+    {
+        "Id": 28002,
+        "NpcId": 1201,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 117054,
+        "Desc": null
+    },
+    {
+        "Id": 28003,
+        "NpcId": 1201,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 117055,
+        "Desc": null
+    },
+    {
+        "Id": 28004,
+        "NpcId": 1201,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 117056,
+        "Desc": null
+    },
+    {
+        "Id": 28005,
+        "NpcId": 1201,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 117057,
+        "Desc": null
+    },
+    {
+        "Id": 28006,
+        "NpcId": 1201,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 117058,
+        "Desc": null
+    },
+    {
+        "Id": 28007,
+        "NpcId": 1201,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 117059,
+        "Desc": null
+    },
+    {
+        "Id": 28008,
+        "NpcId": 1201,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 117061,
+        "Desc": null
+    },
+    {
+        "Id": 28009,
+        "NpcId": 1201,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 117060,
+        "Desc": null
+    },
+    {
+        "Id": 28010,
+        "NpcId": 1201,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 117063,
+        "Desc": null
+    },
+    {
+        "Id": 29000,
+        "NpcId": 1202,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 119045,
+        "Desc": "A2"
+    },
+    {
+        "Id": 29001,
+        "NpcId": 1202,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 119036,
+        "Desc": null
+    },
+    {
+        "Id": 29002,
+        "NpcId": 1202,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 119037,
+        "Desc": null
+    },
+    {
+        "Id": 29003,
+        "NpcId": 1202,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 119038,
+        "Desc": null
+    },
+    {
+        "Id": 29004,
+        "NpcId": 1202,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 119039,
+        "Desc": null
+    },
+    {
+        "Id": 29005,
+        "NpcId": 1202,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 119040,
+        "Desc": null
+    },
+    {
+        "Id": 29006,
+        "NpcId": 1202,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 119041,
+        "Desc": null
+    },
+    {
+        "Id": 29007,
+        "NpcId": 1202,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 119042,
+        "Desc": null
+    },
+    {
+        "Id": 29008,
+        "NpcId": 1202,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 119044,
+        "Desc": null
+    },
+    {
+        "Id": 29009,
+        "NpcId": 1202,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 119043,
+        "Desc": null
+    },
+    {
+        "Id": 29010,
+        "NpcId": 1202,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 119046,
+        "Desc": null
+    },
+    {
+        "Id": 30000,
+        "NpcId": 1203,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 118059,
+        "Desc": "9S"
+    },
+    {
+        "Id": 30001,
+        "NpcId": 1203,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 118050,
+        "Desc": null
+    },
+    {
+        "Id": 30002,
+        "NpcId": 1203,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 118051,
+        "Desc": null
+    },
+    {
+        "Id": 30003,
+        "NpcId": 1203,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 118052,
+        "Desc": null
+    },
+    {
+        "Id": 30004,
+        "NpcId": 1203,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 118053,
+        "Desc": null
+    },
+    {
+        "Id": 30005,
+        "NpcId": 1203,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 118054,
+        "Desc": null
+    },
+    {
+        "Id": 30006,
+        "NpcId": 1203,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 118055,
+        "Desc": null
+    },
+    {
+        "Id": 30007,
+        "NpcId": 1203,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 118056,
+        "Desc": null
+    },
+    {
+        "Id": 30008,
+        "NpcId": 1203,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 118058,
+        "Desc": null
+    },
+    {
+        "Id": 30009,
+        "NpcId": 1203,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 118057,
+        "Desc": null
+    },
+    {
+        "Id": 30010,
+        "NpcId": 1203,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 118060,
+        "Desc": null
+    },
+    {
+        "Id": 31000,
+        "NpcId": 1109,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 122077,
+        "Desc": "Wanshi"
+    },
+    {
+        "Id": 31001,
+        "NpcId": 1109,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 122068,
+        "Desc": null
+    },
+    {
+        "Id": 31002,
+        "NpcId": 1109,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 122069,
+        "Desc": null
+    },
+    {
+        "Id": 31003,
+        "NpcId": 1109,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 122070,
+        "Desc": null
+    },
+    {
+        "Id": 31004,
+        "NpcId": 1109,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 122071,
+        "Desc": null
+    },
+    {
+        "Id": 31005,
+        "NpcId": 1109,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 122072,
+        "Desc": null
+    },
+    {
+        "Id": 31006,
+        "NpcId": 1109,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 122073,
+        "Desc": null
+    },
+    {
+        "Id": 31007,
+        "NpcId": 1109,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 122074,
+        "Desc": null
+    },
+    {
+        "Id": 31008,
+        "NpcId": 1109,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 122076,
+        "Desc": null
+    },
+    {
+        "Id": 31009,
+        "NpcId": 1109,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 122075,
+        "Desc": null
+    },
+    {
+        "Id": 31010,
+        "NpcId": 1109,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 122078,
+        "Desc": null
+    },
+    {
+        "Id": 32000,
+        "NpcId": 1301,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 121077,
+        "Desc": "Selena"
+    },
+    {
+        "Id": 32001,
+        "NpcId": 1301,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 121068,
+        "Desc": null
+    },
+    {
+        "Id": 32002,
+        "NpcId": 1301,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 121069,
+        "Desc": null
+    },
+    {
+        "Id": 32003,
+        "NpcId": 1301,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 121070,
+        "Desc": null
+    },
+    {
+        "Id": 32004,
+        "NpcId": 1301,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 121071,
+        "Desc": null
+    },
+    {
+        "Id": 32005,
+        "NpcId": 1301,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 121072,
+        "Desc": null
+    },
+    {
+        "Id": 32006,
+        "NpcId": 1301,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 121073,
+        "Desc": null
+    },
+    {
+        "Id": 32007,
+        "NpcId": 1301,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 121074,
+        "Desc": null
+    },
+    {
+        "Id": 32008,
+        "NpcId": 1301,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 121076,
+        "Desc": null
+    },
+    {
+        "Id": 32009,
+        "NpcId": 1301,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 121075,
+        "Desc": null
+    },
+    {
+        "Id": 32010,
+        "NpcId": 1301,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 121078,
+        "Desc": null
+    },
+    {
+        "Id": 33000,
+        "NpcId": 1112,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 123077,
+        "Desc": "Chrome: Glory"
+    },
+    {
+        "Id": 33001,
+        "NpcId": 1112,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 123068,
+        "Desc": null
+    },
+    {
+        "Id": 33002,
+        "NpcId": 1112,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 123069,
+        "Desc": null
+    },
+    {
+        "Id": 33003,
+        "NpcId": 1112,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 123070,
+        "Desc": null
+    },
+    {
+        "Id": 33004,
+        "NpcId": 1112,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 123071,
+        "Desc": null
+    },
+    {
+        "Id": 33005,
+        "NpcId": 1112,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 123072,
+        "Desc": null
+    },
+    {
+        "Id": 33006,
+        "NpcId": 1112,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 123073,
+        "Desc": null
+    },
+    {
+        "Id": 33007,
+        "NpcId": 1112,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 123074,
+        "Desc": null
+    },
+    {
+        "Id": 33008,
+        "NpcId": 1112,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 123076,
+        "Desc": null
+    },
+    {
+        "Id": 33009,
+        "NpcId": 1112,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 123075,
+        "Desc": null
+    },
+    {
+        "Id": 33010,
+        "NpcId": 1112,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 123078,
+        "Desc": null
+    },
+    {
+        "Id": 33011,
+        "NpcId": 1112,
+        "Type": 0,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123077,
+        "Desc": null
+    },
+    {
+        "Id": 33012,
+        "NpcId": 1112,
+        "Type": 1,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123068,
+        "Desc": null
+    },
+    {
+        "Id": 33013,
+        "NpcId": 1112,
+        "Type": 2,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123069,
+        "Desc": null
+    },
+    {
+        "Id": 33014,
+        "NpcId": 1112,
+        "Type": 3,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123070,
+        "Desc": null
+    },
+    {
+        "Id": 33015,
+        "NpcId": 1112,
+        "Type": 4,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123071,
+        "Desc": null
+    },
+    {
+        "Id": 33016,
+        "NpcId": 1112,
+        "Type": 5,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123072,
+        "Desc": null
+    },
+    {
+        "Id": 33017,
+        "NpcId": 1112,
+        "Type": 6,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123073,
+        "Desc": null
+    },
+    {
+        "Id": 33018,
+        "NpcId": 1112,
+        "Type": 7,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123074,
+        "Desc": null
+    },
+    {
+        "Id": 33019,
+        "NpcId": 1112,
+        "Type": 8,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123076,
+        "Desc": null
+    },
+    {
+        "Id": 33020,
+        "NpcId": 1112,
+        "Type": 9,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123075,
+        "Desc": null
+    },
+    {
+        "Id": 33021,
+        "NpcId": 1112,
+        "Type": 10,
+        "ModelId": "R3KuluomuMd019281",
+        "CvId": 123078,
+        "Desc": null
+    },
+    {
+        "Id": 34000,
+        "NpcId": 1303,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 124077,
+        "Desc": "No. 21"
+    },
+    {
+        "Id": 34001,
+        "NpcId": 1303,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 124068,
+        "Desc": null
+    },
+    {
+        "Id": 34002,
+        "NpcId": 1303,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 124069,
+        "Desc": null
+    },
+    {
+        "Id": 34003,
+        "NpcId": 1303,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 124070,
+        "Desc": null
+    },
+    {
+        "Id": 34004,
+        "NpcId": 1303,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 124071,
+        "Desc": null
+    },
+    {
+        "Id": 34005,
+        "NpcId": 1303,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 124072,
+        "Desc": null
+    },
+    {
+        "Id": 34006,
+        "NpcId": 1303,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 124073,
+        "Desc": null
+    },
+    {
+        "Id": 34007,
+        "NpcId": 1303,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 124074,
+        "Desc": null
+    },
+    {
+        "Id": 34008,
+        "NpcId": 1303,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 124076,
+        "Desc": null
+    },
+    {
+        "Id": 34009,
+        "NpcId": 1303,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 124075,
+        "Desc": null
+    },
+    {
+        "Id": 34010,
+        "NpcId": 1303,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 124078,
+        "Desc": null
+    },
+    {
+        "Id": 35000,
+        "NpcId": 1113,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 125077,
+        "Desc": "Vera: Garnet"
+    },
+    {
+        "Id": 35001,
+        "NpcId": 1113,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 125068,
+        "Desc": null
+    },
+    {
+        "Id": 35002,
+        "NpcId": 1113,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 125069,
+        "Desc": null
+    },
+    {
+        "Id": 35003,
+        "NpcId": 1113,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 125070,
+        "Desc": null
+    },
+    {
+        "Id": 35004,
+        "NpcId": 1113,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 125071,
+        "Desc": null
+    },
+    {
+        "Id": 35005,
+        "NpcId": 1113,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 125072,
+        "Desc": null
+    },
+    {
+        "Id": 35006,
+        "NpcId": 1113,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 125073,
+        "Desc": null
+    },
+    {
+        "Id": 35007,
+        "NpcId": 1113,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 125074,
+        "Desc": null
+    },
+    {
+        "Id": 35008,
+        "NpcId": 1113,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 125076,
+        "Desc": null
+    },
+    {
+        "Id": 35009,
+        "NpcId": 1113,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 125075,
+        "Desc": null
+    },
+    {
+        "Id": 35010,
+        "NpcId": 1113,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 125078,
+        "Desc": null
+    },
+    {
+        "Id": 35100,
+        "NpcId": 1113,
+        "Type": 0,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125077,
+        "Desc": "Vera Swimsuit"
+    },
+    {
+        "Id": 35101,
+        "NpcId": 1113,
+        "Type": 1,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125068,
+        "Desc": null
+    },
+    {
+        "Id": 35102,
+        "NpcId": 1113,
+        "Type": 2,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125069,
+        "Desc": null
+    },
+    {
+        "Id": 35103,
+        "NpcId": 1113,
+        "Type": 3,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125070,
+        "Desc": null
+    },
+    {
+        "Id": 35104,
+        "NpcId": 1113,
+        "Type": 4,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125071,
+        "Desc": null
+    },
+    {
+        "Id": 35105,
+        "NpcId": 1113,
+        "Type": 5,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125072,
+        "Desc": null
+    },
+    {
+        "Id": 35106,
+        "NpcId": 1113,
+        "Type": 6,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125073,
+        "Desc": null
+    },
+    {
+        "Id": 35107,
+        "NpcId": 1113,
+        "Type": 7,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125074,
+        "Desc": null
+    },
+    {
+        "Id": 35108,
+        "NpcId": 1113,
+        "Type": 8,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125076,
+        "Desc": null
+    },
+    {
+        "Id": 35109,
+        "NpcId": 1113,
+        "Type": 9,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125075,
+        "Desc": null
+    },
+    {
+        "Id": 35110,
+        "NpcId": 1113,
+        "Type": 10,
+        "ModelId": "R3WeilaMd019331",
+        "CvId": 125109,
+        "Desc": null
+    },
+    {
+        "Id": 36000,
+        "NpcId": 1302,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 126077,
+        "Desc": "Roland: Flambeau"
+    },
+    {
+        "Id": 36001,
+        "NpcId": 1302,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 126068,
+        "Desc": null
+    },
+    {
+        "Id": 36002,
+        "NpcId": 1302,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 126069,
+        "Desc": null
+    },
+    {
+        "Id": 36003,
+        "NpcId": 1302,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 126070,
+        "Desc": null
+    },
+    {
+        "Id": 36004,
+        "NpcId": 1302,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 126071,
+        "Desc": null
+    },
+    {
+        "Id": 36005,
+        "NpcId": 1302,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 126072,
+        "Desc": null
+    },
+    {
+        "Id": 36006,
+        "NpcId": 1302,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 126073,
+        "Desc": null
+    },
+    {
+        "Id": 36007,
+        "NpcId": 1302,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 126074,
+        "Desc": null
+    },
+    {
+        "Id": 36008,
+        "NpcId": 1302,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 126076,
+        "Desc": null
+    },
+    {
+        "Id": 36009,
+        "NpcId": 1302,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 126075,
+        "Desc": null
+    },
+    {
+        "Id": 36010,
+        "NpcId": 1302,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 126078,
+        "Desc": null
+    },
+    {
+        "Id": 36100,
+        "NpcId": 1312,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": "Roland: Flambeau (Limited 5/20 Edition, No Voice)"
+    },
+    {
+        "Id": 36101,
+        "NpcId": 1312,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36102,
+        "NpcId": 1312,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36103,
+        "NpcId": 1312,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36104,
+        "NpcId": 1312,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36105,
+        "NpcId": 1312,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36106,
+        "NpcId": 1312,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36107,
+        "NpcId": 1312,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36108,
+        "NpcId": 1312,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36109,
+        "NpcId": 1312,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 36110,
+        "NpcId": 1312,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 37000,
+        "NpcId": 1033,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 127077,
+        "Desc": "Liv: Empyrea"
+    },
+    {
+        "Id": 37001,
+        "NpcId": 1033,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 127068,
+        "Desc": null
+    },
+    {
+        "Id": 37002,
+        "NpcId": 1033,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 127106,
+        "Desc": null
+    },
+    {
+        "Id": 37003,
+        "NpcId": 1033,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 127070,
+        "Desc": null
+    },
+    {
+        "Id": 37004,
+        "NpcId": 1033,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 127069,
+        "Desc": null
+    },
+    {
+        "Id": 37005,
+        "NpcId": 1033,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 127072,
+        "Desc": null
+    },
+    {
+        "Id": 37006,
+        "NpcId": 1033,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 127073,
+        "Desc": null
+    },
+    {
+        "Id": 37007,
+        "NpcId": 1033,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 127074,
+        "Desc": null
+    },
+    {
+        "Id": 37008,
+        "NpcId": 1033,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 127076,
+        "Desc": null
+    },
+    {
+        "Id": 37009,
+        "NpcId": 1033,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 127075,
+        "Desc": null
+    },
+    {
+        "Id": 37010,
+        "NpcId": 1033,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 127078,
+        "Desc": null
+    },
+    {
+        "Id": 38000,
+        "NpcId": 1311,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 128077,
+        "Desc": "Selena: Capriccio"
+    },
+    {
+        "Id": 38001,
+        "NpcId": 1311,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 128068,
+        "Desc": null
+    },
+    {
+        "Id": 38002,
+        "NpcId": 1311,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 128069,
+        "Desc": null
+    },
+    {
+        "Id": 38003,
+        "NpcId": 1311,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 128070,
+        "Desc": null
+    },
+    {
+        "Id": 38004,
+        "NpcId": 1311,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 38005,
+        "NpcId": 1311,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 128072,
+        "Desc": null
+    },
+    {
+        "Id": 38006,
+        "NpcId": 1311,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 128073,
+        "Desc": null
+    },
+    {
+        "Id": 38007,
+        "NpcId": 1311,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 128074,
+        "Desc": null
+    },
+    {
+        "Id": 38008,
+        "NpcId": 1311,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 128075,
+        "Desc": null
+    },
+    {
+        "Id": 38009,
+        "NpcId": 1311,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 128076,
+        "Desc": null
+    },
+    {
+        "Id": 38010,
+        "NpcId": 1311,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 128078,
+        "Desc": null
+    },
+    {
+        "Id": 39000,
+        "NpcId": 1304,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 129077,
+        "Desc": "Pulao: Dragontoll"
+    },
+    {
+        "Id": 39001,
+        "NpcId": 1304,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 129068,
+        "Desc": null
+    },
+    {
+        "Id": 39002,
+        "NpcId": 1304,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 129069,
+        "Desc": null
+    },
+    {
+        "Id": 39003,
+        "NpcId": 1304,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 129070,
+        "Desc": null
+    },
+    {
+        "Id": 39004,
+        "NpcId": 1304,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 39005,
+        "NpcId": 1304,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 129072,
+        "Desc": null
+    },
+    {
+        "Id": 39006,
+        "NpcId": 1304,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 129073,
+        "Desc": null
+    },
+    {
+        "Id": 39007,
+        "NpcId": 1304,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 129074,
+        "Desc": null
+    },
+    {
+        "Id": 39008,
+        "NpcId": 1304,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 129076,
+        "Desc": null
+    },
+    {
+        "Id": 39009,
+        "NpcId": 1304,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 129075,
+        "Desc": null
+    },
+    {
+        "Id": 39010,
+        "NpcId": 1304,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 129078,
+        "Desc": null
+    },
+    {
+        "Id": 39011,
+        "NpcId": 1304,
+        "Type": 0,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129077,
+        "Desc": "Pulao: Dragontoll"
+    },
+    {
+        "Id": 39012,
+        "NpcId": 1304,
+        "Type": 1,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129068,
+        "Desc": null
+    },
+    {
+        "Id": 39013,
+        "NpcId": 1304,
+        "Type": 2,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129069,
+        "Desc": null
+    },
+    {
+        "Id": 39014,
+        "NpcId": 1304,
+        "Type": 3,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129070,
+        "Desc": null
+    },
+    {
+        "Id": 39015,
+        "NpcId": 1304,
+        "Type": 4,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 39016,
+        "NpcId": 1304,
+        "Type": 5,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129072,
+        "Desc": null
+    },
+    {
+        "Id": 39017,
+        "NpcId": 1304,
+        "Type": 6,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129073,
+        "Desc": null
+    },
+    {
+        "Id": 39018,
+        "NpcId": 1304,
+        "Type": 7,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129074,
+        "Desc": null
+    },
+    {
+        "Id": 39019,
+        "NpcId": 1304,
+        "Type": 8,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129076,
+        "Desc": null
+    },
+    {
+        "Id": 39020,
+        "NpcId": 1304,
+        "Type": 9,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129075,
+        "Desc": null
+    },
+    {
+        "Id": 39021,
+        "NpcId": 1304,
+        "Type": 10,
+        "ModelId": "R2PulaoMd019311",
+        "CvId": 129078,
+        "Desc": null
+    },
+    {
+        "Id": 39101,
+        "NpcId": 1304,
+        "Type": 0,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129077,
+        "Desc": "Pulao - Effect Coating"
+    },
+    {
+        "Id": 39102,
+        "NpcId": 1304,
+        "Type": 1,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129068,
+        "Desc": null
+    },
+    {
+        "Id": 39103,
+        "NpcId": 1304,
+        "Type": 2,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129069,
+        "Desc": null
+    },
+    {
+        "Id": 39104,
+        "NpcId": 1304,
+        "Type": 3,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129070,
+        "Desc": null
+    },
+    {
+        "Id": 39105,
+        "NpcId": 1304,
+        "Type": 4,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 39106,
+        "NpcId": 1304,
+        "Type": 5,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129072,
+        "Desc": null
+    },
+    {
+        "Id": 39107,
+        "NpcId": 1304,
+        "Type": 6,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129073,
+        "Desc": null
+    },
+    {
+        "Id": 39108,
+        "NpcId": 1304,
+        "Type": 7,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129074,
+        "Desc": null
+    },
+    {
+        "Id": 39109,
+        "NpcId": 1304,
+        "Type": 8,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129076,
+        "Desc": null
+    },
+    {
+        "Id": 39110,
+        "NpcId": 1304,
+        "Type": 9,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129075,
+        "Desc": null
+    },
+    {
+        "Id": 39111,
+        "NpcId": 1304,
+        "Type": 10,
+        "ModelId": "R2PulaoMd019091",
+        "CvId": 129109,
+        "Desc": null
+    },
+    {
+        "Id": 40000,
+        "NpcId": 1054,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 130077,
+        "Desc": "Mecha Nanami"
+    },
+    {
+        "Id": 40001,
+        "NpcId": 1054,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 130098,
+        "Desc": null
+    },
+    {
+        "Id": 40002,
+        "NpcId": 1054,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 130099,
+        "Desc": null
+    },
+    {
+        "Id": 40003,
+        "NpcId": 1054,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 130100,
+        "Desc": null
+    },
+    {
+        "Id": 40004,
+        "NpcId": 1054,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 0,
+        "Desc": null
+    },
+    {
+        "Id": 40005,
+        "NpcId": 1054,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 130072,
+        "Desc": null
+    },
+    {
+        "Id": 40006,
+        "NpcId": 1054,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 130073,
+        "Desc": null
+    },
+    {
+        "Id": 40007,
+        "NpcId": 1054,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 130074,
+        "Desc": null
+    },
+    {
+        "Id": 40008,
+        "NpcId": 1054,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 130076,
+        "Desc": null
+    },
+    {
+        "Id": 40009,
+        "NpcId": 1054,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 130075,
+        "Desc": null
+    },
+    {
+        "Id": 40010,
+        "NpcId": 1054,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 130078,
+        "Desc": null
+    },
+    {
+        "Id": 41000,
+        "NpcId": 1305,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 131077,
+        "Desc": "Haicma"
+    },
+    {
+        "Id": 41001,
+        "NpcId": 1305,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 131068,
+        "Desc": null
+    },
+    {
+        "Id": 41002,
+        "NpcId": 1305,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 131069,
+        "Desc": null
+    },
+    {
+        "Id": 41003,
+        "NpcId": 1305,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 131068,
+        "Desc": null
+    },
+    {
+        "Id": 41004,
+        "NpcId": 1305,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 131071,
+        "Desc": null
+    },
+    {
+        "Id": 41005,
+        "NpcId": 1305,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 131072,
+        "Desc": null
+    },
+    {
+        "Id": 41006,
+        "NpcId": 1305,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 131073,
+        "Desc": null
+    },
+    {
+        "Id": 41007,
+        "NpcId": 1305,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 131074,
+        "Desc": null
+    },
+    {
+        "Id": 41008,
+        "NpcId": 1305,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 131076,
+        "Desc": null
+    },
+    {
+        "Id": 41009,
+        "NpcId": 1305,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 131075,
+        "Desc": null
+    },
+    {
+        "Id": 41010,
+        "NpcId": 1305,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 131078,
+        "Desc": null
+    },
+    {
+        "Id": 42000,
+        "NpcId": 1027,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 132077,
+        "Desc": "Super Karenina"
+    },
+    {
+        "Id": 42001,
+        "NpcId": 1027,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 132070,
+        "Desc": null
+    },
+    {
+        "Id": 42002,
+        "NpcId": 1027,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 132068,
+        "Desc": null
+    },
+    {
+        "Id": 42003,
+        "NpcId": 1027,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 132069,
+        "Desc": null
+    },
+    {
+        "Id": 42004,
+        "NpcId": 1027,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 132071,
+        "Desc": null
+    },
+    {
+        "Id": 42005,
+        "NpcId": 1027,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 132072,
+        "Desc": null
+    },
+    {
+        "Id": 42006,
+        "NpcId": 1027,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 132073,
+        "Desc": null
+    },
+    {
+        "Id": 42007,
+        "NpcId": 1027,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 132074,
+        "Desc": null
+    },
+    {
+        "Id": 42008,
+        "NpcId": 1027,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 132076,
+        "Desc": null
+    },
+    {
+        "Id": 42009,
+        "NpcId": 1027,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 132075,
+        "Desc": null
+    },
+    {
+        "Id": 42010,
+        "NpcId": 1027,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 132078,
+        "Desc": null
+    },
+    {
+        "Id": 43000,
+        "NpcId": 1306,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 133077,
+        "Desc": "Noan"
+    },
+    {
+        "Id": 43001,
+        "NpcId": 1306,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 133070,
+        "Desc": null
+    },
+    {
+        "Id": 43002,
+        "NpcId": 1306,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 133068,
+        "Desc": null
+    },
+    {
+        "Id": 43003,
+        "NpcId": 1306,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 133069,
+        "Desc": null
+    },
+    {
+        "Id": 43004,
+        "NpcId": 1306,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 133071,
+        "Desc": null
+    },
+    {
+        "Id": 43005,
+        "NpcId": 1306,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 133072,
+        "Desc": null
+    },
+    {
+        "Id": 43006,
+        "NpcId": 1306,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 133073,
+        "Desc": null
+    },
+    {
+        "Id": 43007,
+        "NpcId": 1306,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 133074,
+        "Desc": null
+    },
+    {
+        "Id": 43008,
+        "NpcId": 1306,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 133076,
+        "Desc": null
+    },
+    {
+        "Id": 43009,
+        "NpcId": 1306,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 133075,
+        "Desc": null
+    },
+    {
+        "Id": 43010,
+        "NpcId": 1306,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 133078,
+        "Desc": null
+    },
+    {
+        "Id": 44000,
+        "NpcId": 1033,
+        "Type": 0,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127077,
+        "Desc": "Liv: Empyrea  Dark Forest Coating"
+    },
+    {
+        "Id": 44001,
+        "NpcId": 1033,
+        "Type": 1,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127068,
+        "Desc": null
+    },
+    {
+        "Id": 44002,
+        "NpcId": 1033,
+        "Type": 2,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127106,
+        "Desc": null
+    },
+    {
+        "Id": 44003,
+        "NpcId": 1033,
+        "Type": 3,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127070,
+        "Desc": null
+    },
+    {
+        "Id": 44004,
+        "NpcId": 1033,
+        "Type": 4,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127069,
+        "Desc": null
+    },
+    {
+        "Id": 44005,
+        "NpcId": 1033,
+        "Type": 5,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127072,
+        "Desc": null
+    },
+    {
+        "Id": 44006,
+        "NpcId": 1033,
+        "Type": 6,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127073,
+        "Desc": null
+    },
+    {
+        "Id": 44007,
+        "NpcId": 1033,
+        "Type": 7,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127074,
+        "Desc": null
+    },
+    {
+        "Id": 44008,
+        "NpcId": 1033,
+        "Type": 8,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127076,
+        "Desc": null
+    },
+    {
+        "Id": 44009,
+        "NpcId": 1033,
+        "Type": 9,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127075,
+        "Desc": null
+    },
+    {
+        "Id": 44010,
+        "NpcId": 1033,
+        "Type": 10,
+        "ModelId": "R4LifuMd019331",
+        "CvId": 127107,
+        "Desc": null
+    },
+    {
+        "Id": 45000,
+        "NpcId": 1024,
+        "Type": 0,
+        "ModelId": null,
+        "CvId": 134094,
+        "Desc": "Super Bianca"
+    },
+    {
+        "Id": 45001,
+        "NpcId": 1024,
+        "Type": 1,
+        "ModelId": null,
+        "CvId": 134068,
+        "Desc": null
+    },
+    {
+        "Id": 45002,
+        "NpcId": 1024,
+        "Type": 2,
+        "ModelId": null,
+        "CvId": 134072,
+        "Desc": null
+    },
+    {
+        "Id": 45003,
+        "NpcId": 1024,
+        "Type": 3,
+        "ModelId": null,
+        "CvId": 134076,
+        "Desc": null
+    },
+    {
+        "Id": 45004,
+        "NpcId": 1024,
+        "Type": 4,
+        "ModelId": null,
+        "CvId": 134080,
+        "Desc": null
+    },
+    {
+        "Id": 45005,
+        "NpcId": 1024,
+        "Type": 5,
+        "ModelId": null,
+        "CvId": 134084,
+        "Desc": null
+    },
+    {
+        "Id": 45006,
+        "NpcId": 1024,
+        "Type": 6,
+        "ModelId": null,
+        "CvId": 134086,
+        "Desc": null
+    },
+    {
+        "Id": 45007,
+        "NpcId": 1024,
+        "Type": 7,
+        "ModelId": null,
+        "CvId": 134088,
+        "Desc": null
+    },
+    {
+        "Id": 45008,
+        "NpcId": 1024,
+        "Type": 8,
+        "ModelId": null,
+        "CvId": 134092,
+        "Desc": null
+    },
+    {
+        "Id": 45009,
+        "NpcId": 1024,
+        "Type": 9,
+        "ModelId": null,
+        "CvId": 134090,
+        "Desc": null
+    },
+    {
+        "Id": 45010,
+        "NpcId": 1024,
+        "Type": 10,
+        "ModelId": null,
+        "CvId": 134095,
+        "Desc": null
     }
 ]

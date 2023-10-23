@@ -475,6 +475,24 @@
         "Desc": "Own Omniframe Karenina: Scire"
     },
     {
+        "Id": 344,
+        "Type": 10102,
+        "Formula": null,
+        "Params": [
+            1571003.0
+        ],
+        "Desc": "Own Uniframe Noan: Arca"
+    },
+    {
+        "Id": 345,
+        "Type": 10102,
+        "Formula": null,
+        "Params": [
+            1041004.0
+        ],
+        "Desc": "Own Omniframe Bianca: Stigmata"
+    },
+    {
         "Id": 401,
         "Type": 11105,
         "Formula": null,
@@ -614,9 +632,18 @@
         "Type": 10101,
         "Formula": null,
         "Params": [
-            80.0
+            61.0
         ],
-        "Desc": "Unlocked at Commandant Lv.80"
+        "Desc": "Unlocked when Commandant reaches Lv.61"
+    },
+    {
+        "Id": 8007,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            56.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.56"
     },
     {
         "Id": 10001,
@@ -935,6 +962,15 @@
             10010304.0
         ],
         "Desc": "Complete Normal Story 1-12"
+    },
+    {
+        "Id": 100002,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010104.0
+        ],
+        "Desc": "Complete Normal Story 1-4"
     },
     {
         "Id": 100102,
@@ -4884,6 +4920,100 @@
         "Desc": "[Predator's Charge] and [Fatal Shadow] both reach Lv.18"
     },
     {
+        "Id": 7222,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157328.0,
+            9.0
+        ],
+        "Desc": "[Fang-shattering Wolf] reaches Lv.9"
+    },
+    {
+        "Id": 7223,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157328.0,
+            18.0
+        ],
+        "Desc": "[Fang-shattering Wolf] reaches Lv.18"
+    },
+    {
+        "Id": 7224,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157329.0,
+            9.0
+        ],
+        "Desc": "[Voltaic Burst] reaches Lv.9"
+    },
+    {
+        "Id": 7225,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157329.0,
+            18.0
+        ],
+        "Desc": "[Voltaic Burst] reaches Lv.18"
+    },
+    {
+        "Id": 7226,
+        "Type": 0,
+        "Formula": "(7223&7225)",
+        "Params": [],
+        "Desc": "Both [Fang-shattering Wolf] and [Voltaic Burst] reach Lv.18"
+    },
+    {
+        "Id": 7227,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152328.0,
+            9.0
+        ],
+        "Desc": "[Viridescent Gust] reaches Lv.9"
+    },
+    {
+        "Id": 7228,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152328.0,
+            18.0
+        ],
+        "Desc": "[Viridescent Gust] reaches Lv.18"
+    },
+    {
+        "Id": 7229,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152329.0,
+            9.0
+        ],
+        "Desc": "[Severed Sky] reaches Lv.9"
+    },
+    {
+        "Id": 7230,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152329.0,
+            18.0
+        ],
+        "Desc": "[Severed Sky] reaches Lv.18"
+    },
+    {
+        "Id": 7231,
+        "Type": 0,
+        "Formula": "(7228&7230)",
+        "Params": [],
+        "Desc": "Both [Viridescent Gust] and [Severed Sky] reach Lv.18"
+    },
+    {
         "Id": 7300,
         "Type": 13116,
         "Formula": null,
@@ -5008,6 +5138,125 @@
             80.0
         ],
         "Desc": "Liv: Luminance reaches lv.80"
+    },
+    {
+        "Id": 7314,
+        "Type": 13103,
+        "Formula": null,
+        "Params": [
+            80.0
+        ],
+        "Desc": "Watanabe: Astral reaches Lv.80"
+    },
+    {
+        "Id": 7315,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152328.0,
+            1.0
+        ],
+        "Desc": "[Viridescent Gust] reaches Lv.1"
+    },
+    {
+        "Id": 7316,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            152329.0,
+            1.0
+        ],
+        "Desc": "[Severed Sky] reaches Lv.1"
+    },
+    {
+        "Id": 7317,
+        "Type": 0,
+        "Formula": "(7315&7316)",
+        "Params": [],
+        "Desc": "Both [Viridescent Gust] and [Severed Sky] reach Lv.1"
+    },
+    {
+        "Id": 7318,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157328.0,
+            1.0
+        ],
+        "Desc": "[Fang-shattering Wolf] reaches Lv.1"
+    },
+    {
+        "Id": 7319,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            157329.0,
+            1.0
+        ],
+        "Desc": "[Voltaic Burst] reaches Lv.1"
+    },
+    {
+        "Id": 7320,
+        "Type": 0,
+        "Formula": "(7318&7319)",
+        "Params": [],
+        "Desc": "Both [Fang-shattering Wolf] and [Voltaic Burst] reach Lv.1"
+    },
+    {
+        "Id": 7321,
+        "Type": 13103,
+        "Formula": null,
+        "Params": [
+            80.0
+        ],
+        "Desc": "Rosetta: Rigor reaches Lv.80"
+    },
+    {
+        "Id": 7322,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            153328.0,
+            9.0
+        ],
+        "Desc": "[Sky Dance] reaches Lv.9"
+    },
+    {
+        "Id": 7323,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            153328.0,
+            18.0
+        ],
+        "Desc": "[Sky Dance] reaches Lv.18"
+    },
+    {
+        "Id": 7324,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            153329.0,
+            9.0
+        ],
+        "Desc": "[Melody of Death] reaches Lv.9"
+    },
+    {
+        "Id": 7325,
+        "Type": 13116,
+        "Formula": null,
+        "Params": [
+            153329.0,
+            18.0
+        ],
+        "Desc": "[Melody of Death] reaches Lv.18"
+    },
+    {
+        "Id": 7326,
+        "Type": 0,
+        "Formula": "(7323&7325)",
+        "Params": [],
+        "Desc": "Both [Sky Dance] and [Melody of Death] reach Lv.18"
     },
     {
         "Id": 18108001,
@@ -7411,6 +7660,26 @@
         "Desc": "Awaken Scire's Ultima Rank"
     },
     {
+        "Id": 60443,
+        "Type": 11102,
+        "Formula": null,
+        "Params": [
+            1571003.0,
+            4.0
+        ],
+        "Desc": "Awaken Arca's Ultima Rank"
+    },
+    {
+        "Id": 60444,
+        "Type": 11102,
+        "Formula": null,
+        "Params": [
+            1041004.0,
+            4.0
+        ],
+        "Desc": "Awaken Stigmata's Ultima Rank"
+    },
+    {
         "Id": 61001,
         "Type": 13105,
         "Formula": null,
@@ -8016,6 +8285,15 @@
             65.0
         ],
         "Desc": "Reach Commandant Level 65"
+    },
+    {
+        "Id": 70023,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10030304.0
+        ],
+        "Desc": "Complete Normal Story 3-12"
     },
     {
         "Id": 70101,
@@ -9970,6 +10248,15 @@
         "Desc": "Complete Normal Story 1-8 to unlock"
     },
     {
+        "Id": 770301,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010104.0
+        ],
+        "Desc": "Complete Normal Story 1-4 to unlock"
+    },
+    {
         "Id": 770400,
         "Type": 10105,
         "Formula": null,
@@ -9986,6 +10273,33 @@
             40.0
         ],
         "Desc": "Unlocked at Commandant Lv.40"
+    },
+    {
+        "Id": 770402,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010204.0
+        ],
+        "Desc": "Complete Normal Story 1-8 to unlock"
+    },
+    {
+        "Id": 770403,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            35.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.35"
+    },
+    {
+        "Id": 770404,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            35.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.35"
     },
     {
         "Id": 770500,
@@ -10131,6 +10445,15 @@
             10040204.0
         ],
         "Desc": "Complete Normal Story 4-8 to unlock"
+    },
+    {
+        "Id": 771801,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10030304.0
+        ],
+        "Desc": "Complete Normal Story 3-12 to unlock"
     },
     {
         "Id": 771900,
@@ -10449,6 +10772,15 @@
         "Desc": "Complete Normal Story 2-4 to unlock"
     },
     {
+        "Id": 774501,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010204.0
+        ],
+        "Desc": "Complete Normal Story 1-8 to unlock"
+    },
+    {
         "Id": 774600,
         "Type": 10105,
         "Formula": null,
@@ -10552,9 +10884,9 @@
         "Type": 10101,
         "Formula": null,
         "Params": [
-            52.0
+            40.0
         ],
-        "Desc": "Unlocked at Commandant Lv.52"
+        "Desc": "Unlocked when Commandant reaches Lv.40"
     },
     {
         "Id": 775700,
@@ -10566,13 +10898,22 @@
         "Desc": "Unlocked at Commandant Lv.52"
     },
     {
+        "Id": 775800,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11080106.0
+        ],
+        "Desc": "Complete Hidden Story 8-6 to unlock"
+    },
+    {
         "Id": 850000,
         "Type": 10101,
         "Formula": null,
         "Params": [
             1.0
         ],
-        "Desc": null
+        "Desc": "Unlocked when Commandant reaches Lv.1"
     },
     {
         "Id": 850101,
@@ -10581,7 +10922,7 @@
         "Params": [
             10010102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-2 to unlock"
     },
     {
         "Id": 850102,
@@ -10590,7 +10931,7 @@
         "Params": [
             10010102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-2 to unlock"
     },
     {
         "Id": 850103,
@@ -10599,7 +10940,7 @@
         "Params": [
             10010102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-2 to unlock"
     },
     {
         "Id": 850201,
@@ -10608,7 +10949,7 @@
         "Params": [
             10010103.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-3 to unlock"
     },
     {
         "Id": 850202,
@@ -10617,7 +10958,7 @@
         "Params": [
             10010103.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-3 to unlock"
     },
     {
         "Id": 850203,
@@ -10626,7 +10967,7 @@
         "Params": [
             10010103.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-3 to unlock"
     },
     {
         "Id": 850301,
@@ -10635,7 +10976,7 @@
         "Params": [
             10010104.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-4 to unlock"
     },
     {
         "Id": 850401,
@@ -10644,7 +10985,7 @@
         "Params": [
             10010202.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-6 to unlock"
     },
     {
         "Id": 850501,
@@ -10653,7 +10994,7 @@
         "Params": [
             10010204.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-8 to unlock"
     },
     {
         "Id": 850602,
@@ -10662,7 +11003,7 @@
         "Params": [
             10010301.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-9 to unlock"
     },
     {
         "Id": 850603,
@@ -10671,7 +11012,7 @@
         "Params": [
             10010301.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-9 to unlock"
     },
     {
         "Id": 850701,
@@ -10680,7 +11021,7 @@
         "Params": [
             10010302.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-10 to unlock"
     },
     {
         "Id": 850800,
@@ -10689,7 +11030,7 @@
         "Params": [
             10010304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-12 to unlock"
     },
     {
         "Id": 850801,
@@ -10698,7 +11039,7 @@
         "Params": [
             10010304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-12 to unlock"
     },
     {
         "Id": 850802,
@@ -10707,7 +11048,7 @@
         "Params": [
             10010304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-12 to unlock"
     },
     {
         "Id": 850803,
@@ -10716,7 +11057,7 @@
         "Params": [
             10010304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 1-12 to unlock"
     },
     {
         "Id": 850901,
@@ -10725,7 +11066,7 @@
         "Params": [
             10020101.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-1 to unlock"
     },
     {
         "Id": 850931,
@@ -10734,7 +11075,7 @@
         "Params": [
             10020102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-2 to unlock"
     },
     {
         "Id": 851001,
@@ -10743,7 +11084,7 @@
         "Params": [
             10020103.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-3 to unlock"
     },
     {
         "Id": 851101,
@@ -10752,7 +11093,7 @@
         "Params": [
             10020104.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-4 to unlock"
     },
     {
         "Id": 851201,
@@ -10761,7 +11102,7 @@
         "Params": [
             10020201.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-5 to unlock"
     },
     {
         "Id": 851301,
@@ -10770,7 +11111,7 @@
         "Params": [
             10020202.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-6 to unlock"
     },
     {
         "Id": 851401,
@@ -10779,7 +11120,7 @@
         "Params": [
             10020204.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-8 to unlock"
     },
     {
         "Id": 851501,
@@ -10788,7 +11129,7 @@
         "Params": [
             10020301.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-9 to unlock"
     },
     {
         "Id": 851601,
@@ -10797,7 +11138,7 @@
         "Params": [
             10020303.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-11 to unlock"
     },
     {
         "Id": 851701,
@@ -10806,7 +11147,7 @@
         "Params": [
             10020304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 2-12 to unlock"
     },
     {
         "Id": 851801,
@@ -10815,7 +11156,7 @@
         "Params": [
             11010102.0
         ],
-        "Desc": null
+        "Desc": "Complete Hidden Story 1-2 to unlock"
     },
     {
         "Id": 851901,
@@ -10824,7 +11165,7 @@
         "Params": [
             11010105.0
         ],
-        "Desc": null
+        "Desc": "Complete Hidden Story 1-5 to unlock"
     },
     {
         "Id": 852001,
@@ -10833,7 +11174,7 @@
         "Params": [
             10030101.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-1 to unlock"
     },
     {
         "Id": 852031,
@@ -10842,7 +11183,7 @@
         "Params": [
             10030102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-2 to unlock"
     },
     {
         "Id": 852101,
@@ -10851,7 +11192,7 @@
         "Params": [
             10030103.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-3 to unlock"
     },
     {
         "Id": 852201,
@@ -10860,7 +11201,7 @@
         "Params": [
             50.0
         ],
-        "Desc": null
+        "Desc": "Unlocked when Commandant reaches Lv.50"
     },
     {
         "Id": 852301,
@@ -10869,7 +11210,7 @@
         "Params": [
             10030203.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-7 to unlock"
     },
     {
         "Id": 852401,
@@ -10878,7 +11219,7 @@
         "Params": [
             10030204.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-8 to unlock"
     },
     {
         "Id": 852501,
@@ -10887,7 +11228,7 @@
         "Params": [
             10030302.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 3-10 to unlock"
     },
     {
         "Id": 852601,
@@ -10896,7 +11237,7 @@
         "Params": [
             11020101.0
         ],
-        "Desc": null
+        "Desc": "Complete Hidden Story 2-1 to unlock"
     },
     {
         "Id": 852701,
@@ -10905,7 +11246,7 @@
         "Params": [
             10040102.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 4-2 to unlock"
     },
     {
         "Id": 852731,
@@ -10914,7 +11255,7 @@
         "Params": [
             10040201.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 4-5 to unlock"
     },
     {
         "Id": 852801,
@@ -10923,7 +11264,7 @@
         "Params": [
             10040204.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 4-8 to unlock"
     },
     {
         "Id": 852901,
@@ -10932,7 +11273,7 @@
         "Params": [
             10050203.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 5-7 to unlock"
     },
     {
         "Id": 852931,
@@ -10941,7 +11282,7 @@
         "Params": [
             10060304.0
         ],
-        "Desc": null
+        "Desc": "Complete Normal Story 6-12 to unlock"
     },
     {
         "Id": 852961,
@@ -10950,7 +11291,7 @@
         "Params": [
             52.0
         ],
-        "Desc": null
+        "Desc": "Unlocked when Commandant reaches Lv.52"
     },
     {
         "Id": 852991,
@@ -10959,7 +11300,7 @@
         "Params": [
             30010405.0
         ],
-        "Desc": null
+        "Desc": "Clear Combat Supply AE-5 to unlock"
     },
     {
         "Id": 10010100,
@@ -16270,6 +16611,26 @@
         "Desc": "Equip 6\u2605 Resonance Skill x12"
     },
     {
+        "Id": 40063044,
+        "Type": 13109,
+        "Formula": null,
+        "Params": [
+            6.0,
+            12.0
+        ],
+        "Desc": "Equip 6\u2605 Resonance Skill x12"
+    },
+    {
+        "Id": 40063045,
+        "Type": 13109,
+        "Formula": null,
+        "Params": [
+            6.0,
+            12.0
+        ],
+        "Desc": "Equip 6\u2605 Resonance Skills x12"
+    },
+    {
         "Id": 40006313,
         "Type": 21101,
         "Formula": null,
@@ -17090,6 +17451,33 @@
             11060106.0
         ],
         "Desc": "Prerequisite: Hidden Story 6-6"
+    },
+    {
+        "Id": 9501,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            20.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.20"
+    },
+    {
+        "Id": 9502,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            30.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.30"
+    },
+    {
+        "Id": 9503,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            40.0
+        ],
+        "Desc": "Unlocked when Commandant reaches Lv.40"
     },
     {
         "Id": 30100801,
@@ -18293,6 +18681,51 @@
         "Desc": "Coating owned"
     },
     {
+        "Id": 6002404,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6002404.0
+        ],
+        "Desc": "Coating owned"
+    },
+    {
+        "Id": 6810306,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6810306.0
+        ],
+        "Desc": "Coating owned"
+    },
+    {
+        "Id": 6002504,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6002504.0
+        ],
+        "Desc": "Coating owned"
+    },
+    {
+        "Id": 6001805,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6001805.0
+        ],
+        "Desc": "Coating owned"
+    },
+    {
+        "Id": 6001605,
+        "Type": 11105,
+        "Formula": null,
+        "Params": [
+            6001605.0
+        ],
+        "Desc": "Coating owned"
+    },
+    {
         "Id": 30499,
         "Type": 10101,
         "Formula": null,
@@ -18647,7 +19080,8 @@
             1021004.0,
             1131002.0,
             1141003.0,
-            1141003.0
+            1141003.0,
+            1041004.0
         ],
         "Desc": "Deploy melee Omniframes"
     },
@@ -18679,7 +19113,8 @@
             1131003.0,
             1121003.0,
             1531004.0,
-            1051004.0
+            1051004.0,
+            1071004.0
         ],
         "Desc": "Deploy Omniframes with Elemental Stats"
     },
@@ -18780,7 +19215,8 @@
             1131003.0,
             1121003.0,
             1531004.0,
-            1051004.0
+            1051004.0,
+            1071004.0
         ],
         "Desc": "Deploy 3 Omniframes with Elemental Stats"
     },
@@ -18825,7 +19261,10 @@
             1191003.0,
             1201003.0,
             1551003.0,
-            1011003.0
+            1011003.0,
+            1041004.0,
+            1551003.0,
+            1041004.0
         ],
         "Desc": "Deploy 1 non-Elemental Frame in the team."
     },
@@ -19866,6 +20305,42 @@
             6110307.0
         ],
         "Desc": "Unlocks after owning the Coating \"Illusionist\""
+    },
+    {
+        "Id": 812026,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6002005.0
+        ],
+        "Desc": "Unlocks after owning the Coating \"Dreamweaver\""
+    },
+    {
+        "Id": 812027,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6001605.0
+        ],
+        "Desc": "Unlocks from owning the Coating \"Wavebender\""
+    },
+    {
+        "Id": 812028,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6001805.0
+        ],
+        "Desc": "Unlocks from owning the Coating \"Dreamcatcher\""
+    },
+    {
+        "Id": 812029,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6002504.0
+        ],
+        "Desc": "Unlocks from owning the Coating \"Exorcist\""
     },
     {
         "Id": 841001,
@@ -21865,6 +22340,213 @@
             4.0
         ],
         "Desc": "Obtain 4"
+    },
+    {
+        "Id": 990067,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018001.0,
+            2.0
+        ],
+        "Desc": "Obtain 2"
+    },
+    {
+        "Id": 990068,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018001.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990069,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018001.0,
+            4.0
+        ],
+        "Desc": "Obtain 4"
+    },
+    {
+        "Id": 990070,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018002.0,
+            2.0
+        ],
+        "Desc": "Obtain 2"
+    },
+    {
+        "Id": 990071,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018002.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990072,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018002.0,
+            4.0
+        ],
+        "Desc": "Obtain 4"
+    },
+    {
+        "Id": 990073,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018003.0,
+            2.0
+        ],
+        "Desc": "Obtain 2"
+    },
+    {
+        "Id": 990074,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018003.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990075,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13018003.0,
+            4.0
+        ],
+        "Desc": "Obtain 4"
+    },
+    {
+        "Id": 990076,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019002.0,
+            2.0
+        ],
+        "Desc": "Obtain 2"
+    },
+    {
+        "Id": 990077,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019002.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990078,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019002.0,
+            5.0
+        ],
+        "Desc": "Obtain 5"
+    },
+    {
+        "Id": 990079,
+        "Type": 10111,
+        "Formula": null,
+        "Params": [
+            14068.0
+        ],
+        "Desc": "Completion of \"Song of Victory VII\" required"
+    },
+    {
+        "Id": 990080,
+        "Type": 10111,
+        "Formula": null,
+        "Params": [
+            14069.0
+        ],
+        "Desc": "Completion of \"Song of Victory VIII\" required"
+    },
+    {
+        "Id": 990081,
+        "Type": 10111,
+        "Formula": null,
+        "Params": [
+            14070.0
+        ],
+        "Desc": "Completion of \"Song of Victory IX\" required"
+    },
+    {
+        "Id": 990082,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019004.0,
+            2.0
+        ],
+        "Desc": "Obtain 2"
+    },
+    {
+        "Id": 990083,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019004.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990084,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019004.0,
+            4.0
+        ],
+        "Desc": "Obtain 4"
+    },
+    {
+        "Id": 990085,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019001.0,
+            3.0
+        ],
+        "Desc": "Obtain 3"
+    },
+    {
+        "Id": 990086,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019001.0,
+            5.0
+        ],
+        "Desc": "Obtain 5"
+    },
+    {
+        "Id": 990087,
+        "Type": 15103,
+        "Formula": null,
+        "Params": [
+            13019001.0,
+            7.0
+        ],
+        "Desc": "Obtain 7"
     },
     {
         "Id": 84100101,
@@ -25204,6 +25886,375 @@
             10190122.0
         ],
         "Desc": "Unlocks after clearing Main Story 19-22"
+    },
+    {
+        "Id": 84102101,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020301.0
+        ],
+        "Desc": "Clear Floating Record ER02-1 to unlock"
+    },
+    {
+        "Id": 84102102,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020302.0
+        ],
+        "Desc": "Clear Floating Record ER02-2 to unlock"
+    },
+    {
+        "Id": 84102103,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020303.0
+        ],
+        "Desc": "Clear Floating Record ER02-3 to unlock"
+    },
+    {
+        "Id": 84102104,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020304.0
+        ],
+        "Desc": "Clear Floating Record ER02-4 to unlock"
+    },
+    {
+        "Id": 84102105,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020305.0
+        ],
+        "Desc": "Clear Floating Record ER02-5 to unlock"
+    },
+    {
+        "Id": 84102106,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020306.0
+        ],
+        "Desc": "Clear Floating Record ER02-6 to unlock"
+    },
+    {
+        "Id": 84102107,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020307.0
+        ],
+        "Desc": "Clear Floating Record ER02-7 to unlock"
+    },
+    {
+        "Id": 84102108,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020308.0
+        ],
+        "Desc": "Clear Floating Record ER02-8 to unlock"
+    },
+    {
+        "Id": 84102109,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020309.0
+        ],
+        "Desc": "Clear Floating Record ER02-9 to unlock"
+    },
+    {
+        "Id": 84102110,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020310.0
+        ],
+        "Desc": "Clear Floating Record ER02-10 to unlock"
+    },
+    {
+        "Id": 84102111,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020311.0
+        ],
+        "Desc": "Clear Floating Record ER02-11 to unlock"
+    },
+    {
+        "Id": 84102112,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020312.0
+        ],
+        "Desc": "Clear Floating Record ER02-12 to unlock"
+    },
+    {
+        "Id": 84102113,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020313.0
+        ],
+        "Desc": "Clear Floating Record ER02-13 to unlock"
+    },
+    {
+        "Id": 84102114,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020314.0
+        ],
+        "Desc": "Clear Floating Record ER02-14 to unlock"
+    },
+    {
+        "Id": 84102115,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020315.0
+        ],
+        "Desc": "Clear Floating Record ER02-15 to unlock"
+    },
+    {
+        "Id": 84102116,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020316.0
+        ],
+        "Desc": "Clear Floating Record ER02-16 to unlock"
+    },
+    {
+        "Id": 84102117,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020317.0
+        ],
+        "Desc": "Clear Floating Record ER02-17 to unlock"
+    },
+    {
+        "Id": 84102118,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020318.0
+        ],
+        "Desc": "Clear Floating Record ER02-18 to unlock"
+    },
+    {
+        "Id": 84102119,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020319.0
+        ],
+        "Desc": "Clear Floating Record ER02-19 to unlock"
+    },
+    {
+        "Id": 84102120,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020320.0
+        ],
+        "Desc": "Clear Floating Record ER02-20 to unlock"
+    },
+    {
+        "Id": 84102121,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020321.0
+        ],
+        "Desc": "Clear Floating Record ER02-21 to unlock"
+    },
+    {
+        "Id": 84102122,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020322.0
+        ],
+        "Desc": "Clear Floating Record ER02-22 to unlock"
+    },
+    {
+        "Id": 84102123,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020323.0
+        ],
+        "Desc": "Clear Floating Record ER02-23 to unlock"
+    },
+    {
+        "Id": 84102124,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020324.0
+        ],
+        "Desc": "Clear Floating Record ER02-24 to unlock"
+    },
+    {
+        "Id": 84102201,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200101.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-1"
+    },
+    {
+        "Id": 84102202,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200102.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-2"
+    },
+    {
+        "Id": 84102203,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200103.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-3"
+    },
+    {
+        "Id": 84102204,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200104.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-4"
+    },
+    {
+        "Id": 84102205,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200105.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-5"
+    },
+    {
+        "Id": 84102206,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200106.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-6"
+    },
+    {
+        "Id": 84102207,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200107.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-7"
+    },
+    {
+        "Id": 84102208,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200109.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-8"
+    },
+    {
+        "Id": 84102209,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200110.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-9"
+    },
+    {
+        "Id": 84102210,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200111.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-10"
+    },
+    {
+        "Id": 84102211,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200112.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-11"
+    },
+    {
+        "Id": 84102212,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200113.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-12"
+    },
+    {
+        "Id": 84102213,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200114.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-13"
+    },
+    {
+        "Id": 84102214,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200115.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-14"
+    },
+    {
+        "Id": 84102215,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010003.0
+        ],
+        "Desc": "Unlocks after clearing Main Story 20-14"
+    },
+    {
+        "Id": 84102216,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30130409.0
+        ],
+        "Desc": "Unlocks after clearing Slumberland Stage 2"
+    },
+    {
+        "Id": 84102217,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30130410.0
+        ],
+        "Desc": "Unlocks after clearing Slumberland Stage 3"
     },
     {
         "Id": 84200101,
@@ -32315,6 +33366,267 @@
         "Desc": "A gift from \u03b1 after giving [Radiant Comradery]"
     },
     {
+        "Id": 84602125,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            175.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602126,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            176.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602127,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            177.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602128,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            178.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602129,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            179.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602130,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            180.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602131,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            181.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602132,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            182.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602133,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            183.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602134,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            184.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602135,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            185.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602136,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            186.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602137,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            187.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602138,
+        "Type": 10152,
+        "Formula": null,
+        "Params": [
+            188.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 84602201,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131124.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-01 to unlock"
+    },
+    {
+        "Id": 84602202,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131125.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-02 to unlock"
+    },
+    {
+        "Id": 84602203,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131126.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-03 to unlock"
+    },
+    {
+        "Id": 84602204,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131127.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-04 to unlock"
+    },
+    {
+        "Id": 84602205,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131128.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-05 to unlock"
+    },
+    {
+        "Id": 84602206,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131129.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-06 to unlock"
+    },
+    {
+        "Id": 84602207,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131130.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-07 to unlock"
+    },
+    {
+        "Id": 84602208,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131131.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-08 to unlock"
+    },
+    {
+        "Id": 84602209,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131132.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-09 to unlock"
+    },
+    {
+        "Id": 84602210,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131133.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-10 to unlock"
+    },
+    {
+        "Id": 84602211,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131134.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-11 to unlock"
+    },
+    {
+        "Id": 84602212,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131135.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-12 to unlock"
+    },
+    {
+        "Id": 84602213,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131136.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-13 to unlock"
+    },
+    {
+        "Id": 84602214,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131137.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-14 to unlock"
+    },
+    {
+        "Id": 84602215,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30131138.0
+        ],
+        "Desc": "Clear Dumplings and Dragons SOW-15 to unlock"
+    },
+    {
         "Id": 84700101,
         "Type": 15104,
         "Formula": null,
@@ -33953,102 +35265,124 @@
     },
     {
         "Id": 95010,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            150000.0
+            106.0,
+            200.0,
+            1.0
         ],
-        "Desc": "Have 150000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX1 with no more than 200 System Electricity"
     },
     {
         "Id": 95011,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            200000.0
+            106.0,
+            100.0,
+            1.0
         ],
-        "Desc": "Have 200000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX1 with no more than 100 System Electricity"
     },
     {
         "Id": 95012,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            300000.0
+            112.0,
+            400.0,
+            1.0
         ],
-        "Desc": "Have 300000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX2 with no more than 400 System Electricity"
     },
     {
         "Id": 95013,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            400000.0
+            112.0,
+            250.0,
+            1.0
         ],
-        "Desc": "Have 400000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX2 with no more than 250 System Electricity"
     },
     {
         "Id": 95014,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            450000.0
+            112.0,
+            50.0,
+            1.0
         ],
-        "Desc": "Have 450000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX2 with no more than 50 System Electricity"
     },
     {
         "Id": 95015,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            490000.0
+            118.0,
+            400.0,
+            1.0
         ],
-        "Desc": "Have 490000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX3 with no more than 400 System Electricity"
     },
     {
         "Id": 95016,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            30000.0
+            118.0,
+            250.0,
+            1.0
         ],
-        "Desc": "Have 30000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX3 with no more than 250 System Electricity"
     },
     {
         "Id": 95017,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            50000.0
+            118.0,
+            50.0,
+            1.0
         ],
-        "Desc": "Have 50000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX3 with no more than 50 System Electricity"
     },
     {
         "Id": 95018,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            70000.0
+            124.0,
+            400.0,
+            1.0
         ],
-        "Desc": "Have 70000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX4 with no more than 400 System Electricity"
     },
     {
         "Id": 95019,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            90000.0
+            124.0,
+            50.0,
+            1.0
         ],
-        "Desc": "Have 90000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX4 with no more than 50 System Electricity"
     },
     {
         "Id": 95020,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            120000.0
+            130.0,
+            150.0,
+            1.0
         ],
-        "Desc": "Have 120000 expected Ore production in Super Stronghold"
+        "Desc": "Clear EX5 with no more than 150 System Electricity"
     },
     {
         "Id": 95101,
@@ -34097,102 +35431,124 @@
     },
     {
         "Id": 95106,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            150000.0
+            106.0,
+            500.0,
+            1.0
         ],
-        "Desc": "Have 150000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX1 with no more than 500 System Electricity (Normal Block)"
     },
     {
         "Id": 95107,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            180000.0
+            106.0,
+            300.0,
+            1.0
         ],
-        "Desc": "Have 180000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX1 with no more than 300 System Electricity (Normal Block)"
     },
     {
         "Id": 95108,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            210000.0
+            112.0,
+            600.0,
+            1.0
         ],
-        "Desc": "Have 210000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX2 with no more than 600 System Electricity (Normal Block)"
     },
     {
         "Id": 95109,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            250000.0
+            112.0,
+            450.0,
+            1.0
         ],
-        "Desc": "Have 250000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX2 with no more than 450 System Electricity (Normal Block)"
     },
     {
         "Id": 95110,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            350000.0
+            112.0,
+            300.0,
+            1.0
         ],
-        "Desc": "Have 350000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX2 with no more than 300 System Electricity (Normal Block)"
     },
     {
         "Id": 95111,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            380000.0
+            118.0,
+            1500.0,
+            1.0
         ],
-        "Desc": "Have 380000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX3 with no more than 1500 System Electricity (Normal Block)"
     },
     {
         "Id": 95112,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            30000.0
+            118.0,
+            1200.0,
+            1.0
         ],
-        "Desc": "Have 30000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX3 with no more than 1200 System Electricity (Normal Block)"
     },
     {
         "Id": 95113,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            50000.0
+            118.0,
+            800.0,
+            1.0
         ],
-        "Desc": "Have 50000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX3 with no more than 800 System Electricity (Normal Block)"
     },
     {
         "Id": 95114,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            70000.0
+            124.0,
+            2000.0,
+            1.0
         ],
-        "Desc": "Have 70000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX4 with no more than 2000 System Electricity (Normal Block)"
     },
     {
         "Id": 95115,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            90000.0
+            124.0,
+            1800.0,
+            1.0
         ],
-        "Desc": "Have 90000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX4 with no more than 1800 System Electricity (Normal Block)"
     },
     {
         "Id": 95116,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            120000.0
+            130.0,
+            2500.0,
+            1.0
         ],
-        "Desc": "Have 120000 expected Ore production in Super Stronghold (Normal Zone)"
+        "Desc": "Clear EX5 with no more than 2,500 System Electricity (Normal Block)"
     },
     {
         "Id": 95201,
@@ -34232,102 +35588,124 @@
     },
     {
         "Id": 95205,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            140000.0
+            106.0,
+            500.0,
+            1.0
         ],
-        "Desc": "Have 140000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX1 with no more than 500 System Electricity (Easy Block)"
     },
     {
         "Id": 95206,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            170000.0
+            106.0,
+            300.0,
+            1.0
         ],
-        "Desc": "Have 170000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX1 with no more than 300 System Electricity (Easy Block)"
     },
     {
         "Id": 95207,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            200000.0
+            112.0,
+            600.0,
+            1.0
         ],
-        "Desc": "Have 200000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX2 with no more than 600 System Electricity (Easy Block)"
     },
     {
         "Id": 95208,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            240000.0
+            112.0,
+            450.0,
+            1.0
         ],
-        "Desc": "Have 240000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX2 with no more than 450 System Electricity (Easy Block)"
     },
     {
         "Id": 95209,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            270000.0
+            112.0,
+            300.0,
+            1.0
         ],
-        "Desc": "Have 270000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX2 with no more than 300 System Electricity (Easy Block)"
     },
     {
         "Id": 95210,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            300000.0
+            118.0,
+            1800.0,
+            1.0
         ],
-        "Desc": "Have 300000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX3 with no more than 1800 System Electricity (Easy Block)"
     },
     {
         "Id": 95211,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            30000.0
+            118.0,
+            1500.0,
+            1.0
         ],
-        "Desc": "Have 30000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX3 with no more than 1500 System Electricity (Easy Block)"
     },
     {
         "Id": 95212,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            50000.0
+            118.0,
+            1200.0,
+            1.0
         ],
-        "Desc": "Have 50000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX3 with no more than 1200 System Electricity (Easy Block)"
     },
     {
         "Id": 95213,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            70000.0
+            124.0,
+            2000.0,
+            1.0
         ],
-        "Desc": "Have 70000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX4 with no more than 2000 System Electricity (Easy Block)"
     },
     {
         "Id": 95214,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            90000.0
+            124.0,
+            1900.0,
+            1.0
         ],
-        "Desc": "Have 90000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX4 with no more than 1900 System Electricity (Easy Block)"
     },
     {
         "Id": 95215,
-        "Type": 10132,
+        "Type": 12103,
         "Formula": null,
         "Params": [
-            120000.0
+            124.0,
+            1800.0,
+            1.0
         ],
-        "Desc": "Have 120000 expected Ore production in Super Stronghold (Easy Zone)"
+        "Desc": "Clear EX4 with no more than 1800 System Electricity (Easy Block)"
     },
     {
         "Id": 95216,
@@ -34502,6 +35880,121 @@
         "Desc": "Clear Stronghold EX-06"
     },
     {
+        "Id": 95401,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            106.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX1"
+    },
+    {
+        "Id": 95402,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX2"
+    },
+    {
+        "Id": 95403,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            150.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - Cover Tactic"
+    },
+    {
+        "Id": 95411,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            106.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX1"
+    },
+    {
+        "Id": 95412,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX2"
+    },
+    {
+        "Id": 95413,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            2500.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - Cover Tactic"
+    },
+    {
+        "Id": 95421,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            106.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX1"
+    },
+    {
+        "Id": 95422,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - EX2"
+    },
+    {
+        "Id": 95423,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            1800.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "Mine Auto Clear - Cover Tactic"
+    },
+    {
+        "Id": 95431,
+        "Type": 0,
+        "Formula": "95401|95411|95421",
+        "Params": [],
+        "Desc": "Mine fulfills any of the auto clear requirements"
+    },
+    {
         "Id": 96000,
         "Type": 10105,
         "Formula": null,
@@ -34534,6 +36027,24 @@
         "Formula": null,
         "Params": [
             30100927.0
+        ],
+        "Desc": "Clear all tutorial stages"
+    },
+    {
+        "Id": 96004,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30100935.0
+        ],
+        "Desc": "Clear all tutorial stages"
+    },
+    {
+        "Id": 96005,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30100947.0
         ],
         "Desc": "Clear all tutorial stages"
     },
@@ -34752,7 +36263,7 @@
             16070000.0,
             10.0
         ],
-        "Desc": "Total skill level of any Lingya reaches 10"
+        "Desc": "Total skill level of any Lingya reaches Lv.10"
     },
     {
         "Id": 1000020,
@@ -34814,7 +36325,7 @@
             16090000.0,
             10.0
         ],
-        "Desc": "Total skill level of any Thorny reaches 10"
+        "Desc": "Total skill level of any Thorny reaches Lv.10"
     },
     {
         "Id": 1000026,
@@ -34877,6 +36388,37 @@
             10.0
         ],
         "Desc": "Total skill level of any Moonhopper reaches Lv.10"
+    },
+    {
+        "Id": 1000032,
+        "Type": 10136,
+        "Formula": null,
+        "Params": [
+            16120000.0,
+            0.0,
+            10.0
+        ],
+        "Desc": "Have any Shimmer reach Lv.10 (no Overclock)"
+    },
+    {
+        "Id": 1000033,
+        "Type": 10137,
+        "Formula": null,
+        "Params": [
+            16120000.0,
+            4.0
+        ],
+        "Desc": "Have any Shimmer reach SS-Rank"
+    },
+    {
+        "Id": 1000034,
+        "Type": 10138,
+        "Formula": null,
+        "Params": [
+            16120000.0,
+            10.0
+        ],
+        "Desc": "Total skill level of any Shimmer reaches Lv.10"
     },
     {
         "Id": 1001001,
@@ -34978,6 +36520,15 @@
         "Desc": "Unlock Moonhopper"
     },
     {
+        "Id": 1001012,
+        "Type": 10142,
+        "Formula": null,
+        "Params": [
+            16120000.0
+        ],
+        "Desc": "Unlock Shimmer"
+    },
+    {
         "Id": 1002001,
         "Type": 10142,
         "Formula": null,
@@ -35075,6 +36626,15 @@
             16110000.0
         ],
         "Desc": "Combine CUB \"Moonhopper\" unlocked"
+    },
+    {
+        "Id": 1002121,
+        "Type": 10142,
+        "Formula": null,
+        "Params": [
+            16120000.0
+        ],
+        "Desc": "Combine CUB \"Shimmer\" unlocked"
     },
     {
         "Id": 94031,
@@ -35915,6 +37475,103 @@
         "Desc": "Clear stage 1 of any SP zone"
     },
     {
+        "Id": 1002301,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062364.0
+        ],
+        "Desc": "Clear SP Physical Block Easy Stage 1"
+    },
+    {
+        "Id": 1002302,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062373.0
+        ],
+        "Desc": "Clear SP Fire Block Easy Stage 1"
+    },
+    {
+        "Id": 1002303,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062370.0
+        ],
+        "Desc": "Clear SP Dark Block Easy Stage 1"
+    },
+    {
+        "Id": 1002304,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062361.0
+        ],
+        "Desc": "Clear SP Lightning Block Easy Stage 1"
+    },
+    {
+        "Id": 1002305,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062367.0
+        ],
+        "Desc": "Clear SP Ice Block Easy Stage 1"
+    },
+    {
+        "Id": 1002306,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062379.0
+        ],
+        "Desc": "Clear SP Physical Block Hard Stage 1"
+    },
+    {
+        "Id": 1002307,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062388.0
+        ],
+        "Desc": "Clear SP Fire Block Hard Stage 1"
+    },
+    {
+        "Id": 1002308,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062385.0
+        ],
+        "Desc": "Clear SP Dark Block Hard Stage 1"
+    },
+    {
+        "Id": 1002309,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062376.0
+        ],
+        "Desc": "Clear SP Lightning Block Hard Stage 1"
+    },
+    {
+        "Id": 1002310,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30062382.0
+        ],
+        "Desc": "Clear SP Ice Block Hard Stage 1"
+    },
+    {
+        "Id": 1002311,
+        "Type": 0,
+        "Formula": "1002301|1002302|1002303|1002304|1002305|1002306|1002307|1002308|1002309|1002310",
+        "Params": [],
+        "Desc": "Clear stage 1 of any SP phase 3 block"
+    },
+    {
         "Id": 1002100,
         "Type": 23001,
         "Formula": null,
@@ -35956,6 +37613,15 @@
         "Formula": "1002101|1002102|1002103",
         "Params": [],
         "Desc": "Reach the entrance of one of the Guild War rounds"
+    },
+    {
+        "Id": 1002105,
+        "Type": 23001,
+        "Formula": null,
+        "Params": [
+            11202.0
+        ],
+        "Desc": "Reach the entrance of the Guild War that unlocks on Jul 8, 2022"
     },
     {
         "Id": 410,
@@ -36212,6 +37878,1037 @@
         "Formula": "1002213|1002214|1002215|1002216|1002217|1002218|1002219|1002220",
         "Params": [],
         "Desc": "Clear stage 1 of any SP block"
+    },
+    {
+        "Id": 1002222,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30162501.0
+        ],
+        "Desc": "Clear Limit Break Stage 1"
+    },
+    {
+        "Id": 1002230,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30162487.0
+        ],
+        "Desc": "Clear Yin-Yang Tower Stage 3-1"
+    },
+    {
+        "Id": 1002231,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            30162488.0
+        ],
+        "Desc": "Clear Yin-Yang Tower Stage 3-2"
+    },
+    {
+        "Id": 1002232,
+        "Type": 0,
+        "Formula": "1002230|1002231",
+        "Params": [],
+        "Desc": "Clear any stage of Yin-Yang Tower Stage 3"
+    },
+    {
+        "Id": 1002233,
+        "Type": 0,
+        "Formula": "1002230&1002231",
+        "Params": [],
+        "Desc": "Clear all stages of Yin-Yang Tower Stage 3"
+    },
+    {
+        "Id": 1002234,
+        "Type": 23001,
+        "Formula": null,
+        "Params": [
+            807.0
+        ],
+        "Desc": "Simulated Siege Restriction Activation Time: 2022/6/6 5:00:00"
+    },
+    {
+        "Id": 1004001,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Clear chapter 2 of any adventure"
+    },
+    {
+        "Id": 1004002,
+        "Type": 17101,
+        "Formula": null,
+        "Params": [
+            10.0
+        ],
+        "Desc": "Clear a total of 10 battle nodes"
+    },
+    {
+        "Id": 1004003,
+        "Type": 17101,
+        "Formula": null,
+        "Params": [
+            40.0
+        ],
+        "Desc": "Clear a total of 40 battle nodes"
+    },
+    {
+        "Id": 1004004,
+        "Type": 17101,
+        "Formula": null,
+        "Params": [
+            80.0
+        ],
+        "Desc": "Clear a total of 80 battle nodes"
+    },
+    {
+        "Id": 1004005,
+        "Type": 17101,
+        "Formula": null,
+        "Params": [
+            120.0
+        ],
+        "Desc": "Clear a total of 120 battle nodes"
+    },
+    {
+        "Id": 1004006,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1004007,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "Clear chapter 4 of any adventure"
+    },
+    {
+        "Id": 1004008,
+        "Type": 17102,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "Clear the adventure using the 'Survival Expert' Survey Team with any ending"
+    },
+    {
+        "Id": 1004009,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            102.0,
+            4.0
+        ],
+        "Desc": "Bond \"Matrix - Fire\" reaches max level"
+    },
+    {
+        "Id": 1004010,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            103.0,
+            4.0
+        ],
+        "Desc": "Bond \"Matrix - Lightning\" reaches max level"
+    },
+    {
+        "Id": 1004011,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            105.0,
+            4.0
+        ],
+        "Desc": "Bond \"Matrix - Ice\" reaches max level"
+    },
+    {
+        "Id": 1004012,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            104.0,
+            4.0
+        ],
+        "Desc": "Bond \"Matrix - Dark\" reaches max level"
+    },
+    {
+        "Id": 1004013,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            101.0,
+            4.0
+        ],
+        "Desc": "Bond \"War Blade\" reaches max level"
+    },
+    {
+        "Id": 1004014,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "Clear chapter 5 of any adventure"
+    },
+    {
+        "Id": 1004015,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            304.0,
+            3.0
+        ],
+        "Desc": "Bond \"Elimination\" reaches max level"
+    },
+    {
+        "Id": 1004016,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            301.0,
+            3.0
+        ],
+        "Desc": "Bond \"Overclock\" reaches max level"
+    },
+    {
+        "Id": 1004017,
+        "Type": 17102,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Clear the adventure using the \"Scavenger\" Survey Team with any ending"
+    },
+    {
+        "Id": 1004018,
+        "Type": 17102,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "Clear the adventure using the \"Tide Seeker\" Survey Team with any ending"
+    },
+    {
+        "Id": 1004019,
+        "Type": 17103,
+        "Formula": null,
+        "Params": [
+            20.0
+        ],
+        "Desc": "Perform a total of 20 character recruitments in multiple adventures"
+    },
+    {
+        "Id": 1004020,
+        "Type": 17105,
+        "Formula": null,
+        "Params": [
+            200.0
+        ],
+        "Desc": "Consume a total of 200 Tinbread Cookies in multiple adventures"
+    },
+    {
+        "Id": 1004021,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "Clear the adventure once with any ending"
+    },
+    {
+        "Id": 1004022,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            307.0,
+            3.0
+        ],
+        "Desc": "Bond \"Sudden Rain\" reaches max level"
+    },
+    {
+        "Id": 1004023,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Clear the adventure 2 times with any ending"
+    },
+    {
+        "Id": 1004024,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "Clear the adventure 3 times with any ending"
+    },
+    {
+        "Id": 1004025,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            302.0,
+            3.0
+        ],
+        "Desc": "Bond \"Escalation\" reaches max level"
+    },
+    {
+        "Id": 1004026,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "Clear the adventure 4 times with any ending"
+    },
+    {
+        "Id": 1004027,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            306.0,
+            3.0
+        ],
+        "Desc": "Bond \"Fortress\" reaches max level"
+    },
+    {
+        "Id": 1004028,
+        "Type": 17107,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "Achieve the \"Story\" ending for the first time"
+    },
+    {
+        "Id": 1004029,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "Clear the adventure 5 times with any ending"
+    },
+    {
+        "Id": 1004030,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            6.0
+        ],
+        "Desc": "Clear the adventure 6 times with any ending"
+    },
+    {
+        "Id": 1004031,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            303.0,
+            3.0
+        ],
+        "Desc": "Bond \"Oblivion\" reaches max level"
+    },
+    {
+        "Id": 1004032,
+        "Type": 17110,
+        "Formula": null,
+        "Params": [
+            308.0,
+            3.0
+        ],
+        "Desc": "Bond \"Cyclone\" reaches max level"
+    },
+    {
+        "Id": 1004033,
+        "Type": 17102,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "Clear the adventure using the \"Expedition Team\" with any ending"
+    },
+    {
+        "Id": 1004034,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "Clear the adventure once with any ending"
+    },
+    {
+        "Id": 1004035,
+        "Type": 17102,
+        "Formula": null,
+        "Params": [
+            6.0
+        ],
+        "Desc": "Clear the adventure using the \"Curse Queller\" with any ending"
+    },
+    {
+        "Id": 1004036,
+        "Type": 17115,
+        "Formula": null,
+        "Params": [
+            4.0
+        ],
+        "Desc": "Activate [Phase 1 - Shark-speare Sale Enhancement] in Lost Apocrypha"
+    },
+    {
+        "Id": 1004037,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1004038,
+        "Type": 17112,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Achieve any ending of the \"Surging Waves\" difficulty"
+    },
+    {
+        "Id": 1004039,
+        "Type": 17116,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Clear chapter 2 in the previous adventure"
+    },
+    {
+        "Id": 1004040,
+        "Type": 17106,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "Clear the adventure once with any ending"
+    },
+    {
+        "Id": 1004041,
+        "Type": 17113,
+        "Formula": null,
+        "Params": [
+            40.0,
+            0.0
+        ],
+        "Desc": "Obtain a total of 40 Artifacts in multiple adventures"
+    },
+    {
+        "Id": 1004042,
+        "Type": 17101,
+        "Formula": null,
+        "Params": [
+            20.0
+        ],
+        "Desc": "Clear a total of 20 battle nodes in multiple adventures"
+    },
+    {
+        "Id": 1004043,
+        "Type": 17113,
+        "Formula": null,
+        "Params": [
+            10.0,
+            5.0
+        ],
+        "Desc": "Obtain a total of 10 5\u2605 Artifacts in multiple adventures"
+    },
+    {
+        "Id": 1004044,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "Clear chapter 1 of any adventure"
+    },
+    {
+        "Id": 1004045,
+        "Type": 17107,
+        "Formula": null,
+        "Params": [
+            2.0
+        ],
+        "Desc": "Achieve the \"Farewell\" ending for the first time"
+    },
+    {
+        "Id": 1004046,
+        "Type": 17107,
+        "Formula": null,
+        "Params": [
+            3.0
+        ],
+        "Desc": "Achieve the \"Cycle\" ending for the first time"
+    },
+    {
+        "Id": 1004047,
+        "Type": 17111,
+        "Formula": null,
+        "Params": [
+            1428.0
+        ],
+        "Desc": "Reach chapter 6 of any adventure"
+    },
+    {
+        "Id": 1005001,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "Clear chapter 2 of any adventure"
+    },
+    {
+        "Id": 1005006,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            9.0
+        ],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1005007,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            10.0
+        ],
+        "Desc": "Clear chapter 4 of any adventure"
+    },
+    {
+        "Id": 1005014,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            11.0
+        ],
+        "Desc": "Clear chapter 5 of any adventure"
+    },
+    {
+        "Id": 1005037,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            9.0
+        ],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1005039,
+        "Type": 17116,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "Clear chapter 2 in the previous adventure"
+    },
+    {
+        "Id": 1005044,
+        "Type": 17100,
+        "Formula": null,
+        "Params": [
+            7.0
+        ],
+        "Desc": "Clear chapter 1 of any adventure"
+    },
+    {
+        "Id": 1005045,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            70.0
+        ],
+        "Desc": "Reach Commandant Lv.70"
+    },
+    {
+        "Id": 1006001,
+        "Type": 0,
+        "Formula": "1004001|1005001",
+        "Params": [],
+        "Desc": "Clear chapter 2 of any adventure"
+    },
+    {
+        "Id": 1006006,
+        "Type": 0,
+        "Formula": "1004006|1005006",
+        "Params": [],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1006007,
+        "Type": 0,
+        "Formula": "1004007|1005007",
+        "Params": [],
+        "Desc": "Clear chapter 4 of any adventure"
+    },
+    {
+        "Id": 1006014,
+        "Type": 0,
+        "Formula": "1004014|1005014",
+        "Params": [],
+        "Desc": "Clear chapter 5 of any adventure"
+    },
+    {
+        "Id": 1006037,
+        "Type": 0,
+        "Formula": "1004037|1005037",
+        "Params": [],
+        "Desc": "Clear chapter 3 of any adventure"
+    },
+    {
+        "Id": 1006039,
+        "Type": 0,
+        "Formula": "1004039|1005039",
+        "Params": [],
+        "Desc": "Clear chapter 2 in the previous adventure"
+    },
+    {
+        "Id": 1006044,
+        "Type": 0,
+        "Formula": "1004044|1005044",
+        "Params": [],
+        "Desc": "Clear chapter 1 of any adventure"
+    },
+    {
+        "Id": 1007001,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010003.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007002,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10010304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007003,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10020304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007004,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11010106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007005,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10030304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007006,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11020106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007007,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10040304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007008,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11030106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007009,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10050304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007010,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11040106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007011,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10060304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007012,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11050106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007013,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10070304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007014,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11060106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007015,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10080304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007016,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11070106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007017,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11080106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007018,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10090401.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007019,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11090103.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007020,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10100304.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007021,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11100106.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007022,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10110111.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007023,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11110104.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007024,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10120126.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007025,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010013.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007026,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            16010108.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007027,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020118.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007028,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            16020108.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007029,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            16030103.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007030,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010520.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007031,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010528.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007032,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10140115.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007033,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11140108.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007034,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010613.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007035,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15010632.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007036,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10150117.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007037,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11150108.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007038,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10160115.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007039,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            11160110.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007040,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10170128.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007041,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10180121.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007042,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10190122.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007043,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10200115.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007044,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020130.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007045,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020223.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007046,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            15020324.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1007047,
+        "Type": 10105,
+        "Formula": null,
+        "Params": [
+            10140101.0
+        ],
+        "Desc": null
     },
     {
         "Id": 900000001,
@@ -36528,5 +39225,33 @@
             30130211.0
         ],
         "Desc": "Unlocks after clearing \"Poisson d'Avril\" Event Stage 11"
+    },
+    {
+        "Id": 900000013,
+        "Type": 11104,
+        "Formula": null,
+        "Params": [
+            6902301.0
+        ],
+        "Desc": "Unlocks from owning the Coating \"Volatile Priestess\""
+    },
+    {
+        "Id": 3000000,
+        "Type": 10153,
+        "Formula": null,
+        "Params": [
+            1695693600.0,
+            1.0
+        ],
+        "Desc": "EN1.30PC\u7aef\u5f15\u5bfc\u89e6\u53d1\u6761\u4ef6\u6ce8\u518c\u65f6\u95f4\u65e9\u4e8e\u7248\u66f4\u65f6\u95f4"
+    },
+    {
+        "Id": 3000001,
+        "Type": 10155,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": "EN1.30PC\u7aef\u5f15\u5bfc\u89e6\u53d1\u6761\u4ef6\u5f00\u542f\u952e\u76d8\u6a21\u5f0f"
     }
 ]

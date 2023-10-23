@@ -1,7 +1,7 @@
 # PGRData
 > Client region: Global <br>
-> Game Version: 1.28.0 <br/>
-> Document Version: 1.28.1 <br/>
+> Game Version: 1.30.0 <br/>
+> Document Version: 1.30.4 <br/>
 
 - Client
 - Share

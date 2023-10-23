@@ -190,6 +190,16 @@
         "Text": "Unable to reconnect"
     },
     {
+        "Id": 1033,
+        "Key": "GameServerLoginQueueFull",
+        "Text": "The login queue is currently full."
+    },
+    {
+        "Id": 1034,
+        "Key": "GameServerAlreadyInLoginQueue",
+        "Text": "Logging in to server..."
+    },
+    {
         "Id": 20000001,
         "Key": "PlayerFunctionNotOpen",
         "Text": "Feature is not available yet"
@@ -1750,6 +1760,41 @@
         "Text": "20018016 Card drawing and the ID do not match"
     },
     {
+        "Id": 20018017,
+        "Key": "DrawManagerDrawTicketCanOnlyBeUseSingle",
+        "Text": "Free R&D Tickets can only be used to perform 1 pull"
+    },
+    {
+        "Id": 20018018,
+        "Key": "DrawManagerExistDrawTicketNotUse",
+        "Text": "Unused free R&D Ticket(s)"
+    },
+    {
+        "Id": 20018019,
+        "Key": "DrawManagerDrawTicketAlreadyExpire",
+        "Text": "Free R&D Ticket expired"
+    },
+    {
+        "Id": 20018020,
+        "Key": "DrawManagerDrawTicketTimesNotEnough",
+        "Text": "Insufficient free R&D Tickets"
+    },
+    {
+        "Id": 20018021,
+        "Key": "DrawManagerDrawTicketHaveNotOwn",
+        "Text": "Free R&D Ticket not owned"
+    },
+    {
+        "Id": 20018022,
+        "Key": "DrawManagerDrawTicketConfigNotExist",
+        "Text": "Free R&D Ticket configuration does not exist"
+    },
+    {
+        "Id": 20018023,
+        "Key": "DrawManagerDrawTicketGroupIdNotMatch",
+        "Text": "Free R&D Tickets used to draw cards do not match the card pool"
+    },
+    {
         "Id": 20019001,
         "Key": "GuideManagerGetGuideGroupTableNotFound",
         "Text": "Research set info not found"
@@ -2280,6 +2325,51 @@
         "Text": "20021095 Unknown Quick Train operation"
     },
     {
+        "Id": 20021096,
+        "Key": "EquipGuideNotSetTargetId",
+        "Text": "20021096 Target ID not set"
+    },
+    {
+        "Id": 20021097,
+        "Key": "EquipGuideTargetCfgNotFound",
+        "Text": "20021097 Target configuration not found"
+    },
+    {
+        "Id": 20021098,
+        "Key": "EquipGuideCharacterIdInvalid",
+        "Text": "20021098 Mismatched character ID"
+    },
+    {
+        "Id": 20021099,
+        "Key": "EquipGuideRecommendCfgNotFound",
+        "Text": "20021099 Recommended configuration not found"
+    },
+    {
+        "Id": 20021100,
+        "Key": "EquipGuideJudgeCfgNotFound",
+        "Text": "20021100 Rating configuration not found"
+    },
+    {
+        "Id": 20021101,
+        "Key": "EquipGuideSuitCfgNotFound",
+        "Text": "20021101 Set configuration not found"
+    },
+    {
+        "Id": 20021102,
+        "Key": "EquipGuideSuitNumberIncorrect",
+        "Text": "20021102 Mismatched set quantity"
+    },
+    {
+        "Id": 20021103,
+        "Key": "EquipGuideTargetNotFinish",
+        "Text": "20021101 Target progress not achieved"
+    },
+    {
+        "Id": 20021104,
+        "Key": "EquipGuideTargetHadFinish",
+        "Text": "20021102 Goal already achieved"
+    },
+    {
         "Id": 20026001,
         "Key": "TaskManagerInitFail",
         "Text": "Failed to initialize mission system"
@@ -2393,6 +2483,41 @@
         "Id": 20026023,
         "Key": "TaskManagerNewPlayerTaskTodayCanNotFinish",
         "Text": "You cannot complete this mission today"
+    },
+    {
+        "Id": 20026024,
+        "Key": "TaskManagerNewbieProgressAlreadyGet",
+        "Text": "20026024 Reward claimed"
+    },
+    {
+        "Id": 20026025,
+        "Key": "TaskManagerNewbieProgressNotExist",
+        "Text": "20026025 Reward does not exist"
+    },
+    {
+        "Id": 20026026,
+        "Key": "TaskManagerNewbieProgressRewardIsNotExist",
+        "Text": "20026026 Reward does not exist"
+    },
+    {
+        "Id": 20026027,
+        "Key": "TaskManagerNewbieProgressIsNotEnough",
+        "Text": "20026027 Not enough missions completed. Unable to claim."
+    },
+    {
+        "Id": 20026028,
+        "Key": "TaskManagerNewbieHonorRewardAlreadyGet",
+        "Text": "20026028 Reward claimed"
+    },
+    {
+        "Id": 20026029,
+        "Key": "TaskManagerNewbieHonorTaskIsNotEnough",
+        "Text": "20026029 Uncompleted mission(s). Unable to claim."
+    },
+    {
+        "Id": 20026030,
+        "Key": "TaskManagerNewbieTaskPeriodCanNotFinish",
+        "Text": "20026030 Mission of this phase is locked. Unable to complete the mission."
     },
     {
         "Id": 20027001,
@@ -3253,6 +3378,26 @@
         "Id": 20034080,
         "Key": "ConditionGoldenMinerUnlockNotEnough",
         "Text": "20034080 Insufficient points to unlock the miner"
+    },
+    {
+        "Id": 20034081,
+        "Key": "ConditionManagerSceneIsLock",
+        "Text": "20034081 Scene locked"
+    },
+    {
+        "Id": 20034082,
+        "Key": "ConditionManagerSceneIsUnLock",
+        "Text": "20034082 Scene unlocked"
+    },
+    {
+        "Id": 20034083,
+        "Key": "ConditionManagerLivWarmActivityStageUnFinish",
+        "Text": "20034083 Liv: Empyrea Match Game stage not cleared"
+    },
+    {
+        "Id": 20034084,
+        "Key": "ConditionManagerLivWarmActivitySoundStageUnFinish",
+        "Text": "20034084 Liv: Empyrea Audio Puzzle stage not cleared"
     },
     {
         "Id": 20036001,
@@ -6578,6 +6723,71 @@
         "Id": 20063325,
         "Key": "GuildCreateReachDailyLimit",
         "Text": "Too many guild creation attempts. Please try again later."
+    },
+    {
+        "Id": 20063326,
+        "Key": "GuildNotPermission",
+        "Text": "20063326 No permissions"
+    },
+    {
+        "Id": 20063327,
+        "Key": "GuildNotInGuild",
+        "Text": "20063327 Not in Guild"
+    },
+    {
+        "Id": 20063328,
+        "Key": "GuildFightStyleIdError",
+        "Text": "20063328 Combat Style ID Error"
+    },
+    {
+        "Id": 20063329,
+        "Key": "GuildFightStyleIdIsSame",
+        "Text": "20063329 Cannot select the same combat style"
+    },
+    {
+        "Id": 20063330,
+        "Key": "GuildFightStyleIdInCd",
+        "Text": "20063330 Combat Style switch is on cooldown"
+    },
+    {
+        "Id": 20063331,
+        "Key": "GuildFightStyleSkillIdError",
+        "Text": "20063331 Combat Style Skill ID Error"
+    },
+    {
+        "Id": 20063332,
+        "Key": "GuildFightStyleSkillAlreadyLoad",
+        "Text": "20063332 Combat Style Skill already equipped"
+    },
+    {
+        "Id": 20063333,
+        "Key": "GuildFightStyleSkillNotUnlock",
+        "Text": "20063333 Combat Style Skill is still locked"
+    },
+    {
+        "Id": 20063334,
+        "Key": "GuildFightStyleSkillIdNotMatch",
+        "Text": "20063334 Combat Style ID does not match"
+    },
+    {
+        "Id": 20063335,
+        "Key": "GuildFightStyleSkillCountMax",
+        "Text": "20063335 Number of Combat Skills cannot go beyond the upper limit"
+    },
+    {
+        "Id": 20063336,
+        "Key": "GuildFightStyleSkillOnlyOneCore",
+        "Text": "20063336 Only one Core Skill can be activated at a time"
+    },
+    {
+        "Id": 20063337,
+        "Key": "GuildGdSetBgmIdsNotInGuild",
+        "Text": "Cannot perform this action as you are not in Command Bureau"
+    },
+    {
+        "Id": 20063338,
+        "Key": "GuildGdSetBgmIdsLessRank",
+        "Text": "Failed to edit due to insufficient authority"
     },
     {
         "Id": 20064001,
@@ -10417,7 +10627,7 @@
     {
         "Id": 20113067,
         "Key": "StrongholdElectricEnergyOverMax",
-        "Text": "20113067 Electric power exceeding the limit"
+        "Text": "Electricity used exceeds the upper limit"
     },
     {
         "Id": 20113068,
@@ -10427,7 +10637,17 @@
     {
         "Id": 20113069,
         "Key": "StrongholdFinishGroupUsedElectricOutOfRange",
-        "Text": "20113069 Use of electric power exceeding the configurated amount"
+        "Text": "Electricity used exceeds the upper limit of the area"
+    },
+    {
+        "Id": 20113070,
+        "Key": "StrongholdGroupIsFinished",
+        "Text": "Chapter already cleared"
+    },
+    {
+        "Id": 20113071,
+        "Key": "StrongholdSweepStageConditionIsNull",
+        "Text": "You cannot auto clear the area"
     },
     {
         "Id": 20114001,
@@ -11386,123 +11606,163 @@
     },
     {
         "Id": 20123014,
-        "Key": "FubenReformEnemySourceCfgLose",
-        "Text": "Modified instance stage enemy source configuration is lost"
+        "Key": "FubenReformEnemyNotExistDefault",
+        "Text": "Enemy source configuration of modification mission stage is lost"
     },
     {
         "Id": 20123015,
-        "Key": "FubenReformEnemyTargetCfgLose",
-        "Text": "Modified instance stage target configuration is lost"
+        "Key": "FubenReformEnemySourceCfgLose",
+        "Text": "Enemy source configuration of modified mission stage is lost"
     },
     {
         "Id": 20123016,
-        "Key": "FubenReformEnvCfgLose",
-        "Text": "Modified instance stage environments configuration is lost"
+        "Key": "FubenReformEnemyTargetCfgLose",
+        "Text": "Target configuration of modified mission stage is lost"
     },
     {
         "Id": 20123017,
-        "Key": "FubenReformEnvGroupCfgLose",
-        "Text": "Modified instance stage environments group configuration is lost"
+        "Key": "FubenReformEnvCfgLose",
+        "Text": "Environment configuration of modified mission stage is lost"
     },
     {
         "Id": 20123018,
-        "Key": "FubenReformEnvCfgNotExist",
-        "Text": "Modified instance stage environments configuration does not exist"
+        "Key": "FubenReformEnvGroupCfgLose",
+        "Text": "Environment group configuration of modified mission stage is lost"
     },
     {
         "Id": 20123019,
-        "Key": "FubenReformBuffOverMax",
-        "Text": "Modified instance stage Buff exceeds the limit"
+        "Key": "FubenReformEnvCfgNotExist",
+        "Text": "Environment configuration of modified mission stage does not exist"
     },
     {
         "Id": 20123020,
-        "Key": "FubenReformBuffNotExist",
-        "Text": "Modified instance stage Buff does not exist"
+        "Key": "FubenReformBuffOverMax",
+        "Text": "Modified mission stage buff exceeds the limit"
     },
     {
         "Id": 20123021,
+        "Key": "FubenReformBuffNotExist",
+        "Text": "Modified mission stage buff does not exist"
+    },
+    {
+        "Id": 20123022,
         "Key": "FubenReformBuffCfgLose",
         "Text": "Modified instance stage Buff configuration is lost"
     },
     {
-        "Id": 20123022,
-        "Key": "FubenReformBuffGroupCfgLose",
-        "Text": "Modified instance stage Buff group configuration is lost"
-    },
-    {
         "Id": 20123023,
-        "Key": "FubenReformBuffDifficultyNotExist",
-        "Text": "Modified instance stage Buff difficulty does not exist"
+        "Key": "FubenReformBuffGroupCfgLose",
+        "Text": "Modified mission stage buff group is lost"
     },
     {
         "Id": 20123024,
-        "Key": "FubenReformScoreNotEnougth",
-        "Text": "Modified instance stage score is insufficient"
+        "Key": "FubenReformBuffDifficultyNotExist",
+        "Text": "Modified mission stage buff difficulty does not exist"
     },
     {
         "Id": 20123025,
-        "Key": "FubenReformBuffRepeat",
-        "Text": "Modified instance stage Buff repeats modification"
+        "Key": "FubenReformScoreNotEnougth",
+        "Text": "Insufficient modified mission stage points"
     },
     {
         "Id": 20123026,
-        "Key": "FubenReformMemberSizeIsZero",
-        "Text": "Modified instance stage members is empty"
+        "Key": "FubenReformBuffRepeat",
+        "Text": "Duplicated modified mission stage buff modification"
     },
     {
         "Id": 20123027,
-        "Key": "FubenReformMemberSizeOverMax",
-        "Text": "Modified instance stage members exceeds the limit"
+        "Key": "FubenReformMemberSizeIsZero",
+        "Text": "Member quantity of modified mission stage is empty"
     },
     {
         "Id": 20123028,
-        "Key": "FubenReformMemberGroupCfgLose",
-        "Text": "Modified instance stage member group configuration is lost"
+        "Key": "FubenReformMemberSizeOverMax",
+        "Text": "Member quantity of modified mission stage exceeds the maximum value"
     },
     {
         "Id": 20123029,
-        "Key": "FubenReformMemberSourceRepeat",
-        "Text": "Modified instance stage member source repeats"
+        "Key": "FubenReformMemberGroupCfgLose",
+        "Text": "Member group configuration of modified mission stage is lost"
     },
     {
         "Id": 20123030,
-        "Key": "FubenReformMemberSourceCfgNotExist",
-        "Text": "Modified instance stage member source configuration does not exist"
+        "Key": "FubenReformMemberSourceRepeat",
+        "Text": "Duplicated modified mission stage member source"
     },
     {
         "Id": 20123031,
-        "Key": "FubenReformMemberSourceCfgLose",
-        "Text": "Modified instance stage member source configuration is lost"
+        "Key": "FubenReformMemberSourceCfgNotExist",
+        "Text": "Member source configuration of modified mission stage does not exist"
     },
     {
         "Id": 20123032,
-        "Key": "FubenReformMemberTargetCfgLose",
-        "Text": "Modified instance stage member target configuration is lost"
+        "Key": "FubenReformMemberSourceCfgLose",
+        "Text": "Member source configuration of modified mission stage is lost"
     },
     {
         "Id": 20123033,
-        "Key": "FubenReformMemberTargetCfgNotExist",
-        "Text": "Modified instance stage member target configuration does not exist"
+        "Key": "FubenReformMemberTargetCfgLose",
+        "Text": "Member target configuration of modified mission stage is lost"
     },
     {
         "Id": 20123034,
-        "Key": "FubenReformMemberDifficultyNotExist",
-        "Text": "Modified instance stage member difficulty does not exist"
+        "Key": "FubenReformMemberTargetCfgNotExist",
+        "Text": "Member target configuration of modified mission stage does not exist"
     },
     {
         "Id": 20123035,
-        "Key": "FubenReformUseRobotRepeat",
-        "Text": "Modified instance stage battle request used duplicate bots"
+        "Key": "FubenReformMemberDifficultyNotExist",
+        "Text": "Modified mission stage member difficulty does not exist"
     },
     {
         "Id": 20123036,
-        "Key": "FubenReformUseCustomCharacter",
-        "Text": "Use customized characters in Modify Stage battle requests"
+        "Key": "FubenReformUseRobotRepeat",
+        "Text": "Use of duplicated bots in modified mission stage battle request"
     },
     {
         "Id": 20123037,
+        "Key": "FubenReformRobotNotFind",
+        "Text": "20123036 Bots in modified mission stage battle request does not match"
+    },
+    {
+        "Id": 20123038,
+        "Key": "FubenReformUseCustomCharacter",
+        "Text": "Requested custom character in modified mission stage battle request"
+    },
+    {
+        "Id": 20123039,
         "Key": "FubenReformEnvOverMax",
-        "Text": "Modified instance environments required to modify exceeds the limit"
+        "Text": "Number of environment modified in modified mission stage exceeds the maximum value"
+    },
+    {
+        "Id": 20123040,
+        "Key": "FubenReformFightIsReset",
+        "Text": "20123039 Modified mission event has been reset"
+    },
+    {
+        "Id": 20123041,
+        "Key": "FubenReformAffixNotFind",
+        "Text": "20123040 Modified mission affix group does not exist"
+    },
+    {
+        "Id": 20123042,
+        "Key": "FubenReformAffixIsMax",
+        "Text": "Max affixes selected"
+    },
+    {
+        "Id": 20123043,
+        "Key": "FubenReformExtraScoresNotEnough",
+        "Text": "20123042 Insufficient modified mission affix points to challenge the stage"
+    },
+    {
+        "Id": 20123044,
+        "Key": "FubenReformAffixIsRepeat",
+        "Text": "20123043 Duplicated modified mission affix"
+    },
+    {
+        "Id": 20123045,
+        "Key": "FubenReformGetCharacterIsError",
+        "Text": "20123044 Modified mission fails to acquire character data"
     },
     {
         "Id": 20124001,
@@ -12038,6 +12298,26 @@
         "Id": 20128005,
         "Key": "PokerGuessingCardCfgError",
         "Text": "Card configuration error"
+    },
+    {
+        "Id": 20128006,
+        "Key": "PokerGuessingGameNotOpen",
+        "Text": "20128006 Game not started"
+    },
+    {
+        "Id": 20128007,
+        "Key": "PokerGuessingTipsCountNotEnough",
+        "Text": "20128007 Insufficient tip attempts"
+    },
+    {
+        "Id": 20128008,
+        "Key": "PokerGuessingStoryCfgNotFound",
+        "Text": "20128008 Story configuration not found"
+    },
+    {
+        "Id": 20128009,
+        "Key": "PokerGuessingStoryUnlocked",
+        "Text": "20128009 Character story already unlocked"
     },
     {
         "Id": 20129001,
@@ -13787,12 +14067,12 @@
     {
         "Id": 20149049,
         "Key": "SuperSmashBrosSystemRobotDoNotExist",
-        "Text": null
+        "Text": "20149049 Trial character does not exist"
     },
     {
         "Id": 20149050,
         "Key": "SuperSmashBrosEggException",
-        "Text": null
+        "Text": "20149050 Easter egg error"
     },
     {
         "Id": 20150001,
@@ -14810,6 +15090,56 @@
         "Text": "Guild Expedition bot ID error"
     },
     {
+        "Id": 20164031,
+        "Key": "GuildWarAssistCharacterExist",
+        "Text": "Support character already exist"
+    },
+    {
+        "Id": 20164032,
+        "Key": "GuildWarNoAssistCharacter",
+        "Text": "No support characters"
+    },
+    {
+        "Id": 20164033,
+        "Key": "GuildWarAssistCharacterPlayerIdError",
+        "Text": "Wrong support character player ID"
+    },
+    {
+        "Id": 20164034,
+        "Key": "GuildWarAssistCharacterIdError",
+        "Text": "Wrong support character ID"
+    },
+    {
+        "Id": 20164035,
+        "Key": "GuildWarNoTeamError",
+        "Text": "No team data"
+    },
+    {
+        "Id": 20164036,
+        "Key": "GuildWarAssistCharacterOften",
+        "Text": "Frequent refreshes of the support character. Please try again later."
+    },
+    {
+        "Id": 20164037,
+        "Key": "GuildWarAssistCharacterCountError",
+        "Text": "Support character quantity error"
+    },
+    {
+        "Id": 20164038,
+        "Key": "GuildWarSameCharacterError",
+        "Text": "Repeated use of the same character"
+    },
+    {
+        "Id": 20164039,
+        "Key": "GuildWarAssistCharacterCd",
+        "Text": "Support character is in cooldown"
+    },
+    {
+        "Id": 20164040,
+        "Key": "GuildWarIsActiveMember",
+        "Text": "This member has participated in this round of battle and can only be removed in the resting period"
+    },
+    {
         "Id": 20165001,
         "Key": "DoomsdayStageNotExist",
         "Text": "Stage does not exist"
@@ -15163,6 +15493,26 @@
         "Id": 20165071,
         "Key": "DoomsdayPlaceExplorationCompleted",
         "Text": "Explored location cannot be explored again"
+    },
+    {
+        "Id": 20165072,
+        "Key": "DoomsdayStageNotFinish",
+        "Text": "Stage not completed. Unable to end"
+    },
+    {
+        "Id": 20165073,
+        "Key": "DoomsdayAlreadyFinishCannotOperate",
+        "Text": "Journey ended. Unable to perform operation"
+    },
+    {
+        "Id": 20165074,
+        "Key": "DoomsdayDayCountNotUnlock",
+        "Text": "Event not yet available"
+    },
+    {
+        "Id": 20165075,
+        "Key": "DoomsdayWeatherModeCfgNotExist",
+        "Text": "Weather mode configuration not found"
     },
     {
         "Id": 20166001,
@@ -15630,6 +15980,11 @@
         "Text": "Interacting with decor."
     },
     {
+        "Id": 20173020,
+        "Key": "GuildDormRoomReloading",
+        "Text": "Reloading the room channel"
+    },
+    {
         "Id": 20173501,
         "Key": "GuildDormPlayerCodeStart",
         "Text": "Guild Dormitory gameserver error."
@@ -15668,6 +16023,486 @@
         "Id": 20173508,
         "Key": "GuildDormPlayerNoChannelAvailable",
         "Text": "No channels available."
+    },
+    {
+        "Id": 20173509,
+        "Key": "GuildDormPlayerGetGuildGrainFailed",
+        "Text": "Failed to obtain guild operation target"
+    },
+    {
+        "Id": 20173510,
+        "Key": "GuildDormPlayerGuildGrainCallFailed",
+        "Text": "Guild operation request failed"
+    },
+    {
+        "Id": 20173511,
+        "Key": "GuildDormPlayerSetBgmListIsEmpty",
+        "Text": "Song list is empty"
+    },
+    {
+        "Id": 20173512,
+        "Key": "GuildDormPlayerSetBgmIdInvalid",
+        "Text": "Invalid song ID(s)"
+    },
+    {
+        "Id": 20173513,
+        "Key": "GuildDormPlayerDiRewardTimesLimited",
+        "Text": "Reward limit reached"
+    },
+    {
+        "Id": 20174001,
+        "Key": "TwoSideTowerActivityNotOpen",
+        "Text": "20174001 Event is not available yet"
+    },
+    {
+        "Id": 20174002,
+        "Key": "TwoSideTowerActivityCfgNotExist",
+        "Text": "20174002 Event configuration not found"
+    },
+    {
+        "Id": 20174003,
+        "Key": "TwoSideTowerChpaterNotFound",
+        "Text": "20174003 Corresponding chapter not found"
+    },
+    {
+        "Id": 20174004,
+        "Key": "TwoSideTowerPointNotFound",
+        "Text": "20174004 Corresponding node not found"
+    },
+    {
+        "Id": 20174005,
+        "Key": "TwoSideTowerChapterCfgNotExist",
+        "Text": "20174005 Chapter configuration not found"
+    },
+    {
+        "Id": 20174006,
+        "Key": "TwoSideTowerChapterNotOpen",
+        "Text": "20174006 Chapter is not available yet"
+    },
+    {
+        "Id": 20174007,
+        "Key": "TwoSideTowerPreChapterNotPass",
+        "Text": "20174007 You have not cleared the previous chapter yet"
+    },
+    {
+        "Id": 20174008,
+        "Key": "TwoSideTowerPointCfgNotExist",
+        "Text": "20174008 Node configuration not found"
+    },
+    {
+        "Id": 20174009,
+        "Key": "TwoSideTowerPointInvalid",
+        "Text": "20174009 Illegal node"
+    },
+    {
+        "Id": 20174010,
+        "Key": "TwoSideTowerStageNotChallengeAgain",
+        "Text": "20174010 Cannot challenge this stage again"
+    },
+    {
+        "Id": 20174011,
+        "Key": "TwoSideTowerRobotCfgNotExist",
+        "Text": "20174011 Bot configuration not found"
+    },
+    {
+        "Id": 20174012,
+        "Key": "TwoSideTowerStageCfgNotExist",
+        "Text": "20174012 Stage configuration not found"
+    },
+    {
+        "Id": 20174013,
+        "Key": "TwoSideTowerStageNotChallenge",
+        "Text": "20174013 Stage not challenged"
+    },
+    {
+        "Id": 20174014,
+        "Key": "TwoSideTowerStageNotPositive",
+        "Text": "20174014 Stage is not a forward stage"
+    },
+    {
+        "Id": 20174015,
+        "Key": "TwoSideTowerSweepInvalid",
+        "Text": "20174015 Auto Clear Illegal"
+    },
+    {
+        "Id": 20174016,
+        "Key": "TwoSideTowerStageNotNegative",
+        "Text": "20174016 Stage is not a backward stage"
+    },
+    {
+        "Id": 20174017,
+        "Key": "TwoSideTowerFeatureIdInvalid",
+        "Text": "20174017 Feature ID Illegal"
+    },
+    {
+        "Id": 20174018,
+        "Key": "TwoSideTowerUnShieldFeatureIdInvalid",
+        "Text": "20174018 Unbinding feature Illegal"
+    },
+    {
+        "Id": 20175001,
+        "Key": "CourseInvalidChapterId",
+        "Text": "Invalid assessment chapter ID"
+    },
+    {
+        "Id": 20175002,
+        "Key": "CourseChapterUnlockLvNotEnough",
+        "Text": "Insufficient level to unlock the assessment chapter"
+    },
+    {
+        "Id": 20175003,
+        "Key": "CourseChapterUnlockPointNotEnough",
+        "Text": "Insufficient points to unlock the assessment chapter"
+    },
+    {
+        "Id": 20175004,
+        "Key": "CourseChapterUnlockPrevIdNotClear",
+        "Text": "Wrong assessment chapter unlock prerequisite ID"
+    },
+    {
+        "Id": 20175005,
+        "Key": "CourseInvalidStageId",
+        "Text": "Invalid assessment chapter stage ID"
+    },
+    {
+        "Id": 20175006,
+        "Key": "CourseStageUnlockPrevIdNotClear",
+        "Text": "Wrong assessment stage unlock prerequisite ID"
+    },
+    {
+        "Id": 20175007,
+        "Key": "CourseSaveResultCacheNotExist",
+        "Text": "Assessment result calculation result does not exist"
+    },
+    {
+        "Id": 20175008,
+        "Key": "CourseInvalidCourseRewardId",
+        "Text": "Invalid assessment reward ID"
+    },
+    {
+        "Id": 20175009,
+        "Key": "CourseInvalidCourseRewardExisted",
+        "Text": "Assessment reward already claimed"
+    },
+    {
+        "Id": 20175010,
+        "Key": "CourseChapterDataNotExist",
+        "Text": "Assessment chapter clear data does not exist"
+    },
+    {
+        "Id": 20175011,
+        "Key": "CourseGetRewardPointNotEnough",
+        "Text": "Insufficient assessment reward points"
+    },
+    {
+        "Id": 20176001,
+        "Key": "BiancaTheatreDifficultyConditionError",
+        "Text": "Complete a journey of any difficulty first"
+    },
+    {
+        "Id": 20176002,
+        "Key": "BiancaTheatreDifficultyAlreadySet",
+        "Text": "Already set to the hard mode"
+    },
+    {
+        "Id": 20176003,
+        "Key": "BiancaTheatreChapterNotExitError",
+        "Text": "Chapter does not exist"
+    },
+    {
+        "Id": 20176004,
+        "Key": "BiancaTheatreTeamNotOpenError",
+        "Text": "Squad is not available"
+    },
+    {
+        "Id": 20176005,
+        "Key": "BiancaTheatreTeamNotUnlockError",
+        "Text": "Survey Team does not exist"
+    },
+    {
+        "Id": 20176006,
+        "Key": "BiancaTheatreTeamAlreadySet",
+        "Text": "Survey Team already set"
+    },
+    {
+        "Id": 20176007,
+        "Key": "BiancaTheatreCurStepNotExit",
+        "Text": "Node does not exist"
+    },
+    {
+        "Id": 20176008,
+        "Key": "BiancaTheatreStepTypeError",
+        "Text": "Node type error"
+    },
+    {
+        "Id": 20176009,
+        "Key": "BiancaTheatreItemIdError",
+        "Text": "Artifact ID error"
+    },
+    {
+        "Id": 20176010,
+        "Key": "BiancaTheatreNoCharacterToRandomError",
+        "Text": "No recruitable characters"
+    },
+    {
+        "Id": 20176011,
+        "Key": "BiancaTheatreTickIdError",
+        "Text": "Invitation ID error"
+    },
+    {
+        "Id": 20176012,
+        "Key": "BiancaTheatreCharacterIdError",
+        "Text": "Character ID error"
+    },
+    {
+        "Id": 20176013,
+        "Key": "BiancaTheatreCharacterLevelMaxError",
+        "Text": "Max Character Star already reached"
+    },
+    {
+        "Id": 20176014,
+        "Key": "BiancaTheatreTickConfigNotExit",
+        "Text": "Invitation configuration not found"
+    },
+    {
+        "Id": 20176015,
+        "Key": "BiancaTheatreRecruitRefreshCountMax",
+        "Text": "Max invitation refresh attempts reached"
+    },
+    {
+        "Id": 20176016,
+        "Key": "BiancaTheatreRecruitCountMax",
+        "Text": "Max invitation recruitment attempts reached"
+    },
+    {
+        "Id": 20176017,
+        "Key": "BiancaTheatreLeastRecruitCount",
+        "Text": "Lowest recruitment attempts not met"
+    },
+    {
+        "Id": 20176018,
+        "Key": "BiancaTheatreCurNodeNotExit",
+        "Text": "Node does not exist"
+    },
+    {
+        "Id": 20176019,
+        "Key": "BiancaTheatreCurNodeIdError",
+        "Text": "Node ID error"
+    },
+    {
+        "Id": 20176020,
+        "Key": "BiancaTheatreSelectOtherNodeError",
+        "Text": "Another node selected"
+    },
+    {
+        "Id": 20176021,
+        "Key": "BiancaTheatreSlotNotExitError",
+        "Text": "Slot does not exist"
+    },
+    {
+        "Id": 20176022,
+        "Key": "BiancaTheatreCurrentSlotTypeError",
+        "Text": "Node type error"
+    },
+    {
+        "Id": 20176023,
+        "Key": "BiancaTheatreShopNoItemError",
+        "Text": "No available items to purchase at the shop"
+    },
+    {
+        "Id": 20176024,
+        "Key": "BiancaTheatreShopItemCannotBuyRepeatError",
+        "Text": "You cannot purchase shop items repeatedly"
+    },
+    {
+        "Id": 20176025,
+        "Key": "BiancaTheatreEventNodeCurStepIdError",
+        "Text": "Event step error"
+    },
+    {
+        "Id": 20176026,
+        "Key": "BiancaTheatreEventNodeConfigError",
+        "Text": "Event configuration error"
+    },
+    {
+        "Id": 20176027,
+        "Key": "BiancaTheatreEventNodeOptionIdError",
+        "Text": "Event option ID error"
+    },
+    {
+        "Id": 20176028,
+        "Key": "BiancaTheatreRewardNotFind",
+        "Text": "Reward configuration not found"
+    },
+    {
+        "Id": 20176029,
+        "Key": "BiancaTheatreRewardIsGet",
+        "Text": "Reward has been claimed"
+    },
+    {
+        "Id": 20176030,
+        "Key": "BiancaTheatreRewardScoreNotEnough",
+        "Text": "Insufficient Curse Queller's Path level"
+    },
+    {
+        "Id": 20176031,
+        "Key": "BiancaTheatreNotHasAnyReward",
+        "Text": "No claimable rewards"
+    },
+    {
+        "Id": 20176032,
+        "Key": "BiancaTheatreCantGetReward",
+        "Text": "You cannot claim rewards in middle of an adventure"
+    },
+    {
+        "Id": 20176033,
+        "Key": "BiancaTheatreStrengthenNotFind",
+        "Text": "Enhancement node configuration not found"
+    },
+    {
+        "Id": 20176034,
+        "Key": "BiancaTheatreStrengthenExists",
+        "Text": "Enhancement node activated"
+    },
+    {
+        "Id": 20176035,
+        "Key": "BiancaTheatreStrengthenNotEnough",
+        "Text": "Insufficient Curse-Dispelling Chapters"
+    },
+    {
+        "Id": 20176036,
+        "Key": "BiancaTheatreStrengthenPreNotUnlock",
+        "Text": "Enhancement node prerequisite conditions not met"
+    },
+    {
+        "Id": 20176037,
+        "Key": "BiancaTheatreNpcDataNotFind",
+        "Text": "Character data not found"
+    },
+    {
+        "Id": 20176038,
+        "Key": "BiancaTheatreStrengthenNotOpen",
+        "Text": "Lost Apocrypha still locked"
+    },
+    {
+        "Id": 20176039,
+        "Key": "BiancaTheatreCantStrengthen",
+        "Text": "You cannot enhance skills in middle of an adventure"
+    },
+    {
+        "Id": 20176040,
+        "Key": "BiancaTheatreEffectGroupNotFind",
+        "Text": "Effect group not found"
+    },
+    {
+        "Id": 20176041,
+        "Key": "BiancaTheatreItemRepeatableError",
+        "Text": "You cannot obtain the Artifact repeatedly"
+    },
+    {
+        "Id": 20176042,
+        "Key": "BiancaTheatreSelectItemRepeatError",
+        "Text": "Artifact already selected"
+    },
+    {
+        "Id": 20176043,
+        "Key": "BiancaTheatreTeamCaptainPosError",
+        "Text": "Leader position error"
+    },
+    {
+        "Id": 20176044,
+        "Key": "BiancaTheatreRobotNotUnlockError",
+        "Text": "Trial character still locked"
+    },
+    {
+        "Id": 20176045,
+        "Key": "BiancaTheatreCurNodeNoFight",
+        "Text": "You cannot start a battle at this node"
+    },
+    {
+        "Id": 20176046,
+        "Key": "BiancaTheatreCurNodeStageTemplateNoExist",
+        "Text": "Battle template does not exist"
+    },
+    {
+        "Id": 20176047,
+        "Key": "BiancaTheatreSlotStageIdError",
+        "Text": "Mismatched stage ID"
+    },
+    {
+        "Id": 20176048,
+        "Key": "BiancaTheatreTeamNotSameError",
+        "Text": "Mismatched team"
+    },
+    {
+        "Id": 20176049,
+        "Key": "BiancaTheatreFightRewardUidError",
+        "Text": "Battle Reward UID error"
+    },
+    {
+        "Id": 20176050,
+        "Key": "BiancaTheatreFightRewardAlreadyRecv",
+        "Text": "Reward already claimed"
+    },
+    {
+        "Id": 20176051,
+        "Key": "BiancaTheatreMonsterGroupNotFind",
+        "Text": "Enemy set configuration not found"
+    },
+    {
+        "Id": 20176052,
+        "Key": "BiancaTheatreMonsterNotFind",
+        "Text": "Enemy configuration not found"
+    },
+    {
+        "Id": 20176053,
+        "Key": "BiancaTheatreFightStageNotFind",
+        "Text": "Stage template not found"
+    },
+    {
+        "Id": 20176054,
+        "Key": "BiancaTheatreActivityNotOpen",
+        "Text": "Outside the event period"
+    },
+    {
+        "Id": 20176055,
+        "Key": "ConditionManagerBiancaTheatreConditionNotFinish",
+        "Text": "Unlock requirement not met"
+    },
+    {
+        "Id": 20176056,
+        "Key": "BiancaTheatreNotSetDifficulty",
+        "Text": "Difficulty not selected"
+    },
+    {
+        "Id": 20176057,
+        "Key": "BiancaTheatreActionPointNotEnough",
+        "Text": "Insufficient Biomimetic Blood"
+    },
+    {
+        "Id": 20176058,
+        "Key": "BiancaTheatreCharacterAlreadyRecruit",
+        "Text": "This character has already been recruited"
+    },
+    {
+        "Id": 20177001,
+        "Key": "SummerSignInActivityNotOpen",
+        "Text": "Event is not available yet"
+    },
+    {
+        "Id": 20177002,
+        "Key": "SummerSignInNotEnoughTimesToSign",
+        "Text": "You have used up the check attempts today. Please come back tomorrow."
+    },
+    {
+        "Id": 20177003,
+        "Key": "SummerSignInMessageAlreadyOpen",
+        "Text": "Postcard already opened"
+    },
+    {
+        "Id": 20177004,
+        "Key": "SummerSignInMessageCfgNotExist",
+        "Text": "Postcard info does not exist"
     },
     {
         "Id": 30002001,
@@ -15823,5 +16658,10 @@
         "Id": 40001028,
         "Key": "PayPlatformShield",
         "Text": "The payment platform you are using has been banned."
+    },
+    {
+        "Id": 40001029,
+        "Key": "PayGooglePlayPointsCfgIsNotExist",
+        "Text": null
     }
 ]

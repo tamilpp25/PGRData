@@ -370,7 +370,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -7496,7 +7496,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -12854,7 +12854,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -17220,7 +17220,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -18953,7 +18953,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -19854,7 +19854,7 @@
         "MoodMaxValue": 50,
         "State": "IDLE",
         "Content": [
-            "?~"
+            "?\u2014"
         ],
         "Time": [
             2000
@@ -19932,7 +19932,7 @@
         "MoodMaxValue": 100,
         "State": "IDLE",
         "Content": [
-            "?~?~"
+            "?\u2014?\u2014"
         ],
         "Time": [
             2000
@@ -36071,7 +36071,7 @@
         "MoodMaxValue": 80,
         "State": "IDLE",
         "Content": [
-            "?~?~"
+            "?\u2014?\u2014"
         ],
         "Time": [
             2000
@@ -36123,7 +36123,7 @@
         "MoodMaxValue": 100,
         "State": "IDLE",
         "Content": [
-            "?~?~"
+            "?\u2014?\u2014"
         ],
         "Time": [
             2000
@@ -37823,7 +37823,7 @@
         "MoodMaxValue": 80,
         "State": "IDLE",
         "Content": [
-            "?~?~"
+            "?\u2014?\u2014"
         ],
         "Time": [
             2000
@@ -37875,7 +37875,7 @@
         "MoodMaxValue": 100,
         "State": "IDLE",
         "Content": [
-            "?~?~"
+            "?\u2014?\u2014"
         ],
         "Time": [
             2000
@@ -43512,8 +43512,8 @@
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
-            "Hey? What are you doing above Nanami's head?",
-            "Is Nanami taller than before?"
+            "98\u2026\u202699\u2026\u2026100.",
+            "Although Nanami already knows how many stars are there in the universe,"
         ],
         "Time": [
             2000,
@@ -43527,36 +43527,6 @@
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
-            "Nanami did grow a lot.",
-            "But not much higher actually!"
-        ],
-        "Time": [
-            2000,
-            2000.0
-        ]
-    },
-    {
-        "Id": 4950,
-        "CharacterId": 1051004,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
-            "98\u2026\u202699\u2026\u2026100.",
-            "Although Nanami already knows how many stars are there in the universe,"
-        ],
-        "Time": [
-            2000,
-            2000.0
-        ]
-    },
-    {
-        "Id": 4951,
-        "CharacterId": 1051004,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
             "it's fun to count them one by one."
         ],
         "Time": [
@@ -43564,7 +43534,7 @@
         ]
     },
     {
-        "Id": 4952,
+        "Id": 4950,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43579,7 +43549,7 @@
         ]
     },
     {
-        "Id": 4953,
+        "Id": 4951,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43594,7 +43564,7 @@
         ]
     },
     {
-        "Id": 4954,
+        "Id": 4952,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43609,7 +43579,7 @@
         ]
     },
     {
-        "Id": 4955,
+        "Id": 4953,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43622,7 +43592,7 @@
         ]
     },
     {
-        "Id": 4956,
+        "Id": 4954,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43637,7 +43607,7 @@
         ]
     },
     {
-        "Id": 4957,
+        "Id": 4955,
         "CharacterId": 1051004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -43647,6 +43617,36 @@
         ],
         "Time": [
             2000
+        ]
+    },
+    {
+        "Id": 4956,
+        "CharacterId": 1051004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Hey? What are you doing above Nanami's head?",
+            "Is Nanami taller than before?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 4957,
+        "CharacterId": 1051004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Nanami did grow a lot.",
+            "But not much higher actually!"
+        ],
+        "Time": [
+            2000,
+            2000.0
         ]
     },
     {
@@ -44381,36 +44381,6 @@
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
-            "Mechanical skin isn't soft at all.",
-            "I'm afraid it will disappoint you...",
-            "Doesn't matter? And it's very warm?"
-        ],
-        "Time": [
-            2000,
-            2000.0,
-            2000.0
-        ]
-    },
-    {
-        "Id": 5049,
-        "CharacterId": 1561003,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
-            "It is speculated that your actions have caused the temperature to rise rapidly"
-        ],
-        "Time": [
-            2000
-        ]
-    },
-    {
-        "Id": 5050,
-        "CharacterId": 1561003,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
             "Want to see my painting, Commandant?",
             "No problem."
         ],
@@ -44420,7 +44390,7 @@
         ]
     },
     {
-        "Id": 5051,
+        "Id": 5049,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44433,7 +44403,7 @@
         ]
     },
     {
-        "Id": 5052,
+        "Id": 5050,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44448,7 +44418,7 @@
         ]
     },
     {
-        "Id": 5053,
+        "Id": 5051,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44461,7 +44431,7 @@
         ]
     },
     {
-        "Id": 5054,
+        "Id": 5052,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44474,7 +44444,7 @@
         ]
     },
     {
-        "Id": 5055,
+        "Id": 5053,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44487,7 +44457,7 @@
         ]
     },
     {
-        "Id": 5056,
+        "Id": 5054,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -44502,13 +44472,43 @@
         ]
     },
     {
-        "Id": 5057,
+        "Id": 5055,
         "CharacterId": 1561003,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
             "Would you like to see it together, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5056,
+        "CharacterId": 1561003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Mechanical skin isn't soft at all.",
+            "I'm afraid it will disappoint you...",
+            "Doesn't matter? And it's very warm?"
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5057,
+        "CharacterId": 1561003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "It is speculated that your actions have caused the temperature to rise rapidly"
         ],
         "Time": [
             2000
@@ -45242,8 +45242,8 @@
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
-            "Stop touching me! I don't like it at all!",
-            "It feels good? What are you talking about?"
+            "What missions have we got next?",
+            "No need to send your precious team out."
         ],
         "Time": [
             2000,
@@ -45257,36 +45257,6 @@
         "MoodMaxValue": 0,
         "State": "IDLE",
         "Content": [
-            "Alright, I'll let you be the exception... Hey! Why did you stop?",
-            "Don't stop until I tell you to stop, okay...?"
-        ],
-        "Time": [
-            2000,
-            2000.0
-        ]
-    },
-    {
-        "Id": 5150,
-        "CharacterId": 1071004,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
-            "What missions have we got next?",
-            "No need to send your precious team out."
-        ],
-        "Time": [
-            2000,
-            2000.0
-        ]
-    },
-    {
-        "Id": 5151,
-        "CharacterId": 1071004,
-        "MoodMinValue": 0,
-        "MoodMaxValue": 0,
-        "State": "IDLE",
-        "Content": [
             "Just leave it to me."
         ],
         "Time": [
@@ -45294,7 +45264,7 @@
         ]
     },
     {
-        "Id": 5152,
+        "Id": 5150,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45309,7 +45279,7 @@
         ]
     },
     {
-        "Id": 5153,
+        "Id": 5151,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45324,7 +45294,7 @@
         ]
     },
     {
-        "Id": 5154,
+        "Id": 5152,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45339,7 +45309,7 @@
         ]
     },
     {
-        "Id": 5155,
+        "Id": 5153,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45352,7 +45322,7 @@
         ]
     },
     {
-        "Id": 5156,
+        "Id": 5154,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45367,7 +45337,7 @@
         ]
     },
     {
-        "Id": 5157,
+        "Id": 5155,
         "CharacterId": 1071004,
         "MoodMinValue": 0,
         "MoodMaxValue": 0,
@@ -45375,6 +45345,36 @@
         "Content": [
             "I'm a member of the Cosmos Technician Union.",
             "Interior design is my expertise. Trust me. I won't let you down."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5156,
+        "CharacterId": 1071004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Stop touching me! I don't like it at all!",
+            "It feels good? What are you talking about?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5157,
+        "CharacterId": 1071004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Alright, I'll let you be the exception... Hey! Why did you stop?",
+            "Don't stop until I tell you to stop, okay...?"
         ],
         "Time": [
             2000,
@@ -45491,6 +45491,1764 @@
         "Time": [
             2000,
             2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5201,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "If only we could embark on a journey again."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5202,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "Looks like the sky is filled with bubbles... Am I just imagining things?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5203,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "I just want to lay down and read..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5204,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "Is it always like this here?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5205,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "If only we could embark on a journey again."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5206,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Looks like the sky is filled with bubbles... Am I just imagining things?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5207,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "I just want to lay down and read..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5208,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Is it always like this here?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5209,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "What else is there to do here?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5210,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "...I think I hear a Kuroro. That can't be, right?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5211,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "What missions have we got next?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5212,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "Captain Palma wasn't looking for me, right?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5213,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "People outside are always so polite. Polite to the point of feeling distant..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5214,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "I've completed today's mission. That includes assisting with research and training."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5215,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Commandant Simon rarely talks about what happened back in the Dark Aries squad."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5216,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "I understand the tutorial... Wait, how'd you do that?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5217,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Try again."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5218,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "I still wanna visit the coast if we get a chance."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5219,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Commandant Simon rarely talks about what happened back in the Dark Aries squad."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5220,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I understand the tutorial... Wait, how'd you do that?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5221,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Try again."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5222,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I still wanna visit the coast if we get a chance."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5223,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "A mistake? No, that's just the style."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5224,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "You cannot escape. You need to hold on."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5225,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Is there place far away from people...?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5226,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Find someone to help out..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5227,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Only mandatory work remains..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5228,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "To be honest, I have a headache."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5229,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "Why not go for a walk?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5230,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "I want to see my yesterday's picture... Uh, where's the recycling center?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5231,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "Do you know Atiel, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5232,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "This story's good, too..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5233,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "Commandant? Are you there?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5234,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Need help with something? A mission? Errands? Anything!"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5235,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Don't worry. Helping you helps me."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5236,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Still can't get the hang of it? Take another look at the tutorial then."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5237,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Need help with something? A mission? Errands? Anything!"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5238,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Don't worry. Helping you helps me."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5239,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Still can't get the hang of it? Take another look at the tutorial then."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5240,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Since you're at the dormitory, why don't you take a break for a bit?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5241,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Beating up weapons for maintenance is an ancestral skill of the maintenance team."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5242,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Can I stay here and rest?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5243,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Thanks. What are you gonna do next?",
+            "Or stay here. Either way, I won't sleep for very long.",
+            "But don't play any pranks while I'm asleep."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5244,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Wanna sit and chat?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5245,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "How's your day going?",
+            "...Yes.",
+            "Huh? How'd that happen?",
+            "And then? What happened after that?"
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5246,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "I read the book you recommended.",
+            "Got any other recommendations?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5247,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Thanks. I'll let you know what I think.",
+            "Wanna talk about the book?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5248,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Wanna take a break?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5249,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "If anyone comes looking for you, I'll say you're not here."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5250,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "I heard that our dreams are actually another dimension.",
+            "Let me guess, that's where you go when you're not here?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5251,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Or... is that actually the world you truly exist in?",
+            "Hmm... Do you like it there?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5252,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "That expression on your face... It's different than normal."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5253,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "What happened? Can you tell me?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5254,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "There's still some time until the next mandatory mission.",
+            "Use this time to do whatever you want."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5255,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Rest is important, too."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5256,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Huh? Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5257,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Why are you stroking my hair all of a sudden?",
+            "Does the look on my face seem like I'm looking for you?",
+            "Oh... It's that obvious?"
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5258,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Nothing needs to remain perfect.",
+            "Heroes in stories have their own regrets, let alone ordinary.",
+            "Whether it be growth or relief, either way it needs to be taken slowly...",
+            "The same to you.",
+            "Don't overexert yourself."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5259,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "When I was helping in the greenhouse, I saw a sprig of barnyard grass sprouting.",
+            "I know it shouldn't be appearing around the rice paddies.",
+            "But I can't bring myself to pull it.",
+            "Can I bring it into the dormitory?",
+            "...Thank you."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5260,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I finished the book. I really liked it.",
+            "The protagonist's friend did a lot of terrible things because of his traumatized childhood...",
+            "He decided to repent, only to find out that everyone he cared for had died because of him.",
+            "People say he deserved it. What do you think?",
+            "...Did he? Well, that's an interesting way of thinking."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5261,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Commandant Simon said you were a sharpshooter.",
+            "Can you teach me?",
+            "I'm not very good at this...",
+            "No no no. It must be because I used to be short-sighted!",
+            "What? I'm not denying anything. Definitely not."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5262,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Look. This is my reward for finishing the mission.",
+            "And this is your cut.",
+            "Consider it a gift for always looking out for me."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5263,
+        "CharacterId": 1571003,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Look. This is my reward for finishing the mission.",
+            "And this is your cut.",
+            "Consider it a gift for always looking out for me."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5301,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "...Please excuse me, I might be a little tired."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5302,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "Things are piling up around here. What should I do..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5303,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "What was I planning to do again?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5304,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 10,
+        "State": "IDLE",
+        "Content": [
+            "Who's there? Just a hallucination..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5305,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "...Please excuse me, I might be a little tired."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5306,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Things are piling up around here. What should I do..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5307,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "What was I planning to do again?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5308,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Who's there? Just a hallucination..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5309,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "...Hmm? I was zoning out?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5310,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "What can I help you with, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5311,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "What would it be like... on the other shore?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5312,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "I feel a bit better now."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5313,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "A new mission arrived?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5314,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "All regular tasks completed, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5315,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Pleased to see you back, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5316,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Would you like to know more about the Purifying Force?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5317,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Whew... It's finally quieted down."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5318,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "I shall be there as long as you need me, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5319,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Pleased to see you back, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5320,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Would you like to know more about the Purifying Force?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5321,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Whew... It's finally quieted down."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5322,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I shall be there as long as you need me, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5323,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I've got an indescribable feeling of lightness and security... How do you feel, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5324,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Hmm..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5325,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "My body feels heavy..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5326,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Hold your tongue, please."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5327,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "Into the darkness again..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5328,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 30,
+        "State": "IDLE",
+        "Content": [
+            "These tasks were not scheduled."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5329,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "I heard some voices over there..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5330,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "How may I help you, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5331,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "let's finish it quickly."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5332,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "The lights seem brighter there..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5333,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 50,
+        "State": "IDLE",
+        "Content": [
+            "This may be a good spot for mediation."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5334,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Do you need anything, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5335,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Do what you can do..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5336,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "I'll take care of the rest, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5337,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Do you need anything, Commandant?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5338,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Do what you can do..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5339,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "I'll take care of the rest, Commandant."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5340,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "The space here is well adequate for me."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5341,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "The next mission is..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5342,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "My apologies... This frame still lays a heavy burden on its user.",
+            "May I ask where would be suitable for taking a respite?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5343,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Thank you, if you don't mind, please go ahead and rest yourself there.",
+            "You want me to join you? Then, please watch over me by my side."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5344,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "It seems like it's been a long while since we spoke.",
+            "Let's talk here. What do you think, Commandant?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5345,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "We're just chatting, not confessing...",
+            "Never mind. Whatever you're going to say, I'm all ears."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5346,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Each relic brought back by the Purifying Force has its own story.",
+            "...You want to help me tidy them up?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5347,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "I appreciate it. If we have time left...",
+            "I'll share their stories with you."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5348,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Looks like something is troubling your mind...",
+            "You can talk to me if you don't mind."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5349,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Certainly, I'll keep it a secret.",
+            "This is also part of my duty..."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5350,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "It's important to keep a place clean.",
+            "How about making a chore chart?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5351,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Start with the Purifying Force? I'm not saying no..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5352,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Do you care about the differences among each frame?"
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5353,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "No matter which frame it is, I'm still me, though I've changed a lot from what I used to be..."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5354,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Now is time to rest, Commandant.",
+            "How would you spend your leisure time?"
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5355,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "If we share some common ground, perhaps we can spend time together."
+        ],
+        "Time": [
+            2000
+        ]
+    },
+    {
+        "Id": 5356,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "...Commandant?",
+            "This is just... a little surprising."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5357,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 0,
+        "State": "IDLE",
+        "Content": [
+            "Your warmth... I can feel it.",
+            "Thank you."
+        ],
+        "Time": [
+            2000,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5358,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "Would you like a cup of tea, Commandant?",
+            "Sleepiness is a fatal enemy for people living on snow plains.",
+            "This tea can refresh your focus and warm your body up.",
+            "Oh... I forgot to mention that it's quite bitter."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5359,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 80,
+        "State": "IDLE",
+        "Content": [
+            "The WGAA appears to be very interested in this frame.",
+            "They wanted to give me a new hairstyle, but I turned them down.",
+            "Some of them were even shouting something.",
+            "What's going on with them..."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5360,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Probably because of this frame... I've often dreamed about the past lately.",
+            "There was a girl, frozen stiff, wandering alone on snow plains...",
+            "Without any concrete destination in mind, only believing that redemption must be somewhere...",
+            "I won't let it become reality. Commandant, this is our promise, right?"
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5361,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "...This sword?",
+            "I'm already quite used to this fighting style...",
+            "But I still seek swordsmanship instruction from other Constructs from time to time.",
+            "Have you received swordsmanship instruction before, Commandant?"
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5362,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Please accept this, Commandant.",
+            "It's very valuable to me.",
+            "That's why I want you to keep it for me."
+        ],
+        "Time": [
+            2000,
+            2000.0,
+            2000.0
+        ]
+    },
+    {
+        "Id": 5363,
+        "CharacterId": 1041004,
+        "MoodMinValue": 0,
+        "MoodMaxValue": 100,
+        "State": "IDLE",
+        "Content": [
+            "Please accept this, Commandant.",
+            "It's very valuable to me.",
+            "That's why I want you to keep it for me."
+        ],
+        "Time": [
+            2000,
             2000.0,
             2000.0
         ]

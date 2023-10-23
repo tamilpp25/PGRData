@@ -473,21 +473,21 @@
         "Name": "Recov",
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu.png",
-        "Description": "Recovers 0.05% of maximum HP per second."
+        "Description": "Recovers 0.1% of max HP per second."
     },
     {
         "Id": 760232,
         "Name": "Recov",
         "Level": 2.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu.png",
-        "Description": "Recovers 0.1% of maximum HP per second."
+        "Description": "Recovers 0.2% of max HP per second."
     },
     {
         "Id": 760233,
         "Name": "Recov",
         "Level": 3.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu.png",
-        "Description": "Recovers 0.15% of maximum HP per second."
+        "Description": "Recovers 0.3% of max HP per second."
     },
     {
         "Id": 760241,
@@ -3196,7 +3196,7 @@
         "Name": "Dominator",
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShexian.png",
-        "Description": "Immune to Matrix effects"
+        "Description": "Immune to Matrix and limiting effects of Signature Moves"
     },
     {
         "Id": 712003,
@@ -3217,7 +3217,7 @@
         "Name": "Flame Shield",
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconYuhuo.png",
-        "Description": "The sphere burner will inflict continuous DMG equal to 20% of self ATK on the enemy it touches. Half of DMG dealt will be converted to HP."
+        "Description": "The sphere burner will inflict continuous DMG equal to 20% of self ATK on the enemy it touches. A portion of the DMG dealt will be converted to HP."
     },
     {
         "Id": 712006,
@@ -3385,7 +3385,7 @@
         "Name": "Dominator",
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShexian.png",
-        "Description": "Immune to Matrix effects"
+        "Description": "Immune to Matrix and limiting effects of Signature Moves"
     },
     {
         "Id": 715714,
@@ -3463,6 +3463,90 @@
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling.png",
         "Description": "HP is significantly increased"
+    },
+    {
+        "Id": 715946,
+        "Name": "Light",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShexian.png",
+        "Description": "Receives the power of lightning and gains [Repel Demons] in light environment."
+    },
+    {
+        "Id": 715947,
+        "Name": "Darkness",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDiandun.png",
+        "Description": "Receives the power of darkness to hide in the shadows and gains [Bleed] in dark environment."
+    },
+    {
+        "Id": 715949,
+        "Name": "Repel Demons",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconKanglei.png",
+        "Description": "Reduce Energy each time you deal damage."
+    },
+    {
+        "Id": 715953,
+        "Name": "Bleed",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou.png",
+        "Description": "Inflicts an amount of Bleed each time you deal damage. When Bleed reaches 100%, deals true damage equal to 70% of the target's max HP. Bleed can only be reduced by standing in light."
+    },
+    {
+        "Id": 715956,
+        "Name": "Power of Nature",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeianLogistics4.png",
+        "Description": "Restores 1% HP per second. Summons a Fairy every 8s that rotates around you. When you have 3, releases all Fairies onto the target to deal damage and reduce max HP."
+    },
+    {
+        "Id": 715973,
+        "Name": "Alert",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling.png",
+        "Description": "DMG increases over time when there are enemies in the same area. The DMG bonus resets when there are no enemies in the same area."
+    },
+    {
+        "Id": 715985,
+        "Name": "Security Captain",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBilei.png",
+        "Description": "Summons reinforcements periodically while the Security Captain is present."
+    },
+    {
+        "Id": 716003,
+        "Name": "Reserve",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShexian.png",
+        "Description": "Gains an effect when the Signal Light changes color while waiting."
+    },
+    {
+        "Id": 716004,
+        "Name": "DMG+",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling.png",
+        "Description": "DMG is greatly increased under the red light."
+    },
+    {
+        "Id": 716005,
+        "Name": "DMG Reduction+",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiangu.png",
+        "Description": "DMG Reduction is greatly increased under the yellow light."
+    },
+    {
+        "Id": 716021,
+        "Name": "Energize",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQianggong.png",
+        "Description": "Gains a DMG bonus based on HP percentage."
+    },
+    {
+        "Id": 716024,
+        "Name": "Charge",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhuanyi.png",
+        "Description": "Cast skills immediately after moving to boost the damage based on Movement Speed."
     },
     {
         "Id": 760014,
@@ -3813,5 +3897,117 @@
         "Level": 1.0,
         "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMoai.png",
         "Description": "In the Matrix, Finisher Gauge reduction increased by 20%"
+    },
+    {
+        "Id": 779160,
+        "Name": "Final Struggle",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBilei.png",
+        "Description": "Increases DMG Reduction for all enemies upon death."
+    },
+    {
+        "Id": 779161,
+        "Name": "Signal Disruption",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconLiejie.png",
+        "Description": "Causes all characters to lose 1 Signal Orb upon death."
+    },
+    {
+        "Id": 779162,
+        "Name": "Attack Upon Death",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconLuehua.png",
+        "Description": "Causes all present characters to lose 10% HP upon death."
+    },
+    {
+        "Id": 779163,
+        "Name": "Implosion",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconRuodian.png",
+        "Description": "Immune to damage dealt by the character. Loses HP every second."
+    },
+    {
+        "Id": 779164,
+        "Name": "Self-Hatred",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe.png",
+        "Description": "Deals damage to all nearby targets over time. Closer targets take more damage."
+    },
+    {
+        "Id": 779165,
+        "Name": "Fission",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeiyuansu.png",
+        "Description": "Summons 2 Clones upon death that lose HP over time."
+    },
+    {
+        "Id": 779166,
+        "Name": "Phantom",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMoai.png",
+        "Description": "Summons 1 Clone every 30s that rapidly loses HP over time."
+    },
+    {
+        "Id": 779167,
+        "Name": "Stagnancy",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconRongjia1.png",
+        "Description": "Becomes petrified for 5s after taking damage from the character. Immune to damage dealt by characters while petrified."
+    },
+    {
+        "Id": 779168,
+        "Name": "Vulnerable",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXueruo.png",
+        "Description": "DMG taken increases."
+    },
+    {
+        "Id": 779169,
+        "Name": "Hesitation",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconSuijia.png",
+        "Description": "Reduces the Movement Speed and Dodge of attackers when taking damage."
+    },
+    {
+        "Id": 779305,
+        "Name": "Hesitation",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhuanyi.png",
+        "Description": "Restores 5% Finisher Gauge per second after not taking damage for 8s."
+    },
+    {
+        "Id": 746589,
+        "Name": "Immune Red",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMianhong.png",
+        "Description": "Immune to DMG from Red Orb Skills."
+    },
+    {
+        "Id": 746590,
+        "Name": "Immune Yellow",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMianhuang.png",
+        "Description": "Immune to DMG from Yellow Orb Skills."
+    },
+    {
+        "Id": 746591,
+        "Name": "Immune Blue",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMianlan.png",
+        "Description": "Immune to DMG from Blue Orb Skills."
+    },
+    {
+        "Id": 746592,
+        "Name": "Immune Basic",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiangu.png",
+        "Description": "Immune to Basic Attack DMG."
+    },
+    {
+        "Id": 776405,
+        "Name": "Vulnerable",
+        "Level": 1.0,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconPojia.png",
+        "Description": "DMG taken increases."
     }
 ]
