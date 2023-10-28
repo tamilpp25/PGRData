@@ -548,13 +548,13 @@
     },
     {
         "Id": 38,
-        "Name": "\u8089\u9e3d\u6a21\u62df\u7ecf\u8425",
+        "Name": "\u53e6\u4e16\u6784\u60f3\u00b7\u4e5d\u9f99\u4e00\u5546",
         "ManagerName": "XRogueSimAgency",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner69.png",
-        "TimeId": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner132.png",
+        "TimeId": 23201.0,
         "FunctionNameId": 10457.0,
         "SkipId": 89044.0,
-        "Order": null,
+        "Order": 5.0,
         "RedPointConditions": [
             "CONDITION_ROGUESIM_ACTIVITY"
         ],
@@ -565,12 +565,14 @@
         "Id": 39,
         "Name": "\u9b54\u65b9\u5f39\u8df3\u4e50",
         "ManagerName": "XDlcCasualAgency",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner69.png",
-        "TimeId": null,
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner73.png",
+        "TimeId": 23401.0,
         "FunctionNameId": 10458.0,
         "SkipId": 89045.0,
-        "Order": null,
-        "RedPointConditions": [],
+        "Order": 6.0,
+        "RedPointConditions": [
+            "CONDITION_DLC_CASUAL_ACTIVITY"
+        ],
         "Note": "DLC\u9b54\u65b9",
         "IsAgency": 1.0
     }

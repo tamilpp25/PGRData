@@ -1218,7 +1218,7 @@
     {
         "Id": 1045701,
         "Type": 0,
-        "Formula": "1045702&1045703",
+        "Formula": "1045702&1045703&1045712",
         "Params": [],
         "Desc": "\u56de\u5408\u6570=1\u4e14\u884c\u52a8\u70b9=0"
     },
@@ -1309,9 +1309,110 @@
         "Type": 17306,
         "Formula": null,
         "Params": [
-            1.0
+            100.0
         ],
         "Desc": "\u901a\u5173\u6e21\u8fb9\u6a21\u62df\u5668\u7b2c\u4e00\u5173\uff08stageID\uff09"
+    },
+    {
+        "Id": 1045712,
+        "Type": 17307,
+        "Formula": null,
+        "Params": [
+            1.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1045713,
+        "Type": 0,
+        "Formula": "1045712&1045707&1045720",
+        "Params": [],
+        "Desc": "\u6559\u5b66\u5173\u5185\uff0c\u7e41\u8363\u5ea6\u2265100"
+    },
+    {
+        "Id": 1045714,
+        "Type": 17308,
+        "Formula": null,
+        "Params": [
+            102.0
+        ],
+        "Desc": "\u5b8c\u6210\u5efa\u7b51\u3010\u8bb8\u613f\u4e95\u3011\u8d2d\u4e70"
+    },
+    {
+        "Id": 1045715,
+        "Type": 17306,
+        "Formula": null,
+        "Params": [
+            101.0
+        ],
+        "Desc": "\u901a\u5173\u6e21\u8fb9\u6a21\u62df\u5668\u7b2c2\u5173\uff08stageID\uff09"
+    },
+    {
+        "Id": 1045716,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61528.0,
+            2.0
+        ],
+        "Desc": "\u672a\u89e6\u53d1\u5f15\u5bfc61528"
+    },
+    {
+        "Id": 1045717,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61531.0,
+            2.0
+        ],
+        "Desc": "\u672a\u89e6\u53d1\u5f15\u5bfc61528"
+    },
+    {
+        "Id": 1045718,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61532.0,
+            2.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1045719,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61534.0,
+            2.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1045720,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61533.0,
+            2.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1045721,
+        "Type": 17309,
+        "Formula": null,
+        "Params": [
+            61541.0,
+            2.0
+        ],
+        "Desc": null
+    },
+    {
+        "Id": 1045722,
+        "Type": 0,
+        "Formula": "1045721&1045710",
+        "Params": [],
+        "Desc": null
     },
     {
         "Id": 21000100,
@@ -45413,7 +45514,7 @@
         "Params": [
             110.0
         ],
-        "Desc": "\u901a\u5173SP-03"
+        "Desc": "\u901a\u5173\u5357\u90e8\u77ff\u533a\u6eb6\u6d1e"
     },
     {
         "Id": 94015,
@@ -45422,7 +45523,7 @@
         "Params": [
             111.0
         ],
-        "Desc": "\u901a\u5173SP-04"
+        "Desc": "\u901a\u5173\u5357\u90e8\u77ff\u533a\u752c\u8def"
     },
     {
         "Id": 94016,
@@ -45440,7 +45541,7 @@
         "Params": [
             116.0
         ],
-        "Desc": "\u901a\u5173SP-06"
+        "Desc": "\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u752c\u8def"
     },
     {
         "Id": 94018,
@@ -45449,7 +45550,7 @@
         "Params": [
             117.0
         ],
-        "Desc": "\u901a\u5173SP-07"
+        "Desc": "\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u5d29\u5d16"
     },
     {
         "Id": 94019,
@@ -45467,7 +45568,7 @@
         "Params": [
             122.0
         ],
-        "Desc": "\u901a\u5173SP-09"
+        "Desc": "\u901a\u5173\u5c42\u65ad\u77ff\u533a\u752c\u8def"
     },
     {
         "Id": 94021,
@@ -45476,7 +45577,7 @@
         "Params": [
             123.0
         ],
-        "Desc": "\u901a\u5173SP-10"
+        "Desc": "\u901a\u5173\u5c42\u65ad\u77ff\u533a\u5d29\u5d16"
     },
     {
         "Id": 94022,
@@ -45494,7 +45595,7 @@
         "Params": [
             128.0
         ],
-        "Desc": "\u901a\u5173SP-12"
+        "Desc": "\u901a\u5173\u5b9d\u6765\u77ff\u533a\u752c\u8def"
     },
     {
         "Id": 94024,
@@ -45503,7 +45604,7 @@
         "Params": [
             129.0
         ],
-        "Desc": "\u901a\u5173SP-13"
+        "Desc": "\u901a\u5173\u5b9d\u6765\u77ff\u533a\u5d29\u5d16"
     },
     {
         "Id": 94030,
@@ -45629,7 +45730,7 @@
         "Params": [
             147.0
         ],
-        "Desc": "\u901a\u5173SP-16"
+        "Desc": "\u901a\u5173\u4e91\u5c9b\u77ff\u533a\u4e1c\u5cb8"
     },
     {
         "Id": 94050,
@@ -45637,6 +45738,15 @@
         "Formula": null,
         "Params": [
             148.0
+        ],
+        "Desc": "\u901a\u5173\u4e91\u5c9b\u77ff\u533a\u5317\u5cb8"
+    },
+    {
+        "Id": 94051,
+        "Type": 10101,
+        "Formula": null,
+        "Params": [
+            1.0
         ],
         "Desc": "\u901a\u5173SP-17"
     },
@@ -45841,6 +45951,283 @@
             1.0
         ],
         "Desc": "\u7cfb\u7edf\u7535\u529b\u4e0d\u8d85\u8fc7150\uff0c\u901a\u5173EX5"
+    },
+    {
+        "Id": 95021,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            112.0
+        ],
+        "Desc": "\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95022,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            118.0
+        ],
+        "Desc": "\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95023,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            124.0
+        ],
+        "Desc": "\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95024,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            130.0
+        ],
+        "Desc": "\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95025,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            149.0
+        ],
+        "Desc": "\u901a\u5173\u4e91\u5c9b\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95026,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            152.0
+        ],
+        "Desc": "\u901a\u5173\u6e0a\u5c71\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95027,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            400.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7400\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95028,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            250.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7250\u7cfb\u7edf\u7535\u529b\u7535\u529b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95029,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            400.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7400\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95030,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            250.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7250\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95031,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            400.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7400\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95032,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            50.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc750\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95033,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            400.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7400\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95034,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            50.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc750\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95035,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            149.0,
+            150.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7150\u7cfb\u7edf\u7535\u529b\u901a\u5173\u4e91\u5c9b\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95036,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            112.0
+        ],
+        "Desc": "\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95037,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            118.0
+        ],
+        "Desc": "\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95038,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            124.0
+        ],
+        "Desc": "\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95039,
+        "Type": 10131,
+        "Formula": null,
+        "Params": [
+            130.0
+        ],
+        "Desc": "\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95040,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            400.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7400\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95041,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            300.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7300\u7cfb\u7edf\u7535\u529b\u7535\u529b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95042,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            800.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7800\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95043,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            600.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7600\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95044,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            800.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7800\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95045,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            600.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7600\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95046,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            1200.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc71200\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
+    },
+    {
+        "Id": 95047,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            900.0,
+            1.0
+        ],
+        "Desc": "\u4e0d\u8d85\u8fc7900\u7cfb\u7edf\u7535\u529b\u901a\u5173\u5b9d\u6765\u77ff\u533a\u6df1\u5de2"
     },
     {
         "Id": 95101,
@@ -46347,7 +46734,7 @@
             1.0,
             1.0
         ],
-        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173EX-01\u540e\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u66f9\u540e\u53ef\u626b\u8361"
     },
     {
         "Id": 95402,
@@ -46355,35 +46742,83 @@
         "Formula": null,
         "Params": [
             112.0,
-            6000.0,
+            300.0,
             1.0,
             1.0
         ],
-        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173EX-02\u540e\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
     },
     {
         "Id": 95403,
         "Type": 12103,
         "Formula": null,
         "Params": [
-            130.0,
-            150.0,
+            118.0,
+            600.0,
             1.0,
             1.0
         ],
-        "Desc": "\u5f53\u524d\u96be\u5ea6\u7535\u91cf\u5c0f\u4e8e151\u901a\u5173EX-05\u4e0b\u6b21\u6d3b\u52a8\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
     },
     {
         "Id": 95404,
         "Type": 12103,
         "Formula": null,
         "Params": [
-            130.0,
-            6000.0,
+            124.0,
+            600.0,
             1.0,
             1.0
         ],
-        "Desc": "\u901a\u5173\u77ff5\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
+    },
+    {
+        "Id": 95405,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            130.0,
+            50.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u4f7f\u7528\u4e0d\u591a\u4e8e500\u7684\u7535\u80fd\u5b9d\u6765\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
+    },
+    {
+        "Id": 95406,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            112.0,
+            250.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5357\u90e8\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
+    },
+    {
+        "Id": 95407,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            250.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
+    },
+    {
+        "Id": 95408,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            50.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173\u5c42\u65ad\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
     },
     {
         "Id": 95411,
@@ -46391,11 +46826,11 @@
         "Formula": null,
         "Params": [
             106.0,
-            6000.0,
+            500.0,
             1.0,
             1.0
         ],
-        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u901a\u5173EX-01\u540e\u53ef\u626b\u8361"
+        "Desc": "\u5f53\u524d\u96be\u5ea6\u4e0b\u4f7f\u7528\u4e0d\u591a\u4e8e500\u7684\u7535\u80fd\u5b9d\u6765\u77ff\u533a\u6df1\u5de2\u540e\u53ef\u626b\u8361"
     },
     {
         "Id": 95412,
@@ -46452,6 +46887,42 @@
         "Params": [
             124.0,
             1800.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u77ff\u533a\u626b\u8361-\u63a9\u62a4\u4f5c\u6218"
+    },
+    {
+        "Id": 95424,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            118.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u77ff\u533a\u626b\u8361-\u63a9\u62a4\u4f5c\u6218"
+    },
+    {
+        "Id": 95425,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            6000.0,
+            1.0,
+            1.0
+        ],
+        "Desc": "\u77ff\u533a\u626b\u8361-\u63a9\u62a4\u4f5c\u6218"
+    },
+    {
+        "Id": 95426,
+        "Type": 12103,
+        "Formula": null,
+        "Params": [
+            124.0,
+            6000.0,
             1.0,
             1.0
         ],
@@ -54202,7 +54673,7 @@
         "Params": [
             150.0
         ],
-        "Desc": null
+        "Desc": "\u901a\u5173\u6e0a\u5c71\u77ff\u533a\u6eb6\u6d1e"
     },
     {
         "Id": 862301,
@@ -54211,6 +54682,102 @@
         "Params": [
             151.0
         ],
-        "Desc": null
+        "Desc": "\u901a\u5173\u6e0a\u5c71\u77ff\u533a\u752c\u8def"
+    },
+    {
+        "Id": 862400,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            100.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u57fa\u7840\u6559\u5b66\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862401,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            101.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u725b\u5200\u5c0f\u8bd5\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862402,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            102.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u521d\u9732\u950b\u8292\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862403,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            103.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u6e10\u5165\u4f73\u5883\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862404,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            104.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u5927\u663e\u8eab\u624b\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862405,
+        "Type": 17320,
+        "Formula": null,
+        "Params": [
+            105.0,
+            1.0
+        ],
+        "Desc": "\u901a\u5173\u51fa\u795e\u5165\u5316\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862411,
+        "Type": 17321,
+        "Formula": null,
+        "Params": [
+            5.0
+        ],
+        "Desc": "\u5171\u8ba1\u83b7\u5f975\u9897\u661f\u661f\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862412,
+        "Type": 17321,
+        "Formula": null,
+        "Params": [
+            8.0
+        ],
+        "Desc": "\u5171\u8ba1\u83b7\u5f978\u9897\u661f\u661f\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862413,
+        "Type": 17321,
+        "Formula": null,
+        "Params": [
+            11.0
+        ],
+        "Desc": "\u5171\u8ba1\u83b7\u5f9711\u9897\u661f\u661f\u540e\u89e3\u9501"
+    },
+    {
+        "Id": 862414,
+        "Type": 17321,
+        "Formula": null,
+        "Params": [
+            14.0
+        ],
+        "Desc": "\u5171\u8ba1\u83b7\u5f9714\u9897\u661f\u661f\u540e\u89e3\u9501"
     }
 ]

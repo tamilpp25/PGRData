@@ -5326,8 +5326,8 @@
     {
         "Id": 61527,
         "Priority": 61527,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84251-\u5c0f\u8bd5\u725b\u5200",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84251-\u6b22\u8fce",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
@@ -5342,12 +5342,14 @@
     {
         "Id": 61528,
         "Priority": 61528,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84252-\u9996\u6b21\u8fdb\u5173",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84252-\u9996\u6b21\u8fdb\u5173",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
-            774800.0
+            774800.0,
+            1045712.0,
+            1045716.0
         ],
         "CompleteId": 61528,
         "ActiveUi": "UiRogueSimBattle",
@@ -5358,12 +5360,13 @@
     {
         "Id": 61529,
         "Priority": 61529,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84253-\u56de\u5408\u6559\u5b66",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84253-\u56de\u5408\u6559\u5b66",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
             774800.0,
+            1045712.0,
             1045701.0
         ],
         "CompleteId": 61529,
@@ -5373,47 +5376,34 @@
         "GroupId": 61529
     },
     {
-        "Id": 61530,
-        "Priority": 61530,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84254-\u4ef7\u683c\u6ce2\u52a8",
-        "GuideType": 1,
-        "ConditionId": [
-            862112.0,
-            774800.0
-        ],
-        "CompleteId": 61530,
-        "ActiveUi": "UiRogueSimBattle",
-        "CheckNodeActive": "PanelRoundStart",
-        "RewardId": 0,
-        "GroupId": 61530
-    },
-    {
         "Id": 61531,
         "Priority": 61531,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84255-\u51fa\u552e\u8d27\u7269",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84255-\u6ce2\u52a8\u51fa\u552e\u8d27\u7269",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
             774800.0,
-            1045704.0
+            1045712.0,
+            1045717.0
         ],
         "CompleteId": 61531,
         "ActiveUi": "UiRogueSimBattle",
-        "CheckNodeActive": null,
+        "CheckNodeActive": "PanelRoundStart",
         "RewardId": 0,
         "GroupId": 61531
     },
     {
         "Id": 61532,
         "Priority": 61532,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84256-\u9053\u5177\u9009\u62e9",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84257-\u9053\u5177\u9009\u62e9",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
-            774800.0
+            774800.0,
+            1045712.0,
+            1045718.0
         ],
         "CompleteId": 61532,
         "ActiveUi": "UiRogueSimChoose",
@@ -5424,13 +5414,14 @@
     {
         "Id": 61533,
         "Priority": 61533,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84257-\u7e41\u8363\u5ea6",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84258-\u7e41\u8363\u5ea6",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
             774800.0,
-            1045707.0
+            1045712.0,
+            1045713.0
         ],
         "CompleteId": 61533,
         "ActiveUi": "UiRogueSimBattle",
@@ -5441,12 +5432,14 @@
     {
         "Id": 61534,
         "Priority": 61534,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84258-\u57ce\u90a6\u8d38\u6613",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84259-\u57ce\u90a6\u8d38\u6613",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
-            774800.0
+            774800.0,
+            1045712.0,
+            1045719.0
         ],
         "CompleteId": 61534,
         "ActiveUi": "UiRogueSimBattle",
@@ -5455,27 +5448,10 @@
         "GroupId": 61534
     },
     {
-        "Id": 61535,
-        "Priority": 61535,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u84259-\u751f\u4ea7\u66b4\u51fb",
-        "GuideType": 1,
-        "ConditionId": [
-            862112.0,
-            774800.0,
-            1045708.0
-        ],
-        "CompleteId": 61535,
-        "ActiveUi": "UiRogueSimBattle",
-        "CheckNodeActive": "PanelRoundStart",
-        "RewardId": 0,
-        "GroupId": 61535
-    },
-    {
         "Id": 61536,
         "Priority": 61536,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u842510-\u53d1\u73b0\u5efa\u7b51",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u842510-\u53d1\u73b0\u5efa\u7b51",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
@@ -5490,16 +5466,16 @@
     {
         "Id": 61537,
         "Priority": 61537,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u842511-\u5b8c\u6210\u6559\u5b66",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u842511-\u8bb8\u613f\u4e95",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
             774800.0,
-            1045711.0
+            1045714.0
         ],
         "CompleteId": 61537,
-        "ActiveUi": "UiRogueSimMain",
+        "ActiveUi": "UiRogueSimBattle",
         "CheckNodeActive": null,
         "RewardId": 0,
         "GroupId": 61537
@@ -5507,17 +5483,69 @@
     {
         "Id": 61538,
         "Priority": 61538,
-        "Ignore": 1,
-        "Desc": "v2.9\u5f15\u5bfc\u6a21\u62df\u7ecf\u842512-\u5173\u5361\u7ed3\u7b97",
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u842512-\u5173\u5361\u7ed3\u7b97",
         "GuideType": 1,
         "ConditionId": [
             862112.0,
-            774800.0
+            774800.0,
+            1045711.0
         ],
         "CompleteId": 61538,
         "ActiveUi": "UiRogueSimSettlement",
         "CheckNodeActive": null,
         "RewardId": 0,
         "GroupId": 61538
+    },
+    {
+        "Id": 61539,
+        "Priority": 61539,
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u842513-\u79d1\u6280\u6811",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0
+        ],
+        "CompleteId": 61539,
+        "ActiveUi": "UiRogueSimScience",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61539
+    },
+    {
+        "Id": 61540,
+        "Priority": 61540,
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u842514-\u7b2c\u4e09\u5173\u524d\u7684\u521d\u7ea7\u79d8\u85cf",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            1045715.0
+        ],
+        "CompleteId": 61540,
+        "ActiveUi": "UiRogueSimChapterDetail",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61540
+    },
+    {
+        "Id": 61541,
+        "Priority": 61541,
+        "Ignore": 0,
+        "Desc": "v2.9 \u5f15\u5bfc\u6a21\u62df\u7ecf\u84256-\u9500\u552e\u66b4\u51fb",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            1045712.0,
+            1045722.0
+        ],
+        "CompleteId": 61541,
+        "ActiveUi": "UiRogueSimBattle",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61541
     }
 ]

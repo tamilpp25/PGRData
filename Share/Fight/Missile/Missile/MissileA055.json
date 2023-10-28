@@ -292,7 +292,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": null,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtk02Hit01"
+        ],
         "DamageInterval": null,
         "StartJoint": null,
         "Effect": null,
@@ -384,7 +386,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": null,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtk02Hit02"
+        ],
         "DamageInterval": null,
         "StartJoint": null,
         "Effect": null,
@@ -937,7 +941,7 @@
         "HitCount": -1,
         "RepeatDamage": null,
         "HitEffect": [
-            "FxR3QuAtk03Hit01"
+            "FxR3QuAtk04Hit"
         ],
         "DamageInterval": null,
         "StartJoint": null,
@@ -1030,7 +1034,7 @@
         "HitCount": -1,
         "RepeatDamage": null,
         "HitEffect": [
-            "FxR3QuAtk03Hit02"
+            "FxR3QuAtk04Hit"
         ],
         "DamageInterval": null,
         "StartJoint": null,
@@ -1123,7 +1127,7 @@
         "HitCount": -1,
         "RepeatDamage": null,
         "HitEffect": [
-            "FxR3QuAtk03Hit01"
+            "FxR3QuAtk04Hit"
         ],
         "DamageInterval": null,
         "StartJoint": null,
@@ -1216,7 +1220,7 @@
         "HitCount": -1,
         "RepeatDamage": null,
         "HitEffect": [
-            "FxR3QuAtk03Hit02"
+            "FxR3QuAtk04Hit"
         ],
         "DamageInterval": null,
         "StartJoint": null,
@@ -1703,8 +1707,8 @@
         "MagicLauncherNpc": [
             114679.0
         ],
-        "EffectHeight": 0.0,
-        "HitOnJoint": "HitCase",
+        "EffectHeight": 1.5,
+        "HitOnJoint": null,
         "ResizeEffect": null,
         "BindLauncher": 0,
         "LockLauncherFightTarget": null,
@@ -1796,7 +1800,7 @@
             113624.0
         ],
         "MagicLauncherNpc": [],
-        "EffectHeight": 0.8,
+        "EffectHeight": 1.8,
         "HitOnJoint": null,
         "ResizeEffect": null,
         "BindLauncher": 0,
@@ -2290,16 +2294,18 @@
         "TargetType": 4,
         "NpcSearcherId": null,
         "TrackTarget": null,
-        "LiveTime": 0.1,
+        "LiveTime": 0.3,
         "FillTime": null,
         "DeadExplosion": null,
         "MoveExcludeObstacle": null,
         "ActsExcludeObstacle": null,
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
-        "RepeatDamage": null,
-        "HitEffect": [],
-        "DamageInterval": null,
+        "RepeatDamage": 1.0,
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
+        "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
         "WaitTime": null,
@@ -2389,7 +2395,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": null,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit02"
+        ],
         "DamageInterval": null,
         "StartJoint": null,
         "Effect": null,
@@ -2932,7 +2940,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42Dilie01",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3021,7 +3029,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan01",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3110,7 +3118,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan02",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3199,7 +3207,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan03",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3288,7 +3296,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan01",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3384,7 +3392,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan02",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -3480,7 +3488,7 @@
         "HitEffect": [],
         "DamageInterval": null,
         "StartJoint": null,
-        "Effect": "FxR3QuAtk42ZiDan03",
+        "Effect": null,
         "WaitTime": null,
         "DamageCount": -1,
         "DamageRange": null,
@@ -5289,7 +5297,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": null,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": null,
         "StartJoint": null,
         "Effect": null,
@@ -6171,10 +6181,10 @@
         "Id": 11261129,
         "Name": "\u767b\u57fa-29",
         "Shape": 1,
-        "SizeX": 11.0,
+        "SizeX": 10.0,
         "SizeY": 20.0,
         "OffsetX": -4.5,
-        "OffsetY": 8.0,
+        "OffsetY": 4.0,
         "Speed": 0,
         "HitSpeed": null,
         "Direction": null,
@@ -6266,7 +6276,7 @@
         "SizeX": 10.0,
         "SizeY": 20.0,
         "OffsetX": 5.0,
-        "OffsetY": 8.0,
+        "OffsetY": 4.0,
         "Speed": 0,
         "HitSpeed": null,
         "Direction": null,
@@ -7747,7 +7757,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -8109,7 +8121,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -8560,7 +8574,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -10098,10 +10114,10 @@
         "Id": 11262803,
         "Name": "\u653b\u51fb\u76d22",
         "Shape": 1,
-        "SizeX": 10.0,
-        "SizeY": 8.0,
+        "SizeX": 14.0,
+        "SizeY": 14.0,
         "OffsetX": 0.0,
-        "OffsetY": 3.5,
+        "OffsetY": 6.0,
         "Speed": 0,
         "HitSpeed": null,
         "Direction": null,
@@ -10509,7 +10525,7 @@
         "HitShakeIntensity": 0.1,
         "BeHitState": 112629041.0,
         "Magic": [
-            113632.0
+            113628.0
         ],
         "MagicLauncherNpc": [],
         "EffectHeight": 0.0,
@@ -10781,7 +10797,7 @@
         "HitShakeIntensity": 0.05,
         "BeHitState": 112630031.0,
         "Magic": [
-            113636.0
+            113628.0
         ],
         "MagicLauncherNpc": [],
         "EffectHeight": 0.0,
@@ -11728,8 +11744,8 @@
     {
         "Id": 11263302,
         "Name": "\u653b\u51fb\u76d21",
-        "Shape": 1,
-        "SizeX": 8.0,
+        "Shape": 2,
+        "SizeX": 20.0,
         "SizeY": 6.0,
         "OffsetX": 0.0,
         "OffsetY": 2.5,
@@ -11819,8 +11835,8 @@
     {
         "Id": 11263303,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 10.0,
+        "Shape": 2,
+        "SizeX": 20.0,
         "SizeY": 8.0,
         "OffsetX": 0.0,
         "OffsetY": 3.5,
@@ -12000,9 +12016,9 @@
     {
         "Id": 11263402,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12053,7 +12069,9 @@
             200106.0,
             114618.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115679.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -12181,9 +12199,9 @@
     {
         "Id": 11263406,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12237,7 +12255,8 @@
             114618.0
         ],
         "MagicLauncherNpc": [
-            200101.0
+            200101.0,
+            115679.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
@@ -12277,9 +12296,9 @@
     {
         "Id": 11263407,
         "Name": "\u653b\u51fb\u76d23",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12368,9 +12387,9 @@
     {
         "Id": 11263502,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12421,7 +12440,9 @@
             200106.0,
             114619.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115679.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -12549,9 +12570,9 @@
     {
         "Id": 11263506,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12605,7 +12626,8 @@
             114619.0
         ],
         "MagicLauncherNpc": [
-            200101.0
+            200101.0,
+            115679.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
@@ -12645,9 +12667,9 @@
     {
         "Id": 11263507,
         "Name": "\u653b\u51fb\u76d23",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12736,9 +12758,9 @@
     {
         "Id": 11263602,
         "Name": "\u653b\u51fb\u76d21",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12788,7 +12810,9 @@
         "Magic": [
             114620.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115679.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -12827,9 +12851,9 @@
     {
         "Id": 11263603,
         "Name": "\u653b\u51fb\u76d22",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12883,7 +12907,8 @@
             114620.0
         ],
         "MagicLauncherNpc": [
-            110966.0
+            110966.0,
+            115679.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
@@ -12923,9 +12948,9 @@
     {
         "Id": 11263604,
         "Name": "\u653b\u51fb\u76d23",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -12975,7 +13000,9 @@
         "Magic": [
             114620.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115679.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -13192,9 +13219,9 @@
     {
         "Id": 11263705,
         "Name": "\u8def\u5f84\u4f24\u5bb3\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": null,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -13211,7 +13238,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -13244,7 +13273,9 @@
         "Magic": [
             114618.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115680.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -13554,9 +13585,9 @@
     {
         "Id": 11263805,
         "Name": "\u8def\u5f84\u4f24\u5bb3\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": null,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -13573,7 +13604,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -13606,7 +13639,9 @@
         "Magic": [
             114619.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115680.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -14005,9 +14040,9 @@
     {
         "Id": 11263915,
         "Name": "\u8def\u5f84\u4f24\u5bb3\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": null,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -14024,7 +14059,9 @@
         "ExplosionOnCollideObstacle": null,
         "HitCount": -1,
         "RepeatDamage": 1.0,
-        "HitEffect": [],
+        "HitEffect": [
+            "FxR3QuAtkHit01"
+        ],
         "DamageInterval": 0.1,
         "StartJoint": null,
         "Effect": null,
@@ -14057,7 +14094,9 @@
         "Magic": [
             114620.0
         ],
-        "MagicLauncherNpc": [],
+        "MagicLauncherNpc": [
+            115680.0
+        ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
         "ResizeEffect": null,
@@ -14189,9 +14228,9 @@
     {
         "Id": 11264002,
         "Name": "\u51fb\u98de\u653b\u51fb\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -14245,7 +14284,8 @@
             114618.0
         ],
         "MagicLauncherNpc": [
-            200102.0
+            200102.0,
+            115681.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
@@ -14374,9 +14414,9 @@
     {
         "Id": 11264102,
         "Name": "\u51fb\u98de\u653b\u51fb\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -14430,7 +14470,8 @@
             114619.0
         ],
         "MagicLauncherNpc": [
-            200102.0
+            200102.0,
+            115681.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",
@@ -14559,9 +14600,9 @@
     {
         "Id": 11264202,
         "Name": "\u51fb\u98de\u653b\u51fb\u76d2",
-        "Shape": 1,
-        "SizeX": 16.0,
-        "SizeY": 20.0,
+        "Shape": 2,
+        "SizeX": 99.0,
+        "SizeY": null,
         "OffsetX": 0.0,
         "OffsetY": 6.0,
         "Speed": 0,
@@ -14615,7 +14656,8 @@
             114620.0
         ],
         "MagicLauncherNpc": [
-            200102.0
+            200102.0,
+            115681.0
         ],
         "EffectHeight": 0.0,
         "HitOnJoint": "HitCase",

@@ -11564,6 +11564,26 @@
         "Text": "\u4f5c\u6218\u68af\u961f\u3010{0}\u3011"
     },
     {
+        "Key": "StrongholdTeamTitle1",
+        "Text": "\u7269\u7406\u5c5e\u6027\u68af\u961f"
+    },
+    {
+        "Key": "StrongholdTeamTitle2",
+        "Text": "\u706b\u5c5e\u6027\u68af\u961f"
+    },
+    {
+        "Key": "StrongholdTeamTitle3",
+        "Text": "\u51b0\u5c5e\u6027\u68af\u961f"
+    },
+    {
+        "Key": "StrongholdTeamTitle4",
+        "Text": "\u96f7\u5c5e\u6027\u68af\u961f"
+    },
+    {
+        "Key": "StrongholdTeamTitle5",
+        "Text": "\u6697\u5c5e\u6027\u68af\u961f"
+    },
+    {
         "Key": "StrongholdTeamIndex",
         "Text": "\u68af\u961f{0}"
     },
@@ -17085,7 +17105,7 @@
     },
     {
         "Key": "StrongholdSuggestElectricTipsDesc",
-        "Text": "\u5f53\u524d\u5df2\u4f7f\u7528\u7535\u80fd\u9ad8\u4e8e\u7ae0\u8282\u63a8\u8350\u503c\uff1a<color=#0e70bd>{0}\uff08\u7cfb\u7edf\u63a8\u8350\u503c\uff09+{1}\uff08\u53d1\u7535\u7535\u91cf\uff09\uff0c</color>\u90e8\u5206\u6311\u6218\u4efb\u52a1\u65e0\u6cd5\u5b8c\u6210\uff0c\u662f\u5426\u786e\u8ba4\u8fdb\u5165\u6218\u6597\uff1f"
+        "Text": "\u5f53\u524d\u5df2\u4f7f\u7528\u7535\u80fd\u9ad8\u4e8e\u7ae0\u8282\u63a8\u8350\u503c\uff1a<color=#0e70bd>{0}\uff08\u7cfb\u7edf\u63a8\u8350\u503c\uff09\uff0c</color>\u90e8\u5206\u6311\u6218\u4efb\u52a1\u65e0\u6cd5\u5b8c\u6210\uff0c\u662f\u5426\u786e\u8ba4\u8fdb\u5165\u6218\u6597\uff1f"
     },
     {
         "Key": "StrongholdSuggestElectricTipsDesc2",
@@ -20005,7 +20025,11 @@
     },
     {
         "Key": "DlcCasualTeamScore",
-        "Text": "\u56e2\u961f\u79ef\u5206   {0}"
+        "Text": "\u56e2\u961f\u79ef\u5206<color=#00ffffff><size=34>{0}</size></color>"
+    },
+    {
+        "Key": "DlcCasualLoadingComplete",
+        "Text": "\u5c31\u7eea"
     },
     {
         "Key": "DlcRoomAddLikeSuccess",

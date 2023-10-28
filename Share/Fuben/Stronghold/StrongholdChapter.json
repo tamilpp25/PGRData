@@ -7,25 +7,23 @@
             112
         ],
         "Name": "\u5357 \u90e8 \u77ff \u533a",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg08.png",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg06.png",
         "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg02.png",
         "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg12.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold01.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 500,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            300.0,
-            300.0,
-            50.0
+            300,
+            250
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
-        "LimitElectric": 150
+        "LimitElectric": 250
     },
     {
         "Id": 2,
@@ -41,19 +39,17 @@
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold02.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 1000,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            1200.0,
-            800.0,
-            50.0
+            600,
+            250
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
-        "LimitElectric": 150
+        "LimitElectric": 250
     },
     {
         "Id": 3,
@@ -63,25 +59,23 @@
             124
         ],
         "Name": "\u5c42 \u65ad \u77ff \u533a",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg14.png",
         "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg04.png",
         "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg20.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold03.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 1000,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            1800.0,
-            1800.0,
-            50.0
+            600,
+            50
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
-        "LimitElectric": 150
+        "LimitElectric": 50
     },
     {
         "Id": 4,
@@ -97,17 +91,16 @@
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold04.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 1500,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            2500.0,
-            150.0
+            900,
+            50
         ],
         "SweepLevelId": [
-            2.0,
-            3.0
+            2.0
         ],
-        "LimitElectric": 100
+        "LimitElectric": 50
     },
     {
         "Id": 5,
@@ -122,12 +115,15 @@
         "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg23.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold05.prefab",
         "Type": null,
-        "UnlockCondition": 95312.0,
-        "MaxElectricUse": 600.0,
-        "LendCharacterDisableUse": 1.0,
-        "SuggestElectric": [],
+        "UnlockCondition": null,
+        "MaxElectricUse": 800,
+        "LendCharacterDisableUse": null,
+        "SuggestElectric": [
+            150,
+            150
+        ],
         "SweepLevelId": [],
-        "LimitElectric": 100
+        "LimitElectric": 150
     },
     {
         "Id": 6,
@@ -136,25 +132,20 @@
             151,
             152
         ],
-        "Name": "\u7ea2 \u5ca9 \u77ff \u533a",
-        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg06.png",
-        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg01.png",
-        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg09.png",
+        "Name": "\u6e0a \u5c71 \u77ff \u533a",
+        "Banner": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
+        "Bg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightBg06.png",
+        "ChapterBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightDomainBg10.png",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStronghold06.prefab",
         "Type": null,
         "UnlockCondition": null,
-        "MaxElectricUse": null,
+        "MaxElectricUse": 800,
         "LendCharacterDisableUse": null,
         "SuggestElectric": [
-            300.0,
-            300.0,
-            100.0
+            800,
+            800
         ],
-        "SweepLevelId": [
-            1.0,
-            2.0,
-            3.0
-        ],
-        "LimitElectric": 200
+        "SweepLevelId": [],
+        "LimitElectric": 800
     }
 ]

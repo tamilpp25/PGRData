@@ -2,28 +2,27 @@
     {
         "Id": 110,
         "PreId": null,
-        "Order": "SP-03",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-02\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-01",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5357\u90e8\u77ff\u533a\u6eb6\u6d1e",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406210,
-            406110,
-            406010
+            62372,
+            62372,
+            62372
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 1,
         "BuffGroup": [
@@ -31,8 +30,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -44,8 +42,7 @@
             "30202036|30202336",
             "30202037|30202337",
             "30202038|30202338",
-            "30202039|30202339",
-            "30202040|30202340"
+            "30202039|30202339"
         ],
         "BaseBuffId": [
             "73|73|73"
@@ -55,40 +52,37 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
+            95402.0,
+            95406.0
         ]
     },
     {
         "Id": 111,
         "PreId": null,
-        "Order": "SP-04",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-02\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-02",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5357\u90e8\u77ff\u533a\u752c\u8def",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406211,
-            406111,
-            406011
+            62373,
+            62373,
+            62373
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 1,
         "BuffGroup": [
@@ -96,8 +90,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -109,8 +102,7 @@
             "30202043|30202343",
             "30202044|30202344",
             "30202045|30202345",
-            "30202046|30202346",
-            "30202047|30202347"
+            "30202046|30202346"
         ],
         "BaseBuffId": [
             "73|73|73"
@@ -120,24 +112,28 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
+            95402.0,
+            95406.0
         ]
     },
     {
         "Id": 112,
         "PreId": null,
-        "Order": "EX-02",
+        "Order": "\u5357\u90e8\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
         "Name": "\u5357\u90e8\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss01.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90620.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90650.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90340.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90810.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster90630.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             110.0,
@@ -146,17 +142,16 @@
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406212,
-            406112,
-            406012
+            62374,
+            62374,
+            62374
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 1,
         "BuffGroup": [
@@ -164,8 +159,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -177,8 +171,7 @@
             "30202050|30202350",
             "30202051|30202351",
             "30202052|30202352",
-            "30202053|30202353",
-            "30202054|30202354"
+            "30202053|30202353"
         ],
         "BaseBuffId": [
             "21|21|21"
@@ -189,40 +182,37 @@
         ],
         "SweepLevelId": [
             1.0,
-            2.0,
-            3.0
+            2.0
         ],
         "SweepCondition": [
-            95422.0,
-            95412.0,
-            95402.0
+            95402.0,
+            95406.0
         ]
     },
     {
         "Id": 116,
-        "PreId": 112.0,
-        "Order": "SP-06",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-03\u8fdb\u884c\u524a\u5f31",
+        "PreId": null,
+        "Order": "SP-01",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5e93\u5c3c\u77ff\u533a\u752c\u8def",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406216,
-            406116,
-            406016
+            62375,
+            62375,
+            62375
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 2,
         "BuffGroup": [
@@ -230,8 +220,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -243,47 +232,47 @@
             "30202078|30202378",
             "30202079|30202379",
             "30202080|30202380",
-            "30202081|30202381",
-            "30202082|30202382"
+            "30202081|30202381"
         ],
         "BaseBuffId": [
             "58|58|58"
         ],
         "StageBuffId": [
-            "47|47|47"
+            "29|29|29"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
+            95403.0,
+            95407.0
         ]
     },
     {
         "Id": 117,
         "PreId": null,
-        "Order": "SP-07",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-03\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-02",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5e93\u5c3c\u77ff\u533a\u5d29\u5d16",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406217,
-            406117,
-            406017
+            62376,
+            62376,
+            62376
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 2,
         "BuffGroup": [
@@ -291,8 +280,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -304,31 +292,38 @@
             "30202085|30202385",
             "30202086|30202386",
             "30202087|30202387",
-            "30202088|30202388",
-            "30202089|30202389"
+            "30202088|30202388"
         ],
         "BaseBuffId": [
             "58|58|58"
         ],
         "StageBuffId": [
-            "33|33|33"
+            "47|47|47"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
+            95403.0,
+            95407.0
         ]
     },
     {
         "Id": 118,
         "PreId": null,
-        "Order": "EX-03",
+        "Order": "\u5e93\u5c3c\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
         "Name": "\u5e93\u5c3c\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss05.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster837000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81500.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81700.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81700.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             116.0,
@@ -337,17 +332,16 @@
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406218,
-            406118,
-            406018
+            62377,
+            62377,
+            62377
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 2,
         "BuffGroup": [
@@ -355,8 +349,7 @@
             "82|82",
             "83|83",
             "84|84",
-            "85|85",
-            "201|201"
+            "85|85"
         ],
         "RobotGroup": [
             2,
@@ -368,8 +361,7 @@
             "30202092|30202392",
             "30202093|30202393",
             "30202094|30202394",
-            "30202095|30202395",
-            "30202096|30202396"
+            "30202095|30202395"
         ],
         "BaseBuffId": [
             "41|41|41",
@@ -377,41 +369,41 @@
         ],
         "StageBuffId": [
             "29|29|29",
-            "47|47|47",
-            "33|33|33"
+            "47|47|47"
         ],
         "SweepLevelId": [
-            3.0
+            1.0,
+            2.0
         ],
         "SweepCondition": [
-            95403.0
+            95403.0,
+            95407.0
         ]
     },
     {
         "Id": 122,
-        "PreId": 118.0,
-        "Order": "SP-09",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-04\u8fdb\u884c\u524a\u5f31",
+        "PreId": null,
+        "Order": "SP-01",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5c42\u65ad\u77ff\u533a\u752c\u8def",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406222,
-            406122,
-            406022
+            62378,
+            62378,
+            62378
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 3,
         "BuffGroup": [
@@ -419,8 +411,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -432,8 +423,7 @@
             "30202120|30202420",
             "30202121|30202421",
             "30202122|30202422",
-            "30202123|30202423",
-            "30202124|30202424"
+            "30202123|30202423"
         ],
         "BaseBuffId": [
             "21|21|21",
@@ -441,36 +431,41 @@
             "0|160|0"
         ],
         "StageBuffId": [
-            "155|161|155"
+            "27|162|156"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "SweepCondition": [
+            95404.0,
+            95408.0
+        ]
     },
     {
         "Id": 123,
         "PreId": null,
-        "Order": "SP-10",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-04\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-02",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5c42\u65ad\u77ff\u533a\u5d29\u5d16",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406223,
-            406123,
-            406023
+            62379,
+            62379,
+            62379
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 3,
         "BuffGroup": [
@@ -478,8 +473,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -491,8 +485,7 @@
             "30202127|30202427",
             "30202128|30202428",
             "30202129|30202429",
-            "30202130|30202430",
-            "30202131|30202431"
+            "30202130|30202430"
         ],
         "BaseBuffId": [
             "21|21|21",
@@ -502,18 +495,30 @@
         "StageBuffId": [
             "34|163|157"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "SweepCondition": [
+            95404.0,
+            95408.0
+        ]
     },
     {
         "Id": 124,
         "PreId": null,
-        "Order": "EX-04",
+        "Order": "\u5c42\u65ad\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
         "Name": "\u5c42\u65ad\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss07.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83500.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster81900.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83800.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83220.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             122.0,
@@ -522,17 +527,16 @@
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406224,
-            406124,
-            406024
+            62380,
+            62380,
+            62380
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 3,
         "BuffGroup": [
@@ -540,8 +544,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -553,47 +556,50 @@
             "30202134|30202434",
             "30202135|30202435",
             "30202136|30202436",
-            "30202137|30202437",
-            "30202138|30202438"
+            "30202137|30202437"
         ],
         "BaseBuffId": [
             "22|22|22",
-            "67|67|56",
+            "67|67|67",
             "0|160|0"
         ],
         "StageBuffId": [
             "27|162|156",
-            "155|161|155",
             "34|163|157"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            1.0,
+            2.0
+        ],
+        "SweepCondition": [
+            95404.0,
+            95408.0
+        ]
     },
     {
         "Id": 128,
-        "PreId": 124.0,
-        "Order": "SP-12",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-05\u8fdb\u884c\u524a\u5f31",
+        "PreId": null,
+        "Order": "SP-01",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5b9d\u6765\u77ff\u533a\u752c\u8def",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406128,
-            406128,
-            406028
+            62381,
+            62381,
+            62381
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 4,
         "BuffGroup": [
@@ -601,8 +607,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -614,8 +619,7 @@
             "30202162|30202462",
             "30202163|30202463",
             "30202164|30202464",
-            "30202165|30202465",
-            "30202166|30202466"
+            "30202165|30202465"
         ],
         "BaseBuffId": [
             "22|22|22",
@@ -623,36 +627,39 @@
             "0|164|236"
         ],
         "StageBuffId": [
-            "238|165|238"
+            "42|166|237"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            2.0
+        ],
+        "SweepCondition": [
+            95405.0
+        ]
     },
     {
         "Id": 129,
         "PreId": null,
-        "Order": "SP-13",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-05\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-02",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u5b9d\u6765\u77ff\u533a\u5d29\u5d16",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406129,
-            406129,
-            406029
+            62382,
+            62382,
+            62382
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 4,
         "BuffGroup": [
@@ -660,8 +667,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -673,8 +679,7 @@
             "30202169|30202469",
             "30202170|30202470",
             "30202171|30202471",
-            "30202172|30202472",
-            "30202173|30202473"
+            "30202172|30202472"
         ],
         "BaseBuffId": [
             "22|22|22",
@@ -682,20 +687,30 @@
             "0|164|236"
         ],
         "StageBuffId": [
-            "42|167|239"
+            "238|165|239"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            2.0
+        ],
+        "SweepCondition": [
+            95405.0
+        ]
     },
     {
         "Id": 130,
         "PreId": null,
-        "Order": "EX-05",
+        "Order": "\u5b9d\u6765\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
         "Name": "\u5b9d\u6765\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss08.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster837100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster841000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster83100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster84300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             128.0,
@@ -704,17 +719,16 @@
         "Endurance": 1,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406130,
-            406130,
-            406030
+            62383,
+            62383,
+            62383
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 4,
         "BuffGroup": [
@@ -722,8 +736,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -735,47 +748,48 @@
             "30202176|30202476",
             "30202177|30202477",
             "30202178|30202478",
-            "30202179|30202479",
-            "30202180|30202480"
+            "30202179|30202479"
         ],
         "BaseBuffId": [
             "23|23|23",
-            "56|56|168",
+            "56|56|56",
             "0|164|236"
         ],
         "StageBuffId": [
-            "31|166|237",
-            "238|165|238",
-            "42|167|239"
+            "42|166|237",
+            "238|165|239"
         ],
-        "SweepLevelId": [],
-        "SweepCondition": []
+        "SweepLevelId": [
+            2.0
+        ],
+        "SweepCondition": [
+            95405.0
+        ]
     },
     {
         "Id": 147,
-        "PreId": 130.0,
-        "Order": "SP-16",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-06\u8fdb\u884c\u524a\u5f31",
+        "PreId": null,
+        "Order": "SP-01",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u4e91\u5c9b\u77ff\u533a\u4e1c\u5cb8",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406358,
-            406358,
-            406358
+            62384,
+            62384,
+            62384
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 5,
         "BuffGroup": [
@@ -783,8 +797,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -796,8 +809,7 @@
             "30202626|30202627",
             "30202628|30202629",
             "30202630|30202631",
-            "30202632|30202633",
-            "30202634|30202635"
+            "30202632|30202633"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -805,7 +817,7 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "221|226|231"
+            "221|224|231"
         ],
         "SweepLevelId": [],
         "SweepCondition": []
@@ -813,28 +825,27 @@
     {
         "Id": 148,
         "PreId": null,
-        "Order": "SP-17",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-06\u8fdb\u884c\u524a\u5f31",
+        "Order": "SP-02",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
         "Name": "\u4e91\u5c9b\u77ff\u533a\u5317\u5cb8",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
-        "IconBoss": null,
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406359,
-            406359,
-            406359
+            62385,
+            62385,
+            62385
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 5,
         "BuffGroup": [
@@ -842,8 +853,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -855,8 +865,7 @@
             "30202638|30202639",
             "30202640|30202641",
             "30202642|30202643",
-            "30202644|30202645",
-            "30202646|30202647"
+            "30202644|30202645"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -864,7 +873,7 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "222|227|232"
+            "219|225|232"
         ],
         "SweepLevelId": [],
         "SweepCondition": []
@@ -872,12 +881,18 @@
     {
         "Id": 149,
         "PreId": null,
-        "Order": "EX-06",
+        "Order": "\u4e91\u5c9b\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
         "Name": "\u4e91\u5c9b\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss11.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster845000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster84300.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster93600.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster846000.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             147.0,
@@ -886,17 +901,16 @@
         "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406355,
-            406355,
-            406355
+            62386,
+            62386,
+            62386
         ],
         "TeamMember": [
             3,
-            3.0,
-            3.0,
-            3.0,
-            3.0,
-            3.0
+            3,
+            3,
+            3,
+            3
         ],
         "DistributionGroup": 5,
         "BuffGroup": [
@@ -904,8 +918,7 @@
             "87|87",
             "88|88",
             "89|89",
-            "90|90",
-            "201|201"
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -917,8 +930,7 @@
             "30202650|30202651",
             "30202652|30202653",
             "30202654|30202655",
-            "30202656|30202657",
-            "30202658|30202659"
+            "30202676|30202683"
         ],
         "BaseBuffId": [
             "23|23|23",
@@ -926,33 +938,35 @@
             "218|223|228"
         ],
         "StageBuffId": [
-            "219|224|229",
-            "220|225|230",
-            "221|226|231",
-            "222|227|232"
+            "221|224|231",
+            "219|225|232"
         ],
         "SweepLevelId": [],
         "SweepCondition": []
     },
     {
         "Id": 150,
-        "PreId": 149.0,
+        "PreId": null,
         "Order": "SP-01",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-01\u8fdb\u884c\u524a\u5f31",
-        "Name": "\u7ea2\u5ca9\u77ff\u533a\u6eb6\u6d1e",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
+        "Name": "\u6e0a\u5c71\u77ff\u533a\u6eb6\u6d1e",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage020.png",
-        "IconBoss": null,
+        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage023.png",
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
-        "Endurance": 1,
+        "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406204,
-            406104,
-            406004
+            62387,
+            62387,
+            62387
         ],
         "TeamMember": [
+            3,
+            3,
+            3,
+            3,
             3
         ],
         "DistributionGroup": 6,
@@ -976,8 +990,8 @@
             "30202668|30202669"
         ],
         "BaseBuffId": [
-            "24|24|24",
-            "56|56|56",
+            "50|50|50",
+            "51|51|51",
             "240|243|246"
         ],
         "StageBuffId": [
@@ -990,26 +1004,34 @@
         "Id": 151,
         "PreId": null,
         "Order": "SP-02",
-        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9EX-01\u8fdb\u884c\u524a\u5f31",
-        "Name": "\u7ea2\u5ca9\u77ff\u533a\u752c\u8def",
+        "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u540e\u5c06\u5bf9\u6df1\u5de2\u5173\u5361\u8fdb\u884c\u524a\u5f31",
+        "Name": "\u6e0a\u5c71\u77ff\u533a\u752c\u8def",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage02.prefab",
-        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage021.png",
-        "IconBoss": null,
+        "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage024.png",
+        "IconBoss": [],
         "DetailBg": null,
         "FinishRelatedId": [],
-        "Endurance": 1,
+        "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406205,
-            406105,
-            406005
+            62388,
+            62388,
+            62388
         ],
         "TeamMember": [
+            3,
+            3,
+            3,
+            3,
             3
         ],
         "DistributionGroup": 6,
         "BuffGroup": [
-            "86|86"
+            "86|86",
+            "87|87",
+            "88|88",
+            "89|89",
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1017,10 +1039,16 @@
             1
         ],
         "StageIdGroup": [
-            "30202009|30202010"
+            "30202685|30202686",
+            "30202687|30202688",
+            "30202689|30202690",
+            "30202691|30202692",
+            "30202693|30202694"
         ],
         "BaseBuffId": [
-            "24|24|24"
+            "23|23|23",
+            "220|220|220",
+            "240|243|246"
         ],
         "StageBuffId": [
             "242|245|248"
@@ -1031,30 +1059,44 @@
     {
         "Id": 152,
         "PreId": null,
-        "Order": "EX-01",
+        "Order": "\u6e0a\u5c71\u77ff\u533a",
         "DetailDesc": "\u5b8c\u6210\u4f5c\u6218\u5c06\u76f4\u63a5\u6e05\u7406\u77ff\u533a\u5168\u90e8\u654c\u4eba",
-        "Name": "\u7ea2\u5ca9\u77ff\u533a\u6df1\u5de2",
+        "Name": "\u6e0a\u5c71\u77ff\u533a\u6df1\u5de2",
         "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenStronghold/FuBenStrongholdStage01.prefab",
         "IconBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStage01.png",
-        "IconBoss": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdFightStageBoss01.png",
+        "IconBoss": [
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85100.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85350.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85620.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster85570.png",
+            "Assets/Product/Texture/Image/RoleMonster/RoleMonster82300.png"
+        ],
         "DetailBg": "Assets/Product/Texture/Image/UiStronghold/UiStrongholdBossBg.png",
         "FinishRelatedId": [
             150.0,
             151.0
         ],
-        "Endurance": 1,
+        "Endurance": 0,
         "AddElectricEnergy": 0,
         "RewardId": [
-            406206,
-            406106,
-            406006
+            62389,
+            62389,
+            62389
         ],
         "TeamMember": [
+            3,
+            3,
+            3,
+            3,
             3
         ],
         "DistributionGroup": 6,
         "BuffGroup": [
-            "86|86"
+            "86|86",
+            "87|87",
+            "88|88",
+            "89|89",
+            "90|90"
         ],
         "RobotGroup": [
             2,
@@ -1062,13 +1104,20 @@
             1
         ],
         "StageIdGroup": [
-            "30202011|30202012"
+            "30202675|30202682",
+            "30202674|30202681",
+            "30202673|30202680",
+            "30202672|30202679",
+            "30202671|30202678"
         ],
         "BaseBuffId": [
-            "58|58|58"
+            "23|23|23",
+            "67|67|67",
+            "240|243|246"
         ],
         "StageBuffId": [
-            "241|244|247"
+            "241|244|247",
+            "242|245|248"
         ],
         "SweepLevelId": [],
         "SweepCondition": []
