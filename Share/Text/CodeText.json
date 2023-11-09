@@ -1085,6 +1085,51 @@
         "Text": "20003139\u627e\u4e0d\u5230\u8be5\u5173\u5361\u7c7b\u578b\u7684\u89d2\u8272NpcId\u914d\u7f6e"
     },
     {
+        "Id": 20003149,
+        "Key": "FubenManagerBfrtClearIsNotOpen",
+        "Text": "20003149\u636e\u70b9\u4e0d\u53ef\u4e00\u952e\u901a\u5173"
+    },
+    {
+        "Id": 20003150,
+        "Key": "FubenManagerBfrtNotSetTeam",
+        "Text": "20003150\u636e\u70b9\u6ca1\u6709\u8bbe\u7f6e\u961f\u4f0d"
+    },
+    {
+        "Id": 20003151,
+        "Key": "FubenManagerBfrtGroupTeamSeqCfgNotFound",
+        "Text": "20003151\u627e\u4e0d\u5230\u636e\u70b9\u961f\u4f0d\u914d\u7f6e"
+    },
+    {
+        "Id": 20003152,
+        "Key": "FubenManagerBfrtTeamFightNotEnough",
+        "Text": "20003152\u6218\u529b\u4e0d\u8db3\uff0c\u65e0\u6cd5\u4e00\u4ef6\u901a\u5173"
+    },
+    {
+        "Id": 20003153,
+        "Key": "FubenManagerBfrtProgressStageNotExist",
+        "Text": "20003153\u5173\u5361\u6ca1\u6709\u538b\u5236\uff0c\u65e0\u6cd5\u91cd\u7f6e"
+    },
+    {
+        "Id": 20003154,
+        "Key": "FubenManagerBfrtNotCourseRewardToReceived",
+        "Text": "20003154\u6ca1\u6709\u53ef\u9886\u53d6\u7684\u5386\u7a0b\u5956\u52b1"
+    },
+    {
+        "Id": 20003155,
+        "Key": "FubenManagerBfrtGroupIsNotPass",
+        "Text": "20003155\u636e\u70b9\u672a\u901a\u5173\uff0c\u65e0\u6cd5\u9886\u53d6"
+    },
+    {
+        "Id": 20003156,
+        "Key": "FubenManagerBfrtGroupRewardAlreadyReceived",
+        "Text": "20003156\u636e\u70b9\u5956\u52b1\u5df2\u9886\u53d6"
+    },
+    {
+        "Id": 20003157,
+        "Key": "FubenManagerBfrtGroupRewardNotFound",
+        "Text": "20003157\u636e\u70b9\u6ca1\u6709\u627e\u5230\u5bf9\u5e94\u7684\u5956\u52b1"
+    },
+    {
         "Id": 20004001,
         "Key": "TeamManagerGetTeamIdFail",
         "Text": "\u83b7\u53d6\u961f\u4f0dID\u5931\u8d25"
@@ -1618,6 +1663,11 @@
         "Id": 20010009,
         "Key": "FashionAureoleIdNotFound",
         "Text": "\u672a\u627e\u5230\u5bf9\u5e94\u7684\u7ec8\u89e3\u73afID"
+    },
+    {
+        "Id": 20010010,
+        "Key": "FashionSuitRandomPoolCanNotEmpty",
+        "Text": "20010010\u6d82\u88c5\u968f\u673a\u6c60\u4e0d\u80fd\u4e3a\u7a7a"
     },
     {
         "Id": 20012001,
@@ -4292,7 +4342,7 @@
     {
         "Id": 20045023,
         "Key": "MatchPlayerIsMatching",
-        "Text": "\u6b63\u5728\u5339\u914d\u4e2d"
+        "Text": "\u6b63\u5728\u5339\u914d\u4e2d\uff0c\u65e0\u6cd5\u64cd\u4f5c"
     },
     {
         "Id": 20045024,
@@ -8092,7 +8142,7 @@
     {
         "Id": 20069014,
         "Key": "MatchServiceMatchTimeout",
-        "Text": "20069014"
+        "Text": "\u5339\u914d\u8d85\u65f6"
     },
     {
         "Id": 20069015,
@@ -14932,7 +14982,7 @@
     {
         "Id": 20151001,
         "Key": "ReviewActivityDataNotExist",
-        "Text": "20151001\u56de\u987e\u6570\u636e\u4e0d\u5b58\u5728"
+        "Text": "\u9700\u57282023\u5e7411\u67085\u65e5\u524d\u521b\u5efa\u89d2\u8272"
     },
     {
         "Id": 20151002,
@@ -15093,6 +15143,11 @@
         "Id": 20154002,
         "Key": "BirthdayPlotCgNotLock",
         "Text": "20154002\u751f\u65e5\u901a\u8baf:\u751f\u65e5\u5267\u60c5\u672a\u89e3\u9501"
+    },
+    {
+        "Id": 20154003,
+        "Key": "BirthdaySingleStoryCfgNotExist",
+        "Text": "20154003\u5355\u4eba\u5267\u60c5\u914d\u7f6e\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20155001,
@@ -16688,6 +16743,26 @@
         "Id": 20167031,
         "Key": "GoldenMinerSaveRankError",
         "Text": "20167031\u6392\u884c\u699c\u4fdd\u5b58\u5931\u8d25"
+    },
+    {
+        "Id": 20167032,
+        "Key": "GoldenMinerHexGenerateError",
+        "Text": "20167032\u6d77\u514b\u65af\u751f\u6210\u5931\u8d25"
+    },
+    {
+        "Id": 20167033,
+        "Key": "GoldenMinerHexNotInclued",
+        "Text": "20167033\u5f53\u524d\u4e0d\u5305\u542b\u9009\u62e9\u7684\u6d77\u514b\u65af"
+    },
+    {
+        "Id": 20167034,
+        "Key": "GoldenMinerHexNeedSelect",
+        "Text": "20167034\u8fd8\u672a\u9009\u62e9\u6d77\u514b\u65af"
+    },
+    {
+        "Id": 20167035,
+        "Key": "GoldenMinerHeNotFind",
+        "Text": "20167035\u6d77\u514b\u65af\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20168001,
@@ -20265,6 +20340,501 @@
         "Text": "20207005\u5f53\u524d\u5173\u5361\u5df2\u9886\u5956"
     },
     {
+        "Id": 20207006,
+        "Key": "ConnectingLineStageConfigNotExist",
+        "Text": "20207006\u5f53\u524d\u5173\u5361\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20207007,
+        "Key": "ConnectingLineActivityConfigNotExist",
+        "Text": "20207007\u5f53\u524d\u6d3b\u52a8\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208001,
+        "Key": "RogueSimActivityNotOpen",
+        "Text": "20208001\u6d3b\u52a8\u6682\u672a\u5f00\u653e"
+    },
+    {
+        "Id": 20208002,
+        "Key": "RogueSimNotInGameTime",
+        "Text": "20208002\u6d3b\u52a8\u4e0d\u5728\u53ef\u6e38\u73a9\u65f6\u95f4\u5185"
+    },
+    {
+        "Id": 20208003,
+        "Key": "RogueSimStageNotStart",
+        "Text": "20208002\u5173\u5361\u672a\u5f00\u59cb"
+    },
+    {
+        "Id": 20208004,
+        "Key": "RogueSimStagePreNotFinished",
+        "Text": "20208003\u524d\u7f6e\u5173\u5361\u672a\u5b8c\u6210"
+    },
+    {
+        "Id": 20208005,
+        "Key": "RogueSimActivityConfigNotExist",
+        "Text": "20208004\u5f53\u524d\u6d3b\u52a8\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208006,
+        "Key": "RogueSimStageConfigNotExist",
+        "Text": "20208005\u5f53\u524d\u5173\u5361\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208007,
+        "Key": "RogueSimAreaConfigNotExist",
+        "Text": "20208006\u533a\u57df\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208008,
+        "Key": "RogueSimAreaGridConfigNotExist",
+        "Text": "20208007\u683c\u5b50\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208009,
+        "Key": "RogueSimTokenConfigNotExist",
+        "Text": "20208008\u4fe1\u7269\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208010,
+        "Key": "RogueSimMainLevelConfigNotExist",
+        "Text": "20208007\u4e3b\u57ce\u7b49\u7ea7\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208011,
+        "Key": "RogueSimBuildingConfigNotExist",
+        "Text": "20208008\u5efa\u7b51\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208012,
+        "Key": "RogueSimCityConfigNotExist",
+        "Text": "20208009\u57ce\u90a6\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208013,
+        "Key": "RogueSimCommodityConfigNotExist",
+        "Text": "20208010\u8d27\u7269\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208014,
+        "Key": "RogueSimResourceConfigNotExist",
+        "Text": "20208011\u8d44\u6e90\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208015,
+        "Key": "RogueSimLandformConfigNotExist",
+        "Text": "20208012\u5730\u8c8c\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208016,
+        "Key": "RogueSimLandformRewardConfigNotExist",
+        "Text": "20208013\u5730\u8c8c\u5956\u52b1\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208017,
+        "Key": "RogueSimBuffConfigNotExist",
+        "Text": "20208015Buff\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208018,
+        "Key": "RogueSimEffectConfigNotExist",
+        "Text": "20208014Effect\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208019,
+        "Key": "RogueSimEventConfigNotExist",
+        "Text": "20208015Event\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208020,
+        "Key": "RogueSimEventOptionConfigNotExist",
+        "Text": "20208016Event\u9009\u9879\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208021,
+        "Key": "RogueSimTaskConfigNotExist",
+        "Text": "20208017\u4efb\u52a1\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208022,
+        "Key": "RogueSimTaskRandomGroupConfigNotExist",
+        "Text": "20208021\u4efb\u52a1\u968f\u673a\u7ec4\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208023,
+        "Key": "RogueSimVolatilityConfigNotExist",
+        "Text": "20208018\u5e02\u573a\u6ce2\u52a8\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208024,
+        "Key": "RogueSimRewardConfigNotExist",
+        "Text": "20208019\u5956\u52b1\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208025,
+        "Key": "RogueSimRewardGroupConfigNotExist",
+        "Text": "20208020\u5956\u52b1\u7ec4\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208026,
+        "Key": "RogueSimRewardGroupWeightConfigNotExist",
+        "Text": "20208021\u5956\u52b1\u7ec4\u6743\u91cd\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208027,
+        "Key": "RogueSimRewardDropConfigNotExist",
+        "Text": "20208022\u5956\u52b1\u6389\u843d\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208028,
+        "Key": "RogueSimTechConfigNotExist",
+        "Text": "20208023\u79d1\u6280\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208029,
+        "Key": "RogueSimTechLevelConfigNotExist",
+        "Text": "20208024\u79d1\u6280\u7b49\u7ea7\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208030,
+        "Key": "RogueSimPropConfigNotExist",
+        "Text": "20208025\u9053\u5177\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208031,
+        "Key": "RogueSimAreaRandomGroupConfigNotExist",
+        "Text": "20208029\u533a\u57df\u968f\u673a\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208032,
+        "Key": "RogueSimMapBuildMapFailed",
+        "Text": "20208030\u5b58\u5728\u65e0\u6548\u914d\u7f6e\uff0c\u751f\u6210\u5730\u56fe\u5931\u8d25"
+    },
+    {
+        "Id": 20208033,
+        "Key": "RogueSimMapCacheNotInit",
+        "Text": "20208031\u5730\u56fe\u7f13\u5b58\u672a\u521d\u59cb\u5316"
+    },
+    {
+        "Id": 20208034,
+        "Key": "RogueSimMapGetUnlockAreaIdIsEmpty",
+        "Text": "20208033\u5730\u56fe\u65e0\u89e3\u9501\u533a\u57df"
+    },
+    {
+        "Id": 20208035,
+        "Key": "RogueSimMapGridNotInExploreRange",
+        "Text": "20208032\u5730\u56fe\u683c\u5b50\u4e0d\u5728\u53ef\u63a2\u7d22\u8303\u56f4\u5185"
+    },
+    {
+        "Id": 20208036,
+        "Key": "RogueSimMapAddVisiGridsEmpty",
+        "Text": "20208033\u5730\u56fe\u589e\u52a0\u53ef\u89c1\u683c\u5b50\u5217\u8868\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20208037,
+        "Key": "RogueSimMapAddVisiByTypeParamsEmpty",
+        "Text": "20208034\u5730\u56fe\u589e\u52a0\u5730\u8c8c\u53ef\u89c1\u683c\u5b50\u53c2\u6570\u5217\u8868\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20208038,
+        "Key": "RogueSimMapAddVisiByTypeNoUnlockAreaIdx",
+        "Text": "20208035\u5730\u56fe\u589e\u52a0\u5730\u8c8c\u53ef\u89c1\u683c\u5b50\u65e0\u89e3\u9501\u533a\u57df\u7d22\u5f15"
+    },
+    {
+        "Id": 20208039,
+        "Key": "RogueSimMapAddVisiByTypeNotSupportLandformType",
+        "Text": "20208036\u5730\u56fe\u589e\u52a0\u5730\u8c8c\u53ef\u89c1\u683c\u5b50\u4e0d\u652f\u6301\u7684\u5730\u8c8c"
+    },
+    {
+        "Id": 20208040,
+        "Key": "RogueSimMapAddVisiByAreaInvalidIdx",
+        "Text": "20208037\u5730\u56fe\u589e\u52a0\u533a\u57df\u53ef\u89c1\u683c\u5b50\u65e0\u6548\u7684\u533a\u57df\u7d22\u5f15"
+    },
+    {
+        "Id": 20208041,
+        "Key": "RogueSimMapAddVisiByAreaInvalidId",
+        "Text": "20208038\u5730\u56fe\u589e\u52a0\u533a\u57df\u53ef\u89c1\u683c\u5b50\u65e0\u6548\u7684\u533a\u57dfId"
+    },
+    {
+        "Id": 20208042,
+        "Key": "RogueSimMainLevelMax",
+        "Text": "20208026\u4e3b\u57ce\u5df2\u8fbe\u5230\u6700\u5927\u7b49\u7ea7"
+    },
+    {
+        "Id": 20208043,
+        "Key": "RogueSimResourceLack",
+        "Text": "20208027\u8d44\u6e90\u4e0d\u8db3"
+    },
+    {
+        "Id": 20208044,
+        "Key": "RogueSimNotEnoughCost",
+        "Text": "20208028\u6240\u9700\u6d88\u8017\u4e0d\u8db3"
+    },
+    {
+        "Id": 20208045,
+        "Key": "RogueSimItemCostParamsError",
+        "Text": "20208042\u7269\u54c1\u6d88\u8017\u53c2\u6570\u9519\u8bef"
+    },
+    {
+        "Id": 20208046,
+        "Key": "RogueSimItemAddParamsError",
+        "Text": "20208043\u7269\u54c1\u589e\u52a0\u53c2\u6570\u9519\u8bef"
+    },
+    {
+        "Id": 20208047,
+        "Key": "RogueSimCommoditySellCountInvalid",
+        "Text": "20208044\u8d27\u7269\u51fa\u552e\u6570\u91cf\u9519\u8bef"
+    },
+    {
+        "Id": 20208048,
+        "Key": "RogueSimCityNotExist",
+        "Text": "20208030\u57ce\u90a6\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208049,
+        "Key": "RogueSimCityCanNotAdd",
+        "Text": "20208031\u8be5\u533a\u57df\u4e0d\u5141\u8bb8\u6dfb\u52a0\u57ce\u90a6"
+    },
+    {
+        "Id": 20208050,
+        "Key": "RogueSimItemTypeNotExist",
+        "Text": "20208032\u8d44\u6e90\u7c7b\u578b\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208051,
+        "Key": "RogueSimGridNotExplore",
+        "Text": "20208033\u8be5\u533a\u57df\u672a\u63a2\u7d22"
+    },
+    {
+        "Id": 20208052,
+        "Key": "RogueSimActionPointNotEnough",
+        "Text": "20208034\u884c\u52a8\u70b9\u6570\u4e0d\u8db3"
+    },
+    {
+        "Id": 20208053,
+        "Key": "RogueSimInvalidEffectType",
+        "Text": "20208035\u65e0\u6548\u7684\u6548\u679c\u7c7b\u578b"
+    },
+    {
+        "Id": 20208054,
+        "Key": "RogueSimEventUnRepeatable",
+        "Text": "20208036\u8be5\u4e8b\u4ef6\u4e0d\u80fd\u91cd\u590d"
+    },
+    {
+        "Id": 20208055,
+        "Key": "RogueSimEventAddNotAllow",
+        "Text": "20208037\u8be5\u4e8b\u4ef6\u4e0d\u5141\u8bb8\u6dfb\u52a0"
+    },
+    {
+        "Id": 20208056,
+        "Key": "RogueSimEventNotExist",
+        "Text": "20208038\u4e8b\u4ef6\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208057,
+        "Key": "RogueSimPropUnRepeatable",
+        "Text": "20208039\u8be5\u9053\u5177\u4e0d\u80fd\u91cd\u590d"
+    },
+    {
+        "Id": 20208058,
+        "Key": "RogueSimRewardGroupGuaranteeError",
+        "Text": "20208040\u5956\u52b1\u7ec4\u914d\u7f6e\u9519\u8bef"
+    },
+    {
+        "Id": 20208059,
+        "Key": "RogueSimRewardTypeError",
+        "Text": "20208041\u5956\u52b1\u7c7b\u578b\u9519\u8bef"
+    },
+    {
+        "Id": 20208060,
+        "Key": "RogueSimTechNotActive",
+        "Text": "20208042\u79d1\u6280\u6811\u672a\u6fc0\u6d3b"
+    },
+    {
+        "Id": 20208061,
+        "Key": "RogueSimKeyTechLevelUnlockAlready",
+        "Text": "20208043\u5f53\u524d\u7b49\u7ea7\u5173\u952e\u79d1\u6280\u5df2\u5168\u90e8\u89e3\u9501"
+    },
+    {
+        "Id": 20208062,
+        "Key": "RogueSimKeyTechUnlockLimit",
+        "Text": "20208044\u5f53\u524d\u6fc0\u6d3b\u79d1\u6280\u6570\u91cf\u5df2\u8fbe\u5230\u4e0a\u9650"
+    },
+    {
+        "Id": 20208063,
+        "Key": "RogueSimKeyTechNotInclude",
+        "Text": "20208045\u5f53\u524d\u7b49\u7ea7\u4e0d\u5305\u542b\u79d1\u6280"
+    },
+    {
+        "Id": 20208064,
+        "Key": "RogueSimKeyTechUnlockAlready",
+        "Text": "20208046\u79d1\u6280\u5df2\u89e3\u9501"
+    },
+    {
+        "Id": 20208065,
+        "Key": "RogueSimKeyTechLevelLimit",
+        "Text": "20208047\u79d1\u6280\u7b49\u7ea7\u4e0d\u8db3"
+    },
+    {
+        "Id": 20208066,
+        "Key": "RogueSimKeyTechPreUnlockLimit",
+        "Text": "20208048\u524d\u7f6e\u79d1\u6280\u672a\u89e3\u9501"
+    },
+    {
+        "Id": 20208067,
+        "Key": "RogueSimAreaNotUnlock",
+        "Text": "20208051\u533a\u57df\u672a\u89e3\u9501"
+    },
+    {
+        "Id": 20208068,
+        "Key": "RogueSimTurnSettleHasUndoneEvent",
+        "Text": "20208052\u5b58\u5728\u5fc5\u987b\u5b8c\u6210\u7684\u4e8b\u4ef6"
+    },
+    {
+        "Id": 20208069,
+        "Key": "RogueSimBuildingAddNotAllow",
+        "Text": "20208066\u8be5\u5efa\u7b51\u4e0d\u5141\u8bb8\u6dfb\u52a0"
+    },
+    {
+        "Id": 20208070,
+        "Key": "RogueSimEventOptionNotMatch",
+        "Text": "20208069\u4e8b\u4ef6\u9009\u9879\u4e0d\u5339\u914d"
+    },
+    {
+        "Id": 20208071,
+        "Key": "RogueSimTaskFinishDataOrConfigIsNull",
+        "Text": "20208070\u5b8c\u6210\u4efb\u52a1\u6570\u636e\u6216\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208072,
+        "Key": "RogueSimTaskFinishInvalidState",
+        "Text": "20208071\u5b8c\u6210\u4efb\u52a1\u65e0\u6548\u7684\u72b6\u6001"
+    },
+    {
+        "Id": 20208073,
+        "Key": "RogueSimBuildingBuyDataNotFound",
+        "Text": "20208072\u5efa\u7b51\u8d2d\u4e70\u672a\u627e\u5230\u5efa\u7b51"
+    },
+    {
+        "Id": 20208074,
+        "Key": "RogueSimBuildingBuyIsBuy",
+        "Text": "20208073\u5efa\u7b51\u8d2d\u4e70\u5df2\u8d2d\u4e70"
+    },
+    {
+        "Id": 20208075,
+        "Key": "RogueSimBuildingAddAndBuyRewardEmpty",
+        "Text": "20208074\u5efa\u7b51\u63a2\u7d22\u5e76\u8d2d\u4e70\u540e\u5956\u52b1\u4e3a\u7a7a"
+    },
+    {
+        "Id": 20208076,
+        "Key": "RogueSimBuildingAddAndBuyRewardNotPick",
+        "Text": "20208075\u5efa\u7b51\u63a2\u7d22\u5e76\u8d2d\u4e70\u540e\u5956\u52b1\u672a\u9886\u53d6"
+    },
+    {
+        "Id": 20208077,
+        "Key": "RogueSimBuildingAddAndBuyDataNotFound",
+        "Text": "20208076\u5efa\u7b51\u63a2\u7d22\u5e76\u8d2d\u4e70\u540e\u6570\u636e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20208078,
+        "Key": "RogueSimVolatilityRandomError",
+        "Text": "20208078\u6ce2\u52a8\u968f\u673a\u5f02\u5e38"
+    },
+    {
+        "Id": 20208079,
+        "Key": "RogueSimConditionNotFinish",
+        "Text": "20208079\u6761\u4ef6\u672a\u8fbe\u6210"
+    },
+    {
+        "Id": 20208080,
+        "Key": "RogueSimGridWasExplored",
+        "Text": "20208080\u533a\u57df\u5df2\u63a2\u7d22"
+    },
+    {
+        "Id": 20209001,
+        "Key": "KotodamaActivityNotOpen",
+        "Text": "20209001\u6d3b\u52a8\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 20209002,
+        "Key": "KotodamaActivityCfgNotExist",
+        "Text": "20209002\u672a\u627e\u5230\u6d3b\u52a8\u914d\u7f6e"
+    },
+    {
+        "Id": 20209003,
+        "Key": "KotodamaStageCfgNotExist",
+        "Text": "20209003\u672a\u627e\u5230\u5173\u5361\u914d\u7f6e"
+    },
+    {
+        "Id": 20209004,
+        "Key": "KotodamaFightCharacterInvalid",
+        "Text": "20209004\u4e0a\u9635\u6210\u5458\u975e\u6cd5"
+    },
+    {
+        "Id": 20209005,
+        "Key": "KotodamaStageNotOpen",
+        "Text": "20209005\u5173\u5361\u672a\u5f00\u653e"
+    },
+    {
+        "Id": 20209006,
+        "Key": "KotodamaSentencePatternCfgNotExist",
+        "Text": "20209006\u672a\u627e\u5230\u53e5\u5f0f\u914d\u7f6e"
+    },
+    {
+        "Id": 20209007,
+        "Key": "KotodamaSentenceCfgNotExist",
+        "Text": "20209007\u672a\u627e\u5230\u53e5\u5b50\u914d\u7f6e"
+    },
+    {
+        "Id": 20209008,
+        "Key": "KotodamaWordCfgNotExist",
+        "Text": "20209008\u672a\u627e\u5230\u8bcd\u914d\u7f6e"
+    },
+    {
+        "Id": 20209009,
+        "Key": "KotodamaPhraseCfgNotExist",
+        "Text": "20209009\u672a\u627e\u5230\u8bcd\u7ec4\u914d\u7f6e"
+    },
+    {
+        "Id": 20209010,
+        "Key": "KotodamaCharacterGroupCfgNotExist",
+        "Text": "20209010\u672a\u627e\u5230\u89d2\u8272\u7ec4\u914d\u7f6e"
+    },
+    {
+        "Id": 20209011,
+        "Key": "KotodamaSentencePatternIllegal",
+        "Text": "20209011\u53e5\u5f0f\u4e0d\u662f\u5173\u5361\u6307\u5b9a\u53e5\u5f0f"
+    },
+    {
+        "Id": 20209012,
+        "Key": "KotodamaWordNotInSentencePattern",
+        "Text": "20209012\u9009\u8bcd\u4e0d\u5728\u53e5\u5f0f\u8bcd\u7ec4\u5185"
+    },
+    {
+        "Id": 20209013,
+        "Key": "KotodamaCannotSpellSentence",
+        "Text": "20209013\u9009\u8bcd\u672a\u7ec4\u6210\u53e5\u5b50"
+    },
+    {
+        "Id": 20209014,
+        "Key": "KotodamaFightRobotInvalid",
+        "Text": "20209014\u4e0a\u9635\u673a\u5668\u4eba\u975e\u6cd5"
+    },
+    {
+        "Id": 20209015,
+        "Key": "KotodamaSpellSentenceNotExist",
+        "Text": "20209015\u62fc\u53e5\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20209016,
+        "Key": "KotodamaStageIdError",
+        "Text": "20209016\u5173\u5361id\u9519\u8bef"
+    },
+    {
+        "Id": 20209017,
+        "Key": "KotodamaNotSpellAllStageSentences",
+        "Text": "20209017\u672a\u6ee1\u8db3\u5173\u5361\u6240\u6709\u53e5\u5f0f"
+    },
+    {
         "Id": 25000001,
         "Key": "DlcWorldInfoTemplateNotFound",
         "Text": "25000001Dlc\u4e16\u754c\u4fe1\u606f\u914d\u7f6e\u4e0d\u5b58\u5728"
@@ -20575,6 +21145,76 @@
         "Text": "25003016DlcServer\u5185\u90e8\u9519\u8bef"
     },
     {
+        "Id": 25003017,
+        "Key": "DlcSwitchWorldTypeUnMatch",
+        "Text": "25003017\u5173\u5361\u5207\u6362\u7c7b\u578b\u4e0d\u5339\u914d"
+    },
+    {
+        "Id": 25004001,
+        "Key": "DlcWorldTypeNotFound",
+        "Text": "25004001\u5173\u5361\u7c7b\u578b\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 25004002,
+        "Key": "DlcCasualActivityNotOpen",
+        "Text": "25004002\u4f11\u95f2\u73a9\u6cd5\u6d3b\u52a8\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 25004003,
+        "Key": "DlcCasualActivityNotFound",
+        "Text": "25004003\u4f11\u95f2\u73a9\u6cd5\u6d3b\u52a8\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 25004004,
+        "Key": "DlcCasualCubeActivityNotOpen",
+        "Text": "25004004\u9b54\u65b9\u5609\u5e74\u534e\u6d3b\u52a8\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 25004005,
+        "Key": "DlcCasualCubeChapterNotOpen",
+        "Text": "25004005\u9b54\u65b9\u5609\u5e74\u534e\u7ae0\u8282\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 25004006,
+        "Key": "DlcCasualCharacterNotFound",
+        "Text": "25004006\u9009\u62e9\u7684\u89d2\u8272\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 25004007,
+        "Key": "DlcCasualQueryRankError",
+        "Text": "25004007\u67e5\u8be2\u6392\u884c\u699c\u5931\u8d25"
+    },
+    {
+        "Id": 25004008,
+        "Key": "DlcCasualUpdateRankError",
+        "Text": "25004008\u66f4\u65b0\u6392\u884c\u699c\u5931\u8d25"
+    },
+    {
+        "Id": 25004009,
+        "Key": "DlcCasualRankDeleteMemberError",
+        "Text": "25004009\u6392\u884c\u699c\u5220\u9664\u6210\u5458\u5931\u8d25"
+    },
+    {
+        "Id": 25004010,
+        "Key": "DlcCasualRankScoreOutOfLimit",
+        "Text": "25004010\u8d85\u51fa\u6700\u5927\u7684\u5206\u9650\u5236"
+    },
+    {
+        "Id": 25004011,
+        "Key": "DlcCasualCharacterPoolCfgNotFound",
+        "Text": "25004011\u4f11\u95f2\u73a9\u6cd5\u89d2\u8272\u914d\u7f6e\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 25004012,
+        "Key": "DlcCasualWorldIdAndWorldTypeInvalid",
+        "Text": "25004012\u5339\u914d\u7684\u5173\u5361ID\u6216\u7c7b\u578b\u65e0\u6548"
+    },
+    {
+        "Id": 25004013,
+        "Key": "MatchWorldDontHaveCharacterId",
+        "Text": "25004013\u5173\u5361\u672a\u914d\u7f6e\u89d2\u8272ID"
+    },
+    {
         "Id": 30002001,
         "Key": "PlayerNotExist",
         "Text": "\u73a9\u5bb6\u4e0d\u5b58\u5728"
@@ -20708,5 +21348,10 @@
         "Id": 40001024,
         "Key": "PayPlatformShield",
         "Text": "\u6682\u4e0d\u5f00\u653e\u5145\u503c\u529f\u80fd"
+    },
+    {
+        "Id": 40001025,
+        "Key": "AccumulatedExtraPayRewardIdIsNotExist",
+        "Text": "40001025\u7d2f\u5145\u989d\u5916\u5956\u52b1Id\u65e0\u6548"
     }
 ]

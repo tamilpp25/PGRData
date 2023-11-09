@@ -6266,7 +6266,7 @@
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 1,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999856500
@@ -6287,7 +6287,7 @@
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 1,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999856510
@@ -6308,7 +6308,7 @@
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 1,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999856600
@@ -6329,7 +6329,7 @@
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 1,
+        "SceneCamera": 185,
         "CameraId": 9,
         "Terrains": [
             999856610
@@ -6384,18 +6384,18 @@
         ]
     },
     {
-        "Id": 99985670,
-        "Behavior": 99985670,
-        "Name": "\u6218\u8f66\u4e4b\u738b\u4e00\u9636\u6bb5",
+        "Id": 99993590,
+        "Behavior": 99993590,
+        "Name": "\u91cd\u88c5\u6218\u58eb",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 11,
+        "SceneCamera": 25,
         "CameraId": 9,
         "Terrains": [
-            999856700
+            999935900
         ],
         "Position": [
             "0|0|0"
@@ -6405,18 +6405,18 @@
         ]
     },
     {
-        "Id": 99985671,
-        "Behavior": 99985671,
-        "Name": "\u6218\u8f66\u4e4b\u738b\u4e00\u9636\u6bb5\u7ad9\u6869",
+        "Id": 99985770,
+        "Behavior": 99985770,
+        "Name": "\u534e\u80e5\u6539",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 11,
+        "SceneCamera": 1,
         "CameraId": 9,
         "Terrains": [
-            999856710
+            999857700
         ],
         "Position": [
             "0|0|0"
@@ -6426,18 +6426,18 @@
         ]
     },
     {
-        "Id": 99985680,
-        "Behavior": 99985680,
-        "Name": "\u6218\u8f66\u4e4b\u738b\u4e8c\u9636\u6bb5",
+        "Id": 99993660,
+        "Behavior": 99993660,
+        "Name": "\u738b\u306e\u6218\u8f66",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 11,
+        "SceneCamera": 1,
         "CameraId": 9,
         "Terrains": [
-            999856800
+            999936600
         ],
         "Position": [
             "0|0|0"
@@ -6447,9 +6447,9 @@
         ]
     },
     {
-        "Id": 99985681,
-        "Behavior": 99985681,
-        "Name": "\u6218\u8f66\u4e4b\u738b\u4e8c\u9636\u6bb5\u7ad9\u6869",
+        "Id": 99985750,
+        "Behavior": 99985750,
+        "Name": "\u67ef\u857e\u591a\u5c14\u4e00\u9636",
         "Environment": null,
         "TerrainRoot": null,
         "CloseLoadingDelay": 0.15,
@@ -6458,7 +6458,49 @@
         "SceneCamera": 11,
         "CameraId": 9,
         "Terrains": [
-            999856810
+            999857500
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 99985751,
+        "Behavior": 99985751,
+        "Name": "\u67ef\u857e\u591a\u5c14\u4e8c\u9636",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.15,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 11,
+        "CameraId": 9,
+        "Terrains": [
+            999857510
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 99993670,
+        "Behavior": 99993670,
+        "Name": "\u5175\u4fd1",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.15,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 25,
+        "CameraId": 9,
+        "Terrains": [
+            999936700
         ],
         "Position": [
             "0|0|0"

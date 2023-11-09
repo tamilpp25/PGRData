@@ -259,7 +259,9 @@
         "FunctionId": 10103,
         "SkipId": null,
         "RewardId": null,
-        "RedPointConditions": []
+        "RedPointConditions": [
+            "CONDITION_BFRT_COURSE_REWARD"
+        ]
     },
     {
         "Id": 14,
@@ -359,6 +361,26 @@
         "FunctionId": 10453,
         "SkipId": null,
         "RewardId": 61700.0,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 19,
+        "Type": 90,
+        "NameEn": null,
+        "SimpleDesc": "\u5fa1\u7535\u643a\u9e23",
+        "Icon": "Assets/Product/Texture/Image/UiFubenChallengeBanner/UiFubenChallengeChapter21.png",
+        "IsClose": null,
+        "ResetType": null,
+        "ResetTime": null,
+        "ResetInterval": null,
+        "ShopId": null,
+        "IsOpen": 1,
+        "Priority": 16,
+        "ShowNewStartTime": null,
+        "ShowNewEndTime": null,
+        "FunctionId": 10448,
+        "SkipId": null,
+        "RewardId": null,
         "RedPointConditions": []
     }
 ]

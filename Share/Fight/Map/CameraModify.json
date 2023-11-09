@@ -198,6 +198,24 @@
         ]
     },
     {
+        "Id": 101901,
+        "Names": [
+            "RotationSpeed"
+        ],
+        "Values": [
+            3.0
+        ]
+    },
+    {
+        "Id": 101902,
+        "Names": [
+            "RotationSpeed"
+        ],
+        "Values": [
+            0.0
+        ]
+    },
+    {
         "Id": 849502,
         "Names": [
             "DefaultMovementCoefficient",
@@ -392,6 +410,154 @@
             0.8,
             7.0,
             0.8
+        ]
+    },
+    {
+        "Id": 856703,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMaxDistance",
+            "MaxVerticalAngle",
+            "MaxHeight"
+        ],
+        "Values": [
+            25.0,
+            4.0,
+            45.0,
+            2.5
+        ]
+    },
+    {
+        "Id": 856709,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "MaxHeight"
+        ],
+        "Values": [
+            25.0,
+            80.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 856741,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            25.0,
+            45.0
+        ]
+    },
+    {
+        "Id": 856743,
+        "Names": [
+            "DefaultMaxDistance",
+            "MaxVerticalAngle",
+            "FocusMaxDistance"
+        ],
+        "Values": [
+            15.0,
+            45.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 856807,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "FocusMovementCoefficient",
+            "DollyOutCoefficient",
+            "DefaultDistance",
+            "DefaultMinDistance",
+            "DefaultMaxDistance",
+            "FocusMinDistance",
+            "FocusMaxDistance"
+        ],
+        "Values": [
+            25.0,
+            45.0,
+            40.0,
+            15.0,
+            5.0,
+            5.0,
+            10.0,
+            5.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 856809,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "MinVerticalAngle",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusVerticalCoefficient",
+            "FocusHeight",
+            "MinHeight"
+        ],
+        "Values": [
+            25.0,
+            60.0,
+            -45.0,
+            3.0,
+            8.0,
+            0.5,
+            0.3,
+            0.3
+        ]
+    },
+    {
+        "Id": 856811,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "FocusMovementCoefficient",
+            "DollyOutCoefficient"
+        ],
+        "Values": [
+            25.0,
+            45.0,
+            40.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 856812,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle"
+        ],
+        "Values": [
+            25.0,
+            45.0
+        ]
+    },
+    {
+        "Id": 856813,
+        "Names": [
+            "FocusMovementCoefficient",
+            "MaxVerticalAngle",
+            "MaxHeight"
+        ],
+        "Values": [
+            25.0,
+            45.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 856887,
+        "Names": [
+            "FocusMaxDistance"
+        ],
+        "Values": [
+            10.0
         ]
     }
 ]

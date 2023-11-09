@@ -81,7 +81,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 930199,
@@ -165,7 +166,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 930299,
@@ -249,7 +251,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 930399,
@@ -333,7 +336,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 930499,
@@ -417,7 +421,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 930799,
@@ -501,7 +506,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 931399,
@@ -585,7 +591,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 932099,
@@ -669,7 +676,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 934199,
@@ -753,7 +761,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 934799,
@@ -837,7 +846,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 934899,
@@ -921,7 +931,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 935599,
@@ -1005,7 +1016,8 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
     },
     {
         "Id": 935699,
@@ -1089,6 +1101,92 @@
         "ShapeComponentParams": [],
         "BornPositionParams": [],
         "RLCrashEffect": null,
-        "RLCrashObject": null
+        "RLCrashObject": null,
+        "RLTransOffset": null
+    },
+    {
+        "Id": 857799,
+        "Name": null,
+        "Shape": 0,
+        "SizeX": null,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": null,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": null,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 5,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": "Root",
+        "Effect": "FxMb1MelodyhuaxugaiDeath",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": null,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": null,
+        "BeHitCenter": null,
+        "HitShakeDirection": null,
+        "HitShakeDuration": null,
+        "HitShakeIntensity": null,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": null,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 1,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": null,
+        "HitEffectUseMissileDirection": null,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null
     }
 ]

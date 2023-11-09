@@ -47,10 +47,10 @@
     },
     {
         "Id": 4,
-        "Name": "\u6d6e\u5760\u9ed8\u4e95",
+        "Name": "\u76c8\u7bb1\u6ea2\u7ba7",
         "ManagerName": "FubenRepeatChallengeManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner09.png",
-        "TimeId": 22301.0,
+        "TimeId": 23701.0,
         "FunctionNameId": 10309.0,
         "SkipId": 20017.0,
         "Order": 1.0,
@@ -62,10 +62,10 @@
     },
     {
         "Id": 5,
-        "Name": "\u94f8\u706b\u711a\u98ce",
+        "Name": "\u8680\u8292\u6d4a\u8f89",
         "ManagerName": "FubenActivityBossSingleManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner105.png",
-        "TimeId": 22504.0,
+        "TimeId": 23905.0,
         "FunctionNameId": 10304.0,
         "SkipId": 11724.0,
         "Order": 4.0,
@@ -78,7 +78,7 @@
     {
         "Id": 6,
         "Name": "\u72ec\u57df\u7279\u653b",
-        "ManagerName": "PivotCombatManager",
+        "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner60.png",
         "TimeId": null,
         "FunctionNameId": 10422.0,
@@ -95,10 +95,10 @@
         "Name": "\u94fe\u5408\u56de\u8def\u00b7\u79fb\u98ce\u7834\u6597",
         "ManagerName": "SameColorActivityManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner130.png",
-        "TimeId": 22201.0,
+        "TimeId": null,
         "FunctionNameId": 10413.0,
         "SkipId": 82010.0,
-        "Order": 5.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_SAMECOLOR_TASK"
         ],
@@ -110,10 +110,10 @@
         "Name": "\u6620\u50cf\u6f5c\u6e0a",
         "ManagerName": "RiftManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner88.png",
-        "TimeId": 22001.0,
+        "TimeId": null,
         "FunctionNameId": 10437.0,
         "SkipId": 88003.0,
-        "Order": 3.0,
+        "Order": null,
         "RedPointConditions": [
             "CONDITION_RIFT_ENTRANCE"
         ],
@@ -151,7 +151,7 @@
     {
         "Id": 11,
         "Name": "\u5206\u5149\u53cc\u661f",
-        "ManagerName": "FubenCoupleCombatManager",
+        "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner68.png",
         "TimeId": null,
         "FunctionNameId": 10343.0,
@@ -225,10 +225,10 @@
     },
     {
         "Id": 16,
-        "Name": "\u9057\u5fd8\u8005\u68d8\u9014",
+        "Name": "\u64b0\u94ed\u8005\u6fef\u4e16",
         "ManagerName": "FubenNewCharActivityManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner129.png",
-        "TimeId": 22501.0,
+        "TimeId": 23901.0,
         "FunctionNameId": 10325.0,
         "SkipId": 20071.0,
         "Order": 2.0,
@@ -241,7 +241,7 @@
     {
         "Id": 17,
         "Name": "\u8d85\u9650\u4e71\u6597-\u7f1a\u56da\u6b7b\u6218",
-        "ManagerName": "SuperSmashBrosManager",
+        "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner99.png",
         "TimeId": null,
         "FunctionNameId": 10350.0,
@@ -400,7 +400,7 @@
     {
         "Id": 28,
         "Name": "\u5168\u5883\u7279\u9063\u00b7\u6c99\u76d8\u62df\u7b97",
-        "ManagerName": "AreaWarManager",
+        "ManagerName": null,
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner118.png",
         "TimeId": null,
         "FunctionNameId": 10349.0,
@@ -415,7 +415,7 @@
     {
         "Id": 29,
         "Name": "\u8fdc\u6b4c\u6df1\u6f5c",
-        "ManagerName": "KillZoneManager",
+        "ManagerName": "AreaWarManager",
         "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner116.png",
         "TimeId": null,
         "FunctionNameId": 10339.0,
@@ -429,14 +429,17 @@
     },
     {
         "Id": 30,
-        "Name": "\u4f59\u5c18\u4e09\u91cd\u594f",
-        "ManagerName": "CerberusGameManager",
-        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner114.png",
-        "TimeId": null,
+        "Name": "\u5fa1\u7535\u643a\u9e23",
+        "ManagerName": "XCerberusGame",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner131.png",
+        "TimeId": 23001.0,
         "FunctionNameId": 10448.0,
         "SkipId": 89018.0,
-        "Order": null,
-        "RedPointConditions": [],
+        "Order": 3.0,
+        "RedPointConditions": [
+            "CERBERUSE_GAME_CHECK_BTN_FASHION_STORY_RED",
+            "CERBERUSE_GAME_CHECK_BTN_FASHION_CHALLENGE_RED"
+        ],
         "Note": "\u4e09\u5934\u72ac\u5c0f\u961f",
         "IsAgency": null
     },
@@ -541,6 +544,36 @@
             "CONDITION_ACTIVITY_TAIKO_MASTER_TASK"
         ],
         "Note": "\u6218\u53cc\u97f3\u6e38",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 38,
+        "Name": "\u53e6\u4e16\u6784\u60f3\u00b7\u4e5d\u9f99\u4e00\u5546",
+        "ManagerName": "XRogueSimAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner132.png",
+        "TimeId": 23201.0,
+        "FunctionNameId": 10457.0,
+        "SkipId": 89044.0,
+        "Order": 5.0,
+        "RedPointConditions": [
+            "CONDITION_ROGUESIM_ACTIVITY"
+        ],
+        "Note": "\u8089\u9e3d\u6a21\u62df\u7ecf\u8425",
+        "IsAgency": 1.0
+    },
+    {
+        "Id": 39,
+        "Name": "\u9b54\u65b9\u5f39\u8df3\u4e50",
+        "ManagerName": "XDlcCasualAgency",
+        "Icon": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner73.png",
+        "TimeId": 23401.0,
+        "FunctionNameId": 10458.0,
+        "SkipId": 89045.0,
+        "Order": 6.0,
+        "RedPointConditions": [
+            "CONDITION_DLC_CASUAL_ACTIVITY"
+        ],
+        "Note": "DLC\u9b54\u65b9",
         "IsAgency": 1.0
     }
 ]
