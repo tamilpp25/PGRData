@@ -1,7 +1,7 @@
 [
     {
         "Id": 9366,
-        "AttribId": 9340,
+        "AttribId": 9366,
         "PromotedId": 9299,
         "Kind": 2,
         "Type": 2,
@@ -18,7 +18,7 @@
         "BodyRadius": 1,
         "CameraCollideRadius": 1,
         "HitRadius": 0.1,
-        "IgnoreCollisionToNpc": null,
+        "IgnoreCollisionToNpc": 1,
         "IgnoreCollisionFromNpc": null,
         "ModelScale": 1,
         "OffsetScale": 1,
@@ -34,7 +34,7 @@
         "StandUpTailTime": 0,
         "StandUpImmuneHitTime": 1,
         "MaxHitValue": 10,
-        "BeHitInterval": 1.5,
+        "BeHitInterval": null,
         "ImmuneHitLevel": null,
         "Ball": null,
         "RandomBall": null,
@@ -53,6 +53,7 @@
         "SprintMotionOffset": null,
         "HasSprintTilt": null,
         "HasSprintToStand": null,
+        "HasNeoWalk": null,
         "CollisionPriority": 3,
         "ForceSqueezeOut": 1,
         "UseShadowMesh": null,
@@ -71,9 +72,9 @@
             900008,
             900051,
             800458,
-            800428,
-            800312,
-            936670,
+            800426,
+            800313,
+            936683,
             936648
         ],
         "SkillId": [
@@ -110,7 +111,9 @@
             936631,
             936632,
             936633,
-            936634
+            936634,
+            936635,
+            936636
         ]
     }
 ]

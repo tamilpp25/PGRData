@@ -1,0 +1,49 @@
+[
+    {
+        "Id": 1,
+        "ActionId": 1,
+        "NextActionId": null,
+        "Type": 101,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": "AniZhuanchangEnd",
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "Assets/Product/Texture/Image/BgCg/Cgqz1902.jpg"
+        ]
+    },
+    {
+        "Id": 2,
+        "ActionId": 2,
+        "NextActionId": null,
+        "Type": 401,
+        "IsBlock": null,
+        "IsEnd": null,
+        "BeginAnim": null,
+        "EndAnim": null,
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "1",
+            36.0
+        ]
+    },
+    {
+        "Id": 3,
+        "ActionId": 3,
+        "NextActionId": null,
+        "Type": 301,
+        "IsBlock": null,
+        "IsEnd": 1.0,
+        "BeginAnim": "DialogEnable",
+        "EndAnim": "AniZhuanchangBegin",
+        "BeginDelay": null,
+        "EndDelay": null,
+        "Params": [
+            "\u4e09\u5343\u4e03\u767e\u4e94\u5341\u4e8c\u4e07\u591a\u4e2a\u8ba1\u7b97\u5faa\u73af\u8fc7\u53bb\u4e86\uff0c\u53ea\u6709\u4f60\u8fd8\u89c9\u5f97\uff0c\u6211\u4eec\u6ca1\u6709\u8d62\u4e0b\u90a3\u573a\u6218\u4e89\uff0c\u5979\u4eec\u751a\u81f3\u90fd\u5df2\u7ecf\u5fd8\u8bb0\u4e86\u4f60\u7684\u540d\u5b57\u3002",
+            100003395.0
+        ]
+    }
+]

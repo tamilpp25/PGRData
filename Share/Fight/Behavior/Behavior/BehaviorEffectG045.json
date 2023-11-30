@@ -27,6 +27,15 @@
         "RemoveRoot": null
     },
     {
+        "Id": 856719,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451394,
+        "Root": 680451574.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
         "Id": 856722,
         "Type": "OnBeforeDamage",
         "Priority": 3,
@@ -36,11 +45,20 @@
         "RemoveRoot": null
     },
     {
-        "Id": 856725,
+        "Id": 856723,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 680450748,
         "Root": 680450750.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856725,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451800,
+        "Root": 680451802.0,
         "PreLoadRoot": null,
         "RemoveRoot": null
     },
@@ -63,10 +81,37 @@
         "RemoveRoot": null
     },
     {
+        "Id": 856744,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680450373,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856873,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680452045,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856759,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451878,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
         "Id": 856775,
         "Type": "OnAfterDamage",
         "Priority": 3,
-        "PrefixRoot": 680450373,
+        "PrefixRoot": 680451708,
         "Root": 680450380.0,
         "PreLoadRoot": null,
         "RemoveRoot": null
@@ -81,7 +126,7 @@
         "RemoveRoot": null
     },
     {
-        "Id": 856790,
+        "Id": 856920,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 680450625,
@@ -135,6 +180,15 @@
         "RemoveRoot": null
     },
     {
+        "Id": 856789,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680450246,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
         "Id": 856820,
         "Type": "OnBeforeDamage",
         "Priority": 3,
@@ -163,7 +217,7 @@
     },
     {
         "Id": 856823,
-        "Type": "OnFrame",
+        "Type": "OnBeHit",
         "Priority": 3,
         "PrefixRoot": 680451000,
         "Root": 680451007.0,
@@ -216,11 +270,65 @@
         "RemoveRoot": null
     },
     {
-        "Id": 857001,
+        "Id": 856880,
+        "Type": "OnMissileCollision",
+        "Priority": 3,
+        "PrefixRoot": 680450481,
+        "Root": 680450483.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856881,
+        "Type": "OnBeforeDamage",
+        "Priority": 3,
+        "PrefixRoot": 680450524,
+        "Root": 680450526.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856882,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680450538,
+        "Root": 680450540.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856892,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 680450032,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856905,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680452071,
         "Root": 680450036.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856835,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680450016,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857001,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680452058,
+        "Root": 680452060.0,
         "PreLoadRoot": null,
         "RemoveRoot": null
     },
@@ -229,6 +337,15 @@
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 680451235,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857003,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451420,
         "Root": null,
         "PreLoadRoot": null,
         "RemoveRoot": null
@@ -243,10 +360,73 @@
         "RemoveRoot": null
     },
     {
+        "Id": 857195,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451462,
+        "Root": 680451464.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
         "Id": 857196,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 680450063,
+        "Root": 680451461.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 856900,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451636,
+        "Root": 680451641.0,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857090,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680450875,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857091,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451757,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857092,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451765,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857093,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451767,
+        "Root": null,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 857094,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 680451769,
         "Root": null,
         "PreLoadRoot": null,
         "RemoveRoot": null

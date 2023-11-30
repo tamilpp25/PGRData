@@ -31,8 +31,8 @@
         "HpWidgetType": 1,
         "RollCharHeight": 1,
         "LieOnFloorTime": 0.1,
-        "StandUpTailTime": 1.0,
-        "StandUpImmuneHitTime": 1.0,
+        "StandUpTailTime": 3.0,
+        "StandUpImmuneHitTime": 0.3,
         "MaxHitValue": 10.0,
         "BeHitInterval": 0.0,
         "ImmuneHitLevel": null,
@@ -53,8 +53,9 @@
         "SprintMotionOffset": null,
         "HasSprintTilt": null,
         "HasSprintToStand": null,
+        "HasNeoWalk": null,
         "CollisionPriority": 3,
-        "ForceSqueezeOut": null,
+        "ForceSqueezeOut": 1.0,
         "UseShadowMesh": null,
         "ShadowQuadScale": 0.3,
         "DisableMotionRotation": null,
@@ -68,8 +69,8 @@
             100054,
             112634,
             112681,
-            112696.0,
-            112659.0,
+            112696,
+            112659,
             113697.0,
             112644.0
         ],
@@ -176,8 +177,9 @@
         "SprintMotionOffset": null,
         "HasSprintTilt": null,
         "HasSprintToStand": null,
+        "HasNeoWalk": null,
         "CollisionPriority": 3,
-        "ForceSqueezeOut": null,
+        "ForceSqueezeOut": 1.0,
         "UseShadowMesh": null,
         "ShadowQuadScale": 0.3,
         "DisableMotionRotation": null,
@@ -189,7 +191,9 @@
             114604,
             114605,
             114606,
-            114607
+            114607,
+            115665,
+            115666
         ],
         "SkillId": []
     },
@@ -247,6 +251,7 @@
         "SprintMotionOffset": null,
         "HasSprintTilt": null,
         "HasSprintToStand": null,
+        "HasNeoWalk": null,
         "CollisionPriority": 3,
         "ForceSqueezeOut": null,
         "UseShadowMesh": null,
@@ -262,7 +267,9 @@
             114604,
             114605,
             114606,
-            114607.0
+            114607,
+            115665,
+            115666.0
         ],
         "SkillId": [
             114601.0,
@@ -332,6 +339,7 @@
         "SprintMotionOffset": null,
         "HasSprintTilt": null,
         "HasSprintToStand": null,
+        "HasNeoWalk": null,
         "CollisionPriority": 3,
         "ForceSqueezeOut": null,
         "UseShadowMesh": null,
@@ -347,8 +355,8 @@
             114604,
             114605,
             114606,
-            114607.0,
-            115665.0,
+            114607,
+            115665,
             115666.0
         ],
         "SkillId": [

@@ -1843,11 +1843,11 @@
     },
     {
         "Id": 1521004,
-        "Type": 7,
+        "Type": 2,
         "Model": "Assets/Product/Role/Room/Prefab/QR3QuMd010011.prefab",
-        "Name": "\u66f2 \u96c0\u7fce",
+        "Name": "\u66f2 \u542f\u660e",
         "NameFrist": "\u66f2",
-        "NameLast": "\u96c0\u7fce",
+        "NameLast": "\u542f\u660e",
         "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadR3Qu2Q.png",
         "HeadIcon": "Assets/Product/Texture/Image/Role/RoleHeadR3Qu1Q.png",
         "ExpFondleWidgetHeight": 0.85,
@@ -1857,18 +1857,45 @@
         "DailogTouchHight": 0.51,
         "EffectWidgetHight": 1,
         "TouchWidgetHight": 0.6,
-        "LoveType": 3,
-        "LikeType": 1,
+        "LoveType": 1,
+        "LikeType": 3,
         "LikeCharIds": [
-            1021004.0
+            1551003.0
         ],
-        "HateCharIds": [
-            1021003.0
-        ],
+        "HateCharIds": [],
         "QuestAttrib": [
             1.0,
             2.0,
             7.0
+        ]
+    },
+    {
+        "Id": 1291002,
+        "Type": 2,
+        "Model": "Assets/Product/Role/Room/Prefab/QR2BuouxiongMd010011.prefab",
+        "Name": "\u5e03\u5076\u718a \u89c5\u8bed",
+        "NameFrist": "\u5e03\u5076\u718a",
+        "NameLast": "\u89c5\u8bed",
+        "HeadRoundIcon": "Assets/Product/Texture/Image/Role/RoleHeadR2Buouxiong2Q.png",
+        "HeadIcon": "Assets/Product/Texture/Image/Role/RoleHeadR2Buouxiong1Q.png",
+        "ExpFondleWidgetHeight": 0.85,
+        "ExpDetailWidgetHeight": 0.7,
+        "PutOnWidgetHight": 1.2,
+        "DailogWidgetHight": 1.4,
+        "DailogTouchHight": 0.51,
+        "EffectWidgetHight": 1,
+        "TouchWidgetHight": 0.6,
+        "LoveType": 1,
+        "LikeType": 2,
+        "LikeCharIds": [
+            1071002.0,
+            1071003.0,
+            1071004.0
+        ],
+        "HateCharIds": [],
+        "QuestAttrib": [
+            3.0,
+            6.0
         ]
     }
 ]

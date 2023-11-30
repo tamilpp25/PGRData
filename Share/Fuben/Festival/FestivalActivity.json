@@ -813,9 +813,7 @@
         "Priority": 26,
         "FubenActivityOrder": null,
         "FunctionOpenId": 10306,
-        "SkipId": [
-            20159.0
-        ],
+        "SkipId": [],
         "StagePrefix": "LIV-",
         "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner83.png",
         "ChapterType": 27,
@@ -827,11 +825,7 @@
         "TitleIcon": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanImg01.png",
         "TitleBg": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanTitleBg01.png",
         "ChapterBgm": 163.0,
-        "StageId": [
-            30130408.0,
-            30130409.0,
-            30130410.0
-        ]
+        "StageId": []
     },
     {
         "Id": 27,
@@ -1050,6 +1044,36 @@
             30130413.0,
             30130414.0,
             30130415.0
+        ]
+    },
+    {
+        "Id": 34,
+        "TimeId": 24101.0,
+        "ActivityTimeId": null,
+        "UiType": 2.0,
+        "Name": "\u61a9\u68a6\u7a79\u68ee\u00b7\u590d\u523b",
+        "Priority": 34,
+        "FubenActivityOrder": null,
+        "FunctionOpenId": 10306,
+        "SkipId": [
+            20161.0,
+            20207.0
+        ],
+        "StagePrefix": "LIV-",
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner83.png",
+        "ChapterType": 27,
+        "MainBackgound": "Assets/Product/Texture/Image/UiFubenTuzhuang/UiFubenTuzhuangshiwanBg.png",
+        "EffectUrl": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTuzhuangShiwan/FuBenTuzhuangShiwan.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageTuzhuangFight.prefab",
+        "GridStoryPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageTuzhuangStory1.prefab",
+        "TitleIcon": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanImg01.png",
+        "TitleBg": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanTitleBg01.png",
+        "ChapterBgm": 163.0,
+        "StageId": [
+            30130408.0,
+            30130409.0,
+            30130410.0
         ]
     }
 ]

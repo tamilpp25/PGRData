@@ -325,14 +325,14 @@
     },
     {
         "Id": 10,
-        "TimeId": 23301.0,
+        "TimeId": null,
         "LottoGroupId": 10,
         "LottoStageActivity": null,
         "Priority": 10,
         "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
         "OpenUiName": "UiLottoVera",
         "ReachRewardTimes": 8,
-        "ExtraRewardId": 1288,
+        "ExtraRewardId": 1309,
         "ConsumeId": 50116,
         "ConsumeCountList": [
             50,
@@ -357,6 +357,42 @@
             98,
             99,
             100
+        ]
+    },
+    {
+        "Id": 11,
+        "TimeId": 24101.0,
+        "LottoGroupId": 11,
+        "LottoStageActivity": 34.0,
+        "Priority": 11,
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra02.prefab",
+        "OpenUiName": "UiLottoLifu",
+        "ReachRewardTimes": 8,
+        "ExtraRewardId": 1264,
+        "ConsumeId": 50118,
+        "ConsumeCountList": [
+            50,
+            100,
+            250,
+            400,
+            600,
+            800,
+            1200,
+            1700,
+            2200,
+            2700
+        ],
+        "BuyTicketRuleIdList": [
+            101,
+            102,
+            103,
+            104,
+            105,
+            106,
+            107,
+            108,
+            109,
+            110
         ]
     }
 ]

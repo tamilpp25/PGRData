@@ -1712,12 +1712,12 @@
     {
         "Key": "ActivityShopItemTextCanBuyColor",
         "Type": "string",
-        "Value": "1390"
+        "Value": "001390ff"
     },
     {
         "Key": "ActivityShopItemTextCanNotBuyColor",
         "Type": "string",
-        "Value": "d23131"
+        "Value": "d23131ff"
     },
     {
         "Key": "NierShopItemTextCanBuyColor",
@@ -2037,7 +2037,7 @@
     {
         "Key": "MusicPlayerTextScrollSpeed",
         "Type": "float",
-        "Value": "0.3"
+        "Value": "80"
     },
     {
         "Key": "MusicPlayerIconRotateSpeed",
@@ -3257,32 +3257,32 @@
     {
         "Key": "AprilFoolsDayStartTime",
         "Type": "string",
-        "Value": "2022-4-1 0:00"
+        "Value": "2022/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayEndTime",
         "Type": "string",
-        "Value": "2022-4-2 0:00"
+        "Value": "2022/4/2 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleStartTime",
         "Type": "string",
-        "Value": "2023-4-1 0:00"
+        "Value": "2023/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleEndTime",
         "Type": "string",
-        "Value": "2023-4-2 0:00"
+        "Value": "2023/4/2 0:00"
     },
     {
         "Key": "AprilFoolsDayCuteModeltartTime",
         "Type": "string",
-        "Value": "2023-4-1 0:00"
+        "Value": "2023/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayCuteModelEndTime",
         "Type": "string",
-        "Value": "2023-4-2 0:00"
+        "Value": "2023/4/2 0:00"
     },
     {
         "Key": "CharSkillQualityNor",
@@ -3372,12 +3372,12 @@
     {
         "Key": "UiLoginMovieTimeStr",
         "Type": "string",
-        "Value": "2022-4-29 0:00"
+        "Value": "2022/4/29 0:00"
     },
     {
         "Key": "UiLoginMovieTimeEnd",
         "Type": "string",
-        "Value": "2022-5-10 0:00"
+        "Value": "2022/5/10 0:00"
     },
     {
         "Key": "CourseLessonStagePrfab",
@@ -4170,6 +4170,11 @@
         "Value": "9999910"
     },
     {
+        "Key": "SubpackageNecessaryTaskId",
+        "Type": "int",
+        "Value": "98052"
+    },
+    {
         "Key": "CharacterEnhanceSkillTipsBlackList",
         "Type": "string",
         "Value": "1011002|1021002|1031003|1081003|1141003|1131002|1051003|1021003|1041003"
@@ -4193,5 +4198,35 @@
         "Key": "AnniversaryReviewJPGQuality",
         "Type": "int",
         "Value": "98"
+    },
+    {
+        "Key": "AnniversaryReviewScrollLimitPercent",
+        "Type": "float",
+        "Value": "0.2"
+    },
+    {
+        "Key": "AnniversaryDrawId",
+        "Type": "string",
+        "Value": "5038|5039|5040|5041|5042|5043|5044|5045|5046|5047|5048|5049|5050|5051|5052|5053|5054|5055|5056|5057|5058|5059|5060"
+    },
+    {
+        "Key": "KotodamaActivityStageFocusY",
+        "Type": "float",
+        "Value": "-50"
+    },
+    {
+        "Key": "KotodamaActivityStageMoveDuration",
+        "Type": "float",
+        "Value": "0.5"
+    },
+    {
+        "Key": "FashionCameraPos",
+        "Type": "string",
+        "Value": "0.2|1.18|-26.22"
+    },
+    {
+        "Key": "FashionCameraRot",
+        "Type": "string",
+        "Value": "2.25|0|0"
     }
 ]

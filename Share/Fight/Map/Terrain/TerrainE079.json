@@ -2102,5 +2102,52 @@
         ],
         "DefaultObstacleArea": [],
         "DefaultDynamicObject": []
+    },
+    {
+        "Id": 300628640,
+        "Name": "Scene04102",
+        "Info": 30062864,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "B101",
+            "B101",
+            "B101",
+            "B101"
+        ],
+        "DefaultObstacleArea": [
+            "Trigger03",
+            "FightLock"
+        ],
+        "DefaultDynamicObject": []
+    },
+    {
+        "Id": 300628650,
+        "Name": "Scene03206",
+        "Info": 30062865,
+        "BornPosition": [
+            "PB1",
+            "PB2",
+            "PB3",
+            "PB4",
+            "PB5"
+        ],
+        "LookPosition": [
+            "S1",
+            "B101",
+            "B101",
+            "B101",
+            "B101"
+        ],
+        "DefaultObstacleArea": [
+            "E1"
+        ],
+        "DefaultDynamicObject": []
     }
 ]

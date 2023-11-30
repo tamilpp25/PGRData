@@ -1074,7 +1074,7 @@
     {
         "Id": 23,
         "Name": "\u9057\u5fd8\u8005\u68d8\u9014",
-        "TimeId": 28.0,
+        "TimeId": null,
         "ChallengeStage": [
             30160561.0,
             30160562.0,
@@ -1122,5 +1122,57 @@
         "SkinDrawSkipId": null,
         "SkipGet": null,
         "ChallengeCondition": 96016.0
+    },
+    {
+        "Id": 24,
+        "Name": "\u64b0\u94ed\u8005\u6fef\u4e16",
+        "TimeId": 28.0,
+        "ChallengeStage": [
+            30160564.0,
+            30160565.0,
+            30160566.0
+        ],
+        "StageId": [
+            30100023.0,
+            30100024.0,
+            30100025.0
+        ],
+        "LinkStageId": [
+            30100020.0,
+            30100021.0,
+            30100022.0
+        ],
+        "ShowRewardId": 1013096.0,
+        "TreasureId": [
+            95,
+            96,
+            97,
+            98.0,
+            99.0,
+            100.0,
+            101.0
+        ],
+        "TotalStars": 9,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/FuBenWatanabeActivity01.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/GridWatanabeActivityStage01.prefab",
+        "FubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/FuBenWatanabeActivity02.prefab",
+        "GridFubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/GridWatanabeActivityStage02.prefab",
+        "ConditionId": null,
+        "MainBgImg": null,
+        "StageBgImg": null,
+        "TitleImg": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner129.png",
+        "CharacterId": 1521004,
+        "SkipIdDraw": 7209,
+        "SkipIdAct": null,
+        "SkipIdJZ": null,
+        "SkipIdChar": null,
+        "SkipIdSkin": 20111.0,
+        "NewCharType": 24,
+        "MovieId": null,
+        "SkinTrialStageId": null,
+        "SkinDrawSkipId": null,
+        "SkipGet": null,
+        "ChallengeCondition": 96017.0
     }
 ]
