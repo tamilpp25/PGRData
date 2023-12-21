@@ -1,7 +1,7 @@
 [
     {
         "Key": "Normal",
-        "UiTemplate": "NormalTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -15,7 +15,13 @@
         "RollCharEndOpacity": 0.6,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": null,
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 1.0,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Crit",
@@ -33,11 +39,17 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 0,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCritTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.1,
+        "TextColor": "FAE52A",
+        "TextScale": 0.9
     },
     {
         "Key": "Fire",
-        "UiTemplate": "FireTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -51,11 +63,17 @@
         "RollCharEndOpacity": 0.6,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightFireTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Electric",
-        "UiTemplate": "ThunderTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -69,11 +87,17 @@
         "RollCharEndOpacity": 0.6,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightThunderTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Ice",
-        "UiTemplate": "IceTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -87,11 +111,17 @@
         "RollCharEndOpacity": 0.6,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/ImgIceTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Dark",
-        "UiTemplate": "DarkTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -105,11 +135,17 @@
         "RollCharEndOpacity": 0.6,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightDarkTemplate.png",
+        "IconColor": "9E84FF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Lifesteal",
-        "UiTemplate": "SuckBloodTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 50,
         "RollCharRandomRangeVertical": 55,
@@ -123,11 +159,17 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightSuckBloodTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Cure",
-        "UiTemplate": "CureTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 15,
         "RollCharRandomRangeVertical": 15,
@@ -141,7 +183,13 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.2,
         "RollCharOffsetX": 0,
-        "RollCharOffsetY": 60
+        "RollCharOffsetY": 60,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCureTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FFFFFF",
+        "TextScale": 0.9
     },
     {
         "Key": "Execute",
@@ -159,7 +207,13 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 0,
+        "IconUrl": null,
+        "IconColor": "FF9D01",
+        "IconColorAlpha": 0.63,
+        "TextColor": "FF9743",
+        "TextScale": 0.9
     },
     {
         "Key": "DoubleCrit",
@@ -177,11 +231,17 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": 20,
-        "RollCharOffsetY": -65
+        "RollCharOffsetY": -65,
+        "GeneralTemplate": 0,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCritTemplate.png",
+        "IconColor": "FF9D01",
+        "IconColorAlpha": 0.63,
+        "TextColor": "FF9743",
+        "TextScale": 0.9
     },
     {
         "Key": "NormalMyself",
-        "UiTemplate": "NormalToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -195,11 +255,17 @@
         "RollCharEndOpacity": 0.8,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": null,
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 1.0,
+        "TextColor": "FF4A64",
+        "TextScale": 0.9
     },
     {
         "Key": "CritMyself",
-        "UiTemplate": "CritToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -213,11 +279,17 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightSuckBloodTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FF4A65",
+        "TextScale": 0.9
     },
     {
         "Key": "FireMyself",
-        "UiTemplate": "FireToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -231,11 +303,17 @@
         "RollCharEndOpacity": 0.8,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightFireTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FF4A66",
+        "TextScale": 0.9
     },
     {
         "Key": "ElectricMyself",
-        "UiTemplate": "ThunderToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -249,11 +327,17 @@
         "RollCharEndOpacity": 0.8,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightThunderTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FF4A67",
+        "TextScale": 0.9
     },
     {
         "Key": "IceMyself",
-        "UiTemplate": "IceToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -267,11 +351,17 @@
         "RollCharEndOpacity": 0.8,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/ImgIceTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "FF4A68",
+        "TextScale": 0.9
     },
     {
         "Key": "DarkMyself",
-        "UiTemplate": "DarkToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -285,11 +375,17 @@
         "RollCharEndOpacity": 0.8,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightDarkTemplate.png",
+        "IconColor": "9E84FF",
+        "IconColorAlpha": 0.055,
+        "TextColor": "FF4A69",
+        "TextScale": 0.9
     },
     {
         "Key": "LifestealMyself",
-        "UiTemplate": "SuckBloodToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 40,
         "RollCharRandomRangeVertical": 20,
@@ -303,11 +399,17 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightSuckBloodTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "76DF9E",
+        "TextScale": 0.9
     },
     {
         "Key": "CureMyself",
-        "UiTemplate": "CureToSelfTemplate",
+        "UiTemplate": "GirdTemplate",
         "UiCotainer": "NormalContainer",
         "RollCharRandomRangeHorizontal": 15,
         "RollCharRandomRangeVertical": 15,
@@ -321,7 +423,13 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.2,
         "RollCharOffsetX": 0,
-        "RollCharOffsetY": 60
+        "RollCharOffsetY": 60,
+        "GeneralTemplate": 1,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCureTemplate.png",
+        "IconColor": "FFFFFF",
+        "IconColorAlpha": 0.5,
+        "TextColor": "76DF9E",
+        "TextScale": 0.9
     },
     {
         "Key": "ExecuteMyself",
@@ -339,7 +447,13 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 0,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCritTemplate.png",
+        "IconColor": "FF9D01",
+        "IconColorAlpha": 0.63,
+        "TextColor": "FF9743",
+        "TextScale": 0.9
     },
     {
         "Key": "DoubleCritMyself",
@@ -357,6 +471,12 @@
         "RollCharEndOpacity": 1.0,
         "RollCharChangeOpacityTime": 0.1,
         "RollCharOffsetX": -30,
-        "RollCharOffsetY": 20
+        "RollCharOffsetY": 20,
+        "GeneralTemplate": 0,
+        "IconUrl": "Assets/Product/Texture/Image/UiFight/UiFightCritTemplate.png",
+        "IconColor": "FF9D01",
+        "IconColorAlpha": 0.63,
+        "TextColor": "FF9743",
+        "TextScale": 0.9
     }
 ]

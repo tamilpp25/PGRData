@@ -2144,7 +2144,7 @@
         "Origin": 2,
         "UiName": "UiAutoWindow",
         "ParamId": 71.0,
-        "Explain": "v2.8\u7248\u672c\u66f2\u7248\u672c\u7684CG\u6253\u8138",
+        "Explain": "V2.10\u7248\u672c\u6253\u8138\u56fe",
         "FunctionalId": null,
         "TimeId": null,
         "StartTime": null,
@@ -2160,7 +2160,7 @@
         "Origin": 2,
         "UiName": "UiAutoWindow",
         "ParamId": 72.0,
-        "Explain": "v2.9v2.10\u5e03\u5076\u718a\u8de8\u7248\u672c\u9884\u70ed\u6253\u8138",
+        "Explain": "V2.10\u7248\u672c\u590d\u523b\u8d85\u4e3d\u8299\u5361\u6c60\u7279\u6548\u76ae\u6253\u8138",
         "FunctionalId": null,
         "TimeId": null,
         "StartTime": null,
@@ -3291,6 +3291,38 @@
         "Explain": "2.9\u7248\u672c\u4e03\u65e5\u7b7e\u5230",
         "FunctionalId": null,
         "TimeId": null,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 50073,
+        "Origin": 2,
+        "UiName": "UiSignBanner",
+        "ParamId": 66.0,
+        "Explain": "2.10\u5143\u65e6\u4e09\u65e5\u7b7e\u5230",
+        "FunctionalId": null,
+        "TimeId": 24104.0,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 50074,
+        "Origin": 2,
+        "UiName": "UiSignBanner",
+        "ParamId": 67.0,
+        "Explain": "2.10\u7248\u672c\u4e03\u65e5\u7b7e\u5230",
+        "FunctionalId": null,
+        "TimeId": 24105.0,
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [],
@@ -8253,6 +8285,24 @@
         "CloseTime": null,
         "CustomParams": [
             10280109.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 512,
+        "Origin": 7,
+        "UiName": "OnOpenMainLineStage",
+        "ParamId": null,
+        "Explain": "\u4e3b\u7ebf - \u7b2cxx\u7ae0\uff08\u67e5\u8be2Share-Fuben-Mainline-Chapter.tab\uff0c\u586b\u5199\u7ae0\u8282\u7b2c\u4e00\u5173Id\uff09",
+        "FunctionalId": 10308.0,
+        "TimeId": null,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [
+            10290101.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -16983,7 +17033,7 @@
         "ParamId": null,
         "Explain": "\u6d3b\u52a8\u5546\u5e97\u5151\u6362",
         "FunctionalId": 1001.0,
-        "TimeId": 23502.0,
+        "TimeId": 24402.0,
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
@@ -25105,6 +25155,25 @@
         "Unnamed: 17": null
     },
     {
+        "SkipId": 19057,
+        "Origin": 7,
+        "UiName": "OnOpenExhibition",
+        "ParamId": null,
+        "Explain": "\u6210\u5458-\u6cdb\u7528\u673a\u4f53",
+        "FunctionalId": 105.0,
+        "TimeId": null,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [
+            1291002.0,
+            1.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
         "SkipId": 20000,
         "Origin": 1,
         "UiName": "UiNewFuben",
@@ -26089,7 +26158,7 @@
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
-            1297.0
+            1401.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -26380,7 +26449,7 @@
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
-            24.0
+            25.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -27810,7 +27879,7 @@
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
-            1299.0
+            1403.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -27953,7 +28022,7 @@
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
-            26.0
+            34.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -28113,7 +28182,7 @@
         "StartTime": null,
         "CloseTime": null,
         "CustomParams": [
-            7.0
+            8.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -28826,6 +28895,44 @@
         "CloseTime": null,
         "CustomParams": [
             1297.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 20210,
+        "Origin": 6,
+        "UiName": "UiWelfare",
+        "ParamId": null,
+        "Explain": "\u5b8c\u6210\u201c\u65e7\u65e5\u96ea\u5f71\u201d\u6d3b\u52a8\u4efb\u52a1",
+        "FunctionalId": 1.0,
+        "TimeId": null,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [
+            1.0,
+            101.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 20211,
+        "Origin": 6,
+        "UiName": "UiFubenPracticeCharacterDetail",
+        "ParamId": null,
+        "Explain": "\u8df3\u8f6c\u8d5b\u5229\u5361\u6559\u5b66",
+        "FunctionalId": 1800.0,
+        "TimeId": null,
+        "StartTime": null,
+        "CloseTime": null,
+        "CustomParams": [
+            1031004.0,
+            30100027.0
         ],
         "IsHideFunc": 1.0,
         "IsShowExplain": null,
@@ -38068,6 +38175,100 @@
         "Unnamed: 17": null
     },
     {
+        "SkipId": 80142,
+        "Origin": 7,
+        "UiName": "OnOpenPassport",
+        "ParamId": null,
+        "Explain": "\u6218\u7565\u8bc4\u5b9a\u624b\u518c",
+        "FunctionalId": 10342.0,
+        "TimeId": null,
+        "StartTime": "2023/12/21 10:00",
+        "CloseTime": "2024/2/1 4:59",
+        "CustomParams": [],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 80143,
+        "Origin": 6,
+        "UiName": "UiPurchase",
+        "ParamId": null,
+        "Explain": "\u8d2d\u4e70\u6d82\u88c5\u8865\u7ed9\u5305",
+        "FunctionalId": 5.0,
+        "TimeId": null,
+        "StartTime": "2023/12/21 18:00",
+        "CloseTime": "2024/1/19 9:59",
+        "CustomParams": [
+            2.0,
+            0.0,
+            3.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 80144,
+        "Origin": 6,
+        "UiName": "UiShop",
+        "ParamId": 3.0,
+        "Explain": "\u6d82\u88c5\u5546\u5e97",
+        "FunctionalId": 1001.0,
+        "TimeId": null,
+        "StartTime": "2024/1/19 10:00",
+        "CloseTime": null,
+        "CustomParams": [
+            1.0,
+            0.0,
+            504.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 80145,
+        "Origin": 6,
+        "UiName": "UiPurchase",
+        "ParamId": null,
+        "Explain": "\u8d2d\u4e70\u6d82\u88c5\u8865\u7ed9\u5305",
+        "FunctionalId": 5.0,
+        "TimeId": null,
+        "StartTime": "2023/12/21 18:00",
+        "CloseTime": "2024/1/19 9:59",
+        "CustomParams": [
+            2.0,
+            0.0,
+            3.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
+        "SkipId": 80146,
+        "Origin": 7,
+        "UiName": "OpenLotto",
+        "ParamId": null,
+        "Explain": "\u524d\u5f80\u6d3b\u52a8\u3010\u7eee\u613f\u7a1a\u68a6\u3011",
+        "FunctionalId": null,
+        "TimeId": null,
+        "StartTime": "2023/12/21 10:00",
+        "CloseTime": "2024/1/19 9:59",
+        "CustomParams": [
+            11.0
+        ],
+        "IsHideFunc": 1.0,
+        "IsShowExplain": null,
+        "NotShowUI": [],
+        "Unnamed: 17": null
+    },
+    {
         "SkipId": 81001,
         "Origin": 7,
         "UiName": "SkipToSpringFestivalActivity",
@@ -39765,7 +39966,7 @@
     {
         "SkipId": 89049,
         "Origin": 7,
-        "UiName": "UiFangKuaiMain",
+        "UiName": "SkipToFangKuai",
         "ParamId": null,
         "Explain": "\u6d88\u706d\u65b9\u5757",
         "FunctionalId": 10461.0,
@@ -39781,7 +39982,7 @@
     {
         "SkipId": 89050,
         "Origin": 7,
-        "UiName": "UiKotodamaMain",
+        "UiName": "SkipToUiKotodamaMain",
         "ParamId": null,
         "Explain": "\u84b2\u7262\u5927\u5192\u9669",
         "FunctionalId": 10459.0,

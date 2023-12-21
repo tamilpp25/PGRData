@@ -36,6 +36,18 @@
         "Text": "\u8bf7\u524d\u5f80\u8bbe\u5907\u7684\u8bbe\u7f6e\u754c\u9762\u6253\u5f00\u8bfb\u5b58\u50a8\u6743\u9650"
     },
     {
+        "Key": "PermissionTitle",
+        "Text": "\u6743\u9650\u7533\u8bf7"
+    },
+    {
+        "Key": "PermissionContent",
+        "Text": "\u4e3a\u4e86\u6b63\u5e38\u4f7f\u7528\u62cd\u7167\u622a\u56fe\u4fdd\u5b58\u672c\u5730\u529f\u80fd\uff0c\u6211\u4eec\u9700\u8981\u83b7\u53d6\u4f60\u8bbe\u5907\u76f8\u518c\u7684\u6743\u9650"
+    },
+    {
+        "Key": "PermissionOkText",
+        "Text": "\u8fdb\u884c\u6388\u6743"
+    },
+    {
         "Key": "LoginLimitTip",
         "Text": "\u7cfb\u7edf\u68c0\u6d4b\u5230\u60a8\u7684\u8d26\u53f7\u5b58\u5728\u5f02\u5e38\u884c\u4e3a\uff0c\u9700\u8981\u6b63\u786e\u56de\u7b54\u6240\u6709\u95ee\u9898\u624d\u80fd\u7ee7\u7eed\u6e38\u620f\u3002\u56de\u7b54\u9519\u8bef\u5c06\u4f1a\u88ab\u5f3a\u5236\u767b\u51fa\u3002"
     },
@@ -4161,7 +4173,7 @@
     },
     {
         "Key": "ActivityRepeatChallengeDesc",
-        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#32adff>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
+        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#a964a7>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
     },
     {
         "Key": "ActivityRepeatChallengeLevelTitle",
@@ -10465,7 +10477,7 @@
     },
     {
         "Key": "LottoKareninaFashionTip",
-        "Text": "\u5df2\u83b7\u5f97\u7eef\u8000\u6d82\u88c5\u2014\u7eee\u5f71\u51db\u7136"
+        "Text": "\u5df2\u83b7\u5f97{0}\u6d82\u88c5\u2014{1}"
     },
     {
         "Key": "LottoKareninaNotOwnTip",
@@ -16028,6 +16040,26 @@
         "Text": "\u5b8c\u6210"
     },
     {
+        "Key": "GoldenMinerPleaseSelectHex",
+        "Text": "\u5c1a\u672a\u9009\u62e9\u6539\u9020\u65b9\u6848\uff01"
+    },
+    {
+        "Key": "GoldenMinerShipDetailTitle",
+        "Text": "\u98de\u8239\u6982\u51b5"
+    },
+    {
+        "Key": "GoldenMinerMainTitle1",
+        "Text": "\u6700\u9ad8\u8d44\u6e90\u70b9"
+    },
+    {
+        "Key": "GoldenMinerMainTitle2",
+        "Text": "\u5f53\u524d\u8d44\u6e90\u70b9"
+    },
+    {
+        "Key": "GoldenMinerMainTimeTitle",
+        "Text": "\u5269\u4f59\u65f6\u95f4  <size=34>{0}</size>"
+    },
+    {
         "Key": "EscapeFightingNotUpdateTeam",
         "Text": "\u6b63\u5728\u4f5c\u6218\uff0c\u65e0\u6cd5\u53d8\u66f4\u6210\u5458"
     },
@@ -19400,6 +19432,22 @@
         "Text": "\u5f53\u524d\u69fd\u4f4d\u5957\u88c5\u914d\u7f6e"
     },
     {
+        "Key": "Theatre3ItemDetroy",
+        "Text": "\u7ecf\u8fc7{0}\u573a\u6218\u6597\u540e\u9500\u6bc1"
+    },
+    {
+        "Key": "Theatre3TxtFightResult",
+        "Text": "{0}W"
+    },
+    {
+        "Key": "Theatre3TxtFightResultEquipNumber",
+        "Text": "<color=#5A83AE>{0}</color>/{1}"
+    },
+    {
+        "Key": "Theatre3AchievementProcess",
+        "Text": "\u5df2\u5b8c\u6210\u6570\u91cf\uff1a<color=#d7c979>{0}</color>/{1}"
+    },
+    {
         "Key": "UnWearAwareness",
         "Text": "\u672a\u7a7f\u6234\u610f\u8bc6"
     },
@@ -20076,6 +20124,114 @@
         "Text": "\u5df2\u62e5\u6709\u8be5\u8f85\u52a9\u673a"
     },
     {
+        "Key": "FangKuaiStageCondition",
+        "Text": "{0}\u540e\u89e3\u9501"
+    },
+    {
+        "Key": "FangKuaiStageCondition2",
+        "Text": "{0}\u540e\u89e3\u9501\u8be5\u5173\u5361"
+    },
+    {
+        "Key": "FangKuaiHardRound",
+        "Text": "\u4e0d\u9650\u56de\u5408\u6570"
+    },
+    {
+        "Key": "FangKuaiItemEmpty",
+        "Text": "\u8fd8\u672a\u83b7\u5f97\u5c40\u5185\u9053\u5177\uff0c\u52aa\u529b\u6d88\u9664\u65b9\u5757\u5427"
+    },
+    {
+        "Key": "FangKuaiItemFull",
+        "Text": "\u9053\u5177\u5df2\u6ee1\uff0c\\n\u65e0\u6cd5\u83b7\u5f97\u65b0\u9053\u5177"
+    },
+    {
+        "Key": "FangKuaiCancelUseItem",
+        "Text": "\u70b9\u51fb\u7a7a\u767d\u5904\uff0c\u53d6\u6d88\u4f7f\u7528"
+    },
+    {
+        "Key": "FangKuaiExchangeBlock",
+        "Text": "\u662f\u5426\u786e\u5b9a\u4ea4\u6362\u8fd9\u4e24\u4e2a\u76f8\u90bb\u65b9\u5757"
+    },
+    {
+        "Key": "FangKuaiExchangeLine",
+        "Text": "\u662f\u5426\u786e\u5b9a\u4ea4\u6362\u8fd9\u4e24\u884c"
+    },
+    {
+        "Key": "FangKuaiRemoveLine",
+        "Text": "\u662f\u5426\u786e\u5b9a\u6d88\u9664\u7b2c{0}\u884c"
+    },
+    {
+        "Key": "FangKuaiColor1",
+        "Text": "\u989c\u82721"
+    },
+    {
+        "Key": "FangKuaiColor2",
+        "Text": "\u989c\u82722"
+    },
+    {
+        "Key": "FangKuaiColor3",
+        "Text": "\u989c\u82723"
+    },
+    {
+        "Key": "FangKuaiColor4",
+        "Text": "\u989c\u82724"
+    },
+    {
+        "Key": "FangKuaiColor5",
+        "Text": "\u989c\u82725"
+    },
+    {
+        "Key": "FangKuaiChooseColor",
+        "Text": "\u662f\u5426\u786e\u5b9a\u6d88\u9664{0}"
+    },
+    {
+        "Key": "FangKuaiReset",
+        "Text": "\u662f\u5426\u91cd\u7f6e\u5f53\u524d\u5173\u5361"
+    },
+    {
+        "Key": "FangKuaiRankDetailsTitle",
+        "Text": "\u5206\u6570\u6863\u4f4d\u2014\u2014{0}"
+    },
+    {
+        "Key": "FangKuaiResetTime",
+        "Text": "\u4f5c\u6218\u65f6\u95f4\u5269\u4f59\uff1a{0}"
+    },
+    {
+        "Key": "FangKuaiActivityEnd",
+        "Text": "\u6d3b\u52a8\u5df2\u7ed3\u675f"
+    },
+    {
+        "Key": "FangKuaiOtherPlaying",
+        "Text": "\u6b63\u5728\u8fdb\u884c\u5176\u4ed6\u5173\u5361\u6218\u6597\uff0c\u65e0\u6cd5\u5f00\u59cb\u65b0\u6311\u6218"
+    },
+    {
+        "Key": "FangKuaiHasUsedRound",
+        "Text": "\u5df2\u7528\u56de\u5408\u6570"
+    },
+    {
+        "Key": "FangKuaiLeaveRound",
+        "Text": "\u5269\u4f59\u56de\u5408"
+    },
+    {
+        "Key": "FangKuaiHardStageLock",
+        "Text": "{0}\u540e\u5f00\u542f"
+    },
+    {
+        "Key": "FangKuaiAbandonTip",
+        "Text": "\u662f\u5426\u653e\u5f03\u672c\u5c40\u6e38\u620f\uff1f"
+    },
+    {
+        "Key": "FangKuaiAddRoundTip",
+        "Text": "\u662f\u5426\u589e\u52a0\u56de\u5408\u6570\uff1f"
+    },
+    {
+        "Key": "FangKuaiPreStageLock",
+        "Text": "\u901a\u5173{0}"
+    },
+    {
+        "Key": "FangKuaiActivityProgress",
+        "Text": "\u8fdb\u5ea6:{0}/{1}"
+    },
+    {
         "Key": "AnniverReviewAwarenessProcess",
         "Text": "{0}/{1} \u5e8f\u5217\u4f4d"
     },
@@ -20114,5 +20270,81 @@
     {
         "Key": "AnniverReviewShareReward",
         "Text": "\u9996\u6b21\u5206\u4eab\u53ef\u83b7{0}"
+    },
+    {
+        "Key": "KotodamaLeftTime",
+        "Text": "\u5269\u4f59\u65f6\u95f4:{0}"
+    },
+    {
+        "Key": "KotodamaProcess",
+        "Text": "\u8fdb\u5ea6:{0}/{1}"
+    },
+    {
+        "Key": "KotodamaCollectable",
+        "Text": "{0}/{1}"
+    },
+    {
+        "Key": "KotodamaStageNotInTime",
+        "Text": "{0}\u540e\u5f00\u542f\u5173\u5361"
+    },
+    {
+        "Key": "KotodamaPreStageNotPassed",
+        "Text": "\u524d\u7f6e\u5173\u5361\u672a\u901a\u5173"
+    },
+    {
+        "Key": "KotodamaSpellNotComplete",
+        "Text": "\u672a\u586b\u5b8c\u8bcd\u7f00"
+    },
+    {
+        "Key": "KotodamaSelfTargetWord",
+        "Text": "<color=#1599a5>{0}</color>"
+    },
+    {
+        "Key": "KotodamaEnemyTargetWord",
+        "Text": "<color=#e35c1a>{0}</color>"
+    },
+    {
+        "Key": "KotodamaChapterDetailSpeech",
+        "Text": "<b>{0}</b>  {1}"
+    },
+    {
+        "Key": "KotodamaStageTitleContent",
+        "Text": "{0} {1}"
+    },
+    {
+        "Key": "KotodamaSpellErrorContent",
+        "Text": "\u9009\u8bcd\u672a\u7ec4\u6210\u53e5\u5b50"
+    },
+    {
+        "Key": "KotodamaBlockPlaceholder",
+        "Text": "<color=#00000000>_</color>"
+    },
+    {
+        "Key": "KotodamaEmptySpeech",
+        "Text": "\u65e0"
+    },
+    {
+        "Key": "ToolMoreThenThreeMonth",
+        "Text": ">3\u4e2a\u6708\u524d"
+    },
+    {
+        "Key": "PayQuickBuyAmount",
+        "Text": "\uffe5{0}"
+    },
+    {
+        "Key": "PayQuickBuyNumber",
+        "Text": "x{0}"
+    },
+    {
+        "Key": "PayQuickBuyDesc",
+        "Text": "\u5145\u503c<color=#0f70bc>{0}</color>\u5143\u83b7\u5f97<color=#0f70bc>{1}</color>\u8679\u5361"
+    },
+    {
+        "Key": "MailInvalidation",
+        "Text": "\u5df2\u5931\u6548"
+    },
+    {
+        "Key": "MailCanReceive",
+        "Text": "\u9886\u53d6"
     }
 ]
