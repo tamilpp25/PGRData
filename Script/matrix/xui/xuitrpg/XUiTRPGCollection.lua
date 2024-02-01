@@ -9,7 +9,7 @@ function XUiTRPGCollection:OnAwake()
     self:InitTabGroup()
     self:AutoAddListener()
     
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.TRPGMoney, function()
         self.AssetActivityPanel:Refresh({XDataCenter.ItemManager.ItemId.TRPGMoney})
     end, self.AssetActivityPanel)

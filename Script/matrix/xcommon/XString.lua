@@ -475,3 +475,13 @@ function string.IsIp(ip)
 
     return true, pureIpStr
 end
+
+-- 判断一个字符串是不是纯数字
+function string.IsNumeric(inputString)
+    local isNumeric = string.match(inputString, "^%d+$")
+    if isNumeric then
+        return true
+    else
+        return false
+    end
+end

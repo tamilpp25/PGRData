@@ -9,7 +9,7 @@ function XUiTheatre3SetDetail:OnAwake()
     self:RegisterClickEvent(self.BtnMask, self.Close)
 end
 
-function XUiTheatre3SetDetail:OnStart(equipId)
+function XUiTheatre3SetDetail:OnStart(equipId, isNotShowCurTag, isQuantum)
     local equipCfg = self._Control:GetEquipById(equipId)
     local suitCfg = self._Control:GetSuitById(equipCfg.SuitId)
     local equipCfgs = self._Control:GetSameSuitEquip(equipId)
@@ -20,10 +20,15 @@ function XUiTheatre3SetDetail:OnStart(equipId)
 
     ---@param data XTableTheatre3Equip
     self:RefreshTemplateGrids(self.Grid.transform, equipCfgs, self.Grid.transform.parent, nil, "UiTheatre3SetDetailGrid", function(grid, data)
-        local tip = XUiTheatre3EquipmentTip.New(grid.BubbleEquipment, self)
-        tip:ShowEquipTip(data.Id)
+        grid.BubbleEquipment.gameObject:SetActiveEx(not isQuantum)
+        grid.BubbleQuantumEquipment.gameObject:SetActiveEx(isQuantum)
+        ---@type XUiTheatre3EquipmentTip
+        local tip = XUiTheatre3EquipmentTip.New(isQuantum and grid.BubbleQuantumEquipment or grid.BubbleEquipment, self)
+        tip:ShowEquipTip(data.Id, nil, nil, nil, isQuantum)
         tip:SetSelectCallBack(handler(self, self.OnClickTip))
-        tip:ShowCurEquipTag(data.Id == equipId)
+        if not isNotShowCurTag then
+            tip:ShowCurEquipTag(data.Id == equipId)
+        end
         self._Tips[data.Id] = tip
     end)
 end

@@ -9,7 +9,7 @@ local XUiBiancaTheatrePanelFetters = require("XUi/XUiBiancaTheatre/Common/XUiBia
 local XUiPanelItemChange = require("XUi/XUiBiancaTheatre/Common/XUiPanelItemChange")
 
 function XUiBiancaTheatreRecruit:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.BiancaTheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.BiancaTheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self, nil, XDataCenter.BiancaTheatreManager.AdventureAssetItemOnBtnClick)
     self.Effect = XUiHelper.TryGetComponent(self.Transform, "FullScreenBackground/Effect")
     self:AddListener()
     self:InitItemChange()

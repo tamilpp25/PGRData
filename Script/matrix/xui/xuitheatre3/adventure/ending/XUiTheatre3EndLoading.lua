@@ -47,7 +47,7 @@ end
 
 --region Ui - BtnListener
 function XUiTheatre3EndLoading:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnClick, self.OnBtnBackClick)
+    self._Control:RegisterClickEvent(self, self.BtnClick, self.OnBtnBackClick)
 end
 
 function XUiTheatre3EndLoading:OnBtnBackClick()

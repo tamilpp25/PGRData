@@ -1,10 +1,11 @@
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local XUiGridResonanceDoubleSkillV2P6 = XClass(nil, "XUiGridResonanceDoubleSkillV2P6")
 
-function XUiGridResonanceDoubleSkillV2P6:Ctor(ui)
+function XUiGridResonanceDoubleSkillV2P6:Ctor(ui, rootUi)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.ResonanceSkillGrids = {}
+    self.RootUi = rootUi
     XTool.InitUiObject(self)
 
     for i = 1, XEnumConst.EQUIP.AWARENESS_RESONANCE_COUNT do
@@ -12,6 +13,10 @@ function XUiGridResonanceDoubleSkillV2P6:Ctor(ui)
             self:OnBtnResonanceClick(i)
         end
     end
+end
+
+function XUiGridResonanceDoubleSkillV2P6:SetForbidGotoEquip(flag)
+    self.ForbidGotoEquip = flag
 end
 
 --@site: 意识的位置
@@ -76,7 +81,14 @@ function XUiGridResonanceDoubleSkillV2P6:RefreshTxtPos(site)
 end
 
 function XUiGridResonanceDoubleSkillV2P6:OnBtnResonanceClick(pos)
+    if self.ForbidGotoEquip then
+        return
+    end
     XLuaUiManager.Open("UiEquipDetailV2P6", self.EquipId, nil, self.CharacterId, nil, XEnumConst.EQUIP.UI_EQUIP_DETAIL_BTN_INDEX.RESONANCE, nil, pos)
+
+    if self.RootUi then
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnGridResnanceSkill, self.CharacterId)
+    end
 end
 
 return XUiGridResonanceDoubleSkillV2P6

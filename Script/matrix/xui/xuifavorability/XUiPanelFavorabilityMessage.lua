@@ -1,4 +1,6 @@
-XUiPanelFavorabilityMessage = XClass(nil, "XUiPanelFavorabilityMessage")
+--2.7标记：疑似被弃用
+local XUiGridLikeMessageItem=require("XUi/XUiFavorability/XUiGridLikeMessageItem")
+local XUiPanelFavorabilityMessage = XClass(nil, "XUiPanelFavorabilityMessage")
 
 function XUiPanelFavorabilityMessage:Ctor(ui, uiRoot, parent)
     self.GameObject = ui.gameObject
@@ -47,7 +49,7 @@ end
 
 function XUiPanelFavorabilityMessage:RefreshDatas()
     local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local informations = XFavorabilityConfigs.GetCharacterInformationById(characterId)
+    local informations = XMVCA.XFavorability:GetCharacterInformationById(characterId)
     self:UpdateDataList(informations, 1)
     self.Parent:CheckDataReddot()
 end

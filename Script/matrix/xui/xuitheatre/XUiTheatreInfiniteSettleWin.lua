@@ -88,6 +88,12 @@ function XUiTheatreInfiniteSettleWin:OnStart(adventureEnd, lastChapteEndStoryId)
     end
 end
 
+function XUiTheatreInfiniteSettleWin:OnDisable()
+    if XLuaUiManager.IsUiLoad("UiTheatrePlayMain") then
+        XLuaUiManager.Remove("UiTheatrePlayMain")
+    end
+end
+
 function XUiTheatreInfiniteSettleWin:RegisterUiEvents()
     XUiHelper.RegisterClickEvent(self, self.BtnClose, self.Close)
 end

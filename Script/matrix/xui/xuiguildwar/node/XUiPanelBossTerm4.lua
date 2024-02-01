@@ -3,10 +3,10 @@ local XUiGuildWarStageDetailEvent = require("XUi/XUiGuildWar/Node/XUiGuildWarSta
 ---@class XUiGuildWarPanelBossTerm4
 local XUiPanelBossTerm4 = XClass(nil, "XUiPanelBossTerm4")
 
-function XUiPanelBossTerm4:Ctor(ui)
+function XUiPanelBossTerm4:Ctor(ui, parent)
     self._Node = false
     XUiHelper.InitUiClass(self, ui)
-
+    self.Parent = parent
     self.PanelUiDetail01 = {}
     XTool.InitUiObjectByUi(self.PanelUiDetail01, self.PanelDetail01)
 
@@ -34,7 +34,7 @@ function XUiPanelBossTerm4:SetData(node)
         local uiEvent = self._UiEvent[i]
         if not uiEvent then
             local ui = XUiHelper.Instantiate(self.PanelBuf.gameObject, self.PanelBuf.transform.parent.transform)
-            uiEvent = XUiGuildWarStageDetailEvent.New(ui)
+            uiEvent = XUiGuildWarStageDetailEvent.New(ui,self)
             self._UiEvent[i] = uiEvent
         end
         local event = eventDetails[i]
@@ -45,6 +45,11 @@ function XUiPanelBossTerm4:SetData(node)
         local uiEvent = self._UiEvent[i]
         uiEvent.GameObject:SetActiveEx(false)
     end
+end
+
+function XUiPanelBossTerm4:AddTimer(cb)
+    local timeId = XScheduleManager.ScheduleForever(cb,XScheduleManager.SECOND,0)
+    table.insert(self.Parent._TimerIds,timeId)
 end
 
 return XUiPanelBossTerm4

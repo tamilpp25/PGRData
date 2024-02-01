@@ -25,7 +25,7 @@ end
 function XUiDormTerminalSystem:OnStart()
     local itemIds = { XDataCenter.ItemManager.ItemId.Coin, XDataCenter.ItemManager.ItemId.DormCoin, XDataCenter.ItemManager.ItemId.DormQuestCoin }
     local canBuyItemIds = { XDataCenter.ItemManager.ItemId.Coin }
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset(itemIds, self.PanelSpecialTool, nil, nil, canBuyItemIds)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe(itemIds, self.PanelSpecialTool, self, nil, nil, canBuyItemIds)
     ---@type XDormTerminalTeam
     self.TerminalTeamEntity = XDataCenter.DormQuestManager.GetDormTerminalTeamEntity()
     ---@type XUiPanelTerminalLevelUpgrade

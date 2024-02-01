@@ -1000,7 +1000,7 @@ function XUiMultiplayerRoom:GetTeamCharacterTypes()
     local roomData = XDataCenter.RoomManager.RoomData
     local result = {}
     for _,playerData in pairs(roomData.PlayerDataList) do
-        local characterType = XCharacterConfigs.GetCharacterType(playerData.FightNpcData.Character.Id)
+        local characterType = XMVCA.XCharacter:GetCharacterType(playerData.FightNpcData.Character.Id)
         table.insert(result,characterType)
     end
     return result
@@ -1018,8 +1018,8 @@ function XUiMultiplayerRoom:GetJopCount(type)
     for _, v in pairs(roomData.PlayerDataList) do
         local charId = v.FightNpcData.Character.Id
         local quality = v.FightNpcData.Character.Quality
-        local npcId = XCharacterConfigs.GetCharNpcId(charId, quality)
-        local tempType = XCharacterConfigs.GetCharacterCareerType(npcId)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(charId, quality)
+        local tempType = XMVCA.XCharacter:GetCharacterCareerType(npcId)
         if type == tempType then
             count = count + 1
         end
@@ -1131,7 +1131,7 @@ function XUiMultiplayerRoom:OnBtnReadyClick()
 end
 
 function XUiMultiplayerRoom:OnBtnChatClick()
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Room, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Room, ChatChannelType.World)
 end
 
 function XUiMultiplayerRoom:OnBtnChangeDifficultyClick()

@@ -38,6 +38,12 @@ XFubenNewCharConfig.KoroPanelType =
     Skin = 4,
 }
 
+--2.8
+XFubenNewCharConfig.TreasureType={
+    RequireStar=1,
+    RequireStage=2
+}
+
 function XFubenNewCharConfig.Init()
     NewCharTeachAct = XTableManager.ReadByIntKey(SHARE_NEWCHAR_TEACH, XTable.XTableTeachingActivity, "Id")
     NewCharTreasure = XTableManager.ReadByIntKey(SHARE_NEWCHAR_TREASURE, XTable.XTableTeachingTreasure, "TreasureId")

@@ -53,7 +53,6 @@ XMemorySaveManagerCreator = function ()
                 end
             end
         end
-        XMemorySaveManager.RegisterEditBattleProxy()
     end
 
     -- 重载XFubenManager.FinishFight 更新stageinfo
@@ -74,14 +73,6 @@ XMemorySaveManagerCreator = function ()
     end
 
     --#endregion
-
-    -- 注册出战代理界面
-    function XMemorySaveManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(
-                XDataCenter.FubenManager.StageType.MemorySave,
-                require("XUi/XUiMemorySave/Proxy/XUiMemorySaveNewRoomSingle")
-        )
-    end
 
     -- 活动是否开始
     function XMemorySaveManager.IsOpen()
@@ -324,7 +315,7 @@ XMemorySaveManagerCreator = function ()
         -- 防止UI界面动画开启被打断
         XScheduleManager.ScheduleOnce(function()
             XLuaUiManager.RunMain()
-            XUiManager.TipText("PicCompositionTimeQver")
+            XUiManager.TipText("CommonActivityEnd")
         end, 1000)
         return true
     end

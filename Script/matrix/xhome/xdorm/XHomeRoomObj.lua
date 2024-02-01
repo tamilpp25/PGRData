@@ -243,11 +243,13 @@ function XHomeRoomObj:RevertRoom()
 end
 
 -- 收起房间家具，增加参数，收起完再刷数据，如果有构造体需要回收利用。
-function XHomeRoomObj:CleanRoom()
+function XHomeRoomObj:CleanRoom(ignoreReLoad)
     self:CleanGroundFurniture()
     self:CleanWallFurniture()
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_FURNITURE_CLEAN_ROOM)
-    self.IsFurnitureLoadComplete = false
+    if not ignoreReLoad then
+        self.IsFurnitureLoadComplete = false
+    end
 end
 
 function XHomeRoomObj:CleanWallFurniture()
@@ -395,35 +397,7 @@ end
 
 --获取所有家具
 function XHomeRoomObj:GetAllFurnitureConfig()
-    local configs = {}
-    --天花板
-    if self.Ceiling and self.Ceiling.Cfg then
-        table.insert(configs, self.Ceiling.Cfg)
-    end
-
-    --地板
-    if self.Ground and self.Ground.Cfg then
-        table.insert(configs, self.Ground.Cfg)
-    end
-
-    --墙
-    if self.Wall and self.Wall.Cfg then
-        table.insert(configs, self.Wall.Cfg)
-    end
-
-    --地上家具
-    for _, v in pairs(self.GroundFurnitureList) do
-        table.insert(configs, v.Cfg)
-    end
-
-    --挂饰
-    for _, v in pairs(self.WallFurnitureList) do
-        for _, furniture in pairs(v) do
-            table.insert(configs, furniture.Cfg)
-        end
-    end
-
-    return configs
+    return self.Data:GetAllFurnitureConfig()
 end
 
 ---@return table<number,XHomeFurnitureObj>

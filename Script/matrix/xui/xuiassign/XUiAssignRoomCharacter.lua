@@ -13,8 +13,8 @@ function XUiAssignRoomCharacter:OnAwake()
     ---@type XCharacterAgency
     local ag = XMVCA:GetAgency(ModuleId.XCharacter)
     self.CharacterAgency = ag
-    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
-    ---@type XCommonCharacterFiltAgency
+    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
+    ---@type XCommonCharacterFilterAgency
     self.FiltAgecy = ag
 
     self.CharacterGrids = {}
@@ -28,7 +28,6 @@ function XUiAssignRoomCharacter:InitButton()
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")
     self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
     self.ImgEffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
-    self.RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true)
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.GridCharacter.gameObject:SetActiveEx(false)
 
@@ -57,7 +56,7 @@ function XUiAssignRoomCharacter:InitModel()
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")
     self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
     self.ImgEffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
-    self.RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true, nil, true)
+    self.RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiCharacterSystemV2P6, nil, true, nil, true)
 end
 
 function XUiAssignRoomCharacter:InitFilter()
@@ -83,7 +82,7 @@ function XUiAssignRoomCharacter:InitFilter()
     self.PanelFilter:InitData(onSeleCb, tagClickedCb, nil, 
     refreshGridsFun, XUiGridCharacter, checkIsInTeam)
     local list = self.CharacterAgency:GetOwnCharacterList()
-    self.PanelFilter:ImportList(list)
+    self.PanelFilter:ImportList(list, self.OrgSeleCharacterId)
 end
 
 -- function XUiAssignRoomCharacter:InitDynamicTable()
@@ -114,8 +113,8 @@ function XUiAssignRoomCharacter:OnStart(orgSeleCharacterId, teamId, clickTeamPos
 
     -- 自动选中点击的角色
     if XTool.IsNumberValid(orgSeleCharacterId) then
-        local charaType = XCharacterConfigs.GetCharacterType(orgSeleCharacterId)
-        local charcter = XDataCenter.CharacterManager.GetCharacter(orgSeleCharacterId)
+        local charaType = XMVCA.XCharacter:GetCharacterType(orgSeleCharacterId)
+        local charcter = XMVCA.XCharacter:GetCharacter(orgSeleCharacterId)
         self.InitCharacterType = charaType
         self.LastSelectNormalCharacter = charaType == TabBtnIndex.Normal and charcter or self.LastSelectNormalCharacter 
         self.LastSelectIsomerCharacter = charaType == TabBtnIndex.Isomer and charcter or self.LastSelectIsomerCharacter 
@@ -128,8 +127,9 @@ function XUiAssignRoomCharacter:OnEnable()
     -- self.PanelCharacterTypeBtns:SelectIndex(self.InitCharacterType or TabBtnIndex.Normal)
 
     -- 部分ui文本
-    self.TxtTeamInfoName.text = CS.XTextManager.GetText("AssignTeamTitle", self.ClickTeamPos) -- 作战梯队{0}
+    self.TxtTeamInfoName.text = CS.XTextManager.GetText("AssignTeamTitle", self.TeamOrderInGroup) -- 作战梯队{0}
     self.TxtRequireAbility.text = self.AblityRequire and self.AblityRequire or ""
+    self.PanelFilter:RefreshList()
 end
 
 -- function XUiAssignRoomCharacter:OnSelectCharacterType(index)
@@ -168,7 +168,7 @@ end
 -- function XUiAssignRoomCharacter:UpdateCharacters(character)
 --     local characterType = self.SelectTabBtnIndex
 --     local filterList = XDataCenter.CommonCharacterFiltManager.GetSelectListData(characterType)
---     local charList = filterList or XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+--     local charList = filterList or XMVCA.XCharacter:GetOwnCharacterList(characterType)
 --     charList = self:RoleSortFun(charList)
 --     local index = 1
 --     if character then
@@ -213,12 +213,11 @@ end
 
 -- 角色被选中
 function XUiAssignRoomCharacter:OnRoleCharacter(character)
-    if self.CurCharacter and character.Id == self.CurCharacter.Id then
+    if not character then
         return
     end
-    
     self.CurCharacter = character
-    if XCharacterConfigs.GetCharacterType(character.Id) == TabBtnIndex.Normal then
+    if XMVCA.XCharacter:GetCharacterType(character.Id) == TabBtnIndex.Normal then
         self.LastSelectNormalCharacter = self.CurCharacter
     else 
         self.LastSelectIsomerCharacter = self.CurCharacter
@@ -277,7 +276,7 @@ function XUiAssignRoomCharacter:UpdateRoleModel()
     end
    
     --MODEL_UINAME对应UiModelTransform表，设置模型位置
-    self.RoleModelPanel:UpdateCharacterModel(self.CurCharacter.Id, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiSuperSmashBrosCharacter, cb)
+    self.RoleModelPanel:UpdateCharacterModel(self.CurCharacter.Id, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiCharacterSystemV2P6, cb)
 end
 
 -- 通过队伍预设更新队伍
@@ -320,7 +319,7 @@ function XUiAssignRoomCharacter:CheckLimitBeforeChangeTeam(charId, pos, isAfterC
     if isIn and otherTeamData ~= self.CurrTeamData then
         -- 在其他编队
         local title = CS.XTextManager.GetText("AssignDeployTipTitle")
-        local characterName = XCharacterConfigs.GetCharacterName(charId)
+        local characterName = XMVCA.XCharacter:GetCharacterName(charId)
         local oldTeamName = CS.XTextManager.GetText("AssignTeamTitle", otherTeamOrder)
         local newTeamName = CS.XTextManager.GetText("AssignTeamTitle", self.TeamOrderInGroup)
         local content = CS.XTextManager.GetText("AssignDeployTipContent", characterName, oldTeamName, newTeamName)
@@ -436,7 +435,7 @@ end
 
 function XUiAssignRoomCharacter:OnBtnFilterClick()
     local characterType = self.SelectTabBtnIndex
-    local characterList = self:RoleSortFun(XDataCenter.CharacterManager.GetOwnCharacterList(characterType))
+    local characterList = self:RoleSortFun(XMVCA.XCharacter:GetOwnCharacterList(characterType))
     XLuaUiManager.Open("UiCommonCharacterFilterTipsOptimization", characterList, characterType, function (afterFiltList)
         self.CurrRoleListIndex = 1
         self:UpdateDynamicTable(afterFiltList)

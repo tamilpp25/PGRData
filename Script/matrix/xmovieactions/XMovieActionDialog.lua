@@ -14,6 +14,7 @@ function XMovieActionDialog:Ctor(actionData)
     self.CueId = paramToNumber(params[18])
     self.SpineActorIndex = paramToNumber(params[19])
     self.SpineActorKouSpeed = paramToNumber(params[20])
+    self.LipAnimFolder = params[21] -- 嘴唇动画的文件夹名称
     self.SkipRoleAnim = paramToNumber(params[1]) ~= 0
     self.RoleName = XUiHelper.ConvertLineBreakSymbol(XDataCenter.MovieManager.ReplacePlayerName(params[2]))
     local dialogContent = XDataCenter.MovieManager.ReplacePlayerName(params[3])
@@ -93,6 +94,7 @@ function XMovieActionDialog:OnInit()
             self:StopSpineActorTalk()
         end, true)
         self:PlaySpineActorTalk()
+        self:PlayAudioLipAnim()
     end
     self:PlaySpeakerAnim()
     XDataCenter.MovieManager.PushInReviewDialogList(roleName, dialogContent,self.CueId)
@@ -106,6 +108,7 @@ function XMovieActionDialog:OnDestroy()
         self.AudioInfo:Stop()
     end
     self:StopSpineActorTalk()
+    self:StopAudioLipAnim()
     self:ClearDelayId() -- 清理定时器
     XDataCenter.InputManagerPc.UnregisterFunc(CS.XUiPc.XUiPcCustomKeyEnum.UiMovieNext)
 end
@@ -177,6 +180,21 @@ function XMovieActionDialog:PlaySpeakerAnim()
     end
 end
 
+-- 播放音频嘴型动画
+function XMovieActionDialog:PlayAudioLipAnim()
+    if self.LipAnimFolder and not XDataCenter.MovieManager.IsSpeedUp() then
+        local actor = self.UiRoot:GetSpineActor(self.SpineActorIndex)
+        actor:PlayLipAnim(self.LipAnimFolder, self.CueId)
+    end
+end
+
+-- 停止音频嘴型动画
+function XMovieActionDialog:StopAudioLipAnim()
+    if self.LipAnimFolder and not XDataCenter.MovieManager.IsSpeedUp() then
+        local actor = self.UiRoot:GetSpineActor(self.SpineActorIndex)
+        actor:StopLipAnim()
+    end
+end
 
 function XMovieActionDialog:OnUndo()
     self.UiRoot.TxtWords.text = self.Record.DialogContent
@@ -188,7 +206,7 @@ end
 
 -- 播放语音时切换spine讲话动画
 function XMovieActionDialog:PlaySpineActorTalk()
-    if self.SpineActorIndex ~= 0 then
+    if self.SpineActorIndex ~= 0 and not self.LipAnimFolder then
         local actor = self.UiRoot:GetSpineActor(self.SpineActorIndex)
         actor:PlayKouTalkAnim(self.SpineActorKouSpeed)
     end
@@ -196,7 +214,7 @@ end
 
 -- 停止spine讲话动画，切回之前的动画
 function XMovieActionDialog:StopSpineActorTalk()
-    if self.SpineActorIndex ~= 0 then
+    if self.SpineActorIndex ~= 0 and not self.LipAnimFolder then
         local actor = self.UiRoot:GetSpineActor(self.SpineActorIndex)
         actor:PlayKouIdleAnim()
     end

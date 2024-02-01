@@ -2,7 +2,7 @@
 --- Created by Jaylin.
 --- DateTime: 2023-03-06-006 11:27
 ---
-
+local IsWindowsEditor = XMain.IsWindowsEditor
 ---@class XModel
 ---@field _ConfigUtil XConfigUtil
 XModel = XClass(nil, "XModel")
@@ -38,5 +38,8 @@ function XModel:Release()
     if self._ConfigUtil then
         self._ConfigUtil:Release()
         self._ConfigUtil = nil
+    end
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Model, self)
     end
 end

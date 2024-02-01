@@ -79,8 +79,8 @@ function XRegression3rd:GetActivityContent()
 end
 
 --- 检查页签功能是否开启
----@param activityType 活动类似
----@return boolean | string
+---@param activityType number 活动类型
+---@return boolean, string
 --------------------------
 function XRegression3rd:CheckOpenByActivityType(activityType)
     if activityType == XRegression3rdConfigs.ActivityType.Activity then

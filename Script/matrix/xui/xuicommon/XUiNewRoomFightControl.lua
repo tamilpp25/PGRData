@@ -51,7 +51,7 @@ function XUiNewRoomFightControl:UpdateInfo(stageFightControlId, teamAbility, con
         return
     end
     local showAbility = 0
-    local charlist = XDataCenter.CharacterManager.GetCharacterList()
+    local charlist = XMVCA.XCharacter:GetCharacterList()
     local dis
     local recommendFight
     local showFight

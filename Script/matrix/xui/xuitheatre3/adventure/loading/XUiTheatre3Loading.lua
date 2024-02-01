@@ -23,6 +23,10 @@ function XUiTheatre3Loading:OnStart(chapterId)
     if XTool.IsNumberValid(self._Chapter.BgmCueId) then
         self._Control:AdventurePlayBgm(self._Chapter.BgmCueId)
     end
+    local effectName = self._Chapter.TitleEffect
+    if self[effectName] then
+        self[effectName].gameObject:SetActiveEx(true)
+    end
 end
 
 --region Ui - BtnListener

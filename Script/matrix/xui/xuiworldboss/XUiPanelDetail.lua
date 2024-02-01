@@ -118,7 +118,7 @@ function XUiPanelDetail:OnBtnBossClick()
         return
     end
     local data = {WorldBossTeamDatas = bossArea:GetCharacterDatas()}
-    XLuaUiManager.Open("UiNewRoomSingle", bossArea:GetStageId(), data)
+    XLuaUiManager.Open("UiBattleRoleRoom", bossArea:GetStageId(), data)
 end
 
 function XUiPanelDetail:SetShow(IsShow)

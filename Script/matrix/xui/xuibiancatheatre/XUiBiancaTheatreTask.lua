@@ -2,7 +2,7 @@
 local XUiBiancaTheatreTask = XLuaUiManager.Register(XLuaUi, "UiBiancaTheatreTask")
 
 function XUiBiancaTheatreTask:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, nil, handler(self, self.OnBtnClick))
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.BiancaTheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self, nil, handler(self, self.OnBtnClick))
     self:InitDynamicTable()
     self:AddListener()
 end

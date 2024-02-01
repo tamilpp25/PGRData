@@ -90,7 +90,7 @@ function XUiMoeWarRecruit:InitAssetPanel()
     end
     local actInfo = XDataCenter.MoeWarManager.GetActivityInfo()
     local currencyIdList = actInfo and actInfo.CurrencyId or {}
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 
     XDataCenter.ItemManager.AddCountUpdateListener(currencyIdList, function()
         self.AssetActivityPanel:Refresh(currencyIdList)

@@ -19,7 +19,7 @@ function XUiGuildWarConcealSituationGrid:RefreshData(data)
             local playerId = XGuildWarTeamCharacterInfo.PlayerId
             local pos = XGuildWarTeamCharacterInfo.Pos
             self["Team" .. pos].gameObject:SetActiveEx(true)
-            local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+            local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
             self["RImgTeam" .. pos]:SetRawImage(icon)
             self["ImgSupport" .. pos].gameObject:SetActiveEx(not (playerId == XPlayer.Id))
         end

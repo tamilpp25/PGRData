@@ -47,22 +47,22 @@
     {
         "Key": "InitSelectedEquipSuitCount",
         "Comment": "\u5f00\u5c40\u62bd\u53d6\u5957\u88c5\u6570\u91cf",
-        "Value": 17.0
+        "Value": 20.0
     },
     {
         "Key": "InitSelectedEquipSuitType",
         "Comment": "\u5f00\u5c40\u62bd\u53d6\u6307\u5b9a\u4e0a\u4e0b\u9650\u7684\u5957\u88c5\u7c7b\u578b",
-        "Value": 2.0
+        "Value": 3.0
     },
     {
         "Key": "InitSelectedEquipSuitUpLimit",
         "Comment": "\u5f00\u5c40\u62bd\u53d6\u6307\u5b9a\u4e0a\u4e0b\u9650\u7684\u5957\u88c5\u4e0a\u9650",
-        "Value": 5.0
+        "Value": 7.0
     },
     {
         "Key": "InitSelectedEquipSuitDownLimit",
         "Comment": "\u5f00\u5c40\u62bd\u53d6\u6307\u5b9a\u4e0a\u4e0b\u9650\u7684\u5957\u88c5\u4e0b\u9650",
-        "Value": 3.0
+        "Value": 5.0
     },
     {
         "Key": "InheritEquipNeedChapterCount",
@@ -88,5 +88,45 @@
         "Key": "EquipSuitSeqDuplicationRate",
         "Comment": "\u5957\u88c5\u5e8f\u53f7\u67e5\u91cd\u7387\uff0c\u5927\u4e8e\u7b49\u4e8e\u91cd\u62bd",
         "Value": 0.5
+    },
+    {
+        "Key": "DestinyValueThreshold",
+        "Comment": "\u5929\u9009\u503c\u83b7\u53d6\u95e8\u69db",
+        "Value": 1.0
+    },
+    {
+        "Key": "DestinyValueCoefficient",
+        "Comment": "\u5929\u9009\u503c\u83b7\u53d6\u7cfb\u6570",
+        "Value": 150.0
+    },
+    {
+        "Key": "DestinyValueMaxLimit",
+        "Comment": "\u5929\u9009\u4e0a\u9650",
+        "Value": 10000.0
+    },
+    {
+        "Key": "DestinyCharacterId",
+        "Comment": "\u7248\u672c\u9996\u6b21\u5929\u9009\u5fc5\u9009\u89d2\u8272",
+        "Value": 1171004.0
+    },
+    {
+        "Key": "DestinyGuaranteeGroupId",
+        "Comment": "\u5929\u9009\u89d2\u8272\u62bd\u53d6\u7ec4id",
+        "Value": 0.0
+    },
+    {
+        "Key": "DestinyOpenCondition",
+        "Comment": "\u5929\u9009\u89d2\u8272\u5f00\u542f\u6761\u4ef6",
+        "Value": 1020210.0
+    },
+    {
+        "Key": "MaxQubitValueA",
+        "Comment": "\u91cf\u5b50A\u6700\u5927\u503c\u9650\u5236",
+        "Value": 60.0
+    },
+    {
+        "Key": "MaxQubitValueB",
+        "Comment": "\u91cf\u5b50B\u6700\u5927\u503c\u9650\u5236",
+        "Value": 60.0
     }
 ]

@@ -14,10 +14,10 @@ function XUiCharacterCarerrTips:OnStart(characterId)
     self.CareerGrids = {}
     local careerIds = {}
     if XTool.IsNumberValid(characterId) then
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
-        careerIds = XDataCenter.CharacterManager.GetCareerIdsByCharacterType(characterType)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+        careerIds = XMVCA.XCharacter:GetCareerIdsByCharacterType(characterType)
     else
-        careerIds = XCharacterConfigs.GetAllCharacterCareerIds()
+        careerIds = XMVCA.XCharacter:GetAllCharacterCareerIds()
     end
     for index, careerId in ipairs(careerIds) do
         local grid = self.CareerGrids[index]

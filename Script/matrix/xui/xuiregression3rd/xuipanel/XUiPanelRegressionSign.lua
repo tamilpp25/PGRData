@@ -5,14 +5,16 @@ local XUiGridRegressionTask = require("XUi/XUiRegression3rd/XUiGrid/XUiGridRegre
 local XUiPanelRegressionSign = XClass(XUiPanelRegressionBase, "XUiPanelRegressionSign")
 
 --region   ------------------重写父类方法 start-------------------
+function XUiPanelRegressionSign:OnEnable()
+    self:RefreshView()
+end
 
 function XUiPanelRegressionSign:Show()
-    self:RefreshView()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
 end
 
 function XUiPanelRegressionSign:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionSign:InitUi()

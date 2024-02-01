@@ -11,7 +11,7 @@ function XUiEquipAwarenessV2P6:OnAwake()
     self.UiPanelRoleModel = XUiPanelRoleModel.New(self.PanelRoleModelGo, self.Name, nil, true)
 
     -- 装备面板初始化
-    self.PanelEquip = XMVCA:GetAgency(ModuleId.XEquip):InitPanelEquipV2P6(self.PanelEquip, self)
+    self.PanelEquip = XMVCA:GetAgency(ModuleId.XEquip):InitPanelEquipV2P6(self.PanelEquip, self, self)
     self.PanelEquip:InitData()
 
     self:SetButtonCallBack()
@@ -22,20 +22,22 @@ function XUiEquipAwarenessV2P6:OnStart(characterId)
     self.CharacterId = characterId
     self:RefreshModel(characterId)
 
-    -- 刷新装备面板
-    self.PanelEquip.IsShowPanelAwareness = true
-    self.PanelEquip:UpdateCharacter(characterId)
-    self.PanelEquip:InitUnFoldButton()
-
     -- 由动画展开意识面板
     local anim = self.PanelEquip.PanelEquipEnable:GetComponent("PlayableDirector")
     anim.time = anim.duration
     anim:Play()
+    self.PanelEquip.PanelAwareness.gameObject:SetActiveEx(true)
 
     -- 切换按钮不显示，不可点击
     local canvasGroup = self.PanelEquip.BtnFold:GetComponent("CanvasGroup")
     canvasGroup.alpha = 0
     canvasGroup.blocksRaycasts = false
+
+    -- 刷新装备面板
+    self.PanelEquip:Open()
+    self.PanelEquip.IsShowPanelAwareness = true
+    self.PanelEquip:UpdateCharacter(characterId)
+    self.PanelEquip:InitUnFoldButton()
 end
 
 function XUiEquipAwarenessV2P6:OnEnable()
@@ -76,15 +78,15 @@ function XUiEquipAwarenessV2P6:RefreshModel(entityId)
         self:PlaySwitchEffect()
     end
 
-    local entity = XDataCenter.CharacterManager.GetCharacter(entityId)
+    local entity = XMVCA.XCharacter:GetCharacter(entityId)
     local characterViewModel = entity:GetCharacterViewModel()
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwen = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+        local isOwen = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwen then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId
             , self.PanelRoleModelGo
@@ -130,8 +132,8 @@ function XUiEquipAwarenessV2P6:PlaySwitchEffect()
         return
     end
 
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
-    if characterType == XCharacterConfigs.CharacterType.Normal then
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
+    if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
         self.ImgEffectHuanren.gameObject:SetActive(true)
     else
         self.ImgEffectHuanren.gameObject:SetActive(false)

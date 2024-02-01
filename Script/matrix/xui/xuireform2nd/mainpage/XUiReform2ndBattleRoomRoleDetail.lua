@@ -11,7 +11,7 @@ function XUiReform2ndChildPanel:SetData(rootUi)
 end
 
 function XUiReform2ndChildPanel:Refresh(currentEntityId)
-    local hasRecommend, txt = XDataCenter.Reform2ndManager.GetRecommendDescByStageIdAndEntityId(self.RootUi:GetStageId(), currentEntityId)
+    local hasRecommend, txt = XMVCA.XReform:GetRecommendDescByStageIdAndEntityId(self.RootUi:GetStageId(), currentEntityId)
 
     self.GameObject:SetActiveEx(hasRecommend)
     if hasRecommend then
@@ -36,19 +36,19 @@ function XUiReform2ndBattleRoomRoleDetail:GetStageId()
 end
 
 function XUiReform2ndBattleRoomRoleDetail:GetEntities(characterType)
-    return XDataCenter.Reform2ndManager.GetOwnCharacterListByStageId(self:GetStageId(), characterType)
+    return XMVCA.XReform:GetOwnCharacterListByStageId(self:GetStageId(), characterType)
 end
 
 function XUiReform2ndBattleRoomRoleDetail:SortEntitiesWithTeam(team, entities, sortTagType)
-    return XDataCenter.Reform2ndManager.SortEntitiesInStage(entities, self:GetStageId())
+    return XMVCA.XReform:SortEntitiesInStage(entities, self:GetStageId())
 end
 
 function XUiReform2ndBattleRoomRoleDetail:GetAutoCloseInfo()
-    local endTime = XDataCenter.Reform2ndManager.GetActivityEndTime()
+    local endTime = XMVCA.XReform:GetActivityEndTime()
 
     return true, endTime, function(isClose)
         if isClose then
-            XDataCenter.Reform2ndManager.HandleActivityEndTime()
+            XMVCA.XReform:HandleActivityEndTime()
         end
     end
 end
@@ -56,16 +56,18 @@ end
 function XUiReform2ndBattleRoomRoleDetail:AOPOnDynamicTableEventAfter(rootUi, event, index, grid)
     ---@type XCharacter
     local entity = rootUi.DynamicTable.DataSource[index]
-    local characterList = XDataCenter.Reform2ndManager.GetStageCharacterListByStageId(self.StageId)
+    local characterList = XMVCA.XReform:GetStageCharacterListByStageId(self.StageId)
     local isInList = false
 
     for i = 1, #characterList do
-        if entity:GetId() == characterList[i] then
+        if entity and entity:GetId() == characterList[i] then
             isInList = true
         end
     end
-    
-    grid.PanelRecommend.gameObject:SetActiveEx(isInList)
+
+    if grid.PanelRecommend then
+        grid.PanelRecommend.gameObject:SetActiveEx(isInList)
+    end
 end
 
 -- 获取子面板数据，主要用来增加编队界面自身玩法信息，就不用污染通用的预制体

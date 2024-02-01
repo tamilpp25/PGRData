@@ -30,7 +30,7 @@ function XUiPokemonMonster:OnAwake()
     self.BtnSkill.gameObject:SetActiveEx(false)
     self.GridMonster.gameObject:SetActiveEx(false)
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.PokemonLevelUpItem, function()
         self.AssetActivityPanel:Refresh({ XDataCenter.ItemManager.ItemId.PokemonLevelUpItem, XDataCenter.ItemManager.ItemId.PokemonStarUpItem, XDataCenter.ItemManager.ItemId.PokemonLowStarUpItem })
     end, self.AssetActivityPanel)
@@ -560,7 +560,7 @@ function XUiPokemonMonster:CheckTabRedDot()
         local monsters = XDataCenter.PokemonManager.GetOwnMonsterIdsByCareer(career)
         local isShowRed = true
         for _, id in pairs(monsters) do
-            isShowRed = isShowRed and XRedPointConditionPokemonNewRole.Check(id)
+            isShowRed = isShowRed and XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_POKEMON_NEW_ROLE, id)
         end
         self.TabBtns[index]:ShowReddot(not isShowRed)
     end

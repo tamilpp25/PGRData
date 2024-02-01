@@ -22,10 +22,10 @@ function XUiPanelAchieve:OnStart(parent, selectIdx)
 end
 
 function XUiPanelAchieve:AddRedPointEvent()
-    XRedPointManager.AddRedPointEvent(self.ImgRedFight,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Fight)
-    XRedPointManager.AddRedPointEvent(self.ImgRedCollect,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Collect)
-    XRedPointManager.AddRedPointEvent(self.ImgRedSocial,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Social)
-    XRedPointManager.AddRedPointEvent(self.ImgRedOther,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Other)
+    self:AddRedPointEvent(self.ImgRedFight,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Fight)
+    self:AddRedPointEvent(self.ImgRedCollect,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Collect)
+    self:AddRedPointEvent(self.ImgRedSocial,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Social)
+    self:AddRedPointEvent(self.ImgRedOther,self.OnCheckTabRedPoint,self,{XRedPointConditions.Types.CONDITION_PLAYER_ACHIEVE_TYPE},XDataCenter.TaskManager.AchvType.Other)
 end
 
 function XUiPanelAchieve:OnCheckTabRedPoint(show,achievetype)

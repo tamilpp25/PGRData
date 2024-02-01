@@ -1,6 +1,7 @@
 local XUiGridStage = require("XUi/XUiFubenMainLineChapter/XUiGridStage")
 local XUiGridMainLineSkipStage = require("XUi/XUiFubenMainLineChapter/XUiGridMainLineSkipStage")
 
+---@class XUiGridChapter
 local XUiGridChapter = XClass(nil, "XUiGridChapter")
 
 local MAX_STAGE_COUNT = CS.XGame.ClientConfig:GetInt("MainLineStageMaxCount")
@@ -371,6 +372,11 @@ function XUiGridChapter:UpdateChapterGrid(data)
     self.Chapter = data.Chapter
     self.HideStageCb = data.HideStageCb
     self.ShowStageCb = data.ShowStageCb
+    -- 据点关卡消失打印
+    self._IsBfrt = data.IsBfrt
+    if self._IsBfrt then
+        XLog.Warning("据点章节数据打印", data)
+    end
 
     self.EggStageList = {}
     self.NormalStageList = {}
@@ -507,7 +513,6 @@ function XUiGridChapter:SetStageList()
         XLog.Error("Chapter have no id " .. self.Chapter.ChapterId)
         return
     end
-
     -- 初始化副本显示列表，i作为order id，从1开始
     for i = 1, #self.NormalStageList do
         local stageId = self.NormalStageList[i]
@@ -515,6 +520,9 @@ function XUiGridChapter:SetStageList()
         local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
 
         local isShow = self:CheckCurrentStageShow(stageCfg, stageInfo)
+        if not isShow and self._IsBfrt then
+            XLog.Warning("据点章节关卡数据", stageId, stageInfo)
+        end
         if isShow or self.IsOnZhouMu then
             local grid = self.GridStageList[i]
             if not grid then
@@ -585,11 +593,8 @@ function XUiGridChapter:SetStageList()
                             self.LineAnimFun = nil
                         end
                     end
-
                 end
-
             end
-
         end
     end
 

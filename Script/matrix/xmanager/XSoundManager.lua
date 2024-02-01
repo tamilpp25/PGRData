@@ -1,4 +1,5 @@
 local CSXAudioManager = CS.XAudioManager
+local CSCriAtom = CS.CriAtom
 
 XSoundManager = XSoundManager or {}
 
@@ -286,6 +287,10 @@ function XSoundManager.Stop(cueId)
     CSXAudioManager.Stop(cueId)
 end
 
+function XSoundManager.StopByInfo(info)
+    CSXAudioManager.Stop(info)
+end
+
 function XSoundManager.StopAll()
     CSXAudioManager.StopAll()
 end
@@ -331,8 +336,8 @@ function XSoundManager.ResetSystemAudioVolume()
 end
 
 ---查找当前播放的Cue中是否存在指定cueId声效
----@param cueId integer
----@return CS.XAudioManager.AudioInfo|nil
+---@param cueId number
+---@return XAudioManager.AudioInfo|nil
 function XSoundManager.CheckHaveCue(cueId)
     if not CSXAudioManager.GetAudioInfoList then
         return
@@ -344,4 +349,14 @@ function XSoundManager.CheckHaveCue(cueId)
             return info
         end
     end
+end
+
+function XSoundManager.GetCurrentBgmInfo()
+    return CSXAudioManager.CurrentMusicAudioInfo1
+end
+
+---@param refresh boolean 如果cueId相同是否刷新时长
+---@param duration number 秒
+function XSoundManager.PlayMusicIgnoreTween(cueId, refresh, duration)
+    return CSXAudioManager.PlayMusicIgnoreTween(cueId, refresh, duration)
 end

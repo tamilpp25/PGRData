@@ -54,14 +54,14 @@ function XUiTransfiniteBattlePrepare:OnAwake()
 
     ---@type XUiGridCommon
     --self._GridRewardExtra = XUiGridCommon.New(self, self.GridRewardExtra)
-
-    self._ViewModel:OnAwake()
 end
 
 function XUiTransfiniteBattlePrepare:OnStart(stageGroup)
     if stageGroup then
         self._ViewModel:SetStageGroup(stageGroup)
     end
+    self._ViewModel:OnAwake()
+    self.PanelAnchor.gameObject:SetActiveEx(false)
 end
 
 function XUiTransfiniteBattlePrepare:OnEnable()
@@ -119,10 +119,15 @@ function XUiTransfiniteBattlePrepare:Update(resetIndex)
     end
     self.PanelComplete.gameObject:SetActiveEx(data.IsStagePassed)
 
-    if not data.IsStageCurrent then
-        self.BtnBattle:SetDisable(true, false)
-    else
+    if data.IsStageCurrent then
         self.BtnBattle:SetDisable(false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteBeginChallengeStage"))
+    elseif data.IsShowRepeatBtn then
+        self.BtnBattle:SetDisable(false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteRepeatChallengeStage"))
+    else
+        self.BtnBattle:SetDisable(true, false)
+        self.BtnBattle:SetNameByGroup(1, XUiHelper.GetText("TransfiniteBeginChallengeStage"))
     end
 
     local members = data.Members
@@ -138,7 +143,7 @@ function XUiTransfiniteBattlePrepare:Update(resetIndex)
 
     if self.TxtAddedRewardTitle then
         if data.ExtraRewardTime > 0 then
-            self.TxtAddedRewardTitle.text = XUiHelper.GetText("TransfiniteTimeExtra3", data.ExtraRewardTime)
+            self.TxtAddedRewardTitle.text = data.ExtraDesc
             self.TxtAddedRewardTitle.gameObject:SetActiveEx(true)
             self.PanelRewardTitle.gameObject:SetActiveEx(true)
         else
@@ -148,6 +153,11 @@ function XUiTransfiniteBattlePrepare:Update(resetIndex)
     end
 
     self.ImgGift:SetRawImage(data.ImgScore)
+    -- 锚点信息
+    if not self._ViewModel:IsIsland() then
+        self.PanelAnchor.gameObject:SetActiveEx(data.IsShowAnchor)
+        self.TxtNextAnchor.text = data.TxtAnchorProgress
+    end
 end
 
 function XUiTransfiniteBattlePrepare:OnClickLeft()

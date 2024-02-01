@@ -1,3 +1,4 @@
+---@class XUiLottoLog:XLuaUi
 local XUiLottoLog = XLuaUiManager.Register(XLuaUi, "UiLottoLog")
 local BtnMaxCount = 4
 local TypeText = {}
@@ -42,10 +43,10 @@ end
 function XUiLottoLog:SetTypeText()
     TypeText[XArrangeConfigs.Types.Item] = CS.XTextManager.GetText("TypeItem")
     TypeText[XArrangeConfigs.Types.Character] = function(templateId)
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        local characterType = XMVCA.XCharacter:GetCharacterType(templateId)
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             return CS.XTextManager.GetText("TypeCharacter")
-        elseif characterType == XCharacterConfigs.CharacterType.Isomer then
+        elseif characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             return CS.XTextManager.GetText("TypeIsomer")
         end
     end
@@ -192,7 +193,7 @@ function XUiLottoLog:SetRuleData(rules, ruleTitles, panel)
         tmpObj.GameObject = go.gameObject
         XTool.InitUiObject(tmpObj)
         tmpObj.TxtRuleTitle.text = ruleTitles[k]
-        tmpObj.TxtRule.text = rules[k]
+        tmpObj.TxtRule.text = XUiHelper.ConvertLineBreakSymbol(rules[k])
         tmpObj.GameObject:SetActiveEx(true)
     end
 end

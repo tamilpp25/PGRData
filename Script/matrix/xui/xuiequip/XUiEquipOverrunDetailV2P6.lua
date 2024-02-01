@@ -1,11 +1,6 @@
 local XUiEquipOverrunDetailV2P6 = XClass(XUiNode, "XUiEquipOverrunDetailV2P6")
 
-function XUiEquipOverrunDetailV2P6:Ctor(ui, parent)
-    self.Ui = ui
-    self.Transform = ui.transform
-    self.Parent = parent
-    
-    XTool.InitUiObject(self)
+function XUiEquipOverrunDetailV2P6:OnStart()
     self.BtnPreview = self.Transform:FindTransform("BtnPreview")
     self.ChoiceEffect = self.BtnChoice.transform:Find("RImgBg/Effect")
     self:SetButtonCallBack()

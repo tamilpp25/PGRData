@@ -36,6 +36,9 @@ function XUiSkillDetails:OnStart(characterId, skills, pos, gridIndex)
     self:InitSkillBtn()
 
     XEventManager.AddEventListener(XEventId.EVENT_ITEM_FAST_TRADING, self.RefreshSkillDataByFastBuy, self)
+    XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.Coin, function()
+        self:RefreshSkillDataByFastBuy()
+    end, self.Transform)
 end
 
 function XUiSkillDetails:RefreshDataByChangePage(characterId, skills, pos, gridIndex)
@@ -52,7 +55,7 @@ function XUiSkillDetails:OnEnable()
     -- 改用统一的gotoskill刷新界面
     self:GotoSkill(self.Pos)
     -- 详情默认值
-    self.Toggle.isOn = XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE
+    self.Toggle.isOn = XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE
     self:OnToggle()
 end
 
@@ -74,20 +77,17 @@ end
 
 function XUiSkillDetails:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_ITEM_FAST_TRADING, self.RefreshSkillDataByFastBuy, self)
+    XDataCenter.ItemManager.RemoveCountUpdateListener(self.Transform)
 end
 
 function XUiSkillDetails:Close()
-    XDataCenter.FavorabilityManager.ResetLastPlaySkillCvTime()
+    XMVCA.XFavorability:ResetLastPlaySkillCvTime()
     self.Super.Close(self)
 end
 
 function XUiSkillDetails:InitModelRoot()
     local root = self.ParentUi.UiModelGo
     self.PanelRoleModel = root:FindTransform("PanelRoleModel")
-    self.EffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
-    self.EffectHuanren = root:FindTransform("ImgEffectHuanren")
-    self.EffectHuanren.gameObject:SetActiveEx(false)
-    self.EffectHuanren1.gameObject:SetActiveEx(false)
 end
 
 function XUiSkillDetails:InitSkillBtn()
@@ -135,7 +135,7 @@ function XUiSkillDetails:HideAllSkillBtn()
 end
 
 function XUiSkillDetails:GetSkillBtn(index, subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.SkillBtnSpecialGroups[index]
     else
@@ -144,7 +144,7 @@ function XUiSkillDetails:GetSkillBtn(index, subSkill)
 end
 
 function XUiSkillDetails:GetSkillBtnGameObject(subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.BtnTog
     else
@@ -153,7 +153,7 @@ function XUiSkillDetails:GetSkillBtnGameObject(subSkill)
 end
 
 function XUiSkillDetails:SetSkillBtn(index, subSkill, btn)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         self.SkillBtnSpecialGroups[index] = btn
     else
@@ -169,7 +169,7 @@ function XUiSkillDetails:SetBtnInfo(btn, subSkillInfo)
         XLog.Warning("sub skill config icon is null. id = " .. subSkillInfo.SubSkillId)
     end
 
-    local addLevel = XDataCenter.CharacterManager.GetSkillPlusLevel(self.CharacterId, subSkillInfo.SubSkillId)
+    local addLevel = XMVCA.XCharacter:GetSkillPlusLevel(self.CharacterId, subSkillInfo.SubSkillId)
     local totalLevel = subSkillInfo.Level + addLevel
     local curLevel = totalLevel == 0 and '' or CS.XTextManager.GetText("HostelDeviceLevel") .. ':' .. totalLevel
     -- 技能等级
@@ -180,13 +180,13 @@ function XUiSkillDetails:SetBtnInfo(btn, subSkillInfo)
         btn.transform:Find("Press/ImgLcok"),
         btn.transform:Find("Select/ImgLcok"),
     }
-    local min_max = XCharacterConfigs.GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
+    local min_max = XMVCA.XCharacter:GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
     if (subSkillInfo.Level >= min_max.Max) then
         self:ActiveImageLock(ImgLocks, false)
         btn:ShowReddot(false)
     else
         self:ActiveImageLock(ImgLocks, subSkillInfo.Level <= 0)
-        btn:ShowReddot(XDataCenter.CharacterManager.CheckCanUpdateSkill(self.CharacterId, subSkillInfo.SubSkillId, subSkillInfo.Level))
+        btn:ShowReddot(XMVCA.XCharacter:CheckCanUpdateSkill(self.CharacterId, subSkillInfo.SubSkillId, subSkillInfo.Level))
     end
 end
 
@@ -238,7 +238,7 @@ end
 function XUiSkillDetails:OnBtnNext()
     if self.Pos then
         local nextPos = self.Pos + 1
-        if nextPos > XCharacterConfigs.MAX_SHOW_SKILL_POS then
+        if nextPos > XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS then
             self.ParentUi:SetSkillPos(nextPos)
             nextPos = 1
         else
@@ -252,8 +252,8 @@ function XUiSkillDetails:OnBtnLast()
     if self.Pos then
         local lastPos = self.Pos - 1
         if lastPos < 1 then
-            self.ParentUi:SetSkillPos(XCharacterConfigs.MAX_SHOW_SKILL_POS + 1)
-            lastPos = XCharacterConfigs.MAX_SHOW_SKILL_POS
+            self.ParentUi:SetSkillPos(XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS + 1)
+            lastPos = XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS
         else
             self.ParentUi:SetSkillPos(lastPos)
         end
@@ -263,7 +263,7 @@ end
 
 function XUiSkillDetails:OnToggle()
     self.IsDetails = self.Toggle.isOn
-    XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
+    XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
     self.SkillInfoPanel:RefreshSkillDescribe(self.IsDetails)
     self:PlayAnimation("QieHuan3")
 end
@@ -276,7 +276,7 @@ function XUiSkillDetails:RefreshData(clientLevel, subSkill)
         return
     end
 
-    self.Skills = XCharacterConfigs.GetCharacterSkills(characterId, clientLevel, subSkill)
+    self.Skills = XMVCA.XCharacter:GetCharacterSkills(characterId, clientLevel, subSkill)
 
     self.Skill = self.Skills[self.Skill.config.Pos]
     self:RefreshSkillData()

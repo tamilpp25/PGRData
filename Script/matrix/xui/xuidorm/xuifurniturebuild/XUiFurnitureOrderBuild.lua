@@ -91,6 +91,8 @@ function XUiGridOrderBuild:RefreshFurniture()
     local drawName = ""
     local isValidDrawId = XTool.IsNumberValid(drawId)
     self.ImgSelectDrawing.gameObject:SetActiveEx(isValidDrawId)
+    self.PanelDrawing.gameObject:SetActiveEx(isValidDrawId)
+    self.ImgAdd.gameObject:SetActiveEx(isValidDrawId)
     if isValidDrawId then
         self.ImgSelectDrawing:SetRawImage(XDataCenter.ItemManager.GetItemIcon(drawId))
         drawName = XDataCenter.ItemManager.GetItemName(drawId)
@@ -265,11 +267,13 @@ function XUiGridOrderBuild:GetCost()
         return 0
     end
     local price, build = 0, 0
+    local previewConfig = XFurnitureConfigs.GetFurnitureTemplateById(self.PreviewId)
+    local isBase = previewConfig.SuitId == XFurnitureConfigs.BASE_SUIT_ID
     for _, furnitureId in pairs(self.FurnitureIds) do
         local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
         if furniture then
             local template = XFurnitureConfigs.GetFurnitureTemplateById(furniture:GetConfigId())
-            price = price + template.MoneyNum
+            price = price + (isBase and 0 or template.MoneyNum)
             build = build + 1
         end
         if build >= maxBuild then

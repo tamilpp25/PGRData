@@ -52,11 +52,11 @@ end
 
 function XUiPlayerInfo:OnBtnChat()
     -- 联机中不给跳转，防止跳出联机房间
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
+    --    return
+    --end
 
     XLuaUiManager.Close("UiChatServeMain")
 

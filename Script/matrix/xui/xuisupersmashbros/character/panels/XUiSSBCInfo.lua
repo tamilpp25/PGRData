@@ -68,7 +68,7 @@ end
 --================
 function XUiSSBCInfo:OnClickBtnElementDetail()
     if not self.Chara then return end
-    XLuaUiManager.Open("UiCharacterElementDetail", self.Chara:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.Chara:GetCharacterId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 return XUiSSBCInfo

@@ -154,6 +154,10 @@ function XHomeCharObj:DoPathFind(minDistance, maxDistance)
     local y = self.Pos.y
     local distance
 
+    if not self.Map then
+        return
+    end
+
     self.Pos = XHomeDormManager.WorldPosToGroundGridPos(self.Transform.position, self.Room.Transform)
     local findCount = 0
     while (not findPath) do
@@ -782,6 +786,17 @@ function XHomeCharObj:ReSetPosition()
     local targetPos = CS.UnityEngine.Vector2.one
     local x = 0
     local y = 0
+
+    if XTool.IsTableEmpty(canReachList) then
+        self.Pos = {
+            ["x"] = x,
+            ["y"] = y
+        }
+
+        self.Agent:SetVarDicByKey("x", x)
+        self.Agent:SetVarDicByKey("y", y)
+        return
+    end
 
 
     --最大的随机次数

@@ -238,11 +238,16 @@ function XUiCommodity:RefreshBuyCount()
 end
 
 function XUiCommodity:RefreshGift()
-    if self.Data.GiftRewardId and self.Data.GiftRewardId ~= 0 then
-        self.ImgTabLb.gameObject:SetActiveEx(true)
-        self.GiftRewardId = self.Data.GiftRewardId
+    --2.10 涂装赠品
+    if self.Data.RewardGoods.RewardType == XRewardManager.XRewardType.Fashion then
+        local fashionId = self.Data.RewardGoods.TemplateId
+        local fashionCfg = XFashionConfigs.GetFashionTemplate(fashionId)
+        if fashionCfg and XTool.IsNumberValid(fashionCfg.GiftId) then
+            self.ImgTabLb.gameObject:SetActiveEx(true)
+        else
+            self.ImgTabLb.gameObject:SetActiveEx(false)
+        end
     else
-        self.GiftRewardId = 0
         self.ImgTabLb.gameObject:SetActiveEx(false)
     end
 end

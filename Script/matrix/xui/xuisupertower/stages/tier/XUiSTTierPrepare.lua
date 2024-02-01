@@ -50,7 +50,7 @@ function XUiSTTierPrepare:OnEnable()
 end
 
 function XUiSTTierPrepare:InitPanelAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
             self.AssetActivityPanel:Refresh(itemIds)

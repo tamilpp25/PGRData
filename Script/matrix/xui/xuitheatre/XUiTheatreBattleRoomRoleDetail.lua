@@ -45,7 +45,7 @@ function XUiTheatreBattleRoomRoleDetail:AOPOnBtnJoinTeamClickedAfter(ui)
     ui.Team:UpdateEntityTeamPos(id, ui.Pos, true)
 end
 
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiTheatreBattleRoomRoleDetail:GetEntities(characterType)
     local roles = self.AdventureManager:GetCurrentRoles(true)
     for _, role in ipairs(roles) do
@@ -100,6 +100,20 @@ end
 
 function XUiTheatreBattleRoomRoleDetail:GetCurrentEntityId(currentEntityId)
     return self._IdDir[currentEntityId] and self._IdDir[currentEntityId] or currentEntityId
+end
+
+---@param entity XTheatreAdventureRole
+function XUiTheatreBattleRoomRoleDetail:GetFilterCharIdFun(entity)
+    return entity:GetId()
+end
+
+function XUiTheatreBattleRoomRoleDetail:CheckEntityIdIsIsomer(entityId)
+    for robotId, adventureRoleId in pairs(self._IdDir) do
+        if adventureRoleId == entityId then
+            return XMVCA.XCharacter:GetIsIsomer(robotId)
+        end
+    end
+    return XMVCA.XCharacter:GetIsIsomer(entityId)
 end
 
 return XUiTheatreBattleRoomRoleDetail

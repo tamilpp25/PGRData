@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local XUiGridEquipResonanceSelectEquipV2P6 = XClass(nil, "XUiGridEquipResonanceSelectEquipV2P6")
 

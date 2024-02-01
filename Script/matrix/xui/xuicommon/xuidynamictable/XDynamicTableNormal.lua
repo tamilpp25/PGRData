@@ -8,6 +8,8 @@ XDynamicTableNormal = {}
     DYNAMIC_GRID_RECYCLE = 4,--回收
     DYNAMIC_TWEEN_OVER = 5,
     DYNAMIC_BEGIN_DRAG = 6,
+    DYNAMIC_END_DRAG = 7,
+    DYNAMIC_DEBUG_LOG_DATASOURCE = 8,--打印数据源
 
     DYNAMIC_GRID_INIT = 100
 }
@@ -73,12 +75,13 @@ function XDynamicTableNormal:SetDelegate(delegate)
     self.Delegate = delegate
 end
 
+---@param proxy XUiNode
 function XDynamicTableNormal:SetProxyDisplay(proxy, isShow)
     if CheckClassSuper(proxy, XUiNode) then
         if isShow then
             proxy:Open()
         else
-            if not XTool.UObjIsNil(proxy.GameObject) then
+            if proxy:IsValid() then
                 proxy:Close()
             end
         end
@@ -138,6 +141,10 @@ function XDynamicTableNormal:OnDynamicTableEvent(event, index, grid)
         XEventManager.DispatchEvent(XEventId.EVENT_GUIDE_STEP_OPEN_EVENT, self.Imp.name)
     end
 
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_DEBUG_LOG_DATASOURCE then
+        self:DebugLogDataSource()
+    end
+
     if self.DynamicEventDelegate then
         self.DynamicEventDelegate(event, index, proxy)
     else
@@ -145,6 +152,25 @@ function XDynamicTableNormal:OnDynamicTableEvent(event, index, grid)
     end
 end
 
+function XDynamicTableNormal:DebugLogDataSource()
+    XLog.Debug("XDynamicTableNormal name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
+end
+
+-- 兼容XUiNode
+function XDynamicTableNormal:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
+end
 
 --设置事件回调
 function XDynamicTableNormal:SetDynamicEventDelegate(fun)
@@ -415,6 +441,54 @@ function XDynamicTableNormal:ScrollToIndex(index, duration, beginCb, endCb)
     end, function()
         self.Imp.ScrRect.horizontalNormalizedPosition = newPosX
         self.Imp.ScrRect.verticalNormalizedPosition = newPosY
+        if endCb then
+            endCb()
+        end
+    end)
+end
+
+-- 将列表指定某个滚动到可视末尾
+function XDynamicTableNormal:ScrollIndexOnEnd(index, duration, beginCb, endCb)
+    if not self.Imp then
+        return
+    end
+    if self._ToEndTimer then
+        return
+    end
+    local oldPos = self.Imp.ScrRect.content.anchoredPosition
+    local viewSize = self.Imp.ViewSize
+    local spacingSize = self.Imp.Spacing
+    local gridSize = self.Imp.GridSize + spacingSize
+    local newPosX, newPosY
+    if self.Imp.Direction == CS.XLayoutRule.Direction.Horizontal then
+        newPosX = -gridSize.x * index
+        newPosX = newPosX + viewSize.x - spacingSize.x / 2
+        newPosY = oldPos.y
+    else
+        newPosX = oldPos.x
+        newPosY = -gridSize.y * index
+        newPosY = newPosY + viewSize.y - spacingSize.y / 2
+    end
+    if newPosX == oldPos.x and newPosY == oldPos.y then
+        return
+    end
+    if beginCb then
+        beginCb()
+    end
+    local position = { x = 0, y = 0 }
+    self._ToEndTimer = XUiHelper.Tween(duration, function(f)
+        if XTool.UObjIsNil(self.Imp) then
+            return
+        end
+        position.x = oldPos.x * (1 - f) + newPosX * f
+        position.y = oldPos.y * (1 - f) + newPosY * f
+        self.Imp.ScrRect.content.anchoredPosition = position
+    end, function()
+        if XTool.UObjIsNil(self.Imp) then
+            return
+        end
+        self._ToEndTimer = nil
+        self.Imp.ScrRect.content.anchoredPosition = Vector2(newPosX, newPosY)
         if endCb then
             endCb()
         end

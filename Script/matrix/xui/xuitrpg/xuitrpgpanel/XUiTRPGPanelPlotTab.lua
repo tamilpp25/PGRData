@@ -37,6 +37,7 @@ end
 
 function XUiTRPGPanelPlotTab:InitTab(isShowTRPGTruthRoadMain)
     self.GroupTabBtns = {}
+    self.GroupTabRed = {}
     local config = XTRPGConfigs.GetPanelPlotTabTemplate()
     local name, bg
     for i in ipairs(config) do
@@ -88,7 +89,8 @@ function XUiTRPGPanelPlotTab:AddRedPointEvent(index)
     local func = redPointConditions and redPointConditions.func
     local conditionGroup = redPointConditions and redPointConditions.conditionGroup
     if tabBtn and func and conditionGroup then
-        XRedPointManager.AddRedPointEvent(tabBtn, func, self, conditionGroup)
+        local redId = self:AddRedPointEvent(tabBtn, func, self, conditionGroup)
+        self.GroupTabRed[index] = redId
     end
 end
 
@@ -128,6 +130,16 @@ function XUiTRPGPanelPlotTab:OnCheckTRPGYingDiRedPoint(count)
     local tabBtn = self.GroupTabBtns[UiIndex.TRPGYingDi]
     if tabBtn then
         tabBtn:ShowReddot(count >= 0)
+    end
+end
+
+function XUiTRPGPanelPlotTab:OnDestroy()
+    self:ReleaseRed()
+end
+
+function XUiTRPGPanelPlotTab:ReleaseRed()
+    for _, redId in pairs(self.GroupTabRed) do
+        self:RemoveRedPointEvent(redId)
     end
 end
 

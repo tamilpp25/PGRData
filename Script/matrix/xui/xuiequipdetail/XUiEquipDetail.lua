@@ -417,12 +417,12 @@ end
 
 function XUiEquipDetail:CheckShowRoleTag(Id, obj)
     local IsShow = false
-    local tabMap = XCharacterConfigs.GetRecommendTabMap(Id, XCharacterConfigs.RecommendType.Equip)
+    local tabMap = XMVCA.XCharacter:GetRecommendTabMap(Id, XEnumConst.CHARACTER.RecommendType.Equip)
     for _, v in pairs(tabMap or {}) do
         if v.GroupId then
             local voteIds = XDataCenter.VoteManager.GetVoteIdListByGroupId(v.GroupId)
             for _, v2 in pairs(voteIds or {}) do
-                local template = XCharacterConfigs.GetCharDetailEquipTemplate(v2)
+                local template = XMVCA.XEquip:GetCharDetailEquipTemplate(v2)
                 if template.EquipRecomend == self.TemplateId then
                     IsShow = true
                     break

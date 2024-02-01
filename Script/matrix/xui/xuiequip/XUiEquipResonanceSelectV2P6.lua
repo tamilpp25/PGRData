@@ -249,9 +249,9 @@ function XUiEquipResonanceSelectV2P6:UpdateBlindCharacter()
         self.CharacterSelect.gameObject:SetActiveEx(not isBlind)
         self.CharacterDisable.gameObject:SetActiveEx(false)
         if isBlind then
-            local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.SelectCharacterId)
+            local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(self.SelectCharacterId)
             self.CharacterBlind:GetObject("ImgHead"):SetRawImage(icon)
-            self.CharacterBlind:GetObject("TxtName").text = XCharacterConfigs.GetCharacterLogName(self.SelectCharacterId)
+            self.CharacterBlind:GetObject("TxtName").text = XMVCA.XCharacter:GetCharacterLogName(self.SelectCharacterId)
 
             local lastCharId = XDataCenter.EquipManager.GetResonanceBindCharacterId(self.EquipId, self.Pos)
             local isChange = lastCharId ~= 0 and lastCharId ~= self.SelectCharacterId

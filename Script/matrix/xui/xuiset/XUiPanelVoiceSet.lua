@@ -1,9 +1,7 @@
-XUiPanelVoiceSet = XClass(nil, "XUiPanelVoiceSet")
+---@class XUiPanelVoiceSet : XUiNode
+local XUiPanelVoiceSet = XClass(XUiNode, "XUiPanelVoiceSet")
 
-function XUiPanelVoiceSet:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiPanelVoiceSet:OnStart()
     self.MyColor = CS.UnityEngine.Color()
     self:InitUi()
     self:InitPanelData()
@@ -11,34 +9,34 @@ function XUiPanelVoiceSet:Ctor(ui)
     self:AddListener()
 end
 
+function XUiPanelVoiceSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelVoiceSet:OnDisable()
+    self:HidePanel()
+end
+
+function XUiPanelVoiceSet:OnGetLuaEvents()
+    return {
+        XEventId.EVENT_SUBPACKAGE_COMPLETE
+    }
+end
+
+function XUiPanelVoiceSet:OnNotify(evt, ...)
+    if evt == XEventId.EVENT_SUBPACKAGE_COMPLETE then
+        self:RefreshBtndownload()
+    end
+end
+
 function XUiPanelVoiceSet:InitUi()
-    local XUiBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload")
-    local beforeCb = handler(self, self.OnCheckDownloadBefore)
-    self.OnRefreshJpTog = function(needDownload) 
-        self:RefreshCvTog(self.TogRiwen, needDownload)
-    end
-    self.OnRefreshHkTog = function(needDownload)
-        self:RefreshCvTog(self.TogXiangGang, needDownload)
-    end
-    self.OnRefreshEnTog = function(needDownload)
-        self:RefreshCvTog(self.TogEnglish, needDownload)
-    end
-    ---@type XUiBtnDownload
-    self.GirdBtnDownloadJp = XUiBtnDownload.New(self.BtnDownloadJP, beforeCb)
-    ---@type XUiBtnDownload
-    self.GirdBtnDownloadHk = XUiBtnDownload.New(self.BtnDownloadHK, beforeCb)
-    ---@type XUiBtnDownload
-    self.GridBtnDownloadEn = XUiBtnDownload.New(self.BtnDownloadEN, beforeCb)
-    self.GirdBtnDownloadJp:Init(XDlcConfig.EntryType.CharacterVoice, 0, nil, handler(self, self.OnDownloadComplete))
-    self.GirdBtnDownloadHk:Init(XDlcConfig.EntryType.CharacterVoice, 0, nil, handler(self, self.OnDownloadComplete))
-    self.GridBtnDownloadEn:Init(XDlcConfig.EntryType.CharacterVoice, 0, nil, handler(self, self.OnDownloadComplete))
 
     self.BtnDownloadCN.gameObject:SetActiveEx(false)
 
     if not XDataCenter.UiPcManager.IsPc() and self.PanelMute then
         self.PanelMute.gameObject:SetActiveEx(false)
     end
-    self.TogMute.isOn = CS.XStandaloneSettingHelper.MuteInBackground
+    self.TogMute.isOn = CS.XSettingHelper.MuteInBackground
 end
 
 function XUiPanelVoiceSet:AddListener()
@@ -62,9 +60,26 @@ function XUiPanelVoiceSet:AddListener()
     XUiHelper.RegisterClickEvent(self, self.BtnCanDown, self.OnBtnCanDownClick)
     XUiHelper.RegisterClickEvent(self, self.BtnDownload, self.OnBtnDownloadClick)
     XUiHelper.RegisterClickEvent(self, self.BtnUpdate, self.OnBtnUpdateClick)
+    
+    self.BtnDownloadCN.CallBack = function() 
+        self:OnBtnDownloadClick(self.BtnDownloadCN, XEnumConst.CV_TYPE.CN)
+    end
+
+    self.BtnDownloadHK.CallBack = function()
+        self:OnBtnDownloadClick(self.BtnDownloadHK, XEnumConst.CV_TYPE.HK)
+    end
+
+    self.BtnDownloadEN.CallBack = function()
+        self:OnBtnDownloadClick(self.BtnDownloadEN, XEnumConst.CV_TYPE.EN)
+    end
+
+    self.BtnDownloadJP.CallBack = function()
+        self:OnBtnDownloadClick(self.BtnDownloadJP, XEnumConst.CV_TYPE.JPN)
+    end
 end
 
 function XUiPanelVoiceSet:OnLanguageClick()
+    local oldCv = self.NewCvType
     if (self.TogRiwen.isOn) then
         self.NewCvType = 1
     elseif (self.TogZhongWen.isOn) then
@@ -74,6 +89,15 @@ function XUiPanelVoiceSet:OnLanguageClick()
     elseif self.TogEnglish and (self.TogEnglish.isOn) then
         self.NewCvType = 4
     end
+
+    if not XMVCA.XSubPackage:CheckSubpackageByCvType(self.NewCvType) then
+        self.NewCvType = oldCv
+        self.TogRiwen.isOn = self.NewCvType == XEnumConst.CV_TYPE.JPN
+        self.TogZhongWen.isOn = self.NewCvType == XEnumConst.CV_TYPE.CN
+        self.TogXiangGang.isOn = self.NewCvType == XEnumConst.CV_TYPE.HK
+        self.TogEnglish.isOn = self.NewCvType == XEnumConst.CV_TYPE.EN
+    end
+    
     CS.XAudioManager.CvType = self.NewCvType
 end
 
@@ -97,7 +121,7 @@ function XUiPanelVoiceSet:OnTogControlClick()
 end
 
 function XUiPanelVoiceSet:OnTogMuteClick()
-    CS.XStandaloneSettingHelper.MuteInBackground = self.TogMute.isOn
+    CS.XSettingHelper.MuteInBackground = self.TogMute.isOn
 end
 
 function XUiPanelVoiceSet:SetTogControl(IsOn)
@@ -168,7 +192,7 @@ end
 function XUiPanelVoiceSet:ResetMute()
     if XDataCenter.UiPcManager.IsPc() and self.PanelMute then
         self.TogMute.isOn = false
-        CS.XStandaloneSettingHelper.MuteInBackground = self.TogMute.isOn
+        CS.XSettingHelper.MuteInBackground = self.TogMute.isOn
     end
 end
 
@@ -190,10 +214,6 @@ function XUiPanelVoiceSet:SetPanel()
     
     self.FashionVoiceKai.isOn = self.NewIsOpenFashionVoice == 1
     self.FashionVoiceGuan.isOn = self.NewIsOpenFashionVoice ~= 1
-    
-    self.GirdBtnDownloadHk:RefreshView(self.OnRefreshHkTog)
-    self.GirdBtnDownloadJp:RefreshView(self.OnRefreshJpTog)
-    self.GridBtnDownloadEn:RefreshView(self.OnRefreshEnTog)
 end
 
 function XUiPanelVoiceSet:SetVolume()
@@ -213,7 +233,6 @@ end
 
 function XUiPanelVoiceSet:ShowPanel()
     self.IsShow = true
-    self.GameObject:SetActive(true)
     
     local yuYanBaoObject = self.Transform:Find("Yuyanbao")
 
@@ -223,6 +242,7 @@ function XUiPanelVoiceSet:ShowPanel()
 
     self:InitPanelData()
     self:SetPanel()
+    self:RefreshBtndownload()
     -- if (self:CheckNeedDownloadSource()==0) then
     --     -- self.BtnCanDown.gameObject:SetActive(false)
     --     -- self.BtnDownloaded.gameObject:SetActive(true)
@@ -241,7 +261,6 @@ end
 
 function XUiPanelVoiceSet:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelVoiceSet:CheckDataIsChange()
@@ -333,34 +352,18 @@ function XUiPanelVoiceSet:ChangeObjsTansparent(alpha)
     self.ImgYinliangFill.color = self.MyColor
 end
 
-function XUiPanelVoiceSet:OnDownloadComplete()
-    if XTool.UObjIsNil(self.GameObject) then
-        return
-    end
-    self.GirdBtnDownloadJp:RefreshView(self.OnRefreshJpTog)
-    self.GirdBtnDownloadHk:RefreshView(self.OnRefreshHkTog)
-    self.GridBtnDownloadEn:RefreshView(self.OnRefreshEnTog)
-end 
-
-function XUiPanelVoiceSet:OnCheckDownloadBefore()
-    local isRunning = CS.XFight.IsRunning
-    if isRunning then
-        XUiManager.TipText("DlcDownloadVoiceTipInFight")
-        return false
-    end
-    return true
+function XUiPanelVoiceSet:RefreshBtndownload()
+    self.BtnDownloadEN.gameObject:SetActiveEx(not XMVCA.XSubPackage:CheckCvDownload(XEnumConst.CV_TYPE.EN))
+    self.BtnDownloadHK.gameObject:SetActiveEx(not XMVCA.XSubPackage:CheckCvDownload(XEnumConst.CV_TYPE.HK))
+    self.BtnDownloadCN.gameObject:SetActiveEx(not XMVCA.XSubPackage:CheckCvDownload(XEnumConst.CV_TYPE.CN))
+    self.BtnDownloadJP.gameObject:SetActiveEx(not XMVCA.XSubPackage:CheckCvDownload(XEnumConst.CV_TYPE.JPN))
 end
 
---- 刷新Cv类型的单选框样式
----@param toggle UnityEngine.UI.Toggle
----@param needDownload boolean 是否需要分包下载
---------------------------
-function XUiPanelVoiceSet:RefreshCvTog(toggle, needDownload)
-    if XTool.UObjIsNil(toggle) or XTool.UObjIsNil(self.GameObject) then
+function XUiPanelVoiceSet:OnBtnDownloadClick(btn, cyType)
+    if XMVCA.XSubPackage:CheckSubpackageByCvType(cyType) then
+        btn.gameObject:SetActiveEx(false)
         return
     end
-    if not toggle.targetGraphic then
-        return
-    end
-    toggle.targetGraphic.gameObject:SetActiveEx(not needDownload)
 end
+
+return XUiPanelVoiceSet

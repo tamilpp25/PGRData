@@ -311,16 +311,10 @@ function XUiFurnitureDetail:GetRewardCount()
     if not XTool.IsNumberValid(self.FurnitureId) then
         return 0
     end
-    local count = 0
-    local rewards = XDataCenter.FurnitureManager.GetRecycleRewards({ self.FurnitureId } )
+    local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(self.FurnitureId)
     local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
-
-    for _, reward in ipairs(rewards) do
-        local templateId = (reward.TemplateId and reward.TemplateId > 0) and reward.TemplateId or reward.Id
-        if templateId == coinId then
-            count = count + reward.Count
-        end
-    end
+    
+    local count = rewards[coinId] and rewards[coinId].Count or 0
     
     return count
 end 

@@ -53,15 +53,15 @@ XDrawManagerCreator = function()
     end
 
     --region Ui
-    function XDrawManager.OpenDrawUi(ruleType, groupId, defaultDrawId, isPop)
+    function XDrawManager.OpenDrawUi(ruleType, groupId, defaultDrawId, isPop,groupPool)
         if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.DrawCard) then
             return
         end
         XDrawManager.GetDrawGroupList(function()
             if isPop then
-                XLuaUiManager.PopThenOpen("UiNewDrawMain", ruleType, groupId, defaultDrawId)
+                XLuaUiManager.PopThenOpen("UiNewDrawMain", ruleType, groupId, defaultDrawId,groupPool)
             else
-                XLuaUiManager.Open("UiNewDrawMain", ruleType, groupId, defaultDrawId)
+                XLuaUiManager.Open("UiNewDrawMain", ruleType, groupId, defaultDrawId,groupPool)
             end
         end)
     end
@@ -761,8 +761,10 @@ XDrawManagerCreator = function()
     end
 
     function XDrawManager.DrawCard(drawId, count, freeTicketId, cb)
+        XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.DRAW)
         XNetwork.Call("DrawDrawCardRequest", { DrawId = drawId, Count = count, UseDrawTicketId = freeTicketId }, function(res)
             if res.Code ~= XCode.Success then
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.DRAW, true)
                 XUiManager.TipCode(res.Code)
                 return
             end
@@ -772,6 +774,8 @@ XDrawManagerCreator = function()
             local drawInfo = XDrawManager.GetDrawInfo(res.ClientDrawInfo.Id)
             if cb then
                 cb(drawInfo, res.RewardGoodsList, res.ExtraRewardList)
+            else
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.DRAW, true)
             end
         end)
     end

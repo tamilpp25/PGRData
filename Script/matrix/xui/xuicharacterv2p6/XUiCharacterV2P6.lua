@@ -1,17 +1,11 @@
 -- 2.6版本重构uicharacter界面
+---@class XUiCharacterV2P6 XUiCharacterV2P6
 ---@field _Control XCharacterControl
 local XUiCharacterV2P6 = XLuaUiManager.Register(XLuaUi, "UiCharacterV2P6")
 local PanelCharacterOwnedInfoV2P6 = require("XUi/XUiCharacterV2P6/PanelChildUi/XPanelCharacterOwnedInfoV2P6")
 local PanelCharacterUnOwnedInfoV2P6 = require("XUi/XUiCharacterV2P6/PanelChildUi/XPanelCharacterUnOwnedInfoV2P6")
 
 function XUiCharacterV2P6:OnAwake()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
-    ---@type XCommonCharacterFiltAgency
-    self.FiltAgecy = ag
-
     self.NewCharRecord = {}
     self.PanelProxyDatas = 
     {
@@ -21,40 +15,51 @@ function XUiCharacterV2P6:OnAwake()
 
     self:InitButton()
     self:InitFilter()
-
-    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
-    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
-    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_CHARACTER_EQUIP_CHANGE, self.RefreshRightInfo, self) -- 穿、卸装备意识
 end
 
 function XUiCharacterV2P6:InitButton()
     self:BindHelpBtn(self.BtnHelp, "Character")
+    XUiHelper.RegisterClickEvent(self, self.BtnCollect, self.OnBtnCollectClick)
     XUiHelper.RegisterClickEvent(self, self.BtnTeaching, self.OnBtnTeachingClick)
     XUiHelper.RegisterClickEvent(self, self.BtnFashion, self.OnBtnFashionClick)
     XUiHelper.RegisterClickEvent(self, self.BtnOwnedDetail, self.OnBtnOwnedDetailClick)
+    self.PanelDrag:AddPointerDownListener(function ()
+        self:OnDragPointerDown()
+    end)
 end
 
 function XUiCharacterV2P6:InitFilter()
-    self.PanelFilter = self.FiltAgecy:InitFilter(self.PanelCharacterFilter, self)
+    self.PanelFilter = XMVCA.XCommonCharacterFilter:InitFilter(self.PanelCharacterFilter, self)
     local onSeleCb = function (character, index, grid, isFirstSelect)
         if not character then
             return
         end
         -- 记录角色新标签，默认选的也要消
-        if self.CharacterAgency:IsOwnCharacter(character.Id) and character.NewFlag then
-            self.NewCharRecord[character.Id] = true
-        end
-
+        self.NewCharRecord[character.Id] = true
         self:OnSelectCharacter(character)
+
+        -- 记录最后一次点击选择的角色和标签
+        local curTagName = self.PanelFilter.CurSelectTagBtn.gameObject.name
+        XMVCA.XCommonCharacterFilter:RecordLastTag(self.Name, curTagName, character.Id)
     end
 
     local refreshFun = function (index, grid, char)
         grid:SetData(char)
         grid:UpdateRedPoint()
-        grid:UpdateNew()    
+        grid:UpdateNew()
+        grid:UpdateCollect()
+        grid:UpdateIconEquipGuide()
     end
 
-    self.PanelFilter:InitData(onSeleCb, nil, nil, refreshFun)
+    local onTagClickCb = function (targetBtn)
+        local tagName = targetBtn.gameObject.name
+        local enumId = XGlobalVar.BtnUiCharacterSystemV2P6[tagName]
+        local charId = self.CurCharacter and self.CurCharacter.Id
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, enumId, charId)
+        XMVCA.XCommonCharacterFilter:RecordLastTag(self.Name, tagName, charId)
+    end
+
+    self.PanelFilter:InitData(onSeleCb, onTagClickCb, nil, refreshFun)
 
     -- 接入折叠功能
     local foldCb = function (isInitFoldState)
@@ -64,6 +69,7 @@ function XUiCharacterV2P6:InitFilter()
             self:PlayAnimation("AnimFold1F")
         end
         self.ParentUi:SetCamera(XEnumConst.CHARACTER.CameraV2P6.CharLeftMove)
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnFilterFold, self.CurCharacter and self.CurCharacter.Id)
     end
 
     local unFoldCb = function (isInitFoldState)
@@ -73,39 +79,19 @@ function XUiCharacterV2P6:InitFilter()
             self:PlayAnimation("AnimUnFold1F")
         end
         self.ParentUi:SetCamera(XEnumConst.CHARACTER.CameraV2P6.Main)
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnFilterUnFold, self.CurCharacter and self.CurCharacter.Id)
     end
     self.PanelFilter:SetFoldCallback(foldCb, unFoldCb)
 
-    -- 先选中第一个
-    local list = self.CharacterAgency:GetCharacterList()
-    local sortTagList = self.CharacterAgency:GetModelCharacterFilterController()[self.Name].SortTagList
-    list = self.FiltAgecy:DoSortFilterV2P6(list, sortTagList)
-    local index = 1
-    local targetChar = list[index]
-    local initCharId = self.ParentUi.InitCharId
-    if initCharId then
-        targetChar = self.CharacterAgency:GetCharacter(initCharId)
-    end
-    -- 提前选中时也要检测独域过滤
-    if self.PanelFilter.HideIsomerTag then
-        for k, char in ipairs(list) do
-            if not self.CharacterAgency:GetIsIsomer(char.Id) then
-                targetChar = char
-                break
-            end
-        end
-    end
-    self:OnSelectCharacter(targetChar)
-
-    self.NextNotRefreshCharInfoTrigger = true -- 提前刷新了 所以第一次onenable不刷新信息了
-    self.FiltAgecy:SetNotSortTrigger()
+    local list = XMVCA.XCharacter:GetCharacterList()
     self.PanelFilter:ImportList(list)
 end
 
 function XUiCharacterV2P6:RefresFilter()
     -- 刷新时要重新获取源数据，因为角色data可能从碎片变成xCharacter。要重新获取
-    local list = self.CharacterAgency:GetCharacterList()
+    local list = XMVCA.XCharacter:GetCharacterList()
     self.PanelFilter:ImportList(list)
+    self.PanelFilter:RefreshList()
 end
 
 function XUiCharacterV2P6:OnEnable()
@@ -116,36 +102,63 @@ function XUiCharacterV2P6:OnEnable()
 
     -- 同步其他子界面切换的角色
     local syncChar = self.ParentUi.CurCharacter
+    local syncTag = self.ParentUi.CurSyncTagName
     local initCharId = self.ParentUi.InitCharId
 
     -- 只有第二次进入enbale才需要同步标签和角色，刷新角色信息。 因为第一次在init时刷新了
-    if self.IsEnableFin then 
-        self.PanelFilter:DoSelectTag("BtnAll", true, syncChar.Id)
-        self:OnSelectCharacter(self.ParentUi.CurCharacter)
+    -- self.PanelFilter:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, true, syncChar and syncChar.Id)
+    -- if initCharId and not self.IsEnableFin then
+    --     self.PanelFilter:DoSelectCharacter(initCharId)
+    -- end
+    
+    -- 跳转进入不触发自动选择缓存内容，默认选中全选即可
+    if initCharId and not self.IsEnableFin then
+        self.PanelFilter:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, true, initCharId)
+    else
+        -- 没有记录的角色就默认同步其他界面的角色
+        local recordData = XMVCA.XCommonCharacterFilter:GetRecordLastTag(self.Name)
+        if self.SyncCharTrigger then
+            -- 有同步信息
+            self.SyncCharTrigger = nil
+            self.PanelFilter:DoSelectTag(syncTag or XEnumConst.Filter.TagName.BtnAll, true, syncChar and syncChar.Id)
+        elseif recordData then
+            -- 有数据记录
+            
+            -- 就算红点按钮消失也无需处理，因为筛选器内部会自己处理【选择无法使用的的标签的逻辑】
+            self.PanelFilter:DoSelectTag(recordData.TagName, true, recordData.CharacterId)
+        else
+            -- 默认
+            self.PanelFilter:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, true, syncChar and syncChar.Id)
+        end
     end
-        
-    if initCharId and not self.ParentUi.IsUiInit then
-        self.PanelFilter:DoSelectCharacter(initCharId)
-    end
+
+    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
+    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
+    XEventManager.AddEventListener(XEventId.EVENT_EQUIP_CHARACTER_EQUIP_CHANGE, self.RefreshRightInfo, self) -- 穿、卸装备意识
     
     self.IsEnableFin = true
 end
 
 function XUiCharacterV2P6:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_CHARACTER_EQUIP_CHANGE, self.RefreshRightInfo, self)
 end
 
 function XUiCharacterV2P6:OnDestroy()
     local allRecordClickedNewCharList = {}
     for charId, v in pairs(self.NewCharRecord) do
-        table.insert(allRecordClickedNewCharList, charId)
-    end
-    if not XTool.IsTableEmpty(allRecordClickedNewCharList) then
-        self._Control:CharacterResetNewFlagRequest(allRecordClickedNewCharList)
+        if XMVCA.XCharacter:IsOwnCharacter(charId) and XTool.IsNumberValid(XMVCA.XCharacter:GetCharacter(charId).NewFlag)then
+            table.insert(allRecordClickedNewCharList, charId)
+        end
     end
 
-    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_EQUIP_CHARACTER_EQUIP_CHANGE, self.RefreshRightInfo, self)
+    if XTool.IsTableEmpty(allRecordClickedNewCharList) then
+        return
+    end
+
+    -- 取消新标签
+    self._Control:CharacterResetNewFlagRequest(allRecordClickedNewCharList)
 end
 
 -- 只有角色Id进行切换时该方法才会被调用
@@ -158,18 +171,28 @@ function XUiCharacterV2P6:OnSelectCharacter(character)
     if not character then
         return
     end
-
     self.CurCharacter = character
-    self.ParentUi:SetCurCharacter(character)
+    local tagName = self.PanelFilter:GetCurSelectTagName()
+    self.ParentUi:SetCurCharacter(character, tagName)
+    XMVCA.XCharacter:RecordUiCharacterV2P6LastTag(tagName)
 
     local cb = function(model)
         self.PanelDrag.Target = model.transform
     end
     self.ParentUi:RefreshRoleModel(cb)
+
+    local isFragment = XMVCA.XCharacter:CheckIsFragment(self.CurCharacter.Id)
+    local isFunctionOpen = XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Character, nil, true)
+    self.BtnCollect.gameObject:SetActiveEx(not isFragment and isFunctionOpen)
+    local collectState = character.CollectState and true or false
+    self.BtnCollect:SetDisable(collectState)
     self:RefreshRightInfo()
 
     -- 刷新涂装等蓝点
-    local isRed = XDataCenter.FashionManager.GetCurrCharHaveCanUnlockFashion(character.Id)
+    local isFashionRed = XDataCenter.FashionManager.GetCurrCharHaveNewFashion(character.Id)
+    local isWeaponFashionRed = XDataCenter.WeaponFashionManager.GetCurrCharHaveNewWeaponFashion(character.Id)
+    local isHeadPortraitRed = XDataCenter.FashionManager.GetCurrCharHaveNewHeadPortrait(character.Id)
+    local isRed = isFashionRed or isWeaponFashionRed or isHeadPortraitRed
     self.BtnFashion:ShowReddot(isRed)
 end
 
@@ -191,31 +214,84 @@ end
 
 -- 角色切换、onenbale刷新都会调用
 function XUiCharacterV2P6:RefreshRightInfo()
-    if self.CharacterAgency:CheckIsFragment(self.CurCharacter.Id) then
-        self:GetCharPanel("PanelCharacterUnOwnedInfoV2P6"):RefreshUiShow()
+    local isFragment = XMVCA.XCharacter:CheckIsFragment(self.CurCharacter.Id)
+    if isFragment then
         self:GetCharPanel("PanelCharacterUnOwnedInfoV2P6"):Open()
+        self:GetCharPanel("PanelCharacterUnOwnedInfoV2P6"):RefreshUiShow()
         if self:CheckPanelExsit("PanelCharacterOwnedInfoV2P6") then
             self:GetCharPanel("PanelCharacterOwnedInfoV2P6"):Close()
         end
     else
-        self:GetCharPanel("PanelCharacterOwnedInfoV2P6"):RefreshUiShow()
         self:GetCharPanel("PanelCharacterOwnedInfoV2P6"):Open()
+        self:GetCharPanel("PanelCharacterOwnedInfoV2P6"):RefreshUiShow()
         if self:CheckPanelExsit("PanelCharacterUnOwnedInfoV2P6") then
             self:GetCharPanel("PanelCharacterUnOwnedInfoV2P6"):Close()
         end
     end
 end
 
+-- 其他界面的筛选器同步信息
+function XUiCharacterV2P6:SetSyncCharFlag()
+    self.SyncCharTrigger = true
+end
+
+function XUiCharacterV2P6:OnBtnCollectClick()
+    if self.CollectLock then
+        return
+    end
+
+    self.CollectLock = true
+
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Character) then
+        return
+    end
+
+    local character = XMVCA.XCharacter:GetCharacter(self.CurCharacter.Id)
+    if not character then
+        return
+    end
+    local targetState = nil
+    if character.CollectState then
+        targetState = false
+    else
+        targetState = true
+        XUiHelper.PlayAllChildParticleSystem(self.BtnCollect.TagObj.transform)
+    end
+    self.PanelFilter:SetForceSeleCbTrigger()
+    self._Control:CharacterSetCollectStateRequest(character.Id, targetState, function ()
+        self.CollectLock = false
+
+        if not targetState then
+            return
+        end
+        local grid = self.PanelFilter:GetGridByCharId(character.Id)
+        if not grid then
+            return
+        end
+
+        grid:PlayPanelCollectEffect()
+    end)
+
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnCollect, self.CurCharacter.Id)
+end
+
 function XUiCharacterV2P6:OnBtnTeachingClick()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnTeaching, self.CurCharacter.Id)
     XDataCenter.PracticeManager.OpenUiFubenPractice(self.CurCharacter.Id)
 end
 
 function XUiCharacterV2P6:OnBtnFashionClick()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnFashion, self.CurCharacter.Id)
     XLuaUiManager.Open("UiFashion", self.CurCharacter.Id)
 end
 
 function XUiCharacterV2P6:OnBtnOwnedDetailClick()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnOwnedDetail, self.CurCharacter.Id)
     XLuaUiManager.Open("UiCharacterDetail", self.CurCharacter.Id)
+end
+
+function XUiCharacterV2P6:OnDragPointerDown()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.CharacterPanelDrag, self.CurCharacter.Id)
 end
 
 return XUiCharacterV2P6

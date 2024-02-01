@@ -3,7 +3,7 @@ local XSuperTowerRole = require("XEntity/XSuperTower/Role/XSuperTowerRole")
 local XSuperTowerRoleManager = XClass(nil, "XSuperTowerRoleManager")
 
 -- groupId : XRoomCharFilterTipsConfigs.EnumFilterTagGroup
--- tagValue : XCharacterConfigs.GetCharDetailTemplate(char.Id)
+-- tagValue : XMVCA.XCharacter:GetCharDetailTemplate(char.Id)
 local FilterJudge = function(groupId, tagValue, superTowerRole)
     local characterViewModel = superTowerRole:GetCharacterViewModel()
     -- 职业筛选
@@ -140,7 +140,7 @@ end
 
 -- 获取能够参战的角色数据
 -- return : XSuperTowerRole array
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XSuperTowerRoleManager:GetCanFightRoles(characterType)
     if self:CheckHasNewRobotGrant() or XTool.IsTableEmpty(self.Roles) then
         self:GenerateRoleData()
@@ -400,7 +400,7 @@ function XSuperTowerRoleManager:GetRoleSortValue(role, sortTagType)
 end
 
 function XSuperTowerRoleManager:GenerateRoleData()
-    local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local characters = XMVCA.XCharacter:GetOwnCharacterList()
     for _, character in ipairs(characters) do
         self:AddNewRole(character)
     end

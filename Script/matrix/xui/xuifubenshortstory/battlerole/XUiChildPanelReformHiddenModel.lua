@@ -68,7 +68,7 @@ function XUiChildPanelReformHiddenModel:IsOwnRobot2Char(isShowTip)
     local isOwnChar = false
     for _, robotId in ipairs(stageCfg.RobotId) do
         local charId = XRobotManager.GetCharacterId(robotId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(charId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(charId)
         if isOwn then
             isOwnChar = true
             break
@@ -89,7 +89,7 @@ function XUiChildPanelReformHiddenModel:GetRoles(isHideAction)
     if isHideAction then
         for index, robotId in pairs(stageCfg.RobotId) do
             local charId = XRobotManager.GetCharacterId(robotId)
-            if XDataCenter.CharacterManager.IsOwnCharacter(charId) then
+            if XMVCA.XCharacter:IsOwnCharacter(charId) then
                 charIdList[index] = charId
             else
                 charIdList[index] = robotId

@@ -140,7 +140,7 @@ function XSuperTowerRole:GetSmallHeadIcon()
     if self:GetIsRobot() then
         return XRobotManager.GetRobotSmallHeadIcon(self.RawData.Id)
     else
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.RawData.Id)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self.RawData.Id)
     end
 end
 
@@ -148,7 +148,7 @@ function XSuperTowerRole:GetCaptainSkillDesc()
     if self:GetIsRobot() then
         return XRobotManager.GetRobotCaptainSkillDesc(self.RawData.Id)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self.RawData.Id)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self.RawData.Id)
     end
 end
 

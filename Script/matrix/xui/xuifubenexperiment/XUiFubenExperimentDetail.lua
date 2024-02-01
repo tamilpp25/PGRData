@@ -169,20 +169,12 @@ end
 function XUiFubenExperimentDetail:OnBtnSingleEnterClick()
 	if self.TrialLevelInfo.TimeId and self.TrialLevelInfo.TimeId ~= 0 then
 		if XFunctionManager.CheckInTimeByTimeId(self.TrialLevelInfo.TimeId) then
-            if XTool.USENEWBATTLEROOM then
-                XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
-            else
-                XLuaUiManager.Open("UiNewRoomSingle", self.TrialLevelInfo.SingStageId)
-            end
+            XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
 		else
 			XUiManager.TipText("ActivityBranchNotOpen")
 		end
 	else
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.TrialLevelInfo.SingStageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.TrialLevelInfo.SingStageId)
 	end
 end
 

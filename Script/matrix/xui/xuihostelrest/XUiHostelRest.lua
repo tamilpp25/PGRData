@@ -283,7 +283,7 @@ function XUiHostelRest:OnRestItemEndDrag(eventData, slot)
 end
 
 function XUiHostelRest:UpdateIdleList()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList() or {}
+    local charList = XMVCA.XCharacter:GetOwnCharacterList() or {}
     table.sort(charList, function(a, b)
         local aIsRest = XDataCenter.HostelManager.IsCharacterInRest(a.Id)
         local bIsRest = XDataCenter.HostelManager.IsCharacterInRest(b.Id)

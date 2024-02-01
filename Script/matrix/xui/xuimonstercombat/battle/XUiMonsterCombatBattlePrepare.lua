@@ -62,13 +62,13 @@ end
 
 function XUiMonsterCombatBattlePrepare:OnDisable()
     self.Super.OnDisable(self)
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 function XUiMonsterCombatBattlePrepare:OnDestroy()
     self.Super.OnDestroy(self)
     self:UnRegisterListeners()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 function XUiMonsterCombatBattlePrepare:InitUiPanelRoleModel()
@@ -101,9 +101,9 @@ function XUiMonsterCombatBattlePrepare:RefreshRoleModel()
         local sourceEntityId = characterViewModel:GetSourceEntityId()
         if XRobotManager.CheckIsRobotId(sourceEntityId) then
             local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-            local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+            local isOwn = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
             if XRobotManager.CheckUseFashion(sourceEntityId) and isOwn then
-                local character2 = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+                local character2 = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
                 local robot2CharViewModel = character2:GetCharacterViewModel()
                 self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId, self.PanelRoleModel, self.Name, modelCb, nil, robot2CharViewModel:GetFashionId())
             else
@@ -236,11 +236,11 @@ function XUiMonsterCombatBattlePrepare:OnBtnCharacterClicked(index)
             return
         end
         -- 播放音效
-        local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+        local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
         if self.MonsterTeam:GetCaptainPos() == index then
-            soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+            soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
         end
-        XDataCenter.FavorabilityManager.PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId), soundType)
+        XMVCA.XFavorability:PlayCvByType(self.Proxy:GetCharacterIdByEntityId(newEntityId), soundType)
     end)
 end
 

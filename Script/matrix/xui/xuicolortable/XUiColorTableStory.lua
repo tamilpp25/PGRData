@@ -179,7 +179,7 @@ end
 ---------------------------------------- 资源栏 begin ----------------------------------------
 
 function XUiColorTableStory:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.ColorTableCoin,

@@ -58,12 +58,13 @@ function XDynamicTableCurve:SetDelegate(delegate)
     self.Delegate = delegate
 end
 
+---@param proxy XUiNode
 function XDynamicTableCurve:SetProxyDisplay(proxy, isShow)
     if CheckClassSuper(proxy, XUiNode) then
         if isShow then
             proxy:Open()
         else
-            if not XTool.UObjIsNil(proxy.GameObject) then
+            if proxy:IsValid() then
                 proxy:Close()
             end
         end
@@ -120,13 +121,37 @@ function XDynamicTableCurve:OnDynamicTableEvent(event, index, grid)
         self:SetProxyDisplay(proxy, false)
     end
 
+    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_DEBUG_LOG_DATASOURCE then
+        self:DebugLogDataSource()
+    end
+
+    local curSelectLuaIndex = self:GetImpl().StartIndex + 1
     if self.DynamicEventDelegate then
-        self.DynamicEventDelegate(event, index, proxy)
+        self.DynamicEventDelegate(event, index, proxy, curSelectLuaIndex)
     else
-        self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy)
+        self.Delegate.OnDynamicTableEvent(self.Delegate, event, index, proxy, curSelectLuaIndex)
     end
 end
 
+function XDynamicTableCurve:DebugLogDataSource()
+    XLog.Debug("XDynamicTableCurve name", self:GetImpl().gameObject.name, "DataSource:",self.DataSource)
+end
+
+-- 兼容XUiNode
+function XDynamicTableCurve:SetActive(flag)
+    if not self.Imp then
+        return
+    end
+    self.Imp.gameObject:SetActiveEx(flag)
+    local allGrid = self:GetGrids()
+    for k, grid in pairs(allGrid or {}) do
+        if flag then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    end
+end
 
 --设置事件回调
 function XDynamicTableCurve:SetDynamicEventDelegate(fun)

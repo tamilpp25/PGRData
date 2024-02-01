@@ -2,11 +2,9 @@
 --Author: wujie
 --Note: 回归活动每日任务动态表
 
-local XUiPanelRegressionTaskDay = XClass(nil, "XUiPanelRegressionTaskDay")
+local XUiPanelRegressionTaskDay = XClass(XUiNode, "XUiPanelRegressionTaskDay")
 
-function XUiPanelRegressionTaskDay:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelRegressionTaskDay:OnStart()
     self:InitDynamicTable()
 end
 
@@ -16,7 +14,7 @@ end
 
 function XUiPanelRegressionTaskDay:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.GameObject)
-    self.DynamicTable:SetProxy(XDynamicDailyTask)
+    self.DynamicTable:SetProxy(XDynamicDailyTask,self)
     self.DynamicTable:SetDelegate(self)
 end
 

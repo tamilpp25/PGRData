@@ -332,7 +332,7 @@ end
 
 function XGridPlanetCard:OnBeginDrag(eventData)
     self:ClearRedPoint()
-    if XDataCenter.GuideManager.CheckIsInGuidePlus() then
+    if XDataCenter.GuideManager.CheckIsInGuide() then
         return
     end
     if self.RootUi:GetIsInDrag() then
@@ -369,7 +369,7 @@ function XGridPlanetCard:OnBeginDrag(eventData)
 end
 
 function XGridPlanetCard:OnDrag(eventData)
-    if XDataCenter.GuideManager.CheckIsInGuidePlus() then
+    if XDataCenter.GuideManager.CheckIsInGuide() then
         return
     end
     if not self.RootUi:GetIsInDrag() then
@@ -389,7 +389,7 @@ function XGridPlanetCard:OnDrag(eventData)
 end
 
 function XGridPlanetCard:OnEndDrag(eventData)
-    if XDataCenter.GuideManager.CheckIsInGuidePlus() then
+    if XDataCenter.GuideManager.CheckIsInGuide() then
         return
     end
     self:StopTimer()
@@ -563,7 +563,7 @@ function XGridPlanetCard:_EndGuideDrag()
 end
 
 function XGridPlanetCard:_IsInGuide()
-    return XDataCenter.GuideManager.CheckIsInGuidePlus() and not self.IsTalent and self:_IsGuideCard() and self:_GuideBuildTile()
+    return XDataCenter.GuideManager.CheckIsInGuide() and not self.IsTalent and self:_IsGuideCard() and self:_GuideBuildTile()
 end
 
 function XGridPlanetCard:_IsGuideNeedDrag()

@@ -60,7 +60,7 @@ function XUiTheatreMultiRoleDetail:Ctor()
     self._IdDir = {}
 end
 
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiTheatreMultiRoleDetail:GetEntities()
     local roles = self.AdventureManager:GetCurrentRoles(true)
     for _, role in ipairs(roles) do
@@ -164,6 +164,15 @@ function XUiTheatreMultiRoleDetail:GetCurrentEntityId(currentEntityId)
         end
     end
     return currentEntityId
+end
+
+function XUiTheatreMultiRoleDetail:CheckEntityIdIsIsomer(entityId)
+    for robotId, adventureRoleId in pairs(self._IdDir) do
+        if adventureRoleId == entityId then
+            return XMVCA.XCharacter:GetIsIsomer(robotId)
+        end
+    end
+    return XMVCA.XCharacter:GetIsIsomer(entityId)
 end
 
 return XUiTheatreMultiRoleDetail

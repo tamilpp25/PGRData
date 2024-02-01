@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local XUiAssignCharacterOwnedInfo = XLuaUiManager.Register(XLuaUi, "UiAssignCharacterOwnedInfo")
 
@@ -45,15 +45,15 @@ end
 function XUiAssignCharacterOwnedInfo:UpdateView(characterId)
     self.CharacterId = characterId
 
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
     self.TxtLv.text = math.floor(character.Ability)
 
-    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self, nil, true)
+    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self)
     local usingWeaponId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
     self.WeaponGrid:Refresh(usingWeaponId)
 
@@ -65,28 +65,28 @@ function XUiAssignCharacterOwnedInfo:UpdateView(characterId)
 
     self.WearingAwarenessGrids = self.WearingAwarenessGrids or {}
     for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
-        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self, nil, true)
+        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self)
         self.WearingAwarenessGrids[equipSite].Transform:SetParent(self["PanelAwareness" .. equipSite], false)
 
         local equipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite)
         if not equipId then
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(false)
+            self.WearingAwarenessGrids[equipSite]:Close()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(true)
         else
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(true)
+            self.WearingAwarenessGrids[equipSite]:Open()
             self["BtnAwarenessReplace" .. equipSite].transform:SetAsLastSibling()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(false)
             self.WearingAwarenessGrids[equipSite]:Refresh(equipId)
         end
     end
 
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
     local elementList = detailConfig.ObtainElementList
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActiveEx(false)
@@ -191,7 +191,7 @@ function XUiAssignCharacterOwnedInfo:OnBtnJoinClick()
 end
 
 function XUiAssignCharacterOwnedInfo:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterId)
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 function XUiAssignCharacterOwnedInfo:OnBtnSupportClick()

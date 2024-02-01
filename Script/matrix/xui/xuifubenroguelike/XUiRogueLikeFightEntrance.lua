@@ -121,7 +121,7 @@ function XUiRogueLikeFightEntrance:OnFightClick(stageId)
 
     self.UiRoot:Close()
     local data = {NodeId = self.Node.Id}
-    XLuaUiManager.Open("UiNewRoomSingle", stageId, data)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId, data)
 end
 
 

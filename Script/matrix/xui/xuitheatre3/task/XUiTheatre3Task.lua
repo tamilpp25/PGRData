@@ -8,8 +8,9 @@ function XUiTheatre3Task:OnAwake()
 end
 
 function XUiTheatre3Task:OnStart()
-    self.ItemId = XEnumConst.THEATRE3.Theatre3OutCoin
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ self.ItemId }, self.PanelSpecialTool, nil, handler(self, self.OnBtnClick))
+    --self.ItemId = XEnumConst.THEATRE3.Theatre3OutCoin
+    --self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ self.ItemId }, self.PanelSpecialTool, self, nil, handler(self, self.OnBtnClick))
+    
     self:InitDynamicTable()
     self:InitLeftTabBtns()
 end
@@ -20,7 +21,7 @@ function XUiTheatre3Task:OnEnable()
 end
 
 function XUiTheatre3Task:OnDestroy()
-    XDataCenter.ItemManager.RemoveCountUpdateListener(self.AssetPanel)
+    --XDataCenter.ItemManager.RemoveCountUpdateListener(self.AssetPanel)
 end
 
 function XUiTheatre3Task:OnGetEvents()

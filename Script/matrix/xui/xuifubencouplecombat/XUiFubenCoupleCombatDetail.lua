@@ -149,7 +149,8 @@ function XUiFubenCoupleCombatDetail:OnBtnEnterClick()
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_COUPLECOMBAT_UPDATE)
 
         -- 如果有第五期，请务必转移到UiBattleRoleRoom
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+        -- proxy需要兼容
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
         self:Close()
     end
 end

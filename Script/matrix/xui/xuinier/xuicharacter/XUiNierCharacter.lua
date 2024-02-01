@@ -102,7 +102,7 @@ function XUiNierCharacter:OnNotify(evt, ...)
 end
 
 function XUiNierCharacter:EnterFight(stage)
-    if XDataCenter.FubenManager.OpenRoomSingle(stage) then
+    if XDataCenter.FubenManager.OpenBattleRoom(stage) then
         XLuaUiManager.Remove("UiFubenStageDetail")
     end
 end

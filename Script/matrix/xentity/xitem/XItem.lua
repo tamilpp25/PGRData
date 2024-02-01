@@ -1,3 +1,4 @@
+---@class XItem
 XItem = XClass(nil, "XItem")
 
 local Default = {

@@ -20,6 +20,10 @@ function XUiTRPGSecondMain:OnEnable()
     self:OnCheckRedPoint()
 end
 
+function XUiTRPGSecondMain:OnDestroy()
+    XRedPointManager.RemoveRedPointEvent(self.RedMain)
+end
+
 function XUiTRPGSecondMain:Refresh()
     local percent
     local condition

@@ -23,6 +23,19 @@ function XEquipControl:IsFitCharacterType(equipTemplateId, charType)
     return fitCharType == XEnumConst.EQUIP.USER_TYPE.ALL or fitCharType == charType
 end
 
+-- 获取角色身上穿戴的意识
+function XEquipControl:GetCharacterWearingAwarenesss(characterId)
+    local equips = {}
+    local equipDic = self._Model:GetEquipDic()
+    for _, equip in pairs(equipDic) do
+        if characterId > 0 and equip.CharacterId == characterId and equip:IsAwareness() then
+            table.insert(equips, equip)
+        end
+    end
+
+    return equips
+end
+
 --------------------region 升级、突破 --------------------
 function XEquipControl:GetEquipBreakThroughIcon(breakthroughTimes)
     local key = "EquipBreakThrough" .. breakthroughTimes
@@ -80,7 +93,7 @@ function XEquipControl:GetResonancePreviewSkillInfoList(equipId, characterId, sl
             end
         else
             local skillPoolId = resonanceCfg.CharacterSkillPoolId[slot]
-            local skillInfos = XCharacterConfigs.GetCharacterSkillPoolSkillInfos(skillPoolId, characterId)
+            local skillInfos = XMVCA.XCharacter:GetCharacterSkillPoolSkillInfos(skillPoolId, characterId)
             for _, v in ipairs(skillInfos) do
                 local skillInfo = XSkillInfoObj.New(XEnumConst.EQUIP.RESONANCE_TYPE.CHARACTER_SKILL, v.SkillId)
                 table.insert(skillInfoList, skillInfo)
@@ -117,7 +130,7 @@ function XEquipControl:GetCanResonanceCharacterList(equipId)
         if character.Id == equip.CharacterId then
             table.insert(canResonanceCharacterList, 1, character)
         else
-            local characterEquipType = XCharacterConfigs.GetCharacterEquipType(character.Id)
+            local characterEquipType = XMVCA.XCharacter:GetCharacterEquipType(character.Id)
             if equipType == XEnumConst.EQUIP.EQUIP_TYPE.UNIVERSAL or equipType == characterEquipType then
                 table.insert(canResonanceCharacterList, character)
             end
@@ -156,7 +169,7 @@ end
 function XEquipControl:GetAwarenessList(characterId, site, suitId)
     local awarenessList = {}
     local agency = XMVCA:GetAgency(ModuleId.XEquip)
-    local charType = XCharacterConfigs.GetCharacterType(characterId)
+    local charType = XMVCA.XCharacter:GetCharacterType(characterId)
     local equipDic = self._Model:GetEquipDic()
     for _, equip in pairs(equipDic) do
         -- 筛选非狗粮、意识类型、适配角色类型、适配套装id
@@ -229,7 +242,7 @@ function XEquipControl:GetSuitInfoList(characterId, site)
     local suitInfoDic = {}
     local suitInfoList = {}
     local agency = XMVCA:GetAgency(ModuleId.XEquip)
-    local charType = XCharacterConfigs.GetCharacterType(characterId)
+    local charType = XMVCA.XCharacter:GetCharacterType(characterId)
     local equipDic = self._Model:GetEquipDic()
     for _, equip in pairs(equipDic) do
         -- 筛选意识类型、适配角色类型
@@ -252,12 +265,24 @@ function XEquipControl:GetSuitInfoList(characterId, site)
     return suitInfoList
 end
 
+-- 获取套装最大数量
+function XEquipControl:GetSuitMaxCnt(suitId)
+    local suitCfg = self._Model:GetConfigEquipSuit(suitId)
+    local maxCnt = 0
+    for i, des in pairs(suitCfg.SkillDescription) do
+        if des and i > maxCnt then
+            maxCnt = i
+        end
+    end
+    return maxCnt
+end
+
 --------------------endregion 意识 --------------------
 
 -- 获取装备匹配角色
 function XEquipControl:GetEquipMatchRole(templateId)
     local equipCfg = self._Model:GetConfigEquip(templateId)
-    local charCfgs = XCharacterConfigs.GetCharacterTemplates()
+    local charCfgs = XMVCA.XCharacter:GetCharacterTemplates()
     local charInfoList = {}
     for _, charCfg in pairs(charCfgs) do
         if charCfg.EquipType == equipCfg.Type then

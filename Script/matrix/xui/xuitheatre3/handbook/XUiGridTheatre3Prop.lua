@@ -34,14 +34,23 @@ function XUiGridTheatre3Prop:Refresh(id)
     if self.RImgIcon and icon then
         self.RImgIcon:SetRawImage(icon)
     end
-    --道具品质
     if self.Parent:CheckCurTypeIsProp() then
+        --道具品质
         local quality = self._Control:GetEventStepItemQuality(id, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
         if not XTool.IsTableEmpty(self.QualityObjDir) then
             for i, obj in pairs(self.QualityObjDir) do
                 obj.gameObject:SetActiveEx(i == quality)
             end
         end
+        --道具背景
+        local bgType = self._Control:GetItemBgTypeById(id)
+        if not self.RawImage then
+            ---@type UnityEngine.RectTransform
+            self.RawImage = XUiHelper.TryGetComponent(self.Transform, "RawImage")
+        end
+        self.RawImage.gameObject:SetActiveEx(bgType <= XEnumConst.THEATRE3.QuantumType.QuantumB)
+        self.RawImageRed.gameObject:SetActiveEx(bgType == XEnumConst.THEATRE3.QuantumType.QuantumB)
+        self.ImgQualityRed.gameObject:SetActiveEx(false)
     end
     self:RefreshStatus()
     self:RefreshRedPoint()

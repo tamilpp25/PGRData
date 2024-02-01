@@ -91,7 +91,7 @@ end
 
 function XUiPanelQualityStar:UpdatePanelGrowUp()
     local nextQuality = self.Data:GetQuality() + 1
-    local icon = XCharacterConfigs.GetCharacterQualityIcon(nextQuality)
+    local icon = XMVCA.XCharacter:GetCharacterQualityIcon(nextQuality)
     self.PanelGrowUp:GetObject("TxtSkill").text = self.Data:GetQualitySkillColumnCount()
     self.PanelGrowUp:GetObject("TxtSkillNext").text = self.Data:GetQualitySkillColumnCount(nextQuality)
     self.PanelGrowUp:GetObject("RawImageQuality"):SetRawImage(icon)
@@ -115,7 +115,7 @@ function XUiPanelQualityStar:UpdatePanelStarPoint(IsAnime)
     local nextStar = self.Data:GetCanActivateStarCount(nil, nextClipCount)
     local maxStarCount = self.Data:GetMaxStarCount()
     local attribList = self.Data:GetQualityStarAttribs()
-    local qualityIcon = XCharacterConfigs.GetCharQualityIcon(self.Data:GetQuality())
+    local qualityIcon = XMVCA.XCharacter:GetCharQualityIcon(self.Data:GetQuality())
     
     self.IsSelectClipFull = nextClipCount >= maxClipCount
     

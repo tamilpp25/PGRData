@@ -21,6 +21,9 @@ end
 
 function XUiRiftJumpResults:OnEnable()
     local lastFightStage = XDataCenter.RiftManager.GetLastFightXStage()
+    if not lastFightStage then
+        return
+    end
     -- 领取了从 A层到B层的跃升奖励
     local targetFightLayer = lastFightStage:GetParent():GetParent()
     local jumpToId = targetFightLayer:GetId()
@@ -32,6 +35,9 @@ function XUiRiftJumpResults:OnEnable()
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridItem, self.GridItem.parent)
             local xFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(id)
+            if not xFightLayer then
+                XLog.Error("层级数据是空的", id, jumpToId, self.TriggerJumpNum)
+            end
             grid = XUiGridRiftJumpRes.New(ui, xFightLayer, self)
             self.GridResList[id] = grid
         end

@@ -16,7 +16,11 @@ function XGridTheatre3MainEquipSuit:Refresh(suitId)
         self.PanelSetCover:SetRawImage(suitCfg.Icon)
     end
     if self.ImgEquipmentBg and self.ImgEquipmentBg.sprite then
-        local icon = self._Control:GetClientConfig("EquipUseTypeIcon", suitCfg.UseType)
+        local index = suitCfg.UseType == XEnumConst.THEATRE3.SuitUseType.Backend and 2 or 1
+        local icon = self._Control:GetClientConfig("EquipUseTypeIcon", index)
+        if self._Control:CheckAdventureSuitIsQuantum(suitCfg.Id) then
+            icon = self._Control:GetClientConfig("EquipQuantumUseTypeIcon", index)
+        end
         if not string.IsNilOrEmpty(icon) then
             self.ImgEquipmentBg:SetSprite(icon)
         end

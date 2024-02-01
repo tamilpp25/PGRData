@@ -9,8 +9,9 @@ function XUiSceneTip:OnAwake()
     self:AddClickListener()
 end
 
-function XUiSceneTip:OnStart(sceneId)
+function XUiSceneTip:OnStart(sceneId,openType)
     self.SceneId = sceneId
+    self.OpenType=openType
     local sceneTemplate = XDataCenter.PhotographManager.GetSceneTemplateById(self.SceneId)
     local scenePath, modelPath = XSceneModelConfigs.GetSceneAndModelPathById(sceneTemplate.SceneModelId)
     self:LoadUiScene(scenePath, modelPath, function() self:SetBatteryUi() end, false)
@@ -124,17 +125,24 @@ function XUiSceneTip:OnBtnBackClick()
     XDataCenter.PhotographManager.ClearPreviewSceneId()
     XLuaUiManager.Remove("UiSceneMainPreview")
     XDataCenter.GuideManager.SetDisableGuide(false)
-    XLuaUiManager.RemoveTopOne('UiMain')
+    if self.OpenType==XPhotographConfigs.PreviewOpenType.SceneSetting then
+        XLuaUiManager.RemoveTopOne('UiMain')
+    end
     self:Close()
     
 end
 
 function XUiSceneTip:OnTogPreview()
     self:PlayAnimationWithMask("DarkEnable", function ()
-        XDataCenter.PhotographManager.SetPreviewSceneId(self.SceneId)
-        XDataCenter.GuideManager.SetDisableGuide(true)
-        XEventManager.DispatchEvent(XEventId.EVENT_SCENE_UIMAIN_RIGHTMIDTYPE_CHANGE, UiMainMenuType.Main)
-        self:Close()
+        if self.OpenType==XPhotographConfigs.PreviewOpenType.SceneSetting then
+            XDataCenter.PhotographManager.SetPreviewSceneId(self.SceneId)
+            XDataCenter.GuideManager.SetDisableGuide(true)
+            XEventManager.DispatchEvent(XEventId.EVENT_SCENE_UIMAIN_RIGHTMIDTYPE_CHANGE, UiMainMenuType.Main)
+            self:Close()
+        else
+            XLuaUiManager.RemoveTopOne('UiSceneTip')
+            XDataCenter.PhotographManager.OpenScenePreview(self.SceneId)
+        end
     end)
 end
 

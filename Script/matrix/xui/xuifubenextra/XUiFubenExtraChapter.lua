@@ -60,10 +60,10 @@ function XUiFubenExtraChapter:OnStart(chapter, stageId, hideDiffTog)
     }
 
     -- 注册红点事件
-    self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
-    self.RedPointZhouMuId = XRedPointManager.AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
+    self.RedPointId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_EXTRA_TREASURE }, self.Chapter.ChapterId, false)
+    self.RedPointZhouMuId = self:AddRedPointEvent(self.ImgRedProgress, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_ZHOUMU_TASK }, self.ZhouMuId, false)
 
-    XRedPointManager.AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
+    self:AddRedPointEvent(self.BtnExItem, self.OnCheckExploreItemNews, self, { XRedPointConditions.Types.CONDITION_EXTRA_EXPLORE_ITEM_GET }, self.ExtraChapterId)
 
     -- 注册stage事件
     XEventManager.AddEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
@@ -184,11 +184,7 @@ function XUiFubenExtraChapter:EnterFight(stage)
     if not XDataCenter.FubenManager.CheckPreFight(stage) then
         return
     end
-    if XTool.USENEWBATTLEROOM then
-        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
-    else
-        XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
-    end
+    XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
 end
 
 -- 是否显示红点
@@ -286,11 +282,11 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
             if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenDifficulty) then
                 return false
             end
-
+            
             -- 检查主线副本活动
             local chapterInfo = XDataCenter.ExtraChapterManager.GetChapterInfoForOrderId(XDataCenter.FubenManager.DifficultHard, self.Chapter.OrderId)
+            local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
             if chapterInfo.IsActivity then
-                local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
                 local ret, desc = XDataCenter.ExtraChapterManager.CheckActivityCondition(chapterId)
                 if not ret then
                     XUiManager.TipMsg(desc, XUiManager.UiTipType.Wrong)
@@ -299,7 +295,6 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
             end
             -- 检查困难这个章节解锁
             if not chapterInfo or not chapterInfo.IsOpen then
-                local chapterId = XDataCenter.ExtraChapterManager.GetChapterIdByChapterExtraId(chapterInfo.ChapterMainId, XDataCenter.FubenManager.DifficultHard)
                 local ret, desc = XDataCenter.ExtraChapterManager.CheckOpenCondition(chapterId)
                 if not ret then
                     XUiManager.TipError(desc)
@@ -308,6 +303,11 @@ function XUiFubenExtraChapter:OnBtnHardClick(IsAutoMove)
                 local tipMsg = XDataCenter.FubenManager.GetFubenOpenTips(chapterInfo.FirstStage)
                 XUiManager.TipMsg(tipMsg)
                 return false
+            end
+            if XTool.IsNumberValid(chapterId) then
+                if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.ExtralChapter, chapterId) then
+                    return false
+                end
             end
             self.CurDiff = XDataCenter.FubenManager.DifficultHard
             XDataCenter.ExtraChapterManager.SetCurDifficult(self.CurDiff)
@@ -389,7 +389,7 @@ function XUiFubenExtraChapter:SetBtnTogleActive(isNormal, isHard)
         if hideChapterId then
             local viewModel = XDataCenter.ExtraChapterManager:ExGetChapterViewModelById(self.Chapter.ChapterId, XDataCenter.FubenManager.DifficultHard)
             local isUnFinAndUnEnter = XDataCenter.FubenManagerEx.CheckHideChapterRedPoint(viewModel) --v1.30 新入口红点规则，未完成隐藏且没点击过
-            local hardRed = XRedPointConditionExtraChapterReward.Check(hideChapterId) or isUnFinAndUnEnter
+            local hardRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, hideChapterId) or isUnFinAndUnEnter
             self.BtnNormal:ShowReddot(not isHard and hardRed)
             self.BtnHard:ShowReddot(hardRed) 
         else
@@ -399,7 +399,7 @@ function XUiFubenExtraChapter:SetBtnTogleActive(isNormal, isHard)
     -- 隐藏模式下
     elseif self.CurDiff == XDataCenter.FubenManager.DifficultHard then
         if normalChapterId then
-            local normalRed = XRedPointConditionExtraChapterReward.Check(normalChapterId)
+            local normalRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_EXTRA_CHAPTER_REWARD, normalChapterId)
             self.BtnHard:ShowReddot(not isNormal and normalRed)
             self.BtnNormal:ShowReddot(normalRed)
         else

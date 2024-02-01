@@ -44,7 +44,9 @@ function XYKPurchasePackage:CheckCanBuy(count, disCountCouponIndex, notEnoughCb)
         end
         XUiHelper.OpenPurchaseBuyHongKaCountTips()
         if notEnoughCb then
-            notEnoughCb()
+            local payCount = self.Data.ConsumeCount - XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.HongKa)
+            notEnoughCb(XPurchaseConfigs.TabsConfig.Pay, payCount)
+            return 3
         end
         return 0
     end

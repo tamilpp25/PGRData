@@ -24,23 +24,23 @@ function XUiPanelCollection:Refresh(exhibitionType)
         self.ImgRateMiddle.fillAmount = 1
         self.ImgRateHigher.fillAmount = 1
     else
-        self.ImgRateNew.fillAmount = curFinishNum[XCharacterConfigs.GrowUpLevel.New] / totalCharacterNum
-        self.ImgRateLower.fillAmount = curFinishNum[XCharacterConfigs.GrowUpLevel.Lower] / totalCharacterNum
-        self.ImgRateMiddle.fillAmount = curFinishNum[XCharacterConfigs.GrowUpLevel.Middle] / totalCharacterNum
-        self.ImgRateHigher.fillAmount = curFinishNum[XCharacterConfigs.GrowUpLevel.Higher] / totalCharacterNum
+        self.ImgRateNew.fillAmount = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.New] / totalCharacterNum
+        self.ImgRateLower.fillAmount = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Lower] / totalCharacterNum
+        self.ImgRateMiddle.fillAmount = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Middle] / totalCharacterNum
+        self.ImgRateHigher.fillAmount = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Higher] / totalCharacterNum
     end
-    self.TxtNumNew.text = curFinishNum[XCharacterConfigs.GrowUpLevel.New]
+    self.TxtNumNew.text = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.New]
     self.TxtTotalNew.text = totalCharacterNum
-    self.TxtNumLower.text = curFinishNum[XCharacterConfigs.GrowUpLevel.Lower]
+    self.TxtNumLower.text = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Lower]
     self.TxtTotalLower.text = totalCharacterNum
-    self.TxtNumMiddle.text = curFinishNum[XCharacterConfigs.GrowUpLevel.Middle]
+    self.TxtNumMiddle.text = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Middle]
     self.TxtTotalMiddle.text = totalCharacterNum
-    self.TxtNumHigher.text = curFinishNum[XCharacterConfigs.GrowUpLevel.Higher]
+    self.TxtNumHigher.text = curFinishNum[XEnumConst.CHARACTER.GrowUpLevel.Higher]
     self.TxtTotalHigher.text = totalCharacterNum
-    self.InfoLabelNew.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XCharacterConfigs.GrowUpLevel.New)
-    self.InfoLabelLower.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XCharacterConfigs.GrowUpLevel.Lower)
-    self.InfoLabelMiddle.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XCharacterConfigs.GrowUpLevel.Middle)
-    self.InfoLabelHigher.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XCharacterConfigs.GrowUpLevel.Higher)
+    self.InfoLabelNew.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XEnumConst.CHARACTER.GrowUpLevel.New)
+    self.InfoLabelLower.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XEnumConst.CHARACTER.GrowUpLevel.Lower)
+    self.InfoLabelMiddle.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XEnumConst.CHARACTER.GrowUpLevel.Middle)
+    self.InfoLabelHigher.text = XExhibitionConfigs.GetExhibitionLevelNameByLevel(XEnumConst.CHARACTER.GrowUpLevel.Higher)
 end
 
 function XUiPanelCollection:Show(exhibitionType)

@@ -8,9 +8,9 @@ function XUiMentorMain:OnStart()
     self:SetButtonCallBack()
     self:InitMentorShip()
     self:InitChatMsg()
-    XRedPointManager.AddRedPointEvent(self.PanelInfo, self.OnCheckMentorApplyNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_APPLY_RED})
-    XRedPointManager.AddRedPointEvent(self.BtnReward.ReddotObj, self.OnCheckMentorRewardNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_REWARD_RED})
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckMentorTaskNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_TASK_RED})
+    self:AddRedPointEvent(self.PanelInfo, self.OnCheckMentorApplyNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_APPLY_RED})
+    self:AddRedPointEvent(self.BtnReward.ReddotObj, self.OnCheckMentorRewardNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_REWARD_RED})
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.OnCheckMentorTaskNews, self, { XRedPointConditions.Types.CONDITION_MENTOR_TASK_RED})
 end
 
 function XUiMentorMain:OnDestroy()
@@ -177,7 +177,7 @@ function XUiMentorMain:OnBtnChatClick()
         return
     end
     
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Mentor, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Mentor, ChatChannelType.World)
 end
 
 function XUiMentorMain:OnBtnBackClick()

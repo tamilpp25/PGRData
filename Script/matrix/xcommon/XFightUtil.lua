@@ -6,12 +6,16 @@ function XFightUtil.ClearFight()
         CS.XFight.ClearFight()
     end
     if CS.StatusSyncFight.XFightClient.FightInstance ~= nil then
-        CS.StatusSyncFight.XFightClient.OnExitFight(true)
+        CS.StatusSyncFight.XFightClient.ExitFight(true, true)
     end
 end
 
 function XFightUtil.IsFighting()
-    return CS.XFight.Instance ~= nil or CS.StatusSyncFight.XFightClient.FightInstance ~= nil
+    return CS.XFight.Instance ~= nil or XFightUtil.IsDlcFighting()
+end
+
+function XFightUtil.IsDlcFighting()
+    return CS.StatusSyncFight.XFightClient.FightInstance ~= nil
 end
 
 function XFightUtil.IsDlcOnline()
@@ -21,7 +25,7 @@ function XFightUtil.IsDlcOnline()
     return CS.StatusSyncFight.XFightClient.FightInstance.IsOnline
 end
 
-function XFightUtil.GetDlcHuntWorldId()
+function XFightUtil.GetDlcWorldId()
     if CS.StatusSyncFight.XFightClient.FightInstance ~= nil then
         return CS.StatusSyncFight.XFightClient.FightInstance:GetWorldId()
     end

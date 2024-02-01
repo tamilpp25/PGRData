@@ -14,4 +14,22 @@ function XFubenActivityAgency:ExGetProgressTip()
     return ""
 end
 
+function XFubenActivityAgency:ExGetConfig()
+    if not XTool.IsTableEmpty(self.ExConfig) then
+        return self.ExConfig
+    end
+    self.ExConfig = XFubenConfigs.GetFubenActivityConfigByManagerName(self.__cname)
+    return self.ExConfig
+end
+
+-- 注册到 UiActivityChapter 的副本列表里
+function XFubenActivityAgency:RegisterActivityAgency()
+    XMVCA.XFubenEx:RegisterActivityAgency(self)
+end
+
+-- 注册战斗接口
+function XFubenActivityAgency:RegisterFuben(stageType)
+    XMVCA.XFuben:RegisterFuben(stageType, self:GetId())
+end
+
 return XFubenActivityAgency

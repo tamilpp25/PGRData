@@ -340,6 +340,9 @@ function XHomeCharManager.CheckFurnitureInteract(charId)
     local lastDistance = 0
 
     local interactList = charObj.Room.InteractList
+    if XTool.IsTableEmpty(interactList) then
+        return false
+    end
     for _, v in ipairs(interactList) do
         if v.Furniture:CheckCanInteract(v.GridPos.x, v.GridPos.y, charId) then
             local pos = XHomeDormManager.GetLocalPosByGrid(v.GridPos.x, v.GridPos.y, CS.XHomePlatType.Ground, 0)

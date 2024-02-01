@@ -40,8 +40,6 @@ XFubenHackManagerCreator = function()
         for _, template in pairs(activityTemplates) do
             DefaultActivityInfo = ActivityInfo or XFubenHackConfig.GetActivityTemplateById(template.Id)
         end
-
-        XFubenHackManager.RegisterEditBattleProxy()
     end
 
     local function GetKey(key)
@@ -579,16 +577,6 @@ XFubenHackManagerCreator = function()
         return 0
     end
 
-    -- 注册出战界面代理
-    function XFubenHackManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Hack,
-                require("XUi/XUiFubenHack/Proxy/XUiHackNewRoomSingle"))
-        XUiRoomCharacterProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Hack,
-                require("XUi/XUiFubenHack/Proxy/XUiHackRoomCharacter"))
-    end
-
     --登录/活动开始/跨周时下发
     function XFubenHackManager.NotifyData(data)
         ActivityInfo = XFubenHackConfig.GetActivityTemplateById(data.Id)
@@ -671,17 +659,17 @@ XFubenHackManagerCreator = function()
 end
 
 XRpc.NotifyHackLoginData = function(data)
-    XDataCenter.FubenHackManager.NotifyData(data)
+    --XDataCenter.FubenHackManager.NotifyData(data)
 end
 
 XRpc.NotifyHackLevelData = function(data)
-    XDataCenter.FubenHackManager.NotifyHackLevelData(data)
+    --XDataCenter.FubenHackManager.NotifyHackLevelData(data)
 end
 
 XRpc.NotifyHackStageInfoChange = function(data)
-    XDataCenter.FubenHackManager.NotifyStageData(data.StageInfo)
+    --XDataCenter.FubenHackManager.NotifyStageData(data.StageInfo)
 end
 
 XRpc.NotifyHackTicketGetState = function(data)
-    XDataCenter.FubenHackManager.NotifyHackTicketGetState(data)
+    --XDataCenter.FubenHackManager.NotifyHackTicketGetState(data)
 end

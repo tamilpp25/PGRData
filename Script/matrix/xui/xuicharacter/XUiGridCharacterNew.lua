@@ -64,9 +64,9 @@ end
 
 function XUiGridCharacterNew:UpdateOwnInfo()
     self.TxtLevel.text = self.Character.Level
-    self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(self.Character.Id, self.Character.Grade or XDataCenter.CharacterManager.GetCharacterGrade(self.Character.Id)))
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(self.Character.Id)))
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.Character.Id))
+    self.RImgGrade:SetRawImage(XMVCA.XCharacter:GetCharGradeIcon(self.Character.Id, self.Character.Grade or XMVCA.XCharacter:GetCharacterGrade(self.Character.Id)))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(self.Character.Id)))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.Character.Id))
     if self.IconEquipGuide then
         self.IconEquipGuide.gameObject:SetActiveEx(XDataCenter.EquipGuideManager.IsEquipGuideCharacter(self.Character.Id))
     end
@@ -74,11 +74,11 @@ end
 
 function XUiGridCharacterNew:UpdateUnOwnInfo()
     local characterId = self.Character.Id
-    self.TxtCurCount.text = XDataCenter.CharacterManager.GetCharUnlockFragment(characterId)
-    local bornQuality = XCharacterConfigs.GetCharMinQuality(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
-    self.TxtNeedCount.text = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+    self.TxtCurCount.text = XMVCA.XCharacter:GetCharUnlockFragment(characterId)
+    local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+    self.TxtNeedCount.text = XMVCA.XCharacter:GetComposeCount(characterType, bornQuality)
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     if self.IconEquipGuide then
         self.IconEquipGuide.gameObject:SetActiveEx(false)
     end
@@ -90,7 +90,7 @@ function XUiGridCharacterNew:UpdateGrid(character)
         self.Character = character
     end
 
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(self.Character.Id)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.Character.Id)
     XRedPointManager.CheckOnce(self.OnCheckCharacterRedPoint, self, { XRedPointConditions.Types.CONDITION_CHARACTER }, self.Character.Id)
     self.PanelLevel.gameObject:SetActiveEx(isOwn)
     self.PanelGrade.gameObject:SetActiveEx(isOwn)

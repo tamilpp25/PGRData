@@ -6,14 +6,25 @@ local XUiDrawScene = require("XUi/XUiDraw/XUiDrawScene")
 local XUiNewGridDrawBanner = require("XUi/XUiDraw/XUiNewGridDrawBanner")
 
 ---@class XUiNewDrawMain:XLuaUi
+---@field PanelNoticeTitleBtnGroup XUiButtonGroup
 local XUiNewDrawMain = XLuaUiManager.Register(XLuaUi, "UiNewDrawMain")
 local ServerDataReadyMaxCount = 1 --增加不同系统类型抽卡时记得酌情增加
 local DEFAULT_UP_IMG = CS.XGame.ClientConfig:GetString("DrawDefaultUpImg")
 local GUIDE_SHOW_GROUP = CS.XGame.ClientConfig:GetInt("GuideShowGroup")
 
-function XUiNewDrawMain:OnStart(ruleType, groupId, defaultDrawId)
+function XUiNewDrawMain:OnStart(ruleType, groupId, defaultDrawId,groupIdPool)
     self.RuleType = ruleType
     self.DefaultGroupId = groupId
+    --2.7支持多卡池查找
+    if groupIdPool and type(groupIdPool)=='string' then
+        --切割字符串
+        local idStrs=string.Split(groupIdPool,'|')
+        self.GroupIdPool={}
+        for i, v in ipairs(idStrs) do
+            table.insert(self.GroupIdPool,assert(tonumber(v)))
+        end
+    end
+    
     if XLuaUiManager.IsUiShow("UiGuide") then
         self.DefaultGroupId = GUIDE_SHOW_GROUP
     end
@@ -29,6 +40,9 @@ function XUiNewDrawMain:OnStart(ruleType, groupId, defaultDrawId)
     self.DefaultDrawId = defaultDrawId
     self.IsFirstIn = true
     
+    --2.7处理多卡池情况
+    self:FindDrawGroupId()
+
     self:InitScene()
     self:InitAssetPanel()
     self:InitBtn()
@@ -56,6 +70,7 @@ end
 function XUiNewDrawMain:OnDestroy()
     self:RemoveEventListener()
     self:MarkAllNewTag()
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.DRAW, false)
 end
 
 function XUiNewDrawMain:Refresh()
@@ -72,6 +87,30 @@ end
 function XUiNewDrawMain:UpdateDrawControl()
     if self.DrawControl then
         self.DrawControl:Update(self.DrawInfo, self.GroupId)
+    end
+end
+
+--2.7针对多卡池，选定一个
+function XUiNewDrawMain:FindDrawGroupId()
+    if not XTool.IsTableEmpty(self.GroupIdPool) then
+        local drawId = self.DefaultDrawId
+        local exist=false
+        for i, v in pairs(self.GroupIdPool) do --遍历每个卡池
+            local infoList = XDataCenter.DrawManager.GetDrawGroupInfoByGroupId(v)
+            if not XTool.IsTableEmpty(infoList) and not XTool.IsTableEmpty(infoList.OptionalDrawIdList) then
+                if infoList.EndTime > 0 and infoList.EndTime - XTime.GetServerNowTimestamp()<=0 then
+                    break
+                end
+                for _, info in pairs(infoList.OptionalDrawIdList) do
+                    if info == drawId and not exist then
+                        exist = true
+                        self.DefaultGroupId=v
+                        break
+                    end
+                end
+            end
+            if exist then break end
+        end
     end
 end
 
@@ -225,7 +264,9 @@ function XUiNewDrawMain:_InitButtonGroup()
             end
         end
     else
-        XUiManager.TipText("NewDrawSkipNotInTime")
+        if tmpGroupId ~= 0 then
+            XUiManager.TipText("NewDrawSkipNotInTime")
+        end
         curBtnIndex = 1
     end
 
@@ -255,7 +296,7 @@ end
 
 --region Ui - AssetPanel
 function XUiNewDrawMain:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 end
 
 function XUiNewDrawMain:RefreshAssetPanel(index)
@@ -356,8 +397,19 @@ end
 --endregion
 
 --region Ui - DrawActivityTarget
+---@class GridDrawActivityTarget
+---@field PanelAdd UnityEngine.Transform
+---@field BtnAdd XUiComponent.XUiButton
+---@field PanelSwitch UnityEngine.Transform
+---@field BtnSwitch XUiComponent.XUiButton
+---@field ImgRole UnityEngine.UI.Image
+---@field ImgLevel UnityEngine.UI.Image
+---@field TxtAPercent UnityEngine.UI.Text
+
 function XUiNewDrawMain:InitDrawActivityTarget()
+    ---@type GridDrawActivityTarget
     self._TargetBtnOptionalDrawObjDir = {}
+    ---@type GridDrawActivityTarget
     self._TargetBtnTargetDrawObjDir = {}
     XTool.InitUiObjectByUi(self._TargetBtnOptionalDrawObjDir, self.CurBanner.TargetPanelSwitchA)
     XTool.InitUiObjectByUi(self._TargetBtnTargetDrawObjDir, self.CurBanner.TargetPanelSwitchS)
@@ -367,6 +419,9 @@ function XUiNewDrawMain:InitDrawActivityTarget()
         self._TargetBtnOptionalDrawObjDir.BtnSwitch.CallBack = function()
             self:OnBtnOptionDrawClick()
         end
+    end
+    if self._TargetBtnOptionalDrawObjDir.ImgLevel then
+        self._TargetBtnOptionalDrawObjDir.TxtAPercent = XUiHelper.TryGetComponent(self._TargetBtnOptionalDrawObjDir.ImgLevel.transform, "TxtPercent", "Text")
     end
     if self._TargetBtnTargetDrawObjDir.BtnSwitch then
         self._TargetBtnTargetDrawObjDir.BtnSwitch.CallBack = function()
@@ -432,8 +487,13 @@ function XUiNewDrawMain:_RefreshCharacterDrawTarget()
         characterIcon = XDrawConfigs.GetDrawClientConfig("DrawTargetDefaultRoleImg")
         levelIcon = XDrawConfigs.GetDrawClientConfig("DrawTargetAUpIcon")
     end
-    if not string.IsNilOrEmpty(characterIcon)  and self._TargetBtnOptionalDrawObjDir.ImgRole then
+    if not string.IsNilOrEmpty(characterIcon) and self._TargetBtnOptionalDrawObjDir.ImgRole then
         self._TargetBtnOptionalDrawObjDir.ImgRole:SetRawImage(characterIcon)
+        if self._TargetBtnOptionalDrawObjDir.TxtAPercent then
+            local drawAimProbability = XDrawConfigs.GetDrawAimProbability()
+            self._TargetBtnOptionalDrawObjDir.TxtAPercent.text = drawAimProbability[self.DrawInfo.Id] and drawAimProbability[self.DrawInfo.Id].UpProbabilityPercent or ""
+            self._TargetBtnOptionalDrawObjDir.TxtAPercent.gameObject:SetActiveEx(not XTool.IsTableEmpty(combination.GoodsId))
+        end
     end
     if not string.IsNilOrEmpty(levelIcon) and self._TargetBtnOptionalDrawObjDir.ImgLevel then
         self._TargetBtnOptionalDrawObjDir.ImgLevel:SetSprite(levelIcon)
@@ -568,6 +628,14 @@ end
 --- 一级标签的按钮状态为Disable时传入的index为它自己的index，否则为它的第一个子标签的index
 --- 只有一级标签类才会判断是否能打开卡池
 function XUiNewDrawMain:OnSelectedTog(index)
+    ---@type XUiComponent.XUiButton
+    local btn = self.AllBtnList[index]
+    ---@type XDrawTabBtnEntity
+    local entity = self.AllTabEntityList[btn.SubGroupIndex > 0 and btn.SubGroupIndex or btn.GroupIndex]
+    if entity and not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.DRAW, entity:GetId()) then
+        self.PanelNoticeTitleBtnGroup:SelectIndex(self.CurSelectId or 1, false)
+        return
+    end
     if self.AllTabEntityList[index] then
         local IsTypeTab = self.AllTabEntityList[index]:GetRuleType() == XDrawConfigs.RuleType.Tab
         self.RuleType = not IsTypeTab and
@@ -588,6 +656,8 @@ function XUiNewDrawMain:OnSelectedTog(index)
         XDataCenter.DrawManager.GetDrawInfoList(self.GroupId, function()
             local drawInfo = XDataCenter.DrawManager.GetUseDrawInfoByGroupId(self.GroupId)
             self.DrawInfo = drawInfo
+			--选择卡池事件，将当前选择的卡池Id广播出去
+            XEventManager.DispatchEvent(XEventId.EVENT_DRAW_SELECT,self.DrawInfo.Id)
             self.AllTabEntityList[index].MaxBottomTimes = self.DrawInfo.MaxBottomTimes
             self.AllTabEntityList[index].BottomTimes = self.DrawInfo.BottomTimes
             self.AllTabEntityList[index]:DoSelect(self)

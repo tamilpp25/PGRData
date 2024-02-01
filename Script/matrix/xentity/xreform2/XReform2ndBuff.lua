@@ -10,19 +10,15 @@ function XReform2ndBuff:GetId()
 end
 
 function XReform2ndBuff:GetName()
-    return XReform2ndConfigs.GetBuffName(self._Id)
 end
 
 function XReform2ndBuff:GetPressure()
-    return XReform2ndConfigs.GetBuffPressure(self._Id)
 end
 
 function XReform2ndBuff:GetDesc()
-    return XReform2ndConfigs.GetBuffDesc(self._Id)
 end
 
 function XReform2ndBuff:GetIcon()
-    return XReform2ndConfigs.GetBuffIcon(self._Id)
 end
 
 ---@param buff XReform2ndBuff

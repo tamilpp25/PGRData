@@ -47,6 +47,11 @@ function XChessPursuitTeam:Dispose()
         CS.UnityEngine.GameObject.Destroy(self.GameObject)
     end
 
+    if self.Resource then
+        CS.XResourceManager.Unload(self.Resource)
+        self.Resource = nil
+    end
+
     self.Func = nil
     self.GameObject = nil
     self.Transform = nil

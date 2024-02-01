@@ -1,5 +1,4 @@
 local XRpgMakerGamePosition = require("XEntity/XRpgMakerGame/XRpgMakerGamePosition")
-local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 local type = type
 local pairs = pairs
@@ -405,6 +404,7 @@ function XRpgMakerGameObject:LoadModel(modelPath, root, modelName, modelKey)
     self.ModelKey = modelKey or self.ModelKey
 
     if modelName and self.ModelRoot then
+        local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
         self.RoleModelPanel = XUiPanelRoleModel.New(self.ModelRoot, modelName)
         self.RoleModelPanel:UpdateRoleModel(modelName, nil, nil, function(model)
             self:SetModel(model)

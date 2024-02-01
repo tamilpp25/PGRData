@@ -87,7 +87,7 @@ function XTRPGExamine:EnterPunish()
     if XTRPGConfigs.CheckPunishType(punishId, XTRPGConfigs.PunishType.Fight) then
         local params = XTRPGConfigs.GetPunishParams(punishId)
         local stageId = params[1]
-        XLuaUiManager.Open("UiNewRoomSingle", stageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stageId)
     elseif XTRPGConfigs.CheckPunishType(punishId, XTRPGConfigs.PunishType.GoToOrigin) then
         XDataCenter.TRPGManager.ReqMazeRestart()
     end

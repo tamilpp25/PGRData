@@ -1,5 +1,6 @@
--- 大秘境【队伍】实例（机器人也能记录进队伍信息），大秘境的队伍信息保存在本地
 local XTeam = require("XEntity/XTeam/XTeam")
+
+---@class XRiftTeam 大秘境【队伍】实例（机器人也能记录进队伍信息），大秘境的队伍信息保存在本地
 local XRiftTeam = XClass(XTeam, "XRiftTeam")
 
 function XRiftTeam:GetSaveKey()
@@ -58,6 +59,14 @@ function XRiftTeam:GetShowAttrTemplateId()
         res = 1
     end
     return res
+end
+
+function XRiftTeam:SetLuckyStage(bo)
+    self.s_IsLuckyStage = bo
+end
+
+function XRiftTeam:IsLuckyStage()
+    return self.s_IsLuckyStage
 end
 
 return XRiftTeam

@@ -83,7 +83,7 @@ function XUiSelectCharacterWin:LimitedByCharacterAndRobotTypeUpdate(robotTab)
     --拥有对应的character才加入可选列表
     for i = 1, #robotTab do
         local characterId = XRobotManager.GetRobotTemplate(robotTab[i]).CharacterId
-        if XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if XMVCA.XCharacter:IsOwnCharacter(characterId) then
             table.insert(list, characterId)
         end
     end
@@ -109,7 +109,7 @@ end
 
 function XUiSelectCharacterWin:WorldBossUpdate(robotTab)
     local list = XTool.Clone(robotTab)
-    local charlist = XDataCenter.CharacterManager.GetCharacterListInTeam(XCharacterConfigs.CharacterType.Normal)
+    local charlist = XMVCA.XCharacter:GetCharacterListInTeam(XEnumConst.CHARACTER.CharacterType.Normal)
     for _, char in pairs(charlist) do
         table.insert(list, char.Id)
     end
@@ -178,7 +178,7 @@ function XUiSelectCharacterWin:GetAbility(data)
     if data.Type == UiCharacterGridType.Try then
         return XRobotManager.GetRobotAbility(data.Id)
     elseif data.Type == UiCharacterGridType.Normal then
-        return XDataCenter.CharacterManager.GetCharacter(data.Id).Ability
+        return XMVCA.XCharacter:GetCharacter(data.Id).Ability
     end
 end
 

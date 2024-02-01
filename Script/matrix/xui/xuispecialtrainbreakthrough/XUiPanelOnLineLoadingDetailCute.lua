@@ -3,7 +3,7 @@ local XUiPanelOnLineLoadingDetail = require("XUi/XUiOnlineLoading/XUiPanelOnLine
 ---@class XUiPanelOnLineLoadingDetailCute
 local XUiPanelOnLineLoadingDetailCute = XClass(XUiPanelOnLineLoadingDetail, "UiPanelOnLineLoadingDetailCute")
 
-function XUiPanelOnLineLoadingDetail:CreateDetailItem(...)
+function XUiPanelOnLineLoadingDetailCute:CreateDetailItem(...)
     return require("XUi/XUiSpecialTrainBreakthrough/XUiPanelOnLineLoadingDetailItemCute").New(...)
 end
 

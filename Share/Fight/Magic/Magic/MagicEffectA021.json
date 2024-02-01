@@ -601,7 +601,7 @@
         "Id": 131147000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|0|-2|0.3|0.1|1"
+            "|0|-2|0.3|0.3|1"
         ]
     },
     {
@@ -629,7 +629,7 @@
         "Id": 131149000,
         "Name": "SetCameraFov",
         "Level": [
-            "50|0.3|0.1"
+            "60|0.3|0.4"
         ]
     },
     {
@@ -4774,7 +4774,7 @@
         "Id": 139180000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|0|-1.6|0.3|0.5|1"
+            "|0|0|0.3|0.5|1"
         ]
     },
     {
@@ -5278,7 +5278,7 @@
         "Id": 137125000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|-0.5|1|0.1|0.3|1"
+            "|-0.3|-2|0.1|0.3|1"
         ]
     },
     {
@@ -5306,7 +5306,7 @@
         "Id": 137127000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|-0.6|1.2|0.05|0.3|1"
+            "|-0.3|-2|0.05|0.3|1"
         ]
     },
     {
@@ -5334,7 +5334,7 @@
         "Id": 137129000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|-0.7|1.5|0.05|0.3|1"
+            "|-0.3|-2|0.05|0.3|1"
         ]
     },
     {
@@ -5362,7 +5362,7 @@
         "Id": 137131000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|-0.8|1.9|0.05|0.3|1"
+            "|-0.3|-2|0.05|0.3|1"
         ]
     },
     {
@@ -5390,7 +5390,7 @@
         "Id": 137133000,
         "Name": "SetCameraPositionOffset",
         "Level": [
-            "|-0.9|2.4|0|0.2|1"
+            "|-0.3|-2|0.05|0.2|1"
         ]
     },
     {
@@ -5416,9 +5416,9 @@
     },
     {
         "Id": 137135000,
-        "Name": "SetCameraPositionOffset",
+        "Name": "SetCameraFov",
         "Level": [
-            "|-0.8|2.5|0.1|0|1"
+            "45|0.05|0.5"
         ]
     },
     {
@@ -5447,6 +5447,125 @@
         "Name": "AddBehavior",
         "Level": [
             "137137"
+        ]
+    },
+    {
+        "Id": 137138,
+        "Name": "AddBuff",
+        "Level": [
+            "137138"
+        ]
+    },
+    {
+        "Id": 137138000,
+        "Name": "SetCameraPropertyModify",
+        "Level": [
+            "16"
+        ]
+    },
+    {
+        "Id": 137139,
+        "Name": "AddBuff",
+        "Level": [
+            "137139"
+        ]
+    },
+    {
+        "Id": 137139000,
+        "Name": "SetCameraPropertyModify",
+        "Level": [
+            "32"
+        ]
+    },
+    {
+        "Id": 137140,
+        "Name": "AddBuff",
+        "Level": [
+            "137140"
+        ]
+    },
+    {
+        "Id": 137140000,
+        "Name": "SetCameraPropertyModify",
+        "Level": [
+            "16"
+        ]
+    },
+    {
+        "Id": 137141,
+        "Name": "DragNpc",
+        "Level": [
+            "1|1|9999|0"
+        ]
+    },
+    {
+        "Id": 137142,
+        "Name": "AddBuff",
+        "Level": [
+            "137142"
+        ]
+    },
+    {
+        "Id": 137143,
+        "Name": "AddBuff",
+        "Level": [
+            "137143"
+        ]
+    },
+    {
+        "Id": 137144,
+        "Name": "AddBuff",
+        "Level": [
+            "137144"
+        ]
+    },
+    {
+        "Id": 137145,
+        "Name": "AddBuff",
+        "Level": [
+            "137145"
+        ]
+    },
+    {
+        "Id": 137146,
+        "Name": "AddBuff",
+        "Level": [
+            "137146"
+        ]
+    },
+    {
+        "Id": 137146000,
+        "Name": "SetCameraPropertyModify",
+        "Level": [
+            "33"
+        ]
+    },
+    {
+        "Id": 137147,
+        "Name": "AddBuff",
+        "Level": [
+            "137147"
+        ]
+    },
+    {
+        "Id": 137147000,
+        "Name": "AddBehavior",
+        "Level": [
+            "137147"
+        ]
+    },
+    {
+        "Id": 137148,
+        "Name": "AddBuff",
+        "Level": [
+            "137148"
+        ]
+    },
+    {
+        "Id": 137148000,
+        "Name": "SetCameraFov",
+        "Level": [
+            "45|0.3|0.2"
         ]
     }
 ]

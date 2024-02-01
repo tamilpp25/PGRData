@@ -118,28 +118,28 @@ function XChatData:GetRoomMsgContent()
             return CS.XTextManager.GetText("OnlineInviteFriend", playerName, stageName, inviteWords)
         end
         -- 狙击战联机
-        if MultipleRoomType.UnionKill == roomType then
-            local playerName
-            if playerId == XPlayer.Id then
-                playerName = XPlayer.Name
-            else
-                playerName = XDataCenter.SocialManager.GetPlayerRemark(playerId, "")
-            end
-
-            local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
-            local activityName
-            if not unionInfo then
-                activityName = ""
-            else
-                local currentUnionActivityConfig = XFubenUnionKillConfigs.GetUnionActivityConfigById(unionInfo.Id)
-                activityName = currentUnionActivityConfig.Name
-            end
-
-            local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s", roomId, tostring(stageId), tostring(roomType), tostring(stageLevel)))
-            return CS.XTextManager.GetText("OnlineInviteFriend", playerName, activityName, inviteWords)
-        end
+        --if MultipleRoomType.UnionKill == roomType then
+        --    local playerName
+        --    if playerId == XPlayer.Id then
+        --        playerName = XPlayer.Name
+        --    else
+        --        playerName = XDataCenter.SocialManager.GetPlayerRemark(playerId, "")
+        --    end
+        --
+        --    local unionInfo = XDataCenter.FubenUnionKillManager.GetUnionKillInfo()
+        --    local activityName
+        --    if not unionInfo then
+        --        activityName = ""
+        --    else
+        --        local currentUnionActivityConfig = XFubenUnionKillConfigs.GetUnionActivityConfigById(unionInfo.Id)
+        --        activityName = currentUnionActivityConfig.Name
+        --    end
+        --
+        --    local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s", roomId, tostring(stageId), tostring(roomType), tostring(stageLevel)))
+        --    return CS.XTextManager.GetText("OnlineInviteFriend", playerName, activityName, inviteWords)
+        --end
         -- Dlc
-        if MultipleRoomType.DlcHunt == roomType then
+        if MultipleRoomType.DlcWorld == roomType then
             local worldId = stageId
             local playerName
             if playerId == XPlayer.Id then
@@ -147,7 +147,8 @@ function XChatData:GetRoomMsgContent()
             else
                 playerName = XDataCenter.SocialManager.GetPlayerRemark(playerId, "")
             end
-            local stageName = XDlcHuntWorldConfig.GetWorldName(worldId)
+            -- local stageName = XDlcHuntWorldConfig.GetWorldName(worldId)
+            local stageName = XMVCA.XDlcWorld:GetWorldNameById(worldId)
             local inviteWords = CS.XTextManager.GetText("OnlineInviteLink", string.format("%s|%s|%s|%s", roomId, tostring(worldId), tostring(roomType), tostring(stageLevel)))
             return CS.XTextManager.GetText("OnlineInviteFriend", playerName, stageName, inviteWords)
         end
@@ -240,6 +241,6 @@ MultipleRoomType = {
     UnionKill = 2,
     ArenaOnline = 3,
     MultiDimOnline = 4,
-    DlcHunt = 5,
+    DlcWorld = 5,
     FubenPhoto=6,
 }

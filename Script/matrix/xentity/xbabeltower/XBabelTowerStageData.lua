@@ -4,6 +4,7 @@ local tableInsert = table.insert
 
 ---@class XBabelTowerStageData
 ---@field TeamDatas table<number, XBabelTowerTeamData>
+---@field BuffInfoList number[]
 local XBabelTowerStageData = XClass(nil, "XBabelTowerStageData")
 
 local Default = {
@@ -12,7 +13,8 @@ local Default = {
     MaxScore = 0,
     IsSyn = false, --是否与服务端数据同步
     TeamDatas = {},
-    ActivityType = XFubenBabelTowerConfigs.ActivityType.Normal
+    ActivityType = XFubenBabelTowerConfigs.ActivityType.Normal,
+    BuffInfoList = {}, -- 词缀数据
 }
 
 function XBabelTowerStageData:Ctor(stageId)
@@ -28,7 +30,7 @@ function XBabelTowerStageData:Ctor(stageId)
     self:InitTeamDatas()
 end
 
--- value : XFubenBabelTowerConfigs.ActivityType
+---@param value number @XFubenBabelTowerConfigs.ActivityType
 function XBabelTowerStageData:SetActivityType(value)
     self.ActivityType = value
 end
@@ -50,6 +52,17 @@ function XBabelTowerStageData:UpdateData(data)
     self.MaxScore = data.MaxScore
     self.IsSyn = true
     self:UpdateTeamDatas(data.TeamDatas)
+    self.BuffInfoList = data.BuffInfoList or {}
+end
+
+-- 更新词缀积分
+function XBabelTowerStageData:UpdateBuffInfoList(buffInfoList)
+    self.BuffInfoList = buffInfoList or {}
+end
+
+--- 获取词缀数据
+function XBabelTowerStageData:GetBuffInfoList()
+    return self.BuffInfoList or {}
 end
 
 function XBabelTowerStageData:IsSyned()

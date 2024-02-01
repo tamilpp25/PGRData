@@ -16,7 +16,7 @@ function XUiTRPGTruthRoadMain:OnAwake()
 
     self:InitAutoScript()
     
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.TRPGMoney, function()
         self.AssetActivityPanel:Refresh({XDataCenter.ItemManager.ItemId.TRPGMoney})
     end, self.AssetActivityPanel)
@@ -60,7 +60,7 @@ end
 
 function XUiTRPGTruthRoadMain:OnBtnEnterFightClick()
     self:CloseEnterDialog()
-    XLuaUiManager.Open("UiNewRoomSingle", self.DialogId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.DialogId)
 end
 
 function XUiTRPGTruthRoadMain:OnBtnMaskClick()

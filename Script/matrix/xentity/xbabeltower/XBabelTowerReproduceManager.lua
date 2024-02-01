@@ -1,4 +1,5 @@
 local XBabelTowerStageData = require("XEntity/XBabelTower/XBabelTowerStageData")
+---@class XBabelTowerReproduceManager
 local XBabelTowerReproduceManager = XClass(nil, "XBabelTowerReproduceManager")
 
 function XBabelTowerReproduceManager:Ctor()

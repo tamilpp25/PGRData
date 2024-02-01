@@ -16,7 +16,7 @@ function XGuideCharacterEquipQualityCompareNode:OnAwake()
 end
 
 function XGuideCharacterEquipQualityCompareNode:OnEnter()
-    if not XDataCenter.CharacterManager.IsOwnCharacter(self.CharacterId) then
+    if not XMVCA.XCharacter:IsOwnCharacter(self.CharacterId) then
         self.Node.Status = CsNodeStatus.FAILED
         return
     end

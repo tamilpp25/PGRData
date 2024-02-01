@@ -24,7 +24,7 @@ function XUiGridQualityAttributeV2P6:Refresh(attributeData, characterId)
     local charQuality = self.CharacterAgency:GetCharacterQuality(characterId)
     local qualityIndex = 5
     local quality = attributeData[qualityIndex]
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
 
     local isCurQuality = charQuality == quality
     self.PanelQualityOn.gameObject:SetActiveEx(isCurQuality)

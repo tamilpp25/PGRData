@@ -31,7 +31,7 @@ function XUiTheatreChoose:OnAwake()
     self.DynamicTable:SetDelegate(self)
     self.GridBuff.gameObject:SetActiveEx(false)
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAssetItemIds(), self.PanelAssetitems, self)
     self:RegisterUiEvents()
 
     local imgAdd = XUiHelper.TryGetComponent(self.BtnAddToken.transform, "ImgAdd")

@@ -1,4 +1,4 @@
--- 庆典类活动章节对象
+---@class XFestivalChapter @庆典类活动章节对象
 ---@class XFestivalChapter
 local XFestivalChapter = XClass(nil, "XFestivalChapter")
 --====================

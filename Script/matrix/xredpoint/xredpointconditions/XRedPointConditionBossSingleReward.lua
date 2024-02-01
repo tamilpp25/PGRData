@@ -3,7 +3,7 @@
 local XRedPointConditionBossSingleReward = {}
 
 function XRedPointConditionBossSingleReward.Check()
-    return XDataCenter.FubenBossSingleManager.CheckRewardRedHint()
+    return XMVCA.XFubenBossSingle:CheckRewardRedHint()
 end
 
 return XRedPointConditionBossSingleReward

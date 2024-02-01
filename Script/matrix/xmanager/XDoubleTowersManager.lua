@@ -656,6 +656,6 @@ end
 
 --region Notify
 XRpc.NotifyDoubleTowerActivity = function(data)
-    XDataCenter.DoubleTowersManager.NotifyDoubleTowersData(data.ActivityDb)
+    --XDataCenter.DoubleTowersManager.NotifyDoubleTowersData(data.ActivityDb)
 end
 --endregion

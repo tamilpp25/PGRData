@@ -131,10 +131,10 @@ function XGuideAgent:IsUiActive(uiName, panel)
 end
 
 --聚焦UI
-function XGuideAgent:FocusOn(uiName, panel, eulerAngles, passEvent, sizeDelta)
+function XGuideAgent:FocusOn(uiName, panel, eulerAngles, passEvent, sizeDelta, offset)
     local target = self:FindActiveTransformInUi(uiName, panel)
     local uiGuide = self:GetUiGuide()
-    uiGuide:FocusOnPanel(target, eulerAngles, passEvent, sizeDelta)
+    uiGuide:FocusOnPanel(target, eulerAngles, passEvent, sizeDelta, offset)
 end
 
 function XGuideAgent:FocusOn3D(sceneRoot, camera, panel, eulerAngles, passEvent, offset, sizeDelta)
@@ -146,7 +146,7 @@ function XGuideAgent:FocusOn3D(sceneRoot, camera, panel, eulerAngles, passEvent,
 end
 
 --索引动态列表
-function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta)
+function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta, offset, passAll)
     local target = self:FindTransformInUi(uiName, dynamicName)
 
     local dynamicTable = target:GetComponent(typeof(CS.XDynamicTableNormal))
@@ -170,15 +170,15 @@ function XGuideAgent:IndexDynamicTable(uiName, dynamicName, indexKey, indexValue
     end
 
     if focusTransform == nil or focusTransform == "" or focusTransform == "@" then
-        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta, offset, passAll)
     else
         local tmpTarget = grid.transform:FindTransformWithSplit(focusTransform)
-        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta, offset, passAll)
     end
 end
 
 --索引Curve动态列表 1.（索引指示）列表Grid点击 → 2.（指引卡住流程）开始索引 → 3.（不会执行）播放动画列表滚动结束 → 4.（下一个指引出现）
-function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta)
+function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, indexValue, focusTransform, passEvent, sizeDelta, offset, passAll)
     local target = self:FindTransformInUi(uiName, dynamicName)
 
     local dynamicTable = target:GetComponent(typeof(CS.XDynamicTableCurve))
@@ -209,10 +209,10 @@ function XGuideAgent:IndexCurveDynamicTable(uiName, dynamicName, indexKey, index
     end
 
     if focusTransform == nil or focusTransform == "" or focusTransform == "@" then
-        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(grid.transform, nil, passEvent, sizeDelta, offset, passAll)
     else
         local tmpTarget = grid.transform:FindTransformWithSplit(focusTransform)
-        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta)
+        self.UiGuide:FocusOnPanel(tmpTarget, nil, passEvent, sizeDelta, offset, passAll)
     end
 end
 
@@ -387,4 +387,9 @@ function XGuideAgent:CheckAnimIsPlaying(uiName, animName)
         return false
     end
     return component.IsPlaying
-end 
+end
+
+-- 节点记录埋点
+function XGuideAgent:NodeBuryingPoint(nodeId)
+    XDataCenter.GuideManager.RecordBuryingPoint(XDataCenter.GuideManager.BuryingPointType.FocusOn, { nodeId })
+end

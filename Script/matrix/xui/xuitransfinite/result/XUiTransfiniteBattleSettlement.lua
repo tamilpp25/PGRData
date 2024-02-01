@@ -15,8 +15,13 @@ function XUiTransfiniteBattleSettlement:OnAwake()
 end
 
 function XUiTransfiniteBattleSettlement:SetMouseVisible()
-    local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
-    inputKeyboard.ControlCameraByDrag = true
+    -- 这里只有PC端开启了键鼠以后才能获取到设备
+    if CS.XFight.Instance and CS.XFight.Instance.InputSystem then
+        local inputKeyboard = CS.XFight.Instance.InputSystem:GetDevice(typeof(CS.XInputKeyboard))
+        inputKeyboard.HideMouseEvenByDrag = false
+    end
+    CS.UnityEngine.Cursor.lockState = CS.UnityEngine.CursorLockMode.None
+    CS.UnityEngine.Cursor.visible = true
 end
 
 ---@param result XTransfiniteResult
@@ -27,18 +32,14 @@ end
 function XUiTransfiniteBattleSettlement:OnEnable()
     XEventManager.AddEventListener(XEventId.EVENT_TRANSFINITE_HIDE_SETTLE, self.Hide, self)
     self:Update()
-    if CS.XInputManager.CurOperationType ~= CS.XOperationType.System then
-        self.LastOperationType = CS.XInputManager.CurOperationType
-        CS.XInputManager.SetCurOperationType(CS.XOperationType.System)
-    end
+    CS.XInputManager.SetCurOperationType(CS.XOperationType.System)
+    CS.XJoystickLSHelper.ForceResponse = true
 end
 
 function XUiTransfiniteBattleSettlement:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_TRANSFINITE_HIDE_SETTLE, self.Hide, self)
-    if self.LastOperationType then
-        CS.XInputManager.SetCurOperationType(self.LastOperationType)
-        self.LastOperationType = nil
-    end
+    CS.XInputManager.SetCurOperationType(CS.XOperationType.System)
+    CS.XJoystickLSHelper.ForceResponse = false
 end
 
 function XUiTransfiniteBattleSettlement:Update()
@@ -108,14 +109,14 @@ function XUiTransfiniteBattleSettlement:OnClickGoOn()
 
     if textAlert then
         local sureCallback = function()
-            self:Rechallenge()
+            self:_GoOn()
         end
         local extraData = {
-            sureText = XUiHelper.GetText("TransfiniteRechallenge"),
-            closeText = XUiHelper.GetText("TransfiniteGoOn"),
+            sureText = XUiHelper.GetText("TransfiniteGoOn"),
+            closeText = XUiHelper.GetText("TransfiniteRechallenge"),
         }
         local cancelCallback = function()
-            self:_GoOn()
+            self:Rechallenge()
         end
         XUiManager.DialogTip(nil, XUiHelper.GetText(textAlert), nil, nil, sureCallback, extraData, cancelCallback)
         return

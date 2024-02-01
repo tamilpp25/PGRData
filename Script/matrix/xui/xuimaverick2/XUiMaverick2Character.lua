@@ -176,9 +176,9 @@ function XUiMaverick2Character:UpdateRobotInfo()
     -- 刷新模型旁边名字
     local robotId = self:GetSelectRobotId()
     local characterId = XEntityHelper.GetCharacterIdByEntityId(robotId)
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(characterId)
-    self.TxtType.text = XCharacterConfigs.GetCharacterTradeName(characterId)
-    self.TxtNumber.text = XCharacterConfigs.GetCharacterCodeStr(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtType.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+    self.TxtNumber.text = XMVCA.XCharacter:GetCharacterCodeStr(characterId)
 
     -- 刷新模型
     self:UpdateRoleModel(robotId)
@@ -225,9 +225,9 @@ function XUiMaverick2Character:UpdateRoleModel(robotId)
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwen = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+        local isOwen = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwen then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId
             , self.PanelRoleModelGo
@@ -456,7 +456,7 @@ end
 ---------------------------------------- 资源栏 begin ----------------------------------------
 
 function XUiMaverick2Character:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.Maverick2Coin,

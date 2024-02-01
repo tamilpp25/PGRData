@@ -29,7 +29,7 @@ function XUiCharacterCareerTipsV2P6:InitDynamicTable()
 end
 
 function XUiCharacterCareerTipsV2P6:UpdateDynamicTable()
-    local careerIds = XCharacterConfigs.GetAllCharacterCareerIds()
+    local careerIds = XMVCA.XCharacter:GetAllCharacterCareerIds()
     self.DataSources = careerIds
     self.DynamicTable:SetDataSource(careerIds)
 

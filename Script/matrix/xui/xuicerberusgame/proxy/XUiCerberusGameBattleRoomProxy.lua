@@ -14,9 +14,10 @@ end
 function XUiCerberusGameBattleRoomProxy:EnterFight(xTeam, stageId, challengeCount, isAssist)
     local stageConfig = XDataCenter.FubenManager.GetStageCfg(stageId)
     local isAssist = isAssist
-    XDataCenter.CerberusGameManager.CerberusGameSetTeamRequest(stageId, xTeam, function ()
-        XDataCenter.FubenManager.EnterFight(stageConfig, xTeam, isAssist)
-    end)
+    if self:CheckIsCanEditorTeam(stageId, false) then
+        XMVCA.XCerberusGame:CerberusGameSetTeamRequest(stageId, xTeam)
+    end
+    XDataCenter.FubenManager.EnterFight(stageConfig, xTeam, isAssist)
 end
 
 function XUiCerberusGameBattleRoomProxy:GetRoleDetailProxy()
@@ -36,17 +37,21 @@ function XUiCerberusGameBattleRoomProxy:GetIsCanEnterFight(xTeam, stageId)
         return false, CS.XTextManager.GetText("TeamManagerCheckFirstFightNil")
     end
 
-    local xConfig = XCerberusGameConfig.CheckIsChallengeStage(stageId)
+    local xConfig = XMVCA.XCerberusGame:CheckIsChallengeStage(stageId)
     local canSeleRoleList = {} -- 可以选择的角色池，含机器人
-    if xConfig then
+    local chapterId = XMVCA.XCerberusGame:GetChapterIdByStageId(stageId)
+    local chapterIdList = XMVCA.XCerberusGame:GetChapterIdList()
+    if chapterIdList[XEnumConst.CerberusGame.ChapterIdIndex.Challenge] == chapterId or
+    chapterIdList[XEnumConst.CerberusGame.ChapterIdIndex.FashionChallenge] == chapterId then
         -- 如果是挑战模式
-        canSeleRoleList = XDataCenter.CerberusGameManager.GetCanSelectRoleListForChallengeMode(stageId) or canSeleRoleList
-    else
+        canSeleRoleList = XMVCA.XCerberusGame:GetCanSelectRoleListForChallengeMode(stageId) or canSeleRoleList
+    elseif chapterIdList[XEnumConst.CerberusGame.ChapterIdIndex.Story] == chapterId or 
+    chapterIdList[XEnumConst.CerberusGame.ChapterIdIndex.FashionStory] == chapterId then
         -- 如果是剧情模式
-        canSeleRoleList = XDataCenter.CerberusGameManager.GetCanSelectRoleListForStoryMode(1) or canSeleRoleList
+        canSeleRoleList = XMVCA.XCerberusGame:GetCanSelectRoleListForStoryMode() or canSeleRoleList
     end
 
-    local canUseCharIdList = {} --可以上阵的构造体机体类型 charId
+    local canUseCharIdList = {} -- 必须上阵的构造体机体类型 charId
     for k, xRole in pairs(canSeleRoleList) do
         local id = xRole.Id
         if XRobotManager.CheckIsRobotId(id) then
@@ -59,7 +64,7 @@ function XUiCerberusGameBattleRoomProxy:GetIsCanEnterFight(xTeam, stageId)
     local chardesc = ""
     for charId, v in pairs(canUseCharIdList) do
         canUseCharacterCount = canUseCharacterCount + 1
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(charId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(charId)
         local name = charConfig.Name.. "，"
         chardesc = chardesc .. name
     end

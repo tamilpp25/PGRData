@@ -59,15 +59,23 @@ end
 --region 我参与的轮次数据(可能来源于旧公会)
 --刷新获取我参与的轮次数据(可能来源于旧公会)
 function XGuildWarRound:UpdateMyRoundData(myRoundData)
-    self.HaveMyRoundData = true
+    --2.11 优先保留当前工会的数据,如果存在不属于当前所在公会的数据，但已经有数据了，则不使用
     if XDataCenter.GuildManager.GetGuildId() ~= myRoundData.GuildId then
-        self.ChangeGuild = true
-        if myRoundData.SkipRound == 0 then
-            self.NoTaskSkipRound = true
-            self.OldDifficultyId = myRoundData.DifficultyId
+        --如果数据是旧公会的，只有在当前没有数据的情况下才能更新
+        if not self.HaveMyRoundData then
+            self.ChangeGuild = true
+            if myRoundData.SkipRound == 0 then
+                self.NoTaskSkipRound = true
+                self.OldDifficultyId = myRoundData.DifficultyId
+            end
+        else
+            return
         end
-        return
+    else
+        -- 如果是当前公会的数据，则默认覆盖
+        self.ChangeGuild = false
     end
+
     -- 3.0改版后 以服务器数据标记为主
     if (self.Difficulty or 0) > 0 and XDataCenter.GuildManager.GetGuildId() == myRoundData.GuildId
             and myRoundData.DifficultyId == 0 then
@@ -82,6 +90,8 @@ function XGuildWarRound:UpdateMyRoundData(myRoundData)
         self.BattleManager = CreateBattleManager(myRoundData.DifficultyId)
     end
     self.BattleManager:UpdateMyRoundData(myRoundData)
+
+    self.HaveMyRoundData = true
 end
 --获取我参与的轮次难度(可能来源于旧公会)
 function XGuildWarRound:GetMyDifficulty()

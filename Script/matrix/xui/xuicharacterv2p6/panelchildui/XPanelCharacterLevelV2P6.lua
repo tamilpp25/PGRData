@@ -1,10 +1,8 @@
 local XPanelCharacterLevelV2P6 = XClass(XUiNode, "XPanelCharacterLevelV2P6")
 
 function XPanelCharacterLevelV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    self.SelectLevelItems = XUiPanelSelectLevelItems.New(self.PanelSelectLevelItems, self.Parent, self)
+    local XUiPanelSelectLevelItems = require("XUi/XUiCharacter/XUiPanelSelectLevelItems") --XUiPanelSelectLevelItems,
+    self.SelectLevelItems = XUiPanelSelectLevelItems.New(self.PanelSelectLevelItems, self, self.Parent)
 
     self:InitButton()
 end
@@ -32,18 +30,18 @@ function XPanelCharacterLevelV2P6:HideSelectLevelItems()
 end
 
 function XPanelCharacterLevelV2P6:CheckMaxLevel()
-    local isMaxLevel = self.CharacterAgency:IsMaxLevel(self.CharacterId)
+    local isMaxLevel = XMVCA.XCharacter:IsMaxLevel(self.CharacterId)
     self.BtnLevelUpButton.gameObject:SetActive(not isMaxLevel)
     self.ImgMaxLevel.gameObject:SetActive(isMaxLevel)
 end
 
 function XPanelCharacterLevelV2P6:UpdatePanel()
     local characterId = self.CharacterId
-    local character = self.CharacterAgency:GetCharacter(characterId)
-    local nextLeveExp = XCharacterConfigs.GetNextLevelExp(characterId, character.Level)
-    local isMaxLevel = self.CharacterAgency:IsMaxLevel(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
+    local nextLeveExp = XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level)
+    local isMaxLevel = XMVCA.XCharacter:IsMaxLevel(characterId)
     self.TxtCurLevel.text = character.Level
-    self.TxtMaxLevel.text = "/" .. XCharacterConfigs.GetCharMaxLevel(characterId)
+    self.TxtMaxLevel.text = "/" .. XMVCA.XCharacter:GetCharMaxLevel(characterId)
     local exp = isMaxLevel and nextLeveExp or character.Exp
     self.TxtExp.text = exp .. "/" .. nextLeveExp
     self.ImgFill.fillAmount = exp / nextLeveExp

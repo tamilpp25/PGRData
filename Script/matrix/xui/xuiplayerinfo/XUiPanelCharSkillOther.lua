@@ -53,15 +53,15 @@ function XUiPanelCharSkillOther:HideSkillItemPanel()
 end
 
 function XUiPanelCharSkillOther:UpdatePanel(character)
-    local skills = XCharacterConfigs.GetCharacterSkillsByCharacter(character)
+    local skills = XMVCA.XCharacter:GetCharacterSkillsByCharacter(character)
 
     if (self.SkillGrids and #self.SkillGrids > 0) then
-        for i = 1, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+        for i = 1, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
             self.SkillGrids[i]:UpdateInfo(skills[i])
         end
     else
         self.SkillGrids = {}
-        for i = 1, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+        for i = 1, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
             self.SkillGrids[i] = XUiGridSkillItemOther.New(self.Parent, self["GridSkillItem" .. i], skills[i], character, self.EquipList, self.AssignChapterRecords,
                     function()
                         self:HideSkillItemPanel()

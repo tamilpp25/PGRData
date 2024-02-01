@@ -12,7 +12,7 @@ function XArchivePartnerSettingEntity:UpdateData(playerData)
 end
 
 function XArchivePartnerSettingEntity:GetCfg()
-    return XArchiveConfigs.GetPartnerSettingConfigById(self.Id)
+    return XMVCA.XArchive:GetPartnerSettingConfigById(self.Id)
 end
 
 function XArchivePartnerSettingEntity:GetId()

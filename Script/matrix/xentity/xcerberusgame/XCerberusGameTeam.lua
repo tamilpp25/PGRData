@@ -16,15 +16,25 @@ function XCerberusGameTeam:CheckIsPosEmpty(pos)
     return not XTool.IsNumberValid(entityId)
 end
 
--- 检查自机和机器人是否有相同的角色id
-function XCerberusGameTeam:CheckHasSameCharacterIdButNotEntityId(entityId)
-    local checkCharacterId = XEntityHelper.GetCharacterIdByEntityId(entityId)
-    for pos, entityIdInTeam in pairs(self:GetEntityIds()) do
-        if XEntityHelper.GetCharacterIdByEntityId(entityIdInTeam) == checkCharacterId and entityIdInTeam ~= entityId then
-            return true, pos
+function XCerberusGameTeam:RefreshDataByCerberuseTeamInfo(teamInfo)
+    if XTool.IsTableEmpty(teamInfo) then
+        return
+    end
+
+    local roleIds = {0, 0, 0}
+    for k, id in pairs(teamInfo.CharacterIdList) do
+        if XTool.IsNumberValid(id) then
+            roleIds[k] = id
         end
     end
-    return false, -1
+    for k, id in pairs(teamInfo.RobotIdList) do
+        if XTool.IsNumberValid(id) then
+            roleIds[k] = id
+        end
+    end
+    self:UpdateEntityIds(roleIds)
+    self:UpdateCaptainPos(teamInfo.CaptainPos)
+    self:UpdateFirstFightPos(teamInfo.FirstFightPos)
 end
 
 return XCerberusGameTeam

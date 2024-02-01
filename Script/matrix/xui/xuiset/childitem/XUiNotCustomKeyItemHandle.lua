@@ -1,7 +1,8 @@
 local XUiBtnKeyItem = require("XUi/XUiSet/ChildItem/XUiBtnKeyItem")
 local XUiNotCustomKeyItemHandle = XClass(XUiBtnKeyItem, "XUiNotCustomKeyItemHandle")
 
-function XUiNotCustomKeyItemHandle:Ctor()
+function XUiNotCustomKeyItemHandle:OnStart()
+    self.Super.OnStart(self)
     self.BtnClear.gameObject:SetActiveEx(false)
 end
 

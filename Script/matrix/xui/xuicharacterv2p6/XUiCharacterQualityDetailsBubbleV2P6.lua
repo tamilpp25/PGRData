@@ -23,7 +23,7 @@ function XUiCharacterQualityDetailsBubbleV2P6:OnStart(seleStar, seleQuality, cha
     self.TxtStateOff.gameObject:SetActiveEx(not isActive)
 
     -- 属性加成文本
-    local attribs = XCharacterConfigs.GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
+    local attribs = XMVCA.XCharacter:GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
     for k, v in pairs(attribs or {}) do
         local value = FixToDouble(v)
         if value > 0 then
@@ -33,7 +33,7 @@ function XUiCharacterQualityDetailsBubbleV2P6:OnStart(seleStar, seleQuality, cha
     end
 
     -- 技能文本
-    local data = XCharacterConfigs.GetCharSkillQualityApartDicByQuality(characterId, seleQuality)
+    local data = XMVCA.XCharacter:GetCharSkillQualityApartDicByQuality(characterId, seleQuality)
     if XTool.IsTableEmpty(data) then
         self.BtnSkill.gameObject:SetActiveEx(false)
         return
@@ -47,7 +47,7 @@ function XUiCharacterQualityDetailsBubbleV2P6:OnStart(seleStar, seleQuality, cha
 
     local curApartId = curApartIds[1]
     self.SkillApartId = curApartId
-    local skillName = XCharacterConfigs.GetCharSkillQualityApartName(curApartId)
+    local skillName = XMVCA.XCharacter:GetCharSkillQualityApartName(curApartId)
     self.BtnSkill.gameObject:SetActiveEx(true)
     self.BtnSkill:SetNameByGroup(0, skillName)
 end
@@ -57,14 +57,14 @@ function XUiCharacterQualityDetailsBubbleV2P6:OpenSkillInfo()
         return
     end
     local characterId = self.CharacterId
-    local skillId = XCharacterConfigs.GetCharSkillQualityApartSkillId(self.SkillApartId)
+    local skillId = XMVCA.XCharacter:GetCharSkillQualityApartSkillId(self.SkillApartId)
 
-    local skillGroupId, index = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
-    local skillPosToGroupIdDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
+    local skillGroupId, index = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
+    local skillPosToGroupIdDic = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
     for pos, group in ipairs(skillPosToGroupIdDic) do
         for gridIndex, id in ipairs(group) do
             if id == skillGroupId then
-                XLuaUiManager.PopThenOpen("UiSkillDetailsParentV2P6", characterId, XCharacterConfigs.SkillDetailsType.Normal, pos, gridIndex)
+                XLuaUiManager.PopThenOpen("UiSkillDetailsParentV2P6", characterId, XEnumConst.CHARACTER.SkillDetailsType.Normal, pos, gridIndex)
                 self.QualityToSkill = true
                 return
             end

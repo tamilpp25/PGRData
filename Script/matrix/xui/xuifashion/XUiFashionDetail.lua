@@ -35,13 +35,15 @@ function XUiFashionDetail:OnAwake()
     self.OnUiSceneLoadedCB = function() self:OnUiSceneLoaded() end
 end
 
-function XUiFashionDetail:OnStart(fashionId, isWeaponFashion, buyData, isShowFashionIconWithoutGift, isNeedCD)
+function XUiFashionDetail:OnStart(fashionId, isWeaponFashion, buyData, isShowFashionIconWithoutGift, isNeedCD, customWeaponFashionId, customDesc)
     self:InitSceneRoot() --设置摄像机
     self.FashionId = fashionId
     self.IsWeaponFashion = isWeaponFashion
     self.BuyData = buyData
     self.IsShowFashionIconWithoutGift = isShowFashionIconWithoutGift
-    
+    self.CustomDesc = customDesc
+    self.CustomWeaponFashionId = customWeaponFashionId
+
     if XWeaponFashionConfigs.IsWeaponFashion(self.FashionId) then 
         --v1.31武器时装
         self.IsHaveFashion = XDataCenter.WeaponFashionManager.CheckHasFashion(self.FashionId) and
@@ -56,9 +58,11 @@ function XUiFashionDetail:OnStart(fashionId, isWeaponFashion, buyData, isShowFas
     -- 记录初始时间
     self.LastBuyTime = CS.UnityEngine.Time.realtimeSinceStartup
     self:SetDetailData()
+    self:CheckWeaponFashionBtnShow()
 end
 
 function XUiFashionDetail:OnEnable()
+    XEventManager.AddEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
     CS.XGraphicManager.UseUiLightDir = true
     if self.IsWeaponFashion then
         self:LoadModelScene(true)
@@ -71,6 +75,7 @@ function XUiFashionDetail:OnEnable()
 end
 
 function XUiFashionDetail:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
     CS.XGraphicManager.UseUiLightDir = false
 end
 
@@ -166,6 +171,7 @@ end
 function XUiFashionDetail:AutoAddListener()
     self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
+    self:RegisterClickEvent(self.BtnGouxuan, self.OnBtnShowWeaponFashion)
     XUiHelper.RegisterSliderChangeEvent(self, self.SliderCharacterHight, self.OnSliderCharacterHightChanged)
     self.BtnLensOut.CallBack = function() self:OnBtnLensOut() end
     self.BtnLensIn.CallBack = function() self:OnBtnLensIn() end
@@ -193,6 +199,17 @@ function XUiFashionDetail:SetDetailData()
                 table.insert(self.GoodIdList, {TemplateId = itemTemplateId, Count = 1, IsSubItem = true})
             end
         end
+    end
+    
+    local giftId = not self.IsWeaponFashion and XFashionConfigs.GetFashionTemplate(self.FashionId).GiftId or 0
+    if XTool.IsNumberValid(giftId) then
+        local giftGoodShowData = XGoodsCommonManager.GetGoodsShowParamsByTemplateId(giftId)
+        giftGoodShowData.IsGift = true
+        giftGoodShowData.Count = 1
+        if self.GoodIdList == nil then
+            self.GoodIdList = {}
+        end
+        table.insert(self.GoodIdList,giftGoodShowData)
     end
 
     -- giftRewardId=额外礼物，在商店皮肤界面，没有额外礼物，就显示时装物品
@@ -259,6 +276,15 @@ function XUiFashionDetail:UpdateCharacterModel()
         self.ImgEffectHuanren.gameObject:SetActiveEx(true)
     end
 
+    local weaponFashionId
+    if XTool.IsNumberValid(self.CustomWeaponFashionId) then
+        -- 勾选则显示自定义武器涂装，不勾选则显示当前穿戴武器涂装
+        if self.IsCustomWeaponFashion then
+            weaponFashionId = self.CustomWeaponFashionId
+        else
+            weaponFashionId = XDataCenter.WeaponFashionManager.GetCharacterWearingWeaponFashionId(template.CharacterId)
+        end
+    end
 
     self.TxtTitle.text = TitleName.Title[ViewType.Character]
     self.TxtTipTitle.text = TitleName.TipTitle[ViewType.Character]
@@ -266,7 +292,7 @@ function XUiFashionDetail:UpdateCharacterModel()
     self.PanelWeapon.gameObject:SetActiveEx(false)
     self.RoleModelPanel.GameObject:SetActiveEx(true)
     self.PanelBtnLens.gameObject:SetActiveEx(true)
-    self.RoleModelPanel:UpdateCharacterResModel(template.ResourcesId, template.CharacterId, XModelManager.MODEL_UINAME.XUiFashionDetail, func)
+    self.RoleModelPanel:UpdateCharacterResModel(template.ResourcesId, template.CharacterId, XModelManager.MODEL_UINAME.XUiFashionDetail, func, nil, weaponFashionId)
 end
 
 function XUiFashionDetail:UpdateWeaponModel()
@@ -326,3 +352,24 @@ function XUiFashionDetail:GetSceneUrl(isDefault)
         return self:GetDefaultSceneUrl()
     end
 end
+
+--region 显示武器时装
+
+function XUiFashionDetail:CheckWeaponFashionBtnShow()
+    if XTool.IsNumberValid(self.CustomWeaponFashionId) then
+        self.PanelAdd.gameObject:SetActiveEx(true)
+        self.TxtToggleDesc.text = self.CustomDesc or ""
+        self.BtnGouxuan:SetButtonState(CS.UiButtonState.Select)
+        self.IsCustomWeaponFashion = true
+    else
+        self.PanelAdd.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiFashionDetail:OnBtnShowWeaponFashion()
+    self.IsCustomWeaponFashion = self.BtnGouxuan:GetToggleState()
+    self:LoadModelScene(false)
+    self:UpdateCharacterModel()
+end
+
+--endregion

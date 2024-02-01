@@ -1,20 +1,18 @@
----@class XUiTaikoMasterStageGrid
-local XUiTaikoMasterStageGrid = XClass(nil, "XUiTaikoMasterStageGrid")
-function XUiTaikoMasterStageGrid:Ctor(ui)
-    self._RectTransform = ui
-    self.Transform = ui
-    XTool.InitUiObject(self)
+---@class XUiTaikoMasterStageGrid:XUiNode
+---@field _Control XTaikoMasterControl
+local XUiTaikoMasterStageGrid = XClass(XUiNode, "XUiTaikoMasterStageGrid")
 
-    self._IsActive = nil
+function XUiTaikoMasterStageGrid:OnStart()
     self._SongId = false
     self._Index = false
     self._IsUnfold = false
     self._Difficulty = false
     self._LeftPosX = self.PanelCdItem.transform.localPosition.x
     self._IsPosDirty = false
-    local rectWidth = ui.transform.rect.width
+    local rectWidth = self.Transform.rect.width
     local itemWidth = self.PanelCdItem.rect.width
     self._RightPosX = self._LeftPosX + rectWidth - itemWidth
+    self._RectTransform = self.Transform
     self:RegisterButtonClick()
 end
 
@@ -26,18 +24,6 @@ function XUiTaikoMasterStageGrid:GetIndex()
     return self._Index
 end
 
-function XUiTaikoMasterStageGrid:IsActive()
-    return self._IsActive
-end
-
-function XUiTaikoMasterStageGrid:SetActive(value)
-    if self._IsActive == value then
-        return
-    end
-    self._IsActive = value
-    self._RectTransform.gameObject:SetActiveEx(value)
-end
-
 function XUiTaikoMasterStageGrid:GetRectTransform()
     return self._RectTransform
 end
@@ -47,17 +33,18 @@ function XUiTaikoMasterStageGrid:RegisterButtonClick()
         self,
         self.ButtonCd,
         function()
-            if not XDataCenter.TaikoMasterManager.IsSongUnlock(self._SongId) then
-                XDataCenter.TaikoMasterManager.TipSongLock(self._SongId)
+            if not self._Control:GetUiData():CheckSongUnLock(self._SongId) then
+                self._Control:TipSongLock(self._SongId)
                 return
             end
-            XDataCenter.TaikoMasterManager.SetSongBrowsed4RedDot(self._SongId)
+            self._Control:SetSongBrowsed4RedDot(self._SongId)
             XEventManager.DispatchEvent(XEventId.EVENT_TAIKO_MASTER_STAGE_SELECT, self._Index)
         end
     )
 end
 
 function XUiTaikoMasterStageGrid:Refresh(songId, selectedIndex, index)
+    local uiData = self._Control:GetUiData()
     if selectedIndex == index then
         self:Unfold()
     else
@@ -73,10 +60,10 @@ function XUiTaikoMasterStageGrid:Refresh(songId, selectedIndex, index)
     end
     self._SongId = songId
     self._Index = index
-    local coverImage = XTaikoMasterConfigs.GetSongCoverImage(songId)
+    local coverImage = uiData.SongUiDataDir[songId].Cover
     self.RImgCd:SetRawImage(coverImage)
-    self.TxtName.text = XTaikoMasterConfigs.GetSongName(songId)
-    self.PanelSuo.gameObject:SetActiveEx(not XDataCenter.TaikoMasterManager.IsSongUnlock(songId))
+    self.TxtName.text = uiData.SongUiDataDir[songId].Name
+    self.PanelSuo.gameObject:SetActiveEx(not self._Control:GetUiData():CheckSongUnLock(songId))
     self:CheckRedPointCdUnlock()
     return true
 end

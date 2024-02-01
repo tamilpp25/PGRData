@@ -1,27 +1,18 @@
 ---@class XUiTaikoMasterTask:XLuaUi
+---@field _Control XTaikoMasterControl
 local XUiTaikoMasterTask = XLuaUiManager.Register(XLuaUi, "UiTaikoMasterTask")
 
-function XUiTaikoMasterTask:Ctor()
+function XUiTaikoMasterTask:OnStart()
+    self._Control:UpdateUiTaskData()
+    
     self._TaskDataSource = false
     self._DynamicTable = false
-end
-
-function XUiTaikoMasterTask:OnStart()
-    self:BindExitBtns(self.BtnBack, self.BtnMainUi)
+    
     self:InitDynamicTableTask()
-    if not self:SetTask() then
-        self.ImgEmpty.gameObject:SetActiveEx(false)
-        self.SViewTask.gameObject:SetActiveEx(false)
-    end
-    XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.Coin)
-    self:SetAutoCloseInfo(
-        XDataCenter.TaikoMasterManager.GetActivityEndTime(),
-        function(isClose)
-            if isClose then
-                XDataCenter.TaikoMasterManager.HandleActivityEnd()
-            end
-        end
-    )
+    self:InitTask()
+    self:InitPanelAsset()
+    self:InitAutoClose()
+    self:AddBtnListener()
 end
 
 function XUiTaikoMasterTask:OnEnable()
@@ -32,6 +23,45 @@ end
 function XUiTaikoMasterTask:OnDisable()
     XUiTaikoMasterTask.Super.OnDisable(self)
     XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.OnTaskUpdate, self)
+end
+
+--region Ui - AutoClose
+function XUiTaikoMasterTask:InitAutoClose()
+    local uiData = self._Control:GetUiData()
+    self:SetAutoCloseInfo(XFunctionManager.GetEndTimeByTimeId(uiData and uiData.TimeId),
+    function(isClose)
+        if isClose then
+            self._Control:HandleActivityEnd()
+        end
+    end)
+end
+--endregion
+
+--region Ui - PanelAsset
+function XUiTaikoMasterTask:InitPanelAsset()
+    if self.PanelSpecialTool then
+        self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(self._Control:GetPanelAssetItemList(), self.PanelSpecialTool, self)
+    end
+end
+--endregion
+
+--region Ui - Task
+function XUiTaikoMasterTask:InitTask()
+    self._CurrentTaskType = XEnumConst.TAIKO_MASTER.TASK_TYPE.NORMAL
+    if not self.BtnGroup then
+        self:SetTask()
+        return
+    end
+    self._BtnToggleList = {
+        self.BtnDayTask, self.BtnRewardTask
+    }
+    self.BtnGroup:Init(self._BtnToggleList, function(index)
+        if self._CurrentTaskType ~= index then
+            self._CurrentTaskType = index
+            self:SetTask()
+        end
+    end)
+    self.BtnGroup:SelectIndex(XEnumConst.TAIKO_MASTER.TASK_TYPE.NORMAL)
 end
 
 function XUiTaikoMasterTask:OnTaskUpdate()
@@ -46,11 +76,20 @@ function XUiTaikoMasterTask:InitDynamicTableTask()
 end
 
 function XUiTaikoMasterTask:SetTask()
-    local taskDataList = XDataCenter.TaikoMasterManager.GetTaskList()
-    self._TaskDataSource = taskDataList
-    self._DynamicTable:SetDataSource(taskDataList)
-    self._DynamicTable:ReloadDataASync(1)
-    return #taskDataList > 0
+    self._Control:UpdateUiTaskData()
+    local uiData = self._Control:GetUiData()
+    if self._CurrentTaskType == XEnumConst.TAIKO_MASTER.TASK_TYPE.NORMAL then
+        self._TaskDataSource = uiData.TaskList
+    else
+        self._TaskDataSource = uiData.DailyTaskList
+    end
+    if #self._TaskDataSource > 0 then
+        self._DynamicTable:SetDataSource(self._TaskDataSource)
+        self._DynamicTable:ReloadDataASync(1)
+    else
+        self.ImgEmpty.gameObject:SetActiveEx(true)
+        self.SViewTask.gameObject:SetActiveEx(false)
+    end
 end
 
 function XUiTaikoMasterTask:OnDynamicTableEvent(event, index, grid)
@@ -58,5 +97,13 @@ function XUiTaikoMasterTask:OnDynamicTableEvent(event, index, grid)
         grid:ResetData(self._TaskDataSource[index])
     end
 end
+--endregion
+
+--region Ui - BtnListener
+function XUiTaikoMasterTask:AddBtnListener()
+    self:BindExitBtns(self.BtnBack, self.BtnMainUi)
+    
+end
+--endregion
 
 return XUiTaikoMasterTask

@@ -114,6 +114,14 @@ function XUiSceneSettingMain:InitCb()
             XDataCenter.PhotographManager.OpenScenePreview(self.SceneList:GetCurDisplaySceneId())
         end)
     end
+    self.BtnTongGet.CallBack = function()
+        local currentSceneId = self.SceneList:GetCurDisplaySceneId()
+        local skipId = XDataCenter.PhotographManager.GetSceneSkipIdById(currentSceneId)
+
+        if XTool.IsNumberValid(skipId) then
+            XFunctionManager.SkipInterface(skipId)
+        end
+    end
 end
 
 function XUiSceneSettingMain:InitEvent()
@@ -141,26 +149,44 @@ function XUiSceneSettingMain:RefreshRightTagPanel()
 end
 
 function XUiSceneSettingMain:RefreshSceneDisplay()
+    local curSceneId=self.SceneList:GetCurDisplaySceneId()
     --获取当前场景的配置
-    local template=XDataCenter.PhotographManager.GetSceneTemplateById(self.SceneList:GetCurDisplaySceneId())
+    local template=XDataCenter.PhotographManager.GetSceneTemplateById(curSceneId)
     --切换场景
-    self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad)
+    if not firstLoad then
+        self:PlayAnimation('Loading',function()
+            self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad,curSceneId)
+        end)
+    else
+        self.BackgroundScene:ChangeScenePreview(template.SceneModelId,firstLoad,curSceneId)
+    end
 end
 
 function XUiSceneSettingMain:RefreshSyncBtnState()
     local selectedId=self.SceneList:GetCurDisplaySceneId()
     if selectedId==self.SceneList.CurSceneId then
         --禁用，并显示“使用中”
+        self.BtnTongGet.gameObject:SetActiveEx(false)
+        self.BtnTongBlack.gameObject:SetActiveEx(true)
         self.BtnTongBlack:SetName(XUiHelper.GetText('SceneSettingUsing'))
         self.BtnTongBlack:SetButtonState(3)
         self.BtnTongBlackState=1
     elseif not XDataCenter.PhotographManager.CheckSceneIsHaveById(selectedId) then
-        --禁用,并显示"未解锁"
-        self.BtnTongBlack:SetName(XUiHelper.GetText('SceneSettingLock'))
-        self.BtnTongBlack:SetButtonState(3)
-        self.BtnTongBlackState=2
+        if XDataCenter.PhotographManager.CheckSceneCanSkipById(selectedId) then
+            self.BtnTongBlack.gameObject:SetActiveEx(false)
+            self.BtnTongGet.gameObject:SetActiveEx(true)
+        else
+            self.BtnTongBlack.gameObject:SetActiveEx(true)
+            self.BtnTongGet.gameObject:SetActiveEx(false)
+            --禁用,并显示"未解锁"
+            self.BtnTongBlack:SetName(XUiHelper.GetText('SceneSettingLock'))
+            self.BtnTongBlack:SetButtonState(3)
+            self.BtnTongBlackState=2
+        end
     else
         --开启
+        self.BtnTongGet.gameObject:SetActiveEx(false)
+        self.BtnTongBlack.gameObject:SetActiveEx(true)
         self.BtnTongBlack:SetName(XUiHelper.GetText('SceneSettingNormal'))
 
         self.BtnTongBlack:SetButtonState(0)

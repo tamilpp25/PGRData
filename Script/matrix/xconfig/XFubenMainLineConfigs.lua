@@ -30,6 +30,7 @@ local TABLE_MAINLINE_NEXT_CHAPTER = "Client/Fuben/MainLine/MainLineNextChapter.t
 
 local MainLineActivityCfg = {}
 local ChapterMainTemplates = {}
+---@type XTableChapter[]
 local ChapterCfg = {}
 local TreasureCfg = {}
 local ExploreGroupCfg = {}
@@ -177,6 +178,10 @@ function XFubenMainLineConfigs.GetSkipLoadingTypeByStageId(stageId)
         end
     end
     return LoadingType.Fight
+end
+
+function XFubenMainLineConfigs.GetTeleportCfg(stageId)
+    return MainLineTeleportCfg[stageId]
 end
 
 function XFubenMainLineConfigs.GetStageClearContrByStageId(stageId)

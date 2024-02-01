@@ -115,17 +115,12 @@ function XUiRepeatChallengeEnter:OnBtnEnterClick()
     CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.Main_huge)
     self:Close()
     if XDataCenter.FubenManager.CheckPreFight(self.Stage, self.ChallengeCount) then
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, nil, {
-                EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
-                    XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
-                    proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
-                end
-            }, self.ChallengeCount)
-        else
-            local data = {ChallengeCount = self.ChallengeCount}
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageId, data)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, nil, {
+            EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
+                XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
+                proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
+            end
+        }, self.ChallengeCount)
     end
 end
 

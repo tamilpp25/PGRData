@@ -9,8 +9,7 @@ XDisplayManagerCreator = function()
     local CurDisplayChar
     local CurDisplayCharNew
     local NextCharId = nil
-    local LoadStates = {}
-
+    
     function XDisplayManager.Init()
         DisplayTable = XDisplayConfigs.GetDisplayTable()
         ContentTable = XDisplayConfigs.GetContentTable()
@@ -118,7 +117,7 @@ XDisplayManagerCreator = function()
             return
         end
 
-        local newChar = XDataCenter.CharacterManager.GetCharacter(id)
+        local newChar = XMVCA.XCharacter:GetCharacter(id)
         if not newChar then
             return
         end
@@ -139,7 +138,7 @@ XDisplayManagerCreator = function()
 
     function XDisplayManager.GetCharDict()
         CharDict = {}
-        local list = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local list = XMVCA.XCharacter:GetOwnCharacterList()
         for _, char in ipairs(list) do
             CharDict[char.Id] = char
         end
@@ -152,7 +151,7 @@ XDisplayManagerCreator = function()
             return
         end
 
-        local newChar = XDataCenter.CharacterManager.GetCharacter(charId)
+        local newChar = XMVCA.XCharacter:GetCharacter(charId)
         if not newChar then
             return
         end
@@ -169,7 +168,7 @@ XDisplayManagerCreator = function()
 
     function XDisplayManager.GetRandomDisplayCharByList()
         if NextCharId then
-            return XDataCenter.CharacterManager.GetCharacter(NextCharId)
+            return XMVCA.XCharacter:GetCharacter(NextCharId)
         end
 
         local list = XTool.Clone(XPlayer.DisplayCharIdList)
@@ -182,7 +181,7 @@ XDisplayManagerCreator = function()
         end
         local randomNum = XTool.Random(1, #list)
         local charId = list[randomNum]
-        CurDisplayCharNew = XDataCenter.CharacterManager.GetCharacter(charId)
+        CurDisplayCharNew = XMVCA.XCharacter:GetCharacter(charId)
 
         return CurDisplayCharNew
     end
@@ -191,7 +190,7 @@ XDisplayManagerCreator = function()
     function XDisplayManager.SetNextDisplayChar(char)
         NextCharId = char
         if char then
-            CurDisplayCharNew = XDataCenter.CharacterManager.GetCharacter(char)
+            CurDisplayCharNew = XMVCA.XCharacter:GetCharacter(char)
         end
     end
 
@@ -200,23 +199,21 @@ XDisplayManagerCreator = function()
     end
 
     function XDisplayManager.GetModelName(id)
-        local character = XDataCenter.CharacterManager.GetCharacter(id)
+        local character = XMVCA.XCharacter:GetCharacter(id)
         local quality
         if character then
             quality = character.Quality
         else
-            quality = XCharacterConfigs.GetCharMinQuality(id)
+            quality = XMVCA.XCharacter:GetCharMinQuality(id)
         end
-        return XDataCenter.CharacterManager.GetCharModel(id, quality)
+        return XMVCA.XCharacter:GetCharModel(id, quality)
     end
 
     -- 更换模型和加载展示状态机，完成后调用回调。
     function XDisplayManager.UpdateRoleModel(panelRoleModel, id, cb, fashionId)
-
         local state = {}
 
         -- 初始化信息
-        LoadStates[panelRoleModel] = state
         state.Panel = panelRoleModel
         state.Id = id
         --state.Callback = cb
@@ -238,7 +235,7 @@ XDisplayManagerCreator = function()
         local fashionModelName
 
         if resourcesId then
-            fashionModelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
+            fashionModelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
         else
             fashionModelName = XDisplayManager.GetModelName(id)
         end
@@ -304,14 +301,6 @@ XDisplayManagerCreator = function()
         if state.Callback then
             state.Callback(state.Model)
         end
-    end
-
-    function XDisplayManager.PlayAnimation(panelRoleModel, animation)
-        local state = LoadStates[panelRoleModel]
-        if state.IsLoading or not state.Animator or not state.Model.activeSelf then
-            return
-        end
-        state.Animator:SetTrigger(animation)
     end
 
     XDisplayManager.Init()

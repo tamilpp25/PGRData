@@ -18,7 +18,7 @@ function XUiPanelSkillLevelDetailOther:Refresh(characterId, skillId)
     local detailGrids = self.DetailGrids
 
     local grid = detailGrids.ResonanceLevel
-    local resonanceLevel = XDataCenter.CharacterManager.GetResonanceSkillLevel(characterId, skillId)
+    local resonanceLevel = XMVCA.XCharacter:GetResonanceSkillLevel(characterId, skillId)
     if resonanceLevel and resonanceLevel > 0 then
         if not grid then
             grid = self:NewGrid()

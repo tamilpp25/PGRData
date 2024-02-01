@@ -10,6 +10,7 @@ function XLottoRewardEntity:MarkGeted()
     self.IsGeted = true
 end
 
+---@return XTableLottoReward
 function XLottoRewardEntity:GetRewardCfg()
     return XLottoConfigs.GetLottoRewardCfgById(self.Id)
 end
@@ -32,6 +33,14 @@ end
 
 function XLottoRewardEntity:GetCount()
     return self:GetRewardCfg().Count
+end
+
+function XLottoRewardEntity:GetShowTimeLineName()
+    return self:GetRewardCfg().ShowTimelineName
+end
+
+function XLottoRewardEntity:GetShowEffectId()
+    return self:GetRewardCfg().ShowEffectId
 end
 
 function XLottoRewardEntity:GetRareLevel()

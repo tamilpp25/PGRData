@@ -225,8 +225,13 @@ function XUiSettleWinMainLine:SetBtnsInfo(data)
         self.PanelCond.gameObject:SetActive(true)
         self:UpdateConditionsShowForDesc(data.StageId, data.StarsMap)
     else
-        self.PanelCond.gameObject:SetActive(true)
-        self:UpdateConditions(data.StageId, data.StarsMap)
+        --根据挑战目标数控制显示
+        if XTool.IsTableEmpty(self.StageCfg.StarDesc) then
+            self.PanelCond.gameObject:SetActive(false)
+        else
+            self.PanelCond.gameObject:SetActive(true)
+            self:UpdateConditions(data.StageId, data.StarsMap)
+        end
     end
 
     local passTimes = stageData and stageData.PassTimesToday or 0
@@ -398,12 +403,14 @@ function XUiSettleWinMainLine:UpdateConditions(stageId, starMap)
 
     self.GridCondList = {}
     for i = 1, #starMap do
-        local ui = CS.UnityEngine.Object.Instantiate(self.GridCond)
-        local grid = XUiGridCond.New(ui)
-        grid.Transform:SetParent(self.PanelCondContent, false)
-        grid:Refresh(self.StageCfg.StarDesc[i], starMap[i])
-        grid.GameObject:SetActive(true)
-        self.GridCondList[i] = grid
+        if not string.IsNilOrEmpty(self.StageCfg.StarDesc[i]) then
+            local ui = CS.UnityEngine.Object.Instantiate(self.GridCond)
+            local grid = XUiGridCond.New(ui)
+            grid.Transform:SetParent(self.PanelCondContent, false)
+            grid:Refresh(self.StageCfg.StarDesc[i], starMap[i])
+            grid.GameObject:SetActive(true)
+            self.GridCondList[i] = grid
+        end
     end
 end
 
@@ -440,7 +447,7 @@ function XUiSettleWinMainLine:OnBtnEnterNextClick()
         if self.StageInfos.NextStageId then
             local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
             self:HidePanel()
-            XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+            XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
         else
             local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

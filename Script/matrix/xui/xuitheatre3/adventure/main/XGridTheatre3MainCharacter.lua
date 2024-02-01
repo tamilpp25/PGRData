@@ -3,6 +3,8 @@
 local XGridTheatre3MainCharacter = XClass(XUiNode, "XGridTheatre3MainCharacter")
 
 function XGridTheatre3MainCharacter:OnStart()
+    ---@type UnityEngine.Transform
+    self.ImgTxBg = XUiHelper.TryGetComponent(self.Transform, "ImgTxBg")
 end
 
 function XGridTheatre3MainCharacter:Refresh(slotId)
@@ -10,6 +12,9 @@ function XGridTheatre3MainCharacter:Refresh(slotId)
     self.PanelLv.gameObject:SetActiveEx(false)
     self.ImgExp.gameObject:SetActiveEx(false)
     self.ImgRole.gameObject:SetActiveEx(true)
+    if self.ImgTxBg then
+        self.ImgTxBg.gameObject:SetActiveEx(self._Control:CheckIsLuckCharacter(characterId))
+    end
     if not XTool.IsNumberValid(characterId) then
         local noneIcon = self._Control:GetClientConfig("Theatre3NoneCharacterIcon")
         if not string.IsNilOrEmpty(noneIcon) then

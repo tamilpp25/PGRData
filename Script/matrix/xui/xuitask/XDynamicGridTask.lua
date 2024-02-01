@@ -1,3 +1,4 @@
+---@class XDynamicGridTask
 XDynamicGridTask = XClass(nil, "XDynamicGridTask")
 
 function XDynamicGridTask:Ctor(ui,rootUi,beforeFinishCheckEvent, clickFunc)
@@ -134,6 +135,7 @@ function XDynamicGridTask:AutoInitUi()
     self.TxtSubTypeTip = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TxtSubTypeTip", "Text")
     self.ImgComplete = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgComplete", "Image") or XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/ImgComplete", "RawImage")
     self.TaskReceive = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TaskReceive", nil) -- 一键领取面板
+    self.TxtLock = XUiHelper.TryGetComponent(self.Transform, "PanelAnimation/TxtLock", "Text")
 end
 
 function XDynamicGridTask:GetAutoKey(uiNode, eventName)
@@ -332,4 +334,22 @@ end
 
 function XDynamicGridTask:IsHasButton()
     return true
-end 
+end
+
+function XDynamicGridTask:SetTaskLock(isLock, lockTxt)
+    if not self.TxtLock then
+        return
+    end
+    if isLock then
+        if self.BtnFinish.gameObject.activeSelf then
+            self.BtnFinish.gameObject:SetActiveEx(false)
+        end
+        if self.BtnSkip.gameObject.activeSelf then
+            self.BtnSkip.gameObject:SetActiveEx(false)
+        end
+        self.TxtLock.gameObject:SetActiveEx(true)
+        self.TxtLock.text = lockTxt
+    else
+        self.TxtLock.gameObject:SetActiveEx(false)
+    end
+end

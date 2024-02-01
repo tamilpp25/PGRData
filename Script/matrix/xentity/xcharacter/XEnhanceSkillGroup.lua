@@ -22,27 +22,27 @@ function XEnhanceSkillGroup:UpdateData(data)
 end
 
 function XEnhanceSkillGroup:GetSkillGroupConfig()
-    return XCharacterConfigs.GetEnhanceSkillGroupConfig(self:GetSkillGroupId())
+    return XMVCA.XCharacter:GetEnhanceSkillGroupConfig(self:GetSkillGroupId())
 end
 
 function XEnhanceSkillGroup:GetSkillGradeConfig(skillId, level)
-    return XCharacterConfigs.GetEnhanceSkillGradeBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
+    return XMVCA.XCharacter:GetEnhanceSkillGradeBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
 end
 
 function XEnhanceSkillGroup:GetSkillDescConfig(skillId, level)
-    return XCharacterConfigs.GetEnhanceSkillGradeDescBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
+    return XMVCA.XCharacter:GetEnhanceSkillGradeDescBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
 end
 
 function XEnhanceSkillGroup:GetSkillEffectConfig(skillId, level)
-    return XCharacterConfigs.GetEnhanceSkillLevelEffectBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
+    return XMVCA.XCharacter:GetEnhanceSkillLevelEffectBySkillIdAndLevel(skillId or self:GetActiveSkillId(), level or self:GetLevel())
 end
 
 function XEnhanceSkillGroup:GetSkillTypeConfig(skillId)
-    return XCharacterConfigs.GetEnhanceSkillTypeConfig(skillId or self:GetActiveSkillId())
+    return XMVCA.XCharacter:GetEnhanceSkillTypeConfig(skillId or self:GetActiveSkillId())
 end
 
 function XEnhanceSkillGroup:GetSkillTypeInfoConfig(type)
-    return XCharacterConfigs.GetEnhanceSkillTypeInfoConfig(type)
+    return XMVCA.XCharacter:GetEnhanceSkillTypeInfoConfig(type)
 end
 
 -----------------------------------------------------------------------------------------------
@@ -55,7 +55,7 @@ function XEnhanceSkillGroup:GetLevel()
 end
 
 function XEnhanceSkillGroup:GetMaxLevel(skillId)
-    return XCharacterConfigs.GetEnhanceSkillMaxLevelBySkillId(skillId or self:GetActiveSkillId())
+    return XMVCA.XCharacter:GetEnhanceSkillMaxLevelBySkillId(skillId or self:GetActiveSkillId())
 end
 
 function XEnhanceSkillGroup:GetIsMaxLevel()
@@ -175,7 +175,7 @@ end
 function XEnhanceSkillGroup:GetSkillEntryConfigList(skillId, level)
     local entryList = {}
     for _,entryId in pairs(self:GetEntryIdList(skillId, level) or {}) do
-        local entry = XCharacterConfigs.GetEnhanceSkillEntryConfig(entryId)
+        local entry = XMVCA.XCharacter:GetEnhanceSkillEntryConfig(entryId)
         table.insert(entryList, entry)
     end
     return entryList

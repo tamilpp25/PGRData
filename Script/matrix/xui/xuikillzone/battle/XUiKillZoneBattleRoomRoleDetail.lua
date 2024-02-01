@@ -10,7 +10,7 @@ function XUiKillZoneBattleRoomRoleDetail:Ctor(stageId, team, pos)
 end
 
 function XUiKillZoneBattleRoomRoleDetail:GetEntities(characterType)
-    local roles = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local roles = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     local robotIdList = XKillZoneConfigs.GetStageRobotIds(self.StageId)
     -- 添加机器人
     if XTool.IsTableEmpty(robotIdList) then

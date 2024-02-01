@@ -149,6 +149,7 @@ end
 function XUiNewPlayerTask:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_TASK_SYNC, self.OnTaskChangeSync, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_NEWBIETASK_DAYCHANGED, self.OnTaskChangeSync, self)
+    XDataCenter.ItemManager.RemoveCountUpdateListener(self.TxtCurProgress)
 end
 
 
@@ -188,7 +189,7 @@ function XUiNewPlayerTask:RefreshLeftView(day)
     if not talkConfig then return end
 
     self.RImgTabBoard:SetRawImage(talkConfig.RoleHalfIcon)
-    self.TxtBoardName.text = XCharacterConfigs.GetCharacterName(talkConfig.ShowCharId)
+    self.TxtBoardName.text = XMVCA.XCharacter:GetCharacterName(talkConfig.ShowCharId)
     self.TxtBoardPinyin.text = talkConfig.SpellName
 end
 

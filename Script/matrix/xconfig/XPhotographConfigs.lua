@@ -22,6 +22,12 @@ XPhotographConfigs.SceneRotationType = {
     YRotation = 1,      -- 基于Y轴旋转
 }
 
+XPhotographConfigs.PreviewOpenType=
+{
+    SceneSetting=1, --场景切换设置界面里打开
+    Others=2 --其他地方
+}
+
 local TABLE_BACK_GROUND = "Share/PhotoMode/Background.tab"
 local TABLE_PHOTOMODE_SHARE_INFO = "Client/PhotoMode/ShareInfo.tab"
 

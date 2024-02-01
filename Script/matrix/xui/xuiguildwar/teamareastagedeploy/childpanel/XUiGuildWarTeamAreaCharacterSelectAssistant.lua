@@ -281,7 +281,7 @@ function XUiGuildWarTeamAreaCharacterSelectAssistant:UpdateBtns()
     end
 
     -- 授格者
-    if XCharacterConfigs.IsIsomer(characterId) and not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer) then
+    if XMVCA.XCharacter:GetIsIsomer(characterId) and not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer) then
         self.BtnQuitTeam.gameObject:SetActiveEx(false)
         self.BtnJoinTeam.gameObject:SetActiveEx(false)
         self.BtnJoinDisable.gameObject:SetActiveEx(true)

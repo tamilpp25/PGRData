@@ -65,7 +65,18 @@ local _RegionTypeEnum = enum({
     Senior = 2, --高级组Id
 })
 
+---@class IslandSpecialStage
+---@field FirstHideExtra number 隐藏特殊目标的关卡索引
+---@field SecondHideExtra number 隐藏特殊目标的关卡索引
+---@field ShowOtherExtra number 其他特殊目标的关卡索引
+local _IslandSpecialStage = enum({
+    FirstHideExtra = 11,
+    SecondHideExtra = 12,
+    ShowOtherExtra = 13,
+})
+
 XTransfiniteConfigs.RegionType = _RegionTypeEnum
+XTransfiniteConfigs.IslandSpecialStage = _IslandSpecialStage
 
 XTransfiniteConfigs.TeamId = 22
 XTransfiniteConfigs.TeamTypeId = 160
@@ -155,6 +166,10 @@ function XTransfiniteConfigs.GetIslandStageGroupId(id)
     return GetIsland(id).StageGroupId
 end
 
+function XTransfiniteConfigs.GetIslandImage(id)
+    return GetIsland(id).IslandImage
+end
+
 function XTransfiniteConfigs.GetIslandOrder(id)
     return GetIsland(id).Order
 end
@@ -213,6 +228,10 @@ end
 
 function XTransfiniteConfigs.GetRegionIconLv(id)
     return GetRegion(id).IconLv
+end
+
+function XTransfiniteConfigs.GetRegionDisplayRewardIds(id)
+    return GetRegion(id).RewardId
 end
 
 function XTransfiniteConfigs.GetAllRegion()
@@ -373,6 +392,10 @@ end
 function XTransfiniteConfigs.GetStrengthenImg(id)
     return GetStrengthen(id).Img
 end
+
+function XTransfiniteConfigs.GetStrengthenType(id)
+    return GetStrengthen(id).Type
+end
 --endregion Strengthen
 
 --region Medal
@@ -405,36 +428,27 @@ function XTransfiniteConfigs.GetMedalDesc(id)
     return GetMedal(id).Desc
 end
 
-function XTransfiniteConfigs.GetMedalIdByTime(time)
+function XTransfiniteConfigs.GetMedalIdByTime(time, progressId)
+    if not XTool.IsNumberValid(time) then
+        return 1
+    end
+    if not XTool.IsNumberValid(progressId) then
+        progressId = 1
+    end
     local configs = GetConfigMedal():GetConfigs()
     local timeMedal = math.huge
-    local medalId
+    local medalId = 1
     for id, config in pairs(configs) do
-        local timeConfig = config.Time
+        local timeConfig = config.Time[progressId]
         if timeConfig == 0 then
             timeConfig = math.huge
         end
-        if time < timeConfig and timeConfig < timeMedal then
+        if time < timeConfig and timeConfig <= timeMedal then
             timeMedal = timeConfig
             medalId = id
         end
     end
-    if medalId then
-        return medalId
-    end
-
-    -- time = 0，表示超出时间
-    for id, config in pairs(configs) do
-        if config.Time == 0 then
-            return config.Id
-        end
-    end
-
-    -- 任意取一个配置
-    for id, config in pairs(configs) do
-        return config.Id
-    end
-    return 1
+    return medalId
 end
 --endregion Medal
 
@@ -464,8 +478,7 @@ end
 ---@return table<number, XTransfiniteAchievementConfig>
 function XTransfiniteConfigs.GetAchievementListByStageGroupId(id)
     local achievementDic = GetAchievementDic()
-
-    return achievementDic[id]
+    return achievementDic[id] or {}
 end
 --endregion
 
@@ -500,6 +513,23 @@ function XTransfiniteConfigs.GetScoreReward(regionId, score)
     end
     local rewardIdArray = config.RewardId
     return rewardIdArray[index] or 0
+end
+
+--endregion
+
+--region StartStageProgress
+
+local _ConfigStartStageProgress
+local function GetConfigStartStageProgress()
+    if not _ConfigStartStageProgress then
+        _ConfigStartStageProgress = XConfig.New("Share/Fuben/Transfinite/TransfiniteStartStageProgress.tab", XTable.XTableTransfiniteStartStageProgress, "Id")
+    end
+    return _ConfigStartStageProgress
+end
+
+--- 获取所有的关卡进度配置
+function XTransfiniteConfigs.GetAllStartStageProgress()
+    return GetConfigStartStageProgress():GetConfigs()
 end
 
 --endregion

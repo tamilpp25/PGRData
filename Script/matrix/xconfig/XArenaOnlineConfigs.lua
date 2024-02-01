@@ -6,11 +6,14 @@ local TABLE_ARENAONLINE_STAGEGROUP = "Share/Fuben/ArenaOnline/ArenaOnlineStageGr
 local TABLE_ARENAONLINE_STAGE = "Share/Fuben/ArenaOnline/ArenaOnlineStage.tab"
 local TABLE_ARENAONLINE_ACTIVEBUFF = "Share/Fuben/ArenaOnline/ArenaOnlineActiveBuff.tab"
 --local TABLE_NPC_AFFIX = "Client/Fight/Npc/NpcAffix.tab"
+local TABLE_BOSS_ONLINE_INVITE = "Client/Fuben/BossOnline/BossOnlineInvite.tab"
+
 local ArenaOnlineChapterCfg = {}
 local ArenaOnlineSectionCfg = {}
 local ArenaOnlineStageGroupCfg = {}
 local ArenaOnlineStageCfg = {}
 local ArenaOnlineActiveBuffCfg = {}
+local BossOnlineInvite = {}
 --local NpcAffixCfg = {}
 XArenaOnlineConfigs.MAX_NAILI = CS.XGame.Config:GetInt("ArenaOnlineCharMaxEndurance")
 XArenaOnlineConfigs.SHOW_TIME = CS.XGame.ClientConfig:GetInt("ArenaOnlineInviteShowTime")
@@ -32,6 +35,8 @@ function XArenaOnlineConfigs.Init()
     ArenaOnlineStageGroupCfg = XTableManager.ReadAllByIntKey(TABLE_ARENAONLINE_STAGEGROUP, XTable.XTableArenaOnlineStageGroup, "Id")
     ArenaOnlineStageCfg = XTableManager.ReadAllByIntKey(TABLE_ARENAONLINE_STAGE, XTable.XTableArenaOnlineStage, "Id")
     ArenaOnlineActiveBuffCfg = XTableManager.ReadByIntKey(TABLE_ARENAONLINE_ACTIVEBUFF, XTable.XTableArenaOnlineActiveBuff, "Id")
+    BossOnlineInvite = XTableManager.ReadByIntKey(TABLE_BOSS_ONLINE_INVITE, XTable.XTableBossOnlineInvite, "Id")
+    
     --NpcAffixCfg = XTableManager.ReadByIntKey(TABLE_NPC_AFFIX, XTable.XTableNpcAffix, "Id")
     XArenaOnlineConfigs.ArenaOnlineShowTime = CS.XGame.ClientConfig:GetInt("ArenaOnlineShowTime") or -1
 end
@@ -174,3 +179,15 @@ function XArenaOnlineConfigs.GetFirstChapterName()
 
     return name
 end
+
+local _BossOnlineInviteUi
+function XArenaOnlineConfigs.GetBossOnlineInviteUi()
+    if _BossOnlineInviteUi then
+        return _BossOnlineInviteUi
+    end
+    _BossOnlineInviteUi = {}
+    for i, v in pairs(BossOnlineInvite) do
+        _BossOnlineInviteUi[v.UiName] = true
+    end
+    return _BossOnlineInviteUi
+end 

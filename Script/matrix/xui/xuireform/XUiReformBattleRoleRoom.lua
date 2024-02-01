@@ -76,7 +76,7 @@ function XUiReformBattleRoleRoom:GetCharacterViewModelByEntityId(entityId)
     if source then
         reuslt = source:GetCharacterViewModel()
     elseif entityId > 0 then
-        reuslt = XDataCenter.CharacterManager.GetCharacter(entityId)
+        reuslt = XMVCA.XCharacter:GetCharacter(entityId)
         if reuslt then reuslt = reuslt:GetCharacterViewModel() end
     end
     return reuslt

@@ -1,22 +1,28 @@
-local XUiDisplayTitleGrid = require("XUi/XUiGoldenMiner/Grid/XUiDisplayTitleGrid")
-local XUiDisplayGrid = require("XUi/XUiGoldenMiner/Grid/XUiDisplayGrid")
+local XUiGoldenMinerDisplayTitleGrid = require("XUi/XUiGoldenMiner/Grid/XUiGoldenMinerDisplayTitleGrid")
+local XUiGoldenMinerDisplayGrid = require("XUi/XUiGoldenMiner/Grid/XUiGoldenMinerDisplayGrid")
 
 ---@class XUiGoldenMinerSuspend : XLuaUi
+---@field _Control XGoldenMinerControl
 local XUiGoldenMinerSuspend = XLuaUiManager.Register(XLuaUi, "UiGoldenMinerSuspend")
 
 function XUiGoldenMinerSuspend:OnAwake()
     self:AddBtnClickListener()
 end
 
----@param displayData XGoldenMinerDisplayData
-function XUiGoldenMinerSuspend:OnStart(displayData, closeCallback, sureCallback)
-    self._DisplayData = displayData
+function XUiGoldenMinerSuspend:OnStart(closeCallback, sureCallback, isOnHex)
     self._CloseCallback = closeCallback
     self._SureCallback = sureCallback
 
     self:UpdateShip()
     self:UpdateItem()
     self:UpdateBuff()
+    if isOnHex then
+        self.BtnEnter.gameObject:SetActiveEx(false)
+        self.BtnExit.gameObject:SetActiveEx(false)
+        if self.TxtReport then
+            self.TxtReport.text = XUiHelper.GetText("GoldenMinerShipDetailTitle")
+        end
+    end
     self.PanelResources.gameObject:SetActiveEx(false)
     self.NewsListBg.gameObject:SetActiveEx(false)
 end
@@ -31,12 +37,12 @@ end
 
 --region Ui - UpdateDisplayShip
 function XUiGoldenMinerSuspend:UpdateShip()
-    local buffList, characterDisplayData = self._DisplayData:GetDisplayShipList()
-    self:_CreateTitleObj(XGoldenMinerConfigs.BuffDisplayType.Ship)
-    self:_CreateDescObj(characterDisplayData.icon, characterDisplayData.desc)
+    local buffList, characterDisplayData = self._Control:GetDisplayShipList()
+    self:_CreateTitleObj(XEnumConst.GOLDEN_MINER.BUFF_DISPLAY_TYPE.SHIP)
+    self:_CreateDescObj(characterDisplayData.Icon, characterDisplayData.Desc)
     if not XTool.IsTableEmpty(buffList) then
         for _, buffId in ipairs(buffList) do
-            self:_CreateDescObj(XGoldenMinerConfigs.GetBuffIcon(buffId), XGoldenMinerConfigs.GetBuffDesc(buffId))
+            self:_CreateDescObj(self._Control:GetCfgBuffIcon(buffId), self._Control:GetCfgBuffDesc(buffId))
         end
     end
 end
@@ -44,40 +50,43 @@ end
 
 --region Ui - UpdateDisplayItem
 function XUiGoldenMinerSuspend:UpdateItem()
-    local buffList = self._DisplayData:GetDisplayItemList()
+    local buffList = self._Control:GetDisplayItemList()
     if XTool.IsTableEmpty(buffList) then
         return
     end
-    self:_CreateTitleObj(XGoldenMinerConfigs.BuffDisplayType.Item)
+    self:_CreateTitleObj(XEnumConst.GOLDEN_MINER.BUFF_DISPLAY_TYPE.ITEM)
     for _, buff in ipairs(buffList) do
-        --self:_CreateDescObj(XGoldenMinerConfigs.GetBuffIcon(buffId), XGoldenMinerConfigs.GetBuffDesc(buffId))
-        self:_CreateDescObj(buff.icon, buff.desc)
+        self:_CreateDescObj(buff.Icon, buff.Desc)
     end
 end
 --endregion
 
 --region Ui - UpdateDisplayBuff
 function XUiGoldenMinerSuspend:UpdateBuff()
-    local buffList = self._DisplayData:GetDisplayBuffList()
+    local buffList = self._Control:GetDisplayBuffList()
     if XTool.IsTableEmpty(buffList) then
         return
     end
-    self:_CreateTitleObj(XGoldenMinerConfigs.BuffDisplayType.Buff)
+    self:_CreateTitleObj(XEnumConst.GOLDEN_MINER.BUFF_DISPLAY_TYPE.BUFF)
     for _, buffId in ipairs(buffList) do
-        self:_CreateDescObj(XGoldenMinerConfigs.GetBuffIcon(buffId), XGoldenMinerConfigs.GetBuffDesc(buffId))
+        self:_CreateDescObj(self._Control:GetCfgBuffIcon(buffId), self._Control:GetCfgBuffDesc(buffId))
     end
 end
 --endregion
 
 --region Ui - CreateUiObj
 function XUiGoldenMinerSuspend:_CreateTitleObj(type)
-    XUiDisplayTitleGrid.New(XUiHelper.Instantiate(self.PanelResources.gameObject, self.PanelResources.transform.parent),
-            XGoldenMinerConfigs.GetTxtDisplayMainTitle(type),
-            XGoldenMinerConfigs.GetTxtDisplaySecondTitle(type))
+    XUiGoldenMinerDisplayTitleGrid.New(XUiHelper.Instantiate(self.PanelResources.gameObject, self.PanelResources.transform.parent),
+            self,
+            self._Control:GetClientTxtDisplayMainTitle(type),
+            self._Control:GetClientTxtDisplaySecondTitle(type))
 end
 
 function XUiGoldenMinerSuspend:_CreateDescObj(icon, desc)
-    local grid = XUiDisplayGrid.New(XUiHelper.Instantiate(self.NewsListBg.gameObject, self.NewsListBg.transform.parent))
+    if string.IsNilOrEmpty(icon) then
+        return
+    end
+    local grid = XUiGoldenMinerDisplayGrid.New(XUiHelper.Instantiate(self.NewsListBg.gameObject, self.NewsListBg.transform.parent), self)
     grid:Refresh(icon, desc)
 end
 --endregion

@@ -9,9 +9,12 @@ local StringFormat = string.format
 local ToNumber = tonumber
 local TableSort = table.sort
 
-function XViewModelReform2nd:Ctor()
+function XViewModelReform2nd:Ctor(model)
+    ---@type XReformModel
+    self._Model = model
+
     self.CurrentStageIndex = 1
-    self.ChapterTotalNumber = #XReform2ndConfigs.GetChapterConfig()
+    self.ChapterTotalNumber = #self._Model:GetChapterConfig()
     ---@type XReform2ndTask[]
     self.TaskList = {}
     self.TaskLength = 0
@@ -24,13 +27,13 @@ end
 
 function XViewModelReform2nd:InitCurrentStageIndex()
     self.CurrentStageIndex = 1
-    
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
+
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
 
     for i = 1, #stageIds do
         ---@type XReform2ndStage
-        local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[i])
+        local stage = self._Model:GetStage(stageIds[i])
 
         if stage:GetIsSelect() then
             self.CurrentStageIndex = i
@@ -64,9 +67,8 @@ function XViewModelReform2nd:GetUnlockedHardStageName()
     local isUnlocked, winStageId, chapterIndex, stageIndex = XDataCenter.Reform2ndManager.IsUnlockHardModeStageId()
 
     if winStageId then
-        local stage = XDataCenter.Reform2ndManager.GetStage(winStageId)
-
-        winStageId = stage:GetName()
+        local stage = self._Model:GetStage(winStageId)
+        winStageId = self._Model:GetStageName(stage:GetId())
     end
     self.CurrentChapterIndex = chapterIndex
     self.CurrentStageIndex = stageIndex
@@ -87,12 +89,12 @@ function XViewModelReform2nd:GetStageDataByIndex(index)
         Number = false
     }
 
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[index])
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[index])
     local isUnlocked, tip = self:IsStageUnlockedByIndex(index)
     local starNumber = stage:GetStarHistory()
-    local fullNumber = stage:GetFullPoint()
+    local fullNumber = self._Model:GetStageFullPointById(stage:GetId())
     local isSelect = self:GetStageIsSelectByIndex(index)
     local isFinished = starNumber >= fullNumber
 
@@ -106,9 +108,9 @@ function XViewModelReform2nd:GetStageDataByIndex(index)
     stageData.IsSelect = stage:GetIsSelect()
     stageData.IsUnlocked = isUnlocked
     stageData.UnlockedTip = tip
-    stageData.IsUnlockedDiff = stage:GetIsUnlockedDifficulty()
+    stageData.IsUnlockedDiff = self._Model:GetStageIsUnlockedDifficulty(stage)
     stageData.IsFinished = isFinished
-    stageData.Name = stage:GetName()
+    stageData.Name = self._Model:GetStageName(stage:GetId())
     stageData.StarDesc = StringFormat("%s/%s", starNumber, fullNumber)
     stageData.Number = stage:GetStageNumberText()
 
@@ -124,20 +126,20 @@ function XViewModelReform2nd:GetChapterData()
         SpecialGoal = false
     }
 
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[self.CurrentStageIndex])
-    local characterIdList = stage:GetRecommendCharacters()
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[self.CurrentStageIndex])
+    local characterIdList = self._Model:GetStageRecommendCharacterIds(stage:GetId())
     local iconList = {}
 
     for i, characterId in IPairs(characterIdList) do
-        iconList[i] = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+        iconList[i] = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
     end
 
-    chapterData.Name = stage:GetName()
-    chapterData.Theme = chapter:GetThemeDesc()
-    chapterData.StageIdLength = #chapter:GetStageIdList()
-    chapterData.SpecialGoal = stage:GetGoalDesc()
+    chapterData.Name = self._Model:GetStageName(stage:GetId())
+    chapterData.Theme = self._Model:GetChapterEventDescById(chapter:GetId())
+    chapterData.StageIdLength = #self._Model:GetChapterStageIdById(chapter:GetId())
+    chapterData.SpecialGoal = self._Model:GetStageGoalDescById(stage:GetId())
     chapterData.RecommendCharacterList = iconList
 
     return chapterData
@@ -157,7 +159,9 @@ function XViewModelReform2nd:GetTaskDataByIndex(index)
     local nowStar = 0
 
     for i = 1, self.ChapterTotalNumber do
-        nowStar = nowStar + XDataCenter.Reform2ndManager.GetChapterByIndex(i):GetStarNumber()
+        --nowStar = nowStar + self._Model:GetChapterByIndex(i):GetStarNumber(self._Model)
+        local chapter = self._Model:GetChapterByIndex(i)
+        nowStar = nowStar + self._Model:GetChapterStarNumber(chapter)
     end
 
     if nowStar >= taskStar then
@@ -173,11 +177,11 @@ function XViewModelReform2nd:GetTaskDataByIndex(index)
 end
 
 function XViewModelReform2nd:SetStageSelectByIndex(index)
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[index])
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[index])
     local isSelect = index == self.CurrentStageIndex
-    
+
     self:SetStageSelect(stage, isSelect)
 end
 
@@ -189,18 +193,18 @@ function XViewModelReform2nd:SetStageSelect(stage, isSelect)
 end
 
 function XViewModelReform2nd:GetStageIsSelectByIndex(index)
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[index])
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[index])
     local starNumber = stage:GetStarHistory()
-    local fullNumber = stage:GetFullPoint()
+    local fullNumber = self._Model:GetStageFullPointById(stage:GetId())
 
     if starNumber >= fullNumber then
         for i = 1, #stageIds do
             if i ~= index then
-                local other = XDataCenter.Reform2ndManager.GetStage(stageIds[i])
+                local other = self._Model:GetStage(stageIds[i])
                 local otherStarNumber = other:GetStarHistory()
-                local otherFullNumber = other:GetFullPoint()
+                local otherFullNumber = self._Model:GetStageFullPointById(other:GetId())
 
                 if otherStarNumber < otherFullNumber then
                     self:SetCurrentStageIndex(i)
@@ -213,10 +217,10 @@ function XViewModelReform2nd:GetStageIsSelectByIndex(index)
 end
 
 function XViewModelReform2nd:GetCurrentStage()
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
     local stageId = stageIds[self.CurrentStageIndex]
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageId)
+    local stage = self._Model:GetStage(stageId)
     stage:SetChapterIndex(self:GetCurrentChapterIndex(), self:GetCurrentStageIndex())
     return stage
 end
@@ -226,23 +230,22 @@ function XViewModelReform2nd:IsSelectStageUnlocked()
 end
 
 function XViewModelReform2nd:IsStageUnlockedByIndex(index)
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[index])
-    local timeId = stage:GetOpenTime()
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[index])
+    local timeId = self._Model:GetStageOpenTimeById(stage:GetId())
     local isTimeOpen = XFunctionManager.CheckInTimeByTimeId(timeId)
 
     self.StageTimeOpenDic[stage:GetId()] = isTimeOpen
     if isTimeOpen then
-        local preStageId = stage:GetUnlockStageId()
+        local preStageId = self._Model:GetStageUnlockStageIdById(stage:GetId())
 
         if preStageId == nil or preStageId == 0 then
             return true
         else
             ---@type XReform2ndStage
-            local preStage = XDataCenter.Reform2ndManager.GetStage(preStageId)
-
-            return preStage:GetIsPassed(), XUiHelper.GetText("ReformLockedTip", preStage:GetName())
+            local preStage = self._Model:GetStage(preStageId)
+            return preStage:GetIsPassed(), XUiHelper.GetText("ReformLockedTip", self._Model:GetStageName(preStage:GetId()))
         end
     end
 
@@ -250,16 +253,16 @@ function XViewModelReform2nd:IsStageUnlockedByIndex(index)
 end
 
 function XViewModelReform2nd:CheckStageTimeOpenByIndex(index)
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[index])
-    local timeId = stage:GetOpenTime()
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+    local stage = self._Model:GetStage(stageIds[index])
+    local timeId = self._Model:GetStageOpenTimeById(stage:GetId())
     local isChangeUnlocked = XFunctionManager.CheckInTimeByTimeId(timeId) ~= self.StageTimeOpenDic[stage:GetId()]
 
     if isChangeUnlocked then
         self.StageTimeOpenDic[stage:GetId()] = XFunctionManager.CheckInTimeByTimeId(timeId)
     end
-    
+
     return isChangeUnlocked
 end
 
@@ -268,10 +271,10 @@ function XViewModelReform2nd:GetCurrStageNumberText()
 end
 
 function XViewModelReform2nd:GetStageNumberTextByIndex(index)
-    local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(self.CurrentChapterIndex)
-    local stageIds = chapter:GetStageIdList()
+    local chapter = self._Model:GetChapterByIndex(self.CurrentChapterIndex)
+    local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
     local stageId = stageIds[index]
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageId)
+    local stage = self._Model:GetStage(stageId)
 
     stage:SetChapterIndex(self:GetCurrentChapterIndex(), index)
 
@@ -279,23 +282,27 @@ function XViewModelReform2nd:GetStageNumberTextByIndex(index)
 end
 
 function XViewModelReform2nd:GetChapterLockedTipByIndex(index)
-    local timeId = XDataCenter.Reform2ndManager.GetChapterByIndex(index):GetOpenTime()
+    local chapter = self._Model:GetChapterByIndex(index)
+    local timeId = self._Model:GetChapterOpenTimeByChapter(chapter)
+
     local isTimeOpen = XFunctionManager.CheckInTimeByTimeId(timeId)
     local preIsPassed = false
-    local preChapter = XDataCenter.Reform2ndManager.GetChapterByIndex(index):GetOrder()
+    local preChapter = self._Model:GetChapterByIndex(index)
+    local preChapterOrder = self._Model:GetChapterOrderById(preChapter:GetId())
     local startTime = XFunctionManager.GetStartTimeByTimeId(timeId)
 
-    if preChapter == 0 or preChapter == nil then
+    if preChapterOrder == 0 or preChapterOrder == nil then
         preIsPassed = true
     else
-        preIsPassed = XDataCenter.Reform2ndManager.GetChapterByIndex(preChapter):IsPassed()
+        local chapter = self._Model:GetChapterByIndex(preChapterOrder)
+        preIsPassed = self._Model:IsChapterPassed(chapter)
     end
 
     if preIsPassed and not isTimeOpen then
         return XUiHelper.GetInTimeDesc(startTime)
     elseif isTimeOpen and not preIsPassed then
-        local chapter = self:FindChapterById(preChapter)
-        local chapterName = chapter:GetName()
+        local chapter = self:FindChapterById(preChapterOrder)
+        local chapterName = self._Model:GetChapterName(chapter)
         local message = XUiHelper.GetText("ReformLockedTip", chapterName)
 
         return message
@@ -307,17 +314,17 @@ function XViewModelReform2nd:GetChapterLockedTipByIndex(index)
 end
 
 function XViewModelReform2nd:GetChapterIsUnlockedByIndex(index)
-    local timeId = XDataCenter.Reform2ndManager.GetChapterByIndex(index):GetOpenTime()
+    local chapter = self._Model:GetChapterByIndex(index)
+    local timeId = self._Model:GetChapterOpenTimeByChapter(chapter)
     local isTimeOpen = XFunctionManager.CheckInTimeByTimeId(timeId)
     local preIsPassed = false
-    local preChapter = XDataCenter.Reform2ndManager.GetChapterByIndex(index):GetOrder()
+    local preChapterOrder = self._Model:GetChapterOrderById(chapter:GetId())
 
-    if preChapter == 0 then
+    if preChapterOrder == 0 then
         preIsPassed = true
     else
-        local chapter = self:FindChapterById(preChapter)
-
-        preIsPassed = chapter:IsPassed()
+        local preChapter = self:FindChapterById(preChapterOrder)
+        preIsPassed = self._Model:IsChapterPassed(preChapter)
     end
 
     return isTimeOpen and preIsPassed
@@ -329,7 +336,8 @@ function XViewModelReform2nd:GetTaskProgressTextAndImgExp()
     local nowStar = 0
 
     for i = 1, count do
-        nowStar = nowStar + XDataCenter.Reform2ndManager.GetChapterByIndex(i):GetStarNumber()
+        local chapter = self._Model:GetChapterByIndex(i)
+        nowStar = nowStar + self._Model:GetChapterStarNumber(chapter)
     end
 
     if maxStar > nowStar then
@@ -347,14 +355,14 @@ function XViewModelReform2nd:Init()
 end
 
 function XViewModelReform2nd:GetStageIsSelectFromLocal()
-    local selectList = XSaveTool.GetData(XDataCenter.Reform2ndManager.GetStageSelectKey())
+    local selectList = XSaveTool.GetData(self._Model:GetStageSelectKey())
 
     if selectList == nil then
         return
     end
 
     for stageId, isSelect in Pairs(selectList) do
-        local stage = XDataCenter.Reform2ndManager.GetStage(stageId)
+        local stage = self._Model:GetStage(stageId)
         if stage then
             stage:SetIsSelect(isSelect)
         end
@@ -364,20 +372,21 @@ end
 function XViewModelReform2nd:SetStageIsSelectToLocal()
     if self.IsChange then
         self.IsChange = false
-        
+
         local selectList = {}
 
         for i = 1, self:GetChapterTotalNumber() do
-            local stageIds = XDataCenter.Reform2ndManager.GetChapterByIndex(i):GetStageIdList()
+            local chapter = self._Model:GetChapterByIndex(i)
+            local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
 
             for j = 1, #stageIds do
-                local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[j])
+                local stage = self._Model:GetStage(stageIds[j])
 
                 selectList[stageIds[j]] = stage:GetIsSelect()
             end
         end
 
-        XSaveTool.SaveData(XDataCenter.Reform2ndManager.GetStageSelectKey(), selectList)
+        XSaveTool.SaveData(self._Model:GetStageSelectKey(), selectList)
     end
 end
 
@@ -434,7 +443,7 @@ function XViewModelReform2nd:SortTaskList()
 end
 
 function XViewModelReform2nd:GetDisplayRewards()
-    local rewardIds = XReform2ndConfigs.GetDisplayTaskIds()
+    local rewardIds = self._Model:GetDisplayTaskIds()
     local rewards = {}
     local length = 0
 
@@ -477,37 +486,41 @@ function XViewModelReform2nd:GetTaskTotalNumber()
 end
 
 function XViewModelReform2nd:InitChapterList()
-    for i = 1, XDataCenter.Reform2ndManager.GetCurrentChapterNumber() do
-        local chapter = XDataCenter.Reform2ndManager.GetChapterByIndex(i)
+    for i = 1, self._Model:GetCurrentChapterNumber() do
+        local chapter = self._Model:GetChapterByIndex(i)
+        if chapter then
+            local stageIds = self._Model:GetChapterStageIdById(chapter:GetId())
+            for j = 1, #stageIds do
+                local stage = self._Model:GetStage(stageIds[j])
 
-        local stageIds = chapter:GetStageIdList()
-
-        for j = 1, #stageIds do
-            local stage = XDataCenter.Reform2ndManager.GetStage(stageIds[j])
-
-            stage:SetChapterIndex(i, j)
+                stage:SetChapterIndex(i, j)
+            end
         end
     end
 end
 
 function XViewModelReform2nd:GetChapterByIndex(index)
-    return XDataCenter.Reform2ndManager.GetChapterByIndex(index)
+    return self._Model:GetChapterByIndex(index)
 end
 
 function XViewModelReform2nd:GetChapterTotalNumber()
-    return XDataCenter.Reform2ndManager.GetChapterNumber()
+    return self._Model:GetChapterNumber()
 end
 
 function XViewModelReform2nd:FindChapterById(id)
-    return XDataCenter.Reform2ndManager.GetChapter(id)
+    return self._Model:GetChapter(id)
 end
 
 function XViewModelReform2nd:ReleaseConfig()
-    XReform2ndConfigs.ReleaseMemberSourceConfig()
-    XReform2ndConfigs.ReleaseMemberGroupConfig()
-    XReform2ndConfigs.ReleaseChapterConfig()
-    XReform2ndConfigs.ReleaseStageConfig()
-    XReform2ndConfigs.ReleaseClientConfig()
+    self._Model = nil
+end
+
+function XViewModelReform2nd:GetChapterImageByIndex(index)
+    local chapter = self._Model:GetChapterByIndex(index)
+    if not chapter then
+        return false
+    end
+    return self._Model:GetChapterImageById(chapter:GetId())
 end
 
 return XViewModelReform2nd

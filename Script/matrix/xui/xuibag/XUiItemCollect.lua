@@ -83,9 +83,9 @@ function UiItemCollectionMain:InitView()
     self.DynamicTable:SetDataSource(self.ItemIds)
     self.DynamicTable:ReloadDataSync(self:GetSelectIndex())
 
-    XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.FreeGem
+    XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.FreeGem
     , XDataCenter.ItemManager.ItemId.ActionPoint
-    , XDataCenter.ItemManager.ItemId.Coin }, self.PanelAssetitems)
+    , XDataCenter.ItemManager.ItemId.Coin }, self.PanelAssetitems, self)
     
     XDataCenter.ItemManager.MarkFirstOpenItemCollectView()
 end

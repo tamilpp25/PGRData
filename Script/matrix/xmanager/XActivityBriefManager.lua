@@ -40,10 +40,17 @@ XActivityBriefManagerCreator = function()
 
     local function Init()
         for _, v in pairs(XActivityBriefConfigs.GetAllActivityEntryConfig()) do
+            --2.7屏蔽仅红点检测的条目
+            if XTool.IsNumberValid(v.OnlyRedPoint) then
+                goto CONTINUE
+            end
+            
             local endTime = XFunctionManager.GetEndTimeByTimeId(v.TimeId)
             if SpecialActivityMaxEndTime < endTime then
                 SpecialActivityMaxEndTime = endTime
             end
+            
+            :: CONTINUE ::
         end
         --游戏一开始随机获取其中一个数，用于活动界面随机显示一个模型
         -- local models = XActivityBriefConfigs.GetActivityModels()
@@ -176,10 +183,18 @@ XActivityBriefManagerCreator = function()
     function XActivityBriefManager.GetNowActivityEntryConfig()
         local nowSpecialActivityTemplates = {}
         for _,v in pairs(XActivityBriefConfigs.GetAllActivityEntryConfig()) do
+            --2.7屏蔽仅红点检测的条目
+            if XTool.IsNumberValid(v.OnlyRedPoint) then
+                goto CONTINUE
+            end
+            
             if XFunctionManager.CheckInTimeByTimeId(v.TimeId) and
                     (v.Condition == 0 or XConditionManager.CheckCondition(v.Condition)) then
                 table.insert(nowSpecialActivityTemplates, v)
             end
+
+            :: CONTINUE ::
+
         end
         
         return nowSpecialActivityTemplates
@@ -189,6 +204,11 @@ XActivityBriefManagerCreator = function()
         local newCount, oldCount = 0, 0
         local timeOfNow = XTime.GetServerNowTimestamp()
         for _,v in pairs(XActivityBriefConfigs.GetAllActivityEntryConfig()) do
+            --2.7屏蔽仅红点检测的条目
+            if XTool.IsNumberValid(v.OnlyRedPoint) then
+                goto CONTINUE
+            end
+            
             local timeOfBgn = XFunctionManager.GetStartTimeByTimeId(v.TimeId)
             local timeOfEnd = XFunctionManager.GetEndTimeByTimeId(v.TimeId)
             --不用CheckInTimeByTimeId，避免新活动开放，旧活动结束Count不会更改
@@ -200,6 +220,8 @@ XActivityBriefManagerCreator = function()
             if timeOfNow > timeOfEnd then --活动过期
                 oldCount = oldCount + 1
             end
+            
+            ::CONTINUE::
         end
         return CheckIsNewActivityOpen(newCount) or CheckIsOldActivityEnd(oldCount)
     end
@@ -213,7 +235,7 @@ XActivityBriefManagerCreator = function()
         return XFunctionManager.CheckInTimeByTimeId(ActivityConfig.TimeId)
     end
 
-    --#region v1.31 入场动画判定
+    --region v1.31 入场动画判定
 
     -- 根据面板的入场动效类型检查是否需要播放入场动效
     function XActivityBriefManager.IsShowEnterAni(panelType)
@@ -288,10 +310,10 @@ XActivityBriefManagerCreator = function()
         LoginFirstOpen[panelType] = false
     end
 
-    --#endregion
+    --endregion
 
 
-    --#region v2.2 跳过入场动画功能相关
+    --region v2.2 跳过入场动画功能相关
 
     function XActivityBriefManager.GetIsSkipAnim(panelType)
         local key = string.format("ActivityBrief_IsSkipAnim_%s_%s_%s", XPlayer.Id,panelType,ActivityConfig.TimeId)
@@ -313,14 +335,14 @@ XActivityBriefManagerCreator = function()
         return isRead
     end
 
-    --#endregion
+    --endregion
 
 
-    --#region v2.2 活动解锁动画相关
+    --region v2.2 活动解锁动画相关
 
     ---获取需要播放解锁动画的ActivityBriefGroup
-    ---@param panelType integer activityBrieActivity.tab的Id
-    ---@return table<integer, integer> 
+    ---@param panelType number activityBrieActivity.tab的Id
+    ---@return table<number, number> 
     function XActivityBriefManager.GetNeedUnlockAnimGroupIdList(panelType)
         local needPlayAnimGroupIdList = {}
         local groupIdList = XActivityBriefConfigs.GetGroupIdList(panelType)
@@ -355,14 +377,14 @@ XActivityBriefManagerCreator = function()
     end
 
     ---设置播放过活动解锁动画缓存
-    ---@param groupId integer ActivityBriefGroup.tab的Id,对应XActivityBriefConfigs.ActivityGroupId
+    ---@param groupId number ActivityBriefGroup.tab的Id,对应XActivityBriefConfigs.ActivityGroupId
     function XActivityBriefManager.SetIsPlayedUnlockAnim(groupId)
         local key = XActivityBriefManager.IsPlayedUnlockAnimCacheKey(groupId)
         XSaveTool.SaveData(key, true)
     end
 
     ---是否播放过活动解锁动画缓存key
-    ---@param groupId integer ActivityBriefGroup.tab的Id,对应XActivityBriefConfigs.ActivityGroupId
+    ---@param groupId number ActivityBriefGroup.tab的Id,对应XActivityBriefConfigs.ActivityGroupId
     ---@return string
     function XActivityBriefManager.IsPlayedUnlockAnimCacheKey(groupId)
         local timeId = XActivityBriefConfigs.GetActivityBriefGroupTimeId(groupId)
@@ -370,7 +392,7 @@ XActivityBriefManagerCreator = function()
         return key
     end
 
-    --#endregion
+    --endregion
 
 
     function XActivityBriefManager.IsAnimConditionPassed()

@@ -1,5 +1,5 @@
+---@class XUiSameColorGameSettlement:XLuaUi
 local XUiSameColorGameSettlement = XLuaUiManager.Register(XLuaUi, "UiSameColorGameSettlement")
-local CSTextManagerGetText = CS.XTextManager.GetText
 function XUiSameColorGameSettlement:OnStart(boss, rePlayCb, backCb)
     self.Boss = boss
     self.RePlayCb = rePlayCb
@@ -14,11 +14,11 @@ end
 
 function XUiSameColorGameSettlement:UpdatePanel()
     local damage = self.BattleManager:GetDamageCount()
-    self.DamageText.text = CSTextManagerGetText("SCWinDamageText", damage)
+    self.DamageText.text = XUiHelper.GetText("SCWinDamageText", damage)
     self.NewRecord.gameObject:SetActiveEx( damage > self.Boss:GetMaxScore())
     
     local maxComboCount = self.BattleManager:GetMaxComboCount()
-    self.ComboText.text = CSTextManagerGetText("SCWinComboText", maxComboCount)
+    self.ComboText.text = XUiHelper.GetText("SCWinComboText", maxComboCount)
     self.NewRecord2.gameObject:SetActiveEx(maxComboCount > self.Boss:GetMaxCombo())
 
     self.RankIcon:SetRawImage(self.Boss:GetCurGradeIcon(damage))

@@ -18,7 +18,7 @@ function XUiGuildRecruit:InitTaskView()
 
     self.PanelTab:Init(self.BtnEnlistTabs, function(index) self:OnGuildTaskTabClick(index) end)
     self.BtnTanchuangClose.CallBack = function() self:OnBtnCloseClick() end
-    XRedPointManager.AddRedPointEvent(self.Red, self.RefreshApplyList, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.Red, self.RefreshApplyList, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
 end
 
 function XUiGuildRecruit:RefreshApplyList(count)

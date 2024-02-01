@@ -45,6 +45,8 @@ end
 function XUiGridTitle:SetUnread(IsUnread)
     self.TxtUnread.gameObject:SetActiveEx(IsUnread)
     self.ImgBgUnread.gameObject:SetActiveEx(IsUnread)
+    self.TxtExpire.gameObject:SetActiveEx(XMVCA.XMail:IsExpireAndReserve(self.MailInfo.Id) and IsUnread)
+    self.TxtExpireRead.gameObject:SetActiveEx(XMVCA.XMail:IsExpireAndReserve(self.MailInfo.Id) and not IsUnread)
 end
 
 function XUiGridTitle:UpdateMailGrid(base,mailInfo)
@@ -59,6 +61,9 @@ end
 
 --普通邮件刷新
 function XUiGridTitle:UpdateMailNormal(mailInfo)
+    ---@type XMailAgency
+    local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
+
     self.TabCollection.gameObject:SetActiveEx(false)
     -- local mailId = mailInfo.Id
     self.TxtTitleRead.text = mailInfo.Title
@@ -82,6 +87,7 @@ function XUiGridTitle:UpdateMailFavor(mailInfo)
     self.TxtTitleUnread.text = title
     self.TxtDateRead.gameObject:SetActiveEx(false)
     self.TxtDateUnread.gameObject:SetActiveEx(false)
+    self.TxtExpire.gameObject:SetActiveEx(false)
 
     ---@type XMailAgency
     local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
@@ -103,12 +109,16 @@ function XUiGridTitle:SetMailStatus(isRead)
     self.ImgIconUnRead.gameObject:SetActiveEx(false)
     self.ImgIconReadgift.gameObject:SetActiveEx(false)
     self.ImgIconUnReadgift.gameObject:SetActiveEx(false)
+    self.ImgIconReadTip.gameObject:SetActiveEx(false)
+    self.ImgIconUnReadTip.gameObject:SetActiveEx(false)
     --self.ImgRedDot.gameObject:SetActive(not isRead)
     local isHasReward = false
+    local isSpecial = false
     ---@type XMailAgency
     local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
     if self.MailInfo.MailType == XEnumConst.MailType.Normal then
         isHasReward = mailAgency:HasMailReward(self.MailInfo.Id)
+        isSpecial = mailAgency:IsSpecialMail(self.MailInfo)
     elseif self.MailInfo.MailType == XEnumConst.MailType.FavoriteMail then
         isHasReward = #self.MailInfo.MailData.RewardIds > 0
     end
@@ -118,7 +128,9 @@ function XUiGridTitle:SetMailStatus(isRead)
 
         self.ImgIconUnReadgift.gameObject:SetActiveEx(not isRead)
         self.ImgIconReadgift.gameObject:SetActiveEx(isRead)
-
+    elseif isSpecial then
+        self.ImgIconUnReadTip.gameObject:SetActiveEx(not isRead)
+        self.ImgIconReadTip.gameObject:SetActiveEx(isRead)
     else
         self.ImgIconUnRead.gameObject:SetActiveEx(not isRead)
         self.ImgIconRead.gameObject:SetActiveEx(isRead)

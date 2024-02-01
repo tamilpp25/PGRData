@@ -145,7 +145,7 @@ function XUiPrequelLineDetail:OnBtnEnterClick()
         self:OnPrequelDetailClose()
     end
 
-    -- if XDataCenter.FubenManager.OpenRoomSingle(stageCfg) then
+    -- if XDataCenter.FubenManager.OpenBattleRoom(stageCfg) then
     --     self:OnPrequelDetailClose()
     -- end
 end

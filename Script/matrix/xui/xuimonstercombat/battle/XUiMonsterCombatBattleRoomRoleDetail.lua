@@ -34,7 +34,7 @@ function XUiMonsterCombatBattleRoomRoleDetail:GetAutoCloseInfo()
 end
 
 function XUiMonsterCombatBattleRoomRoleDetail:GetEntities(characterType)
-    local roles = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local roles = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
     local chapterId = stageInfo.ChapterId
     local chapterEntity = XDataCenter.MonsterCombatManager.GetChapterEntity(chapterId)

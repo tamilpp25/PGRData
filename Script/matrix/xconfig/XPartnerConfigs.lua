@@ -287,6 +287,11 @@ function XPartnerConfigs.GetPartnerTemplateById(id)
     return PartnerTemplateCfg[id]
 end
 
+function XPartnerConfigs.GetPartnerRecommendCharacterId(id)
+    local partnerCfg = XPartnerConfigs.GetPartnerTemplateById(id)
+    return partnerCfg.RecommendCharacterId
+end
+
 function XPartnerConfigs.GeQualityBgPath(quality)
     if not quality then
         XLog.Error("XPartnerConfigs.GeQualityBgPath 函数错误: 参数quality不能为空")
@@ -585,11 +590,20 @@ local function GetPartnerUiEffectDic()
             PartnerUiEffectDic[modelId] = PartnerUiEffectDic[modelId] or {}
 
             if config.EffectType == EffectTypeEnum.Disappear then
-                PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect] = effectRoot
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOffEffect], effectRoot)
             elseif config.EffectType == EffectTypeEnum.Appear then
-                PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect] = effectRoot
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelOnEffect], effectRoot)
             elseif config.EffectType == EffectTypeEnum.Loop then
-                PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect] = effectRoot
+                if not PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect] then
+                    PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect] = {}
+                end
+                table.insert(PartnerUiEffectDic[modelId][EffectParentNameEnum.ModelLoopEffect], effectRoot)
             end
         end
     end

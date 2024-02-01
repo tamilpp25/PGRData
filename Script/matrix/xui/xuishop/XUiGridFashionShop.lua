@@ -45,6 +45,7 @@ function XUiGridFashionShop:OnBtnBuyClick()
         return
     end
     local buyData = {}
+    buyData.CurRewardGoods = self.Data.RewardGoods
     buyData.IsHave = false
     buyData.ItemIcon = self.ItemIcon
     buyData.ItemCount = self.NeedCount
@@ -68,7 +69,7 @@ function XUiGridFashionShop:OnBtnBuyClick()
             end
         end
 
-        XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, BuyCount, function()
+        XShopManager.BuyShop(self.Parent:GetCurShopId(), self.Data.Id, BuyCount, function(res)
             self:RefreshSellOut()
             self:RefreshCondition()
             self:RefreshOnSales()
@@ -77,9 +78,9 @@ function XUiGridFashionShop:OnBtnBuyClick()
 
             local text = CS.XTextManager.GetText("BuySuccess")
             XUiManager.TipMsg(text, nil, function()
-                if buyData.GiftRewardId and buyData.GiftRewardId ~= 0 then
-                    local rewardGoodList = XRewardManager.GetRewardList(buyData.GiftRewardId)
-                    XUiManager.OpenUiObtain(rewardGoodList)
+                if res.IsShowBuyResult and not XTool.IsTableEmpty(res.GoodList) then
+                    XUiManager.OpenUiObtain(res.GoodList)
+                    return
                 end
             end)
             self.Parent:RefreshBuy()
@@ -350,11 +351,16 @@ function XUiGridFashionShop:RefreshTimer(time)
 end
 
 function XUiGridFashionShop:RefreshGift()
-    if self.Data.GiftRewardId and self.Data.GiftRewardId ~= 0 then
-        self.ImgTabLb.gameObject:SetActiveEx(true)
-        self.GiftRewardId = self.Data.GiftRewardId
+    --2.10 涂装赠品
+    if self.Data.RewardGoods.RewardType == XRewardManager.XRewardType.Fashion then
+        local fashionId = self.Data.RewardGoods.TemplateId
+        local fashionCfg = XFashionConfigs.GetFashionTemplate(fashionId)
+        if fashionCfg and XTool.IsNumberValid(fashionCfg.GiftId) then
+            self.ImgTabLb.gameObject:SetActiveEx(true)
+        else
+            self.ImgTabLb.gameObject:SetActiveEx(false)
+        end
     else
-        self.GiftRewardId = 0
         self.ImgTabLb.gameObject:SetActiveEx(false)
     end
 end

@@ -33,6 +33,7 @@ end
 
 function XUiDormDormitoryFormWork:OnDestroy()
     self:DestroyView()
+    CS.XCameraController.IsCheckOnPointOver = false
 end
 
 function XUiDormDormitoryFormWork:InitUi()
@@ -54,6 +55,8 @@ function XUiDormDormitoryFormWork:InitUi()
     end)
     
     self.OnPutTemplateCb = handler(self, self.PutTemplateFurniture)
+
+    CS.XCameraController.IsCheckOnPointOver = true
 end 
 
 function XUiDormDormitoryFormWork:RefreshTabCount()

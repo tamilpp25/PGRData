@@ -38,7 +38,7 @@ function XUiPanelActiveBuff:Refresh()
     self.teamData = self.UiRoot:GetTeamData()
     
     for _, player in pairs(self.teamData.TeamData) do
-        local info = XDataCenter.CharacterManager.GetCharacter(player)
+        local info = XMVCA.XCharacter:GetCharacter(player)
         table.insert(PlayerDataList, info)
     end
     if not next(PlayerDataList) then return end

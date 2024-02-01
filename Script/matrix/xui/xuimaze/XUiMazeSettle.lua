@@ -21,7 +21,7 @@ function XUiMazeSettle:Update()
     local playerName = XPlayer.Name
     local robotId = XDataCenter.MazeManager.GetPartnerRobotId()
     local characterId = XRobotManager.GetCharacterId(robotId)
-    local partnerName = XCharacterConfigs.GetCharacterName(characterId)
+    local partnerName = XMVCA.XCharacter:GetCharacterName(characterId)
     local partnerIcon = XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId)
     local timeStr = XUiHelper.GetTimeYearMonthDay()
     local gradeIcon = XMazeConfig.GetGradeIconByScore(score)

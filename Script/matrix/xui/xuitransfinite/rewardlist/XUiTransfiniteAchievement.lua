@@ -15,8 +15,6 @@ function XUiTransfiniteAchievement:Ctor()
 end
 
 function XUiTransfiniteAchievement:OnAwake()
-    self._TitleText = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane/Tanchuang01/Text", "Text")
-    self._TxtNormalLv = XUiHelper.TryGetComponent(self.TxtNormalLvTitle.transform.parent, "TxtLv", "Text")
     self._DynamicTable = XDynamicTableNormal.New(self.AchievementPanel)
     self._DynamicTable:SetProxy(XUiTransfiniteRewardGrid)
     self._DynamicTable:SetDelegate(self)
@@ -24,7 +22,6 @@ function XUiTransfiniteAchievement:OnAwake()
     self._UiEffectMaskObject = XUiHelper.TryGetComponent(self.AchievementPanel, "", "XUiEffectMaskObject")
     self:RegisterClickEvent(self.BtnTanchuangClose, self.Close)
     self:RegisterClickEvent(self.BtnReceive, self.OnReceiveFinishRewards)
-    self:UpdateTitle()
 end
 
 function XUiTransfiniteAchievement:OnStart(stageGroup)
@@ -35,6 +32,7 @@ end
 
 function XUiTransfiniteAchievement:OnEnable()
     self:Refresh()
+    self:UpdateTitle()
 
     XEventManager.AddEventListener(XEventId.EVENT_FINISH_MULTI, self.Refresh, self)
     XEventManager.AddEventListener(XEventId.EVENT_FINISH_TASK, self.Refresh, self)
@@ -54,6 +52,7 @@ end
 function XUiTransfiniteAchievement:OnReceiveFinishRewards()
     local finishTaskIdList = self._ViewModel:GetFinishTaskIdList()
     XDataCenter.TransfiniteManager.RequestFinishMultiTask(finishTaskIdList, function(rewardGoodsList)
+        XEventManager.DispatchEvent(XEventId.EVENT_TRANSFINITE_SUCCESS_REFRESH)
         XUiManager.OpenUiObtain(rewardGoodsList)
     end)
 end
@@ -103,19 +102,19 @@ function XUiTransfiniteAchievement:UpdateTitle()
             self.TxtSeniorCurrent.gameObject:SetActiveEx(false)
         end
         if data.NormalLvText == false then
-            self._TxtNormalLv.gameObject:SetActiveEx(false)
+            self.TxtNormalLv.gameObject:SetActiveEx(false)
             self.TxtJuniorCurrent.gameObject:SetActiveEx(true)
         else
-            self._TxtNormalLv.text = data.NormalLvText
-            self._TxtNormalLv.gameObject:SetActiveEx(true)
+            self.TxtNormalLv.text = data.NormalLvText
+            self.TxtNormalLv.gameObject:SetActiveEx(true)
             self.TxtJuniorCurrent.gameObject:SetActiveEx(false)
         end
     else
         self.TxtSeniorLv.text = data.SeniorLvText
-        self._TxtNormalLv.text = data.NormalLvText
+        self.TxtNormalLv.text = data.NormalLvText
     end
 
-    self._TitleText.text = data.Title
+    self.TitleText.text = data.Title
 end
 
 return XUiTransfiniteAchievement

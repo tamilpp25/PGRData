@@ -24,6 +24,7 @@ local STAR_STATUS = {
     END = 4,
 }
 
+---@field _Control XReformControl
 ----@class UiReformCombatSettleWin:XLuaUi
 local XUiReformCombatSettleWin = XLuaUiManager.Register(XLuaUi, "UiReformCombatSettleWin")
 
@@ -65,12 +66,12 @@ end
 function XUiReformCombatSettleWin:OnStart(winData, isUnlockHardMode)
     self._IsUnlockHardMode = isUnlockHardMode
     local stageId = winData.StageId
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageId)
+    local stage = XMVCA.XReform:GetStage(stageId)
     --local currDiff = winData.SettleData.ReformFightResult.CurrDiff
     --local baseStage = XDataCenter.ReformActivityManager.GetBaseStage(winData.StageId)
     --local evolvableStage = baseStage:GetEvolvableStageByDiffIndex(currDiff + 1)
     -- 名称
-    self.TxtTitle.text = stage:GetName()
+    self.TxtTitle.text =self._Control:GetStageName(stageId)
     -- 难度等级
     self.TxtDiffTitle.text = ""
     -- 角色
@@ -82,7 +83,7 @@ function XUiReformCombatSettleWin:OnStart(winData, isUnlockHardMode)
     for _, entityId in ipairs(team:GetEntityIds()) do
         if entityId > 0 then
             local icon = nil
-            local level = XDataCenter.CharacterManager.GetCharacterLevel(entityId)
+            local level = XMVCA.XCharacter:GetCharacterLevel(entityId)
 
             winRoleGo = CS.UnityEngine.Object.Instantiate(self.GridWinRole, self.PanelRoleContent)
             winRoleGo.gameObject:SetActiveEx(true)
@@ -92,7 +93,7 @@ function XUiReformCombatSettleWin:OnStart(winData, isUnlockHardMode)
                 entityId = XRobotManager.GetCharacterId(entityId)
             end
 
-            icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(entityId)
+            icon = XMVCA.XCharacter:GetCharBigHeadIcon(entityId)
 
             --memberSource = memberGroup:GetSourceById(entityId)
             winRoleGrid:SetData(icon, level)
@@ -147,7 +148,7 @@ function XUiReformCombatSettleWin:OnStart(winData, isUnlockHardMode)
 
     XUiReformTool.UpdateStar(self, 0, starMax, false)
     --self._Star2Play = stage:GetStarHistory(false)
-    self._Star2Play = XDataCenter.Reform2ndManager.GetStarByPressure(pressure, winData.StageId)
+    self._Star2Play = XMVCA.XReform:GetStarByPressure(pressure, winData.StageId)
     self._IsMatchExtraStar2Play = isMatchExtraStar
     self._GoalDesc = stage:GetGoalDesc()
     if isMatchExtraStar then
@@ -229,7 +230,7 @@ function XUiReformCombatSettleWin:Update()
                         star.Root.gameObject:SetActiveEx(true)
                         XUiReformTool.SetStarEnable(star, false)
                     end, 200)
-                    local name = self._Stage:GetName()
+                    local name = self._Control:GetStageName(self._Stage:GetId())
                     XUiManager.PopupLeftTip(name, XUiHelper.GetText("ReformDiffUnlockedTip", ""))
                 end
                 self._StarStatus = STAR_STATUS.END

@@ -22,7 +22,7 @@ function XUiTurntableTask:OnStart(root)
 
     local itemId, _ = self._Control:GetTurntableCost()
     if not self.AssetPanel then
-        self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool, self)
+        self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     else
         self.AssetPanel:Refresh({ itemId })
     end

@@ -14,9 +14,9 @@ end
 function XUiTheatre3EquipmentCell:ShowEquip(id)
     self._EquipConfig = self._Control:GetEquipById(id)
     self.TxtNum.text = XTool.ConvertRomanNumberString(self._EquipConfig.PosType)
-    self.ImgEquipmentBg.gameObject:SetActiveEx(self._EquipConfig.UseType == 1)
-    self.ImgEquipmentBg2.gameObject:SetActiveEx(self._EquipConfig.UseType == 2)
-    if self._EquipConfig.UseType == 1 then
+    self.ImgEquipmentBg.gameObject:SetActiveEx(self._EquipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
+    self.ImgEquipmentBg2.gameObject:SetActiveEx(self._EquipConfig.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
+    if self._EquipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend then
         self.ImgEquipment1:SetRawImage(self._EquipConfig.Icon)
         if self.ImgEquipment3 then
             self.ImgEquipment3:SetRawImage(self._EquipConfig.Icon)
@@ -28,10 +28,10 @@ function XUiTheatre3EquipmentCell:ShowEquip(id)
         end
     end
     if self.ImgEquipmentBg3 then
-        self.ImgEquipmentBg3.gameObject:SetActiveEx(self._EquipConfig.UseType == 1)
+        self.ImgEquipmentBg3.gameObject:SetActiveEx(self._EquipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
     end
     if self.ImgEquipmentBg4 then
-        self.ImgEquipmentBg4.gameObject:SetActiveEx(self._EquipConfig.UseType == 2)
+        self.ImgEquipmentBg4.gameObject:SetActiveEx(self._EquipConfig.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
     end
 end
 

@@ -19,6 +19,7 @@ local XSecondarySentinelGWNode = require("XEntity/XGuildWar/Battle/Node/XSeconda
 local XBlockadeGWNode = require("XEntity/XGuildWar/Battle/Node/XBlockadeGWNode")
 local XTerm4BossGWNode = require("XEntity/XGuildWar/Battle/Node/XTerm4BossGWNode")
 local XTerm4BossChildGWNode = require("XEntity/XGuildWar/Battle/Node/XTerm4BossChildGWNode")
+local XResGWNode = require('XEntity/XGuildWar/Battle/Node/XResGWNode')
 
 ---@class XGWBattleManager
 local XGWBattleManager = XClass(nil, "XGWBattleManager")
@@ -41,6 +42,7 @@ local NodeType2Class = {
     [XGuildWarConfig.NodeType.Term4BossRoot] = XTerm4BossGWNode,
     [XGuildWarConfig.NodeType.Term4BossChild] = XTerm4BossChildGWNode,
     [XGuildWarConfig.NodeType.Blockade] = XBlockadeGWNode,
+    [XGuildWarConfig.NodeType.Resource] = XResGWNode,
 }
 
 --不显示在地图上的节点类型HashSet
@@ -673,7 +675,7 @@ end
 function XGWBattleManager:GetBuffNodes()
     local result = {}
     for _, node in ipairs(self:GetNodes()) do
-        if node:GetNodeType() == XGuildWarConfig.NodeType.Buff then
+        if node:GetNodeType() == XGuildWarConfig.NodeType.Buff or node:GetNodeType() == XGuildWarConfig.NodeType.Resource then
             if node:GetIsActiveBuff() then
                 table.insert(result, node)
             end

@@ -64,8 +64,8 @@ end
 function XUiEquipResonanceSelectEquipV2P6:OnBtnConfirmClick()
     if self.ConfirmCb and (self.SelectEquipId or self.SelectItemId) then
         self.ConfirmCb(self.SelectEquipId, self.SelectItemId)
+        self:Close()
     end
-    self:Close()
 end
 
 function XUiEquipResonanceSelectEquipV2P6:InitTabGroup()

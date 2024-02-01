@@ -72,6 +72,14 @@ function XUiAwarenessDeploy:AutoCheckTeamToRefresh()
     -- 先检查队伍是否为空
     -- 若为空则往前查找有队伍信息的group 
     if not XDataCenter.FubenAwarenessManager.CheckChapterHadRecordTeam(self.ChapterId) then
+        -- 且自动填充前清除队伍数据
+        for k, teamId in pairs(self.ListData) do
+            local teamData = teamId and XDataCenter.FubenAwarenessManager.GetTeamDataById(teamId) or nil
+            if teamData then
+                teamData:SetMemberList(nil)
+            end
+        end
+
         local targetPreGroupTeamData = nil
         local teamRecords = XDataCenter.FubenAwarenessManager.GetChapterTeamRecords()
         for i = 1, #teamRecords do
@@ -176,6 +184,7 @@ function XUiAwarenessDeploy:OnBtnFightClick()
         local chapterData = XDataCenter.FubenAwarenessManager.GetChapterDataById(self.ChapterId)
         XDataCenter.FubenAwarenessManager.SetEnterLoadingData(targetIndex, teamCharList[targetIndex], groupData, chapterData, true)
         XDataCenter.FubenManager.EnterAwarenessFight(targetStageId, teamCharList[targetIndex], captainPosList[targetStageId], nil, nil, firstFightPosList[targetIndex])
+        XDataCenter.FubenAwarenessManager.AwarenessGetDataRequest() -- 同步队伍数据
     end)
 end
 

@@ -127,7 +127,7 @@ function XUiFubenSpringFestivalStageDetail:OnBtnEnterClick()
             self.RootUi:ClearNodesSelect()
             self.RootUi:CloseStageDetails()
         end
-        XLuaUiManager.Open("UiNewRoomSingle", self.FStage:GetStageId())
+        XLuaUiManager.Open("UiBattleRoleRoom", self.FStage:GetStageId())
     end
 end
 

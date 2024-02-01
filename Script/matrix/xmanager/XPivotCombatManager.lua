@@ -329,7 +329,7 @@ XPivotCombatManagerCreator = function()
             if XTool.IsNumberValid(charId) then
                 head.StandIcon.gameObject:SetActiveEx(true)
                 head.PanelLose.gameObject:SetActiveEx(false)
-                local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId)
+                local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId)
                 head.StandIcon:SetRawImage(icon)
             else
                 --head.StandIcon.gameObject:SetActiveEx(false)
@@ -770,7 +770,7 @@ XPivotCombatManagerCreator = function()
             if XRobotManager.CheckIsRobotId(id) then
                 goto CONTINUE
             end
-            local isOwnerCharacter = XDataCenter.CharacterManager.IsOwnCharacter(id)
+            local isOwnerCharacter = XMVCA.XCharacter:IsOwnCharacter(id)
             --如果这个角色在队伍中,
             if not isOwnerCharacter then
                 team:Clear()
@@ -800,7 +800,7 @@ XPivotCombatManagerCreator = function()
     function XPivotCombatManager.GetFightEntities(characterType)
         local result = {}
         --玩家拥有的角色
-        local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characters = XMVCA.XCharacter:GetOwnCharacterList()
         for _, character in ipairs(characters or {}) do
             if character:GetCharacterViewModel():GetCharacterType() == characterType then
                 table.insert(result, character)

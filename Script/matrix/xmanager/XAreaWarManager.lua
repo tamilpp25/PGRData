@@ -1888,13 +1888,6 @@ XAreaWarManagerCreator = function()
             end
         end
     end
-
-    function XAreaWarManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(
-            XDataCenter.FubenManager.StageType.AreaWar,
-            require("XUi/XUiAreaWar/XUiAreaWarNewRoomSingle")
-        )
-    end
     
     ---@return XTeam
     function XAreaWarManager.GetTeam()
@@ -1917,7 +1910,7 @@ XAreaWarManagerCreator = function()
                 end
             else
                 --清库之后本地缓存角色失效
-                if not XDataCenter.CharacterManager.IsOwnCharacter(id) then
+                if not XMVCA.XCharacter:IsOwnCharacter(id) then
                     team:UpdateEntityTeamPos(0, index, true)
                 end
             end
@@ -1977,7 +1970,7 @@ XAreaWarManagerCreator = function()
         end
 
         local stageId = XAreaWarConfigs.GetBlockStageId(blockId)
-        --XLuaUiManager.Open("UiNewRoomSingle", stageId)
+        --XLuaUiManager.Open("UiBattleRoleRoom", stageId)
         XLuaUiManager.Open(
                 "UiBattleRoleRoom", 
                 stageId, 
@@ -1991,7 +1984,7 @@ XAreaWarManagerCreator = function()
     function XAreaWarManager.GetCanFightEntities(characterType)
         local result = {}
 
-        local characters = XDataCenter.CharacterManager.GetOwnCharacterList() --自己拥有的角色
+        local characters = XMVCA.XCharacter:GetOwnCharacterList() --自己拥有的角色
         for _, character in ipairs(characters) do
             if character:GetCharacterViewModel():GetCharacterType() == characterType then
                 tableInsert(result, character)

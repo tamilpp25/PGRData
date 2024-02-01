@@ -2,10 +2,12 @@
 -- 1个关卡节点对应1个关卡库id(关卡库id由服务器随机下发)
 -- 1个关卡库对应多个关卡(stage)
 -- 所以可用关卡库数据生成关卡节点实例
+---@class XRiftStageGroup
 local XRiftStageGroup = XClass(nil, "XRiftStageGroup")
 local XRiftStage = require("XEntity/XRift/XRiftStage")
 
 function XRiftStageGroup:Ctor(index, parentFightLayer)
+    ---@type XRiftStage[]
     self.AllEntityStages = {} -- 所有关卡实例
     self.NodePositionIndex = index
     -- 服务端下发后确认的数据(所有的StageGroup都必须在服务器下发数据后才能创建)
@@ -13,6 +15,7 @@ function XRiftStageGroup:Ctor(index, parentFightLayer)
     self.s_AllMonsters = {} --不重复怪物
     self.s_AllAffixDic = {} 
     self.s_AllAffix = {} -- 不重复的词缀顺序列表
+    ---@type XRiftFightLayer
     self.s_ParentFightLayer = parentFightLayer -- 建立1个向上关系，有唯一1个父节点
 end
 
@@ -54,10 +57,11 @@ end
 
 -- 【获取】Id (id是layer表里NodePositionIndex列表对应的下标)
 function XRiftStageGroup:GetId()
-    return self:GetPos() == XRiftConfig.StageGroupLuckyPos and -1 or self.NodePositionIndex -- 和服务器约定协议，幸运节点的id为-1 不和 index同步
+    return self.NodePositionIndex
 end
 
 -- 【获取】父层
+---@return XRiftFightLayer
 function XRiftStageGroup:GetParent()
     return self.s_ParentFightLayer
 end
@@ -70,6 +74,11 @@ end
 -- 【获取】节点描述
 function XRiftStageGroup:GetDesc()
     return self.s_ParentFightLayer:GetConfig().NodeDesc[self.NodePositionIndex]
+end
+
+function XRiftStageGroup:GetSeasonDesc()
+    local index = XDataCenter.RiftManager:GetSeasonIndex()
+    return self.s_ParentFightLayer:GetConfig().NodeDesc[index] or ""
 end
 
 -- 【获取】Pos
@@ -100,12 +109,7 @@ end
 
 -- 【检查】上锁
 function XRiftStageGroup:CheckHasLock()
-    -- 幸运关需要开始作战才能进入
-    if self:GetType() == XRiftConfig.StageGroupType.Luck and not self:GetParent():CheckHasStarted() then
-        return true
-    end
-
-    if self.NodePositionIndex == 1 or self.NodePositionIndex == XRiftConfig.StageGroupLuckyPos then
+    if self.NodePositionIndex == 1 then
         return false -- 第一个位置没有前置
     end
 
@@ -143,21 +147,16 @@ end
 -- 关卡节点的4种类型
 function XRiftStageGroup:GetType()
     local type = nil
-    if self.NodePositionIndex == XRiftConfig.StageGroupLuckyPos then
-        -- 幸运节点：位置为幸运位4
-        type = XRiftConfig.StageGroupType.Luck
-    else
-        --位置不为幸运位置
-        if self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Zoom then
-            -- 跃升节点：如果父层是跃升层，且位置不为幸运位置则是
-            type = XRiftConfig.StageGroupType.Zoom
-        elseif self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Normal and #self.AllEntityStages == 1 then
-            -- 普通节点：父层是普通层，且配置的StageId数为1
-            type = XRiftConfig.StageGroupType.Normal
-        elseif self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Multi and #self.AllEntityStages > 1 then
-            -- 多队伍节点：父层是普通层，且配置的StageId数为1
-            type = XRiftConfig.StageGroupType.Multi
-        end
+    --位置不为幸运位置
+    if self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Zoom then
+        -- 跃升节点：如果父层是跃升层，且位置不为幸运位置则是
+        type = XRiftConfig.StageGroupType.Zoom
+    elseif self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Normal and #self.AllEntityStages == 1 then
+        -- 普通节点：父层是普通层，且配置的StageId数为1
+        type = XRiftConfig.StageGroupType.Normal
+    elseif self.s_ParentFightLayer:GetType() == XRiftConfig.LayerType.Multi and #self.AllEntityStages > 1 then
+        -- 多队伍节点：父层是普通层，且配置的StageId数为1
+        type = XRiftConfig.StageGroupType.Multi
     end
     return type
 end

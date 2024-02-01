@@ -24,7 +24,7 @@ function XUiSpecialFashionShop:OnAwake()
     self:InitTabList()
 
     -- 货币
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 
     -- 定时器
     self:StartTimer()

@@ -10,13 +10,13 @@ function XUiGridCharacterCareer:Refresh(careerId, characterId)
     local curCareerId = self.CharacterAgency:GetCharacterCareer(characterId)
     self.PanelCur.gameObject:SetActiveEx(curCareerId == careerId)
 
-    local name = XCharacterConfigs.GetCareerName(careerId)
+    local name = XMVCA.XCharacter:GetCareerName(careerId)
     self.TxtName.text = name
 
-    local des = XCharacterConfigs.GetCareerDes(careerId)
+    local des = XMVCA.XCharacter:GetCareerDes(careerId)
     self.TxtContent.text = des
 
-    local icon = XCharacterConfigs.GetNpcTypeIcon(careerId)
+    local icon = XMVCA.XCharacter:GetNpcTypeIcon(careerId)
     self.RImgIcon:SetRawImage(icon)
 end
 

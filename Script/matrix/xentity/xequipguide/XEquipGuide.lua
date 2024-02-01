@@ -62,7 +62,9 @@ end
 function XEquipGuide:GetTargetList()
     local list = {}
     for _, target in pairs(self._EquipTargetDict) do
-        table.insert(list, target)
+        if not target:GetProperty("_Hidden") then
+            table.insert(list, target)
+        end
     end
     
     table.sort(list, function(a, b) 
@@ -84,7 +86,7 @@ function XEquipGuide:GetWeaponCount()
     for _, target in pairs(self._EquipTargetDict) do
         local recommendId = target:GetProperty("_RecommendId")
         if XTool.IsNumberValid(recommendId) then
-            local template = XCharacterConfigs.GetCharDetailEquipTemplate(recommendId)
+            local template = XMVCA.XEquip:GetCharDetailEquipTemplate(recommendId)
             local tId = template.EquipRecomend
             local star = XDataCenter.EquipManager.GetEquipStar(tId)
             if star >= XEquipConfig.MAX_STAR_COUNT then

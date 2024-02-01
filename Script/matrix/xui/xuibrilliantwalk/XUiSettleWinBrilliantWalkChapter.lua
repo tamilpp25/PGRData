@@ -322,7 +322,7 @@ function XUiSettleWinBrilliantWalkChapter:OnBtnEnterNextClick()
     if self.StageInfos.NextStageId then
         local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
         self:HidePanel()
-        XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+        XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
     else
         local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
         XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

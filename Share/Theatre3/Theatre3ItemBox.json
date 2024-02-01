@@ -3,6 +3,7 @@
         "Id": 1,
         "BoxGroupId": 1,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             1,
@@ -19,6 +20,7 @@
         "Id": 2,
         "BoxGroupId": 2,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             2,
@@ -35,6 +37,7 @@
         "Id": 3,
         "BoxGroupId": 3,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             3,
@@ -51,6 +54,7 @@
         "Id": 201,
         "BoxGroupId": 201,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             201
@@ -65,6 +69,7 @@
         "Id": 202,
         "BoxGroupId": 202,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             202
@@ -76,9 +81,40 @@
         "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem011.png"
     },
     {
+        "Id": 203,
+        "BoxGroupId": 203,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            203
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u6273\u624b\u8001\u5b50\u7684\u5305\u88f9",
+        "Quality": 5,
+        "Desc": "\u4f60\u62ff\u4e0a\u8fd9\u628a\u5251\uff0c\u53bb\u6253\u7206\u5bf9\u9762\u7684\u5047\u8d27\uff01",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem011.png"
+    },
+    {
+        "Id": 204,
+        "BoxGroupId": 204,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            204
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u5e93\u6d1b\u6d1b\uff08\uff1f\uff09\u7684\u5305\u88f9",
+        "Quality": 5,
+        "Desc": "\u5e93?\u5e930v0",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem011.png"
+    },
+    {
         "Id": 12001,
         "BoxGroupId": 12001,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             12001
@@ -93,6 +129,7 @@
         "Id": 12002,
         "BoxGroupId": 12002,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             12002
@@ -107,6 +144,7 @@
         "Id": 12003,
         "BoxGroupId": 12003,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             12003
@@ -121,6 +159,7 @@
         "Id": 30012,
         "BoxGroupId": 30012,
         "Weight": 100,
+        "Tag": null,
         "ConditionId": null,
         "ItemGroupId": [
             1
@@ -130,5 +169,201 @@
         "Quality": 3,
         "Desc": "\u666e\u901a\u5305\u88f9\uff0c\u6709\u8f83\u4f4e\u7684\u6982\u7387\u51fa\u73b0\u4e94\u661f\u79d8\u85cf\u54c1",
         "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem009.png"
+    },
+    {
+        "Id": 4,
+        "BoxGroupId": 4,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            104,
+            104.0,
+            104.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u666e\u901a\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 3,
+        "Desc": "\u666e\u901a\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u84dd\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem013.png"
+    },
+    {
+        "Id": 5,
+        "BoxGroupId": 5,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            105,
+            105.0,
+            105.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 4,
+        "Desc": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u7d2b\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem014.png"
+    },
+    {
+        "Id": 6,
+        "BoxGroupId": 6,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            106,
+            106.0,
+            106.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 5,
+        "Desc": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u91d1\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem015.png"
+    },
+    {
+        "Id": 7,
+        "BoxGroupId": 7,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            107
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u201c\u5f7c\u5cb8\u7684\u793c\u7269\u201d",
+        "Quality": 5,
+        "Desc": "\u4e00\u70b9\u5c0f\u5c0f\u7684\u5e72\u6d89",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem010.png"
+    },
+    {
+        "Id": 1001,
+        "BoxGroupId": 1001,
+        "Weight": 100,
+        "Tag": 4.0,
+        "ConditionId": null,
+        "ItemGroupId": [
+            104,
+            104.0,
+            104.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u666e\u901a\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 3,
+        "Desc": "\u666e\u901a\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u84dd\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem013.png"
+    },
+    {
+        "Id": 1002,
+        "BoxGroupId": 1002,
+        "Weight": 95,
+        "Tag": 4.0,
+        "ConditionId": null,
+        "ItemGroupId": [
+            105,
+            105.0,
+            105.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 4,
+        "Desc": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u7d2b\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem014.png"
+    },
+    {
+        "Id": 1003,
+        "BoxGroupId": 1002,
+        "Weight": 5,
+        "Tag": 4.0,
+        "ConditionId": null,
+        "ItemGroupId": [
+            106,
+            106.0,
+            106.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 5,
+        "Desc": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u91d1\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem015.png"
+    },
+    {
+        "Id": 1004,
+        "BoxGroupId": 1003,
+        "Weight": 80,
+        "Tag": 4.0,
+        "ConditionId": null,
+        "ItemGroupId": [
+            105,
+            105.0,
+            105.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 4,
+        "Desc": "\u7a00\u6709\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u7d2b\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem014.png"
+    },
+    {
+        "Id": 1005,
+        "BoxGroupId": 1003,
+        "Weight": 20,
+        "Tag": 4.0,
+        "ConditionId": null,
+        "ItemGroupId": [
+            106,
+            106.0,
+            106.0
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9",
+        "Quality": 5,
+        "Desc": "\u9876\u7ea7\u7684\u8150\u5316\u5305\u88f9\uff0c\u6253\u5f00\u540e\u9ad8\u6982\u7387\u83b7\u5f97\u91d1\u8272\u71b5\u53d8\u85cf\u54c1",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem015.png"
+    },
+    {
+        "Id": 1011,
+        "BoxGroupId": 1011,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            107
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u5e72\u6d89\u6570\u636e\u00b7\u03b1",
+        "Quality": 4,
+        "Desc": "Alpha\u4e16\u754c\u7684\u7f13\u5b58\u8bb0\u5f55",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem014.png"
+    },
+    {
+        "Id": 1012,
+        "BoxGroupId": 1012,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            108
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u9510\u5229\u7684\u5b9d\u5251",
+        "Quality": 4,
+        "Desc": "\u52c7\u8005\u4e4b\u5251\u7684\u5b9d\u7269\u3002",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem014.png"
+    },
+    {
+        "Id": 1013,
+        "BoxGroupId": 1013,
+        "Weight": 100,
+        "Tag": null,
+        "ConditionId": null,
+        "ItemGroupId": [
+            109
+        ],
+        "SafeGroupId": 5,
+        "Name": "\u5929\u4f7f\u7684\u5f62\u9ab8",
+        "Quality": 5,
+        "Desc": "\u5929\u4f7f\u5815\u5165\u51e1\u95f4\u7684\u6b8b\u8eaf\u3002",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre3/Theatre3SystemItem015.png"
     }
 ]

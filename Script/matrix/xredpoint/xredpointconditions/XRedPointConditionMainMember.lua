@@ -16,7 +16,7 @@ function XRedPointConditionMainMember.Check()
 
     for i = 1, count do
         local character = characterList[i]
-        if XRedPointConditionCharacter.Check(character.Id) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_CHARACTER, character.Id) then
             isEnough = true
             break
         end

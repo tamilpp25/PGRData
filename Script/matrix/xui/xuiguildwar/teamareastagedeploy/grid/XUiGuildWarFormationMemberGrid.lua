@@ -39,7 +39,7 @@ function XUiGuildWarFormationMemberGrid:Refresh(index,guildWarMember)
     
     if self.CharacterId and self.CharacterId ~= 0 then
         self.RImgRole.gameObject:SetActiveEx(true)
-        self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
     else
         self.RImgRole.gameObject:SetActiveEx(false)
     end

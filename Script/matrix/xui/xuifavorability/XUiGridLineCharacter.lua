@@ -1,12 +1,6 @@
 local XUiGridLikeRoleItem = require("XUi/XUiFavorability/XUiGridLikeRoleItem")
 XUiGridLineCharacter = XClass(XUiGridLikeRoleItem, "XUiGridLineCharacter")
 
-function XUiGridLineCharacter:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
-
 function XUiGridLineCharacter:RefreshAssist(data, rootUi)
     self.RootUi = rootUi
     self:RefreshAddButton(data.IsAdd)
@@ -14,7 +8,7 @@ function XUiGridLineCharacter:RefreshAssist(data, rootUi)
         return
     end
     self.Super.OnRefresh(self, data)
-    self.ImgAssist.gameObject:SetActive(data.ChiefAssistant)
+    --self.ImgAssist.gameObject:SetActive(data.ChiefAssistant)
 end
 
 function XUiGridLineCharacter:RefreshAddButton(isAdd)

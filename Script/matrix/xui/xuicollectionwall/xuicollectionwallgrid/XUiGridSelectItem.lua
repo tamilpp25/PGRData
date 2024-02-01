@@ -46,7 +46,12 @@ function XUiGridSelectItem:UpdateGrid(data, selectType)
     end
 
     if self.IsDecoration then
-        self.TxtName.text = XCollectionWallConfigs.GetColDecName(data.Id)
+        if data.Id == XEnumConst.SpecialHandling.DEADCollectiblesId then
+            self.TxtName.text = XUiHelper.ReplaceUnicodeSpace(XCollectionWallConfigs.GetColDecName(data.Id))
+            self.TxtName.resizeTextForBestFit = true
+        else
+            self.TxtName.text = XCollectionWallConfigs.GetColDecName(data.Id)
+        end
         self.ImgDecorationIcon:SetRawImage(XCollectionWallConfigs.GetColDecIcon(data.Id))
 
         self.CollectionStyleNode.gameObject:SetActiveEx(false)
@@ -60,7 +65,12 @@ function XUiGridSelectItem:UpdateGrid(data, selectType)
             self.PanelChoice.gameObject:SetActiveEx(data.Id  == self.RootUi.PedestalId)
         end
     else
-        self.TxtName.text = XMedalConfigs.GetCollectionNameById(data)
+        if data == XEnumConst.SpecialHandling.DEADCollectiblesId then
+            self.TxtName.text = XUiHelper.ReplaceUnicodeSpace(XMedalConfigs.GetCollectionNameById(data))
+            self.TxtName.resizeTextForBestFit = true
+        else
+            self.TxtName.text = XMedalConfigs.GetCollectionNameById(data)
+        end
 
         local prefabPath = XMedalConfigs.GetCollectionPrefabPath(data)
         local styleObj = self.CollectionStyleNode.gameObject:LoadPrefab(prefabPath)

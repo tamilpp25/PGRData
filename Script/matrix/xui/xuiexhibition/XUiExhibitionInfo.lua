@@ -4,10 +4,10 @@ local XUiPanelExhibitionNormalInfo = require("XUi/XUiExhibition/XUiPanelExhibiti
 local XUiPanelExhibitionSuperInfo = require("XUi/XUiExhibition/XUiPanelExhibitionSuperInfo") -- 超解数据面板
 
 local TabIndexToGrowUpLevel = {
-    XCharacterConfigs.GrowUpLevel.Lower,
-    XCharacterConfigs.GrowUpLevel.Middle,
-    XCharacterConfigs.GrowUpLevel.Higher,
-    XCharacterConfigs.GrowUpLevel.Super,
+    XEnumConst.CHARACTER.GrowUpLevel.Lower,
+    XEnumConst.CHARACTER.GrowUpLevel.Middle,
+    XEnumConst.CHARACTER.GrowUpLevel.Higher,
+    XEnumConst.CHARACTER.GrowUpLevel.Super,
 }
 
 -- index 1-3 普通解放
@@ -67,10 +67,10 @@ end
 
 function XUiExhibitionInfo:RegisterRedPointEvent()
     local characterId = self.CharacterId
-    XRedPointManager.AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
-    XRedPointManager.AddRedPointEvent(self.BtnTog4, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 4 })
+    self:AddRedPointEvent(self.BtnTog1, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 1 })
+    self:AddRedPointEvent(self.BtnTog2, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 2 })
+    self:AddRedPointEvent(self.BtnTog3, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 3 })
+    self:AddRedPointEvent(self.BtnTog4, self.OnCheckExhibitionRedPoint, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW }, { characterId, 4 })
 end
 
 function XUiExhibitionInfo:OnCheckExhibitionRedPoint(count, args)
@@ -147,9 +147,15 @@ end
 
 function XUiExhibitionInfo:UpdateCharacterInfo()
     local characterId = self.CharacterId
-    self.TxtName.text = XCharacterConfigs.GetCharacterName(characterId)
-    self.TxtType.text = XCharacterConfigs.GetCharacterTradeName(characterId)
-    self.TxtNumber.text = XCharacterConfigs.GetCharacterCodeStr(characterId)
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtNameHorizontal.text = XMVCA.XCharacter:GetCharacterName(characterId)
+    self.TxtType.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+    self.TxtNumber.text = XMVCA.XCharacter:GetCharacterCodeStr(characterId)
+
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
+    local isShowHorText = detailConfig.LiberationShowType
+    self.TxtNameHorizontal.gameObject:SetActiveEx(isShowHorText)
+    self.TxtName.gameObject:SetActiveEx(not isShowHorText)
 
     -- 解放标签改到按钮下方了
     -- local growUpLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
@@ -165,16 +171,16 @@ end
 function XUiExhibitionInfo:UpdateCharacterModel(growUpLevel)
     local characterId = self.CharacterId
     growUpLevel = growUpLevel or XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
-    local modelId = XDataCenter.CharacterManager.GetCharLiberationLevelModelId(characterId, growUpLevel)
+    local modelId = XMVCA.XCharacter:GetCharLiberationLevelModelId(characterId, growUpLevel)
 
     self.RoleModelPanel:UpdateCharacterModelByModelId(modelId, characterId, self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiExhibitionInfo, function(model)
         self.PanelDrag.Target = model.transform
         self.EffectHuanren.gameObject:SetActiveEx(false)
         self.EffectHuanren1.gameObject:SetActiveEx(false)
-        if self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.STRUCT or self.ShowType == XDataCenter.ExhibitionManager.ExhibitionType.Linkage then
-            self.EffectHuanren.gameObject:SetActiveEx(true)
-        else
+        if XMVCA.XCharacter:GetIsIsomer(characterId) then
             self.EffectHuanren1.gameObject:SetActiveEx(true)
+        else
+            self.EffectHuanren.gameObject:SetActiveEx(true)
         end
     end, growUpLevel, true)
 end

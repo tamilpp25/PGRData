@@ -18,6 +18,9 @@ function XUiPhotographSDKPanel:Init()
         self.BtnShare3,
         self.BtnShare4,
         self.BtnShare5,
+        self.BtnShare6,
+        self.BtnShare7,
+        self.BtnShare8,
     }
     self:AutoRegisterBtn()
 end
@@ -25,21 +28,42 @@ end
 function XUiPhotographSDKPanel:AutoRegisterBtn()
     local shareSDKIds = XDataCenter.PhotographManager.GetShareSDKIds()
     local shareBtnCount = #shareSDKIds
-    for i=1, #self.ShareBtnList, 1 do
+    for i = 1, #self.ShareBtnList, 1 do
         if i <= shareBtnCount then
             local shareInfo = XPhotographConfigs.GetShareInfoByType(shareSDKIds[i])
-            if shareInfo then
+            if shareInfo and XHeroSdkManager.SharePlatformIsEnable(shareInfo.Id) then
                 self.ShareBtnList[i].gameObject:SetActiveEx(true)
-                self.ShareBtnList[i].CallBack = function () self:OnClickShareBtn(i) end
+                self.ShareBtnList[i].CallBack = function()
+                    self:OnClickShareBtn(shareInfo.Id)
+                end
                 self.ShareBtnList[i]:SetSprite(shareInfo.IconPath)
                 self.ShareBtnList[i]:SetName(shareInfo.Name)
+            else
+                self.ShareBtnList[i].gameObject:SetActiveEx(false)
             end
         else
             self.ShareBtnList[i].gameObject:SetActiveEx(false)
         end
     end
-    self.BtnSave.CallBack = function ()
-        XDataCenter.PhotographManager.SharePhoto(self.RootUi.PhotoName, self.RootUi.ShareTexture, XPlatformShareConfigs.PlatformType.Local)
+    self.BtnSave.CallBack = function()
+        XDataCenter.PhotographManager.SharePhotoBefore(self.RootUi.PhotoName, self.RootUi.ShareTexture, XPlatformShareConfigs.PlatformType.Local)
+    end
+    if XDataCenter.UiPcManager.IsPc() then
+        if self.BtnExplorerPc then
+            self.BtnExplorerPc.gameObject:SetActiveEx(true)
+            self.BtnExplorerPc.CallBack = function()
+                local path = CS.XTool.GetPhotoAlbumPath()
+                path = string.gsub(path, "/", "\\")
+                if not CS.System.IO.Directory.Exists(path) then
+                    CS.System.IO.Directory.CreateDirectory(path)
+                end
+                CS.UnityEngine.Application.OpenURL(path)
+            end
+        end
+    else
+        if self.BtnExplorerPc then
+            self.BtnExplorerPc.gameObject:SetActiveEx(false)
+        end
     end
 end
 
@@ -51,29 +75,31 @@ function XUiPhotographSDKPanel:Hide()
     self.GameObject:SetActiveEx(false)
 end
 
-function XUiPhotographSDKPanel:OnClickShareBtn(index)
-    local platformType = XDataCenter.PhotographManager.GetShareTypeByIndex(index)
-    local result = self:EmitSignal("ShareBtnClicked", platformType, self)
+--shareId,shareInfo中的Id，且与枚举XEnumConst.SharePlatform对应
+function XUiPhotographSDKPanel:OnClickShareBtn(shareId)
+    local result = self:EmitSignal("ShareBtnClicked", shareId, self)
     if result and result.isAwait then
         RunAsyn(function()
             local signalCode = self:AwaitSignal("FinishedReadyShare", self)
-            if signalCode ~= XSignalCode.SUCCESS then return end
-            self:Share(platformType)
+            if signalCode ~= XSignalCode.SUCCESS then
+                return
+            end
+            self:Share(shareId)
         end)
         return
     end
-    self:Share(platformType)
+    self:Share(shareId)
 end
 
-function XUiPhotographSDKPanel:Share(platformType)
+function XUiPhotographSDKPanel:Share(shareId)
     local customText
     if self.RootUi.GetPlatformType2CustomText then
-        customText = self.RootUi.GetPlatformType2CustomText(self.RootUi, platformType)
+        customText = self.RootUi.GetPlatformType2CustomText(self.RootUi, shareId)
     end
     if DBEUG_SHOW_CUSTOM_SHARE_TEXT then
         XLog.Warning(customText or "其他系统测试分享")
     end
-    XDataCenter.PhotographManager.SharePhoto(self.RootUi.PhotoName, self.RootUi.ShareTexture, platformType, customText)
+    XDataCenter.PhotographManager.SharePhoto(self.RootUi.PhotoName, self.RootUi.ShareTexture, shareId, customText)
 end
 
 return XUiPhotographSDKPanel

@@ -1,14 +1,8 @@
 ---@class XCharacterViewModel
 local XCharacterViewModel = XClass(nil, "XCharacterViewModel")
 
----@return XCharacterAgency
-local GetCharAgency = function ()
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    return ag
-end
-
 function XCharacterViewModel:Ctor(characterCid)
-    self.Config = XCharacterConfigs.GetCharacterTemplate(characterCid)
+    self.Config = XMVCA.XCharacter:GetCharacterTemplate(characterCid)
     self.ProfessionType = nil
     -- 解放等级
     self.LiberateLv = 0
@@ -68,7 +62,7 @@ end
 
 function XCharacterViewModel:UpdateCaptainSkillLevelByList(skillList)
     local characterId = self:GetId()
-    local captainSkillId = XCharacterConfigs.GetCharacterCaptainSkill(characterId)
+    local captainSkillId = XMVCA.XCharacter:GetCharacterCaptainSkill(characterId)
     local captainLevel = 0
     for i = 1, #skillList do
         local skillData = skillList[i]
@@ -140,8 +134,8 @@ end
 -- 职业类型
 function XCharacterViewModel:GetProfessionType()
     if self.ProfessionType == nil then
-        local npcId = XCharacterConfigs.GetCharNpcId(self.Config.Id, self.Quality)
-        local npcConfig = XCharacterConfigs.GetNpcTemplate(npcId)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(self.Config.Id, self.Quality)
+        local npcConfig = XMVCA.XCharacter:GetNpcTemplate(npcId)
         self.ProfessionType = npcConfig and npcConfig.Type or 0
     end
     return self.ProfessionType
@@ -149,30 +143,30 @@ end
 
 -- 职业图标
 function XCharacterViewModel:GetProfessionIcon()
-    return XCharacterConfigs.GetNpcTypeIcon(self:GetProfessionType())
+    return XMVCA.XCharacter:GetNpcTypeIcon(self:GetProfessionType())
 end
 
 -- 品质图标
 function XCharacterViewModel:GetQualityIcon()
-    return XCharacterConfigs.GetCharacterQualityIcon(self.Quality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(self.Quality)
 end
 
 function XCharacterViewModel:GetSmallHeadIcon()
-    return GetCharAgency():GetCharSmallHeadIcon(self.Config.Id, not self.IsBelongPlayer)
+    return XMVCA.XCharacter:GetCharSmallHeadIcon(self.Config.Id, not self.IsBelongPlayer)
 end
 
 function XCharacterViewModel:GetBigHeadIcon()
-    return GetCharAgency():GetCharBigHeadIcon(self.Config.Id, not self.IsBelongPlayer)
+    return XMVCA.XCharacter:GetCharBigHeadIcon(self.Config.Id, not self.IsBelongPlayer)
 end
 
 function XCharacterViewModel:GetHalfBodyIcon()
     --获得角色半身像（剧情用）
-    return GetCharAgency():GetCharHalfBodyBigImage(self.Config.Id)
+    return XMVCA.XCharacter:GetCharHalfBodyBigImage(self.Config.Id)
 end
 
 function XCharacterViewModel:GetHalfBodyCommonIcon()
     --获得角色半身像（通用）
-    return GetCharAgency():GetCharHalfBodyImage(self.Config.Id)
+    return XMVCA.XCharacter:GetCharHalfBodyImage(self.Config.Id)
 end
 
 function XCharacterViewModel:GetGradeLevel()
@@ -180,7 +174,7 @@ function XCharacterViewModel:GetGradeLevel()
 end
 
 function XCharacterViewModel:GetGradeIcon()
-    return XCharacterConfigs.GetCharGradeIcon(self.Config.Id, self.Grade)
+    return XMVCA.XCharacter:GetCharGradeIcon(self.Config.Id, self.Grade)
 end
 
 function XCharacterViewModel:GetAbility()
@@ -191,12 +185,12 @@ function XCharacterViewModel:GetAbility()
 end
 
 function XCharacterViewModel:GetCareer()
-    return XCharacterConfigs.GetCharDetailTemplate(self.Config.Id).Career
+    return XMVCA.XCharacter:GetCharDetailTemplate(self.Config.Id).Career
 end
 
 -- 获取能量元素（物理，火，暗...）
 function XCharacterViewModel:GetObtainElements()
-    return XCharacterConfigs.GetCharDetailTemplate(self.Config.Id).ObtainElementList
+    return XMVCA.XCharacter:GetCharDetailTemplate(self.Config.Id).ObtainElementList
 end
 
 -- 获取能量元素图标（物理，火，暗...）
@@ -205,7 +199,7 @@ function XCharacterViewModel:GetObtainElementIcons()
     local obtainElements = self:GetObtainElements()
     local elementConfig = nil
     for _, v in ipairs(obtainElements) do
-        elementConfig = XCharacterConfigs.GetCharElement(v)
+        elementConfig = XMVCA.XCharacter:GetCharElement(v)
         table.insert(result, elementConfig.Icon)
     end
     return result
@@ -222,7 +216,7 @@ function XCharacterViewModel:GetAttributes(equipViewModels)
     for _, value in ipairs(equipViewModels or {}) do
         table.insert(equips, value:GetEquip())
     end
-    self.Attribs = GetCharAgency():GetCharacterAttribsOther(character, equips)
+    self.Attribs = XMVCA.XCharacter:GetCharacterAttribsOther(character, equips)
     return self.Attribs
 end
 
@@ -232,18 +226,18 @@ function XCharacterViewModel:GetCaptainSkillInfo()
     if XRobotManager.CheckIsRobotId(self.SourceEntityId) then
         result = XRobotManager.GetRobotCaptainSkillInfo(self.SourceEntityId)
     elseif self.IsBelongPlayer then
-        result = GetCharAgency():GetCaptainSkillInfo(self.SourceEntityId)
+        result = XMVCA.XCharacter:GetCaptainSkillInfoByCharId(self.SourceEntityId)
     else
         -- 可能存在第三种情况，是角色同时不属于玩家本身，后面有业务需求再扩展
         local skillLevel = self._CaptainSkillLevel or 1 
-        result = XCharacterConfigs.GetCaptainSkillInfo(self.SourceEntityId, skillLevel)
+        result = XMVCA.XCharacter:GetCaptainSkillInfo(self.SourceEntityId, skillLevel)
     end
     return result
 end
 
--- return : XCharacterConfigs.CharacterType
+-- return : XEnumConst.CHARACTER.CharacterType
 function XCharacterViewModel:GetCharacterType()
-    return XCharacterConfigs.GetCharacterType(self.Config.Id)
+    return XMVCA.XCharacter:GetCharacterType(self.Config.Id)
 end
 
 -- 获得当前经验
@@ -256,14 +250,14 @@ end
 function XCharacterViewModel:GetNextLevelExp()
     local character = self:GetCharacter()
     local charId = self:GetId()
-    return XCharacterConfigs.GetNextLevelExp(charId, character.Level)
+    return XMVCA.XCharacter:GetNextLevelExp(charId, character.Level)
 end
 
 -- 获得满级
 function XCharacterViewModel:GetMaxLevel()
     local character = self:GetCharacter()
     local charId = self:GetId()
-    return XCharacterConfigs.GetCharMaxLevel(charId)
+    return XMVCA.XCharacter:GetCharMaxLevel(charId)
 end
 
 function XCharacterViewModel:UpdateByFightNpcData(fightNpcData)

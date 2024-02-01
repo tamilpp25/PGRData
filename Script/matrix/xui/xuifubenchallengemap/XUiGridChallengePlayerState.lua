@@ -64,7 +64,7 @@ function XUiGridChallengePlayerState:Refresh(playerData)
     self.TxtNameE.text = playerData.Name
     if playerData.CharacterData then
         self.TxtLevelNum.text = playerData.CharacterData.Level
-        self.RootUi:SetUiSprite(self.ImgRole, XDataCenter.CharacterManager.GetCharSmallHeadIcon(playerData.CharacterData.Id))
+        self.RootUi:SetUiSprite(self.ImgRole, XMVCA.XCharacter:GetCharSmallHeadIcon(playerData.CharacterData.Id))
     end
 end
 

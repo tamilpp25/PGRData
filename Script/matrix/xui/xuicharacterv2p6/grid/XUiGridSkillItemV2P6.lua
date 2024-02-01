@@ -1,9 +1,6 @@
 local XUiGridSkillItemV2P6 = XClass(XUiNode, "XUiGridSkillItemV2P6")
 
-function XUiGridSkillItemV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
+function XUiGridSkillItemV2P6:Ctor(ui, parent, rootUi)
     self:AutoInitUi()
 end
 
@@ -14,7 +11,7 @@ end
 function XUiGridSkillItemV2P6:UpdateEnhanceSkillInfo(characterId, skillInfo)
     self.Btn:SetNameByGroup(0, skillInfo.Name)
     self.Btn:SetRawImage(skillInfo.Icon)
-    local isShowRed = XRedPointManager.CheckConditions({ XRedPointConditions.Types.CONDITION_CHARACTER_ENHANCESKILL }, characterId)
+    local isShowRed = XRedPointManager.CheckConditions({ XRedPointConditions.Types.CONDITION_CHARACTER_ENHANCESKILL, XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS }, characterId)
     self.Btn:ShowReddot(isShowRed)
 end
 
@@ -24,7 +21,7 @@ function XUiGridSkillItemV2P6:UpdateNormalSkillInfo(characterId, skill)
 
     local canUpdate = false
     for _, subSkill in ipairs(skill.subSkills) do
-        if (XDataCenter.CharacterManager.CheckCanUpdateSkill(characterId, subSkill.SubSkillId, subSkill.Level)) then
+        if (XMVCA.XCharacter:CheckCanUpdateSkill(characterId, subSkill.SubSkillId, subSkill.Level)) then
             canUpdate = true
             break
         end

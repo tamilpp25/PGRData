@@ -38,8 +38,7 @@ function XUiPlayerEx:Close()
         end
         self:CloseChildUi("UiPanelSetting")
         self.IsOpenSetting = false
-        self.PanelPlayerInfoEx:OnEnable()
-        self.PanelPlayerInfoEx.GameObject:SetActiveEx(true)
+        self.PanelPlayerInfoEx:Open()
     else
         self.Super.Close(self)
     end
@@ -52,21 +51,15 @@ end
 function XUiPlayerEx:InitPanelPlayerInfo()
     local XUiPanelPlayerInfoEx = require("XUi/XUiPlayer/XUiPanelPlayerInfoEx")
     self.PanelPlayerInfoEx = XUiPanelPlayerInfoEx.New(self.UiPanelPlayerInfo, self)
-    
-    ---@type XUiBtnDownload
-    self.GirdBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload").New(self.BtnDownload)
-    self.GirdBtnDownload:Init(XDlcConfig.EntryType.Archive, 0)
 end
 
 function XUiPlayerEx:OnEnable()
-    self.PanelPlayerInfoEx:OnEnable()
-    self.GirdBtnDownload:RefreshView()
     self.BtnAchievement:ShowReddot(XDataCenter.MedalManager.CheckHaveNewMedal() or XDataCenter.AchievementManager.CheckHasReward())
     self.BtnExhibition:ShowReddot(XDataCenter.ExhibitionManager.CheckNewCharacterReward())
 end
 
 function XUiPlayerEx:OnDisable()
-    self.PanelPlayerInfoEx:OnDisable()
+    
 end
 
 function XUiPlayerEx:OnDestroy()
@@ -83,24 +76,19 @@ end
 function XUiPlayerEx:OnClickBtnArchive()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive) then
         self.PanelPlayerInfoEx:RecordAnimation()
-        XLuaUiManager.Open("UiArchiveMain")
+        XMVCA.XArchive:OpenUiArchiveMain()
     end
 end
 
 function XUiPlayerEx:OnClickBtnExhibition()
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.CharacterExhibition) then
-        if self.GirdBtnDownload:CheckNeedDownload() then
-            self.GirdBtnDownload:OnBtnClick()
-            return
-        end
         self.PanelPlayerInfoEx:RecordAnimation()
         XLuaUiManager.Open("UiExhibition", true)
     end
 end
 
 function XUiPlayerEx:ShowSetting()
-    self.PanelPlayerInfoEx:OnDisable()
-    self.PanelPlayerInfoEx.GameObject:SetActiveEx(false)
+    self.PanelPlayerInfoEx:Close()
     self:OpenOneChildUi("UiPanelSetting", self)
     self.UiPanelSetting:InitCollectionWallShow()
     self.UiPanelSetting:UpdateCharacterHead()

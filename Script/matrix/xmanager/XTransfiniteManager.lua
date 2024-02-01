@@ -14,6 +14,7 @@ XTransfiniteManagerCreator = function()
         Confirm = "TransfiniteConfirmBattleResultRequest",
         Reset = "TransfiniteResetStageGroupRequest",
         ReceiveReward = "TransfiniteGetScoreRewardRequest",
+        SettleInfo = "TransfiniteGetRotateSettleInfoRequest",
     }
 
     ---@type XTransfiniteData
@@ -122,6 +123,10 @@ XTransfiniteManagerCreator = function()
         return _Data:GetCircleId()
     end
 
+    function XTransfiniteManager.GetMaxRotateStageProgressIndex()
+        return _Data:GetMaxRotateStageProgressIndex()
+    end
+
     ---@return XTransfiniteRegion[]
     function XTransfiniteManager.GetAllRegion()
         local allRegion = {}
@@ -159,6 +164,11 @@ XTransfiniteManagerCreator = function()
             XUiManager.TipText("ActivityBranchNotOpen")
             return false
         end
+        
+        --分包拦截
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Transfinite) then
+            return
+        end
         XLuaUiManager.Open("UiTransfiniteMain")
         return true
     end
@@ -176,7 +186,7 @@ XTransfiniteManagerCreator = function()
     end
 
     ---@param stageGroup XTransfiniteStageGroup
-    function XTransfiniteManager.RequestSetTeam(stageGroup, callback)
+    function XTransfiniteManager.RequestSetTeam(stageGroup, isFirst, callback)
         local stageGroupId = stageGroup:GetId()
         local team = stageGroup:GetTeam()
         XNetwork.Call(RequestProto.SetTeam, {
@@ -185,7 +195,8 @@ XTransfiniteManagerCreator = function()
                 CharacterIdList = team:GetEntityIds(),
                 CaptainPos = team:GetCaptainPos(),
                 FirstFightPos = team:GetFirstPos(),
-            }
+            },
+            ResetStageIndex = isFirst,
         }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
@@ -266,7 +277,7 @@ XTransfiniteManagerCreator = function()
             XDataCenter.FubenManager.EnterFight(stageConfig, teamId, isAssist, challengeCount, nil, enterFightCallback)
             return
         end
-        XLuaUiManager.Open("UiTransfiniteAnimation", stage, function()
+        XLuaUiManager.Open("UiTransfiniteAnimation", stage, stageGroup, function()
             XDataCenter.FubenManager.EnterFight(stageConfig, teamId, isAssist, challengeCount, nil, enterFightCallback)
         end)
     end
@@ -301,6 +312,11 @@ XTransfiniteManagerCreator = function()
                 stageGroup:SetBestClearTime(totalClearTime)
             end
             stageGroup:GetTeam():Reset()
+        end
+
+        -- 保存最大的轮换关卡进度
+        if not stageGroup:IsIsland() and battleInfo then
+            _Data:SetMaxRotateStageProgressIndex(battleInfo.StageProgressIndex or 0)
         end
 
         stageGroup:SetDataFromServer(battleInfo)
@@ -346,7 +362,7 @@ XTransfiniteManagerCreator = function()
         end
 
         --XTransfiniteManager.CloseUiSettle()
-        XNetwork.Call(RequestProto.Confirm, {
+        XNetwork.CallWithAutoHandleErrorCode(RequestProto.Confirm, {
             StageGroupId = stageGroupId,
         }, function(res)
             HandleConfirm(res)
@@ -357,7 +373,7 @@ XTransfiniteManagerCreator = function()
     end
 
     function XTransfiniteManager.RequestResult(stageGroupId)
-        XNetwork.Call(RequestProto.Confirm, {
+        XNetwork.CallWithAutoHandleErrorCode(RequestProto.Confirm, {
             StageGroupId = stageGroupId,
         }, HandleConfirm)
     end
@@ -368,7 +384,7 @@ XTransfiniteManagerCreator = function()
         local result = require("XEntity/XTransfinite/XTransfiniteResult").New()
         _Result = result
         result:SetDataFromLastResult(stageGroup)
-        XNetwork.Call(RequestProto.Confirm, {
+        XNetwork.CallWithAutoHandleErrorCode(RequestProto.Confirm, {
             StageGroupId = stageGroup:GetId(),
             IsGiveUp = true
         }, HandleConfirm)
@@ -429,7 +445,7 @@ XTransfiniteManagerCreator = function()
         })
         result:SetIsSettle(true)
         _Result = result
-        XNetwork.Call(RequestProto.Reset, {
+        XNetwork.CallWithAutoHandleErrorCode(RequestProto.Reset, {
             StageGroupId = stageGroupId,
         }, function(res)
             HandleConfirm(res)
@@ -488,6 +504,10 @@ XTransfiniteManagerCreator = function()
         XLuaUiManager.SafeClose("UiTransfiniteBattleSettlement")
     end
 
+    function XTransfiniteManager.CloseUiBattlePrepare()
+        XLuaUiManager.SafeClose("UiTransfiniteBattlePrepare")
+    end
+
     function XTransfiniteManager.FinishFight(settleData)
         if not settleData then
             return
@@ -529,7 +549,7 @@ XTransfiniteManagerCreator = function()
         local limit = XDataCenter.ItemManager.GetMaxCount(itemId)
         local itemName = XDataCenter.ItemManager.GetItemName(itemId)
         return itemName .. ": " .. amount .. "/" .. limit
-        end
+    end
 
     local function IsClear()
         if not _Data:IsOpen() then
@@ -615,6 +635,85 @@ XTransfiniteManagerCreator = function()
         return CS.XTextManager.GetText("BossSingleLeftTimeIcon", timeText)
     end
 
+    -- 获取倒计时（周历专用）
+    function XTransfiniteManager:ExGetCalendarRemainingTime()
+        if not XTool.IsNumberValid(_Data:GetEndTime()) then
+            return ""
+        end
+        local remainTime = _Data:GetEndTime() - XTime.GetServerNowTimestamp()
+        if remainTime < 0 then
+            remainTime = 0
+        end
+        local timeText = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.NEW_CALENDAR)
+        return XUiHelper.GetText("UiNewActivityCalendarEndCountDown", timeText)
+    end
+
+    -- 获取解锁时间（周历专用）
+    function XTransfiniteManager:ExGetCalendarEndTime()
+        if not XTool.IsNumberValid(_Data:GetEndTime()) then
+            return 0
+        end
+        return _Data:GetEndTime()
+    end
+
+    -- 是否在周历里显示
+    function XTransfiniteManager:ExCheckShowInCalendar()
+        if not XTool.IsNumberValid(_Data:GetEndTime()) then
+            return false
+        end
+        if _Data:GetEndTime() - XTime.GetServerNowTimestamp() <= 0 then
+            return false
+        end
+        if _Data:IsOpen() then
+            return true
+        end
+        return false
+    end
+    
+    function XTransfiniteManager.RequestSeasonSettle()
+        if not _Data:HasRotateSettleInfo() then
+            return
+        end
+        
+        _Data:SetHasRotateSettleInfo(false)
+        XNetwork.Call(RequestProto.SettleInfo, {}, function(res)
+            if res.Code ~= XCode.Success then
+                return
+            end
+            
+            local settleData = {
+                Rewards = res.RewardGoodsList,
+                RoundNum = res.MaxStageProgressIndex,
+                BestWinNum = res.SettleTransfiniteScore,
+                PointsNum = res.UnSettleTransfiniteScore,
+            }
+
+            if XTool.IsTableEmpty(settleData.Rewards) 
+                    and not XTool.IsNumberValid(settleData.RoundNum) 
+                    and not XTool.IsNumberValid(settleData.BestWinNum) 
+                    and not XTool.IsNumberValid(settleData.PointsNum) then
+                return
+            end
+
+            -- 奖励去重
+            local uniqueRewards = {}
+            local rewardHash = {}
+            for _, rewardGoods in Pairs(settleData.Rewards) do
+                local reward = rewardHash[rewardGoods.TemplateId]
+
+                if not reward then
+                    rewardHash[rewardGoods.TemplateId] = rewardGoods
+                    uniqueRewards[#uniqueRewards + 1] = rewardGoods
+                else
+                    reward.Count = reward.Count + rewardGoods.Count
+                end
+            end
+
+            settleData.Rewards = uniqueRewards
+            XLuaUiManager.Open("UiTransfiniteObtain", settleData)
+        end)
+    end
+    
     function XTransfiniteManager.ExitFight()
         CS.XFight.ExitForClient(true)
         XEventManager.DispatchEvent(XEventId.EVENT_TRANSFINITE_HIDE_SETTLE)
@@ -650,6 +749,7 @@ XTransfiniteManagerCreator = function()
 
     local function OnReceiveReward(res)
         if res.Code ~= XCode.Success then
+            XUiManager.TipCode(res.Code)
             return
         end
         local region = XTransfiniteManager.GetRegion()

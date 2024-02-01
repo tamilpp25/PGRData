@@ -110,11 +110,9 @@ function XUiSignGridDay:AnimaStart()
     -- 还未领取奖励，将会在签到动画播放完后才派发事件
     -- 这时候奖励格子已经全部初始化完成，会进入XUiSignPrefab:SetTomorrowOpen()的v:SetTomorrow()
     self:SetEffectActive(true)
-    XDataCenter.SignInManager.SignInRequest(self.Config.SignId, function(rewardItems)
-        self:GetYK(rewardItems)
-    end,
-    function()
-        self:GetYK()
+    -- 2.10 先领月卡奖励再领签到奖励，领一半掉线重登仍有弹窗继续领取
+    self:GetYKReward(function(rewardItems)
+        self:GetSignReward(rewardItems)
     end)
 end
 
@@ -184,37 +182,49 @@ function XUiSignGridDay:SetPanelDisableParentActive(isActive)
     end
 end
 
--- 领取月卡
-function XUiSignGridDay:GetYK(rewardItems)
+-- 领取月卡奖励
+function XUiSignGridDay:GetYKReward(cb)
     if not self.BtnCard then
-        self:HandlerReward(rewardItems)
+        if cb then cb() end
         return
     end
 
     if not XDataCenter.PurchaseManager.IsYkBuyed() then
-        self:HandlerReward(rewardItems)
+        if cb then cb() end
         return
     end
 
     XDataCenter.PurchaseManager.YKInfoDataReq(function()
         local data = XDataCenter.PurchaseManager.GetYKInfoData()
         if not data or data.IsDailyRewardGet then
-            self:HandlerReward(rewardItems)
+            if cb then cb() end
             return
         end
 
         XDataCenter.PurchaseManager.PurchaseGetDailyRewardRequest(data.Id, function(rewards)
-            for _, v in ipairs(rewards) do
-                if not rewardItems then
-                    rewardItems = {}
-                end
-
-                table.insert(rewardItems, v)
+            local rewardItems = {}
+            for _, reward in ipairs(rewards) do
+                table.insert(rewardItems, reward)
             end
-            self:HandlerReward(rewardItems)
+            if cb then cb(rewardItems) end
         end, function()
-            self:HandlerReward(rewardItems)
+            if cb then cb() end
         end)
+    end)
+end
+
+-- 获取签到奖励
+function XUiSignGridDay:GetSignReward(rewardItems)
+    XDataCenter.SignInManager.SignInRequest(self.Config.SignId, function(rewards)
+        if rewards and #rewards > 0 then
+            rewardItems = rewardItems or {}
+            for _, reward in ipairs(rewards) do
+                table.insert(rewardItems, reward)
+            end
+        end
+        self:HandlerReward(rewardItems)
+    end, function()
+        self:HandlerReward(rewardItems)
     end)
 end
 

@@ -75,7 +75,7 @@ end
 -- 领取星级奖励的时候播放角色动画
 function XUiCharacterTowerTask:OnPlayCharacterAnim()
     local characterId = self.ChapterViewModel:GetChapterCharacterId()
-    local config = XDataCenter.SignBoardManager.GetRandomPlayElementsByClick(DefaultClicks, characterId)
+    local config = XMVCA.XFavorability:GetRandomPlayElementsByClick(DefaultClicks, characterId)
     if not config or (self.SpecialFilterAnimId and self.SpecialFilterAnimId[config.Id]) then
         return
     end

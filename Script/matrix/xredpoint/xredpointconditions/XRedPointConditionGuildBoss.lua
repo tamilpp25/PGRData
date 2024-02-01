@@ -11,11 +11,11 @@ function XRedPointConditionGuildBoss.GetSubConditions()
 end
 
 function XRedPointConditionGuildBoss.Check()
-    if XRedPointConditionGuildBossHp.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP) then
         return true
     end
 
-    if XRedPointConditionGuildBossScore.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE) then
         return true
     end
 

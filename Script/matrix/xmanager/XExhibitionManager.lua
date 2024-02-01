@@ -15,8 +15,8 @@ XExhibitionManagerCreator = function()
     local CharColorBallSkillDic = {}
 
     XExhibitionManager.ExhibitionType = {
-        STRUCT = XCharacterConfigs.CharacterType.Normal, -- 构造体
-        PUNISHER = XCharacterConfigs.CharacterType.Isomer, -- 授格者
+        STRUCT = XEnumConst.CHARACTER.CharacterType.Normal, -- 构造体
+        PUNISHER = XEnumConst.CHARACTER.CharacterType.Isomer, -- 授格者
         Linkage = 3, -- 联动角色
     }
     function XExhibitionManager.HandleExhibitionInfo(data)
@@ -56,7 +56,7 @@ XExhibitionManagerCreator = function()
                     CharColorBallSkillDic[charId] = {}
                 end
                 local skillGroupId = cfg.SkillGroupId
-                local skillIds = XTool.IsNumberValid(skillGroupId) and XCharacterConfigs.GetCharSkillGroupTemplatesById(skillGroupId).SkillId or nil
+                local skillIds = XTool.IsNumberValid(skillGroupId) and XMVCA.XCharacter:GetCharSkillGroupTemplatesById(skillGroupId).SkillId or nil
                 CharColorBallSkillDic[charId] = skillIds
             end
         end
@@ -75,7 +75,7 @@ XExhibitionManagerCreator = function()
     end
 
     function XExhibitionManager.GetCharacterGrowUpLevel(characterId, IsNotSelf)
-        local curLevel = XCharacterConfigs.GrowUpLevel.New
+        local curLevel = XEnumConst.CHARACTER.GrowUpLevel.New
         local characterTasks = XExhibitionConfigs.GetCharacterGrowUpTasks(characterId)
         if XTool.IsTableEmpty(characterTasks) then
             return curLevel
@@ -89,7 +89,7 @@ XExhibitionManagerCreator = function()
     end
 
     function XExhibitionManager.IsAchieveMaxLiberation(characterId, IsNotSelf)
-        return XExhibitionManager.IsAchieveLiberation(characterId, XCharacterConfigs.GrowUpLevel.End, IsNotSelf)
+        return XExhibitionManager.IsAchieveLiberation(characterId, XEnumConst.CHARACTER.GrowUpLevel.End, IsNotSelf)
     end
 
     function XExhibitionManager.IsAchieveLiberation(characterId, level, IsNotSelf)
@@ -97,7 +97,7 @@ XExhibitionManagerCreator = function()
     end
 
     function XExhibitionManager.IsMaxLiberationLevel(level)
-        return level == XCharacterConfigs.GrowUpLevel.End
+        return level == XEnumConst.CHARACTER.GrowUpLevel.End
     end
 
     function XExhibitionManager.CheckIsOwnCharacter(characterId, IsNotSelf)
@@ -112,31 +112,40 @@ XExhibitionManagerCreator = function()
     end
 
     function XExhibitionManager.CheckNewCharacterReward(characterId)
-        local isNew = false
-
         if characterId then
             return XExhibitionManager.CheckNewRewardByCharacterId(characterId)
         end
-
+    
+        if not XDataCenter.ExhibitionManager.CheckRedPointIsCanSee() then
+            return false
+        end
+    
         local tasksConfig = XExhibitionConfigs.GetCharacterGrowUpTasksConfig()
-        if XDataCenter.ExhibitionManager.CheckRedPointIsCanSee() then
-            for tmpCharacterId, taskConfig in pairs(tasksConfig) do
-                if XDataCenter.CharacterManager.IsOwnCharacter(tmpCharacterId) then
-                    for taskId, config in pairs(taskConfig) do
-                        local canGetReward = true
-                        for index = 1, #config.ConditionIds do
-                            local ret, _ = XConditionManager.CheckCondition(config.ConditionIds[index], tmpCharacterId)
-                            if not ret then
-                                canGetReward = false
-                            end
+        local isNew = false
+    
+        for tmpCharacterId, taskConfig in pairs(tasksConfig) do
+            if XMVCA.XCharacter:IsOwnCharacter(tmpCharacterId) then
+                for taskId, config in pairs(taskConfig) do
+                    local canGetReward = true
+                    for index = 1, #config.ConditionIds do
+                        local ret, _ = XConditionManager.CheckCondition(config.ConditionIds[index], tmpCharacterId)
+                        if not ret then
+                            canGetReward = false
+                            break  -- 添加此行以减少不必要的迭代
                         end
-                        if canGetReward and not XExhibitionManager.CheckGrowUpTaskFinish(taskId) then
-                            isNew = true
-                        end
+                    end
+                    if canGetReward and not XExhibitionManager.CheckGrowUpTaskFinish(taskId) then
+                        isNew = true
+                        break  -- 添加此行以减少不必要的迭代
                     end
                 end
             end
+    
+            if isNew then
+                break
+            end
         end
+    
         return isNew
     end
 
@@ -145,7 +154,7 @@ XExhibitionManagerCreator = function()
     end
 
     function XExhibitionManager.CheckNewRewardByCharacterId(characterId)
-        if not XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if not XMVCA.XCharacter:IsOwnCharacter(characterId) then
             return false
         end
 
@@ -191,7 +200,7 @@ XExhibitionManagerCreator = function()
         local info = IsNotSelf and CharacterInfo or SelfGatherRewards
         for _, v in pairs(info) do
             local tempConfig = tempConfigData[v]
-            if tempConfig and tempConfig.LevelId ~= XCharacterConfigs.GrowUpLevel.Super then
+            if tempConfig and tempConfig.LevelId ~= XEnumConst.CHARACTER.GrowUpLevel.Super then
                 if tempData[tempConfig.CharacterId] then
                     if tempExhibitionConfigs[tempConfig.LevelId] then
                         tempData[tempConfig.CharacterId] = tempData[tempConfig.CharacterId]
@@ -218,7 +227,7 @@ XExhibitionManagerCreator = function()
         local taskFinishNum = {}
         local growUpTasksConfig = XExhibitionConfigs.GetGrowUpTasksConfigByType(exhibitionType) or {}
         local info = IsNotSelf and CharacterInfo or SelfGatherRewards
-        for index = XCharacterConfigs.GrowUpLevel.End, 1, -1 do
+        for index = XEnumConst.CHARACTER.GrowUpLevel.End, 1, -1 do
             taskFinishNum[index] = 0
             for _, v in pairs(info) do
                 if growUpTasksConfig[v] and growUpTasksConfig[v].LevelId == index then
@@ -255,7 +264,7 @@ XExhibitionManagerCreator = function()
                 end
             end
         end
-        return count >= XCharacterConfigs.GrowUpLevel.Higher
+        return count >= XEnumConst.CHARACTER.GrowUpLevel.Higher
     end
     --区分是否是查看自己的信息
     function XExhibitionManager.GetCharHeadPortrait(characterId, IsNotSelf)
@@ -312,8 +321,8 @@ XExhibitionManagerCreator = function()
 
             --终阶解放自动解放技能
             local growUpLevel = XExhibitionManager.GetCharacterGrowUpLevel(characterId)
-            if growUpLevel == XCharacterConfigs.GrowUpLevel.End then
-                XDataCenter.CharacterManager.UnlockMaxLiberationSkill(characterId)
+            if growUpLevel == XEnumConst.CHARACTER.GrowUpLevel.End then
+                XMVCA.XCharacter:UnlockMaxLiberationSkill(characterId)
             end
         end)
     end
@@ -353,6 +362,7 @@ end
 
 XRpc.NotifyGatherRewardList = function(data)
     XDataCenter.ExhibitionManager.HandleExhibitionInfo(data)
+    XDataCenter.FashionManager.RefreshAllHeadPortraitIsOwnDicByExhibitionDataNotify()
 end
 
 XRpc.NotifyGatherReward = function(data)

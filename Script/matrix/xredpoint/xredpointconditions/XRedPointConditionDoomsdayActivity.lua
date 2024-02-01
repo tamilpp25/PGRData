@@ -1,3 +1,4 @@
+
 local Events = nil
 local SubCondition = nil
 
@@ -19,7 +20,7 @@ function XRedPointConditionDoomsdayActivity.Check()
     if not XDataCenter.DoomsdayManager.IsOpen() then
         return false
     end
-    if XRedPointConditionDoomsdayTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionDoomsdayTask) then
         return true
     end
     return false

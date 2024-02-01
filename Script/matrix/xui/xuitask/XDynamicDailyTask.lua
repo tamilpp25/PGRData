@@ -1,4 +1,4 @@
-XDynamicDailyTask = XClass(nil, "XDynamicDailyTask")
+XDynamicDailyTask = XClass(XUiNode, "XDynamicDailyTask")
 
 -- 每日任务为时间段的condition类型，除了这些类型其他任务有效时间都是一天
 local TimePeriodConditionType = {
@@ -8,12 +8,8 @@ local A_DAY = 24 * 60 * 60
 local A_HOUR = 60 * 60
 local A_MIN = 60
 
-function XDynamicDailyTask:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XDynamicDailyTask:OnStart()
     self.RewardPanelList = {}
-
-    XTool.InitUiObject(self)
     self.GridCommon.gameObject:SetActive(false)
     self.ImgComplete.gameObject:SetActive(false)
     self.PanelAnimation.gameObject:SetActive(true)

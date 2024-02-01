@@ -1,5 +1,5 @@
 
-XUiGridLikeSendGiftItem = XClass(nil, "XUiGridLikeSendGiftItem")
+local XUiGridLikeSendGiftItem = XClass(XUiNode, "XUiGridLikeSendGiftItem")
 
 local mathFloor = math.floor
 local XMathClamp = XMath.Clamp
@@ -8,11 +8,7 @@ local stringFormat = string.format
 local LongClickIntervel = 100
 local AddCountPerPressTime = 1 / 150
 
-function XUiGridLikeSendGiftItem:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiGridLikeSendGiftItem:OnStart()
     self.BtnMax.CallBack = function() self:OnClickBtnMax() end
     self.BtnMinus.CallBack = function() self:OnClickBtnMinus() end
     self.BtnAdd.CallBack = function() self:OnClickBtnAdd() end
@@ -20,11 +16,10 @@ function XUiGridLikeSendGiftItem:Ctor(ui)
     XUiButtonLongClick.New(self.PointerMinus, LongClickIntervel, self, nil, self.OnLongClickBtnMinus, nil, true)
     self.SelectCount = 0
     self.BtnMax.gameObject:SetActiveEx(false)
-
 end
 
-function XUiGridLikeSendGiftItem:Init(uiRoot,checkCall,changeCall,preCheck)
-    self.UiRoot = uiRoot
+
+function XUiGridLikeSendGiftItem:Init(checkCall,changeCall,preCheck)
     self.AddCountCheckCb= checkCall
     self.AddCountCb = changeCall
     self.PreCheck = preCheck
@@ -38,11 +33,11 @@ function XUiGridLikeSendGiftItem:OnRefresh(trustItemData,count)
     self.SelectCount = count or 0
     self.TrustItem = trustItemData
     self.ItemId = trustItemData.Id
-    local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
+    local characterId = self.Parent:GetCurrFavorabilityCharacter()
     self.RImgIcon:SetRawImage(XDataCenter.ItemManager.GetItemIcon(trustItemData.Id))
     self.ImgFlag.gameObject:SetActive(self:IsContains(trustItemData.FavorCharacterId, characterId))
     local giftQuality = XDataCenter.ItemManager.GetItemQuality(trustItemData.Id)
-    self.UiRoot:SetUiSprite(self.ImgIconBg, XFavorabilityConfigs.GetQualityIconByQuality(giftQuality))
+    self.Parent:SetUiSprite(self.ImgIconBg, self._Control:GetQualityIconByQuality(giftQuality))
     self.ItemCount = XDataCenter.ItemManager.GetCount(trustItemData.Id)
     self.TxtCount.text = self.ItemCount
     self.TxtName.text = XDataCenter.ItemManager.GetItemName(self.ItemId)
@@ -66,8 +61,8 @@ function XUiGridLikeSendGiftItem:CheckItemCount(checkCount)
     if not isCountEnough then
         return false
     end
-    local config = XFavorabilityConfigs.GetLikeTrustItemCfg(self.ItemId)
-    if config and config.TrustItemType == XFavorabilityConfigs.TrustItemType.Communication and checkCount > 1 then
+    local config = self._Control:GetLikeTrustItemCfg(self.ItemId)
+    if config and config.TrustItemType == XEnumConst.Favorability.TrustItemType.Communication and checkCount > 1 then
         XUiManager.TipText("SelectMultiSpecialGiftText")
         return false
     end

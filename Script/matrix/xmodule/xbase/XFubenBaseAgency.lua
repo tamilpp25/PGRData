@@ -15,7 +15,7 @@ local XFubenBaseAgency = XClass(XAgency, "XFubenBaseAgency")
 
 function XFubenBaseAgency:Ctor()
     --self.ExChapterType = -1
-    self.ExCustomName = ""
+    self.ExCustomName = nil
     self.ExConfig = {}
 end
 

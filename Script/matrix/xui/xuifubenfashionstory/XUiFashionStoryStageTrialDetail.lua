@@ -33,7 +33,7 @@ function XUiFashionStoryStageTrialDetail:OnBtnEnterClick()
 
     local isInTime = XDataCenter.FashionStoryManager.IsTrialStageInTime(self.StageId)
     if isInTime then
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     else
         XUiManager.TipText("FashionStoryTrialStageEnd")
     end

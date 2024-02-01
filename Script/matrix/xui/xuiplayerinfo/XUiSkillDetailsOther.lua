@@ -45,7 +45,7 @@ function XUiSkillDetailsOther:OnEnable()
     self:RefreshViewData()
     self:RefreshSkillInfo()
     -- 详情默认值
-    self.Toggle.isOn = XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE
+    self.Toggle.isOn = XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE
     self:OnToggle()
 end
 
@@ -101,7 +101,7 @@ function XUiSkillDetailsOther:HideAllSkillBtn()
 end
 
 function XUiSkillDetailsOther:GetSkillBtn(index, subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.SkillBtnSpecialGroups[index]
     else
@@ -110,7 +110,7 @@ function XUiSkillDetailsOther:GetSkillBtn(index, subSkill)
 end
 
 function XUiSkillDetailsOther:GetSkillBtnGameObject(subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.BtnTog
     else
@@ -119,7 +119,7 @@ function XUiSkillDetailsOther:GetSkillBtnGameObject(subSkill)
 end
 
 function XUiSkillDetailsOther:SetSkillBtn(index, subSkill, btn)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         self.SkillBtnSpecialGroups[index] = btn
     else
@@ -151,7 +151,7 @@ function XUiSkillDetailsOther:SetBtnInfo(btn, subSkillInfo)
         btn.transform:Find("Select/ImgLcok"),
     }
     btn:ShowReddot(false)
-    local min_max = XCharacterConfigs.GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
+    local min_max = XMVCA.XCharacter:GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
     if (subSkillInfo.Level >= min_max.Max) then
         self:ActiveImageLock(ImgLocks, false)
     else
@@ -205,7 +205,7 @@ end
 function XUiSkillDetailsOther:OnBtnNext()
     if self.Pos then
         local nextPos = self.Pos + 1
-        if nextPos > XCharacterConfigs.MAX_SHOW_SKILL_POS then
+        if nextPos > XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS then
             nextPos = 1
         end
         self:GotoSkill(nextPos)
@@ -216,7 +216,7 @@ function XUiSkillDetailsOther:OnBtnLast()
     if self.Pos then
         local lastPos = self.Pos - 1
         if lastPos < 1 then
-            lastPos = XCharacterConfigs.MAX_SHOW_SKILL_POS
+            lastPos = XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS
         end
         self:GotoSkill(lastPos)
     end
@@ -224,7 +224,7 @@ end
 
 function XUiSkillDetailsOther:OnToggle()
     self.IsDetails = self.Toggle.isOn
-    XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
+    XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
     self.SkillInfoPanel:RefreshSkillDescribe(self.IsDetails)
     self:PlayAnimation("QieHuan3")
 end

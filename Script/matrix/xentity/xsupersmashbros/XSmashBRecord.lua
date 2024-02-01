@@ -112,7 +112,7 @@ function XSmashBRecord:GetCharacterIcon()
     if not characterId then
         return false
     end
-    return XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+    return XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
 end
 
 function XSmashBRecord:GetAbility()

@@ -98,7 +98,7 @@ end
 
 function XUiGridMultiDimRank:GetSmallHeadIcon(roleId)
     if roleId > 0 then
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(roleId, true)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(roleId, true)
     end
     return nil
 end

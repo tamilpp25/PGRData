@@ -49,8 +49,8 @@ function XUiGridSkill:UpdateGrid(data, partner, IsLock, type, unLockQuality, IsN
             if self.Tag then
                 if self.Partner:GetIsCarry() then
                     local charId = self.Partner:GetCharacterId()
-                    local charElement = XCharacterConfigs.GetCharacterElement(charId)
-                    local elementConfig = XCharacterConfigs.GetCharElement(charElement)
+                    local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
+                    local elementConfig = XMVCA.XCharacter:GetCharElement(charElement)
                     self.Tag:GetObject("RawElement"):SetRawImage(elementConfig.Icon2)
                     self.Tag:GetObject("RawElement").gameObject:SetActiveEx(true)
                 else

@@ -49,9 +49,11 @@ function XUiTheatre3Tips:OnStart(templateId, itemType, customData, closeCb)
     if itemType == XEnumConst.THEATRE3.EventStepItemType.ItemBox or itemType == XEnumConst.THEATRE3.EventStepItemType.EquipBox then
         self.TxtWorldDesc.gameObject:SetActiveEx(false)
     end
-    self.TxtWorldDesc.text = self._Control:GetEventStepItemWorldDesc(self.TemplateId, itemType)
+    local wordDesc = self._Control:GetEventStepItemWorldDesc(self.TemplateId, itemType)
+    self.TxtWorldDesc.text = XUiHelper.ConvertLineBreakSymbol(wordDesc)
     -- 描述
-    self.TxtDescription.text = self._Control:GetEventStepItemDesc(self.TemplateId, itemType)
+    local desc = XUiHelper.FormatText(self._Control:GetEventStepItemDesc(self.TemplateId, itemType), "")
+    self.TxtDescription.text = XUiHelper.ConvertLineBreakSymbol(desc)
 end
 
 function XUiTheatre3Tips:ShowCustomData(customData)
@@ -79,10 +81,7 @@ function XUiTheatre3Tips:RegisterUiEvents()
 end
 
 function XUiTheatre3Tips:OnBtnBackClick()
-    self:Close()
-    if self.CloseCb then
-        self.CloseCb()
-    end
+    XLuaUiManager.CloseWithCallback(self.Name, self.CloseCb)
 end
 
 return XUiTheatre3Tips

@@ -12,7 +12,7 @@ end
 function XUiMazeRoleRoomGrid:Update(robotId)
     self._Id = robotId
     local characterId = XRobotManager.GetCharacterId(robotId)
-    local name = XCharacterConfigs.GetCharacterName(characterId)
+    local name = XMVCA.XCharacter:GetCharacterName(characterId)
     local icon = XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId)
     local stageId = XMazeConfig.GetStageId(robotId)
     local isPassed = XDataCenter.MazeManager.IsStagePassed(stageId)

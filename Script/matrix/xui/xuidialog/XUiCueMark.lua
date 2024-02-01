@@ -78,3 +78,5 @@ function XUiCueMark:OnBtnHintClick()
         self:OnBtnCloseClick()
     end
 end
+
+return XUiCueMark

@@ -25,11 +25,11 @@ function XRedPointConditionCoupletGameRed.Check()
         return true
     end
 
-    if XRedPointConditionCoupletGameRewardTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_COUPLET_GAME_REWARD_TASK) then
         return true
     end
 
-    if XRedPointConditionCoupletGamePlayVideo.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_COUPLET_GAME_PLAY_VIDEO) then
         return true
     end
 

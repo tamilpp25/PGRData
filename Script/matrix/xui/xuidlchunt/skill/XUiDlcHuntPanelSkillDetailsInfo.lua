@@ -41,7 +41,7 @@ function XUiPanelSkillDetailsInfo:RefreshSkillView()
     -- 技能类型
     self.TxtSkillType.text = configDes.TypeDes and CSXTextManagerGetText("CharacterSkillTypeText", configDes.TypeDes) or ""
     -- 技能图标
-    local skillType = XCharacterConfigs.GetSkillType(self.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(self.SubSkillId)
     local isSignalBal = skillType <= SIGNAL_BAL_MEMBER
     self.ImgSkillPointIcon:SetRawImage(configDes.Icon)
     self.ImgBlueBall:SetRawImage(configDes.Icon)

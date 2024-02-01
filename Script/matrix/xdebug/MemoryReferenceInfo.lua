@@ -13,6 +13,11 @@ local cConfig =
     m_bComparedMemoryRefFileAddTime = true
 }
 
+local cCallback =
+{
+	m_cOutputPrint = print
+}
+
 -- Get the format string of date time.
 local function FormatDateTimeNow()
 	local cDateTime = os.date("*t")
@@ -681,7 +686,7 @@ local function OutputMemorySnapshot(strSavePath, strExtraFileName, nMaxRescords,
 	-- Save result to file.
 	local bOutputFile = strSavePath and (string.len(strSavePath) > 0)
 	local cOutputHandle = nil
-	local cOutputEntry = print
+	local cOutputEntry = cCallback.m_cOutputPrint
 	
 	if bOutputFile then
 		-- Check save path affix.
@@ -821,7 +826,7 @@ local function OutputMemorySnapshotSingleObject(strSavePath, strExtraFileName, n
 	-- Save result to file.
 	local bOutputFile = strSavePath and (string.len(strSavePath) > 0)
 	local cOutputHandle = nil
-	local cOutputEntry = print
+	local cOutputEntry = cCallback.m_cOutputPrint
 	
 	if bOutputFile then
 		-- Check save path affix.
@@ -941,7 +946,7 @@ local function OutputFilteredResult(strFilePath, strFilter, bIncludeFilter, bOut
 
 	-- Write filtered result.
 	local cOutputHandle = nil
-	local cOutputEntry = print
+	local cOutputEntry = cCallback.m_cOutputPrint
 
 	if bOutputFile then
 		-- Combine file name.
@@ -1068,9 +1073,10 @@ local function DumpMemorySnapshotSingleObject(strSavePath, strExtraFileName, nMa
 end
 
 -- Return methods.
-local cPublications = {m_cConfig = nil, m_cMethods = {}, m_cHelpers = {}, m_cBases = {}}
+local cPublications = {m_cConfig = nil, m_cCallback = nil, m_cMethods = {}, m_cHelpers = {}, m_cBases = {}}
 
 cPublications.m_cConfig = cConfig
+cPublications.m_cCallback = cCallback
 
 cPublications.m_cMethods.DumpMemorySnapshot = DumpMemorySnapshot
 cPublications.m_cMethods.DumpMemorySnapshotCompared = DumpMemorySnapshotCompared

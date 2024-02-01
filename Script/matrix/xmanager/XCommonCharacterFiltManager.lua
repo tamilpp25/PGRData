@@ -75,7 +75,8 @@ XCommonCharacterFiltManagerCreator = function()
         -- tagTypeName筛选项的字段名和characterManager对应方法的字段名一样
         -- 构造体角色数据一定要通过characterManager接口去拿，不要通过XCharacter去拿，因为传进来的构造体角色可能是机器人
         for k, v in pairs(tagData) do
-            if XDataCenter.CharacterManager[tagMethodName..tagTypeName](charaData.Id) == v then
+            local fun = XMVCA.XCharacter[tagMethodName..tagTypeName]
+            if fun(XMVCA.XCharacter, charaData.Id) == v then
                 return true
             end
         end
@@ -138,8 +139,8 @@ XCommonCharacterFiltManagerCreator = function()
 
     function XCommonCharacterFiltManager.InitSortFunction()
         local LevelSort = function(idA, idB, isAscendOrder)
-            local levelA = XDataCenter.CharacterManager.GetCharacterLevel(idA)
-            local levelB = XDataCenter.CharacterManager.GetCharacterLevel(idB)
+            local levelA = XMVCA.XCharacter:GetCharacterLevel(idA)
+            local levelB = XMVCA.XCharacter:GetCharacterLevel(idB)
             local isSort = false
             if levelA ~= levelB then
                 isSort = true
@@ -152,8 +153,8 @@ XCommonCharacterFiltManagerCreator = function()
         end
 
         local QualitySort = function(idA, idB, isAscendOrder)
-            local qualityA = XDataCenter.CharacterManager.GetCharacterQuality(idA)
-            local qualityB = XDataCenter.CharacterManager.GetCharacterQuality(idB)
+            local qualityA = XMVCA.XCharacter:GetCharacterQuality(idA)
+            local qualityB = XMVCA.XCharacter:GetCharacterQuality(idB)
             local isSort = false
             if qualityA ~= qualityB then
                 isSort = true
@@ -166,8 +167,8 @@ XCommonCharacterFiltManagerCreator = function()
         end
 
         local AbilitySort = function(idA, idB, isAscendOrder)
-            local abilityA = XDataCenter.CharacterManager.GetCharacterHaveRobotAbilityById(idA)
-            local abilityB = XDataCenter.CharacterManager.GetCharacterHaveRobotAbilityById(idB)
+            local abilityA = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(idA)
+            local abilityB = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(idB)
             local isSort = false
             if abilityA ~= abilityB then
                 isSort = true
@@ -202,8 +203,8 @@ XCommonCharacterFiltManagerCreator = function()
                 end
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(idA)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(idB)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(idA)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(idB)
             if priorityA ~= priorityB then
                 if isAscendOrder then
                     return priorityA < priorityB
@@ -254,11 +255,11 @@ XCommonCharacterFiltManagerCreator = function()
         local nmOwnCharaList = {} -- 不在队伍的拥有角色/机器人角色
         local normalFragmentList = {} -- 不可解锁的碎片
         for k, v in ipairs(charaterList) do
-            if (not XDataCenter.CharacterManager.GetCharacter(v.Id)) and (not XRobotManager.CheckIsRobotId(v.Id)) then -- 分开碎片和角色
-                local curFragmentA = XDataCenter.CharacterManager.GetCharUnlockFragment(v.Id)
-                local bornQualityA = XCharacterConfigs.GetCharMinQuality(v.Id)
-                local characterTypeA = XCharacterConfigs.GetCharacterType(v.Id)
-                local needFragmentA = XCharacterConfigs.GetComposeCount(characterTypeA, bornQualityA)
+            if (not XMVCA.XCharacter:GetCharacter(v.Id)) and (not XRobotManager.CheckIsRobotId(v.Id)) then -- 分开碎片和角色
+                local curFragmentA = XMVCA.XCharacter:GetCharUnlockFragment(v.Id)
+                local bornQualityA = XMVCA.XCharacter:GetCharMinQuality(v.Id)
+                local characterTypeA = XMVCA.XCharacter:GetCharacterType(v.Id)
+                local needFragmentA = XMVCA.XCharacter:GetComposeCount(characterTypeA, bornQualityA)
                 local isCanUnlockA = curFragmentA >= needFragmentA -- 是否可解锁碎片
 
                 if isCanUnlockA then

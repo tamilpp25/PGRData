@@ -18,9 +18,13 @@ function XTransfiniteResult:Ctor()
     self._IsConfirm = false
     ---@type XTransfiniteMedal
     self._Medal = XTransfiniteMedal.New()
+    ---@type XTransfiniteMedal
+    self._LastMedal = XTransfiniteMedal.New()
     self._RewardGoodList = false
     self._IsSettle = false
     self._StageGroupClearTime = 0
+    self._LastStageGroupClearTime = 0
+    self._IsNewMedal = false
     self._IsSomeoneDead = false
 end
 
@@ -74,13 +78,34 @@ function XTransfiniteResult:SetDataFromServer(settleData)
     local time = result.StageSpendTime
     self._ClearTime = time
     self._StageGroupClearTime = stageGroup:GetTotalClearTime() + self._ClearTime
+    self._LastStageGroupClearTime = stageGroup:GetBestClearTime()
+    if self._LastStageGroupClearTime <= 0 then
+        self._IsNewMedal = true
+    else
+        local progressId = stageGroup:GetStartStageProgressId()
+        local medalId = XTransfiniteConfigs.GetMedalIdByTime(self._StageGroupClearTime, progressId)
+        local lastMedalId = XTransfiniteConfigs.GetMedalIdByTime(self._LastStageGroupClearTime, progressId)
+        self._IsNewMedal = medalId > lastMedalId
+    end
 
     self._IsNewRecord = false
 
     if stage:IsExtraMission() then
-        self._IsShowExtraCondition = true
-        self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
-        self._TextCondition = stage:GetExtraMissionText()
+        if stageGroup:IsIsland() then
+            if self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.FirstHideExtra then
+                self._IsShowExtraCondition = false
+            elseif self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.SecondHideExtra then
+                self._IsShowExtraCondition = false
+            elseif self._WinAmount == XTransfiniteConfigs.IslandSpecialStage.ShowOtherExtra then
+                self._IsShowExtraCondition = true
+                self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
+                self._TextCondition = stage:GetExtraMissionText(true)
+            end
+        else
+            self._IsShowExtraCondition = true
+            self._IsCompleteExtraCondition = not stage:IsExtraMissionIncomplete(time)
+            self._TextCondition = stage:GetExtraMissionText()
+        end
     else
         self._IsShowExtraCondition = false
     end
@@ -178,8 +203,23 @@ function XTransfiniteResult:GetCharacterData()
 end
 
 function XTransfiniteResult:GetMedal()
-    self._Medal:SetTime(self._StageGroupClearTime)
+    local progressId = self:GetStageGroup():GetStartStageProgressId()
+    self._Medal:SetTime(self._StageGroupClearTime, progressId)
     return self._Medal
+end
+
+function XTransfiniteResult:GetLastMedal()
+    if self._LastStageGroupClearTime <= 0 then
+        return nil
+    end
+    local progressId = self:GetStageGroup():GetStartStageProgressId()
+    self._LastMedal:SetTime(self._LastStageGroupClearTime, progressId)
+    return self._LastMedal
+end
+
+--- 是否是新的徽章
+function XTransfiniteResult:CheckIsNewMedal()
+    return self._IsNewMedal
 end
 
 function XTransfiniteResult:IsFinalStage()
@@ -228,6 +268,10 @@ end
 
 function XTransfiniteResult:SetSomeoneDead(value)
     self._IsSomeoneDead = value
+end
+
+function XTransfiniteResult:IsIsland()
+    return self:GetStageGroup():IsIsland()
 end
 
 return XTransfiniteResult

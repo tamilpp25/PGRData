@@ -3,14 +3,16 @@ local XUiSceneMainPreview = XLuaUiManager.Register(XLuaUi, "UiSceneMainPreview")
 local ShowCD = CS.XGame.ClientConfig:GetFloat("ScenePreviewUiHideCD")
 local HideDelayCD = CS.XGame.ClientConfig:GetFloat("ScenePreviewUiHideDelay")
 
+
 function XUiSceneMainPreview:OnAwake()
     self:AddClickListener()
 end
 
-function XUiSceneMainPreview:OnStart(sceneId)
+function XUiSceneMainPreview:OnStart(sceneId,openType)
     self.SceneId = sceneId
     self:AutoSetUi()
-    
+    self.OpenType=openType
+    self.CloseByHand = false
 end
 
 function XUiSceneMainPreview:OnEnable()
@@ -26,6 +28,14 @@ end
 function XUiSceneMainPreview:OnDisable()
     self:StopScheduleToHideUi()
     self:RemoveEventListener()
+end
+
+function XUiSceneMainPreview:OnDestroy()
+    if not self.CloseByHand then
+        self.CloseByHand = true
+        XDataCenter.PhotographManager.ClearPreviewSceneId()
+        XDataCenter.GuideManager.SetDisableGuide(false)
+    end
 end
 
 function XUiSceneMainPreview:Refresh()
@@ -115,7 +125,7 @@ function XUiSceneMainPreview:OnTogPreviewClick()
         self.TogPreview.isOn = true
     else
         XDataCenter.PhotographManager.ClearPreviewSceneId()
-        XLuaUiManager.Open("UiSceneTip", self.SceneId)
+        XLuaUiManager.Open("UiSceneTip", self.SceneId,self.OpenType)
         --self.Super.Close(self)
         -- XLuaUiManager.Close("UiMain")
         XDataCenter.GuideManager.SetDisableGuide(false)
@@ -126,12 +136,9 @@ function XUiSceneMainPreview:Close()
     if not self.InTimer then 
         self:PlayUiShowAnim()
     else
-        XDataCenter.PhotographManager.ClearPreviewSceneId()
-        --XLuaUiManager.Remove("UiSceneTip")
-        self.Super.Close(self)
-        XLuaUiManager.Close("UiMain")
-        XDataCenter.GuideManager.SetDisableGuide(false)
+        self:ClearPreviewData()
     end
+    self.CloseByHand = true
 end
 
 function XUiSceneMainPreview:AddEventListener()
@@ -149,3 +156,13 @@ function XUiSceneMainPreview:PlayChangeModeAnim()
         self:PlayAnimationWithMask("DarkDisable")
     end)
 end
+
+function XUiSceneMainPreview:ClearPreviewData()
+    XDataCenter.PhotographManager.ClearPreviewSceneId()
+    --XLuaUiManager.Remove("UiSceneTip")
+    self.Super.Close(self)
+    if self.OpenType==XPhotographConfigs.PreviewOpenType.SceneSetting then
+        XLuaUiManager.Close("UiMain")
+    end
+    XDataCenter.GuideManager.SetDisableGuide(false)
+end 

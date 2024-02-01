@@ -30,7 +30,7 @@ function XDataEntityBase:Init(default, id)
                 if nil ~= value then
                     return value
                 end
-                value = GetClassVituralTable(self.__class)[k]
+                value = GetClassVirtualTable(self.__class)[k]
                 if nil ~= value then
                     return value
                 end

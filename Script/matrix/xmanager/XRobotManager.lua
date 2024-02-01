@@ -106,8 +106,8 @@ end
 function XRobotManager.GetRobotNpcTemplate(robotId)
     local RobotCfg = RobotTemplates[robotId]
     if not RobotCfg then return end
-    local npcId = XCharacterConfigs.GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
-    local template = XCharacterConfigs.GetNpcTemplate(npcId)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(RobotCfg.CharacterId, RobotCfg.CharacterQuality)
+    local template = XMVCA.XCharacter:GetNpcTemplate(npcId)
     return template
 end
 
@@ -128,7 +128,7 @@ end
 function XRobotManager.GetRobotCharacterType(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
     if not XTool.IsNumberValid(characterId) then return end
-    return XCharacterConfigs.GetCharacterType(characterId)
+    return XMVCA.XCharacter:GetCharacterType(characterId)
 end
 
 function XRobotManager.GetRobotCharacterLevel(robotId)
@@ -147,7 +147,7 @@ end
 --是否为授格者
 function XRobotManager.IsIsomer(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
-    return XCharacterConfigs.IsIsomer(characterId)
+    return XMVCA.XCharacter:GetIsIsomer(characterId)
 end
 
 function XRobotManager.GetRobotIdFilterListByCharacterType(robotIdList, characterType)
@@ -161,7 +161,7 @@ function XRobotManager.GetRobotIdFilterListByCharacterType(robotIdList, characte
     for _, robotId in ipairs(robotIdList) do
         characterId = XRobotManager.GetCharacterId(robotId)
         if characterId > 0 then
-            robotCharacterType = XCharacterConfigs.GetCharacterType(characterId)
+            robotCharacterType = XMVCA.XCharacter:GetCharacterType(characterId)
             if characterType then
                 if robotCharacterType == characterType then
                     tableInsert(filterRobotIdList, robotId)
@@ -198,7 +198,7 @@ function XRobotManager.GetRobotSmallHeadIcon(robotId)
     else
         -- 默认时装
         local characterId = XRobotManager.GetCharacterId(robotId)
-        fashionId = XCharacterConfigs.GetCharacterTemplate(characterId).DefaultNpcFashtionId
+        fashionId = XMVCA.XCharacter:GetCharacterTemplate(characterId).DefaultNpcFashtionId
     end
 
     result = isAchieveMaxLiberation and XDataCenter.FashionManager.GetFashionSmallHeadIconLiberation(fashionId) or
@@ -214,10 +214,10 @@ end
 --==============================--
 function XRobotManager.GetRobotCaptainSkillInfo(robotId)
     local robotTemplate = XRobotManager.GetRobotTemplate(robotId)
-    local captianSkillId = XCharacterConfigs.GetCharacterCaptainSkill(robotTemplate.CharacterId)
+    local captianSkillId = XMVCA.XCharacter:GetCharacterCaptainSkill(robotTemplate.CharacterId)
     local skillLevel = 1
 
-    return XCharacterConfigs.GetCaptainSkillInfo(robotTemplate.CharacterId, skillLevel)
+    return XMVCA.XCharacter:GetCaptainSkillInfo(robotTemplate.CharacterId, skillLevel)
 end
 
 --==============================

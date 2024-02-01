@@ -31,7 +31,7 @@ end
 --================
 function XUiRpgTowerCharaInfoInfo:OnClickBtnElementDetail()
     if not self.RChara then return end
-    XLuaUiManager.Open("UiCharacterElementDetail", self.RChara:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.RChara:GetCharacterId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 --================
 --点击职业信息

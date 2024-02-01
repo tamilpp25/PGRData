@@ -1,7 +1,7 @@
 local list
 
 local Record = function()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local charList = XMVCA.XCharacter:GetOwnCharacterList()
     list = {}
     for i = 1, #charList do
         table.insert(list, charList[i].Id)
@@ -31,16 +31,20 @@ end
 
 local GetDecomposeData = function(goods)
     local characterId = goods.TemplateId
-    local template = XCharacterConfigs.GetCharacterTemplate(characterId)
-    local characterType = XCharacterConfigs.GetCharacterType(characterId)
-    local decomposeCount = XCharacterConfigs.GetDecomposeCount(characterType, goods.Quality)
+    local template = XMVCA.XCharacter:GetCharacterTemplate(characterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+    local decomposeCount = XMVCA.XCharacter:GetDecomposeCount(characterType, goods.Quality)
     return { TemplateId = template.ItemId, Count = decomposeCount }
 end
 
+---@class XUiDrawCharacterRecord
 local CharacterRecord = {}
 
+---@type function
 CharacterRecord.Record = Record
+---@type function(characterId)
 CharacterRecord.IsOwnCharacter = IsOwnCharacter
+---@type function(goods)
 CharacterRecord.GetDecomposeData = GetDecomposeData
 
 return CharacterRecord

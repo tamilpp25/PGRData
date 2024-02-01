@@ -11,6 +11,7 @@ function XUiDrawControl:Ctor(rootUi, drawInfo, drawCb, uiDraw)
     self.UiDraw = uiDraw
     self.DrawBtns = {}
     self.IsCanDraw = true
+    self._DrawTime = 0
     self:InitRes()
     self:InitButtons()
     return self
@@ -107,6 +108,13 @@ function XUiDrawControl:OnDraw(drawCount)
         return
     end
 
+    -- CD冷却
+    local nowTime = CS.XTimerManager.Ticks / 10000000
+    if nowTime - self._DrawTime < tonumber(XDrawConfigs.GetDrawClientConfig("DrawCD")) then
+        return
+    end
+    self._DrawTime = nowTime
+
     if XDataCenter.DrawManager.CheckDrawIsTimeOver(self.DrawInfo.Id) then
         XUiManager.TipText("DrawAimLeftTimeOver")
         return
@@ -150,10 +158,11 @@ function XUiDrawControl:OnDraw(drawCount)
             self:Update(drawInfo)
             info = drawInfo
             list = rewardList
-            XLuaUiManager.Open("UiDrawNew",info,list)
+            XLuaUiManager.OpenWithCallback("UiDrawNew", function()
+                onAnimFinish()
+            end, info,list)
             --self.UiDraw:SetExtraRewardList(extraRewardList)
             --self.UiDraw:HideUiView(onAnimFinish)
-            onAnimFinish()
         end)
     end
 end

@@ -181,7 +181,7 @@ function XUiDrawActivityShow:NextPack()
         end
     else
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             if quality < 3 then
                 soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
@@ -302,7 +302,7 @@ function XUiDrawActivityShow:ShowCharacterModel(templateId, fashtionId)
     end
 
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashtionId)
-    local curFashtionId = fashtionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashtionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.CharacterRoot, XModelManager.MODEL_UINAME.XUiDrawShow, function(model)
@@ -439,7 +439,7 @@ function XUiDrawActivityShow:GetQuality(id, type)
     elseif type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     else
         quality = XTypeManager.GetQualityById(id)
     end

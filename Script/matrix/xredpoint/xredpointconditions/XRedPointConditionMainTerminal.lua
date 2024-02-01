@@ -7,14 +7,15 @@ local subEvent = nil
 
 function XRedPointConditionMainTerminal.GetSubEvents()
     subEvent = subEvent or {
-        XRedPointEventElement.New(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE)
+        XRedPointEventElement.New(XEventId.EVENT_MAINUI_TERMINAL_STATUS_CHANGE),
+        XRedPointEventElement.New(XEventId.EVENT_MAINUI_EXPENSIVE_ITEM_CHANGE)
     }
     return subEvent
 end
 
 function XRedPointConditionMainTerminal.GetSubConditions()
     subConditions = subConditions or {
-        XRedPointConditions.Types.CONDITION_MAIN_WEEK,
+        --XRedPointConditions.Types.CONDITION_MAIN_WEEK,
         XRedPointConditions.Types.CONDITION_MAIN_FRIEND,
         XRedPointConditions.Types.CONDITION_MAIN_SET,
         XRedPointConditions.Types.CONDITION_SUBMENU_NEW_NOTICES,
@@ -44,6 +45,13 @@ function XRedPointConditionMainTerminal.Check()
     
     local dormEntrust = XDataCenter.DormQuestManager.CheckDormEntrustRedPoint(true)
     if dormEntrust then
+        return true
+    end
+
+    ---@type XUiMainAgency
+    local ag = XMVCA:GetAgency(ModuleId.XUiMain)
+    local itemList = ag:GetAllActiveTipExpensiveiItems()
+    if not XTool.IsTableEmpty(itemList) and not ag:CheckPanelTipClicked(XEnumConst.Ui_MAIN.TerminalTipType.ExpensiveItem) then
         return true
     end
     

@@ -96,7 +96,7 @@ function XUiGridGachaShowReward:OnShow(rewardInfo)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
@@ -154,7 +154,7 @@ function XUiGridGachaShowReward:OnShow(rewardInfo)
     else
         local isSmall = false
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             if quality < 3 then
                 soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
@@ -267,7 +267,7 @@ function XUiGridGachaShowReward:CreateCharacterModel(templateId, fashionId)
     end
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashionId)
 
-    local curFashtionId = fashionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.GridModel, self.RootUi.Name, function(model)

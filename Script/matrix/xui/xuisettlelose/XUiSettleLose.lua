@@ -52,13 +52,18 @@ function XUiSettleLose:OnEnable()
                 self:Close()
             end, 0)
     end
-    self.UiStageSettleSound:PlaySettleSound()
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:PlaySettleSound()
+    end
 end
 
 function XUiSettleLose:OnDestroy()
     XDataCenter.AntiAddictionManager.EndFightAction()
     XEventManager.DispatchEvent(XEventId.EVENT_FIGHT_FINISH_LOSEUI_CLOSE)
-    self.UiStageSettleSound:StopSettleSound()
+    if self.UiStageSettleSound then
+        self.UiStageSettleSound:StopSettleSound()
+        self.UiStageSettleSound = nil
+    end
 end
 
 ---
@@ -152,12 +157,15 @@ function XUiSettleLose:OnBtnLoseClick()
     if XDataCenter.ArenaOnlineManager.JudgeGotoMainWhenFightOver(beginData.StageId) then
         return
     end
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.Expedition and XDataCenter.ExpeditionManager.GetIfBackMain() then
+    --- 囚笼没有TimeId， 战斗内换期需要退出后踢回主界面
+    if XMVCA.XFubenBossSingle:CheckAcitvityEnd(self.StageId) then
+        local data = XMVCA.XFubenBossSingle:GetBossSingleData()
+
         XLuaUiManager.RunMain()
-        XUiManager.TipMsg(CS.XTextManager.GetText("ExpeditionOnClose"))
+        data:SetIsNeedReset(false)
         return
     end
+
     self:Close()
 end
 
@@ -187,10 +195,13 @@ function XUiSettleLose:OnBtnTongRed()
     dict["stage_id"] = self.StageId
     CS.XRecord.Record(dict, "200005", "CombatFailure")
 
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(self.StageId)
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.BabelTower then
-        -- 点击降低难度后不需要打开选择难度页签
-        XDataCenter.FubenBabelTowerManager.SetNeedShowUiDifficult(false)
+    --- 囚笼没有TimeId， 战斗内换期需要退出后踢回主界面
+    if XMVCA.XFubenBossSingle:CheckAcitvityEnd(self.StageId) then
+        local data = XMVCA.XFubenBossSingle:GetBossSingleData()
+
+        XLuaUiManager.RunMain()
+        data:SetIsNeedReset(false)
+    else
+        self:Close()
     end
-    self:Close()
 end 

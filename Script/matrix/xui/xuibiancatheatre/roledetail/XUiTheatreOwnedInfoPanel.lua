@@ -48,7 +48,7 @@ function XGridSkill:OnBtnSubSkillIconBgClick()
     if not skillId or not level then
         return
     end
-    local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, level)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, level)
     XLuaUiManager.Open("UiSkillDetailsTips", configDes)
 end
 
@@ -83,7 +83,7 @@ function XPanelRoleSkill:Init()
     self.BallSkillGrids = {}
     self.GridActiveSkill.gameObject:SetActiveEx(false)
     self.BasicSkills.gameObject:SetActiveEx(false)
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
         if grid then
@@ -102,7 +102,7 @@ function XPanelRoleSkill:UpdateSkill(skills)
     local ballSkill1 = {}
     local ballSkill2 = {}
     for _, subSkill in pairs(skills[1].subSkills or {}) do
-        local skillType = XCharacterConfigs.GetSkillType(subSkill.configDes.SkillId)
+        local skillType = XMVCA.XCharacter:GetSkillType(subSkill.configDes.SkillId)
         if skillType <= BALL_SKILL_COUNT then
             table.insert(ballSkill1, subSkill)
         else
@@ -112,7 +112,7 @@ function XPanelRoleSkill:UpdateSkill(skills)
     self:UpdateBallSkillList(ballSkill1)
     self:UpdateSkillList(ballSkill2, self.GridActiveSkill, self.PanelBasicskills, 1)
 
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local parent =  XUiHelper.TryGetComponent(panel, "PanelActiveSkill")
         local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
@@ -497,6 +497,7 @@ function XComboGrid:OnBtnClick()
 end
 
 --######################## XPanelRole 简略角色羁绊面板 ########################
+---@class XBiancaTheatrePanelRole
 local XPanelRole = XClass(nil, "XPanelRole")
 
 function XPanelRole:Ctor(ui)
@@ -548,6 +549,7 @@ local AnimationPanel = {
 }
 
 --选择的角色详情
+---@class XUiBiancaTheatreOwnedInfoPanel
 local XUiTheatreOwnedInfoPanel = XClass(nil, "XUiTheatreOwnedInfoPanel")
 
 function XUiTheatreOwnedInfoPanel:Ctor(ui, switchRoleStateCb, rootUi)
@@ -564,6 +566,7 @@ end
 
 function XUiTheatreOwnedInfoPanel:Init(rootUi)
     local backClickCb = handler(self, self.OnChangePanel)
+    ---@type XBiancaTheatrePanelRole
     self.RolePanel = XPanelRole.New(self.PanelRole)
     self.AwarenessPanel = XPanelAwareness.New(self.PanelAwareness, rootUi)
     self.RolelAwarenessPanel = XPaneRolelAwareness.New(self.PaneRolelAwareness, backClickCb, rootUi, PanelIndex.Awareness)
@@ -589,10 +592,17 @@ function XUiTheatreOwnedInfoPanel:AddButtonClick()
     self.BtnAwareness.CallBack = function() self:OnChangePanel(PanelIndex.Awareness) end
     self.BtnSkill.CallBack = function() self:OnChangePanel(PanelIndex.Skill) end
     XUiHelper.RegisterClickEvent(self, self.BtnCareerTips, self.OnBtnCareerTipsClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
+
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnCareerTipsClick()
-    XLuaUiManager.Open("UiCharacterCarerrTips", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId())
 end
 
 --切换动画，1是切换成详情，2是切换回来，动画自带显隐
@@ -617,6 +627,7 @@ function XUiTheatreOwnedInfoPanel:OnChangePanel(panelIndex, isBack)
     end)
 end
 
+---@param adventureRole XBiancaTheatreAdventureRole
 function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
     if not adventureRole then
         return
@@ -625,6 +636,7 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
     self.EntityId = entityId
     self.AdventureRole = adventureRole
     local characterViewModel = adventureRole:GetCharacterViewModel()
+    local characterId = adventureRole:GetCharacterId()
     self.CharacterViewModel = characterViewModel
     
     --角色名
@@ -653,6 +665,17 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
         end
     end
 
+    -- 机制
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(characterId)
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+        end
+    end
+
     self.RolePanel:SetData(adventureRole)
     self.AwarenessPanel:SetData(adventureRole)
     self.RolelAwarenessPanel:SetData(adventureRole)
@@ -661,7 +684,17 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterViewModel:GetId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterViewModel:GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiTheatreOwnedInfoPanel:OnBtnGeneralSkillClick(index)
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(self.CharacterViewModel:GetId())
+    local curId = generalSkillIds[index]
+    if not curId then
+        return
+    end
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterViewModel:GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, index)
 end
 
 return XUiTheatreOwnedInfoPanel

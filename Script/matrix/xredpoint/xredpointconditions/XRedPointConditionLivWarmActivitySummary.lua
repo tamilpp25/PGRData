@@ -12,11 +12,11 @@ function XRedPointConditionLivWarmActivitySummary.GetSubConditions()
 end
 
 function XRedPointConditionLivWarmActivitySummary.Check()
-    if XRedPointConditionLivWarmActivityReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY_REWARD) then
         return true
     end
 
-    if XRedPointConditionLivWarmActivityCanChallenge.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_LIV_WARM_ACTIVITY_CAN_CHALLENGE) then
         return true
     end
 

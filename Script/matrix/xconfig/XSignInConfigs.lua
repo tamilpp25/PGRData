@@ -162,12 +162,13 @@ function XSignInConfigs.GetWelfareConfigsWithActivity()
             local subCfg = XSignInConfigs.GetSignCardConfig(cfg.SubConfigId)
             table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.Card, subCfg.BtnBg, subCfg.FullScreenBg))
         elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.WeekChallenge and openWelfare then
-            if XDataCenter.WeekChallengeManager.IsOpen() then
+            -- 2.11版本周挑战活动不再显示在活动界面
+            --[[if XDataCenter.WeekChallengeManager.IsOpen() then
                 local subCfg = XDataCenter.WeekChallengeManager.GetActivityCfg()
                 if subCfg then
                     table.insert(list, setConfig(subCfg.Id, subCfg.Name, cfg.Id, {}, subCfg.PrefabPath, XAutoWindowConfigs.AutoFunctionType.WeekChallenge, subCfg.BtnBg, subCfg.FullScreenBg))
                 end
-            end
+            end--]]
         elseif cfg.FunctionType == XAutoWindowConfigs.AutoFunctionType.NoticeActivity then
             local infos = XDataCenter.ActivityManager.GetActivityGroupInfos()
             for _, info in ipairs(infos or {}) do

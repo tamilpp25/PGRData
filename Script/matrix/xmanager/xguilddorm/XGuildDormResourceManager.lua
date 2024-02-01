@@ -17,6 +17,7 @@ end
 local function Instantiate(path)
     local prefab = CS.XResourceManager.Load(path)
     local go = CS.UnityEngine.Object.Instantiate(prefab.Asset)
+    CS.XResourceManager.AutoUnload(go, prefab)
     return go
 end
 --==============

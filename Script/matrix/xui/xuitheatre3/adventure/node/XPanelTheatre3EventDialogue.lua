@@ -28,7 +28,7 @@ end
 
 --region Ui - BtnListener
 function XPanelTheatre3EventDialogue:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
+    self._Control:RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
 end
 
 function XPanelTheatre3EventDialogue:OnBtnConfirmClick()

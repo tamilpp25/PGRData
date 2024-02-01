@@ -1,18 +1,15 @@
-local XGoldenMinerGame = require("XUi/XUiGoldenMiner/Game/XGoldenMinerGame")
-local XGoldenMinerGameData = require("XEntity/XGoldenMiner/Game/XGoldenMinerGameData")
-local XGoldenMinerFaceEmojiDataEntity = require("XEntity/XGoldenMiner/Game/XGoldenMinerFaceEmojiDataEntity")
-local XGoldenMinerBuffTipEntity = require("XEntity/XGoldenMiner/Game/XGoldenMinerBuffTipEntity")
-local XGoldenMinerReportInfo = require("XEntity/XGoldenMiner/Settle/XGoldenMinerReportInfo")
-local XGoldenMinerItemChangeInfo = require("XEntity/XGoldenMiner/Settle/XGoldenMinerItemChangeInfo")
-local XGoldenMinerSettlementInfo = require("XEntity/XGoldenMiner/Settle/XGoldenMinerSettlementInfo")
-local XUiItemPanel = require("XUi/XUiGoldenMiner/Panel/XUiItemPanel")
-local XUiBuffPanel = require("XUi/XUiGoldenMiner/Panel/XUiBuffPanel")
+local XGoldenMinerBuffTipData = require("XModule/XGoldenMiner/Data/Game/XGoldenMinerBuffTipData")
+local XGoldenMinerReportInfo = require("XModule/XGoldenMiner/Data/Settle/XGoldenMinerReportInfo")
+local XGoldenMinerItemChangeInfo = require("XModule/XGoldenMiner/Data/Settle/XGoldenMinerItemChangeInfo")
+local XGoldenMinerSettlementInfo = require("XModule/XGoldenMiner/Data/Settle/XGoldenMinerSettlementInfo")
+local XUiGoldenMinerItemPanel = require("XUi/XUiGoldenMiner/Panel/XUiGoldenMinerItemPanel")
+local XUiGoldenMinerBuffPanel = require("XUi/XUiGoldenMiner/Panel/XUiGoldenMinerBuffPanel")
+local XUiGoldenMinerFaceEmojiPanel = require("XUi/XUiGoldenMiner/Game/XUiGoldenMinerFaceEmojiPanel")
 
 ---@type UnityEngine.Time
 local UnityTime = CS.UnityEngine.Time
 
 local TIME_OFFSET = 0.99     --秒，补足倒计时为0时舍弃的0.9几秒
-local GAME_NEAR_END_TIME = XGoldenMinerConfigs.GetGameNearEndTime() --临近结束的时间（单位：秒）
 --玩法倒计时颜色
 local TxtTimeColor = {
     [true] = CS.UnityEngine.Color.white,
@@ -24,8 +21,16 @@ local CurAim = {
     Right = 1 << 1,
 }
 
----黄金矿工3.0玩法界面
+---黄金矿工 玩法界面
 ---@class XUiGoldenMinerGameBattle : XLuaUi
+---@field _Game XGoldenMinerGameControl
+---@field _Control XGoldenMinerControl
+---@field BtnMove XGoInputHandler
+---@field GoInputHandler XGoInputHandler
+---@field BtnShootHandler XGoInputHandler
+---@field AimLeftInputHandler XGoInputHandler
+---@field AimRightInputHandler XGoInputHandler
+---@field ElectromagneticBox XGoInputHandler
 local XUiGoldenMinerGameBattle = XLuaUiManager.Register(XLuaUi, "UiGoldenMinerBattle")
 
 function XUiGoldenMinerGameBattle:OnAwake()
@@ -38,12 +43,11 @@ function XUiGoldenMinerGameBattle:OnStart()
     self:InitUi()
     self:InitAutoCloseTimer()
     
+    self:AddEventListener()
     self:GameStart()
 end
 
 function XUiGoldenMinerGameBattle:OnEnable()
-    XUiGoldenMinerGameBattle.Super.OnEnable(self)
-    self:AddEventListener()
     self:AddPCListener()
 
     self:RefreshUi()
@@ -51,28 +55,23 @@ function XUiGoldenMinerGameBattle:OnEnable()
 end
 
 function XUiGoldenMinerGameBattle:OnDisable()
-    XUiGoldenMinerGameBattle.Super.OnDisable(self)
-    self:RemoveEventListener()
     self:RemovePCListener()
 end
 
 function XUiGoldenMinerGameBattle:OnDestroy()
+    self:RemoveEventListener()
     if self._Game then
-        self._Game:Destroy()
+        self._Game:ExitGame()
     end
     self._Game = nil
-
-    for _, resource in pairs(self._EffectResourcePool) do
-        resource:Release()
-    end
-    self._EffectObjDir = {}
+    self:ReleaseObj()
 end
 
 --region Activity - AutoClose
 function XUiGoldenMinerGameBattle:InitAutoCloseTimer()
-    self:SetAutoCloseInfo(XDataCenter.GoldenMinerManager.GetActivityEndTime(), function(isClose)
+    self:SetAutoCloseInfo(self._Control:GetCurActivityEndTime(), function(isClose)
         if isClose then
-            XDataCenter.GoldenMinerManager.HandleActivityEndTime()
+            self._Control:HandleActivityEndTime()
             return
         end
     end, nil, 0)
@@ -81,14 +80,15 @@ end
 
 --region Init - Data
 function XUiGoldenMinerGameBattle:InitData()
-    self._DataDb = XDataCenter.GoldenMinerManager.GetGoldenMinerDataDb()
+    self._DataDb = self._Control:GetMainDb()
     self._CurStageId, self._CurStageIndex = self._DataDb:GetCurStageId()
     self._MapId = self._DataDb:GetStageMapId(self._CurStageId)
     self._ScoreTarget = self._DataDb:GetCurStageTargetScore()
     self._AddTimeTipPosition = self.TxtAddTimeTip.transform.position
+    self._MoveRecordCount = 0
     
     --Game
-    self._OwnBuffList = XDataCenter.GoldenMinerManager.GetOwnBuffDic()
+    self._OwnBuffList = self._Control:GetOwnBuffDic()
     self._HookType = self:_SetDataHookType()
     
     --Aim
@@ -106,13 +106,13 @@ end
 
 function XUiGoldenMinerGameBattle:_SetDataHookType()
     if XTool.IsTableEmpty(self._OwnBuffList) then
-        return XGoldenMinerConfigs.FalculaType.Normal
+        return XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL
     end
-    local type = XGoldenMinerConfigs.FalculaType.Normal
+    local type = XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL
     for buffType, params in pairs(self._OwnBuffList) do
-        if buffType == XGoldenMinerConfigs.BuffType.GoldenMinerCordMode then
+        if buffType == XEnumConst.GOLDEN_MINER.BUFF_TYPE.CORD_MODE then
             return params[1]
-        elseif buffType == XGoldenMinerConfigs.BuffType.GoldenMinerRoleHook then
+        elseif buffType == XEnumConst.GOLDEN_MINER.BUFF_TYPE.ROLE_HOOK then
             type = params[1]
         end
     end
@@ -123,9 +123,7 @@ end
 --region Init - Obj
 function XUiGoldenMinerGameBattle:InitObj()
     --Game
-    ---@type XGoldenMinerGame
-    self._Game = XGoldenMinerGame.New()
-    self._GameTimer = nil
+    self._Game = self._Control:GetGameControl()
     
     --Pause
     self._GamePauseAnimTimer = nil
@@ -134,21 +132,23 @@ function XUiGoldenMinerGameBattle:InitObj()
     --Hook
     ---@type UnityEngine.Transform[]
     self.HookObjDir = {
-        [XGoldenMinerConfigs.FalculaType.Normal] = self.NormalRope,
-        [XGoldenMinerConfigs.FalculaType.Magnetic] = self.MagneticRope,
-        [XGoldenMinerConfigs.FalculaType.Big] = self.BigRope,
-        [XGoldenMinerConfigs.FalculaType.AimingAngle] = self.AimHook,
-        [XGoldenMinerConfigs.FalculaType.StorePressMagnetic] = self.MagneticRope,
-        [XGoldenMinerConfigs.FalculaType.Double] = self.DoubleHook2,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL] = self.NormalRope,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.MAGNETIC] = self.MagneticRope,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.BIG] = self.BigRope,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE] = self.AimHook,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC] = self.MagneticRope,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.DOUBLE] = self.DoubleHook2,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.HAMMER] = self.Hammer,
     }
     ---@type UnityEngine.Collider2D[]
     self.HookColliderDir = {
-        [XGoldenMinerConfigs.FalculaType.Normal] = self.NormalCordCollider,
-        [XGoldenMinerConfigs.FalculaType.Magnetic] = self.MagneticRopeCordCollider,
-        [XGoldenMinerConfigs.FalculaType.Big] = self.BigRopeCordLeftCollider,
-        [XGoldenMinerConfigs.FalculaType.AimingAngle] = self.NormalCordCollider,
-        [XGoldenMinerConfigs.FalculaType.StorePressMagnetic] = self.MagneticRopeCordCollider,
-        [XGoldenMinerConfigs.FalculaType.Double] = self.BigRopeCordLeftCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL] = self.NormalCordCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.MAGNETIC] = self.MagneticRopeCordCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.BIG] = self.BigRopeCordLeftCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE] = self.NormalCordCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC] = self.MagneticRopeCordCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.DOUBLE] = self.BigRopeCordLeftCollider,
+        [XEnumConst.GOLDEN_MINER.HOOK_TYPE.HAMMER] = self.HammerRopeCord,
     }
     for type, obj in pairs(self.HookObjDir) do
         obj.gameObject:SetActiveEx(false)
@@ -160,6 +160,40 @@ function XUiGoldenMinerGameBattle:InitObj()
     self._EffectRoot = XUiHelper.Instantiate(self.EffectFull.gameObject, self.EffectFull.transform.parent)
     self._EffectResourcePool = {}
     self._EffectObjDir = {}
+end
+
+function XUiGoldenMinerGameBattle:ReleaseObj()
+    for _, resource in pairs(self._EffectResourcePool) do
+        resource:Release()
+    end
+
+    self._EffectObjDir = nil
+    self._EffectResourcePool = nil
+    self.HookObjDir = nil
+    self.HookColliderDir = nil
+    if self.BtnShootHandler then
+        self.BtnShootHandler:RemoveAllListeners()
+    end
+    if self.AimLeftInputHandler then
+        self.AimLeftInputHandler:RemoveAllListeners()
+    end
+    if self.AimRightInputHandler then
+        self.AimRightInputHandler:RemoveAllListeners()
+    end
+    if self.ElectromagneticBox then
+        self.ElectromagneticBox:RemoveAllListeners()
+    end
+    if self.GoInputHandler then
+        self.GoInputHandler:RemoveAllListeners()
+    end
+    if self.BtnMove then
+        self.BtnMove:RemoveAllListeners()
+    end
+    self.GoInputHandler = nil
+    self.BtnShootHandler = nil
+    self.ElectromagneticBox = nil
+    self.AimLeftInputHandler = nil
+    self.AimRightInputHandler = nil
 end
 --endregion
 
@@ -174,7 +208,7 @@ function XUiGoldenMinerGameBattle:InitUi()
     self:InitPauseGuideUi()
     self:InitBtn()
     self:InitMouseTip()
-    self:InitShip()
+    self:InitRelic()
 end
 
 function XUiGoldenMinerGameBattle:RefreshUi()
@@ -206,46 +240,51 @@ function XUiGoldenMinerGameBattle:_SetCurScore(score)
         return
     end
     self.CurScore.text = XUiHelper.GetText("GoldenMinerPlayCurScoreRichTxt",
-            XGoldenMinerConfigs.GetGameScoreColorCode(score >= self._ScoreTarget),
+            self._Control:GetClientGameScoreColorCode(score >= self._ScoreTarget),
             score)
 end
 
 function XUiGoldenMinerGameBattle:_PlayScoreChange()
-    local changeScore = self._Game:GetChangeScore()
-    local oldScore = self._Game:GetOldScore()
-    local curScore = self._Game:GetCurScore()
     if self._PlayScoreChangeTimer then
-        XScheduleManager.UnSchedule(self._PlayScoreChangeTimer)
+        self._ChangeScore = self._ChangeScore + self._Game:GetChangeScore()
+    else
+        self._OldScore = self._Game:GetOldScore()
+        self._ChangeScore = self._Game:GetChangeScore()
     end
 
-    self._PlayScoreChangeTimer = XUiHelper.Tween(1, function(f)
-        self:_SetCurScore(math.floor(oldScore + changeScore * f))
-    end, function()
-        self:_SetCurScore(curScore)
-    end)
-    if self.TxtCurScoreChange then
-        self.TxtCurScoreChange.text = "+" .. changeScore
-    end
-    if self.PanelCurScoreChange then
+    if not self._PlayScoreChangeTimer then
         self.PanelCurScoreChange.gameObject:SetActiveEx(true)
         self:PlayAnimation("BubbleEnable")
     end
+    self._PlayScoreChangeTimer = XUiHelper.Tween(1, function(f)
+        if not self._Game then
+            return
+        end
+        self:_SetCurScore(math.floor(self._OldScore + self._ChangeScore * f))
+    end, function()
+        self._PlayScoreChangeTimer = nil
+        if not self._Game then
+            return
+        end
+        self:_SetCurScore(self._Game:GetCurScore())
+    end)
+    self.TxtCurScoreChange.text = "+" .. self._ChangeScore
 end
 --endregion
 
 --region Ui - PlayTime
 function XUiGoldenMinerGameBattle:InitPlayTime()
-    local time = XGoldenMinerConfigs.GetMapTime(self._MapId) + TIME_OFFSET
+    local time = self._Control:GetCfgMapTime(self._MapId) + TIME_OFFSET
     self.TxtTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.ESCAPE_REMAIN_TIME)
     self.TxtTime.color = TxtTimeColor[true]
 end
 
 function XUiGoldenMinerGameBattle:RefreshPlayTime()
-    self:_SetTxtTime(self._Game:GetData():GetTime())
+    self:_SetTxtTime(self._Game:GetGameData():GetTime())
 end
 
 function XUiGoldenMinerGameBattle:AddPlayTime(addTime)
-    self:_SetTxtTime(self._Game:GetData():GetTime())
+    self:_SetTxtTime(self._Game:GetGameData():GetTime())
     self:_PlayAddPlayTime(addTime)
 end
 
@@ -253,15 +292,15 @@ function XUiGoldenMinerGameBattle:_PlayAddPlayTime(addTime)
     self.TxtAddTimeTip.transform.position = self._AddTimeTipPosition
     self.TxtAddTimeTip.gameObject:SetActive(true)
     self.TxtAddTimeTip.text = "+" .. addTime
-    local endY = self.TxtAddTimeTip.transform.localPosition.y + XGoldenMinerConfigs.GetTipAnimMoveLength()
-    local time = XGoldenMinerConfigs.GetTipAnimTime() / XScheduleManager.SECOND
+    local endY = self.TxtAddTimeTip.transform.localPosition.y + self._Control:GetClientTipAnimMoveLength()
+    local time = self._Control:GetClientTipAnimTime() / XScheduleManager.SECOND
     self.TxtAddTimeTip.transform:DOLocalMoveY(endY, time)
     XScheduleManager.ScheduleOnce(function()
         if XTool.UObjIsNil(self.GameObject) then
             return
         end
         self.TxtAddTimeTip.gameObject:SetActive(false)
-    end, XGoldenMinerConfigs.GetTipAnimTime())
+    end, self._Control:GetClientTipAnimTime())
 end
 
 local _IsNearEnd
@@ -272,7 +311,7 @@ function XUiGoldenMinerGameBattle:_SetTxtTime(time)
     end
 
     _IsPlayTimeEnable = time - self._CurNearEndTime < 0
-    _IsNearEnd = time <= GAME_NEAR_END_TIME
+    _IsNearEnd = time <= self._Control:GetClientGameNearEndTime()
 
     --临近结束时间后，每隔1秒播放一次动画
     if _IsNearEnd and _IsPlayTimeEnable then
@@ -300,14 +339,14 @@ function XUiGoldenMinerGameBattle:HideTaskFinish(hideTaskInfo)
     end
     local progress = hideTaskInfo:IsFinish() and XUiHelper.GetText("GoldenMinerHideTaskComplete") or hideTaskInfo:GetTxtShowProgress()
     self.Task.gameObject:SetActiveEx(true)
-    self.Task.text = XUiHelper.GetText("GoldenMinerHideTaskShowTxt", XGoldenMinerConfigs.GetHideTaskDesc(hideTaskInfo:GetId()), progress)
+    self.Task.text = XUiHelper.GetText("GoldenMinerHideTaskShowTxt", hideTaskInfo:GetCfgDesc(), progress)
 end
 --endregion
 
 --region Ui - Item
 function XUiGoldenMinerGameBattle:InitItem()
     ---@type XUiGoldenMinerItemPanel
-    self.ItemPanel = XUiItemPanel.New(self.PanelSkillParent, true)
+    self.ItemPanel = XUiGoldenMinerItemPanel.New(self.PanelSkillParent, self, true)
 end
 
 function XUiGoldenMinerGameBattle:RefreshItem()
@@ -324,7 +363,7 @@ function XUiGoldenMinerGameBattle:AddItem(itemId)
     end
 
     self._DataDb:UpdateItemColumn(itemId, itemColumnIndex)
-    self:UpdateItemChangeInfo(itemColumnIndex, XGoldenMinerConfigs.ItemChangeType.OnGet)
+    self:UpdateItemChangeInfo(itemColumnIndex, XEnumConst.GOLDEN_MINER.ITEM_CHANGE_TYPE.ON_GET)
     self:RefreshItem()
     self:_PlayAddItem(itemId)
 end
@@ -344,27 +383,27 @@ function XUiGoldenMinerGameBattle:_PlayAddItem(itemId)
     self.TxtAddItemTip.gameObject:SetActive(true)
     self.TxtAddItemTip.text = "+1"
     self.TxtAddItemTip.transform.position = self.Humen.transform.position
-    self.RImgAddItemIcon:SetRawImage(XGoldenMinerConfigs.GetItemIcon(itemId))
-    local endY = self.TxtAddItemTip.transform.localPosition.y + XGoldenMinerConfigs.GetTipAnimMoveLength()
-    local time = XGoldenMinerConfigs.GetTipAnimTime() / XScheduleManager.SECOND
+    self.RImgAddItemIcon:SetRawImage(self._Control:GetCfgItemIcon(itemId))
+    local endY = self.TxtAddItemTip.transform.localPosition.y + self._Control:GetClientTipAnimMoveLength()
+    local time = self._Control:GetClientTipAnimTime() / XScheduleManager.SECOND
     self.TxtAddItemTip.transform:DOLocalMoveY(endY, time)
     XScheduleManager.ScheduleOnce(function()
         if XTool.UObjIsNil(self.GameObject) then
             return
         end
         self.TxtAddItemTip.gameObject:SetActive(false)
-    end, XGoldenMinerConfigs.GetTipAnimTime())
+    end, self._Control:GetClientTipAnimTime())
 end
 --endregion
 
 --region Ui - Buff
 function XUiGoldenMinerGameBattle:InitBuff()
     ---@type XUiGoldenMinerBuffPanel
-    self.BuffPanel = XUiBuffPanel.New(self.PanelBuffParent, self)
+    self.BuffPanel = XUiGoldenMinerBuffPanel.New(self.PanelBuffParent, self)
     
-    ---@type XGoldenMinerBuffTipEntity[]
+    ---@type XGoldenMinerBuffTipData[]
     self._NeedTipBuffDir = {}
-    ---@type XGoldenMinerBuffTipEntity
+    ---@type XGoldenMinerBuffTipData
     self._CurBuffEntity = false
     
     ---@type UnityEngine.Transform
@@ -377,16 +416,16 @@ function XUiGoldenMinerGameBattle:InitBuff()
 end
 
 function XUiGoldenMinerGameBattle:RefreshBuff()
-    self.BuffPanel:UpdateBuff(XDataCenter.GoldenMinerManager.GetOwnBuffIdList())
+    self.BuffPanel:UpdateBuff(self._Control:GetShowOwnBuffIdList())
 end
 
 function XUiGoldenMinerGameBattle:AddBuffTip(itemId)
-    if XGoldenMinerConfigs.GetItemTipsType(itemId) == XGoldenMinerConfigs.BuffTipType.None then
+    if self._Control:GetCfgItemTipsType(itemId) == XEnumConst.GOLDEN_MINER.BUFF_TIP_TYPE.NONE then
         return
     end
     if XTool.IsTableEmpty(self._NeedTipBuffDir) then
-        ---@type XGoldenMinerBuffTipEntity
-        self._NeedTipBuffDir[#self._NeedTipBuffDir + 1] = XGoldenMinerBuffTipEntity.New(itemId)
+        ---@type XGoldenMinerBuffTipData
+        self._NeedTipBuffDir[#self._NeedTipBuffDir + 1] = XGoldenMinerBuffTipData.New(itemId)
     else
         local isHave = false
         for _, buffTipEntity in ipairs(self._NeedTipBuffDir) do
@@ -396,7 +435,7 @@ function XUiGoldenMinerGameBattle:AddBuffTip(itemId)
             end
         end
         if not isHave then
-            self._NeedTipBuffDir[#self._NeedTipBuffDir + 1] = XGoldenMinerBuffTipEntity.New(itemId)
+            self._NeedTipBuffDir[#self._NeedTipBuffDir + 1] = XGoldenMinerBuffTipData.New(itemId)
         end
     end
 end
@@ -410,19 +449,19 @@ function XUiGoldenMinerGameBattle:RefreshBuffTip(time)
 end
 
 function XUiGoldenMinerGameBattle:_UpdateBuffTipEntity(time)
-    local BuffList = self._Game:GetBuffDir()
     local isDelete = false
     
     for _, buffTipEntity in ipairs(self._NeedTipBuffDir) do
-        if buffTipEntity:GetTipType() == XGoldenMinerConfigs.BuffTipType.UntilDie then
-            for _, buff in ipairs(BuffList[buffTipEntity:GetBuffType()]) do
-                if buffTipEntity:GetBuffId() == buff.Id then
+        if buffTipEntity:GetTipType(self._Control) == XEnumConst.GOLDEN_MINER.BUFF_TIP_TYPE.UNTIL_DIE then
+            for uid, _ in pairs(self._Game.SystemBuff:GetBuffUidListByType(buffTipEntity:GetBuffType(self._Control))) do
+                local buff = self._Game:GetBuffEntityByUid(uid)
+                if buffTipEntity:GetBuffId(self._Control) == buff:GetId() then
                     buffTipEntity.ShowParam = buff.CurTimeTypeParam
-                    buffTipEntity.IsDie = buff.Status > XGoldenMinerConfigs.GAME_BUFF_STATUS.ALIVE
-                    isDelete = buff.Status > XGoldenMinerConfigs.GAME_BUFF_STATUS.ALIVE
+                    buffTipEntity.IsDie = buff.Status > XEnumConst.GOLDEN_MINER.GAME_BUFF_STATUS.ALIVE
+                    isDelete = buff.Status > XEnumConst.GOLDEN_MINER.GAME_BUFF_STATUS.ALIVE
                 end
             end
-        elseif buffTipEntity:GetTipType() == XGoldenMinerConfigs.BuffTipType.Once then
+        elseif buffTipEntity:GetTipType(self._Control) == XEnumConst.GOLDEN_MINER.BUFF_TIP_TYPE.ONCE then
             buffTipEntity.CurTime = buffTipEntity.CurTime - time
             if buffTipEntity.CurTime <= 0 then
                 buffTipEntity.IsDie = true
@@ -450,7 +489,7 @@ function XUiGoldenMinerGameBattle:_UpdateBuffTip()
     end
     if self._CurBuffEntity then
         if self._CurBuffEntity ~= self._NeedTipBuffDir[#self._NeedTipBuffDir] or
-                self._CurBuffEntity:GetTipType() == XGoldenMinerConfigs.BuffTipType.UntilDie then
+                self._CurBuffEntity:GetTipType(self._Control) == XEnumConst.GOLDEN_MINER.BUFF_TIP_TYPE.UNTIL_DIE then
             self:_PlayBuffTip()
         end
     else
@@ -463,7 +502,7 @@ function XUiGoldenMinerGameBattle:_PlayBuffTip()
     self._CurBuffEntity = self._NeedTipBuffDir[#self._NeedTipBuffDir]
     if self.BuffBubble then
         self.BuffBubble.gameObject:SetActiveEx(true)
-        self.TxtBuffTip.text = self._CurBuffEntity:GetBuffTipTxt()
+        self.TxtBuffTip.text = self._CurBuffEntity:GetBuffTipTxt(self._Control)
     end
 end
 
@@ -477,223 +516,65 @@ end
 
 --region Ui - FaceEmoji
 function XUiGoldenMinerGameBattle:InitFaceEmoji()
-    self:PlayAnimation("PanelEmoticonDisable")
-    ---@type XGoldenMinerFaceEmojiDataEntity
-    self.FaceEmojiDataEntity = XGoldenMinerFaceEmojiDataEntity.New()
-    self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.NONE)
-    self.FaceEmojiDataEntity.PlayDuration = XGoldenMinerConfigs.GetFaceEmojiShowTime()
-end
-
-function XUiGoldenMinerGameBattle:SetFaceEmojiEntityStatus(status)
-    self.FaceEmojiDataEntity.BeStatusFaceId = false
-    self.FaceEmojiDataEntity.Status = status
+    ---@type XUiGoldenMinerFaceEmojiPanel
+    self._FaceEmojiPanel = XUiGoldenMinerFaceEmojiPanel.New(self.PanelEmoticon, self, self._Game)
+    self._FaceEmojiPanel:Open()
+    self._FaceEmojiPanel:Close()
 end
 
 function XUiGoldenMinerGameBattle:RefreshFaceEmoji(time)
-    -- 动画播放中跳过
-    if self.FaceEmojiDataEntity.IsAim then
-        return
-    end
-    local bePlayFaceId = self.FaceEmojiDataEntity.CurPlayQueue:Peek()
-    -- 优先播放普通表情
-    if bePlayFaceId then
-        -- 播放
-        if not self.FaceEmojiDataEntity.CurFaceId then
-            self:PlayFaceAnim(bePlayFaceId)
-            return
-        end
-        if self.FaceEmojiDataEntity.CurFaceId ~= bePlayFaceId then
-            self:StopFaceAnim()
-            return
-        end
-        -- 持续
-        if self.FaceEmojiDataEntity.CurPlayDuration > 0 then
-            self.FaceEmojiDataEntity.CurPlayDuration = self.FaceEmojiDataEntity.CurPlayDuration - time
-            -- 结束
-            if self.FaceEmojiDataEntity.CurPlayDuration <= 0 then
-                self.FaceEmojiDataEntity.CurPlayQueue:Dequeue()
-                self:StopFaceAnim()
-            end
-        end
-        return
-    end
-    
-    -- 播放状态表情
-    -- 切换
-    if self.FaceEmojiDataEntity.StatusFaceId ~= self.FaceEmojiDataEntity.BeStatusFaceId then
-        self.FaceEmojiDataEntity.StatusFaceId = self.FaceEmojiDataEntity.BeStatusFaceId
-    end
-    if self.FaceEmojiDataEntity.CurFaceId and self.FaceEmojiDataEntity.StatusFaceId ~= self.FaceEmojiDataEntity.CurFaceId
-            or not self.FaceEmojiDataEntity.StatusFaceId and self.FaceEmojiDataEntity.CurFaceId
-    then
-        -- 结束状态表情
-        self:StopFaceAnim()
-    elseif not self.FaceEmojiDataEntity.CurFaceId then
-        -- 播放状态表情
-        self:PlayFaceAnim(self.FaceEmojiDataEntity.StatusFaceId)
+    self._FaceEmojiPanel:RefreshFaceEmoji(time)
+end
+
+function XUiGoldenMinerGameBattle:_PlayEmoticonAnim(isEnable)
+    if isEnable then
+        self:PlayAnimation("PanelEmoticonEnable", function()
+            self._FaceEmojiPanel:SetIsAfterAnim()
+        end)
+    else
+        self:PlayAnimation("PanelEmoticonDisable", function()
+            self._FaceEmojiPanel:SetIsAfterAnim()
+        end)
     end
 end
 
-function XUiGoldenMinerGameBattle:PlayFaceAnim(faceId)
-    if not XTool.IsNumberValid(faceId) then
-        return
-    end
-
-    self.PanelEmoticon.gameObject:SetActiveEx(true)
-    self.FaceEmojiDataEntity.CurFaceId = faceId
-    self.FaceEmojiDataEntity.CurPlayDuration = self.FaceEmojiDataEntity.PlayDuration
-    self.FaceEmojiDataEntity.IsAim = true
-    
-    local img = XGoldenMinerConfigs.GetFaceImage(faceId)
-    if not XTool.UObjIsNil(self.RImgHate) then
-        self.RImgHate:SetRawImage(img)
-    end
-    self:PlayAnimation("PanelEmoticonEnable", function()
-        self.FaceEmojiDataEntity.IsAim = false
-    end)
-end
-
-function XUiGoldenMinerGameBattle:StopFaceAnim()
-    self.FaceEmojiDataEntity.CurFaceId = false
-    self.FaceEmojiDataEntity.IsAim = true
-    self:PlayAnimation("PanelEmoticonDisable", function()
-        self.FaceEmojiDataEntity.IsAim = false
-    end)
-end
-
-function XUiGoldenMinerGameBattle:CheckHasFace()
-    return false
-end
-
----@param type number XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE
+---@param type number XEnumConst.GOLDEN_MINER.GAME_FACE_PLAY_TYPE
 function XUiGoldenMinerGameBattle:PlayFaceEmoji(type, faceId)
-    if not XTool.IsNumberValid(faceId) then
-        return
-    end
-    
-    if type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.NONE then
-        self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.NONE)
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.SHOOTING then
-        self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.SHOOTING)
-        
-        self.FaceEmojiDataEntity.BeStatusFaceId = faceId
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.GRAB_STONE
-            or type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.GRAB_NONE
-    then
-        self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.NONE)
-        self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(faceId)
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.REVOKING then
-        self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.REVOKING)
-        
-        local stoneEntityList = self._Game:GetHookGrabEntity(nil, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBING)
-        if XTool.IsTableEmpty(stoneEntityList) then
-            return
-        end
-        -- 拉回根据重量
-        faceId = self:_GetFaceIdByGroupIdByWeight(faceId, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBING)
-        self.FaceEmojiDataEntity.BeStatusFaceId = faceId
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.GRABBED then
-        self:SetFaceEmojiEntityStatus(XGoldenMinerConfigs.GAME_FACE_PLAY_STATUS.NONE)
-        
-        -- 当抓取物为1时，抓到特殊物品时
-        local stoneEntityList = self._Game:GetHookGrabEntity(nil, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBED)
-        if #stoneEntityList == 1 then
-            for _, stoneEntity in pairs(stoneEntityList) do
-                local stoneGrabFaceId = XGoldenMinerConfigs.GetStoneTypeGrabFaceId(stoneEntity.Data:GetType())
-                if XTool.IsNumberValid(stoneGrabFaceId) then
-                    self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(stoneGrabFaceId)
-                    return
-                end
-            end
-        end
-        -- 非特殊物品和抓取物为复数时
-        faceId = self:_GetFaceIdByGroupIdByScore(faceId, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBED)
-        self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(faceId)
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.USE_ITEM then
-        -- 使用普通道具
-        self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(faceId)
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.USE_BY_WEIGHT then
-        self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(faceId)
-        local secondFaceId = self:_GetFaceIdByGroupIdByWeight(faceId, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBING)
-        if faceId ~= secondFaceId then
-            self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(secondFaceId)
-        end
-    elseif type == XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.USE_BY_SCORE then
-        self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(faceId)
-        -- 使用需要根据价值区分表情的道具
-        local secondFaceId = self:_GetFaceIdByGroupIdByScore(faceId, XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.GRABBING)
-        if faceId ~= secondFaceId then
-            self.FaceEmojiDataEntity.CurPlayQueue:Enqueue(secondFaceId)
-        end
-    end
+    self._FaceEmojiPanel:PlayFaceEmoji(type, faceId)
 end
 
 function XUiGoldenMinerGameBattle:PlayFaceEmojiByUseItem(itemId)
-    local buffId = XGoldenMinerConfigs.GetItemBuffId(itemId)
-    local type = XGoldenMinerConfigs.GetBuffType(buffId)
-    local faceId = XGoldenMinerConfigs.GetItemUseFaceId(itemId)
-    if type == XGoldenMinerConfigs.BuffType.GoldenMinerStoneChangeGold 
-            or type == XGoldenMinerConfigs.BuffType.GoldenMinerBoom
-    then
-        self:PlayFaceEmoji(XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.USE_BY_SCORE, faceId)
-        return
-    end
-    self:PlayFaceEmoji(XGoldenMinerConfigs.GAME_FACE_PLAY_TYPE.USE_ITEM, faceId)
-end
-
-function XUiGoldenMinerGameBattle:_GetFaceIdByGroupIdByWeight(faceId, stoneStatus)
-    if not XTool.IsNumberValid(faceId) then
-        return faceId
-    end
-    local faceGroupId = XGoldenMinerConfigs.GetFaceGroup(faceId)
-    if not XTool.IsNumberValid(faceGroupId) then
-        return faceId
-    end
-    local weight = self._Game:GetHookGrabWeight(stoneStatus)
-    return XGoldenMinerConfigs.GetFaceIdByGroup(faceGroupId, weight)
-end
-
-function XUiGoldenMinerGameBattle:_GetFaceIdByGroupIdByScore(faceId, stoneStatus)
-    if not XTool.IsNumberValid(faceId) then
-        return faceId
-    end
-    local faceGroupId = XGoldenMinerConfigs.GetFaceGroup(faceId)
-    if not XTool.IsNumberValid(faceGroupId) then
-        return faceId
-    end
-    local score = self._Game:GetHookGrabScore(stoneStatus)
-    return XGoldenMinerConfigs.GetFaceIdByGroup(faceGroupId, score)
+    self._FaceEmojiPanel:PlayFaceEmojiByUseItem(itemId)
 end
 --endregion
 
 --region Ui - Pause Dialog
 function XUiGoldenMinerGameBattle:InitPauseGuideUi()
-    local isAimHook = self._HookType == XGoldenMinerConfigs.FalculaType.AimingAngle
     local isPc = XDataCenter.UiPcManager.IsPc()
     if self.PanelGuide then
         self.PanelGuide.gameObject:SetActiveEx(false)
     end
     if self.PanelMP then
-        self.PanelMP.gameObject:SetActiveEx(isAimHook and not isPc)
+        self.PanelMP.gameObject:SetActiveEx(not isPc)
     end
     if self.TxtPC then
-        self.TxtPC.gameObject:SetActiveEx(isAimHook and isPc)
+        self.TxtPC.gameObject:SetActiveEx(isPc)
     end
     if self.TxtGuideShoot then
-        self.TxtGuideShoot.text = XGoldenMinerConfigs.GetFalculaButtonTip(self._HookType)
-        self.TxtGuideHook.text = XGoldenMinerConfigs.GetFalculaShipTip(self._HookType)
+        self.TxtGuideShoot.text = self._Control:GetCfgHookButtonTip(self._HookType)
+        self.TxtGuideHook.text = self._Control:GetCfgHookShipTip(self._HookType)
     end
 end
 
 function XUiGoldenMinerGameBattle:StartGamePauseAnim()
     self:StopGamePauseAnim()
-    local time = XGoldenMinerConfigs.GetGameStopCountdown()
-    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XGoldenMinerConfigs.GAME_PAUSE_TYPE.AUTO)
+    local time = self._Control:GetClientGameStopCountdown()
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.AUTO)
     self._GamePauseAnimTimer = XScheduleManager.ScheduleForeverEx(function()
         if XTool.UObjIsNil(self.GameObject) then return end
         if time <= 0 then
             self.PanelGuide.gameObject:SetActiveEx(false)
-            XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XGoldenMinerConfigs.GAME_PAUSE_TYPE.AUTO)
+            XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.AUTO)
             self:StopGamePauseAnim()
             return
         end
@@ -705,11 +586,11 @@ function XUiGoldenMinerGameBattle:StartGamePauseAnim()
     if not self.ImgBg then
         return
     end
-    local pauseTime = XGoldenMinerConfigs.GetGameStopCountdown()
+    local pauseTime = self._Control:GetClientGameStopCountdown()
     self._GamePauseTimeAnimTimer = XScheduleManager.ScheduleForeverEx(function()
         if XTool.UObjIsNil(self.GameObject) then return end
         pauseTime = pauseTime - UnityTime.deltaTime
-        self.ImgBg.fillAmount = pauseTime / XGoldenMinerConfigs.GetGameStopCountdown()
+        self.ImgBg.fillAmount = pauseTime / self._Control:GetClientGameStopCountdown()
     end, 0)
 end
 
@@ -726,10 +607,10 @@ end
 
 ---关卡暂停
 function XUiGoldenMinerGameBattle:OpenPauseDialog()
-    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XGoldenMinerConfigs.GAME_PAUSE_TYPE.PLAYER)
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.PLAYER)
     local closeCallback = function()
         self:StartGamePauseAnim()
-        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XGoldenMinerConfigs.GAME_PAUSE_TYPE.PLAYER)
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.PLAYER)
         self.BtnStop:SetButtonState(CS.UiButtonState.Normal)
     end
     local sureCallback = handler(self, self._OnExitStage)
@@ -738,23 +619,23 @@ function XUiGoldenMinerGameBattle:OpenPauseDialog()
     if self.ImgBg then
         self.ImgBg.fillAmount = 1
     end
-    XLuaUiManager.Open("UiGoldenMinerSuspend", self._DataDb:GetDisplayData(), closeCallback, sureCallback)
+    XLuaUiManager.Open("UiGoldenMinerSuspend", closeCallback, sureCallback)
 end
 
 ---放弃关卡
 function XUiGoldenMinerGameBattle:_OnExitStage()
     local SaveGame = function()
-        XDataCenter.GoldenMinerManager.RequestGoldenMinerSaveStage(self._CurStageId)
-        XDataCenter.GoldenMinerManager.RecordSaveStage(XGoldenMinerConfigs.CLIENT_RECORD_UI.UI_STAGE)
+        self._Control:RecordSaveStage(XEnumConst.GOLDEN_MINER.CLIENT_RECORD_UI.UI_STAGE)
+        self._Control:RequestGoldenMinerSaveStage(self._CurStageId)
     end
     local SettleGame = function()
         self:UpdateSettlementInfo(true)
-        XDataCenter.GoldenMinerManager.RequestGoldenMinerExitGame(self._CurStageId, function()
+        self._Control:RequestGoldenMinerExitGame(self._CurStageId, function()
             XLuaUiManager.PopThenOpen("UiGoldenMinerMain")
-        end, self._SettlementInfo, self._Game:GetCurScore(), self._Game:GetData():GetAllScore())
+        end, self._SettlementInfo, self._Game:GetCurScore(), self._Game:GetGameData():GetAllScore())
     end
     local ResumeGame = function() self:OpenPauseDialog() end
-    XDataCenter.GoldenMinerManager:OpenGiveUpGameDialog(XUiHelper.GetText("GoldenMinerQuickTipsTitle"),
+    self._Control:OpenGiveUpGameDialog(XUiHelper.GetText("GoldenMinerQuickTipsTitle"),
             XUiHelper.GetText("GoldenMinerQuickTipsDesc"),
             ResumeGame,
             SaveGame,
@@ -766,6 +647,39 @@ end
 function XUiGoldenMinerGameBattle:ApplicationPause(isPause)
     if isPause and self._Game:IsRunning() then
         self:OpenPauseDialog()
+    end
+end
+--endregion
+
+--region Ui - Relic
+---@class GMGridRelic
+---@field RImgBgOff UnityEngine.UI.RawImage
+---@field RImgBgOn UnityEngine.UI.RawImage
+
+function XUiGoldenMinerGameBattle:InitRelic()
+    if not self.PanelLaba then
+        return
+    end
+    self._RelicGridList = {
+        XTool.InitUiObjectByUi({}, self.GridLaba),
+        XTool.InitUiObjectByUi({}, XUiHelper.Instantiate(self.GridLaba, self.PanelLaba)),
+        XTool.InitUiObjectByUi({}, XUiHelper.Instantiate(self.GridLaba, self.PanelLaba)),
+    }
+    self.PanelLaba.gameObject:SetActiveEx(false)
+end
+
+function XUiGoldenMinerGameBattle:RefreshRelicProcess(curProcess, allProcess)
+    XMVCA.XGoldenMiner:DebugWarning("遗迹碎片进度：", curProcess, allProcess)
+    if not self.PanelLaba then
+        return
+    end
+    self.PanelLaba.gameObject:SetActiveEx(true)
+    for i = 1, allProcess do
+        if not self._RelicGridList[i] then
+            self._RelicGridList[i] = XTool.InitUiObjectByUi({}, XUiHelper.Instantiate(self.GridLaba, self.PanelLaba))
+        end
+        self._RelicGridList[i].RImgBgOff.gameObject:SetActiveEx(curProcess < i)
+        self._RelicGridList[i].RImgBgOn.gameObject:SetActiveEx(curProcess >= i)
     end
 end
 --endregion
@@ -785,13 +699,13 @@ function XUiGoldenMinerGameBattle:InitBtn()
     -- PcKey
     self.PcBtnShootShow = XUiHelper.TryGetComponent(self.BtnChange.transform, "BtnChangePC", "XUiPcCustomKey")
     if self.PcBtnShootShow then
-        self.PcBtnShootShow:SetKey(CS.XOperationType.ActivityGame, XGoldenMinerConfigs.GAME_PC_KEY.Space)
+        self.PcBtnShootShow:SetKey(CS.XOperationType.ActivityGame, XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Shoot)
         self.PcBtnShootShow.gameObject:SetActiveEx(XDataCenter.UiPcManager.IsPc())
     end
 end
 
 function XUiGoldenMinerGameBattle:RefreshShootBtn()
-    local url = XGoldenMinerConfigs.GetBtnShootIconUrl(false)
+    local url = self._Control:GetClientBtnShootIconUrl(false)
     if not self._Game or self.BtnChange.RawImageList.Count == 0 or string.IsNilOrEmpty(url) then
         return
     end
@@ -799,49 +713,11 @@ function XUiGoldenMinerGameBattle:RefreshShootBtn()
 end
 
 function XUiGoldenMinerGameBattle:RefreshQteBtn()
-    local url = XGoldenMinerConfigs.GetBtnShootIconUrl(true)
+    local url = self._Control:GetClientBtnShootIconUrl(true)
     if not self._Game or self.BtnChange.RawImageList.Count == 0 or string.IsNilOrEmpty(url) then
         return
     end
     self.BtnChange:SetRawImage(url)
-end
---endregion
-
---region Ui - Ship
-function XUiGoldenMinerGameBattle:InitShip()
-    local humanImageObj = XUiHelper.TryGetComponent(self.Humen.transform, "Humen", "RawImage")
-    if not humanImageObj then
-        return
-    end
-    
-    local upgradeList = self._DataDb:GetAllUpgradeStrengthenList()
-    local totalNum = 0
-    local shipKey = XGoldenMinerConfigs.ShipAppearanceKey.DefaultShip
-
-    --设置飞船外观
-    for _, strengthenDb in ipairs(upgradeList) do
-        if not string.IsNilOrEmpty(strengthenDb:GetLvMaxShipKey()) and strengthenDb:IsMaxLv() then
-            totalNum = totalNum + 1
-            shipKey = strengthenDb:GetLvMaxShipKey()
-        end
-    end
-    if totalNum >= XGoldenMinerConfigs.GetFinalShipMaxCount() then
-        shipKey = XGoldenMinerConfigs.ShipAppearanceKey.FinalShip
-    end
-    humanImageObj:SetRawImage(XGoldenMinerConfigs.GetShipImagePath(shipKey))
-    --设置飞船大小
-    local shipSizeWidth, shipSizeHeight
-    if shipKey == XGoldenMinerConfigs.ShipAppearanceKey.MaxSpeedShip then
-        shipSizeWidth, shipSizeHeight = XGoldenMinerConfigs.GetShipSize(XGoldenMinerConfigs.ShipAppearanceSizeKey.MaxSpeedShipSize)
-    elseif shipKey == XGoldenMinerConfigs.ShipAppearanceKey.MaxClampShip then
-        shipSizeWidth, shipSizeHeight = XGoldenMinerConfigs.GetShipSize(XGoldenMinerConfigs.ShipAppearanceSizeKey.MaxClampShipSize)
-    elseif shipKey == XGoldenMinerConfigs.ShipAppearanceKey.FinalShip then
-        shipSizeWidth, shipSizeHeight = XGoldenMinerConfigs.GetShipSize(XGoldenMinerConfigs.ShipAppearanceSizeKey.FinalShipSize)
-    else
-        shipSizeWidth, shipSizeHeight = XGoldenMinerConfigs.GetShipSize(XGoldenMinerConfigs.ShipAppearanceSizeKey.DefaultShipSize)
-    end
-
-    humanImageObj.transform:GetComponent("RectTransform").rect.size = Vector2(shipSizeWidth, shipSizeHeight)
 end
 --endregion
 
@@ -859,35 +735,36 @@ end
 
 ---定春预警
 function XUiGoldenMinerGameBattle:RefreshMouseTip()
-    if not self.RImgCatRight then
+    if not self.RImgCatRight or self._Game:IsEnd() then
         return
     end
-    local mouseList = self._Game:GetStoneEntityList(XGoldenMinerConfigs.StoneType.Mouse)
+    local mouseList = self._Game:GetStoneEntityUidDirByType(XEnumConst.GOLDEN_MINER.STONE_TYPE.MOUSE)
     local leftCount = 0
     local rightCount = 0
     local tempPos
-    for _, mouseEntity in pairs(mouseList) do
-        if mouseEntity.Status == XGoldenMinerConfigs.GAME_GRAB_OBJ_STATUS.ALIVE then
-            local mousePosition = mouseEntity.Stone.Transform.anchoredPosition
+    for uid, _ in pairs(mouseList) do
+        local mouseEntity = self._Game:GetStoneEntityByUid(uid)
+        if mouseEntity:IsAlive()then
+            local mousePosition = mouseEntity:GetTransform().anchoredPosition
             -- 定春 右->左
-            if mouseEntity.Move.CurDirection < 0 and mousePosition.x > self._MouseEndRightTipX then
+            if mouseEntity:GetComponentMove().CurDirection < 0 and mousePosition.x > self._MouseEndRightTipX then
                 rightCount = rightCount + 1
                 if not self._RightMouseTipList[rightCount] then
                     self._RightMouseTipList[rightCount] = XUiHelper.Instantiate(self._RightMouseTipList[1].gameObject, self._RightMouseTipList[1].transform.parent)
                 end
                 tempPos = self._RightMouseTipList[rightCount].transform.position
                 self._RightMouseTipList[rightCount].gameObject:SetActiveEx(true)
-                self._RightMouseTipList[rightCount].transform.position = Vector3(tempPos.x, mouseEntity.Stone.Transform.position.y, tempPos.z)
+                self._RightMouseTipList[rightCount].transform.position = Vector3(tempPos.x, mouseEntity:GetTransform().position.y, tempPos.z)
             end
             -- 定春 左->右
-            if mouseEntity.Move.CurDirection > 0 and mousePosition.x < self._MouseEndLeftTipX then
+            if mouseEntity:GetComponentMove().CurDirection > 0 and mousePosition.x < self._MouseEndLeftTipX then
                 leftCount = leftCount + 1
                 if not self._LeftMouseTipList[leftCount] then
                     self._LeftMouseTipList[leftCount] = XUiHelper.Instantiate(self._LeftMouseTipList[1].gameObject, self._LeftMouseTipList[1].transform.parent)
                 end
                 tempPos = self._LeftMouseTipList[leftCount].transform.position
                 self._LeftMouseTipList[leftCount].gameObject:SetActiveEx(true)
-                self._LeftMouseTipList[leftCount].transform.position = Vector3(tempPos.x, mouseEntity.Stone.Transform.position.y, tempPos.z)
+                self._LeftMouseTipList[leftCount].transform.position = Vector3(tempPos.x, mouseEntity:GetTransform().position.y, tempPos.z)
             end
         end
     end
@@ -902,34 +779,34 @@ end
 --endregion
 
 --region Ui - Effect
----@param type number XGoldenMinerConfigs.GAME_EFFECT_TYPE
+---@param type number XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE
 ---@param transform UnityEngine.Transform
 function XUiGoldenMinerGameBattle:PlayEffect(type, transform, path)
     if string.IsNilOrEmpty(path) then
         return
     end
-    if type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.GRAB then
+    if type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.GRAB then
         self:_PlayEffect(path, transform)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.STONE_BOOM
-            or type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.GRAB_BOOM
-            or type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.TYPE_BOOM
-            or type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.TO_GOLD
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.STONE_BOOM
+            or type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.GRAB_BOOM
+            or type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.TYPE_BOOM
+            or type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.TO_GOLD
     then
         self:_PlayEffect(path, transform, true)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.TIME_STOP then
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.TIME_STOP then
         self:_PlayOnlyOneEffect(type, path)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.TIME_RESUME then
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.TIME_RESUME then
         self:_PlayOnlyOneEffect(type, path)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.WEIGHT_FLOAT then
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.WEIGHT_FLOAT then
         self:_PlayOnlyOneEffect(type, path)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.WEIGHT_RESUME then
-        local effect = self:GetOnlyOnceEffect(XGoldenMinerConfigs.GAME_EFFECT_TYPE.WEIGHT_FLOAT, path)
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.WEIGHT_RESUME then
+        local effect = self:GetOnlyOnceEffect(XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.WEIGHT_FLOAT, path)
         if effect then
             effect:SetActiveEx(false)
         end
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.QTE_CLICK then
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.QTE_CLICK then
         self:_PlayOnlyOneEffect(type, path, transform)
-    elseif type == XGoldenMinerConfigs.GAME_EFFECT_TYPE.QTE_COMPLETE then
+    elseif type == XEnumConst.GOLDEN_MINER.GAME_EFFECT_TYPE.QTE_COMPLETE then
         self:_PlayOnlyOneEffect(type, path, transform)
     end
 end
@@ -987,7 +864,7 @@ end
 --region Audio - Sound
 --播放使用道具音效
 function XUiGoldenMinerGameBattle:PlayUseItemSound(itemId)
-    local soundId = XGoldenMinerConfigs.GetItemUseSoundId(itemId)
+    local soundId = self._Control:GetCfgItemUseSoundId(itemId)
     if not XTool.IsNumberValid(soundId) then
         return
     end
@@ -998,35 +875,39 @@ end
 
 --region Game - Init
 function XUiGoldenMinerGameBattle:GameStart()
-    self:GameInit()
-    if not self._GameTimer then
-        self._GameTimer = XScheduleManager.ScheduleForever(function()
-            if not self.GameObject or not self.GameObject:Exist() then
-                return
-            end
-            self:GameUpdate()
-        end, 0)
-    end
+    self:_GameInit()
+    self._Game:EnterGame()
 end
 
-function XUiGoldenMinerGameBattle:GameInit()
-    ---@type XGoldenMinerGameData
-    local data = XGoldenMinerGameData.New(self._MapId)
-    local areaPanel = XUiHelper.TryGetComponent(self.Ui.Transform, "SafeAreaContentPane")
+function XUiGoldenMinerGameBattle:_GameInit()
+    local data = self._Game:CreateGameData(self._MapId)
     local hookTypeList = self:_GetHookTypeList(self._HookType)
     data:SetMapScore(0)
     data:SetAllScore(self._DataDb:GetStageScores())
     data:SetHookTypeList(hookTypeList)
-    data:SetTime(XGoldenMinerConfigs.GetMapTime(self._MapId) + TIME_OFFSET)
-    data:SetCurPassStageList(self._DataDb._FinishStageId)
-    data:SetCurCharacterId(XDataCenter.GoldenMinerManager.GetUseCharacterId())
-    self._Game:SetData(data)
-    self._Game:SetMapObjRoot(self.PanelStone)
-    self._Game:SetRectSize(areaPanel:GetComponent("RectTransform").rect.size)
-    self._Game:SetHookObjDir(self:_GetHookObjDir(hookTypeList))
-    self._Game:SetHookColliderDir(self.Humen)
-    self._Game:SetBuffIdList(XDataCenter.GoldenMinerManager.GetCurBuffIdList())
-    self._Game:Init()
+    data:SetTime(self._Control:GetCfgMapTime(self._MapId) + TIME_OFFSET)
+    data:SetCurPassStageList(self._DataDb._FinishStageIdDir)
+    data:SetCurCharacterId(self._Control:GetUseCharacterId())
+    data:SetInitBuffIdList(self._Control:GetCurInitBuffIdList())
+    
+    ---@type XGoldenMinerGameInitObjDir
+    local objDir = {}
+    objDir.RectSize = self._Control:GetRectSize()
+    objDir.MapRoot = self.PanelStone
+    objDir.HookObjDir = self:_GetHookObjDir(hookTypeList)
+    objDir.PartnerRoot = self.PartnerRoot
+    objDir.HumanRoot = self.Humen
+    objDir.ElectromagneticBox = self.ElectromagneticBox
+    
+    local updateExFunc = function(deltaTime)
+        self:RefreshPlayTime()
+        self:RefreshFaceEmoji(deltaTime)
+        -- 4.0不再出现猫猫提示
+        --self:RefreshMouseTip()
+        self:RefreshBuffTip(deltaTime)
+    end
+    
+    self._Game:PrepareGame(data, objDir, updateExFunc)
 
     self:InitWall()
 end
@@ -1034,8 +915,8 @@ end
 ---@return number[]
 function XUiGoldenMinerGameBattle:_GetHookTypeList(hookType)
     local result = {}
-    if hookType == XGoldenMinerConfigs.FalculaType.Double then
-        result[#result + 1] = XGoldenMinerConfigs.FalculaType.Normal
+    if hookType == XEnumConst.GOLDEN_MINER.HOOK_TYPE.DOUBLE then
+        result[#result + 1] = XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL
     end
     result[#result + 1] = hookType
     return result
@@ -1045,8 +926,8 @@ end
 function XUiGoldenMinerGameBattle:_GetHookObjDir(hookTypeList)
     local result = {}
     for _, type in ipairs(hookTypeList) do
-        if self._HookType == XGoldenMinerConfigs.FalculaType.Double
-                and type == XGoldenMinerConfigs.FalculaType.Normal then
+        if self._HookType == XEnumConst.GOLDEN_MINER.HOOK_TYPE.DOUBLE
+                and type == XEnumConst.GOLDEN_MINER.HOOK_TYPE.NORMAL then
             result[type] = self.DoubleHook1
             self.DoubleHook1.gameObject:SetActiveEx(true)
         else
@@ -1071,7 +952,7 @@ end
 --region Game - Update
 function XUiGoldenMinerGameBattle:GameUpdate()
     local deltaTime = UnityTime.deltaTime
-    self._Game:Update(deltaTime)
+    self._Game:OnUpdate(deltaTime)
     if self._Game:IsPause() then
         return
     end
@@ -1085,79 +966,83 @@ end
 --region Game - Wall
 function XUiGoldenMinerGameBattle:InitWall()
     self.RectSize = XUiHelper.TryGetComponent(self.Ui.Transform, "SafeAreaContentPane", "RectTransform").rect.size
+    local exWidth = self._Control:GetClientGameWallExAreaValue(true)
+    local exHeight = self._Control:GetClientGameWallExAreaValue(false)
     local width, height =
-        self.RectSize.x + XGoldenMinerConfigs.GetGameWallExAreaValue(true) * 2, 
-        self.RectSize.y + XGoldenMinerConfigs.GetGameWallExAreaValue(false) * 2
+        self.RectSize.x + exWidth * 2, 
+        self.RectSize.y + exHeight * 2
     self.EdgeLeftBox.size = Vector2(self.EdgeLeftBox.size.x, height)
     self.EdgeRightBox.size = Vector2(self.EdgeRightBox.size.x, height)
     self.EdgeTopBox.size = Vector2(width, self.EdgeTopBox.size.y)
     self.EdgeBottomBox.size = Vector2(width, self.EdgeBottomBox.size.y)
 
     self.EdgeLeftBox.transform.localPosition = Vector3(
-            self.EdgeLeftBox.transform.localPosition.x - XGoldenMinerConfigs.GetGameWallExAreaValue(true), 
+            self.EdgeLeftBox.transform.localPosition.x - exWidth, 
             self.EdgeLeftBox.transform.localPosition.y,
             self.EdgeLeftBox.transform.localPosition.z)
     self.EdgeRightBox.transform.localPosition = Vector3(
-            self.EdgeRightBox.transform.localPosition.x + XGoldenMinerConfigs.GetGameWallExAreaValue(true),
+            self.EdgeRightBox.transform.localPosition.x + exWidth,
             self.EdgeRightBox.transform.localPosition.y,
             self.EdgeRightBox.transform.localPosition.z)
     self.EdgeTopBox.transform.localPosition = Vector3(
             self.EdgeTopBox.transform.localPosition.x,
-            self.EdgeTopBox.transform.localPosition.y + XGoldenMinerConfigs.GetGameWallExAreaValue(false),
+            self.EdgeTopBox.transform.localPosition.y + exHeight,
             self.EdgeTopBox.transform.localPosition.z)
     self.EdgeBottomBox.transform.localPosition = Vector3(
             self.EdgeBottomBox.transform.localPosition.x,
-            self.EdgeBottomBox.transform.localPosition.y - XGoldenMinerConfigs.GetGameWallExAreaValue(false),
+            self.EdgeBottomBox.transform.localPosition.y - exHeight,
             self.EdgeBottomBox.transform.localPosition.z)
 end
 --endregion
 
 --region Game - Settle
 function XUiGoldenMinerGameBattle:GameSettle(isSkip)
+    self._Game:GameSettle(isSkip)
     self:UpdateSettlementInfo(isSkip)
     local curMapScore = self._Game:GetCurScore()
-    -- 3.0取消时间分数
-    local lastTimeScore = 0--isSkip and 0 or XDataCenter.GoldenMinerManager.GetTimeScore(self._Game:GetData():GetTime())
+    local lastTimeScore = isSkip and 0 or self._Game:GetGameData():GetTimeScore()
     local closeCb = handler(self, self.CheckGameIsWin)
     local isCloseFunc = handler(self, self.GetIsCloseBattle)
 
     self._ReportInfo:SetMapId(self._MapId)
     self._ReportInfo:SetStageId(self._CurStageId)
     self._ReportInfo:SetStageIndex(self._CurStageIndex)
-    self._ReportInfo:SetBeforeScore(self._Game:GetData():GetAllScore())
+    self._ReportInfo:SetBeforeScore(self._Game:GetGameData():GetAllScore())
     self._ReportInfo:SetTargetScore(self._ScoreTarget)
     self._ReportInfo:SetLastTimeScore(lastTimeScore)
-    self._ReportInfo:SetMapScore(curMapScore + lastTimeScore)
-    self._ReportInfo:SetLastTime(math.floor(self._Game:GetData():GetTime()))
-    self._ReportInfo:SetGrabObjList(self._Game:GetGrabbedStoneEntityList())
-    self._ReportInfo:SetGrabObjScoreDir(self._Game:GetGrabbedScoreDir())
+    self._ReportInfo:SetMapScore(curMapScore)
+    self._ReportInfo:SetLastTime(math.floor(self._Game:GetGameData():GetTime()))
+    self._ReportInfo:SetReportGrabStoneDataDir(self._Game:GetGameData():GetReportGrabStoneDataDir())
     self._Game:GameOver()
-    
-    XDataCenter.GoldenMinerManager.RequestGoldenMinerFinishStage(self._CurStageId,
+
+    self._Control:RequestGoldenMinerFinishStage(self._CurStageId,
             self._SettlementInfo,
             curMapScore + lastTimeScore,
             function(isFinishSuccess, isOpenHideStage)
+                local dataDb = self._Control:GetMainDb()
                 self._IsCloseBattle = true
                 self._IsFinishSuccess = isFinishSuccess
                 self._IsOpenHideStage = isOpenHideStage
+                self._ReportInfo:SetFinishHideTaskCount(dataDb:GetFinishHideTaskCount())
                 XLuaUiManager.Open("UiGoldenMinerReport", self._ReportInfo, closeCb, isCloseFunc)
             end,
             self._ReportInfo:IsWin())
 end
 
 function XUiGoldenMinerGameBattle:UpdateSettlementInfo(isGiveUpTimeScore)
-    local mapTime = XGoldenMinerConfigs.GetMapTime(self._MapId)
-    local time = self._Game:GetData():GetTime()
-    local addScore = self._Game:GetData():GetMapScore()
+    local mapTime = self._Control:GetCfgMapTime(self._MapId)
+    local time = self._Game:GetGameData():GetTime()
+    local addScore = self._Game:GetGameData():GetMapScore()
     if not isGiveUpTimeScore then
         -- 3.0取消时间分数
-        addScore = addScore-- + XDataCenter.GoldenMinerManager.GetTimeScore(time)
+        addScore = addScore
     end
-    
+
+    self._SettlementInfo:SetMoveCount(self._MoveRecordCount)
     self._SettlementInfo:SetScores(addScore)
     self._SettlementInfo:SetCostTime(math.floor(mapTime - time))
-    self._SettlementInfo:UpdateGrabDataInfosByEntityList(self._Game:GetGrabbedStoneEntityList())
-    self._SettlementInfo:UpdateHideTaskInfoList(self._Game:GetData():GetHideTaskInfoList())
+    self._SettlementInfo:UpdateGrabDataInfos(self._Game:GetGameData():GetSettleGrabStoneDataDir())
+    self._SettlementInfo:UpdateHideTaskInfoList(self._Game:GetGameData():GetHideTaskInfoList())
 end
 
 function XUiGoldenMinerGameBattle:CheckGameIsWin()
@@ -1167,14 +1052,7 @@ function XUiGoldenMinerGameBattle:CheckGameIsWin()
         return
     end
 
-    if XTool.IsTableEmpty(self._DataDb:GetMinerShopDbs()) then
-        local stageId = self._DataDb:GetCurStageId()
-        XDataCenter.GoldenMinerManager.RequestGoldenMinerEnterStage(stageId, function()
-            XLuaUiManager.PopThenOpen("UiGoldenMinerBattle")
-        end)
-    else
-        XLuaUiManager.PopThenOpen("UiGoldenMinerShop")
-    end
+    self._Control:OpenGameUi()
 end
 
 function XUiGoldenMinerGameBattle:GetIsCloseBattle()
@@ -1188,11 +1066,11 @@ function XUiGoldenMinerGameBattle:OnUseItem(itemGrid)
     local itemColumn = itemGrid:GetItemColumn()
     local itemGridIndex = itemColumn:GetGridIndex()
     local itemId = itemColumn:GetItemId()
-    if not XDataCenter.GoldenMinerManager.IsUseItem(itemGridIndex) then
+    if self._Control:CheckUseItemIsInCD(itemGridIndex) then
         return
     end
     if not self._Game:CheckItemCanUse(itemId) then
-        --XGoldenMinerConfigs.DebugLog("当前道具不可用！")
+        XMVCA.XGoldenMiner:DebugLog("当前道具不可用！")
         return
     end
     
@@ -1200,7 +1078,7 @@ function XUiGoldenMinerGameBattle:OnUseItem(itemGrid)
     self:PlayUseItemSound(itemId)
     self:PlayFaceEmojiByUseItem(itemId)
     self:AddBuffTip(itemId)
-    self:UpdateItemChangeInfo(itemGridIndex, XGoldenMinerConfigs.ItemChangeType.OnUse)
+    self:UpdateItemChangeInfo(itemGridIndex, XEnumConst.GOLDEN_MINER.ITEM_CHANGE_TYPE.ON_USE)
     self._Game:UseItemToAddBuff(itemId)
     self._DataDb:UseItem(itemGridIndex)
 end
@@ -1208,19 +1086,11 @@ end
 function XUiGoldenMinerGameBattle:OnKeyClickUseItem(index)
     self.ItemPanel:UseItemByIndex(index)
 end
-
-function XUiGoldenMinerGameBattle:OpenItemUsePanel()
-    
-end
-
-function XUiGoldenMinerGameBattle:HideItemUsePanel()
-
-end
 --endregion
 
 --region Game - Hook
 function XUiGoldenMinerGameBattle:OnAnimAnglePointDown(eventData)
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.AimingAngle then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE then
         return
     end
     local eventPosX = eventData.position.x
@@ -1234,7 +1104,7 @@ function XUiGoldenMinerGameBattle:OnAnimAnglePointDown(eventData)
 end
 
 function XUiGoldenMinerGameBattle:OnAimLeftAngleDown()
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.AimingAngle then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE then
         return
     end
     -- 上锁防按键同时按
@@ -1243,7 +1113,7 @@ function XUiGoldenMinerGameBattle:OnAimLeftAngleDown()
 end
 
 function XUiGoldenMinerGameBattle:OnAimRightAngleDown()
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.AimingAngle then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE then
         return
     end
     self._CurAnim = self._CurAnim | CurAim.Right
@@ -1251,7 +1121,7 @@ function XUiGoldenMinerGameBattle:OnAimRightAngleDown()
 end
 
 function XUiGoldenMinerGameBattle:OnAimLeftAnglePointUp()
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.AimingAngle then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE then
         return
     end
     self._CurAnim = self._CurAnim & (~CurAim.Left)
@@ -1259,7 +1129,7 @@ function XUiGoldenMinerGameBattle:OnAimLeftAnglePointUp()
 end
 
 function XUiGoldenMinerGameBattle:OnAimRightAnglePointUp()
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.AimingAngle then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.AIMING_ANGLE then
         return
     end
     self._CurAnim = self._CurAnim & (~CurAim.Right)
@@ -1267,8 +1137,11 @@ function XUiGoldenMinerGameBattle:OnAimRightAnglePointUp()
 end
 
 function XUiGoldenMinerGameBattle:OnHookShoot()
+    if self._Game:CheckBuffStatusByType(XEnumConst.GOLDEN_MINER.BUFF_TYPE.ELECTROMAGNETIC, XEnumConst.GOLDEN_MINER.GAME_BUFF_STATUS.BE_DIE) then
+        return
+    end
     -- 记录使用钩爪数
-    if self._Game.HookEntityStatus == XGoldenMinerConfigs.GAME_HOOK_ENTITY_STATUS.IDLE then
+    if self._Game.SystemHook:CheckSystemIsIdle() then
         self._SettlementInfo:AddLaunchingClawCount()
     end
     self._Game:HookShoot()
@@ -1285,6 +1158,22 @@ function XUiGoldenMinerGameBattle:_SetAim()
 end
 --endregion
 
+--region Game - Partner
+function XUiGoldenMinerGameBattle:InitPartnerScanLineProcess()
+    if self.PanelUiGoldenMinerJd then
+        self.PanelUiGoldenMinerJd.gameObject:SetActiveEx(true)
+    end
+end
+
+function XUiGoldenMinerGameBattle:UpdatePartnerScanLineProcess(curProcess, allProcess)
+    XMVCA.XGoldenMiner:DebugWarning("扫描线进度更新：", curProcess, allProcess)
+    local img = self._Control:GetClientScanLineProgressImgByPro(curProcess)
+    if self.PanelUiGoldenMinerJd and not string.IsNilOrEmpty(img) then
+        self.PanelUiGoldenMinerJd:SetSprite(img)
+    end
+end
+--endregion
+
 --region Event - Listener
 function XUiGoldenMinerGameBattle:AddEventListener()
     XEventManager.AddEventListener(XEventId.EVENT_APPLICATION_PAUSE, self.ApplicationPause, self)
@@ -1297,12 +1186,13 @@ function XUiGoldenMinerGameBattle:AddEventListener()
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PLAY_EFFECT, self.PlayEffect, self)
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_HIDE_TASK, self.HideTaskFinish, self)
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PLAY_FACE, self.PlayFaceEmoji, self)
+    XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_FACE_ANIM, self._PlayEmoticonAnim, self)
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_USE_ITEM, self.OnUseItem, self)
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_START, self.RefreshQteBtn, self)
     XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_END, self.RefreshShootBtn, self)
-    if self._Game then
-        self._Game:AddEventListener()
-    end
+    XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_GET_RELIC_FRAG, self.RefreshRelicProcess, self)
+    XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PARTNER_SCAN_INIT, self.InitPartnerScanLineProcess, self)
+    XEventManager.AddEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PARTNER_SCAN_PRECESS, self.UpdatePartnerScanLineProcess, self)
 end
 
 function XUiGoldenMinerGameBattle:RemoveEventListener()
@@ -1316,12 +1206,13 @@ function XUiGoldenMinerGameBattle:RemoveEventListener()
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PLAY_EFFECT, self.PlayEffect, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_HIDE_TASK, self.HideTaskFinish, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PLAY_FACE, self.PlayFaceEmoji, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_FACE_ANIM, self._PlayEmoticonAnim, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_USE_ITEM, self.OnUseItem, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_START, self.RefreshQteBtn, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_END, self.RefreshShootBtn, self)
-    if self._Game then
-        self._Game:RemoveEventListener()
-    end
+    XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_GET_RELIC_FRAG, self.RefreshRelicProcess, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PARTNER_SCAN_INIT, self.InitPartnerScanLineProcess, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_GOLDEN_MINER_GAME_PARTNER_SCAN_PRECESS, self.UpdatePartnerScanLineProcess, self)
 end
 --endregion
 
@@ -1330,44 +1221,51 @@ function XUiGoldenMinerGameBattle:AddBtnClickListener()
     self:RegisterClickEvent(self.BtnStop, self.OnBtnStopClick)
     self:RegisterClickEvent(self.BtneExit, self.OnBtnNextStageClick)
 
-    if self.AimLeftInputHandler then
-        self.AimLeftInputHandler:AddPointerDownListener(function() self:OnAimLeftAngleDown() end)
-        self.AimLeftInputHandler:AddPointerUpListener(function() self:OnAimLeftAnglePointUp() end)
+    if self.AimLeftInputHandler and not self.BtnMove then
+        self.AimLeftInputHandler:AddPointerDownListener(function() self:OnShipMoveLeftPCDown() end)
+        self.AimLeftInputHandler:AddPointerUpListener(function() self:OnShipMovePointerUp(true) end)
     end
-    if self.AimRightInputHandler then
-        self.AimRightInputHandler:AddPointerDownListener(function() self:OnAimRightAngleDown() end)
-        self.AimRightInputHandler:AddPointerUpListener(function() self:OnAimRightAnglePointUp() end)
+    if self.AimRightInputHandler and not self.BtnMove then
+        self.AimRightInputHandler:AddPointerDownListener(function() self:OnShipMoveRightPCDown() end)
+        self.AimRightInputHandler:AddPointerUpListener(function() self:OnShipMovePointerUp(false) end)
+    end
+    --self.GoInputHandler:AddPointerDownListener(function(eventData) self:OnShipMovePointerDown(eventData) end)
+    --self.GoInputHandler:AddPointerUpListener(function() self:OnShipMovePointerUp() end)
+    if self.BtnMove then
+        self.BtnMove:AddPointerDownListener(function(eventData) self:OnShipMovePointerDown(eventData) end)
+        self.BtnMove:AddDragListener(function(eventData) self:OnShipMovePointerDown(eventData, true) end)
+        self.BtnMove:AddPointerUpListener(function() self:OnShipMovePointerUp() end)
     end
 end
 
 function XUiGoldenMinerGameBattle:AddPCListener()
     XDataCenter.InputManagerPc.IncreaseLevel()
     XDataCenter.InputManagerPc.SetCurOperationType(CS.XOperationType.ActivityGame)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.A, handler(self, self.OnAimLeftAngleDown))
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XGoldenMinerConfigs.GAME_PC_KEY.A, function() self:OnAimLeftAnglePointUp() end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.D, handler(self, self.OnAimRightAngleDown))
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XGoldenMinerConfigs.GAME_PC_KEY.D, function() self:OnAimRightAnglePointUp() end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.Space, handler(self, self.OnBtnShootPressDown))
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XGoldenMinerConfigs.GAME_PC_KEY.Space, handler(self, self.OnBtnShootPressUp))
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.Q, function() self:OnKeyClickUseItem(1) end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.W, function() self:OnKeyClickUseItem(2) end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.E, function() self:OnKeyClickUseItem(3) end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.R, function() self:OnKeyClickUseItem(4) end)
-    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XGoldenMinerConfigs.GAME_PC_KEY.T, function() self:OnKeyClickUseItem(5) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Left, handler(self, self.OnShipMoveLeftPCDown))
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Left, function() self:OnShipMovePointerUp(true) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Right, handler(self, self.OnShipMoveRightPCDown))
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Right, function() self:OnShipMovePointerUp(false) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Shoot, handler(self, self.OnPCShootKeyPressDown))
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyUpFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Shoot, handler(self, self.OnPCShootKeyPressUp))
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item1, function() self:OnKeyClickUseItem(1) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item2, function() self:OnKeyClickUseItem(2) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item3, function() self:OnKeyClickUseItem(3) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item4, function() self:OnKeyClickUseItem(4) end)
+    XDataCenter.InputManagerPc.RegisterActivityGameKeyDownFunc(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item5, function() self:OnKeyClickUseItem(5) end)
 end
 
 function XUiGoldenMinerGameBattle:RemovePCListener()
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.A)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XGoldenMinerConfigs.GAME_PC_KEY.A)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.D)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XGoldenMinerConfigs.GAME_PC_KEY.D)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.Space)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XGoldenMinerConfigs.GAME_PC_KEY.Space)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.Q)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.W)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.E)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.R)
-    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XGoldenMinerConfigs.GAME_PC_KEY.T)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Left)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Left)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Right)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Right)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Shoot)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyUp(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Shoot)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item1)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item2)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item3)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item4)
+    XDataCenter.InputManagerPc.UnregisterActivityGameKeyDown(XEnumConst.GOLDEN_MINER.GAME_PC_KEY.Item5)
     XDataCenter.InputManagerPc.DecreaseLevel()
     XDataCenter.InputManagerPc.ResumeCurOperationType()
 end
@@ -1376,7 +1274,7 @@ function XUiGoldenMinerGameBattle:OnBtnShootPressDown()
     if not self._Game then
         return
     end
-    if self._HookType ~= XGoldenMinerConfigs.FalculaType.StorePressMagnetic then
+    if self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC then
         return
     else
         self:OnHookShoot()
@@ -1388,25 +1286,37 @@ function XUiGoldenMinerGameBattle:OnBtnShootPressUp()
         return
     end
     if self._Game:IsQTE() then
-        self._Game:QTEClick()
-    elseif self._HookType ~= XGoldenMinerConfigs.FalculaType.StorePressMagnetic then
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_CLICK)
+    elseif self._HookType ~= XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC then
         self:OnHookShoot()
     else
-        for _, hookEntity in ipairs(self._Game.HookEntityList) do
-            self._Game:HookRevoke(hookEntity)
-        end
+        self._Game:HookRevokeAll()
+    end
+end
+
+function XUiGoldenMinerGameBattle:OnPCShootKeyPressDown()
+    if not self._Game then
+        return
+    end
+    self:OnHookShoot()
+end
+
+function XUiGoldenMinerGameBattle:OnPCShootKeyPressUp()
+    if not self._Game then
+        return
+    end
+    if self._Game:IsQTE() then
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_QTE_CLICK)
+    elseif self._HookType == XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC then
+        self._Game:HookRevokeAll()
     end
 end
 
 function XUiGoldenMinerGameBattle:OnFocusExit()
-    if self._Game and self._Game.HookEntityStatus == XGoldenMinerConfigs.GAME_HOOK_ENTITY_STATUS.USING
-            and self._HookType == XGoldenMinerConfigs.FalculaType.StorePressMagnetic
+    if self._Game and self._Game.SystemHook:CheckSystemIsUsing()
+            and self._HookType == XEnumConst.GOLDEN_MINER.HOOK_TYPE.STORE_PRESS_MAGNETIC
     then
-        for _, hookEntity in ipairs(self._Game.HookEntityList) do
-            if hookEntity.Hook.Status == XGoldenMinerConfigs.GAME_HOOK_STATUS.SHOOTING then
-                self._Game:HookRevoke(hookEntity)
-            end
-        end
+        self._Game:HookRevokeAll(XEnumConst.GOLDEN_MINER.GAME_HOOK_STATUS.SHOOTING)
     end
 end
 
@@ -1415,15 +1325,15 @@ function XUiGoldenMinerGameBattle:OnBtnStopClick()
 end
 
 function XUiGoldenMinerGameBattle:OnBtnNextStageClick()
-    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XGoldenMinerConfigs.GAME_PAUSE_TYPE.PLAYER)
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_PAUSE, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.PLAYER)
     self.BtneExit:SetButtonState(CS.UiButtonState.Select)
     
-    if self._Game:GetData():GetCurScore() >= self._ScoreTarget then
+    if self._Game:GetGameData():GetCurScore() >= self._ScoreTarget then
         self:GameSettle(true)
         return
     end
     local closeCb = function()
-        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XGoldenMinerConfigs.GAME_PAUSE_TYPE.PLAYER)
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_RESUME, XEnumConst.GOLDEN_MINER.GAME_PAUSE_TYPE.PLAYER)
         self.BtneExit:SetButtonState(CS.UiButtonState.Normal)
         self:StartGamePauseAnim()
     end
@@ -1435,12 +1345,54 @@ function XUiGoldenMinerGameBattle:OnBtnNextStageClick()
             XUiHelper.GetText("GoldenMinerSkipStageContent"),
             closeCb,
             sureCb)
-    
 end
 
 function XUiGoldenMinerGameBattle:OnEscClick()
     if self._Game:IsRunning() then
         self:OpenPauseDialog()
     end
+end
+
+local RectTransformUtility = CS.UnityEngine.RectTransformUtility
+---@param eventData UnityEngine.EventSystems.PointerEventData
+function XUiGoldenMinerGameBattle:OnShipMovePointerDown(eventData, isIgnoreRecord)
+    --local _Screen = CS.UnityEngine.Screen
+    local _Screen = self.BtnMove.transform.rect.size
+    if not self._Game.SystemHook:CheckSystemIsIdle() and not self._Game:CheckBuffAliveByType(XEnumConst.GOLDEN_MINER.BUFF_TYPE.SHIP_SPEED_MOVE) then
+        return
+    end
+    local hasValue, position = RectTransformUtility.ScreenPointToLocalPointInRectangle(self.BtnMove.transform, eventData.position, eventData.pressEventCamera)
+    local eventPosX = hasValue and position.x or 0
+    if eventPosX < 0 then
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_SHIP_MOVE, XEnumConst.GOLDEN_MINER.SHIP_MOVE_STATUS.LEFT)
+    else
+        XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_SHIP_MOVE, XEnumConst.GOLDEN_MINER.SHIP_MOVE_STATUS.RIGHT)
+    end
+    if isIgnoreRecord then
+        return
+    end
+    self._MoveRecordCount = self._MoveRecordCount + 1
+end
+
+function XUiGoldenMinerGameBattle:OnShipMoveLeftPCDown()
+    if not self._Game.SystemHook:CheckSystemIsIdle() and not self._Game:CheckBuffAliveByType(XEnumConst.GOLDEN_MINER.BUFF_TYPE.SHIP_SPEED_MOVE) then
+        return
+    end
+
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_SHIP_MOVE, XEnumConst.GOLDEN_MINER.SHIP_MOVE_STATUS.LEFT)
+    self._MoveRecordCount = self._MoveRecordCount + 1
+end
+
+function XUiGoldenMinerGameBattle:OnShipMoveRightPCDown()
+    if not self._Game.SystemHook:CheckSystemIsIdle() and not self._Game:CheckBuffAliveByType(XEnumConst.GOLDEN_MINER.BUFF_TYPE.SHIP_SPEED_MOVE) then
+        return
+    end
+
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_SHIP_MOVE, XEnumConst.GOLDEN_MINER.SHIP_MOVE_STATUS.RIGHT)
+    self._MoveRecordCount = self._MoveRecordCount + 1
+end
+
+function XUiGoldenMinerGameBattle:OnShipMovePointerUp(isLeft)
+    XEventManager.DispatchEvent(XEventId.EVENT_GOLDEN_MINER_GAME_SHIP_MOVE, XEnumConst.GOLDEN_MINER.SHIP_MOVE_STATUS.NONE, isLeft)
 end
 --endregion

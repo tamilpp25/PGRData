@@ -31,13 +31,13 @@ function XUiGuildWarTeamAreaCharacterSelectAssistantGrid:UpdateCharacter()
     end
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -47,7 +47,7 @@ function XUiGuildWarTeamAreaCharacterSelectAssistantGrid:UpdateCharacter()
 
     if self.RImgHeadIcon then
         local headInfo = character.CharacterHeadInfo or {}
-        local head = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+        local head = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
         self.RImgHeadIcon:SetRawImage(head)
     end
 
@@ -63,7 +63,7 @@ function XUiGuildWarTeamAreaCharacterSelectAssistantGrid:UpdateCharacter()
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
     
     -- 特攻角色
@@ -92,7 +92,7 @@ function XUiGuildWarTeamAreaCharacterSelectAssistantGrid:IsIsomerLock()
     local character = data.FightNpcData.Character
     local characterId = character.Id
     return not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer)
-        and XCharacterConfigs.IsIsomer(characterId)
+        and XMVCA.XCharacter:GetIsIsomer(characterId)
 end
 
 function XUiGuildWarTeamAreaCharacterSelectAssistantGrid:UpdateCdAndInTeam(teamIndex, isLock)

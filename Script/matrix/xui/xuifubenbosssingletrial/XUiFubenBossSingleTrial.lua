@@ -1,48 +1,59 @@
+---@class XUiFubenBossSingleTrial : XLuaUi
+---@field _Control XFubenBossSingleControl
 local XUiFubenBossSingleTrial = XLuaUiManager.Register(XLuaUi, "UiFubenBossSingleTrial")
 
 local XUiGridBossEXSection = require("XUi/XUiFubenBossSingleTrial/XUiGridBossTrialSection")
-local XUiPanelBossDetail = require("XUi/XUiFubenBossSingleTrial/XUiPanelBossTrialDetail")
-local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-
+local ACHIEVEMENT_FIGHT = 1
+local FUBEN_BOSS_SINGLE_TAG = 2
 -- 体验版囚笼
 function XUiFubenBossSingleTrial:OnAwake()
-    self:AutoAddListener()
-    self:InitDynamicTable()
-    self:InitTabGroup()
-    local root = self.UiModelGo.transform
-    self.ImgEffectHuanren = root:FindTransform("ImgEffectHuanren")
-    self.ImgEffectHuanrenHideBoss = root:FindTransform("ImgEffectHuanren1")
-    self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-    self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(false)
-    self.RoleModelPanel = XUiPanelRoleModel.New(root:FindTransform("PanelRoleModel"), self.Name, nil, true)
+    self:_RegisterButtonClicks()
+    self:_InitDynamicTable()
+    self:_InitTabGroup()
+    self:_HideEffect()
 end
 
 function XUiFubenBossSingleTrial:OnStart()
-    XDataCenter.FubenBossSingleManager.SetBossSingleTrial(false)
-    XEventManager.AddEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, self.OnSyncBossData, self)
-
-    self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.BossDetail = XUiPanelBossDetail.New(self, self.PanelBossDetail)
-end
-
-function XUiFubenBossSingleTrial:OnDestroy()
-    XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_REFRESH_STAGE_DATA, self.OnSyncBossData, self)
+    XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem,
+        XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 end
 
 function XUiFubenBossSingleTrial:OnEnable()
     self:PlayAnimation("AnimEnable")
+    self.BtnTrial:ShowReddot(XDataCenter.AchievementManager.CheckHasRewardByType(FUBEN_BOSS_SINGLE_TAG))
 end
 
-function XUiFubenBossSingleTrial:AutoAddListener()
-    self.BtnBack.CallBack = function() self:OnBtnBackClick() end
-    self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
+function XUiFubenBossSingleTrial:_HideEffect()
+    local root = self.UiModelGo.transform
+    local imgEffect = root:FindTransform("ImgEffectHuanren")
+    local imgEffectHide = root:FindTransform("ImgEffectHuanren1")
+
+    if imgEffect then
+        imgEffect.gameObject:SetActiveEx(false)
+    end
+    if imgEffectHide then
+        imgEffectHide.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiFubenBossSingleTrial:_RegisterButtonClicks()
+    self:RegisterClickEvent(self.BtnTrial, self.OnBtnTrialClick, true)
+    self:RegisterClickEvent(self.BtnBack, self.OnBtnBackClick, true)
+    self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick, true)
     self:BindHelpBtn(self.BtnHelp, "BossSingle")
 end
 
+--初始化关卡入口动态列表
+function XUiFubenBossSingleTrial:_InitDynamicTable()
+    self.DynamicTable = XDynamicTableNormal.New(self.SViewStage)
+    self.DynamicTable:SetProxy(XUiGridBossEXSection, self)
+    self.DynamicTable:SetDelegate(self)
+    self.GridSectionBoss.gameObject:SetActive(false)
+end
+
 --初始化难度区域选择按钮
-function XUiFubenBossSingleTrial:InitTabGroup()
-    self.BtnTabList = 
-    {
+function XUiFubenBossSingleTrial:_InitTabGroup()
+    self._BtnTabList = {
         self.BtnTog1,
         self.BtnTog2,
         self.BtnTog3,
@@ -50,96 +61,69 @@ function XUiFubenBossSingleTrial:InitTabGroup()
     }
 
     --设置Togge按钮
-    self.GroupTab:Init(self.BtnTabList, function(tabIndex) self:OnClickTabCallBack(tabIndex) end)
-    local defaultSelectIndex = #self.BtnTabList
+    local defaultSelectIndex = #self._BtnTabList
+
+    self.GroupTab:Init(self._BtnTabList, Handler(self, self.OnClickTabCallBack))
     self.GroupTab:SelectIndex(defaultSelectIndex)
 
     -- 检查是否有配置该区域 并隐藏按钮
-    for index = 1, #self.BtnTabList do
-        local currSingeExGradeConfig = XDataCenter.FubenBossSingleManager.GetBossSingleTrialGradeCfg()[index]
-        if not currSingeExGradeConfig then
-            self.BtnTabList[index].gameObject:SetActive(false)
+    for index = 1, #self._BtnTabList do
+        local isHide = self._Control:CheckHasTrialGradeConfigByType(index)
+        if not isHide then
+            self._BtnTabList[index].gameObject:SetActive(false)
         end
     end
 end
 
+function XUiFubenBossSingleTrial:_ShowBossDetail(bossId)
+    XLuaUiManager.Open("UiFubenBossSingleTrialDetail", bossId)
+end
+
+function XUiFubenBossSingleTrial:OnBtnTrialClick()
+    XLuaUiManager.Open("UiAchievement", ACHIEVEMENT_FIGHT)
+    XEventManager.DispatchEvent(XEventId.EVENT_ACHIEVEMENT_CHANGE_INDEX, FUBEN_BOSS_SINGLE_TAG)
+end
+
 function XUiFubenBossSingleTrial:OnClickTabCallBack(index)
-    if self.CurrSelectIndex == index then
+    if self._CurrSelectIndex == index then
         return
     end
     -- 选择读取不同区域关卡数据刷新列表
-    local currSingeExGradeConfig = XDataCenter.FubenBossSingleManager.GetBossSingleTrialGradeCfg()[index]
+    local currSingeExGradeConfig = self._Control:GetBossSingleTrialGradeConfigByType(index)
     local currSectionConfig = currSingeExGradeConfig.SectionId
-    self.CurrSelectAreaSectionData = {}
+    self._CurrSelectAreaSectionData = {}
     -- 排序
     for i = 1, #currSectionConfig do
-        table.insert(self.CurrSelectAreaSectionData , {SectionId = currSectionConfig[i], Order = currSingeExGradeConfig.Order[i]})
+        table.insert(self._CurrSelectAreaSectionData,
+            { SectionId = currSectionConfig[i], Order = currSingeExGradeConfig.Order[i] })
     end
-    table.sort(self.CurrSelectAreaSectionData, function (a, b)
+    table.sort(self._CurrSelectAreaSectionData, function(a, b)
         return a.Order < b.Order
     end)
 
     -- 刷新列表
-    self.DynamicTable:SetDataSource(self.CurrSelectAreaSectionData)
+    self.DynamicTable:SetDataSource(self._CurrSelectAreaSectionData)
     self.DynamicTable:ReloadDataSync()
-    self.CurrSelectIndex = index
-end
-
---初始化关卡入口动态列表
-function XUiFubenBossSingleTrial:InitDynamicTable()
-    self.DynamicTable = XDynamicTableNormal.New(self.SViewStage)
-    self.DynamicTable:SetProxy(XUiGridBossEXSection)
-    self.DynamicTable:SetDelegate(self)
-    self.GridSectionBoss.gameObject:SetActive(false)
+    self._CurrSelectIndex = index
 end
 
 --动态列表事件
 function XUiFubenBossSingleTrial:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        local sectionId = self.CurrSelectAreaSectionData[index].SectionId
+        local sectionId = self._CurrSelectAreaSectionData[index].SectionId
         grid:Refresh(sectionId)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        local sectionId = self.CurrSelectAreaSectionData[index].SectionId
-        self:ShowBossDetail(sectionId)
+        local sectionId = self._CurrSelectAreaSectionData[index].SectionId
+        self:_ShowBossDetail(sectionId)
     end
-end
-
-function XUiFubenBossSingleTrial:OnSyncBossData()
 end
 
 function XUiFubenBossSingleTrial:OnBtnBackClick()
-    XDataCenter.FubenBossSingleManager.SetBossSingleTrial(false)
-    if self.BossDetail.GameObject.activeSelf then
-        self:PlayAnimation("AnimEnable")
-        self.RoleModelPanel:HideRoleModel()
-        self.BossDetail:HidePanel()
-        self.PanelShowInfo.gameObject:SetActiveEx(true)
-        self.PanelContent.gameObject:SetActiveEx(true)
-    else
-        self:Close()
-    end
+    self:Close()
 end
 
 function XUiFubenBossSingleTrial:OnBtnMainUiClick()
-    XDataCenter.FubenBossSingleManager.SetBossSingleTrial(false)
     XLuaUiManager.RunMain()
 end
 
-function XUiFubenBossSingleTrial:ShowBossDetail(sectionId, grid)
-    self.BossDetail:ShowPanel(self.BossSingleEXData, sectionId)
-    self.PanelShowInfo.gameObject:SetActiveEx(false)
-    self.PanelContent.gameObject:SetActiveEx(false)
-    self.RoleModelPanel:ShowRoleModel()
-end
-
-function XUiFubenBossSingleTrial:RefreshModel(modelId, isHideBoss)
-    self.RoleModelPanel:UpdateBossModel(modelId, XModelManager.MODEL_UINAME.XUiBossSingle)
-    self.RoleModelPanel:ShowRoleModel()
-    if isHideBoss then
-        self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanrenHideBoss.gameObject:SetActiveEx(true)
-    else
-        self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanren.gameObject:SetActiveEx(true)
-    end
-end
+return XUiFubenBossSingleTrial

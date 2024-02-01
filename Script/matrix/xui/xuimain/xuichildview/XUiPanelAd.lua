@@ -149,8 +149,7 @@ function XUiPanelAd:OnPointerClick()
         XFunctionManager.SkipInterface(tonumber(jumpAddr))
     elseif tonumber(data.JumpType) == JumpType.Sign then
         if jumpAddr and #jumpAddr > 0 then
-            local signAddr = XDataCenter.MarketingActivityManager.GetSignUrl(jumpAddr)
-            CS.UnityEngine.Application.OpenURL(signAddr)
+            XLog.Error("看图作文、内嵌浏览器 功能已删除")
         end
     end
 end

@@ -22,7 +22,7 @@ local function GetResonanceSkillInfoByType(equipResonanceType, templateId)
     if equipResonanceType == XEquipConfig.EquipResonanceType.Attrib then
         return XAttribManager.TryGetAttribGroupTemplate(templateId)
     elseif equipResonanceType == XEquipConfig.EquipResonanceType.CharacterSkill then
-        return XCharacterConfigs.GetCharacterSkillPoolSkillInfo(templateId)
+        return XMVCA.XCharacter:GetCharacterSkillPoolSkillInfo(templateId)
     elseif equipResonanceType == XEquipConfig.EquipResonanceType.WeaponSkill then
         return XEquipConfig.GetWeaponSkillInfo(templateId)
     end
@@ -32,7 +32,7 @@ local function GetDescription(equipResonanceType, config)
     if equipResonanceType == XEquipConfig.EquipResonanceType.WeaponSkill then
         local linkCharacterSkillId = config.DesLinkCharacterSkillId
         if linkCharacterSkillId and linkCharacterSkillId ~= 0 then
-            return XDataCenter.CharacterManager.GetSpecialWeaponSkillDes(linkCharacterSkillId)
+            return XMVCA.XCharacter:GetSpecialWeaponSkillDes(linkCharacterSkillId)
         else
             return config.Description
         end

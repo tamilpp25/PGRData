@@ -37,10 +37,6 @@ end
 
 function XCharacter:Ctor(data)
     -- XCharacterViewModel
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
     self.CharacterViewModel = nil
     self.UpdatedData = nil
     for key, value in pairs(Default) do
@@ -92,7 +88,7 @@ function XCharacter:UpdateSkillData(skillList, ignoreChangeAbility)
     XTool.LoopCollection(skillList, function(data)
         local skillId = data.Id
 
-        local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+        local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
         if not skillGroupId then
             XLog.Error("XCharacter:UpdateSkillData Error: 角色技能数据同步错误，技能Id未配置在技能组中, skillId: " .. skillId)
             return
@@ -113,14 +109,14 @@ function XCharacter:UpdateSkillData(skillList, ignoreChangeAbility)
 end
 
 function XCharacter:SwithSkill(skillId)
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     local skillGroupData = self:GetSkillGroupData(skillGroupId)
     if not skillGroupData then return end
     skillGroupData:SwitchSkill(skillId)
 end
 
 function XCharacter:GetSkillLevelBySkillId(skillId)
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     return self:GetSkillLevel(skillGroupId)
 end
 
@@ -132,19 +128,19 @@ end
 function XCharacter:GetGroupCurSkillId(skillGroupId)
     local skillGroupData = self:GetSkillGroupData(skillGroupId)
     if not skillGroupData then
-        return XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
+        return XMVCA.XCharacter:GetGroupDefaultSkillId(skillGroupId)
     end
     return skillGroupData:GetCurSKillId() or 0
 end
 
 function XCharacter:IsSkillUsing(skillId)
     if not skillId or skillId == 0 then return false end
-    local skillGroupId = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
+    local skillGroupId = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
     return self:GetGroupCurSkillId(skillGroupId) == skillId
 end
 
 function XCharacter:RefreshAttribs(ignoreChangeAbility)
-    local attribs = self.CharacterAgency:GetCharacterAttribs(self)
+    local attribs = XMVCA.XCharacter:GetCharacterAttribs(self)
     if attribs then
         self.Attribs = attribs
     end
@@ -163,11 +159,11 @@ function XCharacter:GetAttributes()
 end
 
 function XCharacter:RefreshAbility()
-    self.Ability = self.CharacterAgency:GetCharacterAbility(self)
+    self.Ability = XMVCA.XCharacter:GetCharacterAbility(self)
 end
 
 function XCharacter:ChangeNpcId()
-    local npcId = XCharacterConfigs.GetCharNpcId(self.Id, self.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(self.Id, self.Quality)
     if npcId == nil then
         return
     end
@@ -218,11 +214,11 @@ end
 
 -------------------------补强技能相关---------------------------------
 function XCharacter:GetEnhanceSkillCfg()
-    return XCharacterConfigs.GetEnhanceSkillConfig(self:GetId()) or {}
+    return XMVCA.XCharacter:GetEnhanceSkillConfig(self:GetId()) or {}
 end
 
 function XCharacter:GetEnhanceSkillPosCfg()
-    return XCharacterConfigs.GetEnhanceSkillPosConfig(self:GetId()) or {}
+    return XMVCA.XCharacter:GetEnhanceSkillPosConfig(self:GetId()) or {}
 end
 
 function XCharacter:GetEnhanceSkillGroupIdList()

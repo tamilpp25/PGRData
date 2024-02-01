@@ -80,7 +80,7 @@ function XUiGridCharacter:OnBtnCharacterClick()
         else
             characterId = self.Character.Id
         end
-        if XCharacterConfigs.IsCharacterForeShow(characterId) then
+        if XMVCA.XCharacter:IsCharacterForeShow(characterId) then
             self.ClickCallback(self.Character)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -141,9 +141,9 @@ function XUiGridCharacter:UpdateRobotGrid()
     local robotId = self.Character.Id
     local robotTemplate = XRobotManager.GetRobotTemplate(robotId)
     local level = robotTemplate.CharacterLevel
-    local quality = XCharacterConfigs.GetCharacterQualityIcon(robotTemplate.CharacterQuality)
+    local quality = XMVCA.XCharacter:GetCharacterQualityIcon(robotTemplate.CharacterQuality)
     local head = self.CharacterAgency:GetCharSmallHeadIcon(robotTemplate.CharacterId, true)
-    local grade = XCharacterConfigs.GetCharGradeIcon(robotTemplate.CharacterId, robotTemplate.CharacterGrade)
+    local grade = XMVCA.XCharacter:GetCharGradeIcon(robotTemplate.CharacterId, robotTemplate.CharacterGrade)
     local ability = self.Character.Ability or XRobotManager.GetRobotAbility(robotId)
 
     if self.PanelLevel then
@@ -172,13 +172,13 @@ function XUiGridCharacter:UpdateRobotGrid()
     end
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(robotTemplate.CharacterId)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -226,13 +226,13 @@ function XUiGridCharacter:UpdateNormalGrid()
     end
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.Character.Id)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.Character.Id)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -271,11 +271,11 @@ function XUiGridCharacter:UpdateUnOwnInfo()
         self.TxtCurCount.text = self.CharacterAgency:GetCharUnlockFragment(characterId)
     end
 
-    local bornQuality = XCharacterConfigs.GetCharMinQuality(characterId)
+    local bornQuality = XMVCA.XCharacter:GetCharMinQuality(characterId)
 
     if self.TxtNeedCount then
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
-        self.TxtNeedCount.text = XCharacterConfigs.GetComposeCount(characterType, bornQuality)
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+        self.TxtNeedCount.text = XMVCA.XCharacter:GetComposeCount(characterType, bornQuality)
     end
 
     if self.RImgHeadIcon then
@@ -289,15 +289,15 @@ function XUiGridCharacter:UpdateOwnInfo()
     end
 
     if self.TxtGradeLevel then
-        self.TxtGradeLevel.text = XCharacterConfigs.GetCharGradeName(self.Character.Id, self.Character.Grade)
+        self.TxtGradeLevel.text = XMVCA.XCharacter:GetCharGradeName(self.Character.Id, self.Character.Grade)
     end
 
     if self.RImgGrade then
-        self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(self.Character.Id, self.Character.Grade))
+        self.RImgGrade:SetRawImage(XMVCA.XCharacter:GetCharGradeIcon(self.Character.Id, self.Character.Grade))
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Character.Quality))
     end
 
     if self.RImgHeadIcon then
@@ -305,7 +305,7 @@ function XUiGridCharacter:UpdateOwnInfo()
     end
 
     if self.TxtTradeName then
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(self.Character.Id)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(self.Character.Id)
     end
 end
 
@@ -383,8 +383,8 @@ function XUiGridCharacter:SetSameRoleTag(isShow, showText)
     end
     if self.TextSameRole and isShow then
         local characterId = self.Character.Id
-        local characterType = XCharacterConfigs.GetCharacterType(characterId)
-        local characterTypeName = characterType == XCharacterConfigs.CharacterType.Isomer and CS.XTextManager.GetText("TypeIsomer") or CS.XTextManager.GetText("TypeCharacter")
+        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
+        local characterTypeName = characterType == XEnumConst.CHARACTER.CharacterType.Isomer and CS.XTextManager.GetText("TypeIsomer") or CS.XTextManager.GetText("TypeCharacter")
         self.TextSameRole.text = showText or CS.XTextManager.GetText("TeamGridSameRole", characterTypeName)
     end
 end

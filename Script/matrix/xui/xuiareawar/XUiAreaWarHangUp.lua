@@ -3,11 +3,10 @@ local XUiGridAreaWarHangUp = require("XUi/XUiAreaWar/XUiGridAreaWarHangUp")
 local XUiAreaWarHangUp = XLuaUiManager.Register(XLuaUi, "UiAreaWarHangUp")
 
 function XUiAreaWarHangUp:OnAwake()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XUiHelper.NewPanelActivityAsset({
+    self.AssetActivityPanel = XUiHelper.NewPanelActivityAssetSafe({
         XDataCenter.ItemManager.ItemId.AreaWarCoin,
         XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-    }, self.PanelSpecialTool,nil,nil,{
+    }, self.PanelSpecialTool, self,nil,nil,{
         XDataCenter.ItemManager.ItemId.AreaWarActionPoint
     })
     self:AutoAddListener()

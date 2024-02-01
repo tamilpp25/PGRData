@@ -74,7 +74,7 @@ function GuideForceStepNode:OnEnter()
         local cb = function(ui)
             self.Agent:SetVarDicByKey("UiNewRoomSingle", ui)
         end
-        XLuaUiManager.OpenWithCallback("UiNewRoomSingle", cb, stage.StageId)
+        XLuaUiManager.OpenWithCallback("UiBattleRoleRoom", cb, stage.StageId)
 
     elseif type == GuideForceStepType.ClickEnterFight then
 
@@ -216,7 +216,7 @@ function GuideForceStepNode:OnEnter()
                 ui:Refresh()
             end
         end
-        XDataCenter.CharacterManager.UpgradeSubSkillLevel(tonumber(self.Fields["Par1"]), tonumber(self.Fields["Par2"]), cb)
+        XMVCA.XCharacter:UpgradeSubSkillLevel(tonumber(self.Fields["Par1"]), tonumber(self.Fields["Par2"]), cb)
 
     end
 

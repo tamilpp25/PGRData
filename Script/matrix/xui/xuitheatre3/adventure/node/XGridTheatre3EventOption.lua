@@ -1,3 +1,8 @@
+---@class XGridTheatre3OptionCost
+---@field Icon UnityEngine.UI.RawImage
+---@field ImgBg UnityEngine.UI.Image
+---@field Text UnityEngine.UI.Text
+
 ---@class XGridTheatre3EventOption : XUiNode
 ---@field _Control XTheatre3Control
 local XGridTheatre3EventOption = XClass(XUiNode, "XGridTheatre3EventOption")
@@ -6,7 +11,8 @@ function XGridTheatre3EventOption:OnStart(selectCb)
     self._SelectCB = selectCb
     ---@type XUiComponent.XUiButton
     self._BtnOption = XUiHelper.TryGetComponent(self.Transform, "", "XUiButton")
-    self:SetItemActive(false)
+    ---@type XGridTheatre3OptionCost[]
+    self._OptionCostList = {}
     self:AddBtnListener()
 end
 
@@ -17,13 +23,6 @@ function XGridTheatre3EventOption:Refresh(optionId, index)
     end
     local optionCfg = self._Control:GetEventOptionCfgById(optionId)
     local iconUrl = optionCfg.OptionIcon
-    local itemId = optionCfg.OptionItemId[1]
-    local itemIcon
-    local costCount = optionCfg.OptionItemCount[1]
-    local iconCount = self._BtnOption.ImageList.Count / 2
-    if optionCfg.OptionItemType == 1 then
-        itemIcon = XDataCenter.ItemManager.GetItemIcon(itemId)
-    end
     
     --选项名称
     if not string.IsNilOrEmpty(optionCfg.OptionDesc) then
@@ -33,42 +32,44 @@ function XGridTheatre3EventOption:Refresh(optionId, index)
     if not string.IsNilOrEmpty(optionCfg.OptionDownDesc) then
         self._BtnOption:SetNameByGroup(1, optionCfg.OptionDownDesc)
     end
-    --选项道具消耗文本
-    for i = 0, self._BtnOption.TxtGroupList[2].TxtList.Count - 1 do
-        self._BtnOption.TxtGroupList[2].TxtList[i].gameObject:SetActiveEx(XTool.IsNumberValid(costCount))
-    end
-    if optionCfg.OptionType == XEnumConst.THEATRE3.EventStepOptionType.CostItem then
-        if XTool.IsNumberValid(costCount) then
-            self._BtnOption:SetNameByGroup(2, "-" .. costCount)
-        end
-    elseif optionCfg.OptionType == XEnumConst.THEATRE3.EventStepOptionType.CheckItem then
-        if XTool.IsNumberValid(costCount) then
-            self._BtnOption:SetNameByGroup(2, costCount)
-        end
-    end
-    --选项图标
-    for i = 0, self._BtnOption.ImageList.Count - 1 do
-        self._BtnOption.ImageList[i].gameObject:SetActiveEx(i < iconCount)
-        if i < iconCount then
-            self._BtnOption.ImageList[i]:SetSprite(iconUrl)
-        end
-    end
-    --道具图标
-    if not string.IsNilOrEmpty(itemIcon) then
-        self._BtnOption:SetRawImage(itemIcon)
-    end
-    self:SetItemActive(XTool.IsNumberValid(itemId))
-end
-
-function XGridTheatre3EventOption:SetItemActive(active)
-    if not self._BtnOption then
+    if not self.PanelItem then
         return
     end
-    for i = 0, self._BtnOption.ImageList.Count - 1 do
-        self._BtnOption.ImageList[i].gameObject:SetActiveEx(XTool.IsNumberValid(active))
+    --选项道具相关
+    if XTool.IsTableEmpty(optionCfg.OptionItemId) then
+        self.PanelItem.gameObject:SetActiveEx(false)
+    else
+        self.PanelItem.gameObject:SetActiveEx(true)
+        for i, itemId in ipairs(optionCfg.OptionItemId) do
+            if not self._OptionCostList[i] then
+                local go = i == 1 and self.PanelIcon or XUiHelper.Instantiate(self.PanelIcon, self.PanelItem)
+                self._OptionCostList[i] = XTool.InitUiObjectByUi({}, go)
+            end
+            -- 消耗文本
+            if optionCfg.OptionType == XEnumConst.THEATRE3.EventStepOptionType.CostItem then
+                if XTool.IsNumberValid(optionCfg.OptionItemCount[i]) then
+                    self._OptionCostList[i].Text.text = "-" .. optionCfg.OptionItemCount[i]
+                end
+            elseif optionCfg.OptionType == XEnumConst.THEATRE3.EventStepOptionType.CheckItem then
+                if XTool.IsNumberValid(optionCfg.OptionItemCount[i]) then
+                    self._OptionCostList[i].Text.text = optionCfg.OptionItemCount[i]
+                end
+            end
+            --选项背景
+            if not string.IsNilOrEmpty(iconUrl) then
+                self._OptionCostList[i].ImgBg:SetSprite(iconUrl)
+            end
+            --选项图标
+            local itemIcon = self._Control:GetEventStepItemIcon(itemId, optionCfg.OptionItemType)
+            self._OptionCostList[i].Icon:SetRawImage(itemIcon)
+        end
     end
-    for i = 0, self._BtnOption.RawImageList.Count - 1 do
-        self._BtnOption.RawImageList[i].gameObject:SetActiveEx(XTool.IsNumberValid(active))
+    --选项特效
+    if self.Effect and XTool.IsNumberValid(optionCfg.QuantumEffectShowType) then
+        local effectUrl = self._Control:GetClientConfig("QuantumEffectShowType", optionCfg.QuantumEffectShowType)
+        if not string.IsNilOrEmpty(effectUrl) then
+            self.Effect:LoadUiEffect(effectUrl)
+        end
     end
 end
 
@@ -85,7 +86,7 @@ end
 
 --region Ui - BtnListener
 function XGridTheatre3EventOption:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self._BtnOption, self.OnBtnOptionClick)
+    self._Control:RegisterClickEvent(self, self._BtnOption, self.OnBtnOptionClick)
 end
 
 function XGridTheatre3EventOption:OnBtnOptionClick()

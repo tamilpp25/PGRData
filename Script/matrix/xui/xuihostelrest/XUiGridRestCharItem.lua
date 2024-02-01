@@ -64,7 +64,7 @@ function XUiGridRestCharItem:SetData(data)
         self.PanelWorking.gameObject:SetActive(false)
         return
     end
-    -- local character = XDataCenter.CharacterManager.GetCharacter(self.CharId)
+    -- local character = XMVCA.XCharacter:GetCharacter(self.CharId)
     if XDataCenter.HostelManager.IsCharacterInWork(self.CharId) then
         self.PanelWorking.gameObject:SetActive(true)
     else

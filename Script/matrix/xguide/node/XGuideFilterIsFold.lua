@@ -11,8 +11,8 @@ function XGuideFilterIsFold:OnAwake()
 end
 
 function XGuideFilterIsFold:OnEnter()
-    ---@type XCommonCharacterFiltAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
+    ---@type XCommonCharacterFilterAgency
+    local ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
     local filterTrans = self.AgentProxy:FindTargetFilter(self.UiName, self.FilterName).transform
     local filterProxy = ag:GetFilterProxyByTransfrom(filterTrans)
     local IsFold = filterProxy.IsFold

@@ -1169,7 +1169,7 @@ XKillZoneManagerCreator = function()
                 end
             else
                 --清库之后本地缓存角色失效
-                if not XDataCenter.CharacterManager.IsOwnCharacter(id) then
+                if not XMVCA.XCharacter:IsOwnCharacter(id) then
                     _CurrentTeam:UpdateEntityTeamPos(0, index, true)
                 end
             end
@@ -1249,10 +1249,10 @@ XKillZoneManagerCreator = function()
 end
 ---------------------Notify begin------------------
 XRpc.NotifyKillZoneActivityData = function(data)
-    XDataCenter.KillZoneManager.NotifyKillZoneActivityData(data)
+    --XDataCenter.KillZoneManager.NotifyKillZoneActivityData(data)
 end
 
 XRpc.NotifyKillZoneActivityDailyReset = function(data)
-    XDataCenter.KillZoneManager.NotifyKillZoneActivityDailyReset(data)
+    --XDataCenter.KillZoneManager.NotifyKillZoneActivityDailyReset(data)
 end
 ---------------------Notify end------------------    

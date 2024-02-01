@@ -41,7 +41,7 @@ function XUiTheatreRecruitRoleGrid:RefreshDatas(adventureRole, playEffect)
     self.TxtName.text = adventureRole:GetRoleName()
 
     local jobType = adventureRole:GetCareerType()
-    self.RImgIconType:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
+    self.RImgIconType:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(jobType))
 
     local elementList = adventureRole:GetElementList()
     local elementConfig
@@ -53,7 +53,7 @@ function XUiTheatreRecruitRoleGrid:RefreshDatas(adventureRole, playEffect)
             self.ElementImgIconList[i] = rImgIcon
         end
 
-        elementConfig = XCharacterConfigs.GetCharElement(elementId)
+        elementConfig = XMVCA.XCharacter:GetCharElement(elementId)
         elementIconPath = elementConfig.Icon2
         rImgIcon:SetRawImage(elementIconPath)
         rImgIcon.gameObject:SetActiveEx(true)

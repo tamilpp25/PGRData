@@ -55,6 +55,10 @@ function XTransfiniteRegion:GetIconLv()
     return XTransfiniteConfigs.GetRegionIconLv(self._Id)
 end
 
+function XTransfiniteRegion:GetRewardIds()
+    return XTransfiniteConfigs.GetRegionDisplayRewardIds(self._Id)
+end
+
 function XTransfiniteRegion:GetColor()
     if not self._Color then
         if self._Id == 1 then

@@ -155,7 +155,6 @@ end
 
 function XUiReformReadyPanel:OnBtnEnterClicked()
     self:Close()
-    -- XLuaUiManager.Open("UiNewRoomSingle", self.BaseStage:GetId())
     local evolvableStage = self.BaseStage:GetCurrentEvolvableStage()
     local diff = evolvableStage:GetDifficulty()
     -- 非基础关从上一关难度继承队伍
@@ -189,8 +188,6 @@ function XUiReform:OnAwake()
     self.UiReformReadyPanel = XUiReformReadyPanel.New(self.PanelStageDetail, self)
     self.MosterHideParts = {}
     self.MosterEffects = {}
-    XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Reform,
-    require("XUi/XUiReform/XUiReformNewRoomSingle"))
     -- 关卡列表
     self.UiReformStageGridDic = {}
     self.GridStage.gameObject:SetActiveEx(false)
@@ -415,9 +412,9 @@ function XUiReform:RefreshModel(npcId)
     end
     self.MosterHideParts = {}
     self.MosterEffects = {}
-    local transDatas = XArchiveConfigs.GetMonsterTransDatas(npcId, 1)
-    local effectDatas = XArchiveConfigs.GetMonsterEffectDatas(npcId, 1)
-    local modelId = XArchiveConfigs.GetMonsterModel(npcId)
+    local transDatas = XMVCA.XArchive:GetMonsterTransDatas(npcId, 1)
+    local effectDatas = XMVCA.XArchive:GetMonsterEffectDatas(npcId, 1)
+    local modelId = XMVCA.XArchive:GetMonsterModel(npcId)
     self.UiPanelRoleModel:SetDefaultAnimation(transDatas and transDatas.StandAnime)
     self.UiPanelRoleModel:UpdateArchiveMonsterModel(modelId, XModelManager.MODEL_UINAME.UiReform)
     self.UiPanelRoleModel:ShowRoleModel()

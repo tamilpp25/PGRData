@@ -29,7 +29,7 @@ local PlayerCondition
 PlayerCondition = {
     [10101] = function(condition)
         -- 查询玩家等级是否达标
-        return XPlayer.Level >= condition.Params[1], condition.Desc
+        return XPlayer:GetLevel() >= condition.Params[1], condition.Desc
     end,
     [10102] = function(condition)
         -- 查询玩家是否拥有指定角色
@@ -120,24 +120,24 @@ PlayerCondition = {
     end,
     [10114] = function(condition)
         -- 世界boss属性关完成数量
-        local worldBossActivity = XDataCenter.WorldBossManager.GetCurWorldBossActivity()
-        if worldBossActivity then
-            local finishStageCount = worldBossActivity:GetFinishStageCount()
-            if finishStageCount >= condition.Params[1] then
-                return true, condition.Desc
-            end
-        end
+        --local worldBossActivity = XDataCenter.WorldBossManager.GetCurWorldBossActivity()
+        --if worldBossActivity then
+        --    local finishStageCount = worldBossActivity:GetFinishStageCount()
+        --    if finishStageCount >= condition.Params[1] then
+        --        return true, condition.Desc
+        --    end
+        --end
         return false, condition.Desc
     end,
     [10115] = function(condition)
         -- 世界boss血量低于xx(百分比)
-        local bossArea = XDataCenter.WorldBossManager.GetBossAreaById(condition.Params[1])
-        if bossArea then
-            local hpPercent = bossArea:GetHpPercent()
-            if hpPercent * 100 <= condition.Params[2] then
-                return true, condition.Desc
-            end
-        end
+        --local bossArea = XDataCenter.WorldBossManager.GetBossAreaById(condition.Params[1])
+        --if bossArea then
+        --    local hpPercent = bossArea:GetHpPercent()
+        --    if hpPercent * 100 <= condition.Params[2] then
+        --        return true, condition.Desc
+        --    end
+        --end
         return false, condition.Desc
     end,
     [10118] = function(condition)
@@ -255,7 +255,13 @@ PlayerCondition = {
         local args = { ... }
         local teamList = args and args[1]
         local isfinished, averageAbility = XDataCenter.StrongholdManager.CheckTeamListAverageAbility(requireCount, teamList)
-        return isfinished, condition.Desc .. "/" .. math.floor(averageAbility)
+        local powerTxt
+        if isfinished then
+            powerTxt = math.floor(averageAbility)
+        else
+            powerTxt = string.format("<color=#d92f2f>%s</color>", math.floor(averageAbility))
+        end
+        return isfinished, XUiHelper.GetText("StrongholdPowerCondition", powerTxt, requireCount)
     end,
     [10135] = function(condition)
         --超级据点未完成某个据点
@@ -293,7 +299,7 @@ PlayerCondition = {
     [10142] = function(condition)
         --是否拥有某个伙伴
         local templateId = condition.Params[1]
-        local IsUnLock = XDataCenter.ArchiveManager.GetPartnerUnLockById(templateId)
+        local IsUnLock = XMVCA.XArchive:GetPartnerUnLockById(templateId)
         return IsUnLock, condition.Desc
     end,
     [10143] = function(condition)
@@ -304,10 +310,11 @@ PlayerCondition = {
     end,
     [10144] = function(condition)
         -- 判断杀戮无双难度星数
-        local diff = condition.Params[1]
-        local star = condition.Params[2]
-        local curStar = XDataCenter.KillZoneManager.GetTotalStageStarByDiff(diff)
-        return curStar >= star, condition.Desc
+        --local diff = condition.Params[1]
+        --local star = condition.Params[2]
+        --local curStar = XDataCenter.KillZoneManager.GetTotalStageStarByDiff(diff)
+        --return curStar >= star, condition.Desc
+        return false
     end,
     [10145] = function(condition)
         -- 判断超级爬塔通关目标关卡进度
@@ -334,11 +341,11 @@ PlayerCondition = {
     end,
     [10150] = function(condition)
         -- 查询当前的生日剧情是否解锁
-        return XPlayer.CheckStoryIsUnlock(condition.Params[1]), condition.Desc
+        return XMVCA.XBirthdayPlot:IsStoryUnlock(condition.Params[1]), condition.Desc
     end,
     [10152] = function(condition)
         -- 查询当前邮件图鉴是否解锁
-        return XDataCenter.ArchiveManager.CheckArchiveMailUnlock(condition.Params[1]), condition.Desc
+        return XMVCA.XArchive:CheckArchiveMailUnlock(condition.Params[1]), condition.Desc
     end,
     [10153] = function(condition)
         -- 判断角色创建时间与参数的关系
@@ -417,7 +424,7 @@ PlayerCondition = {
 
         local stageId = condition.Params[1]
         local needStar = condition.Params[2]
-        local xStage = XDataCenter.CerberusGameManager.GetXStageById(stageId)
+        local xStage = XMVCA.XCerberusGame:GetXStageById(stageId)
         local starCount = xStage and xStage:GetStarCount()
 
         return starCount >= needStar, condition.Desc
@@ -429,7 +436,7 @@ PlayerCondition = {
         end
 
         local stageId = condition.Params[1]
-        local xStage = XDataCenter.CerberusGameManager.GetXStageById(stageId)
+        local xStage = XMVCA.XCerberusGame:GetXStageById(stageId)
         for i = 2, #condition.Params, 1 do
             local param = condition.Params[i]
             if not table.contains(xStage:GetStageParams(), param) then
@@ -496,11 +503,12 @@ PlayerCondition = {
     end,
     [11111] = function(condition)
         --查询当前爬塔达到的最高层数
-        local curMaxTier = XDataCenter.FubenRogueLikeManager.GetHistoryMaxTier()
-        if condition and condition.Params[1] then
-            return curMaxTier >= condition.Params[1], condition.Desc
-        end
-        return false, condition.Desc
+        --local curMaxTier = XDataCenter.FubenRogueLikeManager.GetHistoryMaxTier()
+        --if condition and condition.Params[1] then
+        --    return curMaxTier >= condition.Params[1], condition.Desc
+        --end
+        --return false, condition.Desc
+        return true, condition.Desc
     end,
     [11112] = function(condition)
         --查询玩家是否拥有某个永久武器时装
@@ -675,7 +683,7 @@ PlayerCondition = {
     end,
     [15111] = function(condition)
         --幻痛囚笼是否开启
-        return XDataCenter.FubenBossSingleManager.IsBossSingleOpen(), condition.Desc
+        return XMVCA.XFubenBossSingle:IsBossSingleOpen(), condition.Desc
     end,
     [15200] = function(condition)
         -- 主线普通与隐藏模式的收集进度是否均达到100%
@@ -724,6 +732,14 @@ PlayerCondition = {
         end
         return false, condition.Desc
     end,
+    [15204] = function(condition)
+        -- 当前关卡行为树参数值是否匹配
+        local stageId = condition.Params[1]
+        local eventId = condition.Params[2]
+        local eventValue = XMVCA.XFuben:GetStageEventValue(stageId, eventId)
+        local isReach = eventValue == condition.Params[3]
+        return isReach, condition.Desc
+    end,
     [16100] = function(condition)
         --查询公会等级是否达到（服务端未实现）
         if not XDataCenter.GuildManager.IsJoinGuild() then
@@ -761,52 +777,58 @@ PlayerCondition = {
         return XPlayer.GetHonorLevel() >= condition.Params[1], condition.Desc
     end,
     [10125] = function(condition)
-        local recruitLevel = XDataCenter.ExpeditionManager.GetRecruitLevel()
-        return recruitLevel and recruitLevel >= condition.Params[1]
+        --local recruitLevel = XDataCenter.ExpeditionManager.GetRecruitLevel()
+        --return recruitLevel and recruitLevel >= condition.Params[1]
+        return false
     end,
     [15301] = function(condition)
         --追击玩法
-        local mapId = condition.Params[1]
-        local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
-        if mapDb and mapDb:IsKill() then
-            return true
-        else
-            return false, condition.Desc
-        end
+        --local mapId = condition.Params[1]
+        --local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
+        --if mapDb and mapDb:IsKill() then
+        --    return true
+        --else
+        --    return false, condition.Desc
+        --end
+        return false
     end,
     [15302] = function(condition)
         --追击玩法
-        local mapId = condition.Params[1]
-        local killBossCount = condition.Params[2]
-        local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
-        if mapDb and mapDb:IsKill() then
-            return mapDb:GetWinForBattleCount() <= killBossCount
-        else
-            return false, condition.Desc
-        end
+        --local mapId = condition.Params[1]
+        --local killBossCount = condition.Params[2]
+        --local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
+        --if mapDb and mapDb:IsKill() then
+        --    return mapDb:GetWinForBattleCount() <= killBossCount
+        --else
+        --    return false, condition.Desc
+        --end
+        return false
     end,
     [15303] = function(condition)
         --追击玩法:是否布过阵
-        for i, mapId in ipairs(condition.Params) do
-            local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
-            if mapDb and not mapDb:NeedBuZhen() then
-                return true
-            end
-        end
+        --for i, mapId in ipairs(condition.Params) do
+        --    local mapDb = XDataCenter.ChessPursuitManager.GetChessPursuitMapDb(mapId)
+        --    if mapDb and not mapDb:NeedBuZhen() then
+        --        return true
+        --    end
+        --end
+        return false
     end,
     [15304] = function(condition)
         --骇入玩法:查询研发等级是否达到
-        if XDataCenter.FubenHackManager.GetIsActivityEnd() then
-            return false
-        end
-        return condition.Params[1] >= XDataCenter.FubenHackManager.GetLevel()
+        --if XDataCenter.FubenHackManager.GetIsActivityEnd() then
+        --    return false
+        --end
+        --return condition.Params[1] >= XDataCenter.FubenHackManager.GetLevel()
+        return false
     end,
     [15305] = function(condition)
         --分光双星（双人成行）：检测已锁定角色的关卡数
-        local target = condition.Params[1]
-        local chapterId = condition.Params[2]
-        local passCount = XDataCenter.FubenCoupleCombatManager.GetStageSchedule(chapterId)
-        return passCount >= target, condition.Desc
+        --local target = condition.Params[1]
+        --local chapterId = condition.Params[2]
+        --local passCount = XDataCenter.FubenCoupleCombatManager.GetStageSchedule(chapterId)
+        --return passCount >= target, condition.Desc
+        return false
     end,
     --全服决战 begin
     [16001] = function(condition)
@@ -870,14 +892,14 @@ PlayerCondition = {
         --检查黄金矿工角色是否解锁
         local redEnvelopeNpcId = condition.Params[1]
         local count = condition.Params[2]
-        if XDataCenter.GoldenMinerManager.IsCharacterUnLock(redEnvelopeNpcId) then
+        if XMVCA.XGoldenMiner:IsCharacterUnLock(redEnvelopeNpcId) then
             return true
         end
         return false, condition.Desc
     end,
     [10149] = function(condition, characterId)
         --检查黄金矿工角色是否解锁
-        if XDataCenter.GoldenMinerManager.IsCharacterUnLock(characterId) then
+        if XMVCA.XGoldenMiner:IsCharacterUnLock(characterId) then
             return true
         end
         return false, condition.Desc
@@ -885,7 +907,7 @@ PlayerCondition = {
     [10300] = function(condition)
         local characterId = condition.Params[1]
         --检查黄金矿工是否使用某角色
-        if XDataCenter.GoldenMinerManager.CheckIsUseCharacter(characterId) then
+        if XMVCA.XGoldenMiner:CheckIsUseCharacter(characterId) then
             return true
         end
         return false, condition.Desc
@@ -893,7 +915,7 @@ PlayerCondition = {
     [10301] = function(condition)
         local characterId = condition.Params[1]
         --检查黄金矿工是否没使用某角色
-        if not XDataCenter.GoldenMinerManager.CheckIsUseCharacter(characterId) then
+        if not XMVCA.XGoldenMiner:CheckIsUseCharacter(characterId) then
             return true
         end
         return false, condition.Desc
@@ -1011,7 +1033,21 @@ PlayerCondition = {
     end,
     [20110] = function(condition)
         -- 分包下载是否开启
-        return XDataCenter.DlcManager.CheckIsOpen()
+        return XMVCA.XSubPackage:IsOpen(), condition.Desc
+    end,
+    [20111] = function(condition)
+        -- 预下载是否开启
+        local isOpen = XMVCA.XPreload:CheckShowPreloadEntry()
+        return isOpen, condition.Desc
+    end,
+    [20112] = function(condition)
+        --分包下载未开启
+        if not XMVCA.XSubPackage:IsOpen() then
+            return true, condition.Desc
+        end
+        local subpackageId =  condition.Params[1] or XEnumConst.SUBPACKAGE.CUSTOM_SUBPACKAGE_ID.NECESSARY
+        --开启时，判断必要资源是否下载完毕
+        return XMVCA.XSubPackage:CheckSubpackageComplete(subpackageId), condition.Desc
     end,
     -- 战双餐厅相关
     [10180] = function(condition)
@@ -1060,12 +1096,12 @@ PlayerCondition = {
     end,
     [10186] = function(condition)
         -- 超限乱斗模式解锁
-        local modeId = condition.Params[1]
-        ---@type XSmashBMode
-        local mode = XDataCenter.SuperSmashBrosManager.GetModeByModeType(modeId)
-        if mode then
-            return mode:CheckUnlock()
-        end
+        --local modeId = condition.Params[1]
+        -----@type XSmashBMode
+        --local mode = XDataCenter.SuperSmashBrosManager.GetModeByModeType(modeId)
+        --if mode then
+        --    return mode:CheckUnlock()
+        --end
         return false
     end,
     [10187] = function(condition)
@@ -1078,12 +1114,12 @@ PlayerCondition = {
     end,
     [10188] = function(condition)
         -- 超限乱斗进行中的模式
-        local modeId = condition.Params[1]
-        ---@type XSmashBMode
-        local mode = XDataCenter.SuperSmashBrosManager.GetPlayingMode()
-        if mode and mode:GetId() == modeId then
-            return true
-        end
+        --local modeId = condition.Params[1]
+        -----@type XSmashBMode
+        --local mode = XDataCenter.SuperSmashBrosManager.GetPlayingMode()
+        --if mode and mode:GetId() == modeId then
+        --    return true
+        --end
         return false
     end,
     [59001] = function(condition)
@@ -1121,9 +1157,10 @@ PlayerCondition = {
         local chapterId = condition.Params[1]
         local needScore = condition.Params[2]
         local isReach = false
-        local chapter = XDataCenter.TwoSideTowerManager.GetChapter(chapterId)
-        if chapter then
-            local maxScore = chapter:GetMaxChapterScore()
+        ---@type XTwoSideTowerAgency
+        local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+        local maxScore = twoSideTowerAgency:GetMaxChapterScore(chapterId)
+        if XTool.IsNumberValid(maxScore) then
             isReach = maxScore >= needScore
         end
         return isReach, condition.Desc
@@ -1156,7 +1193,21 @@ PlayerCondition = {
         time = stage:GetPassedTime()
         return time < limitTime
     end,
-    --肉鸽3.0 type = 17200 - 17217
+    --言灵
+    [10220] = function(condition)
+        --判断当前是否在指定关卡
+        local Params = condition.Params
+        local stageId = Params[1]
+        --顶层UI限定，防止其他界面打开的时候触发
+        local topUiLimit = Params[2]
+        if not XTool.IsNumberValid(stageId) then
+            return false
+        end
+        
+        return XMVCA.XKotodamaActivity:GetCurStageId() == stageId and (string.IsNilOrEmpty(topUiLimit) and true or XLuaUiManager.GetTopUiName() == topUiLimit)
+    end,
+    
+    --region 肉鸽3.0 17200~17223
     [17200] = function(condition)   -- 任意冒险中玩家首次进入某个章节
         ---@type XTheatre3Agency
         local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
@@ -1167,6 +1218,12 @@ PlayerCondition = {
     [17202] = function(condition)   -- 玩家首次完成任意结局
         XLog.Error("当前冒险结局数据未同步！")
         local result = false
+        return result, condition.Desc
+    end,
+    [17207] = function(condition)   -- 玩家在所有冒险中，累计通关了多少次（失败结局不算通关）
+        ---@type XTheatre3Agency
+        local count = condition.Params[1]
+        local result = XMVCA.XTheatre3:CheckTotalAllPassCount(count)
         return result, condition.Desc
     end,
     [17208] = function(condition)   -- 玩家是否已达成XX结局
@@ -1222,12 +1279,182 @@ PlayerCondition = {
         local result = agency:CheckAdventureHasPassNode(nodeId)
         return result, condition.Desc
     end,
-    [17218] = function(condition)
+    [17219] = function(condition)   -- 当局量子等级是否达到x级
+        local level = condition.Params[1]
+        local result = XMVCA.XTheatre3:CheckAdventureQuantumLevel(level)
+        return result, condition.Desc
+    end,
+    [17220] = function(condition)   -- 任意一局完成过某个事件的Step【局外永久记录】(后端用此处占位)
+        return false, condition.Desc
+    end,
+    [17221] = function(condition)   -- 持有的未量子化套装数量
+        local how2Compare = condition.Params[1]
+        local count = condition.Params[2]
+        local result = XMVCA.XTheatre3:CheckAdventureUnQuantumEquipCount(how2Compare, count)
+        return result, condition.Desc
+    end,
+    [17222] = function(condition)   -- 检查道具持有状态
+        local itemId = condition.Params[1]
+        local isOwn = condition.Params[2] == 1
+        local result = XMVCA.XTheatre3:CheckAdventureItemOwn(itemId, isOwn)
+        return result, condition.Desc
+    end,
+    [17223] = function(condition)   -- 量子值达到指定数值
+        local type = condition.Params[1]
+        local value = condition.Params[2]
+        local result = XMVCA.XTheatre3:CheckAdventureQuantumValue(type, value)
+        return result, condition.Desc
+    end,
+    [17224] = function(condition)   -- 量子开启提示状态
+        local state = condition.Params[1]
+        local result = XMVCA.XTheatre3:CheckAdventureQuantumOpenTipCache(state)
+        return result, condition.Desc
+    end,
+    --endregion
+    
+    [32199] = function(condition)
         local battleManager = XDataCenter.GuildWarManager.GetBattleManager()
         if not battleManager then
             return false
         end
         return battleManager:CheckIsCanGuide()
+    end,
+    [10401] = function(condition)   -- 国际战棋关卡通关判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsStagePass(condition.Params[1]), condition.Desc
+    end,
+    [10402] = function(condition)   -- 国际战棋当前关卡判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsCurStageId(condition.Params[1]), condition.Desc
+    end,
+    [10403] = function(condition)   -- 国际战棋当前能量判断
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsEnergyGreatOrEqual(condition.Params[1]), condition.Desc
+    end,
+    [10404] = function(condition)   -- 国际战棋当前回合是否为额外回合
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        local param1 = condition.Params[1]
+        if XTool.IsNumberValid(param1) then
+            return agency:IsExtraRound(), condition.Desc
+        end
+        return (not agency:IsExtraRound()), condition.Desc
+    end,
+    [10405] = function(condition) -- 国际战棋当前关卡是否触发引导
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsGuideCurrentCombat(condition.Params[1]), condition.Desc
+    end,
+    [10406] = function(condition) -- 国际战棋当前选中的角色
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsContainReinforce() == condition.Params[1], condition.Desc
+    end,
+    [10407] = function(condition) -- 国际战棋当前选中的角色
+        ---@type XBlackRockChessAgency
+        local agency = XMVCA:GetAgency(ModuleId.XBlackRockChess)
+        return agency:IsSelectActor(condition.Params[1]), condition.Desc
+    end,
+    [10171] = function(condition) -- 大秘境插件星级判断
+        local star = condition.Params[1]
+        local count = condition.Params[2]
+        local cur, _ = XDataCenter.RiftManager.GetPluginCount(star)
+        return cur >= count, condition.Desc
+    end,
+    [10172] = function(condition) -- 大秘境赛季通关判断
+        local season = condition.Params[1]
+        local layerId = condition.Params[2]
+        return XDataCenter.RiftManager:CheckSeasonOpen(season) and not XDataCenter.RiftManager.IsLayerLock(layerId), condition.Desc
+    end,
+    -- 肉鸽模拟经营 17301 ~ 17309、17320、17321
+    [17301] = function(condition) -- 回合数目
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local camp = condition.Params[1]
+        local targetTurn = condition.Params[2]
+        local result = agency:TurnNumberCompare(targetTurn, camp)
+        return result, condition.Desc
+    end,
+    [17302] = function(condition) -- 行动点数目
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local camp = condition.Params[1]
+        local targetActionPoint = condition.Params[2]
+        local result = agency:ActionPointCompare(targetActionPoint, camp)
+        return result, condition.Desc
+    end,
+    [17303] = function(condition) -- 繁荣度数目
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local camp = condition.Params[1]
+        local targetProsperity = condition.Params[2]
+        local result = agency:ProsperityCompare(targetProsperity, camp)
+        return result, condition.Desc
+    end,
+    [17304] = function(condition) -- 是否触发生产暴击
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local flag = condition.Params[1] -- 1是、0否
+        local result = agency:CheckIsProductionCritical(flag)
+        return result, condition.Desc
+    end,
+    [17305] = function(condition) -- 是否触发销售暴击
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local flag = condition.Params[1] -- 1是、0否
+        local result = agency:CheckIsSellCritical(flag)
+        return result, condition.Desc
+    end,
+    [17306] = function(condition) -- 是否通关指定关卡
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local stageId = condition.Params[1]
+        local result = agency:CheckStageIsPass(stageId)
+        return result, condition.Desc
+    end,
+    [17307] = function(condition) -- 检查当前关卡类型
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local type = condition.Params[1] -- 1:教学关 2:普通关
+        local result = agency:CheckCurStageType(type)
+        return result, condition.Desc
+    end,
+    [17308] = function(condition) -- 指定建筑Id已购买
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local buildingId = condition.Params[1]
+        local result = agency:CheckBuildingIsBuy(buildingId)
+        return result, condition.Desc
+    end,
+    [17309] = function(condition) -- 指定的引导是否在关卡内触发过
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local guideId = condition.Params[1]
+        local flag = condition.Params[2] -- 1触发、2未触发
+        local result = agency:CheckGuideIsTrigger(guideId, flag)
+        return result, condition.Desc
+    end,
+    [17320] = function(condition) -- 通关关卡次数
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local stageId = condition.Params[1]
+        local count = condition.Params[2]
+        local result = agency:CheckPassStageCount(stageId, count)
+        return result, condition.Desc
+    end,
+    [17321] = function(condition) -- 通关星级总数
+        ---@type XRogueSimAgency
+        local agency = XMVCA:GetAgency(ModuleId.XRogueSim)
+        local count = condition.Params[1]
+        local result = agency:CheckPassStarCount(count)
+        return result, condition.Desc
+    end,
+    [10221] = function(condition)   -- 庙会在游戏中
+        local stageId = condition.Params[1]
+        return XMVCA.XTemple:IsOnStage(stageId), condition.Desc
     end,
 }
 
@@ -1237,7 +1464,7 @@ local CharacterCondition = {
         if type(characterId) ~= "number" then
             characterId = characterId.Id
         end
-        local characterTemplate = XCharacterConfigs.GetCharacterTemplate(characterId)
+        local characterTemplate = XMVCA.XCharacter:GetCharacterTemplate(characterId)
         return characterTemplate.Sex == condition.Params[1], condition.Desc
     end,
     [13102] = function(condition, characterId)
@@ -1246,7 +1473,7 @@ local CharacterCondition = {
         if type(characterId) == "number" then
             character = GetCharAgency():GetCharacter(characterId)
         end
-        local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
         local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
         for i = 1, #condition.Params do
             if npcTemplate.Type == condition.Params[i] then
@@ -1269,7 +1496,7 @@ local CharacterCondition = {
         if type(characterId) == "number" then
             character = GetCharAgency():GetCharacter(characterId)
         end
-        local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+        local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
         local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
         if npcTemplate.Type == condition.Params[1] then
             return true
@@ -1448,7 +1675,7 @@ local CharacterCondition = {
             return false, condition.Desc
         end
 
-        local id = XDataCenter.FavorabilityManager.GetHighestTrustExpCharacter()
+        local id = XMVCA.XFavorability:GetHighestTrustExpCharacter()
 
         for _, roleId in pairs(condition.Params) do
             if id == roleId then
@@ -1473,7 +1700,7 @@ local CharacterCondition = {
         if type(characterId) == "number" then
             character = GetCharAgency():GetCharacter(characterId)
         end
-        local charType = XCharacterConfigs.GetCharacterType(character.Id)
+        local charType = XMVCA.XCharacter:GetCharacterType(character.Id)
         if charType == condition.Params[1] then
             return true
         end
@@ -1498,7 +1725,7 @@ local CharacterCondition = {
         if not condition.Params or #condition.Params < 1 then
             return false, condition.Desc
         end
-        local trustLv = XDataCenter.FavorabilityManager.GetCurrCharacterFavorabilityLevel(characterId)
+        local trustLv = XMVCA.XFavorability:GetCurrCharacterFavorabilityLevel(characterId)
         if trustLv >= condition.Params[1] then
             return true, condition.Desc
         end
@@ -1511,8 +1738,8 @@ local CharacterCondition = {
         end
 
         local count = 0
-        for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
-            local equipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite)
+        local awarenessData = XDataCenter.EquipManager.GetCharacterWearingAwarenessIds(characterId)
+        for _, equipId in pairs(awarenessData) do
             if XTool.IsNumberValid(equipId) then
                 for i = 1, XEquipConfig.MAX_RESONANCE_SKILL_COUNT do
                     local awaken = XDataCenter.EquipManager.IsEquipPosAwaken(equipId, i)
@@ -2098,22 +2325,22 @@ local MixedTeamCondition = {
 local KillCondition = {
     [30101] = function(condition, npcId)
         -- 查询怪物击杀数是否达到
-        return XDataCenter.ArchiveManager.GetMonsterKillCount(npcId) >= condition.Params[1], condition.Desc
+        return XMVCA.XArchive:GetMonsterKillCount(npcId) >= condition.Params[1], condition.Desc
     end
 }
 
 local EquipCondition = {
     [31101] = function(condition, equipId)
         -- 是否拥有某个装备
-        return XDataCenter.ArchiveManager.IsEquipGet(equipId), condition.Desc
+        return XMVCA.XArchive:IsEquipGet(equipId), condition.Desc
     end,
     [31102] = function(condition, equipId)
         -- 装备是否达到目标等级
-        return XDataCenter.ArchiveManager.GetEquipLv(equipId) >= condition.Params[1], condition.Desc
+        return XMVCA.XArchive:GetEquipLv(equipId) >= condition.Params[1], condition.Desc
     end,
     [31103] = function(condition, equipId)
         -- 武器的突破次数是否达到目标次数
-        return XDataCenter.ArchiveManager.GetEquipBreakThroughTimes(equipId) >= condition.Params[1], condition.Desc
+        return XMVCA.XArchive:GetEquipBreakThroughTimes(equipId) >= condition.Params[1], condition.Desc
     end,
     [31104] = function(condition, suitId)
         -- 套装中某一个意识的等级是否达到目标等级
@@ -2121,7 +2348,7 @@ local EquipCondition = {
         local targetNum = condition.Params[1]
         local isOpen = false
         for _, id in ipairs(idList) do
-            if XDataCenter.ArchiveManager.GetEquipLv(id) >= targetNum then
+            if XMVCA.XArchive:GetEquipLv(id) >= targetNum then
                 isOpen = true
                 break
             end
@@ -2134,7 +2361,7 @@ local EquipCondition = {
         local targetNum = condition.Params[1]
         local isOpen = false
         for _, id in ipairs(idList) do
-            if XDataCenter.ArchiveManager.GetEquipBreakThroughTimes(id) >= targetNum then
+            if XMVCA.XArchive:GetEquipBreakThroughTimes(id) >= targetNum then
                 isOpen = true
                 break
             end
@@ -2143,8 +2370,8 @@ local EquipCondition = {
     end,
     [31106] = function(condition, suitId)
         -- 套装中不同的意识的数量达到目标数量
-        return XDataCenter.ArchiveManager.GetAwarenessCountBySuitId(suitId) >= condition.Params[1], condition.Desc
-    end
+        return XMVCA.XArchive:GetAwarenessCountBySuitId(suitId) >= condition.Params[1], condition.Desc
+    end,
 }
 
 function XConditionManager.GetConditionType(id)

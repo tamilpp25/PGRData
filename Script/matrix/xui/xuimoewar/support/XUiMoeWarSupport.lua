@@ -23,7 +23,7 @@ function XUiMoeWarSupport:AutoAddListener()
 end
 
 function XUiMoeWarSupport:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
 end
 
 function XUiMoeWarSupport:InitDynamicTable()

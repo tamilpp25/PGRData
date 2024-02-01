@@ -4,12 +4,12 @@ local XUiSuperSmashBrosRanking = XLuaUiManager.Register(XLuaUi, "UiSuperSmashBro
 function XUiSuperSmashBrosRanking:Ctor()
     self._Career = false
     -- 应策划要求，只显示前4个，且合并3和5
-    self._AllCareer = {1, 2, 3, 4}--XCharacterConfigs.GetAllCharacterCareerIds()
+    self._AllCareer = {1, 2, 3, 4}--XMVCA.XCharacter:GetAllCharacterCareerIds()
     self._AllCareerName = {
-        XCharacterConfigs.GetCareerName(self._AllCareer[1]),
-        XCharacterConfigs.GetCareerName(self._AllCareer[2]),
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[1]),
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[2]),
         XUiHelper.ReadTextWithNewLine("SuperSmashCareer"),
-        XCharacterConfigs.GetCareerName(self._AllCareer[4])
+        XMVCA.XCharacter:GetCareerName(self._AllCareer[4])
     }
 end
 

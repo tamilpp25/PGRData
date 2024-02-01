@@ -5,6 +5,7 @@ function XRedPointConditionKoroCharActivity.GetSubConditions()
     {
         XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYCHALLENGERED,
         XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYTEACHINGRED,
+        XRedPointConditions.Types.CONDITION_NEWCHARACTIVITYTASK,
     }
     return SubCondition
 end
@@ -18,11 +19,15 @@ function XRedPointConditionKoroCharActivity.Check()
         return false
     end
 
-    if XRedPointConditionKoroCharActivityChallenge.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYCHALLENGERED) then
         return true
     end
 
-    if XRedPointConditionKoroCharActivityTeaching.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_KOROMCHARACTIVITYTEACHINGRED) then
+        return true
+    end
+
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_NEWCHARACTIVITYTASK) then
         return true
     end
 

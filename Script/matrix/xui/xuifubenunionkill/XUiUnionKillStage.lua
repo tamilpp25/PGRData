@@ -287,7 +287,7 @@ function XUiUnionKillStage:OnBtnBuffClick()
 end
 
 function XUiUnionKillStage:OnBtnChatClick()
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Room, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Room, ChatChannelType.World)
 end
 
 function XUiUnionKillStage:OnBtnBossClick()
@@ -381,7 +381,7 @@ function XUiUnionKillStage:ProcessTipMessage(allTipMsg)
     local playerName = ""
     if allTipMsg.TipsType == XFubenUnionKillConfigs.TipsMessageType.Praise then
         -- 点赞
-        local characterName = XCharacterConfigs.GetCharacterFullNameStr(allTipMsg.CharacterId)
+        local characterName = XMVCA.XCharacter:GetCharacterFullNameStr(allTipMsg.CharacterId)
         fullMsg = CS.XTextManager.GetText(XFubenUnionKillConfigs.PraiseWords, characterName)
     elseif allTipMsg.TipsType == XFubenUnionKillConfigs.TipsMessageType.ResultBorrow then
         -- 刷新纪录

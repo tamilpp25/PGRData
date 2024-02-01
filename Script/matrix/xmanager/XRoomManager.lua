@@ -117,7 +117,7 @@ XRoomManagerCreator = function()
 
     --获取默认角色
     function XRoomManager.GetDefaultChar()
-        local list = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local list = XMVCA.XCharacter:GetOwnCharacterList()
         local char
         for _, v in pairs(list) do
             if not char or v.Ability > char.Ability then
@@ -206,7 +206,7 @@ XRoomManagerCreator = function()
 
     function XRoomManager.OnCreateRoom(roomData, stageType)
         local stageId = roomData.StageId
-        stageType = stageType or XFubenConfigs.GetStageType(stageId)
+        stageType = stageType or XFubenConfigs.GetStageMainlineType(stageId)
         -- 创建房间
         if XDataCenter.RoomManager.RoomData then
             XLog.Error("XRoomManager.OnCreateRoom错误, RoomManager中RoomData已经有数据")
@@ -1211,15 +1211,15 @@ XRoomManagerCreator = function()
         local roomType = tonumber(result[3])
         
         -- 处理开房链接，狙击战走这里，其他走通用
-        local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-        if unionFightData and unionFightData.Id then
-            XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
-            return
-        end
-        if MultipleRoomType.UnionKill == roomType then
-            XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
-            return
-        end
+        --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+        --if unionFightData and unionFightData.Id then
+        --    XUiManager.TipCode(XCode.MatchPlayerAlreadyInRoom)
+        --    return
+        --end
+        --if MultipleRoomType.UnionKill == roomType then
+        --    XDataCenter.FubenUnionKillRoomManager.ClickEnterRoomHref(roomId, createTime)
+        --    return
+        --end
 
         local tempStageId = stageId
         if MultipleRoomType.ArenaOnline == roomType then
@@ -1227,8 +1227,9 @@ XRoomManagerCreator = function()
             tempStageId = XDataCenter.ArenaOnlineManager.GetStageIdByIdAndLevel(stageId, level)
         end
 
-        if MultipleRoomType.DlcHunt == roomType then
-            XDataCenter.DlcRoomManager.ClickEnterRoomHref(roomId, stageId, createTime)
+        if MultipleRoomType.DlcWorld == roomType then
+            XMVCA.XDlcRoom:ClickEnterRoomHref(roomId, stageId, createTime)
+            -- XDataCenter.DlcRoomManager.ClickEnterRoomHref(roomId, stageId, createTime)
             return
         end
 

@@ -36,14 +36,11 @@ function XUiTheatre3EquipmentSuit:SetSuitId(suitId, slotId, isShowBg, isShowBtn)
     self._Equips = self._Control:GetAllSuitEquip(suitId)
     self.PanelEmpty.gameObject:SetActiveEx(false)
     self.PanelCancel.gameObject:SetActiveEx(false)
-    self:SetEquip(1)
-    self:SetEquip(2)
-    self:SetEquip(3)
     self:ShowHideCompleteBg(isShowBg and self._Control:IsSuitComplete(suitId) or false)
     self:ShowHideBtnOpen(isShowBtn)
     self:ResetState()
-    self.ImgType1.gameObject:SetActiveEx(self.SuitConfig.UseType == 1)
-    self.ImgType2.gameObject:SetActiveEx(self.SuitConfig.UseType == 2)
+    self.ImgType1.gameObject:SetActiveEx(self.SuitConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
+    self.ImgType2.gameObject:SetActiveEx(self.SuitConfig.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
     self:ShowSuitAllPos()
 end
 
@@ -55,8 +52,8 @@ function XUiTheatre3EquipmentSuit:ShowSuitAllPos()
     local poolName = "Theatre3Suit" .. self.Transform:GetInstanceID()
     ---@param data XTableTheatre3Equip
     self.Parent:RefreshTemplateGrids(self.GridNumber, equips, self.GridNumber.parent, nil, poolName, function(grid, data)
-        grid.BgType1.gameObject:SetActiveEx(data.UseType == 1)
-        grid.BgType2.gameObject:SetActiveEx(data.UseType == 2)
+        grid.BgType1.gameObject:SetActiveEx(data.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
+        grid.BgType2.gameObject:SetActiveEx(data.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
         grid.TxtNum.text = XTool.ConvertRomanNumberString(data.PosType)
         grid.BgDisable.gameObject:SetActiveEx(not self._Control:IsWearEquip(data.Id))
     end)
@@ -88,12 +85,26 @@ function XUiTheatre3EquipmentSuit:SetEquip(index)
         else
             equip:ShowEquip(equipId)
         end
+        equip:Open()
         equip:SetState(not self._Control:IsWearEquip(equipId))
         equip:AddClick(function()
             self:OnShowEquipTip(equipId)
         end)
     else
         go.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiTheatre3EquipmentSuit:_CloseEquip()
+    if XTool.IsTableEmpty(self._Equips) then
+        return
+    end
+    for i, _ in ipairs(self._Equips) do
+        ---@type XUiTheatre3EquipmentCell
+        local equip = self["_Equipment" .. i]
+        if equip then
+            equip:Close()
+        end
     end
 end
 
@@ -162,6 +173,13 @@ function XUiTheatre3EquipmentSuit:UpdateShowState(showType, state)
     self.PanelOpen.gameObject:SetActiveEx(self._CurShowType == ShowType.Open)
     self.PanelEmpty.gameObject:SetActiveEx(self._CurShowType == ShowType.Empty)
     self.PanelCancel.gameObject:SetActiveEx(self._CurShowType == ShowType.Cancel)
+    if self._CurShowType == ShowType.Open then
+        self:SetEquip(1)
+        self:SetEquip(2)
+        self:SetEquip(3)
+    else
+        self:_CloseEquip()
+    end
 
     self.ImgBgSelect.gameObject:SetActiveEx(self._CurState == CS.UiButtonState.Select)
     self.ImgSelectOpen.gameObject:SetActiveEx(self._CurState == CS.UiButtonState.Select and self._IsShowOpen)
@@ -198,17 +216,18 @@ function XUiTheatre3EquipmentSuit:OnBtnCancel()
 end
 
 function XUiTheatre3EquipmentSuit:OnBtnWear()
-    if self.Parent.ExchangeSuit then
-        self.Parent:ExchangeSuit(self, true)
+    if self.Parent.OpenExchangeSuitTip then
+        self.Parent:OpenExchangeSuitTip(self, true)
     end
 end
 
 function XUiTheatre3EquipmentSuit:OnBtnDisableMask()
-    if self._Control:IsSuitComplete(self.SuitConfig.Id) then
-        XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildSuitComplete"))
-    end
     if not self._Control:IsWorkshopHasTimes() then
         XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildNoTimes"))
+        return
+    end
+    if self._Control:IsSuitComplete(self.SuitConfig.Id) then
+        XUiManager.TipMsg(XUiHelper.GetText("Theatre3EquipRebuildSuitComplete"))
     end
 end
 

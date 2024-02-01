@@ -41,6 +41,10 @@ function XChapterViewModel:GetIcon()
     return self.Config.Icon or ""
 end
 
+function XChapterViewModel:GetAchievementIcon()
+    return nil
+end
+
 -- 获取进度
 function XChapterViewModel:GetProgress()
     return 0
@@ -108,6 +112,25 @@ end
 
 -- 检测该章节是不是隐藏章节
 function XChapterViewModel:GetDifficulty()
+    return nil
 end
+
+-- 是否显示特效
+function XChapterViewModel:IsShowEffect()
+    return false
+end
+
+-- 获取普通章节下一关卡入口下标（主界面显示进度）
+function XChapterViewModel:GetNormalChapterNextStageOrderId()
+    return nil
+end
+
+-- 打开章节UI界面
+-- 有此函数时，通过此函数打开界面。没有此函数时，走通用打开界面逻辑
+--[[
+function XChapterViewModel:OnOpenChapterUi()
+
+end
+]]
 
 return XChapterViewModel

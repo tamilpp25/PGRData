@@ -14,18 +14,18 @@ function XUiGridTheatre3Equipment:Refresh(id)
         self.TxtNum.text = XTool.ConvertRomanNumberString(equipConfig.PosType)
     end
     if self.ImgEquipmentBg then
-        self.ImgEquipmentBg.gameObject:SetActiveEx(equipConfig.UseType == 1)
+        self.ImgEquipmentBg.gameObject:SetActiveEx(equipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
     end
     if self.ImgEquipmentBg2 then
-        self.ImgEquipmentBg2.gameObject:SetActiveEx(equipConfig.UseType == 2)
+        self.ImgEquipmentBg2.gameObject:SetActiveEx(equipConfig.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
     end
     if self.ImgEquipmentBg3 then
-        self.ImgEquipmentBg3.gameObject:SetActiveEx(equipConfig.UseType == 1)
+        self.ImgEquipmentBg3.gameObject:SetActiveEx(equipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend)
     end
     if self.ImgEquipmentBg4 then
-        self.ImgEquipmentBg4.gameObject:SetActiveEx(equipConfig.UseType == 2)
+        self.ImgEquipmentBg4.gameObject:SetActiveEx(equipConfig.UseType == XEnumConst.THEATRE3.SuitUseType.Backend)
     end
-    if equipConfig.UseType == 1 then
+    if equipConfig.UseType ~= XEnumConst.THEATRE3.SuitUseType.Backend then
         if self.ImgEquipment1 then
             self.ImgEquipment1:SetRawImage(equipConfig.Icon)
         end

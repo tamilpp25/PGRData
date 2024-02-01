@@ -6,6 +6,7 @@ local CsStringEx = CS.XStringEx
 local CsGameEventManager = CS.XGameEventManager.Instance
 local IO = CS.System.IO
 local CsRemoteConfig = CS.XRemoteConfig
+local KeepEverythingGoing = -1
 
 --Test 设置模式
 --CsApplication.Mode = CS.XMode.Debug
@@ -15,6 +16,15 @@ RES_FILE_TYPE = {
     LAUNCH_MODULE = "launch",
     MATRIX_FILE = "matrix",
     CG_FILE = "cg",
+}
+
+DOWNLOAD_SOURCE = {
+    -- 默认下载源
+    DEFAULT = 0,
+    -- 预下载下载源
+    PRELOAD = 1,
+    -- 分包下载源
+    SUBPACKAGE = 2
 }
 
 local APP_PATH_MODULE_NAME = "XLaunchAppPathModule"
@@ -199,17 +209,23 @@ CheckUpdate = function(isReloaded)
 
     if VersionModule.CheckAppUpdate() then
     -- if IsApkTesting or VersionModule.CheckAppUpdate() then
-        local tmpStr = CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version)
-        CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), tmpStr, nil, function()
-            local jumpCB = function()
-                print("[Apk] - Failed to Download Apk.")
-                CsTool.WaitCoroutine(CsApplication.GoToUpdateURL(PathModule.GetAppUpgradeUrl()), nil)
-            end
-            local downloadCB = function(url)
-                BeforeDownloadApk(url)
-            end
-            TryDownloadApk(downloadCB, jumpCB)
-        end))
+        if CS.XUiPc.XUiPcManager.IsPcMode() then
+            CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), 
+                CsStringEx.Format(CsApplication.GetText("PCUpdateApplication"), CsInfo.Version), nil, CsApplication.Exit))
+        else
+            CsTool.WaitCoroutine(CsApplication.CoDialog(CsApplication.GetText("Tip"), 
+                CsStringEx.Format(CsApplication.GetText("UpdateApplication"), CsInfo.Version), nil, function()
+                local jumpCB = function()
+                    print("[Apk] - Failed to Download Apk.")
+                    CsTool.WaitCoroutine(CsApplication.GoToUpdateURL(PathModule.GetAppUpgradeUrl()), nil)
+                end
+                local downloadCB = function(url)
+                    BeforeDownloadApk(url)
+                end
+                TryDownloadApk(downloadCB, jumpCB)
+            end))
+        end
+        
     else
         -- 无需更新，并删除本地下载的Apk
         if CheckDownloadChannel() and IO.File.Exists(ApkSavePath) then
@@ -388,7 +404,7 @@ function StartDownloadApk(apkUrl)
 
     local cache = true
     local sha1 = nil
-    local downloader = CS.XDownloader(apkUrl, ApkSavePath, cache, sha1, APK_TIMEOUT)
+    local downloader = CS.XDownloader(2, apkUrl, ApkSavePath, cache, sha1, KeepEverythingGoing, APK_TIMEOUT)
 
     local isDownloading = false
     CS.XTool.WaitCoroutinePerFrame(downloader:Send(), function(isComplete)

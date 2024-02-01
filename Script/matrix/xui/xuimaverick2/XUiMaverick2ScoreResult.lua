@@ -9,7 +9,7 @@ function XUiMaverick2ScoreResult:OnStart(settle, oldScore, newScore, cb)
     self.StageId = settle.StageId
 
     -- 战斗花费时间
-    local curFightResult = XDataCenter.FubenManager.CurFightResult
+    local curFightResult = XMVCA.XFuben:GetCurFightResult()
     local costTime = (curFightResult.SettleFrame - curFightResult.PauseFrame - curFightResult.StartFrame) / CS.XFightConfig.FPS
     local h = XMath.ToMinInt(costTime / (60 * 60))
     local m = XMath.ToMinInt((costTime - h * (60 * 60)) / 60)

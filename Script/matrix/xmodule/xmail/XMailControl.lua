@@ -66,6 +66,24 @@ function XMailControl:HasMailReward(mailId)
     return false
 end
 
+--检查邮件是否保留
+function XMailControl:_CheckMailReserve(mailId)
+    local mail = self._Model:GetMail(mailId)
+    if not mail then
+        return false
+    end
+
+    if mail.Status == XEnumConst.MAIL_STATUS.STATUS_DELETE then
+        return false
+    end
+
+    if not mail.ReserveTime or mail.ReserveTime <= 0 then
+        return false
+    end
+
+    return XTime.GetServerNowTimestamp() <= mail.ReserveTime
+end
+
 --检查邮件是否过期
 function XMailControl:_CheckMailExpire(mailId)
     local mail = self._Model:GetMail(mailId)
@@ -85,7 +103,7 @@ function XMailControl:_CheckMailExpire(mailId)
 end
 
 function XMailControl:ReadMail(mailId)
-    if self:_CheckMailExpire(mailId) then
+    if self:_CheckMailExpire(mailId) and not self:_CheckMailReserve(mailId) then
         return
     end
 
@@ -167,7 +185,7 @@ function XMailControl:GetMailReward(mailId, cb)
     end
 
 
-    if self:_CheckMailExpire(mailId) then
+    if self:_CheckMailExpire(mailId) and not self:_CheckMailReserve(mailId) then
         self._Model:DeleteMail(mailId)
         XUiManager.TipCode(XCode.MailManagerMailWasInvalid)
         cb(mailId)
@@ -221,7 +239,9 @@ function XMailControl:GetAllMailReward(resultCB)
         local mailCache = self._Model:GetMailCache()
         for id, mail in pairs(mailCache) do
             if self:_CheckMailExpire(id) then
-                self._Model:DeleteMail(id)
+                if not self:_CheckMailReserve(id) then
+                    self._Model:DeleteMail(id)
+                end
             elseif self:HasMailReward(id) and not mailAgency.IsGetReward(mail.Status) then
                 table.insert(mailIds, id)
             end
@@ -389,8 +409,10 @@ function XMailControl:GetMailList()
             end
         end
 
-        if not self:_CheckMailExpire(k) then
-            mail.MailType = XEnumConst.MailType.Normal,
+        local isExpire = self:_CheckMailExpire(k)
+        local isReserve = self:_CheckMailReserve(k)
+        if not isExpire or isReserve then
+            mail.MailType = XEnumConst.MailType.Normal
             table.insert(list, mail)
         end
     end
@@ -454,6 +476,35 @@ function XMailControl:SetMailStatus(id, status)
     end
 
     mail.Status = mail.Status | status
+end
+
+--对问卷类型文本进行超链接解析
+function XMailControl:FixSurveyContent(mailInfo)
+    local content = mailInfo.Content or ""
+    local pattern='@&&.+,url=.+,qid=.+,title=.+'
+    for str in string.gmatch(content,pattern) do
+        local fixContent = '<a href=\"%s\">%s</a>'
+        local btnContent = string.match(str,'@&&(.+),url')
+        local link = string.match(str,'url=(.+),qid')
+        --对链接增加参数
+        local linkParm = '?sojumpparm=%s&parmsign=%s'
+        local qid = string.match(str,'qid=(.+),title')
+        linkParm = string.format(linkParm,self:GetSojumpParm(),self:GetParmSign(mailInfo,qid))
+        fixContent = string.format(fixContent,link..linkParm,btnContent)
+        local fixedContent = XUiHelper.GetText('MailHyperLink',link..linkParm,btnContent)
+        fixedContent = string.gsub(fixedContent, "|", "\"")
+        content = string.gsub(content,str,fixedContent)
+    end
+    return content
+end
+
+function XMailControl:GetSojumpParm()
+    return XPlayer.Id..';'..XPlayer.ServerId
+end
+
+function XMailControl:GetParmSign(mailInfo,qid)
+    local key = qid..self:GetSojumpParm()..'34d7eca5-96e9-46d8-b475-e687d9ef9a0d'
+    return CS.XTool.ToSHA1(key)
 end
 
 function XMailControl:AddAgencyEvent()

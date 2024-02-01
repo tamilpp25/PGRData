@@ -11,38 +11,52 @@ function XUiGridTheatre3Reward:OnStart()
         [4] = self.ImgQualityPurple,
         [5] = self.ImgQualityOrange,
     }
-    XUiHelper.RegisterClickEvent(self, self.BtnProp, self.OnClick)
+    self._Control:RegisterClickEvent(self, self.BtnProp, self.OnClick)
 end
 
 --region Data - Getter
 function XUiGridTheatre3Reward:GetId()
     return self._Id
 end
+
+function XUiGridTheatre3Reward:GetItemData()
+    return self._ItemData
+end
 --endregion
 
 --region Data - Setter
+function XUiGridTheatre3Reward:_SetItemBgType(value)
+    self._BgType = value
+end
+
 ---@param eventStepItemType number XEnumConst.THEATRE3.EventStepItemType
 ---@param clickCb function
 function XUiGridTheatre3Reward:SetData(id, eventStepItemType, clickCb)
     self._Id = id
     self._EventStepItemType = eventStepItemType
     self._ClickCb = clickCb
-    self:Refresh()
+    local icon = self._Control:GetEventStepItemIcon(self._Id, self._EventStepItemType)
+    local quality = self._Control:GetEventStepItemQuality(self._Id, self._EventStepItemType)
+    if self._EventStepItemType == XEnumConst.THEATRE3.EventStepItemType.InnerItem then
+        self:_SetItemBgType(self._Control:GetItemBgTypeById(self._Id))
+    end
+    self:Refresh(icon, quality, true)
 end
 
 ---@param clickCb function
-function XUiGridTheatre3Reward:SetNodeSlotData(icon, quality, clickCb)
+function XUiGridTheatre3Reward:SetNodeSlotData(icon, quality, clickCb, isALine)
     self._ClickCb = clickCb
-    if self.RImgIcon and not string.IsNilOrEmpty(icon) then
-        self.RImgIcon:SetRawImage(icon)
-    else
-        self.RImgIcon.gameObject:SetActiveEx(false)
-    end
-    if not XTool.IsTableEmpty(self._QualityObjDir) then
-        for i, obj in pairs(self._QualityObjDir) do
-            obj.gameObject:SetActiveEx(quality and i == quality)
-        end
-    end
+    self:Refresh(icon, quality, isALine)
+end
+
+---@param itemData XTheatre3Item
+function XUiGridTheatre3Reward:SetItemData(itemData)
+    ---@type XTheatre3Item
+    self._ItemData = itemData
+end
+
+function XUiGridTheatre3Reward:SetLockClick(value)
+    self._LockClick = value
 end
 --endregion
 
@@ -76,15 +90,42 @@ function XUiGridTheatre3Reward:InitUiObj()
         ---@type UnityEngine.RectTransform
         self.ImgQualityPurple = XUiHelper.TryGetComponent(self.Transform, "ImgQualityPurple")
     end
+    if not self.ImgQualityRed then
+        ---@type UnityEngine.RectTransform
+        self.ImgQualityRed = XUiHelper.TryGetComponent(self.Transform, "ImgQualityRed")
+    end
+    if not self.RawImage then
+        ---@type UnityEngine.RectTransform
+        self.RawImage = XUiHelper.TryGetComponent(self.Transform, "RawImage")
+    end
+    if not self.RawImageRed then
+        ---@type UnityEngine.RectTransform
+        self.RawImageRed = XUiHelper.TryGetComponent(self.Transform, "RawImageRed")
+    end
 end
 --endregion
 
 --region Ui - Refresh
-function XUiGridTheatre3Reward:Refresh()
-    local icon = self._Control:GetEventStepItemIcon(self._Id, self._EventStepItemType)
-    local quality = self._Control:GetEventStepItemQuality(self._Id, self._EventStepItemType)
+function XUiGridTheatre3Reward:Refresh(icon, quality, isALine)
+    if self._EventStepItemType == XEnumConst.THEATRE3.EventStepItemType.InnerItem and self._BgType then
+        self:_Refresh(icon, quality, self._BgType < XEnumConst.THEATRE3.QuantumType.QuantumB)
+    else
+        self:_Refresh(icon, quality, isALine)
+    end
+end
+
+function XUiGridTheatre3Reward:_Refresh(icon, quality, isALine)
     if self.RImgIcon then
         self.RImgIcon:SetRawImage(icon)
+    end
+    if self.RawImage then
+        self.RawImage.gameObject:SetActiveEx(isALine)
+    end
+    if self.RawImageRed then
+        self.RawImageRed.gameObject:SetActiveEx(not isALine)
+    end
+    if self.ImgQualityRed then
+        self.ImgQualityRed.gameObject:SetActiveEx(false)
     end
     if not XTool.IsTableEmpty(self._QualityObjDir) then
         for i, obj in pairs(self._QualityObjDir) do
@@ -108,11 +149,14 @@ end
 
 --region Ui - BtnListener
 function XUiGridTheatre3Reward:OnClick()
+    if self._LockClick then
+        return
+    end
     if self._ClickCb then
         self._ClickCb(self)
         return
     end
-    XLuaUiManager.Open("UiTheatre3Tips", self._Id, self._EventStepItemType)
+    self._Control:OpenAdventureTips(self._Id, self._EventStepItemType)
 end
 --endregion
 

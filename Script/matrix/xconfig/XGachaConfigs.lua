@@ -17,6 +17,7 @@ local TABLE_GACHA_REWARD = "Share/Gacha/GachaReward.tab"
 local TABLE_GACHA_PROBSHOW = "Client/Gacha/GachaProbShow.tab"
 local TABLE_GACHA_RULE = "Client/Gacha/GachaRule.tab"
 local TABLE_GACHA_SHOW_REWARD_CONFIG = "Client/Gacha/GachaShowRewardConfig.tab"
+local TABLE_GACHA_CLIENT_CONFIG = "Client/Gacha/GachaClientConfig.tab"
 local TABLE_GACHA_ITEM_EXCHANGE = "Share/Gacha/GachaItemExchange.tab"
 local TABLE_GACHA_COURSE_REWARD = "Share/Gacha/GachaCourseReward.tab"
 
@@ -27,6 +28,7 @@ local GachaRule = {}
 local GachaItemExchange = {}
 local GachaCourseReward = {}
 local GachaShowRewardConfig = {}
+local GachaClientConfig = {}
 
 -- Gacha卡池组字典
 -- Key:OrganizeId
@@ -63,6 +65,7 @@ function XGachaConfigs.Init()
     GachaItemExchange = XTableManager.ReadByIntKey(TABLE_GACHA_ITEM_EXCHANGE, XTable.XTableGachaItemExchange, "Id")
     GachaCourseReward = XTableManager.ReadByIntKey(TABLE_GACHA_COURSE_REWARD, XTable.XTableGachaCourseReward, "Id")
     GachaShowRewardConfig = XTableManager.ReadByIntKey(TABLE_GACHA_SHOW_REWARD_CONFIG, XTable.XTableGachaShowRewardConfig, "Id")
+    GachaClientConfig = XTableManager.ReadByStringKey(TABLE_GACHA_CLIENT_CONFIG, XTable.XTableGachaClientConfig, "Key")
 
     for _, gacha in pairs(Gachas) do
         if gacha.OrganizeId and gacha.OrganizeId ~= 0 then
@@ -142,6 +145,14 @@ function XGachaConfigs.GetGachaRuleCfgById(id)
     return GachaRule[id]
 end
 
+function XGachaConfigs.GetClientConfig(key, index)
+    index = index or 1
+    if not GachaClientConfig[key] then
+        XLog.ErrorTableDataNotFound("XGachaConfigs.GetClientConfig", "GachaClientConfig", TABLE_GACHA_CLIENT_CONFIG, "key", tostring(key))
+        return nil
+    end
+    return GachaClientConfig[key].Value[index]
+end
 
 -------------------------------------------Organize卡池组数据读取----------------------------------------------------------
 

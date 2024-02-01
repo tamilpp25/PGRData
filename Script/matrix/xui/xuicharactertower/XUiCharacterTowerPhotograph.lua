@@ -7,20 +7,20 @@ local XUiCharacterTowerPhotograph = XLuaUiManager.Register(XLuaUi, "UiCharacterT
 function XUiCharacterTowerPhotograph:OnAwake()
     self:RegisterUiEvents()
     local signBoardPlayer = XSignBoardPlayer.New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
 end
 
 function XUiCharacterTowerPhotograph:OnStart(signBoardActionId)
     self.SignBoardActionId = signBoardActionId
-    local actionConfig = XFavorabilityConfigs.GetCharacterActionBySignBoardActionId(signBoardActionId)
-    self.CurCharacterId = actionConfig.CharacterId
+    local actionConfig = XMVCA.XFavorability:GetCharacterActionBySignBoardActionId(signBoardActionId)
+    self.CurCharacterId = actionConfig.config.CharacterId
     self:InitLoadScene()
     self.Parent = self
     
     -- 名字
-    self.TxtActionName.text = actionConfig.Name
+    self.TxtActionName.text = actionConfig.config.Name
 end
 
 function XUiCharacterTowerPhotograph:OnEnable()
@@ -113,7 +113,7 @@ function XUiCharacterTowerPhotograph:UpdateCamera()
 end
 
 function XUiCharacterTowerPhotograph:ForcePlay(signBoardActionId)
-    local config = XSignBoardConfigs.GetSignBoardConfigById(signBoardActionId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(signBoardActionId)
     if self.SignBoardPlayer:GetInterruptDetection() and self.SignBoardPlayer.PlayerData.PlayingElement.Id ~= config.Id then
         self:PlayChangeActionEffect()
     end
@@ -203,8 +203,8 @@ function XUiCharacterTowerPhotograph:PlaySceneAnim(element)
     local animRoot = self.UiModelGo.transform
     local sceneId = XDataCenter.PhotographManager.GetCurSelectSceneId()
     local sighBoardId = element.SignBoardConfig.Id
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 function XUiCharacterTowerPhotograph:RefreshAction(isPlaying, cacheAnim)

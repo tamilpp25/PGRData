@@ -70,6 +70,11 @@ function XActivityConfigs.GetActivityTimeStr(activityId, beginTime, endTime)
     local format = "yyyy-MM-dd HH:mm"
     local beginTimeStr = ""
     local endTimeStr = ""
+
+    if not string.IsNilOrEmpty(activityCfg.ShowAllTime) then
+        return activityCfg.ShowAllTime
+    end
+    
     if not string.IsNilOrEmpty(activityCfg.ShowBeginTime) then
         beginTimeStr = activityCfg.ShowBeginTime
     else
@@ -106,3 +111,10 @@ end
 function XActivityConfigs.GetActivityLinkCfg(id)
     return ActivityLinkTemplates[id]
 end
+
+function XAchievementConfigs.GetActivityGroupIsOnlyGroup(groupId)
+    if groupId and ActivityGroupTemplates[groupId] then
+        return ActivityGroupTemplates[groupId].IsOnlyGroup
+    end
+    return -1
+end 

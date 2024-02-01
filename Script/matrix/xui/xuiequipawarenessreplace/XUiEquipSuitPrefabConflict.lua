@@ -17,8 +17,8 @@ function XUiEquipSuitPrefabConflict:InitGrids()
     for _, conflictInfo in pairs(self.ConflictInfoList) do
         local item = CS.UnityEngine.Object.Instantiate(self.GridSuitPrefabEquip)
         local grid = XUiGridSuitPrefabEquip.New(item, self)
+        grid:Open()
         grid:Refresh(conflictInfo)
-        grid.GameObject:SetActiveEx(true)
         grid.Transform:SetParent(self.PanelContent.transform, false)
     end
 end

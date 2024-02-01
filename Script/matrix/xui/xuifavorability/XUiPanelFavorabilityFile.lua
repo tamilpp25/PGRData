@@ -1,13 +1,16 @@
-XUiPanelFavorabilityFile = XClass(nil, "XUiPanelFavorabilityFile")
+local XUiPanelFavorabilityFile = XClass(XUiNode, "XUiPanelFavorabilityFile")
 
-function XUiPanelFavorabilityFile:Ctor(ui, uiRoot, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelFavorabilityFile:OnStart(uiRoot)
     self.UiRoot = uiRoot
-    self.Parent = parent
     self.GridPool = {}
-    XTool.InitUiObject(self)
     self.GridItem.gameObject:SetActiveEx(false)
+    self.BtnStory.CallBack=function() self:OpenPlotView()  end
+    local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
+    self.RedPointPlotId = self:AddRedPointEvent(self.Red, nil, self, { XRedPointConditions.Types.CONDITION_FAVORABILITY_PLOT }, { CharacterId = characterId })
+end
+
+function XUiPanelFavorabilityFile:OnEnable()
+    self:RefreshDatas()
 end
 
 function XUiPanelFavorabilityFile:OnRefresh()
@@ -19,16 +22,34 @@ function XUiPanelFavorabilityFile:RefreshDatas()
     if not characterId then
         return
     end
-    local fileData = XFavorabilityConfigs.GetCharacterBaseDataById(characterId)
+    local fileData = self._Control:GetCharacterBaseDataById(characterId)
 
     if fileData == nil then
         return
     end
 
-    self.TxtRoleName.text = XDataCenter.FavorabilityManager.GetNameWithTitleById(characterId)
-    self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(characterId)
-
+    self.TxtRoleName.text = self._Control:GetNameWithTitleById(characterId)
+    self.TxtRoleEn.text=XMVCA.XCharacter:GetCharacterEnName(characterId)
+    self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
+    --型号
+    if self.TxtNameNum then
+        self.TxtNameNum.text=XMVCA.XCharacter:GetCharacterCodeStr(characterId)
+    end
+    --剧情入口
+    if XTool.IsTableEmpty(XMVCA.XFavorability:GetCharacterStoryById(characterId)) then
+        self.BtnStory:SetNameByGroup(1,'')
+        self.BtnStory:SetButtonState(CS.UiButtonState.Disable)
+        self.NoneStory=true
+    else
+        local unlockNum,storyNum=self._Control:StoryUnlockNum(characterId)
+        self.BtnStory:SetNameByGroup(1,unlockNum..'/'..storyNum)
+        self.BtnStory:SetButtonState(CS.UiButtonState.Normal)
+        self.NoneStory=false
+    end
+    
     self:GenerateDataGrid(fileData)
+    XRedPointManager.Check(self.RedPointPlotId, { CharacterId = characterId })
+
 end
 
 function XUiPanelFavorabilityFile:GenerateDataGrid(fileData)
@@ -65,17 +86,29 @@ function XUiPanelFavorabilityFile:GenerateDataGrid(fileData)
 end
 
 function XUiPanelFavorabilityFile:SetViewActive(isActive)
-    self.GameObject:SetActive(isActive)
     if isActive then
-        self:RefreshDatas()
+        self:Open()
+    else
+        self:Close()
     end
 end
 
 function XUiPanelFavorabilityFile:OnSelected(isSelected)
-    self.GameObject:SetActive(isSelected)
     if isSelected then
-        self:RefreshDatas()
+        self:Open()
+    else
+        self:Close()
     end
+end
+
+-- [打开剧情界面]
+function XUiPanelFavorabilityFile:OpenPlotView()
+    if self.NoneStory then
+        XUiManager.TipText("FavorabilityStoryNoOne")
+        return
+    end
+    local currentCharacterId = self.UiRoot:GetCurrFavorabilityCharacter()
+    XMVCA.XFavorability:OpenUiStory(currentCharacterId)
 end
 
 return XUiPanelFavorabilityFile

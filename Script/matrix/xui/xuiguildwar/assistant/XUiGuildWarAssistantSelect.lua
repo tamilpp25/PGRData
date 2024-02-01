@@ -8,7 +8,7 @@ function XUiGuildWarAssistantSelect:Ctor()
     self._Team = false
     self._Pos = false
     self._CurrentCharacterId = false
-    self._CurrentCharacterType = XCharacterConfigs.CharacterType.Normal
+    self._CurrentCharacterType = XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 function XUiGuildWarAssistantSelect:OnStart()
@@ -59,8 +59,8 @@ function XUiGuildWarAssistantSelect:Init()
     -- 角色类型按钮组
     self.BtnGroupCharacterType:Init(
         {
-            [XCharacterConfigs.CharacterType.Normal] = self.BtnTabGouzaoti,
-            [XCharacterConfigs.CharacterType.Isomer] = self.BtnTabShougezhe,
+            [XEnumConst.CHARACTER.CharacterType.Normal] = self.BtnTabGouzaoti,
+            [XEnumConst.CHARACTER.CharacterType.Isomer] = self.BtnTabShougezhe,
         },
         function(tabIndex)
             self:OnBtnGroupCharacterTypeClicked(tabIndex)
@@ -129,7 +129,7 @@ function XUiGuildWarAssistantSelect:OnBtnJoinTeamClicked()
 end
 
 function XUiGuildWarAssistantSelect:GetEntities()
-    return XDataCenter.CharacterManager.GetOwnCharacterList(self._CurrentCharacterType)
+    return XMVCA.XCharacter:GetOwnCharacterList(self._CurrentCharacterType)
 end
 
 ---@param grid XUiGuildWarAssistantSelectGrid
@@ -159,7 +159,7 @@ end
 
 function XUiGuildWarAssistantSelect:OnBtnGroupCharacterTypeClicked(characterType)
     -- 检查功能是否开启
-    if characterType == XCharacterConfigs.CharacterType.Isomer and 
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and 
     not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer)
     then
         return

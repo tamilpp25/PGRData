@@ -19,11 +19,11 @@ function XRedPointConditionTRPGMainView.Check(chapterId)
         return false
     end
 
-    if XRedPointConditionTRPGMainMode.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_MAIN_MODE) then
         return true
     end
 
-    if XRedPointTRPGSecondMainReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_SECOND_MAIN_REWARD) then
         return true
     end
 

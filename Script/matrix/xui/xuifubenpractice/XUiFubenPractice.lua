@@ -85,7 +85,11 @@ function XUiFubenPractice:OnReleaseInst()
 end
 
 function XUiFubenPractice:SetAssetPanelActive(isActive)
-    self.AssetPanel.GameObject:SetActiveEx(isActive)
+    if isActive then
+        self.AssetPanel:Open()
+    else
+        self.AssetPanel:Close()
+    end
 end
 
 function XUiFubenPractice:GetDefaultOpen()
@@ -182,7 +186,14 @@ function XUiFubenPractice:SelectPanel(id)
         end
     end
 
-    --切换标签或关卡胜利，重置当前选择的关卡Id
+    if chapterDetail and chapterDetail.Type == XPracticeConfigs.PracticeType.Boss then
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            self.BtnGroupList:SelectIndex(self.CurrentSelect, false)
+            return 
+        end
+    end
+
+        --切换标签或关卡胜利，重置当前选择的关卡Id
     if self.CurrentSelect and self.CurrentSelect ~= id or XDataCenter.PracticeManager.GetIsChallengeWin() then
         self:SetSelectStageId()
         XDataCenter.PracticeManager.ChallengeLose()

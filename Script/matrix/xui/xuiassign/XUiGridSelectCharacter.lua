@@ -13,15 +13,20 @@ function XUiGridSelectCharacter:Refresh(character, chapterData)
     local characterId = character.Id
     
     self.TxtLevel.text = character.Level
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(XDataCenter.CharacterManager.GetCharacterQuality(characterId)))
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
-    self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(characterId, self.Character.Grade or XDataCenter.CharacterManager.GetCharacterGrade(characterId)))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(XMVCA.XCharacter:GetCharacterQuality(characterId)))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
+    self.RImgGrade:SetRawImage(XMVCA.XCharacter:GetCharGradeIcon(characterId, self.Character.Grade or XMVCA.XCharacter:GetCharacterGrade(characterId)))
     self.PanelCurrOccupy.gameObject:SetActiveEx(chapterData:GetCharacterId() == characterId)
     local chapterId = XDataCenter.FubenAssignManager.GetCharacterOccupyChapterId(characterId)
     self.PanelOtherOccupy.gameObject:SetActiveEx(XTool.IsNumberValid(chapterId) and chapterId ~= chapterData:GetId())
     self.PanelLock.gameObject:SetActiveEx(not chapterData:IsCharConditionMatch(characterId))
     self.PanelCurrOccupy:Find("Text"):GetComponent("Text").text = CS.XTextManager.GetText("AssignOccupyThisMember")
     self.PanelOtherOccupy:Find("Text"):GetComponent("Text").text = CS.XTextManager.GetText("AssignOccupyOtherMember")
+    -- 独域图标
+    if self.PanelUniframe then
+        local isUniframe = XMVCA.XCharacter:GetIsIsomer(characterId)
+        self.PanelUniframe.gameObject:SetActiveEx(isUniframe)
+    end
 end
 
 function XUiGridSelectCharacter:SetSelect(value)
@@ -29,7 +34,7 @@ function XUiGridSelectCharacter:SetSelect(value)
         self.PanelSelected.gameObject:SetActiveEx(value)
     end
 
-    if value then
+    if value and self.RootUi and self.RootUi.OnGridSelected then
         self.RootUi:OnGridSelected(self.Character)
     end
 end

@@ -61,6 +61,14 @@ XGuildWarManagerCreator = function()
     local IsNotifyDataFirstTime = true
     --记录刚刚通过的关卡ID
     local _JustPassedStageId = false
+    --资源节点进攻信息
+    local resourceNodeAttackedInfo
+    --资源结点驻守百分比
+    local _defensePlayerPercent
+    --当前资源节点id列表-在resourceNodeAttackedInfo下的映射,key:uid,value:index
+    local attackInfoResNodeIdMap
+    --当前资源节点id列表-在roundData下的映射,key:uid,value:index
+    local roundDataResNodeIdMap
     --===============
     --公会战 协议名
     --===============
@@ -254,6 +262,7 @@ XGuildWarManagerCreator = function()
     end
     --登陆活动数据通知 更新数据
     function XGuildWarManager.OnNotifyActivityData(data)
+        _defensePlayerPercent = nil
         local cfg = Config.GetCfgByIdKey(
                 Config.TableKey.Activity,
                 data.ActivityNo
@@ -284,6 +293,7 @@ XGuildWarManagerCreator = function()
         NewRoundFlag = false
         CurrentRoundId = activityData.CurRoundId
         AllRoundFinishFlag = false
+        _defensePlayerPercent = nil
         --CurrentRoundId是0时表示活动还没开始或休战期
         if not CurrentRoundId or (CurrentRoundId == 0) then
             --RestRoundId为表示当前轮次(涵盖轮次期间和后面的休战期)的Id
@@ -1846,33 +1856,7 @@ XGuildWarManagerCreator = function()
 
     --打开派送援助角色UI
     function XGuildWarManager.OpenUiSendAssistant()
-        local supportData = {
-            CanSupportCancel = true,
-            HideBtnRecommend = true,
-            CheckInSupportCb = function(characterId)
-                return XDataCenter.GuildWarManager.GetAssistantCharacterId() == characterId
-            end,
-            SetCharacterCb = function(characterId)
-                XLuaUiManager.Close("UiCharacter")
-                XDataCenter.GuildWarManager.SendAssistant(characterId)
-                return true
-            end,
-            CancelCharacterCb = function(characterId)
-                XLuaUiManager.Close("UiCharacter")
-                XDataCenter.GuildWarManager.CancelAssistant(characterId)
-            end,
-            --显示高优先级图标
-            CheckHighPriority = function(characterId)
-                -- 特攻角色
-                local isSpecialRole = XDataCenter.GuildWarManager.CheckIsSpecialRole(characterId)
-                local icon = false
-                if isSpecialRole then
-                    icon = XDataCenter.GuildWarManager.GetSpecialRoleIcon(characterId)
-                end
-                return isSpecialRole, icon
-            end
-        }
-        XLuaUiManager.Open("UiCharacter", nil, nil, nil, nil, nil, nil, supportData)
+        XLuaUiManager.Open("UiSelectAssistanceGuildWar")
     end
 
     --获取援助角色能力
@@ -1887,7 +1871,7 @@ XGuildWarManagerCreator = function()
     --获取援助角色ViewModel
     function XGuildWarManager.GetAssistantCharacterViewModel(entityId, playerId)
         if playerId == XPlayer.Id then
-            local character = XDataCenter.CharacterManager.GetCharacter(entityId)
+            local character = XMVCA.XCharacter:GetCharacter(entityId)
             return character and character:GetCharacterViewModel()
         end
         local data = XGuildWarManager.GetAssistantCharacterData(entityId, playerId)
@@ -2356,7 +2340,356 @@ XGuildWarManagerCreator = function()
         end
         return isShowRedPoint
     end
+    --region 2.11 
+    function XGuildWarManager.SetResourceNodeAttackedInfo(data)
+        _defensePlayerPercent = nil
+        resourceNodeAttackedInfo = data
+        if attackInfoResNodeIdMap==nil then
+            attackInfoResNodeIdMap = {}
+        end
+        if not XTool.IsTableEmpty(resourceNodeAttackedInfo) and not XTool.IsTableEmpty(resourceNodeAttackedInfo.ResourceNodesData) then
+            for i, v in ipairs(resourceNodeAttackedInfo.ResourceNodesData) do
+                attackInfoResNodeIdMap[v.NodeId]=i
+            end
+        end
+        
+        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_ATTACKINFO_UPDATE)
+    end
+    
+    function XGuildWarManager.SelectDefenseNodeRequest(nodeId,cb)
+        XNetwork.Call("XGuildWarSelectDefenseNodeRequest",{NodeId=nodeId},function(res)
+            if res.Code~=XCode.Success then
+                XUiManager.TipCode(res.Code)
+            end
+            if cb then
+                cb(res.Code==XCode.Success)
+            end
+        end)
+    end
+    
+    function XGuildWarManager.GetDefensePlayerPercentById(defenseId)
+        if _defensePlayerPercent==nil then
+            _defensePlayerPercent={}
+        else
+            if _defensePlayerPercent[defenseId] then
+                return _defensePlayerPercent[defenseId]
+            else
+                return 0    
+            end
+        end
+        
+        local defenseDict=nil
+        
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or resourceNodeAttackedInfo.DefenseDic == nil then
+            local roundData = XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            defenseDict = roundData.DefenseDic
+        else--查驻守数据
+            defenseDict = resourceNodeAttackedInfo.DefenseDic
+        end
 
+        if XTool.IsTableEmpty(defenseDict) then
+            return 0
+        end
+        
+        --初始化计算
+        local totalPlayer=0
+        for i, v in pairs(defenseDict) do
+            totalPlayer=totalPlayer+1
+            if _defensePlayerPercent[v]==nil then
+                _defensePlayerPercent[v] = 1
+            else
+                _defensePlayerPercent[v] = _defensePlayerPercent[v]+1
+            end
+        end
+
+        for i, v in pairs(_defensePlayerPercent) do
+            _defensePlayerPercent[i]=v/totalPlayer
+        end
+        
+        --返回结果
+        return _defensePlayerPercent[defenseId] or 0
+    end
+    
+    function XGuildWarManager.GetMaxDefendResourceNodeIds()
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or resourceNodeAttackedInfo.DefenseDic == nil then
+            local roundData = XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            return roundData.LastProtectNodeIds
+        else
+            return resourceNodeAttackedInfo.ProtectNodeIds
+        end
+    end
+    
+    function XGuildWarManager.CheckDefensePointIsPlayerInById(defenseId)
+        local defenseDict=nil
+        
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or resourceNodeAttackedInfo.DefenseDic == nil then
+            local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            if roundData then
+                defenseDict = roundData.DefenseDic
+            end
+        else
+            defenseDict = resourceNodeAttackedInfo.DefenseDic
+        end
+
+        if XTool.IsTableEmpty(defenseDict) then
+            return false
+        end
+        
+        local selfDefenseId = defenseDict[XPlayer.Id]
+        if selfDefenseId==nil then
+            return false
+        end
+        return selfDefenseId==defenseId
+    end
+    
+    function XGuildWarManager.IsPlayerDefend()
+        local map = XGuildWarManager.GetDefensePointIds()
+        for i, v in pairs(map) do
+            if XGuildWarManager.CheckDefensePointIsPlayerInById(i) then
+                return true
+            end
+        end
+        return false
+    end
+    
+    function XGuildWarManager.IsDefensePointRebuilding(defenseId)
+        local index = 0
+        
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or XTool.IsTableEmpty(resourceNodeAttackedInfo.ResourceNodesData) then
+            local nodeData = XGuildWarManager.GetResNodeDataInRoundData(defenseId)
+            if nodeData then
+                return nodeData.CurHp<=0
+            end
+            
+            return false
+        end
+
+        index = attackInfoResNodeIdMap[defenseId]
+
+        if XTool.IsNumberValid(index) then
+            return resourceNodeAttackedInfo.ResourceNodesData[index] and resourceNodeAttackedInfo.ResourceNodesData[index].CurHp<=0 or false
+        end
+
+        return false
+    end
+    
+    function XGuildWarManager.GetDefensePointIds()
+        if XTool.IsTableEmpty(attackInfoResNodeIdMap) then
+            if XTool.IsTableEmpty(roundDataResNodeIdMap) then
+                XGuildWarManager.InitResNodeIdMapInRoundData()
+            end
+            return roundDataResNodeIdMap
+        end
+        return attackInfoResNodeIdMap
+    end
+    
+    function XGuildWarManager.GetNextAttackedTime()
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo)then
+            local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            if roundData then
+                return roundData.NextAttackTime
+            end
+            return 0
+        end
+        
+        return resourceNodeAttackedInfo.NextAttackedTime or 0
+    end
+    
+    function XGuildWarManager.GetResRebuildTime(defenseId)
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or XTool.IsTableEmpty(resourceNodeAttackedInfo.ResourceNodesData) then
+            local nodeData = XGuildWarManager.GetResNodeDataInRoundData(defenseId)
+            if nodeData then
+                return nodeData.AddRebuildTime
+            end
+            return 0
+        end
+        local index = attackInfoResNodeIdMap[defenseId]
+
+        if XTool.IsNumberValid(index) then
+            return resourceNodeAttackedInfo.ResourceNodesData[index] and resourceNodeAttackedInfo.ResourceNodesData[index].AddRebuildTime or 0
+        end
+        
+        return 0
+    end
+    
+    function XGuildWarManager.CheckNearestAttackAnimIsPlayed()
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) then
+            local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            --判断有没有记录上一次炮击时间
+            local record = XSaveTool.GetData(XGuildWarManager.GetGuildWarAttackTimeLocKey())
+
+            if roundData.AttackTimes == 0 then
+                return true --轮次初次开始时未发生过炮击，所以权当此次已经标记了炮击了
+            end
+            
+            if XTool.IsNumberValid(record) then
+                --判断是否炮击过
+                return record == roundData.AttackTimes
+            end
+            
+            return false
+        else
+            local record = XSaveTool.GetData(XGuildWarManager.GetGuildWarAttackTimeLocKey())
+
+            if resourceNodeAttackedInfo.AttackedTimes == 0 then
+                return true --轮次初次开始时未发生过炮击，所以权当此次已经标记了炮击了
+            end
+
+            if XTool.IsNumberValid(record) then
+                --判断是否炮击过
+                return record == resourceNodeAttackedInfo.AttackedTimes
+            end
+
+            return false
+        end
+    end
+    
+    function XGuildWarManager.MarkNearestAttackAnimIsPlayed()
+        XSaveTool.SaveData(XGuildWarManager.GetGuildWarAttackTimeLocKey(),XGuildWarManager.GetAttackedTimes())
+    end
+    
+    ---活动、轮次、玩家Id三维限定唯一性
+    function XGuildWarManager.GetGuildWarAttackTimeLocKey()
+        return XGuildWarManager.GetActivityId()..'_GuildWarAttackTime_'..XPlayer.Id..'_'..XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData.RoundId
+    end
+    
+    function XGuildWarManager.GetResNodeDataInRoundData(NodeId)
+        local roundData = XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+        
+        if XTool.IsTableEmpty(roundDataResNodeIdMap) then
+            XGuildWarManager.InitResNodeIdMapInRoundData()
+        end
+
+        if not XTool.IsTableEmpty(roundDataResNodeIdMap) then
+            local index = roundDataResNodeIdMap[NodeId]
+            return roundData.NodeData[index]
+        end
+    end
+    
+    function XGuildWarManager.InitResNodeIdMapInRoundData()
+        if roundDataResNodeIdMap == nil then
+            roundDataResNodeIdMap = {}
+        end
+        local roundData = XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+        if roundData and not XTool.IsTableEmpty(roundData.NodeData) then
+            for i, v in ipairs(roundData.NodeData) do
+                if v.NodeType == XGuildWarConfig.NodeType.Resource then
+                    roundDataResNodeIdMap[v.NodeId] = i
+                end
+            end
+        end
+    end
+    
+    function XGuildWarManager.GetAttackedTimes()
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) then
+            local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            return roundData and roundData.AttackTimes or 0
+        else
+            return resourceNodeAttackedInfo.AttackedTimes
+        end
+    end
+    
+    function XGuildWarManager.CheckLastDefendSuccess()
+        if XGuildWarManager.GetAttackedTimes() <= 0 then
+            return false
+        end
+
+        local ids = XGuildWarManager.GetDefensePointIds()
+        if not XTool.IsTableEmpty(ids) then
+            for i, v in pairs(ids) do
+                if XGuildWarManager.IsDefensePointRebuilding(i)  then
+                    return false
+                end
+            end
+            return true
+        end
+    end
+    
+    function XGuildWarManager.FilterPlayerStayListByDefendId(rankList,defendId,cb)
+        --筛选出仅在当前节点驻守的成员
+        local filterList = {}
+        local defendDict = XGuildWarManager.GetDefendDict()
+        for i, v in pairs(rankList) do
+            if defendDict[v.Uid] ~= nil then
+                if defendDict[v.Uid] == defendId then
+                    table.insert(filterList,v)
+                end
+            end
+        end
+
+        --将那些本地缓存没有该成员信息的部分剔除掉
+        XDataCenter.GuildManager.GetMemberDataWithAutoUpdate(function(memberList)
+            local existList = {}
+            for i, v in pairs(filterList) do
+                if not XTool.IsTableEmpty(memberList[v.Uid]) then
+                    table.insert(existList, v)
+                end
+            end
+            if cb then
+                cb(existList)
+            end
+        end)
+    end
+    
+    function XGuildWarManager.GetDefendDict()
+        local defenseDict=nil
+
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or XTool.IsTableEmpty(resourceNodeAttackedInfo.DefenseDic) then
+            local roundData = XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+            defenseDict = roundData.DefenseDic
+        else--查驻守数据
+            defenseDict = resourceNodeAttackedInfo.DefenseDic
+        end
+        
+        return defenseDict
+    end
+
+    function XGuildWarManager.RefreshDefendDictData(defendNodeId)
+        local data = nil
+
+        if XTool.IsNumberValid(defendNodeId) then
+            data =defendNodeId
+        end
+        
+        if not XTool.IsTableEmpty(resourceNodeAttackedInfo) then
+            resourceNodeAttackedInfo.DefenseDic[XPlayer.Id] =  data
+        end
+
+        local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+        if roundData then
+            roundData.DefenseDic[XPlayer.Id] =  data
+        end
+        _defensePlayerPercent = nil
+        XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_DEFEND_UPDATE)
+    end
+    
+    function XGuildWarManager.GetLatestResourceNodeId(nodeId)
+        local index = 0
+
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) or XTool.IsTableEmpty(resourceNodeAttackedInfo.ResourceNodesData) then
+            local nodeData = XGuildWarManager.GetResNodeDataInRoundData(nodeId)
+            return nodeData
+        end
+
+        index = attackInfoResNodeIdMap[nodeId]
+
+        if XTool.IsNumberValid(index) then
+            return resourceNodeAttackedInfo.ResourceNodesData[index]
+        end
+    end
+    
+    function XGuildWarManager.GetLastAttackedResourcesId()
+        if XTool.IsTableEmpty(resourceNodeAttackedInfo) then
+            local roundData=XGuildWarManager.GetCurrentRound().BattleManager.CurrentRoundData
+
+            if roundData then
+                return roundData.LastAttackNodeId
+            end
+        else
+            return resourceNodeAttackedInfo.AttackedNodeId
+        end
+    end
+    --endregion
     XGuildWarManager.Init()
     return XGuildWarManager
 end
@@ -2434,4 +2767,8 @@ XRpc.NotifyGuildWarBossLevelUp = function(data)
     end
     XDataCenter.GuildWarManager.GetBattleManager():UpdateNodeData(data.NodeData)
     XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_NODEDATA_CHANGE)
+end
+
+XRpc.NotifyResourceNodeAttackedInfo = function(data)
+    XDataCenter.GuildWarManager.SetResourceNodeAttackedInfo(data)
 end

@@ -200,6 +200,7 @@ end
 
 local leftBlockCode = string.byte('[')
 local rightBlockCode = string.byte(']')
+local ignoreSign = string.byte('#')
 
 local ReadWithContext = function(context, tableConfig, keyType, identifier, path)
     local file = assert(context)
@@ -219,13 +220,21 @@ local ReadWithContext = function(context, tableConfig, keyType, identifier, path
         local key
         local startIndex
         local endIndex
+        local ignoreIndex = false
         for k = 1, #name do
             local ch = string.byte(name, k, k)
             if ch == leftBlockCode then
                 startIndex = k
             elseif ch == rightBlockCode then
                 endIndex = k
+            elseif ch == ignoreSign then
+                ignoreIndex = true
             end
+        end
+
+        if ignoreIndex then
+            name = string.sub(name, 2)
+            names[i] = name
         end
 
         if startIndex and startIndex > 0 then
@@ -397,7 +406,7 @@ local ReadWithContext = function(context, tableConfig, keyType, identifier, path
                 local mainKey = elems[identifier]
                 if not mainKey then
                     XLog.Warning(
-                            "表格有空行, path = " ..
+                            "表格有空行, 或key错误, path = " ..
                                     path .. ", row = " .. index .. ", cols = " .. cols .. ", cells length = " .. #tmpElems
                     )
                     goto nextLine

@@ -29,4 +29,8 @@ function XTransfiniteEvent:GetIcon()
     return XTransfiniteConfigs.GetStrengthenImg(self._Id)
 end
 
+function XTransfiniteEvent:GetType()
+    return XTransfiniteConfigs.GetStrengthenType(self._Id)
+end
+
 return XTransfiniteEvent

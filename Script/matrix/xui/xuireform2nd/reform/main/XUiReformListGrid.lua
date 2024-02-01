@@ -1,18 +1,15 @@
 local XUiReformListGridBuff = require("XUi/XUiReform2nd/Reform/Main/XUiReformListGridBuff")
 
----@class XUiReformListGrid
-local XUiReformListGrid = XClass(nil, "XUiReformListGrid")
+---@field _Control XReformControl
+---@class XUiReformListGrid:XUiNode
+local XUiReformListGrid = XClass(XUiNode, "XUiReformListGrid")
 
-function XUiReformListGrid:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiReformListGrid:OnStart()
     XUiHelper.RegisterClickEvent(self, self.BtnAdd, self.OnClickAdd)
     XUiHelper.RegisterClickEvent(self, self.BtnReform, self.OnClickAdd)
 
     ---@type XViewModelReform2ndList
-    self._ViewModel = false
+    self._ViewModel = self._Control:GetViewModelList()
     self._Data = false
 
     ---@type XUiReformListGridBuff[]

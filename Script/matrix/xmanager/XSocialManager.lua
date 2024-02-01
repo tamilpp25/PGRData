@@ -872,6 +872,11 @@ XSocialManagerCreator = function()
         XSocialManager.GetPlayerInfoList(ids, func)
     end
     
+    function XSocialManager.NotifyRemoveBlacklist(notifyData)
+        XSocialManager.RemoveBlack(notifyData.PlayerId)
+        XEventManager.DispatchEvent(XEventId.EVENT_BLACK_DATA_CHANGE)
+        CsXGameEventManager.Instance:Notify(XEventId.EVENT_BLACK_DATA_CHANGE)
+    end
     -------------------黑名单 end----------------------
 
     XSocialManager.Init()
@@ -912,4 +917,9 @@ end
 --通知被拉黑玩家
 XRpc.NotifyBlock = function(notifyData)
     XDataCenter.SocialManager.NotifyBlock(notifyData)
+end
+
+--通知移除注销的被拉黑玩家
+XRpc.NotifyRemoveBlacklist =function(notifyData)
+    XDataCenter.SocialManager.NotifyRemoveBlacklist(notifyData)
 end

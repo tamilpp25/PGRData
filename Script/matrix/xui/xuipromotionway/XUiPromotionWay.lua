@@ -42,7 +42,7 @@ function XUiPromotionWay:UpdateData()
     --找出最接近战力限制的为显示目标
     local teamAbility = {}
     for i = 1, #self.TeamData do
-        local character = XDataCenter.CharacterManager.GetCharacter(self.TeamData[i])
+        local character = XMVCA.XCharacter:GetCharacter(self.TeamData[i])
         if character == nil then
             table.insert(teamAbility, 0)
         else

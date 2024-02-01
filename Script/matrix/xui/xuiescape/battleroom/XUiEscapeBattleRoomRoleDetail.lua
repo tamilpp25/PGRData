@@ -21,9 +21,9 @@ function XUiEscapeBattleRoomChildPanel:RegisterUiEvents(rootUi)
     -- 角色类型按钮组
     rootUi.BtnGroupCharacterType:Init(
         {
-            [XCharacterConfigs.CharacterType.Normal] = rootUi.BtnTabGouzaoti,
-            [XCharacterConfigs.CharacterType.Isomer] = rootUi.BtnTabShougezhe,
-            [XCharacterConfigs.CharacterType.Robot] = self.BtnTabRobot,
+            [XEnumConst.CHARACTER.CharacterType.Normal] = rootUi.BtnTabGouzaoti,
+            [XEnumConst.CHARACTER.CharacterType.Isomer] = rootUi.BtnTabShougezhe,
+            [XEnumConst.CHARACTER.CharacterType.Robot] = self.BtnTabRobot,
         },
         function(tabIndex)
             rootUi:OnBtnGroupCharacterTypeClicked(tabIndex)
@@ -64,7 +64,7 @@ function XUiEscapeBattleRoomRoleDetail:GetChildPanelData()
 end
 
 function XUiEscapeBattleRoomRoleDetail:GetEntities(characterType)
-    if XCharacterConfigs.CharacterType.Robot ~= characterType then
+    if XEnumConst.CHARACTER.CharacterType.Robot ~= characterType then
         return self.Super.GetEntities(self, characterType)
     end
     return self.RobotEntities
@@ -86,12 +86,12 @@ end
 function XUiEscapeBattleRoomRoleDetail:AOPOnStartAfter(rootUi)
     rootUi.BtnFilter.gameObject:SetActiveEx(false)
     rootUi.CurrentSelectTagGroup = {
-        [XCharacterConfigs.CharacterType.Normal] = {},
-        [XCharacterConfigs.CharacterType.Isomer] = {},
-        [XCharacterConfigs.CharacterType.Robot] = {},
+        [XEnumConst.CHARACTER.CharacterType.Normal] = {},
+        [XEnumConst.CHARACTER.CharacterType.Isomer] = {},
+        [XEnumConst.CHARACTER.CharacterType.Robot] = {},
     }
     if XEntityHelper.GetIsRobot(rootUi.CurrentEntityId) then
-        rootUi.CurrentCharacterType = XCharacterConfigs.CharacterType.Robot
+        rootUi.CurrentCharacterType = XEnumConst.CHARACTER.CharacterType.Robot
     end
 end
 

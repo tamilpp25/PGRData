@@ -15,7 +15,7 @@ function XUiPanelEnhanceSkillInfo:Ctor(ui, root, anime, IsSelf, priorCallBack, n
     self.IsSelf = IsSelf
     self.PriorCallBack = priorCallBack
     self.NextCallBack = nextCallBack
-    self.SkillType = skillType or XCharacterConfigs.SkillUnLockType.Enhance
+    self.SkillType = skillType or XEnumConst.CHARACTER.SkillUnLockType.Enhance
     XTool.InitUiObject(self)
     self:SetButtonCallBack()
     self.GridItem.gameObject:SetActiveEx(false)
@@ -108,7 +108,7 @@ function XUiPanelEnhanceSkillInfo:ShowCostItem(skillGroup)
 end
 
 function XUiPanelEnhanceSkillInfo:ShowCondtion(skillGroup)
-    local IsPassCondition,conditionDes = XDataCenter.CharacterManager.GetEnhanceSkillIsPassCondition(skillGroup, self.CharEntity:GetId())
+    local IsPassCondition,conditionDes = XMVCA.XCharacter:GetEnhanceSkillIsPassCondition(skillGroup, self.CharEntity:GetId())
     self.TxtPass.text = conditionDes
     self.TxtNotPass.text = conditionDes
     if self.PanelPass then
@@ -123,7 +123,7 @@ function XUiPanelEnhanceSkillInfo:ShowCondtion(skillGroup)
     self.TxtPass.gameObject:SetActiveEx(IsPassCondition and not string.IsNilOrEmpty(conditionDes))
     self.TxtNotPass.gameObject:SetActiveEx(not IsPassCondition and not string.IsNilOrEmpty(conditionDes))
 
-    local IsCanUnlockOrLevelUp = XDataCenter.CharacterManager.CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup)
+    local IsCanUnlockOrLevelUp = XMVCA.XCharacter:CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup)
     local isEnable = not IsCanUnlockOrLevelUp or not IsPassCondition
     self.BtnUpgrade:SetDisable(isEnable, not isEnable)
     self.BtnUnlock:SetDisable(isEnable, not isEnable)
@@ -135,7 +135,7 @@ end
 
 function XUiPanelEnhanceSkillInfo:ShowInfo(skillGroup)
     self.BtnEntry.gameObject:SetActiveEx(not XTool.IsTableEmpty(self.EntryList))
-    if self.SkillType == XCharacterConfigs.SkillUnLockType.Enhance then
+    if self.SkillType == XEnumConst.CHARACTER.SkillUnLockType.Enhance then
         self.BtnNext.gameObject:SetActiveEx(self.SkillGroupPos < MAX_ENHANCESKILL_COUNT)
     else
         self.BtnNext.gameObject:SetActiveEx(self.SkillGroupPos < MAX_ENHANCESKILLSP_COUNT)
@@ -159,12 +159,12 @@ function XUiPanelEnhanceSkillInfo:OnBtnUpgradeClick()
             "CharacterUngradeSkillCoinNotEnough") then
         return
     end
-    XDataCenter.CharacterManager.UpgradeEnhanceSkillRequest(self.SkillGroup:GetSkillGroupId(), 1, self.CharEntity:GetId(),function ()
+    XMVCA.XCharacter:UpgradeEnhanceSkillRequest(self.SkillGroup:GetSkillGroupId(), 1, self.CharEntity:GetId(),function ()
             self:UpdataPanel()
             local text = ""
-            if self.SkillType == XCharacterConfigs.SkillUnLockType.Enhance then
+            if self.SkillType == XEnumConst.CHARACTER.SkillUnLockType.Enhance then
                 text = CS.XTextManager.GetText("EnhanceSkillLevelUpFinishHint")
-            elseif self.SkillType == XCharacterConfigs.SkillUnLockType.Sp then
+            elseif self.SkillType == XEnumConst.CHARACTER.SkillUnLockType.Sp then
                 text = CS.XTextManager.GetText("SpSkillLevelUpFinishHint")
             end
             XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_INCREASE_TIP, text)
@@ -182,7 +182,7 @@ function XUiPanelEnhanceSkillInfo:OnBtnUnlockClick()
             "CharacterUngradeSkillCoinNotEnough") then
         return
     end
-    XDataCenter.CharacterManager.UnlockEnhanceSkillRequest(self.SkillGroup:GetSkillGroupId(), self.CharEntity:GetId(),function ()
+    XMVCA.XCharacter:UnlockEnhanceSkillRequest(self.SkillGroup:GetSkillGroupId(), self.CharEntity:GetId(),function ()
             self:UpdataPanel()
             XLuaUiManager.Open("UiEnhanceSkillActivation", self.SkillType, self.SkillGroup, self.CharEntity:GetId())
         end)

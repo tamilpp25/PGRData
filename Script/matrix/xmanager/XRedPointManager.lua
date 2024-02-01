@@ -11,6 +11,16 @@ local RedPointEventPool
 
 --region   ------------------local function start-------------------
 
+local function GetEventPool()
+    if RedPointEventPool then
+        return RedPointEventPool
+    end
+    RedPointEventPool = XObjectPool.New(XRedPointEvent.New)
+
+    return RedPointEventPool
+end
+
+
 --- 移除事件节点
 ---@param eventId number 事件Id
 ---@param needRelease boolean 是否需要释放
@@ -28,7 +38,7 @@ local function RemoveRedPointEventInternal(eventId, needRelease)
         pointEvent:Release()
     end
     if pointEvent then
-        RedPointEventPool:Recycle(pointEvent)
+        GetEventPool():Recycle(pointEvent)
     end
 end
 
@@ -39,6 +49,7 @@ local function GenerateEventId()
     eventIdPool = eventIdPool + 1
     return eventIdPool
 end
+
 --endregion------------------local function finish------------------
 
 
@@ -46,7 +57,6 @@ end
 function XRedPointManager.Init()
     RedPointEventDic = RedPointEventDic or {}
     RedPointFiitterEvents = RedPointFiitterEvents or {}
-    RedPointEventPool = RedPointEventPool or XObjectPool.New(XRedPointEvent.New)
 end
 
 --添加过滤
@@ -78,7 +88,7 @@ function XRedPointManager.AddRedPointEvent(node, func, listener, conditionGroup,
     end
 
     local eventId = GenerateEventId()
-    RedPointEventDic[eventId] = RedPointEventPool:Create(eventId, node, conditionGroup, listener, func, args)
+    RedPointEventDic[eventId] = GetEventPool():Create(eventId, node, conditionGroup, listener, func, args)
     if isCheck == nil or isCheck == true then
         XRedPointManager.Check(eventId)
     end
@@ -209,4 +219,11 @@ function XRedPointManager.CheckConditions(conditions, args)
         end
     end
     return false
+end
+
+function XRedPointManager.CheckEventExist(eventId)
+    if RedPointEventDic == nil then
+        return false
+    end
+    return RedPointEventDic[eventId] ~= nil
 end

@@ -533,7 +533,6 @@ XExpeditionManagerCreator = function()
         if EActivity then
             EActivity:SetDefaultTeamId(data.DefaultTeamId)
         end
-        ExpeditionManager.RegisterEditBattleProxy()
         IsActivityEnd = false
         if not InitialComplete then
             InitialComplete = true
@@ -546,17 +545,6 @@ XExpeditionManagerCreator = function()
         if EActivity then
             EActivity:RefreshStageInfos(data.Stages)
         end
-    end
-    --[[    ================
-    注册出战界面代理
-    ================
-    ]]
-    function ExpeditionManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then
-            return
-        end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Expedition, require("XUi/XUiExpedition/Battle/XUiExpeditionNewRoomSingle"))
     end
 
     function ExpeditionManager.ActivityEnd()
@@ -790,17 +778,17 @@ end
 --        List<XExpeditionAlternative> AlternativeCharacters
 --        List<XExpeditionStage> Stages
 XRpc.NotifyExpeditionData = function(data)
-    XDataCenter.ExpeditionManager.InitData(data)
+    --XDataCenter.ExpeditionManager.InitData(data)
 end
 --================
 --刷新招募相关信息
 --================
 XRpc.NotifyExpeditionRefreshTimes = function(data)
-    XDataCenter.ExpeditionManager.UpdateRecruitTimes(data)
+    --XDataCenter.ExpeditionManager.UpdateRecruitTimes(data)
 end
 --================
 --刷新关卡状态相关信息
 --================
 XRpc.NotifyExpeditionStage = function(data)
-    XDataCenter.ExpeditionManager.RefreshStageInfos(data)
+    --XDataCenter.ExpeditionManager.RefreshStageInfos(data)
 end

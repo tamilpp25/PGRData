@@ -11,16 +11,16 @@ end
 function XUiGridRiftCharacter:Refresh(xRole, isMultiTeam)
     self.XRole = xRole
     local characterId = xRole:GetCharacterId()
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -35,11 +35,11 @@ function XUiGridRiftCharacter:Refresh(xRole, isMultiTeam)
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(xRole:GetQuality()))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(xRole:GetQuality()))
     end
 
     if self.RImgHeadIcon then
-        self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+        self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     end
 
     if self.PanelFight then

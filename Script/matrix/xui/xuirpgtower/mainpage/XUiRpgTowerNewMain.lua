@@ -206,7 +206,7 @@ end
 
 function XUiRpgTowerNewMain:OnDisable()
     self:StopTimer()
-    self:RemoveRedPointEvents()
+    self:RemoveAllRedPoints()
 
     if self.AnimTimer then
         XScheduleManager.UnSchedule(self.AnimTimer)   
@@ -225,7 +225,7 @@ function XUiRpgTowerNewMain:AddRedPointEvents()
     table.insert(self.RedEvents, XRedPointManager.AddRedPointEvent(self.BtnTeam, self.OnCheckBtnTeamRedPoint, self, { XRedPointConditions.Types.CONDITION_RPGTOWER_TEAM_RED }))
 end
 
-function XUiRpgTowerNewMain:RemoveRedPointEvents()
+function XUiRpgTowerNewMain:RemoveAllRedPoints()
     if not self.AlreadyAddRed then return end
     for _, eventId in pairs(self.RedEvents) do
         XRedPointManager.RemoveRedPointEvent(eventId)

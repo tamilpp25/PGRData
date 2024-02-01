@@ -13,7 +13,7 @@ local XUiTheatreShop = XLuaUiManager.Register(XLuaUi, "UiTheatreShop")
 
 function XUiTheatreShop:OnAwake()
     self.ShopGrids = {}
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitDynamicTable()
     self:InitButtonGroup()
     self:InitButtonCallBack()

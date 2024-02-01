@@ -74,7 +74,7 @@ function XUiExpeditionCharSkill:ShowPanel(robotCfg)
 end
 
 function XUiExpeditionCharSkill:UpdateSkill()
-    local skills = XCharacterConfigs.GetCharacterSkills(self.CharacterId)
+    local skills = XMVCA.XCharacter:GetCharacterSkills(self.CharacterId)
     if (self.SkillGrids and #self.SkillGrids > 0) then
         for i = 1, MAX_SKILL_COUNT do
             self.SkillGrids[i]:SetClickCallback(
@@ -100,7 +100,7 @@ function XUiExpeditionCharSkill:UpdateSkill()
 end
 
 function XUiExpeditionCharSkill:OnSelectSkill(i)
-    local skills = XCharacterConfigs.GetCharacterSkills(self.CharacterId)
+    local skills = XMVCA.XCharacter:GetCharacterSkills(self.CharacterId)
     self:HideSkillItemPanel()
     self.BtnSkillTeach.gameObject:SetActive(false)
     self.SkillInfoPanel:ShowPanel(self.CharacterId, skills, i)

@@ -1,5 +1,4 @@
 local XUiGridSimulationChallenge = XClass(nil, "XUiGridSimulationChallenge")
-local XUiBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload")
 local IsThisTransformPlayAnim = false
 
 function XUiGridSimulationChallenge:Ctor(ui)
@@ -9,8 +8,6 @@ function XUiGridSimulationChallenge:Ctor(ui)
     self:SetHasPlay(false)
     XTool.InitUiObject(self)
     self:InitAutoScript()
-    ---@type XUiBtnDownload
-    self.GirdBtnDownload = XUiBtnDownload.New(self.BtnDownload)
 end
 
 -- auto
@@ -120,11 +117,10 @@ function XUiGridSimulationChallenge:UpdateGrid(manager, index, currUseMinIndex)
     end
 
     self:RefreshRedPoint()
-    self.GirdBtnDownload:Init(XDlcConfig.EntryType.Challenge, self.Manager:ExGetChapterType(), nil, handler(self, self.OnDownloadComplete))
-    self.GirdBtnDownload:RefreshView()
     
     local locked = manager:ExGetIsLocked()
-    self.PanelLock.gameObject:SetActiveEx(locked or self.GirdBtnDownload:CheckNeedDownload())
+    self.PanelLock.gameObject:SetActiveEx(locked)
+    self.BtnDownload.gameObject:SetActiveEx(false)
     self.TxtLock.text = manager:ExGetLockTip()
     self.TxtLock.gameObject:SetActiveEx(locked)
     
@@ -148,21 +144,7 @@ function XUiGridSimulationChallenge:RemoveTimer()
     self.Timer = nil
 end
 
-function XUiGridSimulationChallenge:OnDownloadComplete()
-    if XTool.UObjIsNil(self.GameObject) then
-        return
-    end
-    local locked = self.Manager:ExGetIsLocked()
-    self.PanelLock.gameObject:SetActiveEx(locked or self.GirdBtnDownload:CheckNeedDownload())
-    self.TxtLock.text = self.Manager:ExGetLockTip()
-    self.TxtLock.gameObject:SetActiveEx(locked)
-end
-
 function XUiGridSimulationChallenge:OnClickSelf()
-    if self.GirdBtnDownload:CheckNeedDownload() then
-        self.GirdBtnDownload:OnBtnClick()
-        return
-    end
     self.Manager:ExOpenMainUi()
 end
 

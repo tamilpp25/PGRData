@@ -458,27 +458,27 @@ XFubenSpecialTrainManagerCreator = function()
 
     --------------副本相关-------------------
     --设置关卡类型
-    function XFubenSpecialTrainManager.InitStageInfo()
-        local specailTrainStageConfig = XFubenSpecialTrainConfig.GetSpecialTrainStage()
-        for _, stage in pairs(specailTrainStageConfig) do
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stage.Id)
-            if stageInfo then
-                if stage.Type == XFubenSpecialTrainConfig.StageType.Music then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainMusic
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Snow then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainSnow
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Rhythm then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainRhythmRank
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Breakthrough then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
-                elseif stage.Type == XFubenSpecialTrainConfig.StageType.Photo then
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.FubenPhoto
-                else
-                    stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrain
-                end
-            end
-        end
-    end
+    --function XFubenSpecialTrainManager.InitStageInfo()
+    --    local specailTrainStageConfig = XFubenSpecialTrainConfig.GetSpecialTrainStage()
+    --    for _, stage in pairs(specailTrainStageConfig) do
+    --        local stageInfo = XDataCenter.FubenManager.GetStageInfo(stage.Id)
+    --        if stageInfo then
+    --            if stage.Type == XFubenSpecialTrainConfig.StageType.Music then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainMusic
+    --            elseif stage.Type == XFubenSpecialTrainConfig.StageType.Snow then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainSnow
+    --            elseif stage.Type == XFubenSpecialTrainConfig.StageType.Rhythm then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainRhythmRank
+    --            elseif stage.Type == XFubenSpecialTrainConfig.StageType.Breakthrough then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrainBreakthrough
+    --            elseif stage.Type == XFubenSpecialTrainConfig.StageType.Photo then
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.FubenPhoto
+    --            else
+    --                stageInfo.Type = XDataCenter.FubenManager.StageType.SpecialTrain
+    --            end
+    --        end
+    --    end
+    --end
 
     function XFubenSpecialTrainManager.OpenFightLoading(stageId)
         local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
@@ -845,7 +845,7 @@ XFubenSpecialTrainManagerCreator = function()
     end
 
     function XFubenSpecialTrainManager.IsSpecialTrainBreakthrough(stageId)
-        local stageType = XFubenConfigs.GetStageType(stageId)
+        local stageType = XFubenConfigs.GetStageMainlineType(stageId)
         return XFubenSpecialTrainManager.IsSpecialTrainBreakthroughType(stageType)
     end
 

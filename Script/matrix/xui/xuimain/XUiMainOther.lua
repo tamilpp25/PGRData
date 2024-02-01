@@ -16,9 +16,11 @@ function XUiMainOther:OnStart(rootUi)
 end
 
 function XUiMainOther:OnEnable()
-
     if self.SignBoard then
+        -- 随机角色
         local displayCharacterId = XDataCenter.DisplayManager.GetRandomDisplayCharByList().Id
+
+        -- 刷新
         XDataCenter.DisplayManager.SetNextDisplayChar(nil)
         self.SignBoard:SetDisplayCharacterId(displayCharacterId)
         self.SignBoard:OnEnable()
@@ -68,6 +70,13 @@ function XUiMainOther:OnChangeSync()
         self.SignBoard:OnDestroy()
     end
     self.SignBoard = nil
+end
+
+function XUiMainOther:GetRoleModel()
+    if self.SignBoard then
+        return self.SignBoard.RoleModel
+    end
+    return false
 end
 
 return XUiMainOther

@@ -18,6 +18,7 @@ XHeadPortraitManagerCreator = function()
     function XHeadPortraitManager.Init()
         HeadPortraitsTemplates = XHeadPortraitConfigs.GetHeadPortraitsCfg()
         XHeadPortraitManager.InitSameGroupShowId()
+        XEventManager.AddEventListener(XEventId.EVENT_AUTO_WINDOW_STOP,XHeadPortraitManager.DisplayRewardRestock)
     end
 
     function XHeadPortraitManager.InitSameGroupShowId()
@@ -361,6 +362,21 @@ XHeadPortraitManagerCreator = function()
             UnlockHeadInfos[id] = nil
         end
     end
+    
+    --region 2.10
+    local rewardRestockCachce = nil
+    
+    function XHeadPortraitManager.SetRewardRestockCache(data)
+        rewardRestockCachce = data
+    end
+    
+    function XHeadPortraitManager.DisplayRewardRestock()
+        if not XTool.IsTableEmpty(rewardRestockCachce) then
+            XUiManager.OpenUiObtain(rewardRestockCachce)
+            rewardRestockCachce = nil
+        end
+    end
+    --endregion
 
     XHeadPortraitManager.Init()
     return XHeadPortraitManager
@@ -387,3 +403,9 @@ XRpc.NotifyHeadTimeout = function(data)
     XEventManager.DispatchEvent(XEventId.EVENT_HEAD_PORTRAIT_NOTIFY)
     XEventManager.DispatchEvent(XEventId.EVENT_HEAD_PORTRAIT_TIMEOUT)
 end
+
+--region 2.10
+XRpc.FashionLoginGiftNotify = function(data)
+    XDataCenter.HeadPortraitManager.SetRewardRestockCache(data.GoodList)
+end
+--endregion

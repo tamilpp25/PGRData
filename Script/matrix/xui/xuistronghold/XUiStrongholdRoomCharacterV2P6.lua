@@ -19,8 +19,8 @@ function XUiStrongholdRoomCharacterV2P6:OnAwake()
     ---@type XCharacterAgency
     local ag = XMVCA:GetAgency(ModuleId.XCharacter)
     self.CharacterAgency = ag
-    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
-    ---@type XCommonCharacterFiltAgency
+    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
+    ---@type XCommonCharacterFilterAgency
     self.FiltAgecy = ag
 
     self:AutoAddListener()
@@ -68,12 +68,16 @@ function XUiStrongholdRoomCharacterV2P6:InitFilter()
     self.PanelFilter:InitData(onSeleCb, onTagClick, nil, refreshFun, XUiGridStrongholdCharacter, checkInTeam, overrideFunTable)
     -- 导入列表并刷新
     local list = XDataCenter.StrongholdManager.GetAllCanUseCharacterOrRobotIds(self.GroupId)
-    self.PanelFilter:ImportList(list)
-    if XTool.IsNumberValid(self.InitSelectCharId) then
-        self.PanelFilter:DoSelectCharacter(self.InitSelectCharId)
-    end
+    self.PanelFilter:ImportList(list, self.InitSelectCharId)
     -- 导入支援列表
     self:ImportSupportList()
+    -- 选中支援角色
+    local isAssitant, playerId = self.TeamList[self.TeamId]:IsCharacterAssitant(self.InitSelectCharId)
+    if isAssitant then
+        self.PanelFilter:DoSelectTag("BtnSupport")
+        local tempList = XDataCenter.StrongholdManager.GetAssistantPlayerIds(self.GroupId, self.TeamId, self.TeamList)
+        self.InitChooseIndex = table.indexof(tempList, playerId)
+    end
 end
 
 function XUiStrongholdRoomCharacterV2P6:ImportSupportList()
@@ -105,10 +109,8 @@ end
 
 function XUiStrongholdRoomCharacterV2P6:OnEnable()
     CS.XGraphicManager.UseUiLightDir = true
-
-    if self.SelectTabIndex then
-        self.PanelCharacterTypeBtns:SelectIndex(self.SelectTabIndex)
-    end
+    self.PanelFilter:RefreshList(self.InitChooseIndex)
+    self.InitChooseIndex = nil
 end
 
 function XUiStrongholdRoomCharacterV2P6:OnDisable()
@@ -120,24 +122,34 @@ function XUiStrongholdRoomCharacterV2P6:OnDestroy()
 end
 
 function XUiStrongholdRoomCharacterV2P6:CheckIsOtherPlayer()
-    return self.PanelFilter.CurSelectTagBtn.gameObject.name == "BtnSupport"
+    return self.PanelFilter:IsTagSupport()
 end
 
 function XUiStrongholdRoomCharacterV2P6:SelectPanel()
+    local isEmpty = self.PanelFilter:IsCurListEmpty()
     if self:CheckIsOtherPlayer() then
-        self.SelfPanel:Hide()
+        self.SelfPanel:Close()
+        if isEmpty then
+            self.OthersPanel:Close()
+        else
+            self.OthersPanel:Open()
+        end
         self.OthersPanel:Show(self.TeamList, self.TeamId, self.MemberIndex, self.GroupId)
         self.PanelRefresh.gameObject:SetActiveEx(true)
         self.CurPanel = self.OthersPanel
     else
+        self.OthersPanel:Close()
+        if isEmpty then
+            self.SelfPanel:Close()
+        else
+            self.SelfPanel:Open()
+        end
         self.SelfPanel:Show(self.TeamList, self.TeamId, self.MemberIndex, self.GroupId, false, self.Pos)
-        self.OthersPanel:Hide()
         self.PanelRefresh.gameObject:SetActiveEx(false)
         self.CurPanel = self.SelfPanel
     end
 
     --角色列表为空，不显示按钮
-    local isEmpty = self.PanelFilter:IsCurListEmpty()
     self.BtnTeaching.gameObject:SetActiveEx(not isEmpty)
 end
 
@@ -242,10 +254,15 @@ function XUiStrongholdRoomCharacterV2P6:AutoAddListener()
     self.BtnTeaching.CallBack = function() 
         self:OnBtnTeachingClick()
     end
+    self:RegisterClickEvent(self.BtnRefresh, self.OnClickBtnRefresh)
 end
 
 function XUiStrongholdRoomCharacterV2P6:OnBtnTeachingClick()
-    XDataCenter.PracticeManager.OpenUiFubenPractice(self.CharacterId, true)
+    local characterId = self.CharacterId
+    if self:CheckIsOtherPlayer() then
+        characterId = XDataCenter.StrongholdManager.GetAssistantPlayerCharacterId(characterId)
+    end
+    XDataCenter.PracticeManager.OpenUiFubenPractice(characterId, true)
 end
 
 function XUiStrongholdRoomCharacterV2P6:OnBtnMainUiClick()
@@ -295,3 +312,19 @@ end
 function XUiStrongholdRoomCharacterV2P6:UpdateTeamPrefab(team)
     self.SelfPanel:UpdateTeamPrefab(team)
 end
+
+function XUiStrongholdRoomCharacterV2P6:OnClickBtnRefresh()
+    local cb = function()
+        local groupId = self.GroupId
+        local teamList = self.TeamList
+        XDataCenter.StrongholdManager.KickOutInvalidMembersInTeamList(teamList, groupId)
+        self:ImportSupportList()
+        ---@type XUiPanelCommonCharacterFilterV2P6
+        local parentFilter = self.PanelFilter
+        parentFilter:SetForceSeleCbTrigger()
+        parentFilter:RefreshList()
+    end
+    XDataCenter.StrongholdManager.GetStrongholdAssistCharacterListRequest(cb)
+end
+
+return XUiStrongholdRoomCharacterV2P6

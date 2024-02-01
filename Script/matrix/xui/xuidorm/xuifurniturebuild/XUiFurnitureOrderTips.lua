@@ -13,9 +13,13 @@ function XUiGridReformInfo:RefreshPreView(previewId, count)
 end
 
 function XUiGridReformInfo:RefreshDrawing(drawId, count)
-    self.TxtNum.text = count
-    self.TxtName.text = XDataCenter.ItemManager.GetItemName(drawId)
-    self.GameObject:SetActiveEx(true)
+    if XTool.IsNumberValid(drawId) and drawId > 0 then
+        self.GameObject:SetActiveEx(true)
+        self.TxtNum.text = count
+        self.TxtName.text = XDataCenter.ItemManager.GetItemName(drawId)
+    else
+        self.GameObject:SetActiveEx(false)
+    end
 end
 
 function XUiGridReformInfo:RefreshFurniture(id, count, isReform)

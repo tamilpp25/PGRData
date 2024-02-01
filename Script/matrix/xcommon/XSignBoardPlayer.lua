@@ -176,7 +176,7 @@ function XSignBoardPlayer:PlayNext(isRecord)
 
     if isRecord then
         -- 记录播放过的动作
-        XDataCenter.SignBoardManager.RecordSignBoard(head.SignBoardConfig)
+        XMVCA.XFavorability:RecordSignBoard(head.SignBoardConfig)
     end
 
     self.PlayUi:Play(head)
@@ -249,7 +249,7 @@ function XSignBoardPlayer:PlayNextCross(isRecord)
 
     if isRecord then
         -- 记录播放过的动作
-        XDataCenter.SignBoardManager.RecordSignBoard(head.SignBoardConfig)
+        XMVCA.XFavorability:RecordSignBoard(head.SignBoardConfig)
     end
 
     self.PlayUi:PlayCross(head)
@@ -422,7 +422,7 @@ function XSignBoardPlayer:IsPlayingElementHaveSceneAnim()
     if self.PlayerData.PlayingElement == nil then
         return false
     end
-    return XSignBoardConfigs.CheckIsHaveSceneAnim(self.PlayerData.PlayingElement.SignBoardConfig.Id)
+    return XMVCA.XFavorability:CheckIsHaveSceneAnim(self.PlayerData.PlayingElement.SignBoardConfig.Id)
 end
 
 -- 当前播放的动作是否有特殊Ui动画
@@ -430,35 +430,35 @@ function XSignBoardPlayer:IsPlayingElementHaveUiAnim()
     if self.PlayerData.PlayingElement == nil then
         return false
     end
-    return XSignBoardConfigs.CheckIsShowHideUi(self.PlayerData.PlayingElement.SignBoardConfig.Id)
+    return XMVCA.XFavorability:CheckIsShowHideUi(self.PlayerData.PlayingElement.SignBoardConfig.Id)
 end
 
 -- 开始播放
 function XSignBoardPlayer:PlayActionAnim(head)
     -- Ui动画
-    if XSignBoardConfigs.CheckIsShowHideUi(head.SignBoardConfig.Id) then
+    if XMVCA.XFavorability:CheckIsShowHideUi(head.SignBoardConfig.Id) then
         if self.PlayUi.PlayUiAnim then
             self.PlayUi:PlayUiAnim()
         end
         XEventManager.DispatchEvent(XEventId.EVENT_ROLE_ACTION_UIANIM_START, head.SignBoardConfig.Id, head.Duration)
     end
     -- 镜头动画
-    if XSignBoardConfigs.CheckIsHaveSceneAnim(head.SignBoardConfig.Id) and self.PlayUi.PlaySceneAnim then
+    if XMVCA.XFavorability:CheckIsHaveSceneAnim(head.SignBoardConfig.Id) and self.PlayUi.PlaySceneAnim then
         self.PlayUi:PlaySceneAnim(head)
     else -- 避免本次播放没有镜头动画而上个动作有镜头动画且其处于被打断暂停状态时的镜头残留
-        XDataCenter.SignBoardManager.SceneAnimStop()
+        XMVCA.XFavorability:SceneAnimStop()
     end
 end
 
 function XSignBoardPlayer:PauseActionAnim()
     if self:IsPlayingElementHaveSceneAnim() then
-        XDataCenter.SignBoardManager.SceneAnimPause()
+        XMVCA.XFavorability:SceneAnimPause()
     end
 end
 
 function XSignBoardPlayer:ResumeActionAnim()
     if self:IsPlayingElementHaveSceneAnim() then
-        XDataCenter.SignBoardManager.SceneAnimResume()
+        XMVCA.XFavorability:SceneAnimResume()
     end
 end
 
@@ -470,10 +470,10 @@ function XSignBoardPlayer:StopActionAnim()
         XEventManager.DispatchEvent(XEventId.EVENT_ROLE_ACTION_UIANIM_END, signBoardid)
     end
     if self:IsPlayingElementHaveSceneAnim() then
-        XDataCenter.SignBoardManager.SceneAnimStop()
+        XMVCA.XFavorability:SceneAnimStop()
     end
     -- 取消打断监听
-    XDataCenter.SignBoardManager.StopBreakTimer()
+    XMVCA.XFavorability:StopBreakTimer()
 end
 
 function XSignBoardPlayer:SetStatus(status)

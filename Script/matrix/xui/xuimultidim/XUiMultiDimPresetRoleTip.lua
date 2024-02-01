@@ -133,7 +133,7 @@ function XUiMultiDimPresetRoleTip:GetRoleDetailProxy()
         end,
         AOPOnStartAfter = function(proxy, rootUi)
             -- 没有独域机体时将按钮隐藏掉
-            local isomerRoles = XDataCenter.MultiDimManager.GetOwnCharacterListByFilterCareer(self.CareerId, XCharacterConfigs.CharacterType.Isomer)
+            local isomerRoles = XDataCenter.MultiDimManager.GetOwnCharacterListByFilterCareer(self.CareerId, XEnumConst.CHARACTER.CharacterType.Isomer)
             if XTool.IsTableEmpty(isomerRoles) then
                 rootUi.BtnTabShougezhe.gameObject:SetActiveEx(false)
             end

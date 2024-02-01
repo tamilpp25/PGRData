@@ -239,7 +239,7 @@ function XUiSettleWin:SetStageInfo(data)
         local npcIdList = XPracticeConfigs.GetSimulateTrainNpcIdIdByStageId(stageId)
         local npcId = npcIdList[difficulty]
         if XTool.IsNumberValid(npcId) then
-            local bossData = XDataCenter.ArchiveManager.GetArchiveMonsterEntityByNpcId(npcId)
+            local bossData = XMVCA.XArchive:GetArchiveMonsterEntityByNpcId(npcId)
             local name = bossData and bossData:GetName() or ""
             self.TxtBossInfo.text = CSTextManagerGetText("PracticeBossSettle", XPracticeConfigs.GetSimulateTrainMonsterStageNameByStageId(stageId, difficulty), name)
         else
@@ -250,54 +250,54 @@ end
 
 -- 角色奖励列表
 function XUiSettleWin:InitRewardCharacterList(data)
-    if self.StageInfos.Type == XDataCenter.FubenManager.StageType.RogueLike then
-        local robotInfos = XDataCenter.FubenRogueLikeManager.GetRogueLikeStageRobots(self.StageCfg.StageId)
-        if robotInfos.IsAssis then
-            for i = 1, #robotInfos.RobotId do
-                local id = robotInfos.RobotId[i]
-                if id > 0 then
-                    local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
-                    local grid = XUiGridWinRole.New(self, ui)
-                    grid.Transform:SetParent(self.PanelRoleContent, false)
-                    grid:UpdateRobotInfo(id)
-                    grid.GameObject:SetActiveEx(true)
-                end
-            end
-
-            return
-        end
-    end
+    --if self.StageInfos.Type == XDataCenter.FubenManager.StageType.RogueLike then
+    --    local robotInfos = XDataCenter.FubenRogueLikeManager.GetRogueLikeStageRobots(self.StageCfg.StageId)
+    --    if robotInfos.IsAssis then
+    --        for i = 1, #robotInfos.RobotId do
+    --            local id = robotInfos.RobotId[i]
+    --            if id > 0 then
+    --                local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
+    --                local grid = XUiGridWinRole.New(self, ui)
+    --                grid.Transform:SetParent(self.PanelRoleContent, false)
+    --                grid:UpdateRobotInfo(id)
+    --                grid.GameObject:SetActiveEx(true)
+    --            end
+    --        end
+    --
+    --        return
+    --    end
+    --end
 
     -- 巨麻烦的处理，仅狙击战有效
-    if self.StageInfos.Type == XDataCenter.FubenManager.StageType.UnionKill then
-        if self.WinData.SettleData then
-            local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
-            for _, teamItem in pairs(teamCache or {}) do
-                if teamItem.CharacterId and teamItem.CharacterId > 0 then
-                    local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
-                    local grid = XUiGridWinRole.New(self, ui)
-                    grid.Transform:SetParent(self.PanelRoleContent, false)
-                    grid.GameObject:SetActiveEx(true)
-
-                    if teamItem.IsShare then
-                        grid:UpdateShareRoleInfo(teamItem.Character, 0)
-                    else
-                        local character = XDataCenter.CharacterManager.GetCharacter(teamItem.CharacterId)
-                        for _, charExpRecord in pairs(data.CharExp or {}) do
-                            if charExpRecord.Id == teamItem.CharacterId then
-                                character = charExpRecord
-                                break
-                            end
-                        end
-                        local cardExp = XDataCenter.FubenManager.GetCardExp(self.CurrentStageId)
-                        grid:UpdateRoleInfo(character, cardExp)
-                    end
-                end
-            end
-        end
-
-        return
-    end
+    --if self.StageInfos.Type == XDataCenter.FubenManager.StageType.UnionKill then
+    --    if self.WinData.SettleData then
+    --        local teamCache = XDataCenter.FubenUnionKillManager.GetCacheTeam()
+    --        for _, teamItem in pairs(teamCache or {}) do
+    --            if teamItem.CharacterId and teamItem.CharacterId > 0 then
+    --                local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
+    --                local grid = XUiGridWinRole.New(self, ui)
+    --                grid.Transform:SetParent(self.PanelRoleContent, false)
+    --                grid.GameObject:SetActiveEx(true)
+    --
+    --                if teamItem.IsShare then
+    --                    grid:UpdateShareRoleInfo(teamItem.Character, 0)
+    --                else
+    --                    local character = XMVCA.XCharacter:GetCharacter(teamItem.CharacterId)
+    --                    for _, charExpRecord in pairs(data.CharExp or {}) do
+    --                        if charExpRecord.Id == teamItem.CharacterId then
+    --                            character = charExpRecord
+    --                            break
+    --                        end
+    --                    end
+    --                    local cardExp = XDataCenter.FubenManager.GetCardExp(self.CurrentStageId)
+    --                    grid:UpdateRoleInfo(character, cardExp)
+    --                end
+    --            end
+    --        end
+    --    end
+    --
+    --    return
+    --end
 
     -- 尼尔玩法特殊处理
     if self.StageInfos.Type == XDataCenter.FubenManager.StageType.NieR and (not self.StageCfg.RobotId or #self.StageCfg.RobotId <= 0) then
@@ -315,6 +315,24 @@ function XUiSettleWin:InitRewardCharacterList(data)
             end
         end
 
+        return
+    end
+    
+    -- 音游玩法特殊处理
+    if self.StageInfos.Type == XEnumConst.FuBen.StageType.TaikoMaster then
+        if self.WinData.SettleData then
+            local teamData = XMVCA.XTaikoMaster:GetTeam():GetEntityIds()
+            for _, robotId in ipairs(teamData) do
+                if robotId > 0 then
+                    local ui = CS.UnityEngine.Object.Instantiate(self.GridWinRole)
+                    ---@type XUiGridSettleWinRole
+                    local grid = XUiGridWinRole.New(self, ui)
+                    grid.Transform:SetParent(self.PanelRoleContent, false)
+                    grid:UpdateTaikoRoleInfo(robotId)
+                    grid.GameObject:SetActiveEx(true)
+                end
+            end
+        end
         return
     end
 
@@ -407,6 +425,13 @@ function XUiSettleWin:SetBtnByType(btnType)
     if btnType == XRoomSingleManager.BtnType.SelectStage then
         self:OnBtnBackClick(false)
     elseif btnType == XRoomSingleManager.BtnType.Again then
+        -- 音游需要进入自己的战斗房间
+        if self.StageInfos.Type == XEnumConst.FuBen.StageType.TaikoMaster then
+            ---@type XTaikoMasterAgency
+            local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+            agency:OpenBattleRoom(self.CurrentStageId)
+            return
+        end
         XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageCfg.StageId, nil, nil, nil, true)
     elseif btnType == XRoomSingleManager.BtnType.Next then
         self:OnBtnEnterNextClick()
@@ -428,7 +453,7 @@ function XUiSettleWin:OnBtnEnterNextClick()
         if self.StageInfos.NextStageId then
             local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
             self:HidePanel()
-            XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+            XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
         else
             local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

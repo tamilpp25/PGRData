@@ -1048,9 +1048,9 @@
     },
     {
         "Id": 34,
-        "TimeId": 24101.0,
+        "TimeId": null,
         "ActivityTimeId": null,
-        "UiType": 2.0,
+        "UiType": null,
         "Name": "\u61a9\u68a6\u7a79\u68ee\u00b7\u590d\u523b",
         "Priority": 34,
         "FubenActivityOrder": null,
@@ -1074,6 +1074,39 @@
             30130408.0,
             30130409.0,
             30130410.0
+        ]
+    },
+    {
+        "Id": 35,
+        "TimeId": 25801.0,
+        "ActivityTimeId": null,
+        "UiType": 2.0,
+        "Name": "\u6eba\u68a6\u6e38\u6b4c",
+        "Priority": 35,
+        "FubenActivityOrder": 3.0,
+        "FunctionOpenId": 10306,
+        "SkipId": [
+            20213.0
+        ],
+        "StagePrefix": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner136.png",
+        "ChapterType": 27,
+        "MainBackgound": null,
+        "EffectUrl": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenGachaLamiya/FubenGachaLamiyaLine.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenGachaLamiya/GridGachaLamiyaFight.prefab",
+        "GridStoryPrefab": "Assets/Product/Ui/ComponentPrefab/FubenGachaLamiya/GridGachaLamiyaStory.prefab",
+        "TitleIcon": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanImg01.png",
+        "TitleBg": "Assets/Product/Texture/Image/UiFubenMainTab/UiFubenTuzhuangShiwanTitleBg01.png",
+        "ChapterBgm": 399.0,
+        "StageId": [
+            30130424.0,
+            30130425.0,
+            30130426.0,
+            30130427.0,
+            30130428.0,
+            30130429.0,
+            30130430.0
         ]
     }
 ]

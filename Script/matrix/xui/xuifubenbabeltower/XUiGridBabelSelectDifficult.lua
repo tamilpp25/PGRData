@@ -1,5 +1,6 @@
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
+---@class XUiGridBabelSelectDifficult
 local XUiGridBabelSelectDifficult = XClass(nil, "XUiGridBabelSelectDifficult")
 
 function XUiGridBabelSelectDifficult:Ctor(ui)
@@ -11,6 +12,7 @@ function XUiGridBabelSelectDifficult:Ctor(ui)
     self.BtnSelect.CallBack = function() self:OnClickBtnSelect() end
 end
 
+---@param rootUi XUiBabelTowerSelectDiffcult
 function XUiGridBabelSelectDifficult:InitRootUi(rootUi)
     self.RootUi = rootUi
 end

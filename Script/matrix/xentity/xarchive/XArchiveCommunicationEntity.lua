@@ -13,7 +13,7 @@ function XArchiveCommunicationEntity:UpdateData(playerData)
 end
 
 function XArchiveCommunicationEntity:GetCfg()
-    return XArchiveConfigs.GetArchiveCommunicationsConfigById(self.Id)
+    return XMVCA.XArchive:GetArchiveCommunicationsConfigById(self.Id)
 end
 
 function XArchiveCommunicationEntity:GetId()

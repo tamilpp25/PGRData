@@ -1,15 +1,21 @@
 -- 大秘境关卡节点3D格子
+---@class XUiGridRiftStageGroup3D
 local XUiGridRiftStageGroup3D = XClass(nil, "XUiGridRiftStageGroup3D")
 
 local State = 
 {
+    ---上锁
     Lock = 1,
+    ---作战中
     Fighting = 2,
+    ---通过
     Passed = 3,
+    ---已解锁 还没打
     UnLockProgress0 = 4,
 }
 
 function XUiGridRiftStageGroup3D:Ctor(ui, object3D, rootUi, rootChapter3D, camera2D, camera3D)
+    ---@type XUiRiftMain
     self.RootUi2D = rootUi
     self.RootChapter3D = rootChapter3D
     self.GameObject = ui.gameObject
@@ -19,46 +25,21 @@ function XUiGridRiftStageGroup3D:Ctor(ui, object3D, rootUi, rootChapter3D, camer
     XTool.InitUiObject(self)
     self.Object3D = {}
     XTool.InitUiObjectByUi(self.Object3D, object3D) -- 将3d的内容加进这
-    self.XStageGroup = nil
     self.AffixsGridDic = {}
 
-    self.BtnDetail.CallBack = function () self:OnBtnDetailClick() end
-    self.BtnAffixs.CallBack = function () self:OnBtnAffixsClick() end
+    XUiHelper.RegisterClickEvent(self, self.BtnDetail, self.OpenDetail)
 end
 
 function XUiGridRiftStageGroup3D:SetState(state)
-    self.TxtName.gameObject:SetActiveEx(true)
-    self.TextAffixs.gameObject:SetActiveEx(true)
-    self.PanelAffixs.gameObject:SetActiveEx(true)
-    self.Ing.gameObject:SetActiveEx(false)
-    self.Nomal.gameObject:SetActiveEx(true)
-    self.Lock.gameObject:SetActiveEx(false)
-    self.Finish.gameObject:SetActiveEx(false)
-    self.BtnAffixs.gameObject:SetActiveEx(true)
-    self.BossHead.transform.parent.gameObject:SetActiveEx(true)
     self.Object3D.Normal.gameObject:SetActiveEx(true)
     self.Object3D.Lock.gameObject:SetActiveEx(false)
     self.Object3D.Ing.gameObject:SetActiveEx(false)
     self.Object3D.Finish.gameObject:SetActiveEx(false)
-
     if state == State.Lock then                     -- 1.上锁
-        self.TxtName.gameObject:SetActiveEx(false)
-        self.Lock.gameObject:SetActiveEx(true)
-        self.Finish.gameObject:SetActiveEx(false)
-        self.Ing.gameObject:SetActiveEx(false)
         self.Object3D.Lock.gameObject:SetActiveEx(true)
     elseif state == State.Fighting then             -- 2.作战中
-        self.Ing.gameObject:SetActiveEx(true)
         self.Object3D.Ing.gameObject:SetActiveEx(true)
     elseif state == State.Passed then               -- 3.通过
-        self.Finish.gameObject:SetActiveEx(true) 
-        self.TxtName.gameObject:SetActiveEx(false)
-        self.TextAffixs.gameObject:SetActiveEx(false)
-        self.PanelAffixs.gameObject:SetActiveEx(false)
-        self.BtnAffixs.gameObject:SetActiveEx(false)
-        self.BossHead.transform.parent.gameObject:SetActiveEx(false)
-        self.Ing.gameObject:SetActiveEx(false)
-        self.Nomal.gameObject:SetActiveEx(false)
         self.Object3D.Normal.gameObject:SetActiveEx(false)
         self.Object3D.Lock.gameObject:SetActiveEx(true)
         self.Object3D.Finish.gameObject:SetActiveEx(true) 
@@ -68,64 +49,25 @@ function XUiGridRiftStageGroup3D:SetState(state)
 
     self.GameObject:SetActiveEx(true)
     self.Object3D.GameObject:SetActiveEx(true)
+    self.TxtFinish.gameObject:SetActiveEx(state == State.Passed)
 end
 
-function XUiGridRiftStageGroup3D:UpdateData(xStageGroup)
-    self.XStageGroup = xStageGroup
-    self.BossHead:SetRawImage(xStageGroup:GetBossHead())
-    self.TxtName.text = xStageGroup:GetName()
-    -- 状态
-    local state = nil    
-    if xStageGroup:CheckHasLock() then  -- 1.上锁
-        state = State.Lock
-    elseif xStageGroup:CheckIsOwnFighting() then -- 2.作战中
-        state = State.Fighting
-    elseif xStageGroup:CheckHasPassed() then    -- 3.通过
-        state = State.Passed
-    else                                        -- 4.已解锁 还没打
-        state = State.UnLockProgress0
-    end
-    self:SetState(state)
-
-    -- 词缀
-    -- 刷新前先隐藏一遍
-    self.GridAffixs.gameObject:SetActiveEx(false)
-    for k, trans in pairs(self.AffixsGridDic) do
-        trans.gameObject:SetActiveEx(false)
-    end
-    local allAffixs = xStageGroup:GetAllAffixs() -- 所有词缀
-    for i = 1, 3 do
-        local affixTrans = self.AffixsGridDic[i]
-        if not affixTrans then
-            affixTrans = CS.UnityEngine.Object.Instantiate(self.GridAffixs, self.GridAffixs.parent)
-            self.AffixsGridDic[i] = affixTrans
-        end
-        local currAffixId = allAffixs[i]
-        if not currAffixId then
-            break
-        end
-        local affixCfg = XFubenConfigs.GetStageFightEventDetailsByStageFightEventId(currAffixId)
-        if not affixCfg then
-            XLog.Error("错误，服务器下发了没有配置的词缀Id ", currAffixId)
-            break
-        end
-
-        affixTrans:Find("AffixsIcon"):GetComponent("RawImage"):SetRawImage(affixCfg.Icon)
-        affixTrans.gameObject:SetActiveEx(true)
-    end
-    if XTool.IsTableEmpty(allAffixs) then
-        self.PanelAffixs.gameObject:SetActiveEx(false)
-    end
-    -- 幸运关卡要隐藏词缀
-    if xStageGroup:GetType() == XRiftConfig.StageGroupType.Luck then
-        self.TextAffixs.gameObject:SetActiveEx(false)
-        self.PanelAffixs.gameObject:SetActiveEx(false)
+function XUiGridRiftStageGroup3D:UpdateData(layerId)
+    self.LayerId = layerId
+    self.TxtNormalLayerNum.text = string.format("%skm", layerId)
+    if XDataCenter.RiftManager.IsLayerLock(layerId) then
+        self:SetState(State.Lock)  -- 1.上锁
+    elseif XDataCenter.RiftManager.IsLayerPass(layerId) then
+        self:SetState(State.Passed) -- 3.通过
+    elseif XDataCenter.RiftManager.IsCurrPlayingLayer(layerId) then
+        self:SetState(State.Fighting) -- 2.作战中
+    else
+        self:SetState(State.UnLockProgress0) -- 4.已解锁 还没打
     end
 end
 
 function XUiGridRiftStageGroup3D:ClearData()
     -- 清空数据。设为空数据状态
-    self.XStageGroup = nil
     self.GameObject:SetActiveEx(false)
     self.Object3D.GameObject:SetActiveEx(false)
 end
@@ -151,23 +93,18 @@ function XUiGridRiftStageGroup3D:SetCameraFocusStageGroup(flag)
     end
 end
 
-function XUiGridRiftStageGroup3D:OnBtnAffixsClick()
-    XLuaUiManager.Open("UiRiftAffix", self.XStageGroup)
+function XUiGridRiftStageGroup3D:OpenDetail()
+    self.RootUi2D.ChildUi:OnShowDetail()
 end
 
 function XUiGridRiftStageGroup3D:OnBtnDetailClick()
-    -- 通关了不能再次打
-    if not self.XStageGroup or self.XStageGroup:CheckHasPassed() then
+    local _, layer = XDataCenter.RiftManager.GetCurrPlayingChapter()
+    local stageGroup = layer:GetStage()
+    if not stageGroup then
         return
     end
 
-    -- 幸运关必须在该层开始作战时才能进入
-    if self.XStageGroup:GetType() == XRiftConfig.StageGroupType.Luck and not self.XStageGroup:GetParent():CheckHasStarted() then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftLucyNodeEnterLimit"))
-        return
-    end
-
-    if self.XStageGroup:CheckHasLock() then
+    if stageGroup:CheckHasLock() then
         XUiManager.TipError(CS.XTextManager.GetText("RiftNodeEnterPreLock"))
         return
     end
@@ -175,20 +112,24 @@ function XUiGridRiftStageGroup3D:OnBtnDetailClick()
     -- 根据当前作战层类型，打开不同的详情界面
     local targetUiName = "UiRiftNormalStageDetail"
     self.RootChapter3D:OnStageGroupClickToFocusCamera(self) -- 点击时打开关卡节点摄像头
-    if self.XStageGroup:GetType() == XRiftConfig.StageGroupType.Normal then
+    if stageGroup:GetType() == XRiftConfig.StageGroupType.Normal then
         targetUiName = "UiRiftNormalStageDetail"
-    elseif self.XStageGroup:GetType() == XRiftConfig.StageGroupType.Zoom then
-        targetUiName = "UiRiftZoomStageDetail"
-    elseif self.XStageGroup:GetType() == XRiftConfig.StageGroupType.Multi then
+    elseif stageGroup:GetType() == XRiftConfig.StageGroupType.Zoom then
+        if stageGroup:GetParent():IsSeasonLayer() then
+            targetUiName = "UiRiftSeasonStageDetail"
+        else
+            targetUiName = "UiRiftZoomStageDetail"
+        end
+    elseif stageGroup:GetType() == XRiftConfig.StageGroupType.Multi then
         targetUiName = "UiRiftMultiStageDetail"
-    elseif self.XStageGroup:GetType() == XRiftConfig.StageGroupType.Luck then
-        targetUiName = "UiRiftLuckStageDetail"
-    end 
-    local closeCb = function ()
-        self.RootChapter3D:OnStageGroupClickToFocusCamera(nil) -- 关闭详情界面时，关闭关卡节点摄像头
     end
-    XDataCenter.RiftManager.SetCurrSelectRiftStage(self.XStageGroup)
-    XLuaUiManager.Open(targetUiName, self.XStageGroup, closeCb)
+    XDataCenter.RiftManager.SetCurrSelectRiftStage(stageGroup)
+    XLuaUiManager.Open(targetUiName, self.LayerId, handler(self, self.OnStageGroupClickToFocusCamera))
+end
+
+---关闭详情界面时，关闭关卡节点摄像头
+function XUiGridRiftStageGroup3D:OnStageGroupClickToFocusCamera()
+    self.RootChapter3D:OnStageGroupClickToFocusCamera(nil)
 end
 
 return XUiGridRiftStageGroup3D

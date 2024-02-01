@@ -240,6 +240,9 @@ end
 ---@return
 --------------------------
 function XHomeDormManager.EnterDorm(targetId, dormitoryId, isEnterRoom, onFinishLoadScene, onFinishEnterRoom)
+    if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Dorm) then
+        return
+    end
     local isSelf = true
     local dormDataType = XDormConfig.DormDataType.Self
     XHomeDormManager.TargetId = targetId
@@ -529,7 +532,7 @@ function XHomeDormManager.CleanRoom(roomId)
         return
     end
 
-    room:CleanRoom()
+    room:CleanRoom(true)
 end
 
 -- 重置房间

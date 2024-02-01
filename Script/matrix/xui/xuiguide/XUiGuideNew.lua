@@ -30,6 +30,7 @@ function XUiGuideNew:OnStart(targetImg, isWeakGuide, guideDesc, icon, name, call
     if targetImg then
         CS.XGuideEventPass.IsPassEvent = true
         CS.XGuideEventPass.IsFightGuide = true
+        CS.XGuideEventPass.IsPassAll = false
         self.IsFight = true
         self:ShowMark(true, true)
         local anchor = CS.UnityEngine.Vector2(0, 1)
@@ -56,10 +57,15 @@ end
 
 function XUiGuideNew:OnDestroy()
     -- CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_GUIDE_FIGHT_BTNDOWN, function(evt, args)
-    --     if self.Callback and not self.IsWeakGuide then
-    --         self.Callback = nil
-    --     end
+    if self.Callback then
+        self.Callback = nil
+    end
     -- end)
+    
+    if XMain.IsDebug and XFightUtil.IsFighting() and not XFightUtil.IsDlcFighting() 
+        and CS.XFight.Instance.InputControl and CS.XFight.Instance.InputControl.OnCloseGuideOperation then
+        CS.XFight.Instance.InputControl:OnCloseGuideOperation()
+    end
 end
 
 function XUiGuideNew:AutoAddListener()
@@ -72,6 +78,7 @@ end
 -- auto
 function XUiGuideNew:OnBtnSkipClick()
     self.PanelWarning.gameObject:SetActive(true)
+    XDataCenter.GuideManager.RecordBuryingPoint(XDataCenter.GuideManager.BuryingPointType.Click)
 end
 
 function XUiGuideNew:OnBtnConfirmClick()
@@ -92,6 +99,7 @@ function XUiGuideNew:CheckDouble()
     if self.ContinueClickTimes == 3 then
         self.ContinueClickTimes = 0
         self.BtnSkip.gameObject:SetActive(true)
+        XDataCenter.GuideManager.RecordBuryingPoint(XDataCenter.GuideManager.BuryingPointType.Trigger)
     end
 
     self.LastClickTime = XTime.GetServerNowTimestamp()
@@ -123,7 +131,7 @@ function XUiGuideNew:ShowDialog(icon, name, content, anchorMax, anchorMin, posit
     self.PanelInfo.gameObject:SetActive(true)
     self:SetUiSprite(self.ImgRole, icon)
     self.TxtName.text = name or ""
-    self.TxtDesc.text = content
+    self.TxtDesc.text = XUiHelper.ReplaceTextNewLine(content)
 
     self.PanelInfoRect.anchorMax = anchorMax
     self.PanelInfoRect.anchorMin = anchorMin
@@ -136,18 +144,20 @@ function XUiGuideNew:HideDialog()
 end
 
 --聚焦panel
-function XUiGuideNew:FocusOnPanel(panel, eulerAngles, passEvent, sizeDelta)
+function XUiGuideNew:FocusOnPanel(panel, eulerAngles, passEvent, sizeDelta, offset, passAll)
     eulerAngles = eulerAngles or CS.UnityEngine.Vector3.zero
     sizeDelta = sizeDelta or CS.UnityEngine.Vector2.zero
+    offset = offset or CS.UnityEngine.Vector2.zero
     self.BtnPass.gameObject:SetActive(true)
     self.BtnPass.gameObject.transform.eulerAngles = eulerAngles
-    self.Guide:SetTarget(panel, sizeDelta)
+    self.Guide:SetTarget(panel, sizeDelta, offset)
 
     if not XTool.UObjIsNil(panel.gameObject) then
         CS.XGuideEventPass.Target = panel.gameObject
     end
 
     CS.XGuideEventPass.IsPassEvent = passEvent
+    CS.XGuideEventPass.IsPassAll = passAll
     if self.AniGuideJiaoLoop then
         self.AniGuideJiaoLoop.gameObject:SetActive(false)
         self.AniGuideJiaoLoop.gameObject:SetActive(true)

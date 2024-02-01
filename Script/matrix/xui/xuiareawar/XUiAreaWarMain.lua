@@ -293,10 +293,10 @@ function XUiAreaWarMain:InitView()
 
     self.ScaleSlider.value = self:CalSliderPercent(self.NearFraming.m_CameraDistance)
     
-    XUiHelper.NewPanelActivityAsset({
+    XUiHelper.NewPanelActivityAssetSafe({
         XDataCenter.ItemManager.ItemId.AreaWarCoin,
         XDataCenter.ItemManager.ItemId.AreaWarActionPoint
-    }, self.PanelSpecialTool,nil,nil,{
+    }, self.PanelSpecialTool, self,nil,nil,{
         XDataCenter.ItemManager.ItemId.AreaWarActionPoint
     })
     
@@ -895,11 +895,11 @@ function XUiAreaWarMain:OnUiDestroy(ui)
     end
     local uiName = ui.UiData.UiName
     if uiName == "UiHelp" then
-    self:CheckPopups()
-    XDataCenter.AreaWarManager.MarkFirstOpenHelp()
+        self:CheckPopups()
+        XDataCenter.AreaWarManager.MarkFirstOpenHelp()
     elseif uiName == "UiAreaWarLogbuch" then
         self:OnCheckWarLogRedPoint()
-end
+    end
     
 end
 --endregion------------------UI事件 finish------------------
@@ -970,8 +970,8 @@ end
 
 function XUiAreaWarMain:OnCheckWarLogRedPoint()
     XDataCenter.AreaWarManager.RequestWarLog(function()
-    local hasNew = XDataCenter.AreaWarManager.CheckIsNewUnlockArticle()
-    self.BtnProgress:ShowReddot(hasNew)
+        local hasNew = XDataCenter.AreaWarManager.CheckIsNewUnlockArticle()
+        self.BtnProgress:ShowReddot(hasNew)
     end)
 end
 

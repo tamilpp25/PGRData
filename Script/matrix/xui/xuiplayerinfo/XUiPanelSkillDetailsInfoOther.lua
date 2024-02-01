@@ -64,7 +64,7 @@ function XUiPanelSkillDetailsInfoOther:RefreshSkillLevel(subSkill)
         self.BtnDetails.gameObject:SetActiveEx(false)
     end
 
-    self.GradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(self.SubSkillId, subSkill.Level + addLevel)
+    self.GradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(self.SubSkillId, subSkill.Level + addLevel)
     self.TxtSkillLevel.text = levelStr
 end
 
@@ -75,7 +75,7 @@ function XUiPanelSkillDetailsInfoOther:RefreshSkillView()
     -- 技能类型
     self.TxtSkillType.text = configDes.TypeDes and CSXTextManagerGetText("CharacterSkillTypeText", configDes.TypeDes) or ""
     -- 技能图标
-    local skillType = XCharacterConfigs.GetSkillType(self.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(self.SubSkillId)
     local isSignalBal = skillType <= SIGNAL_BAL_MEMBER
     self.ImgSkillPointIcon:SetRawImage(configDes.Icon)
     self.ImgBlueBall:SetRawImage(configDes.Icon)

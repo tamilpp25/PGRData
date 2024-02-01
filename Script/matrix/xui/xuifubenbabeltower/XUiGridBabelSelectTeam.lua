@@ -1,6 +1,7 @@
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local MAX_CHARACTER_NUM = 3
 
+---@class XUiGridBabelSelectTeam
 local XUiGridBabelSelectTeam = XClass(nil, "XUiGridBabelSelectTeam")
 
 function XUiGridBabelSelectTeam:Ctor(ui)
@@ -52,7 +53,7 @@ function XUiGridBabelSelectTeam:Refresh(stageId, teamId)
 
     self.PanelNor.gameObject:SetActiveEx(true)
     self.PanelLock.gameObject:SetActiveEx(false)
-    
+
     local characterIds = XDataCenter.FubenBabelTowerManager.GetTeamCharacterIds(stageId, teamId)
     for i = 1, MAX_CHARACTER_NUM do
         local rImg = self["RImgRoleIcon" .. i]
@@ -70,6 +71,13 @@ function XUiGridBabelSelectTeam:Refresh(stageId, teamId)
 
     local curScore = XDataCenter.FubenBabelTowerManager.GetTeamCurScore(stageId, teamId)
     self.TxtLevel.text = curScore
+
+    -- 通关时间
+    if self.TxtTime then
+        self.PanelTime.gameObject:SetActiveEx(not isReset and isPassed)
+        local time = XDataCenter.FubenBabelTowerManager.GetTeamCurTime(stageId, teamId)
+        self.TxtTime.text = XTime.TimestampToGameDateTimeString(time, "mm:ss")
+    end
 end
 
 function XUiGridBabelSelectTeam:OnClickBtnReset()

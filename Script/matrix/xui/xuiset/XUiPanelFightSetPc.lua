@@ -1,22 +1,24 @@
 local ToInt32 = CS.System.Convert.ToInt32
 local XInputManager = CS.XInputManager
+local XJoystickCursorHelper = CS.XPc.XJoystickCursorHelper
 local CSUnityEngineObjectInstantiate = CS.UnityEngine.Object.Instantiate
 local XUiBtnKeyItem = require("XUi/XUiSet/ChildItem/XUiBtnKeyItem")
 local XUiNotCustomKeyItem = require("XUi/XUiSet/ChildItem/XUiNotCustomKeyItem")
 local XUiOneKeyCustomKeyItem = require("XUi/XUiSet/ChildItem/XUiOneKeyCustomKeyItem")
 local XUiNotCustomKeyItemHandle = require("XUi/XUiSet/ChildItem/XUiNotCustomKeyItemHandle")
 local XUiPanelFightSet = require("XUi/XUiSet/XUiPanelFightSet")
-
+---@class XUiPanelFightSetPc : XUiPanelFightSet
 local XUiPanelFightSetPc = XClass(XUiPanelFightSet, "XUiPanelFightSetPc")
 
-function XUiPanelFightSetPc:Ctor(ui, uiRoot)
+function XUiPanelFightSetPc:OnStart()
+    XUiPanelFightSetPc.Super.OnStart(self)
     local isPc = XDataCenter.UiPcManager.IsPc()
     self.PanelJoystick.gameObject:SetActiveEx(not isPc)
     self.PanelSwitch.gameObject:SetActiveEx(not isPc)
     if self.KeyboardText then
         self.KeyboardText.gameObject:SetActiveEx(isPc)
     end
-    
+
     local btnTouchName = isPc and "UiSetPCBtnTabTouchName" or "UiSetBtnTabTouchName"
     self.BtnTabTouch:SetName(XUiHelper.GetText(btnTouchName))
 
@@ -26,16 +28,26 @@ function XUiPanelFightSetPc:Ctor(ui, uiRoot)
         self.BtnTabGameController.transform.localPosition = keyboardPos
         self.BtnTabKeyboard.transform.localPosition = gameControllerPos
     end
+
+    self._IsShowFPS = XInputManager.GetFPSActive()
+    self._IsShowJoystick = XInputManager.GetJoystickActive()
+    self._IsShowFightButton = XInputManager.GetKeyCodeTipActive(CS.XOperationType.Fight)
+    self._IsShowSystemButton = false
+    self._IsNoUiMode = CS.XFightUiManager.NoUiMode
+    self._IsDirtyPc = false
+    self:InitPc()
+    
+    self:SetVisiblePcToggle(isPc)
 end
 
 function XUiPanelFightSetPc:InitDrdSort()
     if self.IsInitDrdSort then
         return
     end
-    
+
     self.KeyboardDrdSort:ClearOptions()
     self.ControllerDrdSort:ClearOptions()
-    
+
     local CsDropdown = CS.UnityEngine.UI.Dropdown
     for _, operationType in ipairs(self.OperationTypeList) do
         local op = CsDropdown.OptionData()
@@ -43,17 +55,21 @@ function XUiPanelFightSetPc:InitDrdSort()
         self.KeyboardDrdSort.options:Add(op)
         self.ControllerDrdSort.options:Add(op)
     end
-    
+
     local firstIndex = 1
     self.KeyboardDrdSelectIndex = firstIndex
     self.KeyboardDrdSort.onValueChanged:AddListener(function()
-        local CSArrayIndexToLuaTableIndex = function(index) return index + 1 end
+        local CSArrayIndexToLuaTableIndex = function(index)
+            return index + 1
+        end
         self:OnKeyboardDrdSortClick(CSArrayIndexToLuaTableIndex(self.KeyboardDrdSort.value))
     end)
 
     self.ControllerDrdSelectIndex = firstIndex
     self.ControllerDrdSort.onValueChanged:AddListener(function()
-        local CSArrayIndexToLuaTableIndex = function(index) return index + 1 end
+        local CSArrayIndexToLuaTableIndex = function(index)
+            return index + 1
+        end
         self:OnControllerDrdSortClick(CSArrayIndexToLuaTableIndex(self.ControllerDrdSort.value))
     end)
 
@@ -65,13 +81,17 @@ function XUiPanelFightSetPc:InitDrdSort()
 end
 
 function XUiPanelFightSetPc:OnControllerDrdSortClick(index)
-    if self.ControllerDrdSelectIndex == index then return end
+    if self.ControllerDrdSelectIndex == index then
+        return
+    end
     self.ControllerDrdSelectIndex = index
     self:UpdatePanel()
 end
 
 function XUiPanelFightSetPc:OnKeyboardDrdSortClick(index)
-    if self.KeyboardDrdSelectIndex == index then return end
+    if self.KeyboardDrdSelectIndex == index then
+        return
+    end
     self.KeyboardDrdSelectIndex = index
     self:UpdatePanel()
 end
@@ -98,17 +118,18 @@ end
 
 function XUiPanelFightSetPc:UpdatePanel()
     if self.CurPageType == self.PageType.Touch then
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(true)
+        self.Parent.BtnSave.gameObject:SetActiveEx(true)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(true)
     elseif self.CurPageType == self.PageType.GameController then
         local enableInputJoystick = XInputManager.EnableInputJoystick
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(enableInputJoystick)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(enableInputJoystick)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(enableInputJoystick)
+        self.Parent.BtnSave.gameObject:SetActiveEx(enableInputJoystick)
         self.PanelGameControlOperationType.gameObject:SetActiveEx(enableInputJoystick)
         self:InitControllerPanel(false)
     elseif self.CurPageType == self.PageType.Keyboard then
         local enableInputKeyboard = XInputManager.EnableInputKeyboard
-        self.UiRoot.BtnDefault.gameObject:SetActiveEx(enableInputKeyboard)
-        self.UiRoot.BtnSave.gameObject:SetActiveEx(enableInputKeyboard)
+        self.Parent.BtnDefault.gameObject:SetActiveEx(enableInputKeyboard)
+        self.Parent.BtnSave.gameObject:SetActiveEx(enableInputKeyboard)
         self.PanelKeyboardOperationType.gameObject:SetActiveEx(enableInputKeyboard)
         self:InitKeyboardPanel()
     end
@@ -119,11 +140,28 @@ function XUiPanelFightSetPc:ResetToDefault()
     if self.CurPageType == self.PageType.Touch then
         self.DynamicJoystick = XSetConfigs.DefaultDynamicJoystick
         self.JoystickGroup:SelectIndex(self.DynamicJoystick + 1)
+
+        self._IsShowFPS = XInputManager.DEFAULT_KEYCODE_TIP_ACTIVE == 1
+        self._IsShowJoystick = XInputManager.DEFAULT_JOYSTICK_ACTIVE == 1
+        self._IsShowFightButton = XInputManager.DEFAULT_FPS_ACTIVE == 1
+        self._IsShowSystemButton = false
+        self._IsNoUiMode = CS.XFightUiManager.NoUiMode
+        self.TogFPS.isOn = self._IsShowFPS
+        self.TogJoystick.isOn = self._IsShowJoystick
+        self.TogFightButton.isOn = self._IsShowFightButton
+        self.TogSystemButton.isOn = self._IsShowSystemButton
+        self.TogClearUI.isOn = self._IsNoUiMode
+        XInputManager.SetFPSActive(self._IsShowFPS)
+        XInputManager.SetJoystickActive(self._IsShowJoystick)
+        XInputManager.SetFightKeyCodeTipActive(self._IsShowFightButton)
+
     elseif self.CurPageType == self.PageType.GameController then
         self:ResetToDefaultTips(function()
             XInputManager.DefaultKeysSetting(self:GetCurOperationType(), self:GetCurKeySetType())
             XInputManager.DefaultCameraMoveSensitivitySetting(self:GetCurKeySetType())
             self.SliderCameraMoveSensitivityPc.value = self:GetCameraMoveSensitivity()
+            XJoystickCursorHelper.SetDefaultSensitivity()
+            self.CursorMoveSensitivity.value = self:GetCursorMoveSensitivity()
             self:InitControllerPanel(true)
         end)
     elseif self.CurPageType == self.PageType.Keyboard then
@@ -143,7 +181,7 @@ function XUiPanelFightSetPc:IsSameKeySet(keySetTypes)
     if XTool.IsTableEmpty(keySetTypes) then
         return true
     end
-    
+
     local curKeySetType = ToInt32(self:GetCurKeySetType())
     for _, keySetType in ipairs(keySetTypes) do
         if curKeySetType == keySetType then
@@ -155,49 +193,61 @@ end
 
 function XUiPanelFightSetPc:InitControllerPanel(resetTextOnly)
     self:InitDrdSort()
-    
+
     local curOperationType = self:GetCurOperationType()
+
+    if not curOperationType then
+        return
+    end
+
     self.CtrlKeyItemList = self.CtrlKeyItemList or {}
     local list = XSetConfigs.GetControllerMapCfg()
 
     for id, v in ipairs(list) do
         local grid = self.CtrlKeyItemList[id]
-        if curOperationType ~= v.OperationType or not self:IsSameKeySet(v.KeySetTypes) then
-            self:SetGridActive(grid, false)
-            goto CONTINUE
-        end
-        
-        if v.Type == XSetConfigs.ControllerSetItemType.SetButton then
-            local keyCodeType = CS.XInputManager.GetKeyCodeTypeByInt(v.OperationKey, curOperationType)
-            if keyCodeType == XSetConfigs.KeyCodeType.NotCustom then
-                grid = grid or XUiNotCustomKeyItemHandle.New(CSUnityEngineObjectInstantiate(self.NotCustomKeyItemHandle, self.ControllerSetContent), self.UiRoot)
-            else
-                grid = grid or XUiBtnKeyItem.New(CSUnityEngineObjectInstantiate(self.BtnKeyItem, self.ControllerSetContent), self.UiRoot)
-            end
-            
-            grid:SetKeySetType(self:GetCurKeySetType())
-            grid:Refresh(v, handler(self, self.EditKey), resetTextOnly, curOperationType)
-        elseif v.Type == XSetConfigs.ControllerSetItemType.Section then
-            grid = grid or CSUnityEngineObjectInstantiate(self.TxtSection, self.ControllerSetContent)
-            local txtTitle = grid:Find("TxtTitle"):GetComponent("Text")
-            txtTitle.text = v.Title
-        elseif v.Type == XSetConfigs.ControllerSetItemType.Slider then
-            if not grid then
-                self.GridSlider:SetParent(self.ControllerSetContent, false)
-                XUiHelper.RegisterSliderChangeEvent(self, self.SliderCameraMoveSensitivity, function(_, value)
-                    if value == self:GetCameraMoveSensitivity() then
-                        return
-                    end
-                    self:SetCameraMoveSensitivity(value)
-                end)
-            end
-            self.SliderCameraMoveSensitivity.value = self:GetCameraMoveSensitivity()
-            grid = grid or self.GridSlider
-        end
+        if curOperationType == v.OperationType and self:IsSameKeySet(v.KeySetTypes) then
+            if v.Type == XSetConfigs.ControllerSetItemType.SetButton then
+                local keyCodeType = CS.XInputManager.GetKeyCodeTypeByInt(v.OperationKey, curOperationType)
+                if keyCodeType == XSetConfigs.KeyCodeType.NotCustom then
+                    grid = grid or XUiNotCustomKeyItemHandle.New(CSUnityEngineObjectInstantiate(self.NotCustomKeyItemHandle, self.ControllerSetContent), self.Parent)
+                else
+                    grid = grid or XUiBtnKeyItem.New(CSUnityEngineObjectInstantiate(self.BtnKeyItem, self.ControllerSetContent), self.Parent)
+                end
 
-        self:SetGridActive(grid, true)
-        self.CtrlKeyItemList[id] = grid
-        :: CONTINUE ::
+                grid:SetKeySetType(self:GetCurKeySetType())
+                grid:Refresh(v, handler(self, self.EditKey), resetTextOnly, curOperationType)
+            elseif v.Type == XSetConfigs.ControllerSetItemType.Section then
+                grid = grid or CSUnityEngineObjectInstantiate(self.TxtSection, self.ControllerSetContent)
+                local txtTitle = grid:Find("TxtTitle"):GetComponent("Text")
+                txtTitle.text = v.Title
+            elseif v.Type == XSetConfigs.ControllerSetItemType.Slider then
+                if not grid then
+                    if v.OperationType == 1 then
+                        self.GridSlider:SetParent(self.ControllerSetContent, false)
+                        XUiHelper.RegisterSliderChangeEvent(self, self.SliderCameraMoveSensitivity, function(_, value)
+                            if self:GetCameraMoveSensitivity() == value then
+                                return
+                            end
+                            self:SetCameraMoveSensitivity(value)
+                        end)
+                        grid = grid or self.GridSlider
+                    elseif v.OperationType == 4 then
+                        self.VirtualCursorPC:SetParent(self.ControllerSetContent, false)
+                        XUiHelper.RegisterSliderChangeEvent(self, self.CursorMoveSensitivity, function(_, value)
+                            self:SetCursorMoveSensitivity(value)
+                        end)
+                        grid = grid or self.VirtualCursorPC
+                    end
+                end
+                self.SliderCameraMoveSensitivity.value = self:GetCameraMoveSensitivity()
+                grid = grid or self.GridSlider
+            end
+
+            self.SliderCameraMoveSensitivity.value = self:GetCameraMoveSensitivity()
+            self.CursorMoveSensitivity.value = self:GetCursorMoveSensitivity()
+
+            self.CtrlKeyItemList[id] = grid
+        end
     end
     self.BtnKeyItem.gameObject:SetActiveEx(false)
 end
@@ -205,67 +255,109 @@ end
 function XUiPanelFightSetPc:InitKeyboardPanel(resetTextOnly)
     self:InitDrdSort()
     local curOperationType = self:GetCurOperationType()
+
+    if not curOperationType then
+        return
+    end
+
     self._KeyboardGridList = self._KeyboardGridList or {}
     local list = XSetConfigs.GetControllerMapCfg()
 
     for id, item in ipairs(list) do
         local grid = self._KeyboardGridList[id]
-        if curOperationType ~= item.OperationType or not self:IsSameKeySet(item.KeySetTypes) then
-            self:SetGridActive(grid, false)
-            goto CONTINUE
-        end
-        if item.Type == XSetConfigs.ControllerSetItemType.SetButton then
-            local keyCodeType = CS.XInputManager.GetKeyCodeTypeByInt(item.OperationKey, self:GetCurOperationType())
-            if keyCodeType == XSetConfigs.KeyCodeType.NotCustom then
-                grid = grid or XUiNotCustomKeyItem.New(CSUnityEngineObjectInstantiate(self.NotCustomKeyItem, self.KeyboardSetContent), self.UiRoot)
-            elseif keyCodeType == XSetConfigs.KeyCodeType.OneKeyCustom or 
-                keyCodeType == XSetConfigs.KeyCodeType.KeyMouseCustom or
-                keyCodeType == XSetConfigs.KeyCodeType.SingleKey or
-                keyCodeType == XSetConfigs.KeyCodeType.Default
-            then
-                grid = grid or XUiOneKeyCustomKeyItem.New(CSUnityEngineObjectInstantiate(self.OneKeyCustomKeyItem, self.KeyboardSetContent), self.UiRoot)                
-            -- elseif keyCodeType == XSetConfigs.KeyCodeType.Default then
-            --     grid = XUiBtnKeyItem.New(CSUnityEngineObjectInstantiate(self.BtnKeyItem, self.KeyboardSetContent), self.UiRoot)
-            end
-            
-            grid:SetKeySetType(CS.KeySetType.Keyboard)
-            grid:Refresh(item, handler(self, self.EditKey), resetTextOnly, curOperationType)
-        elseif item.Type == XSetConfigs.ControllerSetItemType.Section then
-            grid = grid or CSUnityEngineObjectInstantiate(self.TxtSection, self.KeyboardSetContent)
-            local txtTitle = grid:Find("TxtTitle"):GetComponent("Text")
-            txtTitle.text = item.Title
-        elseif item.Type == XSetConfigs.ControllerSetItemType.Slider then
-            if not grid then
-                self.GridSliderPC:SetParent(self.KeyboardSetContent, false)
-                XUiHelper.RegisterSliderChangeEvent(self, self.SliderCameraMoveSensitivityPc, function(_, value)
-                    if value == self:GetCameraMoveSensitivity() then
-                        return
-                    end
-                    self:SetCameraMoveSensitivity(value)
-                end)
-            end
-            self.SliderCameraMoveSensitivityPc.value = self:GetCameraMoveSensitivity()
-            grid = grid or self.GridSliderPC
-        end
 
-        self:SetGridActive(grid, true)
-        self._KeyboardGridList[id] = grid
-        :: CONTINUE ::
+        if curOperationType == item.OperationType and self:IsSameKeySet(item.KeySetTypes) then
+            if item.Type == XSetConfigs.ControllerSetItemType.SetButton then
+                local keyCodeType = CS.XInputManager.GetKeyCodeTypeByInt(item.OperationKey, self:GetCurOperationType())
+                if keyCodeType == XSetConfigs.KeyCodeType.NotCustom then
+                    grid = grid or XUiNotCustomKeyItem.New(CSUnityEngineObjectInstantiate(self.NotCustomKeyItem, self.KeyboardSetContent), self.Parent)
+                elseif keyCodeType == XSetConfigs.KeyCodeType.OneKeyCustom or
+                        keyCodeType == XSetConfigs.KeyCodeType.KeyMouseCustom or
+                        keyCodeType == XSetConfigs.KeyCodeType.SingleKey or
+                        keyCodeType == XSetConfigs.KeyCodeType.Default
+                then
+                    grid = grid or XUiOneKeyCustomKeyItem.New(CSUnityEngineObjectInstantiate(self.OneKeyCustomKeyItem, self.KeyboardSetContent), self.Parent)
+                    -- elseif keyCodeType == XSetConfigs.KeyCodeType.Default then
+                    --     grid = XUiBtnKeyItem.New(CSUnityEngineObjectInstantiate(self.BtnKeyItem, self.KeyboardSetContent), self.Parent)
+                end
+
+                grid:SetKeySetType(CS.KeySetType.Keyboard)
+                grid:Refresh(item, handler(self, self.EditKey), resetTextOnly, curOperationType)
+            elseif item.Type == XSetConfigs.ControllerSetItemType.Section then
+                grid = grid or CSUnityEngineObjectInstantiate(self.TxtSection, self.KeyboardSetContent)
+                local txtTitle = grid:Find("TxtTitle"):GetComponent("Text")
+                txtTitle.text = item.Title
+            elseif item.Type == XSetConfigs.ControllerSetItemType.Slider then
+                local isNotClone = not grid
+                if not grid then
+                    grid = XUiHelper.Instantiate(self.GridSliderPC, self.KeyboardSetContent)
+                end
+                local slider = XUiHelper.TryGetComponent(grid.transform, "SliderCameraMoveSensitivityPc", "Slider")
+                if isNotClone then
+                    XUiHelper.RegisterSliderChangeEvent(self, slider, function(_, value)
+                        if value == self:GetCameraMoveSensitivity() then
+                            return
+                        end
+                        self:SetCameraMoveSensitivity(value)
+                    end)
+                end
+                slider.value = self:GetCameraMoveSensitivity()
+            end
+
+            self._KeyboardGridList[id] = grid
+        end
     end
     self.BtnKeyItem.gameObject:SetActiveEx(false)
     self.KeyboardPanelInit = true
 end
 
 function XUiPanelFightSetPc:SetGridActive(grid, enable)
-    local gameObject = (grid) and (grid.GameObject or grid.gameObject)
-    if not gameObject then
+    if not grid then
         return
     end
-    gameObject:SetActiveEx(enable)
+
+    if grid.GameObject then
+        if enable then
+            grid:Open()
+        else
+            grid:Close()
+        end
+    elseif grid.gameObject then
+        grid.gameObject:SetActiveEx(enable)
+    end
 end
 
 function XUiPanelFightSetPc:SetEnableInputKeyboard(value)
     XInputManager.SetEnableInputKeyboard(value)
+end
+
+function XUiPanelFightSetPc:RefreshGridList(curKeySetType, blockTip)
+    if not curKeySetType then
+        return
+    end
+
+    local gridList
+    if curKeySetType == CS.KeySetType.Xbox or curKeySetType == CS.KeySetType.Ps then
+        gridList = self.CtrlKeyItemList
+    elseif curKeySetType == CS.KeySetType.Keyboard then
+        gridList = self._KeyboardGridList
+    end
+    if gridList then
+        for _, v in pairs(gridList) do
+            if v.SetKeySetType then
+                v:SetKeySetType(self:GetCurKeySetType())
+            end
+            if v.Refresh then
+                v:Refresh(nil, nil, true)
+            end
+        end
+    end
+
+    if blockTip then
+        return
+    end
+
+    XUiManager.TipSuccess(XUiHelper.GetText("SetJoyStickSuccess"))
 end
 
 function XUiPanelFightSetPc:EditKey(keyCode, targetItem, pressKeyIndex)
@@ -274,7 +366,7 @@ function XUiPanelFightSetPc:EditKey(keyCode, targetItem, pressKeyIndex)
     end
 
     local curOperationType = self:GetCurOperationType()
-    
+
     XInputManager.EndEdit()
     self.PanelJoypadKeyIcon.gameObject:SetActiveEx(false)
     local cb = function(isConflict)
@@ -298,23 +390,7 @@ function XUiPanelFightSetPc:EditKey(keyCode, targetItem, pressKeyIndex)
                         end,
                         function()
                             CS.XInputManager.SwapConflictKey(curKeySetType, pressKeyIndex, curOperationType)
-                            local gridList
-                            if curKeySetType == CS.KeySetType.Xbox or curKeySetType == CS.KeySetType.Ps then
-                                gridList = self.CtrlKeyItemList
-                            elseif curKeySetType == CS.KeySetType.Keyboard then
-                                gridList = self._KeyboardGridList
-                            end
-                            if gridList then
-                                for _, v in pairs(gridList) do
-                                    if v.SetKeySetType then
-                                        v:SetKeySetType(self:GetCurKeySetType())
-                                    end
-                                    if v.Refresh then
-                                        v:Refresh(nil, nil, true)
-                                    end
-                                end
-                            end
-                            XUiManager.TipSuccess(XUiHelper.GetText("SetJoyStickSuccess"))
+                            self:RefreshGridList(curKeySetType)
                         end
                 )
             end
@@ -328,6 +404,86 @@ function XUiPanelFightSetPc:EditKey(keyCode, targetItem, pressKeyIndex)
     self:ShowSetKeyTip(true)
     self.CurSelectBtn = targetItem
     self.CurSelectKey = keyCode
+end
+
+function XUiPanelFightSetPc:CheckDataIsChange()
+    local changed = self.Super.CheckDataIsChange(self)
+    changed = XJoystickCursorHelper.IsCursorSensitivityChanged() or changed
+    changed = self._IsDirtyPc or changed
+    return changed
+end
+
+function XUiPanelFightSetPc:SaveChange()
+    self.Super.SaveChange(self);
+    XJoystickCursorHelper.SaveSensitivityChange();
+
+    self._IsDirtyPc = false
+    XInputManager.SetFPSActive(self._IsShowFPS)
+    XInputManager.SetJoystickActive(self._IsShowJoystick)
+    XInputManager.SetFightKeyCodeTipActive(self._IsShowFightButton)
+    CS.XFightUiManager.NoUiMode = self._IsNoUiMode
+    self:LoadSchemeName()
+end
+
+function XUiPanelFightSetPc:CancelChange()
+    self.Super.CancelChange(self);
+    XJoystickCursorHelper.RevertSensitivity();
+end
+
+function XUiPanelFightSetPc:SetCursorMoveSensitivity(value)
+    XJoystickCursorHelper.PreSetCursorMoveSensitivity(value)
+end
+
+function XUiPanelFightSetPc:GetCursorMoveSensitivity()
+    return XJoystickCursorHelper.CursorMoveSensitivity
+end
+
+function XUiPanelFightSetPc:InitPc()
+    self.TogFPS.isOn = self._IsShowFPS
+    self.TogJoystick.isOn = self._IsShowJoystick
+    self.TogFightButton.isOn = self._IsShowFightButton
+    self.TogSystemButton.isOn = self._IsShowSystemButton
+    self.TogClearUI.isOn = self._IsNoUiMode
+    self.TogFPS.onValueChanged:AddListener(handler(self, self.OnTogFPSValueChanged))
+    self.TogJoystick.onValueChanged:AddListener(handler(self, self.OnTogJoystickValueChanged))
+    self.TogFightButton.onValueChanged:AddListener(handler(self, self.OnTogFightButtonValueChanged))
+    self.TogSystemButton.onValueChanged:AddListener(handler(self, self.OnTogSystemButtonChanged))
+    self.TogClearUI.onValueChanged:AddListener(handler(self, self.OnTogClearUIButtonChanged))
+end
+
+function XUiPanelFightSetPc:OnTogFPSValueChanged(value)
+    if self._IsShowFPS ~= value then
+        self._IsShowFPS = value
+        self._IsDirtyPc = true
+    end
+end
+
+function XUiPanelFightSetPc:OnTogJoystickValueChanged(value)
+    if self._IsShowJoystick ~= value then
+        self._IsShowJoystick = value
+        self._IsDirtyPc = true
+    end
+end
+
+function XUiPanelFightSetPc:OnTogFightButtonValueChanged(value)
+    if self._IsShowFightButton ~= value then
+        self._IsShowFightButton = value
+        self._IsDirtyPc = true
+    end
+end
+
+function XUiPanelFightSetPc:OnTogSystemButtonChanged(value)
+    if self._IsShowSystemButton ~= value then
+        self._IsShowSystemButton = value
+        self._IsDirtyPc = true
+    end
+end
+
+function XUiPanelFightSetPc:OnTogClearUIButtonChanged(value)
+    if self._IsNoUiMode ~= value then
+        self._IsNoUiMode = value
+        self._IsDirtyPc = true
+    end
 end
 
 return XUiPanelFightSetPc

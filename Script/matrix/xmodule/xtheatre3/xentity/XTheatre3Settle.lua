@@ -49,6 +49,9 @@ function XTheatre3Settle:Ctor()
     self.CurUnlockEquipId = {}
     ---是否需要在返回主界面时显示弹框
     self.IsNeedShowTip = false
+    self.LuckValue = 0
+    self.QuantumValueA = 0
+    self.QuantumValueB = 0
 end
 
 function XTheatre3Settle:CheckIsEnding()
@@ -79,6 +82,9 @@ function XTheatre3Settle:NotifyTheatre3Settle(data)
     self.StrengthPoint = data.StrengthPoint
     self.CurUnlockItemId = data.CurUnlockItemId
     self.CurUnlockEquipId = data.CurUnlockEquipId
+    self.LuckValue = data.DestinyValue
+    self.QuantumValueA = data.QubitValueA
+    self.QuantumValueB = data.QubitValueB
     self.IsNeedShowTip = true
     self.Items = data.Items
     self.BattleCharacters = {}

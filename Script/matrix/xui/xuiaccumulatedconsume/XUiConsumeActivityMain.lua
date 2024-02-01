@@ -13,7 +13,7 @@ function XUiConsumeActivityMain:OnStart()
     self.ConsumeDrawActivity = XDataCenter.AccumulatedConsumeManager.GetConsumeDrawActivity()
 
     local itemId = self.ConsumeDrawActivity:GetShopCoinItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
 
     self:InitView()
     self:InitTabBtnGroup()

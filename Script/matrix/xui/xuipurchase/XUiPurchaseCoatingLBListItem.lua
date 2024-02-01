@@ -24,6 +24,7 @@ function XUiPurchaseCoatingLBListItem:OnRefresh(itemData)
 
     self.ItemData = itemData
     self:SetData()
+    self:RefreshGift()
 end
 
 function XUiPurchaseCoatingLBListItem:Init(uiRoot, parent)
@@ -278,6 +279,25 @@ function XUiPurchaseCoatingLBListItem:UpdateTimer(isRecover)
         return
     end
     self.TxtPutawayTime.text = TextManager.GetText("PurchaseSetOnTime", XUiHelper.GetTime(self.RemainTime, XUiHelper.TimeFormatType.PURCHASELB))
+end
+
+function XUiPurchaseCoatingLBListItem:RefreshGift()
+    for i, data in pairs(self.ItemData.RewardGoodsList) do
+        --2.10 涂装赠品
+        if data.RewardType == XRewardManager.XRewardType.Fashion then
+            local fashionId = data.TemplateId
+            local fashionCfg = XFashionConfigs.GetFashionTemplate(fashionId)
+            if fashionCfg and XTool.IsNumberValid(fashionCfg.GiftId) then
+                self.ImgTabLb.gameObject:SetActiveEx(true)
+                break
+            else
+                self.ImgTabLb.gameObject:SetActiveEx(false)
+            end
+        else
+            self.ImgTabLb.gameObject:SetActiveEx(false)
+        end
+    end
+    
 end
 
 return XUiPurchaseCoatingLBListItem

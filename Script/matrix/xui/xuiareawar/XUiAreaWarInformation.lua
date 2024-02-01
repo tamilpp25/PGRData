@@ -11,7 +11,7 @@ local TabBtnIndex = {
 local XUiAreaWarInformation = XLuaUiManager.Register(XLuaUi, "UiAreaWarInformation")
 
 function XUiAreaWarInformation:OnAwake()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

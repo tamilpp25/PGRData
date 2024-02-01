@@ -41,7 +41,7 @@ function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     if self.PanelBindCharacter and self.RImgHead then
         --if not isAwakeDes then
             if bindCharacterId > 0 then
-                self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
+                self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(bindCharacterId))
                 self.PanelBindCharacter.gameObject:SetActiveEx(true)
             else
                 self.PanelBindCharacter.gameObject:SetActiveEx(false)
@@ -107,7 +107,7 @@ function XUiGridResonanceSkill:Refresh(skillInfo, bindCharacterId)
     if self.TxtAwake then
         if isAwakeDes then
             if bindCharacterId ~= 0 then
-                local characterName = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+                local characterName = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
                 self.TxtAwake.text = CsXTextManagerGetText("AwakeCharacterName", characterName)
                 self.TxtAwake.color = CONDITION_COLOR[not notBindResonance]
                 self.TxtAwake.gameObject:SetActiveEx(true)

@@ -22,16 +22,16 @@ function XRedPointConditionAreaWarActivity.Check()
     if not XDataCenter.AreaWarManager.IsOpen() then
         return false
     end
-    if XRedPointConditionAreaWarTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionAreaWarTask) then
         return true
     end
-    if XRedPointConditionAreaWarHangUpReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionAreaWarHangUpReward) then
         return true
     end
-    if XRedPointConditionAreaWarSpecialRoleReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionAreaWarSpecialRoleReward) then
         return true
     end
-    --if XRedPointConditionAreaWarCanBuy.Check() then
+    --if XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionAreaWarCanBuy) then
     --    return true
     --end
     return false

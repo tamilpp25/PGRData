@@ -9,6 +9,7 @@ local Default = {
     _ChipModelList = {},
     _PutOnPosList = {}, --穿戴装备位置列表
     _Pos2IsPut = {},
+    _Hidden = false, --是否隐藏
 }
 
 local XEquipGuideModel = require("XEntity/XEquipGuide/XEquipGuideModel")
@@ -26,7 +27,8 @@ end
 function XEquipTarget:InitData(id)
     self:SetProperty("_Id", id)
     self._RecommendId = XEquipGuideConfigs.TargetConfig:GetProperty(id, "EquipRecommendId")
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    self._Hidden = XEquipGuideConfigs.TargetConfig:GetProperty(id, "Hidden") == 1
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     local suitIds = template.SuitId
     local suitLength = #suitIds
     if suitLength == 1 then
@@ -48,7 +50,7 @@ function XEquipTarget:UpdatePutOnPosList(list)
     list = list or {}
     self._Pos2IsPut = {}
     local tmpList = {}
-    local recommend = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local recommend = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     for _, pos in ipairs(list or {}) do
         if self:CheckIsTargetEquipByPos(recommend, pos) then
             tableInsert(tmpList, pos)
@@ -100,7 +102,7 @@ function XEquipTarget:UpdateProgress()
 end
 
 function XEquipTarget:UpdateWeapon()
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     local weaponId = template.EquipRecomend
     local model = XEquipGuideModel.New(template.EquipRecomend)
     local equipId
@@ -128,7 +130,7 @@ end
 --六件套
 function XEquipTarget:__UpdateSixChips()
     local list = {}
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     local chips = XEquipConfig.GetEquipTemplateIdsBySuitId(template.SuitId[1])
     for site, chipId in ipairs(chips) do
         local model = XEquipGuideModel.New(chipId)
@@ -145,7 +147,7 @@ end
 
 --4+2件套
 function XEquipTarget:__UpdateFourPlusTwoChips()
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     --套装1的意识
     local templateAIds = XEquipConfig.GetEquipTemplateIdsBySuitId(template.SuitId[1])
     --套装2的意识
@@ -378,7 +380,7 @@ function XEquipTarget:CheckIsTargetEquipByTemplateId(templateId)
         return true
     end
 
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     local suitIds = template.SuitId
     local suitId = XDataCenter.EquipManager.GetSuitIdByTemplateId(templateId)
     for _, id in ipairs(suitIds) do
@@ -391,7 +393,7 @@ end
 
 --检测模板与身上穿戴的装备是否一致
 function XEquipTarget:CheckIsFullEquipped()
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self._RecommendId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self._RecommendId)
     local weaponId = template.EquipRecomend
     local weapon = XDataCenter.EquipManager.GetWearingEquipBySite(self._CharacterId, XEquipConfig.EquipSite.Weapon)
     if not weapon then
@@ -484,7 +486,7 @@ function XEquipTarget:CheckHasStrongerWeapon()
         return false 
     end
     local templateId = curTarget:GetProperty("_RecommendId")
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(templateId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(templateId)
     local weaponId = template.EquipRecomend
     local star = XDataCenter.EquipManager.GetEquipStar(weaponId)
     --当前的目标武器需小于6星
@@ -496,7 +498,7 @@ function XEquipTarget:CheckHasStrongerWeapon()
     if not XTool.IsNumberValid(recommendId) then
         return false
     end
-    local recommend = XCharacterConfigs.GetCharDetailEquipTemplate(recommendId)
+    local recommend = XMVCA.XEquip:GetCharDetailEquipTemplate(recommendId)
     local selfWeaponId = recommend.EquipRecomend
     local selfStar = XDataCenter.EquipManager.GetEquipStar(selfWeaponId)
     if selfStar < XEquipConfig.MAX_STAR_COUNT then

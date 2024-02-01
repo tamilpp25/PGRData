@@ -20,7 +20,7 @@ function XUiActivityBriefBase:OnStart(type)
     self.LoadSpineObjListDir = {}
     ---@type Spine.Unity.SkeletonAnimation[]|Spine.Unity.SkeletonGraphic[]
     self.UiSpineObjListDir = {}
-
+    ---@type XUiActivityBriefRefreshButton
     self.UiActivityBriefRefreshButton = XUiActivityBriefRefreshButton.New(self, self.PanelType)
     self.BgType = XActivityBriefConfigs.GetActivityBgType(self.PanelType)
     
@@ -67,6 +67,7 @@ end
 
 function XUiActivityBriefBase:OnDisable()
     self:StopVideoSound()
+    self.UiActivityBriefRefreshButton:OnDisable()
 end
 
 function XUiActivityBriefBase:OnDestroy()

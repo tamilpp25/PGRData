@@ -63,7 +63,7 @@ end
 -- 刷新界面
 function XUiEquipResonanceSkillChangeV2P6:UpdateView()
     -- 角色名
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     self.TxtCharacterName.text = charConfig.Name
     self.TxtCharacterNameOther.text = charConfig.TradeName
 

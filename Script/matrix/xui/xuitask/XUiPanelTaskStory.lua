@@ -1,3 +1,4 @@
+---@class XUiPanelTaskStory
 XUiPanelTaskStory = XClass(nil, "XUiPanelTaskStory")
 local GridTimeAnimation = 50
 
@@ -10,7 +11,9 @@ function XUiPanelTaskStory:Ctor(ui, parent)
 
     local finalChapterId = XDataCenter.TaskManager.GetFinalChapterId()
     local curChapterId = XDataCenter.TaskManager.GetCourseCurChapterId() or finalChapterId
+    ---@type XUiPanelCourse
     self.Course = XUiPanelCourse.New(self.Parent, self.PanelCourse, curChapterId, self)
+    ---@type XUiPanelCourseReward
     self.CourseReward = XUiPanelCourseReward.New(self.Parent, self.PanelCourseReward)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTaskStoryList.gameObject)

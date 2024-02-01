@@ -54,22 +54,22 @@ function XUiPanelExhibitionSuperInfo:SetLiberationEffect(aureoleId)
 
     -- 刷新手环
     local rootName, _ = XDataCenter.FashionManager.GetFashionLiberationEffectRootAndPath(self.Character.FashionId) -- 获取该角色手环挂点名字
-    local modelId = XDataCenter.CharacterManager.GetCharLiberationLevelModelId(self.CharacterId,  XCharacterConfigs.GrowUpLevel.Super)
+    local modelId = XMVCA.XCharacter:GetCharLiberationLevelModelId(self.CharacterId,  XEnumConst.CHARACTER.GrowUpLevel.Super)
     self.RootUi.RoleModelPanel:SetLiberationEffect(modelId, rootName, aureoleId, self.CharacterId)
 end
 
 -- exhibitionRewardConfig 是 ExhibitionReward.tab的数据 这个是share表
 function XUiPanelExhibitionSuperInfo:Refresh(characterId, exhibitionRewardConfig)
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     local levelId = exhibitionRewardConfig.LevelId
     local currLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(characterId, true)
-    local isSuper = currLevel >= XCharacterConfigs.GrowUpLevel.Super
+    local isSuper = currLevel >= XEnumConst.CHARACTER.GrowUpLevel.Super
   
     self.CharacterId = characterId
     self.ExhibitionRewardConfig = exhibitionRewardConfig
     self.Character = character
-    self.TxtTitle.text = XCharacterConfigs.GetCharLiberationLevelTitle(characterId, levelId)  -- 这个是拆出来的前端表，和实参里的config主键一样
-    self.TxtDesc.text = XCharacterConfigs.GetCharLiberationLevelDesc(characterId, levelId) 
+    self.TxtTitle.text = XMVCA.XCharacter:GetCharLiberationLevelTitle(characterId, levelId)  -- 这个是拆出来的前端表，和实参里的config主键一样
+    self.TxtDesc.text = XMVCA.XCharacter:GetCharLiberationLevelDesc(characterId, levelId) 
 
     local passed = true
     self.ConditionGrids = self.ConditionGrids or {}
@@ -168,14 +168,14 @@ function XUiPanelExhibitionSuperInfo:Refresh(characterId, exhibitionRewardConfig
     gridBall.gameObject:SetActiveEx(isBall)
     if isBall then
         local allBallList = {} -- 该角色的三种技能球对应的skillId
-        local allSkillList = XCharacterConfigs.GetCharacterSkills(characterId)[1]
+        local allSkillList = XMVCA.XCharacter:GetCharacterSkills(characterId)[1]
         local magicIdList = CS.XGame.Config:GetString("HigherLiberateLvMagicId")
         magicIdList = string.Split(magicIdList, "|")
         for i = 1, 3, 1 do
             local subSkillConfigDesc = allSkillList.subSkills[i].configDes
             allBallList[i] = {Id = tonumber(magicIdList[i]), Icon = subSkillConfigDesc.Icon}
         end
-        local currIndex = XDataCenter.CharacterManager.CheckHasSuperExhibitionBallColor(characterId) or 1 -- 如果设置过超解球 拿到超解球的颜色
+        local currIndex = XMVCA.XCharacter:CheckHasSuperExhibitionBallColor(characterId) or 1 -- 如果设置过超解球 拿到超解球的颜色
         gridBall:GetObject("RImgQiu"):SetRawImage(allBallList[currIndex].Icon)
         gridBall:GetObject("Red").gameObject:SetActiveEx(false)
         local btn = gridBall:GetObject("BtnReplace")
@@ -275,7 +275,7 @@ end
 
 function XUiPanelExhibitionSuperInfo:OnBtnReplace(list, currIndex, title, desc, confirmCb, onSelectCb, openCb, closeCb)
     local currLevel = XDataCenter.ExhibitionManager.GetCharacterGrowUpLevel(self.CharacterId, true)
-    local isSuper = currLevel >= XCharacterConfigs.GrowUpLevel.Super
+    local isSuper = currLevel >= XEnumConst.CHARACTER.GrowUpLevel.Super
     if not isSuper then
         XUiManager.TipError(CS.XTextManager.GetText("ExhibitionSuperLimit"))
         return

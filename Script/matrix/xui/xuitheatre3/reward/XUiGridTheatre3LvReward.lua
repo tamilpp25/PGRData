@@ -39,7 +39,11 @@ function XUiGridTheatre3LvReward:OnPanelGridClick()
     end
     local canGet = self._Control:CheckBattlePassAbleToReceive(self.BattlePassId, self.CurLevel)
     if canGet then
-        self._Control:GetBattlePassRewardRequest(XEnumConst.THEATRE3.GetBattlePassRewardType.GetOnce, self.BattlePassId, self.CallBack)
+        self._Control:GetBattlePassRewardRequest(XEnumConst.THEATRE3.GetBattlePassRewardType.GetOnce, self.BattlePassId, function()
+            if self.CallBack then
+                self.CallBack(true)
+            end
+        end)
     else
         local reward = self:GetReward(self.BattlePassId)
         if not reward then

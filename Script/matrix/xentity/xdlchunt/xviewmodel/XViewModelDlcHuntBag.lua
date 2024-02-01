@@ -55,10 +55,10 @@ end
 
 function XViewModelDlcHuntBag:GetAmount()
     if self._Tab == TAB.MAIN_CHIP then
-        return XDataCenter.DlcHuntChipManager.GetChipAmountMain(), XDlcHuntChipConfigs.CHIP_MAIN_CAPACITY
+        return XDataCenter.DlcHuntChipManager.GetChipAmountMain(), XDlcHuntConfigs.GetChipCapacity()
     end
     if self._Tab == TAB.SUB_CHIP then
-        return XDataCenter.DlcHuntChipManager.GetChipAmountSub(), XDlcHuntChipConfigs.CHIP_SUB_CAPACITY
+        return XDataCenter.DlcHuntChipManager.GetChipAmountSub(), XDlcHuntConfigs.GetChipCapacity()
     end
     if self._Tab == TAB.OTHERS then
         return #self._ModelViewChildOthers:GetAllItem(), XDlcHuntChipConfigs.ITEM_CAPACITY

@@ -12,6 +12,10 @@ function XUiGridRiftJumpRes:Ctor(ui, xFightLayer, rootUi)
 end
 
 function XUiGridRiftJumpRes:Refresh()
+    if not self.XFightLayer then
+        return -- GM导致
+    end
+
     self.TxtDepth.text = self.XFightLayer:GetId().."km"
 
     local rewardId = self.XFightLayer:GetConfig().RewardId

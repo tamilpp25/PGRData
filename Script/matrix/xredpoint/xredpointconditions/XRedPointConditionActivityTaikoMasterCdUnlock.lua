@@ -1,24 +1,15 @@
 local XRedPointConditionActivityTaikoMasterCdUnlock = {}
 
 function XRedPointConditionActivityTaikoMasterCdUnlock.Check(songId)
-    if not XDataCenter.TaikoMasterManager.IsFunctionOpen() then
+    ---@type XTaikoMasterAgency
+    local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+    if not agency:CheckIsFunctionOpen() then
         return false
     end
-    if not XDataCenter.TaikoMasterManager.IsActivityOpen() then
+    if not agency:CheckIsActivityOpen() then
         return false
     end
-    if songId then
-        local state = XDataCenter.TaikoMasterManager.GetSongState4RedDot(songId)
-        return state == XTaikoMasterConfigs.SongState.JustUnlock
-    end
-    local songArray = XDataCenter.TaikoMasterManager.GetSongArray()
-    for i = 1, #songArray do
-        local songId = songArray[i]
-        if XRedPointConditionActivityTaikoMasterCdUnlock.Check(songId) then
-            return true
-        end
-    end
-    return false
+    return agency:CheckCdUnlockRedPoint(songId)
 end
 
 return XRedPointConditionActivityTaikoMasterCdUnlock

@@ -1,15 +1,13 @@
-local XUiPanelBottom = XClass(nil, "XUiPanelBottom")
+---@class XUiPanelBottom:XUiNode
+local XUiPanelBottom = XClass(XUiNode, "XUiPanelBottom")
 local CSTextManagerGetText = CS.XTextManager.GetText
 local MAX_CHAT_WIDTH = 470
 local CHAT_SUB_LENGTH = 30
 local Normal = CS.UiButtonState.Normal
 local Select = CS.UiButtonState.Select
-function XUiPanelBottom:Ctor(ui, base, battleManager)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Base = base
+
+function XUiPanelBottom:OnStart(ui, base, battleManager)
     self.BattleManager = battleManager
-    XTool.InitUiObject(self)
     self:InitButton()
     self.IsMenuOn = false
 end
@@ -55,13 +53,17 @@ function XUiPanelBottom:InitButton()
     self.BtnLz.CallBack = function()
         self:OnBtnBossRewardClick()
     end
-    XRedPointManager.AddRedPointEvent(self.BtnSupport, self.OnSupportRedPointEvent, self, {
+    self:AddRedPointEvent(self.BtnSupport, self.OnSupportRedPointEvent, self, {
         XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY,
         XRedPointConditions.Types.CONDITION_GUILDWAR_ASSISTANT
     })
     self.BtnDifficulty.CallBack = function()
         self:OnBtnDifficultyClick()
     end
+    self.BtnShop.CallBack = handler(self, self.OnBtnShopClick)
+    
+    self.BtnShopReddotId = self:AddRedPointEvent(self.BtnShop, self.OnBtnShopRedPointEvent, self, {XRedPointConditions.Types.CONDITION_GUILDWAR_MONEY})
+
 end
 
 function XUiPanelBottom:UpdatePanel()
@@ -77,9 +79,9 @@ function XUiPanelBottom:UpdateMenu()
 
     if self.IsMenuOn then
         self.PanelBtn.gameObject:SetActiveEx(true)
-        self.Base:PlayAnimationWithMask("ButtonEnable")
+        self.Parent:PlayAnimationWithMask("ButtonEnable")
     else
-        self.Base:PlayAnimationWithMask("ButtonDisable", function()
+        self.Parent:PlayAnimationWithMask("ButtonDisable", function()
             self.PanelBtn.gameObject:SetActiveEx(false)
         end)
     end
@@ -133,7 +135,7 @@ function XUiPanelBottom:OnBtnMapClick()
         XUiManager.TipText("GuildWarNoInRound")
         return
     end
-    self.Base:PathEdit()
+    self.Parent:PathEdit()
 end
 
 function XUiPanelBottom:OnBtnMenuClick()
@@ -146,7 +148,7 @@ function XUiPanelBottom:OnBtnChatClick()
         return
     end
 
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Guild, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Guild, ChatChannelType.World)
 end
 
 function XUiPanelBottom:OnBtnMeClick()
@@ -158,11 +160,12 @@ function XUiPanelBottom:OnBtnInformationClick()
 end
 
 function XUiPanelBottom:ShowPanel()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
+    self:UpdateRedPoint()
 end
 
 function XUiPanelBottom:HidePanel()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelBottom:CheckRedDotTask()
@@ -195,6 +198,32 @@ end
 function XUiPanelBottom:UpdateBossReward()
     local isShowRedPoint = XDataCenter.GuildWarManager.IsShowRedPointBossReward()
     self.BtnLz:ShowReddot(isShowRedPoint)
+end
+
+function XUiPanelBottom:OnBtnShopClick()
+    local values=XGuildWarConfig.GetClientConfigValues('ShopSkipId','Int')
+    if XTool.IsNumberValid(values[1]) then
+        if XFunctionManager.IsCanSkip(values[1]) then
+            XFunctionManager.SkipInterface(values[1])
+        else
+            local skipCfg = XFunctionConfig.GetSkipFuncCfg(values[1])
+            if skipCfg and XTool.IsNumberValid(skipCfg.FunctionalId) then
+                local desc = XFunctionManager.GetFunctionOpenCondition(skipCfg.FunctionalId)
+                XUiManager.TipMsg(desc)
+            end
+        end
+    else
+        XLog.Error('公会战商店跳转Id配置为无效值:'..tostring(values[1]),'配置Id: ShopSkipId','配置路径:','Client/GuildWar/GuildWarClientConfig')
+    end
+end
+
+function XUiPanelBottom:OnBtnShopRedPointEvent(count)
+    self.BtnShop:ShowReddot(count >= 0)
+    self.BtnMenu:ShowReddot(count >= 0)
+end
+
+function XUiPanelBottom:UpdateRedPoint()
+    XRedPointManager.Check(self.BtnShopReddotId)
 end
 
 return XUiPanelBottom

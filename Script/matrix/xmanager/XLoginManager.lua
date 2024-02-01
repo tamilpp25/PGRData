@@ -37,7 +37,7 @@ local HeartbeatInterval = HeartbeatIntervalDefault
 local HeartbeatTimeout = CS.XGame.Config:GetInt("HeartbeatTimeout")
 local HeartbeatTimeOutTimer = nil
 local HeartbeatNextTimer = nil
-local ClearHeartbeartTimer
+local ClearHeartbeatTimer
 local ClearTimeOutTimer
 local MaxDisconnectTime = CS.XGame.Config:GetInt("MaxDisconnectTime") --最大断线重连时间（服务器保留时间）
 local ReconnectInterval = CS.XGame.Config:GetInt("ReconnectInterval") --重连间隔
@@ -167,7 +167,7 @@ local ConnectGate = function(cb, bReconnect)
 end
 
 function XLoginManager.Disconnect(bReconnect)
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
 
     CS.XNetwork.Disconnect()
     IsConnected = false
@@ -221,6 +221,8 @@ end
 
 -- 清理返回登陆界面
 function XLoginManager.BackToLogin()
+    --在事件清除前抛出事件
+    XEventManager.DispatchEvent(XEventId.EVENT_LOGIN_UI_OPEN)
     -- 清除所有定时器
     XLoginManager.ClearAllTimer()
     XDataCenter.InitBeforeLogin()
@@ -238,9 +240,23 @@ function XLoginManager.BackToLogin()
     XLuaUiManager.Open(UI_LOGIN)
 end
 
+--将检查水印的逻辑放到这里来
+function XLoginManager.CheckWaterMask()
+    --打开水印窗口
+    if CS.XRemoteConfig.WatermarkType == XEnumConst.WaterMarkStatus.AllOn then
+        XLuaUiManager.Open("UiWaterMask")
+        XLuaUiManager.Open("UiSuperWaterMarks")
+    elseif CS.XRemoteConfig.WatermarkType == XEnumConst.WaterMarkStatus.OnlyWaterMarkOn then
+        XLuaUiManager.Open("UiWaterMask")
+    elseif CS.XRemoteConfig.WatermarkType == XEnumConst.WaterMarkStatus.OnlySuperWaterMarkOn then
+        XLuaUiManager.Open("UiSuperWaterMarks")
+    end
+end
+
 -- 清理返回主界面
 function XLoginManager.BackToMain()
     XLoginManager.ClearGame()
+    XLoginManager.CheckWaterMask()
     XLuaUiManager.RunMain(true)
 end
 
@@ -255,7 +271,7 @@ local function CheckHeartbeatTimeout()
     StartReconnect()
 end
 
-function ClearHeartbeartTimer()
+function ClearHeartbeatTimer()
     if HeartbeatTimeOutTimer then
         XScheduleManager.UnSchedule(HeartbeatTimeOutTimer)
         HeartbeatTimeOutTimer = nil
@@ -270,9 +286,9 @@ end
 local function OnHeartbeatResp(res)
     XTime.SyncTime(res.UtcServerTime, HearbeatRequestTime, SinceStartupTime())
 
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     -- if XNetwork.IsShowNetLog then
-    --     XLog.Debug("tcp heartbeat response.")
+         XLog.Debug("tcp heartbeat response.")
     -- end
     -- 等待下一次心跳发送
     HeartbeatNextTimer = XScheduleManager.ScheduleOnce(DoHeartbeat, HeartbeatInterval)
@@ -286,7 +302,7 @@ DoHeartbeat = function()
     end
 
     -- if XNetwork.IsShowNetLog then
-    --     XLog.Debug("tcp heartbeat request.")
+         XLog.Debug("tcp heartbeat request.")
     -- end
     -- 等待心跳返回
     HeartbeatTimeOutTimer = XScheduleManager.ScheduleOnce(CheckHeartbeatTimeout, HeartbeatTimeout)
@@ -309,7 +325,7 @@ StartReconnect = function()
             if XNetwork.IsShowNetLog then
                 XLog.Debug("超过服务器保留最长时间")
             end
-            ClearHeartbeartTimer()
+            ClearHeartbeatTimer()
             XScheduleManager.UnSchedule(MaxReconnectTimer)
             XLoginManager.DoDisconnect()
         end
@@ -354,16 +370,16 @@ function XLoginManager.DoReconnect()
     end
 
     ReconnectTimer = XScheduleManager.ScheduleOnce(function()
-        if XNetwork.IsShowNetLog then
+        --if XNetwork.IsShowNetLog then
             XLog.Debug("断线重连响应超时")
-        end
+        --end
         CS.XNetwork.Disconnect()
         XLoginManager.DoReconnect()
     end, ReconnectInterval)
 
-    if XNetwork.IsShowNetLog then
+    --if XNetwork.IsShowNetLog then
         XLog.Debug("开始断线重连...")
-    end
+    --end
     XLoginManager.Disconnect(true)
     --重连网关
     ConnectGate(function()
@@ -696,7 +712,7 @@ function ClearTimeOutTimer()
 end
 
 function XLoginManager.ClearAllTimer()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     ClearTimeOutTimer()
 
     if GateHandshakeTimer then
@@ -908,9 +924,7 @@ XRpc.NotifyLogin = function(data)
 
     local characterProfiler = loginProfiler:CreateChild("CharacterManager")
     characterProfiler:Start()
-    XDataCenter.CharacterManager.InitCharacters(data.CharacterList)
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    ag:InitCharacters(data.CharacterList)
+    XMVCA.XCharacter:InitCharacters(data.CharacterList)
     characterProfiler:Stop()
 
     local equipProfiler = loginProfiler:CreateChild("EquipManager")
@@ -935,13 +949,18 @@ XRpc.NotifyLogin = function(data)
 
     local fubenProfiler = loginProfiler:CreateChild("FubenManager")
     fubenProfiler:Start()
-    XDataCenter.FubenManager.InitFubenData(data.FubenData)
+    XDataCenter.FubenManager.InitFubenData(data.FubenData, data.FubenEventData)
     fubenProfiler:Stop()
 
     local fubenMailLineProfiler = loginProfiler:CreateChild("FubenMainLineManager")
     fubenMailLineProfiler:Start()
     XDataCenter.FubenMainLineManager.InitFubenMainLineData(data.FubenMainLineData)
     fubenMailLineProfiler:Stop()
+
+    local mailLine2Profiler = loginProfiler:CreateChild("MainLine2Agency")
+    mailLine2Profiler:Start()
+    XMVCA:GetAgency(ModuleId.XMainLine2):OnLoginNotify(data.FubenMainLine2Data)
+    mailLine2Profiler:Stop()
 
     local fubenExtraChapterProfiler = loginProfiler:CreateChild("FubenExtraChapterManager")
     fubenExtraChapterProfiler:Start()
@@ -958,10 +977,10 @@ XRpc.NotifyLogin = function(data)
     XDataCenter.FubenDailyManager.InitFubenDailyData(data.FubenDailyData)
     fubenDailyProfiler:Stop()
 
-    local fubenUrgentEventProfiler = loginProfiler:CreateChild("FubenUrgentEventManager")
-    fubenUrgentEventProfiler:Start()
-    XDataCenter.FubenUrgentEventManager.InitData(data.FubenUrgentEventData)
-    fubenUrgentEventProfiler:Stop()
+    --local fubenUrgentEventProfiler = loginProfiler:CreateChild("FubenUrgentEventManager")
+    --fubenUrgentEventProfiler:Start()
+    --XDataCenter.FubenUrgentEventManager.InitData(data.FubenUrgentEventData)
+    --fubenUrgentEventProfiler:Stop()
 
     local autoFightProfiler = loginProfiler:CreateChild("AutoFightManager")
     autoFightProfiler:Start()
@@ -1017,6 +1036,9 @@ XRpc.NotifyLogin = function(data)
     XDataCenter.PartnerManager.UpdatePartnerEntity(data.PartnerList)
 
     XDataCenter.PhotographManager.InitCurSceneId(data.UseBackgroundId)
+
+    XShopManager.OnLoginRequestShopList()
+
     --BDC
     CS.XHeroBdcAgent.RoleId = data.PlayerData.Id
     CS.XHeroBdcAgent.RoleKey = data.PlayerData.ServerId .. "_" .. data.PlayerData.Id
@@ -1080,9 +1102,9 @@ end
 function XLoginManager.OnReconnectFailed()
     -- XLoginManager.DoDisconnect()
     if IsRelogining then
-        if XNetwork.IsShowNetLog then
+        --if XNetwork.IsShowNetLog then
             XLog.Debug("已在断线重登。。。")
-        end
+        --end
         return
     end
     IsRelogining = true
@@ -1094,18 +1116,20 @@ function XLoginManager.OnReconnectFailed()
     XLuaUiManager.SetAnimationMask("DoLogin", true, 1)
 
     if XFightUtil.IsFighting() then
-        XLuaUiManager.Open("UiSettleLose")
+        if not XFightUtil.IsDlcFighting() then
+            XLuaUiManager.Open("UiSettleLose")
+        end
         XFightUtil.ClearFight()
     end
     
-    if XNetwork.IsShowNetLog then
+    --if XNetwork.IsShowNetLog then
         XLog.Debug("断线重连失败，尝试自动重登")
-    end
+    --end
     XLoginManager.Login(function(code) -- connecGate > onDisconnect > loginCb > connectGate
         XLuaUiManager.SetAnimationMask("DoLogin", false)
-        if XNetwork.IsShowNetLog then
+        --if XNetwork.IsShowNetLog then
             XLog.Debug("断线重登，返回code:" .. tostring(code) .. ", IsLogin:" .. tostring(IsLogin))
-        end
+        --end
         if code and code ~= XCode.Success then
             --  弹窗返回登陆
             if code == XCode.Fail then
@@ -1124,7 +1148,7 @@ end
 function XLoginManager.SpeedUpHearbeatInterval()
     HeartbeatInterval = 200
     if HeartbeatNextTimer then -- 等待下一次心跳发送
-        ClearHeartbeartTimer()
+        ClearHeartbeatTimer()
         DoHeartbeat()
     end
 end
@@ -1138,8 +1162,9 @@ end
 XRpc.ForceLogoutNotify = function(res)
     XLoginManager.Disconnect()
     CS.XFightNetwork.Disconnect()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
     XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), CS.XTextManager.GetCodeText(res.Code), XUiManager.DialogType.OnlySure, nil, function()
+        XEventManager.DispatchEvent(XEventId.EVENT_LOGIN_UI_OPEN)
         XFightUtil.ClearFight()
         if XDataCenter.MovieManager then
             XDataCenter.MovieManager.StopMovie()
@@ -1172,9 +1197,10 @@ end
 XRpc.GameUpdateNotify = function(res)
     XLoginManager.Disconnect()
     CS.XFightNetwork.Disconnect()
-    ClearHeartbeartTimer()
+    ClearHeartbeatTimer()
 
     XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), res.Msg, XUiManager.DialogType.OnlySure, nil, function()
+        XEventManager.DispatchEvent(XEventId.EVENT_LOGIN_UI_OPEN)
         XFightUtil.ClearFight()
         if XDataCenter.MovieManager then
             XDataCenter.MovieManager.StopMovie()
@@ -1189,6 +1215,10 @@ XRpc.GameUpdateNotify = function(res)
         XHomeSceneManager.LeaveScene()
         XLuaUiManager.Open(UI_LOGIN)
     end)
+end
+
+XRpc.NotifyFightCheckChange = function(res)
+    CS.XFightOnlineManager.UseFullFightCheck = res.UseFullFightCheck
 end
 
 local test_id = 1

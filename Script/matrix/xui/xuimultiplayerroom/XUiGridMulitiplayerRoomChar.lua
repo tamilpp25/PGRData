@@ -125,9 +125,9 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
     -- 战斗类型
     local charId = playerData.FightNpcData.Character.Id
     local quality = playerData.FightNpcData.Character.Quality
-    local npcId = XCharacterConfigs.GetCharNpcId(charId, quality)
-    local npcTemplate = XCharacterConfigs.GetNpcTemplate(npcId)
-    self.RImgArms:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type))
+    local npcId = XMVCA.XCharacter:GetCharNpcId(charId, quality)
+    local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(npcId)
+    self.RImgArms:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(npcTemplate.Type))
 
     -- 战斗力
     self.TxtAbility.text = playerData.FightNpcData.Character.Ability
@@ -193,7 +193,7 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
         if XFubenSpecialTrainConfig.IsSpecialTrainStage(stageId, XFubenSpecialTrainConfig.StageType.Photo) then
             self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController,true)
         else
-            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController)
+            self.RolePanel:UpdateCharacterModelByFightNpcData(playerData.FightNpcData, callback, isCute, needDisplayController, nil, playerData.Id == XPlayer.Id)
         end
     end
     local char = playerData.FightNpcData.Character
@@ -208,7 +208,7 @@ function XUiGridMulitiplayerRoomChar:RefreshPlayer(playerData, callback)
     
         local modelName
         if resourcesId then
-            modelName = XDataCenter.CharacterManager.GetCharResModel(resourcesId)
+            modelName = XMVCA.XCharacter:GetCharResModel(resourcesId)
         else
             modelName = self:GetModelName(char.Id)
         end
@@ -298,23 +298,19 @@ function XUiGridMulitiplayerRoomChar:OpenSelectCharView()
             end
         })
     else
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId
-                , XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0})
-                , 1, {
-                AOPSetJoinBtnIsActiveAfter = function(proxy, rootUi)
-                    rootUi.BtnQuitTeam.gameObject:SetActiveEx(false)
-                end,
-                AOPCloseBefore = function(proxy, rootUi)
-                    self:OnSelectCharacter(rootUi.Team:GetEntityIds())
-                end,
-                GetEntities = function()
-                    return XDataCenter.CharacterManager.GetOwnCharacterList(XCharacterConfigs.CharacterType.Normal)
-                end
-            })
-        else
-            XLuaUiManager.Open("UiRoomCharacter", { [1] = playerData.FightNpcData.Character.Id }, 1, handler(self, self.OnSelectCharacter), stageInfo.Type, characterLimitType, { IsHideQuitButton = true, LimitBuffId = limitBuffId, StageId = stageId })
-        end
+        XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId
+            , XDataCenter.TeamManager.CreateTempTeam({charId, 0, 0})
+            , 1, {
+            AOPSetJoinBtnIsActiveAfter = function(proxy, rootUi)
+                rootUi.BtnQuitTeam.gameObject:SetActiveEx(false)
+            end,
+            AOPCloseBefore = function(proxy, rootUi)
+                self:OnSelectCharacter(rootUi.Team:GetEntityIds())
+            end,
+            GetEntities = function()
+                return XMVCA.XCharacter:GetOwnCharacterList()
+            end
+        })
     end
 end
 

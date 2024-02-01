@@ -84,7 +84,7 @@ function XUiSSBPickPanelHead:OnClickBtnFilter()
     XLuaUiManager.Open("UiRoomCharacterFilterTips", self,
         filterType,
         enumSortType,
-        nil, nil, nil) --XCharacterConfigs.CharacterType.Normal
+        nil, nil, nil) --XEnumConst.CHARACTER.CharacterType.Normal
 end
 --=================
 --初始化角色头像列表

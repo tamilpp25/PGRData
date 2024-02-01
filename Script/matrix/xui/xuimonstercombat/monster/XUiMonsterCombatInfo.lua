@@ -76,7 +76,7 @@ function XUiMonsterCombatInfo:RefreshMonsterView()
             self.GridBuffCharacterList[i] = grid
         end
         local characterId = characterIds[i]
-        local headIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+        local headIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
         grid.RImgIcon:SetRawImage(headIcon)
         grid.Name.text = XEntityHelper.GetCharacterTradeName(characterId)
         grid.GameObject:SetActiveEx(true)

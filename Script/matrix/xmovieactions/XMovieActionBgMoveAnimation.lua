@@ -1,4 +1,5 @@
 local XMovieActionBgMoveAnimation = XClass(XMovieActionBase,"XMovieActionBgMoveAnimation")
+local DefaultBgIndex = 1
 
 function XMovieActionBgMoveAnimation:Ctor(actionData)
     local params = actionData.Params
@@ -10,6 +11,14 @@ function XMovieActionBgMoveAnimation:Ctor(actionData)
     end
     self.Duration = tonumber(params[2])
     self.IsPanelSpine = tonumber(params[3]) == 1
+
+    local bgIndex = params[4]
+    self.BgIndex = bgIndex and paramToNumber(bgIndex) or DefaultBgIndex
+end
+
+function XMovieActionBgMoveAnimation:OnUiRootInit()
+    self.RImgBg = self.UiRoot["RImgBg".. tostring(self.BgIndex)] 
+    self.RImgAnimBg = self.BgIndex == DefaultBgIndex and self.UiRoot.RImgBg2 or nil
 end
 
 function XMovieActionBgMoveAnimation:OnRunning()
@@ -18,13 +27,12 @@ function XMovieActionBgMoveAnimation:OnRunning()
         return
     end
 
-    ---@type UnityEngine.UI.RawImage
-    local bg1 = self.UiRoot.RImgBg1
-    ---@type UnityEngine.UI.RawImage
-    local bg2 = self.UiRoot.RImgBg2
-
-    bg1.transform:DOLocalMove(self.Pos, self.Duration)
-    bg2.transform:DOLocalMove(self.Pos, self.Duration)
+    if self.RImgBg then
+        self.RImgBg.transform:DOLocalMove(self.Pos, self.Duration)
+    end
+    if self.RImgAnimBg then
+        self.RImgAnimBg.transform:DOLocalMove(self.Pos, self.Duration)
+    end
 end
 
 return XMovieActionBgMoveAnimation

@@ -14,7 +14,7 @@ local ARENA_TEAM_PANEL_INDEX = {
 
 function XUiArenaTeam:OnAwake()
     self:AutoAddListener()
-    self.RedPointApplyId = XRedPointManager.AddRedPointEvent(self.BtnTabApply, self.OnCheckApplyData, self, { XRedPointConditions.Types.CONDITION_ARENA_APPLY })
+    self.RedPointApplyId = self:AddRedPointEvent(self.BtnTabApply, self.OnCheckApplyData, self, { XRedPointConditions.Types.CONDITION_ARENA_APPLY })
 end
 
 function XUiArenaTeam:OnStart()

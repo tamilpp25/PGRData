@@ -53,7 +53,6 @@ XLivWarmRaceManagerCreator = function()
         if stageInfo then
             stageInfo.Type = XDataCenter.FubenManager.StageType.LivWarRace
         end
-        XLivWarmRaceManager.RegisterEditBattleProxy()
     end
 
     function XLivWarmRaceManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)
@@ -67,12 +66,6 @@ XLivWarmRaceManagerCreator = function()
         return preFight
     end
     --------------------FubenManager方法 end----------------
-    ---------------------编队代理 start-----------------------
-    function XLivWarmRaceManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.LivWarRace,
-                require("XUi/XUiLivWarmRace/XUiLivWarmRaceNewRoomSingle"))
-    end
-    ---------------------编队代理 end-------------------------
 
     ---------------------关卡数据 start-----------------------
     function XLivWarmRaceManager.GetStageData(stageId)
@@ -278,10 +271,10 @@ end
 
 ---------------------(服务器推送)begin------------------
 XRpc.NotifyRunGameData = function(data)
-    XDataCenter.LivWarmRaceManager.NotifyRunGameData(data)
+    --XDataCenter.LivWarmRaceManager.NotifyRunGameData(data)
 end
 
 XRpc.NotifyRunGameStageData = function(data)
-    XDataCenter.LivWarmRaceManager.NotifyRunGameStageData(data)
+    --XDataCenter.LivWarmRaceManager.NotifyRunGameStageData(data)
 end
 ---------------------(服务器推送)end--------------------

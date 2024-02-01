@@ -36,7 +36,7 @@ function XUiDlcHuntSkillDetails:OnStart(character, pos)
     self:RefreshViewData()
     self:RefreshSkillInfo()
     -- 详情默认值
-    self.Toggle.isOn = XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE
+    self.Toggle.isOn = XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE
     self:OnToggle()
 end
 
@@ -99,7 +99,7 @@ function XUiDlcHuntSkillDetails:HideAllSkillBtn()
 end
 
 function XUiDlcHuntSkillDetails:GetSkillBtn(index, subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.SkillBtnSpecialGroups[index]
     else
@@ -108,7 +108,7 @@ function XUiDlcHuntSkillDetails:GetSkillBtn(index, subSkill)
 end
 
 function XUiDlcHuntSkillDetails:GetSkillBtnGameObject(subSkill)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         return self.BtnTog
     else
@@ -117,7 +117,7 @@ function XUiDlcHuntSkillDetails:GetSkillBtnGameObject(subSkill)
 end
 
 function XUiDlcHuntSkillDetails:SetSkillBtn(index, subSkill, btn)
-    local skillType = XCharacterConfigs.GetSkillType(subSkill.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(subSkill.SubSkillId)
     if skillType <= SIGNAL_BAL_MEMBER then
         self.SkillBtnSpecialGroups[index] = btn
     else
@@ -178,7 +178,7 @@ end
 
 function XUiDlcHuntSkillDetails:OnToggle()
     self.IsDetails = self.Toggle.isOn
-    XUiPanelCharSkill.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
+    XEnumConst.CHARACTER.BUTTON_SKILL_DETAILS_ACTIVE = self.IsDetails
     self.SkillInfoPanel:RefreshSkillDescribe(self.IsDetails)
     self:PlayAnimation("QieHuan3")
 end
@@ -191,7 +191,7 @@ end
 --        return
 --    end
 --
---    self.Skills = XCharacterConfigs.GetCharacterSkills(characterId, clientLevel, subSkill)
+--    self.Skills = XMVCA.XCharacter:GetCharacterSkills(characterId, clientLevel, subSkill)
 --
 --    self.Skill = self.Skills[self.Skill.config.Pos]
 --    self:RefreshSkillData()

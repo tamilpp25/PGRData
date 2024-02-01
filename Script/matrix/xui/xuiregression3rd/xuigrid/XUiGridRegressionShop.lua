@@ -175,6 +175,11 @@ function XUiGridRegressionShop:RefreshTimer()
     
     
     local doRefresh = function() 
+        if self.GameObject == nil or self.GameObject:Exist() == false then
+            self:RemoveTimer()
+            return
+        end
+        
         leftTime = leftTime > 0 and leftTime or 0
         local dataTime = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
         self.TxtLeftTime.text = XUiHelper.GetText("TimeSoldOut", dataTime)

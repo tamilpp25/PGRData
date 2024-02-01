@@ -1,7 +1,10 @@
 ---@class XViewModelReform2ndList
 local XViewModelReform2ndList = XClass(nil, "XViewModelReform2ndList")
 
-function XViewModelReform2ndList:Ctor()
+function XViewModelReform2ndList:Ctor(model)
+    ---@type XReformModel
+    self._Model = model
+
     self.Data = {
         Pressure = false,
         TxtPressure = false,
@@ -19,6 +22,7 @@ function XViewModelReform2ndList:Ctor()
         IsEnableBtnEnter = false,
         IsDisableFightChapter5 = false,
     }
+    local toggleFullDesc = XSaveTool.GetData(self._Model:GetToggleFullDescKey())
     self.DataMob = {
         ---@type XUiReformPanelMobData[]
         MobList = false,
@@ -27,7 +31,11 @@ function XViewModelReform2ndList:Ctor()
         IsDirty = false,
         MobIndexPlayEffect = false,
         Update4Affix = false,
-        PlayingAnimation = false
+        PlayingAnimation = false,
+        IsAutoShowNextMob = false,
+        IsShowCompleteButton = false,
+        IsFullDesc = toggleFullDesc,
+        TextAffixAmount = false,
     }
     self.DataStage = {
         Name = false,
@@ -35,6 +43,12 @@ function XViewModelReform2ndList:Ctor()
         Desc = false,
         DescTarget = false,
         IconList = false
+    }
+    self.DataEnvironment = {
+        List = {},
+        DataSelectedEnvironment = false,
+        ---@type XReform2ndEnv
+        SelectedEnvironment = false,
     }
 
     ---@type XReform2ndStage
@@ -45,21 +59,15 @@ function XViewModelReform2ndList:Ctor()
         MobGroup = false,
         Index = 0,
     }
-    self.MobIndex = 0
-end
+    self.GridIndex = 0
 
-function XViewModelReform2ndList:OnEnable()
-    self:Update()
-end
-
-function XViewModelReform2ndList:OnDisable()
-
+    self._AffixCanSelect = {}
 end
 
 ---@param stage XReform2ndStage
 function XViewModelReform2ndList:SetStage(stage)
     self._Stage = stage
-    self.Data.TextExtraStar = XUiHelper.GetText("ReformExtraStar", stage:GetGoalDesc())
+    self.Data.TextExtraStar = XUiHelper.GetText("ReformExtraStar", self._Model:GetStageGoalDescById(stage:GetId()))
 end
 
 function XViewModelReform2ndList:Update()
@@ -67,25 +75,25 @@ function XViewModelReform2ndList:Update()
     local stage = self._Stage
 
     --region pressure
-    local pressure = stage:GetPressure()
+    local pressure = self._Model:GetStagePressureByStage(stage)
     if data.Pressure and pressure ~= data.Pressure then
         data.IsPlayPressureEffect = true
     else
         data.IsPlayPressureEffect = false
     end
-    local pressureMax = stage:GetPressureMax()
-    data.TxtPressure = string.format("<color=#ff8340>%d</color> / %d", pressure, pressureMax)
+    --local pressureMax = stage:GetPressureMax()
+    data.TxtPressure = string.format("<color=#ff8340>%d</color>", pressure)
     data.Pressure = pressure
 
-    local star = stage:GetStar()
-    local starMax = stage:GetStarMax()
+    local star = self._Model:GetStageStar(stage)
+    local starMax = self._Model:GetStageStarMax(stage)
     data.StarAmount = star
     data.StarAmountMax = starMax
 
     local pressure2NextStar = 0
     local nextStar = star + 1
     if nextStar <= starMax then
-        local pressureNextStar = stage:GetPressureByStar(nextStar)
+        local pressureNextStar = self._Model:GetPressureByStar(nextStar, stage:GetId())
         pressure2NextStar = pressureNextStar - pressure
     end
     if pressure2NextStar > 0 then
@@ -98,14 +106,14 @@ function XViewModelReform2ndList:Update()
     --endregion
 
     --region mob
-    data.StageName = stage:GetName()
+    data.StageName = self._Model:GetStageName(stage:GetId())
     self:UpdateMobData()
     --endregion
 end
 
 function XViewModelReform2ndList:UpdateMobData()
     local data = self.Data
-    local groupArray = self._Stage:GetMonsterGroup()
+    local groupArray = self._Model:GetMobGroupByStage(self._Stage)
 
     --region button group
     data.BtnGroup = {}
@@ -159,12 +167,12 @@ function XViewModelReform2ndList:UpdateMobData()
             ---@class UiReformMobData
             local mobData = {
                 IsAdd = false,
-                Name = mob:GetName(),
-                Icon = mob:GetIcon(),
+                Name = self._Model:GetMobName(mob:GetId()),
+                Icon = self._Model:GetMobIcon(mob:GetId()),
                 Text = false,
-                TextLevel = XUiHelper.GetText("ReformMobLevel", mob:GetLevel()),
+                TextLevel = XUiHelper.GetText("ReformMobLevel", self._Model:GetMobLevel(mob:GetId())),
                 IconBuff = affixIconList,
-                Pressure = mob:GetPressure(),
+                Pressure = self._Model:GetMobPressureByMob(mob),
                 MobGroup = groupSelected,
                 Index = i,
                 IsSelected = i == self._SelectedMob.Index,
@@ -175,7 +183,7 @@ function XViewModelReform2ndList:UpdateMobData()
     end
 
     local amountCanSelect = amountMax - amount
-    if (amountCanSelect > 0 and not self._Stage:IsFullPressure()) or amount == 0 then
+    if (amountCanSelect > 0 and not self._Model:IsStageFullPressure(self._Stage)) or amount == 0 then
         local addData = {
             IsAdd = true,
             Text = XUiHelper.GetText("ReformMobAmountCanSelect", amountCanSelect),
@@ -195,7 +203,7 @@ function XViewModelReform2ndList:UpdateMobData()
     end
     data.IsEnableBtnEnter = isEnableBtnEnter
     --endregion
-    
+
     --region 特殊需求 第五章 一二波 怪物数量不为1
     data.IsDisableFightChapter5 = false
     if self._Stage:GetChapterIndex() == 5 then
@@ -215,6 +223,25 @@ function XViewModelReform2ndList:SetButtonGroupIndex(index)
     self._CurrentIndex = index
 end
 
+function XViewModelReform2ndList:SetNextButtonGroupIndex()
+    if self:IsMaxButtonGroupIndex() then
+        return false
+    end
+    local groupData = self.Data.MobData
+    for i = 1, #groupData do
+        local data = groupData[i]
+        if data.IsAdd then
+            self:SetSelectedMobGroup(data)
+        end
+    end
+    return true
+end
+
+function XViewModelReform2ndList:IsMaxButtonGroupIndex()
+    local group = self._Model:GetMonsterGroupByIndex(self._Stage, self._CurrentIndex)
+    return group:GetMobAmount() >= group:GetMobAmountMax()
+end
+
 function XViewModelReform2ndList:GetButtonGroupIndex()
     return self._CurrentIndex
 end
@@ -225,7 +252,7 @@ function XViewModelReform2ndList:OnClickTabButton(index)
         return
     end
     if buttonData.IsAdd then
-        local group = self._Stage:GetMonsterGroupByIndex(index)
+        local group = self._Model:GetMonsterGroupByIndex(self._Stage, index)
         group:SetIsShow(true)
     end
     self._CurrentIndex = index
@@ -234,14 +261,14 @@ end
 
 function XViewModelReform2ndList:RequestResetReformData()
     local stage = self._Stage
-    local groups = stage:GetMonsterGroup()
+    local groups = self._Model:GetMobGroupByStage(stage)
     for i = 1, #groups do
         local group = groups[i]
         local mobAmount = group:GetMobAmountMax()
         for j = 1, mobAmount do
             group:ClearMob()
         end
-        XDataCenter.Reform2ndManager.RequestSave(group)
+        XMVCA.XReform:RequestSave(group)
     end
     XEventManager.DispatchEvent(XEventId.EVENT_REFORM_UPDATE_MOB)
 end
@@ -256,7 +283,12 @@ end
 function XViewModelReform2ndList:SetSelectedMobGroup(data)
     self._SelectedMob.MobGroup = data.MobGroup
     self._SelectedMob.Index = data.Index
-    self.MobIndex = data.Index
+    local mobData = self.Data.MobData
+    for i = 1, #mobData do
+        if mobData[i] == data then
+            self.GridIndex = i
+        end
+    end
     XEventManager.DispatchEvent(XEventId.EVENT_REFORM_SELECT_MOB_GROUP)
 end
 
@@ -266,12 +298,12 @@ function XViewModelReform2ndList:UpdateSelectedMob()
     if not mobGroup then
         return
     end
-    local isHardModeUnlock = self._Stage:GetIsUnlockedDifficulty()
+    local isHardModeUnlock = self._Model:GetStageIsUnlockedDifficulty(self._Stage)
     local mobList = mobGroup:GetMobCanSelect()
     local mobCanSelect = {}
     for i = 1, #mobList do
         local mob = mobList[i]
-        local isHardMode = mob:IsHardMode()
+        local isHardMode = self._Model:GetMobIsHardMode(mob:GetId())
         local isShow = true
         if isHardMode and not isHardModeUnlock then
             isShow = false
@@ -285,11 +317,11 @@ function XViewModelReform2ndList:UpdateSelectedMob()
             local affixIconList = self:GetAffixIconList(mob)
             ---@class XUiReformPanelMobData
             local mobData = {
-                Name = mob:GetName(),
-                Level = mob:GetLevel(),
-                Icon = mob:GetIcon(),
+                Name = self._Model:GetMobName(mob:GetId()),
+                Level = self._Model:GetMobLevel(mob:GetId()),
+                Icon = self._Model:GetMobIcon(mob:GetId()),
                 IconBuff = affixIconList,
-                Pressure = mob:GetPressure(),
+                Pressure = self._Model:GetMobPressureByMob(mob),
                 IsSelected = isSelected,
                 Mob = mob,
             }
@@ -297,6 +329,40 @@ function XViewModelReform2ndList:UpdateSelectedMob()
         end
     end
     data.MobList = mobCanSelect
+
+    local stage = self._Stage
+    local monsterGroup = self._Model:GetMonsterGroupByIndex(stage, self._CurrentIndex)
+    if monsterGroup:IsEmpty() then
+        data.IsAutoShowNextMob = true
+    end
+
+    local isShowCompleteButton = false
+
+    -- 已选好一个怪的时候
+    if self._SelectedMob.MobGroup then
+        local mob = self._SelectedMob.MobGroup:GetMob(1)
+        if mob then
+            isShowCompleteButton = true
+        end
+    end
+
+    -- 自动选择中
+    if data.IsAutoShowNextMob then
+        isShowCompleteButton = false
+
+        if self._SelectedMob.MobGroup and self._SelectedMob.Index > 1 then
+            local mob = self._SelectedMob.MobGroup:GetMob(self._SelectedMob.Index)
+            if not mob then
+                isShowCompleteButton = true
+            end
+        end
+    end
+
+    data.IsShowCompleteButton = isShowCompleteButton
+end
+
+function XViewModelReform2ndList:CloseAutoShowNextMob()
+    self.DataMob.IsAutoShowNextMob = false
 end
 
 function XViewModelReform2ndList:UpdateMobAffix()
@@ -309,49 +375,71 @@ function XViewModelReform2ndList:UpdateMobAffix()
     if not mob then
         return
     end
-    local isHardModeUnlock = self._Stage:GetIsUnlockedDifficulty()
+    local isHardModeUnlock = self._Model:GetStageIsUnlockedDifficulty(self._Stage)
 
     data.AffixList = {}
-    local affixList = mob:GetAffixCanSelect()
+    local affixList = self:GetAffixCanSelectByMob(mob)
+    local isFullDesc = data.IsFullDesc
     for i = 1, #affixList do
         local affix = affixList[i]
         local isShow = true
-        if affix:IsHardMode() and not isHardModeUnlock then
+        if self._Model:GetAffixIsHardMode(affix:GetId()) and not isHardModeUnlock then
             isShow = false
         end
         if isShow then
+            local desc
+            if isFullDesc then
+                desc = self._Model:GetAffixDesc(affix:GetId())
+            else
+                desc = self._Model:GetAffixSimpleDesc(affix:GetId())
+            end
             ---@class XReformAffixData
             local dataAffix = {
-                Name = affix:GetName(),
-                Desc = affix:GetSimpleDesc(),
-                Icon = affix:GetIcon(),
-                Pressure = affix:GetPressure(),
+                Name = self._Model:GetAffixName(affix:GetId()),
+                Desc = desc,
+                Icon = self._Model:GetAffixIcon(affix:GetId()),
+                Pressure = self._Model:GetAffixPressure(affix:GetId()),
                 IsSelected = mob:IsAffixSelected(affix),
                 Affix = affix,
             }
             data.AffixList[#data.AffixList + 1] = dataAffix
         end
     end
+
+    local affixAmount = mob:GetAffixAmount()
+    local maxAffixAmount = self._Model:GetMobAffixMaxCountByMob(mob)
+    data.TextAffixAmount = affixAmount .. "/" .. maxAffixAmount
+end
+
+function XViewModelReform2ndList:SetIsFullDesc(value)
+    self.DataMob.IsFullDesc = value
+    XSaveTool.SaveData(self._Model:GetToggleFullDescKey(), value)
+    XEventManager.DispatchEvent(XEventId.EVENT_REFORM_SELECT_AFFIX)
+end
+
+function XViewModelReform2ndList:GetIsFullDesc()
+    return self.DataMob.IsFullDesc
 end
 
 ---@param mob XReform2ndMob
 function XViewModelReform2ndList:GetAffixIconList(mob)
     local affixIconList = {}
-    local affixList = mob:GetAffixList()
+    local affixList = self:GetAffixCanSelectByMob(mob)
+    mob:GetAffixList()
     for i = 1, #affixList do
         local affix = affixList[i]
-        local icon = affix:GetIcon()
+        local icon = self._Model:GetAffixIcon(affix:GetId())
         ---@class XUiReformAffixIconData
         local data = {
-            Name = affix:GetName(),
-            Desc = affix:GetSimpleDesc(),
-            DescDetail = affix:GetDesc(),
+            Name = self._Model:GetAffixName(affix:GetId()),
+            Desc = self._Model:GetAffixSimpleDesc(affix:GetId()),
+            DescDetail = self._Model:GetAffixDesc(affix:GetId()),
             Icon = icon,
             IsEmpty = false
         }
         affixIconList[i] = data
     end
-    local affixAmountMax = mob:GetAffixAmountMax()
+    local affixAmountMax = self._Model:GetMobAffixMaxCountByMob(mob)
     for i = #affixList + 1, affixAmountMax do
         affixIconList[i] = {
             Icon = false,
@@ -392,7 +480,8 @@ function XViewModelReform2ndList:SetSelectedMob(data)
                 self.DataMob.IsDirty = true
 
             elseif not mobSelected then
-                if self._Stage:IsOverPressure(mob:GetPressure()) then
+                local pressure = self._Model:GetMobPressureByMob(mob)
+                if self._Model:IsOverPressure(self._Stage, pressure) then
                     XUiManager.TipText("ReformPressureMax")
                     return false
                 end
@@ -401,14 +490,15 @@ function XViewModelReform2ndList:SetSelectedMob(data)
                 self._SelectedMob.Index = 1
                 self.DataMob.IsDirty = true
             else
-                if self._Stage:IsOverPressure(mob:GetPressure() - mobSelected:GetPressure()) then
+                local pressure = self._Model:GetMobPressureByMob(mob) - self._Model:GetMobPressureByMob(mobSelected)
+                if self._Model:IsOverPressure(self._Stage, pressure) then
                     XUiManager.TipText("ReformPressureMax")
                     return false
                 end
                 mobGroup:SetMob(index, mob:Clone())
                 self.DataMob.IsDirty = true
             end
-            XDataCenter.Reform2ndManager.RequestSave(mobGroup)
+            XMVCA.XReform:RequestSave(mobGroup)
         else
             XLog.Error("[XViewModelReform2ndList] select mob error, mob is empty")
         end
@@ -428,11 +518,11 @@ function XViewModelReform2ndList:SetAffixSelected(data)
     if data.IsSelected then
         mob:SetAffixUnselected(affix)
     else
-        if mob:GetAffixAmount() >= mob:GetAffixAmountMax() then
+        if mob:GetAffixAmount() >= self._Model:GetMobAffixMaxCountByMob(mob) then
             XUiManager.TipText("ReformAffixMax")
             return false
         end
-        if self._Stage:IsOverPressure(affix:GetPressure()) then
+        if self._Model:IsOverPressure(self._Stage, self._Model:GetAffixPressure(affix:GetId())) then
             XUiManager.TipText("ReformPressureMax")
             return false
         end
@@ -440,26 +530,26 @@ function XViewModelReform2ndList:SetAffixSelected(data)
     end
     self.DataMob.IsDirty = true
     XEventManager.DispatchEvent(XEventId.EVENT_REFORM_SELECT_AFFIX)
-    XDataCenter.Reform2ndManager.RequestSave(mobGroup)
+    XMVCA.XReform:RequestSave(mobGroup)
     return false
 end
 
 function XViewModelReform2ndList:UpdateStage()
     local data = self.DataStage
     local stage = self._Stage
-    data.Name = stage:GetName()
-    local chapter = stage:GetChapter()
+    data.Name = self._Model:GetStageName(stage:GetId())
+    local chapter = stage:GetChapter(self._Model)
     if chapter then
-        data.Desc = chapter:GetThemeDesc()
+        data.Desc = self._Model:GetChapterEventDescById(chapter:GetId())
     end
-    data.DescTarget = stage:GetGoalDesc()
+    data.DescTarget = self._Model:GetStageGoalDescById(stage:GetId())
     data.Number = stage:GetStageNumberText()
 
     local iconList = {}
-    local characterIdList = stage:GetRecommendCharacters()
+    local characterIdList = self._Model:GetStageRecommendCharacterIds(stage:GetId())
     for i = 1, #characterIdList do
         local characterId = characterIdList[i]
-        local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+        local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
         iconList[#iconList + 1] = icon
     end
     data.IconList = iconList
@@ -471,6 +561,85 @@ end
 
 function XViewModelReform2ndList:SetPlayingAnimationScroll(value)
     self.DataMob.PlayingAnimation = value
+end
+
+--region environment
+function XViewModelReform2ndList:UpdateEnvironment()
+    local stage = self._Stage
+    local environments = stage:GetEnvironments(self._Model)
+    local list = {}
+    self.DataEnvironment.List = list
+    local currentEnvironment = stage:GetSelectedEnvironment(self._Model)
+
+    for i = 1, #environments do
+        local environment = environments[i]
+        ---@class XViewModelReformEnvironment
+        local dataEnvironment = {
+            Name = environment:GetName(self._Model),
+            Icon = environment:GetIcon(self._Model),
+            Desc = environment:GetDesc(self._Model),
+            AddScore = environment:GetAddScore(self._Model),
+            EnvironmentId = environment:GetId(),
+            IsSelected = environment == currentEnvironment,
+        }
+        list[#list + 1] = dataEnvironment
+    end
+end
+
+function XViewModelReform2ndList:UpdateSelectedEnvironment()
+    local stage = self._Stage
+    local currentEnvironment = stage:GetSelectedEnvironment(self._Model)
+    if currentEnvironment then
+        local data = {}
+        self.DataEnvironment.DataSelectedEnvironment = data
+        data.Name = currentEnvironment:GetName(self._Model)
+        data.Icon = currentEnvironment:GetIcon(self._Model)
+    else
+        self.DataEnvironment.DataSelectedEnvironment = nil
+    end
+end
+
+function XViewModelReform2ndList:GetUiDataEnvironment()
+    return self.DataEnvironment
+end
+
+function XViewModelReform2ndList:RequestSetEnvironment()
+    if not self.DataEnvironment.SelectedEnvironment then
+        XLog.Error("[XViewModelReform2ndList] select nothing")
+        return
+    end
+    local stageId = self._Stage:GetId()
+    local environmentId = self.DataEnvironment.SelectedEnvironment:GetId()
+    XMVCA.XReform:RequestSelectEnvironment(stageId, environmentId)
+end
+
+function XViewModelReform2ndList:SetSelectedEnvironment(environmentId)
+    local stage = self._Stage
+    local environments = stage:GetEnvironments()
+    for i = 1, #environments do
+        local environment = environments[i]
+        if environment:GetId() == environmentId then
+            self.DataEnvironment.SelectedEnvironment = environment
+            self:RequestSetEnvironment()
+        end
+    end
+end
+--endregion
+
+---@param mob XReform2ndMob
+function XViewModelReform2ndList:GetAffixCanSelectByMob(mob)
+    if not self._AffixCanSelect[mob:GetId()] then
+        self._AffixCanSelect[mob:GetId()] = {}
+        local groupId = self._Model:GetMobAffixGroupId(mob:GetId())
+        local affixIdList = self._Model:GetAffixGroupByGroupId(groupId)
+        for i = 1, #affixIdList do
+            local id = affixIdList[i]
+            local XReform2ndAffix = require("XEntity/XReform2/XReform2ndAffix")
+            local affix = XReform2ndAffix.New(id)
+            self._AffixCanSelect[mob:GetId()][i] = affix
+        end
+    end
+    return self._AffixCanSelect[mob:GetId()]
 end
 
 return XViewModelReform2ndList

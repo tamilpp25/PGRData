@@ -1,6 +1,7 @@
 local XTeam = require("XEntity/XTeam/XTeam")
 local XPartnerPrefab = require("XEntity/XPartner/XPartnerPrefab")
 XTeamManagerCreator = function()
+    ---@class XTeamManager XTeamManager
     local XTeamManager = {}
 
     local TeamDataKey = "STAGE_TEAM_DATA_"
@@ -142,7 +143,7 @@ XTeamManagerCreator = function()
 
         local team = XSaveTool.GetData(GetTeamKey(stageId)) or EmptyTeam
         for _, v in ipairs(team.TeamData) do
-            if v ~= 0 and not XRobotManager.CheckIsRobotId(v) and not XDataCenter.CharacterManager.IsOwnCharacter(v) then
+            if v ~= 0 and not XRobotManager.CheckIsRobotId(v) and not XMVCA.XCharacter:IsOwnCharacter(v) then
                 return EmptyTeam
             end
         end
@@ -254,51 +255,51 @@ XTeamManagerCreator = function()
     end
 
     -- todo  特别优化
-    function XTeamManager.SetExpeditionTeamData(curTeam, cb)
-        local curTeamId = curTeam.TeamId
-        local params = {}
-        params.TeamData = {}
-        params.TeamId = curTeamId
-        XMessagePack.MarkAsTable(params.TeamData)
-        for k, v in pairs(curTeam.TeamData) do
-            params.TeamData[k] = v
-        end
-        params.CaptainPos = curTeam.CaptainPos
-        params.FirstFightPos = curTeam.FirstFightPos
-        local req = { TeamData = params}
-        XNetwork.Call(METHOD_NAME.SetTeam, req, function(res)
-            if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
-                return
-            end
-            local characterCheckTable = {}
-            local playerTeamData = PlayerTeamGroupData
-            -- 更新客户端队伍缓存
-            if playerTeamData[curTeamId] == nil then
-                playerTeamData[curTeamId] = {}
-            else
-                for _, baseId in pairs(playerTeamData[curTeamId].TeamData) do
-                    characterCheckTable[baseId] = true
-                end
-
-                for pos, baseId in pairs(curTeam.TeamData) do
-                    if not characterCheckTable[baseId] then
-                        local charId = XExpeditionConfig.GetCharacterIdByBaseId(baseId)
-                        XEventManager.DispatchEvent(XEventId.EVENT_TEAM_MEMBER_CHANGE, curTeamId, charId, pos == curTeam.CaptainPos)
-                    end
-                end
-            end
-            playerTeamData[curTeamId].TeamId = curTeamId
-            playerTeamData[curTeamId].CaptainPos = curTeam.CaptainPos
-            playerTeamData[curTeamId].FirstFightPos = curTeam.FirstFightPos
-            playerTeamData[curTeamId].TeamData = curTeam.TeamData
-            playerTeamData[curTeamId].TeamName = curTeam.TeamName
-
-            if cb then cb() end
-
-            XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_CHANGE, curTeamId, playerTeamData[curTeamId])
-        end)
-    end
+    --function XTeamManager.SetExpeditionTeamData(curTeam, cb)
+    --    local curTeamId = curTeam.TeamId
+    --    local params = {}
+    --    params.TeamData = {}
+    --    params.TeamId = curTeamId
+    --    XMessagePack.MarkAsTable(params.TeamData)
+    --    for k, v in pairs(curTeam.TeamData) do
+    --        params.TeamData[k] = v
+    --    end
+    --    params.CaptainPos = curTeam.CaptainPos
+    --    params.FirstFightPos = curTeam.FirstFightPos
+    --    local req = { TeamData = params}
+    --    XNetwork.Call(METHOD_NAME.SetTeam, req, function(res)
+    --        if res.Code ~= XCode.Success then
+    --            XUiManager.TipCode(res.Code)
+    --            return
+    --        end
+    --        local characterCheckTable = {}
+    --        local playerTeamData = PlayerTeamGroupData
+    --        -- 更新客户端队伍缓存
+    --        if playerTeamData[curTeamId] == nil then
+    --            playerTeamData[curTeamId] = {}
+    --        else
+    --            for _, baseId in pairs(playerTeamData[curTeamId].TeamData) do
+    --                characterCheckTable[baseId] = true
+    --            end
+    --
+    --            for pos, baseId in pairs(curTeam.TeamData) do
+    --                if not characterCheckTable[baseId] then
+    --                    local charId = XExpeditionConfig.GetCharacterIdByBaseId(baseId)
+    --                    XEventManager.DispatchEvent(XEventId.EVENT_TEAM_MEMBER_CHANGE, curTeamId, charId, pos == curTeam.CaptainPos)
+    --                end
+    --            end
+    --        end
+    --        playerTeamData[curTeamId].TeamId = curTeamId
+    --        playerTeamData[curTeamId].CaptainPos = curTeam.CaptainPos
+    --        playerTeamData[curTeamId].FirstFightPos = curTeam.FirstFightPos
+    --        playerTeamData[curTeamId].TeamData = curTeam.TeamData
+    --        playerTeamData[curTeamId].TeamName = curTeam.TeamName
+    --
+    --        if cb then cb() end
+    --
+    --        XEventManager.DispatchEvent(XEventId.EVENT_TEAM_PREFAB_CHANGE, curTeamId, playerTeamData[curTeamId])
+    --    end)
+    --end
 
     function XTeamManager.GetPlayerTeamData(teamId)
         return PlayerTeamGroupData[teamId] or false

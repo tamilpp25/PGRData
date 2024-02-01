@@ -127,7 +127,7 @@ function XUiGridSnowGameFightItem:SwitchAlreadyLike()
 end
 
 function XUiGridSnowGameFightItem:GetHeadIcon(characterId, ...)
-    --return XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, ...)
+    --return XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, ...)
     return XCharacterCuteConfig.GetCuteModelRoundnessHeadIcon(characterId)
 end
 

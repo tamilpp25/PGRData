@@ -30,7 +30,7 @@ end
 function XUiTheatreBuffDetails:OnStart(skillId, skillLevel)
     self.TxtTitle.text = CSTextManagerGetText("SCTipBossSkillDetailName")
     self.TxtDescTitle.text = CSTextManagerGetText("SCTipBossSkillDetailDesc")
-    local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
     self.TxtName.text = configDes.Name
     self.TxtDesc.text = configDes.Intro
     self.TxtLv.text = skillLevel

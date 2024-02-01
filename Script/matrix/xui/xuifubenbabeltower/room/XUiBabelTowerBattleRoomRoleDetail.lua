@@ -39,7 +39,7 @@ function XUiBabelTowerBattleRoomRoleDetail:GetAutoCloseInfo()
 end
 
 function XUiBabelTowerBattleRoomRoleDetail:GetEntities(characterType)
-    local roles = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local roles = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     local babelTowerStageCfg = XFubenBabelTowerConfigs.GetBabelTowerStageTemplate(self.StageId)
     local robotIds = babelTowerStageCfg.RobotIds or {}
     -- 添加机器人

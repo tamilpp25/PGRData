@@ -45,7 +45,7 @@ function XUiExpeditionInfinityWin:OnBtnReFightClick()
     else
         self:StopAudio()
         self:Close()
-        XLuaUiManager.Open("UiNewRoomSingle", self.EStage:GetStageId())
+        XLuaUiManager.Open("UiBattleRoleRoom", self.EStage:GetStageId())
     end
 end
 

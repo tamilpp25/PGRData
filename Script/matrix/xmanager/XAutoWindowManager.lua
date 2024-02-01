@@ -138,6 +138,10 @@ XAutoWindowManagerCreator = function()
                 goto continue
             end
 
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.SUBPACKAGE.ENTRY_TYPE.AUTO_WINDOW, v.Id, true) then
+                goto continue
+            end
+
             table.insert(AutoWindowList, v)
             :: continue ::
         end

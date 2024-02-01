@@ -17,17 +17,17 @@ end
 
 
 function XRedPointBodyCombineGameMain.Check()
-    if XRedPointBodyCombineGameReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BODYCOMBINEGAME_REWARD) then
         return true
     end
 
-    if XRedPointBodyCombineGameUnFinishAll.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BODYCOMBINEGAME_UNFINISHALL) then
         return true
     end
 
     local stageIds = XDataCenter.BodyCombineGameManager.GetCurActivityStageIds()
     for _, stageId in ipairs(stageIds) do
-        if XRedPointBodyCombineGameUnlockedStage.Check(stageId) then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BODYCOMBINEGAME_UNLOCKED_STAGE, stageId) then
             return true
         end
     end

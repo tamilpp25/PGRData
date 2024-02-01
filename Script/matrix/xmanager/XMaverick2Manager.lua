@@ -1207,9 +1207,9 @@ XMaverick2ManagerCreator = function()
     end
 
     function XMaverick2Manager.CallFinishFight()
-        local res = XDataCenter.FubenManager.FubenSettleResult
-        XDataCenter.FubenManager.FubenSettling = false
-        XDataCenter.FubenManager.FubenSettleResult = nil
+        local res = XMVCA.XFuben:GetFubenSettleResult()
+        XMVCA.XFuben:SetFubenSettling(false)
+        XMVCA.XFuben:SetFubenSettleResult(nil)
 
         --通知战斗结束，关闭战斗设置页面
         CS.XGameEventManager.Instance:Notify(XEventId.EVENT_FIGHT_FINISH)

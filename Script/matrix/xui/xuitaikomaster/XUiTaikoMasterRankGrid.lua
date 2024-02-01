@@ -1,3 +1,4 @@
+---@class XUiTaikoMasterRankGrid
 local XUiTaikoMasterRankGrid = XClass(nil, "XUiTaikoMasterRankGrid")
 
 function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
@@ -10,6 +11,7 @@ function XUiTaikoMasterRankGrid:Ctor(ui, rootUi)
     XUiHelper.RegisterClickEvent(self, self.BtnDetail, self.OnBtnDetailClicked)
 end
 
+---@param rankInfo XTaikoMasterRankPlayerInfo
 function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
     self._RankInfo = rankInfo
     -- 名次
@@ -17,7 +19,7 @@ function XUiTaikoMasterRankGrid:SetData(rankInfo, songId)
     self.TxtRankNormal.gameObject:SetActiveEx(not showColorRank)
     self.ImgRankSpecial.gameObject:SetActiveEx(showColorRank)
     if showColorRank then
-        local icon = XDataCenter.FubenBossSingleManager.GetRankSpecialIcon(rankInfo.Rank, self._LevelType)
+        local icon = XMVCA.XFubenBossSingle:GetRankSpecialIcon(rankInfo.Rank, self._LevelType)
         self.RootUi:SetUiSprite(self.ImgRankSpecial, icon)
     else
         self.TxtRankNormal.text = rankInfo.Rank

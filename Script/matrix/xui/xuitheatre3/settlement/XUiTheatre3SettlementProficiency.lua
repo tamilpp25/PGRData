@@ -6,6 +6,8 @@ local XUiTheatre3SettlementMemberCell = require("XUi/XUiTheatre3/Settlement/XUiT
 local XUiTheatre3SettlementProficiency = XClass(XUiNode, "XUiTheatre3SettlementProficiency")
 
 function XUiTheatre3SettlementProficiency:OnStart()
+    ---@type XUiTheatre3SettlementMemberCell[]
+    self._CharacterList = {}
     self:Init()
 end
 
@@ -26,11 +28,28 @@ function XUiTheatre3SettlementProficiency:UpdateMember()
 
     self.ListCharacter.gameObject:SetActiveEx(true)
     for i, v in ipairs(self._Data.BattleCharacters) do
-        local go = i == 1 and self.CharacterGrid or XUiHelper.Instantiate(self.CharacterGrid, self.CharacterGrid.parent)
-        local uiObject = {}
-        XTool.InitUiObjectByUi(uiObject, go)
-        local grid = XUiTheatre3SettlementMemberCell.New(uiObject.CharacterGrid, self)
+        local grid = self._CharacterList[i]
+        if not grid then
+            local go = i == 1 and self.CharacterGrid or XUiHelper.Instantiate(self.CharacterGrid, self.CharacterGrid.parent)
+            local uiObject = {}
+            XTool.InitUiObjectByUi(uiObject, go)
+            grid = XUiTheatre3SettlementMemberCell.New(uiObject.CharacterGrid, self)
+            self._CharacterList[i] = grid
+        end
         grid:SetData(v)
+    end
+end
+
+function XUiTheatre3SettlementProficiency:StopCharacterExpAnim()
+    for _, grid in pairs(self._CharacterList) do
+        grid:StopExpAnim()
+        grid:RefreshLv()
+    end
+end
+
+function XUiTheatre3SettlementProficiency:PlayCharacterExpAnim()
+    for _, grid in pairs(self._CharacterList) do
+        grid:PlayExpAnim()
     end
 end
 

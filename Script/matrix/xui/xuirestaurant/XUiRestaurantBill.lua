@@ -33,7 +33,7 @@ function XUiRestaurantBill:InitView()
         local timeNow = XTime.GetServerNowTimestamp()
         local subTime = timeNow - settleTime
         local tip = XRestaurantConfigs.GetClientConfig("OfflineBillText", 1)
-        tip = string.format(tip, XUiHelper.GetTime(subTime, XUiHelper.TimeFormatType.DAILY_TASK))
+        tip = string.format(tip, XUiHelper.GetTime(subTime, XUiHelper.TimeFormatType.TO_A_MINUTE))
         self.TxtMassage.text = tip
     end, "_OfflineBillUpdateTime")
     

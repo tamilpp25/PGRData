@@ -3,10 +3,6 @@ local XUiPanelModelV2P6 = require("XUi/XUiCharacterV2P6/Grid/XUiPanelModelV2P6")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 function XUiCharacterSystemV2P6:OnAwake()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    
     self.OpenChildStack = XStack.New()
     self.CurCharacter = nil --所有的子界面都通过该字段同步、获取角色
     self.FilterCurSelectTagBtnName = nil --同步子界面的筛选器标签。子界面切换了标签后，成员界面的标签也要切换
@@ -16,6 +12,7 @@ function XUiCharacterSystemV2P6:OnAwake()
     self:InitButton()
 
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, self.SetCurCharacter, self)
+    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, self.SetSyncCharFlag, self)
 end
 
 function XUiCharacterSystemV2P6:InitButton()
@@ -33,7 +30,11 @@ end
 
 -- 子界面通过该接口同步资源栏物品
 function XUiCharacterSystemV2P6:SetPanelAsset(...)
-    self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, ...)
+    if self.AssetPanel then
+        self.AssetPanel:RefreshBindItem(...)
+    else
+        self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, ...)
+    end
 end
 
 -- 子界面通过该接口设置相机
@@ -41,11 +42,28 @@ function XUiCharacterSystemV2P6:SetCamera(targetIndex)
     self.PanelModel:SetCamera(targetIndex)
 end
 
+
+function XUiCharacterSystemV2P6:SetSyncCharFlag()
+    if self.ChildUiCharacterV2P6 then
+        self.ChildUiCharacterV2P6:SetSyncCharFlag()
+    end
+end
+
 -- 子界面通过该接口同步角色
-function XUiCharacterSystemV2P6:SetCurCharacter(char)
+function XUiCharacterSystemV2P6:SetCurCharacter(char, tagName)
     if not char then
         return
     end
+
+    self.CurSyncTagName = tagName
+    -- 如果跳转出去抽出了角色，回来需要刷新数据。因为如果不刷新，使用的还是筛选器缓存的数据，筛选器的数据是导入时的数据，不是最新的
+    -- 并且监听获取新角色的数据只在Onenable的时候注册了，抽卡的时候是无法监听刷新的。只能通过返回来时触发OnEnable，Onenable再次SetCurCharacter的时候刷新
+    local isFragment = XMVCA.XCharacter:CheckIsFragment(char.Id)  
+    if not isFragment then
+        self.CurCharacter = XMVCA.XCharacter:GetCharacter(char.Id)
+        return
+    end
+
     self.CurCharacter = char
 end
 
@@ -61,7 +79,7 @@ function XUiCharacterSystemV2P6:RefreshRoleModel(cb)
     local subCb = function (model)
         -- 切换特效 只有换人才播放
         if model ~= self.CurModelTransform then
-            if self.CharacterAgency:GetIsIsomer(self.CurCharacter.Id) then
+            if XMVCA.XCharacter:GetIsIsomer(self.CurCharacter.Id) then
                 self.PanelModel.ImgEffectHuanren1.gameObject:SetActiveEx(true)
             else
                 self.PanelModel.ImgEffectHuanren.gameObject:SetActiveEx(true)
@@ -88,6 +106,8 @@ function XUiCharacterSystemV2P6:OnStart(initCharId, skipArgs)
 end
 
 function XUiCharacterSystemV2P6:OnEnable()
+    self:RefreshRoleModel()
+
     if self.IsUiInit then
         return
     end
@@ -110,6 +130,7 @@ end
 
 function XUiCharacterSystemV2P6:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, self.SetCurCharacter, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, self.SetSyncCharFlag, self)
 end
 
 function XUiCharacterSystemV2P6:OpenBySkipArgs()
@@ -119,9 +140,11 @@ function XUiCharacterSystemV2P6:OpenBySkipArgs()
     elseif arg == XEnumConst.CHARACTER.SkipEnumV2P6.PropertyLvUp then
         self:OpenChildUi("UiCharacterPropertyV2P6")
     elseif arg == XEnumConst.CHARACTER.SkipEnumV2P6.PropertyGrade then
-        self:OpenChildUi("UiCharacterPropertyV2P6", 2)
+        local pageNum = 2
+        self:OpenChildUi("UiCharacterPropertyV2P6", pageNum)
     elseif arg == XEnumConst.CHARACTER.SkipEnumV2P6.PropertySkill then
-        self:OpenChildUi("UiCharacterPropertyV2P6", 3)
+        local pageNum = 3
+        self:OpenChildUi("UiCharacterPropertyV2P6", pageNum)
     else
         self:OpenChildUi("UiCharacterV2P6")
         XLog.Error("SkipArgs传入的枚举错误 查看 XEnumConst.CHARACTER.SkipEnumV2P6，传入", self.SkipArgs)

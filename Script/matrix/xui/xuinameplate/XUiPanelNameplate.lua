@@ -64,7 +64,10 @@ function XUiPanelNameplate:UpdateDataById(id)
         self.Enablenim.gameObject:SetActiveEx(true)
 
         if not XTool.UObjIsNil(self.EffectGo) and res ~= currInstatiePrefabUrl then -- 防止重复Init
-            XScheduleManager.ScheduleOnce(function() 
+            XScheduleManager.ScheduleOnce(function()
+                if XTool.UObjIsNil(self.Effect) then
+                    return
+                end
                 self.Effect:GetComponent("XUiEffectLayer"):Init()   -- 延时初始化，因为自动初始化过早，render还未加载出来
             end, 50)
         end
@@ -111,6 +114,12 @@ function XUiPanelNameplate:UpdateDataById(id)
     --     --self.ImgGold:SetSprite("")
     --     self.TxtGold.text = Title
     -- end
+end
+
+function XUiPanelNameplate:SetEffectActive(isActive)
+    if not XTool.UObjIsNil(self.EffectGo) then
+        self.EffectGo.gameObject:SetActiveEx(isActive)
+    end
 end
 
 return XUiPanelNameplate

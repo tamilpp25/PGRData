@@ -8,7 +8,7 @@ local function Awake()
 end
 
 local function GetQualityTemplate(templateId, quality)
-    local qualityTemplate = XCharacterConfigs.GetQualityTemplate(templateId, quality)
+    local qualityTemplate = XMVCA.XCharacter:GetQualityTemplate(templateId, quality)
 
     if not qualityTemplate then
         return XCode.CharacterManagerGetQualityTemplateNotFound, nil
@@ -18,7 +18,7 @@ local function GetQualityTemplate(templateId, quality)
 end
 
 local function GetGradeTemplates(templateId, grade)
-    local gradeTemplate = XCharacterConfigs.GetGradeTemplates(templateId, grade)
+    local gradeTemplate = XMVCA.XCharacter:GetGradeTemplates(templateId, grade)
     if not gradeTemplate then
         return XCode.CharacterManagerGetGradeTemplateNotFound, nil
     end
@@ -27,7 +27,7 @@ local function GetGradeTemplates(templateId, grade)
 end
 
 local function GetCharSkillLevelEffectTemplate(skillId, level)
-    local levelConfig = XCharacterConfigs.GetSkillLevelEffectTemplate(skillId, level)
+    local levelConfig = XMVCA.XCharacter:GetSkillLevelEffectTemplate(skillId, level)
     
     if not levelConfig then
         return XCode.CharacterSkillLevelEffectTemplateNotFound, nil
@@ -37,7 +37,7 @@ local function GetCharSkillLevelEffectTemplate(skillId, level)
 end
 
 local function GetCharEnhanceSkillLevelEffectTemplate(skillId, level)
-    local levelConfig = XCharacterConfigs.GetEnhanceSkillLevelEffectBySkillIdAndLevel(skillId, level)--补强技能配置
+    local levelConfig = XMVCA.XCharacter:GetEnhanceSkillLevelEffectBySkillIdAndLevel(skillId, level)--补强技能配置
     
     if not levelConfig then
         return XCode.CharacterSkillLevelEffectTemplateNotFound, nil
@@ -130,7 +130,7 @@ local function GetResonanceSkillLevelMap(npcData)
                 if resonance.Type == CS.EquipResonanceType.CharacterSkill or resonance.Type == XEquipConfig.EquipResonanceType.CharacterSkill then
                     if resonance.CharacterId == npcData.Character.Id then
                         local skillId = resonance.TemplateId
-                        local groupSkillIds = XCharacterConfigs.GetGroupSkillIds(skillId)
+                        local groupSkillIds = XMVCA.XCharacter:GetGroupSkillIds(skillId)
 
                         for _, groupSkillId in pairs(groupSkillIds) do
                             if levelMap[groupSkillId] then

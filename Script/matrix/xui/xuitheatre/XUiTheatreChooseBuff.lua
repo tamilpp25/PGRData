@@ -61,7 +61,7 @@ function XUiTheatreChooseBuff:OnAwake()
     self.CurrentSkillId = nil
     self.Callback = nil
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, self)
     self:RegisterUiEvents()
     -- 隐藏头部信息
     self.BtnBack.gameObject:SetActiveEx(false)

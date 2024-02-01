@@ -40,6 +40,12 @@ function XUiGridHeadPortrait:SetSelect(isSelect)
     end
 end
 
+function XUiGridHeadPortrait:SetRedPoint(isSelect)
+    if self.ImgRedPoint then
+        self.ImgRedPoint.gameObject:SetActiveEx(isSelect)
+    end
+end
+
 function XUiGridHeadPortrait:Refresh(headInfo, characterId)
     self:CheckAnimationFinish()
 
@@ -61,6 +67,8 @@ function XUiGridHeadPortrait:Refresh(headInfo, characterId)
         self.ImgUse.gameObject:SetActiveEx(false)
         self.RImgIcon.color = CSUnityEngineColor(1, 1, 1, 0.6)
     end
+
+    self:SetRedPoint(XDataCenter.FashionManager.GetAllHeadPortraitIsOwnDic(headInfo.HeadFashionId, headInfo.HeadFashionType).IsNew)
 end
 
 return XUiGridHeadPortrait

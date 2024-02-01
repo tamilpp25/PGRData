@@ -8,7 +8,7 @@ end
 
 function XUiAwarenessOccupyProgress:OnStart(characterId)
     self.CharacterId = characterId
-    self.Character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    self.Character = XMVCA.XCharacter:GetCharacter(characterId)
 end
 
 function XUiAwarenessOccupyProgress:InitButton()

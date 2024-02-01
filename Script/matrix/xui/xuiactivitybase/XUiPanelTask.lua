@@ -11,16 +11,22 @@ local BtnGoRedPointConditions = {
     [XActivityConfigs.TaskPanelSkipType.InvertCardGame2] = {XRedPointConditions.Types.CONDITION_INVERTCARDGAME_RED},
 }
 
-local XUiPanelTask = XClass(nil, "XUiPanelTask")
+local XUiDynamicDailyTask = XClass(XDynamicDailyTask, "XUiDynamicDailyTask")
 
-function XUiPanelTask:Ctor(ui, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    XTool.InitUiObject(self)
+--重写点击方法
+function XUiDynamicDailyTask:OnBtnSkipClick()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
+    XDynamicDailyTask.OnBtnSkipClick(self)
+end
 
+---@class XUiPanelTask:XUiNode
+local XUiPanelTask = XClass(XUiNode, "XUiPanelTask")
+
+function XUiPanelTask:OnStart()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelTaskActivityList)
-    self.DynamicTable:SetProxy(XDynamicDailyTask)
+    self.DynamicTable:SetProxy(XUiDynamicDailyTask,self)
     self.DynamicTable:SetDelegate(self)
 end
 
@@ -30,12 +36,19 @@ end
 
 function XUiPanelTask:OnDestroy()
     self:RemoveTimer()
+    self:RemoveRedPoint()
 end
 
 function XUiPanelTask:RemoveTimer()
     if self.Timer then
         XScheduleManager.UnSchedule(self.Timer)
         self.Timer = nil
+    end
+end
+
+function XUiPanelTask:RemoveRedPoint()
+    for _, redId in pairs(self.BtnGoRedPointIdDic or {}) do
+        XRedPointManager.RemoveRedPointEvent(redId)
     end
 end
 
@@ -51,6 +64,9 @@ function XUiPanelTask:Refresh(activityCfg)
         self.BtnGo.gameObject:SetActiveEx(true)
         CsXUiHelper.RegisterClickEvent(self.BtnGo, function()
             if XFunctionManager.CheckSkipInDuration(skipId) then
+                if not XMVCA.XSubPackage:CheckSubpackage() then
+                    return
+                end
                 XFunctionManager.SkipInterface(skipId)
             else
                 XUiManager.TipText("ActivityBaseTaskSkipNotInDuring")
@@ -103,7 +119,7 @@ end
 
 function XUiPanelTask:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid.RootUi = self.RootUi
+        grid.RootUi = self.Parent
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.TaskDatas[index]
         grid:ResetData(data)

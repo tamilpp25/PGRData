@@ -10,7 +10,7 @@ end
 
 function XUiPivotCombatCenterSettle:OnStart(winData)
     self.WinData = winData
-    self.CustomData = XDataCenter.FubenManager.CurFightResult.CustomData
+    self.CustomData = XMVCA.XFuben:GetCurFightResult().CustomData
 end
 
 function XUiPivotCombatCenterSettle:OnEnable()
@@ -96,7 +96,7 @@ function XUiPivotCombatCenterSettle:RefreshCharacterList(data)
         if XRobotManager.CheckIsRobotId(charId) then
             charId = XRobotManager.GetCharacterId(charId)
         end
-        local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(charId)
+        local icon = XMVCA.XCharacter:GetCharBigHeadIcon(charId)
         grid.RImgIcon:SetRawImage(icon)
         grid.GameObject:SetActiveEx(true)
     end

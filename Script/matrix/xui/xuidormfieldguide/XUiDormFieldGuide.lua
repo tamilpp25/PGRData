@@ -170,11 +170,12 @@ function XUiDormFieldGuide:OnDynamicTableEvent(event, index, grid)
             if grid.Id == lastId then
                 grid:SetSelect(false)
                 self.SelectFurniture = nil
+                self.LastGrid = nil
             else
                 grid:SetSelect(true)
                 self.SelectFurniture = data
+                self.LastGrid = grid
             end
-            self.LastGrid = grid
         else
             XLuaUiManager.Open("UiDormFieldGuideDes", data)
         end

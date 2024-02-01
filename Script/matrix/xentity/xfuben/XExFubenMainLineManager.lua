@@ -3,21 +3,24 @@ local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
 local XExFubenMainLineManager = XClass(XExFubenBaseManager, "XExFubenMainLineManager")
 
 function XExFubenMainLineManager:ExOpenChapterUi(viewModel, difficulty)
+    if viewModel.OnOpenChapterUi then
+        viewModel:OnOpenChapterUi()
+        return
+    end
+
     if difficulty == nil then difficulty = XDataCenter.FubenManager.DifficultNormal end
     -- 已解锁
     local extralData = viewModel:GetExtralData()
     local chapterMainId = extralData.MainId
     local chapterConfig = XDataCenter.FubenMainLineManager.GetChapterCfgByChapterMain(chapterMainId, difficulty)
     if not viewModel:GetIsLocked() then
-        XDataCenter.DlcManager.CheckDownloadForEntry(XDlcConfig.EntryType.MainChapter, chapterMainId, function()
-            if chapterMainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
-                XDataCenter.TRPGManager.PlayStartStory()
-            elseif chapterMainId == XDataCenter.FubenMainLineManager.MainLine3DId then
-                XLuaUiManager.Open("UiFubenMainLine3D")
-            else
-                XLuaUiManager.Open("UiFubenMainLineChapter", chapterConfig)
-            end
-        end)
+        if chapterMainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
+            XDataCenter.TRPGManager.PlayStartStory()
+        elseif chapterMainId == XDataCenter.FubenMainLineManager.MainLine3DId then
+            XLuaUiManager.Open("UiFubenMainLine3D")
+        else
+            XLuaUiManager.Open("UiFubenMainLineChapter", chapterConfig)
+        end
         -- self:ExSetCurrentGroupIndexAndChapterIndex(extralData.GroupId, extralData.Index)
     elseif viewModel:CheckHasTimeLimitTag() then
         local ret, desc = XDataCenter.FubenMainLineManager.CheckActivityCondition(viewModel:GetId())
@@ -54,15 +57,17 @@ function XExFubenMainLineManager:ExGetChapterViewModels(groupId, difficulty)
     if self.__ChapterViewModelDic[groupId][difficulty] then return self.__ChapterViewModelDic[groupId][difficulty] end
     self.__ChapterViewModelDic[groupId][difficulty] = {}
     for i, config in ipairs(self:ExGetChapterConfigs(groupId, difficulty)) do
-        local subChapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(config.Id, difficulty)
+        local subChapterId = self:GetSubChapterId(config, difficulty)
+        local chapterMainId = config.Id
         if subChapterId ~= nil and subChapterId > 0 then
             -- 提审服屏蔽第一章以外的
             if XUiManager.IsHideFunc then
                 if config.Id == 1001 then -- 第一章id
-                    table.insert(self.__ChapterViewModelDic[groupId][difficulty], self:ExGetChapterViewModelById(config.Id, difficulty, i))
+                    table.insert(self.__ChapterViewModelDic[groupId][difficulty], self:ExGetChapterViewModelById(chapterMainId, difficulty, i))
                 end
             else
-                table.insert(self.__ChapterViewModelDic[groupId][difficulty], self:ExGetChapterViewModelById(config.Id, difficulty, i))    
+                local viewModel = self:ExGetChapterViewModelById(chapterMainId, difficulty, i)
+                table.insert(self.__ChapterViewModelDic[groupId][difficulty], viewModel)
             end
         end
     end
@@ -87,6 +92,15 @@ function XExFubenMainLineManager:ExGetChapterConfigs(groupId, difficulty)
             table.insert(result, config)
         end
     end
+
+    -- 2.11新主线章节
+    local storyType = XEnumConst.MAINLINE2.STORY_TYPE.MAINLINE
+    local mainCfgs = XMVCA:GetAgency(ModuleId.XMainLine2):GetMainCfgsByStoryTypeGroupId(storyType, groupId)
+    if mainCfgs and #mainCfgs > 0 then
+        table.sort(mainCfgs, function(a, b) return a.OrderId < b.OrderId end)
+        result = XTool.MergeArray(result, mainCfgs)
+    end
+
     self.__ChapterConfigDic[groupId][difficulty] = result
     return result
 end
@@ -157,7 +171,8 @@ function XExFubenMainLineManager:ExGetChapterIsLockAndLockTip(chapterMainId, dif
     return true, XUiHelper.GetText("CommonLockedTip")
 end
 
-function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, difficulty, index)
+-- 注意：这是旧主线的接口，2.11后新做的主线不适用，请使用ExGetChapterViewModelById
+function XExFubenMainLineManager:GetChapterViewModel(chapterMainId, difficulty, index)
     local subChapterId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterMainId, difficulty)
     if self.__ChapterViewModelIdDic == nil then self.__ChapterViewModelIdDic = {} end
     if self.__ChapterViewModelIdDic[subChapterId] then return self.__ChapterViewModelIdDic[subChapterId] end
@@ -166,9 +181,16 @@ function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, diffic
     if subChapterId ~= nil and subChapterId > 0 then
         result = CreateAnonClassInstance({
             CheckHasRedPoint = function(proxy)
-                return XRedPointConditionChapterReward.Check(proxy:GetId())
+                return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_MAINLINE_CHAPTER_REWARD, proxy:GetId())
             end,
             CheckHasNewTag = function(proxy)
+                local hideId = XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(chapterMainId, XDataCenter.FubenMainLineManager.DifficultHard)
+                if XTool.IsNumberValid(hideId) then
+                    local hideNew = XDataCenter.FubenMainLineManager.CheckChapterNew(hideId)
+                    local normalNew = XDataCenter.FubenMainLineManager.CheckChapterNew(proxy:GetId())
+                    return hideNew or normalNew
+                end
+
                 return XDataCenter.FubenMainLineManager.CheckChapterNew(proxy:GetId())
             end,
             CheckIsPassed = function(proxy)
@@ -197,7 +219,10 @@ function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, diffic
                     if difficulty == XDataCenter.FubenManager.DifficultNightmare then
                         return CS.XTextManager.GetText("BfrtChapterUnlockCondition")
                     elseif chapterMainId == XDataCenter.FubenMainLineManager.TRPGChapterId then
-                        return XFunctionManager.GetFunctionOpenCondition(XFunctionManager.FunctionName.MainLineTRPG)
+                        local isOpen, desc = XDataCenter.FubenMainLineManager.CheckOpenCondition(proxy:GetId())
+                        if not isOpen then
+                            return desc
+                        end
                     else
                         local isOpen, desc = XDataCenter.FubenMainLineManager.CheckOpenCondition(proxy:GetId())
                         if not isOpen then
@@ -231,6 +256,11 @@ function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, diffic
                     normalTotalStars = normalTotalStars + hideTotalStars
                 end
                 return normalCurStars, normalTotalStars 
+            end,
+            GetNormalChapterNextStageOrderId = function(proxy)
+                local chapterInfo = XDataCenter.FubenMainLineManager.GetChapterInfo(proxy:GetId())
+                local stageCfg = XMVCA:GetAgency(ModuleId.XFuben):GetStageCfg(chapterInfo.ActiveStage)
+                return stageCfg.OrderId
             end,
         }, XChapterViewModel
         , {
@@ -297,7 +327,7 @@ function XExFubenMainLineManager:ExGetCurrentGroupIndexAndChapterIndex(groupId)
                 end  
             end
             -- 检查困难难度
-            hardViewModel = self:ExGetChapterViewModelById(extralData.MainId, XDataCenter.FubenManager.DifficultHard, i)
+            hardViewModel = self:GetHardChapterViewModel(viewModel)
             if hardViewModel and hardViewModel:CheckHasNewTag() then
                 if hardViewModel:CheckHasTimeLimitTag() then
                     return extralData.GroupId, i
@@ -332,5 +362,39 @@ end
 --     XSaveTool.SaveData("XExFubenMainLineManager.CurrentGroupIndex" .. XPlayer.Id, groupId)
 --     XSaveTool.SaveData("XExFubenMainLineManager.CurrentChapterIndex" .. XPlayer.Id, index)
 -- end
+
+-- 获取章节Id
+function XExFubenMainLineManager:GetSubChapterId(config, difficulty)
+    -- v2.11新主线
+    local agency = XMVCA:GetAgency(ModuleId.XMainLine2)
+    if agency:IsMainExit(config.Id) then
+        return agency:GetChapterId(config.Id, difficulty)
+    end
+
+    return XDataCenter.FubenMainLineManager.GetChapterIdByChapterMain(config.Id, difficulty)
+end
+
+-- 获取章节的ViewModel
+function XExFubenMainLineManager:ExGetChapterViewModelById(chapterMainId, difficulty, index)
+    -- v2.11新主线
+    local agency = XMVCA:GetAgency(ModuleId.XMainLine2)
+    if agency:IsMainExit(chapterMainId) then
+        return agency:GetMain(chapterMainId)
+    end
+
+    return self:GetChapterViewModel(chapterMainId, difficulty, index)
+end
+
+-- 获取困难章节
+function XExFubenMainLineManager:GetHardChapterViewModel(viewModel)
+    -- v2.11新主线
+    local mainId = viewModel:GetId()
+    if XMVCA:GetAgency(ModuleId.XMainLine2):IsMainExit(mainId) then
+        return
+    end
+
+    local extralData = viewModel:GetExtralData()
+    return self:GetChapterViewModel(extralData.MainId, XDataCenter.FubenManager.DifficultHard, extralData.Index)
+end
 
 return XExFubenMainLineManager

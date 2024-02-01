@@ -207,7 +207,7 @@ function XUiDoubleTowersRoom:UpdateCharacterInfo(isShow)
     if isShow then
         local team = self:GetXTeam()
         local entityId = team:GetEntityIdByTeamPos(team:GetCaptainPos())
-        local character = XDataCenter.CharacterManager.GetCharacter(entityId)
+        local character = XMVCA.XCharacter:GetCharacter(entityId)
         if character then
             local characterViewModel = character:GetCharacterViewModel()
             if characterViewModel then
@@ -240,11 +240,11 @@ function XUiDoubleTowersRoom:OnBtnCharClicked()
                 return
             end
             -- 播放音效
-            local soundType = XFavorabilityConfigs.SoundEventType.MemberJoinTeam
+            local soundType = XEnumConst.Favorability.SoundEventType.MemberJoinTeam
             if team:GetCaptainPos() == index then
-                soundType = XFavorabilityConfigs.SoundEventType.CaptainJoinTeam
+                soundType = XEnumConst.Favorability.SoundEventType.CaptainJoinTeam
             end
-            XDataCenter.FavorabilityManager.PlayCvByType(XEntityHelper.GetCharacterIdByEntityId(newEntityId), soundType)
+            XMVCA.XFavorability:PlayCvByType(XEntityHelper.GetCharacterIdByEntityId(newEntityId), soundType)
             XDataCenter.DoubleTowersManager.SetRoleId(newEntityId)
             XDataCenter.DoubleTowersManager.RequestDoubleTowerSetTeam()
         end

@@ -32,13 +32,8 @@ end
 function XUiTransfiniteChallengeReward:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local taskData = self._DynamicTable:GetData(index)
-        
         grid:ResetData(taskData)
     end
-end
-
-function XUiTransfiniteChallengeReward:SetActive(value)
-    self.GameObject:SetActiveEx(value)
 end
 
 return XUiTransfiniteChallengeReward

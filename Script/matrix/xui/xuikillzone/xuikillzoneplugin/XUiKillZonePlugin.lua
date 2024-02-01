@@ -9,7 +9,7 @@ function XUiKillZonePlugin:OnAwake()
     self:AutoAddListener()
     self:InitDynamicTable()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
     self.GridPluginGroup.gameObject:SetActiveEx(false)

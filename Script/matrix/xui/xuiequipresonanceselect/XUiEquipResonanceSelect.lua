@@ -1,6 +1,6 @@
 local CsXTextManagerGetText = CS.XTextManager.GetText
 
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 
 local TabConsumeType = {
@@ -150,31 +150,31 @@ function XUiEquipResonanceSelect:UpdateCurGrid()
     local buttonState = self:GetTCTButtonState(self.TabConsumeType)
     if buttonState == TCTButtonState.Disable then
         self.CurItemGird.GameObject:SetActiveEx(false)
-        self.CurEquipGird.GameObject:SetActiveEx(false)
+        self.CurEquipGird:Close()
         self.PanelNoAwareness.gameObject:SetActiveEx(false)
         self.TxtNoConsumption.gameObject:SetActiveEx(true)
     elseif buttonState == TCTButtonState.NORMAL then
         if not self.SelectEquipId then
             self.CurItemGird.GameObject:SetActiveEx(false)
-            self.CurEquipGird.GameObject:SetActiveEx(false)
+            self.CurEquipGird:Close()
             self.PanelNoAwareness.gameObject:SetActiveEx(true)
             self.TxtNoConsumption.gameObject:SetActiveEx(false)
         else
             self.CurEquipGird:Refresh(self.SelectEquipId)
-            self.CurEquipGird.GameObject:SetActiveEx(true)
+            self.CurEquipGird:Open()
             self.CurItemGird.GameObject:SetActiveEx(false)
             self.PanelNoAwareness.gameObject:SetActiveEx(false)
             self.TxtNoConsumption.gameObject:SetActiveEx(false)
         end
     elseif buttonState == TCTButtonState.SELECT then
         if not self.SelectItemId then
-            self.CurEquipGird.GameObject:SetActiveEx(false)
+            self.CurEquipGird:Close()
             self.CurItemGird.GameObject:SetActiveEx(false)
             self.PanelNoAwareness.gameObject:SetActiveEx(true)
             self.TxtNoConsumption.gameObject:SetActiveEx(false)
         else
             self.CurItemGird:Refresh(self.SelectItemId)
-            self.CurEquipGird.GameObject:SetActiveEx(false)
+            self.CurEquipGird:Close()
             self.CurItemGird.GameObject:SetActiveEx(true)
             self.PanelNoAwareness.gameObject:SetActiveEx(false)
             self.TxtNoConsumption.gameObject:SetActiveEx(false)
@@ -190,7 +190,7 @@ function XUiEquipResonanceSelect:UpdateCurCharacter()
         self.PanelCurCharacter.gameObject:SetActiveEx(true)
         self.PanelNoCharacter.gameObject:SetActiveEx(false)
 
-        self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.SelectCharacterId))
+        self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.SelectCharacterId))
     end
 end
 

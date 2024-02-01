@@ -133,7 +133,7 @@ function XUiGridSelectReplicatedGift:RefreshSelf(NeedDefulatQulity, isSmallIcon,
     if self.TxtName then
         --对人物显示全名
         if self.Template.RewardType == XRewardManager.XRewardType.Character then
-            self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(self.TemplateId)
+            self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(self.TemplateId)
         else
             self.TxtName.text = template.Name
         end

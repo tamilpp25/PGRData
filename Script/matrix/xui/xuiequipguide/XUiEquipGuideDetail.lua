@@ -95,7 +95,7 @@ function XUiEquipGuideDetail:OnStart(target)
     --self.Target:RefreshEquip()
     self.GirdItems = {}
     local recommendId = target:GetProperty("_RecommendId")
-    self.Recommend = XCharacterConfigs.GetCharDetailEquipTemplate(recommendId)
+    self.Recommend = XMVCA.XEquip:GetCharDetailEquipTemplate(recommendId)
     self.CharacterId = self.Target:GetProperty("_CharacterId")
     self:InitView()
 end 
@@ -110,7 +110,7 @@ function XUiEquipGuideDetail:InitCb()
     self:BindHelpBtn()
     
     self.BtnDelete.CallBack = function() 
-        local content = XUiHelper.GetText("EquipGuideCancelTargetTips", XCharacterConfigs.GetCharacterLogName(self.CharacterId))
+        local content = XUiHelper.GetText("EquipGuideCancelTargetTips", XMVCA.XCharacter:GetCharacterLogName(self.CharacterId))
         XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), content, nil, nil, function()
             XDataCenter.EquipGuideManager.EquipGuideSetTargetRequest(0, {}, function()
                 self:Close()
@@ -132,7 +132,7 @@ function XUiEquipGuideDetail:InitView()
     , XDataCenter.ItemManager.ItemId.Coin)
     local targetId = self.Target:GetProperty("_Id")
     --角色立绘
-    self.IconRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(self.CharacterId))
+    self.IconRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyBigImage(self.CharacterId))
     --目标描述
     self.TxtName.text = XEquipGuideConfigs.TargetConfig:GetProperty(targetId, "Description")
 end 

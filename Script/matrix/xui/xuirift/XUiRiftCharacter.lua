@@ -1,19 +1,17 @@
---大秘境主界面
+---@class XUiRiftCharacter : XLuaUi 大秘境主界面
 local XUiRiftCharacter = XLuaUiManager.Register(XLuaUi, "UiRiftCharacter")
-local XUiGridRiftCharacter = require("XUi/XUiRift/Grid/XUiGridRiftCharacter")
 local XUiRiftPluginGrid = require("XUi/XUiRift/Grid/XUiRiftPluginGrid")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
 
 local TipCount = 0
-local TabBtnIndex = {
-    Normal = 1, --构造体
-    Isomer = 2, --授格者
-}
 
 function XUiRiftCharacter:OnAwake()
+    ---@type XCharacterAgency
+    self.CharacterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+    ---@type XCommonCharacterFilterAgency
+    self.FiltAgecy = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
     self:InitButton()
     self:InitModel()
-    self:InitDynamicTable()
     self:InitTimes()
     self.CurrSelectRole = nil
     self.SelectTabBtnIndex = 1
@@ -21,27 +19,68 @@ function XUiRiftCharacter:OnAwake()
     self.CurrGrid = nil
     self.GridPluginDic = {}
     self.GridRiftCore.gameObject:SetActiveEx(false)
-    
-    self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.RiftGold, XDataCenter.ItemManager.ItemId.RiftCoin)
-    self.AssetPanel:HideBtnBuy()
+
+    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
+    XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
 end
 
 function XUiRiftCharacter:OnStart(isMultiTeam, xTeam, teamPos, hideTeamPefabBtn)
+    self.IsInit = true
     self.IsMultiTeam = isMultiTeam --是否是多队伍进入的
     self.XTeam = xTeam or XDataCenter.RiftManager.GetSingleTeamData()
     self.TeamPos = teamPos
     self.HideTeamPefabBtn = hideTeamPefabBtn
+    self:InitFilter()
 
     if xTeam and teamPos then
         local roleId = xTeam:GetEntityIdByTeamPos(teamPos)
         local xRole = XDataCenter.RiftManager.GetEntityRoleById(roleId)
         if xRole then
-            local charaType = xRole:GetCharacterType()
-            self.InitCharacterType = charaType
-            self.LastSelectNormalCharacter = charaType == TabBtnIndex.Normal and xRole or self.LastSelectNormalCharacter 
-            self.LastSelectIsomerCharacter = charaType == TabBtnIndex.Isomer and xRole or self.LastSelectIsomerCharacter 
+            self.PanelFilter:DoSelectTag("BtnAll", true, roleId)
+            self:OnRoleSelected(xRole)
+        else
+            self.PanelFilter:DoSelectTag("BtnAll", true)
         end
+    else
+        self.PanelFilter:DoSelectTag("BtnAll", true)
     end
+end
+
+function XUiRiftCharacter:InitFilter()
+    self.PanelFilter = self.FiltAgecy:InitFilter(self.PanelCharacterFilter, self)
+
+    local onSeleCb = function(character, index, grid, isFirstSelect)
+        if not character then
+            return
+        end
+        local xRole = XDataCenter.RiftManager.GetEntityRoleById(character.Id)
+        self:OnRoleSelected(xRole)
+    end
+
+    local refreshFun = function(index, grid, char)
+        local isInTeam = self.XTeam:GetEntityIdIsInTeam(char:GetId())
+        local isSameRole = self.XTeam:CheckHasSameCharacterIdButNotEntityId(char:GetId())
+        grid:SetData(char)
+        grid:UpdateFight()
+        grid:SetInTeamStatus(isInTeam)
+        grid:SetInSameStatus(isSameRole and not isInTeam)
+    end
+
+    local checkInTeam = function(id)
+        return self.XTeam:GetEntityIdIsInTeam(id)
+    end
+
+    self.PanelFilter:InitData(onSeleCb, nil, nil, refreshFun, require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleGrid"), checkInTeam)
+
+    self.FiltAgecy:SetNotSortTrigger()
+    self:RefresFilter()
+end
+
+function XUiRiftCharacter:RefresFilter()
+    local list = self.CharacterAgency:GetOwnCharacterList()
+    appendArray(list, XDataCenter.RiftManager.GetRobot())
+    self.PanelFilter:ImportList(list)
+    self.PanelFilter:RefreshList()
 end
 
 function XUiRiftCharacter:InitButton()
@@ -54,32 +93,11 @@ function XUiRiftCharacter:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnJoinTeam, self.OnBtnJoinTeamClick)
     XUiHelper.RegisterClickEvent(self, self.BtnQuitTeam, self.OnBtnQuitTeamClick)
     XUiHelper.RegisterClickEvent(self, self.BtnTeamPrefab, self.OnBtnTeamPrefabClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnFilter, self.OnBtnFilterClick)
     XUiHelper.RegisterClickEvent(self, self.BtnAdd, self.OnBtnAddClick)
     XUiHelper.RegisterClickEvent(self, self.BtnOwnedDetail, function() XLuaUiManager.Open("UiCharacterDetail", self.CurrSelectRole:GetCharacterId()) end)
     XUiHelper.RegisterClickEvent(self, self.BtnTeaching, function() XDataCenter.PracticeManager.OpenUiFubenPractice(self.CurrSelectRole:GetCharacterId()) end)
-
-    local tabBtns = { self.BtnTabGouzaoti, self.BtnTabShougezhe }
-    self.PanelCharacterTypeBtns:Init(tabBtns, function(index) self:OnSelectCharacterType(index) end)
-
+    XUiHelper.RegisterClickEvent(self, self.BtnType, self.OnBtnCareerTipsClick)
     XEventManager.AddEventListener(XEventId.EVENT_TEAM_PREFAB_SELECT, self.RefreshTeamData, self)
-end
-
-function XUiRiftCharacter:OnSelectCharacterType(index)
-    if index == TabBtnIndex.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then
-        return
-    end
-
-    self.SelectTabBtnIndex = index
-    if index == TabBtnIndex.Normal then
-        self.ImgEffectHuanren.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanren.gameObject:SetActiveEx(true)
-        self:UpdateCharacters(self.LastSelectNormalCharacter)
-    elseif index == TabBtnIndex.Isomer then
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(true)
-        self:UpdateCharacters(self.LastSelectIsomerCharacter)
-    end
 end
 
 function XUiRiftCharacter:InitModel()
@@ -90,88 +108,21 @@ function XUiRiftCharacter:InitModel()
     self.RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true, nil, true)
 end
 
-function XUiRiftCharacter:InitDynamicTable()
-    self.DynamicTable = XDynamicTableNormal.New(self.SViewCharacterList)
-    self.DynamicTable:SetProxy(XUiGridRiftCharacter, self)
-    self.DynamicTable:SetDelegate(self)
-end
-
 function XUiRiftCharacter:OnEnable()
     self.Super.OnEnable(self)
-    -- 进入默认选择泛用机体
-    self.PanelCharacterTypeBtns:SelectIndex(self.InitCharacterType or TabBtnIndex.Normal)
+    self.PanelFilter:InitFoldState()
     self:UpdateRightCharacterInfo()
     self:UpdateRoleModel()
-end
-
-function XUiRiftCharacter:RoleSortFun(list)
-    local inTeamList = {}
-    local unInTeamList = {}
-    local inOtherTeamList = {}
-    for k, xRole in pairs(list) do
-        local isIn, xTeam
-        if self.XTeam then
-            if self.IsMultiTeam then
-                isIn, xTeam = XDataCenter.RiftManager.CheckRoleInTeam(xRole:GetId())
-            else
-                xTeam = self.XTeam
-                isIn = xTeam:GetEntityIdIsInTeam(xRole:GetId())
-            end
-        end
-        if isIn and xTeam:GetId() == self.XTeam:GetId()  then
-            table.insert(inTeamList, xRole)
-        elseif isIn and xTeam:GetId() ~= self.XTeam:GetId() then
-            table.insert(inOtherTeamList, xRole)
-        else
-            table.insert(unInTeamList, xRole)
-        end 
+    if not self.IsInit then
+        self:RefresFilter()
     end
-    table.sort(inTeamList, function (a, b)
-        return a:GetFinalShowAbility() > b:GetFinalShowAbility()
-    end)
-    table.sort(inOtherTeamList, function (a, b)
-        return a:GetFinalShowAbility() > b:GetFinalShowAbility()
-    end)
-    table.sort(unInTeamList, function (a, b)
-        return a:GetFinalShowAbility() > b:GetFinalShowAbility()
-    end)
-    inTeamList = appendArray(inTeamList, unInTeamList)
-    inTeamList = appendArray(inTeamList, inOtherTeamList)
-
-    return inTeamList
-end
-
--- 刷新左边角色列表
-function XUiRiftCharacter:UpdateCharacters(xRole)
-    local characterType = self.SelectTabBtnIndex
-    local filterList = XDataCenter.CommonCharacterFiltManager.GetSelectListData(characterType)
-    local roleList = filterList or XDataCenter.RiftManager.GetEntityRoleListByCharaType(characterType)
-    roleList = self:RoleSortFun(roleList)
-    local index = 1
-    if xRole then
-        local isIn, curIndex = table.contains(roleList, xRole)
-        index = isIn and curIndex or index
-    end
-    
-    self.CurrRoleListIndex = index
-    self:UpdateDynamicTable(roleList, index)
-end
-
-function XUiRiftCharacter:UpdateDynamicTable(list, index)
-    self.CurrShowList = list
-    self.DynamicTable:SetDataSource(list)
-    self.DynamicTable:ReloadDataASync(index or 1)
+    self.IsInit = false
 end
 
 -- 角色被选中
 function XUiRiftCharacter:OnRoleSelected(xRole)
     if xRole == self.CurrSelectRole then
         return
-    end
-    if xRole:GetCharacterType() == TabBtnIndex.Normal then
-        self.LastSelectNormalCharacter = xRole
-    else 
-        self.LastSelectIsomerCharacter = xRole
     end
 
     self.CurrSelectRole = xRole
@@ -186,18 +137,20 @@ function XUiRiftCharacter:UpdateRightCharacterInfo()
     end
     
     local characterId = self.CurrSelectRole:GetCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
-
-    self.RImgTypeIcon:SetRawImage(self.CurrSelectRole:GetCareerIcon())
+    self.BtnType:SetRawImage(self.CurrSelectRole:GetCareerIcon())
+    self.TxtAbility.text = self:GetRoleAbility()
+    local elementIcons = {}
+    table.insert(elementIcons, XMVCA.XCharacter:GetCharElement(charConfig.Element).Icon)
+    self:RefreshTemplateGrids(self.RImgCharElement, elementIcons, self.BtnElementDetail.transform, nil, "UiRiftCharacterElement", function(grid, data)
+        grid.RImgCharElement:SetRawImage(data)
+    end)
 
     -- 负载信息
     self.TxtLoadNum.text = CS.XTextManager.GetText("RiftPluginLoad", self.CurrSelectRole:GetCurrentLoad(), XDataCenter.RiftManager.GetMaxLoad())
     self.ImgLoadProgress.fillAmount = self.CurrSelectRole:GetCurrentLoad() / XDataCenter.RiftManager.GetMaxLoad()
-
-    -- 倾向
-    self.TxtAttribute.text = self.CurrSelectRole:GetAttrTypeName()
 
     -- 插件信息
     -- 刷新插件前先隐藏
@@ -241,6 +194,24 @@ function XUiRiftCharacter:UpdateRightCharacterInfo()
     end
 end
 
+function XUiRiftCharacter:GetRoleAbility()
+    local id = self.CurrSelectRole:GetId()
+    local entity = nil
+    if XEntityHelper.GetIsRobot(id) then
+        entity = XRobotManager.GetRobotById(id)
+    else
+        entity = XMVCA.XCharacter:GetCharacter(id)
+    end
+    if entity then
+        local viewModel = entity:GetCharacterViewModel()
+        if not viewModel then
+            return self.CharacterAgency:GetCharacterHaveRobotAbilityById(id)
+        end
+        return viewModel:GetAbility()
+    end
+    return 0
+end
+
 -- 刷新3D模型
 function XUiRiftCharacter:UpdateRoleModel()
     if not self.CurrSelectRole then
@@ -259,9 +230,9 @@ function XUiRiftCharacter:UpdateRoleModel()
     end
     
     if self.CurrSelectRole:GetIsRobot() then
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(self.CurrSelectRole:GetCharacterId())
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.CurrSelectRole:GetCharacterId())
         if XRobotManager.CheckUseFashion(self.CurrSelectRole:GetId()) and isOwn then
-            local character = XDataCenter.CharacterManager.GetCharacter(self.CurrSelectRole:GetCharacterId())
+            local character = XMVCA.XCharacter:GetCharacter(self.CurrSelectRole:GetCharacterId())
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.RoleModelPanel:UpdateRobotModel(self.CurrSelectRole:GetId(), self.CurrSelectRole:GetCharacterId(), nil, robot2CharViewModel:GetFashionId(), self.CurrSelectRole:GetUsingWeaponId(), cb)
         else
@@ -270,22 +241,6 @@ function XUiRiftCharacter:UpdateRoleModel()
     else
         --MODEL_UINAME对应UiModelTransform表，设置模型位置
         self.RoleModelPanel:UpdateCharacterModel(self.CurrSelectRole:GetCharacterId(), self.PanelRoleModel, XModelManager.MODEL_UINAME.XUiSuperSmashBrosCharacter, cb)
-    end
-end
-
-function XUiRiftCharacter:OnDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        local isCurrSelected = self.CurrRoleListIndex == index
-        grid:Refresh(self.CurrShowList[index], self.IsMultiTeam)
-        grid:SetSelect(isCurrSelected)
-        if isCurrSelected then
-            self.CurrGrid = grid
-        end
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
-        self.CurrGrid:SetSelect(false)
-        grid:SetSelect(true)
-        self.CurrGrid = grid
-        self.CurrRoleListIndex = index
     end
 end
 
@@ -326,7 +281,7 @@ function XUiRiftCharacter:CheckLimitBeforeChangeTeam(roleId, pos)
         local inTeamId = seleRoleTeam:GetId()
         local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
         local targetSeleRoleId = seleRoleTeam:GetEntityIdByTeamPos(seleRolePos)
-        local characterName = XCharacterConfigs.GetCharacterName(XDataCenter.RiftManager.GetEntityRoleById(targetSeleRoleId):GetCharacterId())
+        local characterName = XMVCA.XCharacter:GetCharacterName(XDataCenter.RiftManager.GetEntityRoleById(targetSeleRoleId):GetCharacterId())
         local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, self.XTeam:GetId())
         local CloseTeamPrefabCb = function ()
             if XLuaUiManager.IsUiShow("UiRoomTeamPrefab") and TipCount == 0 then
@@ -373,7 +328,7 @@ function XUiRiftCharacter:RefreshTeamData(teamdata)
     if not isLimit then
         self.XTeam:UpdateFromTeamData(teamdata)
     end
-    self:Close()
+    XLuaUiManager.Remove("UiRiftCharacter") -- 这里用self:Close()的话 会在UiRoomTeamPrefab关闭时被重新打开
 end
 
 function XUiRiftCharacter:OnBtnJoinTeamClick()
@@ -418,10 +373,6 @@ function XUiRiftCharacter:OnBtnTeamPrefabClick()
     local stageInfo = XTool.IsNumberValid(stageId) and XDataCenter.FubenManager.GetStageInfo(stageId) or {}
     local stageType = stageInfo.Type
 
-    local closeCb = function()
-        self:Close()
-    end
-
     XLuaUiManager.Open("UiRoomTeamPrefab", 
     self.XTeam:GetCaptainPos(),
     self.XTeam:GetFirstFightPos(), 
@@ -429,7 +380,7 @@ function XUiRiftCharacter:OnBtnTeamPrefabClick()
     nil, 
     stageType, 
     nil, 
-    closeCb, 
+    nil,
     stageId, 
     self.XTeam)
 end
@@ -439,13 +390,8 @@ function XUiRiftCharacter:OnBtnAddClick()
     self.CurrSelectRole:ClearUpgradePluginRedpoint()
 end
 
-function XUiRiftCharacter:OnBtnFilterClick()
-    local characterType = self.SelectTabBtnIndex
-    local characterList = XDataCenter.RiftManager.GetEntityRoleListByCharaType(characterType)
-    XLuaUiManager.Open("UiCommonCharacterFilterTipsOptimization", characterList, characterType, function (afterFiltList)
-        self.CurrRoleListIndex = 1
-        self:UpdateDynamicTable(afterFiltList)
-    end, characterType)
+function XUiRiftCharacter:OnBtnCareerTipsClick()
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CurrSelectRole:GetCharacterId())
 end
 
 function XUiRiftCharacter:OnDisable()
@@ -455,6 +401,8 @@ end
 function XUiRiftCharacter:OnDestroy()
     XDataCenter.CommonCharacterFiltManager.ClearCacheData() --清除筛选缓存数据
     XEventManager.RemoveEventListener(XEventId.EVENT_TEAM_PREFAB_SELECT, self.RefreshTeamData, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_SYN, self.RefresFilter, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_CHARACTER_FIRST_GET, self.RefresFilter, self)
 end
 
 function XUiRiftCharacter:InitTimes()

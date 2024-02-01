@@ -77,7 +77,7 @@ end
 
 function XUiLivWarmActivityPop:InitPanelSpecialTool()
     local itemId = XLivWarmActivityConfigs.GetLivWarmActivityItemId()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     self.AssetActivityPanel:Refresh({itemId})
     XDataCenter.ItemManager.AddCountUpdateListener({itemId}, function()
         self:UpdateLoseText()
@@ -100,7 +100,7 @@ function XUiLivWarmActivityPop:UpdateLoseText()
     local itemId = XLivWarmActivityConfigs.GetLivWarmActivityItemId()
     local useItemCount = XLivWarmActivityConfigs.GetLivWarmActivityUseItemCount()
     local itemCount = XDataCenter.ItemManager.GetCount(itemId)
-    local color = itemCount < useItemCount and "#fb0000" or "#cc84d5"
+    local color = itemCount < useItemCount and "#7EE4D7" or "#cc84d5"
     local isMaxItemUseCount = self:GetCurUseItemData()
     useItemCount = isMaxItemUseCount and 0 or useItemCount      --达到消耗上限显示0
     self.LoseText.text = CSXTextManagerGetText("LivWarmActivityUseItemCountText", color, useItemCount)

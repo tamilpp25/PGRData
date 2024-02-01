@@ -75,13 +75,6 @@ XNieRManagerCreator = function()
     local NieRBossStageOpenDic = {}
     local NierMainLineStagePass = false
 
-
-    function XNieRManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.NieR,
-        require("XUi/XUiNieR/XUiNieRNewRoomSingle"))
-    end
     -- 初始化副本info
     function XNieRManager.InitStageInfo()
         local nieRType = XDataCenter.FubenManager.StageType.NieR
@@ -1291,7 +1284,6 @@ XNieRManagerCreator = function()
             end
         end
         XNieRManager.UpdateNieRPODData(notifyData.Support)
-        XNieRManager.RegisterEditBattleProxy()
         XNieRManager.CheckNieREasterEggStageShow()
         IsNieREasterEggDataRealPass = notifyData.EasterEggFinish
         XEventManager.DispatchEvent(XEventId.EVENT_NIER_ACTIVITY_REFRESH)

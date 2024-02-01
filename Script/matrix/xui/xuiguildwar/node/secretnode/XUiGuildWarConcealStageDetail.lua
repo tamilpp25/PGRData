@@ -21,8 +21,8 @@ function XUiGuildWarConcealStageDetail:Init()
     self.GuildWarManager = XDataCenter.GuildWarManager
     self.BattleManager = self.GuildWarManager.GetBattleManager()
     --资源面板
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId }
-    , self.PanelSpecialTool, { self.GuildWarManager.GetMaxActionPoint() })
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId }
+    , self.PanelSpecialTool, self, { self.GuildWarManager.GetMaxActionPoint() })
     --当前进度列表
     self.DynamicTableSituation = XDynamicTableNormal.New(self.ListSituation.gameObject)
     self.DynamicTableSituation:SetProxy(XUiGuildWarConcealSituationGrid)

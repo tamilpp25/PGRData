@@ -5,7 +5,7 @@ function XUiMultiDimSingleCopyTips:OnAwake()
     self.GridList = {}
 
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     self:InitStarPanels()
     self.BtnEnter.CallBack = function() self:OnBtnEnterClick() end
     self.BtnRewardTip.CallBack = function() self:OnBtnRewardTipClick() end

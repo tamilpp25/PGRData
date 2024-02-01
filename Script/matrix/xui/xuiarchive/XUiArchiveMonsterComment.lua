@@ -104,10 +104,11 @@ function XUiArchiveMonsterComment:SetPanelTag()
             countList.Index = index
             countList.Count = self.EvaluateData.Tags[index].Count
             tableInsert(self.PanelTag.CountList, countList)
-            self.PanelTag.TagItem[index].TxtNum.text = CSTextManagerGetText("ChannelNumberLabel", XArchiveConfigs.GetCountUnitChange(self.EvaluateData.Tags[index].Count))
-            self.PanelTag.TagItem[index].TxtTag.text = XArchiveConfigs.GetArchiveTagCfgById(self.EvaluateData.Tags[index].Id).Name
-            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(XArchiveConfigs.GetArchiveTagCfgById(self.EvaluateData.Tags[index].Id).Color)
-            local bgImg = XArchiveConfigs.GetArchiveTagCfgById(self.EvaluateData.Tags[index].Id).Bg
+            local archiveTagCfg = self._Control:GetArchiveTagCfgById(self.EvaluateData.Tags[index].Id)
+            self.PanelTag.TagItem[index].TxtNum.text = CSTextManagerGetText("ChannelNumberLabel", self._Control:GetCountUnitChange(self.EvaluateData.Tags[index].Count))
+            self.PanelTag.TagItem[index].TxtTag.text = archiveTagCfg.Name
+            self.PanelTag.TagItem[index].TxtTag.color = XUiHelper.Hexcolor2Color(archiveTagCfg.Color)
+            local bgImg = archiveTagCfg.Bg
             if bgImg then self:SetUiSprite(self.PanelTag.TagItem[index].Bg, bgImg) end
         end
         local isActive = (self.EvaluateData and self.EvaluateData.Tags and self.EvaluateData.Tags[index]) and true or false

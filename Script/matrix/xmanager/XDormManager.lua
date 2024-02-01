@@ -4,6 +4,7 @@
 XDormManagerCreator = function()
     ---@class XDormManager 宿舍业务管理器
     local XDormManager = {}
+    XDormManager.IsDormDataNotify = false
     
     local CharacterData = {}  -- 构造体数据
     ---@type table<number, XHomeRoomData>
@@ -533,12 +534,12 @@ XDormManagerCreator = function()
 
     -- 根据宿舍人员id---->CharacterId,获得角色大头像
     function XDormManager.GetCharBigHeadIcon(id)
-        return XDataCenter.CharacterManager.GetCharBigHeadIcon(id)
+        return XMVCA.XCharacter:GetCharBigHeadIcon(id)
     end
 
     -- 根据宿舍人员id---->CharacterId,获得角色小头像
     function XDormManager.GetCharSmallHeadIcon(id)
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(id)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(id)
     end
 
     -- 根据宿舍人员id---->CharacterId和类型,取回角色喜好Icon
@@ -612,7 +613,7 @@ XDormManagerCreator = function()
         local characterList = d:GetCharacter()
         for k, v in pairs(characterList) do
             --获得角色圆头像
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(v.CharacterId)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(v.CharacterId)
             icons[k] = icon
         end
         return icons
@@ -725,7 +726,7 @@ XDormManagerCreator = function()
                 end
             end
         else
-            local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+            local characters = XMVCA.XCharacter:GetOwnCharacterList()
             for _, v in pairs(characters) do
                 table.insert(characterIds, v.Id)
             end
@@ -2389,6 +2390,9 @@ XDormManagerCreator = function()
     end
 
     function XDormManager.UpdateDormRed()
+        if not XDormManager.DormWorkRedFun() then
+            return
+        end
         XEventManager.DispatchEvent(XEventId.EVENT_DORM_WORK_REDARD)
         --XEventManager.DispatchEvent(XEventId.EVENT_FURNITURE_CREATE_CHANGED)
     end
@@ -2666,6 +2670,16 @@ XDormManagerCreator = function()
         return CharacterData
     end
 
+    function XDormManager.SetIsDormDataNotifyFalse()
+        XDormManager.IsDormDataNotify = false
+    end
+  
+    function XDormManager.Init()
+        XEventManager.AddEventListener(XEventId.EVENT_USER_LOGOUT, XDormManager.SetIsDormDataNotifyFalse)
+    end
+
+    XDormManager.Init()
+
     return XDormManager
 end
 
@@ -2724,6 +2738,9 @@ XRpc.NotifyDormitoryData = function(data)
     XDataCenter.DormManager.InitBindRelationData(data.BindRelations)
     XDataCenter.FurnitureManager.InitData(data.FurnitureList)
     XDataCenter.DormQuestManager.InitQuestData(data.DormQuestData)
+    
+    XDataCenter.DormManager.IsDormDataNotify = true
+    XEventManager.DispatchEvent(XEventId.EVENT_DORM_NOTIFY_DORMITORY_DATA)
 end
 
 XRpc.NotifyAddDormCharacter = function(data)

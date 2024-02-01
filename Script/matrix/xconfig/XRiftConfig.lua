@@ -30,6 +30,11 @@ XRiftConfig.TableKey = enum({
     RiftLayerDetail = { DirType = XConfigCenter.DirectoryType.Client },
     RiftFuncUnlock = {}, -- 功能解锁表
     RiftShop = { DirType = XConfigCenter.DirectoryType.Client }, -- 商店表
+    RiftSystemAttributeEffectType = { DirType = XConfigCenter.DirectoryType.Client },
+    RiftFilterTag = {},
+    RiftClientConfig = { DirType = XConfigCenter.DirectoryType.Client, ReadKeyName = "Key", ReadFuncName = "ReadByStringKey" },
+    RiftOneKeyEquip = {},
+    RiftCollectAttributeEffect = {},
 })
 
 XRiftConfig.LayerType = 
@@ -74,13 +79,17 @@ local AttrEffectDic = {}
 local PluginAttrFixDic = {}
 local PluginFixGroupIdToAttrIdDic = {}
 local StageIdDic = {}
+local SystemAttrGroupIdDic = {}
+local SystemAttrAttrIdDic = {}
+local SystemAttrsDic = {}
+local MonsterIdDic = {}
+local NodeRandomIdDic = {}
 
 XRiftConfig.StageGroupType = 
 {
     Normal = 1,
     Zoom = 2, -- 跃升
     Multi = 3,
-    Luck = 4,
 }
 -- 幸运节点的位置写死为4
 XRiftConfig.StageGroupLuckyPos = 4
@@ -97,6 +106,8 @@ function XRiftConfig.Init()
     XRiftConfig.CreateAttributeEffectDic()
     XRiftConfig.CreatePluginAttrFixDic()
     XRiftConfig.CreateStageIdDic()
+    XRiftConfig.CreateMonsterIdDic()
+    XRiftConfig.CreateNodeRandomIdDic()
 end
 
 -------------------------------------------------- RiftActivity.tab 活动表 begin --------------------------------------------------
@@ -119,6 +130,11 @@ function XRiftConfig.GetAttrName(attrId)
     local config = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttribute, attrId)
     return config.Name
 end
+
+function XRiftConfig.GetAttrGroupId(attrId)
+    local config = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttribute, attrId)
+    return config.EffectGroupIds
+end
 -------------------------------------------------- RiftTeamAttribute.tab 队伍加点表 end --------------------------------------------------
 
 -------------------------------------------------- RiftTeamAttributeEffect.tab 队伍加点效果表 begin --------------------------------------------------
@@ -126,10 +142,50 @@ end
 function XRiftConfig.CreateAttributeEffectDic()
     AttrEffectDic = {}
     local effectCfgs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftTeamAttributeEffect)
+    local attrCfgs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftTeamAttribute)
+    local sysAttrCfgs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftSystemAttributeEffectType)
     for _, config in ipairs(effectCfgs) do
         local id = XRiftConfig.GetAttrEffectId(config.GroupId, config.Level)
         AttrEffectDic[id] = config
+        if not SystemAttrGroupIdDic[config.SystemEffectType] then
+            SystemAttrGroupIdDic[config.SystemEffectType] = config.GroupId
+        end
+        if not SystemAttrAttrIdDic[config.SystemEffectType] then
+            for _, v in pairs(attrCfgs) do
+                if table.indexof(v.EffectGroupIds, config.GroupId) then
+                    SystemAttrAttrIdDic[config.SystemEffectType] = v.Id
+                    break
+                end
+            end
+        end
+        local data = SystemAttrsDic[config.GroupId]
+        if not data then
+            data = {}
+            data.Values = {}
+            data.Config = nil
+            SystemAttrsDic[config.GroupId] = data
+        end
+        if not data.Values[config.SystemEffectParam] or data.Values[config.SystemEffectParam] > config.Level then
+            data.Values[config.SystemEffectParam] = config.Level
+        end
+        if not data.Config then
+            data.Config = sysAttrCfgs[config.SystemEffectType]
+        end
     end
+end
+
+-- 获取系统属性（XEnumConst.Rift.SystemBuffType）对应的属性Id
+function XRiftConfig.GetAttrIdBySystemAttr(systemAttr)
+    return SystemAttrAttrIdDic[systemAttr]
+end
+
+-- 获取系统属性（XEnumConst.Rift.SystemBuffType）对应的组Id
+function XRiftConfig.GetGroupIdBySystemAttr(systemAttr)
+    return SystemAttrGroupIdDic[systemAttr]
+end
+
+function XRiftConfig.GetSystemAttr(groupId)
+    return SystemAttrsDic[groupId] or {}
 end
 
 -- 由groupId和level生成唯一id快速读取数据
@@ -137,6 +193,7 @@ function XRiftConfig.GetAttrEffectId(groupId, level)
     return tostring(groupId) .. "_" .. tostring(level)
 end
 
+---@return XTableRiftTeamAttributeEffect
 function XRiftConfig.GetAttributeEffectConfig(groupId, level)
     local id = XRiftConfig.GetAttrEffectId(groupId, level)
     return AttrEffectDic[id]
@@ -183,6 +240,32 @@ function XRiftConfig.CreateStageIdDic()
     end
 end
 
+function XRiftConfig.CreateMonsterIdDic()
+    for _, config in pairs(XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftMonsterWareRandomItem)) do
+        MonsterIdDic[config.GroupId] = config
+    end
+end
+
+function XRiftConfig.CreateNodeRandomIdDic()
+    for _, config in pairs(XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftNodeRandomItem)) do
+        if not NodeRandomIdDic[config.GroupId] then
+            NodeRandomIdDic[config.GroupId] = {}
+        end
+        table.insert(NodeRandomIdDic[config.GroupId], config)
+    end
+end
+
+---@return XTableRiftStage
 function XRiftConfig.GetStageConfigById(stageId)
     return StageIdDic[stageId]
+end
+
+---@return XTableRiftMonsterWareRandomItem
+function XRiftConfig.GetMonsterWareRandomItemById(groupId)
+    return MonsterIdDic[groupId]
+end
+
+---@return XTableRiftNodeRandomItem[]
+function XRiftConfig.GetNodeRandomById(groupId)
+    return NodeRandomIdDic[groupId]
 end

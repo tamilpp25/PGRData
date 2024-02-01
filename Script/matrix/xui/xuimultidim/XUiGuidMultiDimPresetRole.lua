@@ -12,7 +12,7 @@ function XUiGuidMultiDimPresetRole:Refresh(entityId, pos)
         self:ActiveUi(false)
         return
     end
-    local entity = XDataCenter.CharacterManager.GetCharacter(entityId)
+    local entity = XMVCA.XCharacter:GetCharacter(entityId)
     if not entity or not entity.GetCharacterViewModel then
         self:ActiveUi(false)
         return

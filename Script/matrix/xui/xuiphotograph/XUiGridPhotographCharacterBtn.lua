@@ -14,7 +14,7 @@ function XUiGridPhotographCharacterBtn:Init(rootUi)
 end
 
 function XUiGridPhotographCharacterBtn:Refrash(data)
-    self.ImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(data.Id))
+    self.ImgHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(data.Id))
     self.TxtName.text = data.LogName
     if self.TxtNameEn then
         self.TxtNameEn.text = data.EnName

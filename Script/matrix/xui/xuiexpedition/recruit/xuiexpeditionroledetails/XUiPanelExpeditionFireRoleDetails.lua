@@ -58,7 +58,7 @@ end
 function XUiPanelExpeditionFireRoleDetails:RefreshFashion()
     local robotId = self.EChara:GetRobotId()
     local characterId = self.EChara:GetCharacterId()
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
     if XRobotManager.CheckUseFashion(robotId) and isOwn then
         -- 角色涂装
         local roleFashionList = XDataCenter.FashionManager.GetCurrentTimeFashionByCharId(characterId)

@@ -222,7 +222,7 @@ function XUiEquipStrengthenV2P6:UpdateView()
 
     local isMaxLevel = XDataCenter.EquipManager.IsMaxLevelAndBreakthrough(equipId)
     if isMaxLevel then
-        self.Parent:Close()
+        self.Parent:CloseWithSelectCurEquip()
         return
     end
 
@@ -339,8 +339,8 @@ function XUiEquipStrengthenV2P6:TryMultiLevelUp(equipId, targetBreakthrough, tar
             curExp = 0
         end
 
-        local tmpTotalExp, tmpCostMoney, needExp
-        canLevelUp, tmpTotalExp, tmpCostMoney, needExp = self:DoSingleLevelUp(templateId, breakthrough, curLevel, curExp, tmpTargeLv, consumes, operations)
+        local tmpTotalExp, tmpCostMoney, needExp, tempCanLevelUp
+        tempCanLevelUp, tmpTotalExp, tmpCostMoney, needExp = self:DoSingleLevelUp(templateId, breakthrough, curLevel, curExp, tmpTargeLv, consumes, operations)
         local needComfirm = self:CheckExpOverflowConfirm(breakthrough, tmpMaxLv, tmpTotalExp)
         if needComfirm then
             showExpOverflowConfirm = true
@@ -379,6 +379,7 @@ function XUiEquipStrengthenV2P6:TryMultiLevelUp(equipId, targetBreakthrough, tar
             )
         end
 
+        canLevelUp = canLevelUp and tempCanLevelUp
         totalExp = totalExp + tmpTotalExp
         levelUpCostMoney = levelUpCostMoney + tmpCostMoney
         curLevel = 1

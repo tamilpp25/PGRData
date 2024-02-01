@@ -8,16 +8,6 @@ local BatteryComponent = CS.XUiBattery
 local DateStartTime = CS.XGame.ClientConfig:GetString("BackgroundChangeTimeStr")
 local DateEndTime = CS.XGame.ClientConfig:GetString("BackgroundChangeTimeEnd")
 
---主界面会频繁打开，采用常量缓存
-local RedPointConditionGroup = {
-    Pic = {
-        XRedPointConditions.Types.CONDITION_PIC_COMPOSITION_TASK_FINISHED
-    },
-    Windows = {
-        XRedPointConditions.Types.CONDITION_WINDOWS_COMPOSITION_DAILY
-    }
-}
-
 local XUiMainPanelBase = require("XUi/XUiMain/XUiMainPanelBase")
 ---@class XUiMainRightTop:XUiMainPanelBase
 local XUiMainRightTop = XClass(XUiMainPanelBase, "XUiMainRightTop")
@@ -32,17 +22,6 @@ function XUiMainRightTop:OnStart(rootUi)
     self.LowPowerValue = CS.XGame.ClientConfig:GetFloat("UiMainLowPowerValue")
 
     XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    --ClickEvent
-    self.BtnPic.CallBack = function() self:OnBtnPic() end
-    self.BtnWindows.CallBack = function() self:OnBtnWindows() end
-    
-    --RedPoint
-    XRedPointManager.AddRedPointEvent(self.BtnPic, self.OnCheckPicNews, self, RedPointConditionGroup.Pic)
-    XRedPointManager.AddRedPointEvent(self.BtnWindows, self.OnCheckWindowsNews, self, RedPointConditionGroup.Windows)
-
-    --Filter
-    self:CheckFilterFunctions()
-    self:CheckActivityInTime()
 end
 
 --事件监听
@@ -69,9 +48,6 @@ function XUiMainRightTop:OnEnable()
         self:UpdateTimeLimitItemTipTimer()
     end, XScheduleManager.SECOND)
     
-
-    XEventManager.AddEventListener(XEventId.EVENT_PICCOMPOSITION_GET_MYDATA, self.OpenUiPicComposition, self)
-    
     XEventManager.AddEventListener(XEventId.EVENT_SCENE_PREVIEW, self.OnBackGroupPreview, self)
     XEventManager.AddEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.PreviewUpdateChargeMark, self)
     XEventManager.AddEventListener(XEventId.EVENT_TIMELIMIT_ITEM_USE, self.ResetBatteryTime, self)
@@ -86,7 +62,6 @@ function XUiMainRightTop:OnDisable()
     end
     LastMainUiChargeState = XUiMainChargeState.None
     self.RootUi:ChangeLowPowerState(self.RootUi.LowPowerState.None)
-    XEventManager.RemoveEventListener(XEventId.EVENT_PICCOMPOSITION_GET_MYDATA, self.OpenUiPicComposition, self)
     
     XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_PREVIEW, self.OnBackGroupPreview, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.PreviewUpdateChargeMark, self)
@@ -94,47 +69,6 @@ function XUiMainRightTop:OnDisable()
 end
 
 function XUiMainRightTop:OnDestroy()
-end
-
-function XUiMainRightTop:CheckFilterFunctions()
-    self.IsBtnPicCanOpen = not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.PicComposition)
-    self.IsBtnWindowsCanOpen = not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.WindowsInlay)
-end
-
-function XUiMainRightTop:CheckActivityInTime()
-    local windowsInlayActivityList = XDataCenter.MarketingActivityManager.GetWindowsInlayInTimeActivityList()
-    local IsPicCompositionInTime = XDataCenter.MarketingActivityManager.CheckIsIntime()
-    local picComposition = CS.XRemoteConfig.PicComposition
-
-    self.BtnWindows.gameObject:SetActiveEx(#windowsInlayActivityList > 0 and self.IsBtnWindowsCanOpen)
-    self.BtnPic.gameObject:SetActiveEx(#picComposition > 0 and IsPicCompositionInTime and self.IsBtnPicCanOpen)
-end
-
---内嵌浏览器入口
-function XUiMainRightTop:OnBtnWindows()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.WindowsInlay) then
-        return
-    end
-    self.BtnWindows:ShowReddot(false)
-    XLuaUiManager.Open("UiWindowsInlay")
-    XDataCenter.MarketingActivityManager.MarkWindowsInlayRedPoint()
-end
-
---看图作文入口
-function XUiMainRightTop:OnBtnPic()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.PicComposition) then
-        return
-    end
-    XDataCenter.MarketingActivityManager.DelectTimeOverMemoDialogue()
-    XDataCenter.MarketingActivityManager.InitMyCompositionDataList()
-end
-
-function XUiMainRightTop:OpenUiPicComposition(IsOpen)
-    if IsOpen then
-        XLuaUiManager.Open("UiPicComposition")
-    else
-        XUiManager.TipText("PicCompositionNetError")
-    end
 end
 
 --更新时间
@@ -177,14 +111,6 @@ end
 
 function XUiMainRightTop:ResetBatteryTime()
     self.LastTipBatteryRefreshTime = 0
-end
-
-function XUiMainRightTop:OnCheckPicNews(count)--看图作文
-    self.BtnPic:ShowReddot(count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.PicComposition))
-end
-
-function XUiMainRightTop:OnCheckWindowsNews(count)--内嵌浏览器
-    self.BtnWindows:ShowReddot(count >= 0 and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.WindowsInlay))
 end
 
 function XUiMainRightTop:UpdateChargeMark()

@@ -18,7 +18,7 @@ function XUiTutoriaBattleRoleRoom:GetRoleDetailProxy()
     return {
         GetEntities = function(proxy, characterType)
             local robotIds = XDataCenter.FubenNewCharActivityManager.GetCharacterList(self.StageId)
-            return XEntityHelper.GetEntityByIds(XDataCenter.CharacterManager.GetRobotAndCharacterIdList(robotIds, characterType))
+            return XEntityHelper.GetEntityByIds(XMVCA.XCharacter:GetRobotAndCharacterIdList(robotIds, characterType))
         end,
         SortEntitiesWithTeam = function(proxy, team, entities, sortTagType)
             table.sort(entities, function(entityA, entityB)
@@ -40,7 +40,7 @@ function XUiTutoriaBattleRoleRoom:GetRoleDetailProxy()
         end,
         GetDefaultCharacterType = function (proxy)
             local defaultCharacterType = XFubenNewCharConfig:GetTryCharacterCharacterType(self.StageId)
-            return XTool.IsNumberValid(defaultCharacterType) and defaultCharacterType or XCharacterConfigs.CharacterType.Normal 
+            return XTool.IsNumberValid(defaultCharacterType) and defaultCharacterType or XEnumConst.CHARACTER.CharacterType.Normal 
         end,
         GetFilterControllerConfig = function()
             ---@type XCharacterAgency

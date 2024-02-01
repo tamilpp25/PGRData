@@ -57,7 +57,7 @@ function XUiPanelSetting:UpdateCharacterHead()
         if not XTool.UObjIsNil(self.RImgCharacter[i]) then
             if self.CharacterList[i] then
                 self.RImgCharacter[i].gameObject:SetActive(true)
-                local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterList[i])
+                local charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterList[i])
                 self.RImgCharacter[i]:SetRawImage(charIcon)
             else
                 self.RImgCharacter[i].gameObject:SetActive(false)
@@ -461,10 +461,10 @@ function XUiPanelSetting:OnBtnCharacter(index)
     -- 根据选中的角色类型打开对应的页签
     local characterType
     if curTeam[index] and curTeam[index] ~= 0 then
-        characterType = XCharacterConfigs.GetCharacterType(curTeam[index])
+        characterType = XMVCA.XCharacter:GetCharacterType(curTeam[index])
     else
         -- 添加新角色时，默认打开构造体页签
-        characterType = XCharacterConfigs.CharacterType.Normal
+        characterType = XEnumConst.CHARACTER.CharacterType.Normal
     end
 
     -- 角色展示不拦截角色类型，构造体与授格者可以同时展示
@@ -530,7 +530,7 @@ function XUiPanelSetting:OnBtnView()
         if self.CurCharactersAppearanceType == XPlayerInfoConfigs.CharactersAppearanceType.Select then
             for i = 1, MAX_CHARACTER do
                 if self.CharacterList[i] then
-                    local char = XDataCenter.CharacterManager.GetCharacter(self.CharacterList[i])
+                    local char = XMVCA.XCharacter:GetCharacter(self.CharacterList[i])
                     tmpData.CharacterShow[i] = char
                 else
                     tmpData.CharacterShow[i] = nil
@@ -538,14 +538,14 @@ function XUiPanelSetting:OnBtnView()
             end
         else
             --展示全角色
-            tmpData.CharacterShow = XDataCenter.CharacterManager.GetOwnCharacterList()
+            tmpData.CharacterShow = XMVCA.XCharacter:GetOwnCharacterList()
         end
 
         --请求的数据有缓冲，使用XPlayer的数据可以实时看到预览的改变
         tmpData.Sign = XPlayer.Sign
         tmpData.Level = XPlayer.Level
         tmpData.Likes = XPlayer.Likes
-        tmpData.Birthday = XPlayer.Birthday
+        tmpData.Birthday = XMVCA.XBirthdayPlot:GetBirthday()
         tmpData.CurrHeadFrameId = XPlayer.CurrHeadFrameId
         tmpData.CurrHeadPortraitId = XPlayer.CurrHeadPortraitId
         tmpData.AppearanceShowType = self.CurCharactersAppearanceType   --角色展示类型
@@ -566,7 +566,7 @@ function XUiPanelSetting:OnBtnView()
 
         --成员涂装
         tmpData.FashionShow = {}
-        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionStatus()) do
+        for k, _ in pairs(XDataCenter.FashionManager.GetOwnFashionDataDic()) do
             table.insert(tmpData.FashionShow, k)
         end
 

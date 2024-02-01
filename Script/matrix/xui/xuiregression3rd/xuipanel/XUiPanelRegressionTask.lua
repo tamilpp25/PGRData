@@ -13,13 +13,17 @@ local TabType = {
 
 --region   ------------------重写父类方法 start-------------------
 
-function XUiPanelRegressionTask:Show()
-    self.GameObject:SetActiveEx(true)
+
+function XUiPanelRegressionTask:OnEnable()
     self:RefreshView()
 end
 
+function XUiPanelRegressionTask:Show()
+    self:Open()
+end
+
 function XUiPanelRegressionTask:Hide()
-    self.GameObject:SetActiveEx(false)
+    self:Close()
 end
 
 function XUiPanelRegressionTask:InitUi()
@@ -37,7 +41,7 @@ function XUiPanelRegressionTask:InitUi()
     
     self.TaskVideModel = self.ViewModel:GetProperty("_TaskVideModel")
     
-    XRedPointManager.AddRedPointEvent(self.BtnReceiveAll, self.OnCheckBtnRedPoint, self, { XRedPointConditions.Types.CONDITION_REGRESSION3_TASK })
+    self:AddRedPointEvent(self.BtnReceiveAll, self.OnCheckBtnRedPoint, self, { XRedPointConditions.Types.CONDITION_REGRESSION3_TASK })
 end
 
 function XUiPanelRegressionTask:InitCb()
@@ -106,6 +110,7 @@ function XUiPanelRegressionTask:RefreshView()
     local viewModel = self.TaskVideModel
     self.RootUi:BindViewModelPropertyToObj(viewModel, function()
         if XTool.IsNumberValid(self.TabIndex) then
+            self.AnimSwitch.transform:PlayTimelineAnimation()
             self:SetupDynamicTable()
         else
             self.PanelBtnGroup:SelectIndex(TabType.Convention)

@@ -148,7 +148,7 @@ end
 
 function XUiActivityBossSingleDetail:OnBtnEnterClick()
     local stageId = XFubenActivityBossSingleConfigs.GetStageId(self.ChallengeId)
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId)
     self:Close()
 end
 

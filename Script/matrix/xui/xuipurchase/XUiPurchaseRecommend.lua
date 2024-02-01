@@ -56,8 +56,8 @@ function XUiPanelRecommend:SetData(data, skipFunc, buyFinished)
                     end
                     local buyData = self.Recommend:GetPurchasePackage()
                     if buyData then
-                        self.PurchaseManager.OpenPurchaseBuyUiByPurchasePackage(package, function()
-                            self.SkipFunc(XPurchaseConfigs.TabsConfig.Pay)
+                        self.PurchaseManager.OpenPurchaseBuyUiByPurchasePackage(package, function(_, payCount)
+                            self.SkipFunc(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
                         end, nil, self.BuyFinished)
                     end
                 end)

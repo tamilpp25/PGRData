@@ -77,7 +77,7 @@ function XUiPanelTrialSelect:SetPro(itemData)
 end
 
 function XUiPanelTrialSelect:SetAbility(itemData)
-    local charlist = XDataCenter.CharacterManager.GetCharacterList()
+    local charlist = XMVCA.XCharacter:GetCharacterList()
     local maxAbility = 0
 
     for _, v in pairs(charlist) do
@@ -195,11 +195,7 @@ function XUiPanelTrialSelect:EnterFight(stage)
         local groupId = XDataCenter.BfrtManager.GetGroupIdByBaseStage(stage.StageId)
         XLuaUiManager.Open("UiBfrtDeploy", groupId)
     else
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
     end
 end
 return XUiPanelTrialSelect

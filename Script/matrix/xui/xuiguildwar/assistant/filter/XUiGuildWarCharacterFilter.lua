@@ -49,4 +49,11 @@ function XUiGuildWarCharacterFilter:ShowEmpty(value, ...)
     end
 end
 
+-- 外部手动调用，开启支援选项
+function XUiGuildWarCharacterFilter:ImportSupportList(characterList)
+    -- 好友/公会支援 数据列表
+    self.SupportCharacterList = characterList
+    --self.ImportListTrigger = true
+end
+
 return XUiGuildWarCharacterFilter

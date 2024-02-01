@@ -104,7 +104,7 @@ XEscapeManagerCreator = function()
                 --清除队伍中不存在的角色
                 isRobot = XRobotManager.CheckIsRobotId(entityId)
                 if (isRobot and not XEscapeConfigs.IsStageTypeRobot(entityId)) or 
-                    (not isRobot and not XDataCenter.CharacterManager.IsOwnCharacter(entityId)) then
+                    (not isRobot and not XMVCA.XCharacter:IsOwnCharacter(entityId)) then
                     Team:UpdateEntityTeamPos(0, teamPos, true)
                 end
             end

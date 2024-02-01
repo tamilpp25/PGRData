@@ -16,7 +16,7 @@ function XUiGridFashionStoryStage:LoadStagePrefab(activityId, stageId,singleLine
         self.StageId = stageId
         self.SingleLineId=singleLineId
         local prefabName
-        local stageType = XFubenConfigs.GetStageType(stageId)
+        local stageType = XFubenConfigs.GetStageMainlineType(stageId)
 
         -- 选择对应StageType的关卡预制体
         if stageType == XFubenConfigs.STAGETYPE_FIGHT or stageType == XFubenConfigs.STAGETYPE_FIGHTEGG

@@ -220,6 +220,12 @@ XWeekChallengeManagerCreator = function()
             XLuaUiManager.Open("UiSignBanner", XWeekChallengeConfigs.SignId)
         end
     end
+    
+    function XWeekChallengeManager.JumpToPanel()
+        if XWeekChallengeManager.IsOpen() then
+            XLuaUiManager.Open("UiSignBanner", XWeekChallengeConfigs.SignId)
+        end
+    end
 
     --region request
     -- 领取奖品

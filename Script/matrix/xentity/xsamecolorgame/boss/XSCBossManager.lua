@@ -1,5 +1,6 @@
 local SCBoss = require("XEntity/XSameColorGame/Boss/XSCBoss")
 
+---@class XSCBossManager
 local XSCBossManager = XClass(nil, "XSCBossManager")
 
 function XSCBossManager:Ctor()
@@ -25,7 +26,8 @@ function XSCBossManager:GetCurrentChallengeBoss()
     return self.CurrentChallengeBoss
 end
 
--- 获取所有boss
+---获取所有boss
+---@return XSCBoss[]
 function XSCBossManager:GetBosses(checkIsTime)
     if checkIsTime == nil then checkIsTime = false end
     local bossConfigDic = XSameColorGameConfigs.GetBossConfigDic()

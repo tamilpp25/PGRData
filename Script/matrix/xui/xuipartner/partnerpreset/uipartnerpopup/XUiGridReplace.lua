@@ -16,7 +16,7 @@ function XUiGridTeamPresetRole:Refresh(pos, teamData, isPrefabTeam)
         
         self.PanelHave.gameObject:SetActive(true)
         self.PanelNull.gameObject:SetActive(false)
-        local character = XDataCenter.CharacterManager.GetCharacter(chrId)
+        local character = XMVCA.XCharacter:GetCharacter(chrId)
         if not character then return end
 
         local color = XDataCenter.TeamManager.GetTeamMemberColor(pos)
@@ -41,8 +41,8 @@ function XUiGridTeamPresetRole:Refresh(pos, teamData, isPrefabTeam)
             self.PanelPartner.PanelNone.gameObject:SetActiveEx(true)
         end
 
-        self.ImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
-        self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.ImgIcon:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(character.Id))
+        self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     else
         self.ImgLeftnull.color = XDataCenter.TeamManager.GetTeamMemberColor(pos)
         self.ImgRightnull.color = XDataCenter.TeamManager.GetTeamMemberColor(pos)

@@ -26,7 +26,7 @@ function XUiSimulatedCombatListCharacterGrid:RefreshDatas(data)
     
     
     --self.RImgMember:SetRawImage(XRobotManager.GetRobotSmallHeadIcon(self.ResInfo.RobotId))
-    --self.TxtName.text = XCharacterConfigs.GetCharacterName()
+    --self.TxtName.text = XMVCA.XCharacter:GetCharacterName()
     
     
     self.RImgHeadIcon:SetRawImage(XRobotManager.GetRobotSmallHeadIcon(self.RobotId))
@@ -58,13 +58,13 @@ function XUiSimulatedCombatListCharacterGrid:SetSelect(isSelect)
 end
 
 function XUiSimulatedCombatListCharacterGrid:RefreshElements()    
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharacterId)
     local elementList = detailConfig.ObtainElementList
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]
         if rImg and elementList[i] then
             rImg.transform.gameObject:SetActiveEx(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         elseif rImg and not elementList[i] then
             rImg.transform.gameObject:SetActiveEx(false)

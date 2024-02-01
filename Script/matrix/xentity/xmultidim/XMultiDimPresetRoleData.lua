@@ -97,7 +97,7 @@ function XMultiDimPresetRoleData:GetHighAbility()
     local entityIds = self.DefaultCharacterIds:GetEntityIds()
     local maxAbility = 0
     for _, entityId in pairs(entityIds) do
-        local entity = XDataCenter.CharacterManager.GetCharacter(entityId)
+        local entity = XMVCA.XCharacter:GetCharacter(entityId)
         if not entity or not entity.GetCharacterViewModel then
             goto CONTINUE
         end
@@ -126,7 +126,7 @@ end
 function XMultiDimPresetRoleData:GetOwnCharacterListByFilterCareer(characterType)
     local tempCharacterList = {}
     -- 获取已拥有的角色
-    local ownCharacterList = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local ownCharacterList = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     -- 通过角色职业过滤
     for _, character in pairs(ownCharacterList) do
         if self:CheckFilterJudge(character) then

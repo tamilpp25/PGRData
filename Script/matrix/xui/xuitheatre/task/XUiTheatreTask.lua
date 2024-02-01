@@ -10,7 +10,7 @@ local tableInsert = table.insert
 local XUiTheatreTask = XLuaUiManager.Register(XLuaUi, "UiTheatreTask")
 
 function XUiTheatreTask:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:InitDynamicTable()
     self:AddListener()
 end

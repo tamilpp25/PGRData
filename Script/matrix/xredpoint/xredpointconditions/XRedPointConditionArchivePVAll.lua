@@ -11,7 +11,7 @@ function XRedPointConditionArchivePVAll.GetSubEvents()
 end
 
 function XRedPointConditionArchivePVAll.Check()
-    return XDataCenter.ArchiveManager.CheckPVRedPointByGroup() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
+    return XMVCA.XArchive:CheckPVRedPointByGroup() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
 end
 
 return XRedPointConditionArchivePVAll

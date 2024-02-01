@@ -119,7 +119,7 @@ end
 
 function XUiMonsterCombatFight:RefreshRole(entityId)
     if self.PanelRole then
-        self.PanelRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(entityId))
+        self.PanelRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyBigImage(entityId))
     end
 end
 

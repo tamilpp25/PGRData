@@ -1,21 +1,24 @@
---大秘境主界面
+---@class XUiRiftMain:XLuaUi 大秘境主界面
 local XUiRiftMain = XLuaUiManager.Register(XLuaUi, "UiRiftMain")
 local XUiPanel3DMap = require("XUi/XUiRift/Grid/XUiPanelRiftMain3D")
 local XUiGridRiftChapterOutliers = require("XUi/XUiRift/Grid/XUiGridRiftChapterOutliers") -- 主界面看异常点用的，对应作战层
+
+local ItemIds = {
+    XDataCenter.ItemManager.ItemId.RiftGold,
+    XDataCenter.ItemManager.ItemId.RiftCoin
+}
 
 function XUiRiftMain:OnAwake()
     self.CurrSelectIndex = 1
     self.CurrSelectChapter = nil
     self.OutliersGridDic = {}
-    self.FuncUnlockItemId = nil -- 特权解锁的道具id
     self.ChildUi = nil
     self.RewardGridList = {}
-    
+
     self:InitButton()
     self:Init3DPanel()
-    self:InitAssetPanel()
-
-    CsXGameEventManager.Instance:RegisterEvent(XEventId.EVENT_GUIDE_START, handler(self, self.OnGuideStart))
+    self:InitComponent()
+    self:SetDragCallBack()
 end
 
 function XUiRiftMain:InitButton()
@@ -23,16 +26,15 @@ function XUiRiftMain:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnMainUi, function() XLuaUiManager.RunMain() end)
     self:BindHelpBtn(self.BtnHelp, "RiftHelp")
     XUiHelper.RegisterClickEvent(self, self.BtnRiftFightLayerSelect, self.OnBtniRiftFightLayerSelectClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnFullScreenQuitTip, self.OnBtnFullScreenQuitTipClick)
     XUiHelper.RegisterClickEvent(self, self.BtnTask, function() XLuaUiManager.Open("UiRiftTask") end)
-    XUiHelper.RegisterClickEvent(self, self.BtnTask2, self.OnBtnFuncUnlockClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnRanking, function() XDataCenter.RiftManager.OpenUiPluginRanking() end)
+    XUiHelper.RegisterClickEvent(self, self.BtnRanking, self.OnBtnRank)
     XUiHelper.RegisterClickEvent(self, self.BtnShop, function() XDataCenter.RiftManager.OpenUiShop() end)
     XUiHelper.RegisterClickEvent(self, self.BtnForGuide, self.OnBtnForGuideClick)
 end
 
 function XUiRiftMain:Init3DPanel()
     local root = self.UiModelGo.transform
+    ---@type XUiPanelRiftMain3D
     self.Panel3D = XUiPanel3DMap.New(root, self)
 end
 
@@ -57,21 +59,35 @@ function XUiRiftMain:OnEnable()
     self.Panel3D:SetCameraAngleByChapterId(nil) -- 默认关闭区域层级俯视镜头
     self.Panel3D:SetOtherGameObjectShowByChapterId(nil) 
     self.Panel3D:Refresh()
+    self:AutoGotoLayer()
     self:AutoPositioning()
     self:RefreshUiShow()
     self:SetTimer()
-
-    self:AutoOpenChild()
+    self:CheckShowSeasonStart()
 end
 
 function XUiRiftMain:RefreshUiShow()
     -- 目标(任务/权限回收)
     self:RefreshUiTask()
-    self:RefreshFuncUnlock()
     -- 资源栏
     self:UpdateAssetPanel()
     -- 商店展示道具
     self:RefreshShopReward()
+
+    self.IsRankUnlock, self.RankConditionDesc = XDataCenter.RiftManager:IsRankUnlock()
+    self.BtnRanking:SetButtonState(self.IsRankUnlock and CS.UiButtonState.Normal or CS.UiButtonState.Disable)
+end
+
+function XUiRiftMain:OnBtnRank()
+    if not self.IsRankUnlock then
+        XUiManager.TipError(self.RankConditionDesc)
+        return
+    end
+    XLuaUiManager.Open("UiRiftRanking")
+end
+
+function XUiRiftMain:CheckShowSeasonStart()
+    XDataCenter.RiftManager:CheckShowSeasonStart()
 end
 
 -- (被3D面板调用)
@@ -141,44 +157,36 @@ function XUiRiftMain:SetChapterInfoBubbleActive(flag)
     self.PanelOutliers.gameObject:SetActiveEx(flag)
     self.PanelTangchuan.gameObject:SetActiveEx(flag)
     self.ImgLineChargeShadow.gameObject:SetActiveEx(flag)
-    self.BtnFullScreenQuitTip.gameObject:SetActiveEx(flag)
-end
-
-function XUiRiftMain:AutoOpenChild()
-    if self.ResumeLayer then -- 如果是战斗返回的, 重现出战斗前的ui情况
-        self:OpenOneChildUi("UiRiftFightLayerSelect", self, self.Panel3D, self.ResumeLayer:GetParent():GetId())
-        self:OpenChildToShowOrHide(false)
-        return
-    end
-
-    local curPlayingChapter, curPlayingLayer = XDataCenter.RiftManager.GetCurrPlayingChapter()
-    -- 如果有正在作战的战斗层 自动打开其所在区域
-    if curPlayingLayer then
-        if curPlayingLayer and curPlayingLayer:CheckHasStarted() then
-            self:OpenOneChildUi("UiRiftFightLayerSelect", self, self.Panel3D, curPlayingLayer:GetParent():GetId())
-            self:OpenChildToShowOrHide(false)
-        end
-    end
 end
 
 -- 自动滑动定位区域
 -- 1.如果有正在作战的作战层 优先定位到区域
--- 2.如果有记录最后一次进入过查看的作战层 再定位到该区域
+-- 2.定位到最新可挑战层
+-- 3.全部通关则定位到第一层
 function XUiRiftMain:AutoPositioning()
+    if not self.SafeAreaContentPane.gameObject.activeSelf then
+        if XTool.IsNumberValid(self.CurrSelectIndex) then
+            self.Panel3D:ImmediatelyGoToNodeIndex(self.CurrSelectIndex)
+            self:UpdateArrow()
+        end
+        return -- 关卡选择界面开着时，直接移动到选中层
+    end
+
     local targetIndex = 1
 
-    local curPlayingChapter = XDataCenter.RiftManager.GetCurrPlayingChapter()
-    if curPlayingChapter then
-        targetIndex = curPlayingChapter:GetId()
-    else
-        local lastFightLayerData = XDataCenter.RiftManager.GetLastRecordFightLayer()
-        if not XTool.IsTableEmpty(lastFightLayerData) then
-            targetIndex = lastFightLayerData.ChapterId
-        end
+    if not self.CurPlayingChapter then
+        self.CurPlayingChapter = XDataCenter.RiftManager.GetCurrPlayingChapter()
+    end
+    if self.CurPlayingChapter then
+        targetIndex = self.CurPlayingChapter:GetId()
+    elseif not XDataCenter.RiftManager.IsAllPass() then
+        local maxUnlock = XDataCenter.RiftManager.GetMaxUnLockFightLayerId()
+        local maxUnlockLayer = XDataCenter.RiftManager.GetEntityFightLayerById(maxUnlock)
+        targetIndex = maxUnlockLayer:GetParent():GetId()
     end
     self.CurrSelectIndex = targetIndex
     -- 滑动chapter列表
-    self.Panel3D:FocusTargetNodeIndex(targetIndex, -1)
+    self:AutoPositioningToOpenBubbleByChapterId(targetIndex)
 end
 
 -- 自动滑动并打开目标区域的bubble
@@ -188,18 +196,41 @@ function XUiRiftMain:AutoPositioningToOpenBubbleByChapterId(chapterId)
         self.CurrSelectChapter = XDataCenter.RiftManager.GetEntityChapterById(chapterId)
         self:RefreshChapterInfoShow(self.CurrSelectChapter)
         self:SetChapterInfoBubbleActive(true)
+        self:UpdateArrow()
+    end)
+end
+
+function XUiRiftMain:SetDragCallBack()
+    self.Panel3D:SetDragCallBack(function(gridRiftChapter3D)
+        self.CurrSelectChapter = gridRiftChapter3D.XChapter
+        self.CurrSelectIndex = self.CurrSelectChapter:GetId()
+        self:RefreshChapterInfoShow(self.CurrSelectChapter)
+        self:SetChapterInfoBubbleActive(true)
+        self:UpdateArrow()
+    end, function()
+        self:SetChapterInfoBubbleActive(false)
     end)
 end
 
 function XUiRiftMain:OpenChildToShowOrHide(flag)
     self.SafeAreaContentPane.gameObject:SetActiveEx(flag)
+    -- 不加Open和Close会有“activeInHierarchy依旧为false”的报错
+    if flag then
+        self.AssetActivityPanel:Open()
+    else
+        self.AssetActivityPanel:Close()
+    end
 end
 
 -- 进入区域
 function XUiRiftMain:OnBtniRiftFightLayerSelectClick()
     local currPlayingChapter = XDataCenter.RiftManager.GetCurrPlayingChapter()
     if currPlayingChapter and currPlayingChapter ~= self.CurrSelectChapter then
-        XUiManager.TipError(CS.XTextManager.GetText("RiftChapterFightingLock"))
+        XUiManager.DialogTip("", XUiHelper.GetText("RiftLayerGiveUp"), XUiManager.DialogType.Normal, nil, function()
+            XDataCenter.RiftManager.RiftStopLayerRequest(function()
+                self:OnBtniRiftFightLayerSelectClick()
+            end)
+        end)
         return
     end
 
@@ -214,9 +245,22 @@ function XUiRiftMain:OnBtniRiftFightLayerSelectClick()
             return
         end
     end
-    self:OpenOneChildUi("UiRiftFightLayerSelect", self, self.Panel3D, self.CurrSelectIndex)
+    self:OpenOneChildUi("UiRiftFightLayerSelect", self, self.Panel3D)
     self:OpenChildToShowOrHide(false)
     self.CurrSelectChapter:SaveFirstEnter()
+end
+
+-- 结算后自动打开关卡选择界面
+function XUiRiftMain:AutoGotoLayer()
+    local layerId = XDataCenter.RiftManager.GetIsOpenLayerSelectTrigger()
+    local layer = XDataCenter.RiftManager.GetEntityFightLayerById(layerId)
+    if layerId and layer then
+        self.CurPlayingChapter = XDataCenter.RiftManager.GetEntityChapterById(layer:GetConfig().ChapterId)
+        self.CurrSelectIndex = self.CurPlayingChapter:GetId()
+        self:OpenOneChildUi("UiRiftFightLayerSelect", self, self.Panel3D, layerId)
+        self:OpenChildToShowOrHide(false)
+        self.CurPlayingChapter:SaveFirstEnter()
+    end
 end
 
 -- 点击选中Chapter
@@ -227,11 +271,6 @@ function XUiRiftMain:OnChapterSelected(gridRiftChapter3D)
     self.Panel3D:FocusTargetNodeIndex(self.CurrSelectIndex, -1, function ()
         self:SetChapterInfoBubbleActive(true)
     end)
-end
-
--- 隐藏区域信息气泡
-function XUiRiftMain:OnBtnFullScreenQuitTipClick()
-    self:SetChapterInfoBubbleActive(false)
 end
 
 -- 临时新手点击按钮，写死进入chapter1
@@ -252,25 +291,13 @@ function XUiRiftMain:OnBtnForGuideClick()
     self.BtnForGuide.gameObject:SetActiveEx(false)
 end
 
--- 点击特权解锁
-function XUiRiftMain:OnBtnFuncUnlockClick()
-    if self.FuncUnlockItemId then
-        local data = {
-            Id = self.FuncUnlockItemId,
-            Count = "0"
-        }
-        XLuaUiManager.Open("UiTip", data)
-
-        XDataCenter.RiftManager.CloseFuncUnlockRed()
-        self:RefreshFuncUnlock()
-    end
-end
-
 function XUiRiftMain:SetTimer()
     self:StopTimer()
     self:SetResetTime()
+    self:CountDown()
     self.Timer = XScheduleManager.ScheduleForever(function()
-            self:SetResetTime()
+        self:SetResetTime()
+        self:CountDown()
     end, XScheduleManager.SECOND, 0)
 end
 
@@ -309,19 +336,33 @@ function XUiRiftMain:OnGuideStart()
     end
 end
 
+function XUiRiftMain:OnGetEvents()
+    return {
+        XEventId.EVENT_GUIDE_START,
+    }
+end
+
+function XUiRiftMain:OnNotify(evt)
+    if evt == XEventId.EVENT_GUIDE_START then
+        self:OnGuideStart()
+    end
+end
+
 function XUiRiftMain:OnDisable()
     self:StopTimer()
 end
 
 function XUiRiftMain:OnDestroy()
-    CsXGameEventManager.Instance:RemoveEvent(XEventId.EVENT_GUIDE_START, handler(self, self.OnGuideStart))
+
 end
 
 -- 记录战斗前后数据
 function XUiRiftMain:OnReleaseInst()
-    return { 
-        CurrFightLayer = XDataCenter.RiftManager.GetCurrSelectRiftStageGroup():GetParent(),
-    }
+    local stageGroup = XDataCenter.RiftManager.GetCurrSelectRiftStageGroup()
+    if stageGroup then
+        return { CurrFightLayer = stageGroup:GetParent() }
+    end
+    return nil
 end
 
 function XUiRiftMain:OnResume(data)
@@ -333,25 +374,12 @@ function XUiRiftMain:OnResume(data)
     end
 end
 
-function XUiRiftMain:InitAssetPanel()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
-    XDataCenter.ItemManager.AddCountUpdateListener(
-        {
-            XDataCenter.ItemManager.ItemId.RiftGold,
-            XDataCenter.ItemManager.ItemId.RiftCoin
-        },
-        handler(self, self.UpdateAssetPanel),
-        self.AssetActivityPanel
-    )
+function XUiRiftMain:InitComponent()
+    self.AssetActivityPanel = XUiHelper.NewPanelActivityAssetSafe(ItemIds, self.PanelSpecialTool, self)
 end
 
 function XUiRiftMain:UpdateAssetPanel()
-    self.AssetActivityPanel:Refresh(
-        {
-            XDataCenter.ItemManager.ItemId.RiftGold,
-            XDataCenter.ItemManager.ItemId.RiftCoin
-        }
-    )
+    self.AssetActivityPanel:Refresh(ItemIds)
 end
 
 -- 刷新任务ui
@@ -364,20 +392,6 @@ function XUiRiftMain:RefreshUiTask()
         self.TxtTaskDesc.text = desc
         local isShowRed = XDataCenter.RiftManager.CheckTaskCanReward()
         self.BtnTask:ShowReddot(isShowRed)
-    end
-end
-
--- 刷新特权解锁ui
-function XUiRiftMain:RefreshFuncUnlock()
-    local unlockConfig = XDataCenter.RiftManager.GetNextFuncUnlockConfig()
-    local isShow = unlockConfig ~= nil
-    self.PanelTask2.gameObject:SetActiveEx(isShow)
-    if isShow then
-        self.FuncUnlockItemId = unlockConfig.ItemId
-        self.TxtTaskDesc2.text = unlockConfig.Desc
-
-        local isRed = XDataCenter.RiftManager.IsFuncUnlockRed()
-        self.BtnTask2:ShowReddot(isRed)
     end
 end
 
@@ -396,6 +410,33 @@ function XUiRiftMain:RefreshShopReward()
         end
         
         grid:Refresh({TemplateId = itemId})
+    end
+end
+
+function XUiRiftMain:UpdateArrow()
+    self.ImgUp.gameObject:SetActiveEx(self.CurrSelectIndex > 1)
+    self.ImgDown.gameObject:SetActiveEx(self.CurrSelectIndex < 6)
+end
+
+function XUiRiftMain:CountDown()
+    local time = XDataCenter.RiftManager:GetSeasonEndTime()
+    if time > 0 then
+        self.TxtSeasonTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER)
+    else
+        -- 赛季未开始时显示第一赛季的开启时间
+        time = XDataCenter.RiftManager:GetSeasonStartTimeByIndex(1)
+        self.TxtSeasonTime.text = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER)
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonNameByIndex(1))
+        return
+    end
+    local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+    local config = XDataCenter.RiftManager.GetCurrentConfig()
+    if seasonIndex == 1 then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonName())
+    elseif seasonIndex == #config.PeriodName then
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc2")
+    else
+        self.TxtSeasonName.text = XUiHelper.GetText("RiftCountDownDesc3")
     end
 end
 

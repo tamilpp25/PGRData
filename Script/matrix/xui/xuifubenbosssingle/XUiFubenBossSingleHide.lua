@@ -1,3 +1,5 @@
+---@class XUiFubenBossSingleHide : XLuaUi
+---@field _Control XFubenBossSingleControl
 local XUiFubenBossSingleHide = XLuaUiManager.Register(XLuaUi, "UiFubenBossSingleHide")
 
 function XUiFubenBossSingleHide:OnAwake()
@@ -10,14 +12,6 @@ function XUiFubenBossSingleHide:OnStart(bossStageCfg)
     self:Init(bossStageCfg)
 end
 
-function XUiFubenBossSingleHide:OnEnable()
-
-end
-
-function XUiFubenBossSingleHide:OnDisable()
-
-end
-
 function XUiFubenBossSingleHide:AutoAddListener()
     self:RegisterClickEvent(self.BtnClose, self.OnBtnBackClick)
 end
@@ -27,7 +21,7 @@ function XUiFubenBossSingleHide:Init(bossStageCfg)
     self.GridFeatures.gameObject:SetActiveEx(false)
     self.GridBuffTitle.gameObject:SetActiveEx(false)
     self.GridBuffDetails.gameObject:SetActiveEx(false)
-    self.IsHideBoss = self.BossStageCfg.DifficultyType == XFubenBossSingleConfigs.DifficultyType.Hide
+    self.IsHideBoss = self.BossStageCfg.DifficultyType == XEnumConst.BossSingle.DifficultyType.Hide
 
     local buffDetailIds = self.BossStageCfg.BuffDetailsId
     local featuresIds = self.BossStageCfg.FeaturesId
@@ -62,10 +56,10 @@ function XUiFubenBossSingleHide:SetFeatures(showFeatures)
 
         local desc = XUiHelper.TryGetComponent(grid.transform, "TxtDesc", "Text")
         local name = XUiHelper.TryGetComponent(grid.transform, "TxtName", "Text")
-        local featuresCfg = XFubenConfigs.GetFeaturesById(self.BossStageCfg.FeaturesId[i])
+        local featuresCfg = XMVCA.XFuben:GetFeaturesById(self.BossStageCfg.FeaturesId[i])
         desc.text = featuresCfg.Desc
-        name.text = self.IsHideBoss and CS.XTextManager.GetText("BossSingleLevelHideBoss", featuresCfg.Name)
-        or CS.XTextManager.GetText("BossSingleLevel", featuresCfg.Name)
+        name.text = self.IsHideBoss and XUiHelper.GetText("BossSingleLevelHideBoss", featuresCfg.Name)
+        or XUiHelper.GetText("BossSingleLevel", featuresCfg.Name)
 
         grid.gameObject:SetActiveEx(true)
     end

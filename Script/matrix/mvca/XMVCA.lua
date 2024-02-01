@@ -5,36 +5,82 @@
 ---
 ---
 --先引用进来基础的class
+require("MVCA/XUidObject")
 require("MVCA/ModuleId")
 require("MVCA/XMVCAUtil")
 require("MVCA/XConfigUtil")
 require("MVCA/XMVCAEvent")
+require("MVCA/XEntity")
 require("MVCA/XModel")
 require("MVCA/XControl")
+require("MVCA/XEntityControl")
 require("MVCA/XAgency")
 require("MVCA/MVCAEventId")
 
 local IsWindowsEditor = XMain.IsWindowsEditor
+
 ---@class XMVCACls : XMVCAEvent
 ---@field _AgencyDict table<string, XAgency>
 ---@field _ControlDict table<string, XControl>
 ---@field _ModelDict table<string, XModel>
+---@field _ControlReleaseDict table<string, XControl>
 ---@field XCharacter XCharacterAgency
+---@field XCommonCharacterFilter XCommonCharacterFilterAgency
+---@field XEquip XEquipAgency
 ---@field XTheatre3 XTheatre3Agency
+---@field XBlackRockChess XBlackRockChessAgency
 ---@field XFuben XFubenAgency
+---@field XPassport XPassportAgency
+---@field XUiMain XUiMainAgency
+---@field XConnectingLine XConnectingLineAgency
+---@field XSubPackage XSubPackageAgency
+---@field XPreload XPreloadAgency
+---@field XTaikoMaster XTaikoMasterAgency
+---@field XSameColor XSameColorAgency
+---@field XRogueSim XRogueSimAgency
+---@field XBirthdayPlot XBirthdayPlotAgency
+---@field XFavorability XFavorabilityAgency
+---@field XDlcRoom XDlcRoomAgency
+---@field XDlcWorld XDlcWorldAgency
+---@field XDlcCasual XDlcCasualAgency
+---@field XFubenEx XFubenExAgency
+---@field XCerberusGame XCerberusGameAgency
+---@field XFangKuai XFangKuaiAgency
+---@field XGoldenMiner XGoldenMinerAgency
+---@field XReform XReformAgency
+---@field XKotodamaActivity XKotodamaActivityAgency
+---@field XMail XMailAgency
+---@field XAccumulateExpend XAccumulateExpendAgency
+---@field XFubenBossSingle XFubenBossSingleAgency
+---@field XTemple XTempleAgency
+---@field XFSM XFSMAgency
 local XMVCACls = XClass(XMVCAEvent, "XMVCACls")
 
 function XMVCACls:Ctor()
     self._AgencyDict = {}
     self._ControlDict = {}
+    self._ControlReleaseDict = {} --延迟释放的词典
     self._ModelDict = {}
     self._OneKeyReLogin = false
+    self._ReleaseTimer = false
+    self._CheckReleaseControlHandler = handler(self, self._CheckReleaseControl)
     if IsWindowsEditor then
-        self._ControlProfiler = {}
-        setmetatable(self._ControlProfiler, { __mode = "kv"})
-        self._ConfigProfiler = {}
-        setmetatable(self._ConfigProfiler, { __mode = "kv"})
+        self._PreloadConfig = {}
+        
+        setmetatable(self, {
+            __index = function(t, k)
+                if ModuleId[k] and not self._AgencyDict[k] then
+                    XLog.Error("未注册Agency：" .. tostring(k) .. ", 请先在XMVCACls:InitModule 进行注册！")
+                end
+                local value = self.__class[k] or XMVCACls[k] or GetClassVirtualTable(self.__class)[k]
+                if not value then
+                    XLog.Error("未获取到Key为" .. tostring(k) .. "的值，如果是Agency请先在XMVCACls:InitModule 进行注册！")
+                end
+                return value
+            end
+        })
     end
+    
 end
 
 ---注册模块
@@ -59,6 +105,7 @@ function XMVCACls:InitAllAgencyRpc()
 end
 
 function XMVCACls:Init()
+    self:_ReleaseAllDelayControl() --这里全部移除掉
     self:_Reset()
     self:_InitAllAgencyEvent()
 end
@@ -82,6 +129,10 @@ end
 ---获取Agency
 ---@return XAgency
 function XMVCACls:GetAgency(id)
+    if not self._AgencyDict[id] then
+        XLog.Error("未注册Agency：" .. tostring(id) .. ", 请先在XMVCACls:InitModule 进行注册！")
+        return
+    end
     return self._AgencyDict[id]
 end
 
@@ -92,11 +143,16 @@ function XMVCACls:_RegisterControl(id)
     if self._ControlDict[id] then
         XLog.Error("请勿重复初始化Control: " .. id)
     else
-        local cls = XMVCAUtil.GetControlCls(id)
-        local control = cls.New(id)
-        self._ControlDict[id] = control
-        if IsWindowsEditor then
-            self._ControlProfiler[control] = control:GetId()
+        if self._ControlReleaseDict[id] then --在延迟列表里存在
+            local control = self._ControlReleaseDict[id]
+            self:_RemoveDelayReleaseControl(id)
+            self._ControlDict[id] = control
+        else
+            local cls = XMVCAUtil.GetControlCls(id)
+            ---@type XControl
+            local control = cls.New(id)
+            self._ControlDict[id] = control
+            control:CallInit()
         end
     end
 end
@@ -115,17 +171,84 @@ end
 function XMVCACls:CheckReleaseControl(id)
     local control = self._ControlDict[id]
     if control and not control:HasViewRef() then
-        control:Release()
+        if control:_GetDelayReleaseTime() ~= 0 then
+            self:_AddDelayReleaseControl(control)
+        else
+            control:Release()
+        end
         self._ControlDict[id] = nil
     end
 end
+
+---@param control XControl
+function XMVCACls:_AddDelayReleaseControl(control)
+    local id = control:GetId()
+    if self._ControlReleaseDict[id] then
+        XLog.Error("延迟释放列表里已存在Control: " .. id)
+        return
+    else
+        self._ControlReleaseDict[id] = control
+        control:_UpdateLastUseTime() --更新最后使用时间
+    end
+    if not self._ReleaseTimer then
+        self._ReleaseTimer = XScheduleManager.ScheduleForever(self._CheckReleaseControlHandler, 0, 0)
+    end
+end
+
+function XMVCACls:_RemoveDelayReleaseControl(id)
+    if not self._ControlReleaseDict[id] then
+        XLog.Error("移除延迟释放列表不存在的Control: " .. id)
+        return
+    end
+    self._ControlReleaseDict[id] = nil
+    if not next(self._ControlReleaseDict) then
+        self:_RemoveDelayTimer()
+    end
+end
+
+function XMVCACls:_CheckReleaseControl()
+    local removeIds = {}
+    local now = CS.UnityEngine.Time.realtimeSinceStartup
+    for id, control in pairs(self._ControlReleaseDict) do
+        if not control:HasViewRef() and now - control:_GetLastUseTime() >= control:_GetDelayReleaseTime() then --超出释放时间了
+            table.insert(removeIds, id)
+        end
+    end
+
+    for _, id in ipairs(removeIds) do
+        local control = self._ControlReleaseDict[id]
+        control:Release()
+        self._ControlReleaseDict[id] = nil
+    end
+
+    if not next(self._ControlReleaseDict) then
+        self:_RemoveDelayTimer()
+    end
+end
+
+--直接移除所有的延迟释放control
+function XMVCACls:_ReleaseAllDelayControl()
+    for _, control in ipairs(self._ControlReleaseDict) do
+        control:Release()
+    end
+    self._ControlReleaseDict = {}
+    self:_RemoveDelayTimer()
+end
+
+function XMVCACls:_RemoveDelayTimer()
+    if self._ReleaseTimer then
+        XScheduleManager.UnSchedule(self._ReleaseTimer)
+        self._ReleaseTimer = false
+    end
+end
+
 
 ---检测control是否有被引用
 ---@param id number 模块id ModuleId
 ---@return boolean
 function XMVCACls:_CheckControlRef(id)
     local control = self._ControlDict[id]
-    if control and control:HasViewRef() then
+    if control then
         return true
     end
     return false
@@ -157,6 +280,7 @@ function XMVCACls:_ReleaseAll()
     for _, control in pairs(self._ControlDict) do
         control:Release()
     end
+    self:_ReleaseAllDelayControl()
     for _, model in pairs(self._ModelDict) do
         model:Release()
     end
@@ -200,12 +324,22 @@ function XMVCACls:_HotReloadControl(id)
         local oldControl = self._ControlDict[id]
         self._ControlDict[id] = nil -- 要清空掉
         oldControl:_HotReloadRelease()
+    elseif self._ControlReleaseDict[id] then
+        local oldControl = self._ControlReleaseDict[id]
+        self._ControlReleaseDict[id] = nil
+        oldControl:_HotReloadRelease()
+        if not next(self._ControlReleaseDict) then
+            self:_RemoveDelayTimer()
+        end
     end
 end
 
 function XMVCACls:_HotReloadSubControl(id, oldCls, newCls)
     if self._ControlDict[id] then
         local mainControl = self._ControlDict[id]
+        mainControl:_HotReloadControl(oldCls, newCls)
+    elseif self._ControlReleaseDict[id] then
+        local mainControl = self._ControlReleaseDict[id]
         mainControl:_HotReloadControl(oldCls, newCls)
     end
 end
@@ -235,9 +369,13 @@ function XMVCACls:_HotReloadModel(id)
 end
 
 function XMVCACls:_CloneModel(oldModel, newModel)
+    local ReloadFunc = XHotReload.ReloadFunc
     for key, value in pairs(oldModel) do
         if key ~= "_ConfigUtil" then
-            newModel[key] = XTool.Clone(value)
+            newModel[key] = XTool.CloneEx(value)
+            if type(value) == "function" then
+                ReloadFunc(value)
+            end
         end
     end
 end
@@ -247,28 +385,65 @@ end
 function XMVCACls:InitModule()
     self:RegisterAgency(ModuleId.XMail)
     self:RegisterAgency(ModuleId.XCharacter)
-    self:RegisterAgency(ModuleId.XCommonCharacterFilt)
+    self:RegisterAgency(ModuleId.XCommonCharacterFilter)
     self:RegisterAgency(ModuleId.XEquip)
 
+    self:RegisterAgency(ModuleId.XFSM)
     self:RegisterAgency(ModuleId.XFuben)
     self:RegisterAgency(ModuleId.XFubenEx)
     self:RegisterAgency(ModuleId.XTheatre3)
+    self:RegisterAgency(ModuleId.XBlackRockChess)
     self:RegisterAgency(ModuleId.XTurntable)
+    self:RegisterAgency(ModuleId.XBlackRockStage)
+    self:RegisterAgency(ModuleId.XPassport)
+    self:RegisterAgency(ModuleId.XTaikoMaster)
+    self:RegisterAgency(ModuleId.XUiMain)
+    self:RegisterAgency(ModuleId.XNewActivityCalendar)
+    self:RegisterAgency(ModuleId.XTwoSideTower)
+    self:RegisterAgency(ModuleId.XFavorability)
+    self:RegisterAgency(ModuleId.XSameColor)
+    self:RegisterAgency(ModuleId.XGoldenMiner)
+    
+    self:RegisterAgency(ModuleId.XDlcRoom)
+    self:RegisterAgency(ModuleId.XDlcWorld)
+    self:RegisterAgency(ModuleId.XDlcCasual)
+    self:RegisterAgency(ModuleId.XConnectingLine)
+    self:RegisterAgency(ModuleId.XSubPackage)
+    self:RegisterAgency(ModuleId.XPreload)
+    self:RegisterAgency(ModuleId.XRogueSim)
+    self:RegisterAgency(ModuleId.XBirthdayPlot)
+    self:RegisterAgency(ModuleId.XCerberusGame)
+    self:RegisterAgency(ModuleId.XArchive)
+    self:RegisterAgency(ModuleId.XAnniversary)
+    self:RegisterAgency(ModuleId.XReform)
+    self:RegisterAgency(ModuleId.XKotodamaActivity)
+    self:RegisterAgency(ModuleId.XFangKuai)
+    self:RegisterAgency(ModuleId.XAccumulateExpend)
+    --self:RegisterAgency(ModuleId.X3C)
+    self:RegisterAgency(ModuleId.XMainLine2)
+    self:RegisterAgency(ModuleId.XFubenBossSingle)
+    self:RegisterAgency(ModuleId.XTemple)
 end
 
---XMVCA:Profiler()
----检测control释放
-function XMVCACls:Profiler()
+function XMVCACls:AddPreloadConfig(path)
     if IsWindowsEditor then
-        collectgarbage("collect") --得调用Lua Profiler界面的GC才能释放干净
-        XLog.Debug("XMVCACls:ControlProfiler", self._ControlProfiler)
-        XLog.Debug("XMVCACls:ConfigProfiler", self._ConfigProfiler)
+        table.insert(self._PreloadConfig, path)
     end
 end
 
-function XMVCACls:AddConfigProfiler(configTable, tag)
+function XMVCACls:ProfilerLiveControl()
     if IsWindowsEditor then
-        self._ConfigProfiler[configTable] = tag
+        local Uid2NameMap = XLuaUiManager.GetUid2NameMap()
+        local log = ""
+        for moduleId, control in pairs(self._ControlDict) do
+            log = log .. moduleId .. " RefUi: "
+            local refViewUidList = control._RefUi
+            for _, uid in ipairs(refViewUidList) do
+                log = log .. (Uid2NameMap[uid] or "")
+            end
+            log = log .. "\n"
+        end
+        XLog.Debug(log)
     end
 end
 

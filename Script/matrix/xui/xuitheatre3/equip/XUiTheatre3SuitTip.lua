@@ -77,7 +77,10 @@ end
 function XUiTheatre3SuitTip:SetSuitInfo(suitId)
     self._SuitConfig = self._Control:GetSuitById(suitId)
     self.TxtTitle.text = self._SuitConfig.SuitName
-    self.TxtDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(self._SuitConfig.Desc, self._SuitConfig.TraitName)))
+
+    -- 屏蔽下划线和动态文本
+    local desc = XUiHelper.FormatText(self._SuitConfig.Desc, self._Control:GetSuitEffectGroupDesc(suitId))
+    self.TxtDetails.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(desc))
     self.TxtDetails.color = CONDITION_COLOR[self._Control:IsSuitComplete(suitId)]
     self.PanelTag.gameObject:SetActiveEx(self._Control:IsWearSuit(suitId))
     self:ShowEquipWearState(suitId)

@@ -1,12 +1,13 @@
 -- 三头犬小队玩法 CerberusGame (活动)
+---@class XUiCerberusGameMain:XLuaUi
 local XUiCerberusGameMain = XLuaUiManager.Register(XLuaUi, "UiCerberusGameMain")
----@type XUiModelCerberusGame3D XUiModelCerberusGame3D
-local XUiModelCerberusGame3D = require("XUi/XUiCerberusGame/Grid/XUiModelCerberusGame3D")
 
 function XUiCerberusGameMain:OnAwake()
     self:InitButton()
     self:Init3DPanel()
     self:InitTimes()
+
+    self.GridShopDic = {}
 end
 
 function XUiCerberusGameMain:InitButton()
@@ -16,11 +17,19 @@ function XUiCerberusGameMain:InitButton()
     self:RegisterClickEvent(self.BtnChallenge, self.OnBtnChallengeClick)
     self:RegisterClickEvent(self.BtnCharacterInfo, self.OnBtnCharacterInfoClick)
     self:RegisterClickEvent(self.BtnShop, self.OnBtnShopClick)
+    self:RegisterClickEvent(self.BtnVeraFashion, self.OnBtnDrawClick)
     self:BindHelpBtn(self.BtnHelp, "CerberusHelp")
+
+    self:InitButtonCb()
+end
+
+function XUiCerberusGameMain:InitButtonCb()
 end
 
 function XUiCerberusGameMain:Init3DPanel()
+    local XUiModelCerberusGame3D = require("XUi/XUiCerberusGame/Grid/XUiModelCerberusGame3D")
     local root = self.UiModelGo.transform
+    ---@type XUiModelCerberusGame3D
     self.Model3D = XUiModelCerberusGame3D.New(root, self)
 end
 
@@ -34,6 +43,7 @@ end
 
 function XUiCerberusGameMain:OnChildUiClose()
     self:ShowSafeArea()
+    XMVCA.XCerberusGame:GetConfigByTableKey(XMVCA.XCerberusGame:GetTableKey().CerberusGameRole)
 end
 
 function XUiCerberusGameMain:OnDisable()
@@ -41,33 +51,89 @@ function XUiCerberusGameMain:OnDisable()
 end
 
 function XUiCerberusGameMain:OnEnable()
-    self.Super.OnEnable(self)
     self:PlayAnimation("Enable", function ()
         self.Transform:FindTransform("Loop"):GetComponent("PlayableDirector"):Play()
     end)
-
+    
     self:RefreshUi()
-    XDataCenter.CerberusGameManager.SetLastSelectXStoryPoint(nil)
+    XMVCA.XCerberusGame:SetLastSelectXStoryPoint(nil)
+    self:OnEnableCb()
+end
+
+function XUiCerberusGameMain:OnEnableCb()
+    self.Super.OnEnable(self)
 end
 
 function XUiCerberusGameMain:RefreshUi()
+    self:RefreshShopInfo()
+    self:RefreshBtnProgress()
+    self:RefreshCb()
+end
+
+function XUiCerberusGameMain:RefreshLayer1BtnProgress()
+    local chapterIdlist = XMVCA.XCerberusGame:GetChapterIdList()
+    -- 一期
+    local storyChapterId = chapterIdlist[XEnumConst.CerberusGame.ChapterIdIndex.Story]
+    local challengeChapterId = chapterIdlist[XEnumConst.CerberusGame.ChapterIdIndex.Challenge]
+    local cur1, total1 = XMVCA.XCerberusGame:GetProgressByChapterId(storyChapterId)
+    local cur2, total2 = XMVCA.XCerberusGame:GetProgressByChapterId(challengeChapterId)
+    local progress = (cur1 + cur2) / (total1 + total2) * 100
+    self.BtnCommonStageGroup:SetNameByGroup(0, math.modf(progress) .. "%")
+end
+
+function XUiCerberusGameMain:RefreshLayer2BtnProgress()
+end
+
+function XUiCerberusGameMain:RefreshLayer3BtnProgress()
+    local chapterIdlist = XMVCA.XCerberusGame:GetChapterIdList()
+    
+    local storyChapterId = chapterIdlist[XEnumConst.CerberusGame.ChapterIdIndex.Story]
+    local cur1, total1 = XMVCA.XCerberusGame:GetProgressByChapterId(storyChapterId)
+    local progress = cur1 / total1 * 100
+    self.BtnStory:SetNameByGroup(0, math.modf(progress) .. "%")
+    
+    local challengeChapterId = chapterIdlist[XEnumConst.CerberusGame.ChapterIdIndex.Challenge]
+    local cur1, total1 = XMVCA.XCerberusGame:GetProgressByChapterId(challengeChapterId)
+    local progress = cur1 / total1 * 100
+    self.BtnChallenge:SetNameByGroup(0, math.modf(progress) .. "%")
+end
+
+function XUiCerberusGameMain:RefreshBtnProgress()
+    self:RefreshLayer1BtnProgress()
+    self:RefreshLayer2BtnProgress()
+    self:RefreshLayer3BtnProgress()
+end
+
+function XUiCerberusGameMain:RefreshCb()
     self:RefreshTitleByTimeId()
     self:RefreshChallengeBtnByTimeId()
 end
 
+function XUiCerberusGameMain:RefreshShopInfo()
+    local rewardId = XMVCA.XCerberusGame:GetClientConfigValueByKey("CerberusGameShopShowReward")
+    local rewards = {}
+    if rewardId > 0 then
+        rewards = XRewardManager.GetRewardList(rewardId) or XRewardManager.GetRewardListNotCount(rewardId)
+    end
+
+    if rewards then
+        for i, item in ipairs(rewards) do
+            local grid = self.GridShopDic[i]
+            if not grid then
+                local panelReward = self.BtnShop.TagObj
+                local uiTemplate = panelReward.transform:FindTransform("GridReward")
+                local ui = i == 1 and uiTemplate or CS.UnityEngine.Object.Instantiate(uiTemplate, uiTemplate.transform.parent)
+                grid = XUiGridCommon.New(self, ui)
+                self.GridShopDic[i] = grid
+            end
+            grid:Refresh(item)
+            grid.GameObject:SetActive(true)
+        end
+    end
+end
+
 function XUiCerberusGameMain:RefreshTitleByTimeId()
-    local timeId = XDataCenter.CerberusGameManager.GetActivityConfig().TimeId
-    if not timeId then
-        return
-    end
-    
-    -- 活动主界面的倒计时
-    local endTime = XFunctionManager.GetEndTimeByTimeId(timeId)
-    local leftTime = endTime - XTime.GetServerNowTimestamp()
-    if leftTime and leftTime > 0 then
-        self.TxtLeftTime.text = XUiHelper.GetTime(leftTime, XUiHelper.TimeFormatType.ACTIVITY)
-        self.TxtLeftTime.gameObject:SetActiveEx(true)
-    end
+    self.TxtLeftTime.gameObject:SetActiveEx(false)
 end
 
 -- 挑战按钮的倒计时
@@ -75,8 +141,8 @@ function XUiCerberusGameMain:RefreshChallengeBtnByTimeId()
     local isOpen = self:CheckChallengeTimeOpen()
     self.BtnChallenge:SetDisable(not isOpen)
 
-    local timeId = XDataCenter.CerberusGameManager.GetChallengeChapterConfig().TimeId
-    if not timeId then
+    local timeId = XMVCA.XCerberusGame:GetChallengeChapterConfig().TimeId
+    if not XTool.IsNumberValid(timeId) then
         return
     end
 
@@ -92,7 +158,7 @@ end
 
 function XUiCerberusGameMain:CheckChallengeTimeOpen()
     -- 刷新挑战入口的按钮样式
-    local timeId = XDataCenter.CerberusGameManager.GetChallengeChapterConfig().TimeId
+    local timeId = XMVCA.XCerberusGame:GetChallengeChapterConfig().TimeId
     if not XTool.IsNumberValid(timeId) then
         return true
     end
@@ -101,7 +167,7 @@ function XUiCerberusGameMain:CheckChallengeTimeOpen()
 end
 
 function XUiCerberusGameMain:InitTimes()
-    local timeId = XDataCenter.CerberusGameManager.GetActivityConfig().TimeId
+    local timeId = XMVCA.XCerberusGame:GetActivityConfig().TimeId
     if not timeId then
         return
     end
@@ -112,14 +178,14 @@ function XUiCerberusGameMain:InitTimes()
             XLuaUiManager.RunMain()
             XUiManager.TipMsg(XUiHelper.GetText("ActivityAlreadyOver"))
         else
-            self:RefreshTitleByTimeId()
-            self:RefreshChallengeBtnByTimeId()
+            -- self:RefreshTitleByTimeId()
+            -- self:RefreshChallengeBtnByTimeId()
         end
     end)
 end
 
 function XUiCerberusGameMain:OnBtnStoryClick()
-    local conditionId = XDataCenter.CerberusGameManager.GetStortyChapterConfig().OpenCondition
+    local conditionId = XMVCA.XCerberusGame:GetStortyChapterConfig().OpenCondition
     if XTool.IsNumberValid(conditionId) then
         local res, desc = XConditionManager.CheckCondition(conditionId)
         if not res then
@@ -128,7 +194,7 @@ function XUiCerberusGameMain:OnBtnStoryClick()
         end
     end
 
-    XLuaUiManager.Open("UiCerberusGameChapter", XDataCenter.CerberusGameManager.GetChapterIdList()[1]) -- 剧情关是第一个chapter 写死
+    XLuaUiManager.Open("UiCerberusGameChapter", XMVCA.XCerberusGame:GetChapterIdList()[XEnumConst.CerberusGame.ChapterIdIndex.Story]) -- 剧情关是第一个chapter 写死
 end
 
 function XUiCerberusGameMain:OnBtnChallengeClick()
@@ -137,7 +203,7 @@ function XUiCerberusGameMain:OnBtnChallengeClick()
         return
     end
 
-    local conditionId = XDataCenter.CerberusGameManager.GetChallengeChapterConfig().OpenCondition
+    local conditionId = XMVCA.XCerberusGame:GetChallengeChapterConfig().OpenCondition
     if XTool.IsNumberValid(conditionId) then
         local res, desc = XConditionManager.CheckCondition(conditionId)
         if not res then
@@ -159,10 +225,14 @@ function XUiCerberusGameMain:OnBtnShopClick()
         return
     end
 
-    local shopIdList = XDataCenter.CerberusGameManager.GetActivityConfig().ShopId
+    local shopIdList = XMVCA.XCerberusGame:GetActivityConfig().ShopId
     XShopManager.GetShopInfoList(shopIdList, function()
         XLuaUiManager.Open("UiCerberusGameShop")
     end, XShopManager.ActivityShopType.CerberusShop)
+end
+
+function XUiCerberusGameMain:OnBtnDrawClick()
+    XDataCenter.LottoManager.OpenVeraLotto(self)
 end
 
 return XUiCerberusGameMain

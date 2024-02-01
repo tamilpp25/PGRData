@@ -23,6 +23,7 @@ XGuildWarConfig.RankingType = {
     Elite = 4, --精英怪排行榜
     NodeStay = 5, --节点停留排行榜
     HideNodeRank = 6, --隐藏节点排行榜，ID为轮次ID
+    DefenseMembers = 7, --驻守列表
 }
 --排位榜排位对象枚举
 XGuildWarConfig.RankingTarget = {
@@ -48,6 +49,7 @@ XGuildWarConfig.NodeType = {
     Term4BossRoot = 14, -- 复刷boss节点
     Term4BossChild = 15, -- 复刷boss节点击杀前置后复活后置
     Blockade = 16, --封锁点
+    Resource = 18 --资源点
 }
 --头目节点类型
 XGuildWarConfig.BossNodeType = {
@@ -357,6 +359,10 @@ end
 --获取节点名字
 function XGuildWarConfig.GetNodeName(nodeId)
     return XGuildWarConfig.GetNodeConfig(nodeId).Name
+end
+--获取节点索引
+function XGuildWarConfig.GetNodeStageIndex(nodeId)
+    return XGuildWarConfig.GetNodeConfig(nodeId).StageIndex
 end
 --获取节点描述
 function XGuildWarConfig.GetNodeDesc(nodeId)

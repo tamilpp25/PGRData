@@ -136,7 +136,7 @@ function XUiPanelStageDetail:OnBtnCreateRoomClick()
             local data = {ChallengeId = self.StageId}
             local cfg = XDataCenter.ArenaOnlineManager.GetArenaOnlineStageCfgStageId(self.StageId)
             local levelControl = XFubenConfigs.GetStageMultiplayerLevelControlCfgById(cfg.SingleDiff[1])
-            XLuaUiManager.Open("UiNewRoomSingle", levelControl.StageId, data)
+            XLuaUiManager.Open("UiBattleRoleRoom", levelControl.StageId, data)
     end
 end
 

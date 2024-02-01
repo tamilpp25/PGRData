@@ -62,7 +62,7 @@ function XUiExhibitionOverclockingV2P6:RefreshByPos(pos)
     Panel.BtnAwake.gameObject:SetActiveEx(not isAwake and canAwake)
     -- 数据
     if XTool.IsNumberValid(characterId) then
-        Panel.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(characterId))
+        Panel.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(characterId))
     end
 
     Panel.ImgNotResonance.gameObject:SetActiveEx(notActiveResonance)

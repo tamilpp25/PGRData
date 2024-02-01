@@ -1,24 +1,26 @@
-local XGoldenMinerDialogExData = require("XEntity/XGoldenMiner/XGoldenMinerDialogExData")
+local XGoldenMinerDialogExData = require("XModule/XGoldenMiner/Data/Game/XGoldenMinerDialogExData")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
-local XSpecialTrainActionRandom = require("XUi/XUiSpecialTrainBreakthrough/XSpecialTrainActionRandom")
+local XPanelRoleListActionRandom = require("XUi/XUiSpecialTrainBreakthrough/XPanelRoleListActionRandom")
 
 ---黄金矿工主界面
 ---@class XUiGoldenMinerMain : XLuaUi
+---@field _Control XGoldenMinerControl
 local XUiGoldenMinerMain = XLuaUiManager.Register(XLuaUi, "UiGoldenMinerMain")
 
 function XUiGoldenMinerMain:OnAwake()
-    self._DataDb = XDataCenter.GoldenMinerManager.GetGoldenMinerDataDb()
-    ---@type XSpecialTrainActionRandom
-    self._ModelAnimatorRandom = XSpecialTrainActionRandom.New()
+    self._DataDb = self._Control:GetMainDb()
+    ---@type XPanelRoleListActionRandom
+    self._ModelAnimatorRandom = XPanelRoleListActionRandom.New()
     
     self:AddBtnClickListener()
+    self:_InitShowSettleDialog()
     self:InitSceneRoot()
     self:HideSettleDialog()
 end
 
 function XUiGoldenMinerMain:OnStart()
     self:InitTimes()
-    self:SetCameraType(XGoldenMinerConfigs.CameraType.Main)
+    self:SetCameraType(XEnumConst.GOLDEN_MINER.CAMERA_TYPE.MAIN)
 
     self:CheckAutoOpenContinueGameTip()
     self:CheckAndOpenHelpTip()
@@ -26,32 +28,31 @@ end
 
 function XUiGoldenMinerMain:OnEnable()
     XUiGoldenMinerMain.Super.OnEnable(self)
-    self.UseCharacterId = XDataCenter.GoldenMinerManager.GetUseCharacterId()
-    XDataCenter.GoldenMinerManager.CatchCurCharacterId(self.UseCharacterId)
+    self.UseCharacterId = self._Control:GetUseCharacterId()
+    self._Control:CatchCurCharacterId(self.UseCharacterId)
     self:Refresh()
     self:RefreshRedPoint()
     self:CheckShowSettleDialog()
-    self._ModelAnimatorRandom:Play()
+    self:_PlayRoleAnim()
 end
 
 function XUiGoldenMinerMain:OnDisable()
-    self._ModelAnimatorRandom:Stop()
+    self:_StopRoleAnim()
 end
 
 
 --region Activity - AutoClose
 function XUiGoldenMinerMain:InitTimes()
     -- 设置自动关闭和倒计时
-    self:SetAutoCloseInfo(XDataCenter.GoldenMinerManager.GetActivityEndTime(), function(isClose)
+    self:SetAutoCloseInfo(self._Control:GetCurActivityEndTime(), function(isClose)
         if isClose then
-            XDataCenter.GoldenMinerManager.HandleActivityEndTime()
+            self._Control:HandleActivityEndTime()
             return
         end
         self:UpdateTime()
     end, nil, 0)
 end
 --endregion
-
 
 --region Ui - Refresh
 function XUiGoldenMinerMain:Refresh()
@@ -62,112 +63,124 @@ function XUiGoldenMinerMain:Refresh()
 
     self:UpdateModel()
 end
---endregion
 
-
---region Ui - Time
-function XUiGoldenMinerMain:UpdateTime()
-    local endTime = XDataCenter.GoldenMinerManager.GetActivityEndTime()
-    local nowTimeStamp = XTime.GetServerNowTimestamp()
-    self.TxtTime.text = XUiHelper.GetTime(endTime - nowTimeStamp, XUiHelper.TimeFormatType.ACTIVITY)
+function XUiGoldenMinerMain:_SetRectSize()
+    local areaPanel = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPanel")
+    self._Control:SetRectSize(areaPanel:GetComponent("RectTransform").rect.size)
 end
 --endregion
 
+--region Ui - Time
+function XUiGoldenMinerMain:UpdateTime()
+    local endTime = self._Control:GetCurActivityEndTime()
+    local nowTimeStamp = XTime.GetServerNowTimestamp()
+    local timeTxt = XUiHelper.GetTime(endTime - nowTimeStamp, XUiHelper.TimeFormatType.ACTIVITY)
+    self.TxtTime.text = XUiHelper.GetText("GoldenMinerMainTimeTitle", timeTxt)
+end
+--endregion
 
 --region Ui - RoleInfo
 function XUiGoldenMinerMain:UpdateRoleInfo()
     local useCharacterId = self:GetUseCharacterId()
-    self.TxtRoleName.text = XGoldenMinerConfigs.GetCharacterName(useCharacterId)
-    self.TxtSkillName.text = XGoldenMinerConfigs.GetCharacterSkillName(useCharacterId) .. "："
-    self.TxtSkillDesc.text = XUiHelper.ConvertLineBreakSymbol(XGoldenMinerConfigs.GetCharacterSkillDesc(useCharacterId))
-    if self.TxtEnName then
-        self.TxtEnName.text = XGoldenMinerConfigs.GetCharacterEnName(useCharacterId)
-    end
-    if self.BtnReplace then
-        self.BtnReplace.gameObject:SetActiveEx(not XDataCenter.GoldenMinerManager.IsCanKeepBattle())
-    end
+    self.TxtRoleName.text = self._Control:GetCfgCharacterName(useCharacterId)
+    self.TxtSkillName.text = self._Control:GetCfgCharacterSkillName(useCharacterId) .. "："
+    self.TxtSkillDesc.text = XUiHelper.ConvertLineBreakSymbol(self._Control:GetCfgCharacterSkillDesc(useCharacterId))
+    self.TxtEnName.text = self._Control:GetCfgCharacterEnName(useCharacterId)
+    self:RefreshBtnReplace(not self._Control:CheckIsHaveGameStage())
 end
 --endregion
 
-
 --region Ui - MaxScore & CurGameInfo
 function XUiGoldenMinerMain:UpdateMaxScore()
-    if XDataCenter.GoldenMinerManager.IsCanKeepBattle() then
-        self.PanelSz.gameObject:SetActiveEx(false)
+    if self._Control:CheckIsHaveGameStage() then
         return
     end
+    self.PanelSz2.gameObject:SetActiveEx(false)
+    self.ImgJian.gameObject:SetActiveEx(false)
+    self.ImgJian02.gameObject:SetActiveEx(true)
     self.PanelSz.gameObject:SetActiveEx(true)
+    self.TxtTitle.text = XUiHelper.GetText("GoldenMinerMainTitle1")
     self.TxtFraction.text = self._DataDb:GetTotalMaxScores()
 end
 
 function XUiGoldenMinerMain:UpdateCurGameInfo()
-    if not XDataCenter.GoldenMinerManager.IsCanKeepBattle() then
-        self.PanelSz2.gameObject:SetActiveEx(false)
+    if not self._Control:CheckIsHaveGameStage() then
         return
     end
+    self.PanelSz2.gameObject:SetActiveEx(false)
+    self.ImgJian.gameObject:SetActiveEx(true)
+    self.ImgJian02.gameObject:SetActiveEx(false)
     local stageIndex = self._DataDb:GetCurShowStageIndex()
-    self.PanelSz2.gameObject:SetActiveEx(true)
-    self.TxtCurScore.text = self._DataDb:GetStageScores()
-    self.TxtCurStageCount.text = stageIndex
+    self.TxtTitle.text = XUiHelper.GetText("GoldenMinerMainTitle2")
+    self.Txt2.text = stageIndex
+    self.TxtFraction.text = self._DataDb:GetStageScores()
+    --self.TxtCurScore.text = self._DataDb:GetStageScores()
+    --self.TxtCurStageCount.text = stageIndex
 end
 --endregion
 
-
 --region Ui - BtnState
 function XUiGoldenMinerMain:UpdateBtn()
-    local isBattle = XDataCenter.GoldenMinerManager.IsCanKeepBattle()
+    local isBattle = self._Control:CheckIsHaveGameStage()
     self.BtnGo.gameObject:SetActiveEx(not isBattle)
     self.BtnGo2.gameObject:SetActiveEx(isBattle)
-    self.BtnGiveUp.gameObject:SetActiveEx(isBattle)
+    self.BtnGiveUp:SetDisable(not isBattle)
+    self:RefreshBtnReplace(false)
 end
 
 function XUiGoldenMinerMain:_PlayBtnReplaceAnim()
     self:PlayAnimation("BtnReplaceEnable")
 end
---endregion
 
+function XUiGoldenMinerMain:RefreshBtnReplace(isShow)
+    isShow = false
+    self.BtnReplace.gameObject:SetActiveEx(isShow)
+    if isShow then
+        self:_PlayBtnReplaceAnim()
+    end
+end
+--endregion
 
 --region Ui - RedPoint
 function XUiGoldenMinerMain:RefreshRedPoint()
     self:CheckTaskRedPoint()
-    self:CheckRoleRedPoint()
+    -- 4期不用
+    --self:CheckRoleRedPoint()
 end
 
 function XUiGoldenMinerMain:CheckTaskRedPoint()
-    local isCanReward = XDataCenter.GoldenMinerManager.CheckTaskCanReward()
+    local isCanReward = self._Control:CheckHaveTaskCanRecv()
     self.BtnTask:ShowReddot(isCanReward)
 end
 
 function XUiGoldenMinerMain:CheckRoleRedPoint()
-    local isHaveNewRole = XDataCenter.GoldenMinerManager.CheckHaveNewRole()
+    local isHaveNewRole = self._Control:CheckHaveNewRole()
     self.BtnReplace:ShowReddot(isHaveNewRole)
 end
 --endregion
 
-
 --region Ui - Help Tip
 ---首次自动打开帮助
 function XUiGoldenMinerMain:CheckAndOpenHelpTip()
-    local helpKey = XGoldenMinerConfigs.GetHelpKey()
-    if XHelpCourseConfig.GetHelpCourseTemplateByFunction(helpKey) and XDataCenter.GoldenMinerManager.CheckFirstOpenHelp() then
+    local helpKey = self._Control:GetClientHelpKey()
+    if XHelpCourseConfig.GetHelpCourseTemplateByFunction(helpKey) and self._Control:CheckFirstOpenHelp() then
         XUiManager.ShowHelpTip(helpKey)
     end
 end
 --endregion
 
-
 --region Ui - ContinueGame Tip
 ---每次登录首次进活动检查是否存在已有对局
 function XUiGoldenMinerMain:CheckAutoOpenContinueGameTip()
-    if XDataCenter.GoldenMinerManager.GetIsAutoOpenKeepBattleTips() then
+    if self._Control:CheckIsAutoInGameTips() then
         self:OpenContinueGameTip()
     end
-    XDataCenter.GoldenMinerManager.SetIsAutoOpenKeepBattleTips(false)
+    self._Control:SetIsAutoInGameTips(false)
 end
 
 ---进入游戏前检查是否存在已有对局
 function XUiGoldenMinerMain:CheckOpenKeepContinueGameTip()
-    if not XDataCenter.GoldenMinerManager.IsCanKeepBattle() then
+    if not self._Control:CheckIsHaveGameStage() then
         return false
     end
     self:OpenContinueGameTip()
@@ -185,44 +198,17 @@ function XUiGoldenMinerMain:OpenContinueGameTip()
 end
 
 function XUiGoldenMinerMain:ContinueGame()
-    local dataDb = XDataCenter.GoldenMinerManager.GetGoldenMinerDataDb()
-    local curStageId = dataDb:GetCurStageId()
-    local currentPlayStageId = dataDb:GetCurrentPlayStage()
-
-    local checkOpenShopFunc = function()
-        if not XTool.IsTableEmpty(dataDb:GetMinerShopDbs()) then
-            XLuaUiManager.PopThenOpen("UiGoldenMinerShop")
-            return true
-        end
-        return false
-    end
-
-    self._DataDb:CoverItemColums()
-    local enterBattleFunc = function()
-        XLuaUiManager.PopThenOpen("UiGoldenMinerBattle")
-    end
-
-    if XTool.IsNumberValid(currentPlayStageId) then
-        enterBattleFunc()
-        return
-    end
-
-    if checkOpenShopFunc() then
-        return
-    end
-    
-    XDataCenter.GoldenMinerManager.RequestGoldenMinerEnterStage(curStageId, function()
-        if not checkOpenShopFunc() then
-            enterBattleFunc()
-        end
-    end)
+    self:_SetRectSize()
+    self._Control:ContinueGame()
 end
 --endregion
-
 
 --region Ui - GiveUpGame Tip
 ---打开放弃挑战的提示
 function XUiGoldenMinerMain:OpenGiveUpGameTip()
+    if not self._Control:CheckIsHaveGameStage() then
+        return
+    end
     local title = XUiHelper.GetText("GoldenMinerGiveUpGameTitle")
     local desc = XUiHelper.GetText("GoldenMinerGiveUpGameContent")
     local sureCallback = handler(self, self.GiveUpGame)
@@ -230,7 +216,7 @@ function XUiGoldenMinerMain:OpenGiveUpGameTip()
 end
 
 function XUiGoldenMinerMain:GiveUpGame()
-    XDataCenter.GoldenMinerManager.RequestGoldenMinerExitGame(0, function()
+    self._Control:RequestGoldenMinerExitGame(0, function()
         self:Refresh()
         self:RefreshRedPoint()
         self:CheckShowSettleDialog()
@@ -238,14 +224,22 @@ function XUiGoldenMinerMain:GiveUpGame()
 end
 --endregion
 
-
 --region Ui - Settle Dialog
+function XUiGoldenMinerMain:_InitShowSettleDialog()
+    ---@type UnityEngine.UI.RawImage
+    self._SettleBg = XUiHelper.TryGetComponent(self.PanelDialog, "PanelCardBg/RImg02", "RawImage")
+    ---@type UnityEngine.UI.Image
+    self._SettleTitleBg1 = XUiHelper.TryGetComponent(self.PanelDialog, "PanelCardBg/RImg02/PanelDialog/PanelLevel/ImageTitle", "Image")
+    ---@type UnityEngine.UI.Image
+    self._SettleTitleBg2 = XUiHelper.TryGetComponent(self.PanelDialog, "PanelCardBg/RImg02/PanelDialog/PanelScore/ImageTitle", "Image")
+end
+
 function XUiGoldenMinerMain:CheckShowSettleDialog()
     local curClearData = self._DataDb:GetCurClearData()
     if not curClearData.IsShow then
         return
     end
-    local newMaxScoreIcon = XGoldenMinerConfigs.GetNewMaxScoreSettleEmoji()
+    local newMaxScoreIcon = self._Control:GetClientNewMaxScoreSettleEmoji()
 
     if self.TxtClearStageCount then
         self.TxtClearStageCount.text = curClearData.ClearStageCount
@@ -253,7 +247,7 @@ function XUiGoldenMinerMain:CheckShowSettleDialog()
     if self.TxtScore then
         self.TxtScore.text = curClearData.TotalScore
         if curClearData.IsNew then
-            self.TxtScore.color = XGoldenMinerConfigs.GetNewMaxScoreColor()
+            self.TxtScore.color = self._Control:GetClientNewMaxScoreColor()
         end
     end
     if self.RImgNew then
@@ -262,16 +256,24 @@ function XUiGoldenMinerMain:CheckShowSettleDialog()
     if curClearData.IsNew and not string.IsNilOrEmpty(newMaxScoreIcon) and self.RImgNewEmoji then
         self.RImgNewEmoji:SetRawImage(newMaxScoreIcon)
     end
-    if curClearData.IsNew and not string.IsNilOrEmpty(XGoldenMinerConfigs.GetEffectCreateRecord()) then
-        self.PanelDialog.gameObject:LoadPrefab(XGoldenMinerConfigs.GetEffectCreateRecord())
+    local createRecordEffectIcon = self._Control:GetClientEffectCreateRecord()
+    if curClearData.IsNew and not string.IsNilOrEmpty(createRecordEffectIcon) then
+        self.PanelDialog.gameObject:LoadPrefab(createRecordEffectIcon)
     end
+    local settleBgIcon = self._Control:GetClientNewMaxScoreSettleBg(1)
+    if not curClearData.IsNew and not string.IsNilOrEmpty(settleBgIcon) then
+        self._SettleBg:SetRawImage(settleBgIcon)
+        self._SettleTitleBg1:SetSprite(self._Control:GetClientNewMaxScoreSettleBg(2))
+        self._SettleTitleBg2:SetSprite(self._Control:GetClientNewMaxScoreSettleBg(2))
+    end
+    
     if self.PanelDialog then
         self.PanelDialog.gameObject:SetActiveEx(true)
         self:PlayAnimation("PanelrDialogEnable")
         self:PlayAnimation("RImgNewEnable")
     end
 
-    self.BtnReplace.gameObject:SetActiveEx(false)
+    self:RefreshBtnReplace(false)
     self._DataDb:ResetCurClearData()
 end
 
@@ -279,17 +281,15 @@ function XUiGoldenMinerMain:HideSettleDialog()
     if self.PanelDialog then
         self.PanelDialog.gameObject:SetActiveEx(false)
     end
-    self.BtnReplace.gameObject:SetActiveEx(true)
-    self:_PlayBtnReplaceAnim()
+    self:RefreshBtnReplace(true)
 end
 --endregion
-
 
 --region Ui - BtnListener
 function XUiGoldenMinerMain:AddBtnClickListener()
     self:RegisterClickEvent(self.BtnBack, self.Close)
     self:RegisterClickEvent(self.BtnMainUi, function() XLuaUiManager.RunMain() end)
-    self:BindHelpBtn(self.BtnHelp, XGoldenMinerConfigs.GetHelpKey())
+    self:BindHelpBtn(self.BtnHelp, self._Control:GetClientHelpKey())
     
     self:RegisterClickEvent(self.BtnReplace, self.OnBtnChangeRoleClick)
     self:RegisterClickEvent(self.BtnTask, self.OnBtnTaskClick)
@@ -304,7 +304,7 @@ function XUiGoldenMinerMain:AddBtnClickListener()
 end
 
 function XUiGoldenMinerMain:OnBtnRankingClick()
-    XDataCenter.GoldenMinerManager.RequestGoldenMinerRanking(function()
+    self._Control:RequestGoldenMinerRanking(function()
         XLuaUiManager.Open("UiGoldenMinerRank")
     end)
 end
@@ -314,11 +314,9 @@ function XUiGoldenMinerMain:OnBtnGoClick()
         return
     end
 
-    XDataCenter.GoldenMinerManager.RequestGoldenMinerEnterGame(self:GetUseCharacterId(), function()
-        local stageId = self._DataDb:GetCurStageId()
-        XDataCenter.GoldenMinerManager.RequestGoldenMinerEnterStage(stageId, function()
-            XLuaUiManager.PopThenOpen("UiGoldenMinerBattle")
-        end)
+    self._Control:RequestGoldenMinerEnterGame(self:GetUseCharacterId(), function()
+        self:_SetRectSize()
+        self._Control:OpenGameUi()
     end)
 end
 
@@ -327,7 +325,7 @@ function XUiGoldenMinerMain:OnBtnTaskClick()
 end
 
 function XUiGoldenMinerMain:OnBtnChangeRoleClick()
-    if XDataCenter.GoldenMinerManager.IsCanKeepBattle() then
+    if self._Control:CheckIsHaveGameStage() then
         XUiManager.TipErrorWithKey("GoldenMinerCantChangeRole")
         return
     end
@@ -336,23 +334,24 @@ function XUiGoldenMinerMain:OnBtnChangeRoleClick()
 
     local closeCb = function()
         self:Refresh()
-        self:SetCameraType(XGoldenMinerConfigs.CameraType.Main)
+        self:SetCameraType(XEnumConst.GOLDEN_MINER.CAMERA_TYPE.MAIN)
         self.SafeAreaContentPanel.gameObject:SetActiveEx(true)
         self:PlayAnimationWithMask("UiEnable")
     end
     self.SafeAreaContentPanel.gameObject:SetActiveEx(false)
     self:OpenOneChildUi("UiGoldenMinerChange", closeCb, updateUseCharacterFunc)
-    self:SetCameraType(XGoldenMinerConfigs.CameraType.Change)
+    self:SetCameraType(XEnumConst.GOLDEN_MINER.CAMERA_TYPE.CHANGE)
     self:PlayAnimationWithMask("UiDisable")
 end
 --endregion
-
 
 --region Scene
 function XUiGoldenMinerMain:InitSceneRoot()
     local root = self.UiModelGo.transform
 
     self.PanelRoleModel = root:FindTransform("PanelModel"):FindTransform("PanelRoleModel")
+    self.PanelRoleModelLeft = root:FindTransform("PanelModel"):FindTransform("PanelRoleModelLeft")
+    self.PanelRoleModelRight = root:FindTransform("PanelModel"):FindTransform("PanelRoleModelRight")
     self.CameraFar = {
         root:FindTransform("FarCamera0"),
         root:FindTransform("FarCamera1"),
@@ -361,11 +360,14 @@ function XUiGoldenMinerMain:InitSceneRoot()
         root:FindTransform("NearCamera0"),
         root:FindTransform("NearCamera1"),
     }
-    ---@type XUiPanelRoleModel
-    self._RoleModelPanel = XUiPanelRoleModel.New(self.PanelRoleModel, self.Name)
+    ---@type XUiPanelRoleModel[]
+    self._RoleModelPanelList = {
+        XUiPanelRoleModel.New(self.PanelRoleModel, self.Name, nil, true),
+        XUiPanelRoleModel.New(self.PanelRoleModelLeft, self.Name, nil, true),
+        XUiPanelRoleModel.New(self.PanelRoleModelRight, self.Name, nil, true),
+    }
 end
 --endregion
-
 
 --region Scene - Camera
 function XUiGoldenMinerMain:SetCameraType(type)
@@ -378,22 +380,31 @@ function XUiGoldenMinerMain:SetCameraType(type)
 end
 --endregion
 
-
 --region Scene - Model
 function XUiGoldenMinerMain:UpdateUseCharacter(characterId)
-    self._ModelAnimatorRandom:Stop()
-    XDataCenter.GoldenMinerManager.CatchCurCharacterId(characterId)
+    self:_StopRoleAnim()
+    self._Control:CatchCurCharacterId(characterId)
     self.UseCharacterId = characterId
     self:UpdateModel()
 end
 
 function XUiGoldenMinerMain:UpdateModel()
-    local modelName = XGoldenMinerConfigs.GetCharacterModelId(self:GetUseCharacterId())
-    self._RoleModelPanel:UpdateCuteModelByModelName(nil, nil, nil, nil, nil,
-            modelName, function (model) CS.XShadowHelper.AddShadow(model) end, true)
-    self._RoleModelPanel:ShowRoleModel()
-    self._ModelAnimatorRandom:SetAnimator(self._RoleModelPanel:GetAnimator(), { }, self._RoleModelPanel)
+    for i, roleModelPanel in ipairs(self._RoleModelPanelList) do
+        local modelName = self._Control:GetCfgCharacterModelId(self._Control:GetClientMainShowCharByIndex(i))
+        roleModelPanel:UpdateCuteModelByModelName(nil, nil, nil, nil, nil,
+                modelName, nil, true)
+        roleModelPanel:ShowRoleModel()
+    end
+    self._ModelAnimatorRandom:SetAnimatorByPanelRoleModelList(self._RoleModelPanelList[1]:GetAnimator(), { }, self._RoleModelPanelList)
     self._ModelAnimatorRandom:Play()
+end
+
+function XUiGoldenMinerMain:_PlayRoleAnim()
+    self._ModelAnimatorRandom:Play()
+end
+
+function XUiGoldenMinerMain:_StopRoleAnim()
+    self._ModelAnimatorRandom:Stop()
 end
 
 function XUiGoldenMinerMain:GetUseCharacterId()

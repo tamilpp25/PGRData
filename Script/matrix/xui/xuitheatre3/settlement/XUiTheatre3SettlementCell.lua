@@ -9,6 +9,11 @@ end
 function XUiTheatre3SettlementCell:SetData(itemId)
     self._ItemId = itemId
     self._ItemConfig = self._Control:GetItemConfigById(itemId)
+    local bgType = self._Control:GetItemBgTypeById(itemId)
+    if self.RawImage then
+        self.RawImage.gameObject:SetActiveEx(bgType ~= XEnumConst.THEATRE3.QuantumType.QuantumB)
+        self.ImageRed.gameObject:SetActiveEx(bgType == XEnumConst.THEATRE3.QuantumType.QuantumB)
+    end
     XUiHelper.SetQualityIcon(self.RootUi, self.ImgQuality, self._ItemConfig.Quality)
     self.RImgIcon:SetRawImage(self._ItemConfig.Icon)
 end
@@ -18,7 +23,7 @@ function XUiTheatre3SettlementCell:SetState(state)
 end
 
 function XUiTheatre3SettlementCell:OnClick()
-    XLuaUiManager.Open("UiTheatre3Tips", self._ItemId, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
+    self._Control:OpenAdventureTips(self._ItemId, XEnumConst.THEATRE3.EventStepItemType.InnerItem)
 end
 
 return XUiTheatre3SettlementCell

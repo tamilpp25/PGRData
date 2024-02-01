@@ -19,7 +19,7 @@ end
 
 function XUiCharacterSkillSwich:Refresh()
     local curSkillId = self.SkillId
-    local groupSkillIds = XCharacterConfigs.GetGroupSkillIds(curSkillId)
+    local groupSkillIds = XMVCA.XCharacter:GetGroupSkillIds(curSkillId)
 
     self.Grids = self.Grids or {}
     for index, skillId in ipairs(groupSkillIds) do
@@ -30,11 +30,11 @@ function XUiCharacterSkillSwich:Refresh()
                 self:Refresh()
                 self.SwitchCb()
             end
-            grid = XUiGridSwitchSkill.New(go, switchCb)
+            grid = XUiGridSwitchSkill.New(go, self, switchCb)
             self.Grids[index] = grid
         end
 
-        local isCurrent = XDataCenter.CharacterManager.IsSkillUsing(skillId)
+        local isCurrent = XMVCA.XCharacter:IsSkillUsing(skillId)
         grid:Refresh(skillId, self.SkillLevel, isCurrent)
         grid.GameObject:SetActiveEx(true)
     end

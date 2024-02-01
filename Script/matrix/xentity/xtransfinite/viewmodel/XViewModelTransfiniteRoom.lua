@@ -15,6 +15,7 @@ function XViewModelTransfiniteRoom:Ctor()
         ExtraRewardAmount = false,
         ExtraRewardTime = 0,
         ExtraCondition = false,
+        ExtraDesc = false,
         ---@type XViewModelTransfiniteRoomMember[]
         Members = false,
         IsTeamEmpty = false,
@@ -30,19 +31,33 @@ function XViewModelTransfiniteRoom:Ctor()
         TxtStageLock = false,
         IsStageCurrent = false,
         IsHideBtnReset = false,
-        ImgScore = false
+        IsShowRepeatBtn = false,
+        ImgScore = false,
+
+        IsShowAnchor = false,   -- 战斗锚点
+        TxtAnchorProgress = "", -- 战斗锚点进度
     }
 
     ---@type XTransfiniteStageGroup
     self._StageGroup = XDataCenter.TransfiniteManager.GetStageGroup()
-
     self._StageIndex = 0
-    self:ResetIndex()
     self._IsOpenRoom = false
 end
 
+---@param stageGroup XTransfiniteStageGroup
 function XViewModelTransfiniteRoom:SetStageGroup(stageGroup)
     self._StageGroup = stageGroup
+    self:ResetIndex()
+    if not stageGroup:IsBegin() then
+        local team = stageGroup:GetTeam()
+        if team:IsEmpty() then
+            team:Load()
+        end
+    end
+
+    if stageGroup:IsRecordNotConfirm() then
+        self:ConfirmRecordResult()
+    end
 end
 
 function XViewModelTransfiniteRoom:ResetIndex()
@@ -119,13 +134,30 @@ function XViewModelTransfiniteRoom:Update(resetIndex)
                 ---@class XViewModelTransfiniteRoomMember
                 local dataMember = {
                     Index = i,
-                    Icon = XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(member:GetId()),
+                    Icon = XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(member:GetId()),
                     Hp = hp,
                     Sp = member:GetSp() / 100,
                     IsCaptain = i == team:GetCaptainPos(),
                     IsFirst = i == team:GetFirstPos(),
                     IsDead = hp == 0,
                 }
+
+                if self._StageIndex == stageGroup:GetSaveStageIndex() then
+                    if self._StageIndex == stageGroup:GetStartStageProgress() then
+                        dataMember.Hp = 1
+                        dataMember.Sp = 0
+                        dataMember.IsDead = false
+                    else
+                        local historyCharacter = stageGroup:GetHistoryCharacterByIndex(i)
+
+                        if historyCharacter then
+                            dataMember.Hp = historyCharacter.HpPercent / 100
+                            dataMember.Sp = historyCharacter.Energy / 100
+                            dataMember.IsDead = dataMember.Hp == 0
+                        end
+                    end
+                end
+
                 data.Members[i] = dataMember
                 data.IsTeamEmpty = false
             end
@@ -151,13 +183,38 @@ function XViewModelTransfiniteRoom:Update(resetIndex)
         data.IsStagePassed = true
     end
 
-    if stageGroup:IsBegin() then
+    if stageGroup:IsBegin() and stageGroup:GetCurrentIndex() > stageGroup:GetStartStageProgress() then
         data.IsHideBtnReset = false
     else
         data.IsHideBtnReset = true
     end
 
+    data.IsShowRepeatBtn = self._StageIndex == stageGroup:GetSaveStageIndex()
+    if stageGroup:IsIsland() then
+        if self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.FirstHideExtra then
+            data.ExtraRewardTime = 0
+        elseif self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.SecondHideExtra then
+            data.ExtraRewardTime = 0
+        elseif self._StageIndex == XTransfiniteConfigs.IslandSpecialStage.ShowOtherExtra then
+            if stage:IsAchievedExtraMission() then
+                data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra6", data.ExtraRewardTime)
+            else
+                data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra7", data.ExtraRewardTime)
+            end
+        end
+    else
+        if stage:IsAchievedExtraMission() then
+            data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra4", data.ExtraRewardTime)
+        else
+            data.ExtraDesc = XUiHelper.GetText("TransfiniteTimeExtra3", data.ExtraRewardTime)
+        end
+    end
+
     data.ImgScore = XItemConfigs.GetItemIconById(XDataCenter.ItemManager.ItemId.TransfiniteScore)
+
+    local startProgress = stageGroup:GetStartStageProgress()
+    data.IsShowAnchor = startProgress > 1
+    data.TxtAnchorProgress = string.format("%d/%d", startProgress, stageAmount)
 end
 
 function XViewModelTransfiniteRoom:MoveLeft()
@@ -186,10 +243,10 @@ end
 
 function XViewModelTransfiniteRoom:OnClickMember()
     local stageGroup = self._StageGroup
-    if stageGroup:IsBegin() then
-        XUiManager.TipText("TransfiniteTimeLockTeam2")
-        return
-    end
+    --if stageGroup:IsBegin() then
+    --    XUiManager.TipText("TransfiniteTimeLockTeam2")
+    --    return
+    --end
 
     local team = XDataCenter.TransfiniteManager.GetTeam()
     local stageGroupTeam = stageGroup:GetTeam()
@@ -202,16 +259,8 @@ function XViewModelTransfiniteRoom:OnClickMember()
 end
 
 function XViewModelTransfiniteRoom:OnAwake()
-    local stageGroup = self._StageGroup
-    if not stageGroup:IsBegin() then
-        local team = stageGroup:GetTeam()
-        if team:IsEmpty() then
-            team:Load()
-        end
-    end
-
-    if stageGroup:IsRecordNotConfirm() then
-        self:ConfirmRecordResult()
+    if self._StageGroup:IsIsland() then
+        return
     end
 
     -- 第一次进入新周期，弹出环境
@@ -258,18 +307,16 @@ function XViewModelTransfiniteRoom:_Fight()
 end
 
 function XViewModelTransfiniteRoom:_FightAndSetTeam()
-    if self._StageGroup:GetCurrentIndex() == 1 then
-        XDataCenter.TransfiniteManager.RequestSetTeam(self._StageGroup, function()
-            self:_Fight()
-        end)
-    else
+    XDataCenter.TransfiniteManager.RequestSetTeam(self._StageGroup, self._StageGroup:GetCurrentIndex() == 1, function()
         self:_Fight()
-    end
+    end)
 end
 
 function XViewModelTransfiniteRoom:OnClickFight()
-    if self._StageGroup:IsBegin() then
-        self:_FightAndSetTeam()
+    -- 小于锚点的关卡不可挑战
+    local startStageProgress = self._StageGroup:GetStartStageProgress()
+    if self._StageIndex < startStageProgress then
+        XUiManager.TipText("TransfiniteStageNotStartAnchorTips")
         return
     end
     local team = self._StageGroup:GetTeam()
@@ -280,6 +327,10 @@ function XViewModelTransfiniteRoom:OnClickFight()
     -- 检查首发位置是否为空
     if not team:IsFirstPosValid() then
         XUiManager.TipText("TeamManagerCheckFirstFightNil")
+        return
+    end
+    if (self._StageGroup:IsBegin() and self._StageIndex > startStageProgress) or self.Data.IsShowRepeatBtn then
+        self:_FightAndSetTeam()
         return
     end
     if team:IsFull() then
@@ -300,6 +351,10 @@ end
 function XViewModelTransfiniteRoom:ShowUiEnvironment()
     local stageGroup = self._StageGroup
     XLuaUiManager.Open("UiTransfiniteEnvironmentDetail", stageGroup:GetEnvironment())
+end
+
+function XViewModelTransfiniteRoom:IsIsland()
+    return self._StageGroup:IsIsland()
 end
 
 return XViewModelTransfiniteRoom

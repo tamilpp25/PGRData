@@ -387,7 +387,7 @@ XFubenAssignManagerCreator = function()
             end
         end
 
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
         table.sort(ownCharacters, function(a, b)
             return a.Ability > b.Ability
         end)
@@ -416,7 +416,7 @@ XFubenAssignManagerCreator = function()
 
                 local i
                 for charIndex, char in ipairs(ownCharacters) do
-                    local charType = XCharacterConfigs.GetCharacterType(char.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(char.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto CONTINUE
                     end
@@ -445,7 +445,7 @@ XFubenAssignManagerCreator = function()
                 local teamData = XFubenAssignManager.GetTeamDataById(teamId)
                 for order = 1, teamData:GetNeedCharacter() do
                     local characterId = charIdList[order]
-                    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+                    local character = XMVCA.XCharacter:GetCharacter(characterId)
                     if character.Ability < teamData:GetRequireAbility() then
                         isMatch = false
                         break
@@ -657,13 +657,13 @@ XFubenAssignManagerCreator = function()
 
     -- 某角色某技能加成
     function XFubenAssignManager.GetSkillLevel(characterId, skillId)
-        local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+        local character = XMVCA.XCharacter:GetCharacter(characterId)
         if not character then return 0 end
 
         local keys, levels = XFubenAssignManager.GetBuffKeysAndLevels()
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -693,9 +693,9 @@ XFubenAssignManagerCreator = function()
                 end
             end
         end
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -711,15 +711,14 @@ XFubenAssignManagerCreator = function()
     -- 参数levels: {[key] = level, ...}
     function XFubenAssignManager.GetBuffDescListByKeys(keys, levels)
         local descList = {}
-        local GetCareerName = XCharacterConfigs.GetCareerName
-        local GetSkillTypeName = XCharacterConfigs.GetSkillTypeName
+        local GetCareerName = function (type) return XMVCA.XCharacter:GetCareerName(type) end
         local GetText = CS.XTextManager.GetText
         for _, key in ipairs(keys) do
             local skillType = key % SKILLTYPE_BITS
             local characterType = (key - skillType) / SKILLTYPE_BITS
             local level = levels and levels[key] or 1
             local memberTypeName = characterType == CHARACTERTYPE_ALL and "" or GetCareerName(characterType)
-            local str = GetText("AssignSkillPlus", memberTypeName, GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
+            local str = GetText("AssignSkillPlus", memberTypeName, XMVCA.XCharacter:GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
             table.insert(descList, str)
         end
         return descList
@@ -871,14 +870,13 @@ XFubenAssignManagerCreator = function()
     end
 
     function XFubenAssignManager.GetCharacterListInTeam(inTeamIdMap, charType)
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList(charType)
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList(charType)
         -- 排序 未编队>已编队  等级＞品质＞优先级
         local weights = {} -- 编队[1位] + 等级[3位] + 品质[1位] + 优先级[5位]
-        local GetCharacterPriority = XCharacterConfigs.GetCharacterPriority
         for _, character in ipairs(ownCharacters) do
             local teamOrder = inTeamIdMap[character.Id]
             local stateOrder = teamOrder and (9 - teamOrder) or 9
-            local priority = GetCharacterPriority(character.Id)
+            local priority = XMVCA.XCharacter:GetCharacterPriority(character.Id)
             local weightOrder = stateOrder * 1000000000
             local weightLevel = character.Level * 1000000
             local weightQuality = character.Quality * 100000
@@ -1081,16 +1079,29 @@ XFubenAssignManagerCreator = function()
         return XFubenAssignManager.CheckIsShowRedPoint() or XDataCenter.FubenAwarenessManager.CheckIsShowRedPoint()
     end
 
-    function XFubenAssignManager.OpenUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-            XLuaUiManager.Open("UiPanelAssignMain")
+    function XFubenAssignManager.OpenUi(stageId)
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
         end
+
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+            return
+        end
+
+        XLuaUiManager.Open("UiPanelAssignMain", stageId)
     end
 
     function XFubenAssignManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
-            XLuaUiManager.Open("UiAssignAwarenessSelect")
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAssign) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Assign) then
+            return
+        end
+        
+        XLuaUiManager.Open("UiAssignAwarenessSelect")
     end
     
     ------------------副本入口扩展 end-------------------------

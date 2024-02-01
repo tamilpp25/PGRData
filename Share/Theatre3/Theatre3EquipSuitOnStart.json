@@ -137,7 +137,7 @@
     },
     {
         "Id": 14,
-        "SuitId": 15,
+        "SuitId": 14,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
@@ -147,7 +147,7 @@
     },
     {
         "Id": 15,
-        "SuitId": 16,
+        "SuitId": 15,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
@@ -157,7 +157,7 @@
     },
     {
         "Id": 16,
-        "SuitId": 50,
+        "SuitId": 16,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
@@ -167,90 +167,6 @@
     },
     {
         "Id": 17,
-        "SuitId": 51,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 18,
-        "SuitId": 52,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 19,
-        "SuitId": 53,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [
-            58.0
-        ],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 20,
-        "SuitId": 54,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 21,
-        "SuitId": 55,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 22,
-        "SuitId": 56,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 23,
-        "SuitId": 57,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 24,
-        "SuitId": 58,
-        "EnsureFlag": null,
-        "Weight": 1000,
-        "RepeatWeight": 500,
-        "ExcludeSuitIds": [
-            53.0
-        ],
-        "AddWeightSuitIds": [],
-        "AddWeights": []
-    },
-    {
-        "Id": 25,
         "SuitId": 17,
         "EnsureFlag": null,
         "Weight": 1000,
@@ -266,7 +182,7 @@
         ]
     },
     {
-        "Id": 26,
+        "Id": 18,
         "SuitId": 18,
         "EnsureFlag": null,
         "Weight": 1000,
@@ -276,8 +192,8 @@
         "AddWeights": []
     },
     {
-        "Id": 27,
-        "SuitId": 14,
+        "Id": 19,
+        "SuitId": 19,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,
@@ -286,8 +202,152 @@
         "AddWeights": []
     },
     {
+        "Id": 20,
+        "SuitId": 20,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 21,
+        "SuitId": 21,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 22,
+        "SuitId": 22,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 23,
+        "SuitId": 23,
+        "EnsureFlag": 1.0,
+        "Weight": 1,
+        "RepeatWeight": 1,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 24,
+        "SuitId": 50,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 25,
+        "SuitId": 51,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 26,
+        "SuitId": 52,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 27,
+        "SuitId": 53,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [
+            58.0
+        ],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
         "Id": 28,
+        "SuitId": 54,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 29,
+        "SuitId": 55,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 30,
+        "SuitId": 56,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 31,
+        "SuitId": 57,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 32,
+        "SuitId": 58,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [
+            53.0
+        ],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 33,
         "SuitId": 59,
+        "EnsureFlag": null,
+        "Weight": 1000,
+        "RepeatWeight": 500,
+        "ExcludeSuitIds": [],
+        "AddWeightSuitIds": [],
+        "AddWeights": []
+    },
+    {
+        "Id": 34,
+        "SuitId": 60,
         "EnsureFlag": null,
         "Weight": 1000,
         "RepeatWeight": 500,

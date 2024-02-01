@@ -17,14 +17,14 @@ function XUiGridStrongholdCharacter:Ctor(ui)
     self:SetSelect(false)
 end
 
-function XUiGridStrongholdCharacter:Refresh(characterId, groupId, teamId, teamList, playerId)
+function XUiGridStrongholdCharacter:Refresh(characterId, groupId, teamPropId, teamList, playerId)
     self.CharacterId = characterId
     self.GroupId = groupId
-    self.TeamId = teamId
+    self.TeamPropId = teamPropId
     self.TeamList = teamList
     self.PlayerId = playerId
+    self.TeamIndex = XTool.IsNumberValid(groupId) and XDataCenter.StrongholdManager.GetTeamIndexByProp(groupId, teamPropId) or self.TeamPropId
 
-    self.TxtPlayerName.gameObject:SetActiveEx(IsNumberValid(playerId))
     self:UpdateBaseInfo()
     if XRobotManager.CheckIsRobotId(characterId) then
         self:UpdateRobot()
@@ -47,10 +47,10 @@ function XUiGridStrongholdCharacter:UpdateBaseInfo()
 
     -- 相同构造体
     if self.PanelSameRole then
-        local curTeam = self.TeamList[self.TeamId]
+        local curTeam = self.TeamList[self.TeamPropId]
         local pos = curTeam:GetSameCharacterPos(self.CharacterId)
         local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(self.CharacterId, self.TeamList)
-        local isShowSame = inTeamId ~= self.TeamId and XTool.IsNumberValid(pos)
+        local isShowSame = inTeamId ~= self.TeamIndex and XTool.IsNumberValid(pos)
         self.PanelSameRole.gameObject:SetActiveEx(isShowSame)
     end
 end
@@ -62,20 +62,9 @@ function XUiGridStrongholdCharacter:UpdateRobot()
     local robotTemplate = XRobotManager.GetRobotTemplate(robotId)
     local characterId = XRobotManager.GetCharacterId(robotId)
 
-    if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
-        local elementList = detailConfig.ObtainElementList
-        for i = 1, 3 do
-            local rImg = self["RImgCharElement" .. i]
-            if elementList[i] then
-                rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
-                rImg:SetRawImage(elementConfig.Icon)
-            else
-                rImg.gameObject:SetActiveEx(false)
-            end
-        end
-    end
+    local npcType = self.CharacterAgency:GetCharacterType(characterId)
+    self.RImgCharElement1:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(npcType))
+
 
     if self.RImgHeadIcon then
         local head = self.CharacterAgency:GetCharSmallHeadIcon(characterId, true)
@@ -94,7 +83,7 @@ function XUiGridStrongholdCharacter:UpdateRobot()
     end
 
     if self.RImgQuality then
-        local quality = XCharacterConfigs.GetCharacterQualityIcon(robotTemplate.CharacterQuality)
+        local quality = XMVCA.XCharacter:GetCharacterQualityIcon(robotTemplate.CharacterQuality)
         self.RImgQuality:SetRawImage(quality)
     end
 
@@ -121,12 +110,6 @@ function XUiGridStrongholdCharacter:UpdateRobot()
     if self.PanelTry then
         self.PanelTry.gameObject:SetActiveEx(true)
     end
-
-    if self.PanelRecommend then
-        local stageId = groupId and XDataCenter.StrongholdManager.GetGroupStageId(groupId, self.TeamId) or nil
-        local isStageRecomend = XFubenConfigs.IsStageRecommendCharacterType(stageId, characterId)
-        self.PanelRecommend.gameObject:SetActiveEx(isStageRecomend)
-    end
 end
 
 function XUiGridStrongholdCharacter:UpdateAssistant()
@@ -137,24 +120,8 @@ function XUiGridStrongholdCharacter:UpdateAssistant()
     local character = assistantInfo.Character
     local characterId = character.Id
 
-    if self.TxtPlayerName then
-        self.TxtPlayerName.text = assistantInfo.Name or ""
-    end
-
-    if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
-        local elementList = detailConfig.ObtainElementList
-        for i = 1, 3 do
-            local rImg = self["RImgCharElement" .. i]
-            if elementList[i] then
-                rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
-                rImg:SetRawImage(elementConfig.Icon)
-            else
-                rImg.gameObject:SetActiveEx(false)
-            end
-        end
-    end
+    local npcType = self.CharacterAgency:GetCharacterType(characterId)
+    self.RImgCharElement1:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(npcType))
 
     if self.RImgHeadIcon then
         local headInfo = character.CharacterHeadInfo or {}
@@ -174,7 +141,7 @@ function XUiGridStrongholdCharacter:UpdateAssistant()
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
 
     local isInTeam = XDataCenter.StrongholdManager.CheckInTeamList(characterId, teamList, playerId)
@@ -200,35 +167,16 @@ function XUiGridStrongholdCharacter:UpdateAssistant()
     if self.PanelTry then
         self.PanelTry.gameObject:SetActiveEx(false)
     end
-
-    if self.PanelRecommend then
-        local stageId = groupId and XDataCenter.StrongholdManager.GetGroupStageId(groupId, self.TeamId) or nil
-        local isStageRecomend = XFubenConfigs.IsStageRecommendCharacterType(stageId, characterId)
-        self.PanelRecommend.gameObject:SetActiveEx(isStageRecomend)
-    end
 end
 
 function XUiGridStrongholdCharacter:UpdateCharacter()
-    local teamId = self.TeamId
+    local teamId = self.TeamIndex
     local teamList = self.TeamList
     local groupId = self.GroupId
     local characterId = self.CharacterId
     local character = self.CharacterAgency:GetCharacter(characterId)
 
-    if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
-        local elementList = detailConfig.ObtainElementList
-        for i = 1, 3 do
-            local rImg = self["RImgCharElement" .. i]
-            if elementList[i] then
-                rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
-                rImg:SetRawImage(elementConfig.Icon)
-            else
-                rImg.gameObject:SetActiveEx(false)
-            end
-        end
-    end
+    self.RImgCharElement1:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
 
     if self.RImgHeadIcon then
         self.RImgHeadIcon:SetRawImage(self.CharacterAgency:GetCharSmallHeadIcon(characterId))
@@ -245,7 +193,7 @@ function XUiGridStrongholdCharacter:UpdateCharacter()
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
 
     local isInTeam = XDataCenter.StrongholdManager.CheckInTeamList(characterId, teamList)
@@ -279,12 +227,6 @@ function XUiGridStrongholdCharacter:UpdateCharacter()
 
     if self.PanelTry then
         self.PanelTry.gameObject:SetActiveEx(false)
-    end
-
-    if self.PanelRecommend then
-        local stageId = groupId and XDataCenter.StrongholdManager.GetGroupStageId(groupId, self.TeamId) or nil
-        local isStageRecomend = XFubenConfigs.IsStageRecommendCharacterType(stageId, characterId)
-        self.PanelRecommend.gameObject:SetActiveEx(isStageRecomend)
     end
 end
 

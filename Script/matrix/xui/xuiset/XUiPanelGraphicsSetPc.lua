@@ -1,31 +1,48 @@
----@class XUiPanelGraphicsSetPc
-local XUiPanelGraphicsSetPc = XClass(XUiPanelGraphicsSet, 'XUiPanelGraphicsSetPc')
+local XUiPanelGraphicsSet = require("XUi/XUiSet/XUiPanelGraphicsSet")
+---@class XUiPanelGraphicsSetPc : XUiPanelGraphicsSet
+local XUiPanelGraphicsSetPc = XClass(XUiPanelGraphicsSet, "XUiPanelGraphicsSetPc")
 
-function XUiPanelGraphicsSetPc:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+-- FullScreenWindow     是无边框全屏
+-- ExclusiveFullScreen  是独占全屏
+function XUiPanelGraphicsSetPc:OnStart()
+    self.Super.OnStart(self)
     self._FullScreen = self:IsFullScreen()
     self._Resolution = self:GetCurrentResolution()
     self._DropDownDataProvider = false
     self._IsDirtyPc = false
     self._ResolutionIndex = 1
+    self._NoFrameWindowed = XDataCenter.UiPcManager.GetLastNoFrame()
     self:InitPc()
 end
 
 function XUiPanelGraphicsSetPc:AutoInitUi()
     self.Super.AutoInitUi(self)
+    self.TogGraphics_0 = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0"):GetComponent("Toggle")
+    self.ImgResStand = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0/ImgResStand"):GetComponent("Image")
+    self.TxtResStand = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0/TxtResStand"):GetComponent("Text")
     self.TogFrameRate_3 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_3"):GetComponent("Toggle")
     self.ImgResStandX = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_3/ImgResStand"):GetComponent("Image")
     self.TxtResStandX = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_3/TxtResStand"):GetComponent("Text")
     self.TogFrameRate_4 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_4"):GetComponent("Toggle")
     self.ImgResStandY = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_4/ImgResStand"):GetComponent("Image")
     self.TxtResStandY = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_4/TxtResStand"):GetComponent("Text")
+    
+    self.TogFrameRate_0 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0"):GetComponent("Toggle")
+    self.ImgResStandU = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0/ImgResStand"):GetComponent("Image")
+    self.TxtResStandU = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0/TxtResStand"):GetComponent("Text")
+    self.TogFrameRate_1 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1"):GetComponent("Toggle")
+    self.ImgResStandV = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1/ImgResStand"):GetComponent("Image")
+    self.TxtResStandV = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1/TxtResStand"):GetComponent("Text")
+    self.TogFrameRate_2 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2"):GetComponent("Toggle")
+    self.ImgResStandW = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2/ImgResStand"):GetComponent("Image")
+    self.TxtResStandW = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2/TxtResStand"):GetComponent("Text")
+    -- 全屏
     self.FullscreenTogGraphics_0 = self.Transform:Find("Jiemian/Shezhi/Array/TGroupResolution/FullscreenTogGraphics_0"):GetComponent("Toggle")
     self.FullscreenTogGraphics_1 = self.Transform:Find("Jiemian/Shezhi/Array/TGroupResolution/FullscreenTogGraphics_1"):GetComponent("Toggle")
     self.FullscreenTogGraphics_2 = self.Transform:Find("Jiemian/Shezhi/Array/TGroupResolution/FullscreenTogGraphics_2"):GetComponent("Button")
+    self.FullscreenTogGraphics_3 = self.Transform:Find("Jiemian/Shezhi/Array/TGroupResolution/FullscreenTogGraphics_3"):GetComponent("Toggle")
 
-    if CS.XStandaloneSettingHelper.ForceWindow then
+    if CS.XSettingHelper.ForceWindow then
         self.FullscreenTogGraphics_0.gameObject:SetActiveEx(false)
         self.FullscreenTogGraphics_2.gameObject:SetActiveEx(true)
     else
@@ -36,15 +53,17 @@ function XUiPanelGraphicsSetPc:AutoInitUi()
 end
 
 function XUiPanelGraphicsSetPc:InitPc()
+    self._Initing = true
     self:InitDropDownResolution()
     self:InitToggleFullScreen()
     self:UpdateToggle()
     self:UpdateDropDownResolution()
-    self.UseVSync = CS.XStandaloneSettingHelper.UseVSync
+    self.UseVSync = CS.XSettingHelper.UseVSync
     self:UpdateVSyncToggle()
     XUiHelper.RegisterClickEvent(self, self.TogVSync, function(isEnable)
         self:OnClickVSync(isEnable)
     end)
+    self._Initing = false
 end
 
 function XUiPanelGraphicsSetPc:InitDropDownResolution()
@@ -74,6 +93,7 @@ function XUiPanelGraphicsSetPc:InitDropDownResolution()
 end
 
 function XUiPanelGraphicsSetPc:InitToggleFullScreen()
+    self.FullscreenTogGraphics_3.isOn = self._NoFrameWindowed
     self.FullscreenTogGraphics_0.onValueChanged:AddListener(function()
         if self.FullscreenTogGraphics_0.isOn then
             if self._FullScreen ~= true then
@@ -82,6 +102,9 @@ function XUiPanelGraphicsSetPc:InitToggleFullScreen()
                 self:UpdateDropDownResolution()
             end
         end
+        -- self.FullscreenTogGraphics_3.gameObject:SetActiveEx(self.FullscreenTogGraphics_0.isOn)
+        --- #FIXME: 临时Ban掉无边框选项
+        self.FullscreenTogGraphics_3.gameObject:SetActiveEx(false)
     end)
     self.FullscreenTogGraphics_1.onValueChanged:AddListener(function()
         if self.FullscreenTogGraphics_1.isOn then
@@ -95,6 +118,12 @@ function XUiPanelGraphicsSetPc:InitToggleFullScreen()
     self.FullscreenTogGraphics_2.onClick:AddListener(function()
         XUiManager.TipText("PcUnableFullScreen")
     end)
+    self.FullscreenTogGraphics_3.onValueChanged:AddListener(function() 
+        if not self._Initing then
+            self._NoFrameWindowed = self.FullscreenTogGraphics_3.isOn
+            self._IsDirtyPc = true
+        end
+    end)
 end
 
 function XUiPanelGraphicsSetPc:UpdateToggle()
@@ -102,6 +131,10 @@ function XUiPanelGraphicsSetPc:UpdateToggle()
     self.TGroupResolution:SetAllTogglesOff()
     if isFullScreen then
         self.FullscreenTogGraphics_0.isOn = true
+        -- self.FullscreenTogGraphics_3.gameObject:SetActiveEx(true)
+        --- #FIXME: 临时Ban掉无边框选项缺陷
+        self.FullscreenTogGraphics_3.gameObject:SetActiveEx(false)
+        self.FullscreenTogGraphics_3.isOn = self._NoFrameWindowed
     else
         self.FullscreenTogGraphics_1.isOn = true
     end
@@ -146,17 +179,21 @@ function XUiPanelGraphicsSetPc:GetResolutionArray()
     return defaultSizeArray, defaultSizeIndex
 end
 
-function XUiPanelGraphicsSetPc:SetFullScreen(isFullScreen)
+function XUiPanelGraphicsSetPc:SetFullScreen()
+    local isFullScreen = self._FullScreen
+    local isNoFrame = self._NoFrameWindowed
     if isFullScreen then
         local deviceWidth, deviceHeight = XDataCenter.UiPcManager.GetDeviceScreenResolution()
-        self:SetResolution(deviceWidth, deviceHeight, true)
+        if not isNoFrame then
+            XDataCenter.UiPcManager.SetResolution(deviceWidth, deviceHeight, CS.UnityEngine.FullScreenMode.ExclusiveFullScreen)
+        else 
+            XDataCenter.UiPcManager.SetResolution(deviceWidth, deviceHeight, CS.UnityEngine.FullScreenMode.FullScreenWindow)
+        end
     else
         CS.UnityEngine.Screen.fullScreen = isFullScreen
     end
-end
 
-function XUiPanelGraphicsSetPc:SetResolution(x, y, isFullScreen)
-    XDataCenter.UiPcManager.SetResolution(x, y, isFullScreen or false)
+    XDataCenter.UiPcManager.SetNoFrame(isNoFrame)
 end
 
 function XUiPanelGraphicsSetPc:CheckDataIsChange()
@@ -175,7 +212,7 @@ end
 function XUiPanelGraphicsSetPc:SaveChange()
     XUiPanelGraphicsSetPc.Super.SaveChange(self)
     if self._FullScreen then
-        self:SetFullScreen(true)
+        self:SetFullScreen()
     else
         local resolution = self._DropDownDataProvider[self._ResolutionIndex]
         if resolution then
@@ -184,16 +221,25 @@ function XUiPanelGraphicsSetPc:SaveChange()
                 self._Resolution.y = resolution.y
             end
         end
-        self:SetResolution(self._Resolution.x, self._Resolution.y)
+        XDataCenter.UiPcManager.SetResolution(self._Resolution.x, self._Resolution.y, CS.UnityEngine.FullScreenMode.Windowed)
     end
-    CS.XStandaloneSettingHelper.UseVSync = self.UseVSync
+    CS.XSettingHelper.UseVSync = self.UseVSync
     self._IsDirtyPc = false
 end
 
 function XUiPanelGraphicsSetPc:ResetToDefault()
-    self.Super.ResetToDefault(self);
-    self.UseVSync = true;
+    XUiPanelGraphicsSetPc.Super.ResetToDefault(self)
+    self.UseVSync = true
     self.TogVSync.isOn = self.UseVSync
 end
 
+function XUiPanelGraphicsSetPc:CancelChange()
+    XUiPanelGraphicsSetPc.Super.CancelChange(self)
+    self.UseVSync = CS.XSettingHelper.UseVSync
+    self.TogVSync.isOn = self.UseVSync
+    self.FullscreenTogGraphics_0.isOn = self:IsFullScreen()
+    self.FullscreenTogGraphics_1.isOn = not self:IsFullScreen()
+    self.FullscreenTogGraphics_3.isOn = XDataCenter.UiPcManager.GetLastNoFrame()
+    self._IsDirtyPc = false
+end
 return XUiPanelGraphicsSetPc

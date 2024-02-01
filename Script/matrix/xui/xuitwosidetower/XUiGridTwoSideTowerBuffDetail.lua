@@ -1,29 +1,27 @@
-local XUiGridTwoSideTowerBuffDetail = XClass(nil, "XUiGridTwoSideTowerBuffDetail")
+---@class XUiGridTwoSideTowerBuffDetail : XUiNode
+---@field _Control XTwoSideTowerControl
+local XUiGridTwoSideTowerBuffDetail = XClass(XUiNode, "XUiGridTwoSideTowerBuffDetail")
 
----@param obj UnityEngine.RectTransform
----@param stageData XTwoSideTowerStage
-function XUiGridTwoSideTowerBuffDetail:Ctor(obj, stageData)
-    self.StageData = stageData
-    self.GameObject = obj.gameObject
-    self.Transform = obj
-    XTool.InitUiObject(self)
-    self:Refresh()
-end
-
-function XUiGridTwoSideTowerBuffDetail:Refresh()
-    local featureId = self.StageData:GetFeatureId()
-    local featureCfg = XTwoSideTowerConfigs.GetFeatureCfg(featureId)
-    self.TxtAmbien.text = featureCfg.Desc
-    self.RImgIcon:SetRawImage(featureCfg.Icon)
-    self.TxtBuffName.text = featureCfg.Name
-    local isPass = self.StageData:IsPass()
-    self.PanelClear.gameObject:SetActiveEx(isPass)
-    self.TxtName.text = self.StageData:GetStageTypeName()
-    self.TxtNumber.text = self.StageData:GetStageNumberName()
+function XUiGridTwoSideTowerBuffDetail:Refresh(chapterId, pointId, stageId)
+    local featureId = self._Control:GetStageFeatureId(stageId)
+    -- 描述
+    self.TxtAmbien.text = self._Control:GetFeatureDescZonglan(featureId)
+    -- 图片
+    self.RImgIcon:SetRawImage(self._Control:GetFeatureIcon(featureId))
+    -- 名称
+    self.TxtBuffName.text = self._Control:GetFeatureName(featureId)
+    -- 关卡名称
+    self.TxtName.text = self._Control:GetStageTypeName(stageId)
+    -- 关卡编号
+    self.TxtNumber.text = self._Control:GetStageNumberName(stageId)
     if self.RImgTeaching then
-        self.RImgTeaching:SetRawImage(featureCfg.Image)
+        self.RImgTeaching:SetRawImage(self._Control:GetFeatureImage(featureId))
     end
-    self.Effect.gameObject:SetActiveEx(featureCfg.Type == 2)
+    self.Effect.gameObject:SetActiveEx(self._Control:GetFeatureType(featureId) == 2)
+    -- 是否通关
+    local passStageId = self._Control:GetPointPassStageId(chapterId, pointId)
+    local isPass = XTool.IsNumberValid(passStageId) and passStageId == stageId
+    self.PanelClear.gameObject:SetActiveEx(isPass)
 end
 
 return XUiGridTwoSideTowerBuffDetail

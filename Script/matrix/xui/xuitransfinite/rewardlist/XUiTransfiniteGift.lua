@@ -22,8 +22,7 @@ function XUiTransfiniteGift:OnAwake()
     self:BindExitBtns(self.BtnBack, self.BtnMainUi)
     XUiPanelAsset.New(self, self.AssetPanel, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
 
-    self._ChallengePanel = XUiTransfiniteChallengeReward.New(self, self.ChallengePanel, self._ViewModel)
-    self.PanelTask = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane/PanelTask")
+    self._ChallengePanel = XUiTransfiniteChallengeReward.New(self, self.PanelChallenge, self._ViewModel)
     self._ScorePanel = XUiTransfinitePointsReward.New(self.PanelTask, self._ViewModel)
 
     self.TabPanel:Init({ self.TogGift, self.TogChallenge }, function(index)
@@ -67,12 +66,10 @@ function XUiTransfiniteGift:UpdateByTab()
         self._ScorePanel:SetActive(true)
         self._ChallengePanel:SetActive(false)
         self._ScorePanel:Update()
-
     elseif index == XTransfiniteConfigs.GiftTabIndex.Challenge then
         self._ScorePanel:SetActive(false)
         self._ChallengePanel:SetActive(true)
         self._ChallengePanel:Update()
-
     end
 end
 

@@ -5,8 +5,8 @@ local XTurntableActivity = require("XModule/XTurntable/XEntity/XTurntableActivit
 local XTurntableModel = XClass(XModel, "XTurntableModel")
 
 local TableKey = {
-    Turntable = { CacheType = XConfigUtil.CacheType.Temp },
-    TurntableActivity = { CacheType = XConfigUtil.CacheType.Temp },
+    Turntable = {},
+    TurntableActivity = {},
 }
 
 function XTurntableModel:OnInit()

@@ -64,7 +64,7 @@ end
 function XUiPanelTeamSelect:SetCharacterList()
     local baseItem = self.GridTeamCharacter
     baseItem.gameObject:SetActive(false)
-    local charList = XDataCenter.CharacterManager.GetSpecilOwnCharacterList()
+    local charList = XMVCA.XCharacter:GetSpecilOwnCharacterList()
 
     local count = #charList
 

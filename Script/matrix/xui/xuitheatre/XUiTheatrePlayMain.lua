@@ -136,7 +136,7 @@ function XUiTheatrePlayMain:OnAwake()
     self.AdventureManager = self.TheatreManager.GetCurrentAdventureManager()
     self.CurrentChapter = self.AdventureManager:GetCurrentChapter()
     -- 注册资源面板
-    XUiHelper.NewPanelActivityAsset(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems)
+    XUiHelper.NewPanelActivityAssetSafe(self.TheatreManager.GetAdventureAssetItemIds(), self.PanelAssetitems, self)
     self:RegisterUiEvents()
     -- 当前节点 XUiTheatreNode
     self.CurrentNodeItems = {}

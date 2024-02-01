@@ -1,34 +1,33 @@
-local XUiGridBossRankReward = XClass(nil, "XUiGridBossRankReward")
+---@class XUiGridBossRankReward : XUiNode
+local XUiGridBossRankReward = XClass(XUiNode, "XUiGridBossRankReward")
 
-function XUiGridBossRankReward:Ctor(rootUi, ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    self.GridRewardList = {}
-    XTool.InitUiObject(self)
-    self.GridReward.gameObject:SetActive(false)
+function XUiGridBossRankReward:OnStart(rootUi)
+    self._RootUi = rootUi
+    self._GridRewardList = {}
+    self.GridReward.gameObject:SetActiveEx(false)
 end
 
-function XUiGridBossRankReward:Refresh(cfg, myRankNum, myLevelType, totalCount)
+function XUiGridBossRankReward:Refresh(cfg, isShowCurTag, clickCallback)
     ---@type XMailAgency
     local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
     local rewardList = mailAgency:GetRewardList(cfg.MailID)
 
     for i = 1, #rewardList do
-        local grid = self.GridRewardList[i]
+        local grid = self._GridRewardList[i]
         if not grid then
             local ui = CS.UnityEngine.Object.Instantiate(self.GridReward)
-            grid = XUiGridCommon.New(self.RootUi, ui)
+            grid = XUiGridCommon.New(self._RootUi, ui)
             grid.Transform:SetParent(self.PanelRewardContent, false)
-            self.GridRewardList[i] = grid
+            self._GridRewardList[i] = grid
         end
 
+        grid:SetProxyClickFunc(clickCallback)
         grid:Refresh(rewardList[i])
-        grid.GameObject:SetActive(true)
+        grid.GameObject:SetActiveEx(true)
     end
 
-    for i = #rewardList + 1, #self.GridRewardList do
-        self.GridRewardList[i].GameObject:SetActive(false)
+    for i = #rewardList + 1, #self._GridRewardList do
+        self._GridRewardList[i].GameObject:SetActiveEx(false)
     end
 
     if cfg.MinRank <= 1 and cfg.MaxRank <= 1 then
@@ -49,17 +48,9 @@ function XUiGridBossRankReward:Refresh(cfg, myRankNum, myLevelType, totalCount)
         end
     end
 
-    if myLevelType ~= cfg.LevelType then
-        self.PanelCurRank.gameObject:SetActive(false)
-        return
+    if self.PanelCurRank then
+        self.PanelCurRank.gameObject:SetActiveEx(isShowCurTag)
     end
-
-    if myRankNum >= 1 and totalCount > 0 then
-        myRankNum = myRankNum / totalCount
-    end
-
-    local isCur = myRankNum > cfg.MinRank and myRankNum <= cfg.MaxRank
-    self.PanelCurRank.gameObject:SetActive(isCur)
 end
 
 return XUiGridBossRankReward

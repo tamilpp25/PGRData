@@ -161,8 +161,8 @@ function XUiGuildMain:InitChildView()
     --self.BtnMainUi.CallBack = function() self:OnBtnMainUiClick() end
     self:BindHelpBtn(self.BtnHelp, "GuildMainHelp")
     self.BtnHelp.CallBack = function() self:OnBtnHelpClick() end
-    XRedPointManager.AddRedPointEvent(self.RedSetting, self.RefreshSettingRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
-    XRedPointManager.AddRedPointEvent(self.RedNews, self.RefreshNewsRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.RedSetting, self.RefreshSettingRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.RedNews, self.RefreshNewsRed, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
     
     self.SettingBtnWidth = self.BtnGuildTuchu.transform.sizeDelta.x
     
@@ -227,7 +227,7 @@ function XUiGuildMain:InitChildView()
     --公会战入口
     local guildWarEntryButtonScript = require("XUi/XUiGuildWar/XUiGuildWarEntryButton")
     self.GuildWarEntry = guildWarEntryButtonScript.New(self.BtnGuildWarEntry,function() self:OnBtnGuildWarEntryClick() end)
-    XRedPointManager.AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
+    self:AddRedPointEvent(self.BtnGuildWarEntry, self.OnCheckGuildWarEntryRedPoint, self,
         {
             XRedPointConditions.Types.CONDITION_GUILDWAR_Main,
         })
@@ -246,7 +246,7 @@ function XUiGuildMain:InitChildView()
     self.BtnGift.CallBack = function()
         XLuaUiManager.Open("UiGuildTaskGroup")
     end
-    XRedPointManager.AddRedPointEvent(self.BtnGift, self.CheckBtnGiftRedPoint, self, {
+    self:AddRedPointEvent(self.BtnGift, self.CheckBtnGiftRedPoint, self, {
         XRedPointConditions.Types.CONDITION_GUILD_ACTIVEGIFT,
         XRedPointConditions.Types.CONDITION_GUILDBOSS_BOSSHP,
         XRedPointConditions.Types.CONDITION_GUILDBOSS_SCORE,
@@ -444,7 +444,7 @@ end
 
 -- 聊天
 function XUiGuildMain:OnBtnChatClick()
-    XLuaUiManager.Open("UiChatServeMain", false, ChatChannelType.Guild, ChatChannelType.World)
+    XUiHelper.OpenUiChatServeMain(false, ChatChannelType.Guild, ChatChannelType.World)
 end
 
 --公会宿舍

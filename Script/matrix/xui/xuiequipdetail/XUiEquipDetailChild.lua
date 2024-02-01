@@ -277,7 +277,7 @@ function XUiEquipDetailChild:InitEquipInfo()
 
     local equipSpecialCharacterId = XDataCenter.EquipManager.GetEquipSpecialCharacterIdByTemplateId(self.TemplateId)
     if equipSpecialCharacterId then
-        self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(equipSpecialCharacterId))
+        self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(equipSpecialCharacterId))
         self.PanelSpecialCharacter.gameObject:SetActive(true)
     else
         self.PanelSpecialCharacter.gameObject:SetActive(false)

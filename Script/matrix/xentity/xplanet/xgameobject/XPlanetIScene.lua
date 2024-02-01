@@ -118,7 +118,7 @@ function XPlanetIScene:CameraUpdate(explore, deltaTime)
         return
     end
     --- 引导中时屏蔽旋转等
-    if XDataCenter.GuideManager.CheckIsInGuidePlus() then
+    if XDataCenter.GuideManager.CheckIsInGuide() then
         return
     end
     self._PlanetCamera:FollowModeUpdate(explore, deltaTime)

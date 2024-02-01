@@ -81,7 +81,7 @@ end
 --收集角色信息并添加
 --=============
 function XSmashBRoleManager.GenerateRoleData()
-    local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local characters = XMVCA.XCharacter:GetOwnCharacterList()
     -- 拥有角色
     for _, character in ipairs(characters) do  
         XSmashBRoleManager.AddNewRole(character)
@@ -410,7 +410,7 @@ function XSmashBRoleManager.GetAssistantRoleList()
     end
 
     -- 角色
-    --local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+    --local characters = XMVCA.XCharacter:GetOwnCharacterList()
     --for i, character in pairs(characters) do
     --    local characterId = character:GetId()
     --    local assistantConfig = XSuperSmashBrosConfig.GetCfgByIdKey(XSuperSmashBrosConfig.TableKey.Assistance, characterId, true)

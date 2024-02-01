@@ -26,7 +26,7 @@ function XUiMaverick2RankGrid:Refresh(rankInfo)
     local isShowRobot = rankInfo.RobotIds and #rankInfo.RobotIds > 0
     self.RImgTeam1.gameObject:SetActiveEx(isShowRobot)
     if isShowRobot then
-        local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(rankInfo.RobotIds[1]) 
+        local charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(rankInfo.RobotIds[1]) 
         self.RImgTeam1:SetRawImage(charIcon)
     end
 

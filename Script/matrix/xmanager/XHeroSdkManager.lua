@@ -21,6 +21,8 @@ local HasSdkLoginError = false -- sdk登陆存在错误
 local CallbackUrl = CS.XRemoteConfig.PayCallbackUrl
 local XRecordUserInfo = CS.XRecord.XRecordUserInfo
 
+local IsNeedShowReddot = false
+
 local CleanPayCallbacks = function()
     PayCallbacks = {}
     IOSPayCallback = nil
@@ -97,9 +99,13 @@ function XHeroSdkManager.OnLoginFailed(msg)
     XLog.Error("Hero sdk login failed. " .. msg)
     IsSdkLogined = false
     CS.XRecord.Record("24032", "HeroSdkLoginFailed")
-
+    local errorTxt = CS.XTextManager.GetText("HeroSdkLoginFailed")
+    -- KuroSDK提供的，如果登录失败返回这个，则是SDK未初始化完，换个提醒
+    if string.match(msg, "failed for init not accomplished") then 
+        errorTxt = CS.XTextManager.GetText("HeroSdkNotInit")
+    end
     LastTimeOfCallSdkLoginUi = 0
-    XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), CS.XTextManager.GetText("HeroSdkLoginFailed"), XUiManager.DialogType.OnlySure, nil, function()
+    XUiManager.SystemDialogTip(CS.XTextManager.GetText("TipTitle"), errorTxt, XUiManager.DialogType.OnlySure, nil, function()
         XHeroSdkManager.Login()
     end)
 end
@@ -308,4 +314,40 @@ end
 
 function XHeroSdkManager.RegisterIOSCallback(cb)
     IOSPayCallback = cb
+end
+
+-- 客服接口
+function XHeroSdkManager.Feedback(from, isLogin)
+    -- 加上返回是为了兼容是否有接入SDK
+    if CS.XHeroSdkAgent.Feedback then 
+        CS.XHeroSdkAgent.Feedback(from, isLogin, GetRoleInfo())
+        return true
+    end
+    return false
+end
+
+-- 客服回调，用于触发红点刷新
+function XHeroSdkManager.FeedbackCallback()
+    IsNeedShowReddot = true
+    XEventManager.DispatchEvent(XEventId.EVENT_FEEDBACK_REFRESH)
+end
+
+-- 检测客服红点
+function XHeroSdkManager.CheckShowReddot()
+    return IsNeedShowReddot
+end
+
+-- 清理客服红点
+function XHeroSdkManager.ClearReddot()
+    IsNeedShowReddot = false
+end
+
+-- 分享是否开放
+function XHeroSdkManager.SharePlatformIsEnable(platform)
+    return CS.XHeroSdkAgent.SharePlatformIsEnable(platform)
+end
+
+-- 分享
+function XHeroSdkManager.Share(platform, path, callback, title, text, topics)
+    CS.XHeroSdkAgent.Share(platform, path, callback, title, text, topics)
 end

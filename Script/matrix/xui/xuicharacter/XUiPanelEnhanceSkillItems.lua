@@ -24,8 +24,8 @@ function XUiPanelEnhanceSkillItems:ShowPanel(character)
         if skillGroup then
             local gridSkillGroup = self.GridSkillGroupList[index]
             if not gridSkillGroup then
-                local characterType = XCharacterConfigs.GetCharacterType(character:GetId())
-                if characterType == XCharacterConfigs.CharacterType.Normal then
+                local characterType = XMVCA.XCharacter:GetCharacterType(character:GetId())
+                if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
                     gridSkillGroup = XUiGridEnhanceSkillItem.New(self["GridSkillItem"..index], self.SelectCallBack)
                 else
                     gridSkillGroup = XUiGridSpEnhanceSkillItem.New(self["GridSkillItem"..index], self.SelectCallBack,self["GridLine"..index])
@@ -33,8 +33,8 @@ function XUiPanelEnhanceSkillItems:ShowPanel(character)
                 self.GridSkillGroupList[index] = gridSkillGroup
             end
 
-            local IsPassCondition,_ = XDataCenter.CharacterManager.GetEnhanceSkillIsPassCondition(skillGroup, character:GetId())
-            local IsShowRed = IsPassCondition and XDataCenter.CharacterManager.CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup) and self.IsSelf
+            local IsPassCondition,_ = XMVCA.XCharacter:GetEnhanceSkillIsPassCondition(skillGroup, character:GetId())
+            local IsShowRed = IsPassCondition and XMVCA.XCharacter:CheckEnhanceSkillIsCanUnlockOrLevelUp(skillGroup) and self.IsSelf
             
             gridSkillGroup.GameObject:SetActiveEx(true)
             gridSkillGroup:UpdateGrid(skillGroup, character:GetEnhanceSkillPosName(index), IsShowRed)

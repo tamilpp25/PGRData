@@ -39,6 +39,8 @@ function XUiFubenRepeatchallenge:OnAwake()
     self.PanelStageDetail.BtnMinusTimes.CallBack = function() self:OnBtnMinusTimesClick() end
     self.PanelStageDetail.BtnMax.CallBack = function() self:OBtnMaxClick() end
     self.PanelStageDetail.InputFieldCount.onValueChanged:AddListener(function() self:OnInputFieldCountChanged() end)
+    
+    XEventManager.DispatchEvent(XEventId.EVENT_REPEAT_CHALLENGE_ENTER)
 end
 
 function XUiFubenRepeatchallenge:OnStart()
@@ -50,6 +52,9 @@ function XUiFubenRepeatchallenge:OnStart()
     end
     
     --self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnTreasure, self.OnCheckRewards, self, { XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_CHAPTER_REWARD }, nil, false)
+    self.CoinRedPointId=XRedPointManager.AddRedPointEvent(self.PanelStandByInfo.BtnShop,function(count) 
+        self.PanelStandByInfo.BtnShop:ShowReddot(count>=0)  
+    end,nil,{XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_COIN},nil,false)
 end
 
 function XUiFubenRepeatchallenge:OnEnable()
@@ -63,6 +68,10 @@ end
 
 function XUiFubenRepeatchallenge:OnDisable()
     self:DestroyActivityTimer()
+end
+
+function XUiFubenRepeatchallenge:OnDestroy()
+    XRedPointManager.RemoveRedPointEvent(self.CoinRedPointId)
 end
 --region 活动倒计时显示
 function XUiFubenRepeatchallenge:CreateActivityTimer()
@@ -120,13 +129,14 @@ end
 --endregion
 --刷新主面板界面
 function XUiFubenRepeatchallenge:Refresh()
+    XRedPointManager.Check(self.CoinRedPointId)
     self:CreateActivityTimer()
     local activityCfg = XDataCenter.FubenRepeatChallengeManager.GetActivityConfig()
     local chapterCfg = XFubenRepeatChallengeConfigs.GetChapterCfg(activityCfg.NormalChapter[1])
     local rcStageCfg = XFubenRepeatChallengeConfigs.GetStageConfig(chapterCfg.StageId[1])
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(rcStageCfg.Id)
     self.RImgBg:SetRawImage(chapterCfg.Bg)
-    local characterName = XCharacterConfigs.GetCharacterLogName(activityCfg.SpecialCharacters[1])
+    local characterName = XMVCA.XCharacter:GetCharacterLogName(activityCfg.SpecialCharacters[1])
     local limitLevel = activityCfg.ExtraBuffLevel
     self.TxtTitle.text = CsXTextManagerGetText("ActivityRepeatChallengeDesc", characterName , limitLevel)
     self.PanelEffect.gameObject:LoadUiEffect(chapterCfg.EffectPath)
@@ -228,7 +238,13 @@ function XUiFubenRepeatchallenge:RefreshChallengeTimes()
     self.PanelStageDetail.InputFieldCount.text = self.ChallengeCount
     local stageId = XDataCenter.FubenRepeatChallengeManager.GetStageId()
     local actionPoint = XDataCenter.FubenManager.GetRequireActionPoint(stageId)
-    self.PanelStageDetail.TxtActionPoint.text = actionPoint * self.ChallengeCount
+    local actionPointTotal = actionPoint * self.ChallengeCount
+    self.PanelStageDetail.TxtActionPoint.text = actionPointTotal
+    
+    --2.10:追加log用于追踪消耗>拥有的异常计算结果(要剔除默认挑战次数1的情况）
+    if self.ChallengeCount > 1 and actionPointTotal > XDataCenter.ItemManager.GetActionPointsNum() then
+        XLog.Error('------>异常消耗计算，战斗消耗计算值:'..actionPointTotal..' 玩家拥有血清数:'..XDataCenter.ItemManager.GetActionPointsNum())
+    end
 end
 --打开关卡详情
 function XUiFubenRepeatchallenge:ShowStageDetail()
@@ -316,17 +332,12 @@ function XUiFubenRepeatchallenge:OnBtnEnterClick()
     local stageId = XDataCenter.FubenRepeatChallengeManager.GetStageId()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg, self.ChallengeCount) then
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", stageId, nil, {
-                EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
-                    XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
-                    proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
-                end
-            }, self.ChallengeCount)
-        else
-            local data = {ChallengeCount = self.ChallengeCount}
-            XLuaUiManager.Open("UiNewRoomSingle", stageId, data)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", stageId, nil, {
+            EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
+                XDataCenter.FubenDailyManager.SetFubenDailyRecord(stageId)
+                proxy.Super.EnterFight(proxy, team, stageId, challengeCount, isAssist)
+            end
+        }, self.ChallengeCount)
     end
 end
 --点击扫荡
@@ -351,7 +362,7 @@ function XUiFubenRepeatchallenge:OnBtnAutoFightClick()
         if res.Code == XCode.Success then
             XLuaUiManager.Open("UiNewAutoFightSettleWin", XDataCenter.AutoFightManager.GetAutoFightBeginData(), res)
         end
-    end)
+    end,true)
     return true
 end
 --编辑复刷次数

@@ -12,7 +12,7 @@ function XUiAreaWarStageDetail:OnAwake()
     self.BtnDispatch.CallBack = function()
         self:OnClickBtnDispatch()
     end
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

@@ -117,50 +117,86 @@ local _ConfigMagic
 local _ConfigChipAssistant
 
 function XDlcHuntChipConfigs.Init()
-    _ConfigChipShare = XConfig.New("Share/DlcHunt/Chip/DlcHuntChip.tab", XTable.XTableDlcHuntChip, "Id")
-    _ConfigChipClient = XConfig.New("Client/DlcHunt/Chip/DlcHuntChipClient.tab", XTable.XTableDlcHuntChipClient, "Id")
-    _ConfigChipBreakthrough = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipBreakthrough.tab", XTable.XTableDlcHuntChipBreakThrough, "Id")
-    _ConfigLevelUpTemplate = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipLevelUpTemplate.tab", XTable.XTableDlcHuntChipLevelUpTemplate, "Id")
-    _ConfigMagic = XConfig.New("Client/DlcHunt/Chip/DlcHuntChipMagic.tab", XTable.XTableDlcHuntChipMagic, "Id")
-    _ConfigChipAssistant = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipAssist.tab", XTable.XTableDlcHuntChipAssist, "Id")
-    XDlcHuntChipConfigs.CHIP_GROUP_AMOUNT = XDlcHuntConfigs.GetChipGroupAmount()
-    XDlcHuntChipConfigs.CHIP_MAIN_CAPACITY = XDlcHuntConfigs.GetChipCapacity()
-    XDlcHuntChipConfigs.CHIP_SUB_CAPACITY = XDlcHuntConfigs.GetChipCapacity()
+end
+
+local function __InitConfigChipShare()
+    if not _ConfigChipShare then
+        _ConfigChipShare = XConfig.New("Share/DlcHunt/Chip/DlcHuntChip.tab", XTable.XTableDlcHuntChip, "Id")
+    end
+end
+
+local function __InitConfigChipClient()
+    if not _ConfigChipClient then
+        _ConfigChipClient = XConfig.New("Client/DlcHunt/Chip/DlcHuntChipClient.tab", XTable.XTableDlcHuntChipClient, "Id")
+    end
+end
+
+local function __InitConfigChipBreakthrough()
+    if not _ConfigChipBreakthrough then
+        _ConfigChipBreakthrough = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipBreakthrough.tab", XTable.XTableDlcHuntChipBreakThrough, "Id")
+    end
+end
+
+local function __InitConfigLevelUpTemplate()
+    if not _ConfigLevelUpTemplate then
+        _ConfigLevelUpTemplate = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipLevelUpTemplate.tab", XTable.XTableDlcHuntChipLevelUpTemplate, "Id")
+    end
+end
+
+local function __InitConfigMagic()
+    if not _ConfigMagic then
+        _ConfigMagic = XConfig.New("Client/DlcHunt/Chip/DlcHuntChipMagic.tab", XTable.XTableDlcHuntChipMagic, "Id")
+    end
+end
+
+local function __InitConfigChipAssistant()
+    if not _ConfigChipAssistant then
+        _ConfigChipAssistant = XConfig.New("Share/DlcHunt/Chip/DlcHuntChipAssist.tab", XTable.XTableDlcHuntChipAssist, "Id")
+    end
 end
 
 function XDlcHuntChipConfigs.IsExist(chipId)
+    __InitConfigChipShare()
     return _ConfigChipShare:TryGetConfig(chipId) ~= nil
 end
 
 function XDlcHuntChipConfigs.GetChipQuality(chipId)
+    __InitConfigChipShare()
     return _ConfigChipShare:GetProperty(chipId, "Quality")
 end
 
 function XDlcHuntChipConfigs.IsMainChip(chipId)
+    __InitConfigChipShare()
     return _ConfigChipShare:GetProperty(chipId, "Type") == XDlcHuntChipConfigs.CHIP_TYPE.MAIN
 end
 
 function XDlcHuntChipConfigs.IsSubChip(chipId)
+    __InitConfigChipShare()
     return _ConfigChipShare:GetProperty(chipId, "Type") == XDlcHuntChipConfigs.CHIP_TYPE.SUB
 end
 
 function XDlcHuntChipConfigs.GetChipType(chipId)
+    __InitConfigChipShare()
     return _ConfigChipShare:GetProperty(chipId, "Type")
 end
 
 function XDlcHuntChipConfigs.GetChipModel(chipId)
+    __InitConfigChipClient()
     return _ConfigChipClient:GetProperty(chipId, "Model")
 end
 
 function XDlcHuntChipConfigs.GetChipName(chipId)
+    __InitConfigChipClient()
     return _ConfigChipClient:GetProperty(chipId, "Name")
 end
 
 function XDlcHuntChipConfigs.GetChipIcon(chipId)
+    __InitConfigChipClient()
     return _ConfigChipClient:GetProperty(chipId, "IconPath")
 end
 
 function XDlcHuntChipConfigs.GetChipPriority(chipId)
+    __InitConfigChipClient()
     return _ConfigChipClient:GetProperty(chipId, "Priority")
 end
 
@@ -195,6 +231,7 @@ function XDlcHuntChipConfigs.GetCostBreakthrough(chip)
 end
 
 function XDlcHuntChipConfigs.GetChipBreakthroughConfig(chipId, breakthroughTimes)
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     for i, config in pairs(configsBreakthrough) do
         if config.ChipId == chipId and config.BreakTimes == breakthroughTimes then
@@ -218,6 +255,7 @@ end
 
 function XDlcHuntChipConfigs.GetChipAllBreakthroughConfig(chipId)
     local result = {}
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     for i, config in pairs(configsBreakthrough) do
         if config.ChipId == chipId then
@@ -230,6 +268,7 @@ end
 -- 所有突破属性的和
 function XDlcHuntChipConfigs.GetChipAttrTableBreakthrough(chipId)
     local result = {}
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     for i, config in pairs(configsBreakthrough) do
         if config.ChipId == chipId then
@@ -245,6 +284,7 @@ function XDlcHuntChipConfigs.GetChipAttrTable(chipId, level, breakthroughTimes)
     local attribId, attribLvUp
     local result = {}
 
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     for i, config in pairs(configsBreakthrough) do
         if config.ChipId == chipId and config.BreakTimes == breakthroughTimes then
@@ -274,6 +314,7 @@ end
 function XDlcHuntChipConfigs.GetChipAttrTableLvUp(chipId, level, breakthroughTimes)
     local attribId, attribLvUp
 
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     for i, config in pairs(configsBreakthrough) do
         if config.ChipId == chipId and config.BreakTimes == breakthroughTimes then
@@ -292,6 +333,7 @@ end
 
 function XDlcHuntChipConfigs.GetChipLevelUpConfig(chipId, breakthroughTimes)
     local result = {}
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     local levelUpTemplateId
     for i, config in pairs(configsBreakthrough) do
@@ -301,6 +343,7 @@ function XDlcHuntChipConfigs.GetChipLevelUpConfig(chipId, breakthroughTimes)
         end
     end
     if levelUpTemplateId then
+        __InitConfigLevelUpTemplate()
         local configsLvUpTemplate = _ConfigLevelUpTemplate:GetConfigs()
         for i, config in pairs(configsLvUpTemplate) do
             if config.TemplateId == levelUpTemplateId then
@@ -325,6 +368,7 @@ function XDlcHuntChipConfigs.GetChipLevelUpExp(chipId, level, breakthroughTimes)
     end
 
     local exp, allExp = 0, 0
+    __InitConfigChipBreakthrough()
     local configsBreakthrough = _ConfigChipBreakthrough:GetConfigs()
     local levelUpTemplateId
     for i, config in pairs(configsBreakthrough) do
@@ -334,6 +378,7 @@ function XDlcHuntChipConfigs.GetChipLevelUpExp(chipId, level, breakthroughTimes)
         end
     end
     if levelUpTemplateId then
+        __InitConfigLevelUpTemplate()
         local configsLvUpTemplate = _ConfigLevelUpTemplate:GetConfigs()
         for i, config in pairs(configsLvUpTemplate) do
             if config.TemplateId == levelUpTemplateId and config.Level == level then
@@ -379,15 +424,18 @@ function XDlcHuntChipConfigs.IsMainChipByPos(pos)
 end
 
 function XDlcHuntChipConfigs.GetMagicName(magicId)
+    __InitConfigMagic()
     return _ConfigMagic:GetProperty(magicId, "Name")
 end
 
 function XDlcHuntChipConfigs.GetMagicDesc(magicId)
+    __InitConfigMagic()
     return _ConfigMagic:GetProperty(magicId, "Desc"),
     _ConfigMagic:GetProperty(magicId, "Params")
 end
 
 function XDlcHuntChipConfigs.GetMagicType(magicId)
+    __InitConfigMagic()
     return _ConfigMagic:GetProperty(magicId, "Type")
 end
 
@@ -432,6 +480,7 @@ end
 
 function XDlcHuntChipConfigs.GetAssistantChipList()
     local list = {}
+    __InitConfigChipAssistant()
     local configs = _ConfigChipAssistant:GetConfigs()
     local XDlcHuntChip = require("XEntity/XDlcHunt/XDlcHuntChip")
     for id, data in pairs(configs) do

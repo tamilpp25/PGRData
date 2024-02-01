@@ -23,16 +23,24 @@ function XUiPanelTheatre3PropDetail:OnStart()
     if self.PanelPropUi.PanelCondition then
         self.PanelPropUi.PanelCondition.gameObject:SetActiveEx(false)
     end
+    if self.PanelSetUi.TxtStory then
+        self.PanelSetUi.TxtStory.transform.parent.gameObject:SetActiveEx(false)
+    end
 
     self.QualityObjDir = {
         [3] = self.GridPropUi.ImgQualityBlue,
         [4] = self.GridPropUi.ImgQualityPurple,
         [5] = self.GridPropUi.ImgQualityOrange,
     }
+    if not self.GridPropUi.RawImage then
+        ---@type UnityEngine.RectTransform
+        self.GridPropUi.RawImage = XUiHelper.TryGetComponent(self.GridPropUi.Transform, "RawImage")
+    end
 end
 
 function XUiPanelTheatre3PropDetail:OnDisable()
     self:OnHideSuitEffectDetail()
+    
 end
 
 function XUiPanelTheatre3PropDetail:Refresh(id)
@@ -58,10 +66,17 @@ function XUiPanelTheatre3PropDetail:RefreshView()
             end
         end
         -- 效果 解锁条件 简介
-        self.PanelPropUi.TxtWorldDesc.text = itemConfig.WorldDesc
-        self.PanelPropUi.TxtDesc.text = itemConfig.Description
+        self.PanelPropUi.TxtWorldDesc.text = XUiHelper.ConvertLineBreakSymbol(itemConfig.WorldDesc)
+        -- 屏蔽 道具 动态效果描述
+        self.PanelPropUi.TxtDesc.text = XUiHelper.ConvertLineBreakSymbol(XUiHelper.FormatText(itemConfig.Description, ""))
 
-        self.GridPropUi.PanelLock.gameObject:SetActiveEx(not isUnlock)
+        self.GridPropUi.Lock.gameObject:SetActiveEx(not isUnlock)
+        --道具背景
+        local bgType = self._Control:GetItemBgTypeById(self.Id)
+        self.GridPropUi.RawImage.gameObject:SetActiveEx(bgType <= XEnumConst.THEATRE3.QuantumType.QuantumB)
+        self.GridPropUi.RawImageRed.gameObject:SetActiveEx(bgType == XEnumConst.THEATRE3.QuantumType.QuantumB)
+        self.GridPropUi.ImgQualityRed.gameObject:SetActiveEx(false)
+        
         self.PanelPropUi.PanelWorldDesc.gameObject:SetActiveEx(isUnlock)
         self.PanelPropUi.PanelDesc.gameObject:SetActiveEx(isUnlock)
         self.TextLock.gameObject:SetActiveEx(not isUnlock)
@@ -86,8 +101,10 @@ function XUiPanelTheatre3PropDetail:RefreshView()
             self.TextLock.text = self._Control:GetClientConfig("HandbookPropDetailLockTips", 2)
         end
         if isUnlock then
-            self.PanelSetUi.TxtDesc.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(equipSuitConfig.Desc, equipSuitConfig.TraitName)))
-            self.PanelSetUi.TxtStory.text = equipSuitConfig.StoryDesc
+            self.PanelSetUi.TxtDesc.gameObject:SetActiveEx(false)
+            self.PanelSetUi.TxtDesc.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(equipSuitConfig.Desc, "")))
+            self.PanelSetUi.TxtDesc.gameObject:SetActiveEx(true)
+            --self.PanelSetUi.TxtStory.text = equipSuitConfig.StoryDesc
             self.PanelSetUi.BtnBuff.CallBack = function()
                 self:OnShowSuitEffectDetail()
             end

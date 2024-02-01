@@ -148,6 +148,24 @@ function XTime.TimestampToGameDateTimeString(timestamp, format)
     return dt:ToString(format)
 end
 
+function XTime.GetGameDateTimestamp(year, mon, day)
+    local now = XTime.GetServerNowTimestamp()
+    local dateTime = CS.XDateUtil.GetGameDateTime(now)
+    if not year or year < 0 then
+        year = dateTime.Year
+    end
+
+    if not mon or mon < 0 then
+        mon = dateTime.Month
+    end
+
+    if not day or day < 0 then
+        day = dateTime.Day
+    end
+    local str = string.format("%d-%d-%d", year, mon, day)
+    return XTime.ParseToTimestamp(str)
+end
+
 -- c#星期枚举转整形数
 function XTime.DayOfWeekToInt(dayOfWeek, isNormlSunDay)
     if dayOfWeek == CS.System.DayOfWeek.Sunday then

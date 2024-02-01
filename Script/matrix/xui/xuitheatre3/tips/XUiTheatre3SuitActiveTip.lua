@@ -18,7 +18,11 @@ function XUiTheatre3SuitActiveTip:OnStart(suitId, cb)
         end)
     end)
     local suitConfig = self._Control:GetSuitById(suitId)
-    self.Txtbt2.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(XUiHelper.FormatText(suitConfig.Desc, suitConfig.TraitName)))
+    -- 屏蔽下划线和动态文本
+    local desc = XUiHelper.FormatText(suitConfig.Desc, "")
+    desc = string.gsub(desc, "<u>", "")
+    desc = string.gsub(desc, "</u>", "")
+    self.Txtbt2.text = XUiHelper.ReplaceUnicodeSpace(XUiHelper.ReplaceTextNewLine(desc))
 end
 
 function XUiTheatre3SuitActiveTip:OnDestroy()

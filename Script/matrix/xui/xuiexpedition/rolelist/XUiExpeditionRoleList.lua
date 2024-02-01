@@ -36,7 +36,7 @@ end
 function XUiExpeditionRoleList:OnBtnBackClick()
     if self.OpenChildName == XUiExpeditionRoleList.ChildUiName.UiExpeditionViewRole then
         self:OpenChild(XUiExpeditionRoleList.ChildUiName.UiExpeditionRoleListCharaInfo)
-        self:UpdateCamera(XCharacterConfigs.XUiCharacter_Camera.MAIN)
+        self:UpdateCamera(XEnumConst.CHARACTER.XUiCharacter_Camera.MAIN)
         self.TextRoleList.gameObject:SetActiveEx(true)
         return
     else

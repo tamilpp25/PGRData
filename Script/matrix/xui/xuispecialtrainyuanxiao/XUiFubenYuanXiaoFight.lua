@@ -43,7 +43,7 @@ function XUiFubenYuanXiaoFight:InitPlayerData()
     local settleData = self.WinData.SettleData
     local SpecialTrainRankFightResult = settleData.SpecialTrainRankFightResult or settleData.SpecialTrainBreakthroughResult
     local players  = SpecialTrainRankFightResult and SpecialTrainRankFightResult.Players or nil
-    local fightResult = XDataCenter.FubenManager.CurFightResult
+    local fightResult = XMVCA.XFuben:GetCurFightResult()
     if not fightResult then
         return
     end

@@ -1,9 +1,10 @@
 local XUiLottoTanchuang = XLuaUiManager.Register(XLuaUi, "UiLottoTanchuang")
 local XUiGridTicket = require("XUi/XUiLotto/XUiGridTicket")
 local UseItemMax = 2
-function XUiLottoTanchuang:OnStart(data, cb)
+
+---@param data XLottoDrawEntity
+function XUiLottoTanchuang:OnStart(data)
     self.DrawData = data
-    self.CallBack = cb
     self:SetButtonCallBack()
     self.UseItem = {}
     self.TargetItem = {}
@@ -54,9 +55,9 @@ end
 
 function XUiLottoTanchuang:BuyTicket(lottoId, BuyTicketRuleId, ticketKey)
     XDataCenter.LottoManager.BuyTicket(lottoId, BuyTicketRuleId, ticketKey, function (rewardList)
-            XUiManager.OpenUiObtain(rewardList, nil, function ()
-                    self:OnBtnCloseClick()
-                    if self.CallBack then self.CallBack() end
-                end)
+        XUiManager.OpenUiObtain(rewardList, nil, function ()
+            self:OnBtnCloseClick()
+            XEventManager.DispatchEvent(XEventId.EVENT_LOTTO_AFTER_BUY_DRAW_SKIP_TICKET)
+        end)
     end)
 end

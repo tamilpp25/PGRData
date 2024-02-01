@@ -1,6 +1,5 @@
 local XPlanetIScene = require("XEntity/XPlanet/XGameObject/XPlanetIScene")
 local XChapterPlanet = require("XEntity/XPlanet/XGameObject/XChapterPlanet")
-local XPlanetRunningExplore = require("XUi/XUiPlanet/Explore/XPlanetRunningExplore")
 
 ---@class XPlanetMainScene:XPlanetIScene
 local XPlanetMainScene = XClass(XPlanetIScene, "XPlanetMainScene")
@@ -374,6 +373,7 @@ end
 
 --region 场景角色
 function XPlanetMainScene:InitTalentTeamObj()
+    local XPlanetRunningExplore = require("XUi/XUiPlanet/Explore/XPlanetRunningExplore")
     ---@type XPlanetRunningExplore
     self._Explore = XPlanetRunningExplore.New()
     local data = {

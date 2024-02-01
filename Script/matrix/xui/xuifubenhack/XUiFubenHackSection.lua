@@ -7,7 +7,7 @@ function XUiFubenHackSection:OnAwake()
     self.StarGridList = {}
     self.GridList = {}
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self, true)
     self:InitStarPanels()
 end
 
@@ -178,7 +178,7 @@ function XUiFubenHackSection:OnBtnEnterClick()
 
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
         XEventManager.DispatchEvent(XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL)
-        XLuaUiManager.Open("UiNewRoomSingle", stageCfg.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stageCfg.StageId)
         self:Close()
     end
 end

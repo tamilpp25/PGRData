@@ -19,19 +19,19 @@ function XRedPointConditionNieRRed.GetSubConditions()
 end
 
 function XRedPointConditionNieRRed.Check()
-    if XRedPointConditionNieRPODRed.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_NIER_POD_RED) then
         return true
     end
 
-    if XRedPointConditionNieRRepeatRed.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_NIER_REPEAT_RED) then
         return true
     end
     
-    if XRedPointConditionNieRTaskRed.Check(-1) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_NIER_TASK_RED, -1) then
         return true
     end
     
-    if XRedPointConditionNieRCharacterRed.Check( {CharacterId = -1, IsInfor = true, IsTeach = true}) then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_NIER_CHARACTER_RED,  {CharacterId = -1, IsInfor = true, IsTeach = true}) then
         return true
     end
     

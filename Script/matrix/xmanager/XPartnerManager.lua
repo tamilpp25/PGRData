@@ -204,10 +204,14 @@ XPartnerManagerCreator = function()
             return false
         end
 
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return false
+        --end
+
         if XPartnerManager.IsPartnerListEmpty() then
             XUiManager.TipText("PartnerListIsEmpty")
             if IsCanSkipProperty then
-                XLuaUiManager.Open("UiPartnerMain")
+                XPartnerManager.OpenUiPartnerMain(false)
             end
             return false
         end
@@ -317,14 +321,14 @@ XPartnerManagerCreator = function()
     end
 
     function XPartnerManager.UpdateAllPartnerStory()--更新所有宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         for _, entity in pairs(PartnerEntityDic or {}) do
             entity:UpdateStoryEntity(PartnerUnLockStoryList)
         end
     end
 
     function XPartnerManager.UpdatePartnerStoryByEntity(entity)--更新某个宠物的故事列表
-        local PartnerUnLockStoryList = XDataCenter.ArchiveManager.GetPartnerSettingUnLockDic()
+        local PartnerUnLockStoryList = XMVCA.XArchive:GetPartnerSettingUnLockDic()
         entity:UpdateStoryEntity(PartnerUnLockStoryList)
     end
 
@@ -649,7 +653,7 @@ XPartnerManagerCreator = function()
         if not XTool.IsNumberValid(characterId) then
             return skillList[DEFAULT_ACTIVE_SKILL_INDEX]
         end
-        local charElement = XCharacterConfigs.GetCharacterElement(characterId)
+        local charElement = XMVCA.XCharacter:GetCharacterElement(characterId)
 
         return skillList[charElement]
     end
@@ -1215,12 +1219,26 @@ XPartnerManagerCreator = function()
     ---获取辅助机PartnerUiEffect数据
     ---@param modelName string 辅助机模型(来自【PartnerModel.tab】StandbyModel/CombatModel字段)
     ---@param effectType string XPartnerConfigs.EffectParentName枚举  
-    ---@alias XEffectData { BoneRootName:string, EffectPath:string[] }
-    ---@return XEffectData
+    ---@return table<string, string[]>
     function XPartnerManager.GetPartnerUiEffect(modelName, effectType)
         return XPartnerConfigs.GetPartnerUiEffect(modelName, effectType)
     end
     ---endregion
+    
+    --打开辅助机界面，统一入口
+    function XPartnerManager.OpenUiPartnerMain(isPopOpen, ...)
+        if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Partner) then
+            return
+        end
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+        if isPopOpen then
+            XLuaUiManager.PopThenOpen("UiPartnerMain", ...)
+        else
+            XLuaUiManager.Open("UiPartnerMain", ...)
+        end
+    end
 
     XPartnerManager.Init()
     return XPartnerManager

@@ -8,14 +8,18 @@ function XUiGridRiftMonsterDetail:Ctor(ui)
     XUiHelper.RegisterClickEvent(self, self.BtnClick, self.OnBtnBackClick)
 end
 
-function XUiGridRiftMonsterDetail:Refresh(xMonster, xStageGroup)
+function XUiGridRiftMonsterDetail:Refresh(xMonster, xStageGroup, isFinish, isLucky)
     self.XMonster = xMonster
     self.XStageGroup = xStageGroup
+    self.IsLuckyStage = isLucky
     self.RImgIcon:SetRawImage(xMonster:GetMonsterHeadIcon())
+    if self.PanelDefeat then
+        self.PanelDefeat.gameObject:SetActiveEx(isFinish)
+    end
 end
 
 function XUiGridRiftMonsterDetail:OnBtnBackClick()
-    XLuaUiManager.Open("UiRiftAffix", self.XStageGroup, self.XMonster)
+    XLuaUiManager.Open("UiRiftAffix", self.XStageGroup, self.XMonster, self.IsLuckyStage)
 end
 
 return XUiGridRiftMonsterDetail

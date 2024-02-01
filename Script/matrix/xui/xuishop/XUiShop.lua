@@ -6,18 +6,21 @@ local ShopFunctionOpenIdDic = {
     [XShopManager.ShopType.Common] = XFunctionManager.FunctionName.ShopCommon,
     [XShopManager.ShopType.Activity] = XFunctionManager.FunctionName.ShopActive,
     [XShopManager.ShopType.Points] = XFunctionManager.FunctionName.ShopPoints,
+    [XShopManager.ShopType.Recharge] = XFunctionManager.FunctionName.ShopRecharge,
 }
 
 local ShopTypeDic = {
     [1] = XShopManager.ShopType.Common,
     [2] = XShopManager.ShopType.Points,
     [3] = XShopManager.ShopType.Activity,
+    [4] = XShopManager.ShopType.Recharge,
 }
 
 local ShopIndexDic = {
     [XShopManager.ShopType.Common] = 1,
     [XShopManager.ShopType.Activity] = 3,
     [XShopManager.ShopType.Points] = 2,
+    [XShopManager.ShopType.Recharge] = 4
 }
 
 function XUiShop:OnAwake()
@@ -42,7 +45,7 @@ function XUiShop:OnStart(typeId, cb, configShopId, screenId)
     self.ScreenId = screenId
 
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset,nil,self,true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, nil, self, true)
     self.ItemList = XUiPanelItemList.New(self.PanelItemList, self)
     self.FashionList = XUiPanelFashionList.New(self.PanelFashionList, self)
     self.GuildGoodsList = XUiPanelGuildGoodsList.New(self.PanelGuildGoodsList, self)
@@ -85,6 +88,31 @@ function XUiShop:OnEnable()
             self:SetShopBtn(self.Type)
             self:UpdateTog()
         end)
+    XEventManager.AddEventListener(XEventId.EVENT_SHOP_ITEM_NOT_ENOUGH, self.OnShopItemNotEnough, self)
+end
+
+function XUiShop:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_SHOP_ITEM_NOT_ENOUGH, self.OnShopItemNotEnough, self)
+end
+    
+function XUiShop:OnShopItemNotEnough(code, shopId, isHasCache)
+    if isHasCache then
+        if self.Type and self.Type == XShopManager.ShopType.Recharge then
+            local isHasCharacterCoin = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalCharacterCoin, 1)
+            local isHasEquipCoin = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalEquipCoin, 1)
+            local isHasPartner = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalPartnerCoin, 1)
+    
+            if (shopId == XShopManager.RechargeShopType.CharacterShop and not isHasCharacterCoin)
+                or (shopId == XShopManager.RechargeShopType.EquipShop and not isHasEquipCoin)
+                or (shopId == XShopManager.RechargeShopType.PartnerShop and not isHasPartner) then
+                self:UpdateInfo(shopId)
+                return
+            end
+        end
+        XUiManager.TipCode(code)
+    else
+        XUiManager.TipCode(code)
+    end
 end
 
 -- auto
@@ -180,11 +208,31 @@ function XUiShop:OnDestroy()
 end
 
 function XUiShop:SetShopBtn(shopType)
-    local btnList = {
-        self.BtnEcerdayShop,
-        self.BtnPointsShop,
-        self.BtnActivityShop
-    }
+    local btnList = nil
+    
+    if self.BtnOptionalShop then
+        local isHasCharacterCoin = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalCharacterCoin, 1)
+        local isHasEquipCoin = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalEquipCoin, 1)
+        local isHasPartner = XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalPartnerCoin, 1)
+        local isOptionalOpen = isHasCharacterCoin or isHasEquipCoin or isHasPartner
+
+        self.BtnOptionalShop.gameObject:SetActiveEx(isOptionalOpen)
+        if not isOptionalOpen and shopType == XShopManager.ShopType.Recharge then
+            shopType = XShopManager.ShopType.Common
+        end
+        btnList = {
+            self.BtnEcerdayShop,
+            self.BtnPointsShop,
+            self.BtnActivityShop,
+            self.BtnOptionalShop
+        }
+    else
+        btnList = {
+            self.BtnEcerdayShop,
+            self.BtnPointsShop,
+            self.BtnActivityShop,
+        }
+    end
 
     self.ShopBtnGroup:Init(btnList, function(index) self:OnSelectedShopBtn(index) end)
     
@@ -199,6 +247,9 @@ function XUiShop:SetShopBtn(shopType)
         self.ShopBtnGroup.gameObject:SetActiveEx(true)
         self.ShopBtnGroup:SelectIndex(ShopIndexDic[shopType])
     elseif shopType == XShopManager.ShopType.Points then
+        self.ShopBtnGroup.gameObject:SetActiveEx(true)
+        self.ShopBtnGroup:SelectIndex(ShopIndexDic[shopType])
+    elseif self.BtnOptionalShop and shopType == XShopManager.ShopType.Recharge then
         self.ShopBtnGroup.gameObject:SetActiveEx(true)
         self.ShopBtnGroup:SelectIndex(ShopIndexDic[shopType])
     else
@@ -318,10 +369,39 @@ function XUiShop:UpdateTog()
     if #infoList <= 0 then
         return
     end
+    if self.Type == XShopManager.ShopType.Recharge then
+        if XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalEquipCoin, 1) then
+            local index = self:GetRechargeTagIndex(infoList, XShopManager.RechargeShopType.EquipShop)
+        
+            selectIndex = selectIndex or self.shopGroup[self.Type][index]
+        elseif XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalPartnerCoin, 1) then
+            local index = self:GetRechargeTagIndex(infoList, XShopManager.RechargeShopType.PartnerShop)
 
-    selectIndex = selectIndex or self.shopGroup[self.Type][1]
+            selectIndex = selectIndex or self.shopGroup[self.Type][index]
+        elseif XDataCenter.ItemManager.CheckItemCountById(XDataCenter.ItemManager.ItemId.OptionalCharacterCoin, 1) then
+            local index = self:GetRechargeTagIndex(infoList, XShopManager.RechargeShopType.CharacterShop)
+
+            selectIndex = selectIndex or self.shopGroup[self.Type][index]
+        else
+            selectIndex = selectIndex or self.shopGroup[self.Type][2]
+        end
+    else
+        selectIndex = selectIndex or self.shopGroup[self.Type][1]
+    end
     self.TabBtnGroup:Init(self.BtnGoList, function(index) self:OnSelectedTog(index) end)
     self.TabBtnGroup:SelectIndex(selectIndex)
+end
+
+function XUiShop:GetRechargeTagIndex(infoList, rechargeType)
+    local index = 2
+            
+    for i = 1, #infoList do
+        if infoList[i].Id == rechargeType then
+            index = i
+        end
+    end
+
+    return index
 end
 
 function XUiShop:SetTitleName(typeId)

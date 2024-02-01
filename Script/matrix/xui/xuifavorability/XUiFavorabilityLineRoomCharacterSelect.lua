@@ -1,25 +1,14 @@
+-- 更换选择助理弹窗界面
 local XUiFavorabilityLineRoomCharacterSelect = XLuaUiManager.Register(XLuaUi, "UiFavorabilityLineRoomCharacterSelect")
 local XUiGridFavorabilityCharacterSelect = require("XUi/XUiFavorability/XUiGridFavorabilityCharacterSelect")
 
--- 更换选择助理弹窗界面
+--region 生命周期
 function XUiFavorabilityLineRoomCharacterSelect:OnAwake()
     self.OrgSelected = nil
+    self.Count=0
+    self.ChangeCache={}
     self:InitButtonEvent()
     self:InitDynamicTable()
-end
-
-function XUiFavorabilityLineRoomCharacterSelect:InitButtonEvent()
-    self:RegisterClickEvent(self.BtnClose, self.Close)
-    self:RegisterClickEvent(self.BtnCancel, self.Close)
-    self:RegisterClickEvent(self.BtnTanchuangClose, self.Close)
-    self:RegisterClickEvent(self.BtnConfirm, self.OnBtnConfirmClick)
-end
-
-function XUiFavorabilityLineRoomCharacterSelect:InitDynamicTable()
-    self.DynamicTableCharacter = XDynamicTableNormal.New(self.PanelSelectList.gameObject)
-    self.DynamicTableCharacter:SetProxy(XUiGridFavorabilityCharacterSelect)
-    self.DynamicTableCharacter:SetDelegate(self)
-    self.GridChar.gameObject:SetActiveEx(false)
 end
 
 function XUiFavorabilityLineRoomCharacterSelect:OnStart(currCharacter)
@@ -29,30 +18,63 @@ end
 function XUiFavorabilityLineRoomCharacterSelect:OnEnable()
     self:RefreshDynamicTable()
 end
+--endregion
 
+
+--region 初始化
+function XUiFavorabilityLineRoomCharacterSelect:InitButtonEvent()
+    self:RegisterClickEvent(self.BtnClose, self.Close)
+    self:RegisterClickEvent(self.BtnCancel, self.Close)
+    self:RegisterClickEvent(self.BtnTanchuangClose, self.OnBtnTanchuangCloseClick)
+    self:RegisterClickEvent(self.BtnConfirm, self.OnBtnConfirmClick)
+end
+
+function XUiFavorabilityLineRoomCharacterSelect:InitDynamicTable()
+    self.DynamicTableCharacter = XDynamicTableNormal.New(self.PanelSelectList.gameObject)
+    self.DynamicTableCharacter:SetProxy(XUiGridFavorabilityCharacterSelect,self)
+    self.DynamicTableCharacter:SetDelegate(self)
+    self.GridChar.gameObject:SetActiveEx(false)
+end
+--endregion
+
+
+--region 数据处理
 function XUiFavorabilityLineRoomCharacterSelect:GetCharaterList()
+    self.Count=0
     local result = {}
-    local charaList = XDataCenter.CharacterManager.GetCharacterList()
+    local charaList = XMVCA.XCharacter:GetCharacterList()
+    --筛选
     for k, character in pairs(charaList) do
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(character.Id) 
-        if isOwn and ((not table.contains(XPlayer.DisplayCharIdList, character.Id)) or (self.OrgSelected and self.OrgSelected.Id == character.Id)) then -- 选人界面只显示不在助理队列里的构造体（除了自己）
-            local value = 
-            {
-                -- 设置默认信任度等级
-                Id = character.Id,
-                TrustLv = character.TrustLv or 1,
-            }
-            if self.OrgSelected and self.OrgSelected.Id == character.Id then
-                value.IsOrg = true
-                value.IsSelected = true
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(character.Id) 
+        if isOwn then
+            local isin,index=table.contains(XPlayer.DisplayCharIdList, character.Id)
+            if not isin or index~=1 then --不是助理或是但不是首席
+                local value =
+                {
+                    -- 设置默认信任度等级
+                    Id = character.Id,
+                    TrustLv = character.TrustLv or 1,
+                    IsAssistant=isin,
+                    IsSelected=isin
+                }
+                if self.OrgSelected and self.OrgSelected.Id == character.Id then
+                    value.IsOrg = true
+                    value.IsSelected = true
+                end
+                table.insert(result, value)
+                self.Count= isin and self.Count+1 or self.Count
             end
-            table.insert(result, value)
         end
     end
    
+    --排序
     table.sort(result, function (characterA, characterB)
         if characterA.IsOrg ~= characterB.IsOrg then
             return characterA.IsOrg
+        end
+
+        if characterA.IsAssistant ~= characterB.IsAssistant then
+            return characterA.IsAssistant==true
         end
     
         if characterA.TrustLv == characterB.TrustLv then
@@ -62,18 +84,6 @@ function XUiFavorabilityLineRoomCharacterSelect:GetCharaterList()
     end)
 
     return result
-end
-
-function XUiFavorabilityLineRoomCharacterSelect:RefreshDynamicTable()
-    self.CharaList = self:GetCharaterList()
-    if not self.CharaList or not next(self.CharaList) then
-        self.ImgNonePerson.gameObject:SetActiveEx(true) -- 无助理背景标签
-        return
-    else
-        self.ImgNonePerson.gameObject:SetActiveEx(false)
-    end
-    self.DynamicTableCharacter:SetDataSource(self.CharaList)
-    self.DynamicTableCharacter:ReloadDataASync()
 end
 
 -- 将所有的格子设为非选中
@@ -97,12 +107,65 @@ function XUiFavorabilityLineRoomCharacterSelect:SetSelectedCurrChar(characterId,
     if not isSelcted and characterId == self.SelectedCharaterId then -- 只有点击被选择的格子，才能取消（该格子类型都是单选格子）
         self.SelectedCharaterId = nil
     end
-    
+
     if isSelcted then
         self.SelectedCharaterId = characterId
     end
 end
 
+function XUiFavorabilityLineRoomCharacterSelect:SubmitSelectResult(selectData)
+    -- 这个函数需要判断3种情况
+    -- 1.既有old也有new：替换
+    -- 2.只有new：新增
+    -- 3.只有old：移除
+    if  selectData.oldData and selectData.newData then --1.替换
+        local newCharId = selectData.newData.Id
+        local oldCharId = selectData.oldData.Id
+
+        XDataCenter.DisplayManager.UpdatePlayerDisplayCharIdRequest(oldCharId, newCharId, function(res)
+            if res.DisplayCharIdList and table.contains(res.DisplayCharIdList,newCharId) then
+                local charConfig = XMVCA.XCharacter:GetCharacterTemplate(newCharId)
+                local name = charConfig.Name.. "·"..charConfig.TradeName
+            end
+        end)
+    elseif selectData.oldData and not selectData.newData then -- 2.移除
+        if XPlayer.DisplayCharIdList and #XPlayer.DisplayCharIdList <= 1 then
+            XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityNotRemoveOnlyAssist"))
+            return
+        end
+
+        XNetwork.Call("RemovePlayerDisplayCharIdRequest", {CharId = selectData.oldData.Id}, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            local charConfig = XMVCA.XCharacter:GetCharacterTemplate(selectData.oldData.Id)
+            local name = charConfig.Name.. "·"..charConfig.TradeName
+            XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityRemoveAssistSucc", name))
+            XPlayer.SetDisplayCharIdList(res.DisplayCharIdList)
+        end)
+    elseif not selectData.oldData and selectData.newData then -- 2.新增
+        XDataCenter.DisplayManager.AddPlayerDisplayCharIdRequest(selectData.newData.Id)
+    end
+end
+--endregion
+
+
+--region 数据更新
+function XUiFavorabilityLineRoomCharacterSelect:RefreshDynamicTable()
+    self.CharaList = self:GetCharaterList()
+    if not self.CharaList or not next(self.CharaList) then
+        self.ImgNonePerson.gameObject:SetActiveEx(true) -- 无助理背景标签
+        return
+    else
+        self.ImgNonePerson.gameObject:SetActiveEx(false)
+    end
+    self.DynamicTableCharacter:SetDataSource(self.CharaList)
+    self.DynamicTableCharacter:ReloadDataASync()
+end
+--endregion
+
+--region 事件
 -- [监听动态列表事件]
 function XUiFavorabilityLineRoomCharacterSelect:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
@@ -114,44 +177,58 @@ function XUiFavorabilityLineRoomCharacterSelect:OnDynamicTableEvent(event, index
 end
 
 function XUiFavorabilityLineRoomCharacterSelect:OnBtnConfirmClick()
-    -- 这个函数需要判断3种情况
-    -- 1.【替换】角色到助理队列
-    -- 2.【移除】在队列中的角色
-    -- 3.【添加】新的角色到助理队列
-    if self.OrgSelected and self.SelectedCharaterId then -- 1.替换
-        if self.OrgSelected.Id == self.SelectedCharaterId then
-            self:Close()
-            return
+    -- 所有变动都会记录在字典中，处理替换类组合
+    local requestData={}
+    local oldIndex=1
+    local newIndex=1
+    for i, changeData in pairs(self.ChangeCache) do
+        --助理变动：移除助理
+        if changeData.IsAssistant and not changeData.IsSelected then
+            if not requestData[oldIndex] then requestData[oldIndex]={} end
+            requestData[oldIndex].oldData=changeData
+            oldIndex=oldIndex+1
         end
-        local newCharId = self.SelectedCharaterId
-        local oldCharId = self.OrgSelected.Id
-
-        XDataCenter.DisplayManager.UpdatePlayerDisplayCharIdRequest(oldCharId, newCharId, function(res)
-            if res.DisplayCharIdList and newCharId == res.DisplayCharIdList[1] then
-                local charConfig = XCharacterConfigs.GetCharacterTemplate(newCharId)
-                local name = charConfig.Name.. "·"..charConfig.TradeName
-                XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilitySetChiefAssistSucc", name))
-            end
-        end)
-    elseif self.OrgSelected and not self.SelectedCharaterId then -- 2.移除
-        if XPlayer.DisplayCharIdList and #XPlayer.DisplayCharIdList <= 1 then
-            XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityNotRemoveOnlyAssist"))
-            return 
+        
+        --非助理变动：新增助理
+        if not changeData.IsAssistant and changeData.IsSelected then
+            if not requestData[newIndex] then requestData[newIndex]={} end
+            requestData[newIndex].newData=changeData
+            newIndex=newIndex+1
         end
-
-        XNetwork.Call("RemovePlayerDisplayCharIdRequest", {CharId = self.OrgSelected.Id}, function(res)
-            if res.Code ~= XCode.Success then
-                XUiManager.TipCode(res.Code)
-                return
-            end
-            local charConfig = XCharacterConfigs.GetCharacterTemplate(self.OrgSelected.Id)
-            local name = charConfig.Name.. "·"..charConfig.TradeName
-            XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityRemoveAssistSucc", name))
-            XPlayer.SetDisplayCharIdList(res.DisplayCharIdList)
-        end)
-    elseif not self.OrgSelected and self.SelectedCharaterId then  -- 3.添加
-        XDataCenter.DisplayManager.AddPlayerDisplayCharIdRequest(self.SelectedCharaterId)
+    end
+    --提交所有变动
+    for i, changeData in pairs(requestData) do
+        if changeData then
+            self:SubmitSelectResult(changeData)
+        end
     end
     
     self:Close()
 end
+
+function XUiFavorabilityLineRoomCharacterSelect:OnBtnTanchuangCloseClick()
+    if not XTool.IsTableEmpty(self.ChangeCache) then
+        XUiManager.DialogTip(XUiHelper.GetText("TipTitle"),XUiHelper.GetText('FavorabilityCharacterSelectChangeTips'),XUiManager.DialogType.Normal,nil,function() 
+            self:OnBtnConfirmClick()
+        end)
+    else
+        self:Close()
+    end
+end
+
+--点击角色格子时的有效性判定（数目是否超限）
+function XUiFavorabilityLineRoomCharacterSelect:OnGridClickRequest(wantSelect)
+    if wantSelect then
+        if self.Count<CS.XGame.Config:GetInt("AssistantNum")-1 then
+            self.Count=self.Count+1
+            return true
+        else
+            XUiManager.TipText('FavorabilityCharacterSelectOverflowTips')
+            return false
+        end
+    else
+        self.Count=self.Count-1
+        return true
+    end
+end
+--endregion

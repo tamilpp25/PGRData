@@ -13,7 +13,7 @@ function XRedPointConditionPassportTaskDaily.GetSubEvents()
 end
 
 function XRedPointConditionPassportTaskDaily.Check()
-    if XDataCenter.PassportManager.CheckPassportAchievedTaskRedPoint(XPassportConfigs.TaskType.Daily) then
+    if XMVCA.XPassport:CheckPassportAchievedTaskRedPoint(XEnumConst.PASSPORT.TASK_TYPE.DAILY) then
         return true
     end
     return false

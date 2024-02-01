@@ -6,7 +6,7 @@ local XUiAreaWarSpecialRole = XLuaUiManager.Register(XLuaUi, "UiAreaWarSpecialRo
 function XUiAreaWarSpecialRole:OnAwake()
     self.GridCourse.gameObject:SetActiveEx(false)
     self.GridSpecialRole.gameObject:SetActiveEx(false)
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {
             XDataCenter.ItemManager.ItemId.AreaWarCoin,

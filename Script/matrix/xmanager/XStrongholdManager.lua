@@ -30,7 +30,7 @@ XStrongholdManagerCreator = function()
     -----------------功能入口 begin----------------
     local ACTIVITY_STATUS = {
         DEFAULT = 0, --未开启
-        ACTIVITY_BEGIN = 1, --开启中
+        ACTIVITY_BEGIN = 1, --挑战开始前
         FIGHT_BEGIN = 2, --战斗开启
         FIGHT_END = 3, --战斗结束
         ACTIVITY_END = 4 --已结束
@@ -45,8 +45,9 @@ XStrongholdManagerCreator = function()
     local _EndTime = 0 --活动结束时间
     local _CurDay = 0 --当前天数（挑战开始后）
     local _TotalDay = 0 --挑战总天数（挑战开始后）
-    local _TargetCountDownTime -- 倒计时的目标时间戳
+    local _TargetCountDownTime = 0 -- 倒计时的目标时间戳
     local _ActivityEnd = false --活动是否重置
+    local _HasReqAssistCharacterList = false
 
     local function ClearActivityTimer()
         if _ActivityTimer then
@@ -67,34 +68,11 @@ XStrongholdManagerCreator = function()
         end
 
         local nowTime = XTime.GetServerNowTimestamp()
-
-        if not IsNumberValid(_FightBeginTime) then
-            --活动开启中，等待挑战开始（手动第一次战斗后记录开启挑战时间）
-            local lastTime = XStrongholdConfigs.GetActivityFightAutoBeginSeconds(_ActivityId)
-            _FightAutoBeginTime = _BeginTime + lastTime
-
-            leftTime = _FightAutoBeginTime - nowTime
-            if leftTime > 0 then
-                _ActivityStatus = ACTIVITY_STATUS.ACTIVITY_BEGIN
-            else
-                _ActivityStatus = ACTIVITY_STATUS.ACTIVITY_END
-            end
+        leftTime = _EndTime - nowTime
+        if leftTime > 0 then
+            _ActivityStatus = ACTIVITY_STATUS.FIGHT_BEGIN
         else
-            local lastTime = XStrongholdConfigs.GetActivityFightContinueSeconds(_ActivityId)
-            _FightEndTime = _FightBeginTime + lastTime
-            if nowTime < _FightEndTime then
-                --挑战开启中
-                _ActivityStatus = ACTIVITY_STATUS.FIGHT_BEGIN
-                leftTime = _FightEndTime - nowTime
-            elseif nowTime < _EndTime then
-                --挑战已结束
-                _ActivityStatus = ACTIVITY_STATUS.FIGHT_END
-                leftTime = _EndTime - nowTime
-            else
-                --活动已结束
-                leftTime = 0
-                _ActivityStatus = ACTIVITY_STATUS.ACTIVITY_END
-            end
+            _ActivityStatus = ACTIVITY_STATUS.ACTIVITY_END
         end
 
         _TargetCountDownTime = leftTime + nowTime
@@ -117,6 +95,9 @@ XStrongholdManagerCreator = function()
 
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_STRONGHOLD_ACTIVITY_STATUS_CHANGE)
         XEventManager.DispatchEvent(XEventId.EVENT_STRONGHOLD_ACTIVITY_STATUS_CHANGE)
+
+        -- 状态更改通知周历刷新
+        XEventManager.DispatchEvent(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE)
     end
 
     local function UpdateActivityInfo(activityId, beginTime, fightBeginTime)
@@ -189,7 +170,7 @@ XStrongholdManagerCreator = function()
 
     --挑战结束
     function XStrongholdManager.IsFightEnd()
-        return _ActivityStatus == ACTIVITY_STATUS.FIGHT_END
+        return _ActivityStatus == ACTIVITY_STATUS.ACTIVITY_END
     end
 
     --活动结束
@@ -268,6 +249,11 @@ XStrongholdManagerCreator = function()
 
         if not XStrongholdManager.IsOpen() then
             XUiManager.TipText("StrongholdActivityNotOpen")
+            return
+        end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Stronghold) then
             return
         end
 
@@ -656,7 +642,7 @@ XStrongholdManagerCreator = function()
         local totalElectric = 0
         if IsNumberValid(cancelCharacterId) then
             --撤回电能支援队员时电力减少值
-            local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(cancelCharacterId)
+            local ability = XMVCA.XCharacter:GetCharacterAbilityById(cancelCharacterId)
             local totalAbility = XStrongholdManager.GetElectricCharactersTotalAbility() - ability
             totalElectric = XStrongholdConfigs.GetTeamAbilityToExtraElectric(totalAbility) + _MaxElectricEnergy
         else
@@ -696,7 +682,7 @@ XStrongholdManagerCreator = function()
     function XStrongholdManager.GetElectricCharactersTotalAbility()
         local totalAbility = 0
         for _, characterId in pairs(_ElectricCharacterIdDic) do
-            local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+            local ability = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
             totalAbility = totalAbility + ability
         end
         return totalAbility
@@ -704,7 +690,7 @@ XStrongholdManagerCreator = function()
 
     --获取可上阵电能支援角色
     function XStrongholdManager.GetCanElectricCharacters(characterType)
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         tableSort(
             characterList,
             function(a, b)
@@ -847,6 +833,15 @@ XStrongholdManagerCreator = function()
         return costEndurance
     end
 
+    -- 需要完成前置关卡的则为深巢关
+    function XStrongholdManager.IsChapterLastGroup(groupId)
+        if not XTool.IsNumberValid(groupId) then
+            return false
+        end
+        local ids = XStrongholdConfigs.GetGroupFinishRelatedId(groupId)
+        return not XTool.IsTableEmpty(ids)
+    end
+
     function XStrongholdManager.GetMaxEndurance()
         local curDay = XStrongholdManager.GetCurDay()
         local levelId = XStrongholdManager.GetLevelId()
@@ -891,6 +886,7 @@ XStrongholdManagerCreator = function()
         end
     end
 
+    ---@return XStrongholdGroupInfo
     local function GetGroupInfo(groupId)
         local groupInfo = _GroupInfos[groupId]
         if not groupInfo and not _LogGroupIdDic[groupId] then
@@ -942,7 +938,7 @@ XStrongholdManagerCreator = function()
             local groupInfo = GetGroupInfo(groupId, true)
 
             if groupInfo then
-                groupInfo:InitStageData(stageIds, stageBuffIdDic, supportId)
+                groupInfo:InitStageData(stageIds, stageBuffIdDic, supportId, stageData.ExtendBuffId)
             end
         end
 
@@ -1077,6 +1073,40 @@ XStrongholdManagerCreator = function()
         return groupInfo and groupInfo:GetStageIds() or {}
     end
 
+    function XStrongholdManager.GetTeamProps()
+        local allTeamProps = {}
+        local groupId = XStrongholdManager.GetLastGroupId()
+        local teamPropId = XStrongholdManager.GetTeamPropsByGroupId(groupId)[1]
+        -- id都是安装 1 2 3 4 5或者3 4 5 1 2这样的规律顺序排的
+        for i = 0, 4 do
+            table.insert(allTeamProps, teamPropId)
+            teamPropId = teamPropId >= 5 and 1 or teamPropId + 1
+        end
+        return allTeamProps
+    end
+
+    function XStrongholdManager.GetTeamPropsByGroupId(groupId)
+        local teamPropIds = {}
+        local stageIds = XStrongholdManager.GetGroupStageIds(groupId)
+        for _, stageId in pairs(stageIds) do
+            local index = XStrongholdConfigs.GetGroupStageIdGroupIndex(groupId, stageId)
+            table.insert(teamPropIds, index)
+        end
+        return teamPropIds
+    end
+
+    ---通过队伍属性（物理/暗）获取队伍在关卡里的索引（1，2，3...）
+    function XStrongholdManager.GetTeamIndexByProp(groupId, teamPropId)
+        local stageIds = XStrongholdManager.GetGroupStageIds(groupId)
+        for i, stageId in ipairs(stageIds) do
+            local prop = XStrongholdConfigs.GetGroupStageIdGroupIndex(groupId, stageId)
+            if prop == teamPropId then
+                return i
+            end
+        end
+        return nil
+    end
+
     --检查通关指定据点时使用的电量是否小于等于指定值
     function XStrongholdManager.CheckGroupPassUseElectric(groupId, requireUseElectric, elType, isHistory)
         if not XTool.IsNumberValid(groupId) then
@@ -1113,8 +1143,11 @@ XStrongholdManagerCreator = function()
     end
 
     function XStrongholdManager.GetGroupStageId(groupId, stageIndex)
+        if not groupId then
+            return nil
+        end
         local groupInfo = GetGroupInfo(groupId)
-        return groupInfo and groupInfo:GetStageId(stageIndex) or 0
+        return groupInfo and groupInfo:GetStageId(stageIndex) or nil
     end
 
     function XStrongholdManager.GetGroupStageName(groupId, stageIndex)
@@ -1125,6 +1158,12 @@ XStrongholdManagerCreator = function()
     function XStrongholdManager.GetGroupStageBuffDesc(groupId, stageIndex)
         local groupInfo = GetGroupInfo(groupId)
         local buffId = groupInfo:GetStageBuffId(stageIndex)
+        return buffId > 0 and XStrongholdConfigs.GetBuffDesc(buffId) or ""
+    end
+
+    function XStrongholdManager.GetGroupStageExtendBuffDesc(groupId, stageIndex)
+        local groupInfo = GetGroupInfo(groupId)
+        local buffId = groupInfo:GetStageExtendBuffId(stageIndex)
         return buffId > 0 and XStrongholdConfigs.GetBuffDesc(buffId) or ""
     end
 
@@ -1300,17 +1339,8 @@ XStrongholdManagerCreator = function()
 
     --获取据点进度
     function XStrongholdManager.GetGroupProgress()
-        local finishCount, totalCount = 0, 0
-
-        finishCount = XStrongholdManager.GetFinishGroupCount(XStrongholdConfigs.ChapterType.Normal)
-        totalCount = XStrongholdManager.GetAllGroupCount(XStrongholdConfigs.ChapterType.Normal)
-        --普通章节全部通关，困难章节满足显示条件时，显示困难章节进度
-        --否则显示普通章节进度
-        if finishCount == totalCount and XStrongholdManager.IsChapterHardCanShow() then
-            finishCount = XStrongholdManager.GetFinishGroupCount(XStrongholdConfigs.ChapterType.Hard)
-            totalCount = XStrongholdManager.GetAllGroupCount(XStrongholdConfigs.ChapterType.Hard)
-        end
-
+        local finishCount = XStrongholdManager.GetFinishGroupCount(XStrongholdConfigs.ChapterType.Normal)
+        local totalCount = XStrongholdManager.GetAllGroupCount(XStrongholdConfigs.ChapterType.Normal)
         return finishCount, totalCount
     end
 
@@ -1425,6 +1455,19 @@ XStrongholdManagerCreator = function()
         local chapterIds = XStrongholdConfigs.GetAllChapterIds(chapterType)
         for _, chapterId in pairs(chapterIds) do
             if XStrongholdManager.CheckChapterNotCostEndurance(chapterId) and XStrongholdManager.CheckChapterUnlock(chapterId) then
+                local finishCount, totalCount = XStrongholdManager.GetChapterGroupProgress(chapterId)
+                if finishCount < totalCount then
+                    return false
+                end
+            end
+        end
+        return true
+    end
+
+    function XStrongholdManager.CheckChapterIsClear()
+        local chapterIds = XDataCenter.StrongholdManager.GetChaptersByLevel()
+        for _, chapterId in pairs(chapterIds) do
+            if XStrongholdManager.CheckChapterUnlock(chapterId) then
                 local finishCount, totalCount = XStrongholdManager.GetChapterGroupProgress(chapterId)
                 if finishCount < totalCount then
                     return false
@@ -1647,6 +1690,7 @@ XStrongholdManagerCreator = function()
     
     -----------------据点相关 end------------------
     -----------------队伍相关 begin------------------
+    ---@type XStrongholdTeam[]
     local _TeamList = {} --队伍列表
     local _MaxTeamNum = 0 --最大队伍数量
 
@@ -1735,11 +1779,11 @@ XStrongholdManagerCreator = function()
             teamInfo.RuneId, teamInfo.SubRuneId = team:GetRune()
 
             local stageId = stageIdList[index]
-            local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId)
+            local recommendType = XTool.IsNumberValid(stageId) and XFubenConfigs.GetStageRecommendCharacterType(stageId) or 0
             local element
-            if recommendType == XCharacterConfigs.CharacterType.Isomer then
+            if recommendType == XEnumConst.CHARACTER.CharacterType.Isomer then
                 element = XStrongholdManager.IsomerTeamElementId
-            elseif recommendType == XCharacterConfigs.CharacterType.Sp then
+            elseif recommendType == XEnumConst.CHARACTER.CharacterType.Sp then
                 element = XStrongholdManager.SpTeamElementId
             else
                 element = XTool.IsNumberValid(stageId) and XFubenConfigs.GetStageRecommendCharacterElement(stageId) or 0
@@ -1813,8 +1857,8 @@ XStrongholdManagerCreator = function()
                 local teamTemp = teamList[j]
                 local teamElementId = teamTemp:GetElementId()
                 if (teamElementId == recommendElement) or
-                    (recommendType == XCharacterConfigs.CharacterType.Sp and teamElementId == XStrongholdManager.SpTeamElementId) or
-                    (recommendType == XCharacterConfigs.CharacterType.Isomer and teamElementId == XStrongholdManager.IsomerTeamElementId)
+                    (recommendType == XEnumConst.CHARACTER.CharacterType.Sp and teamElementId == XStrongholdManager.SpTeamElementId) or
+                    (recommendType == XEnumConst.CHARACTER.CharacterType.Isomer and teamElementId == XStrongholdManager.IsomerTeamElementId)
                  then
                     if i ~= j then
                         local teamIdTemp = team:GetId()
@@ -1836,47 +1880,53 @@ XStrongholdManagerCreator = function()
     end
     
     --据说TeamList的数据会直接保存至服务器，为了解决预设梯队跟当前关卡队伍不一样的问题新建一个FighterTeamList
+    ---@return XStrongholdTeam[]
     function XStrongholdManager.GetFighterTeamListTemp(teamList,groupId)
-        local requireTeamIds = XStrongholdManager.GetGroupRequireTeamIds(groupId)
+        if not XTool.IsNumberValid(groupId) then
+            return teamList
+        end
+        local requireTeamIds = XStrongholdManager.GetTeamPropsByGroupId(groupId)
         local fighterTeamList = {}
         for index, teamId in ipairs(requireTeamIds) do
-            fighterTeamList[teamId] = teamList[teamId]
+            table.insert(fighterTeamList, teamList[teamId])
         end
         return fighterTeamList
     end
 
     --获取根据据点人数要求裁剪后的队伍列表Clone(bad performance cause GC)
     function XStrongholdManager.GetTeamListClipTemp(groupId, teamList)
+        ---@type XStrongholdTeam[]
         local teamList = teamList and Clone(teamList) or Clone(_TeamList)
+        local fightTeamList = {}
 
         local isPrefab = not IsNumberValid(groupId)
 
         if not isPrefab then
             --战斗编队模式下按照关卡队伍要求修整队伍
-            local requireTeamMemberDic = XStrongholdManager.GetGroupRequireTeamMemberDic(groupId)
+            local requireTeamMemberDic = XStrongholdManager.GetTeamPropsByGroupId(groupId)
 
             --剔除不在配置的队伍要求人数字典中的队伍
-            for teamId in pairs(teamList) do
-                if not requireTeamMemberDic[teamId] then
-                    teamList[teamId] = nil
+            for _, team in pairs(teamList) do
+                local id = team:GetId()
+                if table.indexof(requireTeamMemberDic, id) then
+                    --按照队伍要求人数裁剪每个队伍中多余的队员
+                    local requireCount = XStrongholdConfigs.GetGroupRequireTeamMemberNum(groupId, id)
+                    local index = XStrongholdManager.GetTeamIndexByProp(groupId, id)
+                    team:ClipMembers(requireCount)
+                    fightTeamList[index] = team
                 end
-            end
-
-            --按照队伍要求人数裁剪每个队伍中多余的队员
-            for teamId, requireTeamMember in pairs(requireTeamMemberDic) do
-                local team = teamList[teamId]
-                team:ClipMembers(requireTeamMember)
             end
         else
             --预设模式下剔除掉自己拥有的角色以外的队伍成员
             for _, team in pairs(teamList) do
                 team:KickOutOtherMembers()
             end
+            fightTeamList = teamList
         end
 
-        XStrongholdManager.KickOutInvalidMembersInTeamList(teamList, groupId)
+        XStrongholdManager.KickOutInvalidMembersInTeamList(fightTeamList, groupId)
 
-        return teamList
+        return fightTeamList
     end
 
     --剔除队伍列表中已经失效的援助角色和试玩角色
@@ -1887,12 +1937,35 @@ XStrongholdManagerCreator = function()
         if groupId and XTool.IsNumberValid(levelId) then
             robotIdList, canUseRobotIdDic = XStrongholdConfigs.GetGroupCanUseRobotIds(groupId, nil, levelId)
         end
-        for stageIndex, team in pairs(teamList) do
-            --有关卡挑战进度的角色不清
-            if not XStrongholdManager.IsGroupStageFinished(groupId, stageIndex) then
-                team:KickOutInvalidMembers(canUseRobotIdDic)
+        if XTool.IsNumberValid(groupId) then
+            local teamPropIds = XStrongholdManager.GetTeamPropsByGroupId(groupId)
+            for _, teamPropId in pairs(teamPropIds) do
+                local stageIndex = XStrongholdManager.GetTeamIndexByProp(groupId, teamPropId)
+                --有关卡挑战进度的角色不清
+                if not XStrongholdManager.IsGroupStageFinished(groupId, stageIndex) then
+                    local team = XStrongholdManager.GetTeamByPropId(teamList, teamPropId)
+                    if team then
+                        team:KickOutInvalidMembers(canUseRobotIdDic)
+                    end
+                end
+            end
+        else
+            -- 预设界面groupId为空
+            for stageIndex, team in pairs(teamList) do
+                if not XStrongholdManager.IsGroupStageFinished(groupId, stageIndex) then
+                    team:KickOutInvalidMembers(canUseRobotIdDic)
+                end
             end
         end
+    end
+
+    function XStrongholdManager.GetTeamByPropId(teamList, teamPropId)
+        for _, team in pairs(teamList) do
+            if team:GetId() == teamPropId then
+                return team
+            end
+        end
+        return nil
     end
 
     --重置队伍列表
@@ -1914,11 +1987,8 @@ XStrongholdManagerCreator = function()
 
         XStrongholdManager.ClearTeamList(teamList)
 
-        local lastGroupId = XStrongholdManager.GetLastGroupId()
-        local stageIdList = XStrongholdManager.GetGroupStageIds(lastGroupId)
-
         --自动编队仅上阵已拥有构造体
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
         tableSort(
             ownCharacters,
             function(a, b)
@@ -1940,7 +2010,7 @@ XStrongholdManagerCreator = function()
         --每支队伍先上阵推荐属性的角色
         for _, teamId in ipairs(requireTeamIds) do
             local team = teamList[teamId]
-            local stageId = stageIdList[teamId]
+            local stageId = XStrongholdConfigs.GetReserveTeamStageId(teamId)
             local memberNum = XStrongholdConfigs.GetMaxTeamMemberNum()
             for pos = 1, memberNum do
                 if stageId then
@@ -1963,7 +2033,7 @@ XStrongholdManagerCreator = function()
                 local member = team:GetMember(pos)
                 if member:IsEmpty() then
                     for index, characterId in ipairs(waitCharacterIds) do
-                        local characterType = XCharacterConfigs.GetCharacterType(characterId)
+                        local characterType = XMVCA.XCharacter:GetCharacterType(characterId)
                         if not team:ExistDifferentCharacterType(characterType) then
                             member:SetCharacterId(characterId)
                             tableRemove(waitCharacterIds, index)
@@ -2022,9 +2092,10 @@ XStrongholdManagerCreator = function()
         end
 
         teamList = teamList or _TeamList
-        local requireTeamMemberDic = XStrongholdManager.GetGroupRequireTeamMemberDic(groupId)
-        for teamId, requireTeamMemberNum in pairs(requireTeamMemberDic) do
+        local requireTeamNum = XStrongholdManager.GetTeamPropsByGroupId(groupId)
+        for _, teamId in pairs(requireTeamNum) do
             local team = teamList[teamId]
+            local requireTeamMemberNum = XStrongholdConfigs.GetGroupRequireTeamMemberNum(groupId, teamId)
             for pos = 1, requireTeamMemberNum do
                 local member = team:GetMember(pos)
                 if not member or member:IsEmpty() then
@@ -2048,6 +2119,7 @@ XStrongholdManagerCreator = function()
     end
 
     --检查队伍列表平均战力是否符合要求
+    ---@param teamList XStrongholdTeam[]
     function XStrongholdManager.CheckTeamListAverageAbility(requireAbility, teamList)
         local groupId = XStrongholdManager.GetCurrentSelectGroupId()
         if not IsNumberValid(groupId) then
@@ -2057,13 +2129,13 @@ XStrongholdManagerCreator = function()
         local totalAbility, memberCount = 0, 0
 
         teamList = teamList or _TeamList
-        local requireTeamNum = XStrongholdManager.GetGroupRequireTeamNum(groupId)
-        for teamId = 1, requireTeamNum do
+        local requireTeamNum = XStrongholdManager.GetTeamPropsByGroupId(groupId)
+        for _, teamId in pairs(requireTeamNum) do
             local team = teamList[teamId]
             local requireTeamMemberNum = XStrongholdConfigs.GetGroupRequireTeamMemberNum(groupId, teamId)
             for pos = 1, requireTeamMemberNum do
                 if not team:CheckPosEmpty(pos) then
-                    totalAbility = totalAbility + team:GetTeamMemberAbility(pos)
+                    totalAbility = totalAbility + team:GetTeamMemberAbility(pos) + team:GetPluginAddAbility()
                     memberCount = memberCount + 1
                 end
             end
@@ -2137,10 +2209,11 @@ XStrongholdManagerCreator = function()
         if not IsNumberValid(groupId) then
             return false
         end
-        local stageIndex = XStrongholdManager.GetCharacterInTeamId(characterId, teamList, playerId)
-        if not IsNumberValid(stageIndex) then
+        local teamPropId = XStrongholdManager.GetCharacterInTeamId(characterId, teamList, playerId)
+        if not IsNumberValid(teamPropId) then
             return false
         end
+        local stageIndex = XDataCenter.StrongholdManager.GetTeamIndexByProp(groupId, teamPropId)
         return XStrongholdManager.IsGroupStageFinished(groupId, stageIndex)
     end
 
@@ -2261,7 +2334,7 @@ XStrongholdManagerCreator = function()
             table.insert(res, {Id = id})
         end
 
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList()
         for k, v in pairs(characterList) do
             table.insert(res, v)
         end
@@ -2342,7 +2415,7 @@ XStrongholdManagerCreator = function()
         local levelId = XStrongholdManager.GetLevelId()
         local ids = not isPrefab and XStrongholdConfigs.GetGroupCanUseRobotIds(groupId, characterType, levelId) or {}
 
-        local characterList = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        local characterList = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         for _, character in pairs(characterList) do
             tableInsert(ids, character.Id)
         end
@@ -2394,10 +2467,10 @@ XStrongholdManagerCreator = function()
                 --战力排序
                 local aAbility =
                     aIsRobot and XRobotManager.GetRobotAbility(aId) or
-                    XDataCenter.CharacterManager.GetCharacterAbilityById(aId)
+                    XMVCA.XCharacter:GetCharacterAbilityById(aId)
                 local bAbility =
                     bIsRobot and XRobotManager.GetRobotAbility(bId) or
-                    XDataCenter.CharacterManager.GetCharacterAbilityById(bId)
+                    XMVCA.XCharacter:GetCharacterAbilityById(bId)
                 if aAbility ~= bAbility then
                     return aAbility > bAbility
                 end
@@ -2426,7 +2499,7 @@ XStrongholdManagerCreator = function()
         end
 
         local notRobotCharacterId = XRobotManager.GetCharacterId(charId)
-        local notRobotCharAbility = XDataCenter.CharacterManager.GetCharacterAbilityById(notRobotCharacterId)
+        local notRobotCharAbility = XMVCA.XCharacter:GetCharacterAbilityById(notRobotCharacterId)
         local robotCharAbility = XRobotManager.GetRobotAbility(charId)
         return robotCharAbility > notRobotCharAbility
     end
@@ -2552,7 +2625,9 @@ XStrongholdManagerCreator = function()
             end
         end
 
+        local temp = {}
         local teamInfos = GenerateOriginalTeamInfos(teamList)
+
         --队伍数据未变动时不同步服务端
         if not ignoreRepeatCheck and XStrongholdManager.CompareTeamLists(teamList, _TeamList) then
             UpdateTeamList(teamInfos)
@@ -2666,6 +2741,11 @@ public class StrongholdAssistCharacterDetail
         return playerIds
     end
 
+    function XStrongholdManager.GetAssistantPlayerInfo(playerId)
+        local info = GetAssistantInfo(playerId)
+        return info and info.Character or nil
+    end
+
     function XStrongholdManager.GetAssistantPlayerCharacterId(playerId)
         local info = GetAssistantInfo(playerId)
         return info and info.Character.Id or 0
@@ -2684,6 +2764,22 @@ public class StrongholdAssistCharacterDetail
     function XStrongholdManager.GetAssistantPlayerAbiility(playerId)
         local info = GetAssistantInfo(playerId)
         return info and info.Character and info.Character.Ability or 0
+    end
+
+    function XStrongholdManager.CreateAssistantViewModel(id, playerId)
+        local data = XStrongholdManager.GetAssistantPlayerInfo(playerId)
+        local ability = XStrongholdManager.GetAssistantPlayerAbiility(playerId)
+        local fashionId = XStrongholdManager.GetAssistantPlayerFashionId(playerId)
+        local liberateLv = XStrongholdManager.GetAssistantPlayerLiberateLv(playerId)
+        local characterId = XStrongholdManager.GetAssistantPlayerCharacterId(playerId)
+
+        local characterViewModel = require("XEntity/XCharacter/XCharacterViewModel").New(characterId)
+        characterViewModel:UpdateWithData(data)
+        characterViewModel:UpdateAbility(ability)
+        characterViewModel:UpdateFashionId(fashionId)
+        characterViewModel:UpdateLiberateLv(liberateLv)
+        characterViewModel:UpdateSourceEntityId(id)
+        return characterViewModel
     end
 
     function XStrongholdManager.CheckAssitantValid(playerId, characterId)
@@ -2712,6 +2808,14 @@ public class StrongholdAssistCharacterDetail
             return false, desc
         end
         return true, ""
+    end
+
+    ---第一次进活动界面时请求援助列表
+    function XStrongholdManager.ReqAssistCharacterList()
+        if not _HasReqAssistCharacterList then
+            XStrongholdManager.GetStrongholdAssistCharacterListRequest()
+            _HasReqAssistCharacterList = true
+        end
     end
 
     --请求援助角色列表
@@ -2986,6 +3090,16 @@ public class StrongholdAssistCharacterDetail
         return rewardIds
     end
 
+    function XStrongholdManager.GetCanReceiveReward()
+        local rewardIds = {}
+        for _, rewardId in pairs(XStrongholdManager.GetAllRewardIds()) do
+            if XStrongholdManager.IsRewardCanGet(rewardId) then
+                table.insert(rewardIds, rewardId)
+            end
+        end
+        return rewardIds
+    end
+
     function XStrongholdManager.IsRewardFinished(rewardId)
         return _FinishedRewardIdDic[rewardId]
     end
@@ -3015,8 +3129,8 @@ public class StrongholdAssistCharacterDetail
     end
 
     --领取奖励
-    function XStrongholdManager.GetStrongholdRewardRequest(rewardId, cb)
-        local req = {Id = rewardId}
+    function XStrongholdManager.GetStrongholdRewardRequest(rewardIds, cb)
+        local req = { Ids = rewardIds }
         XNetwork.Call(
             "GetStrongholdRewardRequest",
             req,
@@ -3026,7 +3140,7 @@ public class StrongholdAssistCharacterDetail
                     return
                 end
 
-                UpdateFinishedRewardIds({rewardId})
+                UpdateFinishedRewardIds(res.SuccessIds)
 
                 local rewardGoods = res.RewardGoodsList
                 if cb then
@@ -3189,6 +3303,9 @@ public class StrongholdAssistCharacterDetail
         if allFinished then
             XStrongholdManager.ResetCurFightInfo()
             XLuaUiManager.Remove("UiStrongholdDeploy")
+            if XStrongholdManager.IsChapterLastGroup(groupId) then -- 通关深巢后直接返回主界面
+                XLuaUiManager.Remove("UiStrongholdFightMain")
+            end
             XLuaUiManager.Open("UiStrongholdFightSettleWin", winData)
         end
     end
@@ -3236,8 +3353,8 @@ public class StrongholdAssistCharacterDetail
                         XStrongholdManager.AutoRune(teamList)
 
                         --拷贝符文到队伍预设
-                        for teamId, team in pairs(teamList) do
-                            local oTeam = oTeamList[teamId]
+                        for _, team in pairs(teamList) do
+                            local oTeam = oTeamList[team:GetId()]
                             if not XTool.IsTableEmpty(oTeam) then
                                 local runeId, subRuneId = team:GetRune()
                                 oTeam:SetRune(runeId, subRuneId)
@@ -3257,12 +3374,12 @@ public class StrongholdAssistCharacterDetail
             local color, isShowTips = XStrongholdManager.GetSuggestElectricColor(groupId, FighterTeamList)
             if isShowTips then
                 local chapterId = XStrongholdConfigs.GetChapterIdByGroupId(groupId)
-                local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(oTeamList)
+                local teamClipList = XStrongholdManager.GetFighterTeamListTemp(oTeamList, groupId)
+                local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(teamClipList)
                 local levelId = XDataCenter.StrongholdManager.GetLevelId()
                 local suggestElectric = XStrongholdConfigs.GetChapterSuggestElectric(chapterId, levelId)
-                local extraElectricEnerg = XStrongholdManager.GetExtraElectricEnergy()
                 local title = CSXTextManagerGetText("TipTitle")
-                local content2 = CSXTextManagerGetText("StrongholdSuggestElectricTipsDesc", suggestElectric, extraElectricEnerg)
+                local content2 = CSXTextManagerGetText("StrongholdSuggestElectricTipsDesc", suggestElectric)
                 local content3 = CSXTextManagerGetText("StrongholdSuggestElectricTipsDesc2", useElectric)
                 local extraData = {["Content2"] = content2, ["Content3"] = content3}
                 XUiManager.DialogTip(title, "", XUiManager.DialogType.Normal, nil, checkRuneFunc, extraData)
@@ -3271,20 +3388,7 @@ public class StrongholdAssistCharacterDetail
             end
         end
 
-        if XStrongholdManager.IsFightBegin() then
-            callFunc()
-        else
-            --首次进入玩法战斗提示
-            local title = CSXTextManagerGetText("StrongholdFirstFightConfirmTitle")
-            local fightAutoBeginTime = XStrongholdManager.GetFightAutoBeginTime()
-            local timeStr =
-                XUiHelper.GetTime(
-                fightAutoBeginTime - XTime.GetServerNowTimestamp(),
-                XUiHelper.TimeFormatType.STRONGHOLD
-            )
-            local content = CSXTextManagerGetText("StrongholdFirstFightConfirmContent", timeStr)
-            XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, callFunc)
-        end
+        callFunc()
     end
 
     function XStrongholdManager.EnterFight(groupId, teamList, stageIndex, isContinueFight)
@@ -3378,6 +3482,10 @@ public class StrongholdAssistCharacterDetail
         InitGroupInfos()
     end
 
+    function XStrongholdManager.GetChaptersByLevel()
+        return XStrongholdConfigs.GetLevelChapterIds(_LevelId)
+    end
+
     --是否已经选择过分区
     function XStrongholdManager.IsSelectedLevelId()
         return IsNumberValid(_LevelId)
@@ -3404,7 +3512,7 @@ public class StrongholdAssistCharacterDetail
                 UpdateGroupStageDatas(res.GroupStageDatas)
                 UpdateMaxElectricEnergy(res.ElectricEnergy)
                 UpdateEndurance(res.Endurance)
-                CheckUpdateTeam()
+                --CheckUpdateTeam()
 
                 if cb then
                     cb()
@@ -3592,7 +3700,9 @@ public class StrongholdAssistCharacterDetail
             return false
         end
 
-        local usingTeamId = XStrongholdManager.GetRuneUsingTeamId(runeId)
+        local itemIndex = XStrongholdManager.GetRuneUsingTeamId(runeId)
+        local teamPropIds = XStrongholdManager.GetTeamPropsByGroupId(groupId)
+        local usingTeamId = table.indexof(teamPropIds, itemIndex)
         if not XTool.IsNumberValid(usingTeamId) then
             return false
         end
@@ -3660,14 +3770,27 @@ public class StrongholdAssistCharacterDetail
         UpdateGroupStageDatas(data.GroupStageDatas)
         UpdateGroupInfos(data.GroupInfos)
         UpdateLastAcitivityRecord(data.LastResultRecord)
+        UpdateRuneIds(data.RuneList)
         UpdateTeamList(data.TeamInfos)
         UpdateShareCharacterId(data.AssistCharacterId)
-        UpdateRuneIds(data.RuneList)
-        CheckUpdateTeam()
+        --CheckUpdateTeam()
     end
 
     --活动结束
     function XStrongholdManager.NotifyStrongholdEnd()
+        local uiNameList = { "UiStrongholdMain", "UiStrongholdFightMain", "UiStrongholdDeploy" }
+        --处于玩法界面内
+        for _, uiName in ipairs(uiNameList) do
+            if XLuaUiManager.IsUiShow(uiName) then
+                XLuaUiManager.Open("UiNewFuben")
+                XUiManager.TipText("CommonActivityEnd")
+                return
+            end
+        end
+        --通过玩法跳转到其他界面
+        for _, uiName in ipairs(uiNameList) do
+            XLuaUiManager.Remove(uiName)
+        end
         XStrongholdManager.Reset()
     end
 
@@ -3721,7 +3844,11 @@ public class StrongholdAssistCharacterDetail
         _UsingRuneIdDic = {} --使用中符文Id字典
         _UsingSubRuneIdDic = {} --使用中子符文Id字典
 
-        _ActivityEnd = true
+        if XLuaUiManager.IsUiLoad("UiStrongholdMain") or XLuaUiManager.IsUiLoad("UiStrongholdFightMain") or XLuaUiManager.IsUiLoad("UiStrongholdDeploy") then
+            -- _ActivityEnd是活动关闭时返回主界面的标记
+            _ActivityEnd = true
+            XStrongholdManager.OnActivityEnd()
+        end
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_STRONGHOLD_ACTIVITY_END)
     end
 
@@ -3748,7 +3875,7 @@ public class StrongholdAssistCharacterDetail
     end
 
     function XStrongholdManager:ExCheckIsShowRedPoint()
-        return XRedPointConditionStrongholdRewardCanGet.Check()
+        return XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionStrongholdRewardCanGet)
     end
 
     -- 获取进度提示
@@ -3786,22 +3913,11 @@ public class StrongholdAssistCharacterDetail
             return true
         end
 
-        local isHardChapterAllFinish = XStrongholdManager.CheckAllChapterIsClear(XStrongholdConfigs.ChapterType.Hard)
-        local isNormalChapterNotCostAllFinish = XStrongholdManager.CheckChapterNoUseEnduranceIsClear(XStrongholdConfigs.ChapterType.Normal)
         local result = false
         if not XStrongholdManager.IsFightBegin() then
             result = false
-        elseif XStrongholdManager.IsChapterHardCanFight() then -- 掩护作战开放期间满足下列条件才能达成完成 -- 1.已解锁的掩护作战全部完成 2.没有可领取奖励 3.作战点数用完 4.如果本次作战中驱逐作战中存在不用作战点数的关卡通关了才算完成
-            if not XStrongholdManager.IsAnyRewardCanGet()
-                    and isHardChapterAllFinish
-                    and isNormalChapterNotCostAllFinish
-                    and XStrongholdManager.GetCurEndurance() <= 0 then
-                result = true
-            end
-        else  -- 非掩护作战开放期间满足下列条件才能达成完成 -- 1.没有可领取奖励 2.作战点数用完 3.如果本次作战中驱逐作战中存在不用作战点数的关卡通关了才算完成
-            if not XStrongholdManager.IsAnyRewardCanGet()
-                    and isNormalChapterNotCostAllFinish
-                    and XStrongholdManager.GetCurEndurance() <= 0 then
+        else  -- 1.没有可领取奖励 2.作战点数用完 3.如果本次作战中驱逐作战中存在不用作战点数的关卡通关了才算完成
+            if not XStrongholdManager.IsAnyRewardCanGet() and XStrongholdManager.CheckChapterIsClear() then
                 result = true
             end
         end
@@ -3816,6 +3932,54 @@ public class StrongholdAssistCharacterDetail
 
     function XStrongholdManager:ExOpenMainUi()
         XStrongholdManager.EnterUiMain()
+    end
+
+    -- 获取倒计时（周历专用）
+    function XStrongholdManager:ExGetCalendarRemainingTime()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return ""
+        end
+        local remainTime = _TargetCountDownTime - XTime.GetServerNowTimestamp()
+        if remainTime < 0 then
+            remainTime = 0
+        end
+        local timeText = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.NEW_CALENDAR)
+        if XStrongholdManager.IsActivityBegin() then
+            return XUiHelper.GetText("UiNewActivityCalendarBeginCountDown", timeText)
+        elseif XStrongholdManager.IsFightBegin() then
+            return XUiHelper.GetText("UiNewActivityCalendarEndCountDown", timeText)
+        end
+        return ""
+    end
+
+    -- 获取解锁时间（周历专用）
+    function XStrongholdManager:ExGetCalendarEndTime()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return 0
+        end
+        return _TargetCountDownTime
+    end
+
+    -- 是否在周历里显示
+    function XStrongholdManager:ExCheckShowInCalendar()
+        if not XTool.IsNumberValid(_TargetCountDownTime) then
+            return false
+        end
+        if _TargetCountDownTime - XTime.GetServerNowTimestamp() <= 0 then
+            return false
+        end
+        if XStrongholdManager.IsActivityBegin() or XStrongholdManager.IsFightBegin() then
+            return true
+        end
+        return false
+    end
+    
+    -- 是否显示提示信息（周历专用）
+    function XStrongholdManager:ExCheckWeekIsShowTips()
+        if XStrongholdManager.IsActivityBegin() and not XTool.IsNumberValid(XStrongholdManager.GetLevelId()) then
+            return true
+        end
+        return false
     end
     
     ------------------副本入口扩展 end-------------------------

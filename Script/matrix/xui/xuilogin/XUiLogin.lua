@@ -11,12 +11,6 @@ local XUiGridServer = require("XUi/XUiLogin/XUiGridServer")
 --else
 KEY_USER_AGREE = "USER_AGREE_LGOIN"
 --end
-local WaterMarkStatus = {
-    AllOff = 0,
-    AllOn = 1,
-    OnlyWaterMarkOn = 2,
-    OnlySuperWaterMarkOn = 3,
-}
 
 local NoticeOpenFuncList = {
     XDataCenter.NoticeManager.AutoOpenLoginNotice,
@@ -57,7 +51,6 @@ function XUiLogin:CheckFool()
 end
 
 function XUiLogin:OnStart()
-    CS.XEffectManager.useNewEffect = 1
     --删除闪屏
     CS.XUnloadSplash.DoUnloadSplash()
     --GC
@@ -573,14 +566,7 @@ function XUiLogin:DoLogin()
         runMainProfiler:Start()
 
         --打开水印窗口
-        if CS.XRemoteConfig.WatermarkType == WaterMarkStatus.AllOn then
-            XLuaUiManager.Open("UiWaterMask")
-            XLuaUiManager.Open("UiSuperWaterMarks")
-        elseif CS.XRemoteConfig.WatermarkType == WaterMarkStatus.OnlyWaterMarkOn then
-            XLuaUiManager.Open("UiWaterMask")
-        elseif CS.XRemoteConfig.WatermarkType == WaterMarkStatus.OnlySuperWaterMarkOn then
-            XLuaUiManager.Open("UiSuperWaterMarks")
-        end
+        XLoginManager.CheckWaterMask()
 
         --BDC
         CS.XHeroBdcAgent.BdcAfterSdkLoginPage()

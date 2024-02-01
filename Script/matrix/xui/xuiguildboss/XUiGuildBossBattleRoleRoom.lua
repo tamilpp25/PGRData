@@ -21,8 +21,8 @@ function XUiGuildBossBattleRoleRoom:GetRoleDetailProxy()
                 local aa = XRobotManager.GetRobotById(robotId)
                 table.insert(result, aa)
                 local characterId = XEntityHelper.GetCharacterIdByEntityId(robotId)
-                if XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
-                    table.insert(result, XDataCenter.CharacterManager.GetCharacter(characterId))
+                if XMVCA.XCharacter:IsOwnCharacter(characterId) then
+                    table.insert(result, XMVCA.XCharacter:GetCharacter(characterId))
                 end
             end
             return result

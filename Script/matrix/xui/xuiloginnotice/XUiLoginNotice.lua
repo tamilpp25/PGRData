@@ -1,5 +1,9 @@
 local XUiLoginNotice = XLuaUiManager.Register(XLuaUi, "UiLoginNotice")
 
+function XUiLoginNotice:Ctor()
+    self._IsClose = false
+end
+
 function XUiLoginNotice:OnAwake()
     self:InitAutoScript()
 end
@@ -57,6 +61,9 @@ function XUiLoginNotice:SendWebRequestForCustom(loginNotice)
 end
 
 function XUiLoginNotice:LoadByHtml(request, loginNotice)
+    if self._IsClose then
+        return
+    end
     if request.isNetworkError or request.isHttpError or not request.downloadHandler then
         return
     end
@@ -87,6 +94,7 @@ end
 
 
 function XUiLoginNotice:OnDestroy()
+    self._IsClose = true
 end
 
 

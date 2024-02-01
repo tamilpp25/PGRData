@@ -2,28 +2,6 @@ local XUiArenaOnlineInvitation = XLuaUiManager.Register(XLuaUi, "UiArenaOnlineIn
 local AreaOnlineInvitationDes
 local AreaOnlineShowTime
 
-local HideInvitationWnds =
-{
-    ["UiNewDrawMain"] = true,
-    ["UiDraw"] = true,
-    ["UiPurchase"] = true,
-    ["UiNewRoomSingle"] = true,
-    ["UiLoading"] = true,
-    ["UiSettleLose"] = true,
-    ["UiMovie"] = true,
-    ["UiMultiplayerRoom"] = true,
-    ["UiSocial"] = true,
-    ["UiRoomCharacter"] = true,
-    ["UiFight"] = true,
-    ["UiDormMain"] = true,
-    ["UiChatServeMain"] = true,
-    ["UiLogin"] = true,
-    ["UiAnnouncement"] = true,
-    ["UiUsePackage"] = true,
-    ["UiBuyAsset"] = true,
-    ["UiSignBanner"] = true,
-}
-
 local RecheckOnDisableWnds = {
     ["UiChatServeMain"] = true,
     ["UiAnnouncement"] = true,
@@ -32,6 +10,8 @@ local RecheckOnDisableWnds = {
 }
 
 function XUiArenaOnlineInvitation:OnAwake()
+    self._ShowInvitationWnds = XArenaOnlineConfigs.GetBossOnlineInviteUi()
+    
     AreaOnlineInvitationDes = CS.XTextManager.GetText("AreaOnlineInvitationDes")
     AreaOnlineShowTime = XArenaOnlineConfigs.ArenaOnlineShowTime
 
@@ -39,11 +19,11 @@ function XUiArenaOnlineInvitation:OnAwake()
     self.BtnMainInvite.gameObject:SetActiveEx(false)
 
     self:AddListener()
-    self.WndCount = 0 --用于记录需要隐藏的窗口的数量
+    self.WndCount = 0 --用于记录需要显示的窗口的数量
 end
 
 function XUiArenaOnlineInvitation:OnStart()
-    for k,_ in pairs(HideInvitationWnds) do
+    for k,_ in pairs(self._ShowInvitationWnds) do
         if XLuaUiManager.IsUiShow(k) then
             self.WndCount = self.WndCount + 1
         end
@@ -55,6 +35,7 @@ function XUiArenaOnlineInvitation:OnEnable()
     self:TimerEvent()
     XEventManager.AddEventListener(XEventId.EVENT_CHAT_RECEIVE_PRIVATECHAT, self.OnPrivateChat, self)
     XEventManager.AddEventListener(XEventId.EVENT_BLACK_DATA_CHANGE, self.OnBlackDataChange, self)
+    XEventManager.AddEventListener(XEventId.EVENT_ARENA_HIDE_INVITATION, self.HideInvitation, self)
 end
 
 function XUiArenaOnlineInvitation:OnGetEvents()
@@ -98,7 +79,7 @@ function XUiArenaOnlineInvitation:OnNotify(evt, ...)
             return
         end
 
-        if HideInvitationWnds[uiName] then
+        if self._ShowInvitationWnds[uiName] then
             if evt == CS.XEventId.EVENT_UI_ENABLE then
                 self.WndCount = self.WndCount + 1
             elseif evt == CS.XEventId.EVENT_UI_DISABLE then
@@ -134,6 +115,7 @@ end
 function XUiArenaOnlineInvitation:OnDisable()
     XEventManager.RemoveEventListener(XEventId.EVENT_CHAT_RECEIVE_PRIVATECHAT, self.OnPrivateChat, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_BLACK_DATA_CHANGE, self.OnBlackDataChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_ARENA_HIDE_INVITATION, self.HideInvitation, self)
 end
 
 function XUiArenaOnlineInvitation:OnDestroy()
@@ -197,7 +179,7 @@ function XUiArenaOnlineInvitation:CheckShowInvitationButton()
     self.Datas = XDataCenter.ArenaOnlineManager.GetPrivateChatData()
     self.Count = #self.Datas
     
-    if self.WndCount > 0 or CS.XFight.IsRunning
+    if self.WndCount <= 0 or CS.XFight.IsRunning
         or XDataCenter.MovieManager.IsPlayingMovie() or
         XDataCenter.VideoManager.IsPlaying() or 
         XHomeSceneManager.IsInHomeScene() then
@@ -231,4 +213,9 @@ function XUiArenaOnlineInvitation:OnBlackDataChange()
         return
     end
     self:OnPrivateChat()
+end
+
+function XUiArenaOnlineInvitation:HideInvitation()
+    self.BtnInvite.gameObject:SetActiveEx(false)
+    self.BtnMainInvite.gameObject:SetActiveEx(false)
 end

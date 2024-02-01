@@ -1,9 +1,13 @@
 
-local XUiPanelRegressionBase = XClass(nil, "XUiPanelRegressionBase")
+local XUiPanelRegressionBase = XClass(XUiNode, "XUiPanelRegressionBase")
 
 function XUiPanelRegressionBase:Ctor(ui, rootUi)
     XTool.InitUiObjectByUi(self, ui)
-    self.RootUi = rootUi
+    
+end
+
+function XUiPanelRegressionBase:OnStart()
+    self.RootUi = self.Parent
     self.ViewModel = XDataCenter.Regression3rdManager.GetViewModel()
     self:InitCb()
     self:InitUi()

@@ -29,18 +29,88 @@ function XFightUiManager.DoLuaFunction(id)
 	FunctionDictionary[funcName](id)
 end
 
------------跟随tips CSharpCallLua begin--------------
-local function GetUiFightBrilliantwalk()
+local function GetChildUiFight(uiName)
 	local fight = CS.XFight.Instance
 	if not fight then
 		return
 	end
 
-	return fight.UiManager:GetUi(typeof(CS.XUiFight)):FindChildUi("UiFightBrilliantwalk")
+	local ui = fight.UiManager:GetUi(typeof(CS.XUiFight)):FindChildUi(uiName)
+	if not ui then
+		XLog.Error(string.format("子Ui未加载！ name:%s", uiName))
+		return
+	end
+	
+	return ui
 end
 
+local function OpenChildUiFight(uiName, value)
+	local fight = CS.XFight.Instance
+	if not fight then
+		return
+	end
+
+	local uiFight = fight.UiManager:GetUi(typeof(CS.XUiFight))
+	if not uiFight.GameObject or not uiFight.GameObject.activeInHierarchy then
+		return
+	end
+	uiFight:OpenChildUi(uiName, value)
+end
+
+local function GetChildUiFightAutoOpen(uiName)
+	local ui = GetChildUiFight(uiName)
+	if not ui then
+		return
+	end
+
+	if not XLuaUiManager.IsUiShow(uiName) then
+		OpenChildUiFight(uiName)
+	end
+	return ui
+end
+
+local function DoUiFunc(uiName, funcName, ...)
+	local fight = CS.XFight.Instance
+	if not fight then
+		return
+	end
+
+	local ui = GetChildUiFightAutoOpen(uiName)
+	if not ui then
+		return
+	end
+
+	local func = ui.UiProxy.UiLuaTable[funcName]
+	if not func then
+		XLog.Error(string.format("不存在的子Ui方法！ name:%s", funcName))
+		return
+	end
+	
+	func(ui.UiProxy.UiLuaTable, ...)
+end
+
+-----------关卡自定义按钮列表 CSharpCallLua begin--------------
+function XFightUiManager.DoSetCommonInterBtnList(id, key, icon, text, order, isDisable)
+	DoUiFunc("UiFightCommonInterBtnList", "SetCommonInterBtn", id, key, icon, text, order, isDisable)
+end
+
+function XFightUiManager.DoSetCommonInterBtnListFollowNpc(npcId, jointName, offsetX, offsetY)
+	local fight = CS.XFight.Instance
+	if not fight then
+		return
+	end
+	
+	local npc = fight.NpcManager:GetNpc(npcId)
+	if not npc then
+		return
+	end
+	DoUiFunc("UiFightCommonInterBtnList", "SetFollowNpc", npc, jointName, offsetX, offsetY)
+end
+-----------关卡自定义按钮列表 CSharpCallLua end----------------
+
+-----------跟随tips CSharpCallLua begin--------------
 local function BrilliantwalkInit(uiLuaTableKey, ...)
-	local ui = GetUiFightBrilliantwalk()
+	local ui = GetChildUiFight("UiFightBrilliantwalk")
 	if not ui then
 		return
 	end
@@ -68,7 +138,7 @@ function XFightUiManager.DoBrilliantwalkInitTipsEx(id, npcId, styleType, xOffset
 end
 
 function XFightUiManager.DoBrilliantwalkSetTipsDesc(id, textIndex, tipTextId, varIndex, value)
-	local ui = GetUiFightBrilliantwalk()
+	local ui = GetChildUiFight("UiFightBrilliantwalk")
 	if not ui then
 		return
 	end
@@ -95,14 +165,7 @@ FunctionDictionary = {
 	end,
 
 	["DoOpenChildUi"] = function(id, value)
-		local fight = CS.XFight.Instance
-		if not fight then
-			return
-		end
-
-		local uiName = FunctionParams[id].Params[1]
-
-		fight.UiManager:GetUi(typeof(CS.XUiFight)):OpenChildUi(uiName, value)
+		OpenChildUiFight(FunctionParams[id].Params[1], value)
 	end,
 
 	["DoCloseChildUi"] = function(id)
@@ -157,6 +220,32 @@ FunctionDictionary = {
 			return
 		end
 		func(ui.UiProxy.UiLuaTable, value, value2)
+	end,
+
+	["DoChildUiFunctionAutoOpen"] = function(id, value)
+		local fight = CS.XFight.Instance
+		if not fight then
+			return
+		end
+
+		local uiName = FunctionParams[id].Params[1]
+		local ui = fight.UiManager:GetUi(typeof(CS.XUiFight)):FindChildUi(uiName)
+		if not ui then
+			XLog.Error(string.format("子Ui未加载！ name:%s", uiName))
+			return
+		end
+
+		if not XLuaUiManager.IsUiShow(uiName) then
+			OpenChildUiFight(uiName)
+		end
+
+		local funcName = FunctionParams[id].Params[2]
+		local func = ui.UiProxy.UiLuaTable[funcName]
+		if not func then
+			XLog.Error(string.format("不存在的子Ui方法！ name:%s", funcName))
+			return
+		end
+		func(ui.UiProxy.UiLuaTable, value)
 	end,
 
 	["HideClientScene"] = function(id, value)

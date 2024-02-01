@@ -153,7 +153,7 @@ XTrialManagerCreator = function()
 
     -- 打过关卡
     function XTrialManager.OnSettleTrial()
-        local res = XDataCenter.FubenManager.FubenSettleResult
+        local res = XMVCA.XFuben:GetFubenSettleResult()
         if not res or not res.Settle then
             return
         end
@@ -483,9 +483,12 @@ XTrialManagerCreator = function()
     end
 
     function XTrialManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeTrial) then
-            XLuaUiManager.OpenWithCallback("UiTrial")
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenChallengeTrial) then
+            return
         end
+        
+
+        XLuaUiManager.OpenWithCallback("UiTrial")
     end
     
     ------------------副本入口扩展 end-------------------------

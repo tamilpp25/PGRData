@@ -105,7 +105,7 @@ function XUiGuildWarTeamAreaCharacterSelectSelf:Hide()
 end
 
 function XUiGuildWarTeamAreaCharacterSelectSelf:GetEntities(notFilter)
-    local list = XDataCenter.CharacterManager.GetOwnCharacterList(self._CharacterType)
+    local list = XMVCA.XCharacter:GetOwnCharacterList(self._CharacterType)
     --复制黏贴的筛选逻辑
     if not notFilter then
         local filterData = XDataCenter.CommonCharacterFiltManager.GetSelectTagData(self._FilterKey)
@@ -184,7 +184,7 @@ end
 
 function XUiGuildWarTeamAreaCharacterSelectSelf:UpdateData()
     local dataSource = self:GetEntities()
-    if #dataSource == 0 and self._CharacterType == XCharacterConfigs.CharacterType.Isomer then
+    if #dataSource == 0 and self._CharacterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         self.PanelEmptyList.gameObject:SetActiveEx(true)
     else
         self.PanelEmptyList.gameObject:SetActiveEx(false)
@@ -207,29 +207,29 @@ function XUiGuildWarTeamAreaCharacterSelectSelf:UpdateCharacterData()
     self:SetJoinBtnIsActive(not (member:GetEntityId() == characterId and member:GetPlayerId() == XPlayer.Id))
 
     -- name
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
     -- icon
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
 
     -- level
     self.TxtLv.text = math.floor(character.Ability)
 
     -- element
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
     local elementList = detailConfig.ObtainElementList
     XUiHelper.RefreshCustomizedList(self.BtnElementDetail.transform, self.RImgCharElement1, #elementList, function(index, grid)
-        local elementConfig = XCharacterConfigs.GetCharElement(elementList[index])
+        local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[index])
         local icon = elementConfig.Icon
         grid:GetComponent("RawImage"):SetRawImage(icon)
     end)
 end
 
 function XUiGuildWarTeamAreaCharacterSelectSelf:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self:GetCharacterId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 ---@param grid XUiGuildWarTeamAreaCharacterSelectSelfGrid

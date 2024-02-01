@@ -9,7 +9,7 @@ function XRedPointConditionMainChapter.Check()
             or XDataCenter.ExtraChapterManager.CheckAllChapterReward()
             or XDataCenter.ShortStoryChapterManager.CheckAllChapterReward()
             or XDataCenter.TaskManager.GetIsRewardFor(XDataCenter.TaskManager.TaskType.ZhouMu)
-            or XRedPointConditionTRPGMainView.Check(XDataCenter.FubenMainLineManager.TRPGChapterId)
+            or XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TRPG_MAIN_VIEW, XDataCenter.FubenMainLineManager.TRPGChapterId)
 end
 
 function XRedPointConditionMainChapter.GetSubConditions()

@@ -7,16 +7,16 @@ local XUiTheatre3RoleRoom = XLuaUiManager.Register(XLuaUi, "UiTheatre3RoleRoom")
 local Position = { First = 1, Second = 2, Third = 3 }
 
 function XUiTheatre3RoleRoom:OnAwake()
-    self.BtnTeamInstall.CallBack = handler(self, self.OnTeamInstall)
-    self.BtnBattle.CallBack = handler(self, self.OnBattle)
-    self.BtnBack.CallBack = handler(self, self.Close)
-    XUiHelper.RegisterClickEvent(self, self.BtnAdd1, function()
+    self._Control:RegisterClickEvent(self, self.BtnTeamInstall, self.OnTeamInstall)
+    self._Control:RegisterClickEvent(self, self.BtnBattle, self.OnBattle)
+    self._Control:RegisterClickEvent(self, self.BtnBack, self.Close)
+    self._Control:RegisterClickEvent(self, self.BtnAdd1, function()
         self:OnClickRole(Position.First)
     end)
-    XUiHelper.RegisterClickEvent(self, self.BtnAdd2, function()
+    self._Control:RegisterClickEvent(self, self.BtnAdd2, function()
         self:OnClickRole(Position.Second)
     end)
-    XUiHelper.RegisterClickEvent(self, self.BtnAdd3, function()
+    self._Control:RegisterClickEvent(self, self.BtnAdd3, function()
         self:OnClickRole(Position.Third)
     end)
 end
@@ -29,6 +29,7 @@ function XUiTheatre3RoleRoom:OnStart(isBattle,isStartAdventure)
     self._GraphicRaycaster = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane", "GraphicRaycaster")
 
     self:InitCompnent()
+    self._IsDirty = false
 end
 
 function XUiTheatre3RoleRoom:OnEnable()
@@ -41,25 +42,20 @@ function XUiTheatre3RoleRoom:OnEnable()
         end
     end, 400)
     self:Update()
+    self:AddEventListener()
 end
 
 function XUiTheatre3RoleRoom:OnDisable()
     if self._EnableTimer then
         XScheduleManager.UnSchedule(self._EnableTimer)
     end
+    self._IsDirty = true
+    self:RemoveEventListener()
 end
 
 function XUiTheatre3RoleRoom:InitCompnent()
     ---@type XPanelTheatre3Energy
     self._PanelEnergy = XPanelTheatre3Energy.New(self.Energy, self)
-end
-
-function XUiTheatre3RoleRoom:OnGetEvents()
-    return { XEventId.EVENT_THEATRE3_SAVE_TEAM }
-end
-
-function XUiTheatre3RoleRoom:OnNotify(evt)
-    self:Update()
 end
 
 function XUiTheatre3RoleRoom:Update()
@@ -69,7 +65,7 @@ function XUiTheatre3RoleRoom:Update()
 end
 
 function XUiTheatre3RoleRoom:UpdateEnergy()
-    self._PanelEnergy:Refresh()
+    self._PanelEnergy:Refresh(self._Control:IsAdventureALine())
 end
 
 function XUiTheatre3RoleRoom:UpdateRole()
@@ -109,6 +105,7 @@ function XUiTheatre3RoleRoom:SetRole(go, position)
     uiObject.ImgColor2.gameObject:SetActiveEx(colorIdx == Position.Second)
     uiObject.ImgColor3.gameObject:SetActiveEx(colorIdx == Position.Third)
     uiObject.ImgNumber:SetSprite(self._Control:GetClientConfig("Theatre3CharacterIndexIcon", position))
+    uiObject.ImgTxBg = XUiHelper.TryGetComponent(uiObject.Transform, "ImgTxBg")
     if characterId ~= 0 then
         uiObject.ImgDraw.gameObject:SetActiveEx(true)
         ---@type XCharacterAgency
@@ -121,21 +118,20 @@ function XUiTheatre3RoleRoom:SetRole(go, position)
     if uiObject.ImgNormal then
         uiObject.ImgNormal.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
     end
-    if uiObject.ImgNormal2 then
-        uiObject.ImgNormal2.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
+    if uiObject.ImgNormal1 then
+        uiObject.ImgNormal1.gameObject:SetActiveEx(not XTool.IsNumberValid(characterId))
+    end
+    -- 天选角色
+    if uiObject.ImgTxBg then
+        uiObject.ImgTxBg.gameObject:SetActiveEx(self._Control:CheckIsLuckCharacter(XEntityHelper.GetCharacterIdByEntityId(characterId)))
     end
 end
 
 function XUiTheatre3RoleRoom:OnTeamInstall()
-    XLuaUiManager.Open("UiTheatre3TeamInstall")
+    self._Control:OpenAdventureTeamInstall()
 end
 
 function XUiTheatre3RoleRoom:OnBattle()
-    if not self._IsStartAdventure and not self._IsBattle then
-        self:Close()
-        return
-    end
-    
     if not self._Control:CheckCaptainHasEntityId() then
         XUiManager.TipText("TeamManagerCheckCaptainNil")
         return
@@ -144,6 +140,18 @@ function XUiTheatre3RoleRoom:OnBattle()
         XUiManager.TipText("TeamManagerCheckFirstFightNil")
         return
     end
+    
+    if not self._IsStartAdventure and not self._IsBattle then
+        if self._IsDirty then
+            self._Control:RequestSetTeam(function()
+                self:Close()
+            end)
+        else
+            self:Close()
+        end
+        return
+    end
+    
     if self._IsStartAdventure then  -- 冒险开始时出击为编队
         self._Control:RequestSetTeam(function()
             self._Control:RequestAdventureEndRecruit(function()
@@ -171,13 +179,25 @@ function XUiTheatre3RoleRoom:OnBattle()
 end
 
 function XUiTheatre3RoleRoom:OnClickRole(pos)
-    local cur, total = self._Control:GetCurEnergy()
-    if total - cur <= 0 and not self._Control:CheckIsHaveCharacter(pos) then
-        -- 【有空槽】并且【能量=0】
-        XUiManager.TipMsg(XUiHelper.GetText("Theatre3EnergyNoEnoughTip"))
-        return
-    end
+    --因天选0消耗，去除拦截
+    --local cur, total = self._Control:GetCurEnergy()
+    --if total - cur <= 0 and not self._Control:CheckIsHaveCharacter(pos) then
+    --    -- 【有空槽】并且【能量=0】
+    --    XUiManager.TipMsg(XUiHelper.GetText("Theatre3EnergyNoEnoughTip"))
+    --    return
+    --end
     XLuaUiManager.Open("UiTheatre3RoleRoomDetail", pos)
 end
+
+
+--region Event
+function XUiTheatre3RoleRoom:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_THEATRE3_SAVE_TEAM, self.Update, self)
+end
+
+function XUiTheatre3RoleRoom:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_THEATRE3_SAVE_TEAM, self.Update, self)
+end
+--endregion
 
 return XUiTheatre3RoleRoom

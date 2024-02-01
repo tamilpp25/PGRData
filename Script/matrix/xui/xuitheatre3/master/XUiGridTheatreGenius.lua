@@ -6,7 +6,7 @@ function XUiGridTheatreGenius:OnStart(index, callBack)
     self.Index = index
     self.CallBack = callBack
     self.Select.gameObject:SetActiveEx(false)
-    XUiHelper.RegisterClickEvent(self, self.BtnGenuis, self.OnBtnGenuisClick)
+    self._Control:RegisterClickEvent(self, self.BtnGenuis, self.OnBtnGenuisClick)
 end
 
 function XUiGridTheatreGenius:Refresh(geniusId)

@@ -53,7 +53,6 @@ XFubenActivityBossSingleManagerCreator = function()
                 stageInfo.Type = XDataCenter.FubenManager.StageType.ActivityBossSingle
             end
         end
-        XFubenActivityBossSingleManager.RegisterEditBattleProxy()
     end
     
     function XFubenActivityBossSingleManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)
@@ -75,11 +74,6 @@ XFubenActivityBossSingleManagerCreator = function()
         preFight.CaptainPos = team:GetCaptainPos()
         preFight.FirstFightPos = team:GetFirstFightPos()
         return preFight
-    end
-
-    function XFubenActivityBossSingleManager.RegisterEditBattleProxy()
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.ActivityBossSingle,
-                require("XUi/XUiActivityBossSingle/XUiActivityBossSingleNewRoomSingle"))
     end
 
     function XFubenActivityBossSingleManager.GetSectionStageIdList(sectionId)
@@ -397,7 +391,7 @@ XFubenActivityBossSingleManagerCreator = function()
         local ids = CurrentTeam:GetEntityIds()
         local tmpIds = XTool.Clone(ids)
         for pos, id in ipairs(ids) do
-            if not XDataCenter.CharacterManager.IsOwnCharacter(id)
+            if not XMVCA.XCharacter:IsOwnCharacter(id)
                     and not XRobotManager.CheckIsRobotId(id) then
                 tmpIds[pos] = 0
             end
@@ -465,12 +459,12 @@ XFubenActivityBossSingleManagerCreator = function()
                 return {
                     GetEntities = function()
                         local entities = {}
-                        local ids = XDataCenter.CharacterManager.GetRobotAndCharacterIdList(robotIds)
+                        local ids = XMVCA.XCharacter:GetRobotAndCharacterIdList(robotIds)
                         for i, id in ipairs(ids or {}) do
                             if XRobotManager.CheckIsRobotId(id) then
                                 entities[i] = XRobotManager.GetRobotById(id)
                             else
-                                entities[i] = XDataCenter.CharacterManager.GetCharacter(id)
+                                entities[i] = XMVCA.XCharacter:GetCharacter(id)
                             end
 
                         end

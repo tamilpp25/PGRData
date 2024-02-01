@@ -76,7 +76,7 @@ end
 
 --region Ui - BtnListener
 function XPanelTheatre3EventShop:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
+    self._Control:RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
 end
 
 function XPanelTheatre3EventShop:OnBtnConfirmClick()
@@ -84,7 +84,7 @@ function XPanelTheatre3EventShop:OnBtnConfirmClick()
     self._Control:OpenTextTip(function()
             self._Control:RequestAdventureEndNode(function()
                 self._NodeSlot:SetShopEndBuy()
-                XLuaUiManager.PopThenOpen("UiTheatre3Outpost", self._NodeSlot)
+                self._Control:OpenAdventureOutpost(true, self._NodeSlot)
             end)
         end,
         XUiHelper.ReadTextWithNewLineWithNotNumber("Theatre3EndShopTitle"),

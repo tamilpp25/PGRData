@@ -12,12 +12,12 @@ local CharDataType = {
 }
 
 local CharacterTypeConvert = {
-    [TabBtnIndex.Normal] = XCharacterConfigs.CharacterType.Normal,
-    [TabBtnIndex.Isomer] = XCharacterConfigs.CharacterType.Isomer,
+    [TabBtnIndex.Normal] = XEnumConst.CHARACTER.CharacterType.Normal,
+    [TabBtnIndex.Isomer] = XEnumConst.CHARACTER.CharacterType.Isomer,
 }
 local TabBtnIndexConvert = {
-    [XCharacterConfigs.CharacterType.Normal] = TabBtnIndex.Normal,
-    [XCharacterConfigs.CharacterType.Isomer] = TabBtnIndex.Isomer,
+    [XEnumConst.CHARACTER.CharacterType.Normal] = TabBtnIndex.Normal,
+    [XEnumConst.CHARACTER.CharacterType.Isomer] = TabBtnIndex.Isomer,
 }
 
 local stagePass = false
@@ -82,8 +82,8 @@ function XUiMoeWarCharacter:OnAwake()
 
         local ACharId = self:GetCharacterId(a)
         local BCharID = self:GetCharacterId(b)
-        local priorityA = XCharacterConfigs.GetCharacterPriority(ACharId)
-        local priorityB = XCharacterConfigs.GetCharacterPriority(BCharID)
+        local priorityA = XMVCA.XCharacter:GetCharacterPriority(ACharId)
+        local priorityB = XMVCA.XCharacter:GetCharacterPriority(BCharID)
         if priorityA ~= priorityB then
             return priorityA < priorityB
         end
@@ -264,12 +264,12 @@ function XUiMoeWarCharacter:InitRequireCharacterInfo()
 end
 
 function XUiMoeWarCharacter:InitEffectPositionInfo()
-    if self.StageType ~= XDataCenter.FubenManager.StageType.InfestorExplore then
-        self.PanelEffectPosition.gameObject:SetActiveEx(false)
-        return
-    end
-    self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
-    self.PanelEffectPosition.gameObject:SetActiveEx(true)
+    self.PanelEffectPosition.gameObject:SetActiveEx(false)
+    --if self.StageType ~= XDataCenter.FubenManager.StageType.InfestorExplore then
+    --    return
+    --end
+    --self.TxtEffectPosition.text = XDataCenter.FubenInfestorExploreManager.GetBuffDes()
+    --self.PanelEffectPosition.gameObject:SetActiveEx(true)
 end
 
 function XUiMoeWarCharacter:RefreshCharacterTypeTips()
@@ -299,8 +299,8 @@ function XUiMoeWarCharacter:InitCharacterTypeBtns()
     --检查选择角色类型是否和副本限制类型冲突
     local characterType = XDataCenter.FubenManager.GetDefaultCharacterTypeByCharacterLimitType(self.CharacterLimitType)
     local tempCharacterType = self:GetTeamCharacterType()
-    if tempCharacterType and not (tempCharacterType == XCharacterConfigs.CharacterType.Normal and lockGouzaoti
-    or tempCharacterType == XCharacterConfigs.CharacterType.Isomer and lockShougezhe) then
+    if tempCharacterType and not (tempCharacterType == XEnumConst.CHARACTER.CharacterType.Normal and lockGouzaoti
+    or tempCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer and lockShougezhe) then
         characterType = tempCharacterType
     end
 
@@ -323,12 +323,12 @@ function XUiMoeWarCharacter:TrySelectCharacterType(index)
 
     local characterLimitType = self.CharacterLimitType
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipNormal")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipIsomer")
             return
         end
@@ -349,7 +349,7 @@ function XUiMoeWarCharacter:OnSelectCharacterType(index)
     self.AllCharIdList = {}
     XDataCenter.RoomCharFilterTipsManager.Reset()
 
-    self.CharIdlist = XDataCenter.CharacterManager.GetRobotAndCorrespondCharacterIdList(self.RobotIdList, characterType)
+    self.CharIdlist = XMVCA.XCharacter:GetRobotAndCorrespondCharacterIdList(self.RobotIdList, characterType)
 
     table.sort(self.CharIdlist, self.SortFunction[XRoomCharFilterTipsConfigs.EnumSortTag.Default])
     self.AllCharIdList = self.CharIdlist
@@ -363,10 +363,10 @@ function XUiMoeWarCharacter:InitBtnTabIsClick()
     local characterType
     for _, charId in ipairs(self.RobotIdList) do
         if charId > 0 then
-            characterType = XCharacterConfigs.GetCharacterType(charId)
-            if characterType == XCharacterConfigs.CharacterType.Normal and not isClickNormal then
+            characterType = XMVCA.XCharacter:GetCharacterType(charId)
+            if characterType == XEnumConst.CHARACTER.CharacterType.Normal and not isClickNormal then
                 isClickNormal = true
-            elseif characterType == XCharacterConfigs.CharacterType.Isomer and not isClickOmer then
+            elseif characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not isClickOmer then
                 isClickOmer = true
             end
         end
@@ -382,10 +382,10 @@ function XUiMoeWarCharacter:IsCanClickBtnTab(characterType)
         return true
     end
 
-    if characterType == XCharacterConfigs.CharacterType.Normal and self.IsClickNormal then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Normal and self.IsClickNormal then
         return true
     end
-    if characterType == XCharacterConfigs.CharacterType.Isomer and self.IsClickOmer then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and self.IsClickOmer then
         return true
     end
     return false
@@ -433,7 +433,7 @@ function XUiMoeWarCharacter:UpdateCharacterList(index)
     self.CurIndex = nil
     self.CharacterIdToIndex = {}
     local useDefaultIndex = true
-    if selectId and selectId ~= 0 and characterType == XCharacterConfigs.GetCharacterType(selectId) then
+    if selectId and selectId ~= 0 and characterType == XMVCA.XCharacter:GetCharacterType(selectId) then
         useDefaultIndex = false
     end
     for index, id in ipairs(self.CharIdlist) do
@@ -484,7 +484,7 @@ function XUiMoeWarCharacter:GetCharInfo(index)
         char.Id = characterId
         char.IsRobot = true
     else
-        char = XDataCenter.CharacterManager.GetCharacter(characterId)
+        char = XMVCA.XCharacter:GetCharacter(characterId)
     end
     return char
 end
@@ -620,7 +620,7 @@ function XUiMoeWarCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = id and id ~= 0 and XCharacterConfigs.GetCharacterType(id)
+        local characterType = id and id ~= 0 and XMVCA.XCharacter:GetCharacterType(id)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -664,7 +664,7 @@ end
 function XUiMoeWarCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end
@@ -685,7 +685,7 @@ function XUiMoeWarCharacter:GetAbility(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotTemplate(id).ShowAbility
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Ability
+        return XMVCA.XCharacter:GetCharacter(id).Ability
     end
 end
 
@@ -693,7 +693,7 @@ function XUiMoeWarCharacter:GetLevel(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotTemplate(id).CharacterLevel
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Level
+        return XMVCA.XCharacter:GetCharacter(id).Level
     end
 end
 
@@ -701,7 +701,7 @@ function XUiMoeWarCharacter:GetQuality(id)
     if XRobotManager.CheckIsRobotId(id) then
         return XRobotManager.GetRobotTemplate(id).CharacterQuality
     else
-        return XDataCenter.CharacterManager.GetCharacter(id).Quality
+        return XMVCA.XCharacter:GetCharacter(id).Quality
     end
 end
 
@@ -712,16 +712,16 @@ function XUiMoeWarCharacter:Filter(selectTagGroupDic, sortTagId, isThereFilterDa
             char.Id = characterId
             char.IsRobot = true
         else
-            char = XDataCenter.CharacterManager.GetCharacter(characterId)
+            char = XMVCA.XCharacter:GetCharacter(characterId)
         end
 
         local compareValue
         local detailConfig
         if char.IsRobot then
             local robotTemplate = XRobotManager.GetRobotTemplate(char.Id)
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(robotTemplate.CharacterId)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(robotTemplate.CharacterId)
         else
-            detailConfig = XCharacterConfigs.GetCharDetailTemplate(char.Id)
+            detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(char.Id)
         end
 
         if groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.Career then

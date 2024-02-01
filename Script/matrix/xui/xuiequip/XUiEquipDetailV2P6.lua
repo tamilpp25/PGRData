@@ -81,6 +81,14 @@ function XUiEquipDetailV2P6:OnBtnBackClick()
     end
 end
 
+-- 关闭界面且让上一个界面选中当前操作的装备
+function XUiEquipDetailV2P6:CloseWithSelectCurEquip()
+    local equipId = self.EquipId
+    self:Close()
+    XEventManager.DispatchEvent(XEventId.EVENT_EQUIP_SELECT_EQUIP, equipId)
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_EQUIP_SELECT_EQUIP, equipId)
+end
+
 function XUiEquipDetailV2P6:OnBtnMainClick()
     XLuaUiManager.RunMain()
 end

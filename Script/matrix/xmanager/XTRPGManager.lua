@@ -1502,7 +1502,7 @@ XTRPGManagerCreator = function()
 
         local params = XTRPGConfigs.GetFunctionParams(functionId)
         local stageId = tonumber(params[1])
-        XLuaUiManager.Open("UiNewRoomSingle", stageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stageId)
     end
 
     function XTRPGManager.ReqFinishFunctionAfterFight(thirdAreaId)

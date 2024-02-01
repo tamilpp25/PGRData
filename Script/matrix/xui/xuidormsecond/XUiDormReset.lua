@@ -10,13 +10,13 @@ function XUiGridResetFurniture:Ctor(ui)
     self.TxtCount.gameObject:SetActiveEx(false)
     self.GridAttribute.gameObject:SetActiveEx(false)
     self.DynamicGrid = self.Transform:GetComponent("DynamicGrid")
-    self.BtnItem.CallBack = function() 
+    self.BtnItem.CallBack = function()
         self:OnBtnClick()
     end
 end
 
 function XUiGridResetFurniture:OnBtnClick()
-    
+
     self.ParentUi:OnGridClick(self, self.DynamicGrid.Index)
     local grid = XHomeDormManager.GetFurnitureObj(self.RoomId, self.FurnitureData.Id)
     if grid then
@@ -46,7 +46,7 @@ function XUiGridResetFurniture:Init(parentUi, rootUi)
     self.RootUi = rootUi
 end
 
---- 
+---
 ---@param furniture XHomeFurnitureData
 ---@return
 --------------------------
@@ -97,7 +97,7 @@ local XUiPanelSViewReform = require("XUi/XUiDorm/XUiFurnitureReform/XUiPanelSVie
 function XUiDormReset:OnAwake()
     self:InitUi()
     self:InitCb()
-end 
+end
 
 function XUiDormReset:OnStart(roomId, roomType)
     self.RoomId = roomId
@@ -106,7 +106,7 @@ function XUiDormReset:OnStart(roomId, roomType)
 
     XHomeCharManager.HideAllCharacter()
     XHomeCharManager.ReleaseAllCharLongPressTrigger()
-    
+
     XHomeDormManager.SetClickFurnitureCallback(function(furnitureObj)
         self:OnClickFurniture(furnitureObj)
     end)
@@ -114,11 +114,11 @@ function XUiDormReset:OnStart(roomId, roomType)
     --分数显示
     self.PanelTool.gameObject:SetActiveEx(self.IsOwnRoom)
     self:InitCamera()
-    
+
     self:RefreshRoomScore()
-    
+
     self:SetupDynamicTable()
-    
+
     XEventManager.AddEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.OnModify, self)
 end
 
@@ -143,6 +143,8 @@ function XUiDormReset:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_FURNITURE_ON_MODIFY, self.OnModify, self)
 
     CsXGameEventManager.Instance:Notify(XEventId.EVENT_DORM_FURNITURE_HIDE_ALL_ATTR_TAG_DETAIL)
+
+    CS.XCameraController.IsCheckOnPointOver = false
 end
 
 function XUiDormReset:OnGetEvents()
@@ -154,8 +156,8 @@ function XUiDormReset:OnGetEvents()
 end
 
 function XUiDormReset:OnNotify(evt, ...)
-    if evt == XEventId.EVENT_FURNITURE_ONDRAG_ITEM_CHANGED 
-            or evt == XEventId.EVENT_FURNITURE_CLEAN_ROOM 
+    if evt == XEventId.EVENT_FURNITURE_ONDRAG_ITEM_CHANGED
+            or evt == XEventId.EVENT_FURNITURE_CLEAN_ROOM
             or evt == XEventId.EVENT_FURNITURE_REFRESH then
         self:RefreshRoomScore()
     end
@@ -184,6 +186,8 @@ function XUiDormReset:InitUi()
     --
     self.SortFurnitureCb = handler(self, self.SortFurniture)
     self.GetItemIdCb = handler(self, self.GetItemId)
+
+    CS.XCameraController.IsCheckOnPointOver = true
 end
 
 ---@param furnitureObj XHomeFurnitureObj
@@ -292,14 +296,14 @@ function XUiDormReset:SetupDynamicTable()
         table.insert(list, data)
     end
     table.sort(list, self.SortFurnitureCb)
-    
+
     self.SViewFurniturePanel:Show(list, nil, self.RoomId, self.RoomType)
-end 
+end
 
 function XUiDormReset:SortFurniture(furnitureA, furnitureB)
     local templateA = XFurnitureConfigs.GetFurnitureTemplateById(furnitureA.ConfigId)
     local templateB = XFurnitureConfigs.GetFurnitureTemplateById(furnitureB.ConfigId)
-    
+
     local typeIdA = templateA.TypeId
     local typeIdB = templateB.TypeId
 
@@ -310,14 +314,14 @@ function XUiDormReset:SortFurniture(furnitureA, furnitureB)
     if furnitureA.ConfigId ~= furnitureB.ConfigId then
         return furnitureA.ConfigId < furnitureB.ConfigId
     end
-    
+
     local scoreA = furnitureA:GetScore()
     local scoreB = furnitureB:GetScore()
 
     if scoreA ~= scoreB then
         return scoreA > scoreB
     end
-    
+
     local scoreRA, scoreYA, scoreBA = furnitureA:GetRedScore(), furnitureA:GetYellowScore(), furnitureA:GetBlueScore()
     local scoreRB, scoreYB, scoreBB = furnitureB:GetRedScore(), furnitureB:GetYellowScore(), furnitureB:GetBlueScore()
 
@@ -332,7 +336,7 @@ function XUiDormReset:SortFurniture(furnitureA, furnitureB)
     if scoreBA ~= scoreBB then
         return scoreBA > scoreBB
     end
-    
+
     return furnitureA.Id < furnitureB.Id
 end
 

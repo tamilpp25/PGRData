@@ -2,6 +2,7 @@ local XUiGridActivityBanner = require("XUi/XUiFubenActivityBanner/XUiGridActivit
 local XUiFubenActivityBanner = XLuaUiManager.Register(XLuaUi, "UiFubenActivityBanner")
 
 function XUiFubenActivityBanner:OnAwake()
+    XLog.Error("[XUiFubenActivityBanner] 这个界面应该是弃用了，如果您发现没有，请通知ZLB，谢谢")
     self.DynamicTable = XDynamicTableNormal.New(self.PanelChapterList)
     self.DynamicTable:SetProxy(XUiGridActivityBanner)
     self.DynamicTable:SetDelegate(self)
@@ -114,8 +115,8 @@ function XUiFubenActivityBanner:ClickChapterGrid(chapter)
                 XLuaUiManager.Open("UiFubenRepeatchallenge")
             end
         )
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
-        self:OnClickRogueLikeActivity(chapter.Id)
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RogueLike then
+    --    self:OnClickRogueLikeActivity(chapter.Id)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.ArenaOnline then
         self:OnClicArenaOnlineActivity(chapter.Id)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.UnionKill then
@@ -174,8 +175,6 @@ function XUiFubenActivityBanner:ClickChapterGrid(chapter)
         self:OnClickEscape()
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.DoubleTowers then
         self:OnClickDoubleTowers()
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.GoldenMiner then
-        self:OnClickGoldenMiner()
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.RpgMakerGame then
         self:OnClickRpgMakerGame()
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.MultiDim then
@@ -225,7 +224,7 @@ function XUiFubenActivityBanner:OnClickSuperTower()
 end
 
 function XUiFubenActivityBanner:OnClickSuperSmashBros()
-    XDataCenter.SuperSmashBrosManager.JumpTo()
+    --XDataCenter.SuperSmashBrosManager.JumpTo()
 end
 
 function XUiFubenActivityBanner:OnClickNieR()
@@ -295,21 +294,21 @@ function XUiFubenActivityBanner:OnClickBabelTowerActivity()
     )
 end
 
-function XUiFubenActivityBanner:OnClickRogueLikeActivity(rogueLikeId)
-    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(rogueLikeId)
-
-    if not activityConfig then
-        return
-    end
-    if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
-        return
-    end
-    self.ParentUi:PushUi(
-        function()
-            XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
-        end
-    )
-end
+--function XUiFubenActivityBanner:OnClickRogueLikeActivity(rogueLikeId)
+--    local activityConfig = XFubenRogueLikeConfig.GetRogueLikeConfigById(rogueLikeId)
+--
+--    if not activityConfig then
+--        return
+--    end
+--    if activityConfig.FunctionalOpenId > 0 and (not XFunctionManager.DetectionFunction(activityConfig.FunctionalOpenId)) then
+--        return
+--    end
+--    self.ParentUi:PushUi(
+--        function()
+--            XDataCenter.FubenRogueLikeManager.OpenRogueLikeCheckStory()
+--        end
+--    )
+--end
 
 function XUiFubenActivityBanner:OnClicArenaOnlineActivity(chapterId)
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ArenaOnline) then
@@ -480,7 +479,7 @@ function XUiFubenActivityBanner:OnClickReform()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Reform) then
         return
     end
-    XDataCenter.Reform2ndManager.EnterRequest(
+    XMVCA.XReform:EnterRequest(
         function()
             self.ParentUi:PushUi(
                 function()
@@ -594,18 +593,6 @@ function XUiFubenActivityBanner:OnClickDoubleTowers()
     )
 end
 
---黄金矿工
-function XUiFubenActivityBanner:OnClickGoldenMiner()
-    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.GoldenMiner) then
-        return
-    end
-    self.ParentUi:PushUi(
-        function()
-            XDataCenter.GoldenMinerManager.OnOpenMain()
-        end
-    )
-end
-
 --推箱子小游戏
 function XUiFubenActivityBanner:OnClickRpgMakerGame()
     if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.RpgMakerActivity) then
@@ -637,7 +624,9 @@ function XUiFubenActivityBanner:OnClickTaikoMaster()
     end
     self.ParentUi:PushUi(
         function()
-            XDataCenter.TaikoMasterManager.OpenUi()
+            ---@type XTaikoMasterAgency
+            local agency = XMVCA:GetAgency(ModuleId.XTaikoMaster)
+            agency:ExOpenMainUi()
         end
     )
 end

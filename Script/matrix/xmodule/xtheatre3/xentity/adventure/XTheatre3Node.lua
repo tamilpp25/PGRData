@@ -4,6 +4,7 @@ local XTheatre3NodeSlot = require("XModule/XTheatre3/XEntity/Adventure/XTheatre3
 local XTheatre3Node = XClass(nil, "XTheatre3Node")
 
 function XTheatre3Node:Ctor()
+    self.ChapterId = 0
     self.NodeId = 0
     ---@type XTheatre3NodeSlot[]
     self.Slots = {}
@@ -47,16 +48,26 @@ end
 function XTheatre3Node:GetNodeId()
     return self.NodeId
 end
+
+function XTheatre3Node:GetChapterId()
+    return self.ChapterId
+end
 --endregion
 
 --region Checker
 function XTheatre3Node:CheckIsSelect()
     return self.IsSelect
 end
+
+function XTheatre3Node:CheckIsHaveSlot()
+    return not XTool.IsTableEmpty(self.Slots)
+end
 --endregion
 
 function XTheatre3Node:NotifyData(data)
+    self.ChapterId = data.ChapterId
     self.NodeId = data.NodeId
+    self.IsSelect = XTool.IsNumberValid(data.Selected)
     self:UpdateSlot(data.Slots)
 end
 

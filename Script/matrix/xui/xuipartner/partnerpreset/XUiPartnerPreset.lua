@@ -31,7 +31,7 @@ function XUiGridPartner:Refresh(partner, carriedDict, idx)
     end
     
     self.RImgHeadIcon:SetRawImage(partner:GetIcon())
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(partner:GetQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(partner:GetQuality()))
     self.PanelLv:GetObject("TxtLevel").text = partner:GetLevel()
     self.ImgLock.gameObject:SetActiveEx(partner:GetIsLock())
     self.ImgBreak:SetSprite(partner:GetBreakthroughIcon())
@@ -103,11 +103,11 @@ function XUiGridRoleTeam:SetHave(roleId)
         return
     end
     self.ImgIcon.gameObject:SetActiveEx(true)
-    local character = XDataCenter.CharacterManager.GetCharacter(roleId)
+    local character = XMVCA.XCharacter:GetCharacter(roleId)
     if not character then return end
 
-    self.ImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(roleId))
-    self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.ImgIcon:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(roleId))
+    self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 
     local hasPartner = XTool.IsNumberValid(self.PartnerId)
     self.RImgPartnerIcon.gameObject:SetActiveEx(hasPartner)
@@ -404,7 +404,7 @@ function XUiPartnerPreset:RefreshProperty(partner)
     local partnerId = partner:GetId()
     
     self.RImgPartnerIcon:SetRawImage(partner:GetIcon())
-    self.RawImageQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(partner:GetQuality()))
+    self.RawImageQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(partner:GetQuality()))
     self.TxtPartnerName.text = partner:GetName()
     self.TxtPartnerLevel.text = partner:GetLevel()
     self.TxtSelectAbil.text = partner:GetAbility()

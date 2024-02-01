@@ -12,10 +12,10 @@ end
 function XUiPanelRecord:SetTypeText()
     TypeText[XArrangeConfigs.Types.Item] = CS.XTextManager.GetText("TypeItem")
     TypeText[XArrangeConfigs.Types.Character] = function(templateId)
-        local characterType = XCharacterConfigs.GetCharacterType(templateId)
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        local characterType = XMVCA.XCharacter:GetCharacterType(templateId)
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             return CS.XTextManager.GetText("TypeCharacter")
-        elseif characterType == XCharacterConfigs.CharacterType.Isomer then
+        elseif characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             return CS.XTextManager.GetText("TypeIsomer")
         end
     end

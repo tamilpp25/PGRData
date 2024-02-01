@@ -28,6 +28,9 @@ function XUiGridCommon:Ctor(rootUi, ui)
     self:InitAutoScript()
     self.TextCount = XUiHelper.TryGetComponent(self.Transform, "TextCount", nil)
     self.ProxyClickFunc = nil
+    self.CustomItemTipFunc = nil
+    self._WeaopnFashionId = nil
+    self._ShowWeaopnFashionDesc = nil
 end
 
 function XUiGridCommon:Init(rootUi)
@@ -36,6 +39,16 @@ end
 
 function XUiGridCommon:SetProxyClickFunc(value)
     self.ProxyClickFunc = value
+end
+
+function XUiGridCommon:SetCustomItemTip(value)
+    self.CustomItemTipFunc = value
+end
+
+---【显示武器涂装】勾选框
+function XUiGridCommon:SetCustomWeaopnFashionId(fashionId, desc)
+    self._WeaopnFashionId = fashionId
+    self._ShowWeaopnFashionDesc = desc
 end
 
 -- auto
@@ -71,6 +84,8 @@ function XUiGridCommon:AutoInitUi()
     self.ImgNone = XUiHelper.TryGetComponent(self.Transform, "ImgNone", nil)
     -- 特殊标记
     self.PanelTag = XUiHelper.TryGetComponent(self.Transform, "PanelTag")
+    --赠品标记
+    self.GiftTag = XUiHelper.TryGetComponent(self.Transform, "CoatingTips")
 end
 
 function XUiGridCommon:AutoAddListener()
@@ -87,9 +102,9 @@ function XUiGridCommon:OnBtnClickClick()
         return
     end
     -- 匹配中
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        return
-    end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    return
+    --end
 
     if self.ProxyClickFunc then
         self.ProxyClickFunc()
@@ -134,7 +149,8 @@ function XUiGridCommon:OnBtnClickClick()
             buyData.GiftRewardId = self.Data.GiftRewardId
             buyData.BuyCallBack = self.Data.BuyCallBack
         end
-        XLuaUiManager.Open("UiFashionDetail", self.TemplateId, false, buyData)
+        -- WeaopnFashionId如果有值，则在界面左下角显示一个勾选框，勾选后显示该自定义武器涂装
+        XLuaUiManager.Open("UiFashionDetail", self.TemplateId, false, buyData, nil, nil, self._WeaopnFashionId, self._ShowWeaopnFashionDesc)
     elseif self.GoodsShowParams.RewardType == XRewardManager.XRewardType.Partner then
         --从Tips的ui跳转需要关闭Tips的UI
         if self.RootUi and self.RootUi.Ui.UiData.UiType == CsXUiType.Tips then
@@ -177,6 +193,10 @@ function XUiGridCommon:OnBtnClickClick()
         end
         
     else
+        if self.CustomItemTipFunc then
+            self.CustomItemTipFunc(self.Data and self.Data or self.TemplateId, self.HideSkipBtn, self.RootUi and self.RootUi.Name, self.LackNum)
+            return
+        end
         XLuaUiManager.Open("UiTip", self.Data and self.Data or self.TemplateId, self.HideSkipBtn, self.RootUi and self.RootUi.Name, self.LackNum)
     end
 end
@@ -382,9 +402,25 @@ function XUiGridCommon:Refresh(data, params, isBigIcon, hideSkipBtn, curCount)
         self:SetUiActive(self.TxtHave, isShowTextHave)
         self:SetUiActive(self.TxtCount, not isShowTextHave)
     end
-
+    
+    --赠品
+    if self.GiftTag then
+        if not XTool.IsTableEmpty(self.Data) then
+            self.GiftTag.gameObject:SetActiveEx(self.Data.IsGift and true or false)
+        else
+            self.GiftTag.gameObject:SetActiveEx(false)
+        end
+    end
+    
     --清除临时的同步数据
     self:ClearSynData()
+end
+
+function XUiGridCommon:ShowIcon(icon)
+    if self.RImgIcon then
+        self.RImgIcon:SetRawImage(icon)
+        self.RImgIcon.gameObject:SetActiveEx(true)
+    end
 end
 
 function XUiGridCommon:ShowCount(show)
@@ -569,6 +605,12 @@ function XUiGridCommon:RefreshNameplate()
             local prefab = self.GameObject:LoadPrefab(XMedalConfigs.XNameplatePanelPath)
             prefab.gameObject:SetActiveEx(false)
         end
+    end
+end
+
+function XUiGridCommon:SetNameplateEffectActive(isActive)
+    if self.PanelNamePlate then
+        self.PanelNamePlate:SetEffectActive(isActive)
     end
 end
 

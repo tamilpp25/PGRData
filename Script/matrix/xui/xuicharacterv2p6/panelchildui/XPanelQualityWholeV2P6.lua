@@ -1,11 +1,10 @@
 local XPanelQualityWholeV2P6 = XClass(XUiNode, "XPanelQualityWholeV2P6")
 
 function XPanelQualityWholeV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
     self:InitButton()
+    
+    local xUiPanelEvoSkillTips = require("XUi/XUiCharacterV2P6/Grid/XUiPanelEvoSkillTips")
+    self.PanelEvoSkillTips = xUiPanelEvoSkillTips.New(self.PanelEvoSkillTips, self)
 end
 
 function XPanelQualityWholeV2P6:InitButton()
@@ -15,14 +14,17 @@ end
 function XPanelQualityWholeV2P6:OnEnable()
     self.Parent.ParentUi:SetCamera(XEnumConst.CHARACTER.CameraV2P6.Quality)
     self.Parent.ParentUi.PanelModel:SetDynamicTableActive(true)
-    -- 进化演出锁
+    -- 进化技能提示
+    self.PanelEvoSkillTips:CheckShow(self.Parent.ParentUi.CurCharacter.Id)
+
+    -- 进化演出锁，进化球演出相关逻辑
     if self.Parent.IsEvoPerform then
         return
     end
     -- 自动定位到角色当前品质的品质球
     local characterId = self.Parent.ParentUi.CurCharacter.Id
     local character = self.Parent.ParentUi.CurCharacter
-    local initQuality = self.CharacterAgency:GetCharacterInitialQuality(characterId)
+    local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(characterId)
     local curLuaInex = character.Quality - initQuality + 1
     self.Parent.ParentUi.PanelModel:RefreshDynamicTable3D(curLuaInex)
 end

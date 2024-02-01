@@ -87,7 +87,7 @@ function XUiNewAutoFightDialog:InitCharacters(characterIds)
             end
 
             local img = transform:Find("ImgIcon"):GetComponent("RawImage")
-            local icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(id)
+            local icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(id)
             img:SetRawImage(icon)
             transform.gameObject:SetActiveEx(true)
         end

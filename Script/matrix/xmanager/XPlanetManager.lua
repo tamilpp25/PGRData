@@ -1,10 +1,7 @@
 local XExFubenActivityManager = require("XEntity/XFuben/XExFubenActivityManager")
 local XPlanetViewModel = require("XEntity/XPlanet/XPlanetViewModel")
 local XPlanetStageData = require("XEntity/XPlanet/XData/XPlanetStageData")
-local XPlanetMainScene = require("XEntity/XPlanet/XGameObject/XPlanetMainScene")
-local XPlanetStageScene = require("XEntity/XPlanet/XGameObject/XPlanetStageScene")
 local XPlanetTalentTeamData = require("XEntity/XPlanet/XData/XPlanetTalentTeamData")
-local XPlanetSceneCamera = require("XEntity/XPlanet/XData/XPlanetSceneCamera")
 
 XPlanetManagerCreator = function()
     ---@class XPlanetManager
@@ -21,9 +18,9 @@ XPlanetManagerCreator = function()
     ---@type XPlanetTalentTeamData
     local PlanetTalentTeam = XPlanetTalentTeamData.New()
 
-    ---@type table<number,CS.XIResource>
+    ---@type table<number, XIResource>
     local FloorMaterialDir = {}
-    ---@type table<number,CS.XIResource>
+    ---@type table<number, XIResource>
     local FloorEffectMaterialDir = {}
     local SceneCameraDir = {}
 
@@ -376,6 +373,7 @@ XPlanetManagerCreator = function()
     ---@return XPlanetSceneCamera
     function XPlanetManager.GetCamera(cameraId)
         if not SceneCameraDir[cameraId] then
+            local XPlanetSceneCamera = require("XEntity/XPlanet/XData/XPlanetSceneCamera")
             ---@type XPlanetSceneCamera
             local camera = XPlanetSceneCamera.New()
             camera:SetCameraId(cameraId)
@@ -717,6 +715,7 @@ XPlanetManagerCreator = function()
 
     ---加载场景,避免意外进入传统战斗时返回玩法场景报错
     function XPlanetManager.ResumeMainScene(cb)
+        local XPlanetMainScene = require("XEntity/XPlanet/XGameObject/XPlanetMainScene")
         PlanetMainScene = PlanetMainScene or XPlanetMainScene.New(nil, XPlanetWorldConfigs.GetTalentStageId())
         PlanetMainScene:Load(cb)
     end
@@ -743,6 +742,7 @@ XPlanetManagerCreator = function()
                 SetFirstOpenRed()
             end
             --设置全局光
+            local XPlanetMainScene = require("XEntity/XPlanet/XGameObject/XPlanetMainScene")
             PlanetMainScene = PlanetMainScene or XPlanetMainScene.New(nil, XPlanetWorldConfigs.GetTalentStageId())
 
             CS.UnityEngine.Resources.UnloadUnusedAssets()   -- 释放无用资源
@@ -852,6 +852,7 @@ XPlanetManagerCreator = function()
             if PlanetMainScene then
                 PlanetMainScene:SetActive(false)
             end
+            local XPlanetStageScene = require("XEntity/XPlanet/XGameObject/XPlanetStageScene")
             PlanetStageScene = PlanetStageScene or XPlanetStageScene.New(nil, PlanetStageData:GetStageId())
             --进入关卡默认不快速建造
             StageQuickBuildMode = false

@@ -5,28 +5,13 @@ local XUiAchvSysPanelBtn = {}
 
 local TempPanel
 
-local function InitBtnStory()
-    local btn = TempPanel.BtnStory
-    if not btn then return end
-    local reviewShowed = XDataCenter.ReviewActivityManager.GetReviewIsShown()
-    if not reviewShowed then
-        btn.gameObject:SetActiveEx(false)
-        return
-    end
-    btn.CallBack = function()
-        XDataCenter.ReviewActivityManager.GetReviewData(function()
-                XLuaUiManager.Open("UiReviewActivityAnniversary")
-            end)
-    end
-end
-
 local function InitBtnMedal()
     local btn = TempPanel.BtnMedal
     if not btn then return end
     btn:ShowReddot(XDataCenter.MedalManager.CheckHaveNewMedalByType(XMedalConfigs.ViewType.Medal))
     btn.CallBack = function()
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Medal) then
-            XLuaUiManager.Open("UiAchievementMedal")
+            XDataCenter.MedalManager.OpenUiMedalMain()
         end
     end
 end
@@ -48,14 +33,13 @@ local function InitBtnNameplate()
     btn:ShowReddot(XDataCenter.MedalManager.CkeckHaveNewNameplate())
     btn.CallBack = function()
         if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Nameplate) then
-            XLuaUiManager.Open("UiAchievementNameplate")
+            XDataCenter.MedalManager.OpenUiNameplateMain()
         end
     end
 end
 
 local function InitButtons()
     if not TempPanel then return end
-    InitBtnStory()
     InitBtnMedal()
     InitBtnCollection()
     InitBtnNameplate()

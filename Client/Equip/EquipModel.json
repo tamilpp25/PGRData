@@ -8917,7 +8917,7 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
-            "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P01/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P01/Uistand/Uistand.controller"
         ],
@@ -8942,7 +8942,7 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
-            "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P02/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P02/Uistand/Uistand.controller"
         ],
@@ -8967,7 +8967,7 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
-            "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P03/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P03/Uistand/Uistand.controller"
         ],
@@ -8992,7 +8992,7 @@
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
         "AnimController": [
-            "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P04/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller",
             "Assets/Product/Role/WeaponAnimation/Alpha/E3AlphaMd010011P04/Uistand/Uistand.controller"
         ],
@@ -9033,6 +9033,26 @@
             "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab",
             "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab",
             "Assets/Product/Role/WeaponPrefab/E3AlphaMd030011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Uistand/UiStand1.controller",
+            "Assets/Product/Role/WeaponAnimation/Alpha/AlphaMdCommon/Fight/Fight.controller"
+        ],
+        "UiAnimStateName": [
+            "Uistandstart"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 23470131,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd040011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd040011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3AlphaMd040011.prefab"
         ],
         "ResonanceEffectPath": [],
         "ResonanceEffectShowDelay": [],
@@ -9182,6 +9202,25 @@
             2435.0,
             2435.0
         ],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 23570111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3FanMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3FanMd020011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3FanMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Fan/E3FanMdCommon/Uistand/UiStand.controller",
+            "Assets/Product/Role/WeaponAnimation/Fan/E3FanMdCommon/Fight/Fight.controller",
+            "Assets/Product/Role/WeaponAnimation/Fan/E3FanMdCommon/Uistand/UiStand1.controller"
+        ],
+        "UiAnimStateName": [],
+        "UiAnimCueId": [],
         "UiAnimDelay": [],
         "UiAutoRotateDelay": []
     },
@@ -9758,6 +9797,25 @@
         "UiAutoRotateDelay": []
     },
     {
+        "Id": 23870121,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3LamiyaMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3LamiyaMd030011.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3LamiyaMd030011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Lamiya/E3LamiyaMd010011P01/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "Changestart01"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
         "Id": 13950111,
         "ModelName": [
             "Assets/Product/Role/WeaponPrefab/E3RockcannonMd010011.prefab",
@@ -10273,6 +10331,332 @@
         "UiAnimStateName": [
             "Loop01",
             "Changestart01"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14340111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "ChangeLoop"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14340112,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd010011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "ChangeLoop"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14350111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "ChangeLoop"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14350112,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E2CircleMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "ChangeLoop"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P01.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P01/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P01/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "Changestart01"
+        ],
+        "UiAnimCueId": [
+            2464.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360112,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP01.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P01.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P01/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P01/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "Changestart01"
+        ],
+        "UiAnimCueId": [
+            2464.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360121,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P02.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P02/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P02/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "Changestart02"
+        ],
+        "UiAnimCueId": [
+            2465.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360122,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP02.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P02.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P02/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P02/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "Changestart02"
+        ],
+        "UiAnimCueId": [
+            2465.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360131,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P03.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P03/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P03/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "Changestart03"
+        ],
+        "UiAnimCueId": [
+            2466.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360132,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP03.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P03.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P03/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P03/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "Changestart03"
+        ],
+        "UiAnimCueId": [
+            2466.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360141,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011LP04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P04.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P04/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P04/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "Changestart04"
+        ],
+        "UiAnimCueId": [
+            2467.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 14360142,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011RP04.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd010011P04.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P04/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/E3CircleMd010011P04/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "Changestart04"
+        ],
+        "UiAnimCueId": [
+            2467.0
+        ],
+        "UiAnimDelay": [
+            300.0
+        ],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 24370111,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011L.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1L.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartL",
+            "ChangeLoop"
+        ],
+        "UiAnimCueId": [],
+        "UiAnimDelay": [],
+        "UiAutoRotateDelay": []
+    },
+    {
+        "Id": 24370112,
+        "ModelName": [
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011R.prefab",
+            "Assets/Product/Role/WeaponPrefab/E3CircleMd020011.prefab"
+        ],
+        "ResonanceEffectPath": [],
+        "ResonanceEffectShowDelay": [],
+        "AnimController": [
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand1/Uistand1R.controller",
+            "Assets/Product/Role/WeaponAnimation/Circle/CircleMdCommon/Uistand/Uistand.controller"
+        ],
+        "UiAnimStateName": [
+            "UiStandstartR",
+            "ChangeLoop"
         ],
         "UiAnimCueId": [],
         "UiAnimDelay": [],

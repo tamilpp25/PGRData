@@ -12,8 +12,8 @@ XRoomCharFilterTipsManagerCreator = function()
 
     local function InitSortFunction()
         local LevelSort = function(idA, idB, isAscendOrder)
-            local levelA = XDataCenter.CharacterManager.GetCharacterLevel(idA)
-            local levelB = XDataCenter.CharacterManager.GetCharacterLevel(idB)
+            local levelA = XMVCA.XCharacter:GetCharacterLevel(idA)
+            local levelB = XMVCA.XCharacter:GetCharacterLevel(idB)
             local isSort = false
             if levelA ~= levelB then
                 isSort = true
@@ -26,8 +26,8 @@ XRoomCharFilterTipsManagerCreator = function()
         end
 
         local QualitySort = function(idA, idB, isAscendOrder)
-            local qualityA = XDataCenter.CharacterManager.GetCharacterQuality(idA)
-            local qualityB = XDataCenter.CharacterManager.GetCharacterQuality(idB)
+            local qualityA = XMVCA.XCharacter:GetCharacterQuality(idA)
+            local qualityB = XMVCA.XCharacter:GetCharacterQuality(idB)
             local isSort = false
             if qualityA ~= qualityB then
                 isSort = true
@@ -40,8 +40,8 @@ XRoomCharFilterTipsManagerCreator = function()
         end
 
         local AbilitySort = function(idA, idB, isAscendOrder)
-            local abilityA = XDataCenter.CharacterManager.GetCharacterHaveRobotAbilityById(idA)
-            local abilityB = XDataCenter.CharacterManager.GetCharacterHaveRobotAbilityById(idB)
+            local abilityA = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(idA)
+            local abilityB = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(idB)
             local isSort = false
             if abilityA ~= abilityB then
                 isSort = true
@@ -93,8 +93,8 @@ XRoomCharFilterTipsManagerCreator = function()
                 end
             end
 
-            local priorityA = XCharacterConfigs.GetCharacterPriority(idA)
-            local priorityB = XCharacterConfigs.GetCharacterPriority(idB)
+            local priorityA = XMVCA.XCharacter:GetCharacterPriority(idA)
+            local priorityB = XMVCA.XCharacter:GetCharacterPriority(idB)
             if priorityA ~= priorityB then
                 if isAscendOrder then
                     return priorityA < priorityB
@@ -129,14 +129,14 @@ XRoomCharFilterTipsManagerCreator = function()
 
     local function GetSelectTagByCharacterType(characterType)
         if not characterType then
-            characterType = XCharacterConfigs.CharacterType.Normal
+            characterType = XEnumConst.CHARACTER.CharacterType.Normal
         end
         return CharacterTypeDic[characterType] and CharacterTypeDic[characterType]["SelectTag"] or {}
     end
 
     local function GetSortTagByCharacterType(characterType)
         if not characterType then
-            characterType = XCharacterConfigs.CharacterType.Normal
+            characterType = XEnumConst.CHARACTER.CharacterType.Normal
         end
         return CharacterTypeDic[characterType] and CharacterTypeDic[characterType]["SortTag"]
     end
@@ -165,7 +165,7 @@ XRoomCharFilterTipsManagerCreator = function()
     --- 使用缓存
     function XRoomCharFilterTipsManager.UseTemp(characterType)
         if not characterType then
-            characterType = XCharacterConfigs.CharacterType.Normal
+            characterType = XEnumConst.CHARACTER.CharacterType.Normal
         end
         if not CharacterTypeDic[characterType] then
             CharacterTypeDic[characterType] = {}
@@ -223,8 +223,8 @@ XRoomCharFilterTipsManagerCreator = function()
             return true
         end
 
-        local career = XCharacterConfigs.GetCharDetailCareer(templateId)
-        local obtainElementList = XCharacterConfigs.GetCharDetailObtainElementList(templateId)
+        local career = XMVCA.XCharacter:GetCharDetailCareer(templateId)
+        local obtainElementList = XMVCA.XCharacter:GetCharDetailObtainElementList(templateId)
         local tagValue
         local isFill
         for groupId, filterTagIdDic in pairs(selectTag) do
@@ -288,7 +288,7 @@ XRoomCharFilterTipsManagerCreator = function()
         local characterType
         local characterId = GetCharacterIdByValueType(allCharList[1])
         if characterId then
-            characterType = XCharacterConfigs.GetCharacterType(GetCharacterIdByValueType(allCharList[1])) or XCharacterConfigs.CharacterType.Normal
+            characterType = XMVCA.XCharacter:GetCharacterType(GetCharacterIdByValueType(allCharList[1])) or XEnumConst.CHARACTER.CharacterType.Normal
         end
         -- 遍历选择的标签
         for groupId, tagDic in pairs(selectTagGroupDic) do

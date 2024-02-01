@@ -1,5 +1,6 @@
 local XUiPanelExpBar = require("XUi/XUiSettleWinMainLine/XUiPanelExpBar")
 
+---@class XUiGridSettleWinRole
 XUiGridWinRole = XClass(nil, "XUiGridWinRole")
 
 function XUiGridWinRole:Ctor(rootUi, ui)
@@ -18,7 +19,7 @@ function XUiGridWinRole:UpdateRoleInfo(charExpData, addExp)
         self:UpdateRobotInfo(charId)
         return
     else
-        char = XDataCenter.CharacterManager.GetCharacter(charId)
+        char = XMVCA.XCharacter:GetCharacter(charId)
     end
 
     if char == nil then
@@ -27,15 +28,15 @@ function XUiGridWinRole:UpdateRoleInfo(charExpData, addExp)
 
     local lastLevel = charExpData.Level
     local lastExp = charExpData.Exp
-    local lastMaxExp = XCharacterConfigs.GetNextLevelExp(charId, lastLevel)
+    local lastMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, lastLevel)
     local curLevel = char.Level
     local curExp = char.Exp
-    local curMaxExp = XCharacterConfigs.GetNextLevelExp(charId, curLevel)
+    local curMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, curLevel)
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, addExp)
     self.PlayerExpBar:SetShareTag(false)
 
-    local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(charId)
+    local icon = XMVCA.XCharacter:GetCharBigHeadIcon(charId)
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end
@@ -52,7 +53,7 @@ function XUiGridWinRole:UpdateRobotInfo(robotId)
     self.PlayerExpBar:LetsRoll(curLevel, curExp, maxExp, curLevel, curExp, maxExp, addExp)
     self.PlayerExpBar:SetShareTag(false)
 
-    local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(data.CharacterId)
+    local icon = XMVCA.XCharacter:GetCharBigHeadIcon(data.CharacterId)
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end
@@ -63,16 +64,16 @@ function XUiGridWinRole:UpdateShareRoleInfo(shareRoleInfo)
     local charId = shareRoleInfo.Id
     local lastLevel = shareRoleInfo.Level
     local lastExp = shareRoleInfo.Exp
-    local lastMaxExp = XCharacterConfigs.GetNextLevelExp(charId, lastLevel)
+    local lastMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, lastLevel)
     local curLevel = shareRoleInfo.Level
     local curExp = shareRoleInfo.Exp
-    local curMaxExp = XCharacterConfigs.GetNextLevelExp(charId, curLevel)
+    local curMaxExp = XMVCA.XCharacter:GetNextLevelExp(charId, curLevel)
 
     self.PlayerExpBar = self.PlayerExpBar or XUiPanelExpBar.New(self.PanelPlayerExpBar)
     self.PlayerExpBar:LetsRoll(lastLevel, lastExp, lastMaxExp, curLevel, curExp, curMaxExp, 0)
     self.PlayerExpBar:SetShareTag(true)
 
-    local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(charId)
+    local icon = XMVCA.XCharacter:GetCharBigHeadIcon(charId)
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end
@@ -96,9 +97,17 @@ function XUiGridWinRole:UpdateNieRRobotInfo(robotId)
         local nierCharacter = XDataCenter.NieRManager.GetNieRCharacterByCharacterId(nierCharacterId)
         icon = XDataCenter.FashionManager.GetFashionBigHeadIcon(nierCharacter:GetNieRFashionId())
     else
-        icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(data.CharacterId)
+        icon = XMVCA.XCharacter:GetCharBigHeadIcon(data.CharacterId)
     end
     
+    if icon then
+        self.RImgIcon:SetRawImage(icon)
+    end
+end
+
+function XUiGridWinRole:UpdateTaikoRoleInfo(robotId)
+    self.PanelPlayerExpBar.gameObject:SetActiveEx(false)
+    local icon = XCharacterCuteConfig.GetCuteModelSmallHeadIcon(XRobotManager.GetCharacterId(robotId))
     if icon then
         self.RImgIcon:SetRawImage(icon)
     end

@@ -11,7 +11,8 @@
         "OptionNextStepGroupId": 10101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 2,
@@ -25,7 +26,8 @@
         "OptionNextStepGroupId": 10102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 3,
@@ -39,7 +41,8 @@
         "OptionNextStepGroupId": 10103,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 4,
@@ -53,7 +56,8 @@
         "OptionNextStepGroupId": 20101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 5,
@@ -67,7 +71,8 @@
         "OptionNextStepGroupId": 20102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 6,
@@ -81,7 +86,8 @@
         "OptionNextStepGroupId": 30201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 7,
@@ -95,7 +101,8 @@
         "OptionNextStepGroupId": 30202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 8,
@@ -109,7 +116,8 @@
         "OptionNextStepGroupId": 40201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 9,
@@ -123,7 +131,8 @@
         "OptionNextStepGroupId": 40202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 10,
@@ -137,7 +146,8 @@
         "OptionNextStepGroupId": 50201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 11,
@@ -151,7 +161,8 @@
         "OptionNextStepGroupId": 50202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 12,
@@ -169,7 +180,8 @@
         "OptionNextStepGroupId": 60101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 13,
@@ -183,10 +195,30 @@
         "OptionNextStepGroupId": 60102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
         "Id": 14,
+        "GroupId": 601,
+        "OptionDesc": "\u4f5c\u5f0a",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9029.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 60103,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020285.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 15,
         "GroupId": 609,
         "OptionDesc": "\u7ee7\u7eed\u8fd0\u884c",
         "OptionDownDesc": null,
@@ -201,10 +233,11 @@
         "OptionNextStepGroupId": 60901,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 15,
+        "Id": 16,
         "GroupId": 609,
         "OptionDesc": "\u8fd8\u662f\u7b97\u4e86",
         "OptionDownDesc": null,
@@ -215,10 +248,30 @@
         "OptionNextStepGroupId": 60902,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 16,
+        "Id": 17,
+        "GroupId": 609,
+        "OptionDesc": "\u7ee7\u7eed\u4f5c\u5f0a",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9029.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 60903,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020285.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 18,
         "GroupId": 617,
         "OptionDesc": "\u7ee7\u7eed\u8fd0\u884c",
         "OptionDownDesc": null,
@@ -233,10 +286,11 @@
         "OptionNextStepGroupId": 61701,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 17,
+        "Id": 19,
         "GroupId": 617,
         "OptionDesc": "\u8fd8\u662f\u7b97\u4e86",
         "OptionDownDesc": null,
@@ -247,10 +301,30 @@
         "OptionNextStepGroupId": 61702,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 18,
+        "Id": 20,
+        "GroupId": 617,
+        "OptionDesc": "\u7ee7\u7eed\u4f5c\u5f0a",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9029.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 61703,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020285.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 21,
         "GroupId": 625,
         "OptionDesc": "\u7ee7\u7eed\u8fd0\u884c",
         "OptionDownDesc": null,
@@ -265,10 +339,11 @@
         "OptionNextStepGroupId": 62501,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 19,
+        "Id": 22,
         "GroupId": 625,
         "OptionDesc": "\u8fd8\u662f\u7b97\u4e86",
         "OptionDownDesc": null,
@@ -279,10 +354,342 @@
         "OptionNextStepGroupId": 62502,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 20,
+        "Id": 23,
+        "GroupId": 625,
+        "OptionDesc": "\u7ee7\u7eed\u4f5c\u5f0a",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9029.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 62503,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020285.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 24,
+        "GroupId": 701,
+        "OptionDesc": "\u540c\u610f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 70101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 25,
+        "GroupId": 701,
+        "OptionDesc": "\u79bb\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 70102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 26,
+        "GroupId": 703,
+        "OptionDesc": "<color=#EA4323>\u300c\u7687\u540e\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 70301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 27,
+        "GroupId": 703,
+        "OptionDesc": "<color=#FBBC05>\u300c\u5973\u4ec6\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 70302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 28,
+        "GroupId": 703,
+        "OptionDesc": " <color=#34A853>\u300c\u732b\u5a18\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 70303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 29,
+        "GroupId": 713,
+        "OptionDesc": "\u7ee7\u7eed",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            50.0
+        ],
+        "OptionNextStepGroupId": 71301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 30,
+        "GroupId": 713,
+        "OptionDesc": "\u79bb\u684c",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 71302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 31,
+        "GroupId": 714,
+        "OptionDesc": "<color=#EA4323>\u300c\u7687\u540e\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 71401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 32,
+        "GroupId": 714,
+        "OptionDesc": "<color=#FBBC05>\u300c\u5973\u4ec6\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 71402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 33,
+        "GroupId": 714,
+        "OptionDesc": " <color=#34A853>\u300c\u732b\u5a18\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 71403,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 34,
+        "GroupId": 724,
+        "OptionDesc": "\u7ee7\u7eed",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            100.0
+        ],
+        "OptionNextStepGroupId": 72401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 35,
+        "GroupId": 724,
+        "OptionDesc": "\u79bb\u684c",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 72402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 36,
+        "GroupId": 725,
+        "OptionDesc": "<color=#EA4323>\u300c\u7687\u540e\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 72501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 37,
+        "GroupId": 725,
+        "OptionDesc": "<color=#FBBC05>\u300c\u5973\u4ec6\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 72502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 38,
+        "GroupId": 725,
+        "OptionDesc": " <color=#34A853>\u300c\u732b\u5a18\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 72503,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 39,
+        "GroupId": 735,
+        "OptionDesc": "\u68ad\u54c8",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            150.0
+        ],
+        "OptionNextStepGroupId": 73501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 40,
+        "GroupId": 735,
+        "OptionDesc": "\u79bb\u684c",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 73502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 41,
+        "GroupId": 736,
+        "OptionDesc": "<color=#EA4323>\u300c\u7687\u540e\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 73601,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 42,
+        "GroupId": 736,
+        "OptionDesc": "<color=#FBBC05>\u300c\u5973\u4ec6\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 73602,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 43,
+        "GroupId": 736,
+        "OptionDesc": " <color=#34A853>\u300c\u732b\u5a18\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 73603,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 44,
         "GroupId": 30102,
         "OptionDesc": "\u547c\u558a\u6d01\u5854\u8587\u8eb2\u5f00",
         "OptionDownDesc": null,
@@ -293,10 +700,11 @@
         "OptionNextStepGroupId": 3010201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 21,
+        "Id": 45,
         "GroupId": 30202,
         "OptionDesc": "\u68c0\u67e5\u6d01\u5854\u8587\u7684\u8eab\u4f53",
         "OptionDownDesc": null,
@@ -307,10 +715,11 @@
         "OptionNextStepGroupId": 3020201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 22,
+        "Id": 46,
         "GroupId": 30202,
         "OptionDesc": "\u8be2\u95ee\u6d01\u5854\u8587\u600e\u4e48\u6837",
         "OptionDownDesc": null,
@@ -321,10 +730,11 @@
         "OptionNextStepGroupId": 3020202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 23,
+        "Id": 47,
         "GroupId": 30203,
         "OptionDesc": "\u8be2\u95ee\u90a3\u4e2a\u70d9\u5370",
         "OptionDownDesc": null,
@@ -335,10 +745,11 @@
         "OptionNextStepGroupId": 3020301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 24,
+        "Id": 48,
         "GroupId": 30203,
         "OptionDesc": "\u8be2\u95ee\u5979\u75bc\u4e0d\u75bc",
         "OptionDownDesc": null,
@@ -349,10 +760,11 @@
         "OptionNextStepGroupId": 3020302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 25,
+        "Id": 49,
         "GroupId": 30208,
         "OptionDesc": "\u4f11\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
         "OptionDownDesc": null,
@@ -363,10 +775,11 @@
         "OptionNextStepGroupId": 3020801,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 26,
+        "Id": 50,
         "GroupId": 30208,
         "OptionDesc": "\u76f4\u63a5\u51fa\u53d1",
         "OptionDownDesc": null,
@@ -377,10 +790,11 @@
         "OptionNextStepGroupId": 3020802,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 27,
+        "Id": 51,
         "GroupId": 30302,
         "OptionDesc": "\u63a8\u5f00\u6d01\u5854\u8587",
         "OptionDownDesc": null,
@@ -391,10 +805,11 @@
         "OptionNextStepGroupId": 3030201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 28,
+        "Id": 52,
         "GroupId": 30403,
         "OptionDesc": "\u95ee\u5979\u4e3a\u4ec0\u4e48\u63cd\u4f60",
         "OptionDownDesc": null,
@@ -405,10 +820,11 @@
         "OptionNextStepGroupId": 3040301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 29,
+        "Id": 53,
         "GroupId": 30403,
         "OptionDesc": "\u95ee\u5979\u4e3a\u4ec0\u4e48\u62b1\u4f60",
         "OptionDownDesc": null,
@@ -419,10 +835,11 @@
         "OptionNextStepGroupId": 3040302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 30,
+        "Id": 54,
         "GroupId": 30409,
         "OptionDesc": "\u4f11\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
         "OptionDownDesc": null,
@@ -433,10 +850,11 @@
         "OptionNextStepGroupId": 3040901,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 31,
+        "Id": 55,
         "GroupId": 30409,
         "OptionDesc": "\u76f4\u63a5\u51fa\u53d1",
         "OptionDownDesc": null,
@@ -447,10 +865,11 @@
         "OptionNextStepGroupId": 3040902,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 32,
+        "Id": 56,
         "GroupId": 50102,
         "OptionDesc": "\u63e1\u7d27\u6d01\u5854\u8587\u7684\u624b",
         "OptionDownDesc": null,
@@ -461,12 +880,13 @@
         "OptionNextStepGroupId": 5010201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 33,
+        "Id": 57,
         "GroupId": 50201,
-        "OptionDesc": "\u62ff\u51fa\u79d8\u94a5",
+        "OptionDesc": "\u62ff\u51fa<color=#b73a3a>\u300c\u6743\u9650\u79d8\u94a5\u300d</color>",
         "OptionDownDesc": null,
         "OptionType": 2,
         "OptionItemType": 2.0,
@@ -479,10 +899,11 @@
         "OptionNextStepGroupId": 5020101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 34,
+        "Id": 58,
         "GroupId": 60102,
         "OptionDesc": "\u5e76\u80a9\u524d\u884c",
         "OptionDownDesc": null,
@@ -493,10 +914,11 @@
         "OptionNextStepGroupId": 6010201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 35,
+        "Id": 59,
         "GroupId": 100101,
         "OptionDesc": "\u671d\u58f0\u97f3\u6e90\u5934\u63a2\u7d22",
         "OptionDownDesc": null,
@@ -507,10 +929,11 @@
         "OptionNextStepGroupId": 10010101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 36,
+        "Id": 60,
         "GroupId": 100101,
         "OptionDesc": "\u5c31\u5730\u56de\u6536\u5de5\u5177\u7bb1",
         "OptionDownDesc": null,
@@ -521,10 +944,11 @@
         "OptionNextStepGroupId": 10010102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 37,
+        "Id": 61,
         "GroupId": 100102,
         "OptionDesc": "\u62c6\u4e0b\u5b83\u7684\u663e\u793a\u5c4f",
         "OptionDownDesc": null,
@@ -535,10 +959,11 @@
         "OptionNextStepGroupId": 10010201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 38,
+        "Id": 62,
         "GroupId": 100102,
         "OptionDesc": "\u539f\u8def\u8fd4\u56de",
         "OptionDownDesc": null,
@@ -549,10 +974,11 @@
         "OptionNextStepGroupId": 10010202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 39,
+        "Id": 63,
         "GroupId": 100201,
         "OptionDesc": "\u53bb\u82b1\u56ed\u91cc\u6d47\u6c34",
         "OptionDownDesc": null,
@@ -563,10 +989,11 @@
         "OptionNextStepGroupId": 10020101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 40,
+        "Id": 64,
         "GroupId": 100201,
         "OptionDesc": "\u62ff\u7740\u82af\u7247\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -577,10 +1004,26 @@
         "OptionNextStepGroupId": 10020102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 41,
+        "Id": 65,
+        "GroupId": 100201,
+        "OptionDesc": "\u53bb\u4e66\u623f\u770b\u4e00\u770b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 10020103,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 66,
         "GroupId": 101101,
         "OptionDesc": "\u8fd1\u8ddd\u79bb\u89c2\u8d4f\u65ad\u81c2\u7ef4\u7eb3\u65af",
         "OptionDownDesc": null,
@@ -591,10 +1034,11 @@
         "OptionNextStepGroupId": 10110101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 42,
+        "Id": 67,
         "GroupId": 101101,
         "OptionDesc": "\u8fd1\u8ddd\u79bb\u89c2\u8d4f\u5927\u536b\u7684\u4eff\u54c1",
         "OptionDownDesc": null,
@@ -605,10 +1049,11 @@
         "OptionNextStepGroupId": 10110102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 43,
+        "Id": 68,
         "GroupId": 101103,
         "OptionDesc": "\u53d6\u8d70\u80f6\u56ca",
         "OptionDownDesc": null,
@@ -619,10 +1064,11 @@
         "OptionNextStepGroupId": 10110301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 44,
+        "Id": 69,
         "GroupId": 101103,
         "OptionDesc": "\u4fdd\u6301\u539f\u6837",
         "OptionDownDesc": null,
@@ -633,10 +1079,11 @@
         "OptionNextStepGroupId": 10110302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 45,
+        "Id": 70,
         "GroupId": 200103,
         "OptionDesc": "\u68c0\u89c6\u9ad8\u5927\u7684\u718a\u5e03\u5076",
         "OptionDownDesc": null,
@@ -647,10 +1094,11 @@
         "OptionNextStepGroupId": 20010301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 46,
+        "Id": 71,
         "GroupId": 200103,
         "OptionDesc": "\u68c0\u89c6\u62a4\u58eb\u88c5\u7684\u4eba\u5f62",
         "OptionDownDesc": null,
@@ -661,10 +1109,11 @@
         "OptionNextStepGroupId": 20010302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 47,
+        "Id": 72,
         "GroupId": 200103,
         "OptionDesc": "\u8f6c\u5934\u770b\u5411\u81ea\u5df1\u80cc\u540e",
         "OptionDownDesc": null,
@@ -675,10 +1124,11 @@
         "OptionNextStepGroupId": 20010303,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 48,
+        "Id": 73,
         "GroupId": 200201,
         "OptionDesc": "\u62ff\u51fa\u4e00\u4e9b\u7b97\u529b\u5355\u5143\u7ed9\u4ed6",
         "OptionDownDesc": null,
@@ -693,10 +1143,11 @@
         "OptionNextStepGroupId": 20020101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 49,
+        "Id": 74,
         "GroupId": 200201,
         "OptionDesc": "\u62d2\u7edd\u4ea4\u6362\uff0c\u5c31\u6b64\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -707,10 +1158,11 @@
         "OptionNextStepGroupId": 20020102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 50,
+        "Id": 75,
         "GroupId": 201101,
         "OptionDesc": "\u62d2\u7edd\u5c55\u793a\u80f6\u56ca",
         "OptionDownDesc": null,
@@ -721,10 +1173,11 @@
         "OptionNextStepGroupId": 20110101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 51,
+        "Id": 76,
         "GroupId": 201101,
         "OptionDesc": "\u5c55\u793a\u80f6\u56ca",
         "OptionDownDesc": null,
@@ -735,10 +1188,11 @@
         "OptionNextStepGroupId": 20110102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 52,
+        "Id": 77,
         "GroupId": 201102,
         "OptionDesc": "\u6536\u8d77\u80f6\u56ca\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -749,10 +1203,11 @@
         "OptionNextStepGroupId": 20110201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 53,
+        "Id": 78,
         "GroupId": 201102,
         "OptionDesc": "\u63a5\u8fc7\u6c34\u54bd\u4e0b\u80f6\u56ca",
         "OptionDownDesc": null,
@@ -767,10 +1222,11 @@
         "OptionNextStepGroupId": 20110202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 54,
+        "Id": 79,
         "GroupId": 201202,
         "OptionDesc": "\u5e2e\u52a9\u4ed6",
         "OptionDownDesc": null,
@@ -781,10 +1237,11 @@
         "OptionNextStepGroupId": 20120201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 55,
+        "Id": 80,
         "GroupId": 201202,
         "OptionDesc": "\u629b\u4e0b\u4ed6",
         "OptionDownDesc": null,
@@ -795,10 +1252,11 @@
         "OptionNextStepGroupId": 20120202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 56,
+        "Id": 81,
         "GroupId": 201302,
         "OptionDesc": "\u5e26\u5973\u5b69\u56de\u53bb\u627e\u5979\u5f1f\u5f1f",
         "OptionDownDesc": null,
@@ -809,10 +1267,11 @@
         "OptionNextStepGroupId": 20130201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 57,
+        "Id": 82,
         "GroupId": 201302,
         "OptionDesc": "\u8be2\u95ee\u5973\u5b69\u6606\u866b\u7684\u54c1\u79cd",
         "OptionDownDesc": null,
@@ -823,10 +1282,11 @@
         "OptionNextStepGroupId": 20130202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 58,
+        "Id": 83,
         "GroupId": 300101,
         "OptionDesc": "\u526a\u65ad\u7535\u6e90\u7ebf\u89e3\u6551\u5b83",
         "OptionDownDesc": null,
@@ -837,10 +1297,11 @@
         "OptionNextStepGroupId": 30010101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 59,
+        "Id": 84,
         "GroupId": 300101,
         "OptionDesc": "\u4f18\u5148\u542f\u52a8\u6863\u6848\u5e93",
         "OptionDownDesc": null,
@@ -851,10 +1312,11 @@
         "OptionNextStepGroupId": 30010102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 60,
+        "Id": 85,
         "GroupId": 300201,
         "OptionDesc": "\u63a5\u5165\u6e38\u620f\u673a\u7ec8\u7aef",
         "OptionDownDesc": null,
@@ -865,10 +1327,11 @@
         "OptionNextStepGroupId": 30020101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 61,
+        "Id": 86,
         "GroupId": 300201,
         "OptionDesc": "\u53d6\u8d70\u6e38\u620f\u673a\u7684\u82af\u7247",
         "OptionDownDesc": null,
@@ -879,10 +1342,11 @@
         "OptionNextStepGroupId": 30020102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 62,
+        "Id": 87,
         "GroupId": 300301,
         "OptionDesc": "\u6253\u5f00\u5b9e\u9a8c\u65e5\u5fd7\u9605\u8bfb",
         "OptionDownDesc": null,
@@ -893,10 +1357,11 @@
         "OptionNextStepGroupId": 30030101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 63,
+        "Id": 88,
         "GroupId": 300301,
         "OptionDesc": "\u7ffb\u8d70\u53e3\u888b\u4e2d\u7684\u91d1\u5e01",
         "OptionDownDesc": null,
@@ -907,10 +1372,11 @@
         "OptionNextStepGroupId": 30030102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 64,
+        "Id": 89,
         "GroupId": 301103,
         "OptionDesc": "\u8fdb\u5165\u6218\u6597",
         "OptionDownDesc": null,
@@ -921,10 +1387,11 @@
         "OptionNextStepGroupId": 30110301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 65,
+        "Id": 90,
         "GroupId": 301103,
         "OptionDesc": "\u9003\u79bb\u8fd9\u91cc",
         "OptionDownDesc": null,
@@ -935,10 +1402,11 @@
         "OptionNextStepGroupId": 30110302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 66,
+        "Id": 91,
         "GroupId": 301202,
         "OptionDesc": "\u6495\u5f00\u5de8\u5e45\u6cb9\u753b",
         "OptionDownDesc": null,
@@ -949,10 +1417,11 @@
         "OptionNextStepGroupId": 30120201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 67,
+        "Id": 92,
         "GroupId": 301202,
         "OptionDesc": "\u5148\u539f\u5730\u7761\u4e00\u89c9",
         "OptionDownDesc": null,
@@ -963,10 +1432,11 @@
         "OptionNextStepGroupId": 30120202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 68,
+        "Id": 93,
         "GroupId": 301302,
         "OptionDesc": "\u4e0d\u7406\u4f1a\u53ef\u601c\u7684\u7537\u4eba",
         "OptionDownDesc": null,
@@ -977,10 +1447,11 @@
         "OptionNextStepGroupId": 30130201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 69,
+        "Id": 94,
         "GroupId": 301302,
         "OptionDesc": "\u8be2\u95ee\u4ed6\u5173\u4e8e\u602a\u7269\u7684\u4e8b",
         "OptionDownDesc": null,
@@ -991,10 +1462,11 @@
         "OptionNextStepGroupId": 30130202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 70,
+        "Id": 95,
         "GroupId": 301304,
         "OptionDesc": "\u66ff\u7537\u4eba\u7ee7\u7eed\u8ffd\u8e2a\u602a\u7269",
         "OptionDownDesc": null,
@@ -1005,10 +1477,11 @@
         "OptionNextStepGroupId": 30130401,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 71,
+        "Id": 96,
         "GroupId": 301304,
         "OptionDesc": "\u7b80\u5355\u5b89\u6170\u5bf9\u65b9\u540e\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -1019,10 +1492,11 @@
         "OptionNextStepGroupId": 30130402,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 72,
+        "Id": 97,
         "GroupId": 301402,
         "OptionDesc": "\u8c03\u67e5\u800d\u8774\u8776\u5200\u7684\u7070\u53d1\u7537\u5b69",
         "OptionDownDesc": null,
@@ -1033,10 +1507,11 @@
         "OptionNextStepGroupId": 30140201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 73,
+        "Id": 98,
         "GroupId": 301402,
         "OptionDesc": "\u8c03\u67e5\u7f29\u5728\u5899\u89d2\u7684\u7d2b\u53d1\u5c11\u5973",
         "OptionDownDesc": null,
@@ -1047,10 +1522,11 @@
         "OptionNextStepGroupId": 30140202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 74,
+        "Id": 99,
         "GroupId": 301402,
         "OptionDesc": "\u8c03\u67e5\u6d3b\u6cfc\u5f00\u6717\u7684\u7c89\u53d1\u8389\u8389",
         "OptionDownDesc": null,
@@ -1061,10 +1537,11 @@
         "OptionNextStepGroupId": 30140203,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 75,
+        "Id": 100,
         "GroupId": 301502,
         "OptionDesc": "\u62d2\u7edd\u8389\u8389\u7684\u8bf7\u6c42",
         "OptionDownDesc": null,
@@ -1075,10 +1552,11 @@
         "OptionNextStepGroupId": 30150201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 76,
+        "Id": 101,
         "GroupId": 301502,
         "OptionDesc": "\u63a5\u53d7\u8389\u8389\u7684\u8bf7\u6c42",
         "OptionDownDesc": null,
@@ -1093,10 +1571,11 @@
         "OptionNextStepGroupId": 30150202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 77,
+        "Id": 102,
         "GroupId": 400101,
         "OptionDesc": "\u63a5\u53d7\u5c11\u5973\u7684\u597d\u610f",
         "OptionDownDesc": null,
@@ -1107,10 +1586,11 @@
         "OptionNextStepGroupId": 40010101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 78,
+        "Id": 103,
         "GroupId": 400101,
         "OptionDesc": "\u6380\u5f00\u5c11\u5973\u7684\u9762\u7eb1",
         "OptionDownDesc": null,
@@ -1121,10 +1601,26 @@
         "OptionNextStepGroupId": 40010102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 79,
+        "Id": 104,
+        "GroupId": 400101,
+        "OptionDesc": "\u63d0\u8d77\u6811\u7684\u6b7b\u4ea1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 40010103,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020229.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 105,
         "GroupId": 400105,
         "OptionDesc": "\u8be2\u95ee\u5979\u53d1\u751f\u4e86\u4ec0\u4e48",
         "OptionDownDesc": null,
@@ -1135,10 +1631,11 @@
         "OptionNextStepGroupId": 40010501,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 80,
+        "Id": 106,
         "GroupId": 400105,
         "OptionDesc": "\u4e0d\u518d\u8fc7\u95ee\u8f6c\u8eab\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -1149,10 +1646,11 @@
         "OptionNextStepGroupId": 40010502,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 81,
+        "Id": 107,
         "GroupId": 400106,
         "OptionDesc": "\u63a5\u53d7\u7977\u544a",
         "OptionDownDesc": null,
@@ -1163,10 +1661,11 @@
         "OptionNextStepGroupId": 40010601,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 82,
+        "Id": 108,
         "GroupId": 400106,
         "OptionDesc": "\u62d2\u7edd\u5979",
         "OptionDownDesc": null,
@@ -1177,10 +1676,41 @@
         "OptionNextStepGroupId": 40010602,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 83,
+        "Id": 109,
+        "GroupId": 400111,
+        "OptionDesc": "\u5236\u670d\u5bf9\u65b9",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 40011101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 110,
+        "GroupId": 400111,
+        "OptionDesc": "\u5411\u5979\u9053\u6b49",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 40011102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 111,
         "GroupId": 400202,
         "OptionDesc": "\u8ba9\u5979\u8bd5\u8bd5",
         "OptionDownDesc": null,
@@ -1191,10 +1721,11 @@
         "OptionNextStepGroupId": 40020201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 84,
+        "Id": 112,
         "GroupId": 400202,
         "OptionDesc": "\u79bb\u5f00\u8fd9\u91cc",
         "OptionDownDesc": null,
@@ -1205,10 +1736,11 @@
         "OptionNextStepGroupId": 40020202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 85,
+        "Id": 113,
         "GroupId": 400203,
         "OptionDesc": "\u7528\u5c3d\u5168\u529b\u62c9\u56de\u7ef3\u5b50",
         "OptionDownDesc": null,
@@ -1219,10 +1751,11 @@
         "OptionNextStepGroupId": 40020301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 86,
+        "Id": 114,
         "GroupId": 400203,
         "OptionDesc": "\u76f8\u4fe1\u6d01\u5854\u8587\u80fd\u72ec\u81ea\u5904\u7406",
         "OptionDownDesc": null,
@@ -1233,10 +1766,11 @@
         "OptionNextStepGroupId": 40020302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 87,
+        "Id": 115,
         "GroupId": 400302,
         "OptionDesc": "\u5173\u4e8e\u65c5\u884c\u8005\u7684\u6545\u4e8b",
         "OptionDownDesc": null,
@@ -1247,10 +1781,11 @@
         "OptionNextStepGroupId": 40030201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 88,
+        "Id": 116,
         "GroupId": 400302,
         "OptionDesc": "\u5173\u4e8e\u80cc\u53db\u8005\u7684\u6545\u4e8b",
         "OptionDownDesc": null,
@@ -1261,10 +1796,11 @@
         "OptionNextStepGroupId": 40030202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 89,
+        "Id": 117,
         "GroupId": 400302,
         "OptionDesc": "\u4e0d\u542c",
         "OptionDownDesc": null,
@@ -1275,10 +1811,11 @@
         "OptionNextStepGroupId": 40030203,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 90,
+        "Id": 118,
         "GroupId": 400401,
         "OptionDesc": "\u62ff\u51fa\u4e00\u4e9b\u7b97\u529b\u5355\u5143\u7ed9\u4ed6",
         "OptionDownDesc": null,
@@ -1293,10 +1830,11 @@
         "OptionNextStepGroupId": 40040101,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 91,
+        "Id": 119,
         "GroupId": 400401,
         "OptionDesc": "\u62d2\u7edd\u4ea4\u6362\uff0c\u5c31\u6b64\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -1307,10 +1845,11 @@
         "OptionNextStepGroupId": 40040102,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 92,
+        "Id": 120,
         "GroupId": 401102,
         "OptionDesc": "\u8ddf\u5979\u9053\u6b49",
         "OptionDownDesc": null,
@@ -1321,10 +1860,11 @@
         "OptionNextStepGroupId": 40110201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 93,
+        "Id": 121,
         "GroupId": 401102,
         "OptionDesc": "\u671d\u5979\u6325\u62f3",
         "OptionDownDesc": null,
@@ -1335,10 +1875,11 @@
         "OptionNextStepGroupId": 40110202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 94,
+        "Id": 122,
         "GroupId": 401202,
         "OptionDesc": "\u63a5\u53d7\u5979\u7684\u795d\u798f",
         "OptionDownDesc": null,
@@ -1349,10 +1890,11 @@
         "OptionNextStepGroupId": 40120201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 95,
+        "Id": 123,
         "GroupId": 401202,
         "OptionDesc": "\u62d2\u7edd\u5979\u7684\u795d\u798f",
         "OptionDownDesc": null,
@@ -1363,10 +1905,11 @@
         "OptionNextStepGroupId": 40120202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 96,
+        "Id": 124,
         "GroupId": 401302,
         "OptionDesc": "\u63a5\u53d7\u6d01\u5854\u8587\u7684\u5efa\u8bae",
         "OptionDownDesc": null,
@@ -1377,10 +1920,11 @@
         "OptionNextStepGroupId": 40130201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 97,
+        "Id": 125,
         "GroupId": 401302,
         "OptionDesc": "\u6beb\u4e0d\u72b9\u8c6b\u8f6c\u8eab\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -1391,10 +1935,11 @@
         "OptionNextStepGroupId": 40130202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 98,
+        "Id": 126,
         "GroupId": 401402,
         "OptionDesc": "\u6d88\u9664\u6050\u60e7\u7684\u6700\u597d\u65b9\u6cd5\u5c31\u662f\u9762\u5bf9\u5b83\uff01",
         "OptionDownDesc": null,
@@ -1405,10 +1950,11 @@
         "OptionNextStepGroupId": 40140201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 99,
+        "Id": 127,
         "GroupId": 401402,
         "OptionDesc": "\u5c06\u5b9d\u7269\u629b\u5411\u4e00\u65c1",
         "OptionDownDesc": null,
@@ -1423,10 +1969,11 @@
         "OptionNextStepGroupId": 40140202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 100,
+        "Id": 128,
         "GroupId": 500102,
         "OptionDesc": "\u8c03\u67e5\u673a\u5668\u4eba\u7684\u82af\u7247",
         "OptionDownDesc": null,
@@ -1437,10 +1984,11 @@
         "OptionNextStepGroupId": 50010201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 101,
+        "Id": 129,
         "GroupId": 500102,
         "OptionDesc": "\u8c03\u67e5\u89c2\u661f\u53f0\u7684\u7cfb\u7edf",
         "OptionDownDesc": null,
@@ -1451,10 +1999,11 @@
         "OptionNextStepGroupId": 50010202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 102,
+        "Id": 130,
         "GroupId": 500202,
         "OptionDesc": "\u7b54\u5e94\u4ed6\u7684\u8bf7\u6c42",
         "OptionDownDesc": null,
@@ -1465,10 +2014,11 @@
         "OptionNextStepGroupId": 50020201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 103,
+        "Id": 131,
         "GroupId": 500202,
         "OptionDesc": "\u62d2\u7edd\u4ed6\u7684\u8bf7\u6c42",
         "OptionDownDesc": null,
@@ -1479,10 +2029,26 @@
         "OptionNextStepGroupId": 50020202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 104,
+        "Id": 132,
+        "GroupId": 500202,
+        "OptionDesc": "\u544a\u8bc9\u7f57\u4f2f\u7279\u771f\u76f8",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 50020203,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020228.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 133,
         "GroupId": 500302,
         "OptionDesc": "\u82b1\u94b1\u5411\u5bf9\u65b9\u4e70\u8bd7",
         "OptionDownDesc": null,
@@ -1493,10 +2059,11 @@
         "OptionNextStepGroupId": 50030201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 105,
+        "Id": 134,
         "GroupId": 500302,
         "OptionDesc": "\u5356\u8bd7\u7ed9\u5bf9\u65b9\u8d5a\u94b1",
         "OptionDownDesc": null,
@@ -1507,10 +2074,11 @@
         "OptionNextStepGroupId": 50030202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 106,
+        "Id": 135,
         "GroupId": 501102,
         "OptionDesc": "\u5373\u4f7f\u662f\u65e0\u6570\u6b21\uff0c\u8fd9\u5c31\u662f\u6211\u7ad9\u5728\u8fd9\u91cc\u7684\u539f\u56e0",
         "OptionDownDesc": null,
@@ -1521,10 +2089,11 @@
         "OptionNextStepGroupId": 50110201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 107,
+        "Id": 136,
         "GroupId": 501102,
         "OptionDesc": "\u91cd\u590d\u7684\u5931\u8d25\u4e0d\u4f1a\u8bde\u751f\u5947\u8ff9\uff0c\u653e\u5f03\u8fdb\u5165\u95e8\u6249",
         "OptionDownDesc": null,
@@ -1535,10 +2104,11 @@
         "OptionNextStepGroupId": 50110202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 108,
+        "Id": 137,
         "GroupId": 501202,
         "OptionDesc": "\u76f4\u9762\u5f3a\u654c",
         "OptionDownDesc": null,
@@ -1549,10 +2119,11 @@
         "OptionNextStepGroupId": 50120201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 109,
+        "Id": 138,
         "GroupId": 501202,
         "OptionDesc": "\u4e34\u9635\u8131\u9003",
         "OptionDownDesc": null,
@@ -1563,10 +2134,11 @@
         "OptionNextStepGroupId": 50120202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 110,
+        "Id": 139,
         "GroupId": 100302,
         "OptionDesc": "\u6cb9\u753b\u6563\u53d1\u7684\u9999\u6c14",
         "OptionDownDesc": null,
@@ -1577,10 +2149,11 @@
         "OptionNextStepGroupId": 10030201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 111,
+        "Id": 140,
         "GroupId": 100302,
         "OptionDesc": "\u573a\u9986\u64ad\u653e\u7684\u6b4c\u66f2",
         "OptionDownDesc": null,
@@ -1591,10 +2164,11 @@
         "OptionNextStepGroupId": 10030202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 112,
+        "Id": 141,
         "GroupId": 100302,
         "OptionDesc": "\u591c\u91cc\u6492\u5165\u7684\u6708\u5149",
         "OptionDownDesc": null,
@@ -1605,10 +2179,11 @@
         "OptionNextStepGroupId": 10030203,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 113,
+        "Id": 142,
         "GroupId": 101203,
         "OptionDesc": "\u7edd\u5883\u7684\u5e0c\u671b",
         "OptionDownDesc": null,
@@ -1619,10 +2194,11 @@
         "OptionNextStepGroupId": 10120301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 114,
+        "Id": 143,
         "GroupId": 101203,
         "OptionDesc": "\u7ae5\u8bdd\u7684\u5e7b\u706d",
         "OptionDownDesc": null,
@@ -1633,10 +2209,11 @@
         "OptionNextStepGroupId": 10120302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 115,
+        "Id": 144,
         "GroupId": 101204,
         "OptionDesc": "\u4e0a\u524d\u53d6\u4e0b\u7eb8\u6761",
         "OptionDownDesc": null,
@@ -1647,10 +2224,11 @@
         "OptionNextStepGroupId": 10120401,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 116,
+        "Id": 145,
         "GroupId": 101204,
         "OptionDesc": "\u8f6c\u8eab\u53bb\u8ffd\u5973\u4eba",
         "OptionDownDesc": null,
@@ -1661,10 +2239,11 @@
         "OptionNextStepGroupId": 10120402,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 117,
+        "Id": 146,
         "GroupId": 200302,
         "OptionDesc": "\u53bb\u770b\u770b\u4fdd\u9669\u67dc",
         "OptionDownDesc": null,
@@ -1675,10 +2254,11 @@
         "OptionNextStepGroupId": 20030201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 118,
+        "Id": 147,
         "GroupId": 200302,
         "OptionDesc": "\u53bb\u8c03\u67e5\u50a8\u7269\u95f4",
         "OptionDownDesc": null,
@@ -1689,10 +2269,11 @@
         "OptionNextStepGroupId": 20030202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 119,
+        "Id": 148,
         "GroupId": 200402,
         "OptionDesc": "\u6316\u6398",
         "OptionDownDesc": null,
@@ -1703,10 +2284,11 @@
         "OptionNextStepGroupId": 20040201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 120,
+        "Id": 149,
         "GroupId": 200402,
         "OptionDesc": "\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -1717,10 +2299,11 @@
         "OptionNextStepGroupId": 20040202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 121,
+        "Id": 150,
         "GroupId": 200404,
         "OptionDesc": "\u641c\u7d22\u575f\u573a\u5468\u8fb9",
         "OptionDownDesc": null,
@@ -1731,10 +2314,11 @@
         "OptionNextStepGroupId": 20040401,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 122,
+        "Id": 151,
         "GroupId": 200404,
         "OptionDesc": "\u641c\u7d22\u575f\u573a\u540e\u9662",
         "OptionDownDesc": null,
@@ -1745,10 +2329,11 @@
         "OptionNextStepGroupId": 20040402,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 123,
+        "Id": 152,
         "GroupId": 200404,
         "OptionDesc": "\u641c\u7d22\u6c34\u4e95",
         "OptionDownDesc": null,
@@ -1759,10 +2344,11 @@
         "OptionNextStepGroupId": 20040403,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 124,
+        "Id": 153,
         "GroupId": 200405,
         "OptionDesc": "\u5b89\u846c\u9ab8\u9aa8",
         "OptionDownDesc": null,
@@ -1773,10 +2359,11 @@
         "OptionNextStepGroupId": 20040501,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 125,
+        "Id": 154,
         "GroupId": 200405,
         "OptionDesc": "\u7ee7\u7eed\u641c\u7d22",
         "OptionDownDesc": null,
@@ -1787,10 +2374,11 @@
         "OptionNextStepGroupId": 20040502,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 126,
+        "Id": 155,
         "GroupId": 200503,
         "OptionDesc": "\u5148\u5403\u7d2b\u91cc\u900f\u7ea2\u7684\u5154\u8089\u706b\u9505",
         "OptionDownDesc": null,
@@ -1801,10 +2389,11 @@
         "OptionNextStepGroupId": 20050301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 127,
+        "Id": 156,
         "GroupId": 200503,
         "OptionDesc": "\u5148\u5403\u4e94\u5f69\u6591\u6593\u7684\u8611\u83c7\u62fc\u76d8",
         "OptionDownDesc": null,
@@ -1815,10 +2404,11 @@
         "OptionNextStepGroupId": 20050302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 128,
+        "Id": 157,
         "GroupId": 200503,
         "OptionDesc": "\u5148\u5403\u4e0d\u53ef\u540d\u72b6\u7684\u7206\u7092\u65f6\u852c",
         "OptionDownDesc": null,
@@ -1829,10 +2419,11 @@
         "OptionNextStepGroupId": 20050303,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 129,
+        "Id": 158,
         "GroupId": 201402,
         "OptionDesc": "\u633a\u8eab\u8fce\u51fb",
         "OptionDownDesc": null,
@@ -1843,10 +2434,11 @@
         "OptionNextStepGroupId": 20140201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 130,
+        "Id": 159,
         "GroupId": 201402,
         "OptionDesc": "\u8f6c\u8eab\u9003\u79bb",
         "OptionDownDesc": null,
@@ -1857,10 +2449,11 @@
         "OptionNextStepGroupId": 20140202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 131,
+        "Id": 160,
         "GroupId": 201402,
         "OptionDesc": "\u62ff\u51fa\u5b64\u513f\u9662\u5de5\u4f5c\u8bc1",
         "OptionDownDesc": null,
@@ -1875,10 +2468,11 @@
         "OptionNextStepGroupId": 20140203,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 132,
+        "Id": 161,
         "GroupId": 201407,
         "OptionDesc": "\u5c06\u5de5\u4f5c\u8bc1\u4ea4\u7ed9\u5979\u3002",
         "OptionDownDesc": null,
@@ -1893,10 +2487,11 @@
         "OptionNextStepGroupId": 20140701,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 133,
+        "Id": 162,
         "GroupId": 201407,
         "OptionDesc": "\u4fdd\u6301\u6c89\u9ed8",
         "OptionDownDesc": null,
@@ -1907,10 +2502,11 @@
         "OptionNextStepGroupId": 20140702,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 134,
+        "Id": 163,
         "GroupId": 300402,
         "OptionDesc": "\u8fd9\u662f\u5de5\u4f5c\u4eba\u5458\u611a\u8822\u7684\u5931\u8bef",
         "OptionDownDesc": null,
@@ -1921,10 +2517,11 @@
         "OptionNextStepGroupId": 30040201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 135,
+        "Id": 164,
         "GroupId": 300402,
         "OptionDesc": "\u8fd9\u662f\u4e00\u573a\u5e03\u5c40\u7cbe\u5999\u7684\u8c0b\u6740",
         "OptionDownDesc": null,
@@ -1935,10 +2532,11 @@
         "OptionNextStepGroupId": 30040202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 136,
+        "Id": 165,
         "GroupId": 301603,
         "OptionDesc": "\u5bfb\u627e\u5b89\u5168\u533a",
         "OptionDownDesc": null,
@@ -1949,10 +2547,11 @@
         "OptionNextStepGroupId": 30160301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 137,
+        "Id": 166,
         "GroupId": 301603,
         "OptionDesc": "\u6ce8\u5c04\u8840\u6e05\uff08\u8fce\u63a5\u6218\u6597\uff09",
         "OptionDownDesc": null,
@@ -1967,10 +2566,11 @@
         "OptionNextStepGroupId": 30160302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 138,
+        "Id": 167,
         "GroupId": 301604,
         "OptionDesc": "\u51fa\u793a\u5b9e\u9a8c\u5ba4\u5de5\u4f5c\u8bc1",
         "OptionDownDesc": null,
@@ -1985,10 +2585,11 @@
         "OptionNextStepGroupId": 30160401,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 139,
+        "Id": 168,
         "GroupId": 301604,
         "OptionDesc": "\u8f6c\u8eab\u51c6\u5907\u6218\u6597",
         "OptionDownDesc": null,
@@ -1999,10 +2600,11 @@
         "OptionNextStepGroupId": 30160402,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 140,
+        "Id": 169,
         "GroupId": 301702,
         "OptionDesc": "\u8fdb\u5165\u91cc\u9762",
         "OptionDownDesc": null,
@@ -2013,10 +2615,11 @@
         "OptionNextStepGroupId": 30170201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 141,
+        "Id": 170,
         "GroupId": 301702,
         "OptionDesc": "\u8f6c\u8eab\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -2027,10 +2630,11 @@
         "OptionNextStepGroupId": 30170202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 142,
+        "Id": 171,
         "GroupId": 301703,
         "OptionDesc": "\u4e0d\u987e\u4e00\u5207\u53d6\u8d70\u8d44\u6599\u96c6",
         "OptionDownDesc": null,
@@ -2041,10 +2645,11 @@
         "OptionNextStepGroupId": 30170301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 143,
+        "Id": 172,
         "GroupId": 301703,
         "OptionDesc": "\u9759\u5f85\u706b\u7130\u71c3\u5c3d",
         "OptionDownDesc": null,
@@ -2055,10 +2660,11 @@
         "OptionNextStepGroupId": 30170302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 144,
+        "Id": 173,
         "GroupId": 401502,
         "OptionDesc": "\u5192\u9669\u8fdb\u5165\u5176\u4e2d",
         "OptionDownDesc": null,
@@ -2069,10 +2675,11 @@
         "OptionNextStepGroupId": 40150201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 145,
+        "Id": 174,
         "GroupId": 401502,
         "OptionDesc": "\u5411\u91cc\u9762\u4e22\u77f3\u5b50",
         "OptionDownDesc": null,
@@ -2083,10 +2690,11 @@
         "OptionNextStepGroupId": 40150202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 146,
+        "Id": 175,
         "GroupId": 401503,
         "OptionDesc": "\u8bd5\u56fe\u51b2\u8fc7\u53bb\u593a\u4e0b",
         "OptionDownDesc": null,
@@ -2097,10 +2705,11 @@
         "OptionNextStepGroupId": 40150301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 147,
+        "Id": 176,
         "GroupId": 401503,
         "OptionDesc": "\u8ba9\u6d01\u5854\u8587\u8dd1\u8d77\u6765",
         "OptionDownDesc": null,
@@ -2115,10 +2724,11 @@
         "OptionNextStepGroupId": 40150302,
         "OptionCondition": null,
         "OptionShowCondition": 1020112.0,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 148,
+        "Id": 177,
         "GroupId": 500402,
         "OptionDesc": "\u8be2\u95ee\u6e38\u6c11\u201c\u6d01\u5854\u8587\u201d\u7528\u7684\u6b66\u5668",
         "OptionDownDesc": null,
@@ -2129,10 +2739,11 @@
         "OptionNextStepGroupId": 50040201,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 149,
+        "Id": 178,
         "GroupId": 500402,
         "OptionDesc": "\u8be2\u95ee\u6e38\u6c11\u201c\u6d01\u5854\u8587\u201d\u8bf4\u4e86\u4ec0\u4e48",
         "OptionDownDesc": null,
@@ -2143,10 +2754,11 @@
         "OptionNextStepGroupId": 50040202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 150,
+        "Id": 179,
         "GroupId": 500403,
         "OptionDesc": "\u65bd\u820d\u7269\u8d44",
         "OptionDownDesc": null,
@@ -2161,10 +2773,11 @@
         "OptionNextStepGroupId": 50040301,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 151,
+        "Id": 180,
         "GroupId": 500403,
         "OptionDesc": "\u8f6c\u8eab\u79bb\u5f00",
         "OptionDownDesc": null,
@@ -2175,10 +2788,11 @@
         "OptionNextStepGroupId": 50040302,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 152,
+        "Id": 181,
         "GroupId": 501302,
         "OptionDesc": "\u5c06\u624b\u4e2d\u7684\u6570\u636e\u7ed3\u6676\u6446\u5230\u955c\u524d",
         "OptionDownDesc": null,
@@ -2193,10 +2807,11 @@
         "OptionNextStepGroupId": 50130201,
         "OptionCondition": null,
         "OptionShowCondition": 1020113.0,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 153,
+        "Id": 182,
         "GroupId": 501302,
         "OptionDesc": "\u5c06\u8840\u6ef4\u77f3\u653e\u5165\u955c\u5b50\u7684\u51f9\u69fd\u4e2d",
         "OptionDownDesc": null,
@@ -2211,10 +2826,11 @@
         "OptionNextStepGroupId": 50130202,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 154,
+        "Id": 183,
         "GroupId": 501302,
         "OptionDesc": "\u8ba9\u6d01\u5854\u8587\u770b\u770b",
         "OptionDownDesc": null,
@@ -2225,10 +2841,11 @@
         "OptionNextStepGroupId": 50130203,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 155,
+        "Id": 184,
         "GroupId": 501309,
         "OptionDesc": "\u8865\u7ed9",
         "OptionDownDesc": null,
@@ -2239,10 +2856,11 @@
         "OptionNextStepGroupId": 50130901,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 156,
+        "Id": 185,
         "GroupId": 501309,
         "OptionDesc": "\u4fdd\u6301\u6c89\u9ed8",
         "OptionDownDesc": null,
@@ -2253,10 +2871,11 @@
         "OptionNextStepGroupId": 50130902,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     },
     {
-        "Id": 157,
+        "Id": 186,
         "GroupId": 501309,
         "OptionDesc": "100\u4e2a\u613f\u671b",
         "OptionDownDesc": null,
@@ -2267,6 +2886,2621 @@
         "OptionNextStepGroupId": 50130903,
         "OptionCondition": null,
         "OptionShowCondition": null,
-        "OptionIcon": null
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 187,
+        "GroupId": 9000102,
+        "OptionDesc": "\u7ee7\u7eed\u9760\u8fd1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900010201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 188,
+        "GroupId": 9000102,
+        "OptionDesc": "\u840c\u751f\u9000\u610f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900010202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 189,
+        "GroupId": 9000103,
+        "OptionDesc": "\u5f3a\u5236\u542f\u52a8\uff08\u8df3\u8fc7\u5267\u60c5\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900010301,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020224.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 190,
+        "GroupId": 9000103,
+        "OptionDesc": "\u8fdb\u884c\u89c2\u6d4b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900010302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 191,
+        "GroupId": 9000203,
+        "OptionDesc": "\u8c03\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900020301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 192,
+        "GroupId": 9000203,
+        "OptionDesc": "\u76f4\u63a5\u51fa\u53d1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900020302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 193,
+        "GroupId": 9000303,
+        "OptionDesc": "\u4f11\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900030301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 194,
+        "GroupId": 9000303,
+        "OptionDesc": "\u76f4\u63a5\u79bb\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900030302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 195,
+        "GroupId": 9000402,
+        "OptionDesc": "\u8fdb\u5165\u5de5\u574a\uff08\u88c5\u5907\u5b9a\u5411\u91cd\u94f8\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900040201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 196,
+        "GroupId": 9000402,
+        "OptionDesc": "\u539f\u5730\u4f11\u6574\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900040202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 197,
+        "GroupId": 9000503,
+        "OptionDesc": "\u8bfb\u53d6\u6570\u636e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900050301,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020232.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 198,
+        "GroupId": 9000503,
+        "OptionDesc": "\u8bfb\u53d6\u6570\u636e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900050302,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020233.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 199,
+        "GroupId": 9000503,
+        "OptionDesc": "\u62d2\u7edd",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900050303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 200,
+        "GroupId": 9000603,
+        "OptionDesc": "\u8bfb\u53d6\u6570\u636e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900060301,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020232.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 201,
+        "GroupId": 9000603,
+        "OptionDesc": "\u8bfb\u53d6\u6570\u636e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900060302,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020233.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 202,
+        "GroupId": 9000603,
+        "OptionDesc": "\u62d2\u7edd",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900060303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 203,
+        "GroupId": 9000703,
+        "OptionDesc": "\u8bfb\u53d6\u6570\u636e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900070301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 204,
+        "GroupId": 9000703,
+        "OptionDesc": "\u62d2\u7edd",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900070302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 205,
+        "GroupId": 9001003,
+        "OptionDesc": "\u5f00\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900100301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 206,
+        "GroupId": 9001105,
+        "OptionDesc": "\u4f11\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900110501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 207,
+        "GroupId": 9001105,
+        "OptionDesc": "\u76f4\u63a5\u51fa\u53d1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900110502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 208,
+        "GroupId": 9001202,
+        "OptionDesc": "\u4f7f\u7528\u6b66\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900120201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 209,
+        "GroupId": 9001202,
+        "OptionDesc": "\u62ff\u51fa<color=#ff6767>\u300c\u8d85\u9650\u79d8\u94a5\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9005.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 900120202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 210,
+        "GroupId": 9001203,
+        "OptionDesc": "\u9ad8\u901f\u7a81\u8fdb",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900120301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 211,
+        "GroupId": 9001204,
+        "OptionDesc": "\u6295\u63b7\u79d8\u94a5",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900120401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 212,
+        "GroupId": 9001204,
+        "OptionDesc": "\u6536\u8d77\u79d8\u94a5",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900120402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 213,
+        "GroupId": 30502,
+        "OptionDesc": "\u62ff\u51fa<color=#b73a3a>\u300c\u9ed1\u6843\u7687\u540e\u300d</color>",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9003.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 3050201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 214,
+        "GroupId": 30502,
+        "OptionDesc": "\u547c\u558a\u6d01\u5854\u8587\u8eb2\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3050202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 215,
+        "GroupId": 30507,
+        "OptionDesc": "\u8389\u8389\uff0c\u4f60\u7a76\u7adf\u662f\u8c01\uff1f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3050203,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 216,
+        "GroupId": 30606,
+        "OptionDesc": "\u4f11\u6574\u72b6\u6001\uff08\u88c5\u5907\u4f4d\u7f6e\u8c03\u6574\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3060601,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 217,
+        "GroupId": 30606,
+        "OptionDesc": "\u76f4\u63a5\u51fa\u53d1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3060602,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 218,
+        "GroupId": 70104,
+        "OptionDesc": "\u522b\u6321\u9053",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 7010401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 219,
+        "GroupId": 70104,
+        "OptionDesc": "\u95e8\u540e\u9762\u662f\u4e2d\u67a2\u5417\uff1f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 7010402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 220,
+        "GroupId": 9001302,
+        "OptionDesc": "\u63a5\u53d7\u4ea4\u6362",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900130201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 221,
+        "GroupId": 9001302,
+        "OptionDesc": "\u62d2\u7edd\u4ea4\u6362",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900130202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 222,
+        "GroupId": 9001303,
+        "OptionDesc": "\u501f\u7ed9\u5546\u4eba",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9003.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 900130301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 223,
+        "GroupId": 9001303,
+        "OptionDesc": "\u6362\u53d6\u62a5\u916c",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9003.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 900130302,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020235.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 224,
+        "GroupId": 9001303,
+        "OptionDesc": "\u62d2\u7edd\u8bf7\u6c42",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900130303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 225,
+        "GroupId": 30703,
+        "OptionDesc": "\u6536\u4e0b\u5361\u724c",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3070301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 226,
+        "GroupId": 30703,
+        "OptionDesc": "\u79bb\u5f00\u8fd9\u91cc",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 3070302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 227,
+        "GroupId": 9001403,
+        "OptionDesc": "\u4ea4\u51fa\u300c\u7ea2\u6843\u7687\u540e\u300d\u548c\u300c\u9ed1\u6843\u7687\u540e\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9004.0,
+            9003.0
+        ],
+        "OptionItemCount": [
+            1.0,
+            1.0
+        ],
+        "OptionNextStepGroupId": 900140301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 228,
+        "GroupId": 9001403,
+        "OptionDesc": "\u4ea4\u51fa\u4e24\u5f20\u300c\u9ed1\u6843\u7687\u540e\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9003.0
+        ],
+        "OptionItemCount": [
+            2.0
+        ],
+        "OptionNextStepGroupId": 900140302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 229,
+        "GroupId": 9001403,
+        "OptionDesc": "\u62d2\u7edd\u4ea4\u6362",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 900140303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 230,
+        "GroupId": 9210002,
+        "OptionDesc": "\u53d1\u52a8\u5947\u88ad",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 921000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 231,
+        "GroupId": 9210002,
+        "OptionDesc": "\u9080\u8bf7\u602a\u7269\u548c\u81ea\u5df1\u5bf9\u51b3",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 921000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 232,
+        "GroupId": 9210005,
+        "OptionDesc": "\u5148\u53d1\u5236\u4eba\uff08<color=#ff6767>\u5c0f\u6982\u7387\u6210\u529f</color>\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 921000501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 233,
+        "GroupId": 9210005,
+        "OptionDesc": "\u516c\u5e73\u5bf9\u51b3",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 921000502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 234,
+        "GroupId": 210002,
+        "OptionDesc": "\u8f6c\u52a8\u9f7f\u8f6e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 21000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 235,
+        "GroupId": 210002,
+        "OptionDesc": "\u79bb\u5f00\u8fd9\u91cc",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 21000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 236,
+        "GroupId": 9310001,
+        "OptionDesc": "\u9009\u62e9\u4e09\u53f7\u95e8",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 237,
+        "GroupId": 9310001,
+        "OptionDesc": "\u9009\u62e9\u4e03\u53f7\u95e8",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 238,
+        "GroupId": 9310001,
+        "OptionDesc": "\u9009\u62e9\u4e5d\u53f7\u95e8",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000103,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 239,
+        "GroupId": 9310002,
+        "OptionDesc": "\u7b54\u5e94\u4ea4\u51fa\u82af\u7247",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            50.0
+        ],
+        "OptionNextStepGroupId": 931000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 240,
+        "GroupId": 9310002,
+        "OptionDesc": "\u66b4\u529b\u6253\u5f00\u95e8\u6249",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 241,
+        "GroupId": 9310006,
+        "OptionDesc": "\u7b54\u5e94",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            50.0
+        ],
+        "OptionNextStepGroupId": 931000601,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 242,
+        "GroupId": 9310006,
+        "OptionDesc": "\u653e\u5f03\u6b66\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000602,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 243,
+        "GroupId": 9310009,
+        "OptionDesc": "\u91ca\u653e\u602a\u7269",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000901,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 244,
+        "GroupId": 9310009,
+        "OptionDesc": "\u62d2\u7edd\u602a\u7269",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 931000902,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 245,
+        "GroupId": 9410002,
+        "OptionDesc": "\u505c\u4e0b\u6570\u6570\u8f6c\u8fc7\u5934",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 941000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 246,
+        "GroupId": 9410002,
+        "OptionDesc": "\u9075\u5b88\u7ea6\u5b9a\u6570\u5b8c\u6570",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 941000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 247,
+        "GroupId": 9410003,
+        "OptionDesc": "\u671d\u5929\u7a7a\u5f00\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 941000301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 248,
+        "GroupId": 9410003,
+        "OptionDesc": "\u9ed8\u9ed8\u6536\u8d77\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 941000302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 249,
+        "GroupId": 9510002,
+        "OptionDesc": "\u8f6c\u52a8\u9f7f\u8f6e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 951000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 2.0
+    },
+    {
+        "Id": 250,
+        "GroupId": 9510002,
+        "OptionDesc": "\u79bb\u5f00\u8fd9\u91cc",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 951000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 251,
+        "GroupId": 310002,
+        "OptionDesc": "\u8fdb\u5165\u516c\u9986",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 252,
+        "GroupId": 310002,
+        "OptionDesc": "\u8ffd\u9010\u706b\u7130",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 253,
+        "GroupId": 310004,
+        "OptionDesc": "\u586b\u5165\u591c\u660e\u73e0",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 254,
+        "GroupId": 310004,
+        "OptionDesc": "\u586b\u5165\u5947\u77f3",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 255,
+        "GroupId": 310007,
+        "OptionDesc": "\u89c2\u5bdf\u6708\u4eae\u7684\u65b9\u5411",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000701,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 256,
+        "GroupId": 310007,
+        "OptionDesc": "\u89c2\u5bdf\u516c\u9986\u7684\u65b9\u5411",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 31000702,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 257,
+        "GroupId": 410001,
+        "OptionDesc": "\u4f7f\u7528\u590d\u5408\u5f13",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 41000101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 258,
+        "GroupId": 410001,
+        "OptionDesc": "\u627e\u70b9\u5403\u7684\u6765\u8bd5\u8bd5",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 41000102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 259,
+        "GroupId": 410003,
+        "OptionDesc": "\u4f7f\u7528\u590d\u5408\u5f13",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 41000301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 260,
+        "GroupId": 410003,
+        "OptionDesc": "\u9a7b\u8db3\u6b23\u8d4f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 41000302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 261,
+        "GroupId": 510001,
+        "OptionDesc": "\u6b65\u5165\u6597\u517d\u573a\u4e2d\u592e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 51000102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 262,
+        "GroupId": 510001,
+        "OptionDesc": "\u8d76\u7d27\u79bb\u5f00\u8fd9\u91cc",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 51000101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 263,
+        "GroupId": 510005,
+        "OptionDesc": "\u5148\u53d1\u5236\u4eba\uff08<color=#b73a3a>\u5c0f\u6982\u7387\u6210\u529f</color>\uff09",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 51000501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 264,
+        "GroupId": 510005,
+        "OptionDesc": "\u9759\u5f85\u65f6\u673a",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 51000502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": 1.0
+    },
+    {
+        "Id": 265,
+        "GroupId": 9200102,
+        "OptionDesc": "\u4f18\u5148\u51fb\u5012\u90aa\u6559\u6210\u5458",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920010201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 266,
+        "GroupId": 9200102,
+        "OptionDesc": "\u4f18\u5148\u89e3\u6551\u88ab\u56f0\u5c11\u5973",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920010202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 267,
+        "GroupId": 9200105,
+        "OptionDesc": "\u5e26\u7740\u5c11\u5973\u79bb\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920010501,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 268,
+        "GroupId": 9200105,
+        "OptionDesc": "\u8ba9\u5c11\u5973\u63a5\u53d7\u6559\u5f92\u62e5\u6234",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920010502,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 269,
+        "GroupId": 9200202,
+        "OptionDesc": "\u8c03\u67e5\u673a\u5668\u4eba\u7684\u82af\u7247",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920020201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 270,
+        "GroupId": 9200202,
+        "OptionDesc": "\u8c03\u67e5\u89c2\u661f\u53f0\u7684\u7cfb\u7edf",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920020202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 271,
+        "GroupId": 9200203,
+        "OptionDesc": "\u63d2\u5165\u65b0\u7684\u82af\u7247",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920020303,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 272,
+        "GroupId": 9200203,
+        "OptionDesc": "\u53d6\u8d70\u635f\u574f\u82af\u7247",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920020304,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 273,
+        "GroupId": 9200302,
+        "OptionDesc": "\u82b1\u8d39\u65f6\u95f4\u6d88\u706d\u602a\u7269",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920030201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 274,
+        "GroupId": 9200302,
+        "OptionDesc": "\u6446\u8131\u6e38\u6c11\u8d76\u8def",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920030202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 275,
+        "GroupId": 9300101,
+        "OptionDesc": "\u6740\u6b7b\u5de8\u6811",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930010101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 276,
+        "GroupId": 9300101,
+        "OptionDesc": "\u5f00\u5bfc\u5c11\u5973",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930010102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 277,
+        "GroupId": 9300201,
+        "OptionDesc": "\u7ed9\u5de8\u9f20\u4e9b\u5403\u7684",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930020101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 278,
+        "GroupId": 9300201,
+        "OptionDesc": "\u4e3e\u67aa\u5bf9\u51c6\u5de8\u9f20",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930020102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 279,
+        "GroupId": 9300201,
+        "OptionDesc": "\u5c1d\u8bd5\u4e0e\u5b83\u6c9f\u901a",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930020103,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 280,
+        "GroupId": 9300302,
+        "OptionDesc": "\u300c\u4e0e\u5929\u9009\u8005\u7684\u76f8\u9047\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930030201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 281,
+        "GroupId": 9300302,
+        "OptionDesc": "\u300c\u5929\u9009\u8005\u6d88\u5931\u90a3\u5929\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930030202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 282,
+        "GroupId": 9300302,
+        "OptionDesc": "\u5408\u4e0a\u65e5\u8bb0",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930030203,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 283,
+        "GroupId": 9400101,
+        "OptionDesc": "\u63a5\u5165\u8be5\u6e38\u620f\u673a\u8fdb\u884c\u6e38\u73a9",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940010101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 284,
+        "GroupId": 9400101,
+        "OptionDesc": "\u5c1d\u8bd5\u5bf9\u6e38\u620f\u673a\u8fdb\u884c\u7f16\u7a0b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940010102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 285,
+        "GroupId": 9400201,
+        "OptionDesc": "\u5f00\u67aa\u51fb\u9000\u4e24\u5934\u611f\u67d3\u4f53",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940020101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 286,
+        "GroupId": 9400201,
+        "OptionDesc": "\u8be2\u95ee\u79d1\u5b66\u5bb6\u5728\u505a\u4ec0\u4e48",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940020102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 287,
+        "GroupId": 9400301,
+        "OptionDesc": "\u5411\u5979\u7d22\u8981\u916c\u91d1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940030101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 288,
+        "GroupId": 9400301,
+        "OptionDesc": "\u62d2\u7edd\u5979\u7684\u8bf7\u6c42",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940030102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 289,
+        "GroupId": 9500101,
+        "OptionDesc": "\u5f00\u67aa\u89e3\u51b3\u611f\u67d3\u4f53",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950010101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 290,
+        "GroupId": 9500101,
+        "OptionDesc": "\u63d0\u9ad8\u6b66\u5668\u8f93\u51fa\u529f\u7387",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950010102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 291,
+        "GroupId": 9500102,
+        "OptionDesc": "\u67e5\u770b\u5411\u5bfc\u673a\u5668\u4eba",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950010201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 292,
+        "GroupId": 9500102,
+        "OptionDesc": "\u56de\u6536\u611f\u67d3\u4f53\u7684\u96f6\u4ef6",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950010202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 293,
+        "GroupId": 9500201,
+        "OptionDesc": "\u770b\u5411\u9ad8\u5927\u7684\u718a\u5e03\u5076",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950020101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 294,
+        "GroupId": 9500201,
+        "OptionDesc": "\u770b\u5411\u62a4\u58eb\u88c5\u7684\u4eba\u5f62",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950020102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 295,
+        "GroupId": 9500201,
+        "OptionDesc": "\u8f6c\u5934\u770b\u5411\u81ea\u5df1\u80cc\u540e",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950020103,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 296,
+        "GroupId": 9500302,
+        "OptionDesc": "\u53bb\u5c0f\u82b1\u56ed\u8c03\u67e5",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950030201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 297,
+        "GroupId": 9500302,
+        "OptionDesc": "\u53bb\u56fe\u4e66\u9986\u8c03\u67e5",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950030202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 298,
+        "GroupId": 9500304,
+        "OptionDesc": "\u968f\u610f\u8f93\u5165\u5bc6\u7801",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950030401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 299,
+        "GroupId": 9500304,
+        "OptionDesc": "\u4f9d\u9760\u7b2c\u516d\u611f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950030402,
+        "OptionCondition": null,
+        "OptionShowCondition": 1020231.0,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 300,
+        "GroupId": 9500401,
+        "OptionDesc": "\u5c04\u51fb\u5927\u7684\u6355\u866b\u888b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950040101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 301,
+        "GroupId": 9500401,
+        "OptionDesc": "\u5c04\u51fb\u5c0f\u7684\u6355\u866b\u888b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950040102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 302,
+        "GroupId": 9500401,
+        "OptionDesc": "\u76f4\u63a5\u5c04\u6740\u732a\u7b3c\u8349",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950040103,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 303,
+        "GroupId": 9500502,
+        "OptionDesc": "\u8ba9\u4ed6\u4ea4\u51fa\u7269\u8d44",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950050201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 304,
+        "GroupId": 9500502,
+        "OptionDesc": "\u8ba9\u4ed6\u5e26\u8def",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950050202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 305,
+        "GroupId": 9201101,
+        "OptionDesc": "\u63a8\u95e8\u800c\u5165",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920110101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 306,
+        "GroupId": 9201101,
+        "OptionDesc": "\u8be2\u95ee\u5c11\u5973",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920110102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 307,
+        "GroupId": 9201102,
+        "OptionDesc": "\u732e\u4e0a\u796d\u54c1",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920110201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 308,
+        "GroupId": 9201102,
+        "OptionDesc": "\u6467\u6bc1\u796d\u575b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920110202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 309,
+        "GroupId": 9301102,
+        "OptionDesc": "\u76f4\u63a5\u653b\u51fb\u4fe1\u53f7\u6e90",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930110201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 310,
+        "GroupId": 9301102,
+        "OptionDesc": "\u4e0d\u52a8\u58f0\u8272",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930110202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 311,
+        "GroupId": 9401101,
+        "OptionDesc": "\u524d\u8fdb",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940110101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 312,
+        "GroupId": 9401101,
+        "OptionDesc": "\u6b47\u606f",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940110102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 313,
+        "GroupId": 9401102,
+        "OptionDesc": "\u89c2\u5bdf\u56db\u5468",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940110201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 314,
+        "GroupId": 9401102,
+        "OptionDesc": "\u4f7f\u7528\u6b66\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940110202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 315,
+        "GroupId": 9401103,
+        "OptionDesc": "\u732e\u4e0a\u300c\u53cc\u773c\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9017.0
+        ],
+        "OptionItemCount": [
+            2.0
+        ],
+        "OptionNextStepGroupId": 940110301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 316,
+        "GroupId": 9401103,
+        "OptionDesc": "\u6495\u4e0b\u5de8\u753b",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940110302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 317,
+        "GroupId": 9201202,
+        "OptionDesc": "\u534f\u52a9\u9ed1\u8863\u4eba",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 318,
+        "GroupId": 9201202,
+        "OptionDesc": "\u4ece\u6b63\u9762\u8fdb\u5165\u5723\u6bbf",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 319,
+        "GroupId": 9201203,
+        "OptionDesc": "\u7528\u62f3\u5f00\u8def",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 320,
+        "GroupId": 9201203,
+        "OptionDesc": "\u671d\u5929\u9e23\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 321,
+        "GroupId": 9201207,
+        "OptionDesc": "\u9000\u51fa\u5723\u6bbf",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120701,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 322,
+        "GroupId": 9201207,
+        "OptionDesc": "\u5f00\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920120702,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 323,
+        "GroupId": 9301201,
+        "OptionDesc": "\u89e3\u6551\u7f94\u7f8a",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930120101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 324,
+        "GroupId": 9301201,
+        "OptionDesc": "\u6349\u4f4f\u7f94\u7f8a",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930120102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 325,
+        "GroupId": 9301202,
+        "OptionDesc": "\u82b1\u94b1\u4e70\u4e0b\u7f94\u7f8a",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            100.0
+        ],
+        "OptionNextStepGroupId": 930120201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 326,
+        "GroupId": 9301202,
+        "OptionDesc": "\u62ff\u51fa\u6b66\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930120202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 327,
+        "GroupId": 9301207,
+        "OptionDesc": "\u4f0a\u7538\u56ed",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930120701,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 328,
+        "GroupId": 9301207,
+        "OptionDesc": "\u6bd2\u86c7",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930120702,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 329,
+        "GroupId": 9401203,
+        "OptionDesc": "\u51fa\u793a\u4fe1\u7269",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9020.0,
+            9021.0
+        ],
+        "OptionItemCount": [
+            1.0,
+            1.0
+        ],
+        "OptionNextStepGroupId": 940120301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 330,
+        "GroupId": 9401203,
+        "OptionDesc": "\u62d2\u7edd\u4ea4\u51fa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940120302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 331,
+        "GroupId": 9301302,
+        "OptionDesc": "\u5c04\u51fb\u602a\u7269",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930130201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 332,
+        "GroupId": 9301302,
+        "OptionDesc": "\u7ee7\u7eed\u89c2\u5bdf",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930130202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 333,
+        "GroupId": 9401301,
+        "OptionDesc": "\u7b54\u5e94\u5e2e\u5fd9",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940130101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 334,
+        "GroupId": 9401301,
+        "OptionDesc": "\u7559\u4e0b\u6b66\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940130102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 335,
+        "GroupId": 9401302,
+        "OptionDesc": "\u62ff\u51fa\u300c\u8840\u6db2\u6837\u672c\u300d",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9023.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 940130201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 336,
+        "GroupId": 9401302,
+        "OptionDesc": "\u5c1d\u8bd5\u81ea\u5df1\u5236\u5907",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940130202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 337,
+        "GroupId": 9501101,
+        "OptionDesc": "\u8c03\u67e5\u96d5\u5851\u533a",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950110101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 338,
+        "GroupId": 9501101,
+        "OptionDesc": "\u8c03\u67e5\u753b\u5eca",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950110102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 339,
+        "GroupId": 9501107,
+        "OptionDesc": "\u51c6\u5907\u6218\u6597",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950110701,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 340,
+        "GroupId": 9501107,
+        "OptionDesc": "\u4f7f\u7528\u5de5\u4f5c\u8bc1",
+        "OptionDownDesc": null,
+        "OptionType": 2,
+        "OptionItemType": 2.0,
+        "OptionItemId": [
+            9024.0
+        ],
+        "OptionItemCount": [
+            1.0
+        ],
+        "OptionNextStepGroupId": 950110702,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 341,
+        "GroupId": 9301402,
+        "OptionDesc": "\u63a5\u53d7\u6311\u6218",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930140201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 342,
+        "GroupId": 9301402,
+        "OptionDesc": "\u62d2\u7edd\u6311\u6218",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 930140202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 343,
+        "GroupId": 9401402,
+        "OptionDesc": "\u6253\u62db\u547c",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940140201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 344,
+        "GroupId": 9401402,
+        "OptionDesc": "\u8be2\u95ee\u51fa\u53e3",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940140202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 345,
+        "GroupId": 9401403,
+        "OptionDesc": "\u60f3\u5b66",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            100.0
+        ],
+        "OptionNextStepGroupId": 940140301,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 346,
+        "GroupId": 9401403,
+        "OptionDesc": "\u4e0d\u60f3\u5b66",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940140302,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 347,
+        "GroupId": 9501202,
+        "OptionDesc": "\u53d1\u8d77\u6311\u6218",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950120201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 348,
+        "GroupId": 9501202,
+        "OptionDesc": "\u62d2\u7edd\u6311\u6218",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 950120202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 349,
+        "GroupId": 9201302,
+        "OptionDesc": "\u5bfb\u627e\u865a\u7a7a\u5546\u4eba",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920130201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 350,
+        "GroupId": 9201302,
+        "OptionDesc": "\u5bfb\u627e\u5f02\u754c\u901a\u8baf\u70b9",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920130202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 351,
+        "GroupId": 9201304,
+        "OptionDesc": "\u652f\u4ed8\u82af\u7247",
+        "OptionDownDesc": null,
+        "OptionType": 1,
+        "OptionItemType": 1.0,
+        "OptionItemId": [
+            96189.0
+        ],
+        "OptionItemCount": [
+            100.0
+        ],
+        "OptionNextStepGroupId": 920130401,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 352,
+        "GroupId": 9201304,
+        "OptionDesc": "\u79bb\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 920130402,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 353,
+        "GroupId": 301802,
+        "OptionDesc": "\u63a5\u53d7\u8bf7\u6c42",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 30180201,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 354,
+        "GroupId": 301802,
+        "OptionDesc": "\u79bb\u5f00",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 30180202,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 355,
+        "GroupId": 9401501,
+        "OptionDesc": "\u5f00\u67aa",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940150101,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
+    },
+    {
+        "Id": 356,
+        "GroupId": 9401501,
+        "OptionDesc": "\u4fdd\u62a4\u673a\u5668",
+        "OptionDownDesc": null,
+        "OptionType": 3,
+        "OptionItemType": null,
+        "OptionItemId": [],
+        "OptionItemCount": [],
+        "OptionNextStepGroupId": 940150102,
+        "OptionCondition": null,
+        "OptionShowCondition": null,
+        "OptionIcon": null,
+        "QuantumEffectShowType": null
     }
 ]

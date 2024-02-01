@@ -6,7 +6,9 @@
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 2,
@@ -15,7 +17,9 @@
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 3,
@@ -24,7 +28,9 @@
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 4,
@@ -33,25 +39,31 @@
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 5,
         "GroupId": 1003,
         "EventId": 1011,
-        "Weight": 100,
+        "Weight": 150,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": 1011.0
+        "LinkGroupId": 1011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 6,
         "GroupId": 1003,
         "EventId": 1012,
-        "Weight": 100,
+        "Weight": 150,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": 1012.0
+        "LinkGroupId": 1012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 7,
@@ -60,924 +72,3144 @@
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 8,
         "GroupId": 1004,
         "EventId": 2,
-        "Weight": 100,
+        "Weight": 99999,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
         "Id": 9,
+        "GroupId": 1004,
+        "EventId": 90001,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": 1020210.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 10,
         "GroupId": 2001,
         "EventId": 2001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 10,
+        "Id": 11,
         "GroupId": 2001,
         "EventId": 2002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 11,
+        "Id": 12,
         "GroupId": 2001,
         "EventId": 2003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 12,
+        "Id": 13,
         "GroupId": 2001,
         "EventId": 2004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 13,
+        "Id": 14,
         "GroupId": 2001,
         "EventId": 2005,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 14,
+        "Id": 15,
         "GroupId": 2001,
         "EventId": 1002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 15,
+        "Id": 16,
         "GroupId": 2001,
         "EventId": 2011,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020003.0,
-        "LinkGroupId": 2011.0
+        "LinkGroupId": 2011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 16,
+        "Id": 17,
         "GroupId": 2001,
         "EventId": 2012,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 2012.0
+        "LinkGroupId": 2012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 17,
+        "Id": 18,
         "GroupId": 2001,
         "EventId": 2014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 2014.0
+        "LinkGroupId": 2014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 18,
+        "Id": 19,
+        "GroupId": 2001,
+        "EventId": 2100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            300.0
+        ],
+        "AddWeightCondition": [
+            1020212.0
+        ]
+    },
+    {
+        "Id": 20,
         "GroupId": 2004,
         "EventId": 2001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 19,
+        "Id": 21,
         "GroupId": 2004,
         "EventId": 2003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 20,
+        "Id": 22,
         "GroupId": 2004,
         "EventId": 2004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 21,
+        "Id": 23,
         "GroupId": 2004,
         "EventId": 2005,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 22,
+        "Id": 24,
         "GroupId": 2004,
         "EventId": 1002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 23,
+        "Id": 25,
         "GroupId": 2004,
         "EventId": 2011,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020003.0,
-        "LinkGroupId": 2011.0
+        "LinkGroupId": 2011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 24,
+        "Id": 26,
         "GroupId": 2004,
         "EventId": 2013,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020100.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 25,
+        "Id": 27,
         "GroupId": 2004,
         "EventId": 2014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 2014.0
+        "LinkGroupId": 2014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 26,
+        "Id": 28,
         "GroupId": 2004,
         "EventId": 6,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 27,
+        "Id": 29,
+        "GroupId": 2004,
+        "EventId": 2100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020212.0
+        ]
+    },
+    {
+        "Id": 30,
+        "GroupId": 2004,
+        "EventId": 307,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020237.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020236.0
+        ]
+    },
+    {
+        "Id": 31,
         "GroupId": 2005,
+        "EventId": 2001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 32,
+        "GroupId": 2005,
+        "EventId": 2003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 33,
+        "GroupId": 2005,
+        "EventId": 2004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 34,
+        "GroupId": 2005,
+        "EventId": 2005,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020102.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 35,
+        "GroupId": 2005,
+        "EventId": 1002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 36,
+        "GroupId": 2005,
+        "EventId": 2011,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020003.0,
+        "LinkGroupId": 2011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 37,
+        "GroupId": 2005,
+        "EventId": 2013,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020100.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 38,
+        "GroupId": 2005,
+        "EventId": 2014,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020102.0,
+        "LinkGroupId": 2014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 39,
+        "GroupId": 2005,
+        "EventId": 6,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
+    },
+    {
+        "Id": 40,
+        "GroupId": 2005,
+        "EventId": 2100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0
+        ]
+    },
+    {
+        "Id": 41,
+        "GroupId": 2005,
+        "EventId": 307,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020237.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020236.0
+        ]
+    },
+    {
+        "Id": 42,
+        "GroupId": 2006,
         "EventId": 3,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 28,
+        "Id": 43,
         "GroupId": 3002,
         "EventId": 3001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 29,
+        "Id": 44,
         "GroupId": 3002,
         "EventId": 3002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 30,
+        "Id": 45,
         "GroupId": 3002,
         "EventId": 3004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 31,
+        "Id": 46,
         "GroupId": 3002,
         "EventId": 3011,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020004.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 32,
+        "Id": 47,
         "GroupId": 3002,
         "EventId": 3012,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020013.0,
-        "LinkGroupId": 3012.0
+        "LinkGroupId": 3012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 33,
+        "Id": 48,
         "GroupId": 3002,
         "EventId": 3013,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020102.0,
-        "LinkGroupId": 3013.0
+        "ConditionId": 1020260.0,
+        "LinkGroupId": 3013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 34,
+        "Id": 49,
         "GroupId": 3002,
         "EventId": 3014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020115.0,
-        "LinkGroupId": 3014.0
+        "LinkGroupId": 3014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 35,
+        "Id": 50,
         "GroupId": 3002,
         "EventId": 3016,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 36,
+        "Id": 51,
         "GroupId": 3002,
         "EventId": 3017,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 3017.0
+        "LinkGroupId": 3017.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 37,
+        "Id": 52,
+        "GroupId": 3002,
+        "EventId": 3018,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020283.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 53,
         "GroupId": 3002,
         "EventId": 6,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 38,
+        "Id": 54,
+        "GroupId": 3002,
+        "EventId": 3100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            300.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 55,
+        "GroupId": 3002,
+        "EventId": 307,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020237.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020236.0
+        ]
+    },
+    {
+        "Id": 56,
+        "GroupId": 3003,
+        "EventId": 3001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 57,
+        "GroupId": 3003,
+        "EventId": 3002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 58,
+        "GroupId": 3003,
+        "EventId": 3004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 59,
+        "GroupId": 3003,
+        "EventId": 3011,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020004.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 60,
+        "GroupId": 3003,
+        "EventId": 3012,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020013.0,
+        "LinkGroupId": 3012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 61,
+        "GroupId": 3003,
+        "EventId": 3013,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020260.0,
+        "LinkGroupId": 3013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 62,
+        "GroupId": 3003,
+        "EventId": 3014,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020115.0,
+        "LinkGroupId": 3014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 63,
+        "GroupId": 3003,
+        "EventId": 3016,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020102.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 64,
+        "GroupId": 3003,
+        "EventId": 3017,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020102.0,
+        "LinkGroupId": 3017.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 65,
+        "GroupId": 3003,
+        "EventId": 3018,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020283.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 66,
+        "GroupId": 3003,
+        "EventId": 6,
+        "Weight": 5,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
+    },
+    {
+        "Id": 67,
+        "GroupId": 3003,
+        "EventId": 3100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            300.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 68,
+        "GroupId": 3003,
+        "EventId": 307,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020237.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020236.0
+        ]
+    },
+    {
+        "Id": 69,
         "GroupId": 3004,
         "EventId": 3001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 39,
+        "Id": 70,
         "GroupId": 3004,
         "EventId": 3002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 40,
+        "Id": 71,
         "GroupId": 3004,
         "EventId": 3003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 41,
+        "Id": 72,
         "GroupId": 3004,
         "EventId": 3004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 42,
+        "Id": 73,
         "GroupId": 3004,
         "EventId": 3011,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020004.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 43,
+        "Id": 74,
         "GroupId": 3004,
         "EventId": 3012,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020013.0,
-        "LinkGroupId": 3012.0
+        "LinkGroupId": 3012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 44,
+        "Id": 75,
         "GroupId": 3004,
         "EventId": 3013,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020102.0,
-        "LinkGroupId": 3013.0
+        "ConditionId": 1020260.0,
+        "LinkGroupId": 3013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 45,
+        "Id": 76,
         "GroupId": 3004,
         "EventId": 3014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020115.0,
-        "LinkGroupId": 3014.0
+        "LinkGroupId": 3014.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 46,
+        "Id": 77,
         "GroupId": 3004,
         "EventId": 3015,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020101.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 47,
+        "Id": 78,
         "GroupId": 3004,
         "EventId": 3016,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 48,
+        "Id": 79,
         "GroupId": 3004,
         "EventId": 3017,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 3017.0
+        "LinkGroupId": 3017.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 49,
+        "Id": 80,
+        "GroupId": 3003,
+        "EventId": 3018,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020283.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 81,
+        "GroupId": 3004,
+        "EventId": 3100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            300.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 82,
+        "GroupId": 3004,
+        "EventId": 307,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020237.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            500.0
+        ],
+        "AddWeightCondition": [
+            1020236.0
+        ]
+    },
+    {
+        "Id": 83,
         "GroupId": 3007,
         "EventId": 301,
-        "Weight": 100,
+        "Weight": 99999,
         "GameRepeatable": 0,
-        "ConditionId": null,
-        "LinkGroupId": null
+        "ConditionId": 1020238.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 50,
+        "Id": 84,
         "GroupId": 3007,
         "EventId": 303,
-        "Weight": 100,
+        "Weight": 10,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 51,
+        "Id": 85,
+        "GroupId": 3007,
+        "EventId": 305,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": 1020239.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 86,
         "GroupId": 3008,
         "EventId": 302,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020103.0,
-        "LinkGroupId": null
+        "ConditionId": 1020242.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 52,
+        "Id": 87,
         "GroupId": 3008,
         "EventId": 304,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020104.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 53,
+        "Id": 88,
+        "GroupId": 3008,
+        "EventId": 306,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020240.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 89,
         "GroupId": 4001,
         "EventId": 4001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 54,
+        "Id": 90,
         "GroupId": 4001,
         "EventId": 4002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 55,
+        "Id": 91,
         "GroupId": 4001,
         "EventId": 4003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020103.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 56,
+        "Id": 92,
         "GroupId": 4001,
         "EventId": 4004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 57,
+        "Id": 93,
         "GroupId": 4001,
         "EventId": 4011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020105.0,
-        "LinkGroupId": 4011.0
+        "ConditionId": 1020262.0,
+        "LinkGroupId": 4011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 58,
+        "Id": 94,
         "GroupId": 4001,
         "EventId": 4013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 4013.0
+        "LinkGroupId": 4013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 59,
+        "Id": 95,
+        "GroupId": 4001,
+        "EventId": 4100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            200.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 96,
         "GroupId": 4003,
         "EventId": 4001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 60,
+        "Id": 97,
         "GroupId": 4003,
         "EventId": 4002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 61,
+        "Id": 98,
         "GroupId": 4003,
         "EventId": 4003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020103.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 62,
+        "Id": 99,
         "GroupId": 4003,
         "EventId": 4004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 63,
+        "Id": 100,
         "GroupId": 4003,
         "EventId": 4011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020105.0,
-        "LinkGroupId": 4011.0
+        "ConditionId": 1020262.0,
+        "LinkGroupId": 4011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 64,
+        "Id": 101,
         "GroupId": 4003,
         "EventId": 4012,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020106.0,
-        "LinkGroupId": 4012.0
+        "LinkGroupId": 4012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 65,
+        "Id": 102,
         "GroupId": 4003,
         "EventId": 4013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 4013.0
+        "LinkGroupId": 4013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 66,
+        "Id": 103,
         "GroupId": 4003,
         "EventId": 4014,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020107.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 67,
+        "Id": 104,
         "GroupId": 4003,
         "EventId": 4015,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 4015.0
+        "LinkGroupId": 4015.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 68,
+        "Id": 105,
         "GroupId": 4003,
         "EventId": 6,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 69,
+        "Id": 106,
+        "GroupId": 4003,
+        "EventId": 4100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            200.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 107,
         "GroupId": 4005,
         "EventId": 4001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 70,
+        "Id": 108,
         "GroupId": 4005,
         "EventId": 4002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 71,
+        "Id": 109,
         "GroupId": 4005,
         "EventId": 4003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020103.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 72,
+        "Id": 110,
         "GroupId": 4005,
         "EventId": 4004,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 73,
+        "Id": 111,
         "GroupId": 4005,
         "EventId": 4011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020105.0,
-        "LinkGroupId": 4011.0
+        "ConditionId": 1020262.0,
+        "LinkGroupId": 4011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 74,
+        "Id": 112,
         "GroupId": 4005,
         "EventId": 4012,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020106.0,
-        "LinkGroupId": 4012.0
+        "LinkGroupId": 4012.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 75,
+        "Id": 113,
         "GroupId": 4005,
         "EventId": 4013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 4013.0
+        "LinkGroupId": 4013.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 76,
+        "Id": 114,
         "GroupId": 4005,
         "EventId": 4014,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020107.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 77,
+        "Id": 115,
         "GroupId": 4005,
         "EventId": 4015,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": 4015.0
+        "LinkGroupId": 4015.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 78,
+        "Id": 116,
+        "GroupId": 4005,
+        "EventId": 4100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            200.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 117,
         "GroupId": 4006,
         "EventId": 4,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 79,
+        "Id": 118,
         "GroupId": 5002,
         "EventId": 5001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 80,
+        "Id": 119,
         "GroupId": 5002,
         "EventId": 5002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 81,
+        "Id": 120,
         "GroupId": 5002,
         "EventId": 5003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 82,
+        "Id": 121,
         "GroupId": 5002,
         "EventId": 5004,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "ConditionId": 1020258.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 83,
+        "Id": 122,
         "GroupId": 5002,
         "EventId": 5011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020108.0,
-        "LinkGroupId": null
+        "ConditionId": 1020264.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 84,
+        "Id": 123,
         "GroupId": 5002,
         "EventId": 5013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 85,
+        "Id": 124,
         "GroupId": 5002,
         "EventId": 4014,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020107.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 86,
+        "Id": 125,
         "GroupId": 5002,
         "EventId": 6,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 87,
+        "Id": 126,
+        "GroupId": 5002,
+        "EventId": 5100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 127,
         "GroupId": 5004,
         "EventId": 5001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 88,
+        "Id": 128,
         "GroupId": 5004,
         "EventId": 5002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 89,
+        "Id": 129,
         "GroupId": 5004,
         "EventId": 5003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 90,
+        "Id": 130,
         "GroupId": 5004,
         "EventId": 5004,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "ConditionId": 1020258.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 91,
+        "Id": 131,
         "GroupId": 5004,
         "EventId": 5011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020108.0,
-        "LinkGroupId": null
+        "ConditionId": 1020264.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 92,
+        "Id": 132,
         "GroupId": 5004,
         "EventId": 5012,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020109.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 93,
+        "Id": 133,
         "GroupId": 5004,
         "EventId": 5013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 94,
+        "Id": 134,
         "GroupId": 5004,
         "EventId": 4014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020107.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 95,
+        "Id": 135,
+        "GroupId": 5004,
+        "EventId": 5100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 136,
         "GroupId": 5005,
+        "EventId": 5001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 137,
+        "GroupId": 5005,
+        "EventId": 5002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 138,
+        "GroupId": 5005,
+        "EventId": 5003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 139,
+        "GroupId": 5005,
+        "EventId": 5004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020258.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 140,
+        "GroupId": 5005,
+        "EventId": 5011,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020264.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 141,
+        "GroupId": 5005,
+        "EventId": 5012,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020109.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 142,
+        "GroupId": 5005,
+        "EventId": 5013,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020102.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 143,
+        "GroupId": 5005,
+        "EventId": 4014,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020107.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 144,
+        "GroupId": 5015,
         "EventId": 5,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 96,
+        "Id": 145,
         "GroupId": 5006,
         "EventId": 5001,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 97,
+        "Id": 146,
         "GroupId": 5006,
         "EventId": 5002,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 98,
+        "Id": 147,
         "GroupId": 5006,
         "EventId": 5003,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 99,
+        "Id": 148,
         "GroupId": 5006,
         "EventId": 5004,
         "Weight": 100,
         "GameRepeatable": 0,
-        "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "ConditionId": 1020258.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 100,
+        "Id": 149,
         "GroupId": 5006,
         "EventId": 5011,
         "Weight": 0,
         "GameRepeatable": 0,
-        "ConditionId": 1020108.0,
-        "LinkGroupId": null
+        "ConditionId": 1020264.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 101,
+        "Id": 150,
         "GroupId": 5006,
         "EventId": 5012,
         "Weight": 0,
         "GameRepeatable": 0,
         "ConditionId": 1020109.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 102,
+        "Id": 151,
         "GroupId": 5006,
         "EventId": 5013,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020102.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 103,
+        "Id": 152,
         "GroupId": 5006,
         "EventId": 4014,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020107.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 104,
+        "Id": 153,
         "GroupId": 5006,
         "EventId": 6,
         "Weight": 100,
-        "GameRepeatable": 0,
+        "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 105,
+        "Id": 154,
+        "GroupId": 5006,
+        "EventId": 5100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": 1020230.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0,
+            200.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020212.0,
+            1020214.0,
+            1020216.0,
+            1020218.0
+        ]
+    },
+    {
+        "Id": 155,
         "GroupId": 5008,
         "EventId": 501,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 106,
+        "Id": 156,
         "GroupId": 5008,
         "EventId": 502,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": 1020110.0,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 107,
-        "GroupId": 6001,
+        "Id": 157,
+        "GroupId": 6002,
         "EventId": 6,
-        "Weight": 150,
+        "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020318.0
+        ]
     },
     {
-        "Id": 108,
-        "GroupId": 6001,
+        "Id": 158,
+        "GroupId": 6002,
         "EventId": 5,
         "Weight": 100,
         "GameRepeatable": 1,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     },
     {
-        "Id": 109,
+        "Id": 159,
         "GroupId": 6003,
         "EventId": 601,
         "Weight": 100,
         "GameRepeatable": 0,
         "ConditionId": null,
-        "LinkGroupId": null
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 160,
+        "GroupId": 7003,
+        "EventId": 701,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 161,
+        "GroupId": 92003,
+        "EventId": 92001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 162,
+        "GroupId": 92003,
+        "EventId": 92002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 163,
+        "GroupId": 92003,
+        "EventId": 92003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 164,
+        "GroupId": 92003,
+        "EventId": 92011,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": 92011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 165,
+        "GroupId": 92003,
+        "EventId": 92012,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 166,
+        "GroupId": 92003,
+        "EventId": 92013,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": 1020224.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 167,
+        "GroupId": 92003,
+        "EventId": 95004,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 168,
+        "GroupId": 92003,
+        "EventId": 92100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0
+        ],
+        "AddWeightCondition": [
+            1020213.0
+        ]
+    },
+    {
+        "Id": 169,
+        "GroupId": 92005,
+        "EventId": 7,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 170,
+        "GroupId": 92005,
+        "EventId": 92001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 171,
+        "GroupId": 92005,
+        "EventId": 92002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 172,
+        "GroupId": 92005,
+        "EventId": 92003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 173,
+        "GroupId": 92005,
+        "EventId": 92011,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": 92011.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 174,
+        "GroupId": 92005,
+        "EventId": 92012,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 175,
+        "GroupId": 92005,
+        "EventId": 92013,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": 1020224.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 176,
+        "GroupId": 92005,
+        "EventId": 95004,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 177,
+        "GroupId": 92005,
+        "EventId": 92100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0
+        ]
+    },
+    {
+        "Id": 178,
+        "GroupId": 92006,
+        "EventId": 90002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 179,
+        "GroupId": 93001,
+        "EventId": 93001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 180,
+        "GroupId": 93001,
+        "EventId": 93002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 181,
+        "GroupId": 93001,
+        "EventId": 93003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 182,
+        "GroupId": 93001,
+        "EventId": 93011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": 93011.0,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020265.0,
+            1020266.0
+        ]
+    },
+    {
+        "Id": 183,
+        "GroupId": 93001,
+        "EventId": 93012,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020269.0,
+            1020270.0
+        ]
+    },
+    {
+        "Id": 184,
+        "GroupId": 93001,
+        "EventId": 93013,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 185,
+        "GroupId": 93001,
+        "EventId": 93014,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 186,
+        "GroupId": 93001,
+        "EventId": 95005,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 187,
+        "GroupId": 93001,
+        "EventId": 93100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 188,
+        "GroupId": 93004,
+        "EventId": 7,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 189,
+        "GroupId": 93004,
+        "EventId": 93001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 190,
+        "GroupId": 93004,
+        "EventId": 93002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 191,
+        "GroupId": 93004,
+        "EventId": 93003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 192,
+        "GroupId": 93004,
+        "EventId": 93011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": 93011.0,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020265.0,
+            1020266.0
+        ]
+    },
+    {
+        "Id": 193,
+        "GroupId": 93004,
+        "EventId": 93012,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020269.0,
+            1020270.0
+        ]
+    },
+    {
+        "Id": 194,
+        "GroupId": 93004,
+        "EventId": 93013,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 195,
+        "GroupId": 93004,
+        "EventId": 93014,
+        "Weight": 150,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 196,
+        "GroupId": 93004,
+        "EventId": 95005,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 197,
+        "GroupId": 93004,
+        "EventId": 93100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            1000.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 198,
+        "GroupId": 93007,
+        "EventId": 90010,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 199,
+        "GroupId": 93008,
+        "EventId": 90011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 200,
+        "GroupId": 94002,
+        "EventId": 7,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 201,
+        "GroupId": 94002,
+        "EventId": 94001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 202,
+        "GroupId": 94002,
+        "EventId": 94002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 203,
+        "GroupId": 94002,
+        "EventId": 94003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 204,
+        "GroupId": 94002,
+        "EventId": 94011,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020267.0,
+            1020268.0
+        ]
+    },
+    {
+        "Id": 205,
+        "GroupId": 94002,
+        "EventId": 94012,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020271.0,
+            1020272.0
+        ]
+    },
+    {
+        "Id": 206,
+        "GroupId": 94002,
+        "EventId": 94013,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020273.0,
+            1020274.0
+        ]
+    },
+    {
+        "Id": 207,
+        "GroupId": 94002,
+        "EventId": 94014,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020279.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020278.0
+        ]
+    },
+    {
+        "Id": 208,
+        "GroupId": 94002,
+        "EventId": 94015,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020284.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 209,
+        "GroupId": 94002,
+        "EventId": 94100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 210,
+        "GroupId": 94002,
+        "EventId": 90013,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020244.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            -9990.0
+        ],
+        "AddWeightCondition": [
+            1020235.0
+        ]
+    },
+    {
+        "Id": 211,
+        "GroupId": 94002,
+        "EventId": 90014,
+        "Weight": 300,
+        "GameRepeatable": 0,
+        "ConditionId": 1020248.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020249.0
+        ]
+    },
+    {
+        "Id": 212,
+        "GroupId": 94004,
+        "EventId": 94001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 213,
+        "GroupId": 94004,
+        "EventId": 94002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 214,
+        "GroupId": 94004,
+        "EventId": 94003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 215,
+        "GroupId": 94004,
+        "EventId": 94011,
+        "Weight": 50,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020267.0,
+            1020268.0
+        ]
+    },
+    {
+        "Id": 216,
+        "GroupId": 94004,
+        "EventId": 94012,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020271.0,
+            1020272.0
+        ]
+    },
+    {
+        "Id": 217,
+        "GroupId": 94004,
+        "EventId": 94013,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020273.0,
+            1020274.0
+        ]
+    },
+    {
+        "Id": 218,
+        "GroupId": 94004,
+        "EventId": 94014,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": 1020279.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020278.0
+        ]
+    },
+    {
+        "Id": 219,
+        "GroupId": 94004,
+        "EventId": 94015,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020284.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 220,
+        "GroupId": 94004,
+        "EventId": 94100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 221,
+        "GroupId": 94004,
+        "EventId": 90013,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020244.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            -9990.0
+        ],
+        "AddWeightCondition": [
+            1020235.0
+        ]
+    },
+    {
+        "Id": 222,
+        "GroupId": 94004,
+        "EventId": 90014,
+        "Weight": 300,
+        "GameRepeatable": 0,
+        "ConditionId": 1020248.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020249.0
+        ]
+    },
+    {
+        "Id": 223,
+        "GroupId": 94006,
+        "EventId": 90003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 224,
+        "GroupId": 95002,
+        "EventId": 95001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 225,
+        "GroupId": 95002,
+        "EventId": 95002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 226,
+        "GroupId": 95002,
+        "EventId": 95003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 227,
+        "GroupId": 95002,
+        "EventId": 95004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 228,
+        "GroupId": 95002,
+        "EventId": 95005,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 229,
+        "GroupId": 95002,
+        "EventId": 95011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020275.0,
+            1020276.0,
+            1020277.0
+        ]
+    },
+    {
+        "Id": 230,
+        "GroupId": 95002,
+        "EventId": 95012,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020282.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 231,
+        "GroupId": 95002,
+        "EventId": 95100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 232,
+        "GroupId": 95002,
+        "EventId": 90013,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020244.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            -9990.0
+        ],
+        "AddWeightCondition": [
+            1020235.0
+        ]
+    },
+    {
+        "Id": 233,
+        "GroupId": 95002,
+        "EventId": 90014,
+        "Weight": 300,
+        "GameRepeatable": 0,
+        "ConditionId": 1020248.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020249.0
+        ]
+    },
+    {
+        "Id": 234,
+        "GroupId": 95005,
+        "EventId": 7,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 235,
+        "GroupId": 95005,
+        "EventId": 95001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 236,
+        "GroupId": 95005,
+        "EventId": 95002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 237,
+        "GroupId": 95005,
+        "EventId": 95003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 238,
+        "GroupId": 95005,
+        "EventId": 95004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 239,
+        "GroupId": 95005,
+        "EventId": 95005,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 240,
+        "GroupId": 95005,
+        "EventId": 95011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020275.0,
+            1020276.0,
+            1020277.0
+        ]
+    },
+    {
+        "Id": 241,
+        "GroupId": 95005,
+        "EventId": 95012,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020282.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 242,
+        "GroupId": 95005,
+        "EventId": 95100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 243,
+        "GroupId": 95005,
+        "EventId": 90013,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020244.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            -9990.0
+        ],
+        "AddWeightCondition": [
+            1020235.0
+        ]
+    },
+    {
+        "Id": 244,
+        "GroupId": 95005,
+        "EventId": 90014,
+        "Weight": 300,
+        "GameRepeatable": 0,
+        "ConditionId": 1020248.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020249.0
+        ]
+    },
+    {
+        "Id": 245,
+        "GroupId": 95015,
+        "EventId": 90004,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 246,
+        "GroupId": 95006,
+        "EventId": 95001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 247,
+        "GroupId": 95006,
+        "EventId": 95002,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 248,
+        "GroupId": 95006,
+        "EventId": 95003,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 249,
+        "GroupId": 95006,
+        "EventId": 95004,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 250,
+        "GroupId": 95006,
+        "EventId": 95005,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 251,
+        "GroupId": 95006,
+        "EventId": 95011,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            200.0,
+            9999.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020275.0,
+            1020276.0,
+            1020277.0
+        ]
+    },
+    {
+        "Id": 252,
+        "GroupId": 95006,
+        "EventId": 95012,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020282.0,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 253,
+        "GroupId": 95006,
+        "EventId": 95100,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [
+            50.0,
+            100.0,
+            500.0,
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020213.0,
+            1020215.0,
+            1020217.0,
+            1020219.0
+        ]
+    },
+    {
+        "Id": 254,
+        "GroupId": 95006,
+        "EventId": 90013,
+        "Weight": 9999,
+        "GameRepeatable": 0,
+        "ConditionId": 1020244.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            -9990.0
+        ],
+        "AddWeightCondition": [
+            1020235.0
+        ]
+    },
+    {
+        "Id": 255,
+        "GroupId": 95006,
+        "EventId": 90014,
+        "Weight": 300,
+        "GameRepeatable": 0,
+        "ConditionId": 1020248.0,
+        "LinkGroupId": null,
+        "AddWeight": [
+            9999.0
+        ],
+        "AddWeightCondition": [
+            1020249.0
+        ]
+    },
+    {
+        "Id": 256,
+        "GroupId": 95008,
+        "EventId": 90012,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 257,
+        "GroupId": 990001,
+        "EventId": 90005,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 258,
+        "GroupId": 990002,
+        "EventId": 90006,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 259,
+        "GroupId": 990003,
+        "EventId": 90007,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "LinkGroupId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
     }
 ]

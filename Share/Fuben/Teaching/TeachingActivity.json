@@ -1178,7 +1178,7 @@
     {
         "Id": 25,
         "Name": "\u7ee7\u627f\u8005\u8ffd\u7d22",
-        "TimeId": 24801.0,
+        "TimeId": null,
         "ChallengeStage": [
             30100028.0,
             30100029.0,
@@ -1226,5 +1226,57 @@
         "SkinDrawSkipId": null,
         "SkipGet": null,
         "ChallengeCondition": 96018.0
+    },
+    {
+        "Id": 26,
+        "Name": "\u7834\u754c\u8005\u5f52\u8d4e",
+        "TimeId": 25804.0,
+        "ChallengeStage": [
+            30100037.0,
+            30100038.0,
+            30100039.0
+        ],
+        "StageId": [
+            30100043.0,
+            30100044.0,
+            30100045.0
+        ],
+        "LinkStageId": [
+            30100040.0,
+            30100041.0,
+            30100042.0
+        ],
+        "ShowRewardId": 1013106.0,
+        "TreasureId": [
+            109,
+            110,
+            111,
+            112.0,
+            113.0,
+            114.0,
+            115.0
+        ],
+        "TotalStars": 9,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/FuBenWatanabeActivity01.prefab",
+        "GridFubenPrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/GridWatanabeActivityStage01.prefab",
+        "FubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/FuBenWatanabeActivity02.prefab",
+        "GridFubenChallengePrefab": "Assets/Product/Ui/ComponentPrefab/FubenWatanabeActivity/GridWatanabeActivityStage02.prefab",
+        "ConditionId": null,
+        "MainBgImg": null,
+        "StageBgImg": null,
+        "TitleImg": null,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner135.png",
+        "CharacterId": 1171004,
+        "SkipIdDraw": 7209,
+        "SkipIdAct": null,
+        "SkipIdJZ": null,
+        "SkipIdChar": null,
+        "SkipIdSkin": 20111.0,
+        "NewCharType": 26,
+        "MovieId": null,
+        "SkinTrialStageId": null,
+        "SkinDrawSkipId": null,
+        "SkipGet": null,
+        "ChallengeCondition": 96019.0
     }
 ]

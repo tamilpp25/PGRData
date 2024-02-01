@@ -11,7 +11,6 @@ XFubenCoupleCombatManagerCreator = function()
     local DefaultActivityInfo = nil
 
     local CoupleCombatDb = XCoupleCombatBaseData.New()
-    local IsRegisterEditBattleProxy = false
 
     -------- local function begin ----------
     local function Init()
@@ -26,8 +25,6 @@ XFubenCoupleCombatManagerCreator = function()
                 end
             end
         end
-
-        XFubenCoupleCombatManager.RegisterEditBattleProxy()
     end
 
     -------- local function end ----------
@@ -393,16 +390,6 @@ XFubenCoupleCombatManagerCreator = function()
         return false
     end
 
-    -- 注册出战界面代理
-    function XFubenCoupleCombatManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.CoupleCombat,
-                require("XUi/XUiFubenCoupleCombat/Proxy/XUiCoupleCombatNewRoomSingle"))
-        XUiRoomCharacterProxy.RegisterProxy(XDataCenter.FubenManager.StageType.CoupleCombat,
-                require("XUi/XUiFubenCoupleCombat/Proxy/XUiCoupleCombatRoomCharacter"))
-    end
-
     --检查是否有新职业技能解锁，并弹出提示界面
     function XFubenCoupleCombatManager.CheckCharacterCareerSkillInDic()
         local activeSkillList = CoupleCombatDb:CheckCharacterCareerSkillInDic()
@@ -534,13 +521,13 @@ XFubenCoupleCombatManagerCreator = function()
 end
 
 XRpc.NotifyCoupleCombatData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyData(data)
 end
 
 XRpc.NotifyCoupleCombatStageData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyStageData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyStageData(data)
 end
 
 XRpc.NotifyCoupleCombatDailyData = function(data)
-    XDataCenter.FubenCoupleCombatManager.NotifyDailyData(data)
+    --XDataCenter.FubenCoupleCombatManager.NotifyDailyData(data)
 end

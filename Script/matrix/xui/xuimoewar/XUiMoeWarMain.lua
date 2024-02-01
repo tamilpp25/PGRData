@@ -50,7 +50,7 @@ end
 function XUiMoeWarMain:InitUi()
 	self.ActInfo = XDataCenter.MoeWarManager.GetActivityInfo()
 	self.TxtName.text = self.ActInfo.Name
-	self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+	self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
 	for i = 1,#self.ActInfo.CurrencyId do
 		XDataCenter.ItemManager.AddCountUpdateListener(self.ActInfo.CurrencyId[i], function()
 				self.AssetActivityPanel:Refresh(self.ActInfo.CurrencyId)

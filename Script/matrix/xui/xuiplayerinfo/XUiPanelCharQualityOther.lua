@@ -134,8 +134,8 @@ end
 --v1.28【角色】升阶拆分 - 更新芯片区域
 --===========================================================================
 function XUiPanelCharQualityOther:UpdateWaferCircuit(character)
-    local isMaxQuality = XDataCenter.CharacterManager.IsMaxQuality(character)
-    local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(character.Quality)
+    local isMaxQuality = XMVCA.XCharacter:IsMaxQuality(character)
+    local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality)
     local isMaxStar = character.Star == XEnumConst.CHARACTER.MAX_QUALITY_STAR
 
     self.ImgPromoteQulityMax.gameObject:SetActive(isMaxQuality)
@@ -149,7 +149,7 @@ function XUiPanelCharQualityOther:UpdateWaferCircuit(character)
     self.RImgQualityTxtAttri.gameObject:SetActive(false)
 
     if isMaxQuality then
-        self.RImgQualityMax:SetRawImage(XCharacterConfigs.GetCharQualityIcon(character.Quality))
+        self.RImgQualityMax:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(character.Quality))
         self.PanelRImgQuality.gameObject:SetActive(false)
         self.PanelCondition.gameObject:SetActive(false)
         self.PanelWaferIcon.gameObject:SetActive(false)
@@ -169,7 +169,7 @@ end
 function XUiPanelCharQualityOther:UpdateStar(character)
     -- 刷新星节点图标
     for i = 1, XEnumConst.CHARACTER.MAX_QUALITY_STAR do
-        local isSkillStar = XCharacterConfigs.GetCharSkillQualityApartDicByStar(self.CharacterId, character.Quality, i)
+        local isSkillStar = XMVCA.XCharacter:GetCharSkillQualityApartDicByStar(self.CharacterId, character.Quality, i)
         if #isSkillStar > 0 then
             self.StarColour[i]:SetSprite(CharSkillQualityNorIcon)
             self.StarIcon[i]:SetSprite(CharSkillQualityOnIcon)

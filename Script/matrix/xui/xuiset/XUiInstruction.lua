@@ -1,10 +1,7 @@
-local XUiInstruction = XClass(nil, "XUiInstruction")
+---@class XUiInstruction : XUiNode
+local XUiInstruction = XClass(XUiNode, "XUiInstruction")
 
-function XUiInstruction:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiInstruction:OnStart()
     self.Npc = { self.Npc1, self.Npc2, self.Npc3 }
     self.TogPortrait = { self.TogPortrait1, self.TogPortrait2, self.TogPortrait3 }
     self.PanelNpc:Init(self.Npc, function(index) self:OnPanelNpc(index) end)
@@ -19,6 +16,14 @@ function XUiInstruction:Ctor(ui)
     self.CoreHeadLineGo = {}
     self.CoreDesGo = {}
     self:Init()
+end
+
+function XUiInstruction:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiInstruction:OnDisable()
+    self:HidePanel()
 end
 
 function XUiInstruction:Init()
@@ -38,27 +43,22 @@ function XUiInstruction:Init()
             local characterId = math.floor(templateId / 10)
             --region 将Q版机器人id转回普通角色id
             local stageId = CS.XFight.Instance.FightData.StageId
-            local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-            if stageInfo then
-                if stageInfo.Type == XDataCenter.FubenManager.StageType.TaikoMaster then
-                    characterId = XTaikoMasterConfigs.GetCharacterIdByNpcId(templateId) or characterId
-                elseif stageInfo.Type == XDataCenter.FubenManager.StageType.MoeWarParkour
-                    or stageInfo.Type == XDataCenter.FubenManager.StageType.Maze
-                then
-                    characterId = XCharacterCuteConfig.GetCharacterIdByNpcId(templateId) or characterId
-                end
+            ---@type XFubenAgency
+            local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
+            if fubenAgency:IsStageCute(stageId) then
+                characterId = XCharacterCuteConfig.GetCharacterIdByNpcId(templateId) or characterId
             end
             --endregion
-            self.Core[i] = XCharacterConfigs.GetCharTeachIconById(characterId)
-            self.CoreHeadLine[i] = XCharacterConfigs.GetCharTeachHeadLineById(characterId)
-            self.CoreDescription[i] = XCharacterConfigs.GetCharTeachDescriptionById(characterId)
+            self.Core[i] = XMVCA.XCharacter:GetCharTeachIconById(characterId)
+            self.CoreHeadLine[i] = XMVCA.XCharacter:GetCharTeachHeadLineById(characterId)
+            self.CoreDescription[i] = XMVCA.XCharacter:GetCharTeachDescriptionById(characterId)
             local iconPath = npc.Template.HeadImageName
             -- 兼容黑幕模式
             if npc.Fight.IsFubenDebug and npc.RLNpc then
                 local template = npc.RLNpc:GetUiResTemplate();
                 iconPath = template and template.HeadImageName or "";
             elseif npc.FightNpcData ~= nil then
-                iconPath = XDataCenter.CharacterManager.GetFightCharHeadIcon(npc.FightNpcData.Character, characterId)
+                iconPath = XMVCA.XCharacter:GetFightCharHeadIcon(npc.FightNpcData.Character, characterId)
             end
             self.TogPortrait[i]:SetSprite(iconPath)
 
@@ -100,12 +100,10 @@ end
 
 function XUiInstruction:ShowPanel()
     self.IsShow = true
-    self.GameObject:SetActive(true)
 end
 
 function XUiInstruction:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 function XUiInstruction:CheckDataIsChange()

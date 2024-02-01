@@ -79,21 +79,22 @@ function XNetwork.ConnectGateServer(args)
             request_func = function()
                 --放在外层，避免重连协议比其他协议慢返回
                 XEventManager.DispatchEvent(XEventId.EVENT_NETWORK_RECONNECT)
-                
+                XLog.Debug("gjl ReconnectRequest请求,", request)
                 XNetwork.Call("ReconnectRequest", request, function(res)
+                    XLog.Debug("gjl ReconnectRequest返回,", res)
                     -- XLog.Debug("服务器返回断线重连 测试，当作失败。" .. tostring(res.Code))
                     -- XLoginManager.OnReconnectFailed()
                     -- do return end
                     if res.Code ~= XCode.Success then
-                        if XNetwork.IsShowNetLog then
+                        --if XNetwork.IsShowNetLog then
                             XLog.Debug("服务器返回断线重连失败。" .. tostring(res.Code))
-                        end
+                        --end
                         XLoginManager.OnReconnectFailed()
                     else
                         XNetwork.Send("ReconnectAck")
-                        if XNetwork.IsShowNetLog then
+                        --if XNetwork.IsShowNetLog then
                             XLog.Debug("服务器返回断线重连成功。")
-                        end
+                        --end
                         XUserManager.ReconnectedToken = res.ReconnectToken
                         if args.ConnectCb then
                             args.ConnectCb()
@@ -129,9 +130,15 @@ function XNetwork.ConnectGateServer(args)
                     elseif response.Code == XCode.LoginApplicationVersionError then
                         -- 处于调试模式时进错服显示取消按钮，否则不显示
                         local cancelCb = XMain.IsDebug and function() end or nil
-                        CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
-                        CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"),
-                        CS.XInfo.Version), cancelCb, function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
+                        if XDataCenter.UiPcManager.IsPc() then
+                            CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
+                                CS.XStringEx.Format(CS.XApplication.GetText("PCUpdateApplication"), CS.XInfo.Version), cancelCb, 
+                                CS.XApplication.Exit))
+                        else
+                            CS.XTool.WaitCoroutine(CS.XApplication.CoDialog(CS.XApplication.GetText("Tip"),
+                                CS.XStringEx.Format(CS.XApplication.GetText("UpdateApplication"), CS.XInfo.Version), cancelCb, 
+                            function() CS.XTool.WaitCoroutine(CS.XApplication.GoToUpdateURL(GetAppUpgradeUrl()), nil) end))
+                        end
                     elseif response.Code == XCode.LoginDocumentVersionError then
                         XUiManager.DialogTip("", CS.XTextManager.GetCodeText(response.Code), XUiManager.DialogType.OnlySure, nil, function()
                             CS.XApplication.Exit()

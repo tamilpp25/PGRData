@@ -52,7 +52,7 @@ function XUiGuildRecommendation:InitFun()
     self.RefreshTimerCb = function() self:RefreshTimerFun() end
     self:OnRefresh()
 
-    XRedPointManager.AddRedPointEvent(self.RedNews, self.OnCheckGuildRecruitList, self, { XRedPointConditions.Types.CONDITION_GUILD_NEWS })
+    self:AddRedPointEvent(self.RedNews, self.OnCheckGuildRecruitList, self, { XRedPointConditions.Types.CONDITION_GUILD_NEWS })
 end
 
 function XUiGuildRecommendation:OnCheckGuildRecruitList(count)

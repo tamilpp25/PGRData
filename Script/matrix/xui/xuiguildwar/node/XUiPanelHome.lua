@@ -27,9 +27,9 @@ function XUiPanelHome:OnBtnHelpClicked()
 end
 
 function XUiPanelHome:OnBtnPlayerClicked()
-    self.GuildWarManager.RequestRanking(XGuildWarConfig.RankingType.NodeStay, self.Node:GetUID()
+    self.GuildWarManager.RequestRanking(XGuildWarConfig.RankingType.DefenseMembers, self.Node._Id
     , function(rankList, myRankInfo)
-        XLuaUiManager.Open("UiGuildWarStageRank", rankList, myRankInfo, XGuildWarConfig.RankingType.NodeStay, self.Node:GetUID(), self.Node)
+        XLuaUiManager.Open("UiGuildWarDefendRank", rankList, myRankInfo, XGuildWarConfig.RankingType.NodeStay, self.Node:GetUID(), self.Node)
     end)
 end
 

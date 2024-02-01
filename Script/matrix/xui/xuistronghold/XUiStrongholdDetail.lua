@@ -38,7 +38,6 @@ end
 
 function XUiStrongholdDetail:OnEnable()
     self:UpdateView()
-    self:UpdateEndurance()
     self:UpdateSupport()
 
 end
@@ -47,7 +46,6 @@ end
 function XUiStrongholdDetail:OnGetEvents()
     return {
         XEventId.EVENT_STRONGHOLD_FINISH_GROUP_CHANGE,
-        XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE,
         XEventId.EVENT_STRONGHOLD_TEAMLIST_CHANGE,
     }
 end
@@ -55,8 +53,6 @@ end
 function XUiStrongholdDetail:OnNotify(evt, ...)
     if evt == XEventId.EVENT_STRONGHOLD_FINISH_GROUP_CHANGE then
         self:UpdateView()
-    elseif evt == XEventId.EVENT_STRONGHOLD_ENDURANCE_CHANGE then
-        self:UpdateEndurance()
     elseif evt == XEventId.EVENT_STRONGHOLD_TEAMLIST_CHANGE then
         self:UpdateSupport()
     end
@@ -171,13 +167,6 @@ function XUiStrongholdDetail:UpdateView()
 
 end
 
-function XUiStrongholdDetail:UpdateEndurance()
-    local groupId = self.GroupId
-    local costEndurance = XDataCenter.StrongholdManager.GetGroupCostEndurance(groupId)
-    local curEndurance = XDataCenter.StrongholdManager.GetCurEndurance()
-    self.TxtEndurance.text = costEndurance .. "/" .. curEndurance
-end
-
 function XUiStrongholdDetail:UpdateSupport()
     local groupId = self.GroupId
     local isActive = XDataCenter.StrongholdManager.CheckGroupSupportAcitve(groupId)
@@ -192,7 +181,7 @@ function XUiStrongholdDetail:AutoAddListener()
 end
 
 function XUiStrongholdDetail:OnClickBtnAutoFight()
-    XDataCenter.StrongholdManager.RequestSweepStrongholdStage(self.GroupId, handler(self, self.Close))
+    XDataCenter.StrongholdManager.RequestSweepStrongholdStage(self.GroupId, handler(self, self.OnClickBtnClose))
 end
 
 function XUiStrongholdDetail:OnClickBtnClose()

@@ -75,7 +75,7 @@ local function GetWeaponOverrunTemplate(templateId)
 end
 
 local function GetCharacterTemplate(templateId)
-    local cfg = XCharacterConfigs.GetCharacterTemplate(templateId)
+    local cfg = XMVCA.XCharacter:GetCharacterTemplate(templateId)
     if cfg then 
         return XCode.Success, cfg
     else

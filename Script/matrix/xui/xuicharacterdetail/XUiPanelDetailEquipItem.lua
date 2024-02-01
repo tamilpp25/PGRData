@@ -70,7 +70,7 @@ function XUiPanelDetailEquipItem:UpdateView(recommendConfig, rank)
     self.VoteId = recommendConfig.Id
     self.TxtRank.text = rank
 
-    local template = XCharacterConfigs.GetCharDetailEquipTemplate(self.VoteId)
+    local template = XMVCA.XEquip:GetCharDetailEquipTemplate(self.VoteId)
     if not template then
         return
     end

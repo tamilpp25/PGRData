@@ -9,12 +9,14 @@ function XPanelTheatre3ItemProp:OnStart()
     self._GridList = {}
 end
 
-function XPanelTheatre3ItemProp:Refresh(itemIdList, selectCb)
-    for i, itemId in ipairs(itemIdList) do
+---@param itemDataList XTheatre3Item[]
+function XPanelTheatre3ItemProp:Refresh(itemDataList, selectCb)
+    for i, item in ipairs(itemDataList) do
         local go = i == 1 and self.PropGrid or XUiHelper.Instantiate(self.PropGrid.gameObject, self.PropGrid.transform.parent)
         ---@type XUiGridTheatre3Reward
         local grid = XUiGridTheatre3Reward.New(go, self.Parent)
-        grid:SetData(itemId, XEnumConst.THEATRE3.EventStepItemType.InnerItem, selectCb)
+        grid:SetData(item.ItemId, XEnumConst.THEATRE3.EventStepItemType.InnerItem, selectCb)
+        grid:SetItemData(item)
         grid:ShowRed(false)
         self._GridList[#self._GridList + 1] = grid
     end

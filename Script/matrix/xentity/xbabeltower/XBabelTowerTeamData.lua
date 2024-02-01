@@ -5,6 +5,7 @@ local Default = {
     TeamId = 0,
     CurScore = 0,
     MaxScore = 0,
+    CurTime = 0, -- 当前通关时间
     IsReset = false,
     IsSyn = false, --是否与服务端数据同步
     CaptainPos = 0,
@@ -36,6 +37,7 @@ function XBabelTowerTeamData:UpdateData(data)
     self.TeamId = data.Id
     self.CurScore = data.CurScore
     self.MaxScore = data.MaxScore or 0
+    self.CurTime = data.CurTime or 0
     self.IsReset = data.IsReset
     self:UpdateCharacter(data.TeamList, data.TeamRobotList)
     self.IsSyn = true
@@ -146,11 +148,15 @@ function XBabelTowerTeamData:GetMaxScore()
     return self.MaxScore
 end
 
-function XBabelTowerTeamData:GetSelectDiffcult()
+function XBabelTowerTeamData:GetCurTime()
+    return self.CurTime
+end
+
+function XBabelTowerTeamData:GetSelectDifficult()
     return self.StageLevel
 end
 
-function XBabelTowerTeamData:SelectDiffcult(difficult)
+function XBabelTowerTeamData:SelectDifficult(difficult)
     self.StageLevel = difficult
 end
 

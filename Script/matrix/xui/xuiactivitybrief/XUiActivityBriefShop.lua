@@ -25,7 +25,7 @@ function XUiActivityBriefShop:OnAwake()
     self.SortGroupList = {}
     self.XUiGridShopList = {}
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, true)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self, true)
     self:SetButtonCallBack()
     self:InitDynamicTable()
 end
@@ -38,6 +38,7 @@ function XUiActivityBriefShop:OnStart(closeCb, openCb, selectedShopId, screenId)
 
     self:CheckShopTabLock()
     self:InitShopTabList(selectedShopId, screenId)
+    XEventManager.DispatchEvent(XEventId.EVENT_AWARD_SHOP_ENTER)
 end
 
 function XUiActivityBriefShop:OnEnable()

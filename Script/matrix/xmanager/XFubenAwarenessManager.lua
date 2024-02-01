@@ -276,7 +276,7 @@ XFubenAwarenessManagerCreator = function()
             end
         end
 
-        local ownCharacters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local ownCharacters = XMVCA.XCharacter:GetOwnCharacterList()
         table.sort(ownCharacters, function(a, b)
             return a.Ability > b.Ability
         end)
@@ -304,7 +304,7 @@ XFubenAwarenessManagerCreator = function()
 
                 local i
                 for charIndex, char in ipairs(ownCharacters) do
-                    local charType = XCharacterConfigs.GetCharacterType(char.Id)
+                    local charType = XMVCA.XCharacter:GetCharacterType(char.Id)
                     if defaultCharacterType ~= XFubenConfigs.CharacterLimitType.All and defaultCharacterType ~= charType then
                         goto CONTINUE
                     end
@@ -333,7 +333,7 @@ XFubenAwarenessManagerCreator = function()
                 local teamData = XFubenAwarenessManager.GetTeamDataById(teamId)
                 for order = 1, teamData:GetNeedCharacter() do
                     local characterId = charIdList[order]
-                    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+                    local character = XMVCA.XCharacter:GetCharacter(characterId)
                     if character.Ability < teamData:GetRequireAbility() then
                         isMatch = false
                         break
@@ -461,13 +461,13 @@ XFubenAwarenessManagerCreator = function()
 
     -- 某角色某技能加成
     function XFubenAwarenessManager.GetSkillLevel(characterId, skillId)
-        local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+        local character = XMVCA.XCharacter:GetCharacter(characterId)
         if not character then return 0 end
 
         local keys, levels = XFubenAwarenessManager.GetBuffKeysAndLevels()
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -497,9 +497,9 @@ XFubenAwarenessManagerCreator = function()
                 end
             end
         end
-        local npcTemplate = XCharacterConfigs.GetNpcTemplate(character.NpcId)
+        local npcTemplate = XMVCA.XCharacter:GetNpcTemplate(character.NpcId)
         local tragetCharacterType = npcTemplate.Type
-        local targetSkilType = XCharacterConfigs.GetSkillType(skillId)
+        local targetSkilType = XMVCA.XCharacter:GetSkillType(skillId)
         local level = nil
         for _, key in pairs(keys) do
             local skillType = key % SKILLTYPE_BITS
@@ -515,15 +515,16 @@ XFubenAwarenessManagerCreator = function()
     -- 参数levels: {[key] = level, ...}
     function XFubenAwarenessManager.GetBuffDescListByKeys(keys, levels)
         local descList = {}
-        local GetCareerName = XCharacterConfigs.GetCareerName
-        local GetSkillTypeName = XCharacterConfigs.GetSkillTypeName
+        local GetCareerName = function (type)
+            return XMVCA.XCharacter:GetCareerName(type)
+        end
         local GetText = CS.XTextManager.GetText
         for _, key in ipairs(keys) do
             local skillType = key % SKILLTYPE_BITS
             local characterType = (key - skillType) / SKILLTYPE_BITS
             local level = levels and levels[key] or 1
             local memberTypeName = characterType == CHARACTERTYPE_ALL and "" or GetCareerName(characterType)
-            local str = GetText("AssignSkillPlus", memberTypeName, GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
+            local str = GetText("AssignSkillPlus", memberTypeName, XMVCA.XCharacter:GetSkillTypeName(skillType), level) -- 全体{0}成员{1}等级+{2}
             table.insert(descList, str)
         end
         return descList
@@ -790,7 +791,10 @@ XFubenAwarenessManagerCreator = function()
     end
 
     function XFubenAwarenessManager.OpenUi(openCb)
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAwareness, true) then   
+        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.FubenAwareness, true) then
+            if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.FubenAwareness) then
+                return
+            end
             if openCb then
                 XLuaUiManager.OpenWithCallback("UiAwarenessMain", openCb)
             else

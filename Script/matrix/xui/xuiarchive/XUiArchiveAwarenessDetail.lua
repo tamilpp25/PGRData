@@ -22,16 +22,16 @@ function XUiArchiveAwarenessDetail:OnAwake()
     }
 
     self.GridSettingList = {
-        XUiGridArchiveEquipSetting.New(self.GridSetting1),
-        XUiGridArchiveEquipSetting.New(self.GridSetting2),
+        XUiGridArchiveEquipSetting.New(self.GridSetting1,self),
+        XUiGridArchiveEquipSetting.New(self.GridSetting2,self),
     }
 
     self.GridStoryList = {
-        XUiGridArchiveEquipSetting.New(self.GridStory1),
-        XUiGridArchiveEquipSetting.New(self.GridStory2),
-        XUiGridArchiveEquipSetting.New(self.GridStory3),
-        XUiGridArchiveEquipSetting.New(self.GridStory4),
-        XUiGridArchiveEquipSetting.New(self.GridStory5),
+        XUiGridArchiveEquipSetting.New(self.GridStory1,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory2,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory3,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory4,self),
+        XUiGridArchiveEquipSetting.New(self.GridStory5,self),
     }
 
     self:AutoAddListener()
@@ -57,8 +57,10 @@ function XUiArchiveAwarenessDetail:Init(suitIdList,index)
     self:CheckNextMonsterAndPreMonster()
 
     self.SelectSiteIndex = nil
-    for _,grid in pairs(self.GridSiteList or {}) do
-        grid:ShowSelect(false)
+    if not XTool.IsTableEmpty(self.GridSiteList) then
+        for _,grid in pairs(self.GridSiteList) do
+            grid:ShowSelect(false)
+        end
     end
 
     if #self.TemplateIdList > 1 then
@@ -84,12 +86,12 @@ end
 
 function XUiArchiveAwarenessDetail:InitGridSites()
     self.GridSiteList = {
-        XUiGridArchiveAwarenessDetail.New(self.GridSite1),
-        XUiGridArchiveAwarenessDetail.New(self.GridSite2),
-        XUiGridArchiveAwarenessDetail.New(self.GridSite3),
-        XUiGridArchiveAwarenessDetail.New(self.GridSite4),
-        XUiGridArchiveAwarenessDetail.New(self.GridSite5),
-        XUiGridArchiveAwarenessDetail.New(self.GridSite6),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite1,self),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite2,self),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite3,self),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite4,self),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite5,self),
+        XUiGridArchiveAwarenessDetail.New(self.GridSite6,self),
     }
     for i, grid in ipairs(self.GridSiteList) do
         grid:SetClickCallback(function() self:OnBtnGroupClick(i) end)
@@ -108,7 +110,7 @@ function XUiArchiveAwarenessDetail:InitScene3DRoot()
 end
 
 function XUiArchiveAwarenessDetail:UpdateSpecialIcon()
-    local iconPath = XArchiveConfigs.GetAwarenessSuitInfoIconPath(self.SuitId)
+    local iconPath = self._Control:GetAwarenessSuitInfoIconPath(self.SuitId)
     if iconPath then
         self.ImgSpecialIcon.gameObject:SetActiveEx(true)
         self:SetUiSprite(self.ImgSpecialIcon, iconPath)
@@ -138,7 +140,7 @@ function XUiArchiveAwarenessDetail:UpdateSites()
 
             templateId = templateIdList[i]
             site = XDataCenter.EquipManager.GetEquipSiteByTemplateId(templateId)
-            isGet = XDataCenter.ArchiveManager.IsAwarenessGet(templateId)
+            isGet = XMVCA.XArchive:IsAwarenessGet(templateId)
             grid:SetName(XEquipConfig.AwarenessSiteToStr[site])
             grid:SetGet(isGet)
         end
@@ -154,7 +156,7 @@ function XUiArchiveAwarenessDetail:UpdateAwareness()
     end
 
     local site = XDataCenter.EquipManager.GetEquipSiteByTemplateId(self.SelectedTemplateId)
-    self:SetUiSprite(self.ImgSiteBg, XArchiveConfigs.SiteToBgPath[site])
+    self:SetUiSprite(self.ImgSiteBg, self._Control:GetStarToQualityName(site))
 end
 
 function XUiArchiveAwarenessDetail:UpdateResume()
@@ -171,36 +173,36 @@ end
 function XUiArchiveAwarenessDetail:UpdateSetting()
     local suitId = self.SuitId
     XRedPointManager.CheckOnce(self.OnCheckRedPoint, self, {XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS_SETTING_RED}, suitId)
-    if XDataCenter.ArchiveManager.IsNewAwarenessSuit(suitId) then
-        XDataCenter.ArchiveManager.RequestUnlockAwarenessSuit({suitId})
+    if XMVCA.XArchive:IsNewAwarenessSuit(suitId) then
+        XMVCA.XArchive:RequestUnlockAwarenessSuit({suitId})
     end
 
-    local newSettingIdList = XDataCenter.ArchiveManager.GetNewAwarenessSettingIdList(suitId)
+    local newSettingIdList = self._Control:GetNewAwarenessSettingIdList(suitId)
     if newSettingIdList and #newSettingIdList > 0 then
-        XDataCenter.ArchiveManager.RequestUnlockAwarenessSetting(newSettingIdList)
+        XMVCA.XArchive:RequestUnlockAwarenessSetting(newSettingIdList)
     end
 
-    local settingDataList = XArchiveConfigs.GetAwarenessSettingList(suitId)
+    local settingDataList = XMVCA.XArchive:GetAwarenessSettingList(suitId)
     local settingType
     local showedSettingCount = 0
     local showedStoryCount = 0
     local grid
     for _, settingData in ipairs(settingDataList) do
         settingType = settingData.Type
-        if settingType == XArchiveConfigs.SettingType.Setting then
+        if settingType == XEnumConst.Archive.SettingType.Setting then
             showedSettingCount = showedSettingCount + 1
             grid = self.GridSettingList[showedSettingCount]
             if grid then
-                grid:Refresh(XArchiveConfigs.SubSystemType.Awareness, settingData)
+                grid:Refresh(XEnumConst.Archive.SubSystemType.Awareness, settingData)
                 grid.GameObject:SetActiveEx(true)
             else
                 XLog.Error("there is not enough grid in the awareness setting, suitId is " .. suitId .. ", settingid is " .. settingData.Id .. ", check then awareness setting table")
             end
-        elseif settingType == XArchiveConfigs.SettingType.Story then
+        elseif settingType == XEnumConst.Archive.SettingType.Story then
             showedStoryCount = showedStoryCount + 1
             grid = self.GridStoryList[showedStoryCount]
             if grid then
-                grid:Refresh(XArchiveConfigs.SubSystemType.Awareness, settingData)
+                grid:Refresh(XEnumConst.Archive.SubSystemType.Awareness, settingData)
                 grid.GameObject:SetActiveEx(true)
             else
                 XLog.Error("there is not enough grid in the awareness story, suitid is " .. suitId .. ", settingid is " .. settingData.Id .. ", check then awareness setting table")
@@ -312,16 +314,16 @@ function XUiArchiveAwarenessDetail:OnCheckRedPoint(count)
         self.PanelSettingRedPoint.gameObject:SetActiveEx(false)
         self.PanelStoryRedPoint.gameObject:SetActiveEx(false)
     else
-        local newSettingIdList = XDataCenter.ArchiveManager.GetNewAwarenessSettingIdList(self.SuitId)
+        local newSettingIdList = self._Control:GetNewAwarenessSettingIdList(self.SuitId)
         if newSettingIdList then
             local type
             local isShowSettingReddot = false
             local isShowStoryReddot = false
             for _, id in ipairs(newSettingIdList) do
-                type = XArchiveConfigs.GetAwarenessSettingType(id)
-                if type == XArchiveConfigs.SettingType.Setting then
+                type = self._Control:GetAwarenessSettingType(id)
+                if type == XEnumConst.Archive.SettingType.Setting then
                     isShowSettingReddot = true
-                elseif type == XArchiveConfigs.SettingType.Story then
+                elseif type == XEnumConst.Archive.SettingType.Story then
                     isShowStoryReddot = true
                 end
             end

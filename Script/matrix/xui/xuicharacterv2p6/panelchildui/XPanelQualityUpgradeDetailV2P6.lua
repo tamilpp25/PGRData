@@ -32,18 +32,18 @@ function XPanelQualityUpgradeDetailV2P6:Refresh(afterEvoQuality)
     local characterId = self.Parent.ParentUi.CurCharacter.Id
      
     -- 名字和职业
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local career = self.CharacterAgency:GetCharacterCareer(characterId)
-    local careerIcon = XCharacterConfigs.GetNpcTypeIcon(career)
+    local careerIcon = XMVCA.XCharacter:GetNpcTypeIcon(career)
     self.BtnType:SetRawImage(careerIcon)
     self.TxtCharName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
     -- 独域提示
-    local showUniframe = XCharacterConfigs.IsIsomer(characterId)
+    local showUniframe = XMVCA.XCharacter:GetIsIsomer(characterId)
     self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
     
-    local oldAttribute = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, afterEvoQuality - 1)
-    local newAttribute = XCharacterConfigs.GetNpcPromotedAttribByQuality(characterId, afterEvoQuality)
+    local oldAttribute = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(characterId, afterEvoQuality - 1)
+    local newAttribute = XMVCA.XCharacter:GetNpcPromotedAttribByQuality(characterId, afterEvoQuality)
     
     for name, index in pairs(AttributeShow) do
         local panel = self["PanelChar".. index]

@@ -68,7 +68,7 @@ function XUiUnionKillSelectRole:OnEnable()
                     fashionId = shareNpcData.Character.FashionId
                 end
             else
-                local characterInfo = XDataCenter.CharacterManager.GetCharacter(self.CurCharacter.Id)
+                local characterInfo = XMVCA.XCharacter:GetCharacter(self.CurCharacter.Id)
                 fashionId = characterInfo.FashionId
             end
             self:UpdateRoleModel(self.CurCharacter, fashionId)
@@ -131,7 +131,7 @@ function XUiUnionKillSelectRole:OnCharacterClick(character, index)
             fashionId = shareNpcData.Character.FashionId
         end
     else
-        local characterInfo = XDataCenter.CharacterManager.GetCharacter(self.CurCharacter.Id)
+        local characterInfo = XMVCA.XCharacter:GetCharacter(self.CurCharacter.Id)
         fashionId = characterInfo.FashionId
     end
     self.CurCharacterItem = self.CharacterItemList[index]

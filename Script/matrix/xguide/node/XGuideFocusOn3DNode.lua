@@ -48,6 +48,7 @@ end
 
 function XGuideFocusOn3DNode:OnEnter()
     self.AgentProxy:FocusOn3D(self.SceneRoot, self.Camera, self.Transform, self.EulerAngles, self.PassEvent, self.Offset, self.SizeDelta)
+    self.AgentProxy:NodeBuryingPoint(self.Node.ID)
 end
 
 function XGuideFocusOn3DNode:OnGetEvents()

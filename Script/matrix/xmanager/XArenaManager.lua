@@ -1294,6 +1294,9 @@ XArenaManagerCreator = function()
 
         JudgeGotoMain()
         XEventManager.DispatchEvent(XEventId.EVENT_TASK_SYNC)
+        
+        -- 状态更改通知周历刷新
+        XEventManager.DispatchEvent(XEventId.EVENT_NEW_ACTIVITY_CALENDAR_UPDATE)
     end
 
     -- 获取正在战斗的竞技区域
@@ -1712,6 +1715,42 @@ XArenaManagerCreator = function()
                 XLuaUiManager.Open("UiArena", XFubenConfigs.GetChapterBannerByType(XDataCenter.FubenManager.ChapterType.ARENA))
             end)
         end
+    end
+
+    -- 获取倒计时（周历专用）
+    function XArenaManager:ExGetCalendarRemainingTime()
+        if not XTool.IsNumberValid(CountDownTime) then
+            return ""
+        end
+        local remainTime = CountDownTime - XTime.GetServerNowTimestamp()
+        if remainTime < 0 then
+            remainTime = 0
+        end
+        local timeText = XUiHelper.GetTime(remainTime, XUiHelper.TimeFormatType.NEW_CALENDAR)
+        return XUiHelper.GetText("UiNewActivityCalendarEndCountDown", timeText)
+    end
+    
+    -- 获取解锁时间（周历专用）
+    function XArenaManager:ExGetCalendarEndTime()
+        if not XTool.IsNumberValid(CountDownTime) then
+            return 0
+        end
+        return CountDownTime
+    end
+
+    -- 是否在周历里显示
+    function XArenaManager:ExCheckShowInCalendar()
+        if not XTool.IsNumberValid(CountDownTime) then
+            return false
+        end
+        if CountDownTime - XTime.GetServerNowTimestamp() <= 0 then
+            return false
+        end
+        local state = XDataCenter.ArenaManager.GetArenaActivityStatus()
+        if state == XArenaActivityStatus.Fight then
+            return true
+        end
+        return false
     end
     ------------------副本入口扩展 end-------------------------
 

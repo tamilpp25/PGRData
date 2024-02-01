@@ -4,6 +4,7 @@ XPayManagerCreator = function()
     local RuntimePlatform = CS.UnityEngine.RuntimePlatform
     local PayAgent = nil
 
+    ---@class XPayManager
     local XPayManager = {}
     local IsGetFirstRechargeReward  -- 是否领取首充奖励
     local IsFirstRecharge           -- 是否首充
@@ -58,9 +59,11 @@ XPayManagerCreator = function()
             return
         end
 
+        XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.RECHARGE)
         XNetwork.Call(METHOD_NAME.Initiated, { Key = productKey }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
                 return
             end
             --BDC
@@ -114,6 +117,22 @@ XPayManagerCreator = function()
 
         local data = XDataCenter.PurchaseManager.GetYKInfoData()
         return data.IsDailyRewardGet
+    end
+
+    -- 显示网页充值成功弹框
+    function XPayManager.CheckShowWebTips()
+        -- 战斗中不弹
+        if CS.XFight.IsRunning then
+            return false
+        end
+        if not PayAgent then
+            return false
+        end
+        if not PayAgent:CheckWebTips() then
+            return false
+        end
+        PayAgent:WebTipsPaySuccess()
+        return true
     end
 
     function XPayManager.NotifyPayResult(data)

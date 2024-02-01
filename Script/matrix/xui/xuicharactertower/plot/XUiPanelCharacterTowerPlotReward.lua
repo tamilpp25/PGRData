@@ -26,7 +26,7 @@ end
 
 function XUiPanelCharacterTowerPlotReward:RefreshCharacterInfo()
     local characterId = self.ChapterViewModel:GetChapterCharacterId()
-    local characterIcon = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(characterId)
+    local characterIcon = XMVCA.XCharacter:GetCharHalfBodyBigImage(characterId)
     self.RImgRole:SetRawImage(characterIcon)
     self.RImgRoleGift:SetRawImage(characterIcon)
     local characterName = XEntityHelper.GetCharacterName(characterId)

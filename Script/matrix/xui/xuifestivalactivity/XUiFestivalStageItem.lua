@@ -1,3 +1,4 @@
+---@class XUiFestivalStageItem
 XUiFestivalStageItem = XClass(nil, "XUiFestivalStageItem")
 
 function XUiFestivalStageItem:Ctor(rootUi, ui)

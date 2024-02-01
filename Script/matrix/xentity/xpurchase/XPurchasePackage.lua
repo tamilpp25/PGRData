@@ -109,6 +109,7 @@ function XPurchasePackage:CheckCanBuy(count, disCountCouponIndex, notEnoughCb)
             return 2
         end
         local tips = XUiHelper.GetCountNotEnoughTips(self.Data.ConsumeId);
+        local payCount = consumeCount - XDataCenter.ItemManager.GetCount(self.Data.ConsumeId)
         XUiManager.TipMsg(tips,XUiManager.UiTipType.Wrong)
         if self.Data.ConsumeId == XDataCenter.ItemManager.ItemId.PaidGem then
             if notEnoughCb then
@@ -116,7 +117,8 @@ function XPurchasePackage:CheckCanBuy(count, disCountCouponIndex, notEnoughCb)
             end
         elseif self.Data.ConsumeId == XDataCenter.ItemManager.ItemId.HongKa then
             if notEnoughCb then
-                notEnoughCb(XPurchaseConfigs.TabsConfig.Pay)
+                notEnoughCb(XPurchaseConfigs.TabsConfig.Pay, payCount)
+                return 3
             end
         end
         return 0

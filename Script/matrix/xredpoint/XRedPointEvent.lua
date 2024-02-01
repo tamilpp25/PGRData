@@ -13,6 +13,8 @@ local RedPointConditionGroupPool
 ---@type XObjectPool
 local RedPointListenerPool
 
+local IsWindowsEditor = XMain.IsWindowsEditor
+
 local EventHandler = function(method, eventId)
     return function(obj, ...)
         return method(obj, eventId, ...)
@@ -36,10 +38,20 @@ function XRedPointEvent:Init(id, node, conditionGroup, listener, func, args)
 
     if node.Exist then
         self.checkExist = function() return node:Exist() end
+        self:GetNodeHierarchyPath(node)
     else
         local gameObject = node.GameObject or node.gameObject or node.Transform or node.transform
         if gameObject and gameObject.Exist then
             self.checkExist = function() return gameObject:Exist() end
+            self:GetNodeHierarchyPath(gameObject)
+        end
+    end
+end
+
+function XRedPointEvent:GetNodeHierarchyPath(go)
+    if IsWindowsEditor then
+        if go.transform then
+            self.nodePath = CS.XUnityEx.GetPath(go.transform)
         end
     end
 end
@@ -138,6 +150,11 @@ function XRedPointEvent:CheckNode()
     end
 
     if not self.checkExist() then
+        if IsWindowsEditor then
+            if self.nodePath then
+                XLog.Error("红点检测节点已被销毁, 请检查是否有移除红点事件:" .. self.nodePath)
+            end
+        end
         return false
     end
 
@@ -154,6 +171,7 @@ function XRedPointEvent:Release()
         self.listener = nil
     end
     self.node = nil
+    self.nodePath = nil
     if self.condition then
         self.condition:Release()
         RedPointConditionGroupPool:Recycle(self.condition)

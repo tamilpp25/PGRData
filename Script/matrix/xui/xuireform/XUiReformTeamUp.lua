@@ -25,7 +25,7 @@ function UiReformTeamMemberGrid:SetData(source, inTeam, isSelected)
         rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            rImg:SetRawImage(XCharacterConfigs.GetCharElement(elementList[i]).Icon)
+            rImg:SetRawImage(XMVCA.XCharacter:GetCharElement(elementList[i]).Icon)
         else
             rImg.gameObject:SetActiveEx(false)
         end

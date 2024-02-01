@@ -1,14 +1,6 @@
 local XUiCharacterPropertyV2P6 = XLuaUiManager.Register(XLuaUi, "UiCharacterPropertyV2P6")
 
 function XUiCharacterPropertyV2P6:OnAwake()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
-    ag = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
-    ---@type XCommonCharacterFiltAgency
-    self.FiltAgecy = ag
-
     self:InitPanelInfo()
     self:InitButton()
     self:InitFilter()
@@ -44,7 +36,7 @@ function XUiCharacterPropertyV2P6:InitPanelInfo()
 end
 
 function XUiCharacterPropertyV2P6:InitFilter()
-    self.PanelFilter = self.FiltAgecy:InitFilter(self.PanelCharacterFilter, self)
+    self.PanelFilter = XMVCA.XCommonCharacterFilter:InitFilter(self.PanelCharacterFilter, self)
     self.PanelCharacterFilter.gameObject:SetActiveEx(false)
     local onSeleCb = function (character, index, grid, isFirstSelect)
         if not character then
@@ -55,12 +47,17 @@ function XUiCharacterPropertyV2P6:InitFilter()
 
     local onTagClickCb = function (targetBtn)
         self.ParentUi.FilterCurSelectTagBtnName = targetBtn.gameObject.name
+
+        local enumId = XGlobalVar.BtnUiCharacterSystemV2P6[self.ParentUi.FilterCurSelectTagBtnName]
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, enumId, self.ParentUi.CurCharacter and self.ParentUi.CurCharacter.Id)
     end
     
     self.PanelFilter:InitData(onSeleCb, onTagClickCb)
-    local list = self.CharacterAgency:GetOwnCharacterList()
+    local list = XMVCA.XCharacter:GetOwnCharacterList()
     self.DataSource = list
     self.PanelFilter:ImportList(list)
+    self.PanelFilter:RefreshList()
+    self.PanelFilter:Close()
 end
 
 function XUiCharacterPropertyV2P6:InitButton()
@@ -82,16 +79,17 @@ function XUiCharacterPropertyV2P6:OnEnable()
     local initCharId = self.ParentUi.InitCharId
     local skipArgs = self.ParentUi.SkipArgs
     if initCharId and skipArgs and not self.ParentUi.IsUiInit then -- 跳转进入属性培养界面  同步更改父界面模型
-        local char = self.CharacterAgency:GetCharacter(initCharId)
-        self.ParentUi:SetCurCharacter(char)
+        local char = XMVCA.XCharacter:GetCharacter(initCharId)
+        self.ParentUi:SetCurCharacter(char) -- 如果玩家未拥有该角色 跳转进来，这一步的代码是无效的，父界面不会被设置一个有效角色
         self.ParentUi:RefreshRoleModel()
     end
 
     if self.ParentUi.CurCharacter then
         -- self.PanelFilter:DoSelectCharacter(self.ParentUi.CurCharacter.Id)
     else
-        -- 如果父界面没有角色 说明是跳转进来的 选中第一个就好
-        self.ParentUi:SetCurCharacter(self.DataSource[1])
+        -- 一个判空保底 如果父界面没有角色  选中第一个就好.可能出现的情况：跳转到培养的角色，玩家未拥有
+        local char = self.DataSource[1]
+        self.ParentUi:SetCurCharacter(char)
         self.ParentUi:RefreshRoleModel()
     end
     self.PanelPropertyButtons:SelectIndex(self.OpenIndex or self.CurSelectIndex or 1)
@@ -104,7 +102,7 @@ function XUiCharacterPropertyV2P6:OnEnable()
 end
 
 function XUiCharacterPropertyV2P6:OnDisable()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 -- 刷新当前展示的内容
@@ -126,13 +124,13 @@ function XUiCharacterPropertyV2P6:RefreshTabBtns()
     local character = self.ParentUi.CurCharacter
 
     -- 最大等级
-    local isMaxLevel = self.CharacterAgency:IsMaxLevel(charId)
+    local isMaxLevel = XMVCA.XCharacter:IsMaxLevel(charId)
     self.BtnTabLevel:ShowTag(isMaxLevel)
     
-    local isMaxGrade = self.CharacterAgency:IsMaxCharGrade(character)
+    local isMaxGrade = XMVCA.XCharacter:IsMaxCharGrade(character)
     self.BtnTabGrade:ShowTag(isMaxGrade)
     
-    local isCharAllSkillMax = self.CharacterAgency:CheckCharacterAllSkillMax(charId)
+    local isCharAllSkillMax = XMVCA.XCharacter:CheckCharacterAllSkillMax(charId)
     self.BtnTabSkill:ShowTag(isCharAllSkillMax)
 
     -- 判断是否解锁
@@ -155,7 +153,7 @@ function XUiCharacterPropertyV2P6:RefreshTabBtns()
     -- 红点
     self.BtnTabLevel:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_LEVEL}, charId))
     self.BtnTabGrade:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_GRADE}, charId))
-    self.BtnTabSkill:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_SKILL}, charId))
+    self.BtnTabSkill:ShowReddot(XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER_SKILL, XRedPointConditions.Types.CONDITION_CHARACTER_NEW_ENHANCESKILL_TIPS}, charId))
 end
 
 function XUiCharacterPropertyV2P6:OnSelectCharacter(character)
@@ -163,7 +161,8 @@ function XUiCharacterPropertyV2P6:OnSelectCharacter(character)
         return
     end
 
-    self.ParentUi:SetCurCharacter(character)
+    local tagName = self.PanelFilter:GetCurSelectTagName()
+    XEventManager.DispatchEvent(XEventId.EVENT_CHARACTER_CHANGE_SYNC_SYSTEM, character, tagName)
     local cb = function (model)
         self.PanelDrag.Target = model.transform
     end
@@ -218,6 +217,7 @@ end
 function XUiCharacterPropertyV2P6:HideFilter()
     self.PanelCharacterFilter.gameObject:SetActiveEx(false)
     self.PanelPropertyButtons.gameObject:SetActiveEx(true)
+    self.PanelFilter:Close()
 end
 
 function XUiCharacterPropertyV2P6:OnBtnExchangeClick()
@@ -229,10 +229,15 @@ function XUiCharacterPropertyV2P6:ShowOrHideFilter()
     activeSelf = self.PanelCharacterFilter.gameObject.activeSelf
     self.PanelCharacterFilter.gameObject:SetActiveEx(not activeSelf)
     -- 打开的时候刷新
+    local charId = self.ParentUi.CurCharacter.Id
+    local syncTag = self.ParentUi.CurSyncTagName -- 可以每次都同步  因为该界面筛选器本身也会发送同步信息
     if not activeSelf then
-        self.PanelFilter:DoSelectTag("BtnAll")
-        local charId = self.ParentUi.CurCharacter.Id
-        self.PanelFilter:DoSelectCharacter(charId)
+        self.PanelFilter:Open()
+        self.PanelFilter:DoSelectTag(syncTag or "BtnAll", nil, charId)
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnExchange, charId)
+    else
+        XMVCA.XCharacter:BuryingUiCharacterAction(self.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnCloseFilter, charId)
+        self.PanelFilter:Close()
     end
 
     activeSelf = self.PanelPropertyButtons.gameObject.activeSelf

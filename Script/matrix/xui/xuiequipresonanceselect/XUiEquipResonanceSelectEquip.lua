@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 
 local XUiEquipResonanceSelectEquip = XLuaUiManager.Register(XLuaUi, "UiEquipResonanceSelectEquip")
 

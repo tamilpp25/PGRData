@@ -1,4 +1,4 @@
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local ATTR_COLOR = {
     EQUAL = XUiHelper.Hexcolor2Color("1B3750"), -- 属性与当前装备一样
@@ -38,12 +38,23 @@ function XUiEquipReplaceV2P6:OnStart(charId, closecallback, notShowStrengthenBtn
     self.CloseCallback = closecallback
     self.NotShowStrengthenBtn = notShowStrengthenBtn == true
 
-    local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(charId)  --初始为角色身上的装备
+    -- 初始选中角色身上的装备
+    local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(self.CharacterId)
     self.SelectEquipId = equipId
-    self.UsingEquipId = equipId
 end
 
 function XUiEquipReplaceV2P6:OnEnable()
+    -- 更新玩家穿戴装备。 在穿戴装备的瞬间点击培养切换界面，不会触发OnNotify更新self.UsingEquipId
+    local equipId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(self.CharacterId)
+    self.UsingEquipId = equipId
+
+    -- 播放扩展面板动画，动画切到最后一帧
+    local anim = self.IsShowExtend and self.AnimFold or self.AnimUnFold
+    anim:Play()
+    anim.time = anim.duration
+    anim:Evaluate()
+    anim:Stop()
+    
     self.PanelAddEffect.gameObject:SetActiveEx(false)
     self.PanelAdd2Effect.gameObject:SetActiveEx(false)
     self:UpdateView()
@@ -143,7 +154,7 @@ function XUiEquipReplaceV2P6:OnBtnTakeOnClick()
             return
         end
 
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         local content = string.gsub(CS.XTextManager.GetText("EquipReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(CS.XTextManager.GetText("TipTitle"), content, XUiManager.DialogType.Normal, function() end, function()
             XMVCA:GetAgency(ModuleId.XEquip):PutOn(self.CharacterId, self.SelectEquipId)

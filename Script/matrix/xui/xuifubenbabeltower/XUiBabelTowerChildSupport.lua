@@ -1,4 +1,4 @@
----@class UiBabelTowerChildSupport : XLuaUi
+---@class XUiBabelTowerChildSupport : XLuaUi
 local XUiBabelTowerChildSupport = XLuaUiManager.Register(XLuaUi, "UiBabelTowerChildSupport")
 
 local XUiBabelMemberHead = require("XUi/XUiFubenBabelTower/XUiBabelMemberHead")
@@ -155,16 +155,6 @@ function XUiBabelTowerChildSupport:OnSupportChoiceDynamicTableEvent(event, index
     end
 end
 
-function XUiBabelTowerChildSupport:OnSupportSelectDynamicTableEvent(event, index, grid)
-    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self)
-    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-        if self.ChoosedSupportList[index] then
-            grid:SetItemData(self.ChoosedSupportList[index], XFubenBabelTowerConfigs.TYPE_SUPPORT)
-        end
-    end
-end
-
 function XUiBabelTowerChildSupport:OnBtnBackClick()
     self.UiRoot:Switch2ChallengePhase()
 end
@@ -284,8 +274,6 @@ function XUiBabelTowerChildSupport:InitSupportBuff()
     -- 更新界面
     self:UpdateSupportChooiceState()
     self:ReportSupportChoice()
-    -- self.DynamicTableSupportSelect:SetDataSource(self.ChoosedSupportList)
-    -- self.DynamicTableSupportSelect:ReloadDataASync()
     self:RefreshSelectChoiceList()
     self.ImgEmpty.gameObject:SetActiveEx(#self.ChoosedSupportList <= 0)
     self.TxtChallengeNumber.text = availablePoint
@@ -340,8 +328,6 @@ function XUiBabelTowerChildSupport:CheckSupportSelectBuffs()
     end
     self.ChoosedSupportList = supportSelectBuffs
     self:ReportSupportChoice()
-    -- self.DynamicTableSupportSelect:SetDataSource(self.ChoosedSupportList)
-    -- self.DynamicTableSupportSelect:ReloadDataASync()
     self:RefreshSelectChoiceList()
     self.ImgEmpty.gameObject:SetActiveEx(#self.ChoosedSupportList <= 0)
 end
@@ -459,8 +445,6 @@ function XUiBabelTowerChildSupport:UpdateChoosedChallengeDatas(buffGroupId, buff
     end
 
     self:ReportSupportChoice()
-    -- self.DynamicTableSupportSelect:SetDataSource(self.ChoosedSupportList)
-    -- self.DynamicTableSupportSelect:ReloadDataASync()
     self:RefreshSelectChoiceList(index)
     self.ImgEmpty.gameObject:SetActiveEx(#self.ChoosedSupportList <= 0)
 

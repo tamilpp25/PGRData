@@ -68,6 +68,7 @@ function Stack:top()
 	return self[size]
 end
 
+---@class XArithmetic
 local XArithmetic = XClass(nil, "XArithmetic")
 
 local defaultOperatorLevel = {

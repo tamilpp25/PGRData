@@ -3,6 +3,8 @@ local XUiPassportRewardGrid = require("XUi/XUiPassport/UpLevel/XUiPassportReward
 local CSXTextManagerGetText = CS.XTextManager.GetText
 local tableInsert = table.insert
 
+---@field _Control XPassportControl
+---@class UiPassportReward:XLuaUi
 local XUiPassportReward = XLuaUiManager.Register(XLuaUi, "UiPassportReward")
 
 function XUiPassportReward:OnAwake()
@@ -24,7 +26,7 @@ function XUiPassportReward:OnStart(levelAfter, spendBuyCount, spendBuyExp, buyCb
     self.SpendBuyCount = spendBuyCount
     self.BuyCallback = buyCb
 
-    local costItemId = XPassportConfigs.GetBuyLevelCostItemId()
+    local costItemId = self._Control:GetBuyLevelCostItemId()
     local costItemIcon = XItemConfigs.GetItemIconById(costItemId)
     self.RImgIconSpend:SetRawImage(costItemIcon)
     self.TxtTips.text = CSXTextManagerGetText("PassportSpendBuyDesc", spendBuyCount)
@@ -38,10 +40,10 @@ function XUiPassportReward:OnStart(levelAfter, spendBuyCount, spendBuyExp, buyCb
     local unLockPassportRewardIdList
     local rewardData
     for _, levelId in ipairs(levelIdList or {}) do
-        level = XPassportConfigs.GetPassportLevel(levelId)
-        unLockPassportRewardIdList = XPassportConfigs.GetUnLockPassportRewardIdListByLevel(level)
+        level = self._Control:GetPassportLevel(levelId)
+        unLockPassportRewardIdList = self._Control:GetUnLockPassportRewardIdListByLevel(level)
         for _, passportRewardId in ipairs(unLockPassportRewardIdList) do
-            rewardData = XPassportConfigs.GetPassportRewardData(passportRewardId)
+            rewardData = self._Control:GetPassportRewardData(passportRewardId)
             tableInsert(self.DynamicData, rewardData)
         end
     end
@@ -68,7 +70,7 @@ function XUiPassportReward:RegisterButtonEvent()
 end
 
 function XUiPassportReward:OnBtnConfirmClick()
-    local costItemId = XPassportConfigs.GetBuyLevelCostItemId()
+    local costItemId = self._Control:GetBuyLevelCostItemId()
     local haveItemCount = XDataCenter.ItemManager.GetCount(costItemId)
     if haveItemCount < self.SpendBuyCount then
         XUiManager.TipText("ShopItemPaidGemNotEnough")
@@ -76,7 +78,7 @@ function XUiPassportReward:OnBtnConfirmClick()
         return
     end
 
-    XDataCenter.PassportManager.RequestPassportBuyExp(self.LevelAfter, function() 
+    self._Control:RequestPassportBuyExp(self.LevelAfter, function() 
         self:Close()
         if self.BuyCallback then
             self.BuyCallback()

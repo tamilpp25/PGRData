@@ -12,10 +12,10 @@ function XRedPointConditionBiancaTheatreAllRedPoint.GetSubConditions()
 end
 
 function XRedPointConditionBiancaTheatreAllRedPoint.Check()
-    if XRedPointConditionBiancaTheatreTaskReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BIANCATHEATRE_TASK_REWARD_RED_POINT) then
         return true
     end
-    if XRedPointConditionBiancaTheatreAchievement.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_BIANCATHEATRE_ACHIEVEMENT_RED_POINT) then
         return true
     end
     if XDataCenter.BiancaTheatreManager.IsHaveReward() then

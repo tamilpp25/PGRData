@@ -27,6 +27,8 @@ XFunctionEventManagerCreator = function()
             XEventManager.AddEventListener(XEventId.EVENT_MENTOR_AUTO_GRADUATE, XFunctionEventManager.HandlerAutoGraduate)
             XEventManager.AddEventListener(XEventId.EVENT_PLAYER_UNLOCK_BIRTHDAY_STORY, XFunctionEventManager.UnLockBirthdayStory)
             XEventManager.AddEventListener(XEventId.EVENT_REVIEW_ACTIVITY_HIT_FACE_END, XFunctionEventManager.OnReviewEnd)
+            XEventManager.AddEventListener(XEventId.EVENT_WEB_RECHARGE_SUCCESS, XFunctionEventManager.OnWebPay)
+            XEventManager.AddEventListener(XEventId.EVENT_WEB_RECHARGE_SUCCESS_END, XFunctionEventManager.OnWebPayEnd)
         end)
         DisableFunction = XFunctionEventManager.CheckFuncDisable()
     end
@@ -69,7 +71,7 @@ XFunctionEventManagerCreator = function()
         elseif XPlayer.HandlerPlayLevelUpAnimation() then --玩家等级提升
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.MentorSystemManager.CheckHaveGraduateReward() then --学员毕业
-            FunctionState = FunctionEvenState.PLAYING   
+            FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.FubenManager.CheckHasNewHideStage() then --隐藏关卡开启
             FunctionState = FunctionEvenState.PLAYING
         elseif XDataCenter.TaskForceManager.HandlerPlayTipMission() then --任务提示
@@ -91,6 +93,8 @@ XFunctionEventManagerCreator = function()
         elseif XDataCenter.GuideManager.CheckGuideOpen() then -- 引导
             FunctionState = FunctionEvenState.PLAYING
         elseif InMainUi and XDataCenter.CommunicationManager.ShowFestivalCommunication() then --节日通讯
+            FunctionState = FunctionEvenState.PLAYING
+        elseif InMainUi and XDataCenter.PayManager.CheckShowWebTips() then -- 网页充值成功弹框
             FunctionState = FunctionEvenState.PLAYING
         elseif InMainUi and XDataCenter.AutoWindowManager.CheckAutoWindow() then -- 打脸
             FunctionState = FunctionEvenState.PLAYING
@@ -179,6 +183,17 @@ XFunctionEventManagerCreator = function()
 
     --解锁生日剧情
     function XFunctionEventManager.UnLockBirthdayStory()
+        FunctionState = FunctionEvenState.IDLE
+        XFunctionEventManager.OnFunctionEventValueChange()
+    end
+
+    --网页充值弹框
+    function XFunctionEventManager.OnWebPay()
+        XFunctionEventManager.OnFunctionEventValueChange()
+    end
+
+    --网页充值弹框结束
+    function XFunctionEventManager.OnWebPayEnd()
         FunctionState = FunctionEvenState.IDLE
         XFunctionEventManager.OnFunctionEventValueChange()
     end

@@ -1,15 +1,16 @@
 local XUiGridBabelSelectTeam = require("XUi/XUiFubenBabelTower/XUiGridBabelSelectTeam")
 
+---@class XUiBabelTowerSelectTeam : XLuaUi
 local XUiBabelTowerSelectTeam = XLuaUiManager.Register(XLuaUi, "UiBabelTowerSelectTeam")
 
 function XUiBabelTowerSelectTeam:OnAwake()
     self.BtnTanchuangCloseBig.CallBack = function() self:Close() end
 
-    self.DynamicTableSupportConditon = XDynamicTableNormal.New(self.PanelCondition)
-    self.DynamicTableSupportConditon:SetProxy(XUiGridBabelSelectTeam)
-    self.DynamicTableSupportConditon:SetDelegate(self)
+    self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
+    self.DynamicTable:SetProxy(XUiGridBabelSelectTeam)
+    self.DynamicTable:SetDelegate(self)
 
-    self.GridCondition.gameObject:SetActiveEx(false)
+    self.GridBabelSelectTeam.gameObject:SetActiveEx(false)
 end
 
 function XUiBabelTowerSelectTeam:OnStart(stageId)
@@ -21,17 +22,17 @@ function XUiBabelTowerSelectTeam:OnStart(stageId)
     XDataCenter.FubenBabelTowerManager.SetLastOpenStageId(stageId)
 end
 
--- function XUiBabelTowerSelectTeam:OnDestroy()
---     XDataCenter.FubenBabelTowerManager.ClearTeamChace(self.StageId)
--- end
 function XUiBabelTowerSelectTeam:OnEnable()
     self.TeamIdList = XDataCenter.FubenBabelTowerManager.GetStageTeamIdList(self.StageId)
-    self.DynamicTableSupportConditon:SetDataSource(self.TeamIdList)
-    self.DynamicTableSupportConditon:ReloadDataASync()
+    self.DynamicTable:SetDataSource(self.TeamIdList)
+    self.DynamicTable:ReloadDataASync()
 end
 
+---@param grid XUiGridBabelSelectTeam
 function XUiBabelTowerSelectTeam:OnDynamicTableEvent(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:Refresh(self.StageId, self.TeamIdList[index])
     end
 end
+
+return XUiBabelTowerSelectTeam

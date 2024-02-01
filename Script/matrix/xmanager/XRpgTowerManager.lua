@@ -162,16 +162,6 @@ XRpgTowerManagerCreator = function()
     end
 
     --[[    ================
-    注册出战界面代理
-    ================
-    ]]
-    function XRpgTowerManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.RpgTower,
-            require("XUi/XUiRpgTower/Battle/EditBattleUi/XUiRpgTowerNewRoomSingle"))
-    end
-    --[[    ================
     初始化/重置玩法数据
     @param:notifyRpgData 后端推送的初始化数据
     ================
@@ -845,7 +835,6 @@ XRpgTowerManagerCreator = function()
             TeamExp = data.TeamExp
             HadGetDailyReward = data.HadGetDailyReward
             XRpgTowerManager.Reset(data)
-            XRpgTowerManager.RegisterEditBattleProxy()
         else
             IsActivityEnd = false
             TeamLevel = data.TeamLevel
@@ -853,7 +842,6 @@ XRpgTowerManagerCreator = function()
             HadGetDailyReward = data.HadGetDailyReward
             XRpgTowerManager.SetTeam(data.Characters) -- List<XRpgCharacter>
             XRpgTowerManager.RefreshStageInfo(data.Stages)
-            XRpgTowerManager.RegisterEditBattleProxy()
         end
     end
     --[[    ================

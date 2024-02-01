@@ -1,6 +1,7 @@
+---@class UiGoldenMinerDialog : XLuaUi
+---@field _Control XGoldenMinerControl
 local UiGoldenMinerDialog = XLuaUiManager.Register(XLuaUi, "UiGoldenMinerDialog")
 
----@class UiGoldenMinerDialog : XLuaUi
 function UiGoldenMinerDialog:OnAwake()
     self:InitData()
     self:InitBtnCallBack()
@@ -44,7 +45,6 @@ end
 --endregion
 
 --region Ui - SettleGameDialog
----@param data XGoldenMinerDialogExData
 function UiGoldenMinerDialog:RefreshSettleGameDialog()
     if not self.BtnSave then
         self.BtnConfirm:SetNameByGroup(0, self.Data.TxtSure)
@@ -71,6 +71,7 @@ end
 function UiGoldenMinerDialog:InitBtnCallBack()
     self:RegisterClickEvent(self.BtnConfirm, self.OnBtnConfirmClick)
     self:RegisterClickEvent(self.BtnClose, self.OnBtnSpecialCloseClick)
+    self:RegisterClickEvent(self.BtnBg, self.OnBtnCloseClick)
     self:RegisterClickEvent(self.BtnTanchuangClose, self.OnBtnCloseClick)
     if self.BtnSave then
         self:RegisterClickEvent(self.BtnSave, self.OnBtnConfirmClick)

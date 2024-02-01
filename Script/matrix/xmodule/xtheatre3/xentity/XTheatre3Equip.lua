@@ -2,76 +2,43 @@
 local XTheatre3Equip = XClass(nil, "XTheatre3Equip")
 
 function XTheatre3Equip:Ctor()
-    ---槽位Id
-    self.SlotId = 0
-    ---装备
-    self.EquipIdsMap = {}
-    ---套装
-    self.SuitIds = {}
+    self._Pos = 0
+    self._EquipId = 0
+    self._PassFightCount = 0
+    self._PassBossFightCount = 0
+    self._IsQuantum = false
+end
+
+--region Update
+function XTheatre3Equip:UpdateEquipByData(data)
+    self._Pos = data.Pos
+    self._EquipId = data.EquipId
+    self._SuitId = data.SuitId
+    self._PassFightCount = data.PassFightCount or 0
+    self._PassBossFightCount = data.PassBossFightCount or 0
+    self._IsQuantum = data.QubitActive or false
+end
+
+function XTheatre3Equip:UpdateEquipById(pos, equipId, suitId)
+    self._Pos = pos
+    self._EquipId = equipId
+    self._SuitId = suitId
 end
 
 --region Getter
-function XTheatre3Equip:GetSuitIdList()
-    return self.SuitIds
+function XTheatre3Equip:GetEquipId()
+    return self._EquipId
+end
+
+function XTheatre3Equip:GetSuitId()
+    return self._SuitId
 end
 --endregion
 
 --region Checker
-function XTheatre3Equip:CheckIsHaveSuit()
-    return not XTool.IsTableEmpty(self.SuitIds)
+function XTheatre3Equip:IsQuantum()
+    return self._IsQuantum
 end
 --endregion
-
-function XTheatre3Equip:NotifyTheatre3Equip(slotId, data)
-    self.SlotId = slotId
-    self.EquipIdsMap = {}
-    self.SuitIds = {}
-    for _, v in pairs(data) do
-        self:_AddSuit(v.SuitId)
-        self.EquipIdsMap[v.EquipId] = true
-    end
-end
-
-function XTheatre3Equip:AddEquipAndSuit(equipId, suitId)
-    self.EquipIdsMap[equipId] = true
-    self:_AddSuit(suitId)
-end
-
-function XTheatre3Equip:_AddSuit(suitId)
-    local index = table.indexof(self.SuitIds, suitId)
-    if not index then
-        table.insert(self.SuitIds, suitId)
-    end
-end
-
-function XTheatre3Equip:_RemoveSuit(suitId)
-    local index = table.indexof(self.SuitIds, suitId)
-    if index then
-        table.remove(self.SuitIds, index)
-    end
-end
-
-function XTheatre3Equip:ExchangeSuit(oldSuitId, oldEquips, newSuitId, newEquips)
-    if oldSuitId ~= 0 then
-        for _, v in pairs(oldEquips) do
-            self.EquipIdsMap[v] = nil
-        end
-        self:_RemoveSuit(oldSuitId)
-    end
-
-    if newSuitId ~= 0 then
-        for _, v in pairs(newEquips) do
-            self.EquipIdsMap[v] = true
-        end
-        self:_AddSuit(newSuitId)
-    end
-end
-
-function XTheatre3Equip:LoseEquip(equip, suit)
-    self.EquipIdsMap[equip] = nil
-    if suit then
-        self:_RemoveSuit(suit)
-    end
-end
 
 return XTheatre3Equip

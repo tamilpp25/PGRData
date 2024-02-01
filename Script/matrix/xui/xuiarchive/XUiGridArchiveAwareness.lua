@@ -1,16 +1,12 @@
 --
 -- Author: wujie
 -- Note: 图鉴意识一级界面的格子
-local XUiGridArchiveAwareness = XClass(nil, "XUiGridArchiveAwareness")
+local XUiGridArchiveAwareness = XClass(XUiNode, "XUiGridArchiveAwareness")
 
-function XUiGridArchiveAwareness:Ctor(ui, clickCb, rootUi)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiGridArchiveAwareness:OnStart(clickCb, rootUi)
     self.RootUi = rootUi
     self.ClickCb = clickCb
-
-    XTool.InitUiObject(self)
-
+    
     self.ImgGirdStarList = {
         self.ImgGirdStar1,
         self.ImgGirdStar2,
@@ -21,14 +17,6 @@ function XUiGridArchiveAwareness:Ctor(ui, clickCb, rootUi)
     }
 
     self.BtnClick.CallBack = function() self:OnBtnClick() end
-end
-
-function XUiGridArchiveAwareness:InitRootUi(rootUi)
-    self.RootUi = rootUi
-end
-
-function XUiGridArchiveAwareness:SetClickCallback(callback)
-    self.ClickCb = callback
 end
 
 function XUiGridArchiveAwareness:UpdateStar()
@@ -44,7 +32,7 @@ function XUiGridArchiveAwareness:UpdateCollectedCount()
     local suitId = self.SuitId
     local templateIdList = XEquipConfig.GetEquipTemplateIdsListBySuitId(suitId)
     local sumCount = #templateIdList
-    local curCount = XDataCenter.ArchiveManager.GetAwarenessCountBySuitId(suitId)
+    local curCount = XMVCA.XArchive:GetAwarenessCountBySuitId(suitId)
     self.TxtSumCount.text = sumCount
     self.TxtCurCount.text = curCount
 end
@@ -123,13 +111,13 @@ function XUiGridArchiveAwareness:OnCheckRedPoint(count)
         self.PanelNewTag.gameObject:SetActiveEx(false)
         self.PanelRedPoint.gameObject:SetActiveEx(false)
     else
-        local isShowTag = XDataCenter.ArchiveManager.IsNewAwarenessSuit(suitId)
+        local isShowTag = XMVCA.XArchive:IsNewAwarenessSuit(suitId)
         if isShowTag then
             self.PanelNewTag.gameObject:SetActiveEx(true)
             self.PanelRedPoint.gameObject:SetActiveEx(false)
         else
             self.PanelNewTag.gameObject:SetActiveEx(false)
-            self.PanelRedPoint.gameObject:SetActiveEx(XDataCenter.ArchiveManager.IsNewAwarenessSetting(suitId))
+            self.PanelRedPoint.gameObject:SetActiveEx(XMVCA.XArchive:IsNewAwarenessSetting(suitId))
         end
     end
 end

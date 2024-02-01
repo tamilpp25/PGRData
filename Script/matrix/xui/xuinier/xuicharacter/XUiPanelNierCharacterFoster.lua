@@ -50,13 +50,13 @@ function XUiPanelNierCharacterFoster:UpdateLevelPanel(characterData)
     self.ImgNormal:SetSprite(XDataCenter.ItemManager.GetItemIcon(self.UpLevelItemId))
     self.ImgPress:SetSprite(XDataCenter.ItemManager.GetItemIcon(self.UpLevelItemId))
     
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterData:GetRobotCharacterId())
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterData:GetRobotCharacterId())
     local elementList = detailConfig.ObtainElementList
     for i = 1, 2 do
         local rImg = self["ProfessionIcon" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon2)
         else
             rImg.gameObject:SetActiveEx(false)
@@ -81,7 +81,7 @@ function XUiPanelNierCharacterFoster:OnDynamicGridClick(index)
         if data.Type == XNieRConfigs.AbilityType.Skill then
             local skillId = config.SkillId
             local skillLevel = config.SkillLevel
-            local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+            local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
             XUiManager.DialogDragTip(skillInfo.Name, skillInfo.Intro, XUiManager.DialogType.NoBtn, nil, nil)
         elseif data.Type == XNieRConfigs.AbilityType.Fashion then
             XLuaUiManager.Open("UiFashion", self.CharacterData:GetRobotCharacterId(), true, true, XUiConfigs.OpenUiType.NieRCharacterUI)

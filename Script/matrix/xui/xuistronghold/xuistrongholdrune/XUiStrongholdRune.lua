@@ -152,13 +152,19 @@ function XUiStrongholdRune:OnClickBtnSave()
     end
 
     local callFunc = function()
+        local curTeam = self.TeamList[self.TeamId]
         if oldTeamId then
             local oldTeam = self.TeamList[oldTeamId]
-            oldTeam:ClearRune()
+            local curRuneId, curSubRuneId = curTeam:GetRune()
+            if XTool.IsNumberValid(curRuneId) and XTool.IsNumberValid(curSubRuneId) then
+                oldTeam:SetRune(curRuneId, curSubRuneId)
+            else
+                oldTeam:ClearRune()
+            end
         end
 
-        local curTeam = self.TeamList[self.TeamId]
         curTeam:SetRune(runeId, subRuneId)
+        XDataCenter.StrongholdManager.SetStrongholdTeamRequest(self.TeamList, false)
 
         self:Close()
     end

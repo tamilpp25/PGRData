@@ -5,13 +5,20 @@ local min = math.min
 
 function XUiPanelAsset:InitNode(ui, parent, ...)
     XUiPanelAsset.Super.InitNode(self, parent, ui, ...)
+end
 
-    self._BindNodes = {}
-    self.ItemIds = { ... }
-    self.EventListener = {}
+function XUiPanelAsset:OnStart(...)
     self:InitAutoScript()
-
     self:InitBtnSound()
+    
+    self.ItemIds = { ... }
+    self._BindNodes = {}
+    self:InitAssert(self.ItemIds)
+end
+
+function XUiPanelAsset:RefreshBindItem(...)
+    self.ItemIds = { ... }
+    self._BindNodes = {}
     self:InitAssert(self.ItemIds)
 end
 
@@ -109,15 +116,15 @@ end
 
 function XUiPanelAsset:BuyJump(index)
     -- 联机中不给跳转，防止跳出联机房间
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
-        return
-    end
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
-        return
-    end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionCantLeaveRoom"))
+    --    return
+    --end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    XUiManager.TipMsg(CS.XTextManager.GetText("UnionInMatching"))
+    --    return
+    --end
 
     if XLuaUiManager.IsUiShow("UiMain") then
         if self.ItemIds[index] == XDataCenter.ItemManager.ItemId.FreeGem then
@@ -236,7 +243,7 @@ function XUiPanelAsset:RemoveCountUpdateListener()
     self._BindNodes = {}
 end
 
-function XUiPanelAsset:OnRelease()
+function XUiPanelAsset:OnDestroy()
     self:RemoveCountUpdateListener()
 end
 

@@ -233,7 +233,7 @@ XTheatreManagerCreator = function()
 
     function XTheatreManager.CallFinishFight()
         local fubenManager = XDataCenter.FubenManager
-        local res = fubenManager.FubenSettleResult
+        local res = XMVCA.XFuben:GetFubenSettleResult()
         if not res then
             -- 强退
             XTheatreManager.ClearMultiFightState()
@@ -801,14 +801,21 @@ XTheatreManagerCreator = function()
     ------------------副本入口扩展 start-------------------------
 
     function XTheatreManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre) then
-            XTheatreManager.CheckAutoPlayStory()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Theatre) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Theatre) then
+            return
+        end
+
+        XTheatreManager.CheckAutoPlayStory()
     end
 
     -- 检查是否展示红点
     function XTheatreManager:ExCheckIsShowRedPoint()
-        return XRedPointConditionTheatreAllRedPoint.Check()
+        return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_THEATRE_ALL_RED_POINT)
     end
 
     ---商店买空即为Clear

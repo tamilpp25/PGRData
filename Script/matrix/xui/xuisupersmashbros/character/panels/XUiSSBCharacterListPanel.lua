@@ -1,7 +1,7 @@
 
 local XUiSSBCharacterListPanel = XClass(nil, "XUiSSBCharacterListPanel")
 -- groupId : XRoomCharFilterTipsConfigs.EnumFilterTagGroup
--- tagValue : XCharacterConfigs.GetCharDetailTemplate(char.Id)
+-- tagValue : XMVCA.XCharacter:GetCharDetailTemplate(char.Id)
 local FilterJudge = function(groupId, tagValue, xRole)
     local characterViewModel = xRole:GetCharacterViewModel()
     -- 职业筛选
@@ -35,17 +35,17 @@ function XUiSSBCharacterListPanel:InitPanel()
     self:InitBtns()
     self:InitDTables()
     self.DTableGridCharacter.gameObject:SetActiveEx(false)
-    self.CharaType = XCharacterConfigs.CharacterType.Normal
+    self.CharaType = XEnumConst.CHARACTER.CharacterType.Normal
     self.IsAscendOrder = true
     self.BtnAscending.gameObject:SetActiveEx(not self.IsAscendOrder)
     self.BtnDescending.gameObject:SetActiveEx(self.IsAscendOrder)
     self.SortTagType = XRoomCharFilterTipsConfigs.EnumSortTag.Default
     self.CurrentSelectTagGroup = {
-        [XCharacterConfigs.CharacterType.Normal] = {},
-        [XCharacterConfigs.CharacterType.Isomer] = {}
+        [XEnumConst.CHARACTER.CharacterType.Normal] = {},
+        [XEnumConst.CHARACTER.CharacterType.Isomer] = {}
         }
     --选中构造体项
-    self.PanelCharacterTypeBtns:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+    self.PanelCharacterTypeBtns:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
 end
 
 function XUiSSBCharacterListPanel:InitBtns()
@@ -94,7 +94,7 @@ function XUiSSBCharacterListPanel:InitDTables()
 end
 
 function XUiSSBCharacterListPanel:OnSelectCharaType(charaType)
-    if charaType == XCharacterConfigs.CharacterType.Isomer
+    if charaType == XEnumConst.CHARACTER.CharacterType.Isomer
         and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then
         return
     end
@@ -104,13 +104,13 @@ function XUiSSBCharacterListPanel:OnSelectCharaType(charaType)
     local roles = XDataCenter.SuperSmashBrosManager.GetRoleListByCharaType(self.CharaType)
     if #roles <= 0 then
         XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-        self.PanelCharacterTypeBtns:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+        self.PanelCharacterTypeBtns:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
         return
     end
     self:Filter(selectTagGroupDic, sortTagId, function(roles)
             if #roles <= 0 then
                 XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-                self.PanelCharacterTypeBtns:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+                self.PanelCharacterTypeBtns:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
                 return false
             end
             return true
@@ -119,7 +119,7 @@ end
 
 function XUiSSBCharacterListPanel:GetCharaListFilter()
     local filter = function(chara)
-        local result = chara:CheckIsIsomer() and XCharacterConfigs.CharacterType.Isomer or XCharacterConfigs.CharacterType.Normal
+        local result = chara:CheckIsIsomer() and XEnumConst.CHARACTER.CharacterType.Isomer or XEnumConst.CHARACTER.CharacterType.Normal
         return self.CharaType == result
     end
     return filter

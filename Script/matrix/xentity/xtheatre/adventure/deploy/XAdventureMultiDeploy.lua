@@ -134,7 +134,7 @@ function XAdventureMultiDeploy:AutoTeam(teamList)
         local elementId, isomer
         for _, role in ipairs(roleElementList) do
             if not usingCharacterIdDic[role:GetCharacterId()] then
-                isomer = role:GetCharacterType() == XCharacterConfigs.CharacterType.Isomer
+                isomer = role:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Isomer
                 elementId = role:GetMinSortOrderElementId()
                 break
             end
@@ -148,8 +148,8 @@ function XAdventureMultiDeploy:AutoTeam(teamList)
         local teamPos = 1
         for _, role in ipairs(roleCareerList) do
             if not usingCharacterIdDic[role:GetCharacterId()] then
-                if (isomer and role:GetCharacterType() == XCharacterConfigs.CharacterType.Isomer) or
-                    (not isomer and role:GetCharacterType() == XCharacterConfigs.CharacterType.Normal and role:IsSameElement(nil, elementId)) then
+                if (isomer and role:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Isomer) or
+                    (not isomer and role:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Normal and role:IsSameElement(nil, elementId)) then
                         team:UpdateEntityTeamPos(role:GetId(), teamPos, true)
                         usingCharacterIdDic[role:GetCharacterId()] = true
                         teamPos = teamPos + 1

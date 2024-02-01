@@ -64,9 +64,9 @@ function XUiFubenQxms:SwitchRole(entitiyId)
     local isRobot = XEntityHelper.GetIsRobot(entitiyId)
     if isRobot then
         local charId = XRobotManager.GetCharacterId(entitiyId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(charId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(charId)
         if not isOwn then
-            local name = XCharacterConfigs.GetCharacterFullNameStr(charId)
+            local name = XMVCA.XCharacter:GetCharacterFullNameStr(charId)
             XUiManager.TipMsg(XUiHelper.GetText("NotOwn", name))
             return
         end

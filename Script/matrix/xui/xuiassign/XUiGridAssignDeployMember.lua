@@ -62,7 +62,7 @@ function XUiGridAssignDeployMember:Refresh(groupId, teamOrder, teamData, memberO
         self.TxtNowAbility.color = CONDITION_COLOR[ability >= teamData:GetRequireAbility()]
         self.TxtNowAbility.text = ability
 
-        self.RImgRoleHead:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+        self.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
         self.PanelMember.gameObject:SetActiveEx(true)
         self.PanelEmpty.gameObject:SetActiveEx(false)
 
@@ -99,86 +99,7 @@ function XUiGridAssignDeployMember:OnMemberClick()
     local stageId = self.TeamId
     local characterLimitType = XFubenConfigs.GetStageCharacterLimitType(stageId)
     local limitBuffId = XFubenConfigs.GetStageCharacterLimitBuffId(stageId)
-    if XTool.USENEWBATTLEROOM and false then
-        local entityIds = {}
-        for i, entityId in ipairs(teamCharIdMap) do
-            if teamOrderMap[entityId] == curTeamOrder then
-                table.insert(entityIds, entityId)
-                teamCharIdMap[i] = 0
-            end
-        end
-        local team = XDataCenter.TeamManager.CreateTempTeam(entityIds)
-        XLuaUiManager.Open("UiBattleRoomRoleDetail", stageId
-            , team
-            , teamSelectPos
-            , {
-                AOPCloseBefore = function(proxy, rootUi)
-                    local index = 1
-                    for i, entityId in ipairs(teamCharIdMap) do
-                        if entityId <= 0 then
-                            for pos, value in ipairs(rootUi.Team:GetEntityIds()) do
-                                if value > 0 then
-                                    teamCharIdMap[i] = value
-                                    rootUi.Team:UpdateEntityTeamPos(0, pos, true)
-                                    break
-                                end
-                            end
-                        end
-                    end
-                    self:OnCharacterSelected(teamCharIdMap)
-                end,
-                AOPOnBtnJoinTeamClickedBefore = function(proxy, rootUi)
-                    local currentEntityId = rootUi.CurrentEntityId
-                    -- 不存在任意一队或者自己队，直接跳过
-                    if teamOrderMap[currentEntityId] == nil
-                        or teamOrderMap[currentEntityId] == curTeamOrder then
-                        return
-                    end
-                    local finishedCallback = function()
-                        local oldCharacterId = rootUi.Team:GetEntityIdByTeamPos(rootUi.Pos)
-                        local newCharacterId = rootUi.CurrentEntityId
-                        for i, entityId in ipairs(teamCharIdMap) do
-                            if entityId == newCharacterId then
-                                teamCharIdMap[i] = oldCharacterId
-                                break    
-                            end
-                        end
-                        rootUi.Team:UpdateEntityTeamPos(rootUi.CurrentEntityId, rootUi.Pos, true)
-                        rootUi:Close(true)
-                    end
-                    -- 在其他编队
-                    local newOrder = teamOrderMap[currentEntityId]
-                    local title = CS.XTextManager.GetText("AssignDeployTipTitle")
-                    local characterName = XCharacterConfigs.GetCharacterName(currentEntityId)
-                    local oldTeamName = CS.XTextManager.GetText("AssignTeamTitle", curTeamOrder)
-                    local newTeamName = CS.XTextManager.GetText("AssignTeamTitle", newOrder)
-                    local content = CS.XTextManager.GetText("AssignDeployTipContent", characterName, oldTeamName, newTeamName)
-                    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, finishedCallback)
-                    return true
-                end,
-                AOPOnDynamicTableEventAfter = function(proxy, rootUi, event, index, grid)
-                    local entity = rootUi.DynamicTable.DataSource[index]
-                    if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
-                        grid:SetInTeamStatus(teamOrderMap[entity:GetId()] ~= nil)
-                    end
-                end,
-                GetChildPanelData = function (proxy)
-                    if proxy.ChildPanelData == nil then
-                        proxy.ChildPanelData = {
-                            assetPath = XUiConfigs.GetComponentUrl("UiPanelAssignRoomRoleDetail"),
-                            proxy = require("XUi/XUiAssign/XUiPanelAssignRoomRoleDetail"),
-                            proxyArgs = { ablityRequire, curTeamOrder }
-                        }
-                    end
-                    return proxy.ChildPanelData
-                end,
-                GetIsShowRoleDetail = function()
-                    return false
-                end
-            })
-    else
-        XLuaUiManager.Open("UiAssignRoomCharacter", self.CharacterId, self.TeamId, teamSelectPos, curTeamOrder, self.GroupId, ablityRequire)
-    end
+    XLuaUiManager.Open("UiAssignRoomCharacter", self.CharacterId, self.TeamId, teamSelectPos, curTeamOrder, self.GroupId, ablityRequire)
 end
 
 function XUiGridAssignDeployMember:OnCharacterSelected(teamCharIdMap)

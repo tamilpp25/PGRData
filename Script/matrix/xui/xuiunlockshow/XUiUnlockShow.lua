@@ -24,12 +24,10 @@ function XUiUnlockShow:UpdateUnLockPanelInfo()
     local bigIcon = self.CharacterAgency:GetCharSmallHeadIcon(characterId)
     self.RImgFashionIcon:SetRawImage(bigIcon)
 
-    local fullName = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+    local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     self.TxtUnlockFashionName.text = CS.XTextManager.GetText("CharUnlockTips", fullName)
 
     self:PlayAnimation("AniUnlockShowBegin", function()
-        self.CharacterAgency:ExchangeCharacter(characterId, function()
-            self:Close()
-        end)
+        self:Close()
     end)
 end

@@ -10,15 +10,13 @@ local STATUS_SCROLL = {
 }
 local MovementType = CS.UnityEngine.UI.ScrollRect.MovementType
 
----@class XUiReformListPanelMob
-local XUiReformListPanelMob = XClass(nil, "XUiReformListPanelMob")
+---@field _Control XReformControl
+---@class XUiReformListPanelMob:XUiNode
+local XUiReformListPanelMob = XClass(XUiNode, "XUiReformListPanelMob")
 
-function XUiReformListPanelMob:Ctor(ui, viewModel)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiReformListPanelMob:OnStart()
     ---@type XViewModelReform2ndList
-    self._ViewModel = viewModel
-    XTool.InitUiObject(self)
+    self._ViewModel = self._Control:GetViewModelList()
     self:HideAffixList()
     self.GridEnemy.gameObject:SetActiveEx(false)
     self.GridBuff.gameObject:SetActiveEx(false)
@@ -44,6 +42,15 @@ function XUiReformListPanelMob:Ctor(ui, viewModel)
     self._GridIndex2Show = 0
     self._Duration = 0
     self._DurationGrid2Show = 0.1
+
+    XUiHelper.RegisterClickEvent(self, self.ButtonSkip, self.OnClickClose)
+
+    ---@type UnityEngine.UI.Toggle
+    local toggle = self.ToggleDesc
+    toggle.isOn = self._ViewModel:GetIsFullDesc()
+    toggle.onValueChanged:AddListener(function(value)
+        self._ViewModel:SetIsFullDesc(value)
+    end)
 end
 
 function XUiReformListPanelMob:OnEnable()
@@ -52,6 +59,7 @@ function XUiReformListPanelMob:OnEnable()
             self:Tick()
         end, 0)
     end
+    self:Show()
 end
 
 function XUiReformListPanelMob:OnDisable()
@@ -61,6 +69,7 @@ function XUiReformListPanelMob:OnDisable()
     end
     self._PositionTemp = false
     self._TransformGridFocus = false
+    self:Hide()
 end
 
 function XUiReformListPanelMob:Update()
@@ -104,25 +113,46 @@ function XUiReformListPanelMob:Update()
             break
         end
     end
+
+    --if self.PanelAffixList.gameObject.activeSelf or self._Status > STATUS_SCROLL.NONE then
+    --    self.ButtonSkip.gameObject:SetActiveEx(false)
+    --    self.Button.gameObject:SetActiveEx(true)
+    --else
+    --    self.ButtonSkip.gameObject:SetActiveEx(true)
+    --    self.Button.gameObject:SetActiveEx(false)
+    --end
+    if data.IsShowCompleteButton then
+        self.ButtonSkip.gameObject:SetActiveEx(true)
+        self.Button.gameObject:SetActiveEx(false)
+    else
+        self.ButtonSkip.gameObject:SetActiveEx(false)
+        self.Button.gameObject:SetActiveEx(true)
+    end
 end
 
 function XUiReformListPanelMob:OnClickSure()
-    self:Hide()
-    XEventManager.DispatchEvent(XEventId.EVENT_REFORM_UPDATE_MOB)
-    if self.BtnReformEffect then
-        self.BtnReformEffect.gameObject:SetActive(true)
+    local data = self._ViewModel.DataMob
+    if data.IsAutoShowNextMob then
+        if self._ViewModel:SetNextButtonGroupIndex() then
+            --self:Update()
+            --self:HideAffixList()
+        else
+            self:OnClickClose()
+        end
+    else
+        self:OnClickClose()
     end
 end
 
 function XUiReformListPanelMob:Show()
-    self.GameObject:SetActiveEx(true)
+    self:Open()
     self:HideAffixList()
 end
 
 function XUiReformListPanelMob:Hide()
+    self._ViewModel:CloseAutoShowNextMob()
     self._ViewModel:ClearMobDirty()
     self._ViewModel:ClearSelected()
-    self.GameObject:SetActiveEx(false)
     self:HideAffixList()
 end
 
@@ -162,6 +192,8 @@ function XUiReformListPanelMob:UpdateAffix()
         local grid = self._GridBuff[i]
         grid.GameObject:SetActiveEx(false)
     end
+
+    self.TextAffixAmount2.text = data.TextAffixAmount
 end
 
 function XUiReformListPanelMob:FocusTo(index)
@@ -283,6 +315,15 @@ end
 
 function XUiReformListPanelMob:IsPlayingAnimation()
     return self._ViewModel.DataMob.PlayingAnimation
+end
+
+function XUiReformListPanelMob:OnClickClose()
+    self:Hide()
+    --XEventManager.DispatchEvent(XEventId.EVENT_REFORM_UPDATE_MOB)
+    XEventManager.DispatchEvent(XEventId.EVENT_REFORM_CLOSE_DETAIL)
+    if self.BtnReformEffect then
+        self.BtnReformEffect.gameObject:SetActive(true)
+    end
 end
 
 return XUiReformListPanelMob

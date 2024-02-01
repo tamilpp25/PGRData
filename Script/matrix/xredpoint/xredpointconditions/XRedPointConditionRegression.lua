@@ -19,7 +19,7 @@ function XRedPointConditionRegression.GetSubConditions()
 end
 
 function XRedPointConditionRegression.Check()
-    return XRedPointConditionRegressionTask.Check()
+    return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_REGRESSION_TASK)
 end
 
 return XRedPointConditionRegression

@@ -1,4 +1,4 @@
----@class XUiMainPanelBase 主界面位置页面基类
+---@class XUiMainPanelBase : XUiNode 主界面位置页面基类
 ---@field UiTheme XUiTheme
 local XUiMainPanelBase = XClass(XUiNode, "XUiMainPanelBase")
 
@@ -10,7 +10,7 @@ function XUiMainPanelBase:InitTheme(transform)
     if not self.UiTheme then
         return
     end
-    
+
     self.UiTheme:SetColorHandler(handler(self, self.OnHandleColor))
     self.UiTheme:SetPicturePathHandler(handler(self, self.OnHandleBackground))
     self.UiTheme:SetEffectPathHandler(handler(self, self.OnHandleEffect))
@@ -47,9 +47,15 @@ function XUiMainPanelBase:UpdateTheme(themeData)
     if not themeData or not self.UiTheme then
         return
     end
-    
+
     self.ThemeData = themeData
     self.UiTheme:RefreshTheme()
+
+    self.ChangeColorFin = true
+    self:AfterChangeColorCb()
+end
+
+function XUiMainPanelBase:AfterChangeColorCb()
 end
 
 return XUiMainPanelBase

@@ -89,5 +89,5 @@ XFubenUrgentEventManagerCreator = function()
 end
 
 XRpc.NotifyUrgentData = function(req)
-    XDataCenter.FubenUrgentEventManager.NotifyUrgentData(req)
+    --XDataCenter.FubenUrgentEventManager.NotifyUrgentData(req)
 end

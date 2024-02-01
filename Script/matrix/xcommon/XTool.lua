@@ -11,13 +11,10 @@ local tableInsert = table.insert
 local stringMatch = string.match
 local mathModf = math.modf
 
-XTool =
-    XTool or
-    {
-        _IsAutoRefreshOnNextFrame = true
-    }
-
-XTool.USENEWBATTLEROOM = true
+XTool = XTool or
+        {
+            _IsAutoRefreshOnNextFrame = true
+        }
 
 XTool.UObjIsNil = function(uobj)
     return uobj == nil or not uobj:Exist()
@@ -114,6 +111,83 @@ XTool.Clone = function(t)
     return clone(t)
 end
 
+local function IsConfig(t)
+    return t.__metatable == "readonly table"
+end
+
+-- 兼容死循环引用
+XTool.CloneEx = function(data, removeReadonly)
+    if not data then
+        return data
+    end
+    if type(data) ~= "table" or IsConfig(data) then
+        return data
+    end
+    local visitedMap = {}
+    -- 对于只读表，得等最后才赋值metatable只读约束
+    local metatableMap = {}
+    ---@type XQueue
+    local queue = XQueue.New()
+    queue:Enqueue(data)
+
+    while (not queue:IsEmpty()) do
+        -- curData是原始对象，obj是复制对象
+        local curData = queue:Dequeue()
+        local obj
+        if visitedMap[curData] then
+            obj = visitedMap[curData]
+        else
+            obj = {}
+            visitedMap[curData] = obj
+            local mTable = getmetatable(curData)
+            if type(mTable) == "table" then
+                metatableMap[obj] = mTable
+            end
+        end
+        for k, v in pairs(curData) do
+            local key
+            if type(k) == "table" and not IsConfig(v) then
+                if visitedMap[k] then
+                    key = visitedMap[k]
+                else
+                    key = {}
+                    visitedMap[k] = key
+                    queue:Enqueue(k)
+                    local mTable = getmetatable(curData)
+                    if type(mTable) == "table" then
+                        metatableMap[obj] = mTable
+                    end
+                end
+            else
+                key = k
+            end
+            local value
+            if type(v) == "table" and not IsConfig(v) then
+                if visitedMap[v] then
+                    value = visitedMap[v]
+                else
+                    value = {}
+                    visitedMap[v] = value
+                    queue:Enqueue(v)
+                    local mTable = getmetatable(curData)
+                    if type(mTable) == "table" then
+                        metatableMap[obj] = mTable
+                    end
+                end
+            else
+                value = v
+            end
+            obj[key] = value
+        end
+    end
+    if not removeReadonly then
+        for obj, metatable in pairs(metatableMap) do
+            setmetatable(obj, metatable)
+        end
+    end
+    return visitedMap[data]
+end
+
 XTool.GetFileNameWithoutExtension = function(path)
     return stringMatch(path, "[./]*([^/]*)%.%w+")
 end
@@ -198,7 +272,7 @@ end
 
 XTool.MergeArray = function(...)
     local res = {}
-    for _, t in pairs({...}) do
+    for _, t in pairs({ ... }) do
         if type(t) == "table" then
             for _, v in pairs(t) do
                 table.insert(res, v)
@@ -252,6 +326,7 @@ XTool.InitUiObject = function(targetObj)
     end
 end
 
+---@param uiObject UiObject
 XTool.InitUiObjectByInstance = function(uiObject, instance)
     for i = 0, uiObject.NameList.Count - 1 do
         instance[uiObject.NameList[i]] = uiObject.ObjList[i]
@@ -263,6 +338,52 @@ XTool.InitUiObjectByUi = function(targetUi, uiPrefab)
     targetUi.Transform = uiPrefab.transform
     XTool.InitUiObject(targetUi)
     return targetUi
+end
+
+---用来监听收集赋值的C#对象
+XTool.InitUiObjectNewIndex = function(tbl)
+    local metaTbl = getmetatable(tbl)
+    if not metaTbl.__newindex then
+        tbl._uObjIndexes = {}
+        metaTbl.__newindex = function(tbl, k, v)
+            rawset(tbl, k, v)
+            if v then
+                --有值的, 有些界面会在close之后还对一些属性进行置空
+                local t = type(v)
+                if t == "userdata" and CsXUiHelper.IsUnityObject(v) then
+                    if tbl._uObjIndexes then
+                        table.insert(tbl._uObjIndexes, k)
+                    else
+                        if XMain.IsWindowsEditor then
+                            XLog.Error(string.format("%s has been call ReleaseUiObjectIndex", tostring(tbl.Name)))
+                        end
+                    end
+                end
+            end
+        end
+        setmetatable(tbl, metaTbl)
+    else
+        if XMain.IsWindowsEditor then
+            XLog.Error(string.format("tbl %s 已经存在__newindex元表", tostring(tbl.Name)))
+        end
+    end
+end
+
+XTool.ReleaseUiObjectIndex = function(tbl)
+    if tbl.Obj and tbl.Obj:Exist() then
+        local nameList = tbl.Obj.NameList
+        for _, v in pairs(nameList) do
+            tbl[v] = nil
+        end
+        tbl.Obj = nil
+    end
+
+    if tbl._uObjIndexes then
+        for _, key in ipairs(tbl._uObjIndexes) do
+            tbl[key] = nil
+        end
+        tbl._uObjIndexes = nil
+    end
 end
 
 XTool.DestroyChildren = function(gameObject)
@@ -397,11 +518,12 @@ XTool.GetPureStr = function(str)
         (curByte > 96 and curByte < 123) or     --小写字母
         (curByte > 64 and curByte < 91)        --大写字母
         ]] if
-            (curByte > 96 and curByte < 123) or (curByte > 64 and curByte < 91) or
-                (charUnicodeNum >= 19968 and charUnicodeNum <= 40891)
-         then --汉字/u4E00 -- /u9fbb
-            table.insert(resultChar, subStr)
-        end
+    (curByte > 96 and curByte < 123) or (curByte > 64 and curByte < 91) or
+            (charUnicodeNum >= 19968 and charUnicodeNum <= 40891)
+    then
+        --汉字/u4E00 -- /u9fbb
+        table.insert(resultChar, subStr)
+    end
         i = i + byteCount
         if i > #str then
             return table.concat(resultChar)
@@ -512,7 +634,7 @@ function XTool.RandomArray(array, randomseed)
     --不对原数据产生变化
     local tmpArray = XTool.Clone(array)
     math.randomseed(randomseed)
-    
+
     local count = #tmpArray
     while count > 0 do
         local idx = math.random(1, count)
@@ -522,7 +644,7 @@ function XTool.RandomArray(array, randomseed)
         end
         count = #tmpArray
     end
-    
+
     return result
 end
 
@@ -539,12 +661,12 @@ function XTool.CalArrayPercent(array, decimals)
     decimals = math.max(decimals, 0)
     local decimal = 10 ^ decimals
     local hundred = 100
-    
+
     local function addArray(arr, from, to)
         arr = arr or {}
         from = from or 1
         to = to or #arr
-        
+
         local total = 0
         for i = from, to do
             total = total + arr[i]
@@ -596,11 +718,11 @@ XTool._RegisterFunctionOnNextFrame = function(callback, caller, ...)
     -- 分开处理避免两个不同的类调用同一个方法导致其中一个调用缺失
     if caller then
         callerData = XTool._FunctionsOnNextFrame[caller] or {}
-        callerData[callback] = {caller, ...}
+        callerData[callback] = { caller, ... }
         XTool._FunctionsOnNextFrame[caller] = callerData
     else
         callerData = XTool._FunctionsOnNextFrame["STATIC"] or {}
-        callerData[callback] = {...}
+        callerData[callback] = { ... }
         XTool._FunctionsOnNextFrame["STATIC"] = callerData
     end
     if not XTool.__InitSchedule then
@@ -677,12 +799,12 @@ end
 XTool.RegisterSignalWrap = function(source)
     local wrapResult = {}
     setmetatable(
-        wrapResult,
-        {
-            __index = function(_, k)
-                return source[k]
-            end
-        }
+            wrapResult,
+            {
+                __index = function(_, k)
+                    return source[k]
+                end
+            }
     )
     wrapResult.SignalData = XSignalData.New()
     wrapResult.__Source = source
@@ -699,7 +821,7 @@ XTool.ConvertStringToVector3 = function(str)
     if string.IsNilOrEmpty(str) then
         return CS.UnityEngine.Vector3.zero
     end
-    local values = string.Split(str,"|")
+    local values = string.Split(str, "|")
     local x = 0
     local y = 0
     local z = 0
@@ -738,14 +860,14 @@ XTool.LoopSplitStr = function(content, splitStr, splitLen)
     end
     local result = string.Utf8Sub(content, 1, splitLen)
     local remaind = string.Utf8Sub(content, splitLen + 1, totalLenght - splitLen)
-    result = result .. splitStr ..  XTool.LoopSplitStr(remaind, splitStr, splitLen)
+    result = result .. splitStr .. XTool.LoopSplitStr(remaind, splitStr, splitLen)
     return result
 end
 
 -- 按位运算获取关卡星级标记
 -- @stageFlags: 按位的星级标记
 -- @starsCount: 星级最大数，默认是3
-XTool.GetStageStarsFlag = function (stageFlags, starsCount)
+XTool.GetStageStarsFlag = function(stageFlags, starsCount)
     local count = 0
     local map = {}
     if not XTool.IsNumberValid(stageFlags) then
@@ -788,5 +910,149 @@ function XTool.StrToTable(str)
 end
 
 function XTool.SortIdTable(idTable, isDescend)
-    table.sort(idTable, function(a, b) return isDescend and a > b or a < b end)
-end 
+    table.sort(idTable, function(a, b)
+        return isDescend and a > b or a < b
+    end)
+end
+
+function XTool.DeepCompare(tbl1, tbl2)
+    if tbl1 == tbl2 then
+        return true
+    end
+
+    if type(tbl1) ~= "table" or type(tbl2) ~= "table" then
+        return false
+    end
+
+    for k, v in pairs(tbl1) do
+        if type(v) == "table" then
+            if not XTool.DeepCompare(v, tbl2[k]) then
+                return false
+            end
+        elseif v ~= tbl2[k] then
+            return false
+        end
+    end
+
+    for k, v in pairs(tbl2) do
+        if type(v) == "table" then
+            if not XTool.DeepCompare(v, tbl1[k]) then
+                return false
+            end
+        elseif v ~= tbl1[k] then
+            return false
+        end
+    end
+
+    return true
+end
+
+--XTool.AbandonedTable = {}
+local function ErrorAbandon()
+    if XMain.IsDebug then
+        XLog.Error("[XConfigUtil] config已被移除,如果看到此提示,麻烦您通知ZLB,谢谢")
+        --local str = debug.traceback()
+        --XTool.AbandonedTable[str] = true
+    end
+end
+
+local function GetTableNonsense()
+    local t = {}
+    local tableUsed = {
+        Init = function()
+        end,
+        __Configs = false
+    }
+    local metatable = {
+        __newindex = function(table, key, value)
+            tableUsed[key] = value
+        end,
+        __index = function(table, key)
+            if type(key) == "number" then
+                return nil
+            end
+            if tableUsed[key] ~= nil then
+                return tableUsed[key]
+            end
+            ErrorAbandon()
+            return t
+        end,
+        __call = function()
+            ErrorAbandon()
+            return t
+        end,
+        __add = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __sub = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __mul = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __div = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __unm = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __mod = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __pow = function()
+            ErrorAbandon()
+            return 0
+        end,
+        __concat = function()
+            ErrorAbandon()
+            return ""
+        end,
+        __eq = function()
+            --ErrorAbandon()
+            return false
+        end,
+        __lt = function()
+            ErrorAbandon()
+            return true
+        end,
+        __le = function()
+            ErrorAbandon()
+            return false
+        end,
+        __tostring = function()
+            ErrorAbandon()
+            return ""
+        end
+    }
+    setmetatable(t, metatable)
+    return t
+end
+
+function XTool.GetNoneSenseTable()
+    return GetTableNonsense()
+end
+
+---@param anim UnityEngine.Playables.PlayableDirector
+---@param directorWrapMode number UnityEngine.Playables.DirectorWrapMode
+function XTool.PlayTimeLineAnim(anim, time, directorWrapMode)
+    if not anim then
+        return
+    end
+    anim.initialTime = time or 0
+    if directorWrapMode then
+        anim.extrapolationMode = directorWrapMode
+    end
+    anim:Evaluate()
+    anim:Play()
+end
+
+function XTool.RemoveRichText(str)
+    local result = string.gsub(str, "<[^>]+>", "")
+    return result
+end

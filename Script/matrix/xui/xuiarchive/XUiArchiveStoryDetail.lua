@@ -54,13 +54,13 @@ end
 
 function XUiArchiveStoryDetail:InitDynamicTable()
     self.DynamicTable = XDynamicTableNormal.New(self.StoryChapterDetailScrollView)
-    self.DynamicTable:SetProxy(XUiGridArchiveStoryDetail, handler(self, self.UpdateCurGridIndex))
+    self.DynamicTable:SetProxy(XUiGridArchiveStoryDetail,self, handler(self, self.UpdateCurGridIndex),self)
     self.DynamicTable:SetDelegate(self)
     self.ChapterDetailItem.gameObject:SetActiveEx(false)
 end
 
 function XUiArchiveStoryDetail:SetupDynamicTable()
-    self.PageDatas = XDataCenter.ArchiveManager.GetArchiveStoryDetailList(self.Data:GetId())
+    self.PageDatas = XMVCA.XArchive:GetArchiveStoryDetailList(self.Data:GetId())
     self.DynamicTable:SetDataSource(self.PageDatas)
     self.DynamicTable:ReloadDataSync(self.GridIndex or 1)
 end

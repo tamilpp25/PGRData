@@ -11,8 +11,8 @@ function XGridSkill:Refresh(skillGroupId)
         return
     end
 
-    local skillId = XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
-    local cfg = XCharacterConfigs.GetSkillGradeDesConfig(skillId, SHOW_SKILL_LEVEL)
+    local skillId = XMVCA.XCharacter:GetGroupDefaultSkillId(skillGroupId)
+    local cfg = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, SHOW_SKILL_LEVEL)
     if not cfg then return end
     self.SkillData = cfg or self.SkillData
     self.RImgSubSkillIconNormal:SetRawImage(cfg.Icon)
@@ -57,7 +57,7 @@ end
 function XUiCharacterPanelRoleSkillV2P6:InitUI()
     self.GridActiveSkill.gameObject:SetActiveEx(false)
     self.BasicSkills.gameObject:SetActiveEx(false)
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
         if grid then
@@ -73,12 +73,12 @@ function XUiCharacterPanelRoleSkillV2P6:Refresh(characterId)
         characterId = XRobotManager.GetCharacterId(characterId)
     end
 
-    self.SkillList = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
+    self.SkillList = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
     
-    self:Open(self.IsOpen)
+    self:RefreshDetail(self.IsOpen)
 end
 
-function XUiCharacterPanelRoleSkillV2P6:Open(isOpen)
+function XUiCharacterPanelRoleSkillV2P6:RefreshDetail(isOpen)
     if not isOpen then return end
     
     self.IsOpen = true
@@ -90,8 +90,8 @@ function XUiCharacterPanelRoleSkillV2P6:Open(isOpen)
     local ballSkill1 = {}
     local ballSkill2 = {}
     for _, skillGroupId in pairs(self.SkillList[1] or {}) do
-        local skillId = XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
-        local skillType = XCharacterConfigs.GetSkillType(skillId)
+        local skillId = XMVCA.XCharacter:GetGroupDefaultSkillId(skillGroupId)
+        local skillType = XMVCA.XCharacter:GetSkillType(skillId)
         if skillType <= SIGNAL_BAL_MEMBER then
             table.insert(ballSkill1, skillGroupId)
         else
@@ -101,7 +101,7 @@ function XUiCharacterPanelRoleSkillV2P6:Open(isOpen)
     self:RefreshBallSkill(ballSkill1)
     self:RefreshSkill(ballSkill2, self.GridActiveSkill, self.PanelSkillGroup1, 1)
     
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local skills = self.SkillList[i]
         local parent =  XUiHelper.TryGetComponent(panel, "PanelActiveSkill")
@@ -147,6 +147,7 @@ function XUiCharacterPanelRoleSkillV2P6:RefreshGrid(length, skills, grids, grid,
             item.GameObject:SetActiveEx(true)
             grids[idx] = item
         end
+        item:Open()
         item:Refresh(skills[idx])
     end
 

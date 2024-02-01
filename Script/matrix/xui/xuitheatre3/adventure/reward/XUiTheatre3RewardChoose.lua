@@ -1,6 +1,7 @@
 local XGridTheatre3RewardChoose = require("XUi/XUiTheatre3/Adventure/Reward/XGridTheatre3RewardChoose")
 
 ---@class XUiTheatre3RewardChoose : XLuaUi
+---@field BGM UnityEngine.Transform
 ---@field _Control XTheatre3Control
 local XUiTheatre3RewardChoose = XLuaUiManager.Register(XLuaUi, "UiTheatre3RewardChoose")
 
@@ -15,10 +16,16 @@ end
 
 function XUiTheatre3RewardChoose:OnEnable()
     self:RefreshUi()
+    if self._IsProp and self.BGM then
+        for i = 0, self.BGM.childCount - 1 do
+            self.BGM:GetChild(i).gameObject:SetActiveEx(true)
+        end
+    end
+    self:AddEventListener()
 end
 
 function XUiTheatre3RewardChoose:OnDisable()
-
+    self:RemoveEventListener()
 end
 
 function XUiTheatre3RewardChoose:OnDestroy()
@@ -30,6 +37,7 @@ function XUiTheatre3RewardChoose:InitUi()
     self:InitPanelProp()
     self:InitPanelFightReward()
     self:InitButton()
+    self:InitEffect()
 end
 
 function XUiTheatre3RewardChoose:RefreshUi()
@@ -41,13 +49,13 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatre3RewardChoose:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(
-            {XEnumConst.THEATRE3.Theatre3InnerCoin,},
-            self.PanelSpecialTool,
-            nil,
-            function()
-                XLuaUiManager.Open("UiTheatre3Tips", XEnumConst.THEATRE3.Theatre3InnerCoin)
-            end)
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(
+        {XEnumConst.THEATRE3.Theatre3InnerCoin,},
+        self.PanelSpecialTool, self,
+        nil,
+        function()
+            self._Control:OpenAdventureTips(XEnumConst.THEATRE3.Theatre3InnerCoin)
+        end)
 end
 --endregion
 
@@ -121,6 +129,7 @@ function XUiTheatre3RewardChoose:RefreshPanelFightReward()
     if self.PanelNoReward then
         self.PanelNoReward.gameObject:SetActiveEx(not self._Control:IsAdventureHaveFightReward())
     end
+    self:RefreshEffect()
 end
 
 ---@param grid XGridTheatre3RewardChoose
@@ -144,16 +153,43 @@ function XUiTheatre3RewardChoose:RefreshBtn()
     --self.BtnSetBag:SetNameByGroup(0, XUiHelper.GetText("Theatre3AdventureSuitBtnName", self._Control:GetAdventureCurEquipSuitCount()))
     --self.BtnProp:SetNameByGroup(0, XUiHelper.GetText("Theatre3AdventurePropBtnName", #self._Control:GetAdventureCurItemList()))
     self.BtnSetBag:SetNameByGroup(1, self._Control:GetAdventureCurEquipSuitCount())
-    self.BtnProp:SetNameByGroup(1, #self._Control:GetAdventureCurItemList())
+    self.BtnProp:SetNameByGroup(1, self._Control:GetAdventureCurItemCount())
+    self.BtnFightResult.gameObject:SetActiveEx(self._Control:GetShowDamageStatisticsIsOpen())
+end
+--endregion
+
+--region Ui - Effect
+function XUiTheatre3RewardChoose:InitEffect()
+    if not self.Effect then
+        ---@type UnityEngine.Transform
+        self.Effect = XUiHelper.TryGetComponent(self.Transform, "FullScreenBackground/Effect")
+    end
+    if self.Effect then
+        self.Effect.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiTheatre3RewardChoose:RefreshEffect()
+    if not self.Effect then
+        return
+    end
+    local quantumLevelCfg = self._Control:GetCfgQuantumLevelByValue(self._Control:GetAdventureQuantumValue(true) + self._Control:GetAdventureQuantumValue(false))
+    --全屏特效
+    if quantumLevelCfg and not string.IsNilOrEmpty(quantumLevelCfg.ScreenEffectUrl) then
+        local screenEffectUrl = self._Control:GetClientConfig(quantumLevelCfg.ScreenEffectUrl, self._Control:IsAdventureALine() and 1 or 2)
+        self.Effect:LoadUiEffect(screenEffectUrl)
+        self.Effect.gameObject:SetActiveEx(true)
+    end
 end
 --endregion
 
 --region Ui - BtnListener
 function XUiTheatre3RewardChoose:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnBtnBackClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnReceiveRed, self.OnBtnReceiveRedClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnProp, self.OnBtnPropClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnSetBag, self.OnBtnSetBagClick)
+    self._Control:RegisterClickEvent(self, self.BtnBack, self.OnBtnBackClick)
+    self._Control:RegisterClickEvent(self, self.BtnReceiveRed, self.OnBtnReceiveRedClick)
+    self._Control:RegisterClickEvent(self, self.BtnProp, self.OnBtnPropClick)
+    self._Control:RegisterClickEvent(self, self.BtnSetBag, self.OnBtnSetBagClick)
+    self._Control:RegisterClickEvent(self, self.BtnFightResult, self.OnBtnFightResultClick)
 end
 
 function XUiTheatre3RewardChoose:OnBtnBackClick()
@@ -183,6 +219,20 @@ end
 
 function XUiTheatre3RewardChoose:OnBtnSetBagClick()
     self._Control:OpenShowEquipPanel()
+end
+
+function XUiTheatre3RewardChoose:OnBtnFightResultClick()
+    self._Control:OpenAdventureFightResult()
+end
+--endregion
+
+--region Event
+function XUiTheatre3RewardChoose:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_RECV_FIGHT_REWARD, self.RefreshUi, self)
+end
+
+function XUiTheatre3RewardChoose:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_RECV_FIGHT_REWARD, self.RefreshUi, self)
 end
 --endregion
 

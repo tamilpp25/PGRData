@@ -46,27 +46,23 @@ function XUiGridArenaStage:OnBtnStageClick()
         end
 
         XDataCenter.ArenaManager.SetEnterAreaStageInfo(self.AreaId, self.CurIndex)
-        if XTool.USENEWBATTLEROOM then
-            local funTable = 
-            {
-                GetRoleDetailProxy = function (proxy)
-                    return
-                    {
-                        GetFilterControllerConfig = function ()
-                            ---@type XCharacterAgency
-                            local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-                            return ag:GetModelCharacterFilterController()["UiArenaStage"]
-                        end
-                    }
-                end,
-                
-            }
-            local proxy = XTool.CreateBattleRoomDetailProxy(funTable)
+        local funTable = 
+        {
+            GetRoleDetailProxy = function (proxy)
+                return
+                {
+                    GetFilterControllerConfig = function ()
+                        ---@type XCharacterAgency
+                        local ag = XMVCA:GetAgency(ModuleId.XCharacter)
+                        return ag:GetModelCharacterFilterController()["UiArenaStage"]
+                    end
+                }
+            end,
+            
+        }
+        local proxy = XTool.CreateBattleRoomDetailProxy(funTable)
 
-            XLuaUiManager.Open("UiBattleRoleRoom", self.AreaCfg.StageId[self.CurIndex], nil, proxy)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.AreaCfg.StageId[self.CurIndex])
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.AreaCfg.StageId[self.CurIndex], nil, proxy)
         
     end, self.StageId, self.AreaId)
 end

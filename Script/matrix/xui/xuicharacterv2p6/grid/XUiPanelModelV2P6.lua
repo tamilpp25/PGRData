@@ -1,6 +1,7 @@
 -- 整个成员系统的镜头model管理
 -- Parent是CharacterSystem
----@class XUiPanelModelV2P6
+---@class XUiPanelModelV2P6 XUiPanelModelV2P6
+---@field _Control XCharacterControl
 local XUiPanelModelV2P6 = XClass(XUiNode, "XUiPanelModelV2P6")
 local XUiGridSkillEffectBall3D = require("XUi/XUiCharacterV2P6/Grid/XUiGridSkillEffectBall3D")
 
@@ -8,9 +9,6 @@ local BtnNodeName = "BtnNodeName"
 local BtnDropName = "BtnDropName"
 
 function XUiPanelModelV2P6:OnStart()
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
     self.SeleQuality = nil
     self.BigBallGridDic = {}
     self.NodeAllTagsDic = {}    --每次切换球都要刷新
@@ -45,6 +43,16 @@ function XUiPanelModelV2P6:InitCamera()
         self.UiCamNearQualityUpgradeDetail,
         self.UiCamNearCharLeftMove,
     }
+
+    self.CameraUis = 
+    {
+        self.UiCamUiMain,
+        false,
+        self.UiCamUiQuality,
+        false,
+        self.UiCamUiQualitySingle,
+        false,
+    }
 end
 
 -- 子界面通过该接口设置相机
@@ -56,6 +64,14 @@ function XUiPanelModelV2P6:SetCamera(targetIndex)
     for i, cameraTrans in pairs(self.CameraNears) do
         cameraTrans.gameObject:SetActiveEx(targetIndex == i)
     end
+
+    for i, cameraTrans in pairs(self.CameraUis) do
+        if cameraTrans then
+            cameraTrans.gameObject:SetActiveEx(targetIndex == i)
+        end
+    end
+
+    self:FixUiCameraMainToEffectBall()
 end
 
 function XUiPanelModelV2P6:SetSelectQuality(quality)
@@ -94,7 +110,7 @@ function XUiPanelModelV2P6:InitQualitySingleRelatedBtn()
             local character = self.Parent.CurCharacter
         
             -- 不能进入比初始品质还低的品质球界面
-            local initQuality = self.CharacterAgency:GetCharacterInitialQuality(character.Id)
+            local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(character.Id)
             if i < initQuality then
                 return
             end
@@ -108,7 +124,7 @@ function XUiPanelModelV2P6:InitQualitySingleRelatedBtn()
 
             self:OnBtnCloseBubbleClick()
 
-            self:PlayCharModelAnime("PanelBigBallQieHuan")
+            self:PlayAnimationWithMask("PanelBigBallQieHuan")
         end)
     end
 
@@ -156,7 +172,7 @@ end
 
 function XUiPanelModelV2P6:RefreshBubbleInfo(index)
     local characterId = self.Parent.CurCharacter.Id
-    local character = self.CharacterAgency:GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     local seleStar = index
     local seleQuality = self.SeleQuality
 
@@ -175,7 +191,7 @@ function XUiPanelModelV2P6:RefreshBubbleInfo(index)
         infoRootTrans:FindTransform("TxtStateOff").gameObject:SetActiveEx(not isActive)
     
         -- 属性加成文本
-        local attribs = XCharacterConfigs.GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
+        local attribs = XMVCA.XCharacter:GetCharCurStarAttribsV2P6(character.Id, seleQuality, seleStar)
         for k, v in pairs(attribs or {}) do
             local value = FixToDouble(v)
             if value > 0 then
@@ -185,7 +201,7 @@ function XUiPanelModelV2P6:RefreshBubbleInfo(index)
         end
     
         -- 技能文本
-        local data = XCharacterConfigs.GetCharSkillQualityApartDicByQuality(characterId, seleQuality)
+        local data = XMVCA.XCharacter:GetCharSkillQualityApartDicByQuality(characterId, seleQuality)
         local btnSkill = infoRootTrans:FindTransform("BtnSkill"):GetComponent("XUiButton")
         if XTool.IsTableEmpty(data) then
             btnSkill.gameObject:SetActiveEx(false)
@@ -200,8 +216,8 @@ function XUiPanelModelV2P6:RefreshBubbleInfo(index)
     
         local curApartId = curApartIds[1]
         self.SkillApartId = curApartId
-        local skillName = XCharacterConfigs.GetCharSkillQualityApartName(curApartId)
-        local skillLevel = XCharacterConfigs.GetCharSkillQualityApartLevel(curApartId)
+        local skillName = XMVCA.XCharacter:GetCharSkillQualityApartName(curApartId)
+        local skillLevel = XMVCA.XCharacter:GetCharSkillQualityApartLevel(curApartId)
         btnSkill.gameObject:SetActiveEx(true)
         btnSkill:SetNameByGroup(0, skillName.."Lv"..skillLevel)
 
@@ -222,14 +238,14 @@ function XUiPanelModelV2P6:OpenSkillInfo(skillApartId)
         return
     end
     local characterId = self.Parent.CurCharacter.Id
-    local skillId = XCharacterConfigs.GetCharSkillQualityApartSkillId(skillApartId)
+    local skillId = XMVCA.XCharacter:GetCharSkillQualityApartSkillId(skillApartId)
 
-    local skillGroupId, index = XCharacterConfigs.GetSkillGroupIdAndIndex(skillId)
-    local skillPosToGroupIdDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
+    local skillGroupId, index = XMVCA.XCharacter:GetSkillGroupIdAndIndex(skillId)
+    local skillPosToGroupIdDic = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
     for pos, group in ipairs(skillPosToGroupIdDic) do
         for gridIndex, id in ipairs(group) do
             if id == skillGroupId then
-                XLuaUiManager.Open("UiSkillDetailsParentV2P6", characterId, XCharacterConfigs.SkillDetailsType.Normal, pos, gridIndex)
+                XLuaUiManager.Open("UiSkillDetailsParentV2P6", characterId, XEnumConst.CHARACTER.SkillDetailsType.Normal, pos, gridIndex)
                 return
             end
         end
@@ -264,7 +280,7 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
 
     self.BtnGroupPanelDrop:SelectIndex(self.SeleQuality)
     local character = self.Parent.CurCharacter
-    local qualityConfig = self.CharacterAgency:GetQualityTemplate(character.Id, self.SeleQuality)
+    local qualityConfig = XMVCA.XCharacter:GetQualityTemplate(character.Id, self.SeleQuality)
 
     -- 刷新前关闭所有气泡
     self:OnBtnCloseBubbleClick()
@@ -296,7 +312,7 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
             end
 
             -- 技能图标
-            local data = XCharacterConfigs.GetCharSkillQualityApartDicByQuality(character.Id, self.SeleQuality)
+            local data = XMVCA.XCharacter:GetCharSkillQualityApartDicByQuality(character.Id, self.SeleQuality)
             local isActiveSkill = nil
             if not XTool.IsTableEmpty(data) then
                 local curApartIds = data[i]
@@ -321,13 +337,13 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
             end
 
             -- 名字
-            local qualityDesc = XCharacterConfigs.GetCharQualityDesc(self.SeleQuality)
+            local qualityDesc = XMVCA.XCharacter:GetCharQualityDesc(self.SeleQuality)
             btn:SetNameByGroup(0, qualityDesc..i)
         end
     end
 
     -- 刷新下方品质球切换按钮
-    local initQuality = self.CharacterAgency:GetCharacterInitialQuality(character.Id)
+    local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(character.Id)
     for i = 1, XEnumConst.CHARACTER.MAX_QUALITY do
         local btnDrop = self[BtnDropName..i]
         if i < initQuality then
@@ -336,7 +352,7 @@ function XUiPanelModelV2P6:RefreshSingleBigBall(isActiveNode, isEvo)
             btnDrop.gameObject:SetActiveEx(true)
         end
 
-        local curQualityState = self.CharacterAgency:GetQualityState(character.Id, i)
+        local curQualityState = XMVCA.XCharacter:GetQualityState(character.Id, i)
         local isDisable = curQualityState == XEnumConst.CHARACTER.QualityState.Lock
 
         btnDrop.transform:Find("Disable").gameObject:SetActiveEx(isDisable)
@@ -389,7 +405,7 @@ function XUiPanelModelV2P6:RefreshBigBallEffect(quality, isActive, isEvo)
     local EffectBallBigUpdate = false
     
     -- 球内分阶段显示 
-    local curPerform = self.CharacterAgency:GetCharQualityPerformArea(character.Id, quality)
+    local curPerform = self._Control:GetCharQualityPerformArea(character.Id, quality)
     if curPerform == XEnumConst.CHARACTER.PerformState.One then
         EffectBallBigInside1 = true
         EffectBallBigOutside1 = true
@@ -404,7 +420,7 @@ function XUiPanelModelV2P6:RefreshBigBallEffect(quality, isActive, isEvo)
         EffectBallBigOutside2 = true
 
         -- 分球品质显示
-        if quality >= self.CharacterAgency:GetCharMaxQuality(character.Id) then
+        if quality >= XMVCA.XCharacter:GetCharMaxQuality(character.Id) then
             EffectBallBigDecorate1 = true
             EffectBallBigDecorate2 = true
         elseif character.Quality >= quality then
@@ -480,7 +496,7 @@ end
 function XUiPanelModelV2P6:RefreshDynamicTable3D(index)
     -- 根据初始品质设置特效球个数
     local characterId = self.Parent.CurCharacter.Id
-    self.InitQuality = self.CharacterAgency:GetCharacterInitialQuality(characterId)
+    self.InitQuality = XMVCA.XCharacter:GetCharacterInitialQuality(characterId)
     self.DynamicTable3D:SetStartGridLuaIndex(self.InitQuality)
     local dataList = {}
     local qIndex = 1
@@ -494,7 +510,7 @@ end
 
 function XUiPanelModelV2P6:RefreshDynamicTable3DByEvoPerform(nextQuality, cb)
     local characterId = self.Parent.CurCharacter.Id
-    local initQuality = self.CharacterAgency:GetCharacterInitialQuality(characterId)
+    local initQuality = XMVCA.XCharacter:GetCharacterInitialQuality(characterId)
     local targetCsIndex = nextQuality - initQuality
     local targetLuaIndex = targetCsIndex + 1
     local curLuaIndex = targetCsIndex
@@ -517,11 +533,8 @@ end
 
 -- 看小球文字的相机和动态列表同步打开
 function XUiPanelModelV2P6:SetDynamicTableActive(flag)
-    self.PanelBallList.gameObject:SetActiveEx(flag)
-end
-
-function XUiPanelModelV2P6:SetCameraQualityActive(flag)
-    self.UiCamUiQuality.gameObject:SetActiveEx(flag)
+    -- self.PanelBallList.gameObject:SetActiveEx(flag)
+    self.DynamicTable3D:SetActive(flag)
 end
 --endregion 动态列表相关结束
 
@@ -550,15 +563,7 @@ function XUiPanelModelV2P6:SetPanelEffectBallBigActive(flag)
     self.PanelEffectBallBig.gameObject:SetActiveEx(flag)
 end
 
-function XUiPanelModelV2P6:PlayCharModelAnime(animeName, finCb)
-    local animTrans = self.Animation:FindTransform(animeName)
-    if not animTrans.gameObject.activeInHierarchy then
-        return
-    end
-    animTrans:PlayTimelineAnimation(finCb)
-end
-
-function XUiPanelModelV2P6:OnRelease()
+function XUiPanelModelV2P6:OnDestroy()
     for k, obj in pairs(self.Resources) do
         CS.XResourceManager.Unload(obj)
     end

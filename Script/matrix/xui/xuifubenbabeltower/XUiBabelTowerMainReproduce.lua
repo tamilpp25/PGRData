@@ -1,4 +1,5 @@
 local XUiGridBabelStageItem = require("XUi/XUiFubenBabelTower/XUiGridBabelStageItem")
+---@class XUiBabelTowerMainReproduce : XSignalData
 local XUiBabelTowerMainReproduce = XClass(XSignalData, "XUiBabelTowerMainReproduce")
 
 function XUiBabelTowerMainReproduce:Ctor(ui)
@@ -45,13 +46,11 @@ function XUiBabelTowerMainReproduce:OnBtnNormalClicked()
 end
 
 function XUiBabelTowerMainReproduce:OnBtnAchievementClick()
-    XLuaUiManager.Open("UiBabelTowerTask",  XFubenBabelTowerConfigs.ActivityType.Extra)
+    XLuaUiManager.Open("UiBabelTowerTask", XFubenBabelTowerConfigs.ActivityType.Extra)
 end
 
 function XUiBabelTowerMainReproduce:OnBtnRankClick()
-    self.FubenBabelTowerManager.GetRank(self.ReproduceManager:GetId(), function()
-        XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Extra)
-    end)
+    XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Extra)
 end
 
 function XUiBabelTowerMainReproduce:RefreshStageInfo()
@@ -100,6 +99,12 @@ function XUiBabelTowerMainReproduce:OnStageClick(stageId, grid)
         else
             XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerPassLastGuide"))
         end
+        return
+    end
+    if XDataCenter.FubenBabelTowerManager.CheckStageIsNotPassAndNotCollection(stageId) then
+        local teamIdList = XDataCenter.FubenBabelTowerManager.GetStageTeamIdList(stageId)
+        -- 默认选择第一个编队
+        XLuaUiManager.Open("UiBabelTowerBase", stageId, teamIdList[1])
         return
     end
     XLuaUiManager.Open("UiBabelTowerSelectTeam", stageId)

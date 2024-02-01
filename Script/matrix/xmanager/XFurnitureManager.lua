@@ -309,7 +309,7 @@ XFurnitureManagerCreator = function()
     -- 通过家具唯一Id 获取家具ConfigId
     function XFurnitureManager.GetFurnitureConfigId(id, dormDataType)
         local t = XFurnitureManager.GetFurnitureById(id, dormDataType)
-        return t.ConfigId
+        return t and t.ConfigId or 0
     end
 
     -- 获取家具配置表By 唯一Id
@@ -321,6 +321,11 @@ XFurnitureManagerCreator = function()
     --获取所有家具数据
     function XFurnitureManager.GetFurnitureDatas()
         return FurnitureDatas
+    end
+    
+    --获取玩家是否拥有当前家具
+    function XFurnitureManager.CheckFurnitureExist(furnitureId)
+        return FurnitureDatas[furnitureId] ~= nil
     end
 
     --获取所擁有家具总数
@@ -871,6 +876,29 @@ XFurnitureManagerCreator = function()
 
         return rewardId
     end
+    
+    -- 获取家具制作时的奖励Id
+    function XFurnitureManager.GetBaseRewardId(furnitureId)
+        local furniture = XFurnitureManager.GetFurnitureById(furnitureId)
+        if not furniture then
+            return 0
+        end
+        
+        local baseScore = furniture:GetAttrTotal()
+        local configId = XFurnitureManager.GetFurnitureConfigId(furnitureId)
+        local furnitureTypeId = XFurnitureConfigs.GetFurnitureTypeCfgByConfigId(configId).Id
+        local levelConfigs = XFurnitureConfigs.GetFurnitureLevelTemplate(furnitureTypeId)
+        local rewardId
+
+        for _, levelConfig in pairs(levelConfigs) do
+            if baseScore >= levelConfig.MinScore and baseScore < levelConfig.MaxScore then
+                rewardId = levelConfig.ReturnId
+                break
+            end
+        end
+
+        return rewardId
+    end
 
     -- 获取家具品质
     function XFurnitureManager.GetLevelRewardQuality(furnitureId)
@@ -933,6 +961,46 @@ XFurnitureManagerCreator = function()
         end
 
         return recycleRewards
+    end
+    
+    -- 重置家具能获取到的奖励
+    function XFurnitureManager.GetRemakeRewards(furnitureId)
+        local levelRewardId = XFurnitureManager.GetLevelRewardId(furnitureId)
+        local furniture = XFurnitureManager.GetFurnitureById(furnitureId)
+        local costA, costB, costC = furniture:GetBaseAttr()
+        local cost = costA + costB + costC
+
+        if not XTool.IsNumberValid(levelRewardId) then
+            local configId = furniture:GetConfigId()
+            levelRewardId = XFurnitureConfigs.GetFurnitureReturnId(configId)
+        end
+
+        local function getRewardMap(rewardList)
+            rewardList = rewardList or {}
+            local rewards = {}
+            for _, item in pairs(rewardList) do
+                if rewards[item.TemplateId] then
+                    rewards[item.TemplateId].Count = rewards[item.TemplateId].Count + item.Count
+                else
+                    rewards[item.TemplateId] = XRewardManager.CreateRewardGoodsByTemplate(item)
+                end
+            end
+
+            return rewards
+        end
+        
+        local rewardList = XRewardManager.GetRewardList(levelRewardId)
+        local rewards = getRewardMap(rewardList)
+        
+        -- 如果回收的货币的数量 < 制作时的数量
+        local recycleCount = rewards[XDataCenter.ItemManager.ItemId.FurnitureCoin] and rewards[XDataCenter.ItemManager.ItemId.FurnitureCoin].Count or 0
+        if recycleCount >= cost then
+            local baseRewardId = XFurnitureManager.GetBaseRewardId(furnitureId)
+            rewardList = XRewardManager.GetRewardList(baseRewardId)
+            rewards = getRewardMap(rewardList)
+        end
+        
+        return rewards
     end
 
     -- 分解家具
@@ -1339,6 +1407,23 @@ XFurnitureManagerCreator = function()
 
     -- 摆放家具
     function XFurnitureManager.PutFurniture(dormitoryId, furnitureList, isBehavior, func)
+        local list = {}
+        for index, furniture in ipairs(furnitureList) do
+            local furnitureId = furniture.Id
+            if furnitureId and furnitureId > 0 then
+                local data = XFurnitureManager.GetFurnitureById(furnitureId)
+                --该家具摆放到其他宿舍内了
+                local currentDormitoryId = data and data:GetDormitoryId() or 0
+                if currentDormitoryId > 0 and currentDormitoryId ~= dormitoryId then
+                    table.insert(list, index)
+                end
+            end
+        end
+
+        for i = #list, 1, -1 do
+            table.remove(furnitureList, i)
+        end
+        
         XNetwork.Call(FurnitureRequest.PutFurniture, {
             DormitoryId = dormitoryId,
             FurnitureList = furnitureList
@@ -1394,11 +1479,10 @@ XFurnitureManagerCreator = function()
 
             -- 清除消耗的家具
             local removeIds = {}
-            for _, param in ipairs(params) do
-                for _, furnitureId in ipairs(param.FurnitureIds) do
-                    XFurnitureManager.RemoveFurniture(furnitureId)
-                    table.insert(removeIds, furnitureId)
-                end
+            local deleteIds = res.RemovedIds or {}
+            for _, furnitureId in ipairs(deleteIds) do
+                XFurnitureManager.RemoveFurniture(furnitureId)
+                table.insert(removeIds, furnitureId)
             end
 
             -- 添加新增的家具
@@ -1534,7 +1618,8 @@ XFurnitureManagerCreator = function()
             end
 
             -- 将分解成功的家具从缓存中移除
-            for _, id in ipairs(furnitureIds) do
+            local deleteIds = res.RemovedIds or {}
+            for _, id in ipairs(deleteIds) do
                 XFurnitureManager.RemoveFurniture(id)
             end
 

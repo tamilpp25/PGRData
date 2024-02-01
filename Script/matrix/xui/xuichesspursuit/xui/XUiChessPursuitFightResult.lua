@@ -33,7 +33,12 @@ function XUiChessPursuitFightResult:OnDestroy()
 end
 
 function XUiChessPursuitFightResult:OnActivityEnd()
-    XDataCenter.FubenBossSingleManager.OnActivityEnd()
+    if CS.XFight.IsRunning or XLuaUiManager.IsUiLoad("UiLoading") then
+        return
+    end
+    
+    XUiManager.TipText("BossOnlineOver")
+    XLuaUiManager.RunMain()
 end
 
 --@region 点击事件

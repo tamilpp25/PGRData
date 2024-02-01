@@ -44,14 +44,26 @@ function XUiRiftPluginShopGrid:Init(parent)
     end)
 end
 
+---@param data XTableRiftPluginShopGoods
 function XUiRiftPluginShopGrid:Refresh(data)
     self.GoodData = data
-    self.Plugin = XDataCenter.RiftManager.GetPlugin(data.PluginId)
+    self.Plugin = XDataCenter.RiftManager.GetShopGoodsPlugin(data)
     self.PluginGrid:Refresh(self.Plugin)
     self.TxtName.text = self.Plugin:GetName()
 
     -- 已拥有即售罄
-    self.IsSellOut = self.Plugin:GetHave()
+    if data.GoodsType == XEnumConst.Rift.RandomShopGoodType then
+        self.IsSellOut = true
+        for _, v in pairs(data.PluginIds) do
+            local randomPlugin = XDataCenter.RiftManager.GetPlugin(v)
+            if not randomPlugin:GetHave() then
+                self.IsSellOut = false
+                break
+            end
+        end
+    else
+        self.IsSellOut = self.Plugin:GetHave()
+    end
     self.ImgSellOut.gameObject:SetActiveEx(self.IsSellOut)
     self.TxtCount.text = XUiHelper.GetText("CanBuy", self.IsSellOut and 0 or 1)
 
@@ -63,9 +75,15 @@ function XUiRiftPluginShopGrid:Refresh(data)
     self.RImgPrice1:SetRawImage(icon)
 
     self.PanelLock.gameObject:SetActiveEx(false)
-    -- todo 这里改成判断商品里的解锁作战层
-    if not self.IsSellOut and data.Condition then 
-        local isOpen, desc = XConditionManager.CheckCondition(data.Condition)
+
+    if not self.IsSellOut then
+        local isOpen, desc = true, ""
+        for _, v in pairs(data.ConditionId) do
+            isOpen, desc = XConditionManager.CheckCondition(v)
+            if not isOpen then
+                break
+            end
+        end
         if not isOpen then
             self.ConditionDesc = desc
             self.PanelLock.gameObject:SetActiveEx(true)

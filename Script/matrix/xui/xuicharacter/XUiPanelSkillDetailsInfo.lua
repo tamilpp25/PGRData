@@ -38,14 +38,14 @@ end
 
 function XUiPanelSkillDetailsInfo:RefreshSubSkillInfoPanel(subSkill)
     -- 切换按钮
-    local showSwithBtn = subSkill.Level > 0 and XCharacterConfigs.CanSkillSwith(subSkill.SubSkillId)
+    local showSwithBtn = subSkill.Level > 0 and XMVCA.XCharacter:CanSkillSwith(subSkill.SubSkillId)
     self.BtnSwitch.gameObject:SetActiveEx(showSwithBtn)
 
     self:RefreshSkillLevel(subSkill)
     self:RefreshSkillView()
     self:RefreshEntryBtn()
 
-    local min_max = XCharacterConfigs.GetSubSkillMinMaxLevel(self.SubSkillId)
+    local min_max = XMVCA.XCharacter:GetSubSkillMinMaxLevel(self.SubSkillId)
     if (subSkill.Level >= min_max.Max) then
         self.PanelCondition.gameObject:SetActiveEx(false)
         self.PanelConsume.gameObject:SetActiveEx(false)
@@ -160,7 +160,7 @@ function XUiPanelSkillDetailsInfo:RefreshSkillLevel(subSkill)
     end
 
     self.SubSkillLevel = subSkill.Level + addLevel
-    self.GradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(self.SubSkillId, self.SubSkillLevel)
+    self.GradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(self.SubSkillId, self.SubSkillLevel)
     self.TxtSkillLevel.text = levelStr
 end
 
@@ -171,7 +171,7 @@ function XUiPanelSkillDetailsInfo:RefreshSkillView()
     -- 技能类型
     self.TxtSkillType.text = configDes.TypeDes and CSXTextManagerGetText("CharacterSkillTypeText", configDes.TypeDes) or ""
     -- 技能图标
-    local skillType = XCharacterConfigs.GetSkillType(self.SubSkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(self.SubSkillId)
     local isSignalBal = skillType <= SIGNAL_BAL_MEMBER
     self.ImgSkillPointIcon:SetRawImage(configDes.Icon)
     self.ImgBlueBall:SetRawImage(configDes.Icon)
@@ -251,7 +251,7 @@ function XUiPanelSkillDetailsInfo:RefreshEntryBtn()
         return
     end
 
-    self.EntryList = XCharacterConfigs.GetSkillGradeDesConfigEntryList(self.SubSkillId, self.SubSkillLevel)
+    self.EntryList = XMVCA.XCharacter:GetSkillGradeDesConfigEntryList(self.SubSkillId, self.SubSkillLevel)
     if XTool.IsTableEmpty(self.EntryList) then
         self.BtnNounParsing.gameObject:SetActiveEx(false)
         return
@@ -412,7 +412,7 @@ function XUiPanelSkillDetailsInfo:OnLongPress(pressingTime)
     if pressingTime > LONG_CLICK_OFFSET * LONG_PRESS_PARAMS then
         --控制延时刷新，避免点击一次就刷新技能升级预览
         local originalLevel = self.CharacterAgency:GetSkillLevel(self.SubSkillId)
-        minMax = XCharacterConfigs.GetSubSkillMinMaxLevel(self.SubSkillId)
+        minMax = XMVCA.XCharacter:GetSubSkillMinMaxLevel(self.SubSkillId)
         self.ClientLongPressIncreaseLevel = self.ClientLongPressIncreaseLevel + 1
         clientShowLevelParam = self.ClientLongPressIncreaseLevel + originalLevel
         local canUpdate = self.CharacterAgency:CheckCanUpdateSkillMultiLevel(self.CharacterId, self.SubSkillId, originalLevel, clientShowLevelParam - 1)--当前等级的消耗是升级到下一级的，所以判断升级的时候-1
@@ -435,9 +435,9 @@ function XUiPanelSkillDetailsInfo:OnLongPressUp()
         return
     end
     local originalLevel =  self.CharacterAgency:GetSkillLevel(self.SubSkillId)
-    local minMax = XCharacterConfigs.GetSubSkillMinMaxLevel(self.SubSkillId)
+    local minMax = XMVCA.XCharacter:GetSubSkillMinMaxLevel(self.SubSkillId)
     for i = originalLevel, self.ClientShowLevelParam - 1  do --当前等级的消耗是升级到下一级的需要减一操作
-        local gradeConfig = XCharacterConfigs.GetSkillGradeConfig(self.SubSkillId, i)
+        local gradeConfig = XMVCA.XCharacter:GetSkillGradeConfig(self.SubSkillId, i)
         if not gradeConfig then break end
         self.LongPressCostCoin = self.LongPressCostCoin + gradeConfig.UseCoin
         self.LongPressCostSkillPoint = self.LongPressCostSkillPoint + gradeConfig.UseSkillPoint

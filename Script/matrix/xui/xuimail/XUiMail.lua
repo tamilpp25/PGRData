@@ -12,18 +12,25 @@ function XUiMail:OnAwake()
     self.DynamicTable:SetProxy(XUiGridTitle)
     self.DynamicTable:SetDelegate(self)
     self.GridTitle.gameObject:SetActive(false)
-    XRedPointManager.AddRedPointEvent(self.RedCollection, self.OnCheckCollectionBoxView, self, { XRedPointConditions.Types.CONDITION_MAIL_FAVORITE_BOX })
+    self:AddRedPointEvent(self.RedCollection, self.OnCheckCollectionBoxView, self, { XRedPointConditions.Types.CONDITION_MAIL_FAVORITE_BOX })
 end
 
 function XUiMail:OnStart()
     self.CurMailInfo = nil
     self.SelectTitle = nil
+    self.UpdateTimer = nil
+    self.ExpireCache = {}
     self.RewardGrids = {}
 
     self.HtmlText = self.GridContent:GetComponent("XHtmlText")
+    self.HtmlTextNotReward = self.GridContentNotReward:GetComponent("XHtmlText")
     self.HtmlText.HrefListener = function(link)
         self:ClickLink(link)
     end
+    self.HtmlTextNotReward.HrefListener = function(link)
+        self:ClickLink(link)
+    end
+    
 
     self:Reset()
 
@@ -35,10 +42,12 @@ end
 function XUiMail:OnEnable()
     self.CollectionEffect.gameObject:SetActiveEx(false)--解决UI启动时特效重复播放问题
     self:ReLoadMailData(false)
+    self.UpdateTimer = XScheduleManager.ScheduleForever(Handler(self, self.Update), XScheduleManager.SECOND)
 end
 
 function XUiMail:OnDisable()
     self:RemoveTimer()
+    self:RemoveUpdateTimer()
 end
 
 -- auto
@@ -57,6 +66,13 @@ end
 function XUiMail:SetupDynamicTable(IsNotSync)
     if not IsNotSync then
         self.PageDatas = self._Control:GetMailList()
+    end
+    
+    self.ExpireCache = {}
+    for _, mailInfo in pairs(self.PageDatas) do
+        if not XMVCA.XMail:IsExpireAndReserve(mailInfo.Id) then
+            self.ExpireCache[mailInfo.Id] = true
+        end
     end
     self.CurMailInfo = self.PageDatas[1]
     self.DynamicTable:SetDataSource(self.PageDatas)
@@ -90,6 +106,7 @@ function XUiMail:Reset()
     self.PanelMailContent.gameObject:SetActive(false)
     --self.ImgBgUn.gameObject:SetActive(true)
     self.BtnGetReward.gameObject:SetActive(false)
+    self.BtnGetReward:SetButtonState(CS.UiButtonState.Normal)
     self.ImgGetReward.gameObject:SetActive(false)
     self.PanelItemContent.gameObject:SetActive(false)
 end
@@ -167,7 +184,29 @@ function XUiMail:ShowMailInfoNormal(mailInfo)
     self.TxtContentTitle.text = mailInfo.Title
     local content = mailInfo.Content or ""
     local sendName = mailInfo.SendName or ""
-    self.HtmlText.text = content .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+
+    --- 退款封禁邮件日期换行问题，替换空格编码
+    if mailInfo.Type == XEnumConst.MailType.SpecialMail then
+        content = XUiHelper.ReplaceUnicodeSpace(content)
+    end
+
+    --问卷需要对正文进行处理显示超链接
+    if mailInfo.IsSurvey then
+        content = self._Control:FixSurveyContent(mailInfo)
+    end
+    
+    if self._Control:HasMailReward(mailInfo.Id) then
+        self.PanelContent.gameObject:SetActiveEx(true)
+        self.PanelExpire.gameObject:SetActiveEx(false)
+        self.PanelContentReward.gameObject:SetActiveEx(true)
+        self.HtmlText.text = content .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+    else
+        self.PanelContent.gameObject:SetActiveEx(false)
+        self.PanelExpire.gameObject:SetActiveEx(true)
+        self.PanelContentReward.gameObject:SetActiveEx(false)
+        self.HtmlTextNotReward.text = content .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+    end
+    
     self.PanelMailContent.gameObject:SetActive(true)
     self:RemoveTimer()
 
@@ -178,17 +217,36 @@ function XUiMail:ShowMailInfoNormal(mailInfo)
 
     self.TxtForbidDelete.gameObject:SetActiveEx(mailInfo.IsForbidDelete)
 
-    local refreshFunc
-    local restTime = mailInfo.ExpireTime - XTime.GetServerNowTimestamp()
-    if restTime and restTime > 0 then
-        refreshFunc = function ()
-            local dataTime = XUiHelper.GetTime(restTime)
+    ---@type XMailAgency
+    local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
+    local refreshFunc = nil
+    if not mailAgency:IsExpire(mailInfo.Id) then
+        local restTime = mailInfo.ExpireTime - XTime.GetServerNowTimestamp()
+        
+        refreshFunc = function()
+            local dataTime = XUiHelper.GetTime(math.max(restTime, 0))
+            
             if XTool.UObjIsNil(self.TxtContentDateNum) then
                 return
             end
             self.TxtContentDateNum.text = CSGetText("EmailExpireTime",dataTime)
             restTime = restTime - 1
 
+            if restTime < 0 then
+                refreshFunc = nil
+            end
+        end
+    elseif mailAgency:IsExpireAndReserve(mailInfo.Id) then 
+        local restTime = mailInfo.ReserveTime - XTime.GetServerNowTimestamp()
+
+        refreshFunc = function()
+            local dataTime = XUiHelper.GetTime(math.max(restTime, 0))
+            if XTool.UObjIsNil(self.TxtContentDateNum) then
+                return
+            end
+            self.TxtContentDateNum.text = CSGetText("EmailExpireTime",dataTime)
+            restTime = restTime - 1
+            
             if restTime < 0 then
                 refreshFunc = nil
             end
@@ -225,7 +283,19 @@ function XUiMail:ShowMailInfoFavorite(mailInfo)
     self.TxtContentTitle.text = mailData.Title
     local content = mailData.Content or ""
     local sendName = mailData.SendName or ""
-    self.HtmlText.text = XUiHelper.ConvertLineBreakSymbol(content) .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+
+    if not XTool.IsTableEmpty(mailData.RewardIds) then
+        self.PanelContent.gameObject:SetActiveEx(true)
+        self.PanelExpire.gameObject:SetActiveEx(false)
+        self.PanelContentReward.gameObject:SetActiveEx(true)
+        self.HtmlText.text = XUiHelper.ConvertLineBreakSymbol(content) .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+    else
+        self.PanelContent.gameObject:SetActiveEx(false)
+        self.PanelExpire.gameObject:SetActiveEx(true)
+        self.PanelContentReward.gameObject:SetActiveEx(false)
+        self.HtmlTextNotReward.text = XUiHelper.ConvertLineBreakSymbol(content) .. "\n\n" .. CSGetText("ComeFrom") .. ": " .. sendName .. "\n"
+    end
+
     self.PanelMailContent.gameObject:SetActive(true)
     self:RemoveTimer()
     if not mailInfo.ExpireTime then
@@ -289,6 +359,7 @@ function XUiMail:InitRewardListNormal(mailInfo)
         return
     end
 
+    self.PanelContentReward.gameObject:SetActiveEx(true)
     for _, grid in pairs(self.RewardGrids) do
         grid:Refresh()
     end
@@ -324,6 +395,7 @@ function XUiMail:InitRewardListFavorite(mailInfo)
     baseItem.gameObject:SetActive(false)
     self.PanelItemContent.gameObject:SetActive(false)
     if #mailData.RewardIds == 0 then return end
+    self.PanelContentReward.gameObject:SetActiveEx(true)
     for _, grid in pairs(self.RewardGrids) do
         grid:Refresh()
     end
@@ -370,15 +442,25 @@ function XUiMail:SetRewardBtnStatusNormal(mailId)
     if mail and self._Control:HasMailReward(mailId) then
         ---@type XMailAgency
         local mailAgency = XMVCA:GetAgency(ModuleId.XMail)
-        if not mailAgency.IsGetReward(mail.Status) then
+
+        if mailAgency:IsExpireAndReserve(mailId) then
             self.BtnGetReward.gameObject:SetActive(true)
+            self.BtnGetReward:SetButtonState(CS.UiButtonState.Disable)
+            self.BtnGetReward:SetNameByGroup(0, XUiHelper.GetText("MailInvalidation"))
         else
-            self.ImgGetReward.gameObject:SetActive(true)
-        end
+            if not mailAgency.IsGetReward(mail.Status) then
+                self.BtnGetReward.gameObject:SetActive(true)
+                self.BtnGetReward:SetButtonState(CS.UiButtonState.Normal)
+                self.BtnGetReward:SetNameByGroup(0, XUiHelper.GetText("MailCanReceive"))
+            else
+                self.ImgGetReward.gameObject:SetActive(true)
+            end
+        end 
     end
 end
 function XUiMail:SetRewardBtnStatusFavorite(mailId)
     self.BtnGetReward.gameObject:SetActive(true)
+    self.BtnGetReward:SetButtonState(CS.UiButtonState.Normal)
     self.ImgGetReward.gameObject:SetActive(false)
 end
 --=========更新领取按钮状态===========
@@ -410,6 +492,9 @@ end
 
 --领取奖励按钮响应
 function XUiMail:OnBtnGetRewardClick()
+    if self.BtnGetReward.ButtonState == CS.UiButtonState.Disable then
+        return
+    end
     if self.CurMailInfo then
         if self.CurMailInfo.MailType == XEnumConst.MailType.Normal then
             self._Control:GetMailReward(self.CurMailInfo.Id, function()
@@ -468,4 +553,23 @@ function XUiMail:RemoveTimer()
         XScheduleManager.UnSchedule(self.Timer)
         self.Timer = nil
     end
+end
+
+function XUiMail:Update()
+    if not XTool.IsTableEmpty(self.PageDatas) then
+        for _, mailInfo in pairs(self.PageDatas) do
+            if self.ExpireCache[mailInfo.Id] and XMVCA.XMail:IsExpireAndReserve(mailInfo.Id) then
+                self.ExpireCache[mailInfo.Id] = nil
+                self:ReLoadMailData(false)
+                break
+            end
+        end
+    end 
+end
+
+function XUiMail:RemoveUpdateTimer()
+    if self.UpdateTimer then
+        XScheduleManager.UnSchedule(self.UpdateTimer)
+        self.UpdateTimer = nil
+    end    
 end

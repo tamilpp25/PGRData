@@ -198,6 +198,7 @@ function XMovieActionBase:ChangeStatus(delay, animName)
             return
         end
 
+        self:StopAnimtion(anim)
         anim.gameObject:SetActiveEx(true)
         if not anim.gameObject.activeInHierarchy then
             return
@@ -255,4 +256,12 @@ function XMovieActionBase:OnReset()
 end
 
 function XMovieActionBase:OnUndo()
+end
+
+-- 停止动画，触发结束回调
+function XMovieActionBase:StopAnimtion(anim)
+    local timelineAnimation = anim.transform:GetComponent(typeof(CS.XUiPlayTimelineAnimation))
+    if timelineAnimation then
+        timelineAnimation:Stop(false)
+    end
 end

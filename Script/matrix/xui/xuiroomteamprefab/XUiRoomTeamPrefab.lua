@@ -17,8 +17,11 @@ function XUiRoomTeamPrefab:OnStart(captainPos, firstFightPos, characterLimitType
     self.CloseCb = closeCb
     self.TeamPrefabs = {}
     self.StageId = stageId
-    self:RefreshTeamList()
     self.Team = team
+end
+
+function XUiRoomTeamPrefab:OnEnable()
+    self:RefreshTeamList()
 end
 
 function XUiRoomTeamPrefab:OnDestroy()

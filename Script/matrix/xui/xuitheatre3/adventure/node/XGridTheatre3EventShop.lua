@@ -7,7 +7,7 @@ function XGridTheatre3EventShop:OnStart()
     XEventManager.AddEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_SHOP_AFTER_BUY, self._RefreshCost, self)
 end
 
-function XGridTheatre3EventShop:OnRelease()
+function XGridTheatre3EventShop:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_THEATRE3_ADVENTURE_SHOP_AFTER_BUY, self._RefreshCost, self)
 end
 
@@ -73,7 +73,13 @@ function XGridTheatre3EventShop:_RefreshItem()
 end
 
 function XGridTheatre3EventShop:_RefreshCost()
-    local colorCode = self._Control:GetClientConfig("ShopItemCostColor", self:_CheckCanBuy() and 1 or 2)
+    local index
+    if self._Control:IsAdventureALine() then
+        index = self:_CheckCanBuy() and 1 or 2
+    else
+        index = self:_CheckCanBuy() and 3 or 4
+    end
+    local colorCode = self._Control:GetClientConfig("ShopItemCostColor", index)
     if not string.IsNilOrEmpty(colorCode) then
         self.TxtCostCount.color = XUiHelper.Hexcolor2Color(colorCode)
     end
@@ -86,7 +92,7 @@ end
 
 --region Ui - BtnListener
 function XGridTheatre3EventShop:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.Transform, self.OnBtnBuyClick)
+    self._Control:RegisterClickEvent(self, self.Transform, self.OnBtnBuyClick)
 end
 
 function XGridTheatre3EventShop:OnBtnBuyClick()
@@ -95,7 +101,7 @@ function XGridTheatre3EventShop:OnBtnBuyClick()
     elseif self._ShopItem:CheckIsBuy() then
         XUiManager.TipErrorWithKey("Theatre3ShopItemBuyTip")
     else
-        XLuaUiManager.Open("UiTheatre3ShopTips", self._ShopItem, nil, handler(self, self._OnBtnBuyClick))
+        self._Control:OpenAdventureShopTips(self._ShopItem, nil, handler(self, self._OnBtnBuyClick))
     end
 end
 

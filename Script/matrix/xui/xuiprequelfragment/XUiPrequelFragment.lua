@@ -163,8 +163,11 @@ function XUiPrequelFragment:SetPanelAssetActive(isActive)
     if XTool.UObjIsNil(self.AssetPanel.GameObject) then
         return
     end
-
-    self.AssetPanel.GameObject:SetActiveEx(isActive)
+    if isActive then
+        self.AssetPanel:Open()
+    else
+        self.AssetPanel:Close()
+    end
 end
 
 -- 按钮事件

@@ -11,16 +11,18 @@ function XUiSkillDetailsTips:OnAwake()
     self.TxtSkillSpecific.gameObject:SetActiveEx(false)
 end
 
-function XUiSkillDetailsTips:OnStart(data)
+function XUiSkillDetailsTips:OnStart(data, skillLv)
     if not data then
         return
     end
     -- 技能名称
     self.TxtSkillName.text = data.Name
+    -- 技能等级
+    self.TxtLvNum.text = skillLv or 1
     -- 技能类型
     self.TxtSkillType.text = data.TypeDes and CSXTextManagerGetText("CharacterSkillTypeText", data.TypeDes) or ""
     -- 技能图标
-    local skillType = XCharacterConfigs.GetSkillType(data.SkillId)
+    local skillType = XMVCA.XCharacter:GetSkillType(data.SkillId)
     local isSignalBal = skillType <= SIGNAL_BAL_MEMBER
     self.ImgSkillPointIcon:SetRawImage(data.Icon)
     self.ImgBlueBall:SetRawImage(data.Icon)
@@ -41,6 +43,18 @@ function XUiSkillDetailsTips:OnStart(data)
             self:SetTextInfo(self.TxtSkillTitle.gameObject, self.PanelReward, title)
         end
         self:SetTextInfo(self.TxtSkillSpecific.gameObject, self.PanelReward, specificDes)
+    end
+    -- 独域技能
+    local isEnhanceSkill = XMVCA.XCharacter:GetEnhanceSkillGradeDescBySkillIdAndLevel(data.SkillId, 1, true)
+    if isEnhanceSkill and data.Intro then
+        self.ImgSkillPointIcon.gameObject:SetActiveEx(true)
+        self.ImgBlueBall.gameObject:SetActiveEx(false)
+
+        local title = data.Name
+        if title then
+            self:SetTextInfo(self.TxtSkillTitle.gameObject, self.PanelReward, title)
+        end
+        self:SetTextInfo(self.TxtSkillSpecific.gameObject, self.PanelReward, data.Intro)
     end
 end
 

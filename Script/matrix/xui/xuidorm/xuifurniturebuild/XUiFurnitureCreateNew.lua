@@ -448,6 +448,7 @@ function XUiFurnitureCreateNew:CreateFurniture()
         end
     end
     self.GainType = XFurnitureConfigs.GainType.Create
+    XUiHelper.LimitContinuousClick(self.BtnConfirm)
     XDataCenter.FurnitureManager.CreateFurniture(self.SelectTypeIds, self.CreateCount, costA, costB, costC, self.CreateResponseCb)
 end
 

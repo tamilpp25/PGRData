@@ -241,7 +241,7 @@ XGuildManagerCreator = function()
             GuildData.GuildId = 0
 
             if XPlayer.Id == eventValue then return end
-            if XLuaUiManager.IsUiLoad("UiGuildMain") or XLuaUiManager.IsUiLoad("UiGuildDormMain") or XLuaUiManager.IsUiLoad("UiGuildBossHall") or XLuaUiManager.IsUiLoad("UiGuildBossStage") then
+            if XLuaUiManager.IsUiLoad("UiGuildMain") or XLuaUiManager.IsUiLoad("UiGuildDormMain") or XLuaUiManager.IsUiLoad("UiGuildBossHall") or XLuaUiManager.IsUiLoad("UiGuildBossStage") or XLuaUiManager.IsUiLoad("UiGuildWarStageMain") then
                 XUiManager.TipMsg(CS.XTextManager.GetText("GuildKickOutByAdministor"))
                 if CS.XFight.Instance ~= nil then
                     return
@@ -710,6 +710,9 @@ XGuildManagerCreator = function()
     end
 
     function XGuildManager.EnterGuild(onEnterGuildCb)
+        if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Guild) then
+            return
+        end
         if not XDataCenter.GuildManager.IsJoinGuild() then
             if XGuildManager.IsNeedRequestRecommendData() then
                 XDataCenter.GuildManager.GuildListRecommendRequest(1, function()
@@ -1170,22 +1173,7 @@ XGuildManagerCreator = function()
         local lastGuildId = GuildData.GuildId
         local tempLevel = XGuildManager.GetGuildLevel()
         XGuildManager.SaveGuildLevel(-1)
-        if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
-            local memberList = XGuildManager.GetMemberList()
-            local onlyOneMember = true
-            local memberCount = 0
-            for _, _ in pairs(memberList or {}) do
-                memberCount = memberCount + 1
-                if memberCount > 1 then
-                    onlyOneMember = false
-                    break
-                end
-            end
-            if onlyOneMember then
-                XUiManager.TipText("GuildWarCantGiveUpGuild")
-                return
-            end
-        end
+
         XNetwork.Call(GuildRpc.GuildQuit, {}, function(res)
                 if res.Code ~= XCode.Success then
                     XGuildManager.SaveGuildLevel(tempLevel)
@@ -2506,6 +2494,25 @@ XGuildManagerCreator = function()
         end
         local member = GuildData:GetGuildMembers()[playerId]
         return member
+    end
+    
+    local lastGetMemberTime = nil
+    --增加定期请求全成员来确保数据及时同步
+    function XGuildManager.GetMemberDataWithAutoUpdate(cb)
+        local curTimestamp = XTime.GetServerNowTimestamp()
+        if lastGetMemberTime == nil or curTimestamp - lastGetMemberTime > 60 then
+            lastGetMemberTime = curTimestamp
+            XGuildManager.GetGuildMembers(0, function()
+                if cb then
+                    cb(XGuildManager.GetMemberList())
+                end
+            end)
+        else
+            if cb then
+                cb(XGuildManager.GetMemberList())
+            end
+            
+        end
     end
 
     XGuildManager.Init()

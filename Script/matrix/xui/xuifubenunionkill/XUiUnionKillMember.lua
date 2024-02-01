@@ -86,8 +86,8 @@ function XUiUnionKillMember:UpdateShareCharacter(npcData)
     self.BgAdd.gameObject:SetActiveEx(not isCharacter)
     if isCharacter then
         local character = npcData.Character
-        self.RImgShareChar:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(character.Id))
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgShareChar:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(character.Id))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
         self.TxtLvCardShuZi.text = character.Level
     end
 end

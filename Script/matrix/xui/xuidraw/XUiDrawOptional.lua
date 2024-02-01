@@ -99,7 +99,7 @@ function XUiDrawOptional:OnClickElementTab(elementCfgId)
         local combination = XDataCenter.DrawManager.GetDrawCombination(drawId)
         if combination.GoodsId and #combination.GoodsId > 0 then
             local charId = combination.GoodsId[1]
-            local charCfg = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charCfg = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charCfg.Element == elementCfgId then
                 table.insert(infoList, info)
             end
@@ -177,9 +177,9 @@ function XUiDrawOptional:SelectCombination(drawId)
             self.TxtSelCharName.text = drawAimProbability[drawId].UpProbability or ""
         else
             local charId = combination.GoodsId[1]
-            local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
+            local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
             self.RImgSelCharIcon:SetRawImage(icon)
-            self.TxtSelCharName.text = XCharacterConfigs.GetCharacterLogName(charId)
+            self.TxtSelCharName.text = XMVCA.XCharacter:GetCharacterLogName(charId)
         end
 
     elseif self.GoodsType == XArrangeConfigs.Types.Weapon then
@@ -211,7 +211,7 @@ function XUiDrawOptional:SelectCombination(drawId)
 end
 
 function XUiDrawOptional:CheckIsAllTimeOver()
-    for _, info in pairs(self.InfoList) do
+    for _, info in pairs(self.AllInfoList) do
         if not XDataCenter.DrawManager.CheckDrawIsTimeOver(info.Id) then
             return false
         end
@@ -333,7 +333,7 @@ function XUiDrawOptional:_SortCharInfoList(infoList)
     for _, info in ipairs(infoList) do
         local combination = XDataCenter.DrawManager.GetDrawCombination(info.Id)
         local charId = combination.GoodsId[1]
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(charId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(charId)
         ownDic[info.Id] = {CharId = charId, IsOwn = isOwn}
     end
 
@@ -347,18 +347,26 @@ function XUiDrawOptional:_SortCharInfoList(infoList)
         local isNotCharA = ownDic[a.Id].CharId == nil
         local isNotCharB = ownDic[b.Id].CharId == nil
         if isNotCharA or isNotCharB then
-            priorityA = priorityA + (isNotCharA and 100000 or 0)
-            priorityB = priorityB + (isNotCharB and 100000 or 0)
+            priorityA = priorityA + (isNotCharA and 1000000 or 0)
+            priorityB = priorityB + (isNotCharB and 1000000 or 0)
             return priorityA > priorityB
         end
 
         -- 是否选中
-        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 10000 or 0)
-        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 10000 or 0)
+        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 100000 or 0)
+        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 100000 or 0)
 
         -- 是否活动中
-        priorityA = priorityA + (a.EndTime > 0 and 1000 or 0)
-        priorityB = priorityB + (b.EndTime > 0 and 1000 or 0)
+        priorityA = priorityA + (a.EndTime > 0 and 10000 or 0)
+        priorityB = priorityB + (b.EndTime > 0 and 10000 or 0)
+
+        -- 是否是新加的
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[a.Id].NewTimeId) then  
+            priorityA = priorityA + 1000
+        end
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[b.Id].NewTimeId) then  
+            priorityB = priorityB + 1000
+        end
 
         -- 是否拥有
         local isOwnA = ownDic[a.Id].IsOwn
@@ -368,8 +376,8 @@ function XUiDrawOptional:_SortCharInfoList(infoList)
 
         -- 已拥有则未满阶角色优先
         if isOwnA and isOwnB  then
-            local isMaxA = XDataCenter.CharacterManager.IsMaxQualityById(ownDic[a.Id].CharId)
-            local isMaxB = XDataCenter.CharacterManager.IsMaxQualityById(ownDic[b.Id].CharId)
+            local isMaxA = XMVCA.XCharacter:IsMaxQualityById(ownDic[a.Id].CharId)
+            local isMaxB = XMVCA.XCharacter:IsMaxQualityById(ownDic[b.Id].CharId)
             priorityA = priorityA + (isMaxA and 0 or 10)
             priorityB = priorityB + (isMaxB and 0 or 10)
         end
@@ -399,7 +407,7 @@ function XUiDrawOptional:_InitCharTabList()
             table.insert(self.TabBtnList, btn)
 
             -- 刷新按钮ui
-            local element = XCharacterConfigs.GetCharElement(elementId)
+            local element = XMVCA.XCharacter:GetCharElement(elementId)
             btn:SetNameByGroup(0, element.ElementName)
             btn:SetRawImage(element.Icon2)
         end
@@ -430,7 +438,7 @@ function XUiDrawOptional:_SortWeaponInfoList(infoList)
         local equipCfg = XEquipConfig.GetEquipCfg(equipTemplateId)
         local charId = equipCfg.RecommendCharacterId
         if charId then
-            isOwnChar = XDataCenter.CharacterManager.IsOwnCharacter(charId)
+            isOwnChar = XMVCA.XCharacter:IsOwnCharacter(charId)
         end
         ownDic[info.Id] = {IsOwnWeapon = isOwnEquip, IsOwnChar = isOwnChar}
     end
@@ -442,12 +450,20 @@ function XUiDrawOptional:_SortWeaponInfoList(infoList)
         local priorityB = 0
 
         -- 是否选中
-        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 10000 or 0)
-        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 10000 or 0)
+        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 100000 or 0)
+        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 100000 or 0)
 
         -- 是否活动中
-        priorityA = priorityA + (a.EndTime > 0 and 1000 or 0)
-        priorityB = priorityB + (b.EndTime > 0 and 1000 or 0)
+        priorityA = priorityA + (a.EndTime > 0 and 10000 or 0)
+        priorityB = priorityB + (b.EndTime > 0 and 10000 or 0)
+
+        -- 是否是新加的
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[a.Id].NewTimeId) then  
+            priorityA = priorityA + 1000
+        end
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[b.Id].NewTimeId) then  
+            priorityB = priorityB + 1000
+        end
 
         -- 是否拥有装备
         local isOwnA = ownDic[a.Id].IsOwnWeapon
@@ -508,7 +524,7 @@ function XUiDrawOptional:_SortPartnerInfoList(infoList)
         local partnerCfg = XPartnerConfigs.GetPartnerTemplateById(partnerTemplateId)
         local charId = partnerCfg.RecommendCharacterId
         if charId then
-            isOwnChar = XDataCenter.CharacterManager.IsOwnCharacter(charId)
+            isOwnChar = XMVCA.XCharacter:IsOwnCharacter(charId)
         end
         ownDic[info.Id] = {IsOwnPartner = isOwnPartner, IsOwnChar = isOwnChar}
     end
@@ -520,12 +536,20 @@ function XUiDrawOptional:_SortPartnerInfoList(infoList)
         local priorityB = 0
 
         -- 是否选中
-        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 10000 or 0)
-        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 10000 or 0)
+        priorityA = priorityA + (a.Id == self.CurSelectDrawId and 100000 or 0)
+        priorityB = priorityB + (b.Id == self.CurSelectDrawId and 100000 or 0)
 
         -- 是否活动中
-        priorityA = priorityA + (a.EndTime > 0 and 1000 or 0)
-        priorityB = priorityB + (b.EndTime > 0 and 1000 or 0)
+        priorityA = priorityA + (a.EndTime > 0 and 10000 or 0)
+        priorityB = priorityB + (b.EndTime > 0 and 10000 or 0)
+
+        -- 是否是新加的
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[a.Id].NewTimeId) then  
+            priorityA = priorityA + 1000
+        end
+        if XFunctionManager.CheckInTimeByTimeId(drawAimProbability[b.Id].NewTimeId) then  
+            priorityB = priorityB + 1000
+        end
 
         -- 是否拥有辅助机
         local isOwnA = ownDic[a.Id].IsOwnPartner
@@ -589,7 +613,7 @@ function XUiDrawOptional:_InitTargetSelectFilter()
     ---@type XCharacterAgency
     local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
     local elementList = characterAgency:GetModelCharacterElement()
-    for i = 1, 5 do
+    for i = 1, XEnumConst.Filter.MaxEnableElementNum do
         local go = CS.UnityEngine.Object.Instantiate(self.BtnTab)
         go.gameObject:SetActiveEx(true)
         go.transform:SetParent(self.BtnTab.transform.parent, false)
@@ -655,9 +679,9 @@ function XUiDrawOptional:SelectTargetTemplate(templateId)
             self.TexCharNotSelect.gameObject:SetActiveEx(false)
         else
             local charId = templateId
-            local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
+            local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
             self.RImgSelCharIcon:SetRawImage(icon)
-            self.TxtSelCharName.text = XCharacterConfigs.GetCharacterLogName(charId)
+            self.TxtSelCharName.text = XMVCA.XCharacter:GetCharacterLogName(charId)
 
             self.TexCharHaveSelect.gameObject:SetActiveEx(isSame)
             self.TexCharCurSelect.gameObject:SetActiveEx(not isSame)
@@ -668,6 +692,12 @@ function XUiDrawOptional:SelectTargetTemplate(templateId)
 end
 
 function XUiDrawOptional:_RefreshCharacterDrawTarget(templateIds)
+    -- 空状态
+    local isEmpty = XTool.IsTableEmpty(templateIds)
+    self.PanelEmpty.gameObject:SetActiveEx(isEmpty)
+    self.BtnRoleComfirm.gameObject:SetActiveEx(not isEmpty)
+    self.PanelSelectedChar.gameObject:SetActiveEx(not isEmpty)
+
     self.RoleContent.anchoredPosition = CS.UnityEngine.Vector2(0, 0)
     self.WeaponContent.anchoredPosition = CS.UnityEngine.Vector2(0, 0)
 

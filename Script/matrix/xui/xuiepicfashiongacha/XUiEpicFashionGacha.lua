@@ -1,16 +1,20 @@
--- gacha3D抽卡界面
+---@class XUiEpicFashionGacha:XLuaUi@gacha3D抽卡界面
 local XUiEpicFashionGacha = XLuaUiManager.Register(XLuaUi, "UiEpicFashionGacha")
-local LongEnableCb -- 长动画的回调
-local CanPlayEnableAnim = false -- 只有进入卡池时会检测播放1次
-local ShowFashionTrigger = nil
-local ShowCourseRewardTrigger = nil
-local DoGachaTrigger = nil -- 抽卡触发器，1/10回抽按钮设置，拨动时钟触发
-local FinishCbTrigger = nil -- 抽卡结束触发器，抽卡请求回调设置，播放完抽卡演出后触发
-local GachaAllFinishTrigger = nil -- 抽卡全结束触发器，1/10回抽按钮设置，抽卡结果界面关闭后刷新触发
-local HasBeenKey = "HasBeenKey"
-local SkipBtnKey = "UiEpicFashionGacha"
-local GachaStoryRedPoint = "GachaStoryRedPoint"
-local TempFx = nil
+
+function XUiEpicFashionGacha:Ctor()
+    self.LongEnableCb = nil -- 长动画的回调
+    self.CanPlayEnableAnim = false -- 只有进入卡池时会检测播放1次
+    self.ShowFashionTrigger = nil
+    self.ShowCourseRewardTrigger = nil
+    self.DoGachaTrigger = nil -- 抽卡触发器，1/10回抽按钮设置，拨动时钟触发
+    self.FinishCbTrigger = nil -- 抽卡结束触发器，抽卡请求回调设置，播放完抽卡演出后触发
+    self.GachaAllFinishTrigger = nil -- 抽卡全结束触发器，1/10回抽按钮设置，抽卡结果界面关闭后刷新触发
+    self.HasBeenKey = "HasBeenKey"
+    self.SkipBtnKey = "UiEpicFashionGacha"
+    self.GachaStoryRedPoint = "GachaStoryRedPoint"
+    self.TempFx = nil
+    self.TimerStoryRoleEnable = nil
+end
 
 function XUiEpicFashionGacha:SetSelfActive(flag)
     self.PanelGachaGroup.gameObject:SetActiveEx(flag)
@@ -31,29 +35,41 @@ end
 
 function XUiEpicFashionGacha:InitButton()
     self:RegisterClickEvent(self.BtnBack, self.Close)
-    self:RegisterClickEvent(self.BtnMainUi, function() XLuaUiManager.RunMain() end)
-    self:RegisterClickEvent(self.BtnGacha, function () self:OnBtnGachaClick(self.GachaCfg.BtnGachaCount[1]) end)
-    self:RegisterClickEvent(self.BtnGacha2, function () self:OnBtnGachaClick(self.GachaCfg.BtnGachaCount[2]) end)
+    self:RegisterClickEvent(self.BtnMainUi, function()
+        XLuaUiManager.RunMain()
+    end)
+    self:RegisterClickEvent(self.BtnGacha, function()
+        self:OnBtnGachaClick(self.GachaCfg.BtnGachaCount[1])
+    end)
+    self:RegisterClickEvent(self.BtnGacha2, function()
+        self:OnBtnGachaClick(self.GachaCfg.BtnGachaCount[2])
+    end)
     self:RegisterClickEvent(self.BtnStartGacha, self.OnBtnStartClick)
     self:RegisterClickEvent(self.BtnStartAnim, self.PlayLongEnableAnim2)
     self:RegisterClickEvent(self.BtnSkipGacha, self.OnBtnSkipGachaClick)
     self:RegisterClickEvent(self.BtnStoryLine, self.OnBtnStoryLineClick)
-    self:RegisterClickEvent(self.BtnAward, function () XLuaUiManager.Open("UiEpicFashionGachaLog", self.GachaCfg, 1) end)
-    self:RegisterClickEvent(self.BtnHelp, function () XLuaUiManager.Open("UiEpicFashionGachaLog", self.GachaCfg) end)
-    self:RegisterClickEvent(self.BtnSet, function () XLuaUiManager.Open("UiSet") end)
+    self:RegisterClickEvent(self.BtnAward, function()
+        XLuaUiManager.Open("UiEpicFashionGachaLog", self.GachaCfg, 1)
+    end)
+    self:RegisterClickEvent(self.BtnHelp, function()
+        XLuaUiManager.Open("UiEpicFashionGachaLog", self.GachaCfg)
+    end)
+    self:RegisterClickEvent(self.BtnSet, function()
+        XLuaUiManager.Open("UiSet")
+    end)
 end
 
 function XUiEpicFashionGacha:Init3DSceneInfo()
     if not self.UiSceneInfo or XTool.UObjIsNil(self.UiSceneInfo.Transform) then
         self:LoadUiScene(self:GetDefaultSceneUrl(), self:GetDefaultUiModelUrl())
     end
-    
+
     self.Panel3D = {}
     local root = self.UiModelGo.transform
     XTool.InitUiObjectByUi(self.Panel3D, self.UiSceneInfo.Transform) -- 将场景的内容和镜头的内容加到1个table里
     XTool.InitUiObjectByUi(self.Panel3D, root) -- 3d镜头的ui
     self:Refresh3DSceneInfo()
-   
+
     -- 阴影要放在武器模型加载完之后
     CS.XShadowHelper.AddShadow(self.Panel3D.Model2.gameObject, true)
 end
@@ -70,7 +86,7 @@ function XUiEpicFashionGacha:Refresh3DSceneInfo()
     self.Panel3D.UiFarCameraClock.gameObject:SetActiveEx(false)
     self.Panel3D.UiFarCameraDeep.gameObject:SetActiveEx(false)
     self.Panel3D.UiFarCameraStory.gameObject:SetActiveEx(false)
-    
+
     self.Panel3D.UiNearCameraMain.gameObject:SetActiveEx(true)
     self.Panel3D.UiNearCameraClock.gameObject:SetActiveEx(false)
     self.Panel3D.UiNearCameraDeep.gameObject:SetActiveEx(false)
@@ -83,33 +99,33 @@ function XUiEpicFashionGacha:OnStart(gachaId, autoOpenStory)
     self.AutoOpenStory = autoOpenStory
 
     -- 跳过按钮,只有在进入ui时自动刷新1次
-    local isSelect = XSaveTool.GetData(SkipBtnKey)
+    local isSelect = XSaveTool.GetData(self.SkipBtnKey)
     local state = isSelect and CS.UiButtonState.Select or CS.UiButtonState.Normal
     self.BtnSkip:SetButtonState(state)
 
-    CanPlayEnableAnim = true
+    self.CanPlayEnableAnim = true
 end
 
 function XUiEpicFashionGacha:OnChildClose()
     self:SetSelfActive(true)
     self:Refresh3DSceneInfo()
     self:RefreshUiShow()
-    
-    if CanPlayEnableAnim then
-        self:PlayEnableAnim(function ()
+
+    if self.CanPlayEnableAnim then
+        self:PlayEnableAnim(function()
             self:RefreshReddot()
         end)
     else
         self.AnimEnableShort:PlayTimelineAnimation()
-        self.Panel3D.AnimEnableShort:PlayTimelineAnimation(function ()
+        self.Panel3D.AnimEnableShort:PlayTimelineAnimation(function()
             self:RefreshReddot()
             self:SetXPostFaicalControllerActive(true)
         end)
     end
 
-    if self.TimerStoryRoleEnbale then
-        XScheduleManager.UnSchedule(self.TimerStoryRoleEnbale)
-        self.TimerStoryRoleEnbale = nil
+    if self.TimerStoryRoleEnable then
+        XScheduleManager.UnSchedule(self.TimerStoryRoleEnable)
+        self.TimerStoryRoleEnable = nil
     end
 end
 
@@ -132,8 +148,8 @@ function XUiEpicFashionGacha:OnEnable()
     end
     self:RefreshUiShow()
     self:AutoOpenChild()
-    if CanPlayEnableAnim then
-        self:PlayEnableAnim(function ()
+    if self.CanPlayEnableAnim then
+        self:PlayEnableAnim(function()
             self:RefreshReddot()
         end)
     else
@@ -169,13 +185,13 @@ function XUiEpicFashionGacha:PlayEnableAnim(cb)
     if not self.IsParentShow then
         return
     end
-    CanPlayEnableAnim = false
+    self.CanPlayEnableAnim = false
 
     -- 播放演出动画的时候必须关闭头部跟随 关闭待机loop动画
     self.Panel3D.RoleLoop:GetComponent("PlayableDirector"):Stop()
     self:SetXPostFaicalControllerActive(false)
-    
-    local isSkip = XSaveTool.GetData(SkipBtnKey)
+
+    local isSkip = XSaveTool.GetData(self.SkipBtnKey)
     -- 如果勾了跳过演出 就播放短动画 否则播放长动画
     if isSkip then
         if cb then
@@ -184,17 +200,18 @@ function XUiEpicFashionGacha:PlayEnableAnim(cb)
         self:PlayShortEnableAnim()
     else
         self:PlayLongEnableAnim1(cb)
-        local hasBeen = XSaveTool.GetData(HasBeenKey)
-        if not hasBeen then -- 如果第一次进来播长动画，自动勾上跳过
+        local hasBeen = XSaveTool.GetData(self.HasBeenKey)
+        if not hasBeen then
+            -- 如果第一次进来播长动画，自动勾上跳过
             self.BtnSkip:SetButtonState(CS.UiButtonState.Select)
-            XSaveTool.SaveData(HasBeenKey, 1)
+            XSaveTool.SaveData(self.HasBeenKey, 1)
         end
     end
 end
 
 -- 长动画1阶段，开始播放循环等待动画
 function XUiEpicFashionGacha:PlayLongEnableAnim1(cb)
-    LongEnableCb = cb
+    self.LongEnableCb = cb
     -- 播放循环动画
     self.AnimStart1:PlayTimelineAnimation()
     self.Panel3D.AnimStart1Loop:GetComponent("PlayableDirector"):Play()
@@ -220,9 +237,9 @@ function XUiEpicFashionGacha:PlayLongEnableAnim2()
         -- 必须要在enable动画完成后打开视线跟随
         self.Panel3D.AnimEnableLong.gameObject:SetActiveEx(false)
         self:SetXPostFaicalControllerActive(true)
-        if LongEnableCb then
-            LongEnableCb()
-            LongEnableCb = nil
+        if self.LongEnableCb then
+            self.LongEnableCb()
+            self.LongEnableCb = nil
         end
     end, math.round(curUiDirector.duration * XScheduleManager.SECOND))
 
@@ -236,7 +253,7 @@ end
 function XUiEpicFashionGacha:PlayShortEnableAnim(cb)
     self.Panel3D.RoleLoop:GetComponent("PlayableDirector"):Play()
     self.AnimEnableShort:PlayTimelineAnimation()
-    self.Panel3D.AnimEnableShort:PlayTimelineAnimation(function ()
+    self.Panel3D.AnimEnableShort:PlayTimelineAnimation(function()
         self:SetXPostFaicalControllerActive(true)
         if cb then
             cb()
@@ -248,14 +265,14 @@ function XUiEpicFashionGacha:RefreshUiShow()
     -- 把实际的刷新方法放进1个fun里，因为会有两种刷新方式，
     -- 1 是抽完卡后的第一次刷新，必须通过动画回调，且这个动画必须放在刷新前
     -- 2 是正常刷新，非抽卡后的刷新
-    local doRefreshFun = function ()
+    local doRefreshFun = function()
         -- 资源栏
         local managerItems = XDataCenter.ItemManager.ItemId
-        self.AssetPanel = XUiHelper.NewPanelActivityAsset({ managerItems.PaidGem, managerItems.HongKa, self.GachaCfg.ConsumeId }, self.PanelSpecialTool)
-        self.AssetPanel:SetButtonCb(3, function ()
+        self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ managerItems.PaidGem, managerItems.HongKa, self.GachaCfg.ConsumeId }, self.PanelSpecialTool, self)
+        self.AssetPanel:SetButtonCb(3, function()
             self:OpenGachaItemShop()
         end)
-    
+
         -- 奖励展示滚动
         local PanelAwardShow = {}
         XTool.InitUiObjectByUi(PanelAwardShow, self.PanelAwardShow)
@@ -265,22 +282,22 @@ function XUiEpicFashionGacha:RefreshUiShow()
             if XTool.IsTableEmpty(Panel) then
                 Panel = {}
                 self.PanelShowDic[i] = Panel
-                local panelShowUiTrans = PanelAwardShow["PanelShow"..i]
+                local panelShowUiTrans = PanelAwardShow["PanelShow" .. i]
                 if not panelShowUiTrans then
                     break
                 end
                 XTool.InitUiObjectByUi(Panel, panelShowUiTrans)
             end
-    
+
             for k, v in pairs(group) do
-                local searchIndex = i*10 + k
+                local searchIndex = i * 10 + k
                 local item = self.GridBoardRewardsDic[searchIndex]
                 if not item then
                     local uiTrans = k == 1 and Panel.GridRewards or CS.UnityEngine.Object.Instantiate(Panel.GridRewards, Panel.GridRewards.parent)
                     item = XUiGridCommon.New(self, uiTrans)
                     self.GridBoardRewardsDic[searchIndex] = item
                 end
-                
+
                 local tmpData = {}
                 tmpData.TemplateId = v.TemplateId
                 tmpData.Count = v.Count
@@ -291,33 +308,34 @@ function XUiEpicFashionGacha:RefreshUiShow()
                 item:Refresh(tmpData, nil, nil, nil, curCount)
             end
         end
-    
+
         -- 历程
         local curTotalGachaTimes = XDataCenter.GachaManager.GetTotalGachaTimes(self.GachaId)
         local courseReward = XGachaConfigs.GetGachaCourseRewardById(self.GachaCfg.CourseRewardId)
         local gachaBuyTicketRuleConfig = XGachaConfigs.GetGachaItemExchangeCfgById(self.GachaCfg.ExchangeId)
         local totaMaxTimes = gachaBuyTicketRuleConfig.TotalBuyCountMax
         curTotalGachaTimes = curTotalGachaTimes >= totaMaxTimes and totaMaxTimes or curTotalGachaTimes -- 分子不能超过分母
-        self.TextProgress.text = curTotalGachaTimes.."/"..totaMaxTimes
+        self.TextProgress.text = curTotalGachaTimes .. "/" .. totaMaxTimes
         local Notes = {}
         for i = 1, #courseReward.LimitDrawTimes, 1 do
             Notes[i] = {}
-            XTool.InitUiObjectByUi(Notes[i], self["Note"..i])
+            XTool.InitUiObjectByUi(Notes[i], self["Note" .. i])
         end
-    
+
         for i, rewardId in ipairs(courseReward.RewardIds) do
             -- 节点进度条
             local curNoteGachaTime = courseReward.LimitDrawTimes[i] -- 该节点对应的gacha抽次数
-            local progresssImg = self["ProgressImgYellow"..i]
-            progresssImg.fillAmount = (curTotalGachaTimes - (courseReward.LimitDrawTimes[i-1] or 0)) / (curNoteGachaTime - (courseReward.LimitDrawTimes[i-1] or 0))
+            local progresssImg = self["ProgressImgYellow" .. i]
+            progresssImg.fillAmount = (curTotalGachaTimes - (courseReward.LimitDrawTimes[i - 1] or 0)) / (curNoteGachaTime - (courseReward.LimitDrawTimes[i - 1] or 0))
 
             -- 节点奖励
             local rewards = XRewardManager.GetRewardList(rewardId)
             local note = Notes[i]
             note.Txt.text = curNoteGachaTime
             local isReceived = curTotalGachaTimes >= curNoteGachaTime
-            if isReceived  then
-                if ShowCourseRewardTrigger and curTotalGachaTimes - 10 < curNoteGachaTime then -- 只有刚刚抽到的时候才闪一下
+            if isReceived then
+                if self.ShowCourseRewardTrigger and curTotalGachaTimes - 10 < curNoteGachaTime then
+                    -- 只有刚刚抽到的时候才闪一下
                     XUiHelper.PlayAllChildParticleSystem(note.PanelEffect)
                 end
                 note.PanelEffect.gameObject:SetActiveEx(true)
@@ -337,15 +355,15 @@ function XUiEpicFashionGacha:RefreshUiShow()
                 gridReward.GameObject:SetActiveEx(true)
                 gridReward:Refresh(item)
                 gridReward:SetReceived(isReceived)
-                
+
             end
         end
         -- 如果抽完卡达到历程奖励 弹奖励提示
-        if ShowCourseRewardTrigger then
-            ShowCourseRewardTrigger()
-            ShowCourseRewardTrigger = nil
+        if self.ShowCourseRewardTrigger then
+            self.ShowCourseRewardTrigger()
+            self.ShowCourseRewardTrigger = nil
         end
-    
+
         -- 抽奖按钮
         local GridBtnGachas = {}
         GridBtnGachas[1] = {}
@@ -364,18 +382,28 @@ function XUiEpicFashionGacha:RefreshUiShow()
 
         self.BtnGacha:SetDisable(not self.IsCanGacha1)
         self.BtnGacha2:SetDisable(not self.IsCanGacha10)
-    
-        if ShowFashionTrigger then
-            ShowFashionTrigger()
-            ShowFashionTrigger = nil
+
+        if not self.IsCanGacha1 then
+            GridBtnGachas[1].ImgUseItemIcon.gameObject:SetActiveEx(false)
+            GridBtnGachas[1].TxtUseItemCount.gameObject:SetActiveEx(false)
+        end
+        if not self.IsCanGacha10 then
+            GridBtnGachas[2].ImgUseItemIcon.gameObject:SetActiveEx(false)
+            GridBtnGachas[2].TxtUseItemCount.gameObject:SetActiveEx(false)
+        end
+
+        if self.ShowFashionTrigger then
+            self.ShowFashionTrigger()
+            self.ShowFashionTrigger = nil
         end
     end
 
-    if GachaAllFinishTrigger then
-        GachaAllFinishTrigger = nil
-        self.AnimEnableShort:PlayTimelineAnimation(function ()
+    if self.GachaAllFinishTrigger then
+        self.GachaAllFinishTrigger = nil
+        self.AnimEnableShort:PlayTimelineAnimation(function()
             doRefreshFun()
             self.Panel3D.RoleLoop:GetComponent("PlayableDirector"):Play()
+            self:ShowRewardAfterGacha()
         end)
     else
         doRefreshFun()
@@ -395,7 +423,7 @@ function XUiEpicFashionGacha:RefreshReddot()
     end
 
     local isNewDay = nil
-    local updateTime = XSaveTool.GetData(GachaStoryRedPoint)
+    local updateTime = XSaveTool.GetData(self.GachaStoryRedPoint)
     if updateTime then
         isNewDay = XTime.GetServerNowTimestamp() > updateTime
     else
@@ -410,13 +438,13 @@ end
 function XUiEpicFashionGacha:OpenGachaItemShop(openCb, gachaCount)
     -- 购买上限检测
     local gachaBuyTicketRuleConfig = XGachaConfigs.GetGachaItemExchangeCfgById(self.GachaCfg.ExchangeId)
-    if XDataCenter.GachaManager.GetCurExchangeItemCount(self.GachaId) >= gachaBuyTicketRuleConfig.TotalBuyCountMax then 
+    if XDataCenter.GachaManager.GetCurExchangeItemCount(self.GachaId) >= gachaBuyTicketRuleConfig.TotalBuyCountMax then
         XUiManager.TipError(CS.XTextManager.GetText("BuyItemCountLimit", XDataCenter.ItemManager.GetItemName(self.GachaCfg.ConsumeId)))
         return
     end
 
-    local createItemData = function (config, index)
-        return 
+    local createItemData = function(config, index)
+        return
         {
             ItemId = config.UseItemIds[index],
             Sale = config.Sales[index], -- 折扣
@@ -426,8 +454,8 @@ function XUiEpicFashionGacha:OpenGachaItemShop(openCb, gachaCount)
     end
     local itemData1 = createItemData(gachaBuyTicketRuleConfig, 1)
     local itemData2 = createItemData(gachaBuyTicketRuleConfig, 2)
-    local targetData = {ItemId = self.GachaCfg.ConsumeId, ItemImg = gachaBuyTicketRuleConfig.TargetItemImg}
-    XLuaUiManager.Open("UiEpicFashionGachaBuyTicket", self.GachaCfg, itemData1, itemData2, targetData, gachaCount, function ()
+    local targetData = { ItemId = self.GachaCfg.ConsumeId, ItemImg = gachaBuyTicketRuleConfig.TargetItemImg }
+    XLuaUiManager.Open("UiEpicFashionGachaBuyTicket", self.GachaCfg, itemData1, itemData2, targetData, gachaCount, function()
         self:RefreshUiShow()
     end)
 
@@ -442,10 +470,10 @@ function XUiEpicFashionGacha:CheckIsCanGacha(gachaCount)
     end
 
     -- 剩余抽卡次数检测
-    if not self["IsCanGacha"..gachaCount] then
+    if not self["IsCanGacha" .. gachaCount] then
         return
     end
-    
+
     -- 抽卡前检测物品是否满了
     if XDataCenter.EquipManager.CheckBoxOverLimitOfDraw() then
         return false
@@ -455,12 +483,12 @@ function XUiEpicFashionGacha:CheckIsCanGacha(gachaCount)
     local lackItemCount = self.GachaCfg.ConsumeCount * gachaCount - ownItemCount
     if lackItemCount > 0 then
         -- 打开购买界面
-        self:OpenGachaItemShop(function ()
+        self:OpenGachaItemShop(function()
             XUiManager.TipError(CS.XTextManager.GetText("DrawNotEnoughError"))
         end, gachaCount)
         return false
     end
-    
+
     -- 奖励库存检查(检测抽奖池剩余库存)
     -- local dtCount = XDataCenter.GachaManager.GetMaxCountOfAll() - XDataCenter.GachaManager.GetCurCountOfAll()
     -- if dtCount < gachaCount and not XDataCenter.GachaManager.GetIsInfinite() then
@@ -489,20 +517,20 @@ function XUiEpicFashionGacha:DoGacha(gachaCount, isSkipToShow)
             -- 检测是否已经拥有奖励的内容了，已拥有就不弹了。这个检测必须放在trigger外面作为upvalue，因为trigeer的调用时机很晚，背包可能已经被塞入东西看
             for k, data in pairs(rewardList) do
                 if i == 1 then
-                    if XRewardManager.CheckRewardOwn(data.RewardType, data.TemplateId)  then
+                    if XRewardManager.CheckRewardOwn(data.RewardType, data.TemplateId) then
                         isShow = false
                     end
                 end
                 isShowCourseRewardList[i] = isShow
             end
         end
-        
-        local successCb = function (rewardList)
+
+        local successCb = function(rewardList, newUnlockGachaId, res)
             self.RewardList = rewardList
             -- 检测是否抽到时装
             for k, v in pairs(rewardList) do
                 if v.TemplateId == self.GachaCfg.TargetTemplateId then
-                    ShowFashionTrigger = function ()
+                    self.ShowFashionTrigger = function()
                         XLuaUiManager.Open("UiEpicFashionGachaQuickWear", self.GachaCfg.TargetTemplateId)
                     end
                     break
@@ -514,11 +542,17 @@ function XUiEpicFashionGacha:DoGacha(gachaCount, isSkipToShow)
             for i = 1, #courseReward.LimitDrawTimes, 1 do
                 local times = courseReward.LimitDrawTimes[i]
                 if totalGachaCountBefore < times and totalGachaCountAfter >= times then
-                    local rewardList = XRewardManager.GetRewardList(courseReward.RewardIds[i])
+                    local rewardListCourse = XRewardManager.GetRewardList(courseReward.RewardIds[i])
                     local isShow = isShowCourseRewardList[i]
-                    ShowCourseRewardTrigger = function ()
+                    self.ShowCourseRewardTrigger = function()
                         if isShow then
-                            XUiManager.OpenUiObtain(rewardList)
+                            -- 历程奖励已获得，有转换的，显示转换后的结果
+                            local rewardListCourseFromServer = res.GachaCourseResult.RewardList
+                            if rewardListCourseFromServer and #rewardListCourseFromServer > 0 then
+                                XUiManager.OpenUiObtain(rewardListCourseFromServer)
+                            else
+                                XUiManager.OpenUiObtain(rewardListCourse)
+                            end
                         end
                     end
                     break
@@ -526,22 +560,22 @@ function XUiEpicFashionGacha:DoGacha(gachaCount, isSkipToShow)
             end
 
             -- 播放完动画 展示奖励界面的触发器
-            FinishCbTrigger = function (isSkipToShow2)
+            self.FinishCbTrigger = function(isSkipToShow2)
                 -- 抽卡成功关闭场景镜头、特效
                 self:StopAnime()
                 local isSkipToShow = isSkipToShow2 or isSkipToShow -- 闭包在其他函数调用的时候不能获取当前函数里的的upvalue isSkipToShow，所以要在其他地方调用时要额外再传一次isSkipToShow2
                 XLuaUiManager.Open("UiEpicFashionGachaShow", self.GachaId, self.RewardList, function()
                     XLuaUiManager.Open("UiEpicFashionGachaResult", self.GachaId, self.RewardList, function()
-                    end,self.Background)
+                    end, self.Background)
                 end, nil, isSkipToShow and gachaCount > 1) -- 单抽不能跳过奖励展示
                 self.IsCanGacha = true
                 self.IsCanGachaClick = true
             end
 
             if isSkipToShow then
-                if FinishCbTrigger then
-                    FinishCbTrigger(isSkipToShow)
-                    FinishCbTrigger = nil
+                if self.FinishCbTrigger then
+                    self.FinishCbTrigger(isSkipToShow)
+                    self.FinishCbTrigger = nil
                 end
             else
                 local maxQuality = 0
@@ -560,7 +594,7 @@ function XUiEpicFashionGacha:DoGacha(gachaCount, isSkipToShow)
                     elseif Type == XArrangeConfigs.Types.Weapon then
                         quality = templateIdData.Star
                     elseif Type == XArrangeConfigs.Types.Character then
-                        quality = XCharacterConfigs.GetCharMinQuality(id)
+                        quality = XMVCA.XCharacter:GetCharMinQuality(id)
                     elseif Type == XArrangeConfigs.Types.Partner then
                         quality = templateIdData.Quality
                     else
@@ -604,17 +638,17 @@ function XUiEpicFashionGacha:PlayGachaAnime1()
     -- 动画
     self.GachaButtonsEnable:PlayTimelineAnimation()
     self.Panel3D.GachaButtonsEnable:PlayTimelineAnimation()
-    
+
     self.PlayAnime1 = false
 
     -- 生成音效
-    TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundPingmuIce"))
+    self.TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundPingmuIce"))
 end
 
 -- 2阶段特效 （点击时钟后：播放时钟转动动画，打开玫瑰特效 并根据抽出的品质展示不同颜色的特效
 function XUiEpicFashionGacha:PlayGachaAnime2(quality)
     self.PlayAnime2 = true
-    if not FinishCbTrigger then
+    if not self.FinishCbTrigger then
         return
     end
 
@@ -632,26 +666,26 @@ function XUiEpicFashionGacha:PlayGachaAnime2(quality)
     self.Panel3D.Uimc_05ClockAni2.gameObject:SetActiveEx(true)
     self.GachaButtonsDisable:PlayTimelineAnimation()
     quality = quality or 4
-    local go = self.Panel3D["FxUiMain3dClockHuaban"..quality]
+    local go = self.Panel3D["FxUiMain3dClockHuaban" .. quality]
     if go then
         go.gameObject:SetActiveEx(true)
     end
 
-    self.Panel3D.Uimc_05ClockAni2:Find("Animation/Rotate"):PlayTimelineAnimation(function ()
+    self.Panel3D.Uimc_05ClockAni2:Find("Animation/Rotate"):PlayTimelineAnimation(function()
         if not self.PlayAnime2 then
             return
         end
-    
+
         self.PlayAnime2 = false
-        if FinishCbTrigger then
-            FinishCbTrigger()
-            FinishCbTrigger = nil
+        if self.FinishCbTrigger then
+            self.FinishCbTrigger()
+            self.FinishCbTrigger = nil
         end
     end)
 
     -- 销毁音效
-    if TempFx then
-        TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundClose"))
+    if self.TempFx then
+        self.TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundClose"))
     end
 end
 
@@ -670,7 +704,7 @@ function XUiEpicFashionGacha:StopAnime()
     self.Panel3D.FxUiMain3dClockChoukaYaan.gameObject:SetActiveEx(false)
     self.Panel3D.FxUiMain3dClockChoukaPingmuBlack.gameObject:SetActiveEx(false)
     for i = 3, 6, 1 do
-        local go = self.Panel3D["FxUiMain3dClockHuaban"..i]
+        local go = self.Panel3D["FxUiMain3dClockHuaban" .. i]
         if go then
             go.gameObject:SetActiveEx(false)
         end
@@ -683,8 +717,8 @@ function XUiEpicFashionGacha:StopAnime()
     self.BtnStartGacha.gameObject:SetActiveEx(false)
 
     -- 销毁音效
-    if TempFx then
-        TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundClose"))
+    if self.TempFx then
+        self.TempFx = self.Transform:LoadPrefab(CS.XGame.ClientConfig:GetString("EpicGahcaSoundClose"))
     end
 end
 
@@ -693,12 +727,13 @@ function XUiEpicFashionGacha:OnBtnGachaClick(gachaCount)
     if not self:CheckIsCanGacha(gachaCount) then
         return
     end
+    XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.GACHA)
 
     self.BtnStoryLine:ShowReddot(false) -- 因为红点是用粒子特效做的，动画无法隐藏，必须程序控制抽卡时隐藏红点
     self:SetXPostFaicalControllerActive(false)
     self:PlayGachaAnime1()
-    GachaAllFinishTrigger = true
-    DoGachaTrigger = function (isSkipToshow)
+    self.GachaAllFinishTrigger = true
+    self.DoGachaTrigger = function(isSkipToshow)
         self:DoGacha(gachaCount, isSkipToshow)
     end
 end
@@ -709,9 +744,9 @@ function XUiEpicFashionGacha:OnBtnStartClick()
         return
     end
     self.IsCanGachaClick = false
-    if DoGachaTrigger then
-        DoGachaTrigger()
-        DoGachaTrigger = nil
+    if self.DoGachaTrigger then
+        self.DoGachaTrigger()
+        self.DoGachaTrigger = nil
     end
 end
 
@@ -723,15 +758,15 @@ function XUiEpicFashionGacha:OnBtnSkipGachaClick()
     -- 3是已经点了抽卡正在播放动画2 
     if self.PlayAnime1 then
     elseif self.IsCanGacha and not self.PlayAnime2 then
-        if DoGachaTrigger then
-            DoGachaTrigger(true)
-            DoGachaTrigger = nil
+        if self.DoGachaTrigger then
+            self.DoGachaTrigger(true)
+            self.DoGachaTrigger = nil
         end
     elseif not self.IsCanGacha and self.PlayAnime2 then
         self.PlayAnime2 = false
-        if FinishCbTrigger then
-            FinishCbTrigger(true)
-            FinishCbTrigger = nil
+        if self.FinishCbTrigger then
+            self.FinishCbTrigger(true)
+            self.FinishCbTrigger = nil
         end
     end
 end
@@ -745,7 +780,7 @@ function XUiEpicFashionGacha:OnBtnStoryLineClick(isAutoOpen)
 
     local storyRoleEnbaleDictor = self.Panel3D.StoryRoleEnbale:GetComponent("PlayableDirector")
     storyRoleEnbaleDictor:Play()
-    self.TimerStoryRoleEnbale = XScheduleManager.ScheduleOnce(function()
+    self.TimerStoryRoleEnable = XScheduleManager.ScheduleOnce(function()
         self.Panel3D.RoleLoop:GetComponent("PlayableDirector"):Play()
         self.Panel3D.StoryRoleEnbale.gameObject:SetActiveEx(false)
     end, math.round(storyRoleEnbaleDictor.duration * XScheduleManager.SECOND))
@@ -754,14 +789,14 @@ end
 function XUiEpicFashionGacha:OnDisable()
     -- 本地缓存skip按钮状态
     local isSelect = self.BtnSkip:GetToggleState()
-    XSaveTool.SaveData(SkipBtnKey, isSelect)
-    
+    XSaveTool.SaveData(self.SkipBtnKey, isSelect)
+
     -- 离开界面时关闭视线跟随
     self:SetXPostFaicalControllerActive(false)
-    
-    if self.TimerStoryRoleEnbale then
-        XScheduleManager.UnSchedule(self.TimerStoryRoleEnbale)
-        self.TimerStoryRoleEnbale = nil
+
+    if self.TimerStoryRoleEnable then
+        XScheduleManager.UnSchedule(self.TimerStoryRoleEnable)
+        self.TimerStoryRoleEnable = nil
     end
 
     if self.LongAnimTimer then
@@ -771,14 +806,14 @@ function XUiEpicFashionGacha:OnDisable()
 end
 
 function XUiEpicFashionGacha:OnDestroy()
-    ShowFashionTrigger = nil
-    ShowCourseRewardTrigger = nil
-    DoGachaTrigger = nil
+    self.ShowFashionTrigger = nil
+    self.ShowCourseRewardTrigger = nil
+    self.DoGachaTrigger = nil
 end
 
 -- 记录战斗前后数据
 function XUiEpicFashionGacha:OnReleaseInst()
-    return { 
+    return {
         IsGoFight = true
     }
 end
@@ -786,4 +821,18 @@ end
 function XUiEpicFashionGacha:OnResume(data)
     data = data or {}
     self.IsGoFight = data.IsGoFight
+end
+
+function XUiEpicFashionGacha:ShowRewardAfterGacha()
+    self:ShowWeaponFashion()
+end
+
+function XUiEpicFashionGacha:ShowWeaponFashion()
+    local cacheReward = XDataCenter.LottoManager.GetWeaponFashionCacheReward()
+    if cacheReward then
+        XDataCenter.LottoManager.ClearWeaponFashionCacheReward()
+        local data = cacheReward
+        local rewards = { { TemplateId = data.ItemId, Count = data.ItemCount } }
+        XUiManager.OpenUiObtain(rewards)
+    end
 end

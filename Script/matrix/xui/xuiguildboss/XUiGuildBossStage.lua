@@ -316,8 +316,11 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
                         if self.OrderData[i] >= self.ToSetLowNum then
                             self.OrderData[i] = 0
                         end
-                        self:GetLevelByStageId(allLevelData[i].StageId):SetOrder(self.OrderData[i])
-                        self:GetLevelByStageId(allLevelData[i].StageId).MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        local stageObj = self:GetLevelByStageId(allLevelData[i].StageId)
+                        if stageObj then
+                            stageObj:SetOrder(self.OrderData[i])
+                            stageObj.MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        end
                     end
                 end
             end
@@ -334,8 +337,11 @@ function XUiGuildBossStage:OnStageLevelClick(data, btnStage)
                         if self.OrderData[i] >= self.ToSetHighNum then
                             self.OrderData[i] = 0
                         end
-                        self:GetLevelByStageId(allLevelData[i].StageId):SetOrder(self.OrderData[i])
-                        self:GetLevelByStageId(allLevelData[i].StageId).MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        local stageObj = self:GetLevelByStageId(allLevelData[i].StageId)
+                        if stageObj then
+                            stageObj:SetOrder(self.OrderData[i])
+                            stageObj.MaskPos.gameObject:SetActiveEx(self.OrderData[i] > 0)
+                        end
                     end
                 end
             end
@@ -353,8 +359,11 @@ function XUiGuildBossStage:OpenStageDetail(data)
             curLevel.MaskPos.gameObject:SetActiveEx(false)
         end
     end
-    self:GetLevelByStageId(data.StageId).ImgSelect.gameObject:SetActiveEx(true)
-    self:GetLevelByStageId(data.StageId).MaskPos.gameObject:SetActiveEx(true)
+    local stageObj = self:GetLevelByStageId(data.StageId)
+    if stageObj then
+        stageObj.ImgSelect.gameObject:SetActiveEx(true)
+        stageObj.MaskPos.gameObject:SetActiveEx(true)
+    end
 
     self.CurSelectLevelData = data
     local isPlayAnim = true -- 判断是否播放打开detail的动画，锁定的stage不播
@@ -585,7 +594,9 @@ function XUiGuildBossStage:UpdateOrderMark(type)
 
     for i = 1, #orderList do
         local levelComponent = self:GetLevelByStageId(orderList[i].LevelData.StageId)
-        levelComponent:SetOrderOutSide(i)
+        if levelComponent then
+            levelComponent:SetOrderOutSide(i)
+        end
     end
 
     if not self[type] then
@@ -602,7 +613,10 @@ function XUiGuildBossStage:PlayBossAnimation()
     if XDataCenter.GuildBossManager.IsNeedUpdateStageInfo() then
         XDataCenter.GuildBossManager.SetNeedUpdateStageInfo(false)
         XDataCenter.GuildBossManager.GuildBossActivityRequest(function() self:UpdatePage(damage) end, true)
-        self:ResetToNormal(function() 
+        self:ResetToNormal(function()
+            if XTool.UObjIsNil(self.GameObject) then
+                return
+            end
             if damage > 0 then
                 self.TxtBossDamage.text = damage
                 self.TxtContribute.text = CS.XTextManager.GetText("GuildBossContribute", contribute)
@@ -611,6 +625,9 @@ function XUiGuildBossStage:PlayBossAnimation()
                 local bossHpEffectTime = CS.XGame.ClientConfig:GetFloat("GuildBossHpEffectTime")
 
                 self.CurStageObj = self:GetLevelByStageId(self.CurStageData.StageId)
+                if self.CurStageObj then
+                    return
+                end
                 if self.CurStageData.Type == GuildBossLevelType.Boss then
                     self.PanelBossHpEffect.gameObject:SetActiveEx(false)
                     self.PanelBossHpEffect.gameObject:SetActiveEx(true)

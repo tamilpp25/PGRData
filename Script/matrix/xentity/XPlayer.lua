@@ -13,7 +13,6 @@ local METHOD_NAME = {
     ChangePlayerName = "ChangePlayerNameRequest",
     ChangePlayerSign = "ChangePlayerSignRequest",
     ChangePlayerMark = "ChangePlayerMarkRequest",
-    ChangePlayerBirthday = "ChangePlayerBirthdayRequest",
     ChangePlayerMedal = "SetCurrentMedalRequest",
     ChangeCommunication = "ChangeCommunicationRequest",
     ChangeAppearance = "SetAppearanceRequest",          -- 设置展示信息
@@ -71,6 +70,7 @@ end
 
 function Player.Init(playerData)
     PlayerData = playerData
+    XMVCA.XBirthdayPlot:SetBirthday(playerData and playerData.Birthday or {})
     if PlayerData.Marks then
         PlayerData.MarkDic = PlayerData.MarkDic or {}
         for _, v in pairs(PlayerData.Marks) do
@@ -265,26 +265,6 @@ function Player.CheckIsFirstOpenHonor()
     return isFirstOpenHonor
 end
 
---是否修改过生日
-function Player.IsChangedBirthday()
-    return PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.IsChange
-end
-
---检查生日剧情是否解锁
-function Player.CheckStoryIsUnlock(chapterId)
-    return PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.UnLockCg[chapterId]
-end
-
---播放生日剧情动画
-function Player.PlayBirthdayStory()
-    if PlayerData.BirthdayInfo and PlayerData.BirthdayInfo.BirthdayStoryId then
-        XDataCenter.MovieManager.PlayMovie(PlayerData.BirthdayInfo.BirthdayStoryId)
-        PlayerData.BirthdayInfo.BirthdayStoryId = nil
-        return true
-    end
-    return false
-end
-
 function Player.GetPcSelectMoneyCardId()
     return PlayerData.PcSelectMoneyCardId
 end
@@ -302,46 +282,6 @@ end
 XRpc.NotifyPlayerName = function(data)
     PlayerData.Name = data.Name
     CS.Movie.XMovieManager.Instance.PlayerName = PlayerData.Name
-end
-
-XRpc.NotifyBirthdayPlot = function(data)
-    --[[
-    @desc:同步生日通讯已解锁的cg，以及下次生日时间
-    @data = {
-    @int NextActiveYear 下次过生日的年份
-    @int IsChange  是否修改过生日
-    @list<int> UnLockCg 已经解锁的章节id
-    ]]--
-    PlayerData.BirthdayInfo = PlayerData.BirthdayInfo or {}
-    PlayerData.BirthdayInfo.NextActiveYear = data.NextActiveYear
-    PlayerData.BirthdayInfo.IsChange = data.IsChange == 1
-    PlayerData.BirthdayInfo.UnLockCg = {}
-    for _, chapterId in ipairs(data.UnLockCg) do
-        PlayerData.BirthdayInfo.UnLockCg[chapterId] = chapterId
-    end
-    XEventManager.DispatchEvent(XEventId.EVENT_PLAYER_SET_BIRTHDAY, PlayerData.Birthday) --触发按钮更新
-end
-
-XRpc.NotifyBirthdayPlayCg = function(data)
-    --[[
-    @desc:上线需要同步播放的CG
-    @data = {
-    @int ChapterId 需要播放剧情的 chapterId
-    }
-    ]]--
-    if data then
-        local chapterId = data.ChapterId
-        local detailEntityList =  XDataCenter.ArchiveManager.GetArchiveStoryDetailList(chapterId)
-        local detailEntity = detailEntityList and detailEntityList[1] or nil
-        if detailEntity then
-            local storyId= detailEntity:GetStoryId(1) -- 找到需要播放的第一个storyId
-            PlayerData.BirthdayInfo = PlayerData.BirthdayInfo or {}
-            PlayerData.BirthdayInfo.BirthdayStoryId = storyId
-            XEventManager.DispatchEvent(XEventId.EVENT_PLAYER_UNLOCK_BIRTHDAY_STORY)
-        else
-            XLog.Error("XRpc.NotifyBirthdayPlayCg Recv Error", data)
-        end
-    end
 end
 
 -- 玩家签名
@@ -459,32 +399,6 @@ function Player.ChangeName(name, cb)
             end
 
             DoChangeResultError(response.Code, response.NextCanChangeTime)
-        end)
-end
-
-local CheckCanChangeBirthday = function ()
-    return not PlayerData.Birthday or not PlayerData.Birthday.IsChange
-end
-
---修改生日
-function Player.ChangeBirthday(mon, day, cb)
-    if not CheckCanChangeBirthday() then
-        XUiManager.TipCode(XCode.PlayerDataManagerBirthdayAlreadySet)
-        return
-    end
-
-    XNetwork.Call(METHOD_NAME.ChangePlayerBirthday, { Mon = mon, Day = day },
-        function(response)
-            if response.Code ~= XCode.Success then
-                XUiManager.TipCode(response.Code)
-                return
-            end
-            PlayerData.Birthday = {
-                Mon = mon,
-                Day = day
-            }
-
-            cb()
         end)
 end
 

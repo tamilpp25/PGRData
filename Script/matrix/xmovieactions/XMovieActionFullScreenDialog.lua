@@ -67,6 +67,11 @@ function XMovieActionFullScreenDialog:OnInit()
         self.UiRoot.RImgBgFullScreenDialog:SetRawImage(bgPath)
     end
 
+    -- 在对话前创建空行
+    if self.ChangeLinePlus < 0 then
+        self:CreateEmptyGrid(math.abs(self.ChangeLinePlus))
+    end
+
     local dialogContent = self.DialogContent
     local grid = self:GetDialogGridFromPool()
     grid:Refresh(dialogContent, self.IsCenter, self.Color, self.Duration, function()
@@ -75,13 +80,9 @@ function XMovieActionFullScreenDialog:OnInit()
     grid.GameObject:SetActiveEx(true)
     self.IsTyping = true
 
-    local isEmptyGrid = true
-    local emptyGridNum = self.ChangeLinePlus
-    for _ = 1, emptyGridNum do
-        local tmpGrid = self:GetDialogGridFromPool(isEmptyGrid)
-        local tmpDialogContent = " "
-        tmpGrid:Refresh(tmpDialogContent)
-        tmpGrid.GameObject:SetActiveEx(true)
+    -- 在对话后创建空行
+    if self.ChangeLinePlus > 0 then
+        self:CreateEmptyGrid(self.ChangeLinePlus)
     end
 
     local imgNext = self.UiRoot.ImgNext
@@ -199,6 +200,16 @@ end
 
 function XMovieActionFullScreenDialog:OnUndo()
     XDataCenter.MovieManager.RemoveFromReviewDialogList()
+end
+
+-- 创建空行
+function XMovieActionFullScreenDialog:CreateEmptyGrid(num)
+    for i = 1, num do
+        local tmpGrid = self:GetDialogGridFromPool(true)
+        local tmpDialogContent = " "
+        tmpGrid:Refresh(tmpDialogContent)
+        tmpGrid.GameObject:SetActiveEx(true)
+    end
 end
 
 return XMovieActionFullScreenDialog

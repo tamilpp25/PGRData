@@ -68,7 +68,7 @@ function XUiTRPGPanelDetail:OnBtnBossClick()
     end
 
     local stageId = XTRPGConfigs.GetBossStageId()
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId)
 end
 
 function XUiTRPGPanelDetail:SetShow(IsShow)

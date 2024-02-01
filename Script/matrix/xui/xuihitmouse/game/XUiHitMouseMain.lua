@@ -33,7 +33,7 @@ end
 --初始化各子面板
 --==============
 function XUiHitMouseMain:InitPanels()
-    XUiHelper.NewPanelActivityAsset({XDataCenter.HitMouseManager.GetUnlockItemId()}, self.PanelActivityAsset)
+    XUiHelper.NewPanelActivityAssetSafe({XDataCenter.HitMouseManager.GetUnlockItemId()}, self.PanelActivityAsset, self)
     for _, panel in pairs(Panels) do
         if panel.Init then
             panel.Init(self)

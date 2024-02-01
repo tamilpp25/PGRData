@@ -2,14 +2,17 @@
 local XSpecialTrainActionRandom = XClass(nil, "XSpecialTrainActionRandom")
 
 function XSpecialTrainActionRandom:Ctor()
+    ---@type UnityEngine.Animator
     self._Animator = false
     self._ActionArray = false
     self._RandomActionArray = false
+    ---@type XUiPanelRoleModel
     self._PanelRoleModel = false
     self._LastIndex = false
     self._AnimatorTimer = false
     self._IdleTime = 0
     self._IdleActionName = false
+    self._IsRandomTimeToPlay = true
     -- 随机播放动作的间隔
     self._TimeToPlayAction = 0
     self._CrossFadeTime = 0.2
@@ -27,6 +30,20 @@ function XSpecialTrainActionRandom:SetAnimator(animator, actionArray, panelRoleM
         self._ActionArray = actionArray
     end
     self._PanelRoleModel = panelRoleModel
+end
+
+function XSpecialTrainActionRandom:SetAnimatorWithCustomActionArray(animator, actionArray, panelRoleModel, time)
+    self._Animator = animator
+    if #actionArray > 0 then
+        self._ActionArray = actionArray
+    else
+        self._ActionArray = self:_GetActionArrayByParam(animator)
+    end
+    self._PanelRoleModel = panelRoleModel
+    if time then
+        self._IsRandomTimeToPlay = false
+        self._TimeToPlayAction = time
+    end
 end
 
 function XSpecialTrainActionRandom:Play()
@@ -142,7 +159,9 @@ function XSpecialTrainActionRandom:_GetPassedActionTime(animator)
 end
 
 function XSpecialTrainActionRandom:_RandomIdleDuration()
-    self._TimeToPlayAction = math.random(30, 50) / 10
+    if self._IsRandomTimeToPlay then
+        self._TimeToPlayAction = math.random(30, 50) / 10
+    end
 end
 
 function XSpecialTrainActionRandom:_GetRunningActionClipInfo(animator)

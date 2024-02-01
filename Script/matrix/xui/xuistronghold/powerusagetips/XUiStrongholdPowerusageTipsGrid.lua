@@ -13,8 +13,7 @@ function XUiStrongholdPowerusageTipsGrid:Refresh(chapterId, curSelectChapterId)
     self.TxtPreName.text = name
 
     local suggestElectric = XStrongholdConfigs.GetChapterSuggestElectric(chapterId, XDataCenter.StrongholdManager.GetLevelId())
-    local extraElectricEnergy = XDataCenter.StrongholdManager.GetExtraElectricEnergy()
-    local suggestElectricDesc = XTool.IsNumberValid(suggestElectric) and XUiHelper.GetText("StrongholdSuggestElectricDesc", suggestElectric, extraElectricEnergy) or ""
+    local suggestElectricDesc = XTool.IsNumberValid(suggestElectric) and suggestElectric or ""
     self.TxtNorSuggestElectric.text = suggestElectricDesc
     self.TxtPreSuggestElectric.text = suggestElectricDesc
 

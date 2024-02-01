@@ -23,7 +23,7 @@ end
 
 function XUiEquipResonanceSkillPreview:UpdateCharacterName()
     if self.RootUi.SelectCharacterId then
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.RootUi.SelectCharacterId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.RootUi.SelectCharacterId)
         self.TxtCharacterName.text = charConfig.Name
         self.TxtCharacterNameOther.text = charConfig.TradeName
     else
@@ -73,31 +73,19 @@ function XUiEquipResonanceSkillPreview:GetPreSkillInfoList(equipId)
     local equip = XDataCenter.EquipManager.GetEquip(equipId)
     
     if equip.ResonanceInfo then
-        local getWeight = function (skillInfo)
-            for i,v in pairs(equip.ResonanceInfo) do
-                local bindCharacterId = v.CharacterId
-                if bindCharacterId == self.RootUi.SelectCharacterId then
-                    local s = XDataCenter.EquipManager.GetResonanceSkillInfo(equipId, v.Slot)
-                    if XDataCenter.EquipManager.IsClassifyEqual(equipId, XEquipConfig.Classify.Awareness) then
-                        if s.Id == skillInfo.Id and v.Slot == self.Params.pos then
-                            return math.maxinteger
-                        end
-                    else
-                        if s.Id == skillInfo.Id then
-                            return math.maxinteger
-                        end
-                    end
-                end
-            end
+        -- 默认按照list的顺序
+        local skillOrderDic = {}
+        for i, skillInfo in ipairs(list) do
+            skillOrderDic[skillInfo.Id] = i
+        end
 
-            return skillInfo.Id
+        -- 已共鸣的放最后
+        for _, resInfo in pairs(equip.ResonanceInfo) do
+            skillOrderDic[resInfo.TemplateId] = math.maxinteger
         end
 
         table.sort(list, function (a, b)
-            local aWeight = getWeight(a)
-            local bWeight = getWeight(b)
-
-            return aWeight < bWeight
+            return skillOrderDic[a.Id] < skillOrderDic[b.Id]
         end)
     end
 

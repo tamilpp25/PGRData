@@ -32,13 +32,14 @@ function XUiPhotographPortrait:OnAwake()
     self:InitUi()
 end
 
-function XUiPhotographPortrait:OnStart(orientation, charId, fashionId, uiPhotograph)
+function XUiPhotographPortrait:OnStart(orientation, charId, fashionId, uiPhotograph, sceneId)
     self.Orientation = orientation
     self.SetData = XDataCenter.PhotographManager.GetSetData()
     self.OldCharacterId = charId
     self.CharacterId = charId
     self.FashionId = fashionId
     self.UiPhotograph = uiPhotograph
+    self.CurrSeleSceneId = sceneId
     self:InitView()
 end
 
@@ -55,7 +56,7 @@ function XUiPhotographPortrait:OnEnable()
     end
     
     self:UpdateView()
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
 
     -- 开启时钟
     self.ClockTimer = XUiHelper.SetClockTimeTempFun(self)
@@ -83,7 +84,7 @@ function XUiPhotographPortrait:OnDisable()
     if self.SignBoardPlayer then
         self.SignBoardPlayer:OnDisable()
     end
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
 
     -- 关闭时钟
     if self.ClockTimer then
@@ -270,7 +271,7 @@ function XUiPhotographPortrait:InitUi()
     --Player
     self.Parent = self --奇怪的操作
     local signBoardPlayer = require("XCommon/XSignBoardPlayer").New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
     --ActionPanel
@@ -315,7 +316,7 @@ function XUiPhotographPortrait:SetupDynamicTable(tableType)
         self.DynamicFashionTable:ReloadDataASync(self.CurFashionIndex - MAX_FASHION_MEMBER_LINE)
     elseif self.CurTableType == DynamicTableType.Action then
         self.PanelActionList.gameObject:SetActiveEx(true)
-        self.ActionList = XFavorabilityConfigs.GetCharacterActionById(self.CharacterId) or {}
+        self.ActionList = XMVCA.XFavorability:GetCharacterActionById(self.CharacterId) or {}
         self.DynamicActionTable:SetDataSource(self.ActionList)
         self.DynamicActionTable:ReloadDataASync()
     end
@@ -447,9 +448,9 @@ function XUiPhotographPortrait:OnDynamicActionTableEvent(evt, index, grid)
     elseif evt == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local tryFashionId = self.FashionId
         local trySceneId = self.CurrSeleSceneId
-        local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
+        local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(self.ActionList[index], XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
         if not isHas then
-            XUiManager.TipPortraitMsg(self.ActionList[index].ConditionDescript)
+            XUiManager.TipPortraitMsg(self.ActionList[index].config.ConditionDescript)
             return
         end
         self:PlayAnimation("PanelActionEnable")
@@ -460,11 +461,11 @@ function XUiPhotographPortrait:OnDynamicActionTableEvent(evt, index, grid)
             end
         end
         self.CurActionGrid = grid
-        self.ActionCtrlPanel:SetTxtTitle(self.ActionList[index].Name)
+        self.ActionCtrlPanel:SetTxtTitle(self.ActionList[index].config.Name)
         grid:OnActionTouched(self.ActionList[index])
         self:SwitchActionPanel(false)
         XPhotographConfigs.CsRecord(XGlobalVar.BtnPhotograph.BtnUiPhotographPortraitBtnAction, {
-            action_id = self.ActionList[index].Id,
+            action_id = self.ActionList[index].config.Id,
             character_id = self.CharacterId
         })
     end
@@ -508,7 +509,7 @@ end
 function XUiPhotographPortrait:ForcePlay(signBoardActionId, actionId)
     self.SignBoardActionId = signBoardActionId
     self.ActionId = actionId or self.ActionId -- characterAction表的主键
-    local config = XSignBoardConfigs.GetSignBoardConfigById(signBoardActionId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(signBoardActionId)
     if self.SignBoardPlayer:GetInterruptDetection() and self.SignBoardPlayer.PlayerData.PlayingElement.Id ~= config.Id then
         self:PlayChangeActionEffect()
     end
@@ -621,10 +622,10 @@ function XUiPhotographPortrait:Replay()
         return
     end
 
-    local configs = XFavorabilityConfigs.GetCharacterActionById(self.CharacterId)
+    local configs = XMVCA.XFavorability:GetCharacterActionById(self.CharacterId)
     local data = nil
     for k, v in pairs(configs) do
-        if v.Id == self.ActionId then
+        if v.config.Id == self.ActionId then
             data = v
         end
     end
@@ -633,7 +634,7 @@ function XUiPhotographPortrait:Replay()
     end
     local tryFashionId = self.FashionId
     local trySceneId = self.CurrSeleSceneId
-    local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
+    local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.CharacterId).TrustLv, tryFashionId, trySceneId)
     if not isHas then
         XUiManager.TipError(data.ConditionDescript)
         return
@@ -864,7 +865,7 @@ function XUiPhotographPortrait:CheckChanged()
     if self.CharacterId ~= self.OldCharacterId or sceneId ~= selectSceneId then
         return true
     end
-    local fashionId = XDataCenter.CharacterManager.GetShowFashionId(self.CharacterId)
+    local fashionId = XMVCA.XCharacter:GetShowFashionId(self.CharacterId)
     return self.FashionId ~= fashionId
 end
 
@@ -959,33 +960,49 @@ function XUiPhotographPortrait:PlaySceneAnim(element)
     local animRoot = self.UiModelGo.transform
     local sceneId = XDataCenter.PhotographManager.GetCurSelectSceneId()
     local sighBoardId = element.SignBoardConfig.Id
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 function XUiPhotographPortrait:PlayRoleActionUiDisableAnim(signBoardid)
     self:SetActionMask(true)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiDisableLamiya")
+    elseif XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
 
 function XUiPhotographPortrait:PlayRoleActionUiEnableAnim(signBoardid)
     self:SetActionMask(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiEnableLamiya")
+    elseif XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end
 
 function XUiPhotographPortrait:PlayRoleActionUiBreakAnim()
     self:SetActionMask(false)
-    self.SignBoardPlayer:Stop()
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimationWithMask("DarkEnableLamiya", function ()
+            self.SignBoardPlayer:Stop(true)
+            self:PlayAnimationWithMask("DarkDisableLamiya")
+        end)
+    else
+        self.SignBoardPlayer:Stop()
+    end
 end
 
 function XUiPhotographPortrait:SetActionMask(active)
     if self.BtnBreakActionAnim then
         self.BtnBreakActionAnim.gameObject:SetActiveEx(active)
     end
+end
+
+---@return XUiPanelRoleModel
+function XUiPhotographPortrait:GetRoleModel()
+    return self.RoleModel
 end
 
 -- ===================================================

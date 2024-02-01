@@ -76,7 +76,7 @@ end
 function XAdventureRole:GenerateLocalRole()
     if self.IsLocalRole then return end
     local characterId = self:GetCharacterId()
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     if not character then return end
     local role = XDataCenter.TheatreManager.GetCurrentAdventureManager():AddRoleById(characterId, self.Config.Id)
     role:SetCharacter(character)
@@ -128,7 +128,7 @@ function XAdventureRole:GetMinSortOrderElementId(stageId)
     local elementList = self:GetElementList()
     local elementSortOrder
     local elementSortOrderTemp
-    local isomer = self:GetCharacterType() == XCharacterConfigs.CharacterType.Isomer
+    local isomer = self:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Isomer
     for _, elementId in ipairs(elementList) do
         elementSortOrderTemp = XTheatreConfigs.GetTheatreAutoTeamElementSortOrder(stageId, elementId, isomer)
         elementSortOrder = (elementSortOrder and elementSortOrder < elementSortOrderTemp) and elementSortOrder or elementSortOrderTemp
@@ -285,19 +285,19 @@ function XAdventureRole:GetSkill()
     local skills
     local adventureManager = XDataCenter.TheatreManager.GetCurrentAdventureManager()
     if self:GetIsLocalRole() then
-        skills = XCharacterConfigs.GetCharacterSkills(characterId)
+        skills = XMVCA.XCharacter:GetCharacterSkills(characterId)
     else
         local npcData = self:GetRawData():GetNpcData()
         local skillLevelMap = XFightCharacterManager.GetCharSkillLevelMap(npcData)
         skills = {}
-        for i = 1, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+        for i = 1, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
             skills[i] = {}
             skills[i].subSkills = {}
-            local posDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
+            local posDic = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
             local skillGroupIds = posDic[i]
             local skillIdList = {}
             for _, skillGroupId in pairs(skillGroupIds) do
-                local skillId = XCharacterConfigs.GetGroupDefaultSkillId(skillGroupId)
+                local skillId = XMVCA.XCharacter:GetGroupDefaultSkillId(skillGroupId)
                 if skillId > 0 then
                     table.insert(skillIdList, skillId)
                 end
@@ -305,11 +305,11 @@ function XAdventureRole:GetSkill()
 
             for _, skillId in pairs(skillIdList) do
                 local skillCo = {}
-                local skillType = XCharacterConfigs.GetSkillType(skillId)
+                local skillType = XMVCA.XCharacter:GetSkillType(skillId)
                 local spSkillLevel = self:GetRawData():GetAfterSpSkillLevel(skillId)
 
                 skillCo.Level = adventureManager:GetCoreSkillLv(skillType) or (spSkillLevel and spSkillLevel or skillLevelMap[skillId]) or 0
-                local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillCo.Level)
+                local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillCo.Level)
                 if configDes then
                     skillCo.configDes = configDes
                 end

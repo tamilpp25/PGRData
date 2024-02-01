@@ -24,28 +24,28 @@ function XRedPointConditionPassport.GetSubConditions()
 end
 
 function XRedPointConditionPassport.Check()
-    if XDataCenter.PassportManager.IsActivityClose() then
+    if XMVCA.XPassport:IsActivityClose() then
         return false
     end
 
-    if XRedPointConditionPassportPanelReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_PANEL_REWARD_RED) then
         return true
     end
 
     --满级时入口不检查任务的红点
-    local baseInfo = XDataCenter.PassportManager.GetPassportBaseInfo()
+    local baseInfo = XMVCA.XPassport:GetPassportBaseInfo()
     local level = baseInfo:GetLevel()
-    local maxLevel = XPassportConfigs.GetPassportMaxLevel()
+    local maxLevel = XMVCA.XPassport:GetPassportMaxLevel()
     if level < maxLevel then
-        if XRedPointConditionPassportTaskDaily.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_DAILY_RED) then
             return true
         end
 
-        if XRedPointConditionPassportTaskWeekly.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_WEEKLY_RED) then
             return true
         end
 
-        if XRedPointConditionPassportTaskActivity.Check() then
+        if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_PASSPORT_TASK_ACTIVITY_RED) then
             return true
         end
     end

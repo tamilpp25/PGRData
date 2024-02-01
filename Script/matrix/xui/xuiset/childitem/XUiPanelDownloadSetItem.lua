@@ -1,12 +1,8 @@
-local XUiPanelDownloadSetItem = XClass(nil, "XUiPanelDownloadSetItem")
+---@class XUiPanelDownloadSetItem : XUiNode
+local XUiPanelDownloadSetItem = XClass(XUiNode, "XUiPanelDownloadSetItem")
 
 
-function XUiPanelDownloadSetItem:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
-    XTool.InitUiObject(self)
-
+function XUiPanelDownloadSetItem:OnStart()
     self.HAS_DOWNLOAD_TXT =  CS.XTextManager.GetText("DlcHasDownloaded")
     self.CAN_DOWNLOAD_TXT =  CS.XTextManager.GetText("DlcCanDownload")
 
@@ -15,9 +11,9 @@ function XUiPanelDownloadSetItem:Ctor(ui, parent)
         self.DownloadedTxt.text = self.HAS_DOWNLOAD_TXT
     end
 
-    self.layoutGroup = ui.transform:GetComponent("XAutoLayoutGroup")
-    self.part2 = ui.transform:Find("part2")
-    self.part3 = ui.transform:Find("part3")
+    self.layoutGroup = self.Transform:GetComponent("XAutoLayoutGroup")
+    self.part2 = self.Transform:Find("part2")
+    self.part3 = self.Transform:Find("part3")
 end
 
 --- 

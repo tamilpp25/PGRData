@@ -54,13 +54,13 @@ end
 
 -- partner : XPartner
 function XUiPanelCharAllOther:UpdatePanel(character, weapon, awareness, partner)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharacterId)
 
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
-    self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
+    self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     self.ImgUniframe.gameObject:SetActiveEx(self.CharacterAgency:GetIsIsomer(character.Id))
 
     local ability = self.CharacterAgency:GetCharacterAbilityOther(character, self.EquipList, self.AssignChapterRecords, partner)
@@ -72,7 +72,7 @@ function XUiPanelCharAllOther:UpdatePanel(character, weapon, awareness, partner)
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActive(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActive(false)

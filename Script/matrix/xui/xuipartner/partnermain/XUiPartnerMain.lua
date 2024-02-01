@@ -1,6 +1,7 @@
 local XUiPartnerMain = XLuaUiManager.Register(XLuaUi, "UiPartnerMain")
 local XUiGridPartner = require("XUi/XUiPartner/PartnerMain/XUiGridPartner")
 local XUiPanelRoleModel = require("XUi/XUiCharacter/XUiPanelRoleModel")
+local XUiPartnerRecommendCharacter = require("XUi/XUiPartner/PartnerCompose/XUiPartnerRecommendCharacter")
 
 local CSTextManagerGetText = CS.XTextManager.GetText
 local CSUnityEngineGameObject = CS.UnityEngine.GameObject
@@ -13,6 +14,8 @@ function XUiPartnerMain:OnStart(state, partner, IsNotBackChange, IsNotSelectPart
     self.IsUpdateByEvent = false
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
     self.CurUiState = self.FightBackUiState or (state or XPartnerConfigs.MainUiState.Overview)
+    ---@type XUiPartnerRecommendCharacter
+    self.PanelRecommendCharacter = XUiPartnerRecommendCharacter.New(self.PanelRole, self)
 
     self:SetLastPartner(self.CurUiState, self.FightBackPartner or partner)
 
@@ -26,7 +29,7 @@ function XUiPartnerMain:OnStart(state, partner, IsNotBackChange, IsNotSelectPart
     self:InitSceneRoot()
     self:InitDynamicTable()
 
-    XRedPointManager.AddRedPointEvent(self.BtnCompose, self.OnCheckComposeNews, self, { XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED })
+    self:AddRedPointEvent(self.BtnCompose, self.OnCheckComposeNews, self, { XRedPointConditions.Types.CONDITION_PARTNER_COMPOSE_RED })
 end
 
 function XUiPartnerMain:OnDestroy()
@@ -71,6 +74,7 @@ function XUiPartnerMain:IsPartnerCombat()
     return self.CurPartnerState == XPartnerConfigs.PartnerState.Combat
 end
 
+---@return XPartner
 function XUiPartnerMain:GetLastPartner(state)
     if state == XPartnerConfigs.MainUiState.Property then
         return self.LastPartner[XPartnerConfigs.MainUiState.Overview]
@@ -211,15 +215,16 @@ function XUiPartnerMain:IsTrialShow(partner)
     if not self:IsUiOverview() then
         return false
     end
-    
+
     return partner:GetStageSkipId() > 0
 end
 
-function XUiPartnerMain:UpdatePanel(Data)
+function XUiPartnerMain:UpdatePanel(data)
     if self:IsUiOverview() then
-        self:UpdateChildUi("UiPartnerOwnedInfo", Data)
+        self:UpdateChildUi("UiPartnerOwnedInfo", data)
     elseif self:IsUiCompose() then
-        self:UpdateChildUi("UiPartnerCompose", Data)
+        self:UpdateChildUi("UiPartnerCompose", data)
+        self:UpdateRecommendCharacter4Compose(data)
     end
 end
 
@@ -293,7 +298,9 @@ end
 function XUiPartnerMain:PlayPartnerAnima(animaName, fromBegin, callBack)
     local IsCanPlay = self.RoleModelPanel:PlayAnima(animaName, fromBegin, callBack)
     if not IsCanPlay then
-        if callBack then callBack() end
+        if callBack then
+            callBack()
+        end
     end
 end
 
@@ -309,9 +316,8 @@ function XUiPartnerMain:UpdateRoleModel(modelId, partner, IsShowEffect)
 end
 
 function XUiPartnerMain:ChangeUiState(state)
-    local isOverviewToProperty = 
-    (self.CurUiState == XPartnerConfigs.MainUiState.Overview and state == XPartnerConfigs.MainUiState.Property) or 
-    (self.CurUiState == XPartnerConfigs.MainUiState.Property and state == XPartnerConfigs.MainUiState.Overview)
+    local isOverviewToProperty = (self.CurUiState == XPartnerConfigs.MainUiState.Overview and state == XPartnerConfigs.MainUiState.Property) or
+            (self.CurUiState == XPartnerConfigs.MainUiState.Property and state == XPartnerConfigs.MainUiState.Overview)
 
     if not isOverviewToProperty then
         self:PlayAnimation("DarkEnable")
@@ -333,6 +339,7 @@ function XUiPartnerMain:ShowPanel()
     end
 
     self.RoleModelPanel:ShowRoleModel()
+    self.RoleModelPanel:HideAllEffects()
 
     local lastPartner = self:GetLastPartner(self.CurUiState)
     if self:IsUiOverview() then
@@ -370,7 +377,18 @@ function XUiPartnerMain:ShowPanel()
     self.BtnTrial.gameObject:SetActiveEx(self:IsTrialShow(self:GetLastPartner(self.CurUiState)))
 
     self.PaneMainView.gameObject:SetActiveEx(self:IsUiOverview() and not self.IsNotSelectPartner)
-    self.PaneComposeView.gameObject:SetActiveEx(self:IsUiCompose())
+
+    if self:IsUiCompose() then
+        self.PaneComposeView.gameObject:SetActiveEx(true)
+
+        local characterId= self:GetPartnerRecommendCharacterId(lastPartner)
+        if characterId then
+            self.PanelRecommendCharacter:Open()
+        end
+    else
+        self.PaneComposeView.gameObject:SetActiveEx(false)
+        self.PanelRecommendCharacter:Close()
+    end
 
     if self.IsNotSelectPartner or (self.IsFightBack and self:IsUiProperty()) then
         local partner = self:GetLastPartner(self.CurUiState)
@@ -421,9 +439,9 @@ function XUiPartnerMain:Close()
             self.Super.Close(self)
         else
             --判断是否是在合成界面
-            if self:IsUiCompose()  then
+            if self:IsUiCompose() then
                 self:BackFromComposePanel()
-            --判断是否是在培养界面
+                --判断是否是在培养界面
             elseif self:IsUiProperty() then
                 self:BackFromPropertyPanel()
             end
@@ -518,7 +536,7 @@ end
 
 --从 合成系统界面 返回
 function XUiPartnerMain:BackFromComposePanel()
-    if self.isComposePanelOpenByStar then 
+    if self.isComposePanelOpenByStar then
         local propertyPanel = self:FindChildUiObj("UiPartnerProperty")
         if propertyPanel then
             local qualityPanel = propertyPanel:GetPartnerQualityPanel()
@@ -533,4 +551,29 @@ function XUiPartnerMain:BackFromComposePanel()
     else
         self:ChangeUiState(XPartnerConfigs.MainUiState.Overview)
     end
+end
+
+function XUiPartnerMain:UpdateRecommendCharacter4Compose(partner)
+    if not partner then
+        return
+    end
+    local characterId = self:GetPartnerRecommendCharacterId(partner)
+    if characterId then
+        if self.PaneComposeView.gameObject.activeInHierarchy then
+            self.PanelRecommendCharacter:Update(characterId)
+            self.PanelRecommendCharacter:Open()
+        end
+    else
+        self.PanelRecommendCharacter:Close()
+    end
+end
+
+function XUiPartnerMain:GetPartnerRecommendCharacterId(partner)
+    if partner then
+        local characterId = XPartnerConfigs.GetPartnerRecommendCharacterId(partner:GetTemplateId())
+        if characterId and characterId > 0 then
+            return characterId
+        end
+    end
+    return false
 end

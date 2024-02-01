@@ -2,10 +2,11 @@ local XUiReplaceGrid = require("XUi/XUiGoldenMiner/Replace/XUiReplaceGrid")
 
 ---黄金矿工更换成员界面
 ---@class XUiGoldenMinerChange : XLuaUi
+---@field _Control XGoldenMinerControl
 local XUiGoldenMinerChange = XLuaUiManager.Register(XLuaUi, "UiGoldenMinerChange")
 
 function XUiGoldenMinerChange:OnAwake()
-    self.DataDb = XDataCenter.GoldenMinerManager.GetGoldenMinerDataDb()
+    self.DataDb = self._Control:GetMainDb()
     self:RegisterButtonEvent()
     self:InitDynamicList()
 end
@@ -13,7 +14,7 @@ end
 function XUiGoldenMinerChange:OnStart(closeCb, updateUseCharacterFunc)
     self.CloseCb = closeCb
     self.UpdateUseCharacterFunc = updateUseCharacterFunc
-    self.UseCharacterId = XDataCenter.GoldenMinerManager.GetUseCharacterId()
+    self.UseCharacterId = self._Control:GetUseCharacterId()
 end
 
 function XUiGoldenMinerChange:OnEnable()
@@ -22,19 +23,19 @@ function XUiGoldenMinerChange:OnEnable()
 end
 
 function XUiGoldenMinerChange:OnDisable()
-    XDataCenter.GoldenMinerManager.ClearAllNewRoleTag()
+    self._Control:ClearAllNewRoleTag()
 end
 
 --region Ui - CharacterGrid DynamicTable
 function XUiGoldenMinerChange:InitDynamicList()
     self.DynamicTable = XDynamicTableNormal.New(self.PanelScrollView)
-    self.DynamicTable:SetProxy(XUiReplaceGrid)
+    self.DynamicTable:SetProxy(XUiReplaceGrid, self)
     self.DynamicTable:SetDelegate(self)
     self.GridCharacterNew.gameObject:SetActiveEx(false)
 end
 
 function XUiGoldenMinerChange:UpdateDynamicList()
-    self.CharacterIdList = XDataCenter.GoldenMinerManager.GetCharacterIdList()
+    self.CharacterIdList = self._Control:GetCharacterIdList()
     self.DynamicTable:SetDataSource(self.CharacterIdList)
     self.DynamicTable:ReloadDataSync()
 end
@@ -52,14 +53,14 @@ function XUiGoldenMinerChange:OnDynamicTableEvent(event, index, grid)
         end
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         local characterId = self.CharacterIdList[index]
-        if not XDataCenter.GoldenMinerManager.IsCharacterUnLock(characterId) then
-            local conditionId = XGoldenMinerConfigs.GetCharacterCondition(characterId)
+        if not self._Control:IsCharacterUnLock(characterId) then
+            local conditionId = self._Control:GetCfgCharacterCondition(characterId)
             local isOpen, desc = XConditionManager.CheckCondition(conditionId, characterId)
             XUiManager.TipError(desc)
             return
         end
-        
-        XDataCenter.GoldenMinerManager.ClearNewRoleTag(characterId)
+
+        self._Control:ClearNewRoleTag(characterId)
         if self:IsCurSelectCharacter(characterId) then
             return
         end
@@ -88,9 +89,7 @@ function XUiGoldenMinerChange:RegisterButtonEvent()
 end
 
 function XUiGoldenMinerChange:OnBtnChangeClick()
-    local pos = 1
-    local team = XDataCenter.GoldenMinerManager.GetTeam()
-    team:UpdateEntityTeamPos(self.UseCharacterId, pos, true)
+    self._Control:CatchCurCharacterId(self.UseCharacterId)
     self:OnBtnCancelClick()
 end
 

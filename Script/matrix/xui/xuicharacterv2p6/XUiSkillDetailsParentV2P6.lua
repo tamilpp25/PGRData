@@ -6,6 +6,16 @@ function XUiSkillDetailsParentV2P6:OnAwake()
     self.CharacterAgency = ag
 
     self.SkillGridIndex = 1
+
+    self:InitEffect()
+end
+
+function XUiSkillDetailsParentV2P6:InitEffect()
+    local root = self.UiModelGo
+    self.EffectHuanren1 = root:FindTransform("ImgEffectHuanren1")
+    self.EffectHuanren = root:FindTransform("ImgEffectHuanren")
+    self.EffectHuanren.gameObject:SetActiveEx(false)
+    self.EffectHuanren1.gameObject:SetActiveEx(false)
 end
 
 function XUiSkillDetailsParentV2P6:SetSkillPos(pos)
@@ -13,14 +23,14 @@ function XUiSkillDetailsParentV2P6:SetSkillPos(pos)
         return
     end
 
-    if self.SkillGridIndex > XCharacterConfigs.MAX_SHOW_SKILL_POS and pos <= XCharacterConfigs.MAX_SHOW_SKILL_POS then
+    if self.SkillGridIndex > XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS and pos <= XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS then
         -- 从跃升/独域技能切到普通技能
-        local skills = XCharacterConfigs.GetCharacterSkills(self.CharacterId)
+        local skills = XMVCA.XCharacter:GetCharacterSkills(self.CharacterId)
         if self.ChildUiSkillDetails then
             self.ChildUiSkillDetails:RefreshDataByChangePage(self.CharacterId, skills, pos)
         end
         self:OpenChildUi("UiSkillDetails", self.CharacterId, skills, pos)
-    elseif self.SkillGridIndex <= XCharacterConfigs.MAX_SHOW_SKILL_POS and pos > XCharacterConfigs.MAX_SHOW_SKILL_POS then
+    elseif self.SkillGridIndex <= XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS and pos > XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS then
         self:OpenChildUi("UiSkillDetailsForEnhanceV2P6", self.CharacterId)
         -- 从普通技能切到跃升/独域技能
     end
@@ -43,18 +53,18 @@ function XUiSkillDetailsParentV2P6:OnStart(characterId, type, pos, gridIndex)
         return
     end
 
-    if type == XCharacterConfigs.SkillDetailsType.Normal then
-        local skills = XCharacterConfigs.GetCharacterSkills(characterId)
+    if type == XEnumConst.CHARACTER.SkillDetailsType.Normal then
+        local skills = XMVCA.XCharacter:GetCharacterSkills(characterId)
         self:OpenChildUi("UiSkillDetails", self.CharacterId, skills, pos, gridIndex)
         self:SetSkillPos(pos)
     else
         self:OpenChildUi("UiSkillDetailsForEnhanceV2P6", self.CharacterId)
-        self:SetSkillPos(XCharacterConfigs.MAX_SHOW_SKILL_POS + 1)
+        self:SetSkillPos(XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS + 1)
     end
 end
 
 function XUiSkillDetailsParentV2P6:OnDisable()
-    XDataCenter.FavorabilityManager.StopCv()
+    XMVCA.XFavorability:StopCv()
 end
 
 return XUiSkillDetailsParentV2P6

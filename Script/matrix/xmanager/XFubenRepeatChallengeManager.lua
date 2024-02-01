@@ -36,6 +36,10 @@ XFubenRepeatChallengeManagerCreator = function()
     --region 活动 功能开启相关
     --活动是否开启
     function XFubenRepeatChallengeManager.IsOpen()
+        local config = XFubenRepeatChallengeManager.GetActivityConfig()
+        if not config then
+            return false
+        end
         local nowTime = XTime.GetServerNowTimestamp()
         local beginTime = XFubenRepeatChallengeManager.GetActivityBeginTime()
         local endTime = XFubenRepeatChallengeManager.GetActivityEndTime()

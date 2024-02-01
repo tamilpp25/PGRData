@@ -27,7 +27,7 @@ local PLAY_ANIMA_INTERVAL = XRpgMakerGameConfigs.PlayAnimaInterval
 local XUiRpgMakerGamePlayMain = XLuaUiManager.Register(XLuaUi, "UiRpgMakerGamePlayMain")
 
 function XUiRpgMakerGamePlayMain:OnAwake()
-    XUiHelper.NewPanelActivityAsset({XDataCenter.ItemManager.ItemId.RpgMakerGameHintCoin}, self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe({XDataCenter.ItemManager.ItemId.RpgMakerGameHintCoin}, self.PanelSpecialTool, self)
     self.RpgMakerGamePlayScene = XDataCenter.RpgMakerGameManager.GetCurrentScene()
 
     self:InitGuide()

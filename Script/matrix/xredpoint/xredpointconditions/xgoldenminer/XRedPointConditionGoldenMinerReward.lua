@@ -1,7 +1,7 @@
 local XRedPointConditionGoldenMinerReward = {}
 
 function XRedPointConditionGoldenMinerReward.Check()
-    if XDataCenter.GoldenMinerManager.CheckTaskCanReward() then
+    if XMVCA.XGoldenMiner:CheckHaveTaskCanRecv() then
         return true
     end
     return false

@@ -88,7 +88,7 @@ function XUiRegressionGiftShop:SortPurchase()
 end
 
 function XUiRegressionGiftShop:InitView()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.HongKa }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.HongKa }, self.PanelSpecialTool, self)
 
     local endTime = self.ViewModel:GetProperty("_ActivityEndTime")
     self:SetAutoCloseInfo(endTime, function(isClose)

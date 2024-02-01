@@ -1,3 +1,4 @@
+---@class XSCBuff
 local XSCBuff = XClass(nil, "XSCBuff")
 
 function XSCBuff:Ctor(buffId, buffUId, isTimeType)

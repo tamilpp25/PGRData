@@ -194,8 +194,8 @@ function XUiArchivePartnerDetail:UpdatePartnerStory()
         self.PartnerStory:GetObject("GridStory4"),
         self.PartnerStory:GetObject("GridStory5")
     }
-
-    for index, grid in pairs(storyObjList or {}) do
+    
+    for index, grid in pairs(storyObjList) do
         if storyDataList[index] then
             grid.gameObject:SetActiveEx(true)
             self:UpdateGrid(storyDataList[index], grid)
@@ -216,7 +216,7 @@ function XUiArchivePartnerDetail:UpdatePartnerSetting()
         self.PartnerSetting:GetObject("GridSetting5")
     }
 
-    for index, grid in pairs(settingObjList or {}) do
+    for index, grid in pairs(settingObjList) do
         if settingDataList[index] then
             grid.gameObject:SetActiveEx(true)
             self:UpdateGrid(settingDataList[index], grid)
@@ -288,7 +288,7 @@ end
 
 function XUiArchivePartnerDetail:OnBtnStorySkipClick()
     local storyChapterId = self.Data:GetStoryChapterId()
-    local storyChapter = XDataCenter.ArchiveManager.GetArchiveStoryChapter(storyChapterId)
+    local storyChapter = self._Control:GetArchiveStoryChapter(storyChapterId)
 
     if not storyChapter then
         XLog.Error("storyChapterId Is Not In Share/Archive/StoryChapter.tab Id:" .. storyChapterId)

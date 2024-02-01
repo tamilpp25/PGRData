@@ -56,7 +56,7 @@ function XUiExhibitionOverclocking:RefreshByPos(pos)
     -- 数据
     local characterId = XDataCenter.EquipManager.GetResonanceBindCharacterId(self.EquipId, pos)
     if XTool.IsNumberValid(characterId) then
-        Panel.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(characterId))
+        Panel.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(characterId))
     end
 
     local descList = XDataCenter.EquipManager.GetAwakeSkillDesList(self.EquipId, pos)

@@ -1,4 +1,5 @@
 local XSCBossSkill = require("XEntity/XSameColorGame/Skill/XSCBossSkill")
+---@class XSCBoss
 local XSCBoss = XClass(nil, "XSCBoss")
 
 function XSCBoss:Ctor(id)
@@ -101,8 +102,16 @@ function XSCBoss:GetBattleModelId()
     return self.Config.BattleModelId
 end
 
+function XSCBoss:GetAttributeType()
+    return self.Config.AttributeType
+end
+
 function XSCBoss:GetNameIcon()
     return self.Config.NameIcon
+end
+
+function XSCBoss:GetNameEnIcon()
+    return self.Config.NameEnIcon
 end
 
 -- 获取最高记录分数
@@ -137,12 +146,14 @@ end
 
 -- 获取历史最高评级图标
 function XSCBoss:GetMaxGradeIcon()
-    return XSameColorGameConfigs.GetActivityConfigValue(string.format("GradeIcon%s", self:GetScoreGradeName(self.MaxScore)))[1]
+    local key = string.format("GradeIcon%s", self:GetScoreGradeName(self.MaxScore))
+    return XMVCA.XSameColor:GetClientCfgStringValue(key)
 end
 
 -- 获取当前分数评级图标
 function XSCBoss:GetCurGradeIcon(score)
-    return XSameColorGameConfigs.GetActivityConfigValue(string.format("GradeIcon%s", self:GetScoreGradeName(score)))[1]
+    local key = string.format("GradeIcon%s", self:GetScoreGradeName(score))
+    return XMVCA.XSameColor:GetClientCfgStringValue(key)
 end
 
 function XSCBoss:GetIsOpen()
@@ -201,6 +212,7 @@ function XSCBoss:CheckRoleIdIsSuggest(roleId)
     return false
 end
 
+---@return XSCBossSkill[]
 function XSCBoss:GetShowSkills()
     local result = {}
     for _, skillId in ipairs(self.Config.ShowSkillIds) do
@@ -209,6 +221,7 @@ function XSCBoss:GetShowSkills()
     return result
 end
 
+---@return XSCBossSkill
 function XSCBoss:GetSkill(id)
     local result = self.ShowDic[id]
     if not result then

@@ -112,7 +112,7 @@ function XUiBabelTowerTeamTips:RefreshLeaderSkill()
     if captainId == nil or captainId <= 0 then
         self.TxtLeaderSkill.text = CS.XTextManager.GetText("BabelTowerPleaseSelectALeader")
     else
-        local captianSkillInfo = XDataCenter.CharacterManager.GetCaptainSkillInfo(captainId)
+        local captianSkillInfo = XMVCA.XCharacter:GetCaptainSkillInfo(captainId)
         self.TxtLeaderSkill.text = captianSkillInfo.Intro
     end
 end

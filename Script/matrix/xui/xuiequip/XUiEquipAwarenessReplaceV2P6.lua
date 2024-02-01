@@ -1,7 +1,7 @@
 local XUiGridSuitDetail = XClass(nil, "XUiGridSuitDetail")
 local XUiPanelSuitList = XClass(nil, "XUiPanelSuitList")
 
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceSkill = require("XUi/XUiEquipResonanceSkill/XUiGridResonanceSkill")
 local Dropdown = CS.UnityEngine.UI.Dropdown
 local CSInstantiate = CS.UnityEngine.Object.Instantiate
@@ -48,7 +48,7 @@ end
 
 function XUiEquipAwarenessReplaceV2P6:OnDisable()
     self.FxUiLihuiChuxian01.gameObject:SetActiveEx(false)
-    self:OnBtnSuitTitleClick(false)
+    self:OpenSuitFilter(false)
 end
 
 function XUiEquipAwarenessReplaceV2P6:OnDestroy()
@@ -111,7 +111,7 @@ function XUiEquipAwarenessReplaceV2P6:OnBtnMainClick()
 end
 
 function XUiEquipAwarenessReplaceV2P6:OnBtnBgClick()
-    self:OnBtnSuitTitleClick(false)
+    self:OpenSuitFilter(false)
 
     if self.IsDetail2Show then
         self.IsDetail2Show = false
@@ -122,6 +122,20 @@ function XUiEquipAwarenessReplaceV2P6:OnBtnBgClick()
 end
 
 function XUiEquipAwarenessReplaceV2P6:OnBtnSuitTitleClick(isOpen)
+    local INTERVAL_TIME = 0.25 -- 点击间隔时间
+    local curTime = CS.UnityEngine.Time.realtimeSinceStartup
+    if self.LastClickSuitTitleTime then 
+        if curTime - self.LastClickSuitTitleTime < INTERVAL_TIME then 
+            return
+        end
+    end
+    self.LastClickSuitTitleTime = curTime
+
+    self:OpenSuitFilter(isOpen)
+end
+
+-- 打开意识套装筛选
+function XUiEquipAwarenessReplaceV2P6:OpenSuitFilter(isOpen)
     if self.IsOpenSuitList == isOpen then
         return
     end
@@ -141,7 +155,7 @@ function XUiEquipAwarenessReplaceV2P6:OnBtnSuitTitleClick(isOpen)
 end
 
 function XUiEquipAwarenessReplaceV2P6:OnSelectSite(site)
-    self:OnBtnSuitTitleClick(false)
+    self:OpenSuitFilter(false)
     if self.SelectSite == site then
         return
     end
@@ -166,7 +180,7 @@ end
 
 function XUiEquipAwarenessReplaceV2P6:OnSelectSuit(suitId)
     self.SelectSuitId = suitId
-    self:OnBtnSuitTitleClick(false)
+    self:OpenSuitFilter(false)
     self:UpdateSuitTitle()
     self:UpdateAwarenessList()
     self:UpdateEquipDetail()
@@ -181,7 +195,7 @@ function XUiEquipAwarenessReplaceV2P6:OnBtnPutOnClick(equipId)
 
     local wearingCharacterId = XDataCenter.EquipManager.GetEquipWearingCharacterId(equipId)
     if wearingCharacterId and wearingCharacterId > 0 then
-        local fullName = XCharacterConfigs.GetCharacterFullNameStr(wearingCharacterId)
+        local fullName = XMVCA.XCharacter:GetCharacterFullNameStr(wearingCharacterId)
         local content = string.gsub(CSXTextManagerGetText("EquipAwarenessReplaceTip", fullName), " ", "")
         XUiManager.DialogTip(
             CSXTextManagerGetText("TipTitle"),

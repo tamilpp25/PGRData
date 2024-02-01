@@ -182,5 +182,5 @@ XFubenActivityBranchManagerCreator = function()
 end
 
 XRpc.NotifyBranchData = function(data)
-    XDataCenter.FubenActivityBranchManager.NotifyBranchData(data)
+    --XDataCenter.FubenActivityBranchManager.NotifyBranchData(data)
 end

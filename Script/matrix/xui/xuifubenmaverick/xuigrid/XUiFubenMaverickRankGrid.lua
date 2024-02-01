@@ -65,7 +65,7 @@ function XUiFubenMaverickRankGrid:Refresh(data)
     --使用的角色的头像
     local robotId = self.RankData.RobotIds[1]
     if robotId then
-        local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(robotId) --目前一次战斗只能上一个角色
+        local charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(robotId) --目前一次战斗只能上一个角色
         self.RImgTeam1:SetRawImage(charIcon)
         self.RImgTeam1.gameObject:SetActiveEx(true)
     else

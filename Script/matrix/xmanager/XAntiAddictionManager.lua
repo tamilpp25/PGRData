@@ -77,6 +77,7 @@ XAntiAddictionManagerCreator = function()
     function XAntiAddictionManager.EndPayAction()
         IsPaying = false
         KickOffAction()
+        XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
     end
 
     -- 结束战斗行为

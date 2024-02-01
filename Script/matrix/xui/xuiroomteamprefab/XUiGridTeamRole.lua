@@ -52,7 +52,7 @@ end
 function XUiGridTeamRole:SetHave(chrId)
     self.PanelHave.gameObject:SetActive(true)
     self.PanelNull.gameObject:SetActive(false)
-    local character = XDataCenter.CharacterManager.GetCharacter(chrId)
+    local character = XMVCA.XCharacter:GetCharacter(chrId)
     if not character then return end
 
     self.ImgLeftSkill.color = XDataCenter.TeamManager.GetTeamMemberColor(self.CurPos)
@@ -70,8 +70,8 @@ function XUiGridTeamRole:SetHave(chrId)
         end
     end
     
-    self.ImgIcon:SetSprite(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
-    self.ImgQuality:SetSprite(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+    self.ImgIcon:SetSprite(XMVCA.XCharacter:GetCharBigHeadIcon(character.Id))
+    self.ImgQuality:SetSprite(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
 end
 
 function XUiGridTeamRole:Refresh(curPos, teamData, characterLimitType, limitBuffId)
@@ -138,16 +138,12 @@ function XUiGridTeamRole:OnClickBtnPetClick()
 end
 
 function XUiGridTeamRole:OnBtnClickClick()
-    if XTool.USENEWBATTLEROOM then
-        RunAsyn(function()
-            local teamManager = XDataCenter.TeamManager 
-            local team = teamManager.GetXTeamWithPrefab(self.TeamData.TeamId) or teamManager.CreateTempTeam({0, 0, 0})
-            XLuaUiManager.Open("UiBattleRoomRoleDetail", self.StageId, team, self.CurPos)
-            local signalCode = XLuaUiManager.AwaitSignal("UiBattleRoomRoleDetail", "UpdateEntityId", self)
-            if signalCode ~= XSignalCode.SUCCESS then return end 
-            self:OnSelect(team:GetEntityIds())
-        end)
-    else
-        XLuaUiManager.Open("UiRoomCharacter", self.TeamData.TeamData, self.CurPos, handler(self, self.OnSelect), nil, self.CharacterLimitType, {LimitBuffId = self.LimitBuffId})
-    end
+    RunAsyn(function()
+        local teamManager = XDataCenter.TeamManager 
+        local team = teamManager.GetXTeamWithPrefab(self.TeamData.TeamId) or teamManager.CreateTempTeam({0, 0, 0})
+        XLuaUiManager.Open("UiBattleRoomRoleDetail", self.StageId, team, self.CurPos)
+        local signalCode = XLuaUiManager.AwaitSignal("UiBattleRoomRoleDetail", "UpdateEntityId", self)
+        if signalCode ~= XSignalCode.SUCCESS then return end 
+        self:OnSelect(team:GetEntityIds())
+    end)
 end

@@ -1,9 +1,6 @@
-XUiGridArchiveCommunication = XClass(nil, "XUiGridArchiveCommunication")
+XUiGridArchiveCommunication = XClass(XUiNode, "XUiGridArchiveCommunication")
 
-function XUiGridArchiveCommunication:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveCommunication:OnStart()
     self:SetButtonCallBack()
 end
 

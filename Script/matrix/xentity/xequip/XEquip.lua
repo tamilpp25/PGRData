@@ -211,6 +211,11 @@ function XEquip:IsAwareness(site)
     end
 end
 
+-- 获取装备位置
+function XEquip:GetEquipSite()
+    return XMVCA:GetAgency(ModuleId.XEquip):GetEquipSite(self.TemplateId)
+end
+
 -- 获取品质横图
 function XEquip:GetEquipQualityPath()
     if self.OverrunData and self.OverrunData.Level > 0 then
@@ -367,7 +372,7 @@ function XEquip:IsOverrunBlindMatch(characterId)
     end
     
     characterId = characterId or self.CharacterId
-    local charType = XCharacterConfigs.GetCharacterType(characterId)
+    local charType = XMVCA.XCharacter:GetCharacterType(characterId)
     local suitCharType = XEquipConfig.GetSuitCharacterType(choseSuit)
     if suitCharType == XEquipConfig.UserType.All or suitCharType == charType then
         return true

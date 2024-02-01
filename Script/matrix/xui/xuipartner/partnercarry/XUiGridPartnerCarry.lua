@@ -55,13 +55,13 @@ end
 function XUiGridPartnerCarry:ShowInfo()
     self.RImgHeadIcon:SetRawImage(self.Data:GetIcon())
     self.PanelLv:GetObject("TxtLevel").text = self.Data:GetLevel()
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetQuality()))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetQuality()))
     self.ImgLock.gameObject:SetActiveEx(self.Data:GetIsLock())
 
     --v1.28 装备头像
     self.ImgIsCarry.gameObject:SetActiveEx(self.Data:GetIsCarry())
     if self.Data:GetIsCarry() and self.RImgRole then
-        local icon = XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(self.Data:GetCharacterId())
+        local icon = XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(self.Data:GetCharacterId())
         self.RImgRole:SetRawImage(icon)
     end
 

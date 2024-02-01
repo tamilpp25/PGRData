@@ -59,7 +59,6 @@ XFubenSimulatedCombatManagerCreator = function()
         end
         
         XFubenSimulatedCombatManager.ResetChange()
-        XFubenSimulatedCombatManager.RegisterEditBattleProxy()
     end
 
     local FUBEN_SIMUCOMBAT_PROTO = {
@@ -529,7 +528,7 @@ XFubenSimulatedCombatManagerCreator = function()
             if item.BuyMethod then
                 tableInsert(members, {Id = item.Id, ConsumeType = item.BuyMethod})
                 local charId = XFubenSimulatedCombatManager.GetCharacterAndRobotId(item.Id)
-                --XLog.Warning("name", XCharacterConfigs.GetCharacterFullNameStr(charId))
+                --XLog.Warning("name", XMVCA.XCharacter:GetCharacterFullNameStr(charId))
                 tableInsert(CurrentTeam.TeamData, charId)
                 CharIdToMemberId[charId] = item.Id
             end
@@ -812,14 +811,6 @@ XFubenSimulatedCombatManagerCreator = function()
         ChallengeMap = clgMap or {false, false, false}
         XSaveTool.SaveData(GetClgMapKey(stageId), clgMap)
     end
-
-    -- 注册出战界面代理
-    function XFubenSimulatedCombatManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.SimulatedCombat,
-                require("XUi/XUiFubenSimulatedCombat/XUiSimulatedCombatNewRoomSingle"))
-    end
     
     --活动登录下发
     function XFubenSimulatedCombatManager.NotifyData(data)
@@ -869,13 +860,13 @@ XFubenSimulatedCombatManagerCreator = function()
 end
 
 XRpc.NotifySimulatedCombatData = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyData(data.Data)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyData(data.Data)
 end
 
 XRpc.NotifySimulatedCombatDailyReset = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyDailyReset(data)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyDailyReset(data)
 end
 
 XRpc.NotifySimulatedCombatStageData = function(data)
-    XDataCenter.FubenSimulatedCombatManager.NotifyStageData(data.SimulatedCombatStageData)
+    --XDataCenter.FubenSimulatedCombatManager.NotifyStageData(data.SimulatedCombatStageData)
 end

@@ -22,7 +22,7 @@ function XUiPanelSkillDetailsInfoV2P6:Refresh(skillGroupIndex)
     self.SkillGroupIndex = skillGroupIndex
     self.CharacterId = self.Parent.CharacterId
     self.Character = self.CharacterAgency:GetCharacter(self.CharacterId)
-    self.SkillType = XCharacterConfigs.IsIsomer(self.CharacterId) and XCharacterConfigs.SkillUnLockType.Sp or XCharacterConfigs.SkillUnLockType.Enhance
+    self.SkillType = XMVCA.XCharacter:GetIsIsomer(self.CharacterId) and XEnumConst.CHARACTER.SkillUnLockType.Sp or XEnumConst.CHARACTER.SkillUnLockType.Enhance
     
     local skillGroupIdList = self.Character:GetEnhanceSkillGroupIdList() or {}
     local skillGroup = self.Character:GetEnhanceSkillGroupData(skillGroupIdList[skillGroupIndex])
@@ -141,9 +141,9 @@ function XUiPanelSkillDetailsInfoV2P6:OnBtnUpgradeClick()
         self.Parent:RefreshUiShow()
 
         local text = ""
-        if self.SkillType == XCharacterConfigs.SkillUnLockType.Enhance then
+        if self.SkillType == XEnumConst.CHARACTER.SkillUnLockType.Enhance then
             text = CS.XTextManager.GetText("EnhanceSkillLevelUpFinishHint")
-        elseif self.SkillType == XCharacterConfigs.SkillUnLockType.Sp then
+        elseif self.SkillType == XEnumConst.CHARACTER.SkillUnLockType.Sp then
             text = CS.XTextManager.GetText("SpSkillLevelUpFinishHint")
         end
         XUiManager.PopupLeftTip(text)

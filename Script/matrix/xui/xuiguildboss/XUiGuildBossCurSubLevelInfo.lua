@@ -186,13 +186,9 @@ end
 
 function XUiGuildBossCurSubLevelInfo:RealOnBtnStartClick()
     local func = function()
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.Data.StageId
-                , XDataCenter.GuildBossManager.GetXTeamByStageId(self.Data.StageId)
-                , require("XUi/XUiGuildBoss/XUiGuildBossBattleRoleRoom"))
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.Data.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.Data.StageId
+            , XDataCenter.GuildBossManager.GetXTeamByStageId(self.Data.StageId)
+            , require("XUi/XUiGuildBoss/XUiGuildBossBattleRoleRoom"))
     end
     if self.Data.UploadCount == 0 and self.DetailData.CurEffectCount >= self.DetailData.TotalEffectCount then --nzwjV3 击破关卡触发值上限提醒
         XLuaUiManager.Open("UiDialog", self.EnterWarningTitleStr, CS.XTextManager.GetText("GuildBossBuffActive"), XUiManager.DialogType.Normal, nil, func)

@@ -11,7 +11,8 @@ function XUiStrongholdPowerusageTips:OnStart(groupId, teamList)
     self.GroupId = groupId
     self.CurSelectChapterId = XTool.IsNumberValid(groupId) and XStrongholdConfigs.GetChapterIdByGroupId(groupId)
 
-    local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(teamList)
+    local teamClipList = XDataCenter.StrongholdManager.GetFighterTeamListTemp(teamList, self.GroupId)
+    local useElectric = XDataCenter.StrongholdManager.GetTotalUseElectricEnergy(teamClipList)
     self.TxtTips.text = XUiHelper.GetText("StrongholdSuggestElectricTipsDesc2", useElectric)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelContent.transform)

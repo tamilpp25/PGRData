@@ -22,7 +22,7 @@ function XUiRegressionActivity:OnAwake()
 end
 
 function XUiRegressionActivity:OnStart()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XRegression3rdConfigs.Regression3rdCoinId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XRegression3rdConfigs.Regression3rdCoinId }, self.PanelSpecialTool, self)
 
     self:InitView()
 end
@@ -76,7 +76,7 @@ function XUiRegressionActivity:InitTab()
         table.insert(self.TabBtn, btn)
 
         if tabData.RedPointEvent then
-            self["RedPoint"..idx] = XRedPointManager.AddRedPointEvent(btn, function(_, count) self:CheckRedPoint(idx, count) end, self, { tabData.RedPointEvent })
+            self["RedPoint"..idx] = self:AddRedPointEvent(btn, function(_, count) self:CheckRedPoint(idx, count) end, self, { tabData.RedPointEvent })
         end
 
         ::continue::
@@ -178,6 +178,7 @@ function XUiRegressionActivity:GetSubPanel()
         end
         panel = require(modulePath).New(ui, self)
         self.PanelDict[prefabPath] = panel
+        self.PanelDict[prefabPath]:Close()
     end
     return panel
 end

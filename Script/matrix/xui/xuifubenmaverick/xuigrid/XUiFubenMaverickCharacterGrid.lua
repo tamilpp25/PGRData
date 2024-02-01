@@ -13,7 +13,7 @@ function XUiFubenMaverickCharacterGrid:Refresh(memberId)
     self.TxtCombatScore.text = combatScore
     self.RobotId = XDataCenter.MaverickManager.GetRobotId(member)
     self.CharacterId = XRobotManager.GetCharacterId(self.RobotId)
-    self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.CharacterId))
+    self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
    
     self:RefreshSelect()
 

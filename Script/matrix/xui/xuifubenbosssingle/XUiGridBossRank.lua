@@ -1,77 +1,70 @@
-local XUiGridBossRank = XClass(nil, "XUiGridBossRank")
+---@class XUiGridBossRank : XUiNode
+---@field _Control XFubenBossSingleControl
+local XUiGridBossRank = XClass(XUiNode, "XUiGridBossRank")
 
-local MAX_SPECIAL_NUM = 3
-
-function XUiGridBossRank:Ctor(rootUi, ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.RootUi = rootUi
-    XTool.InitUiObject(self)
-    self:AutoAddListener()
+function XUiGridBossRank:OnStart(rootUi)
+    self._RootUi = rootUi
+    self:_RegisterButtonListeners()
 end
 
-function XUiGridBossRank:RegisterClickEvent(uiNode, func)
-    if func == nil then
-        XLog.Error("XUiGridBossRank:RegisterClickEvent函数参数错误：参数func不能为空")
+function XUiGridBossRank:OnEnable()
+    self:_Refresh()
+end
+
+function XUiGridBossRank:_RegisterButtonListeners()
+    XUiHelper.RegisterClickEvent(self, self.BtnDetail, self.OnBtnDetailClick, true)
+end
+
+function XUiGridBossRank:_Refresh()
+    if not self._RankMetaData or not self._CurLevelType then
         return
     end
 
-    if type(func) ~= "function" then
-        XLog.Error("XUiGridBossRank:RegisterClickEvent函数错误, 参数func需要是function类型, func的类型是" .. type(func))
-    end
+    local rankNumber = self._RankMetaData:GetRankNumber()
+    local maxSpecialNumber = self._Control:GetMaxSpecialNumber()
 
-    local listener = function(...)
-        func(self, ...)
-    end
-
-    CsXUiHelper.RegisterClickEvent(uiNode, listener)
-end
-
-function XUiGridBossRank:AutoAddListener()
-    self:RegisterClickEvent(self.BtnDetail, self.OnBtnDetailClick)
-end
-
-function XUiGridBossRank:Refresh(rankMetaData, curLevelType)
-    if rankMetaData then
-        self.RankMetaData = rankMetaData
+    self.TxtRankNormal.gameObject:SetActiveEx(rankNumber > maxSpecialNumber)
+    self.ImgRankSpecial.gameObject:SetActiveEx(rankNumber <= maxSpecialNumber)
+    if rankNumber <= maxSpecialNumber then
+        local icon = self._Control:GetRankSpecialIcon(math.floor(rankNumber),
+            self._CurLevelType)
+        self._RootUi:SetUiSprite(self.ImgRankSpecial, icon)
     else
-        return
+        self.TxtRankNormal.text = math.floor(rankNumber)
     end
-
-    if curLevelType then
-        self.CurLevelType = curLevelType
-    end
-
-    self.TxtRankNormal.gameObject:SetActive(self.RankMetaData.RankNum > MAX_SPECIAL_NUM)
-    self.ImgRankSpecial.gameObject:SetActive(self.RankMetaData.RankNum <= MAX_SPECIAL_NUM)
-    if self.RankMetaData.RankNum <= MAX_SPECIAL_NUM then
-        local icon = XDataCenter.FubenBossSingleManager.GetRankSpecialIcon(math.floor(self.RankMetaData.RankNum), self.CurLevelType)
-        self.RootUi:SetUiSprite(self.ImgRankSpecial, icon)
-    else
-        self.TxtRankNormal.text = math.floor(self.RankMetaData.RankNum)
-    end
-    local text = CS.XTextManager.GetText("BossSingleBossRankSocre", self.RankMetaData.Score)
+    local text = XUiHelper.GetText("BossSingleBossRankScore", self._RankMetaData:GetScore())
     self.TxtRankScore.text = text
-    self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(self.RankMetaData.PlayerId, self.RankMetaData.Name)
+    self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(self._RankMetaData:GetId(),
+        self._RankMetaData:GetName())
 
-    XUiPLayerHead.InitPortrait(self.RankMetaData.HeadPortraitId, self.RankMetaData.HeadFrameId, self.Head)
+    XUiPLayerHead.InitPortrait(self._RankMetaData:GetHeadPortraitId(), self._RankMetaData:GetHeadFrameId(), self.Head)
 
-    for i = 1, #self.RankMetaData.CharacterHeadData do
-        self["RImgTeam" .. i].gameObject:SetActive(true)
-        local charId = self.RankMetaData.CharacterHeadData[i].Id
-        local headInfo = self.RankMetaData.CharacterHeadData[i].CharacterHeadInfo or {}
-        local charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+    for i = 1, self._RankMetaData:GetCharacterListCount() do
+        local character = self._RankMetaData:GetCharacterByIndex(i)
+        local charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(character:GetId(), true, character:GetHeadFashionId(),
+        character:GetHeadFashionType())
+        
+        self["RImgTeam" .. i].gameObject:SetActiveEx(true)
         self["RImgTeam" .. i]:SetRawImage(charIcon)
     end
 
-    for i = #self.RankMetaData.CharacterHeadData + 1, 3 do
-        self["RImgTeam" .. i].gameObject:SetActive(false)
+    for i = self._RankMetaData:GetCharacterListCount() + 1, 3 do
+        self["RImgTeam" .. i].gameObject:SetActiveEx(false)
     end
+end
 
+function XUiGridBossRank:SetData(rankMetaData, curLevelType)
+    ---@type XBossSingleRankShowData
+    self._RankMetaData = rankMetaData
+    self._CurLevelType = curLevelType
+
+    if self:IsNodeShow() then
+        self:_Refresh()
+    end
 end
 
 function XUiGridBossRank:OnBtnDetailClick()
-    XDataCenter.PersonalInfoManager.ReqShowInfoPanel(self.RankMetaData.PlayerId)
+    XDataCenter.PersonalInfoManager.ReqShowInfoPanel(self._RankMetaData:GetId())
 end
 
 return XUiGridBossRank

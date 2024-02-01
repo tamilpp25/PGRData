@@ -108,7 +108,7 @@ function XUiEquipOverrunSelect:GetSuitDataList()
     local bindType = overrunSuitCfg.ChipBindType
     -- 类型配置为0的武器，装备在角色身上时，需额外判断，只显示与当前角色匹配的意识套装
     if bindType == XEquipConfig.UserType.All and self.Equip:IsWearing() then
-        bindType = XCharacterConfigs.GetCharacterType(self.Equip.CharacterId)
+        bindType = XMVCA.XCharacter:GetCharacterType(self.Equip.CharacterId)
     end
     local suitIdList = XEquipConfig.GetSuitIdListByCharacterType(bindType, XEquipConfig.OVERRUN_BLIND_SUIT_MIN_QUALITY, true, true)
 
@@ -120,7 +120,10 @@ function XUiEquipOverrunSelect:GetSuitDataList()
         suitData.Quality = XEquipConfig.GetSuitQuality(suitId)
         suitData.IsCharWear = false
         suitData.CharWearCnt = 0 -- 角色装备该套装意识数量
+        suitData.SuitMaxCnt = self._Control:GetSuitMaxCnt(suitId) -- 套装效果最大数量
+        suitData.SuitType = XMVCA:GetAgency(ModuleId.XEquip):GetEquipSuitSuitType(suitId)
         suitData.IsActive = false
+        suitData.CharacterSuitPriority = 0 -- 角色意识推荐优先级
         suitDataDic[suitId] = suitData
     end
 
@@ -147,6 +150,28 @@ function XUiEquipOverrunSelect:GetSuitDataList()
         end
     end
 
+    -- 套装推荐选用的角色
+    local equipRecommendCharacterId = XMVCA:GetAgency(ModuleId.XEquip):GetEquipRecommendCharacterId(self.Equip.TemplateId)
+    local characterSuitPriorityId = self.Equip:IsWearing() and self.Equip.CharacterId or equipRecommendCharacterId
+    if characterSuitPriorityId ~= 0 then
+        local suitPriorityCfg = self._Control:GetConfigCharacterSuitPriority(characterSuitPriorityId)
+
+        -- 优先级是PriorityType[1] > PriorityType[1] > ... > PriorityType[12]
+        local suitTypePriorityDic = {}
+        for i, suitType in ipairs(suitPriorityCfg.PriorityType) do
+            suitTypePriorityDic[suitType] = math.maxinteger - i
+        end
+        for _, suitData in pairs(suitDataDic) do
+            suitData.CharacterSuitPriority = suitTypePriorityDic[suitData.SuitType] or 0
+        end
+
+        -- 专属意识套装优先级最高
+        local exclusiveData = suitDataDic[suitPriorityCfg.ExclusiveSuitId]
+        if exclusiveData then
+            exclusiveData.CharacterSuitPriority = math.maxinteger
+        end
+    end
+
     -- 转换成list
     local suitDataList = {}
     for _, suitData in pairs(suitDataDic) do
@@ -159,17 +184,24 @@ function XUiEquipOverrunSelect:GetSuitDataList()
         local priorityA = a.Id == self.LastSelectSuitId and 10000 or 0
         local priorityB = b.Id == self.LastSelectSuitId and 10000 or 0
 
-        -- 武器穿戴角色身上装备的意识套装，武器未穿戴在角色身上时此项忽略
-        priorityA = priorityA + (a.IsCharWear and 1000 or 0)
-        priorityB = priorityB + (b.IsCharWear and 1000 or 0)
+        -- 身上装备的意识套装，但未激活最高套装效果的（泛用4件效果、独域6件效果)
+        -- 注：武器未穿戴在角色身上时此项忽略
+        if self.Equip:IsWearing() then
+            if a.CharWearCnt > 0 and a.CharWearCnt < a.SuitMaxCnt then
+                priorityA = priorityA + 1000
+            end
+            if b.CharWearCnt > 0 and b.CharWearCnt < b.SuitMaxCnt then
+                priorityB = priorityB + 1000
+            end
+        end
 
-        -- 已激活的意识套装
+        -- 可绑定状态的意识套装
         priorityA = priorityA + (a.IsActive and 100 or 0)
         priorityB = priorityB + (b.IsActive and 100 or 0)
 
-        -- 按照品质排序
-        priorityA = priorityA + (a.Quality > b.Quality and 10 or 0)
-        priorityB = priorityB + (b.Quality > a.Quality and 10 or 0)
+        -- 根据套装推荐优先级
+        priorityA = priorityA + (a.CharacterSuitPriority > b.CharacterSuitPriority and 10 or 0)
+        priorityB = priorityB + (b.CharacterSuitPriority > a.CharacterSuitPriority and 10 or 0)
 
         return priorityA > priorityB
     end)

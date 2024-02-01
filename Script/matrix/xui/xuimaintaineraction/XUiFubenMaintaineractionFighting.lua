@@ -29,12 +29,7 @@ function XUiFubenMaintaineractionFighting:OnBtnEnterClick()
         XUiManager.TipText("MaintainerActionFightCompleteText")
         return
     end
-    if XTool.USENEWBATTLEROOM then
-        XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId)
-    else
-        XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.StageId)
-    end
-
+    XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiFubenMaintaineractionFighting:OnBtnRunClick()

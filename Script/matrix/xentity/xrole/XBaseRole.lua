@@ -105,7 +105,7 @@ end
 --==================
 function XBaseRole:GetQualityIcon()
     local quality = self:GetQuality()
-    return XCharacterConfigs.GetCharacterQualityIcon(quality)
+    return XMVCA.XCharacter:GetCharacterQualityIcon(quality)
 end
 --==================
 --获取当前角色战力
@@ -120,7 +120,7 @@ function XBaseRole:GetCaptainSkillDesc()
     if self:GetIsRobot() then
         return XRobotManager.GetRobotCaptainSkillDesc(self.RawData.Id)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self.RawData.Id)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self.RawData.Id)
     end
 end
 --==================
@@ -149,13 +149,13 @@ end
 --获取职业图标
 --==================
 function XBaseRole:GetCareerIcon()
-    return XCharacterConfigs.GetNpcTypeIcon(self:GetCareer())
+    return XMVCA.XCharacter:GetNpcTypeIcon(self:GetCareer())
 end
 --==================
 --检查是否授格者
 --==================
 function XBaseRole:CheckIsIsomer()
-    return XCharacterConfigs.IsIsomer(self:GetCharacterId())
+    return XMVCA.XCharacter:GetIsIsomer(self:GetCharacterId())
 end
 
 function XBaseRole:GetFashionId()

@@ -4,7 +4,7 @@
         "GroupId": 1,
         "GoldId": 1,
         "Weight": 100,
-        "NodeRepeatable": 1,
+        "NodeRepeatable": 0,
         "GameRepeatable": 1,
         "ConditionId": null
     },
@@ -13,7 +13,277 @@
         "GroupId": 2,
         "GoldId": 2,
         "Weight": 100,
-        "NodeRepeatable": 1,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 3,
+        "GroupId": 3,
+        "GoldId": 2,
+        "Weight": 150,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 4,
+        "GroupId": 3,
+        "GoldId": 51,
+        "Weight": 80,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 5,
+        "GroupId": 3,
+        "GoldId": 52,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 6,
+        "GroupId": 3,
+        "GoldId": 53,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 7,
+        "GroupId": 3,
+        "GoldId": 54,
+        "Weight": 150,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 8,
+        "GroupId": 3,
+        "GoldId": 55,
+        "Weight": 80,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 9,
+        "GroupId": 3,
+        "GoldId": 56,
+        "Weight": 30,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 10,
+        "GroupId": 4,
+        "GoldId": 1,
+        "Weight": 150,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 11,
+        "GroupId": 4,
+        "GoldId": 57,
+        "Weight": 80,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 12,
+        "GroupId": 4,
+        "GoldId": 58,
+        "Weight": 80,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 13,
+        "GroupId": 4,
+        "GoldId": 59,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 14,
+        "GroupId": 4,
+        "GoldId": 60,
+        "Weight": 150,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 15,
+        "GroupId": 4,
+        "GoldId": 61,
+        "Weight": 80,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 16,
+        "GroupId": 4,
+        "GoldId": 62,
+        "Weight": 50,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 17,
+        "GroupId": 4,
+        "GoldId": 63,
+        "Weight": 10,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 18,
+        "GroupId": 101,
+        "GoldId": 22,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 19,
+        "GroupId": 102,
+        "GoldId": 23,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 20,
+        "GroupId": 103,
+        "GoldId": 101,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 21,
+        "GroupId": 103,
+        "GoldId": 102,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 22,
+        "GroupId": 103,
+        "GoldId": 103,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 23,
+        "GroupId": 103,
+        "GoldId": 104,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 24,
+        "GroupId": 103,
+        "GoldId": 105,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 25,
+        "GroupId": 103,
+        "GoldId": 106,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 26,
+        "GroupId": 104,
+        "GoldId": 111,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 27,
+        "GroupId": 104,
+        "GoldId": 112,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 28,
+        "GroupId": 104,
+        "GoldId": 113,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 29,
+        "GroupId": 104,
+        "GoldId": 114,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 30,
+        "GroupId": 104,
+        "GoldId": 115,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 31,
+        "GroupId": 104,
+        "GoldId": 116,
+        "Weight": 100,
+        "NodeRepeatable": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null
+    },
+    {
+        "Id": 32,
+        "GroupId": 104,
+        "GoldId": 117,
+        "Weight": 100,
+        "NodeRepeatable": 0,
         "GameRepeatable": 1,
         "ConditionId": null
     }

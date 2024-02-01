@@ -5,7 +5,7 @@ local XUiPanelFavorDetail = require("XUi/XUiTheatre/PowerFavor/XUiPanelFavorDeta
 local XUiTheatreFavorability = XLuaUiManager.Register(XLuaUi, "UiTheatreFavorability")
 
 function XUiTheatreFavorability:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:AddListener()
 
     self.TheatrePowerManager = XDataCenter.TheatreManager.GetPowerManager()

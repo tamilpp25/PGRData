@@ -53,7 +53,7 @@ function XUiTransfiniteHint:Update()
         ---@type XViewModelTransfiniteRoomMember
         local dataMember = {
             Index = i,
-            Icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId),
+            Icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId),
             Hp = hp,
             Sp = sp / 100,
             IsCaptain = false,

@@ -106,6 +106,41 @@ function XMailAgency:HasMailReward(mailId)
     return false
 end
 
+---是否是退款警告邮件
+function XMailAgency:IsSpecialMail(mailInfo)
+    return mailInfo.Type and mailInfo.Type == XEnumConst.MailType.SpecialMail
+end
+
+function XMailAgency:IsExpireAndReserve(mailId)
+    return self:_CheckMailExpire(mailId) and self:_CheckMailReserve(mailId)
+end
+
+function XMailAgency:IsExpire(mailId)
+    return self:_CheckMailExpire(mailId)
+end
+
+function XMailAgency:IsReserve(mailId)
+    return self:_CheckMailReserve(mailId)
+end
+
+--检查邮件是否保留
+function XMailAgency:_CheckMailReserve(mailId)
+    local mail = self._Model:GetMail(mailId)
+    if not mail then
+        return false
+    end
+
+    if mail.Status == XEnumConst.MAIL_STATUS.STATUS_DELETE then
+        return false
+    end
+
+    if not mail.ReserveTime or mail.ReserveTime <= 0 then
+        return false
+    end
+
+    return XTime.GetServerNowTimestamp() <= mail.ReserveTime
+end
+
 --检查邮件是否过期
 function XMailAgency:_CheckMailExpire(mailId)
     local mail = self._Model:GetMail(mailId)

@@ -16,21 +16,21 @@ function XUiGridFubenInfestorExploreMember:Refresh(characterId, isCaptain, isFir
     if not characterId then return end
 
     if self.TxtName then
-        self.TxtName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     end
 
     if self.RImgHead then
-        local icon = XDataCenter.CharacterManager.GetCharBigHeadIcon(characterId)
+        local icon = XMVCA.XCharacter:GetCharBigHeadIcon(characterId)
         self.RImgHead:SetRawImage(icon)
     end
 
     if self.RImgHalf then
-        local halfIcon = XDataCenter.CharacterManager.GetCharHalfBodyImage(characterId)
+        local halfIcon = XMVCA.XCharacter:GetCharHalfBodyImage(characterId)
         self.RImgHalf:SetRawImage(halfIcon)
     end
 
     if self.RImgHeadSmall then
-        local smallIcon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId)
+        local smallIcon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId)
         self.RImgHeadSmall:SetRawImage(smallIcon)
     end
 

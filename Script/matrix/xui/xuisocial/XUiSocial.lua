@@ -16,7 +16,8 @@ function XUiSocial:OnAwake()
 end
 
 function XUiSocial:OnStart(onLoadCompleteCB, defaultIndex)
-    self.PrivateChatViewPanel = XUiPanelPrivateChatView.New(self, self.PanelPrivateChatView, handler(self, self.OnBtnBackClick))
+    self.PrivateChatViewPanel = XUiPanelPrivateChatView.New(self.PanelPrivateChatView, self, handler(self, self.OnBtnBackClick))
+    self.PrivateChatViewPanel:Close()
     self.ContactViewPanel = XUiPanelContactView.New(self.PanelContactView, self)
     self.WaitForPassViewPanel = XUiPanelWaitForPassView.New(self.PanelWaitForPassView, self)
     self.AddContactViewPanel = XUiPanelAddContactView.New(self.PanelAddContactView, self)
@@ -40,8 +41,8 @@ function XUiSocial:OnStart(onLoadCompleteCB, defaultIndex)
     }
     self.PanelButtons:Init(tabGroup, function(tabIndex) self:OnClickTabCallBack(tabIndex) end)
 
-    XRedPointManager.AddRedPointEvent(self.BtnMainContact, self.RefreshContactRedDot, self, { XRedPointConditions.Types.CONDITION_FRIEND_CONTACT })
-    XRedPointManager.AddRedPointEvent(self.BtnMainWaitPass, self.RefreshWaitPassRedDot, self, { XRedPointConditions.Types.CONDITION_FRIEND_WAITPASS })
+    self:AddRedPointEvent(self.BtnMainContact, self.RefreshContactRedDot, self, { XRedPointConditions.Types.CONDITION_FRIEND_CONTACT })
+    self:AddRedPointEvent(self.BtnMainWaitPass, self.RefreshWaitPassRedDot, self, { XRedPointConditions.Types.CONDITION_FRIEND_WAITPASS })
 
     local selectIndex = defaultIndex or self.BtnTabIndex.MainContact
     self.PanelButtons:SelectIndex(selectIndex)
@@ -58,11 +59,11 @@ function XUiSocial:OnEnable()
         self.OnLoadCompleteCB = nil
     end
 
-    self.PrivateChatViewPanel:OnEnable()
+    self.PrivateChatViewPanel:TryInitData()
 end
 
 function XUiSocial:OnDestroy()
-    self.PrivateChatViewPanel:OnClose()
+    self.PrivateChatViewPanel:Close()
     self.ContactViewPanel:OnClose()
     self.WaitForPassViewPanel:OnClose()
     self.AddContactViewPanel:OnClose()
@@ -129,26 +130,8 @@ end
 -- auto
 -- Automatic generation of code, forbid to edit
 function XUiSocial:InitAutoScript()
-    self:AutoInitUi()
     self.SpecialSoundMap = {}
     self:AutoAddListener()
-end
-
-function XUiSocial:AutoInitUi()
-    -- self.PanelAddContactView = self.Transform:Find("SafeAreaContentPane/PanelAddContactView")
-    -- self.PanelContactView = self.Transform:Find("SafeAreaContentPane/PanelContactView")
-    -- self.BtnBack = self.Transform:Find("SafeAreaContentPane/PanelCharTopButton/BtnBack"):GetComponent("Button")
-    -- self.PanelWaitForPassView = self.Transform:Find("SafeAreaContentPane/PanelWaitForPassView")
-    -- self.PanelBg3d = self.Transform:Find("FullScreenBackground/PanelBg3d")
-    -- self.BtnMainUi = self.Transform:Find("SafeAreaContentPane/PanelCharTopButton/BtnMainUi"):GetComponent("Button")
-    -- self.PanelAsset = self.Transform:Find("SafeAreaContentPane/PanelAsset")
-    -- self.PanelAllChatView = self.Transform:Find("SafeAreaContentPane/PanelAllChatView")
-    -- self.PanelPrivateChatView = self.Transform:Find("SafeAreaContentPane/PanelPrivateChatView")
-    -- self.PanelEmoji = self.Transform:Find("SafeAreaContentPane/PanelEmoji")
-    -- self.GridEmoji = self.Transform:Find("SafeAreaContentPane/PanelEmoji/EmojiList/GridEmoji")
-    -- self.PanelDaily = self.Transform:Find("SafeAreaContentPane/PanelDaily")
-    -- self.BtnDaily = self.Transform:Find("SafeAreaContentPane/PanelButtons/BtnDaily"):GetComponent("Button")
-    -- self.PanelButtons = self.Transform:Find("SafeAreaContentPane/PanelButtons"):GetComponent("XUiButtonGroup")
 end
 
 function XUiSocial:GetAutoKey(uiNode, eventName)

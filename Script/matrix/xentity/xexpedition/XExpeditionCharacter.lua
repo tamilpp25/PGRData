@@ -124,14 +124,14 @@ end
 --获取角色小头像
 --================
 function XExpeditionCharacter:GetSmallHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self:GetCharacterId()).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self:GetCharacterId()).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionSmallHeadIcon(fashionId)
 end
 --================
 --获取角色大头像
 --================
 function XExpeditionCharacter:GetBigHeadIcon()
-    local fashionId = XCharacterConfigs.GetCharacterTemplate(self:GetCharacterId()).DefaultNpcFashtionId
+    local fashionId = XMVCA.XCharacter:GetCharacterTemplate(self:GetCharacterId()).DefaultNpcFashtionId
     return XDataCenter.FashionManager.GetFashionBigHeadIcon(fashionId)
 end
 --================
@@ -147,17 +147,17 @@ end
 --获取角色名称
 --================
 function XExpeditionCharacter:GetCharaName()
-    return XCharacterConfigs.GetCharacterName(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterName(self:GetCharacterId())
 end
 --================
 --获取角色机型名称
 --================
 function XExpeditionCharacter:GetCharacterTradeName()
-    return XCharacterConfigs.GetCharacterTradeName(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterTradeName(self:GetCharacterId())
 end
 
 function XExpeditionCharacter:GetCharaFullName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self:GetCharacterId())
 end
 --================
 --获取角色属性值
@@ -171,7 +171,7 @@ end
 --================
 function XExpeditionCharacter:GetJobTypeIcon()
     local jobType = XRobotManager.GetRobotJobType(self:GetRobotId())
-    return XCharacterConfigs.GetNpcTypeIcon(jobType)
+    return XMVCA.XCharacter:GetNpcTypeIcon(jobType)
 end
 --================
 --获取角色可解锁技能列表
@@ -182,7 +182,7 @@ function XExpeditionCharacter:GetLockSkill()
     end
     local skills = {}
     for index, skillId in pairs(self.BaseECharaCfg.LockSkill) do
-        local skillInfo = XCharacterConfigs.GetSkillGradeDesConfig(skillId, self.BaseECharaCfg.SkillLevel[index])
+        local skillInfo = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, self.BaseECharaCfg.SkillLevel[index])
         local skillData = {
             IconPath = skillInfo.Icon,
             Level = self.BaseECharaCfg.SkillLevel[index],

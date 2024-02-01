@@ -1,15 +1,10 @@
-local XUiTogFriendBox = XClass(nil, "XUiTogFriendBox")
+local XUiTogFriendBox = XClass(XUiNode, "XUiTogFriendBox")
 
-function XUiTogFriendBox:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
 
-function XUiTogFriendBox:Init(rootUi)
-    self.RootUi = rootUi
+function XUiTogFriendBox:OnStart()
+    self.RootUi=self.Parent.Parent
     self.ImgNewTag.gameObject:SetActive(false)
-    self.RedPointId = XRedPointManager.AddRedPointEvent(self.ImgNewTag, self.OnCheckUnReadMsgCount, self, { XRedPointConditions.Types.CONDITION_FRIEND_CHAT_PRIVATE }, nil, false)
+    self.RedPointId = self:AddRedPointEvent(self.ImgNewTag, self.OnCheckUnReadMsgCount, self, { XRedPointConditions.Types.CONDITION_FRIEND_CHAT_PRIVATE }, nil, false)
 end
 
 function XUiTogFriendBox:OnCheckUnReadMsgCount(count, args)

@@ -16,7 +16,7 @@ function XUiFubenPokerGuessing:OnStart()
         if isClose then
             XDataCenter.PokerGuessingManager.OnActivityEnd()
             return
-end
+        end
         self.TxtTime.text = XUiHelper.GetTime(endTime - XTime.GetServerNowTimestamp(), XUiHelper.TimeFormatType.ACTIVITY)
     end)
 end
@@ -59,7 +59,7 @@ function XUiFubenPokerGuessing:OnNotify(event, ... )
 end
 
 function XUiFubenPokerGuessing:InitUiView()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(XDataCenter.ItemManager.ItemId.PokerGuessingItemId, function()
         self.AssetActivityPanel:Refresh(self.ItemIds)
         self:OnCheckRedPoint()
@@ -110,7 +110,7 @@ function XUiFubenPokerGuessing:RegisterButtonEvent()
     self.BtnTask.CallBack = function()
         XLuaUiManager.Open("UiFubenPokerGuessingTask")
     end
-    
+
     self.BtnReplace.CallBack = function()
         self:OnOpenUiSelectRole()
     end
@@ -121,13 +121,13 @@ function XUiFubenPokerGuessing:RegisterButtonEvent()
 end
 
 function XUiFubenPokerGuessing:UpdateView()
-    
+
     self.TxtTime.text = XUiHelper.GetTime(XDataCenter.PokerGuessingManager.GetEndTime() - XTime.GetServerNowTimestamp(), XUiHelper.TimeFormatType.ACTIVITY)
     self:BindViewModelPropertyToObj(self.PokerGuessing, function(roleId)
         self.SelectRoleId = roleId
         self.RImgHeadIcon:SetRawImage(XPokerGuessingConfig.PokerRoleConfig:GetProperty(roleId, "Icon"))
     end, "_SelectRoleId")
-    
+
     self:BindViewModelPropertiesToObj(self.PokerGuessing, function(count, progress)
         local maxCount = XDataCenter.PokerGuessingManager.GetMaxTipCount()
         local attachMax = maxCount <= count
@@ -148,7 +148,7 @@ end
 function XUiFubenPokerGuessing:UpdateGameState()
     local currGameStatus = XDataCenter.PokerGuessingManager.GetCurrGameStatus()
     self.RImgRightCard.gameObject:SetActiveEx(true)
-    if currGameStatus == XPokerGuessingConfig.GameStatus.Initialize then 
+    if currGameStatus == XPokerGuessingConfig.GameStatus.Initialize then
         self.PanelNewGame.gameObject:SetActiveEx(true)
         self.PanelPlay.gameObject:SetActiveEx(false)
         self.RImgLeftCard:SetRawImage(XDataCenter.PokerGuessingManager.GetBackAssetPath())
@@ -218,8 +218,8 @@ end
 
 function XUiFubenPokerGuessing:UpdateScore()
     local currGameStatus = XDataCenter.PokerGuessingManager.GetCurrGameStatus()
-    local score = currGameStatus == XPokerGuessingConfig.GameStatus.Failed 
-            and XDataCenter.PokerGuessingManager.GetOldScore() 
+    local score = currGameStatus == XPokerGuessingConfig.GameStatus.Failed
+            and XDataCenter.PokerGuessingManager.GetOldScore()
             or XDataCenter.PokerGuessingManager.GetCurrentScore()
     self.TxtScore.text = score
 end
@@ -326,8 +326,8 @@ function XUiFubenPokerGuessing:OnBtnTipsClick()
         XUiManager.TipText("PokerGuessingTipsCountDeficiency")
         return
     end
-    
-    XDataCenter.PokerGuessingManager.UseTipsRequest(function() 
+
+    XDataCenter.PokerGuessingManager.UseTipsRequest(function()
         local desc = self.PokerGuessing:GetTipsDesc()
         self.PanelBuff.gameObject:SetActiveEx(false)
         self.TxtTips.text = desc

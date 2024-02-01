@@ -10,11 +10,9 @@ function XUiReform2ndChildPanel:Ctor(ui)
 end
 
 function XUiReform2ndChildPanel:SetData(stageId)
-    local stage = XDataCenter.Reform2ndManager.GetStage(stageId)
-    local star = XDataCenter.Reform2ndManager.GetStarByPressure(stage:GetPressure(), stageId)
-
+    local star = XMVCA.XReform:GetStageStarByPressure(stageId)
     self.TxtRecommendScore.text = XUiHelper.GetText("ReformRoleRoomStar", star)
-    self.TxtScore.text = XUiHelper.GetText("ReformRoleRoomPressure", stage:GetPressure())
+    self.TxtScore.text = XUiHelper.GetText("ReformRoleRoomPressure", XMVCA.XReform:GetStagePressure(stageId))
 end
 
 --######################## XUiReform2ndBattleRoleRoom ########################
@@ -26,10 +24,10 @@ function XUiReform2ndBattleRoleRoom:GetRoleDetailProxy()
 end
 
 function XUiReform2ndBattleRoleRoom:GetAutoCloseInfo()
-    local endTime = XDataCenter.Reform2ndManager.GetActivityEndTime()
+    local endTime = XMVCA.XReform:GetActivityEndTime()
     return true, endTime, function(isClose)
         if isClose then
-            XDataCenter.Reform2ndManager.HandleActivityEndTime()
+            XMVCA.XReform:HandleActivityEndTime()
         end
     end
 end

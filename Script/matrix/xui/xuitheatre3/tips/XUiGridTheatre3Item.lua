@@ -50,7 +50,7 @@ function XUiGridTheatre3Item:RefreshCount(itemCount)
 end
 
 function XUiGridTheatre3Item:OnBtnClick()
-    XLuaUiManager.Open("UiTheatre3Tips", self.ItemId, self.ItemType)
+    self._Control:OpenAdventureTips(self.ItemId, self.ItemType)
 end
 
 return XUiGridTheatre3Item

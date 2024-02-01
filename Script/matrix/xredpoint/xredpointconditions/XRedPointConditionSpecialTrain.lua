@@ -23,8 +23,8 @@ function XRedPointConditionSpecialTrain.Check()
         return false
     end
     
-    return XRedPointConditionSpecialTrainPointAndTask.Check() or 
-            XRedPointConditionSpecialTrainNewMap.Check() or
+    return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SPECIALTRAINPOINT_RED) or 
+            XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SPECIALTRAINMAP_RED) or
             XDataCenter.FubenSpecialTrainManager.IsHardModeOpenAndNew() or
             XDataCenter.FubenSpecialTrainManager.CheckChapterHasReward() or
             false

@@ -1,12 +1,8 @@
-XUiArchiveMonsterSkill = XClass(nil, "XUiArchiveMonsterSkill")
+XUiArchiveMonsterSkill = XClass(XUiNode, "XUiArchiveMonsterSkill")
 
 local SkillMax = 15
 
-function XUiArchiveMonsterSkill:Ctor(ui, data, base)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-
+function XUiArchiveMonsterSkill:OnStart(data, base)
     self.Data = data
     self.Base = base
 
@@ -30,11 +26,12 @@ function XUiArchiveMonsterSkill:Ctor(ui, data, base)
 end
 
 function XUiArchiveMonsterSkill:SelectType(index)
+    self:Open()
     self:SetMonsterSkillData(index)
 end
 
 function XUiArchiveMonsterSkill:SetMonsterSkillData(type)
-    local skillList = XDataCenter.ArchiveManager.GetArchiveMonsterSkillList(self.Data:GetNpcId(type))
+    local skillList = self._Control:GetArchiveMonsterSkillList(self.Data:GetNpcId(type))
 
     for index = 1, SkillMax do
         if skillList[index] then

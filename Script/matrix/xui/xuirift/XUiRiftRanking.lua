@@ -8,19 +8,56 @@ function XUiRiftRanking:OnAwake()
     self:InitDynamicTable()
     self:InitMyRankPanel()
     self:InitTimes()
+    self:InitRankGroup()
     self.TxtAndroid.gameObject:SetActive(false) --排行榜没有分安卓苹果，这里先隐藏
     self.PlayerRank.gameObject:SetActive(false)
 end
 
 function XUiRiftRanking:OnEnable()
     self.Super.OnEnable(self)
-    self:RefreshDynamicTable()
-    self:RefreshMyRank()
+
+    local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+    self.PanelTabBtn:SelectIndex(seasonIndex)
 end
 
 function XUiRiftRanking:RegisterEvent()
     self.BtnMainUi.CallBack = handler(self, function() XLuaUiManager.RunMain() end)
     self.BtnBack.CallBack = handler(self, self.Close)
+end
+
+function XUiRiftRanking:InitRankGroup()
+    local index = 1
+    local btns = {}
+    self.BtnLockTips = {}
+    local activity = XDataCenter.RiftManager.GetCurrentConfig()
+    self:RefreshTemplateGrids(self.BtnRank, activity.PeriodName, self.PanelTabBtn.transform, nil, "", function(grid, data)
+        table.insert(btns, grid.BtnRank)
+        local isOpen = XDataCenter.RiftManager:CheckSeasonOpen(index)
+        grid.BtnRank:SetButtonState(isOpen and CS.UiButtonState.Normal or CS.UiButtonState.Disable)
+        grid.BtnRank:SetNameByGroup(0, data)
+        if not isOpen then
+            self.BtnLockTips[index] = XUiHelper.GetText("RiftSeasonRankLock", data)
+        end
+        index = index + 1
+    end)
+    self.PanelTabBtn:Init(btns, function(index)
+        self:OnTabSelected(index)
+    end)
+end
+
+function XUiRiftRanking:OnTabSelected(index)
+    if self.BtnLockTips[index] then
+        XUiManager.TipError(self.BtnLockTips[index])
+        return
+    end
+    if self.CurSelectIdx == index then
+        return
+    end
+    self.CurSelectIdx = index
+    XDataCenter.RiftManager.RequireRanking(function()
+        self:RefreshDynamicTable()
+        self:RefreshMyRank()
+    end, index - 1)
 end
 
 function XUiRiftRanking:InitMyRankPanel()
@@ -38,8 +75,13 @@ function XUiRiftRanking:InitTimes()
 end
 
 function XUiRiftRanking:RefreshMyRank()
-    local rankInfo = XDataCenter.RiftManager.GetMyRankInfo()
-    self.MyRank:Refresh(rankInfo)
+    local hasRank = XDataCenter.RiftManager.IsHasRank()
+    self.PanelInfo.gameObject:SetActiveEx(hasRank)
+    self.TxtNoRank.gameObject:SetActiveEx(not hasRank)
+    if hasRank then
+        local rankInfo = XDataCenter.RiftManager.GetMyRankInfo()
+        self.MyRank:Refresh(rankInfo)
+    end
 end
 
 ---------------------------------------- 动态列表 start ----------------------------------------

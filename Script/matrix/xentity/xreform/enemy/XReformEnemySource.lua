@@ -200,7 +200,7 @@ function XReformEnemySource:GetMonsterEntity()
         return target:GetMonsterEntity()
     end
     if self.MonsterEntity == nil then
-        self.MonsterEntity = XDataCenter.ArchiveManager.GetArchiveMonsterEntityByNpcId(self:GetNpcId())
+        self.MonsterEntity = XMVCA.XArchive:GetArchiveMonsterEntityByNpcId(self:GetNpcId())
     end
     return self.MonsterEntity
 end

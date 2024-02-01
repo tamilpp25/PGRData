@@ -103,6 +103,7 @@ function XUiFurnitureReform:Close()
         local allowYAxis = CS.XGame.ClientConfig:GetInt("DefaultAllowYAxis")
         XHomeSceneManager.ChangeAngleYAndYAxis(targetAngle, allowYAxis == 1)
     end
+    CS.XCameraController.IsCheckOnPointOver = false
     self.Super.Close(self)
 end
 
@@ -139,6 +140,8 @@ function XUiFurnitureReform:InitUi()
     self.OnSaveTemplateCb = handler(self, self.DoSaveRoom)
     self.OnJumpToQuickBuildCb = handler(self, self.OnJumpToQuickBuild)
     self.OnSortFurnitureCb = handler(self, self.SortFurniture)
+    
+    CS.XCameraController.IsCheckOnPointOver = true
 end 
 
 function XUiFurnitureReform:InitCb()

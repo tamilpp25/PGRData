@@ -217,8 +217,7 @@ function XViewModelTransfiniteAchievement:UpdateScoreTitle()
     data.SeniorTitle = XTransfiniteConfigs.GetRegionRegionName(XTransfiniteConfigs.RegionType.Senior)
     data.SeniorIconLv = XTransfiniteConfigs.GetRegionIconLv(XTransfiniteConfigs.RegionType.Senior)
     data.SeniorIsUnlock = region:GetIsSeniorRegion()
-    local stageGroup = XDataCenter.TransfiniteManager.GetStageGroup()
-    data.Title = stageGroup:GetName()
+    data.Title = self._NormalStageGroup:GetName()
 end
 
 function XViewModelTransfiniteAchievement:GetDataScoreTitle()

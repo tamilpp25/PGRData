@@ -11,7 +11,7 @@ function XUiGridRogueLikeCharacter:Ctor(rootUi, ui, clickCallback, templateId, t
     self.IsCharacterType = self.TemplateType == XFubenRogueLikeConfig.SelectCharacterType.Character
 
     if self.IsCharacterType then
-        self.Template = XDataCenter.CharacterManager.GetCharacter(self.TemplateId)
+        self.Template = XMVCA.XCharacter:GetCharacter(self.TemplateId)
     else
         self.Template = XRobotManager.GetRobotTemplate(self.TemplateId)
     end
@@ -33,7 +33,7 @@ function XUiGridRogueLikeCharacter:OnBtnCharacterClick()
     if self.ClickCallback then
 
         if self.IsCharacterType then
-            if XCharacterConfigs.IsCharacterForeShow(self.TemplateId) then
+            if XMVCA.XCharacter:IsCharacterForeShow(self.TemplateId) then
                 self.ClickCallback(self.Template)
             else
                 XUiManager.TipMsg(CS.XTextManager.GetText("ComingSoon"), XUiManager.UiTipType.Tip)
@@ -65,25 +65,25 @@ function XUiGridRogueLikeCharacter:UpdateGrid(template)
 
     if self.RImgGrade then
         if self.IsCharacterType then
-            self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(self.TemplateId, self.Template.Grade))
+            self.RImgGrade:SetRawImage(XMVCA.XCharacter:GetCharGradeIcon(self.TemplateId, self.Template.Grade))
         else
-            self.RImgGrade:SetRawImage(XCharacterConfigs.GetCharGradeIcon(self.TemplateId, self.Template.CharacterGrade))
+            self.RImgGrade:SetRawImage(XMVCA.XCharacter:GetCharGradeIcon(self.TemplateId, self.Template.CharacterGrade))
         end
     end
 
     if self.RImgQuality then
         local quality = self.IsCharacterType and self.Template.Quality or self.Template.CharacterQuality
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
     end
 
     if self.RImgHeadIcon then
         local characterId = self.IsCharacterType and self.Template.Id or self.Template.CharacterId
-        self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+        self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     end
 
     if self.TxtTradeName then
         local characterId = self.IsCharacterType and self.Template.Id or self.Template.CharacterId
-        self.TxtTradeName.text = XCharacterConfigs.GetCharacterTradeName(characterId)
+        self.TxtTradeName.text = XMVCA.XCharacter:GetCharacterTradeName(characterId)
     end
 
     if self.PanelFight then
@@ -94,13 +94,13 @@ function XUiGridRogueLikeCharacter:UpdateGrid(template)
 
     if self.PanelCharElement then
         local characterId = self.IsCharacterType and self.Template.Id or self.Template.CharacterId
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)

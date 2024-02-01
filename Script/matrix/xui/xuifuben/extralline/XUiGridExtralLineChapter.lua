@@ -1,5 +1,4 @@
 local XUiGridFubenChapter = require("XUi/XUiFuben/UiDynamicList/XUiGridFubenChapter")
-local XUiBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload")
 local XUiGridExtralLineChapter = XClass(XUiGridFubenChapter, "XUiGridExtralLineChapter")
 
 function XUiGridExtralLineChapter:Ctor(ui, clickFunc, openCb)
@@ -9,8 +8,6 @@ function XUiGridExtralLineChapter:Ctor(ui, clickFunc, openCb)
     self.Manager = nil
     XUiHelper.RegisterClickEvent(self, self.BtnSelf, self.OnBtnSelfClicked)
     self:SetOpenCallback(openCb)
-    ---@type XUiBtnDownload
-    self.GirdBtnDownload = XUiBtnDownload.New(self.BtnDownload)
 end
 
 function XUiGridExtralLineChapter:SetManager(value)
@@ -69,15 +66,11 @@ function XUiGridExtralLineChapter:SetData(index, viewModel)
     self.PanelNormal.gameObject:SetActiveEx(false)
     local chapterType = self.Manager:ExGetChapterType()
     self.ImgKuai.gameObject:SetActiveEx(chapterType == XFubenConfigs.ChapterType.Prequel)
-    local entryType = XDlcConfig.GetEntryTypeByChapterType(chapterType)
-    self.GirdBtnDownload:Init(entryType, self.ChapterViewModel:GetId(), nil, handler(self, self.OnDownloadComplete))
-    self.GirdBtnDownload:RefreshView()
-    self.RImgLockMask.gameObject:SetActiveEx(viewModel:GetIsLocked() or self.GirdBtnDownload:CheckNeedDownload())
+    self.RImgLockMask.gameObject:SetActiveEx(viewModel:GetIsLocked())
 end
 
 function XUiGridExtralLineChapter:OnBtnSelfClicked()
-    if self.GirdBtnDownload:CheckNeedDownload() then
-        self.GirdBtnDownload:OnBtnClick()
+    if not XMVCA.XSubPackage:CheckSubpackage(self.Manager:ExGetChapterType(), self.ChapterViewModel:GetId()) then
         return
     end
     if self.ClickFunc then
@@ -100,13 +93,6 @@ function XUiGridExtralLineChapter:GetMoveDuration(isOpen)
     else
         return XFubenConfigs.ExtralLineMoveCloseTime
     end
-end
-
-function XUiGridExtralLineChapter:OnDownloadComplete()
-    if XTool.UObjIsNil(self.GameObject) then
-        return
-    end
-    self.RImgLockMask.gameObject:SetActiveEx(self.ChapterViewModel:GetIsLocked() or self.GirdBtnDownload:CheckNeedDownload())
 end
 
 

@@ -1,19 +1,23 @@
-local XUiReform2 = XLuaUiManager.Register(XLuaUi, "UiReform2")
 local XUiReform2ndPanelGroup = require("XUi/XUiReform2nd/MainPage/XUiReform2ndPanelGroup")
 local XUiReform2ndStagePanel = require("XUi/XUiReform2nd/MainPage/XUiReform2ndStagePanel")
 local XUiReform2ndPanelTasks = require("XUi/XUiReform2nd/MainPage/XUiReform2ndPanelTasks")
-local XViewModelReform2nd = require("XEntity/XReform2/ViewModel/XViewModelReform2nd")
 local XUiGridCommon = require("XUi/XUiObtain/XUiGridCommon")
+
+---@field _Control XReformControl
+---@class XUiReform2:XLuaUi
+local XUiReform2 = XLuaUiManager.Register(XLuaUi, "UiReform2")
 
 function XUiReform2:Ctor()
     self.ChapterGridList = {}
-    self.StagePanel = nil
+    --self.StagePanel = nil
     self.ChapterGroup = nil
     self.PanelTasks = nil
     self.RewardList = {}
     self.TaskRedPoint = nil
+
     ---@type XViewModelReform2nd
-    self.ViewModel = XViewModelReform2nd.New()
+    self.ViewModel = self._Control:GetViewModel()
+
     self.Timer = nil
     self.StageOpenTimer = nil
 end
@@ -26,19 +30,19 @@ function XUiReform2:OnAwake()
     self:InitPanel(true)
     self:InitTaskRewardDisplay()
     self:RegisterClickEvent(self.BtnGift, self.OpenTaskReward)
-    self.ChapterGroup = XUiReform2ndPanelGroup.New(self, self.PanelGroup, self.ViewModel)
-    self.StagePanel = XUiReform2ndStagePanel.New(self, self.PanelSecondary, self.ViewModel)
+    self.ChapterGroup = XUiReform2ndPanelGroup.New(self.PanelGroup, self, self.ViewModel)
+    --self.StagePanel = XUiReform2ndStagePanel.New(self, self.PanelSecondary, self.ViewModel)
     self.PanelTaskReward.gameObject:SetActiveEx(false)
     self.TaskRedPoint = XRedPointManager.AddRedPointEvent(self.BtnGift, self.OnCheckTaskRedPoint, self, { XRedPointConditions.Types.CONDITION_REFORM_TASK_GET_REWARD }, nil, true)
     self:RefreshEndTime()
-    
+
     local isUnlockDiff, stageName = self.ViewModel:GetUnlockedHardStageName()
-    
+
     if stageName then
-        self:OpenStagePanel()
-        self.StagePanel:RefreshStageGrid()
+        --self:OpenStagePanel()
+        --self.StagePanel:RefreshStageGrid()
         self.ChapterGroup:CloseRedPoint(self.ViewModel:GetCurrentChapterIndex())
-        
+
         if isUnlockDiff then
             XUiManager.TipMsg(XUiHelper.GetText("ReformDiffUnlockedTip", stageName))
         end
@@ -53,17 +57,17 @@ function XUiReform2:OnEnable()
         self:RefreshRemainTime()
     end, XScheduleManager.SECOND, 0)
     self.StageOpenTimer = XScheduleManager.ScheduleForever(function()
-        if self.StagePanel then
-            if self.StagePanel:CheckStageTimeOpen() then
-                self.StagePanel:RefreshStageGrid()
-            end
-        end
+        --if self.StagePanel then
+        --    if self.StagePanel:CheckStageTimeOpen() then
+        --        self.StagePanel:RefreshStageGrid()
+        --    end
+        --end
     end, XScheduleManager.SECOND, 0)
 
     if self.TaskRedPoint then
         XRedPointManager.Check(self.TaskRedPoint)
     end
-    
+
     XEventManager.AddEventListener(XEventId.EVENT_ETCD_TIME_CHANGE, self.RefreshEndTime, self)
 end
 
@@ -75,16 +79,16 @@ function XUiReform2:OnDisable()
     if self.StageOpenTimer then
         XScheduleManager.UnSchedule(self.StageOpenTimer)
     end
-    
+
     XEventManager.RemoveEventListener(XEventId.EVENT_ETCD_TIME_CHANGE, self.RefreshEndTime, self)
 end
 
 function XUiReform2:OnDestroy()
     XRedPointManager.RemoveRedPointEvent(self.TaskRedPoint)
-    
+
     self.ViewModel:ReleaseConfig()
     self.ChapterGridList = nil
-    self.StagePanel = nil
+    --self.StagePanel = nil
     self.ChapterGroup = nil
     self.PanelTasks = nil
     self.RewardList = nil
@@ -104,9 +108,9 @@ end
 
 function XUiReform2:InitPanel(isShowPanelGroup)
     self.PanelGroup.gameObject:SetActiveEx(isShowPanelGroup)
-    self.PanelSecondary.gameObject:SetActiveEx(not isShowPanelGroup)
+    --self.PanelSecondary.gameObject:SetActiveEx(not isShowPanelGroup)
     self.PanelTittle.gameObject:SetActiveEx(isShowPanelGroup)
-    self.TxtRemainTime.text = XDataCenter.Reform2ndManager.GetActivityTime()
+    self.TxtRemainTime.text = self._Control:GetActivityTime()
 end
 
 function XUiReform2:InitTaskRewardDisplay()
@@ -120,17 +124,17 @@ function XUiReform2:InitTaskRewardDisplay()
 end
 
 function XUiReform2:GetAutoCloseInfo()
-    local endTime = XDataCenter.Reform2ndManager.GetActivityEndTime()
-    
+    local endTime = self._Control:GetActivityEndTime()
+
     return true, endTime, function(isClose)
         if isClose then
-            XDataCenter.Reform2ndManager.HandleActivityEndTime()
+            XMVCA.XReform:HandleActivityEndTime()
         end
     end
 end
 
 function XUiReform2:RefreshRemainTime()
-    self.TxtRemainTime.text = XDataCenter.Reform2ndManager.GetActivityTime()
+    self.TxtRemainTime.text = self._Control:GetActivityTime()
 end
 
 function XUiReform2:Refresh()
@@ -153,11 +157,15 @@ function XUiReform2:RefreshTask()
 end
 
 function XUiReform2:OpenStagePanel()
-    self:InitPanel(false)
+    local stage = self.ViewModel:GetCurrentStage()
+    --viewModel:SaveIndexToManager()
+    XLuaUiManager.Open("UiReformList", stage)
 
-    self.StagePanel:RefreshStageGrid()
-    self.StagePanel:RefreshDetailPanel()
-    self:RegisterClickEvent(self.BtnBack, self.CloseStagePanel, true)
+    --self:InitPanel(false)
+    --
+    --self.StagePanel:RefreshStageGrid()
+    --self.StagePanel:RefreshDetailPanel()
+    --self:RegisterClickEvent(self.BtnBack, self.CloseStagePanel, true)
 end
 
 function XUiReform2:OpenTaskReward()
@@ -171,11 +179,11 @@ function XUiReform2:OpenTaskReward()
 end
 
 function XUiReform2:CloseStagePanel()
-    self:PlayAnimation("MainEnable")
-    self:InitPanel(true)
-    self.ChapterGroup:RefreshBtnGrid()
-    self:RegisterClickEvent(self.BtnBack, self.Close, true)
-    self.ViewModel:SetStageIsSelectToLocal()
+    --self:PlayAnimation("MainEnable")
+    --self:InitPanel(true)
+    --self.ChapterGroup:RefreshBtnGrid()
+    --self:RegisterClickEvent(self.BtnBack, self.Close, true)
+    --self.ViewModel:SetStageIsSelectToLocal()
 end
 
 function XUiReform2:OnCheckTaskRedPoint(count)

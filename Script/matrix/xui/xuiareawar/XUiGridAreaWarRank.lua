@@ -38,7 +38,7 @@ function XUiGridAreaWarRank:Refresh(rankItem)
             --排行榜范围 1-99
             num = math.min(num, 99)
             num = math.max(num, 1)
-            text = CS.XTextManager.GetText("BossSinglePrecentDesc", num)
+            text = CS.XTextManager.GetText("BossSinglePercentDesc", num)
         else
             text = CS.XTextManager.GetText("None")
         end

@@ -16,7 +16,7 @@ function XUiGridTheatre3RewardFloatFrame:OnStart(isShowTag, callBack)
 end
 
 function XUiGridTheatre3RewardFloatFrame:Refresh(battlePassId)
-    if not XTool.IsNumberValid(battlePassId) then
+    if not XTool.IsNumberValid(battlePassId) or self.BattlePassId == battlePassId then
         return
     end
     self.BattlePassId = battlePassId

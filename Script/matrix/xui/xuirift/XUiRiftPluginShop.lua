@@ -12,6 +12,7 @@ function XUiRiftPluginShop:OnAwake()
     self:InitDynamicTable()
     self:InitAssets()
     self:InitTimes()
+    self:OnClosePluginTip()
     self.ShopItemPanel = XUiRiftPluginShopItem.New(self.PanelShopItem, self)
 
     self.GridShop.gameObject:SetActiveEx(false)
@@ -29,9 +30,9 @@ function XUiRiftPluginShop:OnEnable()
 end
 
 function XUiRiftPluginShop:AddListener()
-    self.BtnBack.CallBack = function()
-        self:Close()
-    end
+    self:RegisterClickEvent(self.BtnBack, self.Close)
+    self:RegisterClickEvent(self.BtnShaixuan, self.OnClickFilter)
+    self:RegisterClickEvent(self.BtnBlock, self.OnClosePluginTip)
 end
 
 function XUiRiftPluginShop:InitDynamicTable()
@@ -41,7 +42,7 @@ function XUiRiftPluginShop:InitDynamicTable()
 end
 
 function XUiRiftPluginShop:InitAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {XDataCenter.ItemManager.ItemId.RiftGold},
         handler(self, self.UpdateAssets),
@@ -54,9 +55,8 @@ function XUiRiftPluginShop:UpdateAssets()
 end
 
 function XUiRiftPluginShop:UpdateShop()
-    local shopGoods = XDataCenter.RiftManager.FilterPluginShopGoodList(self.SelectTag)
-    self.ShopGoods = shopGoods
-    self.DynamicTable:SetDataSource(shopGoods)
+    self.ShopGoods = XDataCenter.RiftManager.FilterPluginShopGoodList(self.SelectTag)
+    self.DynamicTable:SetDataSource(self.ShopGoods)
     self.DynamicTable:ReloadDataASync(1)
 end
 
@@ -94,7 +94,11 @@ function XUiRiftPluginShop:OnClickGridBuy(goodData)
 end
 
 function XUiRiftPluginShop:RefreshBuy()
-    self:UpdateShop()
+    local grids = self.DynamicTable:GetGrids()
+    for i, grid in pairs(grids) do
+        local data = self.DynamicTable:GetData(i)
+        grid:Refresh(data)
+    end
 end
 
 function XUiRiftPluginShop:InitTimes()
@@ -104,4 +108,22 @@ function XUiRiftPluginShop:InitTimes()
             XUiManager.TipMsg(XUiHelper.GetText("ActivityAlreadyOver"))
         end
     end)
+end
+
+function XUiRiftPluginShop:OnClickFilter()
+    XLuaUiManager.Open("UiRiftPluginFilterTips", XEnumConst.Rift.FilterSetting.PluginShop, handler(self, self.UpdateShop))
+end
+
+function XUiRiftPluginShop:OnShowPluginTip(pluginId, decomposeValue)
+    self.PanelDropItem.gameObject:SetActiveEx(true)
+    if not self.PluginTip then
+        ---@type XUiGridRiftPluginDrop
+        self.PluginTip = require("XUi/XUiRift/Grid/XUiGridRiftPluginDrop").New(self.GridRiftPluginTips, self)
+    end
+    local dropData = { PluginId = pluginId, DecomposeCount = decomposeValue or 0 }
+    self.PluginTip:Refresh(dropData)
+end
+
+function XUiRiftPluginShop:OnClosePluginTip()
+    self.PanelDropItem.gameObject:SetActiveEx(false)
 end

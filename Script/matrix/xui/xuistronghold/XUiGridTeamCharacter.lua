@@ -21,10 +21,10 @@ function XUiGridTeamCharacter:Refresh(characterId)
         self.ImgTianJia.gameObject:SetActiveEx(true)
         self.PanelTouXiang.gameObject:SetActiveEx(false)
     else
-        local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId)
+        local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId)
         self.ImgTouXiang:SetRawImage(icon)
 
-        self.TxtAbility.text = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+        self.TxtAbility.text = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
 
         self.ImgTianJia.gameObject:SetActiveEx(false)
         self.PanelTouXiang.gameObject:SetActiveEx(true)
@@ -100,7 +100,8 @@ function XUiGridTeamCharacter:OnClickBtnClick()
 
         end,
     }
-    XLuaUiManager.Open("UiCharacter", characterId, nil, nil, nil, nil, nil, supportData)
+    -- XLuaUiManager.Open("UiCharacter", characterId, nil, nil, nil, nil, nil, supportData)
+    XLuaUiManager.Open("UiSelectCharacterStrongholdPower", characterId, supportData)
 end
 
 return XUiGridTeamCharacter

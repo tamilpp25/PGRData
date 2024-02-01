@@ -49,9 +49,7 @@ function XUiGridTeam:AddListener()
     end
 
     local func
-    if self:IsChessPursuit() then
-        func = handler(self, self.OnChessPursuitBtnChoicesClick)
-    elseif self:IsPivotCombat() then
+    if self:IsPivotCombat() then
         func = handler(self, self.OnPivotCombatBtnChoicesClick)
     else
         func = handler(self, self.OnSelectCallback)
@@ -127,7 +125,7 @@ function XUiGridTeam:HandleCharacterType(teamData)
     local characterType = 0
     for _, charId in ipairs(teamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 characterType = charTemplate.Type
                 break
@@ -142,7 +140,7 @@ function XUiGridTeam:GetTeamIsMixType()
     local countDic = {}
     for _, charId in pairs(self.TeamData.TeamData) do
         if charId > 0 then
-            local charTemplate = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charTemplate = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charTemplate then
                 countDic[charTemplate.Type] = true
             end
@@ -233,12 +231,12 @@ function XUiGridTeam:OnPivotCombatBtnChoicesClick()
                 end
 
                 if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-                    if characterType == XCharacterConfigs.CharacterType.Isomer then
+                    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
                         XUiManager.TipText("TeamCharacterTypeNormalLimitText")
                         return
                     end
                 elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-                    if characterType == XCharacterConfigs.CharacterType.Normal then
+                    if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
                         XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
                         return
                     end
@@ -253,32 +251,6 @@ function XUiGridTeam:OnPivotCombatBtnChoicesClick()
     else
         self:OnSelectCallback()
     end
-end
-
-function XUiGridTeam:OnChessPursuitBtnChoicesClick()
-    local isInOtherTeam = false
-    local isInOtherTeamTemp, teamGridIndex, teamIndex, inOtherTeamCharId
-    local teamData = XTool.Clone(self.TeamData.TeamData)
-    table.sort(teamData, function(charIdA, charIdB)
-        return charIdA < charIdB
-    end)
-    for _, charId in ipairs(teamData) do
-        isInOtherTeamTemp, teamGridIndex = XDataCenter.ChessPursuitManager.CheckIsInChessPursuit(nil, charId, self.TeamGridId)
-        if isInOtherTeamTemp then
-            inOtherTeamCharId = charId
-            isInOtherTeam = true
-            break
-        end
-    end
-    if isInOtherTeam then
-        local name = XCharacterConfigs.GetCharacterFullNameStr(inOtherTeamCharId)
-        local content = CSXTextManagerGetText("ChessPursuitUsePrefabTipsContent", name, teamGridIndex)
-        content = string.gsub(content, " ", "\u{00A0}") --不换行空格
-        XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, nil, function() self:OnSelectCallback() end)
-        return
-    end
-
-    self:OnSelectCallback()
 end
 
 function XUiGridTeam:OnBtnChoicesClick()
@@ -346,17 +318,17 @@ function XUiGridTeam:OnSelectCallback()
     end
 
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamCharacterTypeNormalLimitText")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamCharacterTypeIsomerLimitText")
             return
         end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Isomer then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         --         local buffDes = XFubenConfigs.GetBuffDes(limitBuffId)
         --         local content = CSXTextManagerGetText("TeamPrefabCharacterTypeLimitTipIsomerDebuff", buffDes)
         --         local sureCallBack = selectFunc
@@ -364,7 +336,7 @@ function XUiGridTeam:OnSelectCallback()
         --         return
         --     end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Normal then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
         --         local buffDes = XFubenConfigs.GetBuffDes(limitBuffId)
         --         local content = CSXTextManagerGetText("TeamPrefabCharacterTypeLimitTipNormalDebuff", buffDes)
         --         local sureCallBack = selectFunc
@@ -505,10 +477,6 @@ function XUiGridTeam:IsSameTeam(teamData)
     end
     
     return true
-end
-
-function XUiGridTeam:IsChessPursuit()
-    return self.StageType == XDataCenter.FubenManager.StageType.ChessPursuit
 end
 
 --==============================

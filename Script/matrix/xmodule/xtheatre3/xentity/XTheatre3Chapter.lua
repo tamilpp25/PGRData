@@ -6,7 +6,8 @@ local XTheatre3Chapter = XClass(nil, "XTheatre3Chapter")
 function XTheatre3Chapter:Ctor()
     --- 章节ID
     self.ChapterId = 0
-    self.IsNewChapterId = false
+    self.ConnectChapterId = 0
+    
     --- 当前步骤数据
     ---@type XTheatre3Step[]
     self.Steps = {}
@@ -25,6 +26,14 @@ function XTheatre3Chapter:Ctor()
 end
 
 --region DataUpdate
+function XTheatre3Chapter:UpdateChapterId(chapterId)
+    self.ChapterId = chapterId
+end
+
+function XTheatre3Chapter:UpdateConnectChapterId(chapterId)
+    self.ConnectChapterId = chapterId
+end
+
 function XTheatre3Chapter:UpdateStep(stepData)
     self.Steps = {}
     if XTool.IsTableEmpty(stepData) then
@@ -36,10 +45,6 @@ function XTheatre3Chapter:UpdateStep(stepData)
         step:NotifyData(data)
         self.Steps[#self.Steps + 1] = step
     end
-end
-
-function XTheatre3Chapter:SetOldChapter()
-    self.IsNewChapterId = false
 end
 
 function XTheatre3Chapter:SetFightNodeSlotAddPassStageId(stageId)
@@ -76,8 +81,12 @@ end
 --endregion
 
 --region Getter
-function XTheatre3Chapter:GetCurChapterId()
-    return self.ChapterId
+function XTheatre3Chapter:GetOtherChapterId(curChapterId)
+    if self.ChapterId == curChapterId then
+        return self.ConnectChapterId
+    else
+        return self.ChapterId
+    end
 end
 
 function XTheatre3Chapter:GetCurChapterProgress()
@@ -128,20 +137,14 @@ end
 --endregion
 
 --region Checker
-function XTheatre3Chapter:CheckIsNewChapterId()
-    return self.IsNewChapterId
-end
-
 function XTheatre3Chapter:CheckIsPassEventStep(eventStepId)
     if XTool.IsTableEmpty(self.Steps) then
         return false
     end
     for _, step in ipairs(self.Steps) do
         if step:CheckStepType(XEnumConst.THEATRE3.StepType.Node) then
-            for _, nodeSlot in pairs(step:GetNodeData():GetNodeSlots()) do
-                if nodeSlot:CheckStepIsPass(eventStepId) then
-                    return true
-                end
+            if step:CheckStepIsPass(eventStepId) then
+                return
             end
         end
     end
@@ -151,10 +154,28 @@ end
 function XTheatre3Chapter:CheckIsPassNodeId(nodeId)
     return table.indexof(self.PassNodeIds, nodeId)
 end
+
+function XTheatre3Chapter:CheckIsCanSwitchChapter(curChapterId)
+    local step = self:GetLastStep()
+    if not step:CheckStepType(XEnumConst.THEATRE3.StepType.Node) then
+        return false
+    end
+    if not XTool.IsNumberValid(curChapterId) then
+        return false
+    end
+    if not step:CheckIsHaveOtherChapter(curChapterId) then
+        return false
+    end
+    if step:CheckIsSelected() then
+        return false
+    end
+    return true
+end
 --endregion
 
 function XTheatre3Chapter:NotifyTheatre3Chapter(data)
-    self.ChapterId = data.ChapterId
+    self:UpdateChapterId(data.ChapterId)
+    self:UpdateConnectChapterId(data.ConnectChapterId)
     self.PassChapter = data.PassChapter
     self.PassNodeCount = data.PassNodeCount
     self.PassFightCount = data.PassFightCount
@@ -164,10 +185,15 @@ function XTheatre3Chapter:NotifyTheatre3Chapter(data)
     self:UpdateStep(data.Steps)
 end
 
-function XTheatre3Chapter:NotifyAddStep(data)
-    if self.ChapterId ~= data.ChapterId then
-        self.ChapterId = data.ChapterId
-        self.IsNewChapterId = true
+function XTheatre3Chapter:NotifyAddStep(data, curChapterId)
+    if self.ChapterId == curChapterId then
+        if self.ChapterId ~= data.ChapterId then
+            self.ChapterId = data.ChapterId
+        end
+    elseif self.ConnectChapterId == curChapterId then
+        if self.ConnectChapterId ~= data.ChapterId then
+            self.ConnectChapterId = data.ChapterId
+        end
     end
 
     if XTool.IsTableEmpty(self.Steps) then

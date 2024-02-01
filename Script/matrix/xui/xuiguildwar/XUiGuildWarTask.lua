@@ -15,7 +15,7 @@ function XUiGuildWarTask:OnAwake()
     self:RegisterUiEvents()
     self.TabBtns = nil
     self.GuildWarManager = XDataCenter.GuildWarManager
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId } ,self.PanelSpecialTool
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId } ,self.PanelSpecialTool, self
         , { self.GuildWarManager.GetMaxActionPoint() })
 end
 

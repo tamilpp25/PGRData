@@ -1005,6 +1005,9 @@ XGuildDormManagerCreator = function()
     --进入房间
     --==============
     function GuildDormManager.EnterGuildDorm(roomId, channelIndex, onLoadingStart, afterEnterMain)
+        if not XMVCA.XSubPackage:CheckSubpackage(XFunctionManager.FunctionName.Guild) then
+            return
+        end
         if IsRunning then
             XLuaUiManager.Open("UiGuildDormMain")
             return

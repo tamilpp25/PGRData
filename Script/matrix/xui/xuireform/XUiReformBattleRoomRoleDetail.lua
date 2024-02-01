@@ -30,9 +30,9 @@ function XUiReformBattleRoomRoleDetail:Ctor(stageId, team, pos)
     self.MemberGroup = self.EvolableStage:GetEvolvableGroupByType(XReformConfigs.EvolvableGroupType.Member)
 end
 
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiReformBattleRoomRoleDetail:GetEntities(characterType)
-    if characterType == XCharacterConfigs.CharacterType.Isomer then
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         return {}
     end
     --[[
@@ -43,7 +43,7 @@ function XUiReformBattleRoomRoleDetail:GetEntities(characterType)
     for i = #sources, 1, -1 do
         source = sources[i]
         characterId = source:GetCharacterId()
-        character = XDataCenter.CharacterManager.GetCharacter(characterId)
+        character = XMVCA.XCharacter:GetCharacter(characterId)
         if character then
             table.insert(sources, character)
         end
@@ -57,13 +57,13 @@ function XUiReformBattleRoomRoleDetail:GetCharacterViewModelByEntityId(entityId)
     if source then
         reuslt = source:GetCharacterViewModel()
     elseif entityId > 0 then
-        reuslt = XDataCenter.CharacterManager.GetCharacter(entityId):GetCharacterViewModel()
+        reuslt = XMVCA.XCharacter:GetCharacter(entityId):GetCharacterViewModel()
     end
     return reuslt
 end
 
 function XUiReformBattleRoomRoleDetail:GetCharacterType(entityId)
-    return XCharacterConfigs.CharacterType.Normal
+    return XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 function XUiReformBattleRoomRoleDetail:CheckTeamHasSameCharacterId(team, checkEntityId)

@@ -518,6 +518,7 @@ XBiancaTheatreManagerCreator = function()
         return XTool.IsNumberValid(CurChapterId)
     end
 
+    ---@return XBiancaTheatreAdventureManager
     function XBiancaTheatreManager.GetCurrentAdventureManager()
         if not CurrentAdventureManager then
             CurrentAdventureManager = XBiancaTheatreManager.CreateAdventureManager()
@@ -703,12 +704,11 @@ XBiancaTheatreManagerCreator = function()
 
     function XBiancaTheatreManager.CallFinishFight()
         local fubenManager = XDataCenter.FubenManager
-        local res = fubenManager.FubenSettleResult
+        local res = XMVCA.XFuben:GetFubenSettleResult()
         if not res then
             -- 强退
-            local XFubenManager = XDataCenter.FubenManager
-            XFubenManager.FubenSettling = false
-            XFubenManager.FubenSettleResult = nil
+            XMVCA.XFuben:SetFubenSettling(false)
+            XMVCA.XFuben:SetFubenSettleResult(nil)
             --通知战斗结束，关闭战斗设置页面
             CS.XGameEventManager.Instance:Notify(XEventId.EVENT_FIGHT_FINISH)
             XBiancaTheatreManager.FinishFight({})
@@ -822,6 +822,9 @@ XBiancaTheatreManagerCreator = function()
         XDataCenter.BiancaTheatreManager.CheckTipOpenList(function ()
             XBiancaTheatreManager.RemoveStepView()
             XLuaUiManager.Open(uiName)
+            if stepType == XBiancaTheatreConfigs.XStepType.FightReward then
+                XBiancaTheatreManager.RemoveBlackView()
+            end
             local isVisionOpen = XBiancaTheatreManager.CheckVisionIsOpen()
             if isVisionOpen then
                 XBiancaTheatreManager.StartAudioFilter()
@@ -1654,9 +1657,16 @@ XBiancaTheatreManagerCreator = function()
 
     ------------------副本入口扩展 start-------------------------
     function XBiancaTheatreManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.BiancaTheatre) then
-            XBiancaTheatreManager.CheckAutoPlayStory()
+        if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.BiancaTheatre) then
+            return
         end
+
+        --分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.BiancaTheatre) then
+            return
+        end
+
+        XBiancaTheatreManager.CheckAutoPlayStory()
     end
 
     -- 检查是否展示红点

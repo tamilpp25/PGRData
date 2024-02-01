@@ -36,7 +36,7 @@ function XGridSkill:OnBtnSubSkillIconBgClick()
     if not skillId or not level then
         return
     end
-    local configDes = XCharacterConfigs.GetSkillGradeDesConfig(skillId, level)
+    local configDes = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, level)
     XLuaUiManager.Open("UiSkillDetailsTips", configDes)
 end
 
@@ -71,7 +71,7 @@ function XPanelRoleSkill:Init()
     self.BallSkillGrids = {}
     self.GridActiveSkill.gameObject:SetActiveEx(false)
     self.BasicSkills.gameObject:SetActiveEx(false)
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
         if grid then
@@ -90,7 +90,7 @@ function XPanelRoleSkill:UpdateSkill(skills)
     local ballSkill1 = {}
     local ballSkill2 = {}
     for _, subSkill in pairs(skills[1].subSkills or {}) do
-        local skillType = XCharacterConfigs.GetSkillType(subSkill.configDes.SkillId)
+        local skillType = XMVCA.XCharacter:GetSkillType(subSkill.configDes.SkillId)
         if skillType <= BALL_SKILL_COUNT then
             table.insert(ballSkill1, subSkill)
         else
@@ -100,7 +100,7 @@ function XPanelRoleSkill:UpdateSkill(skills)
     self:UpdateBallSkillList(ballSkill1)
     self:UpdateSkillList(ballSkill2, self.GridActiveSkill, self.PanelBasicskills, 1)
 
-    for i = 2, XCharacterConfigs.MAX_SHOW_SKILL_POS do
+    for i = 2, XEnumConst.CHARACTER.MAX_SHOW_SKILL_POS do
         local panel = self["PanelSkillGroup" .. i]
         local parent =  XUiHelper.TryGetComponent(panel, "PanelActiveSkill")
         local grid = XUiHelper.TryGetComponent(panel, "PanelActiveSkill/GridActiveSkill")
@@ -626,10 +626,16 @@ function XUiTheatreOwnedInfoPanel:AddButtonClick()
     self.BtnSkill.CallBack = function() self:OnChangePanel(PanelIndex.Skill) end
     self.BtnCut.CallBack = function() self:OnBtnCutClick() end
     XUiHelper.RegisterClickEvent(self, self.BtnCareerTips, self.OnBtnCareerTipsClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnCareerTipsClick()
-    XLuaUiManager.Open("UiCharacterCarerrTips", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId())
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnCutClick()
@@ -638,7 +644,7 @@ function XUiTheatreOwnedInfoPanel:OnBtnCutClick()
     end
 
     local characterId = self.AdventureRole:GetCharacterId()
-    if not self.AdventureRole:GetIsLocalRole() and not XDataCenter.CharacterManager.GetCharacter(characterId) then
+    if not self.AdventureRole:GetIsLocalRole() and not XMVCA.XCharacter:GetCharacter(characterId) then
         XUiManager.TipText("NotOwnCurRole")
         return
     end
@@ -710,6 +716,18 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
         end
     end
 
+    -- 机制
+    local charId = characterViewModel:GetId()
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(charId)
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+        end
+    end
+
     --未解锁使用自身角色文本
     local useOwnCharacterFa = XTheatreConfigs.GetTheatreConfig("UseOwnCharacterFa").Value
     self.TxtLockSwitchRole.text = XUiHelper.GetText("TheatreUnlockOwnRoleDesc", useOwnCharacterFa)
@@ -732,7 +750,17 @@ function XUiTheatreOwnedInfoPanel:SetData(adventureRole, entityId)
 end
 
 function XUiTheatreOwnedInfoPanel:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterViewModel:GetId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterViewModel:GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiTheatreOwnedInfoPanel:OnBtnGeneralSkillClick(index)
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(self.CharacterViewModel:GetId())
+    local curId = generalSkillIds[index]
+    if not curId then
+        return
+    end
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterViewModel:GetId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, index)
 end
 
 return XUiTheatreOwnedInfoPanel

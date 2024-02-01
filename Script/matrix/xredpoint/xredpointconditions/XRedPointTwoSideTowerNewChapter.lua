@@ -9,7 +9,9 @@ function XRedPointTwoSideTowerNewChapter.GetSubEvents()
 end
 
 function XRedPointTwoSideTowerNewChapter.Check()
-    return XDataCenter.TwoSideTowerManager.CheckChapterOpenRed()
+    ---@type XTwoSideTowerAgency
+    local twoSideTowerAgency = XMVCA:GetAgency(ModuleId.XTwoSideTower)
+    return twoSideTowerAgency:CheckChapterOpenRed()
 end
 
 return XRedPointTwoSideTowerNewChapter

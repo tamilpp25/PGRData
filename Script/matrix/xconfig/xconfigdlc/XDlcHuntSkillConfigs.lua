@@ -22,17 +22,53 @@ local _ConfigSkillUpgradeDes
 local _ConfigSkillTeach
 
 function XDlcHuntSkillConfigs.Init()
-    _ConfigSkillGate = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillGate.tab", XTable.XTableDlcHuntSkillGate, "Id")
-    _ConfigSkillTypeInfo = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillTypeInfo.tab", XTable.XTableDlcHuntSkillTypeInfo, "Type")
-    _ConfigSkillUpgradeDes = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillUpgradeDes.tab", XTable.XTableDlcHuntSkillUpgradeDes, "Id")
-    _ConfigSkillTeach = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillTeach.tab", XTable.XTableDlcHuntSkillTeach, "Id")
-    _ConfigSkill = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkill.tab", XTable.XTableDlcHuntCharacterSkill, "CharacterId")
-    _ConfigSkillLevelEffect = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkillLevelEffect.tab", XTable.XTableDlcHuntCharacterSkillLevelEffect, "Id")
-    _ConfigSkillType = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkillType.tab", XTable.XTableDlcHuntCharacterSkillType, "Id")
+end
+
+local function __InitConfigSkillGate()
+    if not _ConfigSkillGate then
+        _ConfigSkillGate = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillGate.tab", XTable.XTableDlcHuntSkillGate, "Id")
+    end
+end
+
+local function __InitConfigSkillTypeInfo()
+    if not _ConfigSkillTypeInfo then
+        _ConfigSkillTypeInfo = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillTypeInfo.tab", XTable.XTableDlcHuntSkillTypeInfo, "Type")
+    end
+end
+
+local function __InitConfigSkillUpgradeDes()
+    if not _ConfigSkillUpgradeDes then
+        _ConfigSkillUpgradeDes = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillUpgradeDes.tab", XTable.XTableDlcHuntSkillUpgradeDes, "Id")
+    end
+end
+
+local function __InitConfigSkillTeach()
+    if not _ConfigSkillTeach then
+        _ConfigSkillTeach = XConfig.New("Client/DlcHunt/Character/Skill/DlcHuntSkillTeach.tab", XTable.XTableDlcHuntSkillTeach, "Id")
+    end
+end
+
+local function __InitConfigSkill()
+    if not _ConfigSkill then
+        _ConfigSkill = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkill.tab", XTable.XTableDlcHuntCharacterSkill, "CharacterId")
+    end
+end
+
+local function __InitConfigSkillType()
+    if not _ConfigSkillType then
+        _ConfigSkillType = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkillType.tab", XTable.XTableDlcHuntCharacterSkillType, "Id")
+    end
+end
+
+local function __InitConfigSkillLevelEffect()
+    if not _ConfigSkillLevelEffect then
+        _ConfigSkillLevelEffect = XConfig.New("Share/DlcHunt/Character/Skill/DlcHuntCharacterSkillLevelEffect.tab", XTable.XTableDlcHuntCharacterSkillLevelEffect, "Id")
+    end
 end
 
 local _DescConfig = false
 local function GetSkillDescConfig(skillId)
+    __InitConfigSkillUpgradeDes()
     if not _DescConfig then
         _DescConfig = {}
         for _, config in pairs(_ConfigSkillUpgradeDes:GetConfigs()) do
@@ -45,6 +81,7 @@ end
 
 ---@param character XDlcHuntCharacter
 function XDlcHuntSkillConfigs.GetData4Display(character)
+    __InitConfigSkill()
     local characterId = character:GetCharacterId()
     local skillList = _ConfigSkill:GetProperty(characterId, "SkillIds")
     local posList = _ConfigSkill:GetProperty(characterId, "Pos")
@@ -52,6 +89,7 @@ function XDlcHuntSkillConfigs.GetData4Display(character)
     local skillData = {}
 
     -- 先分大类
+    __InitConfigSkillGate()
     local gateConfigs = _ConfigSkillGate:GetConfigs()
     for i = 1, #gateConfigs do
         local gate = gateConfigs[i]

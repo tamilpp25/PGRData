@@ -24,7 +24,7 @@ local InsertPanelDisableAnimationDic = {
 
 
 function XUiMovie:OnAwake()
-
+    self.RImgBg1.gameObject:SetActiveEx(false)
     self:AddListener()
 end
 

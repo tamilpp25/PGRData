@@ -1,3 +1,4 @@
+---@class XUiPanelCourse
 XUiPanelCourse = XClass(nil, "XUiPanelCourse")
 local Vector2 = CS.UnityEngine.Vector2
 local V3Z = CS.UnityEngine.Vector3.zero
@@ -19,9 +20,13 @@ end
 function XUiPanelCourse:RefreshCourse()
     self:RefreshCourseList(self.ChapterId)
 end
+
 function XUiPanelCourse:RefreshCourseList(chapterId)
     if not chapterId then return end
     self.CourseInfo = XDataCenter.TaskManager.GetCourseInfo(chapterId)
+    if not self.CourseInfo then
+        return
+    end
     self.ChapterId = chapterId
     self.SViewCourse.horizontalNormalizedPosition = 0
 
@@ -73,7 +78,7 @@ function XUiPanelCourse:IsPass(id)
         return false
     end
 
-    local result = XDataCenter.FubenManager.FubenSettleResult
+    local result = XMVCA.XFuben:GetFubenSettleResult()
     return result and result.IsWin and result.StageId == id
 end
 

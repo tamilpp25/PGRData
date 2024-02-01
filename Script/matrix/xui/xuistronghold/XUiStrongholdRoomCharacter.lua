@@ -172,8 +172,8 @@ function XUiStrongholdRoomCharacter:UpdateRoleModel()
         self.ImgEffectHuanren.gameObject:SetActiveEx(false)
         self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
         
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
-        local entity = isOwn and XDataCenter.CharacterManager.GetCharacter(characterId) or false
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
+        local entity = isOwn and XMVCA.XCharacter:GetCharacter(characterId) or false
         if XRobotManager.CheckUseFashion(robotId) and entity then
             local viewModel = entity:GetCharacterViewModel()
             self.RoleModelPanel:UpdateCharacterModel(characterId, targetPanelRole, targetUiName, cb, nil, viewModel:GetFashionId())

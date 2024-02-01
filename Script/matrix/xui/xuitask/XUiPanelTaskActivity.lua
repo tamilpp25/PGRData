@@ -1,3 +1,4 @@
+---@class XUiPanelTaskActivity
 XUiPanelTaskActivity = XClass(nil, "XUiPanelTaskActivity")
 local IsMulting = false
 local ShowRewardList = {}

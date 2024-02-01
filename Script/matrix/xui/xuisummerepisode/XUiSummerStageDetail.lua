@@ -97,7 +97,7 @@ function XUiSummerStageDetail:OnBtnEnterClick()
     end
 
 
-    if XDataCenter.FubenManager.OpenRoomSingle(self.Stage) then
+    if XDataCenter.FubenManager.OpenBattleRoom(self.Stage) then
         --self:Close()
         CsXGameEventManager.Instance:Notify(XEventId.EVENT_FUBEN_CLOSE_FUBENSTAGEDETAIL)
     end

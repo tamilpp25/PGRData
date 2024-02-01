@@ -80,22 +80,22 @@ function XUiPanelCombination:SetCharacterData()
     self.CharId = self.Combination.GoodsId[1]
 
     -- 已拥有
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(self.CharId)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.CharId)
     self.TxtOwn.gameObject:SetActiveEx(isOwn)
 
     -- 图片
-    local halfBodyImage = XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharId)
+    local halfBodyImage = XMVCA.XCharacter:GetCharHalfBodyImage(self.CharId)
 
     -- 名字
-    local name = XCharacterConfigs.GetCharacterLogName(self.CharId)
+    local name = XMVCA.XCharacter:GetCharacterLogName(self.CharId)
 
     -- 职业
-    local career = XCharacterConfigs.GetCharDetailCareer(self.CharId)
-    local careerConfig = XCharacterConfigs.GetNpcTypeTemplate(career)
+    local career = XMVCA.XCharacter:GetCharDetailCareer(self.CharId)
+    local careerConfig = XMVCA.XCharacter:GetNpcTypeTemplate(career)
     local careerIcon = careerConfig.Icon
 
     -- 能量
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharId)
     local elementList = detailConfig.ObtainElementList
     local elementInfoList = {}
     for i, eleId in ipairs(elementList) do
@@ -125,7 +125,7 @@ function XUiPanelCombination:SetCharacterData()
             local rImg = uiObj:GetObject("RImgCharElement" .. i)
             if elementInfoList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementInfoList[i].Id)
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementInfoList[i].Id)
                 rImg:SetRawImage(elementConfig.Icon2)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -164,8 +164,8 @@ function XUiPanelCombination:SetEquipData()
     local charIcon = nil
     local roleName = nil
     if haveChar then
-        charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
-        roleName = XCharacterConfigs.GetCharacterLogName(charId)
+        charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
     end
 
     -- 刷新
@@ -200,8 +200,8 @@ function XUiPanelCombination:SetPartnerData()
     local charIcon = nil
     local roleName = nil
     if haveChar then
-        charIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId, true)
-        roleName = XCharacterConfigs.GetCharacterLogName(charId)
+        charIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(charId, true)
+        roleName = XMVCA.XCharacter:GetCharacterLogName(charId)
     end
 
     -- 刷新

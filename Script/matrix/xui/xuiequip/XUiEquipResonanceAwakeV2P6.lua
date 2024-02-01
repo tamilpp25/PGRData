@@ -67,7 +67,7 @@ function XUiEquipResonanceAwakeV2P6:UpdateResonanceSkill()
 
     -- 刷新意识套装的图
     local charId = XDataCenter.EquipManager.GetResonanceBindCharacterId(self.EquipId, self.Pos)
-    local halfBodyImage = XDataCenter.CharacterManager.GetCharHalfBodyImage(charId)
+    local halfBodyImage = XMVCA.XCharacter:GetCharHalfBodyImage(charId)
     self.GridResonanceSkill:GetObject("RImgAwareness"):SetRawImage(halfBodyImage)
 end
 
@@ -163,7 +163,7 @@ function XUiEquipResonanceAwakeV2P6:OnBtnAwakeClick()
 
     local title = CSXTextManagerGetText("EquipAwakeTipTitle")
     local bindCharacterId = XDataCenter.EquipManager.GetResonanceBindCharacterId(equipId, pos)
-    local name = XCharacterConfigs.GetCharacterTradeName(bindCharacterId)
+    local name = XMVCA.XCharacter:GetCharacterTradeName(bindCharacterId)
     local content = CSXTextManagerGetText("EquipAwakeTipContent", name)
     XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, function()
         XMVCA:GetAgency(ModuleId.XEquip):Awake(equipId, pos, XEnumConst.EQUIP.AWAKE_CRYSTAL_MONEY)

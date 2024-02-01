@@ -1,6 +1,5 @@
 -- 通用角色筛选器预置
 ---@class XUiPanelCommonCharacterFilterV2P6 XUiPanelCommonCharacterFilterV2P6
----@field _Control XCharacterControl
 local XUiPanelCommonCharacterFilterV2P6 = XClass(XUiNode, "XUiPanelCommonCharacterFilterV2P6")
 local XGridCharacterV2P6 = require("XUi/XUiCharacterV2P6/Grid/XGridCharacterV2P6")
 
@@ -21,27 +20,38 @@ function XUiPanelCommonCharacterFilterV2P6:OnStart(forceConfig)
     -- 常量
     self.CharacterListPrefabPath = CS.XGame.ClientConfig:GetString("CharacterListDefaultV2P6")
     -- 临时数据
-    self._CurShowCharList = {} --当前展示的角色列表
+    self._CurShowCharList = {} --玩家可见的筛选器的真实列表
+    self._CacheSortList = nil -- 最后一次排序后的列表(一般与_CurShowCharList是同数据)
     self.CacheTagSelectChar = {} --记录tag最后一次选择的角色 { [btn] = char }
     self.CurTargetCharacter = nil -- 当前需要选择的character，通过改变这个值，筛选器在刷新的时候会使用select方法选中该角色
     self.LastSelectCharacter = nil -- OnSelect最后一次选中的角色
     self.CurSelectGrid = nil
     self.CurSelectTagBtn = nil -- 当前选择的按钮
-    self._CacheSortList = nil
+    self._AfterInitSeleCharId = nil -- importList完成之后自动选择的角色
     self.DiyLists = {} -- diy列表的列表
     self.NotSort = nil
     self.FirstSelect = true -- 第一次选中格子后设为false
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    ---@type XCommonCharacterFiltAgency
-    local ag2 = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
-    self.FiltAgency = ag2
     -- 实体数据
     self.BtnElementTagDic = {}  -- [elementId] = btn
     self.BtnDiyTagDic = {} -- [DiyIndex] = btn
     self.AllCanSelectTags = {} -- 所有可以选择的标签 { btn1, btn2... }
     self.AllTagCb = {}  -- [btn] = fun,
+end
+
+function XUiPanelCommonCharacterFilterV2P6:SetGetCharIdFun(fun)
+    self.GetIdFun = fun
+end
+
+function XUiPanelCommonCharacterFilterV2P6:_GetCharIdFun(char)
+    local getFunId = self.GetIdFun and self.GetIdFun(char)
+    if getFunId and type(getFunId) == 'number' then
+        return getFunId
+    end
+    local rawData = char.RawData
+    if rawData then
+        return rawData.Id
+    end
+    return char.Id
 end
 
 -- 获得当前ui角色模型的父节点
@@ -73,6 +83,18 @@ function XUiPanelCommonCharacterFilterV2P6:HandleTagClickCallBack(t, targetBtn, 
         local filtDataRes = dofiltCb and dofiltCb(t) -- 获得当前标签的列表数据
         local isResEmpty = XTool.IsTableEmpty(filtDataRes)
         if isResEmpty then
+            -- 红点特殊处理 因为会随角色列表的空状态消失，不受其他功能影响
+            if targetBtn.gameObject.name == XEnumConst.Filter.TagName.BtnRed then
+                -- 将红点按钮移出可选按钮队列
+                -- local _, index = table.contains(self.AllCanSelectTags, targetBtn)
+                -- if index then
+                --     table.remove(self.AllCanSelectTags, index)
+                -- end
+                targetBtn.gameObject:SetActiveEx(false) -- 注意：在refreshList时还会再检查一遍红点是否显示，那里也会可能将红点标签隐藏
+                self:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, force, selectCharId)
+                return
+            end
+
             if self.ControllerConfig and self.ControllerConfig.DiableEmptyStatus then
                 local _, index = table.contains(self.AllCanSelectTags, self.CurSelectTagBtn)
                 self.PanelCharacterTypeBtns:SelectIndex(index) -- 禁止点击新的按钮 切换选回原来的按钮
@@ -89,20 +111,21 @@ function XUiPanelCommonCharacterFilterV2P6:HandleTagClickCallBack(t, targetBtn, 
         -- 检测重复选择按钮
         if targetBtn == self.CurSelectTagBtn and not force then
             if selectCharId then
-                self:DoSelectCharacter(selectCharId)
+                self:DoSelectCharacter(selectCharId, force)
             end
             return
         end
+        self.ImportListTrigger = nil -- 只要执行了强制排序 就将触发器关闭，就算手动开启了触发器，但是不通过刷新调用，而是通过其他接口调用选择标签进行到此处，也会关闭触发器
 
         self.CurSelectTagBtn = targetBtn
-        self._CacheSortList = nil -- 当前的列表数据(有排序)。每次切换tag清空，因为有可能数据有变化
+        self._CacheSortList = nil -- 当前的列表数据(有排序)。每次切换tag清空，因为有可能数据有变化。清空此数据会触发重新排序
         self._CurShowCharList = filtDataRes -- 缓存当前的列表数据(有排序)
         if self.OnTagClickCb then
             self.OnTagClickCb(targetBtn)
         end
 
         if selectCharId then
-            self:DoSelectCharacter(selectCharId)
+            self:DoSelectCharacter(selectCharId, force)
         else
             self:RefreshList()
         end
@@ -135,8 +158,8 @@ end
 ---@param refreshGridFuns function 要刷新的方法，如果传了自定义的grdiProxy就忽略
 ---@param gridProxy XUiBattleRoomRoleGrid 或继承了XUiBattleRoomRoleGrid的Grid
 ---@param checkInTeamFun function 一个传入角色id并返回bool变量的队伍检查方法，若传了且策划配置了需要使用队伍前置排序则会启用此方法来进行排序
----@param overrideSortList table 是否重写排序算法由程序员决定，追加的排序算法也可以使用此列表。传入的table必须以{CheckFunList ={}, SortFunList{}}，且CheckFunList，SortFunList应该使用枚举CharacterSortFunType为key
-function XUiPanelCommonCharacterFilterV2P6:InitData(onChangeCharcterCb, onTagClickCb, stageId, refreshGridFuns, gridProxy, checkInTeamFun, overrideSortList)
+---@param overrideSortTable table 是否重写排序算法由程序员决定，追加的排序算法也可以使用此列表。传入的table必须以{CheckFunList ={}, SortFunList{}}，且CheckFunList，SortFunList应该使用枚举CharacterSortFunType为key
+function XUiPanelCommonCharacterFilterV2P6:InitData(onChangeCharcterCb, onTagClickCb, stageId, refreshGridFuns, gridProxy, checkInTeamFun, overrideSortTable)
     if self.IsInit then
         return
     end
@@ -148,9 +171,9 @@ function XUiPanelCommonCharacterFilterV2P6:InitData(onChangeCharcterCb, onTagCli
     self.RefreshGridFuns = refreshGridFuns
     self.GridProxy = gridProxy
     self.CheckInTeamFun = checkInTeamFun
-    self.OverrideSortList = overrideSortList
+    self.OverrideSortTable = overrideSortTable
 
-    self.ControllerConfig = self.CharacterAgency:GetModelCharacterFilterController()[self.Parent.Name]
+    self.ControllerConfig = XMVCA.XCharacter:GetModelCharacterFilterController()[self.Parent.Name]
     if self.ForceConfig then
         self.ControllerConfig = self.ForceConfig
     end
@@ -219,6 +242,7 @@ function XUiPanelCommonCharacterFilterV2P6:InitData(onChangeCharcterCb, onTagCli
     self:_InitButton()
     self:_InitTags()
     self:_InitDynamicTable()
+    self:SetIsEarlyOnSelectTrigger()
 end
 
 function XUiPanelCommonCharacterFilterV2P6:_InitTags()
@@ -229,7 +253,7 @@ function XUiPanelCommonCharacterFilterV2P6:_InitTags()
 end
 
 function XUiPanelCommonCharacterFilterV2P6:_InitElementTagsData()
-    local allElements = self.CharacterAgency:GetModelCharacterElement()
+    local allElements = XMVCA.XCharacter:GetModelCharacterElement()
     local checkFun = function (id)
         if table.contains(self.HideElementTags, id) then
             return false
@@ -239,7 +263,7 @@ function XUiPanelCommonCharacterFilterV2P6:_InitElementTagsData()
     end
 
     for elementId, v in pairs(allElements) do
-        if checkFun(elementId) and elementId <= 5 then --目前就5种元素
+        if checkFun(elementId) and elementId <= XEnumConst.Filter.MaxEnableElementNum then --目前就5种元素
             table.insert(self.EnableElementTags, elementId)
         end
     end
@@ -247,7 +271,7 @@ end
 
 function XUiPanelCommonCharacterFilterV2P6:_CreateTagsUi()
     -- 元素标签
-    local allElements = self.CharacterAgency:GetModelCharacterElement()
+    local allElements = XMVCA.XCharacter:GetModelCharacterElement()
     self.BtnTag.gameObject:SetActiveEx(false)
     for k, tagId in ipairs(self.EnableElementTags) do
         local ui = self["BtnTag"..tagId]
@@ -360,7 +384,7 @@ function XUiPanelCommonCharacterFilterV2P6:GetCharInCurListIndex(charId)
     local index = nil
     local curChar = nil
     for k, char in pairs(list) do
-        if charId == char.Id then
+        if charId == self:_GetCharIdFun(char) then
             index = k
             curChar = char
         end
@@ -369,12 +393,38 @@ function XUiPanelCommonCharacterFilterV2P6:GetCharInCurListIndex(charId)
     return index, curChar
 end
 
+function XUiPanelCommonCharacterFilterV2P6:GetGridByCharId(charId)
+    local index = self:GetCharInCurListIndex(charId)
+    local grid = self.DynamicTable:GetGridByIndex(index)
+    return grid
+end
+
+-- 检查标签是否显示
+function XUiPanelCommonCharacterFilterV2P6:CheckTagIsActiveUse(tagName)
+    local btn = self[tagName]
+    if not btn then
+        return false
+    end
+
+    -- 如果标签没有启用
+    if not btn.gameObject.activeSelf then
+        return false
+    end
+
+    return true
+end
+
 -- 可供外部手动调用，手动选择标签。注意，这个函数会自动调用 RefreshList
 ---@param isForce boolean:若重复选择相同的tag false:不会调用RefreshList，不会刷新和排序。true:强制调用RefreshList，且刷新排序
 ---@param charId number:将在选择tag后自动选择角色，且只调用一次RefreshList。
-function XUiPanelCommonCharacterFilterV2P6:DoSelectTag(btnName, isForce, charId)
-    local btn = self[btnName]
+function XUiPanelCommonCharacterFilterV2P6:DoSelectTag(tagName, isForce, charId)
+    local btn = self[tagName]
     if not btn then
+        return
+    end
+
+    -- 如果标签没有启用
+    if not btn.gameObject.activeSelf then
         return
     end
 
@@ -389,19 +439,33 @@ function XUiPanelCommonCharacterFilterV2P6:DoSelectTag(btnName, isForce, charId)
         return
     end
     self.PanelCharacterTypeBtns:SelectIndex(index)
+    self.IsFirstSelectTag = true
 end
 
 -- 可供外部手动调用。选中当前列表里的角色，如果没有则不执行
-function XUiPanelCommonCharacterFilterV2P6:DoSelectCharacter(charId)
+--- func desc
+---@param charId number
+---@param needSelect boolean 为true时 就算角色不在当前列表 也强制选中当前列表的第一个角色
+function XUiPanelCommonCharacterFilterV2P6:DoSelectCharacter(charId, needSelect)
     if not XTool.IsNumberValid(charId) then
         return
+    end
+
+    local curTag = self.CurSelectTagBtn
+    if not curTag then
+        XLog.Error("执行DoSelectCharacter前，请先执行DoSelectTag")
     end
     
     local curChar = nil
     local index = nil
     index, curChar = self:GetCharInCurListIndex(charId)
+    -- 角色不在列表的话默认选中第一个
     if not index then
-        return
+        if needSelect then
+            index = 1
+        else
+            return
+        end
     end
 
     self:_DoSetGirdSelectStatusByCharId(charId)
@@ -423,22 +487,19 @@ function XUiPanelCommonCharacterFilterV2P6:_DoSetGirdSelectStatusByCharId(charId
     self.ForeceSelectCharIdTrigger = charId
 end
 
--- 外部手动调用
-function XUiPanelCommonCharacterFilterV2P6:ImportList(characterList)
+-- 外部手动调用. 筛选器导入数据后必须通过DoSelectTag才能将CurShowList替换掉。只清空CurShowList和CacheSeleList是没用的，因为清空这两个数据只会触发重新排序，还是在原来的CurShowList数据上排序
+-- 没有真正替换到SourceList
+function XUiPanelCommonCharacterFilterV2P6:ImportList(characterList, afterInitSeleCharId)
     if XTool.IsTableEmpty(characterList) then
         return
     end
-
+    
     -- 检测是否剔除还没解锁的角色
     if not self.ControllerConfig or not self.ControllerConfig.EnableShowFragment then
         local res = {}
         for k, character in pairs(characterList) do
-            local id = character.Id
-            local rawData = character.RawData
-            if rawData and rawData.Id then
-                id = rawData.Id
-            end
-            if not self.CharacterAgency:CheckIsFragment(id) then
+            local id = self:_GetCharIdFun(character)
+            if not XMVCA.XCharacter:CheckIsFragment(id) then
                 table.insert(res, character)
             end
         end
@@ -449,11 +510,11 @@ function XUiPanelCommonCharacterFilterV2P6:ImportList(characterList)
     if self.HideIsomerTag then
         local res = {}
         for k, character in pairs(characterList) do
-            local id = character.Id
+            local id = self:_GetCharIdFun(character)
             if XRobotManager.CheckIsRobotId(id) then
                 id = XRobotManager.GetCharacterId(id)
             end
-            if not XCharacterConfigs.IsIsomer(id) then
+            if not XMVCA.XCharacter:GetIsIsomer(id) then
                 table.insert(res, character)
             end
         end
@@ -464,19 +525,19 @@ function XUiPanelCommonCharacterFilterV2P6:ImportList(characterList)
     self.SourceCharacterList = characterList
 
     -- 导入后刷新，不改变标签
-    local curTag = self.CurSelectTagBtn
-    if curTag then
-        local name = curTag.gameObject.name
-        self:DoSelectTag(name, true)
-    else
-        self:DoSelectTag("BtnAll", true)
-    end
+    afterInitSeleCharId = XTool.IsNumberValid(afterInitSeleCharId) and afterInitSeleCharId or nil
+    self._AfterInitSeleCharId = afterInitSeleCharId
+
+    -- 导入后trigger
+    -- 该trigger的作用：如果重复选择同一个标签是不会刷新最新的排序数据的。该trigger为true后，下一次刷新时会触发一次强制排序，且强制调用OnSelectTag回调
+    self.ImportListTrigger = true
 end
 
 -- 外部手动调用，开启支援选项
 function XUiPanelCommonCharacterFilterV2P6:ImportSupportList(characterList)
     -- 好友/公会支援 数据列表
     self.SupportCharacterList = characterList
+    self.ImportListTrigger = true
 end
 
 -- 外部手动调用，自定义标签选项，可以按顺序一次性传多个自定义标签的数据
@@ -492,6 +553,26 @@ function XUiPanelCommonCharacterFilterV2P6:ImportDiyLists(...)
     self.DiyLists = lists
 end
 
+-- 是否加载完源数据
+function XUiPanelCommonCharacterFilterV2P6:IsImportListComplete()
+    return self.SourceCharacterList ~= nil
+end
+
+-- 是否第一次加载完可视数据
+function XUiPanelCommonCharacterFilterV2P6:IsFirstRefreshComplete()
+    return self.IsFirstRefresh
+end
+
+-- 是否完成第一次排序
+function XUiPanelCommonCharacterFilterV2P6:IsFirstSortComplete()
+    return self.IsFirstSort
+end
+
+-- 是否完成第一次筛选项选择(包含初始化的自动选择)
+function XUiPanelCommonCharacterFilterV2P6:IsFirstSelectTagComplete()
+    return self.IsFirstSelectTag
+end
+
 function XUiPanelCommonCharacterFilterV2P6:IsCurListEmpty()
     local dataList = self:GetCurShowList()
     return XTool.IsTableEmpty(dataList)
@@ -501,8 +582,28 @@ function XUiPanelCommonCharacterFilterV2P6:ShowEmpty(showEmpty)
     self.PanelEmptyList.gameObject:SetActiveEx(showEmpty)
 end
 
-function XUiPanelCommonCharacterFilterV2P6:RefreshList(forceIndex, forceReSort)
-    local dataList = self:GetCurShowList(forceReSort)
+---@param forceIndex number
+---@param forceReSort boolean 强制刷新列表数据和排序
+---@param isEarlyOnSelect boolean 提前于刷新动态列表【调用选中角色回调】(每次传参只触发一次)，注意通过这个参数调用的回调不会带grid      
+function XUiPanelCommonCharacterFilterV2P6:RefreshList(forceIndex, forceResort, isEarlyOnSelect)
+    if isEarlyOnSelect then
+        self:SetIsEarlyOnSelectTrigger()
+    end
+
+    local curTag = self.CurSelectTagBtn
+    if not curTag then -- 默认选中BtnAll
+        self:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, true, self._AfterInitSeleCharId)
+        self._AfterInitSeleCharId = nil
+        return
+    end
+
+    if self.ImportListTrigger then
+        self:DoSelectTag(curTag.gameObject.name, true, self._AfterInitSeleCharId)
+        self._AfterInitSeleCharId = nil
+        return
+    end
+
+    local dataList = self:GetCurShowList(forceResort)
     if not dataList then
         return
     end
@@ -512,7 +613,7 @@ function XUiPanelCommonCharacterFilterV2P6:RefreshList(forceIndex, forceReSort)
     -- local cacheChar = self.CacheTagSelectChar[self.CurSelectTagBtn] or dataList[1]
     local cacheChar = self.LastSelectCharacter
     if cacheChar then
-        index = self:GetCharInCurListIndex(cacheChar.Id) or index
+        index = self:GetCharInCurListIndex(self:_GetCharIdFun(cacheChar)) or index
     end
 
     -- 检查是否缓存了当前页签选中过的角色 ，forceIndex的优先级大于缓存角色的优先级
@@ -521,11 +622,17 @@ function XUiPanelCommonCharacterFilterV2P6:RefreshList(forceIndex, forceReSort)
     local showEmpty = XTool.IsTableEmpty(dataList)
     self:ShowEmpty(showEmpty)
     self.TxtNone.text = CS.XTextManager.GetText("EmptyCharacter")
-    if self.CurSelectTagBtn.gameObject.name == "BtnSupport" then -- 支援标签的空文本不一样
+    if self.CurSelectTagBtn.gameObject.name == XEnumConst.Filter.TagName.BtnSupport then -- 支援标签的空文本不一样
         self.TxtNone.text = CS.XTextManager.GetText("EmptySupporter")
     end
     local showRedBtn = not self.InitHideRedTag and self:CheckHasRed()
     self.BtnRed.gameObject:SetActiveEx(showRedBtn)
+    -- table.insert(self.AllCanSelectTags, self.BtnRed)
+    -- local _, indexT = table.contains(self.AllCanSelectTags, self.BtnRed)
+    -- if not indexT and showRedBtn then
+    -- elseif indexT and not showRedBtn then
+    --     table.remove(self.AllCanSelectTags, indexT)
+    -- end
 
     -- 是否禁用切换标签自动选择格子
     self.CurTargetCharacter = dataList[index]
@@ -536,6 +643,15 @@ function XUiPanelCommonCharacterFilterV2P6:RefreshList(forceIndex, forceReSort)
     -- index 是让滑动列表定位的。 CurTargetCharacter是让刷新列表时激活对应格子选中状态的
     self.DynamicTable:SetDataSource(dataList)
     self.DynamicTable:ReloadDataASync(index)
+    self.IsFirstRefresh = true
+
+    -- 提前刷新
+    if self.IsEarlyOnSelectTrigger then
+        self.IsEarlyOnSelectTrigger = nil
+        if self.CurTargetCharacter then
+            self:OnSelect(self.CurTargetCharacter, index)
+        end
+    end
 end
 
 -- 只刷新格子的数据(不支持传入RefreshFun参数的自定义刷新)
@@ -585,7 +701,7 @@ function XUiPanelCommonCharacterFilterV2P6:GetCurShowList(forceReSort)
     end
 
     -- 检查是否有重写的排序算法。
-    local overrideList = self.OverrideSortList
+    local overrideList = self.OverrideSortTable
     if self.CheckInTeamFun then
         if XTool.IsTableEmpty(overrideList) then
             overrideList = {CheckFunList = {}, SortFunList = {}}
@@ -615,9 +731,10 @@ function XUiPanelCommonCharacterFilterV2P6:GetCurShowList(forceReSort)
         XLog.Error("界面 "..self.Parent.Name.."配置表启用了队伍排序(InTeam)检查算法，但是未传入CheckInTeamFun参数，请程序检查InitData调用时是否传入")
     end
 
-    local sortRes = self.FiltAgency:DoSortFilterV2P6(self._CurShowCharList, sortFunList, nil, overrideList)
+    local sortRes = XMVCA.XCommonCharacterFilter:DoSortFilterV2P6(self._CurShowCharList, sortFunList, nil, overrideList, self.GetIdFun)
     self._CurShowCharList = sortRes
     self._CacheSortList = sortRes
+    self.IsFirstSort = true
 
     return self._CurShowCharList
 end
@@ -626,7 +743,8 @@ end
 function XUiPanelCommonCharacterFilterV2P6:OnDynamicTableEventCharacterList(event, index, grid)
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local char = self:GetCurShowList()[index]
-        local isCurChar = self.CurTargetCharacter == char
+        -- CurTargetCharacter 自动选择，如果没有自动选择，则SetSelect不要清除掉手动选择的LastSelectCharacter选中框
+        local isCurChar = (self.CurTargetCharacter or self.LastSelectCharacter) == char
         if isCurChar then
             self.CurSelectGrid = grid
             self:OnSelect(char, index, grid)
@@ -640,7 +758,7 @@ function XUiPanelCommonCharacterFilterV2P6:OnDynamicTableEventCharacterList(even
         
         if grid.SetSelect then
             -- 禁用自动选择，所以不会去除掉手动选择的状态
-            if self.ControllerConfig and self.ControllerConfig.DisableAutoSeleGrid and self.ForeceSelectCharIdTrigger and self.ForeceSelectCharIdTrigger == char.Id then
+            if self.ControllerConfig and self.ControllerConfig.DisableAutoSeleGrid and self.ForeceSelectCharIdTrigger and self.ForeceSelectCharIdTrigger == self:_GetCharIdFun(char) then
                 grid:SetSelect(true)
             else
                 grid:SetSelect(isCurChar)
@@ -669,13 +787,32 @@ function XUiPanelCommonCharacterFilterV2P6:OnDynamicTableEventCharacterList(even
 end
 
 function XUiPanelCommonCharacterFilterV2P6:OnSelect(char, index, grid)
-    if self.LastSelectCharacter == char then
+    if self.ForceSeleCbTrigger then
+        self.ForceSeleCbTrigger = nil
+        goto countinueDoSelect
+    end
+
+    if self.NextNotOnSelectTrigger then
+        self.NextNotOnSelectTrigger = nil
         return
     end
+
+    if self.LastSelectCharacter == char and not self.HasDisabled then
+        return
+    end
+
+    ::countinueDoSelect::
     self.OnSeleCharacterCb(char, index, grid, self.FirstSelect)
     self.CacheTagSelectChar[self.CurSelectTagBtn] = char
-    self.LastSelectCharacter = char
+
+    -- 如果禁用自动选择 则不会记录上一次选择的角色  以免刷新时会将框刷出来
+    if not (self.ControllerConfig and self.ControllerConfig.DisableAutoSeleGrid) then
+        self.LastSelectCharacter = char
+    end
+
+    self.CurTargetCharacter = nil -- 选中目标后清除自动选则的目标数据
     self.FirstSelect = false
+    self.HasDisabled = false
 end
 
 -- 所有筛选项tag的点击回调 begin
@@ -685,18 +822,18 @@ end
 
 function XUiPanelCommonCharacterFilterV2P6:DoFiltElementTagClick(tagId)
     local tagaData = { Element = {tagId}}
-    return self.FiltAgency:DoFilter(self.SourceCharacterList, tagaData)
+    return XMVCA.XCommonCharacterFilter:DoFilter(self.SourceCharacterList, tagaData)
 end
 
 function XUiPanelCommonCharacterFilterV2P6:DoFiltUniframe()
     local tagaData = { Career = {4} } -- 先锋型的职业id是 4
-    return self.FiltAgency:DoFilter(self.SourceCharacterList, tagaData)
+    return XMVCA.XCommonCharacterFilter:DoFilter(self.SourceCharacterList, tagaData)
 end
 
 -- 检查当前是否有红点角色
 function XUiPanelCommonCharacterFilterV2P6:CheckHasRed()
     for k, character in pairs(self.SourceCharacterList) do
-        if not XRobotManager.CheckIsRobotId(character.Id) and XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER, XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY}, character.Id) then
+        if not XRobotManager.CheckIsRobotId(self:_GetCharIdFun(character)) and XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER, XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY}, self:_GetCharIdFun(character)) then
             return true
         end
     end
@@ -710,7 +847,7 @@ function XUiPanelCommonCharacterFilterV2P6:DoFiltRedClick()
 
     local res = {}
     for k, character in pairs(self.SourceCharacterList) do
-        if not XRobotManager.CheckIsRobotId(character.Id) and XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER, XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY}, character.Id) then
+        if not XRobotManager.CheckIsRobotId(self:_GetCharIdFun(character)) and XRedPointManager.CheckConditions({XRedPointConditions.Types.CONDITION_CHARACTER, XRedPointConditions.Types.CONDITION_CHARACTER_QUALITY}, self:_GetCharIdFun(character)) then
             table.insert(res, character)
         end
     end
@@ -752,7 +889,7 @@ end
 
 -- 折叠
 function XUiPanelCommonCharacterFilterV2P6:DoFold()
-    local charIdBeforeFold = self.LastSelectCharacter and self.LastSelectCharacter.Id
+    local charIdBeforeFold = self.LastSelectCharacter and self:_GetCharIdFun(self.LastSelectCharacter)
     -- 1.筛选器折叠 初始化状态时用1f快速播放完，避免玩家看到筛选器进入动画
     if self._IsInitFoldState then
         CS.XUiManager.Instance:SetMask(true)
@@ -772,7 +909,7 @@ function XUiPanelCommonCharacterFilterV2P6:DoFold()
     self._IsInitFoldState = true
 
     -- 折叠后自动选择全选标签 但是还是要选择之前的角色
-    self:DoSelectTag("BtnAll", true, charIdBeforeFold)
+    self:DoSelectTag(XEnumConst.Filter.TagName.BtnAll, true, charIdBeforeFold)
 end
 
 -- 展开
@@ -845,6 +982,18 @@ function XUiPanelCommonCharacterFilterV2P6:DoPlayGridFoldOrUnfoldAnim(isFold)
     end
 end
 
+function XUiPanelCommonCharacterFilterV2P6:GetCurSelectTagName()
+    if not self.CurSelectTagBtn then
+        return
+    end
+
+    if XTool.UObjIsNil(self.CurSelectTagBtn) then
+        return
+    end
+
+    return self.CurSelectTagBtn.gameObject.name
+end
+
 function XUiPanelCommonCharacterFilterV2P6:IsTagSupport()
     return self.CurSelectTagBtn == self.BtnSupport
 end
@@ -852,6 +1001,20 @@ end
 -- 下一次刷新不排序
 function XUiPanelCommonCharacterFilterV2P6:SetNotSortTrigger()
     self.NotSort = true
+end
+
+-- 下一次刷新强制调用选中回调
+function XUiPanelCommonCharacterFilterV2P6:SetForceSeleCbTrigger()
+    self.ForceSeleCbTrigger = true
+end
+
+-- 下一次触发OnSelect也不调用，优先级比 ForceSeleCbTrigger 低
+function XUiPanelCommonCharacterFilterV2P6:SetNextNotOnSelectTrigger()
+    self.NextNotOnSelectTrigger = true
+end
+
+function XUiPanelCommonCharacterFilterV2P6:SetIsEarlyOnSelectTrigger()
+    self.IsEarlyOnSelectTrigger = true
 end
 
 function XUiPanelCommonCharacterFilterV2P6:PlayAnimation(animeName, finCb)
@@ -875,12 +1038,14 @@ function XUiPanelCommonCharacterFilterV2P6:StopFoldAnim()
 end
 
 function XUiPanelCommonCharacterFilterV2P6:OnDisable()
+    self.HasDisabled = true
     local key = "XUiPanelCommonCharacterFilterV2P6"..self.Parent.Name
     XSaveTool.SaveData(key, self.IsFold)
 end
 
-function XUiPanelCommonCharacterFilterV2P6:OnRelease()
+function XUiPanelCommonCharacterFilterV2P6:OnDestroy()
     self:StopFoldAnim()
+    XMVCA.XCommonCharacterFilter:RemoveFilterProxyByTransfrom(self.Transform)
 end
 
 return XUiPanelCommonCharacterFilterV2P6

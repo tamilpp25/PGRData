@@ -16,8 +16,8 @@ function XUiPanelExhibitionNormalInfo:Refresh(characterId, exhibitionRewardConfi
     self.CharacterId = characterId
     self.ExhibitionRewardConfig = exhibitionRewardConfig
     local levelId = exhibitionRewardConfig.LevelId
-    self.TxtTitle.text = XCharacterConfigs.GetCharLiberationLevelTitle(characterId, levelId)
-    self.TxtDesc.text = XCharacterConfigs.GetCharLiberationLevelDesc(characterId, levelId)
+    self.TxtTitle.text = XMVCA.XCharacter:GetCharLiberationLevelTitle(characterId, levelId)
+    self.TxtDesc.text = XMVCA.XCharacter:GetCharLiberationLevelDesc(characterId, levelId)
 
     local passed = true
     self.ConditionGrids = self.ConditionGrids or {}

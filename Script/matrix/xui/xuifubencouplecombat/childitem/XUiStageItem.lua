@@ -38,7 +38,7 @@ function XUiStageItem:SetPassStage()
         self.PanelHead.gameObject:SetActiveEx(true)
         self.PanelStagePass.gameObject:SetActiveEx(true)
         for i, v in ipairs(useList) do
-            self["RImgHead" .. i]:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(XRobotManager.GetCharacterId(v), true))
+            self["RImgHead" .. i]:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(XRobotManager.GetCharacterId(v), true))
         end
     else
         self.PanelHead.gameObject:SetActiveEx(false)

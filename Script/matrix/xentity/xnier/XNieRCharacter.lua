@@ -309,7 +309,7 @@ function XNieRCharacter:UpdateAbility()
             skillData[skillId] = skillLevel
         end
     end
-    local skillAbility = XDataCenter.CharacterManager.GetSkillAbility(skillData)
+    local skillAbility = XMVCA.XCharacter:GetSkillAbility(skillData)
     self.AbilityNum = attribAbility + skillAbility
 end
 
@@ -327,7 +327,7 @@ function XNieRCharacter:GetRobotCharacterId()
 end
 
 function XNieRCharacter:GetRobotCharacterCareerType()
-    local characterDetailCfg = XCharacterConfigs.GetCharDetailTemplate(self:GetRobotCharacterId())
+    local characterDetailCfg = XMVCA.XCharacter:GetCharDetailTemplate(self:GetRobotCharacterId())
     return characterDetailCfg.Career
 end
 
@@ -349,7 +349,7 @@ end
 
 function XNieRCharacter:GetNieRCharName()
     local characterId = self:GetRobotCharacterId()
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     local nameStr = charConfig.Name
     -- if charConfig.TradeName ~= "" then
     --     nameStr = nameStr .. "·" .. charConfig.TradeName

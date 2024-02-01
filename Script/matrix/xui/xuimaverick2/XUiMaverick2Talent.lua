@@ -151,9 +151,9 @@ function XUiMaverick2Talent:UpdateRoleModel(robotId)
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwen = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+        local isOwen = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwen then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId
             , self.PanelRoleModelGo

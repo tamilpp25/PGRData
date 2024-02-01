@@ -52,7 +52,7 @@ function XUiGuildWarDeployCharacterSelect:OnStart(OpenData)
         if member then
             if member:IsAssitant() then
                 self._TabIndex = TabBtnIndex.Assistant
-            elseif XCharacterConfigs.IsIsomer(member:GetEntityId()) then
+            elseif XMVCA.XCharacter:GetIsIsomer(member:GetEntityId()) then
                 self._TabIndex = TabBtnIndex.Isomer
             else
                 self._TabIndex = TabBtnIndex.Normal
@@ -171,12 +171,12 @@ end
 function XUiGuildWarDeployCharacterSelect:UpdateDataSource(selectedEntityId)
     --更新普通和独域角色界面
     if self._TabIndex == TabBtnIndex.Normal then
-        self.SelfPanel:Show(XCharacterConfigs.CharacterType.Normal, selectedEntityId, self:GetFilterKey())
+        self.SelfPanel:Show(XEnumConst.CHARACTER.CharacterType.Normal, selectedEntityId, self:GetFilterKey())
         self.OthersPanel:Hide()
         return
     end
     if self._TabIndex == TabBtnIndex.Isomer then
-        self.SelfPanel:Show(XCharacterConfigs.CharacterType.Isomer, selectedEntityId, self:GetFilterKey())
+        self.SelfPanel:Show(XEnumConst.CHARACTER.CharacterType.Isomer, selectedEntityId, self:GetFilterKey())
         self.OthersPanel:Hide()
         return
     end

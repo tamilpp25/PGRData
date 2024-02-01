@@ -72,7 +72,7 @@ function XUiColorTableCharacter:OnSelectCharacterType(index)
         end
 
         local characterType = index
-        local entities = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        local entities = XMVCA.XCharacter:GetOwnCharacterList(characterType)
         if entities == nil or #entities == 0 then 
             XUiManager.TipText("DormNullInfestor")
             self.PanelCharacterTypeBtns:SelectIndex(self.CurTabIndex)
@@ -145,7 +145,7 @@ function XUiColorTableCharacter:GetCharacterList()
     local entities = {}
     if self.CurTabIndex == TabBtnIndex.Normal or self.CurTabIndex == TabBtnIndex.Isomer then
         local characterType = self.CurTabIndex
-        entities = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        entities = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     elseif self.CurTabIndex == TabBtnIndex.Robot then
         local curStageId = XDataCenter.ColorTableManager.GetCurStageId()
         local robotIds = XColorTableConfigs.GetStageRobotIds(curStageId)
@@ -279,16 +279,16 @@ function XUiColorTableCharacter:UpdateRoleModel()
     self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
     local finishedCallback = function(model)
         self.PanelDrag.Target = model.transform
-        self.ImgEffectHuanren.gameObject:SetActiveEx(self.CurTabIndex == XCharacterConfigs.CharacterType.Normal)
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(self.CurTabIndex == XCharacterConfigs.CharacterType.Isomer)
+        self.ImgEffectHuanren.gameObject:SetActiveEx(self.CurTabIndex == XEnumConst.CHARACTER.CharacterType.Normal)
+        self.ImgEffectHuanren1.gameObject:SetActiveEx(self.CurTabIndex == XEnumConst.CHARACTER.CharacterType.Isomer)
     end
     local characterViewModel = self.CurSelectRole:GetCharacterViewModel()
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharEntityId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwen = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharEntityId)
+        local isOwen = XMVCA.XCharacter:IsOwnCharacter(robot2CharEntityId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwen then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharEntityId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharEntityId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self.UiPanelRoleModel:UpdateCharacterModel(robot2CharEntityId
             , self.PanelRoleModelGo

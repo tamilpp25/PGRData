@@ -1,16 +1,16 @@
 local XRedPointConditionReformAllRedPoint = {}
 
 function XRedPointConditionReformAllRedPoint.Check()
-    if not XDataCenter.Reform2ndManager.GetIsOpen() then
+    if not XMVCA.XReform:GetIsOpen() then
         return false
     end
     if not XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Reform) then
         return false
     end
-    if XRedPointConditionReformTaskGetReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_REFORM_TASK_GET_REWARD) then
         return true
     end
-    if XRedPointConditionReformBaseStageOpen.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_REFORM_BASE_STAGE_OPEN) then
         return true
     end
     return false

@@ -12,7 +12,7 @@ end
 
 function XUiGridPresetSkillElement:Refresh(skillGroup)
     self.SkillGroup = skillGroup
-    local elementConfig = XCharacterConfigs.GetCharElement(self.SkillGroup:GetActiveElement())
+    local elementConfig = XMVCA.XCharacter:GetCharElement(self.SkillGroup:GetActiveElement())
     
     local panel = self.PanelNormal
     

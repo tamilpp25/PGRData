@@ -442,7 +442,7 @@ function XGuildWarAreaTeam:UpdateFromTeamData(teamData)
     self.FirstFightPos = teamData.FirstFightPos
     self.CaptainPos = teamData.CaptainPos
     for pos, characterId in ipairs(teamData.TeamData) do
-        if characterId > 0 and XDataCenter.CharacterManager.IsOwnCharacter(characterId) then
+        if characterId > 0 and XMVCA.XCharacter:IsOwnCharacter(characterId) then
             self:UpdateEntityTeamPos({ EntityId = characterId, PlayerId = XPlayer.Id }, pos, true)
         end
     end

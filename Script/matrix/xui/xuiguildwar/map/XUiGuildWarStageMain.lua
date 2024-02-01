@@ -8,6 +8,12 @@ local XUiPanelReview = require("XUi/XUiGuildWar/Map/XUiPanelReview")
 
 local CSXTextManagerGetText = CS.XTextManager.GetText
 
+local ResultType = {
+    Boss = 1,
+    DefendFault = 2,
+    DefendSuccess = 3,
+}
+
 function XUiGuildWarStageMain:OnStart()
     self:SetButtonCallBack()
     self.BattleManager = XDataCenter.GuildWarManager.GetBattleManager()
@@ -35,7 +41,7 @@ function XUiGuildWarStageMain:Init()
     end)
 
     local itemIds = XGuildWarConfig.GetClientConfigValues("StageMainCostItems", "Int")
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
         self.AssetActivityPanel:Refresh(itemIds, nil, { XDataCenter.GuildWarManager.GetMaxActionPoint() })
     end, self.AssetActivityPanel)
@@ -61,6 +67,16 @@ function XUiGuildWarStageMain:OnEnable()
     self:AddEventListener()
     self:UpdatePanel()
     self:SetTimeRefresh()
+    XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ATTACKINFO_UPDATE,self.OnResourcesAttackInfoUpdateEvent,self)
+    self._CheckDefendTimeId = XScheduleManager.ScheduleForever(function()
+        if not XDataCenter.GuildWarManager.GetBattleManager():CheckActionPlaying() and not XDataCenter.GuideManager.CheckIsInGuide() then
+            if XTool.IsNumberValid(self._CheckDefendTimeId) then
+                XScheduleManager.UnSchedule(self._CheckDefendTimeId)
+                self._CheckDefendTimeId = nil
+            end
+            self:OnResourcesAttackInfoUpdateEvent()
+        end
+    end,XScheduleManager.SECOND)
 end
 
 function XUiGuildWarStageMain:OnDisable()
@@ -68,6 +84,7 @@ function XUiGuildWarStageMain:OnDisable()
     self:RemoveEventListener()
     self.StagePanel:OnDisable()
     self:StopTimeRefresh()
+    XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ATTACKINFO_UPDATE,self.OnResourcesAttackInfoUpdateEvent,self)
 end
 
 function XUiGuildWarStageMain:OnDestroy()
@@ -140,6 +157,11 @@ end
 
 function XUiGuildWarStageMain:SetTimeRefresh()
     if not self.TimeTimer then
+        --首次进入刷新一次
+        XDataCenter.GuildWarManager.GetActivityData(function()
+            XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_TIME_REFRESH)
+        end)
+        
         local time = XDataCenter.GuildWarManager.GetHourRefreshTime()
         self.TimeTimer = XScheduleManager.ScheduleForever(function()
             XDataCenter.GuildWarManager.GetActivityData(function()
@@ -223,5 +245,81 @@ end
 function XUiGuildWarStageMain:SetActiveObjExchangeNode(isActive)
     self.Transform:Find("Animation/PanelStageQieHuan/Line1QieHuan").gameObject:SetActiveEx(isActive)
     self.Transform:Find("Animation/PanelStageQieHuan/Line2QieHuan").gameObject:SetActiveEx(isActive)
+end
+--endregion
+
+--region 5.0
+function XUiGuildWarStageMain:OnResourcesAttackInfoUpdateEvent()
+    --检测当次是否播放过动画
+    if XLuaUiManager.IsUiShow('UiGuildWarStageMain') and not XDataCenter.GuildWarManager.CheckNearestAttackAnimIsPlayed() then
+        self:PlayBossBombAnimation()
+    end
+end
+
+function XUiGuildWarStageMain:PlayBossBombAnimation()
+    local resultType = XDataCenter.GuildWarManager.CheckLastDefendSuccess() and ResultType.DefendSuccess or ResultType.DefendFault
+    
+    --获取被攻击的资源点Id及其索引（索引序号与动画后缀编号一致）
+    local attackedResNodeId = XDataCenter.GuildWarManager.GetLastAttackedResourcesId()
+    local rescourceIndex = XGuildWarConfig.GetNodeStageIndex(attackedResNodeId)
+    local attackedResGrid = self.StagePanel.NodeId2GridStageDic[attackedResNodeId]
+    --获取所有驻守人数最大（存在相同）的节点Id
+    local resNodeIds = XDataCenter.GuildWarManager.GetMaxDefendResourceNodeIds()
+    --通过节点Id获取这些节点的UI控制对象（需要通过这些对象来控制特效的显示）
+    local resGrids = {}
+    for index, nodeId in ipairs(resNodeIds) do
+        resGrids[index] = self.StagePanel.NodeId2GridStageDic[nodeId]
+    end
+    
+    local beforeBomb = function() 
+        --在播放动画之前，展开护盾
+        for i, grid in ipairs(resGrids) do
+            grid:ShowEffectShield(true)
+        end
+    end
+    local afterBomb = function() 
+        --在播放完动画后关闭护盾
+        for i, grid in ipairs(resGrids) do
+            grid:ShowEffectShield(false)
+        end
+        attackedResGrid:ShowEffectExplode(false)
+        
+        --炮击动画播完再刷新节点数据
+        self.StagePanel:RefreshResourcesNodeState()
+    end
+    
+    --播放动画前要把Pop的界面给关了
+    XLuaUiManager.Close('UiGuildWarStageDetail')
+    
+    self.ReviewPanel:ShowPanelWithoutAnimation()
+    self:PlayAnimationWithMask('PanelReviewEnable',function()
+        --隐藏节点状态信息
+        self.StagePanel:SetResourcesDisplayWithAttackAnimation(true)
+        XLuaUiManager.SetMask(true)
+        --查看地图
+        self.StagePanel:LookAllMap(true, function()
+            self:PlayAnimationWithMask('BossbombEnable'..rescourceIndex,function()
+                XDataCenter.GuildWarManager.MarkNearestAttackAnimIsPlayed()
+                self.StagePanel:LookAllMap(false,function()
+                    self:PlayAnimationWithMask("PanelReviewDisable", function ()
+                        self.ReviewPanel:HidePanelWithoutAnimation()
+
+                        if afterBomb then
+                            afterBomb()
+                        end
+                        XLuaUiManager.SetMask(false)
+                        if resultType == ResultType.DefendFault then
+                            XLuaUiManager.Open('UiGuildWarBossReaultsFail',nil)
+                        elseif resultType == ResultType.DefendSuccess then
+                            XLuaUiManager.Open('UiGuildWarBossReaultsSuccess',nil)
+                        elseif resultType == ResultType.Boss then
+                            XLuaUiManager.Open('UiGuildWarBossReaults',nil)
+                        end
+                    end)
+                end)
+            end, beforeBomb, CS.UnityEngine.Playables.DirectorWrapMode.None)
+        end)
+    end)
+
 end
 --endregion

@@ -340,7 +340,6 @@ end
 function XUiActivityBossSingle:OnBtnEnterClick()
     self.IsInDetail = false
     self.PanelDetail.gameObject:SetActiveEx(false)
-    --XLuaUiManager.Open("UiNewRoomSingle", self.CurrentSelectStageId)
     XDataCenter.FubenActivityBossSingleManager.JumpToRoleRoom(self.CurrentSelectStageId)
 end
 

@@ -16,6 +16,7 @@ function XUiBabelTowerMainNew:OnAwake()
     -- 章节Grid数组
     self.StageGridChapter = nil
     -- 复刻界面管理
+    ---@type XUiBabelTowerMainReproduce
     self.UiBabelTowerMainReproduce = XUiBabelTowerMainReproduce.New(self.PanelReprint)
     -- 初始化页面状态
     self:InitPanel()
@@ -195,9 +196,7 @@ function XUiBabelTowerMainNew:OnReproduceUiHide()
 end
 
 function XUiBabelTowerMainNew:OnBtnRankClick()
-    self.FubenBabelTowerManager.GetRank(self.FubenBabelTowerManager.GetCurrentActivityNo(), function()
-        XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Normal)
-    end)
+    XLuaUiManager.Open("UiFubenBabelTowerRank", XFubenBabelTowerConfigs.ActivityType.Normal)
 end
 
 function XUiBabelTowerMainNew:OnBtnBackClick()
@@ -272,7 +271,6 @@ end
 
 -- 关卡点击
 function XUiBabelTowerMainNew:OnStageClick(stageId, grid)
-
     local isStageUnlock, desc = self.FubenBabelTowerManager.IsBabelStageUnlock(stageId)
     if not isStageUnlock then
         XUiManager.TipMsg(desc)
@@ -298,6 +296,12 @@ function XUiBabelTowerMainNew:OnStageClick(stageId, grid)
             else
                 XUiManager.TipMsg(CS.XTextManager.GetText("BabelTowerPassLastGuide"))
             end
+            return
+        end
+        if XDataCenter.FubenBabelTowerManager.CheckStageIsNotPassAndNotCollection(stageId) then
+            local teamIdList = XDataCenter.FubenBabelTowerManager.GetStageTeamIdList(stageId)
+            -- 默认选择第一个编队
+            XLuaUiManager.Open("UiBabelTowerBase", stageId, teamIdList[1])
             return
         end
         XLuaUiManager.Open("UiBabelTowerSelectTeam", stageId)

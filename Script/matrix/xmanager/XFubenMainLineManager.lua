@@ -12,6 +12,7 @@ XFubenMainLineManagerCreator = function()
     }
 
     local ChapterMainTemplates = {}
+    ---@type XTableChapter[]
     local ChapterCfg = {}
     local TreasureCfg = {}
     local NewChaperId = -1
@@ -31,6 +32,7 @@ XFubenMainLineManagerCreator = function()
     local ExploreEventStateList = {}
     local MainlineStageRecord
     local LastPassStage = {}    --key:chapterId value:stageId
+    local TeleportFightBeforeStageId = 0 -- 关卡内跳转前的关卡Id
     local TeleportFightStageId = 0 -- 关卡内跳转的关卡Id
 
     local ExItemRedPointState = {
@@ -126,14 +128,15 @@ XFubenMainLineManagerCreator = function()
                 end
                 -- 跳过黑名单表 MainlineIgnoreStageList
                 if stageInfo.Passed and not table.contains(XFubenMainLineConfigs.GetMainlineIgnoreStageListByOrder(), v) then
-    
+                   
+                    passStageNum = passStageNum + 1
+                    stars = stars + stageInfo.Stars
+                end
+
+                if not table.contains(XFubenMainLineConfigs.GetMainlineIgnoreStageListByOrder(), v) then
                     if not stageInfo.Passed then
                         allPassed = false
-                    else
-                        passStageNum = passStageNum + 1
                     end
-    
-                    stars = stars + stageInfo.Stars
                 end
             end
 
@@ -362,6 +365,7 @@ XFubenMainLineManagerCreator = function()
         return ChapterMainTemplates[chapterMainId]
     end
 
+    ---@return XTableChapter
     function XFubenMainLineManager.GetChapterCfg(chapterId)
         return ChapterCfg[chapterId]
     end
@@ -618,7 +622,8 @@ XFubenMainLineManagerCreator = function()
     end
 
     function XFubenMainLineManager.ShowSummary(stageId)
-        if XDataCenter.FubenManager.CurFightResult and XDataCenter.FubenManager.CurFightResult.IsWin then
+        local curFightResult = XMVCA.XFuben:GetCurFightResult()
+        if curFightResult and curFightResult.IsWin then
             if XDataCenter.BountyTaskManager.CheckBountyTaskPreFightWithStatus(stageId) and XDataCenter.BountyTaskManager.IsBountyPreFight() then
                 XLuaUiManager.Open("UiMoneyRewardFightTipFind")
             end
@@ -652,6 +657,7 @@ XFubenMainLineManagerCreator = function()
     function XFubenMainLineManager.ShowReward(winData)
         local teleportFight = XFubenMainLineManager.GetTeleportFight(winData.StageId)
         TeleportFightStageId = teleportFight and teleportFight.StageCfg.StageId or 0
+        TeleportFightBeforeStageId = teleportFight and winData.StageId or 0
         if teleportFight then
             XFubenMainLineManager.TeleportRewardCacheInfo(winData)
             XFubenMainLineManager.EnterTeleportFight(teleportFight)
@@ -663,11 +669,16 @@ XFubenMainLineManagerCreator = function()
     function XFubenMainLineManager.OpenFightLoading(stageId)
         if TeleportFightStageId == stageId then
             TeleportFightStageId = 0
+            TeleportFightBeforeStageId = 0
             local loadingType = XFubenMainLineConfigs.GetSkipLoadingTypeByStageId(stageId)
             XLuaUiManager.Open("UiLoading", loadingType)
         else
             XDataCenter.FubenManager.OpenFightLoading(stageId)
         end
+    end
+
+    function XFubenMainLineManager.GetTeleportFightBeforeStageId()
+        return TeleportFightBeforeStageId
     end
 
     function XFubenMainLineManager.PreFight(stage, teamId, isAssist, challengeCount, challengeId)
@@ -1151,7 +1162,7 @@ XFubenMainLineManagerCreator = function()
     ------------------------------------------------------------------ 活动主线副本探索玩法 end -------------------------------------------------------
     ------------------------------------------------------------------ 超里剧情章节 Start -----------------------------------------------------------
     function XFubenMainLineManager.GetTeleportFight(curStageId)
-        local eventSet = XDataCenter.FubenManager.CurFightResult.EventSet or {}
+        local eventSet = XMVCA.XFuben:GetCurFightResult().EventSet or {}
         local skipStageIds = XFubenMainLineConfigs.GetSkipStageIdsByStageId(curStageId)
         if XTool.IsTableEmpty(skipStageIds) then
             return nil
@@ -1231,6 +1242,9 @@ XFubenMainLineManagerCreator = function()
     end
     
     local OpenChapterOrStageUi = function(closeLastStage, chapter, stageId)
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MainLine, chapter.ChapterId) then
+            return
+        end
         if closeLastStage then
             XLuaUiManager.PopThenOpen("UiFubenMainLineChapter", chapter, stageId)
         else

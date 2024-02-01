@@ -18,8 +18,17 @@ function XUiTheatre3Outpost:OnStart(slot)
 end
 
 function XUiTheatre3Outpost:OnEnable()
-    self:PlayAnimationWithMask("AnimStartAuto")
-    self:RefreshUi()
+    self.StoryId = self._EventCfg and self._EventCfg.StoryId
+    if self.StoryId and self._Control:CheckAdventureEventNodeStoryId(self.StoryId) then
+        self._Control:SaveAdventureEventNodeStoryId(self.StoryId)
+        XDataCenter.MovieManager.PlayMovie(self.StoryId, function()
+            self:PlayAnimationWithMask("AnimStartAuto")
+            self:RefreshUi()
+        end, nil, nil, false)
+    else
+        self:PlayAnimationWithMask("AnimStartAuto")
+        self:RefreshUi()
+    end
 end
 
 function XUiTheatre3Outpost:OnDestroy()
@@ -32,6 +41,7 @@ function XUiTheatre3Outpost:InitUi()
     self:InitPanelReward()
     self:InitPanelOption()
     self:InitPanelShop()
+    self:InitEffect()
 end
 
 function XUiTheatre3Outpost:RefreshUi()
@@ -43,7 +53,7 @@ function XUiTheatre3Outpost:RefreshUi()
         end
         self:RefreshBg(self._EventCfg.BgAsset)
         self:RefreshPanelTitle(self._EventCfg.Title, self._EventCfg.TitleContent)
-        self:RefreshPanelRole(self._EventCfg.RoleIcon, self._EventCfg.RoleName, self._EventCfg.RoleContent)
+        self:RefreshPanelRole(self._EventCfg.RoleIcon, self._EventCfg.RoleName, self._EventCfg.RoleContent, self._EventCfg.RoleEffect)
         
         self:RefreshPanelDialogue()
         self:RefreshPanelOption()
@@ -51,6 +61,7 @@ function XUiTheatre3Outpost:RefreshUi()
     elseif self._CurSlot:CheckType(XEnumConst.THEATRE3.NodeSlotType.Shop) then
         self:RefreshPanelShop()
     end
+    self:RefreshEffect()
 end
 
 --region Data
@@ -64,12 +75,12 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatre3Outpost:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(
             {XEnumConst.THEATRE3.Theatre3InnerCoin,},
-            self.PanelSpecialTool,
+            self.PanelSpecialTool, self,
             nil,
             function()
-                XLuaUiManager.Open("UiTheatre3Tips", XEnumConst.THEATRE3.Theatre3InnerCoin)
+                self._Control:OpenAdventureTips(XEnumConst.THEATRE3.Theatre3InnerCoin)
             end)
     self.PanelEnergyChange.gameObject:SetActiveEx(false)
     self.PanelEnergyChange2.gameObject:SetActiveEx(false)
@@ -102,7 +113,7 @@ end
 --endregion
 
 --region Ui - PanelRole
-function XUiTheatre3Outpost:RefreshPanelRole(roleIcon, roleName, roleContent)
+function XUiTheatre3Outpost:RefreshPanelRole(roleIcon, roleName, roleContent, roleEffect)
     if not string.IsNilOrEmpty(roleIcon) then
         self.RImgRole.gameObject:SetActiveEx(true)
         self.RImgRole:SetRawImage(roleIcon)
@@ -115,6 +126,12 @@ function XUiTheatre3Outpost:RefreshPanelRole(roleIcon, roleName, roleContent)
         self.PanelRole.gameObject:SetActiveEx(true)
     else
         self.PanelRole.gameObject:SetActiveEx(false)
+    end
+    if not string.IsNilOrEmpty(roleEffect) then
+        self.RoleEffect.gameObject:SetActiveEx(true)
+        self.RoleEffect:LoadUiEffect(roleEffect)
+    else
+        self.RoleEffect.gameObject:SetActiveEx(false)
     end
 end
 --endregion
@@ -161,7 +178,7 @@ end
 --region Ui - PanelReward
 function XUiTheatre3Outpost:InitPanelReward()
     self.PanelReward.gameObject:SetActiveEx(true)
-    ---@type XPanelTheatre3EventDialogue
+    ---@type XPanelTheatre3EventReward
     self._PanelReward = XPanelTheatre3EventReward.New(self.PanelReward, self)
     self._PanelReward:Close()
 end
@@ -196,10 +213,11 @@ function XUiTheatre3Outpost:RefreshPanelShop()
 
     self.PanelReward.gameObject:SetActiveEx(false)
     self:RefreshBg(self._ShopCfg.BgAsset)
-    self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.RoleContent)
     if self._CurSlot:CheckIsShopEndBuy() then
+        self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.EndRoleContent)
         self:_RefreshEndBuy()
     else
+        self:RefreshPanelRole(self._ShopCfg.RoleIcon, self._ShopCfg.RoleName, self._ShopCfg.RoleContent)
         self:_RefreshBuy()
     end
 end
@@ -212,9 +230,41 @@ function XUiTheatre3Outpost:_RefreshBuy()
 end
 
 function XUiTheatre3Outpost:_RefreshEndBuy()
-    self:RefreshPanelTitle(self._ShopCfg.TitleContent, self._ShopCfg.Desc)
-    self._PanelDialogue:Open()
-    self._PanelDialogue:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText)
+    self:RefreshPanelTitle(self._ShopCfg.TitleContent, self._ShopCfg.EndTitleDesc)
+    if XTool.IsNumberValid(self._ShopCfg.RewardBoxId) then
+        local type = self._ShopCfg.RewardBoxType
+        if type == XEnumConst.THEATRE3.NodeRewardType.ItemBox then
+            type = XEnumConst.THEATRE3.EventStepItemType.ItemBox
+        elseif type == XEnumConst.THEATRE3.NodeRewardType.EquipBox then
+            type = XEnumConst.THEATRE3.EventStepItemType.EquipBox
+        end 
+        self._PanelReward:Open()
+        self._PanelReward:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText, type, self._ShopCfg.RewardBoxId)
+    else
+        self._PanelDialogue:Open()
+        self._PanelDialogue:RefreshOnlyDialogue(self._ShopCfg.EndDesc, self._ShopCfg.EndComfirmText)
+    end
+end
+--endregion
+
+--region Ui - Effect
+function XUiTheatre3Outpost:InitEffect()
+    if not self.Effect then
+        ---@type UnityEngine.Transform
+        self.Effect = XUiHelper.TryGetComponent(self.Transform, "FullScreenBackground/Effect")
+    end
+end
+
+function XUiTheatre3Outpost:RefreshEffect()
+    if not self.Effect then
+        return
+    end
+    local quantumLevelCfg = self._Control:GetCfgQuantumLevelByValue(self._Control:GetAdventureQuantumValue(true) + self._Control:GetAdventureQuantumValue(false))
+    --全屏特效
+    if quantumLevelCfg and not string.IsNilOrEmpty(quantumLevelCfg.ScreenEffectUrl) then
+        local screenEffectUrl = self._Control:GetClientConfig(quantumLevelCfg.ScreenEffectUrl, self._Control:IsAdventureALine() and 1 or 2)
+        self.Effect:LoadUiEffect(screenEffectUrl)
+    end
 end
 --endregion
 

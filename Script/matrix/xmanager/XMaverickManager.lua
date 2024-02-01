@@ -458,10 +458,9 @@ XMaverickManagerCreator = function()
     end
 
     function XMaverickManager.CallFinishFight()
-        local XFubenManager = XDataCenter.FubenManager
-        local res = XFubenManager.FubenSettleResult
-        XFubenManager.FubenSettling = false
-        XFubenManager.FubenSettleResult = nil
+        local res = XMVCA.XFuben:GetFubenSettleResult()
+        XMVCA.XFuben:SetFubenSettling(false)
+        XMVCA.XFuben:SetFubenSettleResult(nil)
 
         --通知战斗结束，关闭战斗设置页面
         CS.XGameEventManager.Instance:Notify(XEventId.EVENT_FIGHT_FINISH)
@@ -663,9 +662,9 @@ end
 -- =========        =========
 --活动数据初始化
 XRpc.NotifyMaverickData = function(data)
-    XDataCenter.MaverickManager.InitData(data.MaverickData)
+    --XDataCenter.MaverickManager.InitData(data.MaverickData)
 end
 --通关后推送的数据
 XRpc.NotifyMaverickUnlockMemberData = function(data)
-    XDataCenter.MaverickManager.UpdateMemberData(data.MemberDataInfos)
+    --XDataCenter.MaverickManager.UpdateMemberData(data.MemberDataInfos)
 end

@@ -57,7 +57,7 @@ function XUiGridQxmsRole:GetCharacterViewModelByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XDataCenter.CharacterManager.GetCharacter(id)
+            entity = XMVCA.XCharacter:GetCharacter(id)
         end
         if entity == nil then
             XLog.Warning(string.format("找不到id%s的角色", id))

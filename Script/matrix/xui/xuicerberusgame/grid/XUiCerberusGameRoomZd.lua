@@ -9,7 +9,7 @@ function XUiCerberusGameRoomZd:Ctor(ui, rootui)
 end
 
 function XUiCerberusGameRoomZd:SetData(stageId)
-    local xStagePoint = XDataCenter.CerberusGameManager.GetLastSelectXStoryPoint()
+    local xStagePoint = XMVCA.XCerberusGame:GetLastSelectXStoryPoint()
     if not xStagePoint then
         self.GameObject:SetActiveEx(false)
         return
@@ -29,7 +29,7 @@ function XUiCerberusGameRoomZd:SetData(stageId)
     end
 
     for k, id in pairs(charList) do
-        local icon = XDataCenter.CharacterManager.GetCharBigRoundnessHeadIcon(id)
+        local icon = XMVCA.XCharacter:GetCharBigRoundnessHeadIcon(id)
         self["StandIcon"..k]:SetRawImage(icon)
         self["Head"..k].gameObject:SetActiveEx(true)
     end

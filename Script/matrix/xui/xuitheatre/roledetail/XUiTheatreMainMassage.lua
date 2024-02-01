@@ -31,10 +31,9 @@ function XUiTheatreMainMassage:Init()
     self.AdventureManager = XDataCenter.TheatreManager.GetCurrentAdventureManager()
     
     self:InitPanelAsset()
-    self:InitFilter()
     self:InitRoleDetail()
-    
     self:InitModel()
+    self:InitFilter()
 end
 
 --region Data - Getter
@@ -55,7 +54,7 @@ end
 
 --region Ui - PanelAsset
 function XUiTheatreMainMassage:InitPanelAsset()
-    self._PanelAsset = XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool)
+    self._PanelAsset = XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAdventureAssetItemIds(), self.PanelSpecialTool, self)
 end
 
 function XUiTheatreMainMassage:RemovePanelAsset()
@@ -75,8 +74,8 @@ function XUiTheatreMainMassage:InitFilter()
     ---招募角色当前显示的是试玩角色或自己的角色，false显示试玩角色，true显示对应自己的角色
     self._RoleSelectStateDic = {}
     
-    ---@type XCommonCharacterFiltAgency
-    self.FiltAgecy = XMVCA:GetAgency(ModuleId.XCommonCharacterFilt)
+    ---@type XCommonCharacterFilterAgency
+    self.FiltAgecy = XMVCA:GetAgency(ModuleId.XCommonCharacterFilter)
     self._PanelFilter = self.FiltAgecy:InitFilter(self.PanelZuo, self)
 
     local clickTag = function()
@@ -84,6 +83,7 @@ function XUiTheatreMainMassage:InitFilter()
     end
     self._PanelFilter:InitData(handler(self, self._OnSelectTab), clickTag, nil, nil, XUiTheatreMassageGrid, checkInTeam)
     self._PanelFilter:ImportList(self:_GetCharacterList())
+    self._PanelFilter:RefreshList()
 end
 
 function XUiTheatreMainMassage:_GetCharacterList()
@@ -134,6 +134,7 @@ function XUiTheatreMainMassage:SwitchRoleState(entityId)
     self._RoleSelectStateDic[characterId] = not state
     
     self._PanelFilter:ImportList(self:_GetCharacterList())
+    self._PanelFilter:RefreshList()
     self._PanelFilter:DoSelectIndex(self._CurSelectIndex)
     self:RefreshModel()
     self:_RefreshRoleDetail()
@@ -177,16 +178,16 @@ function XUiTheatreMainMassage:RefreshModel()
     self.ImgEffectHuanren1.gameObject:SetActiveEx(false)
     local finishedCallback = function(model)
         self.PanelDrag.Target = model.transform
-        self.ImgEffectHuanren.gameObject:SetActiveEx(characterViewModel:GetCharacterType() == XCharacterConfigs.CharacterType.Normal)
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(characterViewModel:GetCharacterType() == XCharacterConfigs.CharacterType.Isomer)
+        self.ImgEffectHuanren.gameObject:SetActiveEx(characterViewModel:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Normal)
+        self.ImgEffectHuanren1.gameObject:SetActiveEx(characterViewModel:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Isomer)
     end
 
     local sourceEntityId = characterViewModel:GetSourceEntityId()
     if XRobotManager.CheckIsRobotId(sourceEntityId) then
         local robot2CharId = XRobotManager.GetCharacterId(sourceEntityId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(robot2CharId)
         if XRobotManager.CheckUseFashion(sourceEntityId) and isOwn then
-            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharId)
+            local character = XMVCA.XCharacter:GetCharacter(robot2CharId)
             local robot2CharViewModel = character:GetCharacterViewModel()
             self._UiPanelRoleModel:UpdateCharacterModel(robot2CharId, nil, nil, finishedCallback, nil, robot2CharViewModel:GetFashionId())
         else
@@ -232,8 +233,8 @@ end
 --
 --    self.CurrentEntityId = nil
 --    self.CurrentSelectTagGroup = {
---        [XCharacterConfigs.CharacterType.Normal] = {},
---        [XCharacterConfigs.CharacterType.Isomer] = {}
+--        [XEnumConst.CHARACTER.CharacterType.Normal] = {},
+--        [XEnumConst.CHARACTER.CharacterType.Isomer] = {}
 --    }
 --
 --    self.CurrentCharacterType = self:GetDefaultCharacterType()
@@ -269,7 +270,7 @@ end
 --    local roles = self.AdventureManager:GetCurrentRoles()
 --    local isHaveIsomer = false
 --    for _, role in ipairs(roles) do
---        if role:GetCharacterViewModel():GetCharacterType() == XCharacterConfigs.CharacterType.Isomer then
+--        if role:GetCharacterViewModel():GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Isomer then
 --            isHaveIsomer = true
 --            break
 --        end
@@ -355,7 +356,7 @@ end
 --    return result
 --end
 --
----- characterType : XCharacterConfigs.CharacterType
+---- characterType : XEnumConst.CHARACTER.CharacterType
 --function XUiTheatreMainMassage:OnPanelCharacterTypeBtnsClicked(characterType)
 --    self.CurrentCharacterType = characterType
 --    local selectTagGroupDic = self.CurrentSelectTagGroup[characterType].TagGroupDic or {}
@@ -434,19 +435,19 @@ end
 --    local finishedCallback = function(model)
 --        self.PanelDrag.Target = model.transform
 --        self.ImgEffectHuanren.gameObject:SetActiveEx(
---        self.CurrentCharacterType == XCharacterConfigs.CharacterType.Normal
+--        self.CurrentCharacterType == XEnumConst.CHARACTER.CharacterType.Normal
 --        )
 --        self.ImgEffectHuanren1.gameObject:SetActiveEx(
---        self.CurrentCharacterType == XCharacterConfigs.CharacterType.Isomer
+--        self.CurrentCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer
 --        )
 --    end
 --
 --    local sourceEntityId = characterViewModel:GetSourceEntityId()
 --    if XRobotManager.CheckIsRobotId(sourceEntityId) then
 --        local robot2CharId = XRobotManager.GetCharacterId(sourceEntityId)
---        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(robot2CharId)
+--        local isOwn = XMVCA.XCharacter:IsOwnCharacter(robot2CharId)
 --        if XRobotManager.CheckUseFashion(sourceEntityId) and isOwn then
---            local character = XDataCenter.CharacterManager.GetCharacter(robot2CharId)
+--            local character = XMVCA.XCharacter:GetCharacter(robot2CharId)
 --            local robot2CharViewModel = character:GetCharacterViewModel()
 --            self.UiPanelRoleModel:UpdateCharacterModel(robot2CharId, nil, nil, finishedCallback, nil, robot2CharViewModel:GetFashionId())
 --        else
@@ -530,8 +531,8 @@ end
 --    -- 角色类型按钮组
 --    self.PanelCharacterTypeBtns:Init(
 --            {
---                [XCharacterConfigs.CharacterType.Normal] = self.BtnTabGouzaoti,
---                [XCharacterConfigs.CharacterType.Isomer] = self.BtnTabShougezhe
+--                [XEnumConst.CHARACTER.CharacterType.Normal] = self.BtnTabGouzaoti,
+--                [XEnumConst.CHARACTER.CharacterType.Isomer] = self.BtnTabShougezhe
 --            },
 --            function(tabIndex)
 --                self:OnPanelCharacterTypeBtnsClicked(tabIndex)

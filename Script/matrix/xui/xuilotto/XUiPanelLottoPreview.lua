@@ -16,7 +16,7 @@ function XUiPanelLottoPreview:Ctor(ui, base, data)
 end
 
 --region V2.6 Kalie
-function XUiPanelLottoPreview:UpdateKaliePanel()
+function XUiPanelLottoPreview:UpdateTwoLevelPanel()
     self:_RefreshKalieReward(self.PanelCore, self.RewardCore, XLottoConfigs.RareLevel.One)
     self:_RefreshKalieReward(self.PanelSecond, self.RewardFirst, XLottoConfigs.RareLevel.Two)
     self:_UpdateExReward()
@@ -72,7 +72,7 @@ function XUiPanelLottoPreview:_UpdatePanelReward(panel, rewardDic, rareLevel)
     local rewardDataList = drawData:GetRewardDataList()
     local gridObj = panel:GetObject("GridRewards")
     local Contents = panel:GetObject("GridContents")
-    local imgGet = self.ExReward:GetObject("ImgGet")
+    --local imgGet = self.ExReward:GetObject("ImgGet")
     local isGet = false
     
     gridObj.gameObject:SetActiveEx(false)
@@ -94,9 +94,9 @@ function XUiPanelLottoPreview:_UpdatePanelReward(panel, rewardDic, rareLevel)
             end
         end
     end
-    if imgGet then
-        imgGet.gameObject:SetActiveEx(isGet)
-    end
+    --if imgGet then
+    --    imgGet.gameObject:SetActiveEx(isGet)
+    --end
 end
 
 function XUiPanelLottoPreview:_UpdateExReward()
@@ -109,16 +109,16 @@ function XUiPanelLottoPreview:_UpdateExReward()
         local extraCount = drawData:GetExtraRewardCount()
         local textCount = self.ExReward:GetObject("TxtCount")
         local obj = self.ExReward:GetObject("GridRewards")
-        local imgGet = self.ExReward:GetObject("ImgGet")
+        --local imgGet = self.ExReward:GetObject("ImgGet")
         
         local grid = XUiGridCommon.New(self.Base, obj)
         local IsGeted = drawData:GetExtraRewardState() == XLottoConfigs.ExtraRewardState.Geted
         local rewardList = XRewardManager.GetRewardList(ExtraRewardId)
         grid:Refresh(rewardList[1], nil, nil, nil, IsGeted and 0 or 1)
         textCount.text = string.format("%s%d/%d", processText, curCount, extraCount)
-        if imgGet then
-            imgGet.gameObject:SetActiveEx(IsGeted)
-        end
+        --if imgGet then
+        --    imgGet.gameObject:SetActiveEx(IsGeted)
+        --end
     end
 end
 

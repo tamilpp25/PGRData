@@ -1,4 +1,3 @@
-local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
 local XChapterViewModel = require("XEntity/XFuben/XChapterViewModel")
 
 --######################## XUiGridActivity ########################
@@ -12,7 +11,7 @@ end
 -- data : XExFubenBaseManager | XChapterViewModel
 function XUiGridActivity:SetData(data)
     self.Data = data
-    if CheckClassSuper(data, XExFubenBaseManager) then
+    if XDataCenter.FubenManagerEx.IsFubenBase(data) then
         self:SetManager(data)
     elseif CheckClassSuper(data, XChapterViewModel) then
         self:SetChapter(data)
@@ -43,7 +42,7 @@ function XUiGridActivity:SetChapter(data)
 end
 
 function XUiGridActivity:RefreshRedPoint()
-    if CheckClassSuper(self.Data, XExFubenBaseManager) then
+    if XDataCenter.FubenManagerEx.IsFubenBase(self.Data) then
         self.Red.gameObject:SetActiveEx(self.Data:ExCheckIsShowRedPoint())
     elseif CheckClassSuper(self.Data, XChapterViewModel) then
         self.Red.gameObject:SetActiveEx(self.Data:CheckHasRedPoint())
@@ -52,7 +51,7 @@ end
 
 function XUiGridActivity:RefreshTimeTips()
     local runningTimeStr
-    if CheckClassSuper(self.Data, XExFubenBaseManager) then
+    if XDataCenter.FubenManagerEx.IsFubenBase(self.Data) then
         runningTimeStr = self.Data:ExGetRunningTimeStr()
     elseif CheckClassSuper(self.Data, XChapterViewModel) then
         runningTimeStr = self.Data:GetTimeTips()
@@ -63,7 +62,7 @@ end
 
 function XUiGridActivity:IsActivityEnd()
     local onGoing
-    if CheckClassSuper(self.Data, XExFubenBaseManager) then
+    if XDataCenter.FubenManagerEx.IsFubenBase(self.Data) then
         onGoing = self.Data:ExCheckInTime()
     elseif CheckClassSuper(self.Data, XChapterViewModel) then
         onGoing = self.Data:CheckInTime()
@@ -112,7 +111,7 @@ end
 
 function XUiPanelActivity:GetDataOrder(data)
     local order = nil
-    if CheckClassSuper(data, XExFubenBaseManager) then
+    if self.FubenManagerEx.IsFubenBase(data) then
         order = data:ExGetConfig().Order
     elseif CheckClassSuper(data, XChapterViewModel) then
         order = data:GetConfig().ChapterCofig.FubenActivityOrder
@@ -151,7 +150,7 @@ function XUiPanelActivity:OnDynamicTableEvent(event, index, grid)
         grid:SetData(data)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self:EmitSignal("SetMainUiFirstIndexArgs", index)
-        if CheckClassSuper(data, XExFubenBaseManager) then
+        if self.FubenManagerEx.IsFubenBase(data) then
             data:ExOpenMainUi()
         elseif CheckClassSuper(data, XChapterViewModel) then
             local manager = self.GetManagerByIndexFunc(index)

@@ -57,7 +57,7 @@ end
 function XUiGuildPerson:SetCurGiftName()
     if next(self.CurRecordIds) and self.CurIdCount == 1 then
         self.ShowScreen.gameObject:SetActiveEx(true)
-        local name = XCharacterConfigs.GetCharacterName(self.CurSeleId)
+        local name = XMVCA.XCharacter:GetCharacterName(self.CurSeleId)
         self.TxtName.text = TextManager.GetText("GuildGiftNameDes",name)
     else
         self.ShowScreen.gameObject:SetActiveEx(false)

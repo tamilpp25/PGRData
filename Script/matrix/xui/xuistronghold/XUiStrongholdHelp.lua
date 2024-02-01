@@ -56,13 +56,13 @@ function XUiStrongholdHelp:UpdateView()
 
         local characterId = XDataCenter.StrongholdManager.GetAssistantCharacterId()
 
-        local icon = XDataCenter.CharacterManager.GetCharHalfBodyBigImage(characterId)
+        local icon = XMVCA.XCharacter:GetCharHalfBodyBigImage(characterId)
         self.RImgRole:SetRawImage(icon)
 
-        local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+        local ability = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
         self.TxtAbility.text = ability
 
-        local name = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        local name = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
         self.TxtName.text = name
 
         self.Records = XDataCenter.StrongholdManager.GetAssitantRecordStrList()
@@ -106,5 +106,6 @@ function XUiStrongholdHelp:OnClickBtnOccupy()
             return true
         end,
     }
-    XLuaUiManager.Open("UiCharacter", characterId, nil, nil, nil, nil, nil, supportData)
+    -- XLuaUiManager.Open("UiCharacter", characterId, nil, nil, nil, nil, nil, supportData)
+    XLuaUiManager.Open("UiSelectCharacterStrongholdSupport", characterId, supportData)
 end

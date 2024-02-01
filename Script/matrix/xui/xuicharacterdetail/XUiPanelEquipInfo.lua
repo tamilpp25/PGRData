@@ -46,7 +46,7 @@ function XUiPanelEquipInfo:OnDisable()
 end
 
 function XUiPanelEquipInfo:InitTabBtnGroup()
-    local tabIdList = XCharacterConfigs.GetRecommendTabList(self.CharacterId, XCharacterConfigs.RecommendType.Equip)
+    local tabIdList = XMVCA.XCharacter:GetRecommendTabList(self.CharacterId, XEnumConst.CHARACTER.RecommendType.Equip)
     if not tabIdList then
         return
     end
@@ -62,7 +62,7 @@ function XUiPanelEquipInfo:InitTabBtnGroup()
             uiButton = itemGo.transform:GetComponent("XUiButton")
         end
 
-        local config = XCharacterConfigs.GetRecommendTabTemplate(self.CharacterId, tabIdList[i], XCharacterConfigs.RecommendType.Equip)
+        local config = XMVCA.XCharacter:GetRecommendTabTemplate(self.CharacterId, tabIdList[i], XEnumConst.CHARACTER.RecommendType.Equip)
         uiButton:SetName(config.TabName)
 
         table.insert(tabGroup, uiButton)
@@ -86,9 +86,9 @@ function XUiPanelEquipInfo:SetupDynamicTable()
         return
     end
 
-    local recommendEquipGroupId = XCharacterConfigs.GetRecommendGroupId(self.CharacterId, self.CurTabId, XCharacterConfigs.RecommendType.Equip)
+    local recommendEquipGroupId = XMVCA.XCharacter:GetRecommendGroupId(self.CharacterId, self.CurTabId, XEnumConst.CHARACTER.RecommendType.Equip)
     local voteIds = XDataCenter.VoteManager.GetVoteIdListByGroupId(recommendEquipGroupId)
-    self.PageDatas = XCharacterConfigs.GetEquipRecommendListByIds(voteIds)
+    self.PageDatas = XMVCA.XEquip:GetEquipRecommendListByIds(voteIds)
 
     if not self.PageDatas then
         self.PageDatas = {}

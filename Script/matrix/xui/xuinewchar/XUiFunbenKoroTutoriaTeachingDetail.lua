@@ -81,13 +81,9 @@ function XUiFunbenKoroTutoriaTeachingDetail:OnBtnEnterClick()
         end
         self.RootUi:CloseStageDetails()
         --self:Close() 
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
-            , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
-            , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageCfg.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
+        , XDataCenter.TeamManager.GetXTeamByStageId(self.StageCfg.StageId)
+        , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
     end
 end
 

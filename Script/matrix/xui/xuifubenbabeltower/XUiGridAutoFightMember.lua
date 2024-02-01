@@ -12,8 +12,8 @@ function XUiGridAutoFightMember:UpdateMember(characterId, isLock)
     self.GameObject:SetActiveEx(isExistChar)
 
     if isExistChar then
-        self.RImgHead:SetRawImage(XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(characterId))
-        self.TxtNickName.text = XCharacterConfigs.GetCharacterFullNameStr(characterId)
+        self.RImgHead:SetRawImage(XMVCA.XCharacter:GetCharRoundnessHeadIcon(characterId))
+        self.TxtNickName.text = XMVCA.XCharacter:GetCharacterFullNameStr(characterId)
     end
     self.TxtLock.gameObject:SetActiveEx(isLock)
 end

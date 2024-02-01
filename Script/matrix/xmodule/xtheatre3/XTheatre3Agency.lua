@@ -1,16 +1,11 @@
-local XFubenBaseAgency = require("XModule/XBase/XFubenBaseAgency")
----@class XTheatre3Agency : XFubenBaseAgency
+local XFubenSimulationChallengeAgency = require("XModule/XBase/XFubenSimulationChallengeAgency")
+---@class XTheatre3Agency : XFubenSimulationChallengeAgency
 ---@field _Model XTheatre3Model
-local XTheatre3Agency = XClass(XFubenBaseAgency, "XTheatre3Agency")
+local XTheatre3Agency = XClass(XFubenSimulationChallengeAgency, "XTheatre3Agency")
 function XTheatre3Agency:OnInit()
     --初始化一些变量
-    ---@type XFubenExAgency
-    local fubenExAgency = XMVCA:GetAgency(ModuleId.XFubenEx)
-    fubenExAgency:RegisterChapterAgency(self)
-
-    ---@type XFubenAgency
-    local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
-    fubenAgency:RegisterFuben(XEnumConst.FuBen.StageType.Theatre3, ModuleId.XTheatre3)
+    XMVCA.XFubenEx:RegisterChapterAgency(self)
+    XMVCA.XFuben:RegisterFuben(XEnumConst.FuBen.StageType.Theatre3, ModuleId.XTheatre3)
 end
 
 function XTheatre3Agency:InitRpc()
@@ -18,6 +13,7 @@ function XTheatre3Agency:InitRpc()
     --XRpc.XXX
     XRpc.NotifyTheatre3ActivityData = handler(self, self.NotifyTheatre3ActivityData)
     XRpc.NotifyTheatre3BattlePassExp = handler(self, self.NotifyTheatre3BattlePassExp)
+    XRpc.NotifyTheatre3AddChapter = handler(self, self.NotifyTheatre3AddChapter)
     XRpc.NotifyTheatre3AddStep = handler(self, self.NotifyTheatre3AddStep)
     XRpc.NotifyTheatre3AddItem = handler(self, self.NotifyTheatre3AddItem)
     XRpc.NotifyTheatre3AdventureSettle = handler(self, self.NotifyTheatre3AdventureSettle)
@@ -25,6 +21,11 @@ function XTheatre3Agency:InitRpc()
     XRpc.NotifyTheatre3AbnormalExit = handler(self, self.NotifyTheatre3AbnormalExit)
     XRpc.NotifyTheatre3EquipPosCapacityChange = handler(self, self.NotifyTheatre3EquipPosCapcityChange)
     XRpc.NotifyTheatre3MaxEnergyChange = handler(self, self.NotifyTheatre3MaxEnergyChange)
+    XRpc.NotifyTheatre3Item = handler(self, self.NotifyTheatre3Item)
+    XRpc.NotifyTheatre3EquipDatas = handler(self, self.NotifyTheatre3EquipDatas)
+    XRpc.NotifyTheatre3QubitValues = handler(self, self.NotifyTheatre3QubitValues)
+    XRpc.NotifyTheatre3DestinyValue = handler(self, self.NotifyTheatre3DestinyValue)
+    XRpc.NotifyTheatre3ChapterSwitch = handler(self, self.NotifyTheatre3ChapterSwitch)
 end
 
 function XTheatre3Agency:InitEvent()
@@ -34,7 +35,6 @@ function XTheatre3Agency:InitEvent()
 end
 
 ----------public start----------
-
 --获取活动时间Id
 function XTheatre3Agency:GetActivityTimeId()
     local config = self._Model:GetActivityConfig()
@@ -170,6 +170,59 @@ function XTheatre3Agency:CheckStrengthTreeUnlock(id)
     end
     return false
 end
+
+function XTheatre3Agency:CheckAdventureQuantumLevel(level)
+    if self._Model.ActivityData then
+        local quantumAllValue = self._Model.ActivityData:GetQuantumAllValue()
+        local curLevel = self._Model:GetQuantumLevelByValue(quantumAllValue)
+        return curLevel >= level
+    end
+    return false
+end
+
+function XTheatre3Agency:CheckAdventureUnQuantumEquipCount(how2Compare, count)
+    if self._Model.ActivityData then
+        local curCount = self._Model.ActivityData:GetSuitUnQuantumCount()
+        if how2Compare == 1 then
+            return curCount >= count
+        else
+            return curCount <= count
+        end
+    end
+    return false
+end
+
+function XTheatre3Agency:CheckAdventureItemOwn(itemId, idOwn)
+    if self._Model.ActivityData then
+        local cfg = self._Model:GetItemConfigById(itemId)
+        local isHaveLive = cfg and XTool.IsNumberValid(cfg.ExpireTime)
+        return self._Model.ActivityData:CheckAdventureItemOwn(itemId, idOwn, isHaveLive)
+    end
+    return false
+end
+
+function XTheatre3Agency:CheckAdventureQuantumValue(quantumType, value)
+    if self._Model.ActivityData then
+        return self._Model.ActivityData:CheckQuantumValue(quantumType, value)
+    end
+    return false
+end
+
+function XTheatre3Agency:CheckAdventureQuantumOpenTipCache(state)
+    local isOpenTipCache = XSaveTool.GetData(string.format("XTheatre3OpenQuantumIsTip_%s", XPlayer.Id))
+    if state == 1 then
+        return isOpenTipCache
+    else
+        return not isOpenTipCache
+    end
+end
+
+function XTheatre3Agency:CheckTotalAllPassCount(count)
+    if self._Model.ActivityData then
+        return self._Model.ActivityData:CheckTotalAllPassCount(count)
+    end
+    return false
+end
 --endregion
 
 ----------public end----------
@@ -182,7 +235,11 @@ end
 
 function XTheatre3Agency:NotifyTheatre3BattlePassExp(data)
     self._Model.ActivityData:UpdateTotalBattlePassExp(data.TotalBattlePassExp)
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_THEATRE3_BATTLE_PASS_EXP_CHANGE)
+    XEventManager.DispatchEvent(XEventId.EVENT_THEATRE3_BATTLE_PASS_EXP_CHANGE)
+end
+
+function XTheatre3Agency:NotifyTheatre3AddChapter(data)
+    self._Model:NotifyTheatre3AddChapter(data)
 end
 
 function XTheatre3Agency:NotifyTheatre3AddStep(data)
@@ -213,10 +270,38 @@ end
 
 function XTheatre3Agency:NotifyTheatre3MaxEnergyChange(data)
     self._Model.ActivityData:UpdateMaxEnergy(data.MaxEnergy)
+    self._Model:SetAddEnergyLimitRedPoint(true)
+end
+
+function XTheatre3Agency:NotifyTheatre3Item(data)
+    self._Model.ActivityData:UpdateItemData(data.InnerItems)
+end
+
+function XTheatre3Agency:NotifyTheatre3EquipDatas(data)
+    self._Model.ActivityData:_UpdateEquipData(data.Equips)
+end
+
+function XTheatre3Agency:NotifyTheatre3QubitValues(data)
+    local oldValue = self._Model.ActivityData:GetQuantumAllValue()
+    local newValue = data.QubitValueA + data.QubitValueB
+    local isChangeA = self._Model.ActivityData:UpdateQuantumValue(data.QubitValueA, true)
+    local isChangeB = self._Model.ActivityData:UpdateQuantumValue(data.QubitValueB, false)
+    local isLevelUp = self._Model:GetQuantumLevelByValue(newValue) > self._Model:GetQuantumLevelByValue(oldValue)
+    self:DispatchEvent(XEventId.EVENT_THEATRE3_QUANTUM_VALUE_UPDATE, isChangeA, isChangeB, isLevelUp)
+    XEventManager.DispatchEvent(XEventId.EVENT_THEATRE3_QUANTUM_VALUE_UPDATE, isChangeA, isChangeB, isLevelUp)
+end
+
+function XTheatre3Agency:NotifyTheatre3DestinyValue(data)
+    self._Model.ActivityData:UpdateLuckyValue(data.DestinyValue)
+    XEventManager.DispatchEvent(XEventId.EVENT_THEATRE3_LUCK_VALUE_UPDATE)
+end
+
+function XTheatre3Agency:NotifyTheatre3ChapterSwitch(data)
+    self._Model.ActivityData:UpdateChapterSwitch(data.ChapterSwitch)
 end
 --endregion
 
---region 副本相关
+--region Fight - 副本相关
 function XTheatre3Agency:InitStageInfo()
     ---@type XFubenAgency
     local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
@@ -247,12 +332,10 @@ function XTheatre3Agency:PreFight(stage, teamId, isAssist, challengeCount)
 end
 
 function XTheatre3Agency:CallFinishFight()
-    ---@type XFubenAgency
-    local fubenAgency = XMVCA:GetAgency(ModuleId.XFuben)
-    local res = fubenAgency:GetFubenSettleResult()
+    local res = XMVCA.XFuben:GetFubenSettleResult()
     -- 手动结束
     if not res then
-        fubenAgency:ResetSettle()
+        XMVCA.XFuben:ResetSettle()
         --通知战斗结束，关闭战斗设置页面
         CS.XGameEventManager.Instance:Notify(XEventId.EVENT_FIGHT_FINISH)
         -- 恢复回系统音声设置 避免战斗里将BGM音量设置为0导致结算后没有声音
@@ -261,16 +344,22 @@ function XTheatre3Agency:CallFinishFight()
         self:FinishFight({})
         return
     end
-    fubenAgency:CallFinishFight()
+    XMVCA.XFuben:CallFinishFight()
 end
 
 --战斗结束
 function XTheatre3Agency:FinishFight(settle)
     if settle.IsWin then
+        local fightResult = XMVCA.XFuben:GetCurFightResult()
+        self._Model.ActivityData:AddAdventureFightRecord(settle.StageId, fightResult.DamageSourceDic, fightResult.StringToListIntRecord)
         self._Model.ActivityData:GetCurChapterDb():SetFightNodeSlotAddPassStageId(settle.StageId)
         if not self:CheckAndOpenSettle() then
             -- 战斗胜利没结算就进入选奖励
-            XLuaUiManager.Open("UiTheatre3RewardChoose", false)
+            if self._Model:CheckChapterIsALine(self._Model.ActivityData:GetCurChapterId()) then
+                XLuaUiManager.Open("UiTheatre3RewardChoose", false)
+            else
+                XLuaUiManager.Open("UiTheatre3QuantumRewardChoose", false)
+            end
         end
     else
         if not self:CheckAndOpenSettle() then
@@ -292,6 +381,12 @@ function XTheatre3Agency:ExOpenMainUi()
         XUiManager.TipErrorWithKey("CommonActivityNotStart")
         return
     end
+
+    --分包资源检测
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Theatre3) then
+        return
+    end
+    
     self:CheckAutoPlayStory()
 end
 
@@ -396,6 +491,11 @@ function XTheatre3Agency:RemoveStepView()
     XLuaUiManager.Remove("UiTheatre3EquipmentChoose")
     XLuaUiManager.Remove("UiTheatre3RoleRoom")
     XLuaUiManager.Remove("UiTheatre3Outpost")
+    XLuaUiManager.Remove("UiTheatre3QuantumPlayMain")
+    XLuaUiManager.Remove("UiTheatre3QuantumRewardChoose")
+    XLuaUiManager.Remove("UiTheatre3QuantumOutpost")
+    XLuaUiManager.Remove("UiTheatre3QuantumRoleRoom")
+    XLuaUiManager.Remove("UiTheatre3QuantumChoose")
 end
 
 function XTheatre3Agency:CheckAndOpenSettle()
@@ -404,9 +504,13 @@ function XTheatre3Agency:CheckAndOpenSettle()
         return false
     end
     local storyId = self._Model:GetEndingById(settle.EndId).StoryId
-    if storyId then 
+    if storyId then
+        self:OpenBlackView()
         --结局剧情
         XDataCenter.MovieManager.PlayMovie(storyId, function()
+            if self:IsBlackViewOpen() then
+                XLuaUiManager.Remove("UiBiancaTheatreBlack")
+            end
             self:RemoveStepView()
             XLuaUiManager.Open("UiTheatre3EndLoading", settle.EndId)
         end, nil, nil, false)
@@ -415,6 +519,13 @@ function XTheatre3Agency:CheckAndOpenSettle()
         XLuaUiManager.Open("UiTheatre3EndLoading", settle.EndId)
     end
     return true
+end
+--endregion
+
+--region cfg - FightResult
+function XTheatre3Agency:GetCfgEquipSuitMagicIdList(suitId)
+    local cfg = self._Model:GetEquipDamageSourceCfg(suitId)
+    return cfg and cfg.MagicId
 end
 --endregion
 

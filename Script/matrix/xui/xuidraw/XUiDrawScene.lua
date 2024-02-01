@@ -42,7 +42,7 @@ end
 ---@param modelId number
 function XUiDrawScene:LoadRoleModel(modelId,isHideWeapon,cb)
     self.PanelRoleModel.HideWeapon = isHideWeapon
-    local fashtionId = XCharacterConfigs.GetCharacterTemplate(modelId).DefaultNpcFashtionId
+    local fashtionId = XMVCA.XCharacter:GetCharacterTemplate(modelId).DefaultNpcFashtionId
     --XDataCenter.DisplayManager.UpdateRoleModel(self.PanelRoleModel, modelId, nil, fashtionId)
     self.PanelRoleModel:UpdateCharacterModel(modelId, self.ModelRoot, self.Ui.Name, function(model)
         self:SetModelTransform(model)

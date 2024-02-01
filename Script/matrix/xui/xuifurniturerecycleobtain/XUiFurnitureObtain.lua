@@ -173,29 +173,29 @@ function XUiFurnitureObtain:SetCoinCount()
     if self.IsRecovery then
         self.TxtCoin.text = getRewardCount()
     elseif self:IsCreate() or self:IsRemake() then
-        local rewardCount = getRewardCount()
-        --local createCount = self.CreateCoinCount * self.FurnitureSelectCount
-        local createCount = self:GetCreateCount()
-        local count = (createCount - rewardCount) > 0 and createCount - rewardCount or 0
-        local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin) + rewardCount
-        self.IsRefitCoinEnough = currentOwn >= createCount
+        local count = self:GetConsumeCount()
+        local currentOwn = XDataCenter.ItemManager.GetCount(XDataCenter.ItemManager.ItemId.FurnitureCoin)
+        self.IsRefitCoinEnough = currentOwn >= count
         self.TxtCoin.text = self.IsRefitCoinEnough and CS.XTextManager.GetText("DormBuildEnoughCount", count)
         or CS.XTextManager.GetText("DormBuildNoEnoughCount", count)
     end
 end
 
-function XUiFurnitureObtain:GetCreateCount()
+function XUiFurnitureObtain:GetConsumeCount()
     local list = self:GetFurnitureList()
     if XTool.IsTableEmpty(list) then
         return 0
     end
 
     local coin = 0
+    local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
     for _, furnitureId in pairs(list) do
         local furniture = XDataCenter.FurnitureManager.GetFurnitureById(furnitureId)
         if furniture then
+            local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(furnitureId)
+            local rewardCount = rewards[coinId] and rewards[coinId].Count or 0
             local coinA, coinB, coinC = furniture:GetBaseAttr()
-            coin = coin + coinA + coinB + coinC
+            coin = coin + coinA + coinB + coinC - rewardCount
         end
     end
     

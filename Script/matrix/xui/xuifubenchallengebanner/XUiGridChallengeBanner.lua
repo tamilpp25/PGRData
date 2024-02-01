@@ -144,18 +144,19 @@ function XUiGridChallengeBanner:UpdateGrid(chapter)
             end
 
             -- 剩余时间
-            XCountDown.BindTimer(self, XDataCenter.FubenBossSingleManager.GetResetCountDownName(), function(v)
+            XCountDown.BindTimer(self, XMVCA.XFubenBossSingle:GetResetCountDownName(), function(v)
                 v = v > 0 and v or 0
                 local timeText = XUiHelper.GetTime(v, XUiHelper.TimeFormatType.CHALLENGE)
                 self.TxtTime.text = CS.XTextManager.GetText("BossSingleLeftTimeIcon", timeText)
             end)
 
             -- 进度
-            if XDataCenter.FubenBossSingleManager.CheckNeedChooseLevelType() then
+            if XMVCA.XFubenBossSingle:IsInLevelTypeChooseAble() then
                 self.TxtProgress.text = CS.XTextManager.GetText("BossSingleProgressChooseable")
             else
-                local allCount = XDataCenter.FubenBossSingleManager.GetChallengeCount()
-                local challengeCount = XDataCenter.FubenBossSingleManager.GetBoosSingleData().ChallengeCount
+                local allCount = XMVCA.XFubenBossSingle:GetChallengeCount()
+                local bossSingleData = XMVCA.XFubenBossSingle:GetBossSingleData()
+                local challengeCount = bossSingleData and bossSingleData:GetBossSingleChallengeCount() or 0
                 self.TxtProgress.text = CS.XTextManager.GetText("BossSingleProgress", challengeCount, allCount)
             end
         end
@@ -231,30 +232,30 @@ function XUiGridChallengeBanner:UpdateGrid(chapter)
             end
             XRedPointManager.Check(self.RedPointAssignId)
         end
-    elseif chapter.Type == XDataCenter.FubenManager.ChapterType.InfestorExplore then
-        self.RImgChallenge:SetRawImage(chapter.Icon)
-        self.TxtDes.text = chapter.SimpleDesc
-        self.TxtRank.text = ""
-
-        local functionNameId = XFunctionManager.FunctionName.FubenInfesotorExplore
-        if not XFunctionManager.JudgeCanOpen(functionNameId) then
-            self.PanelLock.gameObject:SetActiveEx(true)
-            self.TxtProgress.gameObject:SetActiveEx(false)
-            self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(functionNameId)
-        else
-            self.TxtProgress.text = XDataCenter.FubenInfestorExploreManager.GetCurSectionName()
-            self.TxtProgress.gameObject:SetActiveEx(true)
-            self.PanelLock.gameObject:SetActiveEx(false)
-            XCountDown.BindTimer(self, XCountDown.GTimerName.FubenInfestorExplore, function(time)
-                time = time > 0 and time or 0
-                local timeText = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHALLENGE)
-                if XDataCenter.FubenInfestorExploreManager.IsInSectionOne() then
-                    self.TxtTime.text = CS.XTextManager.GetText("InfestorExploreSectionLeftTimeSection1", timeText)
-                else
-                    self.TxtTime.text = CS.XTextManager.GetText("InfestorExploreSectionLeftTimeSection2", timeText)
-                end
-            end)
-        end
+    --elseif chapter.Type == XDataCenter.FubenManager.ChapterType.InfestorExplore then
+    --    self.RImgChallenge:SetRawImage(chapter.Icon)
+    --    self.TxtDes.text = chapter.SimpleDesc
+    --    self.TxtRank.text = ""
+    --
+    --    local functionNameId = XFunctionManager.FunctionName.FubenInfesotorExplore
+    --    if not XFunctionManager.JudgeCanOpen(functionNameId) then
+    --        self.PanelLock.gameObject:SetActiveEx(true)
+    --        self.TxtProgress.gameObject:SetActiveEx(false)
+    --        self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(functionNameId)
+    --    else
+    --        self.TxtProgress.text = XDataCenter.FubenInfestorExploreManager.GetCurSectionName()
+    --        self.TxtProgress.gameObject:SetActiveEx(true)
+    --        self.PanelLock.gameObject:SetActiveEx(false)
+    --        XCountDown.BindTimer(self, XCountDown.GTimerName.FubenInfestorExplore, function(time)
+    --            time = time > 0 and time or 0
+    --            local timeText = XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHALLENGE)
+    --            if XDataCenter.FubenInfestorExploreManager.IsInSectionOne() then
+    --                self.TxtTime.text = CS.XTextManager.GetText("InfestorExploreSectionLeftTimeSection1", timeText)
+    --            else
+    --                self.TxtTime.text = CS.XTextManager.GetText("InfestorExploreSectionLeftTimeSection2", timeText)
+    --            end
+    --        end)
+    --    end
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.MaintainerAction then
         self:RefreshMaintainerActionBanner(chapter)
     elseif chapter.Type == XDataCenter.FubenManager.ChapterType.Stronghold then
@@ -276,7 +277,7 @@ function XUiGridChallengeBanner:UnBindTimer()
     XCountDown.UnBindTimer(self, XCountDown.GTimerName.FubenInfestorExplore)
     XCountDown.UnBindTimer(self, XCountDown.GTimerName.Stronghold)
     XCountDown.UnBindTimer(self, XArenaConfigs.ArenaTimerName)
-    XCountDown.UnBindTimer(self, XDataCenter.FubenBossSingleManager.GetResetCountDownName())
+    XCountDown.UnBindTimer(self, XMVCA.XFubenBossSingle:GetResetCountDownName())
     XCountDown.UnBindTimer(self, XDataCenter.MaintainerActionManager.GetResetCountDownName())
     if self.RedPointExploreId then
         XRedPointManager.RemoveRedPointEvent(self.RedPointExploreId)
@@ -395,7 +396,7 @@ function XUiGridChallengeBanner:RefreshStrongholdBanner()
                 end
             end)
 
-            local isShow = XRedPointConditionStrongholdRewardCanGet.Check()
+            local isShow = XRedPointConditions.Check(XRedPointConditions.Types.XRedPointConditionStrongholdRewardCanGet)
             self.ImgRedPoint.gameObject:SetActiveEx(isShow)
         end
     end
@@ -428,7 +429,7 @@ function XUiGridChallengeBanner:RefreshTheatre()
         self.TxtLock.text = XFunctionManager.GetFunctionOpenCondition(functionNameId)
     end
 
-    local isShow = XRedPointConditionTheatreAllRedPoint.Check()
+    local isShow = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_THEATRE_ALL_RED_POINT)
     self.ImgRedPoint.gameObject:SetActiveEx(isShow)
 end
 

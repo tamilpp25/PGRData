@@ -1,17 +1,21 @@
-XUiPanelOtherSet = XClass(nil, "XUiPanelOtherSet")
+---@class XUiPanelOtherSet : XUiNode
+local XUiPanelOtherSet = XClass(XUiNode, "XUiPanelOtherSet")
 local XUiSafeAreaAdapter = CS.XUiSafeAreaAdapter
 
-function XUiPanelOtherSet:Ctor(ui, parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.Parent = parent
-
-    XTool.InitUiObject(self)
+function XUiPanelOtherSet:OnStart()
     self:InitUi()
 
     self.MaxOff = CS.XGame.ClientConfig:GetFloat("SpecialScreenOff")
     self.SetConfigs = XSetConfigs
     self._IsInitFocusTypeDlcHunt = false
+end
+
+function XUiPanelOtherSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelOtherSet:OnDisable()
+    self:HidePanel()
 end
 
 function XUiPanelOtherSet:InitUi()
@@ -185,7 +189,19 @@ function XUiPanelOtherSet:ShowAgreement()
     
     self.BtnPrivacyPolicy.gameObject:SetActiveEx(false)
     self.BtnUserAgreement.gameObject:SetActiveEx(false)
-    
+
+    if self.BtnUserLogoff then
+        local channelId = CS.XHeroSdkAgent.GetChannelId()
+        if (channelId == 11 or channelId == 2) and not XDataCenter.UiPcManager.IsPc() then
+            self.BtnUserLogoff.gameObject:SetActiveEx(true)
+            self.BtnUserLogoff.CallBack = function()
+                XLuaUiManager.Open("UiUserLogoffDialog")
+                --XUiManager.DialogTip(XUiHelper.GetText("HuaweiLogoffTitle"), XUiHelper.GetText("HuaweiLogoffContent"), XUiManager.DialogType.OnlyClose)
+            end
+        else
+            self.BtnUserLogoff.gameObject:SetActiveEx(false)
+        end
+    end
 end
 
 function XUiPanelOtherSet:GetCache()
@@ -403,7 +419,8 @@ end
 
 function XUiPanelOtherSet:OnLoadingTypeChanged(index)
     if index == self.SetConfigs.LoadingType.Custom
-            and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive, nil, true) then
+            and (not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Archive, nil, true) 
+            or not XMVCA.XSubPackage:CheckSubpackage()) then
         self.TGroupLoadingType:SelectIndex(self.SetConfigs.LoadingType.Default)
         return
     end
@@ -436,7 +453,8 @@ function XUiPanelOtherSet:OnFocusTypeChanged(index)
 end
 
 function XUiPanelOtherSet:OnFocusTypeDlcHuntChanged(index)
-    if XDataCenter.DlcRoomManager.IsInTutorialWorld() then
+    -- if XDataCenter.DlcRoomManager.IsInTutorialWorld() then
+    if XMVCA.XDlcRoom:IsInTutorialWorld() then
         local teachingIndex = self:GetFocusIndexDlcHunt(XSetConfigs.FocusTypeDlcHunt.Auto)
         if teachingIndex ~= index then
             self.TGroupFocusTypeDlcHunt:SelectIndex(teachingIndex)
@@ -472,7 +490,6 @@ function XUiPanelOtherSet:OnRechargeTypeChanged(index)
 end
 
 function XUiPanelOtherSet:ShowPanel()
-    self.GameObject:SetActive(true)
     if self.Parent then
         self.Adaptation.gameObject:SetActiveEx(not self.Parent.IsFight)
     end
@@ -482,7 +499,6 @@ end
 
 function XUiPanelOtherSet:HidePanel()
     self.IsShow = false
-    self.GameObject:SetActive(false)
 end
 
 -- 由于ui位置上, 新增的半自动锁定插到了中间, 所以type2和type3的index是反的

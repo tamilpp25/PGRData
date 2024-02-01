@@ -100,10 +100,16 @@ XAutoFightManagerCreator = function()
         end)
     end
 
-    function AutoFightManager.StartNewAutoFight(stageId, count, cb)
+    --2.10:新增log参数用于失败时的log输出
+    function AutoFightManager.StartNewAutoFight(stageId, count, cb,openLog)
         XNetwork.Call(METHOD_NAME.StartNewAutoFight, { StageId = stageId, Count = count }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                if openLog then
+                    --内部会输出最大挑战次数的计算过程log
+                    XLog.Error('-------->自动挑战失败，关卡Id:'..stageId..' 挑战次数:'..count..' 输出客户端计算的最大次数挑战计算情况：')
+                    XDataCenter.FubenManager.GetStageMaxChallengeCount(stageId,true)
+                end
                 return
             end
 
@@ -191,7 +197,7 @@ XAutoFightManagerCreator = function()
         }
 
         for _, charId in pairs(cardIds) do
-            local char = XDataCenter.CharacterManager.GetCharacter(charId)
+            local char = XMVCA.XCharacter:GetCharacter(charId)
             if char ~= nil then
                 table.insert(BeginData.CharExp, { Id = charId, Quality = char.Quality, Exp = char.Exp, Level = char.Level })
             end

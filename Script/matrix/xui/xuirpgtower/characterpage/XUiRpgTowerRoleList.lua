@@ -130,7 +130,7 @@ function XUiRpgTowerRoleList:RefreshBtnRedPoint()
     local isShowFashion = not XSaveTool.GetData(string.format("%s%s%s", "RpgTowerRoleListFashionRedPoint", XPlayer.Id, self.RCharacter:GetId())) and XDataCenter.FashionManager.GetCurrCharHaveCanChangeFashion(self.RCharacter:GetId())
     self.BtnFashion:ShowReddot(isShowFashion)
     -- 红点：未拥有角色显示1次性红点
-    local isShowTech = not XSaveTool.GetData(string.format("%s%s%s", "RpgTowerRoleListTeachRedPoint", XPlayer.Id, self.RCharacter:GetId())) and not XDataCenter.CharacterManager.IsOwnCharacter(self.RCharacter:GetId()) 
+    local isShowTech = not XSaveTool.GetData(string.format("%s%s%s", "RpgTowerRoleListTeachRedPoint", XPlayer.Id, self.RCharacter:GetId())) and not XMVCA.XCharacter:IsOwnCharacter(self.RCharacter:GetId()) 
     self.BtnTeaching:ShowReddot(isShowTech)
 end
 --================

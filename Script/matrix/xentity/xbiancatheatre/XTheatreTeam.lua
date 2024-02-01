@@ -36,10 +36,10 @@ function XTheatreTeam:GetCharacterType()
         end
     end
     if entityId == nil then
-        return XCharacterConfigs.CharacterType.Normal
+        return XEnumConst.CHARACTER.CharacterType.Normal
     end
     local role = XDataCenter.BiancaTheatreManager.GetCurrentAdventureManager():GetRole(entityId)
-    if role == nil then return XCharacterConfigs.CharacterType.Normal end
+    if role == nil then return XEnumConst.CHARACTER.CharacterType.Normal end
     return role:GetCharacterViewModel():GetCharacterType()
 end
 
@@ -57,7 +57,7 @@ function XTheatreTeam:GetCaptainSkillDesc()
     end
 
     local rawId = role:GetRawDataId()
-    return role:GetIsLocalRole() and XDataCenter.CharacterManager.GetCaptainSkillDesc(rawId) or XRobotManager.GetRobotCaptainSkillDesc(rawId)
+    return role:GetIsLocalRole() and XMVCA.XCharacter:GetCaptainSkillDesc(rawId) or XRobotManager.GetRobotCaptainSkillDesc(rawId)
 end
 
 --设置多队伍的队伍下标

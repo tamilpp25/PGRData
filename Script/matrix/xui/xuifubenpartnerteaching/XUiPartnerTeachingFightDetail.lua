@@ -42,11 +42,7 @@ function XUiPartnerTeachingFightDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
         XEventManager.DispatchEvent(XEventId.EVENT_PARTNER_TEACHING_CLOSE_STAGE_DETAIL)
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     end
 end
 

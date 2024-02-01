@@ -1,3 +1,4 @@
+---@class XUiTaskPanelActive
 XUiPanelActive = XClass(nil, "XUiPanelActive")
 
 function XUiPanelActive:Ctor(ui, rootUi, index, parent)

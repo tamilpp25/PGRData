@@ -436,6 +436,18 @@ function XHomeRoomData:GetAllFurnitures()
     end
 end
 
+function XHomeRoomData:GetAllFurnitureConfig()
+    local list = {}
+    for _, data in pairs(self.FurnitureDic) do
+        local config = XFurnitureConfigs.GetFurnitureTemplateById(data.ConfigId)
+        if config then
+            table.insert(list, config)
+        end
+    end
+    
+    return list
+end
+
 function XHomeRoomData:IsAsyncLoad()
     -- 是否需要异步加载： 家具数量大于阈值 & 宿舍家具总量大于阈值
     return self.FurnitureCount > XDormConfig.LoadThresholdSingle and (not XHomeDormManager.CheckLoadFurnitureOnEnter())

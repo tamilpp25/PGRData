@@ -274,7 +274,7 @@ XSetManagerCreator = function()
         local timeId
         for _, operationType in ipairs(operationTypeListConfig) do
             timeId = XSetConfigs.GetOperationTypeTimeId(operationType)
-            if XFunctionManager.CheckInTimeByTimeId(timeId, true) then
+            if XFunctionManager.CheckInTimeByTimeId(timeId, false) or timeId == 0 then
                 table.insert(operationTypeList, operationType)
             end
         end

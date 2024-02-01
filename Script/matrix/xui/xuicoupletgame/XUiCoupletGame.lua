@@ -16,7 +16,7 @@ end
 
 function XUiCoupletGame:OnStart()
     self:AutoRegisterBtn()
-    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, true)
+    self.AssetPanel = XUiPanelActivityAsset.New(self.PanelAsset, self, true)
     self.AssetPanel:Refresh({ XDataCenter.CoupletGameManager.GetConsumeItemId() })
     self:InitBtnGroup()
     self:InitRedPoint()

@@ -304,10 +304,9 @@ XSuperTowerManagerCreator = function()
     --FubenManager代理方法:调用结算战斗时
     --===============
     function XSuperTowerManager.CallFinishFight()
-        local XFubenManager = XDataCenter.FubenManager
-        local res = XFubenManager.FubenSettleResult
-        XFubenManager.FubenSettling = false
-        XFubenManager.FubenSettleResult = nil
+        local res = XMVCA.XFuben:GetFubenSettleResult()
+        XMVCA.XFuben:SetFubenSettling(false)
+        XMVCA.XFuben:SetFubenSettleResult(nil)
 
         --通知战斗结束，关闭战斗设置页面
         CS.XGameEventManager.Instance:Notify(XEventId.EVENT_FIGHT_FINISH)
@@ -663,8 +662,8 @@ XSuperTowerManagerCreator = function()
     --一键上阵
     --===============
     function XSuperTowerManager.AutoTeam(stStage)
-        local normalRoleList = RoleManager:GetCanFightRoles(XCharacterConfigs.CharacterType.Normal)
-        local isomerRoleList = RoleManager:GetCanFightRoles(XCharacterConfigs.CharacterType.Isomer)
+        local normalRoleList = RoleManager:GetCanFightRoles(XEnumConst.CHARACTER.CharacterType.Normal)
+        local isomerRoleList = RoleManager:GetCanFightRoles(XEnumConst.CHARACTER.CharacterType.Isomer)
         
         XSuperTowerManager.ClearAllMultiTeamsData()
         
@@ -682,16 +681,16 @@ XSuperTowerManagerCreator = function()
 
         for index,stageId in pairs(stageIdList or {}) do --优先选择倾向构造体
             local memberCount = stStage:GetMemberCountByIndex(index)
-            local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId) or XCharacterConfigs.CharacterType.Normal
+            local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId) or XEnumConst.CHARACTER.CharacterType.Normal
             local team = XSuperTowerManager.GetTeamByStageId(stageId)
             team:Clear()
             local charIndex = 1
             local curCount = 1
 
             local roleList
-            if recommendType == XCharacterConfigs.CharacterType.Isomer then
+            if recommendType == XEnumConst.CHARACTER.CharacterType.Isomer then
                 roleList = isomerRoleList
-            elseif recommendType == XCharacterConfigs.CharacterType.Normal then
+            elseif recommendType == XEnumConst.CHARACTER.CharacterType.Normal then
                 roleList = normalRoleList
             end
 
@@ -722,15 +721,15 @@ XSuperTowerManagerCreator = function()
 
         for index,stageId in pairs(stageIdList or {}) do --补足非倾向构造体
             local memberCount = stStage:GetMemberCountByIndex(index)
-            local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId) or XCharacterConfigs.CharacterType.Normal
+            local recommendType = XFubenConfigs.GetStageRecommendCharacterType(stageId) or XEnumConst.CHARACTER.CharacterType.Normal
             local team = XSuperTowerManager.GetTeamByStageId(stageId)
             local charIndex = 1
             local curCount = 1
 
             local roleList
-            if recommendType == XCharacterConfigs.CharacterType.Isomer then
+            if recommendType == XEnumConst.CHARACTER.CharacterType.Isomer then
                 roleList = isomerRoleList
-            elseif recommendType == XCharacterConfigs.CharacterType.Normal then
+            elseif recommendType == XEnumConst.CHARACTER.CharacterType.Normal then
                 roleList = normalRoleList
             end
 

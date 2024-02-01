@@ -30,7 +30,7 @@ function XUiLoadingSet:Refresh()
     self.SelectCount = 0
 
     for _, v in ipairs(self.LoadingList) do
-        table.insert(self.EntityList, XDataCenter.ArchiveManager.GetArchiveCgEntity(v))
+        table.insert(self.EntityList, XMVCA.XArchive:GetArchiveCgEntity(v))
         self.SelectionDic[v] = false
     end
 

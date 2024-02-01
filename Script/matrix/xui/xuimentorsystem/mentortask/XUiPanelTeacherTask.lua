@@ -140,13 +140,18 @@ end
 function XUiPanelTeacherTask:CheckStudentState()
     local mentorData = XDataCenter.MentorSystemManager.GetMentorData()
     local studentList = mentorData:GetNotGraduateStudentDataList()
-    for index,student in pairs(studentList or {}) do
-        local taskCount = mentorData:GetStudentWeeklyTaskCompleteCountByIndex(index)
-        local maxCount = XMentorSystemConfigs.GetMentorSystemData("CompleteTaskCount")
-        local IsShowRed = XDataCenter.MentorSystemManager.CheckTeacherCanGetStudentWeeklyRewardByStudent(student)
-        
-        self.StudentBtnList[index]:SetNameByGroup(ScheduleIndex,string.format("%d/%d", taskCount, maxCount))
-        self.StudentBtnList[index]:ShowReddot(IsShowRed)
+    if not XTool.IsTableEmpty(studentList) then
+        for index,student in pairs(studentList) do
+            local taskCount = mentorData:GetStudentWeeklyTaskCompleteCountByIndex(index)
+            local maxCount = XMentorSystemConfigs.GetMentorSystemData("CompleteTaskCount")
+            local IsShowRed = XDataCenter.MentorSystemManager.CheckTeacherCanGetStudentWeeklyRewardByStudent(student)
+            if self.StudentBtnList[index] then
+                self.StudentBtnList[index]:SetNameByGroup(ScheduleIndex,string.format("%d/%d", taskCount, maxCount))
+                self.StudentBtnList[index]:ShowReddot(IsShowRed)
+            else
+                XLog.Error('out of range : 学生列表长度与UI列表长度不一致，studentListCount: '..XTool.GetTableCount(studentList)..' ; StudentBtnListCount: '..XTool.GetTableCount(self.StudentBtnList), 'index: '..index)
+            end
+        end
     end
     
     local student = mentorData:GetNotGraduateStudentDataByIndex(self.CurStudentIndex)

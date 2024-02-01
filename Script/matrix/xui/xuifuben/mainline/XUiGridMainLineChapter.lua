@@ -1,5 +1,4 @@
 local XUiGridFubenChapter = require("XUi/XUiFuben/UiDynamicList/XUiGridFubenChapter")
-local XUiBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload")
 local XUiGridMainLineChapter = XClass(XUiGridFubenChapter, "XUiGridMainLineChapter")
 
 function XUiGridMainLineChapter:Ctor(ui, clickFunc)
@@ -8,8 +7,6 @@ function XUiGridMainLineChapter:Ctor(ui, clickFunc)
     self.ChapterViewModel = nil
     self.MainLineManager = XDataCenter.FubenManagerEx.GetMainLineManager()
     XUiHelper.RegisterClickEvent(self, self.BtnSelf, self.OnBtnSelfClicked)
-    ---@type XUiBtnDownload
-    self.GirdBtnDownload = XUiBtnDownload.New(self.BtnDownload)
 end
 
 function XUiGridMainLineChapter:SetData(index, viewModel)
@@ -17,6 +14,19 @@ function XUiGridMainLineChapter:SetData(index, viewModel)
     self.ChapterViewModel = viewModel
     local extralData = viewModel:GetExtralData()
     self.RImgBigIcon:SetRawImage(viewModel:GetIcon())
+
+    -- 成就图标
+    local achievementIcon = viewModel:GetAchievementIcon()
+    local isShowAchieve = achievementIcon ~= nil
+    self.RImgAchievement.gameObject:SetActiveEx(isShowAchieve)
+    if isShowAchieve then
+        self.RImgAchievement:SetRawImage(achievementIcon)
+    end
+
+    -- 特效
+    local isShowEffect = viewModel:IsShowEffect()
+    self.Effect.gameObject:SetActiveEx(isShowEffect)
+
     if viewModel:GetId() == XDataCenter.FubenMainLineManager.TRPGChapterId then
         local progress = XDataCenter.TRPGManager.GetProgress()
         self.ImgProgress.fillAmount = progress / 100
@@ -46,14 +56,11 @@ function XUiGridMainLineChapter:SetData(index, viewModel)
     self.UnSelectedImg.gameObject:SetActiveEx(not viewModel:GetIsLocked()) -- 避免刷新数据格子换数据，出现的双层遮罩问题
     self.UnSelectedImg.transform.parent.gameObject:SetActiveEx(true)
     self:RefreshRedPoint()
-    self.GirdBtnDownload:Init(XDlcConfig.EntryType.MainChapter, self.ChapterViewModel:GetId(), nil, handler(self, self.OnDownloadComplete))
-    self.GirdBtnDownload:RefreshView()
-    self.RImgLockMask.gameObject:SetActiveEx(viewModel:GetIsLocked() or self.GirdBtnDownload:CheckNeedDownload())
+    self.RImgLockMask.gameObject:SetActiveEx(viewModel:GetIsLocked())
 end
 
 function XUiGridMainLineChapter:OnBtnSelfClicked()
-    if self.GirdBtnDownload:CheckNeedDownload() then
-        self.GirdBtnDownload:OnBtnClick()
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.MainLine, self.ChapterViewModel:GetId()) then
         return
     end
     if self.ClickFunc then
@@ -62,8 +69,7 @@ function XUiGridMainLineChapter:OnBtnSelfClicked()
 end
 
 function XUiGridMainLineChapter:RefreshRedPoint()
-    local extralData = self.ChapterViewModel:GetExtralData()
-    local hardViewModel = self.MainLineManager:ExGetChapterViewModelById(extralData.MainId, XDataCenter.FubenManager.DifficultHard, extralData.Index)
+    local hardViewModel = self.MainLineManager:GetHardChapterViewModel(self.ChapterViewModel)
     -- 普通模式(之后不再需要普通模式标签)
     self.PanelNormal.gameObject:SetActiveEx(false)
     -- 红点处理
@@ -76,13 +82,6 @@ function XUiGridMainLineChapter:GetMoveDuration(isOpen)
     else
         return XFubenConfigs.MainLineMoveCloseTime
     end
-end
-
-function XUiGridMainLineChapter:OnDownloadComplete()
-    if XTool.UObjIsNil(self.GameObject) then
-        return
-    end
-    self.RImgLockMask.gameObject:SetActiveEx(self.ChapterViewModel:GetIsLocked() or self.GirdBtnDownload:CheckNeedDownload())
 end
 
 return XUiGridMainLineChapter

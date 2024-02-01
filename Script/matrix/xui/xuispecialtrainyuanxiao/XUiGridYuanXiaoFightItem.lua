@@ -117,7 +117,7 @@ function XUiGridYuanXiaoFightItem:SwitchAlreadyLike()
 end
 
 function XUiGridYuanXiaoFightItem:GetHeadIcon(characterId, ...) 
-    --return XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, ...)
+    --return XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, ...)
     return XCharacterCuteConfig.GetCuteModelSmallHeadIcon(characterId)
 end
 

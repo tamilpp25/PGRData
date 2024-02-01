@@ -1,20 +1,18 @@
 require("XManager/XModelManager")
 
-XUiPanelSelectLevelItems = XClass(nil, "XUiPanelSelectLevelItems")
+local XUiPanelSelectLevelItems = XClass(XUiNode, "XUiPanelSelectLevelItems")
 
-function XUiPanelSelectLevelItems:Ctor(ui, rootUi, parent)
+function XUiPanelSelectLevelItems:Ctor(ui, parent, rootUi)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
     self.RootUi = rootUi
-    self.Parent = parent
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
 
     self:InitAutoScript()
     self.ExpItems = {}
     self.TotalExp = {}
-    self.CharUpgradeInfoPanel = XUiPanelLevelUpgrade.New(self.PanelLevelUpgrade, self.Parent)
+
+	local XUiPanelLevelUpgrade = require("XUi/XUiCharacter/XUiPanelLevelUpgrade") --XUiPanelLevelUpgrade,
+    self.CharUpgradeInfoPanel = XUiPanelLevelUpgrade.New(self.PanelLevelUpgrade, self, self.Parent)
 end
 
 -- auto
@@ -72,19 +70,19 @@ end
 
 function XUiPanelSelectLevelItems:ResetData()
     local characterId = self.CharacterId
-    local character = self.CharacterAgency:GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
 
     self.MaxLevelNeedExp = 0
     self.ShowNextLevel = character.Level
 
     for start = character.Level, self.MaxLevel - 1 do
-        self.MaxLevelNeedExp = self.MaxLevelNeedExp + XCharacterConfigs.GetNextLevelExp(characterId, start)
+        self.MaxLevelNeedExp = self.MaxLevelNeedExp + XMVCA.XCharacter:GetNextLevelExp(characterId, start)
     end
 
     self.ShowCurExp = character.Exp
     self.CurCharacterExp = character.Exp
     self.CharacterTempExp = character.Exp
-    if character.Exp > XCharacterConfigs.GetNextLevelExp(characterId, character.Level) then
+    if character.Exp > XMVCA.XCharacter:GetNextLevelExp(characterId, character.Level) then
         self.CharacterTempExp = 0
     end
     self.MaxLevelNeedExp = self.MaxLevelNeedExp - self.CharacterTempExp
@@ -96,7 +94,7 @@ end
 function XUiPanelSelectLevelItems:ShowPanel(characterId)
     self.ItemId = nil
     self.CharacterId = characterId
-    self.MaxLevel = self.CharacterAgency:GetMaxAvailableLevel(characterId)
+    self.MaxLevel = XMVCA.XCharacter:GetMaxAvailableLevel(characterId)
     self.IsShow = true
     self.ScrollbarVertical.value = 1
     self.CharUpgradeInfoPanel.GameObject:SetActive(false)
@@ -104,7 +102,7 @@ function XUiPanelSelectLevelItems:ShowPanel(characterId)
     self:UpdateItems()
     self:UpdateUi()
     self:CheckMaxLevel()
-    local character = self.CharacterAgency:GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     self.TxtShowLevel.text = CS.XTextManager.GetText("CharacterShowLevel", character.Level, self.MaxLevel)
     self.PanelItems.gameObject:SetActive(true)
     self.GameObject:SetActive(true)
@@ -117,7 +115,7 @@ function XUiPanelSelectLevelItems:HidePanel()
 end
 
 function XUiPanelSelectLevelItems:CheckMaxLevel()
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
     local isMaxLevel = character.Level >= self.MaxLevel or self.AddExp <= 0
     self.BtnUpgrade.gameObject:SetActive(not isMaxLevel)
     self.ImgMaxLevel.gameObject:SetActive(isMaxLevel)
@@ -125,12 +123,12 @@ end
 
 function XUiPanelSelectLevelItems:UpdateUi()
     local characterId = self.CharacterId
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     self.ImgExpAddBar.gameObject:SetActive(false)
     local isMaxLevel = self.ShowNextLevel >= self.MaxLevel
-    self.ImgExpBar.fillAmount = isMaxLevel and 0 or self.CharacterTempExp / XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
-    self.TxtExpCompare.text = math.floor(self.ShowCurExp) .. "/" .. XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
+    self.ImgExpBar.fillAmount = isMaxLevel and 0 or self.CharacterTempExp / XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
+    self.TxtExpCompare.text = math.floor(self.ShowCurExp) .. "/" .. XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
     self.TxtCharCurLevel.text = character.Level
     self.TxtAddExp.text = self.AddExp > 0 and "+" .. math.floor(self.AddExp) or ""
 
@@ -141,10 +139,10 @@ end
 
 function XUiPanelSelectLevelItems:UpdateUiAdd(index)
     local characterId = self.CharacterId
-    local character = self.CharacterAgency:GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
 
     local isMaxLevel = self.ShowNextLevel >= self.MaxLevel
-    local nextLevelExp = XCharacterConfigs.GetNextLevelExp(characterId, self.ShowNextLevel)
+    local nextLevelExp = XMVCA.XCharacter:GetNextLevelExp(characterId, self.ShowNextLevel)
 
     self.ImgExpAddBar.gameObject:SetActive(true)
 
@@ -164,7 +162,7 @@ function XUiPanelSelectLevelItems:UpdateUiAdd(index)
 end
 
 function XUiPanelSelectLevelItems:CalcMaxCount(expItem)
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     local count = expItem.SelectCount
     local itemId = expItem.Data.Id
@@ -187,7 +185,7 @@ function XUiPanelSelectLevelItems:CalcMaxCount(expItem)
 end
 
 function XUiPanelSelectLevelItems:UpdateItems()
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     local expItemsInfo = XDataCenter.ItemManager.GetCardExpItems()
     local index = 1
@@ -242,13 +240,13 @@ function XUiPanelSelectLevelItems:UpdateItems()
 end
 
 function XUiPanelSelectLevelItems:UpdateAddExp(index, changeCount)
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     local exp = XDataCenter.ItemManager.GetCharExp(self.ExpItems[index].Data.Id, character.Type)
     self.AddExp = self.AddExp + exp * changeCount
     character.Exp = self.CharacterTempExp
     local preExp = self.AddExp ~= 0 and self.AddExp + self.RedundantExp or 0
-    self.ShowNextLevel, self.ShowCurExp = self.CharacterAgency:CalLevelAndExp(character, preExp)
+    self.ShowNextLevel, self.ShowCurExp = XMVCA.XCharacter:CalLevelAndExp(character, preExp)
 
     if self.ShowNextLevel > self.MaxLevel then
         self.ShowNextLevel = self.MaxLevel
@@ -264,7 +262,7 @@ function XUiPanelSelectLevelItems:UpdateAddExp(index, changeCount)
 end
 
 function XUiPanelSelectLevelItems:DealSelectItem(index, newCount)
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     if newCount < 0 then
         return
@@ -284,13 +282,13 @@ function XUiPanelSelectLevelItems:DealSelectItem(index, newCount)
     local exp = XDataCenter.ItemManager.GetCharExp(self.ExpItems[index].Data.Id, character.Type)
     local addExp = exp * diffCount
     local preExp = addExp ~= 0 and self.AddExp + addExp + self.RedundantExp or 0
-    local showNextLevel, _ = self.CharacterAgency:CalLevelAndExp(character, preExp)
+    local showNextLevel, _ = XMVCA.XCharacter:CalLevelAndExp(character, preExp)
     if showNextLevel > self.MaxLevel and newCount > selectCount  then
         while showNextLevel >= self.MaxLevel do
             diffCount = diffCount - 1
             addExp = exp * diffCount
             preExp = self.AddExp + addExp ~= 0 and self.AddExp + addExp + self.RedundantExp or 0
-            showNextLevel, _ = self.CharacterAgency:CalLevelAndExp(character, preExp)
+            showNextLevel, _ = XMVCA.XCharacter:CalLevelAndExp(character, preExp)
         end
         diffCount = diffCount + 1
         self:UpdateAddExp(index, diffCount)
@@ -314,7 +312,7 @@ function XUiPanelSelectLevelItems:DealSelectItem(index, newCount)
 end
 
 function XUiPanelSelectLevelItems:SendLevelExpItems()
-    local character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     local curLevel = XPlayer.Level
     if curLevel < self.ShowNextLevel then
@@ -334,7 +332,7 @@ function XUiPanelSelectLevelItems:SendLevelExpItems()
     local oldCharLevel = character.Level
     self.CharUpgradeInfoPanel:OldCharUpgradeInfo(character)
     if next(items) then
-        self.CharacterAgency:AddExp(character, items, function()
+        XMVCA.XCharacter:AddExp(character, items, function()
             self:ResetData()
             self:UpdateItems()
             self:UpdateUi()
@@ -355,3 +353,5 @@ function XUiPanelSelectLevelItems:SendLevelExpItems()
         end)
     end
 end
+
+return XUiPanelSelectLevelItems

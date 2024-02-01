@@ -149,7 +149,7 @@ function XUiPartnerPreview:UpdateCamera()
 end
 
 function XUiPartnerPreview:UpdatePartnerInfo()
-    local qualityIcon = XCharacterConfigs.GetCharacterQualityIcon(self.Data:GetInitQuality())
+    local qualityIcon = XMVCA.XCharacter:GetCharacterQualityIcon(self.Data:GetInitQuality())
 
     self.TxtPartnerMainName.text = self.Data:GetOriginalName()
     self.RawQuality:SetRawImage(qualityIcon)
@@ -159,7 +159,7 @@ function XUiPartnerPreview:UpdatePartnerInfo()
     local strElement = ""
     for index, element in pairs(self.Data:GetRecommendElement() or {}) do
         if element > 0 then
-            local elementConfig = XCharacterConfigs.GetCharElement(element)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(element)
             local strFormat = index > 1 and "%s, %s" or "%s%s"
             strElement = string.format(strFormat, strElement, elementConfig.ElementName)
         end

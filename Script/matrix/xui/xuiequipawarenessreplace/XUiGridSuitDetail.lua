@@ -75,9 +75,9 @@ function XUiGridSuitDetail:Refresh(suitId, defaultSuitIds, isBigIcon, desPrefix,
         local suitNum
 
         if suitId == XEquipConfig.DEFAULT_SUIT_ID.Normal then
-            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XCharacterConfigs.CharacterType.Normal)
+            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XEnumConst.CHARACTER.CharacterType.Normal)
         elseif suitId == XEquipConfig.DEFAULT_SUIT_ID.Normal then
-            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XCharacterConfigs.CharacterType.Isomer)
+            suitNum = XDataCenter.EquipManager.GetAwarenessCount(XEnumConst.CHARACTER.CharacterType.Isomer)
         else
             suitNum = XDataCenter.EquipManager.GetEquipCountInSuit(suitId, site)
         end

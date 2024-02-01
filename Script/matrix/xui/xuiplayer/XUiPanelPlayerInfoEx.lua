@@ -6,13 +6,12 @@ local MODE_LOOP = 1
 --============
 --新玩家信息界面玩家信息面板
 --============
-local XUiPanelPlayerInfoEx = XClass(nil, "XUiPanelPlayerInfoEx")
+local XUiPanelPlayerInfoEx = XClass(XUiNode, "XUiPanelPlayerInfoEx")
 
-function XUiPanelPlayerInfoEx:Ctor(uiPrefab, rootUi)
-    XTool.InitUiObjectByUi(self, uiPrefab)
+function XUiPanelPlayerInfoEx:OnStart()
     self:InitAutoScript()
-    self.PlayAnimation = function(s, ...) rootUi:PlayAnimation(...) end
-    self.ShowSetting = function() rootUi:ShowSetting() end
+    self.PlayAnimation = function(s, ...) self.Parent:PlayAnimation(...) end
+    self.ShowSetting = function() self.Parent:ShowSetting() end
     self.PanelSetNameInst = XUiPanelSetName.New(self.PanelSetName.gameObject, self)
     self.PanelSetBirthdayInst = XUiPanelSetBirthday.New(self.PanelSetBirthday.gameObject, self)
     self.PanelSetHeadPortraitInst = XUiPanelSetHeadPortrait.New(self.PanelSetHeadPortrait, self)
@@ -26,15 +25,15 @@ function XUiPanelPlayerInfoEx:Ctor(uiPrefab, rootUi)
     self.BtnFeedback.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.Feedback))
     self.PanelDuihuan.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.ExchangeCode))
 
-    XRedPointManager.AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME })
+    self:AddRedPointEvent(self.ImgSetNameTag, self.OnCheckSetName, self, { XRedPointConditions.Types.CONDITION_PLAYER_SETNAME })
     if self.ImgExhibitionNew then
-        XRedPointManager.AddRedPointEvent(self.ImgExhibitionNew, self.OnCheckExhibition, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW })
+        self:AddRedPointEvent(self.ImgExhibitionNew, self.OnCheckExhibition, self, { XRedPointConditions.Types.CONDITION_EXHIBITION_NEW })
     end
-    XRedPointManager.AddRedPointEvent(self.NewHead, self.OnCheckHeadPortrait, self, { XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnArchive, self.OnCheckArchive, self, { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL, XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON, XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS, XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })
-    XRedPointManager.AddRedPointEvent(self.BtnBirModify, self.OnCheckBirthDay, self, { XRedPointConditions.Types.CONDITION_PLAYER_BIRTHDAY })
-
-    self:UpdatePlayerLevelInfo() 
+    self:AddRedPointEvent(self.NewHead, self.OnCheckHeadPortrait, self, { XRedPointConditions.Types.CONDITION_HEADPORTRAIT_RED })
+    self:AddRedPointEvent(self.BtnArchive, self.OnCheckArchive, self, { XRedPointConditions.Types.CONDITION_ARCHIVE_MONSTER_ALL, XRedPointConditions.Types.CONDITION_ARCHIVE_WEAPON, XRedPointConditions.Types.CONDITION_ARCHIVE_AWARENESS, XRedPointConditions.Types.CONDITION_ARCHIVE_CG_ALL })
+    self:AddRedPointEvent(self.BtnBirModify, self.OnCheckBirthDay, self, { XRedPointConditions.Types.CONDITION_PLAYER_BIRTHDAY })
+    self:AddRedPointEvent(self.BtnFeedback, self.OnCheckFeedback, self, { XRedPointConditions.Types.CONDITION_FEEDBACK_RED })
+    self:UpdatePlayerLevelInfo()
 end
 
 function XUiPanelPlayerInfoEx:OnEnable()
@@ -213,6 +212,10 @@ function XUiPanelPlayerInfoEx:OnCheckBirthDay(count)
     self.BtnBirModify:ShowReddot(count >= 0)
 end
 
+function XUiPanelPlayerInfoEx:OnCheckFeedback(count)
+    self.BtnFeedback:ShowReddot(count >= 0)
+end
+
 function XUiPanelPlayerInfoEx:OnBtnSignCancelClick()
     if self.PanelSetSign ~= nil then
         XDataCenter.UiPcManager.RemoveCustomUI(self.PanelSetSign.gameObject)
@@ -246,7 +249,7 @@ function XUiPanelPlayerInfoEx:OnBtnAssistModifyClick()
         return
     end
     self:RecordAnimation()
-    XLuaUiManager.Open("UiCharacter", nil, nil, nil, true)
+    XLuaUiManager.Open("UiSelectCharacterPlayerSupport")
 end
 
 function XUiPanelPlayerInfoEx:OnBtnCopyClick()
@@ -270,7 +273,7 @@ end
 function XUiPanelPlayerInfoEx:UpdatePlayerInfo()
     self.TxtPlayerIdNum.text = XPlayer.Id
     self.TxtPlayerName.text = XPlayer.Name
-    self:SetBirthday(XPlayer.Birthday)
+    self:SetBirthday(XMVCA.XBirthdayPlot:GetBirthday())
     XUiPLayerHead.InitPortrait(XPlayer.CurrHeadPortraitId, XPlayer.CurrHeadFrameId, self.Head)
     self:UpdateAssistInfo()
     local sign = XPlayer.Sign
@@ -293,11 +296,11 @@ end
 
 function XUiPanelPlayerInfoEx:UpdateAssistInfo()
     local id = XDataCenter.AssistManager.GetAssistCharacterId()
-    local character = XDataCenter.CharacterManager.GetCharacter(id)
-    self.RImgCharacterRank:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
-    self.RImgAssist:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(id))
+    local character = XMVCA.XCharacter:GetCharacter(id)
+    self.RImgCharacterRank:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
+    self.RImgAssist:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(id))
     self.TxtRoleRank.text = character.Level
-    self.TxtRoleName.text = XCharacterConfigs.GetCharacterName(id)
+    self.TxtRoleName.text = XMVCA.XCharacter:GetCharacterName(id)
 end
 
 function XUiPanelPlayerInfoEx:SetName(name)
@@ -311,12 +314,12 @@ function XUiPanelPlayerInfoEx:SetSign(sign)
 end
 
 function XUiPanelPlayerInfoEx:SetBirthday(birthday)
-    if (birthday == nil) then
+    if not XMVCA.XBirthdayPlot:IsSetBirthday() then
         self.TxtDate.text = CS.XTextManager.GetText("Birthday", "--", "--")
     else
         self.TxtDate.text = CS.XTextManager.GetText("Birthday", birthday.Mon, birthday.Day)
     end
-    self.BtnBirModify.gameObject:SetActiveEx(not XPlayer.IsChangedBirthday())
+    self.BtnBirModify.gameObject:SetActiveEx(XMVCA.XBirthdayPlot:CheckCanChangeBirthday())
 end
 
 function XUiPanelPlayerInfoEx:OnBtnSignSureClick()
@@ -348,8 +351,12 @@ function XUiPanelPlayerInfoEx:OnBtnGenghuanClick()
 end
 
 function XUiPanelPlayerInfoEx:OnBtnFeedbackClick()
-    if CustomerServiceUrl and CustomerServiceUrl ~= "" then
-        CS.UnityEngine.Application.OpenURL(CustomerServiceUrl)
+    XHeroSdkManager.ClearReddot()
+    self.BtnFeedback:ShowReddot(false)
+    if not XHeroSdkManager.Feedback(XEnumConst.FeedBackType.From.Setting, XEnumConst.FeedBackType.isLogin.Login) then
+        if CustomerServiceUrl and CustomerServiceUrl ~= "" then
+            CS.UnityEngine.Application.OpenURL(CustomerServiceUrl)
+        end
     end
 end
 
@@ -385,7 +392,7 @@ end
 
 function XUiPanelPlayerInfoEx:ChangeBirthdayCallback()
     self:HidePanelSetBirthday()
-    self:SetBirthday(XPlayer.Birthday)
+    self:SetBirthday(XMVCA.XBirthdayPlot:GetBirthday())
 end
 
 function XUiPanelPlayerInfoEx:HidePanelSetBirthday()

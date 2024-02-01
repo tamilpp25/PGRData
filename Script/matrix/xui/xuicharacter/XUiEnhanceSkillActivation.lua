@@ -24,7 +24,7 @@ function XUiEnhanceSkillActivation:UpdatePanel()
         self:PlayAnimationWithMask("AnimSpEnable")
     end
 
-    local fullBodyImage = XCharacterConfigs.GetCharFullBodyImg(self.CharacterId)
+    local fullBodyImage = XMVCA.XCharacter:GetCharFullBodyImg(self.CharacterId)
     local resource = CS.XResourceManager.Load(fullBodyImage)
     local texture = resource.Asset
     self.MeshImg.sharedMaterial:SetTexture("_MainTex", texture)
@@ -46,11 +46,11 @@ function XUiEnhanceSkillActivation:UpdatePanel()
 end
 
 function XUiEnhanceSkillActivation:IsEnhance()
-    return self.Type == XCharacterConfigs.SkillUnLockType.Enhance
+    return self.Type == XEnumConst.CHARACTER.SkillUnLockType.Enhance
 end
 
 function XUiEnhanceSkillActivation:IsSp()
-    return self.Type == XCharacterConfigs.SkillUnLockType.Sp
+    return self.Type == XEnumConst.CHARACTER.SkillUnLockType.Sp
 end
 
 function XUiEnhanceSkillActivation:OnBtnDetermineClick()

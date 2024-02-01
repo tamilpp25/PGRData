@@ -14,8 +14,8 @@ function XUiGuildWarStageDetail:OnAwake()
     self.TimeId = nil
     self.CurrentChildPanel = nil
     self:RegisterUiEvents()
-    XUiHelper.NewPanelActivityAsset({ XGuildWarConfig.ActivityPointItemId }
-    , self.PanelSpecialTool, { self.GuildWarManager.GetMaxActionPoint() })
+    XUiHelper.NewPanelActivityAssetSafe({ XGuildWarConfig.ActivityPointItemId }
+    , self.PanelSpecialTool, self, { self.GuildWarManager.GetMaxActionPoint() })
     -- 子面板信息配置
     self.ChildPanelInfoDic = {
         [XGuildWarConfig.NodeType.Sentinel] = {
@@ -78,6 +78,12 @@ function XUiGuildWarStageDetail:OnAwake()
             proxy = require("XUi/XUiGuildWar/Node/XUiPanelBossTerm4"),
             proxyArgs = { "Node" },
         },
+        [XGuildWarConfig.NodeType.Resource] = {
+            uiParent = self.PanelResource,
+            instanceGo = self.PanelResource,
+            proxy = require("XUi/XUiGuildWar/Node/XUiPanelResource"),
+            proxyArgs = { "Node" },
+        }
     }
     -- 连接信号
     self.UiPanelNodeDetail:ConnectSignal("ChangeTopDetailStatus", self, self.OnChangeTopDetailStatus)
@@ -86,6 +92,7 @@ end
 
 -- node : XNormalGWNode
 function XUiGuildWarStageDetail:OnStart(node, isMonsterStatus)
+    self._TimerIds = {}
     if isMonsterStatus == nil then
         isMonsterStatus = false
     end
@@ -124,6 +131,10 @@ end
 function XUiGuildWarStageDetail:OnDestroy()
     XUiGuildWarStageDetail.Super.OnDestroy(self)
     XEventManager.DispatchEvent(XEventId.EVENT_GUILDWAR_STAGEDETAIL_CHANGE, nil, nil)
+    for i, v in pairs(self._TimerIds) do
+        XScheduleManager.UnSchedule(v)
+    end
+    self._TimerIds = nil
 end
 
 function XUiGuildWarStageDetail:RefreshNode(node)
@@ -200,6 +211,7 @@ function XUiGuildWarStageDetail:RegisterUiEvents()
     XUiHelper.RegisterClickEvent(self, self.BtnGo, self.OnBtnGoClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnHelp, self.OnBtnHelpClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnPlayer, self.OnBtnPlayerClicked)
+    self.BtnDefend.CallBack = handler(self,self.OnBtnDefendClick)
 end
 
 function XUiGuildWarStageDetail:OnBtnFightClicked()
@@ -345,7 +357,7 @@ function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
             data.uiParent.gameObject:SetActiveEx(key == nodeType)
         end
     end
-    self.PanelTitle.gameObject:SetActiveEx(nodeType ~= XGuildWarConfig.NodeType.Home)
+    self.PanelTitle.gameObject:SetActiveEx(nodeType ~= XGuildWarConfig.NodeType.Home and nodeType ~= XGuildWarConfig.NodeType.Resource)
 
     -- 普通节点补充“作战说明”栏目,读取node.Desc
     if nodeType == XGuildWarConfig.NodeType.Normal and not self.IsMonsterStatus then
@@ -367,7 +379,7 @@ function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
     -- 加载子面板代理
     local instanceProxy = childPanelData.instanceProxy
     if instanceProxy == nil then
-        instanceProxy = childPanelData.proxy.New(instanceGo)
+        instanceProxy = childPanelData.proxy.New(instanceGo,self)
         childPanelData.instanceProxy = instanceProxy
     end
     -- 设置子面板代理参数
@@ -385,7 +397,7 @@ function XUiGuildWarStageDetail:RefreshNodeTypeDetail(nodeType)
     self.CurrentChildPanel = instanceProxy
 
     -- 基地隐藏普通血条
-    if nodeType == XGuildWarConfig.NodeType.Home then
+    if nodeType == XGuildWarConfig.NodeType.Home or nodeType == XGuildWarConfig.NodeType.Resource then
         self.UiPanelNodeDetail.GameObject:SetActiveEx(false)
     end
 end
@@ -403,8 +415,10 @@ function XUiGuildWarStageDetail:RefreshButtonStatus()
         return
     end
     -- 默认值 begin
-    self.BtnGo:SetNameByGroup(1
-    , XDataCenter.GuildWarManager.GetMoveCost(self.Node:GetId()))
+    if self.Node:GetNodeType() ~= XGuildWarConfig.NodeType.Resource then
+        self.BtnGo:SetNameByGroup(1
+        , XDataCenter.GuildWarManager.GetMoveCost(self.Node:GetId()))
+    end
     local isShowBtnGo = self.Node:CheckIsCanGo()
     self.BtnGo.gameObject:SetActiveEx(isShowBtnGo)
     self.BtnGo:SetRawImage(XEntityHelper.GetItemIcon(XGuildWarConfig.ActivityPointItemId))
@@ -423,6 +437,13 @@ function XUiGuildWarStageDetail:RefreshButtonStatus()
     if node:GetNodeType() == XGuildWarConfig.NodeType.Home then
         self.BtnAutoFight.gameObject:SetActiveEx(false)
         self.BtnFight.gameObject:SetActiveEx(false)
+        return
+    elseif node:GetNodeType() == XGuildWarConfig.NodeType.Resource then
+        self.BtnAutoFight.gameObject:SetActiveEx(false)
+        self.BtnFight.gameObject:SetActiveEx(false)
+        self.BtnGo.gameObject:SetActiveEx(false)
+        self.BtnDefend.gameObject:SetActiveEx(true)
+        self:RefreshDefendBtnDisplay(XDataCenter.GuildWarManager.CheckDefensePointIsPlayerInById(self.Node._Id))
         return
     end
     --显示扫荡和战斗所需能量
@@ -562,6 +583,51 @@ end
 ---@param node XTerm4BossGWNode
 function XUiGuildWarStageDetail:OpenTerm4Ui(node)
     XLuaUiManager.Open("UiGuildWarTerm4Panel", node)
+end
+
+function XUiGuildWarStageDetail:OnBtnDefendClick()
+    if XDataCenter.GuildWarManager.CheckDefensePointIsPlayerInById(self.Node._Id) then
+        --弹窗提示是否要取消驻守
+        XUiManager.DialogTip('',table.concat(XGuildWarConfig.GetClientConfigValues('CancelDefend')),nil,nil,function()
+            self:SelectDefend(true)
+        end)
+    elseif XDataCenter.GuildWarManager.IsPlayerDefend() then
+        --弹窗提示是否要更换驻守
+        XUiManager.DialogTip('',table.concat(XGuildWarConfig.GetClientConfigValues('ChangeDefend')),nil,nil,function()
+            self:SelectDefend()
+        end)
+    else
+        --直接驻守
+        self:SelectDefend()
+    end
+end
+
+function XUiGuildWarStageDetail:SelectDefend(isCancel)
+    if isCancel then
+        XDataCenter.GuildWarManager.SelectDefenseNodeRequest(0,function(success)
+            if success then
+                self:RefreshDefendBtnDisplay(false)
+                XDataCenter.GuildWarManager.RefreshDefendDictData(0)
+            end
+        end)
+    else
+        XDataCenter.GuildWarManager.SelectDefenseNodeRequest(self.Node._Id,function(success)
+            if success then
+                XUiManager.TipMsg(table.concat(XGuildWarConfig.GetClientConfigValues('DefendSuccess')))
+                self:RefreshDefendBtnDisplay(true)
+                XDataCenter.GuildWarManager.RefreshDefendDictData(self.Node._Id)
+            end
+        end)
+    end
+end
+
+function XUiGuildWarStageDetail:RefreshDefendBtnDisplay(isDefend)
+    local data = XGuildWarConfig.GetClientConfigValues('DefendBtnDisplay')
+    if isDefend then
+        self.BtnDefend:SetNameByGroup(0,data[2])
+    else
+        self.BtnDefend:SetNameByGroup(0,data[1])
+    end
 end
 
 return XUiGuildWarStageDetail

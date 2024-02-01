@@ -12,7 +12,7 @@ function XUiCharacterTowerLeftTip:OnStart(chapterId, conditionId, isCloseLastUi)
     self.ChapterViewModel = XDataCenter.CharacterTowerManager.GetCharacterTowerChapter(chapterId)
     self.CharacterId = self.ChapterViewModel:GetChapterCharacterId()
     -- 名字
-    self.TxtTitle.text = XCharacterConfigs.GetCharacterName(self.CharacterId)
+    self.TxtTitle.text = XMVCA.XCharacter:GetCharacterName(self.CharacterId)
     -- 任务描述
     self.TxtContent.text = XConditionManager.GetConditionDescById(conditionId)
     

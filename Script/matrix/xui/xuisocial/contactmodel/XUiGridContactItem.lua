@@ -156,7 +156,7 @@ function XUiGridContactItem:Refresh(data, isDelete, selectDelete)
         self.TxtOnline.gameObject:SetActiveEx(false)
         self.PanelRoleOffLine.gameObject:SetActiveEx(true)
         self.PanelRoleOnLine.gameObject:SetActiveEx(false)
-        self.TxtRecentLoginTime.text = CS.XTextManager.GetText("FriendLatelyLogin") .. XUiHelper.CalcLatelyLoginTime(data.LastLoginTime)
+        self.TxtRecentLoginTime.text = CS.XTextManager.GetText("FriendLatelyLogin") .. XUiHelper.CalcLatelyLoginTimeEx(data.LastLoginTime)
     end
 
     XUiPLayerHead.InitPortrait(data.Icon, data.HeadFrameId, self.PanelRoleOnLine)

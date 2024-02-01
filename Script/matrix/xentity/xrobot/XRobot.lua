@@ -114,7 +114,7 @@ local CreatePartnerSkillData = function(robotPartnerCfg, charId) --未配技能�
     local unlockSkillGroup = {}
     local mainSkillGroup = robotPartnerCfg.MainSkillGroup
     local mainskill = XPartnerMainSkillGroup.New(robotPartnerCfg.MainSkillGroup)
-    local charElement = XCharacterConfigs.GetCharacterElement(charId)
+    local charElement = XMVCA.XCharacter:GetCharacterElement(charId)
     local mainskillId = mainskill:GetSkillIdByElement(charElement)
 
     local tmpData = {
@@ -177,11 +177,11 @@ function XRobot:UpdateAbility()
 
     --构建机器人技能数据
     local skillData = XFightCharacterManager.GetCharSkillLevelMap(npcData)
-    local skillAbility = XDataCenter.CharacterManager.GetSkillAbility(skillData)
+    local skillAbility = XMVCA.XCharacter:GetSkillAbility(skillData)
 
     --装备共鸣战力
     local resonanceSkillLevel = XFightCharacterManager.GetResonanceSkillLevelMap(npcData)
-    local resonanceSkillAbility = XDataCenter.CharacterManager.GetResonanceSkillAbility(resonanceSkillLevel, skillData)
+    local resonanceSkillAbility = XMVCA.XCharacter:GetResonanceSkillAbility(resonanceSkillLevel, skillData)
 
     --装备技能战力
     local equipAbility = XDataCenter.EquipManager.GetEquipSkillAbilityOther(self.Character, self.Equips)
@@ -267,16 +267,16 @@ function XRobot:GenarateRobotSkillList()
     local characterId = XRobotManager.GetCharacterId(robotId)
     local robotSkillLevel = config.SkillLevel
 
-    local skillDic = XCharacterConfigs.GetChracterSkillPosToGroupIdDic(characterId)
+    local skillDic = XMVCA.XCharacter:GetChracterSkillPosToGroupIdDic(characterId)
     for _, skillGroup in pairs(skillDic) do
         for _, skillGroupId in pairs(skillGroup) do
-            local skillIds = XCharacterConfigs.GetGroupSkillIdsByGroupId(skillGroupId)
+            local skillIds = XMVCA.XCharacter:GetGroupSkillIdsByGroupId(skillGroupId)
 
             local skillId = skillIds[1]
             if XTool.IsNumberValid(skillId) and not removeDic[skillId] then
                 local skillInfo = {
                     Id = skillId,
-                    Level = XCharacterConfigs.ClampSubSkillLeveByLevel(skillId, robotSkillLevel)
+                    Level = XMVCA.XCharacter:ClampSubSkillLeveByLevel(skillId, robotSkillLevel)
                 }
                 tableInsert(skillList, skillInfo)
             end
@@ -296,13 +296,13 @@ function XRobot:GenarateRobotEnhanceSkillList()
     local characterId = XRobotManager.GetCharacterId(robotId)
     local robotEnhanceSkillLevel = config.EnhanceSkillLevel
 
-    local groupIdList = XCharacterConfigs.GetEnhanceSkillConfig(characterId).SkillGroupId
+    local groupIdList = XMVCA.XCharacter:GetEnhanceSkillConfig(characterId).SkillGroupId
     for _, skillGroupId in pairs(groupIdList or {}) do
-        local groupConfig = XCharacterConfigs.GetEnhanceSkillGroupConfig(skillGroupId)
+        local groupConfig = XMVCA.XCharacter:GetEnhanceSkillGroupConfig(skillGroupId)
 
         local skillId = groupConfig.SkillId[1]
         if XTool.IsNumberValid(skillId) and not removeDic[skillId] then
-            local maxLevel = XCharacterConfigs.GetEnhanceSkillMaxLevelBySkillId(skillId)
+            local maxLevel = XMVCA.XCharacter:GetEnhanceSkillMaxLevelBySkillId(skillId)
             local skillInfo = {
                 Id = skillId,
                 Level = math.min(maxLevel,robotEnhanceSkillLevel)
@@ -424,7 +424,7 @@ function XRobot:GetAfterSpSkillLevel(skillId)
     end
     local index = table.indexof(skillList, skillId)
     if index then
-        return XCharacterConfigs.ClampSubSkillLeveByLevel(skillId, skillLevelList[index])
+        return XMVCA.XCharacter:ClampSubSkillLeveByLevel(skillId, skillLevelList[index])
     end
     return false
 end

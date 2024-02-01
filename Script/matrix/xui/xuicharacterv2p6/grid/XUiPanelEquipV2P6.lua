@@ -1,11 +1,12 @@
 -- 通用装备意识预置
 ---@class XUiPanelEquipV2P6 XUiPanelEquipV2P6
 local XUiPanelEquipV2P6 = XClass(XUiNode, "XUiPanelEquipV2P6")
-local XUiGridEquip = require("XUi/XUiEquipAwarenessReplace/XUiGridEquip")
+local XUiGridEquip = require("XUi/XUiEquip/XUiGridEquip")
 local XUiGridResonanceDoubleSkillV2P6 = require("XUi/XUiEquip/XUiGridResonanceDoubleSkillV2P6")
 local CSInstantiate = CS.UnityEngine.Object.Instantiate
 
-function XUiPanelEquipV2P6:OnStart()
+function XUiPanelEquipV2P6:Ctor(ui, parent, rootUi)
+    self.RootUi = rootUi
     local ag = XMVCA:GetAgency(ModuleId.XCharacter)
     ---@type XCharacterAgency
     self.CharacterAgency = ag
@@ -60,7 +61,13 @@ function XUiPanelEquipV2P6:InitUnFoldButton()
     XUiHelper.RegisterClickEvent(self, self.BtnAddition, self.OnPanelAdditionClick)
 end
 
-function XUiPanelEquipV2P6:OnRelease()
+function XUiPanelEquipV2P6:OnDisable()
+    if self.WeaponGrid then
+        self.WeaponGrid:Close()
+    end
+end
+
+function XUiPanelEquipV2P6:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_EQUIPLIST_TAKEOFF_NOTYFY, self.OnEquipTakeOff, self)
 end
 
@@ -72,6 +79,10 @@ function XUiPanelEquipV2P6:InitData(onFoldCb, onUnFoldCb, forbidGotoEquip)
     self.WearingAwarenessGrids = {}
     self.DoubleResonanceList = {}
     self.GridDoubleResonanceSkill.gameObject:SetActiveEx(false)
+end
+
+function XUiPanelEquipV2P6:SetForbidGotoEquip(flag)
+    self.ForbidGotoEquip = flag
 end
 
 function XUiPanelEquipV2P6:UpdateCharacter(characterId)
@@ -91,7 +102,8 @@ end
 -- 刷新角色面板
 function XUiPanelEquipV2P6:UpdateRoleView()
     local characterId = self.CharacterId
-    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self.Parent)
+    self.WeaponGrid = self.WeaponGrid or XUiGridEquip.New(self.GridWeapon, self.RootUi)
+    self.WeaponGrid:Open()
     local usingWeaponId = XDataCenter.EquipManager.GetCharacterWearingWeaponId(characterId)
     self.WeaponGrid:Refresh(usingWeaponId)
     XDataCenter.EquipManager.CheckOverrunGuide(usingWeaponId)
@@ -108,7 +120,7 @@ function XUiPanelEquipV2P6:UpdateRoleView()
         -- 暂不需要辅助机的突破图标
         -- local icon = XEquipConfig.GetEquipBreakThroughIcon(partner:GetBreakthrough())
         -- if icon then
-        --     self.Parent:SetUiSprite(self.ImgPartnerBreakthrough, icon)
+        --     self.RootUi:SetUiSprite(self.ImgPartnerBreakthrough, icon)
         -- end
     end
     self.PanelNoPartner.gameObject:SetActiveEx(partner == nil)
@@ -126,16 +138,16 @@ function XUiPanelEquipV2P6:UpdateAwarenessView()
     local curr = 0
     local haveAwareness = false
     for _, equipSite in pairs(XEquipConfig.EquipSite.Awareness) do
-        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self.Parent)
+        self.WearingAwarenessGrids[equipSite] = self.WearingAwarenessGrids[equipSite] or XUiGridEquip.New(CS.UnityEngine.Object.Instantiate(self.GridAwareness), self.RootUi)
         self.WearingAwarenessGrids[equipSite].Transform:SetParent(self["PanelAwareness" .. equipSite], false)
 
         local equipId = XDataCenter.EquipManager.GetWearingEquipIdBySite(characterId, equipSite)
         if not equipId then
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(false)
+            self.WearingAwarenessGrids[equipSite]:Close()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(true)
         else
             haveAwareness = true
-            self.WearingAwarenessGrids[equipSite].GameObject:SetActiveEx(true)
+            self.WearingAwarenessGrids[equipSite]:Open()
             self["BtnAwarenessReplace" .. equipSite].transform:SetAsLastSibling()
             self["PanelNoAwareness" .. equipSite].gameObject:SetActiveEx(false)
             self.WearingAwarenessGrids[equipSite]:Refresh(equipId)
@@ -233,7 +245,7 @@ function XUiPanelEquipV2P6:UpdatePanelResonanceSkill()
         local grid = self.DoubleResonanceList[index]
         if not grid then
             local go = CSInstantiate(self.GridDoubleResonanceSkill, self.PanelResonanceSkill)
-            grid = XUiGridResonanceDoubleSkillV2P6.New(go)
+            grid = XUiGridResonanceDoubleSkillV2P6.New(go, self.RootUi)
             self.DoubleResonanceList[index] = grid
             grid.GameObject:SetActive(true)
         end
@@ -248,14 +260,18 @@ function XUiPanelEquipV2P6:OnBtnWeaponReplaceClick()
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipReplace(self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnWeaponReplace, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnCarryPartnerClick()
+    if self.ForbidGotoEquip then return end
     XDataCenter.PartnerManager.GoPartnerCarry(self.CharacterId, true)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnCarryPartner, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnAwarenessOcuupyClick()
     XLuaUiManager.Open("UiAwarenessOccupyProgress", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessOcuupy, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnAwarenessClick(site)
@@ -264,24 +280,54 @@ function XUiPanelEquipV2P6:OnAwarenessClick(site)
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):OpenUiEquipAwarenessReplace(self.CharacterId, site)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessReplace, self.CharacterId)
+end
+
+function XUiPanelEquipV2P6:OnBtnUnFoldClick()
+    self:DoUnFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnUnFold, self.CharacterId)
 end
 
 -- 展开意识面板
-function XUiPanelEquipV2P6:OnBtnUnFoldClick()
+function XUiPanelEquipV2P6:DoUnFold()
+    if not self.GameObject.activeInHierarchy then
+        return
+    end
+
+    if self.IsShowPanelAwareness then
+        return
+    end
+
+    self:PlayAnimationWithMask("AnimUnFold")
     self.IsShowPanelAwareness = true
     self:InitUnFoldButton()
     self:UpdateAwarenessView()
-    self.PanelEquipEnable:PlayTimelineAnimation()
     if self.OnUnFoldCb then
         self.OnUnFoldCb()
     end
 end
 
--- 展开角色面板
 function XUiPanelEquipV2P6:OnBtnFoldClick()
+    self:DoFold()
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnFold, self.CharacterId)
+end
+
+-- 展开角色面板
+function XUiPanelEquipV2P6:DoFold()
+    if not self.GameObject.activeInHierarchy then
+        return
+    end
+
+    if not self.IsShowPanelAwareness then
+        return
+    end
+
+    for _, grid in pairs(self.WearingAwarenessGrids) do
+        grid:Close()
+    end
+    self:PlayAnimationWithMask("AnimFold")
     self.IsShowPanelAwareness = false
     self:UpdateRoleView()
-    self.PanelBaseEnable:PlayTimelineAnimation()
     if self.OnFoldCb then
         self.OnFoldCb()
     end
@@ -294,18 +340,22 @@ function XUiPanelEquipV2P6:OnBtnAutoTakeOffClick()
         return
     end
     XMVCA:GetAgency(ModuleId.XEquip):TakeOff(wearingEquipIds)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAutoTakeOff, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnRecommendClick()
     XDataCenter.EquipGuideManager.OpenEquipGuideView(self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnRecommend, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnBtnAwarenessSuitClick()
     XLuaUiManager.Open("UiEquipAwarenessSuitPrefab", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAwarenessSuit, self.CharacterId)
 end
 
 function XUiPanelEquipV2P6:OnPanelAdditionClick()
     XLuaUiManager.Open("UiEquipSuitSkillV2P6", self.CharacterId)
+    XMVCA.XCharacter:BuryingUiCharacterAction(self.RootUi.Name, XGlobalVar.BtnUiCharacterSystemV2P6.BtnAddition, self.CharacterId)
 end
 
 -- 卸下/一键卸下装备事件

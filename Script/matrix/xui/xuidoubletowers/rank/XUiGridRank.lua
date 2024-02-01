@@ -46,14 +46,6 @@ function XUiGridRank:Refresh(rankPlayerInfo)
     local headFrameId = rankPlayerInfo:GetHeadFrameId()
     XUiPLayerHead.InitPortrait(headPortraitId, headFrameId, self.Head)
 
-    --local characterId = rankPlayerInfo:GetCharacterId()
-    --local headPath = XTool.IsNumberValid(characterId) and XGoldenMinerConfigs.GetCharacterHeadPath(characterId)
-    --if headPath then
-    --    self.RImgTeam:SetRawImage(headPath)
-    --    XUiPLayerHead.InitPortrait(self.RankOfMine:GetHeadPortraitId(), self.RankOfMine:GetHeadFrameId(), self.Head)
-    --end
-    --self.RImgTeam.gameObject:SetActiveEx(headPath and headPath ~= "")
-
     if self.TxtNotRank then
         self.TxtNotRank.gameObject:SetActiveEx(isNotRank)
     end

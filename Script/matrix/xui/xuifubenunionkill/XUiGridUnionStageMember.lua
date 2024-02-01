@@ -76,7 +76,7 @@ function XUiGridUnionStageMember:ProcessTipMsg(tip_msg)
         -- tip_msg
         if tip_msg.TipsType == XFubenUnionKillConfigs.TipsMessageType.FightBrrow then
             local fullMsg = ""
-            local characterName = XCharacterConfigs.GetCharacterFullNameStr(tip_msg.ShareCharacterInfos.CharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterFullNameStr(tip_msg.ShareCharacterInfos.CharacterId)
             if tip_msg.ShareCharacterInfos.PlayerId == XPlayer.Id then
                 fullMsg = CS.XTextManager.GetText(XFubenUnionKillConfigs.FightBorrowMine, characterName)
             else

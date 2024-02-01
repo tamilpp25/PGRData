@@ -37,7 +37,13 @@ end
 
 function XUiCollectionTip:SetDetailData()
     self.TxtCollectionName.text = self.Data.Name
-    self.TxtInfo.text = self.Data.WorldDesc
+
+    if self.Data.Id ~= XEnumConst.SpecialHandling.DEADCollectiblesId then
+        self.TxtInfo.text = self.Data.WorldDesc
+    else
+        self.TxtInfo.text = XUiHelper.ReplaceUnicodeSpace(self.Data.WorldDesc)
+        self.TxtCollectionName.resizeTextForBestFit = true
+    end
     self.TxtCondition.text = self.Data.GetDesc
 
     local styleObj = self.CollectionStyleNode.gameObject:LoadPrefab(self.Data.PrefabPath)

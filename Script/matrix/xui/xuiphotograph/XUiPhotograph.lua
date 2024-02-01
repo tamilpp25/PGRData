@@ -33,7 +33,7 @@ function XUiPhotograph:OnAwake()
     self.ImgGlory = self.TxtLevel.transform.parent:Find("Icon")
 
     local signBoardPlayer = require("XCommon/XSignBoardPlayer").New(self, CS.XGame.ClientConfig:GetInt("SignBoardPlayInterval"), CS.XGame.ClientConfig:GetFloat("SignBoardDelayInterval"))
-    local playerData = XDataCenter.SignBoardManager.GetSignBoardPlayerData()
+    local playerData = XMVCA.XFavorability:GetSignBoardPlayerData()
     signBoardPlayer:SetPlayerData(playerData)
     self.SignBoardPlayer = signBoardPlayer
 end
@@ -80,7 +80,7 @@ function XUiPhotograph:OnEnable()
     --self:PlayAnimation("PanelSceneListEnable")
     XEventManager.DispatchEvent(XEventId.EVENT_PHOTO_ENTER)
     self:UpdateView()
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
 
     -- 开启时钟
     self.ClockTimer = XUiHelper.SetClockTimeTempFun(self)
@@ -146,7 +146,7 @@ function XUiPhotograph:OnDisable()
 
     self.Enable = false
     XEventManager.DispatchEvent(XEventId.EVENT_PHOTO_LEAVE)
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
 
     -- 关闭时钟
     if self.ClockTimer then
@@ -305,7 +305,8 @@ function XUiPhotograph:UpdatePartner(templateId)
     end
     self.PartnerTemplateId = templateId
     local standByModel = XPartnerConfigs.GetPartnerModelStandbyModel(templateId)
-    
+    -- 刷新模型前设置模型Id, 用于获取相机参数配置时使用
+    self.PartnerModelPanel:SetCurCharacterId(templateId)
     self.PartnerModelPanel:UpdatePartnerModel(standByModel, XModelManager.MODEL_UINAME.XUiPhotograph, nil, function(model)
         self.PartnerModel = model
         model.gameObject:SetActiveEx(true)
@@ -330,7 +331,7 @@ end
 function XUiPhotograph:ForcePlay(signBoardActionId, actionId)
     self.SignBoardActionId = signBoardActionId
     self.ActionId = actionId or self.ActionId -- characterAction表的主键
-    local config = XSignBoardConfigs.GetSignBoardConfigById(signBoardActionId)
+    local config = XMVCA.XFavorability:GetSignBoardConfigById(signBoardActionId)
     if self.SignBoardPlayer:GetInterruptDetection() and self.SignBoardPlayer.PlayerData.PlayingElement.Id ~= config.Id then
         self:PlayChangeActionEffect()
     end
@@ -432,10 +433,10 @@ function XUiPhotograph:Replay()
         return
     end
 
-    local configs = XFavorabilityConfigs.GetCharacterActionById(self.SelectCharacterId)
+    local configs = XMVCA.XFavorability:GetCharacterActionById(self.SelectCharacterId)
     local data = nil
     for k, v in pairs(configs) do
-        if v.Id == self.ActionId then
+        if v.config.Id == self.ActionId then
             data = v
         end
     end
@@ -444,9 +445,9 @@ function XUiPhotograph:Replay()
     end
     local tryFashionId = self.SelectFashionId
     local trySceneId = self.CurrSeleSceneId
-    local isHas = XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.SelectCharacterId).TrustLv, tryFashionId, trySceneId)
+    local isHas = XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, XDataCenter.PhotographManager.GetCharacterDataById(self.SelectCharacterId).TrustLv, tryFashionId, trySceneId)
     if not isHas then
-        XUiManager.TipError(data.ConditionDescript)
+        XUiManager.TipError(data.config.ConditionDescript)
         return
     end
 
@@ -528,7 +529,7 @@ function XUiPhotograph:OnPortraitChanged(charId, fashionId, oldCharId)
     self.SelectCharacterId = charId
     self.SelectFashionId = fashionId
     self.CurCharacterId = oldCharId
-    self.CurFashionId = XDataCenter.CharacterManager.GetShowFashionId(oldCharId)
+    self.CurFashionId = XMVCA.XCharacter:GetShowFashionId(oldCharId)
 end
 
 function XUiPhotograph:UpdateBatteryMode() -- editor模式下 BatteryComponent.BatteryLevel 默认值为-1
@@ -601,33 +602,49 @@ function XUiPhotograph:PlaySceneAnim(element)
     local animRoot = self.UiModelGo.transform
     local sceneId = XDataCenter.PhotographManager.GetCurSelectSceneId()
     local sighBoardId = element.SignBoardConfig.Id
-    XDataCenter.SignBoardManager.LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
-    XDataCenter.SignBoardManager.SceneAnimPlay()
+    XMVCA.XFavorability:LoadSceneAnim(animRoot, self.CameraFar, self.CameraNear, sceneId, sighBoardId, self)
+    XMVCA.XFavorability:SceneAnimPlay()
 end
 
 function XUiPhotograph:PlayRoleActionUiDisableAnim(signBoardid)
     self:SetActionMask(true)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiDisableLamiya")
+    elseif XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
 
 function XUiPhotograph:PlayRoleActionUiEnableAnim(signBoardid)
     self:SetActionMask(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiEnableLamiya")
+    elseif XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end
 
 function XUiPhotograph:PlayRoleActionUiBreakAnim()
     self:SetActionMask(false)
-    self.SignBoardPlayer:Stop()
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimationWithMask("DarkEnableLamiya", function ()
+            self.SignBoardPlayer:Stop(true)
+            self:PlayAnimationWithMask("DarkDisableLamiya")
+        end)
+    else
+        self.SignBoardPlayer:Stop()
+    end
 end
 
 function XUiPhotograph:SetActionMask(active)
     if self.BtnBreakActionAnim then
         self.BtnBreakActionAnim.gameObject:SetActiveEx(active)
     end
+end
+
+---@return XUiPanelRoleModel
+function XUiPhotograph:GetRoleModel()
+    return self.RoleModel
 end
 
 -- ===================================================

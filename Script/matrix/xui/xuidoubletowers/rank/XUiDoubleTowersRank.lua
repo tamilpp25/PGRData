@@ -37,8 +37,6 @@ function XUiDoubleTowersRank:AutoAddListener()
     self.BtnMainUi.CallBack = function() 
         XLuaUiManager.RunMain()
     end
-    
-    --self:BindHelpBtn(self.BtnHelp, XGoldenMinerConfigs.GetHelpKey())
 end
 
 function XUiDoubleTowersRank:InitTimes()

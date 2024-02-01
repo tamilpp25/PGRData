@@ -13,6 +13,7 @@ local Default = {
     _OthersAbility = 0 --角色战力（援助角色）
 }
 
+---@class XStrongholdTeamMember
 local XStrongholdTeamMember = XClass(nil, "XStrongholdTeamMember")
 
 function XStrongholdTeamMember:Ctor(pos)
@@ -36,6 +37,16 @@ function XStrongholdTeamMember:SetPos(pos)
         return
     end
     self._Pos = pos
+end
+
+function XStrongholdTeamMember:GetRoleId()
+    if XTool.IsNumberValid(self._CharacterId) then
+        return self._CharacterId
+    elseif XTool.IsNumberValid(self._RobotId) then
+        return self._RobotId
+    else
+        return 0
+    end
 end
 
 function XStrongholdTeamMember:GetCharacterId()
@@ -63,11 +74,11 @@ function XStrongholdTeamMember:GetCaptainSkillDesc()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self._CharacterId, true)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self._CharacterId, true)
     elseif self:IsRobot() then
         return XRobotManager.GetRobotCaptainSkillDesc(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self._CharacterId)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self._CharacterId)
     end
 end
 
@@ -98,7 +109,7 @@ function XStrongholdTeamMember:GetCharacterType()
     if not IsNumberValid(showCharacterId) then
         return
     end
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 --上阵
@@ -157,7 +168,7 @@ function XStrongholdTeamMember:GetAbility()
     elseif self:IsRobot() then
         ability = XRobotManager.GetRobotAbility(self._RobotId)
     else
-        ability = XDataCenter.CharacterManager.GetCharacterAbilityById(self._CharacterId)
+        ability = XMVCA.XCharacter:GetCharacterAbilityById(self._CharacterId)
     end
 
     return math.ceil(ability)
@@ -198,7 +209,7 @@ function XStrongholdTeamMember:IsIsomer()
     elseif self:IsRobot() then
         return XRobotManager.IsIsomer(self._RobotId)
     else
-        return XCharacterConfigs.IsIsomer(self._CharacterId)
+        return XMVCA.XCharacter:GetIsIsomer(self._CharacterId)
     end
 end
 
@@ -253,11 +264,11 @@ function XStrongholdTeamMember:GetSmallHeadIcon()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self._CharacterId)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self._CharacterId)
     elseif self:IsRobot() then
         return XRobotManager.GetRobotSmallHeadIcon(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self._CharacterId)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self._CharacterId)
     end
 end
 
@@ -267,12 +278,12 @@ function XStrongholdTeamMember:GetCharacterName()
     end
 
     if self:IsAssitant() then
-        return XCharacterConfigs.GetCharacterName(self._CharacterId)
+        return XMVCA.XCharacter:GetCharacterName(self._CharacterId)
     elseif self:IsRobot() then
         local characterId = XRobotManager.GetCharacterId(self._RobotId)
-        return XCharacterConfigs.GetCharacterName(characterId)
+        return XMVCA.XCharacter:GetCharacterName(characterId)
     else
-        return XCharacterConfigs.GetCharacterName(self._CharacterId)
+        return XMVCA.XCharacter:GetCharacterName(self._CharacterId)
     end
 end
 
@@ -284,6 +295,15 @@ function XStrongholdTeamMember:Compare(cMember)
     return self._CharacterId == cMember:GetCharacterId() and self._RobotId == cMember:GetRobotId() and
         self._PlayerId == cMember:GetPlayerId() and
         self._Pos == cMember:GetPos()
+end
+
+function XStrongholdTeamMember:GetElementIcon()
+    local roleId = self._CharacterId
+    if self:IsRobot() then
+        roleId = XRobotManager.GetCharacterId(self._RobotId)
+    end
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(roleId)
+    return XMVCA.XCharacter:GetCharElement(charConfig.Element).Icon
 end
 
 return XStrongholdTeamMember

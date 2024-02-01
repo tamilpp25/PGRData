@@ -25,12 +25,12 @@ function XUiGridPhotographOtherBtn:RefrashFashion(data)
 end
 
 function XUiGridPhotographOtherBtn:RefrashAction(data, charData)
-    self.TxtNor.text = data.Name
-    self.TxtSel.text = data.Name
+    self.TxtNor.text = data.config.Name
+    self.TxtSel.text = data.config.Name
     if self.TxtLock then
-        self.TxtLock.text = data.Name
+        self.TxtLock.text = data.config.Name
     end
-    self.Txtcondition.text = XUiHelper.ConvertSpaceToLineBreak(data.ConditionDescript)
+    self.Txtcondition.text = XUiHelper.ConvertSpaceToLineBreak(data.config.ConditionDescript)
 
     local tryFashionId
     local trySceneId
@@ -42,7 +42,7 @@ function XUiGridPhotographOtherBtn:RefrashAction(data, charData)
         trySceneId = self.rootUi.CurrSeleSceneId
     end
 
-    if not XDataCenter.FavorabilityManager.CheckTryCharacterActionUnlock(data, charData.TrustLv, tryFashionId, trySceneId) then
+    if not XMVCA.XFavorability:CheckTryCharacterActionUnlock(data, charData.TrustLv, tryFashionId, trySceneId) then
         self:SetLock()
     end
 end
@@ -54,7 +54,7 @@ end
 
 function XUiGridPhotographOtherBtn:OnActionTouched(data)
     self:SetSelect(true)
-    CsXGameEventManager.Instance:Notify(XEventId.EVENT_PHOTO_PLAY_ACTION, data.SignBoardActionId, data.Id)
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_PHOTO_PLAY_ACTION, data.config.SignBoardActionId, data.config.Id)
 end
 
 function XUiGridPhotographOtherBtn:SetSelect(bool)

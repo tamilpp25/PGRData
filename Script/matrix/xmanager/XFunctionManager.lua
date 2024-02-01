@@ -71,6 +71,7 @@ XFunctionManager.FunctionName = {
     ShopCommon = 1001, --普通商店
     ShopActive = 1002, --活动商店
     ShopPoints = 1003, --积分商店
+    ShopRecharge = 1004, --累充商店
     Dispatch = 1201, --派遣
     BountyTask = 1301, --赏金
     MaintainerAction = 1302, --维持者行动（大富翁）
@@ -106,9 +107,6 @@ XFunctionManager.FunctionName = {
     SubMenu = 2300, -- 主界面二级菜单
     Photograph = 2400, -- 拍照模式
     PurchaseAdd = 3000, --累计充值
-
-    PicComposition = 4000, --看图作文
-    WindowsInlay = 4001, --外站活动
 
     Partner = 5001, --伙伴系统
 
@@ -221,7 +219,11 @@ XFunctionManager.FunctionName = {
     Transfinite = 10451, -- 超限连战
     NewActivityCalendar = 10452, -- 新活动周历
     Theatre3 = 10453, -- 肉鸽3.0
+    BlackRockChess = 10455, -- 国际战棋
     Turntable = 10454, -- 夏日幸运星
+    RogueSim = 10457, -- 肉鸽模拟经营
+    FangKuai = 10461, -- 大方块
+    Temple = 10463, -- 庙会
 }
 
 XFunctionManager.FunctionType = {
@@ -525,8 +527,8 @@ function XFunctionManager.CheckSkipActivityOpen()
 
     if stageType == stageTypes.Mainline then
         return XDataCenter.FubenMainLineManager.IsMainLineActivityOpen()
-    elseif stageType == stageTypes.ActivtityBranch then
-        return XDataCenter.FubenActivityBranchManager.IsOpen()
+    --elseif stageType == stageTypes.ActivtityBranch then
+    --    return XDataCenter.FubenActivityBranchManager.IsOpen()
     elseif stageType == stageTypes.ActivityBossSingle then
         return XDataCenter.FubenActivityBossSingleManager.IsOpen()
     end
@@ -630,6 +632,19 @@ end
 
 function XFunctionManager.InitFuncOpenTime(data)
     UpdateFunctionTimeData(data)
+end
+
+--2.8
+function XFunctionManager.CheckSkipPanelIsLoad(skipId)
+    local list = XFunctionConfig.GetSkipList(skipId)
+    if list.NotShowUI then
+        for i, v in pairs(list.NotShowUI) do
+            if XLuaUiManager.IsUiLoad(v) then
+                return true
+            end
+        end
+    end
+    return false
 end
 
 XRpc.NotifyTimeLimitCtrlConfigList = function(data)

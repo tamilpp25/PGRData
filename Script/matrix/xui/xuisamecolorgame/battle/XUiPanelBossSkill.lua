@@ -1,29 +1,26 @@
+---@class XUiSCBattlePanelBossSkill
 local XUiPanelBossSkill= XClass(nil, "XUiPanelBossSkill")
 local XUiGridBuff = require("XUi/XUiSameColorGame/Battle/XUiGridBuff")
-local CSTextManagerGetText = CS.XTextManager.GetText
 
 function XUiPanelBossSkill:Ctor(ui, base, boss)
+    ---@type XUiSameColorGameBattle
+    self.Base = base
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Base = base
+    XTool.InitUiObject(self)
+    
+    ---@type XSCBoss
     self.Boss = boss
     self.BattleManager = XDataCenter.SameColorActivityManager.GetBattleManager()
-    XTool.InitUiObject(self)
     self:Init()
 end
 
-function XUiPanelBossSkill:AddEventListener()
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BOSSSKILL, self.BossSkillChange, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BOSSSKIPSKILL, self.BossSkillChange, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.DoSkillCountDown, self)
-    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BUFF_LEFTTIME_CHANGE, self.DoSkillCountDown, self)
+function XUiPanelBossSkill:OnEnable()
+    self:AddEventListener()
 end
 
-function XUiPanelBossSkill:RemoveEventListener()
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BOSSSKILL, self.BossSkillChange, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BOSSSKIPSKILL, self.BossSkillChange, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.DoSkillCountDown, self)
-    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BUFF_LEFTTIME_CHANGE, self.DoSkillCountDown, self)
+function XUiPanelBossSkill:OnDisable()
+    self:RemoveEventListener()
 end
 
 function XUiPanelBossSkill:Init()
@@ -47,5 +44,21 @@ end
 function XUiPanelBossSkill:DoSkillCountDown()
     self.GridBossSkill:DoCountdown()
 end
+
+--region 
+function XUiPanelBossSkill:AddEventListener()
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BOSS_SKILL, self.BossSkillChange, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BOSS_SKIP_SKILL, self.BossSkillChange, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.DoSkillCountDown, self)
+    XEventManager.AddEventListener(XEventId.EVENT_SC_ACTION_BUFF_LEFT_TIME_CHANGE, self.DoSkillCountDown, self)
+end
+
+function XUiPanelBossSkill:RemoveEventListener()
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BOSS_SKILL, self.BossSkillChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BOSS_SKIP_SKILL, self.BossSkillChange, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_ROUND_CHANGE, self.DoSkillCountDown, self)
+    XEventManager.RemoveEventListener(XEventId.EVENT_SC_ACTION_BUFF_LEFT_TIME_CHANGE, self.DoSkillCountDown, self)
+end
+--endregion
 
 return XUiPanelBossSkill

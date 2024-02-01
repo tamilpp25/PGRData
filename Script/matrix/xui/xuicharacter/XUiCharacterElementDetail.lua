@@ -42,14 +42,14 @@ function XUiCharacterElementDetail.ConstructSortedElementIds(characterId)
     local sortedElementIds = {}
 
     local curElementIdsCheckDic = {}
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
     local curElementList = detailConfig.ObtainElementList
     for _, elementId in pairs(curElementList) do
         curElementIdsCheckDic[elementId] = true
         tableInsert(sortedElementIds, -elementId)
     end
 
-    local allElementIds = XCharacterConfigs.GetAllCharElments()
+    local allElementIds = XMVCA.XCharacter:GetModelCharacterElement()
     for _, element in pairs(allElementIds) do
         local elementId = element.Id
         if not curElementIdsCheckDic[elementId] then

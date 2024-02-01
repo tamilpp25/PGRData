@@ -21,11 +21,11 @@ end
 
 function XArchiveMonsterDetailEntity:GetCfg()
     if self.Type == EntityType.Info then
-        return XArchiveConfigs.GetArchiveMonsterInfoConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterInfoConfigById(self.Id)
     elseif self.Type == EntityType.Setting then
-        return XArchiveConfigs.GetArchiveMonsterSettingConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterSettingConfigById(self.Id)
     elseif self.Type == EntityType.Skill then
-        return XArchiveConfigs.GetArchiveMonsterSkillConfigById(self.Id)
+        return XMVCA.XArchive:GetArchiveMonsterSkillConfigById(self.Id)
     end
 end
 

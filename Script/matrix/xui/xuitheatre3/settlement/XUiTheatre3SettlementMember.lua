@@ -35,8 +35,9 @@ function XUiTheatre3SettlementMember:UpdateSuitList()
                     self._Pool[SlotId] = {}
                 end
                 local suit = self._Pool[SlotId][i]
+                local isQuantum = self._Control:CheckAdventureSuitIsQuantum(datas[i])
                 if not suit then
-                    suit = XUiTheatre3EquipmentSuit.New(XUiHelper.Instantiate(self.BtnSet, content), self)
+                    suit = XUiTheatre3EquipmentSuit.New(XUiHelper.Instantiate(isQuantum and self.QuantumSetGrid or self.BtnSet, content), self)
                     suit:Open()
                     self._Pool[SlotId][i] = suit
                 end

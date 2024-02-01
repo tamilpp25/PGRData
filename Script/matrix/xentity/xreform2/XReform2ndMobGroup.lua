@@ -80,6 +80,10 @@ function XReform2ndMobGroup:GetMob(index)
     return self._MobList[index]
 end
 
+function XReform2ndMobGroup:GetMobList()
+    return self._MobList
+end
+
 function XReform2ndMobGroup:ClearMob()
     self._MobList = {}
 end
@@ -105,15 +109,6 @@ function XReform2ndMobGroup:SetMob(index, mob)
     end
 
     self._MobList[index] = mob
-end
-
-function XReform2ndMobGroup:GetPressure()
-    local pressure = 0
-    for i = 1, #self._MobList do
-        local mob = self._MobList[i]
-        pressure = pressure + mob:GetPressure()
-    end
-    return pressure
 end
 
 ---@param mob XReform2ndMob
@@ -157,6 +152,10 @@ end
 
 function XReform2ndMobGroup:GetMobAmountMax()
     return self._MobAmountMax
+end
+
+function XReform2ndMobGroup:IsEmpty()
+    return self:GetMobAmount() <= 0
 end
 
 return XReform2ndMobGroup

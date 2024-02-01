@@ -1,3 +1,5 @@
+---@class XUiCharacterDetail XUiCharacterDetail
+---@field _Control XCharacterControl
 local XUiCharacterDetail = XLuaUiManager.Register(XLuaUi, "UiCharacterDetail")
 
 local CharDetailUiType = {
@@ -22,6 +24,20 @@ function XUiCharacterDetail:AutoAddListener()
     self:RegisterClickEvent(self.BtnTeamRecomend, self.OnBtnTeamRecomendClick)
     self:RegisterClickEvent(self.BtnEquipRecomend, self.OnBtnEquipRecomendClick)
     self:RegisterClickEvent(self.BtnMainUi, self.OnBtnMainUiClick)
+    self:RegisterClickEvent(self.BtnPaneElementlClick, self.OnBtnElementDetailClick)
+    self:RegisterClickEvent(self.BtnElement1, self.OnBtnElementDetailClick)
+    self:RegisterClickEvent(self.BtnElement2, self.OnBtnElementDetailClick)
+    self:RegisterClickEvent(self.BtnElement3, self.OnBtnElementDetailClick)
+    self:RegisterClickEvent(self.BtnCareer, self.OnBtnCareerClick)
+    self:RegisterClickEvent(self.BtnPanelGsClick, function ()
+        self:OnBtnGeneralSkillClick()
+    end)
+    self:RegisterClickEvent(self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    self:RegisterClickEvent(self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 -- auto
 function XUiCharacterDetail:OnBtnTeamRecomendClick()
@@ -50,6 +66,18 @@ function XUiCharacterDetail:OnBtnArchiveClick()
     self:PlayAnimation("QieHuan")
     -- self.BtnArchive.gameObject:SetActiveEx(false)
     self.BtnDetial.gameObject:SetActiveEx(true)
+end
+
+function XUiCharacterDetail:OnBtnElementDetailClick()
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
+end
+
+function XUiCharacterDetail:OnBtnCareerClick()
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.Career)
+end
+
+function XUiCharacterDetail:OnBtnGeneralSkillClick(index)
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, index)
 end
 
 function XUiCharacterDetail:OnAwake()
@@ -90,7 +118,7 @@ function XUiCharacterDetail:OnAwake()
 end
 
 function XUiCharacterDetail:OnStart(CharacterId)
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(CharacterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(CharacterId)
     if not detailConfig then
         return
     end
@@ -98,15 +126,13 @@ function XUiCharacterDetail:OnStart(CharacterId)
     self.CharacterId = CharacterId
 
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-
     self.PanelContentRtf = self.PanelContent:GetComponent("RectTransform")
     -- self.BtnArchive.gameObject:SetActiveEx(true)
     self.BtnDetial.gameObject:SetActiveEx(false)
-    self.PanelAsset.gameObject:SetActiveEx(false)
+    self.AssetPanel:Close()
     self.BtnEquipRecomend.gameObject:SetActiveEx(XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.EquipGuideRecommend))
 
     self:SwitchView(CharDetailUiType.Detail)
-
 end
 
 function XUiCharacterDetail:SwitchView(uiType)
@@ -117,18 +143,18 @@ end
 
 function XUiCharacterDetail:UpdateStateView()
     if self.CurUiType == CharDetailUiType.Detail then
-        self.PanelAsset.gameObject:SetActiveEx(false)
+        self.AssetPanel:Close()
         self.PanelDetailInfo.gameObject:SetActiveEx(true)
         self:UpdateRightElementView()
         self:CloseChildUi(CHILD_UI_EQUIP)
         self:CloseChildUi(CHILD_UI_TEAM)
     elseif self.CurUiType == CharDetailUiType.Equip then
-        self.PanelAsset.gameObject:SetActiveEx(true)
+        self.AssetPanel:Open()
         self.PanelDetailInfo.gameObject:SetActiveEx(false)
         self:OpenChildUi(CHILD_UI_EQUIP, self.CharacterId, self)
         self:CloseChildUi(CHILD_UI_TEAM)
     elseif self.CurUiType == CharDetailUiType.Parner then
-        self.PanelAsset.gameObject:SetActiveEx(true)
+        self.AssetPanel:Open()
         self.PanelDetailInfo.gameObject:SetActiveEx(false)
         self:CloseChildUi(CHILD_UI_EQUIP)
         self:OpenChildUi(CHILD_UI_TEAM, self.CharacterId, self)
@@ -136,8 +162,8 @@ function XUiCharacterDetail:UpdateStateView()
 end
 
 function XUiCharacterDetail:UpdateRightElementView()
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     if not detailConfig or not charConfig then
         return
     end
@@ -147,29 +173,40 @@ function XUiCharacterDetail:UpdateRightElementView()
     self.TxtArchIvesDes.text = detailConfig.DetailDes
 
     --职业
-    local careerConfig = XCharacterConfigs.GetNpcTypeTemplate(detailConfig.Career)
+    local careerConfig = XMVCA.XCharacter:GetNpcTypeTemplate(detailConfig.Career)
     if not careerConfig then
         return
     end
-    self.TxtCareerName.text = careerConfig.Name
-    self:SetUiSprite(self.ImgCareerIcon, careerConfig.Icon)
+    self.BtnCareer:SetRawImage(careerConfig.Icon)
+    self.BtnCareer:SetNameByGroup(0, careerConfig.Name)
 
     --元素
     local elementValueList = detailConfig.ObtainElementValueList
     local elementList = detailConfig.ObtainElementList
     for i = 1, 3 do
+        local btn = self["BtnElement" .. i]
         if elementList[i] then
-            self.TxtElementDes[i].gameObject:SetActiveEx(true)
-            self.TxtElementValue[i].gameObject:SetActiveEx(true)
-            self.TxtElementValue[i].text = string.format("%s%s", elementValueList[i], "%")
-
-            local config = XCharacterConfigs.GetCharElement(elementList[i])
-            if config then
-                self.TxtElementDes[i].text = config.ElementName
-            end
+            btn.gameObject:SetActiveEx(true)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
+            btn:SetRawImage(elementConfig.Icon)
+            btn:SetNameByGroup(0, elementConfig.ElementName)
+            btn:SetNameByGroup(1, elementValueList[i].."%")
         else
-            self.TxtElementDes[i].gameObject:SetActiveEx(false)
-            self.TxtElementValue[i].gameObject:SetActiveEx(false)
+            btn.gameObject:SetActiveEx(false)
+        end
+    end
+
+    -- 机制
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(self.CharacterId)
+    local isEmpty = XTool.IsTableEmpty(generalSkillIds)
+    self.ListGeneralSkillDetail.parent.gameObject:SetActiveEx(not isEmpty)
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+            self["BtnGeneralSkill"..i]:SetNameByGroup(0, generalSkillConfig.Name)
         end
     end
 
@@ -189,39 +226,39 @@ function XUiCharacterDetail:UpdateRightElementView()
     end
 
     --类型
-    local graphValueList = detailConfig.AttribGraphNum
-    local len = #graphValueList
-    for i = 1, len do
-        local pointTrans = self.PanelPointRoot:GetChild(i - 1)
-        local edgePos = self.PanelEdgeRoot:GetChild(i - 1).localPosition
-        local ratio = graphValueList[i] / 100
-        pointTrans.localPosition = CS.UnityEngine.Vector3(edgePos.x * ratio, edgePos.y * ratio, 0)
-    end
-    self.PanelPointRoot.parent:GetComponent(typeof(CS.XUiPolygon)):Refresh()
+    -- local graphValueList = detailConfig.AttribGraphNum
+    -- local len = #graphValueList
+    -- for i = 1, len do
+    --     local pointTrans = self.PanelPointRoot:GetChild(i - 1)
+    --     local edgePos = self.PanelEdgeRoot:GetChild(i - 1).localPosition
+    --     local ratio = graphValueList[i] / 100
+    --     pointTrans.localPosition = CS.UnityEngine.Vector3(edgePos.x * ratio, edgePos.y * ratio, 0)
+    -- end
+    -- self.PanelPointRoot.parent:GetComponent(typeof(CS.XUiPolygon)):Refresh()
 
     --类型名字
-    for i = 1, 6 do
-        local config = XCharacterConfigs.GetCharGraphTemplate(i)
-        if config then
-            self.TxtGraphName[i].text = config.GraphName
-        end
-    end
+    -- for i = 1, 6 do
+    --     local config = self._Control:GetCharGraphTemplate(i)
+    --     if config then
+    --         self.TxtGraphName[i].text = config.GraphName
+    --     end
+    -- end
 
     --人物名字，名称，icon等
-    local quality = XCharacterConfigs.GetCharMinQuality(self.CharacterId)
-    local npcId = XCharacterConfigs.GetCharNpcId(self.CharacterId, quality)
+    local quality = XMVCA.XCharacter:GetCharMinQuality(self.CharacterId)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(self.CharacterId, quality)
     local npc = CS.XNpcManager.GetNpcTemplate(npcId)
 
     if not npc then
         return
     end
 
-    self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharQualityIcon(quality))
-    self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId))
+    self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharQualityIcon(quality))
+    self.RImgRoleIcon:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(self.CharacterId))
     self.TxtCharacterName.text = charConfig.Name
     self.TxtCharacterDesName.text = charConfig.TradeName
 
-    local castName = XFavorabilityConfigs.GetCharacterCvById(self.CharacterId)
+    local castName = XMVCA.XFavorability:GetCharacterCvById(self.CharacterId)
     local cast = (castName ~= "") and CS.XTextManager.GetText("FavorabilityCast")..castName or ""
     self.TxtCV.text = cast
 

@@ -134,11 +134,11 @@ function XUiDormVisit:OnStart(ui, tab)
     self.HostelSecond = ui
     local t = tab or XDormConfig.VisitTabTypeCfg.MyFriend
     self.Tabgroup:SelectIndex(t)
-    if t == XDormConfig.VisitTabTypeCfg.MyFriend then
-        self:OnReqFriendData()
-    else
-        self:OnReqVisitorData()
-    end
+    --if t == XDormConfig.VisitTabTypeCfg.MyFriend then
+    --    self:OnReqFriendData()
+    --else
+    --    self:OnReqVisitorData()
+    --end
 end
 
 ---

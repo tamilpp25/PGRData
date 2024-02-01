@@ -97,7 +97,7 @@ function XUiGridGachaResult:SetData(rewardInfo)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
@@ -126,7 +126,7 @@ function XUiGridGachaResult:SetData(rewardInfo)
         self.RImgItem:SetRawImage(icon)
     else
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             self.PanelRole.gameObject:SetActiveEx(true)
             self.RImgRole:SetRawImage(icon)
         elseif Type == XArrangeConfigs.Types.Weapon then

@@ -18,11 +18,11 @@ function XUiGridArenaAreaCharacter:Refresh(characterId, partnerId, fightScore, q
     self.ImgRightNull.color = color
     if characterId and characterId ~= 0 then
         if headInfo then
-            self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType))
+            self.RImgRoleIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType))
         else
-            self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+            self.RImgRoleIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
         end
-        self.TxtName.text = XCharacterConfigs.GetCharacterLogName(characterId)
+        self.TxtName.text = XMVCA.XCharacter:GetCharacterLogName(characterId)
     end
     if partnerId and partnerId ~= 0 then
         self.RImgPetIcon:SetRawImage(XPartnerConfigs.GetPartnerTemplateIcon(partnerId))
@@ -31,7 +31,7 @@ function XUiGridArenaAreaCharacter:Refresh(characterId, partnerId, fightScore, q
         self.TxtFight.text = fightScore
     end
     if quality and quality ~= 0 then
-        self.ImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(quality))
+        self.ImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(quality))
     end
 end
 

@@ -53,6 +53,7 @@ function XUiGuildWarMap:InitNodesList()
     local nodesIcon = XGuildWarConfig.GetClientConfigValues("StageTypeIcon", "string")
     --不显示在节点预览的节点类型
     local excludeNodeType = {
+        [XGuildWarConfig.NodeType.Home] = true,
         [XGuildWarConfig.NodeType.PandaChild] = true,
         [XGuildWarConfig.NodeType.TwinsChild] = true,
         [XGuildWarConfig.NodeType.Term3SecretRoot] = true,

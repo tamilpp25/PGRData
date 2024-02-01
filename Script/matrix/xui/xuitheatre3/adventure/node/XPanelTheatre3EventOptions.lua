@@ -38,14 +38,16 @@ function XPanelTheatre3EventOptions:_RefreshOption()
     if XTool.IsTableEmpty(self._OptionIdList) then
         return
     end
-    for i, optionId in ipairs(self._OptionIdList) do
-        local optionCfg = self._Control:GetEventOptionCfgById(optionId)
-        local isShow = not XTool.IsNumberValid(optionCfg.OptionShowCondition) or XConditionManager.CheckCondition(optionCfg.OptionShowCondition)
+    for i, _ in ipairs(self._OptionIdList) do
         if not self._OptionObjList[i] then
             local go = i == 1 and self.BtnOption or XUiHelper.Instantiate(self.BtnOption.gameObject, self.BtnOption.transform.parent)
             local grid = XGridTheatre3EventOption.New(go, self, handler(self, self.SelectOption))
             self._OptionObjList[i] = grid
         end
+    end
+    for i, optionId in ipairs(self._OptionIdList) do
+        local optionCfg = self._Control:GetEventOptionCfgById(optionId)
+        local isShow = not XTool.IsNumberValid(optionCfg.OptionShowCondition) or XConditionManager.CheckCondition(optionCfg.OptionShowCondition)
         if isShow then
             self._OptionObjList[i]:Open()
             self._OptionObjList[i]:Refresh(optionId, i)
@@ -72,7 +74,7 @@ end
 
 --region Ui - BtnListener
 function XPanelTheatre3EventOptions:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
+    self._Control:RegisterClickEvent(self, self.BtnOK, self.OnBtnConfirmClick)
 end
 
 function XPanelTheatre3EventOptions:OnBtnConfirmClick()

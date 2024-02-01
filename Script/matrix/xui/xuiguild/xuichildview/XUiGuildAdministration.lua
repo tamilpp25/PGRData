@@ -1,12 +1,7 @@
-local XUiGuildAdministration = XClass(nil, "XUiGuildAdministration")
+local XUiGuildAdministration = XClass(XUiNode, "XUiGuildAdministration")
 local XUiGuildViewSetHeadPortrait = require("XUi/XUiGuild/XUiChildView/XUiGuildViewSetHeadPortrait")
 
-function XUiGuildAdministration:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-
-    XTool.InitUiObject(self)
+function XUiGuildAdministration:OnStart()
     self.BtnRecruit.CallBack = function() self:OnBtnRecruitClick() end
     self:InitChildView()
 end
@@ -152,7 +147,7 @@ function XUiGuildAdministration:InitChildView()
     end, self.TxtCoinNor1)
 
     self.GuildViewSetHeadPortrait = XUiGuildViewSetHeadPortrait.New(self.PanelSetHeadPotrait,self)
-    XRedPointManager.AddRedPointEvent(self.RedRecruit, self.RefreshApplyList, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
+    self:AddRedPointEvent(self.RedRecruit, self.RefreshApplyList, self, { XRedPointConditions.Types.CONDITION_GUILD_APPLYLIST })
 end
 
 function XUiGuildAdministration:RefreshApplyList(count)
@@ -326,7 +321,7 @@ end
 function XUiGuildAdministration:ChecKickOut()
     if not XDataCenter.GuildManager.IsJoinGuild() then
         XUiManager.TipMsg(CS.XTextManager.GetText("GuildKickOutByAdministor"))
-        self.UiRoot:Close()
+        self.Parent:Close()
         return true
     end
     return false

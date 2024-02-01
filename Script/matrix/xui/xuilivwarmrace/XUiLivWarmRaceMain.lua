@@ -48,7 +48,7 @@ end
 
 function XUiLivWarmRaceMain:InitAssetActivityPanel()
     local itemIds = { XLivWarmRaceConfigs.GetActivityConsumeId() }
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
         self.AssetActivityPanel:Refresh(itemIds)
     end, self.AssetActivityPanel)
@@ -96,7 +96,7 @@ function XUiLivWarmRaceMain:OnBtnEnterFinalStageClick()
         return
     end
 
-    XLuaUiManager.Open("UiNewRoomSingle", stageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", stageId)
 end
 
 function XUiLivWarmRaceMain:OnBtnEnterStageClick(groupId)

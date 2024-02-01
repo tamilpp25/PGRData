@@ -96,7 +96,7 @@ local function AddMoeWar()
     Panel:AddButton(
         "萌战投票",
         function()
-            XDataCenter.MoeWarManager.GetPlayer(playerId):RequestVote(itemNo, itemCount)
+            --XDataCenter.MoeWarManager.GetPlayer(playerId):RequestVote(itemNo, itemCount)
         end
     )
 
@@ -257,7 +257,7 @@ end
 
 local function AddArchiveFunction()
     Panel:AddSubMenu("SVN操作\n(beta)", AddSvnFunction)
-    Panel:AddSubMenu("萌战相关", AddMoeWar)
+    --Panel:AddSubMenu("萌战相关", AddMoeWar)
     Panel:AddButton(
         "开启活动",
         function()
@@ -952,14 +952,11 @@ function XGmTestManager.Init()
     Panel:AddSubMenu("归档功能", AddArchiveFunction)
     Panel:AddSubMenu("战斗测试", AddFightUse)
     Panel:AddSubMenu("公会宿舍", AddGuildDormUse)
-    Panel:AddButton("新旧副本入口切换", function()
-        XFubenConfigs.DebugOpenOldMainUi = not XFubenConfigs.DebugOpenOldMainUi
+    Panel:AddButton("渡边模拟器开启日志打印", function()
+        XEnumConst.RogueSim.IsDebug = not XEnumConst.RogueSim.IsDebug
     end)
-    Panel:AddButton("新旧成员界面切换", function()
-        XEnumConst.CHARACTER.IS_NEW_CHARACTER = not XEnumConst.CHARACTER.IS_NEW_CHARACTER
-    end)
-    Panel:AddButton("新旧装备界面切换", function()
-        XEnumConst.EQUIP.IS_TEST_V2P6 = not XEnumConst.EQUIP.IS_TEST_V2P6
+    Panel:AddButton("庙会", function()
+        XLuaUiManager.Open("UiTempleBattleEditor")
     end)
 end
 --------------Ui组件创建 end----------------

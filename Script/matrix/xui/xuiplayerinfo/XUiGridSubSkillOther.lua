@@ -66,7 +66,7 @@ function XUiGridSubSkillOther:UpdateGrid(subSkillInfo)
     self.TxtSubSkillLevel.color = RESONANCED_GRID_TEXT_COLOR[addLevel > 0]
     self.TxtSubSkillLevel.text = curLevel
 
-    local min_max = XCharacterConfigs.GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
+    local min_max = XMVCA.XCharacter:GetSubSkillMinMaxLevel(subSkillInfo.SubSkillId)
     if (subSkillInfo.Level >= min_max.Max) then
         self.ImgLock.gameObject:SetActive(false)
     else

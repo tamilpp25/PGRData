@@ -25,7 +25,7 @@ function XUiPivotCombatRankingList:OnAwake()
 end 
 
 function XUiPivotCombatRankingList:OnStart()
-    self.TxtTitle.text = CSGetText("PicCompositionRankTop", XDataCenter.PivotCombatManager.GetMaxRankMember())
+    self.TxtTitle.text = CSGetText("PivotCombatRankTop", XDataCenter.PivotCombatManager.GetMaxRankMember())
     self.Difficulty    = XDataCenter.PivotCombatManager.GetDifficulty()
     
     --我的排行信息

@@ -46,7 +46,7 @@ function XUiFashionStoryStageFightDetail:OnBtnEnterClick()
     local stageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageId)
     if XDataCenter.FubenManager.CheckPreFight(stageCfg) then
         XEventManager.DispatchEvent(XEventId.EVENT_FASHION_STORY_CLOSE_STAGE_DETAIL)
-        XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
     end
 end
 

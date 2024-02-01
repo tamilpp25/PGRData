@@ -60,24 +60,6 @@ end
 function XUiBabelTowerBase:OnEnable()
     XUiBabelTowerBase.Super.OnEnable(self)
     self:CheckActivityStatus()
-
-    if not self.FirstOpenDiffcultUi then
-        self:FindChildUiObj(XFubenBabelTowerConfigs.CHALLENGE_CHILD_UI):OnClickBtnDifficult()
-        self.FirstOpenDiffcultUi = true
-    end
-
-    if XDataCenter.FubenBabelTowerManager.IsNeedShowUiDifficult() then
-        XDataCenter.FubenBabelTowerManager.SetNeedShowUiDifficult(nil)
-        self:FindChildUiObj(XFubenBabelTowerConfigs.CHALLENGE_CHILD_UI):OnClickBtnDifficult()
-    end
-end
-
-function XUiBabelTowerBase:OnReleaseInst()
-    return self.FirstOpenDiffcultUi
-end
-
-function XUiBabelTowerBase:OnResume(value)
-    self.FirstOpenDiffcultUi = value
 end
 
 function XUiBabelTowerBase:CheckActivityStatus()
@@ -208,7 +190,7 @@ function XUiBabelTowerBase:UpdateTeamList(teamList, captainPos, firstFightPos)
     self.CaptainPos = captainPos
     self.FirstFightPos = firstFightPos
     self:SetChallengeBuffLoseEfficacy()
-    self:FilterChoosedChallengeList()
+    self:FilterChooseChallengeList()
 end
 
 function XUiBabelTowerBase:UpdateChallengeBuffInfos(choosedChallengeList)
@@ -323,10 +305,19 @@ function XUiBabelTowerBase:GetCurAllChallengeScore()
     return self:GetCurChallengeScore(challengeBuffGroup)
 end
 
+--- 检查buffId是否未解锁
+---@param buffId number
+---@return boolean 是否未解锁 true:未解锁 false:已解锁
+---@return function 未解锁回调
+---@return function 失效回调
 function XUiBabelTowerBase:IsBuffLock(buffId, lockCallback, loseCallback)
+    local isLock = not XDataCenter.FubenBabelTowerManager.CheckBuffIdIsUnlock(buffId)
+    -- 根据难度判断BuffId是否锁定
     local selectDifficult = XDataCenter.FubenBabelTowerManager.GetTeamSelectDifficult(self.StageId, self.TeamId)
     local openLevel = XFubenBabelTowerConfigs.GetStageDifficultLockBuffIdOpenLevel(self.StageId, buffId)
-    local isLock = openLevel and openLevel ~= 0 and selectDifficult <= openLevel or false
+    if openLevel > 0 and selectDifficult <= openLevel then
+        isLock = true
+    end
     local isLoseEfficacy = self:CheckBuffIdLoseEfficacy(buffId)
     if isLock and lockCallback then
         lockCallback()
@@ -390,7 +381,7 @@ function XUiBabelTowerBase:CheckAbility(callBack)
     end
     -- 当前难度推荐战力
     local selectDifficult = XDataCenter.FubenBabelTowerManager.GetTeamSelectDifficult(self.StageId, self.TeamId)
-    local recommendAbility = XFubenBabelTowerConfigs.GetStageDifficultRecommendAblity(self.StageId, selectDifficult)
+    local recommendAbility = XFubenBabelTowerConfigs.GetStageDifficultRecommendAbility(self.StageId, selectDifficult)
     -- 是否不在提示
     local activityNo = XDataCenter.FubenBabelTowerManager.GetCurrentActivityNo()
     local key = string.format(XFubenBabelTowerConfigs.ABILITY_WARNING_KEY, tostring(XPlayer.Id), tostring(activityNo), tostring(self.StageId))
@@ -442,15 +433,16 @@ function XUiBabelTowerBase:SetChallengeBuffLoseEfficacy()
 end
 
 -- 过滤失效的词条
-function XUiBabelTowerBase:FilterChoosedChallengeList()
+function XUiBabelTowerBase:FilterChooseChallengeList()
     local isHaveLoseBuff = self:ShowBuffLoseEfficacyTip()
     if not isHaveLoseBuff then
         return
     end
     -- 刷新选择的词条
+    ---@type XUiBabelTowerChildChallenge
     local childChallenge = self:FindChildUiObj(XFubenBabelTowerConfigs.CHALLENGE_CHILD_UI)
     if childChallenge then
-        childChallenge:FilterChoosedChallengeList()
+        childChallenge:FilterChooseChallengeList()
     end
 end
 
@@ -460,8 +452,8 @@ function XUiBabelTowerBase:CheckProtectChallengeBuffLoseEfficacy()
         return false
     end
     local robotCount = 0
-    for _, entitiyId in pairs(self.TeamList) do
-        if XEntityHelper.GetIsRobot(entitiyId) then
+    for _, entityId in pairs(self.TeamList) do
+        if XEntityHelper.GetIsRobot(entityId) then
             robotCount = robotCount + 1
         end
     end
@@ -500,3 +492,5 @@ function XUiBabelTowerBase:CheckBuffIdLoseEfficacy(buffId)
     end
     return table.contains(self.LoseEfficacyBuffIds, buffId)
 end
+
+return XUiBabelTowerBase

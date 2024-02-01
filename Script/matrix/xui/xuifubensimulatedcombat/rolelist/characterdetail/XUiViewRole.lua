@@ -59,9 +59,9 @@ end
 function XUiSimulatedCombatViewRole:OnClickTabCallBack(tabIndex)
     if tabIndex == PANEL_INDEX.Property then
         self.Parent:PlayAnimation("LevelBegan")
-        self.PreCameraType = XCharacterConfigs.XUiCharacter_Camera.LEVEL
+        self.PreCameraType = XEnumConst.CHARACTER.XUiCharacter_Camera.LEVEL
     elseif tabIndex == PANEL_INDEX.Skill then
-        self.PreCameraType = XCharacterConfigs.XUiCharacter_Camera.SKILL
+        self.PreCameraType = XEnumConst.CHARACTER.XUiCharacter_Camera.SKILL
         self.Parent:PlayAnimation("SkillBegan")
     end
     self.SelectedIndex = tabIndex

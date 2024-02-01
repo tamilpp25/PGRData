@@ -16,10 +16,6 @@ XPracticeManagerCreator = function()
         XEventManager.AddEventListener(XEventId.EVENT_FIGHT_RESULT_WIN, ChallengeWin)
         XEventManager.AddEventListener(XEventId.EVENT_FIGHT_FINISH_LOSEUI_CLOSE, XPracticeManager.ChallengeLose)
         XEventManager.AddEventListener(XEventId.EVENT_PLAYER_LEVEL_CHANGE, XPracticeManager.RefreshStagePassed)
-        XEventManager.AddEventListener(XEventId.EVENT_LOGIN_DATA_LOAD_COMPLETE, function()
-            XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.PracticeBoss,
-                    require("XUi/XUiFubenPractice/XUiPracticeBossNewRoomSingleProxy"))
-        end)
     end
 --拟真boss出战情况不同于原始的训练模式，需要一种新的副本类型
     function XPracticeManager.InitStageInfo()
@@ -53,7 +49,7 @@ XPracticeManagerCreator = function()
         if not winData then return end
         XPracticeManager.RefreshStagePassedBySettleDatas(winData.SettleData)
 
-        XLuaUiManager.Open("UiSettleWin", winData)
+        XLuaUiManager.Open("UiSettleWinTutorialCount", winData)
     end
 
     function XPracticeManager.CheckPracticeStageOpen(stageId)
@@ -166,7 +162,24 @@ XPracticeManagerCreator = function()
             XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
         end
     end
+    
+    function XPracticeManager.RefreshStagePassedByStageId(stageId)
+        if not XTool.IsNumberValid(stageId) then
+            return
+        end
 
+        local chapterId = XPracticeConfigs.GetPracticeChapterIdByStageId(stageId)
+        if chapterId ~= 0 then
+            if not PracticeChapterInfos[chapterId] then
+                PracticeChapterInfos[chapterId] = {}
+            end
+            PracticeChapterInfos[chapterId][stageId] = true
+            PracticeStageInfo[stageId] = true
+            XPracticeManager.RefreshStagePassed()
+            XEventManager.DispatchEvent(XEventId.EVENT_PRACTICE_ON_DATA_REFRESH)
+        end
+    end
+    
     function XPracticeManager.RefreshStagePassed()
         local allPracticeChapters = XPracticeConfigs.GetPracticeChapters()
         for _, chapter in pairs(allPracticeChapters) do
@@ -238,7 +251,7 @@ XPracticeManagerCreator = function()
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
         if (isInTime) and (groupId == 0 or XPracticeConfigs.GetSimulateTrainMonsterGroupId(archiveId) == groupId) then
-            if XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+            if XMVCA.XArchive:IsArchiveMonsterUnlockByArchiveId(archiveId) then
                 return true
             end
         end
@@ -311,7 +324,7 @@ XPracticeManagerCreator = function()
 
         local timeId = XPracticeConfigs.GetSimulateTrainMonsterTimeId(archiveId)
         local isInTime = XFunctionManager.CheckInTimeByTimeId(timeId, true)
-        if isInTime and XDataCenter.ArchiveManager.IsArchiveMonsterUnlockByArchiveId(archiveId) then
+        if isInTime and XMVCA.XArchive:IsArchiveMonsterUnlockByArchiveId(archiveId) then
             return true
         end
         return false
@@ -374,10 +387,10 @@ XPracticeManagerCreator = function()
             characterId = XRobotManager.GetCharacterId(characterId)
         end
         -- 是否拥有该角色
-        local isOwnerCharacter = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwnerCharacter = XMVCA.XCharacter:IsOwnCharacter(characterId)
         local ability = 0  -- 未拥有的角色战力视为0
         if isOwnerCharacter then
-            local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+            local character = XMVCA.XCharacter:GetCharacter(characterId)
             ability = character.Ability
         end
 
@@ -447,7 +460,7 @@ XPracticeManagerCreator = function()
         if not (groupId and chapterId) then
             XLog.Error("Can Not Open UiFubenPractice groupId = ", groupId, ", chapterId = ", chapterId)
         end
-        XLuaUiManager.Open("UiFubenPractice", chapterId, groupId)
+        XDataCenter.PracticeManager.OpenUiFubenPratice(chapterId, groupId)
     end
 
     -- 是否显示提示
@@ -677,9 +690,18 @@ XPracticeManagerCreator = function()
 
     ------------------副本入口扩展 start-------------------------
     function XPracticeManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
-            XLuaUiManager.Open("UiFubenPractice")
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
         end
+        XPracticeManager.OpenUiFubenPratice()
+    end
+    
+    function XPracticeManager.OpenUiFubenPratice(...)
+        --if not XMVCA.XSubPackage:CheckSubpackage() then
+        --    return
+        --end
+
+        XLuaUiManager.Open("UiFubenPractice", ...)
     end
     
     ------------------副本入口扩展 end-------------------------

@@ -90,7 +90,7 @@ function XUiPartnerSkillPreview:UpdateElementBtnGroup()
                 btn = obj:GetComponent("XUiButton")
                 self.BtnElementList[index] = btn
             end
-            local elementConfig = XCharacterConfigs.GetCharElement(element)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(element)
             btn:SetName(elementConfig.ElementName)
             btn:SetRawImage(elementConfig.Icon2)
         end

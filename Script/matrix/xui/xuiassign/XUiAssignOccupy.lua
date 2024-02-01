@@ -118,7 +118,10 @@ function XUiAssignOccupy:OnBtnCloseClick()
 end
 
 function XUiAssignOccupy:OnBtnOccupyClick()
+    local chapterData = XDataCenter.FubenAssignManager.GetChapterDataById(self.ChapterId)
+    local characterId = chapterData:GetCharacterId()
     -- XLuaUiManager.Open("UiAssignSelectOccupy")
+    -- XLuaUiManager.Open("UiAssignSelectCharacter", self.ChapterId, characterId)
+    XLuaUiManager.Open("UiSelectCharacterAssignOccupy", characterId, self.ChapterId)
     self:Close()
-    XLuaUiManager.Open("UiAssignSelectCharacter", self.ChapterId)
 end

@@ -71,6 +71,7 @@ function XUiFubenMainLine3D:OnDestroy()
     self.GridTreasureList = {}
     self.GridMultipleWeeksTaskList = {}
     self.LineDic = {}
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
 end
 
 function XUiFubenMainLine3D:InitStageCfg()
@@ -549,7 +550,7 @@ function XUiFubenMainLine3D:EnterFight(stage)
         local groupId = XDataCenter.BfrtManager.GetGroupIdByBaseStage(stage.StageId)
         XLuaUiManager.Open("UiBfrtDeploy", groupId)
     else
-        XLuaUiManager.Open("UiNewRoomSingle", stage.StageId)
+        XLuaUiManager.Open("UiBattleRoleRoom", stage.StageId)
     end
 
 end

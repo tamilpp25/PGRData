@@ -10,12 +10,16 @@ function XUiStrongholdQuickDeploy:OnAwake()
 end
 
 function XUiStrongholdQuickDeploy:OnStart(groupId, teamList, saveCb)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
+    ---@type XStrongholdTeam[]
+    self.RecordTeamList = XTool.Clone(teamList)
     self.GroupId = groupId
     self.SaveCb = saveCb
     self.TeamListClip = XDataCenter.StrongholdManager.GetTeamListClipTemp(groupId, teamList)
 
     self.TeamGridList = {}
+    self.BtnBack.gameObject:SetActiveEx(true)
 end
 
 function XUiStrongholdQuickDeploy:OnEnable()
@@ -48,8 +52,10 @@ function XUiStrongholdQuickDeploy:UpdateView()
         --队伍中有关卡进度
         local groupId = self.GroupId
         if groupId then
-            if XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, oldTeamId)
-            or XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, teamId)
+            local teamIndex = XDataCenter.StrongholdManager.GetTeamIndexByProp(groupId, teamId)
+            local teamOldIndex = oldTeamId and XDataCenter.StrongholdManager.GetTeamIndexByProp(groupId, oldTeamId) or nil
+            if XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, teamOldIndex)
+            or XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, teamIndex)
             then
                 XUiManager.TipText("StrongholdQuickDeployTeamLock")
                 return
@@ -92,7 +98,12 @@ function XUiStrongholdQuickDeploy:UpdateView()
         end
 
         local teamId = index
+        if XTool.IsNumberValid(self.GroupId) then
+            local teamPropIds = XDataCenter.StrongholdManager.GetTeamPropsByGroupId(self.GroupId)
+            teamId = teamPropIds[index]
+        end
         teamGrid:Refresh(teamList, teamId, self.GroupId)
+        teamGrid.TextTitle.text = XUiHelper.GetText("StrongholdTeamTitle" .. teamId)
         teamGrid.GameObject:SetActiveEx(true)
     end
     for i = #teamListClip + 1, #teamGridList do
@@ -102,6 +113,7 @@ end
 
 function XUiStrongholdQuickDeploy:AutoAddListener()
     self.BtnConfirm.CallBack = function() self:OnClickBtnConfirm() end
+    self:RegisterClickEvent(self.BtnBack, self.OnClickBack)
 end
 
 function XUiStrongholdQuickDeploy:OnClickBtnConfirm()
@@ -151,4 +163,31 @@ function XUiStrongholdQuickDeploy:SwapTeamPos(oldTeamId, oldPos, newTeamId, newP
         swapFunc()
     end
 
+end
+
+function XUiStrongholdQuickDeploy:OnClickBack()
+    if self:CheckTeamChange() then
+        local extraData = {}
+        extraData.sureText = XUiHelper.GetText("StrongholdQuickDeploySave")
+        extraData.closeText = XUiHelper.GetText("StrongholdQuickDeployBack")
+        XUiManager.DialogTip(XUiHelper.GetText("TipTitle"), XUiHelper.GetText("StrongholdQuickDeployTitle"), XUiManager.DialogType.Normal, handler(self, self.Close), handler(self, self.OnClickBtnConfirm), extraData)
+    end
+    self:Close()
+end
+
+function XUiStrongholdQuickDeploy:CheckTeamChange()
+    for i, oldTeam in ipairs(self.RecordTeamList) do
+        local nowTeam = self.TeamList[i]
+        if nowTeam:GetCaptainPos() ~= oldTeam:GetCaptainPos() or nowTeam:GetFirstPos() ~= oldTeam:GetFirstPos() then
+            return true
+        end
+        local oldMembers = oldTeam:GetAllMembers()
+        local nowMembers = nowTeam:GetAllMembers()
+        for j, member in ipairs(oldMembers) do
+            if member:GetRoleId() ~= nowMembers[j]:GetRoleId() then
+                return true
+            end
+        end
+    end
+    return false
 end

@@ -11,7 +11,7 @@ function XRedPointConditionArchiveCGAll.GetSubEvents()
 end
 
 function XRedPointConditionArchiveCGAll.Check()
-    return XDataCenter.ArchiveManager.CheckCGRedPointByGroup() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
+    return XMVCA.XArchive:CheckCGRedPointByGroup() and XFunctionManager.JudgeCanOpen(XFunctionManager.FunctionName.Archive)
 end
 
 return XRedPointConditionArchiveCGAll

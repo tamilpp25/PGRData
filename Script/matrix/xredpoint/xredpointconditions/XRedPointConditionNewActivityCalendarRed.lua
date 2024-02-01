@@ -9,10 +9,12 @@ function XRedPointConditionNewActivityCalendarRed.GetSubEvents()
 end
 
 function XRedPointConditionNewActivityCalendarRed.Check()
-    if not XDataCenter.NewActivityCalendarManager.GetIsOpen(true) then
+    ---@type XNewActivityCalendarAgency
+    local calendarAgency = XMVCA:GetAgency(ModuleId.XNewActivityCalendar)
+    if not calendarAgency:GetIsOpen(true) then
         return false
     end
-    if XDataCenter.NewActivityCalendarManager.CheckActivityCalendarRadPoint() then
+    if calendarAgency:CheckActivityCalendarRadPoint() then
         return true
     end
     return false

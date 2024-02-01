@@ -69,7 +69,7 @@ function XUiFubenMaverickPrepare:OnNotify(evt)
 end
 
 function XUiFubenMaverickPrepare:InitPanelAssets()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
             {
                 XDataCenter.MaverickManager.LvUpConsumeItemId,

@@ -6,9 +6,11 @@ local XUiGridTheatre3Reward = require("XUi/XUiTheatre3/Adventure/Prop/XUiGridThe
 local XGridTheatre3RewardChoose = XClass(XUiNode, "XGridTheatre3RewardChoose")
 
 function XGridTheatre3RewardChoose:OnStart()
-    if not self.PanelDifficulty then
-        ---@type UnityEngine.Transform
-        self.PanelDifficulty = XUiHelper.TryGetComponent(self.Transform, "PanleDifficulty")
+    if not self.ImgRewardTag then
+        ---@type UnityEngine.UI.Image
+        self.ImgRewardTag = XUiHelper.TryGetComponent(self.Transform, "PanleDifficulty", "Image")
+        ---@type UnityEngine.UI.Text
+        self.TxtRewardTag = XUiHelper.TryGetComponent(self.Transform, "PanleDifficulty/Text", "Text")
     end
     self:AddBtnListener()
 end
@@ -16,8 +18,8 @@ end
 function XGridTheatre3RewardChoose:Refresh(isProp, data, selectClickFunc)
     self._SelectClickFunc = selectClickFunc
     self._IsProp = isProp
-    if self.PanelDifficulty then
-        self.PanelDifficulty.gameObject:SetActiveEx(false)
+    if self.ImgRewardTag then
+        self.ImgRewardTag.gameObject:SetActiveEx(false)
     end
     if self._IsProp then
         self._Id = data
@@ -33,10 +35,12 @@ function XGridTheatre3RewardChoose:Refresh(isProp, data, selectClickFunc)
 end
 
 --region Ui - Item
-function XGridTheatre3RewardChoose:RefreshProp()
+function XGridTheatre3RewardChoose:RefreshProp(isAdventureDesc)
     local config = self._Control:GetItemConfigById(self._Id)
     self.TxtTitle.text = config.Name
-    self.TxtDescribe.text = config.Description
+    -- 处理道具动态数据描述
+    local desc = XUiHelper.FormatText(config.Description, isAdventureDesc and self._Control:GetItemEffectGroupDesc(self._Id) or "")
+    self.TxtDescribe.text = XUiHelper.ConvertLineBreakSymbol(desc)
     if not self._Grid then
         ---@type XUiGridTheatre3Reward
         self._Grid = XUiGridTheatre3Reward.New(self.PropGrid, self)
@@ -52,9 +56,26 @@ function XGridTheatre3RewardChoose:RefreshFightReward()
     self.ImgBox:SetRawImage(config.Icon)
     self.TxtDescribe.text = config.Desc
     self.TxtTitle.text = config.Name
-    self._Uid = config.Uid
-    if self.PanelDifficulty then
-        self.PanelDifficulty.gameObject:SetActiveEx(self._FightReward:GetIsHard())
+    
+    -- 奖励标签
+    if not self.ImgRewardTag then
+        return
+    end
+    local tag = self._FightReward:GetTag()
+    if self._FightReward:CheckTag(XEnumConst.THEATRE3.NodeRewardTag.None) then
+        tag = config.Tag
+    end
+    if tag == XEnumConst.THEATRE3.NodeRewardTag.None then
+        self.ImgRewardTag.gameObject:SetActiveEx(false)
+    else
+        self.ImgRewardTag.gameObject:SetActiveEx(true)
+        local icon = self._Control:GetClientConfig("FightRewardTagIcon", tag)
+        local tagTxt = self._Control:GetClientConfig("FightRewardTag", tag)
+        if string.IsNilOrEmpty(icon) then
+            return
+        end
+        self.ImgRewardTag:SetSprite(icon)
+        self.TxtRewardTag.text = tagTxt
     end
 end
 --endregion
@@ -70,8 +91,8 @@ end
 
 --region Ui - BtnListener
 function XGridTheatre3RewardChoose:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.Transform, self.OnSelfClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnYes, self.OnBtnYesClick)
+    self._Control:RegisterClickEvent(self, self.Transform, self.OnSelfClick)
+    self._Control:RegisterClickEvent(self, self.BtnYes, self.OnBtnYesClick)
 end
 
 function XGridTheatre3RewardChoose:OnSelfClick()
@@ -96,8 +117,6 @@ function XGridTheatre3RewardChoose:OnBtnYesClick()
             --elseif isEnd then
             --    self.Parent:RefreshUi()
             --    self.Parent:OnBtnBackClick()
-            else
-                self.Parent:RefreshUi()
             end
         end)
     end

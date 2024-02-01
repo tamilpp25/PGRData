@@ -1,25 +1,18 @@
-local XUiGridBossTrialSection = XClass(nil, "XUiGridBossTrialSection")
-
-function XUiGridBossTrialSection:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
-end
+---@class XUiGridBossTrialSection : XUiNode
+---@field _Control XFubenBossSingleControl
+local XUiGridBossTrialSection = XClass(XUiNode, "XUiGridBossTrialSection")
 
 function XUiGridBossTrialSection:Refresh(sectionId)
-    self.SectionID = sectionId
-    self.CurrBossInfo = XDataCenter.FubenBossSingleManager.GetBossCurDifficultyInfo(sectionId)
-    
-    --Boss图
-    self.RImgBossIcon1:SetRawImage(self.CurrBossInfo.bossIcon)
-    --Boss名
-    self.TxtBossName.text = self.CurrBossInfo.bossName
-    --总讨伐值
-    self.TotalScore = XDataCenter.FubenBossSingleManager.GetTrialTotalScoreInfo()[sectionId] or 0
-    self.TxtBossScore.text = self.TotalScore
-end
+    local bossIcon = self._Control:GetBossIcon(sectionId)
+    local bossName = self._Control:GetBossName(sectionId)
+    local totalScore = self._Control:GetTrialTotalScoreInfoById(sectionId) or 0
 
-function XUiGridBossTrialSection:OnDestroy()
+    --Boss图
+    self.RImgBossIcon1:SetRawImage(bossIcon)
+    --Boss名
+    self.TxtBossName.text = bossName
+    --总讨伐值
+    self.TxtBossScore.text = totalScore
 end
 
 return XUiGridBossTrialSection

@@ -10,16 +10,9 @@ end
 
 -- 浮点纪实
 function XUiFubenMainLineChapterDP:OnStart(chapterId, stageId, hideDiffTog)
-    if self.LastData then
-        self.ChapterId = self.LastData.ChapterId or chapterId
-        self.StageId = self.LastData.StageId or stageId
-        self.HideDiffTog = self.LastData.HideDiffTog or hideDiffTog
-        self.LastData = nil
-    else
-        self.ChapterId = chapterId
-        self.StageId = stageId
-        self.HideDiffTog = hideDiffTog
-    end
+    self.ChapterId = chapterId
+    self.StageId = stageId
+    self.HideDiffTog = hideDiffTog
     --当前难度
     self.CurDiff = XFubenShortStoryChapterConfigs.GetDifficultByChapterId(self.ChapterId)
     --是否有探索组id
@@ -112,6 +105,8 @@ function XUiFubenMainLineChapterDP:OnDestroy()
     self:DestroyActivityTimer()
     XEventManager.RemoveEventListener(XEventId.EVENT_FUBEN_STAGE_SYNC, self.OnSyncStage, self)
     XEventManager.RemoveEventListener(XEventId.EVENT_AUTO_FIGHT_START, self.OnAutoFightStart, self)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointId)
+    XRedPointManager.RemoveRedPointEvent(self.RedPointZhouMuId)
 end
 
 function XUiFubenMainLineChapterDP:InitPanelBottom()
@@ -374,7 +369,7 @@ function XUiFubenMainLineChapterDP:SetBtnToggleActive(isNormal, isHard)
         if hideChapterId then
             local viewModel = XDataCenter.ShortStoryChapterManager:ExGetChapterViewModelById(self.ChapterId, XDataCenter.FubenManager.DifficultHard)
             local isUnFinAndUnEnter = XDataCenter.FubenManagerEx.CheckHideChapterRedPoint(viewModel) --v1.30 新入口红点规则，未完成隐藏且没点击过
-            local hardRed = XRedPointConditionShortStoryChapterReward.Check(hideChapterId) or isUnFinAndUnEnter
+            local hardRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SHORT_STORY_CHAPTER_REWARD, hideChapterId) or isUnFinAndUnEnter
 
             self.BtnNormal:ShowReddot(not isHard and hardRed)
             self.BtnHard:ShowReddot(hardRed) 
@@ -385,7 +380,7 @@ function XUiFubenMainLineChapterDP:SetBtnToggleActive(isNormal, isHard)
     -- 隐藏模式下
     elseif self.CurDiff == XDataCenter.FubenManager.DifficultHard then
         if normalChapterId then
-            local normalRed = XRedPointConditionShortStoryChapterReward.Check(normalChapterId)
+            local normalRed = XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SHORT_STORY_CHAPTER_REWARD, normalChapterId)
             self.BtnHard:ShowReddot(not isNormal and normalRed)
             self.BtnNormal:ShowReddot(normalRed)
         else
@@ -1082,14 +1077,6 @@ function XUiFubenMainLineChapterDP:OnAutoFightStart(stageId)
         self:OnCloseStageDetail()
         XLuaUiManager.Remove("UiFubenExploreDetail")
     end
-end
-
-function XUiFubenMainLineChapterDP:OnReleaseInst()
-    return { ChapterId = self.ChapterId, StageId = self.StageId, HideDiffTog = self.HideDiffTog }
-end
-
-function XUiFubenMainLineChapterDP:OnResume(data)
-    self.LastData = data
 end
 
 return XUiFubenMainLineChapterDP

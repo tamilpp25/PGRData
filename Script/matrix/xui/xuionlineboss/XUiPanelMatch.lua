@@ -92,7 +92,7 @@ function XUiPanelMatch:UpdateArmsTips()
         local arms = stage.NeedJobType[index]
         if arms then
             self.ArmsTips[index].gameObject:SetActive(true)
-            self.ArmsTips[index]:SetRawImage(XCharacterConfigs.GetNpcTypeIconTranspose(arms))
+            self.ArmsTips[index]:SetRawImage(XMVCA.XCharacter:GetNpcTypeIconTranspose(arms))
         else
             self.ArmsTips[index].gameObject:SetActive(false)
         end
@@ -247,7 +247,7 @@ function XUiPanelMatch:CheckLevelControl()
         return true
     end
 
-    local maxAbility = XDataCenter.CharacterManager.GetMaxOwnCharacterAbility()
+    local maxAbility = XMVCA.XCharacter:GetMaxOwnCharacterAbility()
     return maxAbility >= requireAbility, requireAbility
 end
 

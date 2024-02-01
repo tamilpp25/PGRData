@@ -26,6 +26,7 @@ local TABLE_LEVEL_PATH = "Share/Fuben/Stronghold/StrongholdLevel.tab"
 local TABLE_RUNE_PATH = "Share/Fuben/Stronghold/StrongholdRune.tab"
 local TABLE_SUB_RUNE_PATH = "Share/Fuben/Stronghold/StrongholdSubRune.tab"
 local TABLE_REWARD_GROUP_PATH = "Client/Fuben/Stronghold/StrongholdRewardGroup.tab"
+local TABLE_RESERVE_PATH = "Share/Fuben/Stronghold/StrongholdReserve.tab"
 
 local ActivityTemplate = {}
 local CommonConfig = {}
@@ -34,6 +35,7 @@ local ChapterConfig = {}
 local GroupConfig = {}
 local RewardConfig = {}
 local LevelIdToRewardIdsDic = {}
+local ChapterIdToRewardIdsDic = {}
 local PluginConfig = {}
 local TeamAbilityExtraElectricList = {}
 local ElectricConfig = {}
@@ -46,6 +48,8 @@ local StrongholdLevelConfig = {}
 local StrongholdRuneConfig = {}
 local StrongholdSubRuneConfig = {}
 local StrongholdRewardGroupConfig = {}
+local StrongholdReserve = {}
+local MaxChapterCount = nil
 
 local DefaultActivityId = 1
 local ActivityIdList = {} --活动Id列表（倒序排布）
@@ -95,6 +99,14 @@ local InitRewardConfig = function()
             LevelIdToRewardIdsDic[levelId] = rewardIds
         end
 
+        if not ChapterIdToRewardIdsDic[levelId] then
+            ChapterIdToRewardIdsDic[levelId] = {}
+        end
+        if not ChapterIdToRewardIdsDic[levelId][config.ChapterId] then
+            ChapterIdToRewardIdsDic[levelId][config.ChapterId] = {}
+        end
+        tableInsert(ChapterIdToRewardIdsDic[levelId][config.ChapterId], config)
+
         tableInsert(rewardIds, id)
     end
 end
@@ -115,6 +127,7 @@ function XStrongholdConfigs.Init()
     StrongholdRuneConfig = XTableManager.ReadByIntKey(TABLE_RUNE_PATH, XTable.XTableStrongholdRune, "Id")
     StrongholdSubRuneConfig = XTableManager.ReadByIntKey(TABLE_SUB_RUNE_PATH, XTable.XTableStrongholdSubRune, "Id")
     StrongholdRewardGroupConfig = XTableManager.ReadByIntKey(TABLE_REWARD_GROUP_PATH, XTable.XTableStrongholdRewardGroup, "RewardType")
+    StrongholdReserve = XTableManager.ReadByIntKey(TABLE_RESERVE_PATH, XTable.XTableStrongholdReserve, "TeamId")
 
     InitActivityConfig()
     InitElectricTeamConfig()
@@ -205,6 +218,16 @@ XStrongholdConfigs.ChapterType = {
     Normal = 0, --驱逐作战
     Hard = 1, --维护作战
 }
+
+function XStrongholdConfigs.GetChapterCount()
+    if not MaxChapterCount then
+        MaxChapterCount = 0
+        for _, _ in pairs(ChapterConfig) do
+            MaxChapterCount = MaxChapterCount + 1
+        end
+    end
+    return MaxChapterCount
+end
 
 local function GetChapterConfig(chapterId)
     local config = ChapterConfig[chapterId]
@@ -318,6 +341,11 @@ end
 
 function XStrongholdConfigs.GetChapterBg(chapterId)
     local config = GetChapterConfig(chapterId)
+    return config.ChapterBg or ""
+end
+
+function XStrongholdConfigs.GetBg(chapterId)
+    local config = GetChapterConfig(chapterId)
     return config.Bg or ""
 end
 
@@ -334,6 +362,12 @@ end
 function XStrongholdConfigs.GetChapterFirstGroupId(chapterId)
     local config = GetChapterConfig(chapterId)
     return config.GroupId and config.GroupId[1] or 0
+end
+
+function XStrongholdConfigs.GetTaskLimitElectric(chapterId)
+    local levelId = XDataCenter.StrongholdManager.GetLevelId()
+    local config = GetChapterConfig(chapterId)
+    return config.SuggestElectric[levelId] or 0
 end
 
 --是否为章节关底据点
@@ -537,6 +571,12 @@ function XStrongholdConfigs.GetGroupStageIdGroupIndex(groupId, stageId)
     end
 end
 
+function XStrongholdConfigs.GetGroupBossIcon(groupId, stageId)
+    local config = GetGroupConfig(groupId)
+    local index = XStrongholdConfigs.GetGroupStageIdGroupIndex(groupId, stageId)
+    return config.IconBoss[index] or nil
+end
+
 function XStrongholdConfigs.GetGroupSweepCondition(groupId, sweepLevelId)
     local config = GetGroupConfig(groupId)
     for index, id in ipairs(config.SweepLevelId) do
@@ -569,7 +609,7 @@ end
 
 function XStrongholdConfigs.GetBuffDesc(buffId)
     local config = GetBuffConfig(buffId)
-    return XUiHelper.ConvertLineBreakSymbol(config.Desc)
+    return config and XUiHelper.ConvertLineBreakSymbol(config.Desc) or ""
 end
 
 function XStrongholdConfigs.GetBuffConditionId(buffId)
@@ -656,6 +696,11 @@ function XStrongholdConfigs.GetRewardDesc(rewardId)
     return config.Desc or ""
 end
 
+function XStrongholdConfigs.GetRewardTitle(rewardId)
+    local config = GetRewardConfig(rewardId)
+    return config.Title or ""
+end
+
 function XStrongholdConfigs.GetRewardSkipId(rewardId)
     local config = GetRewardConfig(rewardId)
     return config.SkipId
@@ -675,11 +720,19 @@ function XStrongholdConfigs.GetRewardType(rewardId)
     local config = GetRewardConfig(rewardId)
     return config.RewardType
 end
+
+---@return XTableStrongholdReward[]
+function XStrongholdConfigs.GetChapterRewards(levelId, chapterId)
+    if ChapterIdToRewardIdsDic[levelId] and ChapterIdToRewardIdsDic[levelId][chapterId] then
+        return ChapterIdToRewardIdsDic[levelId][chapterId]
+    end
+    return {}
+end
+
 -----------------奖励（任务）相关 end--------------------
 -----------------队伍相关 begin--------------------
-local MAX_TEAM_NUM = 6 --最大队伍数量
 function XStrongholdConfigs.GetMaxTeamNum()
-    return MAX_TEAM_NUM
+    return XStrongholdConfigs.GetCommonConfig("MaxPreTeamCount")
 end
 
 local MAX_TEAM_MEMBER_NUM = 3--最大队伍成员数量
@@ -902,6 +955,11 @@ function XStrongholdConfigs.GetLevelInitEndurance(levelId)
     return config.InitEndurance
 end
 
+function XStrongholdConfigs.GetLevelChapterIds(levelId)
+    local config = GetLevelConfig(levelId)
+    return config.Chapter
+end
+
 --ignoreNotSuggestElectric：为true时，忽略未配置SuggestElectric或MaxElectricUse的id
 function XStrongholdConfigs.GetAllChapterIds(chapterType, ignoreNotSuggestElectric)
     local ids = {}
@@ -1017,3 +1075,7 @@ function XStrongholdConfigs.GetRewardGroupName(rewardType)
     return config.Name
 end
 -----------------StrongholdRewardGroupConfig 奖励（任务）组 end----------------------
+
+function XStrongholdConfigs.GetReserveTeamStageId(teamId)
+    return StrongholdReserve[teamId] and StrongholdReserve[teamId].StageId or nil
+end

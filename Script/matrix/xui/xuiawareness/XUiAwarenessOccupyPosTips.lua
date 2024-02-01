@@ -42,7 +42,7 @@ function XUiAwarenessOccupyPosTips:OnEnable()
     -- 共鸣绑定角色
     local characterId = XDataCenter.EquipManager.GetResonanceBindCharacterId(self.EquipId, self.Pos)
     if XTool.IsNumberValid(characterId) then
-        self.StandIcon:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(characterId))
+        self.StandIcon:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(characterId))
     end
 
     -- 伤害加成

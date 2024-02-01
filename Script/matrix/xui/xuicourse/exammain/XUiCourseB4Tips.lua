@@ -112,5 +112,8 @@ function XUiCourseB4Tips:RegisterButtonEvent()
 end
 
 function XUiCourseB4Tips:OnBtnOpenChapterClick()
+    if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.Course, self.ChapterId) then
+        return
+    end
     XLuaUiManager.Open("UiCourseManagement", self.ChapterId)
 end

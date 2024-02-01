@@ -39,6 +39,8 @@ XShopManager.ShopType = {
     Common = 1, -- 普通商店
     Activity = 2, -- 活动商店
     Points = 3, -- 活动商店
+    Recharge = 4, -- 累充商店
+    Login = 5, -- 登陆
     Dorm = 101,
     Boss = 102,
     Arena = 103,
@@ -90,6 +92,7 @@ XShopManager.ActivityShopType = {
     PlanetShop = 8, --行星商店
     RiftShop = 9, --大秘境商店
     CerberusShop = 10, --三头犬小队商店
+    BlackRockChessShop = 11, --国际战旗商店
 }
 
 --分解商店分类
@@ -104,6 +107,13 @@ XShopManager.DecompositionShopId = {
         [5] = 405,
         [6] = 406,
     }
+}
+
+--累充商店分类
+XShopManager.RechargeShopType = {
+    CharacterShop = 1001,
+    EquipShop = 1002,
+    PartnerShop = 1003,
 }
 
 function XShopManager.ClearBaseInfoData()
@@ -555,6 +565,10 @@ function XShopManager.GetShopInfo(shopId, cb, pleaseDoNotTip)
 
     XNetwork.Call(METHOD_NAME.GetShopInfo, { Id = shopId }, function(res)
         if res.Code ~= XCode.Success then
+            if res.Code == XCode.ItemCountNotEnough then
+                XEventManager.DispatchEvent(XEventId.EVENT_SHOP_ITEM_NOT_ENOUGH, res.Code, shopId, ShopDict[shopId] ~= nil)
+                return
+            end
             if not pleaseDoNotTip then
                 XUiManager.TipCode(res.Code)
             end
@@ -673,7 +687,7 @@ function XShopManager.BuyShop(shopId, goodsId, count, cb, err_cb)
             return
         end
         AddBuyTimes(shopId, goodsId, count)
-        cb()
+        cb(res)
     end)
 end
 
@@ -1094,4 +1108,22 @@ function XShopManager.GetShopScreenGroupSelectValueAndScreenNum(shopId, screenId
         end
     end
     return nil
+end
+
+-- 需要登陆请求商店数据玩法的统一在这里添加shopId
+function XShopManager.OnLoginRequestShopList()
+    if not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.ShopCommon, nil, true) then
+        return
+    end
+    local shopIds = {}
+
+    -- 渡边模拟经营
+    local rogueSimShopId = XMVCA:GetAgency(ModuleId.XRogueSim):GetShopId()
+    if rogueSimShopId then 
+        table.insert(shopIds, rogueSimShopId)
+    end
+
+    if #shopIds > 0 then
+        XShopManager.GetShopInfoList(shopIds, nil, XShopManager.ShopType.Login, true)
+    end
 end

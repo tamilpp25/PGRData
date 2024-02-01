@@ -3,7 +3,12 @@ local XUiInstruction = require("XUi/XUiSet/XUiInstruction")
 local XUiPanelGraphicsSetPc = require("XUi/XUiSet/XUiPanelGraphicsSetPc")
 local XUiPanelOtherSetPc = require("XUi/XUiSet/XUiPanelOtherSetPc")
 local XUiPanelFightSetPc = require("XUi/XUiSet/XUiPanelFightSetPc")
+local XUiPanelVoiceSet = require("XUi/XUiSet/XUiPanelVoiceSet")
+local XUiPanelPushSet = require("XUi/XUiSet/XUiPanelPushSet")
+local XUiPanelOtherSet = require("XUi/XUiSet/XUiPanelOtherSet")
+local XUiPanelGraphicsSet = require("XUi/XUiSet/XUiPanelGraphicsSet")
 
+---@class XUiSet:XLuaUi
 local XUiSet = XLuaUiManager.Register(XLuaUi, "UiSet")
 
 local PANEL_INDEX = {
@@ -22,11 +27,23 @@ local MULTI_CLICK_COUNT_LIMIT = 5    -- 最大点击数
 local DisableInstructionStageType = {
     [XDataCenter.FubenManager.StageType.Maverick] = true,
     [XDataCenter.FubenManager.StageType.Maverick2] = true,
-    [XDataCenter.FubenManager.StageType.BrillientWalk] = true
+    [XDataCenter.FubenManager.StageType.BrillientWalk] = true,
+    [XEnumConst.FuBen.StageType.TaikoMaster] = true
 }
 --检查是否需要显示角色说明面板
 local function CheckInstructionEnable(stageType)
-    local DisableInstruction = (DisableInstructionStageType[stageType] or false) or CS.XFightInterface.IsDLC
+    if CS.XFightInterface.IsDLC then
+        return false
+    end
+
+    -- 主线2的提示按钮
+    local stageId = CS.XFight.Instance.FightData.StageId
+    local agency = XMVCA:GetAgency(ModuleId.XMainLine2)
+    if agency:IsStageExit(stageId) then
+        return agency:IsShowFightInstruction(stageId)
+    end
+
+    local DisableInstruction = DisableInstructionStageType[stageType] or false
     return not DisableInstruction
 end
 function XUiSet:OnAwake()
@@ -43,19 +60,7 @@ function XUiSet:OnAwake()
     self.MultiClickHelper = multiClickHelper
     self.LastOperationType = CS.XInputManager.CurOperationType
     CS.XInputManager.SetCurOperationType(CS.XOperationType.System)
-end
-
-function XUiSet:OnNotify(evt, ...)
-    if evt == XEventId.EVENT_FIGHT_FINISH then
-        self.Super.Close(self)
-    elseif self.CurShowIndex == PANEL_INDEX.Fight and evt == CS.XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED then
-        -- 由于C#派发的事件无法触发红点系统绑定的监听，因此需要作出转换
-        XEventManager.DispatchEvent(XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED)
-    end
-end
-
-function XUiSet:OnGetEvents()
-    return { XEventId.EVENT_FIGHT_FINISH, CS.XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED }
+    self.CurSendOperationTime = 0
 end
 
 function XUiSet:OnStart(isFight, panelIndex)
@@ -71,7 +76,320 @@ function XUiSet:OnStart(isFight, panelIndex)
     end
 
     --区分战斗中设置和主页面设置内容
+    self:InitLeftTagPanel(self.IsFight, stageType)
+
     if self.IsFight then
+        if CS.XFight.IsRunning then
+            CS.XFight.Instance:Pause()
+            XDataCenter.FightWordsManager.Pause()
+            self:AddRecordStr("点击暂停")
+        end
+        -- int index = CS.XFight.GetClientRole().Npc.Index;
+        -- Portraits[index].Select();
+        -- XUiAnimationManager.PlayUi(Ui, ANIM_BEGIN, null, null);
+        -- TxtScheme.text = XCustomUi.Instance.SchemeName;
+        if CS.StatusSyncFight.XFightClient.FightInstance then
+            CS.StatusSyncFight.XFightClient.FightInstance:OnPauseForClient()
+        end
+    end
+
+    self.IsStartAnimCommon = true
+    self.IsStartAnimOther = true
+    self.SubPanels = {}
+    if not self.IsFight then
+        self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
+    end
+    self:InitPanelAsset(self.IsFight)
+    local defaultIndex
+    if self.IsFight then
+        if XFightUtil.IsDlcOnline() then
+            defaultIndex = panelIndex or PANEL_INDEX.DlcHunt
+        elseif not CheckInstructionEnable(stageType) then
+            defaultIndex = panelIndex or PANEL_INDEX.Sound
+        elseif XFubenConfigs.HasStageGamePlayDesc(stageType) then
+            defaultIndex = panelIndex or PANEL_INDEX.SpecialTrain
+        else
+            defaultIndex = panelIndex or PANEL_INDEX.Instruction
+        end
+    else
+        defaultIndex = panelIndex or PANEL_INDEX.Sound
+    end
+    self.PanelTabToggles:SelectIndex(defaultIndex)
+    self.TipTitle = CS.XTextManager.GetText("TipTitle")
+    self.TipContent = CS.XTextManager.GetText("SettingCheckSave")
+
+    self:AddRedPointEvent(self.BtnFight, self.OnCheckFightSetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_SET })
+end
+
+function XUiSet:OnEnable()
+    if self.MultiClickHelper then
+        self.MultiClickHelper:OnEnable()
+    end
+    if self.Timer then
+        XScheduleManager.UnSchedule(self.Timer)
+        self.Timer = nil
+    end
+    self.Timer = XScheduleManager.ScheduleForever(function()
+        if self.MultiClickHelper then
+            local dt = CS.UnityEngine.Time.deltaTime
+            self.MultiClickHelper:Update(dt)
+        end
+        self:SendOperationCheck()
+    end, 0)
+
+    if self.CurShowIndex and self.SubPanels[self.CurShowIndex] then
+        self.SubPanels[self.CurShowIndex]:Open()
+    end
+    CS.XJoystickLSHelper.ForceResponse = true
+end
+
+function XUiSet:OnDisable()
+    if self.CurShowIndex and self.SubPanels[self.CurShowIndex] then
+        self.SubPanels[self.CurShowIndex]:Close()
+    end
+    if self.IsFight then
+        if CS.XFight.IsRunning then
+            CS.XFight.Instance:Resume()
+            XDataCenter.FightWordsManager.Resume()
+        end
+        if CS.StatusSyncFight.XFightClient.FightInstance then
+            CS.StatusSyncFight.XFightClient.FightInstance:OnResumeForClient()
+        end
+    end
+
+    if self.Timer ~= nil then
+        XScheduleManager.UnSchedule(self.Timer)
+        self.Timer = nil
+    end
+
+    if self.MultiClickHelper then
+        self.MultiClickHelper:OnDisable()
+    end
+    CS.XJoystickLSHelper.ForceResponse = false
+end
+
+function XUiSet:OnDestroy()
+    if self.Timer ~= nil then
+        XScheduleManager.UnSchedule(self.Timer)
+        self.Timer = nil
+    end
+
+    if self.MultiClickHelper then
+        self.MultiClickHelper:OnDestroy()
+    end
+    CS.XInputManager.SetCurOperationType(self.LastOperationType)
+end
+
+function XUiSet:OnNotify(evt, ...)
+    if evt == XEventId.EVENT_FIGHT_FINISH then
+        self.Super.Close(self)
+    elseif self.CurShowIndex == PANEL_INDEX.Fight and evt == CS.XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED then
+        -- 由于C#派发的事件无法触发红点系统绑定的监听，因此需要作出转换
+        XEventManager.DispatchEvent(XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED)
+    elseif evt == XEventId.EVENT_SETTING_KEYBOARD_KEY_CHANGED then
+        if self.SubPanels[PANEL_INDEX.Fight] then
+            self.SubPanels[PANEL_INDEX.Fight]:RefreshGridList(..., true)
+        end
+    end
+end
+
+function XUiSet:OnGetEvents()
+    return { XEventId.EVENT_FIGHT_FINISH, CS.XEventId.EVENT_CUSTOM_UI_SCHEME_CHANGED, XEventId.EVENT_SETTING_KEYBOARD_KEY_CHANGED }
+end
+
+function XUiSet:SendOperationCheck()
+    if not self.IsFight or not CS.XFight.Instance or CS.XFight.Instance.OnlineConnect then
+        return
+    end
+
+    self.CurSendOperationTime = self.CurSendOperationTime + CS.UnityEngine.Time.deltaTime
+    if self.CurSendOperationTime >= 600 then
+        --每10分钟通知后端不释放XFight
+        CS.XFightOnlineManager.SendOperationCheck()
+        self.CurSendOperationTime = 0
+    end
+end
+
+--region Data
+function XUiSet:GetRetreatTitleAndContent()
+    local title = CS.XTextManager.GetText("TipTitle")
+    local content = CS.XTextManager.GetText("FightExitMsg")
+    if CS.XFightInterface.IsDLC then
+        return title, content
+    end
+    local stageId = CS.XFight.Instance.FightData.StageId
+    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    if stageInfo == nil then
+        return title, content
+    end
+
+    local fightReboot = CS.XFight.Instance.FightReboot
+    -- 肉鸽2.0兼容不可重开
+    if stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre and fightReboot.Available then
+        local itemId = fightReboot.RebootItemId
+        local itemName = XItemConfigs.GetItemNameById(itemId)
+        local count = XDataCenter.ItemManager.GetCount(itemId)
+        title = XBiancaTheatreConfigs.GetClientConfig("RetreatTitle")
+        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RetreatDesc"), itemName, count, itemName)
+    end
+
+    return title, content
+end
+
+function XUiSet:GetReStartTitleAndContent()
+    local title = CS.XTextManager.GetText("TipTitle")
+    local content = CS.XTextManager.GetText("FightRestartMsg")
+    local stageId = CS.XFight.Instance.FightData.StageId
+    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    if stageInfo == nil then
+        return title, content
+    end
+
+    local fightReboot = CS.XFight.Instance.FightReboot
+    -- 肉鸽2.0兼容不可重开
+    if stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre and fightReboot.Available then
+        local itemId = fightReboot.RebootItemId
+        local itemName = XItemConfigs.GetItemNameById(itemId)
+        local consumeCount = fightReboot.ConsumeCount
+        local count = XDataCenter.ItemManager.GetCount(itemId)
+        title = XBiancaTheatreConfigs.GetClientConfig("RebootTitle")
+        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RebootDesc"), itemName, count, itemName, consumeCount)
+        -- 肉鸽3.0兼容不可重开
+    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre3 and fightReboot.Available then
+        ---@type XTheatre3Agency
+        local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
+        local itemId = XEnumConst.THEATRE3.Theatre3InnerCoin
+        local count = XDataCenter.ItemManager.GetCount(itemId)
+        local itemName = XDataCenter.ItemManager.GetItemName(itemId)
+        local consumeCount = agency:GetRebootCost(CS.XFight.Instance.FightData.RebootId)
+        title = XBiancaTheatreConfigs.GetClientConfig("RebootTitle")
+        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RebootDesc"), itemName, count, itemName, consumeCount)
+    end
+
+    return title, content
+end
+
+-- 获取重开数据
+function XUiSet:GetReStartData()
+    local result = {
+        BtnName = XUiHelper.GetText("CommonRestartBtnName"),
+        IsCanRestart = true,
+        NotRestartTips = "",
+        RestartTipsDescKey = nil,
+    }
+    if not CS.XFight.IsRunning then return result end
+    local stageId = CS.XFight.Instance.FightData.StageId
+    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
+    if stageInfo == nil then return result end
+
+    local fightReboot = CS.XFight.Instance.FightReboot
+    if stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre then
+        local currentAdventureManager =  XDataCenter.TheatreManager.GetCurrentAdventureManager()
+        if currentAdventureManager then
+            local playableCount = currentAdventureManager:GetPlayableCount()
+            result.BtnName = XUiHelper.GetText("TheatreRestartBtnName", playableCount)
+            result.IsCanRestart = playableCount > 0
+            result.NotRestartTips = XUiHelper.GetText("TheatreNotRestartTips")
+        end
+    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre then
+        -- 肉鸽2.0兼容不可重开
+        if fightReboot.Available then
+            local itemId = fightReboot.RebootItemId
+            local itemName = XItemConfigs.GetItemNameById(itemId)
+            local consumeCount = fightReboot.ConsumeCount
+            local count = XDataCenter.ItemManager.GetCount(itemId)
+            result.BtnName = string.format("%s(%d/%d)", itemName, consumeCount, count)
+            result.IsCanRestart = count >= consumeCount
+            result.RestartTipsDescKey = "BiancaTheatreRestartTipsDesc"
+        else
+            result.IsCanRestart = false
+        end
+    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre3 then
+        -- 肉鸽3.0兼容不可重开
+        if fightReboot.Available then
+            ---@type XTheatre3Agency
+            local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
+            local itemId = XEnumConst.THEATRE3.Theatre3InnerCoin
+            local count = XDataCenter.ItemManager.GetCount(itemId)
+            local itemName = XDataCenter.ItemManager.GetItemName(itemId)
+            local consumeCount = agency:GetRebootCost(CS.XFight.Instance.FightData.RebootId)
+            result.BtnName = string.format("%s(%d/%d)", itemName, consumeCount, count)
+            result.IsCanRestart = count >= consumeCount
+            result.RestartTipsDescKey = "Theatre3RestartTipsDesc"
+        else
+            result.IsCanRestart = false
+        end
+    end
+    return result
+end
+
+function XUiSet:UpdateSpecialScreenOff()
+    if self.SafeAreaContentPane then
+        self.SafeAreaContentPane:UpdateSpecialScreenOff()
+    end
+end
+
+function XUiSet:Save()
+    self.SubPanels[self.SelectedIndex]:SaveChange()
+end
+
+function XUiSet:Cancel()
+    self.SubPanels[self.SelectedIndex]:CancelChange()
+end
+--endregion
+
+--region Checker
+function XUiSet:CheckUnSaveData()
+    if self.SelectedIndex and self.SubPanels[self.SelectedIndex]:CheckDataIsChange() then
+        return true
+    else
+        return false
+    end
+end
+
+function XUiSet:CheckSave(cb)
+    local isUnSave = self:CheckUnSaveData()
+    if isUnSave then
+        local cancelCb = function()
+            self:Cancel()
+            if cb then cb() end
+        end
+        local confirmCb = function()
+            self:Save()
+            if cb then cb() end
+        end
+        self:TipDialog(cancelCb, confirmCb)
+    else
+        if cb then cb() end
+    end
+end
+--endregion
+
+--region Ui - PanelAsset
+function XUiSet:InitPanelAsset(isFight)
+    if not isFight then
+        self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
+    end
+end
+--endregion
+
+--region Ui - LeftTagPanel
+function XUiSet:InitLeftTagPanel(isFight, stageType)
+    local tabGroup = {
+        [PANEL_INDEX.Instruction] = self.BtnInstruction,
+        [PANEL_INDEX.Sound] = self.BtnVoice,
+        [PANEL_INDEX.Graphics] = self.BtnGraphics,
+        [PANEL_INDEX.Fight] = self.BtnFight,
+        [PANEL_INDEX.Push] = self.BtnPush,
+        [PANEL_INDEX.Other] = self.BtnOther,
+        [PANEL_INDEX.Download] = self.BtnDownload,
+        [PANEL_INDEX.SpecialTrain] = self.BtnSpecialTrain,
+        [PANEL_INDEX.DlcHunt] = self.BtnDlcHunt,
+    }
+    self.PanelTabToggles:Init(tabGroup, function(index)
+        self:SwitchSubPanel(index)
+    end)
+    if isFight then
         self.BtnMainUi.gameObject:SetActiveEx(false)
         self.PanelAsset.gameObject:SetActiveEx(false)
         self.BtnGraphics.gameObject:SetActiveEx(false)
@@ -101,270 +419,41 @@ function XUiSet:OnStart(isFight, panelIndex)
         self.BtnDownload.gameObject:SetActiveEx(false)
         self.BtnSpecialTrain.gameObject:SetActiveEx(false)
     end
-
-    if self.IsFight then
-        if CS.XFight.IsRunning then
-            CS.XFight.Instance:Pause()
-            XDataCenter.FightWordsManager.Pause()
-        end
-        -- int index = CS.XFight.GetClientRole().Npc.Index;
-        -- Portraits[index].Select();
-        -- XUiAnimationManager.PlayUi(Ui, ANIM_BEGIN, null, null);
-        -- TxtScheme.text = XCustomUi.Instance.SchemeName;
-    end
-
-    self.IsStartAnimCommon = true
-    self.IsStartAnimOther = true
-    self.SubPanels = {}
-    if not self.IsFight then
-        self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.FreeGem, XDataCenter.ItemManager.ItemId.ActionPoint, XDataCenter.ItemManager.ItemId.Coin)
-    end
-    local tabGroup = {
-        [PANEL_INDEX.Instruction] = self.BtnInstruction,
-        [PANEL_INDEX.Sound] = self.BtnVoice,
-        [PANEL_INDEX.Graphics] = self.BtnGraphics,
-        [PANEL_INDEX.Fight] = self.BtnFight,
-        [PANEL_INDEX.Push] = self.BtnPush,
-        [PANEL_INDEX.Other] = self.BtnOther,
-        [PANEL_INDEX.Download] = self.BtnDownload,
-        [PANEL_INDEX.SpecialTrain] = self.BtnSpecialTrain,
-        [PANEL_INDEX.DlcHunt] = self.BtnDlcHunt,
-    }
-    
-    self.PanelTabToggles:Init(tabGroup, function(index)
-        self:SwitchSubPanel(index)
-    end)
-    local defaultIndex
-    if self.IsFight then
-        if XFightUtil.IsDlcOnline() then
-            defaultIndex = panelIndex or PANEL_INDEX.DlcHunt
-        elseif not CheckInstructionEnable(stageType) then
-            defaultIndex = panelIndex or PANEL_INDEX.Sound
-        elseif XFubenConfigs.HasStageGamePlayDesc(stageType) then
-            defaultIndex = panelIndex or PANEL_INDEX.SpecialTrain
-        else
-            defaultIndex = panelIndex or PANEL_INDEX.Instruction
-        end
-    else
-        defaultIndex = panelIndex or PANEL_INDEX.Sound
-    end
-    self.PanelTabToggles:SelectIndex(defaultIndex)
-    self.TipTitle = CS.XTextManager.GetText("TipTitle")
-    self.TipContent = CS.XTextManager.GetText("SettingCheckSave")
-
-    XRedPointManager.AddRedPointEvent(self.BtnFight, self.OnCheckFightSetNews, self, { XRedPointConditions.Types.CONDITION_MAIN_SET })
 end
+--endregion
 
---战斗页签红点（自定义按键冲突）
-function XUiSet:OnCheckFightSetNews(count)
-    self.BtnFight:ShowReddot(count >= 0)
-end
-
-function XUiSet:OnDestroy()
-    if self.SubPanels[PANEL_INDEX.Fight] then
-        self.SubPanels[PANEL_INDEX.Fight]:OnDestroy()
-    end
-
-    if self.Timer ~= nil then
-        XScheduleManager.UnSchedule(self.Timer)
-        self.Timer = nil
-    end
-
-    if self.MultiClickHelper then
-        self.MultiClickHelper:OnDestroy()
-    end
-    CS.XInputManager.SetCurOperationType(self.LastOperationType)
-end
-
-function XUiSet:OnDisable()
-    if self.CurShowIndex and self.SubPanels[self.CurShowIndex] then
-        self.SubPanels[self.CurShowIndex]:HidePanel()
-    end
-    if self.IsFight then
-        if CS.XFight.IsRunning then
-            CS.XFight.Instance:Resume()
-            XDataCenter.FightWordsManager.Resume()
-        end
-    end
-
-    if self.Timer ~= nil then
-        XScheduleManager.UnSchedule(self.Timer)
-        self.Timer = nil
-    end
-
-    if self.MultiClickHelper then
-        self.MultiClickHelper:OnDisable()
-    end
-end
-
-function XUiSet:OnEnable()
-    if self.MultiClickHelper then
-        self.MultiClickHelper:OnEnable()
-    end
-    if self.Timer then
-        XScheduleManager.UnSchedule(self.Timer)
-        self.Timer = nil
-    end
-    self.Timer = XScheduleManager.ScheduleForever(function()
-        if self.MultiClickHelper then
-            local dt = CS.UnityEngine.Time.deltaTime
-            self.MultiClickHelper:Update(dt)
-        end
-    end, 0)
-
-    if self.CurShowIndex and self.SubPanels[self.CurShowIndex] then
-        self.SubPanels[self.CurShowIndex]:ShowPanel()
-    end
-end
-
-function XUiSet:OnBtnSaveClick()
-    self:Save()
-    XUiManager.TipText("SettingSave")
-end
-
-function XUiSet:OnBtnRetreat()
-    local title, content = self:GetRetreatTitleAndContent()
-    local confirmCb = function()
-        self:CsRecord(XSetConfigs.RecordOperationType.Retreat)
-        CS.XFightInterface.Exit()
-        self.Super.Close(self)
-    end
-    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, confirmCb)
-end
-
-function XUiSet:GetRetreatTitleAndContent()
-    local title = CS.XTextManager.GetText("TipTitle")
-    local content = CS.XTextManager.GetText("FightExitMsg")
-    if CS.XFightInterface.IsDLC then
-        return title, content
-    end
-    local stageId = CS.XFight.Instance.FightData.StageId
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    if stageInfo == nil then
-        return title, content
-    end
-
-    local fightReboot = CS.XFight.Instance.FightReboot
-    -- 肉鸽2.0兼容不可重开
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre and fightReboot.Available then
-        local itemId = fightReboot.RebootItemId
-        local itemName = XItemConfigs.GetItemNameById(itemId)
-        local count = XDataCenter.ItemManager.GetCount(itemId)
-        title = XBiancaTheatreConfigs.GetClientConfig("RetreatTitle")
-        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RetreatDesc"), itemName, count, itemName)
-    end
-
-    return title, content
-end
-
-function XUiSet:OnBtnRestart()
-    local restartData = self:GetReStartData()
-    if not restartData.IsCanRestart then
-        XUiManager.TipErrorWithKey(restartData.RestartTipsDescKey or "TheatreNotRestartTips")
-        return
-    end
-    local title, content = self:GetReStartTitleAndContent()
-    local cb = function()
-        self.Super.Close(self)
-        XLuaUiManager.Open("UiLoading", LoadingType.Fight)
-    end
-    local confirmCb = function()
-        if CS.XFight.IsRunning then
-            self:CsRecord(XSetConfigs.RecordOperationType.ReStart)
-            CS.XFight.Instance:Restart(cb)
-            XDataCenter.FightWordsManager.Stop(true)
-        end
-    end
-    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, confirmCb)
-end
-
-function XUiSet:GetReStartTitleAndContent()
-    local title = CS.XTextManager.GetText("TipTitle")
-    local content = CS.XTextManager.GetText("FightRestartMsg")
-    local stageId = CS.XFight.Instance.FightData.StageId
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    if stageInfo == nil then
-        return title, content
-    end
-
-    local fightReboot = CS.XFight.Instance.FightReboot
-    -- 肉鸽2.0兼容不可重开
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre and fightReboot.Available then
-        local itemId = fightReboot.RebootItemId
-        local itemName = XItemConfigs.GetItemNameById(itemId)
-        local consumeCount = fightReboot.ConsumeCount
-        local count = XDataCenter.ItemManager.GetCount(itemId)
-        title = XBiancaTheatreConfigs.GetClientConfig("RebootTitle")
-        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RebootDesc"), itemName, count, itemName, consumeCount)
-    -- 肉鸽3.0兼容不可重开
-    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre3 and fightReboot.Available then
-        ---@type XTheatre3Agency
-        local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
-        local itemId = XEnumConst.THEATRE3.Theatre3InnerCoin
-        local count = XDataCenter.ItemManager.GetCount(itemId)
-        local itemName = XDataCenter.ItemManager.GetItemName(itemId)
-        local consumeCount = agency:GetRebootCost(CS.XFight.Instance.FightData.RebootId)
-        title = XBiancaTheatreConfigs.GetClientConfig("RebootTitle")
-        content = string.format(XBiancaTheatreConfigs.GetClientConfig("RebootDesc"), itemName, count, itemName, consumeCount)
-    end
-
-    return title, content
-end
-
-function XUiSet:OnBtnDefaultClick()
-    self.SubPanels[self.SelectedIndex]:ResetToDefault()
-end
-
-function XUiSet:Close()
-    self:CheckSave(function()
-        self:CsRecord(XSetConfigs.RecordOperationType.Back)
-        self.Super.Close(self)
-    end)
-end
-
-function XUiSet:OnBtnMainUiClick()
-    self:CheckSave(function()
-        XLuaUiManager.RunMain()
-    end)
-end
-
-function XUiSet:OnBtnInfoTip()
-    self.MultiClickHelper:Click()
-end
-
-function XUiSet:OnBtnUserAgreement()
-    XUiManager.OpenPopWebview(CS.XGame.ClientConfig:GetString("UserAgreementUrl"))
-end
-
-function XUiSet:OnBtnPrivacyPolicy()
-    XUiManager.OpenPopWebview(CS.XGame.ClientConfig:GetString("PrivacyPolicyUrl"))
-end
-
---多点回调
-function XUiSet:OnMultClick(clickTimes)
-    if clickTimes >= MULTI_CLICK_COUNT_LIMIT then
-        local content = CS.XInfo.Identifier
-        XUiManager.UiFubenDialogTip("信息提示", content);
-    end
-end
-
+--region Ui - SubPanel
 function XUiSet:InitSubPanel(index)
     if index == PANEL_INDEX.Instruction then
+        -- 主线2的关卡
+        local stageId = CS.XFight.Instance.FightData.StageId
+        local isMainLine2Stage = XMVCA:GetAgency(ModuleId.XMainLine2):IsStageExit(stageId)
 
         --口袋妖怪怪物类型战中设置特殊处理
         local role = CS.XFight.GetActivateClientRole()
         local isMonsterFight = role and role.RoleData.CustomNpc ~= nil
-        if isMonsterFight then
 
+        if isMainLine2Stage then
+            local isShowIntruction = XMVCA:GetAgency(ModuleId.XMainLine2):IsShowFightInstruction(stageId)
+            if isShowIntruction then
+                local btnName = XUiHelper.GetText("TipTitle")
+                self.BtnInstruction:SetNameByGroup(0, btnName)
+                local XUiInstructionMainLine = require("XUi/XUiSet/XUiInstructionMainLine")
+                local prefabPath = XUiConfigs.GetComponentUrl("PanelInstructionMainLine")
+                local prefab = self.PanelInstruction:LoadPrefab(prefabPath)
+                self.SubPanels[PANEL_INDEX.Instruction] = XUiInstructionMainLine.New(prefab, self)
+            end
+
+        elseif isMonsterFight then
             local monsterUi = self.PanelInstruction:LoadPrefab(XUiConfigs.GetComponentUrl("UiSetPanelInstructionMonster"))
-            self.SubPanels[PANEL_INDEX.Instruction] = XUiInstructionMonster.New(monsterUi)
+            self.SubPanels[PANEL_INDEX.Instruction] = XUiInstructionMonster.New(monsterUi, self)
 
         else
 
             if self.PanelInstructionObj == nil then
                 self.PanelInstructionObj = self.PanelInstruction:LoadPrefab(XUiConfigs.GetComponentUrl("UiSetPanelInstruction"))
             end
-            self.SubPanels[PANEL_INDEX.Instruction] = XUiInstruction.New(self.PanelInstructionObj)
+            self.SubPanels[PANEL_INDEX.Instruction] = XUiInstruction.New(self.PanelInstructionObj, self)
 
         end
 
@@ -434,7 +523,6 @@ function XUiSet:InitSubPanel(index)
 end
 
 function XUiSet:SwitchSubPanel(index)
-
     if not self.SubPanels[index] then
         self:InitSubPanel(index)
     end
@@ -446,8 +534,8 @@ function XUiSet:SwitchSubPanel(index)
 end
 
 function XUiSet:ShowSubPanel(index)
-    if index == PANEL_INDEX.Instruction 
-            or index == PANEL_INDEX.Download
+    if index == PANEL_INDEX.Instruction
+            --or index == PANEL_INDEX.Download
             or index == PANEL_INDEX.DlcHunt
     then
         self.BtnSave.gameObject:SetActiveEx(false)
@@ -471,9 +559,9 @@ function XUiSet:ShowSubPanel(index)
     for i, panel in pairs(self.SubPanels) do
         if (i == index) then
             self.CurShowIndex = index
-            panel:ShowPanel()
+            panel:Open()
         else
-            panel:HidePanel()
+            panel:Close()
         end
     end
     self.BtnRetreat.gameObject:SetActiveEx(self.IsFight)
@@ -496,107 +584,99 @@ function XUiSet:ShowSubPanel(index)
     end
 end
 
-function XUiSet:Save()
-    self.SubPanels[self.SelectedIndex]:SaveChange()
-end
-
-function XUiSet:Cancel()
-    self.SubPanels[self.SelectedIndex]:CancelChange()
-end
-
-function XUiSet:CheckUnSaveData()
-    if self.SelectedIndex and self.SubPanels[self.SelectedIndex]:CheckDataIsChange() then
-        return true
-    else
-        return false
-    end
-end
-
-function XUiSet:UpdateSpecialScreenOff()
-    if self.SafeAreaContentPane then
-        self.SafeAreaContentPane:UpdateSpecialScreenOff()
-    end
-end
-
-function XUiSet:CheckSave(cb)
-    local isUnSave = self:CheckUnSaveData()
-    if isUnSave then
-        local cancelCb = function()
-            self:Cancel()
-            if cb then cb() end
-        end
-        local confirmCb = function()
-            self:Save()
-            if cb then cb() end
-        end
-        self:TipDialog(cancelCb, confirmCb)
-    else
-        if cb then cb() end
-    end
-end
-
-function XUiSet:TipDialog(cancelCb, confirmCb)
-    XLuaUiManager.Open("UiDialog", self.TipTitle, self.TipContent, XUiManager.DialogType.Normal, cancelCb, confirmCb)
-end
-
--- 获取重开数据
-function XUiSet:GetReStartData()
-    local result = {
-        BtnName = XUiHelper.GetText("CommonRestartBtnName"),
-        IsCanRestart = true,
-        NotRestartTips = "",
-        RestartTipsDescKey = nil,
-    }
-    if not CS.XFight.IsRunning then return result end
-    local stageId = CS.XFight.Instance.FightData.StageId
-    local stageInfo = XDataCenter.FubenManager.GetStageInfo(stageId)
-    if stageInfo == nil then return result end
-    
-    local fightReboot = CS.XFight.Instance.FightReboot
-    if stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre then
-        local currentAdventureManager =  XDataCenter.TheatreManager.GetCurrentAdventureManager()
-        if currentAdventureManager then
-            local playableCount = currentAdventureManager:GetPlayableCount()
-            result.BtnName = XUiHelper.GetText("TheatreRestartBtnName", playableCount)
-            result.IsCanRestart = playableCount > 0
-            result.NotRestartTips = XUiHelper.GetText("TheatreNotRestartTips")
-        end
-    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.BiancaTheatre then
-        -- 肉鸽2.0兼容不可重开
-        if fightReboot.Available then
-            local itemId = fightReboot.RebootItemId
-            local itemName = XItemConfigs.GetItemNameById(itemId)
-            local consumeCount = fightReboot.ConsumeCount
-            local count = XDataCenter.ItemManager.GetCount(itemId)
-            result.BtnName = string.format("%s(%d/%d)", itemName, consumeCount, count)
-            result.IsCanRestart = count >= consumeCount
-            result.RestartTipsDescKey = "BiancaTheatreRestartTipsDesc"
-        else
-            result.IsCanRestart = false
-        end
-    elseif stageInfo.Type == XDataCenter.FubenManager.StageType.Theatre3 then
-        -- 肉鸽3.0兼容不可重开
-        if fightReboot.Available then
-            ---@type XTheatre3Agency
-            local agency = XMVCA:GetAgency(ModuleId.XTheatre3)
-            local itemId = XEnumConst.THEATRE3.Theatre3InnerCoin
-            local count = XDataCenter.ItemManager.GetCount(itemId)
-            local itemName = XDataCenter.ItemManager.GetItemName(itemId)
-            local consumeCount = agency:GetRebootCost(CS.XFight.Instance.FightData.RebootId)
-            result.BtnName = string.format("%s(%d/%d)", itemName, consumeCount, count)
-            result.IsCanRestart = count >= consumeCount
-            result.RestartTipsDescKey = "Theatre3RestartTipsDesc"
-        else
-            result.IsCanRestart = false
-        end
-    end
-    return result
-end
-
 function XUiSet:SetBtnVisibleByCfg(btn, value)
     btn.gameObject:SetActiveEx(value == 1)
 end
+--endregion
 
+--region Ui - Tip
+function XUiSet:TipDialog(cancelCb, confirmCb)
+    XLuaUiManager.Open("UiDialog", self.TipTitle, self.TipContent, XUiManager.DialogType.Normal, cancelCb, confirmCb)
+end
+--endregion
+
+--region Ui - BtnListener
+function XUiSet:OnBtnRestart()
+    local restartData = self:GetReStartData()
+    if not restartData.IsCanRestart then
+        XUiManager.TipErrorWithKey(restartData.RestartTipsDescKey or "TheatreNotRestartTips")
+        return
+    end
+    local title, content = self:GetReStartTitleAndContent()
+    local cb = function()
+        self.Super.Close(self)
+        XLuaUiManager.Open("UiLoading", LoadingType.Fight)
+    end
+    local confirmCb = function()
+        if CS.XFight.IsRunning then
+            self:AddRecordStr("重开")
+            self:CsRecord(XSetConfigs.RecordOperationType.ReStart)
+            CS.XFight.Instance:Restart(cb)
+            XDataCenter.FightWordsManager.Stop(true)
+        end
+    end
+    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, confirmCb)
+end
+
+function XUiSet:OnBtnDefaultClick()
+    self.SubPanels[self.SelectedIndex]:ResetToDefault()
+end
+
+function XUiSet:OnBtnSaveClick()
+    self:Save()
+    XUiManager.TipText("SettingSave")
+end
+
+function XUiSet:OnBtnRetreat()
+    local title, content = self:GetRetreatTitleAndContent()
+    local confirmCb = function()
+        self:CsRecord(XSetConfigs.RecordOperationType.Retreat)
+        CS.XFightInterface.Exit(true)
+        self.Super.Close(self)
+    end
+    XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, nil, confirmCb)
+end
+
+function XUiSet:OnBtnInfoTip()
+    self.MultiClickHelper:Click()
+end
+
+function XUiSet:Close()
+    self:CheckSave(function()
+        self:CsRecord(XSetConfigs.RecordOperationType.Back)
+        self.Super.Close(self)
+    end)
+end
+
+function XUiSet:OnBtnMainUiClick()
+    self:CheckSave(function()
+        XLuaUiManager.RunMain()
+    end)
+end
+
+--战斗页签红点（自定义按键冲突）
+function XUiSet:OnCheckFightSetNews(count)
+    self.BtnFight:ShowReddot(count >= 0)
+end
+
+function XUiSet:OnBtnUserAgreement()
+    XUiManager.OpenPopWebview(CS.XGame.ClientConfig:GetString("UserAgreementUrl"))
+end
+
+function XUiSet:OnBtnPrivacyPolicy()
+    XUiManager.OpenPopWebview(CS.XGame.ClientConfig:GetString("PrivacyPolicyUrl"))
+end
+
+--多点回调
+function XUiSet:OnMultClick(clickTimes)
+    if clickTimes >= MULTI_CLICK_COUNT_LIMIT then
+        local content = CS.XInfo.Identifier
+        XUiManager.UiFubenDialogTip("信息提示", content);
+    end
+end
+--endregion
+
+--region Record
 -- 记录埋点
 function XUiSet:CsRecord(type)
     if not CS.XFight.IsRunning then return end
@@ -612,12 +692,12 @@ function XUiSet:CsRecord(type)
             dict["challenge_id"] = XDataCenter.ArenaManager.GetChallengeId()
             dict["boss_id"] = 0
         elseif stageType == XDataCenter.FubenManager.StageType.BossSingle then
-            local enterBossInfo = XDataCenter.FubenBossSingleManager.GetEnterBossInfo()
+            local data = XMVCA.XFubenBossSingle:GetBossSingleData()
             dict["pve_type"] = stageType
-            dict["activity_no"] = XDataCenter.FubenBossSingleManager.GetActivityNo()
-            dict["boss_level"] = enterBossInfo.BossLevel and enterBossInfo.BossLevel or 0
+            dict["activity_no"] = data and data:GetBossSingleActivityNo() or 0
+            dict["boss_level"] = data and data:GetEnterBossLevel() or 0
             dict["challenge_id"] = 0
-            dict["boss_id"] = enterBossInfo.BossId and enterBossInfo.BossId or 0
+            dict["boss_id"] = data and data:GetEnterBossId() or 0
         end
     end 
    
@@ -625,5 +705,14 @@ function XUiSet:CsRecord(type)
     dict["type"] = type
     CS.XRecord.Record(dict, "200015", "FightStopOperation")
 end
+
+function XUiSet:AddRecordStr(str)
+    if not CS.XFight.Instance then
+        return
+    end
+    local frame = CS.XFight.Instance.Frame
+    CS.XFight.Instance.RoleManager:CheckAddRecordStr(string.format("%s\t%s\tFalse\t%s\n", frame, str, ""))
+end
+--endregion
 
 return XUiSet

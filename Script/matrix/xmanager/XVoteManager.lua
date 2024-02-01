@@ -17,6 +17,16 @@ XVoteManagerCreator = function()
         AddVoteRequest = "AddVoteRequest",
     }
 
+    local function voteNumSort(dataA, dataB)
+        local voteA = XDataCenter.VoteManager.GetVote(dataA.Id).VoteNum
+        local voteB = XDataCenter.VoteManager.GetVote(dataB.Id).VoteNum
+        return voteA > voteB
+    end
+
+    function XVoteManager.GetVoteNumSortFun()
+        return voteNumSort
+    end
+
     function XVoteManager.GetVoteGroupListRequest(cb)
         XNetwork.Call(METHOD_NAME.GetVoteGroupListRequest, {}, function(res)
             VoteMap = {}

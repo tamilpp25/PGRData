@@ -216,7 +216,10 @@ function XAdventureManager:ShowNextOperation(callback)
         XDataCenter.TheatreManager.SetCurLoadSceneChapterId(nil)
         XLuaUiManager.Remove("UiTheatreContinue")
         XLuaUiManager.Remove("UiTheatreOutpost")
-        XLuaUiManager.Remove("UiTheatrePlayMain")
+        local specialUi = "UiTheatrePlayMain"
+        if not XLuaUiManager.IsUiShow(specialUi) then
+            XLuaUiManager.Remove(specialUi)
+        end
         local adventureEnd = XAdventureEnd.New(data.SettleData.Ending)
         adventureEnd:InitWithServerData(data.SettleData)
         XLuaUiManager.Open("UiTheatreInfiniteSettleWin", adventureEnd, data.LastChapteEndStoryId)

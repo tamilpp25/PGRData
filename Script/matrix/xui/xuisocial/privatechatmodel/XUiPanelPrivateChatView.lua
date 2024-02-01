@@ -1,19 +1,8 @@
-XUiPanelPrivateChatView = XClass(nil, "XUiPanelPrivateChatView")
+XUiPanelPrivateChatView = XClass(XUiNode, "XUiPanelPrivateChatView")
 local XUiTogFriendBox = require("XUi/XUiSocial/PrivateChatModel/ItemModel/XUiTogFriendBox")
 
--- WorldChatBoxType = {
---     OtherChatBox = 1,
---     OtherChatBoxEmoji = 2,
---     SelfChatBox = 3,
---     SelfChatBoxEmoji = 4
--- }
-
-function XUiPanelPrivateChatView:Ctor(rootUi, ui, onBtnBackClick)
-    self.RootUi = rootUi
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiPanelPrivateChatView:OnStart(onBtnBackClick)
     self.OnBtnBackClick = onBtnBackClick
-    XTool.InitUiObject(self)
     self:InitAutoScript()
     self.ChatButtonGroups = {}
     self.FriendId = 0
@@ -27,11 +16,11 @@ function XUiPanelPrivateChatView:Ctor(rootUi, ui, onBtnBackClick)
     end
     self.XUiPanelFriendEmoji:SetClickCallBack(clickCallBack)
     self.XUiPanelFriendEmoji:Hide()
-    
+
     local XUiPanelEmojiSetting = require("XUi/XUiChatServe/ChatModel/EmojiModel/XUiPanelEmojiPackSetting")
     self.UiPanelEmojiSetting = XUiPanelEmojiSetting.New(self, self.PanelEmojiSetup)
     self.UiPanelEmojiSetting:Hide()
-    self:Hide()
+    --self:Hide()
     self.XUiPanelSocialPools = XUiPanelSocialPools.New(self.PanelSocialPools)
 
     self.PrivateDynamicList = XDynamicList.New(self.PanelChatView.transform, self)
@@ -41,7 +30,7 @@ function XUiPanelPrivateChatView:Ctor(rootUi, ui, onBtnBackClick)
     self.PanelMsgListPools:InitData(self.PrivateDynamicList)
 
     self.GroupDynamicListManager = XDynamicTableNormal.New(self.ContactGroupList)
-    self.GroupDynamicListManager:SetProxy(XUiTogFriendBox)
+    self.GroupDynamicListManager:SetProxy(XUiTogFriendBox,self)
     self.GroupDynamicListManager:SetDelegate(self)
     self.GroupDynamicListManager:SetDynamicEventDelegate(function(...) self:OnGroupDynamicTableEvent(...) end)
 end
@@ -55,21 +44,8 @@ end
 -- auto
 -- Automatic generation of code, forbid to edit
 function XUiPanelPrivateChatView:InitAutoScript()
-    self:AutoInitUi()
     self.SpecialSoundMap = {}
     self:AutoAddListener()
-end
-
-function XUiPanelPrivateChatView:AutoInitUi()
-    -- self.PanelChatView = self.Transform:Find("Content/MsgList/Content/PanelChatView"):GetComponent("XVerticalDynamicList")
-    -- self.PanelSocialPools = self.Transform:Find("Content/MsgList/Content/PanelChatView/PanelSocialPools")
-    -- self.PanelInputField = self.Transform:Find("Content/MsgList/Share/PanelInputField"):GetComponent("InputField")
-    -- self.ContactGroupList = self.Transform:Find("Content/ContactGroupList")
-    -- self.PanelEmoji = self.Transform:Find("Content/MsgList/Share/PanelEmoji")
-    -- self.PanelMsgListPools = self.Transform:Find("Content/MsgList/Content/PanelChatView/PanelSocialPools")
-    -- self.BtnSendMsg = self.Transform:Find("Content/MsgList/Share/BtnSendMsg"):GetComponent("XUiButton")
-    -- self.BtnEmoji = self.Transform:Find("Content/MsgList/Share/BtnEmoji"):GetComponent("XUiButton")
-    -- self.BtnLuomu = self.Transform:Find("Content/MsgList/Share/BtnLuomu"):GetComponent("XUiButton")
 end
 
 function XUiPanelPrivateChatView:GetAutoKey(uiNode, eventName)
@@ -120,6 +96,7 @@ function XUiPanelPrivateChatView:OnBtnSendMsgClick()
     --发送聊天消息
     local text = self.PanelInputField.text
     if text == nil or text == "" then
+        self.PanelInputField:ActivateInputField()
         return
     end
 
@@ -178,7 +155,7 @@ function XUiPanelPrivateChatView:OnClickEmoji(content)
 end
 
 -----------------------------------------------------------------------------------
-function XUiPanelPrivateChatView:OnEnable()
+function XUiPanelPrivateChatView:TryInitData()
     if self.GameObject.activeSelf == false then
         return
     end
@@ -187,8 +164,8 @@ end
 
 function XUiPanelPrivateChatView:Refresh(friendId)
     --friend为选中的玩家ID
-    self.GameObject:SetActive(true)
-    self.RootUi:PlayAnimation("PrivateChatViewEnable")
+    self:Open()
+    self.Parent:PlayAnimation("PrivateChatViewEnable")
     self.FriendId = friendId
     self:InitData()
 
@@ -234,7 +211,7 @@ function XUiPanelPrivateChatView:UpdatePrivateDynamicList()
         end
         if cb and poolName and ctor then
             local item = cb(poolName, ctor)
-            item.RootUi = self.RootUi
+            item.RootUi = self.Parent
             item.Parent = self
             item:Refresh(data, handler(self, self.LongClickMsgItem))
         else
@@ -260,7 +237,7 @@ function XUiPanelPrivateChatView:OnGroupDynamicTableEvent(event, index, grid)
     local friend = self.FriendGroupData[index]
 
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self.RootUi)
+
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         grid:Refresh(friend, friend.FriendId == self.FriendId)
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
@@ -290,7 +267,7 @@ function XUiPanelPrivateChatView:Hide()
     self.XUiPanelFriendEmoji:OnDisable()
     self.UiPanelEmojiSetting:OnDisable()
     if not XTool.UObjIsNil(self.GameObject) and self.GameObject.activeSelf then
-        self.GameObject:SetActive(false)
+        self:Close()
     end
     self:SetBtnReportActive(false)
 end
@@ -314,7 +291,7 @@ function XUiPanelPrivateChatView:NewChatMsgHandler(chatData)
     self:UpdatePrivateDynamicList()
 end
 
-function XUiPanelPrivateChatView:OnClose()
+function XUiPanelPrivateChatView:OnDisable()
     self.XUiPanelFriendEmoji:OnDestroy()
     self.UiPanelEmojiSetting:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_CHAT_RECEIVE_PRIVATECHAT, self.NewChatMsgHandler, self)

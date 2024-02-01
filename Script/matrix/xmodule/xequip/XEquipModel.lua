@@ -27,6 +27,11 @@ local TableKey =
     WeaponDeregulateUI = { DirPath = XConfigUtil.DirectoryType.Client, Identifier = "Lv" },
 }
 
+local EquipGuideTableKey = 
+{
+    EquipRecommend = { CacheType = XConfigUtil.CacheType.Normal }
+}
+
 ---@class XEquipModel : XModel
 local XEquipModel = XClass(XModel, "XEquipModel")
 function XEquipModel:OnInit()
@@ -101,6 +106,7 @@ end
 ----------配置表 start----------
 function XEquipModel:InitConfig()
     self._ConfigUtil:InitConfigByTableKey("Equip", TableKey)
+    self._ConfigUtil:InitConfigByTableKey("Equip/EquipGuide", EquipGuideTableKey)
 
     -- 初始化升级文件夹内的配置表
     self.LevelUpTableKey = {}
@@ -408,6 +414,19 @@ function XEquipModel:GetConfigWeaponDeregulateUI(id)
             return cfgs[id]
         else
             XLog.Error("请检查配置表Client/Equip/WeaponDeregulateUI.tab，未配置行Lv = " .. tostring(id))
+        end
+    else
+        return cfgs
+    end
+end
+
+function XEquipModel:GetEquipRecommend(id)
+    local cfgs = self._ConfigUtil:GetByTableKey(EquipGuideTableKey.EquipRecommend)
+    if id then
+        if cfgs[id] then
+            return cfgs[id]
+        else
+            XLog.Error("请检查配置表Client/Equip/EquipGuide/EquipRecommend.tab，未配置行Lv = " .. tostring(id))
         end
     else
         return cfgs

@@ -114,18 +114,18 @@ function XUiBag:OnAwake()
     self.SelectReplicatedGiftPanel = XUiPanelSelectReplicatedGift.New(self, self.PanelSelectReplicatedGift)
 
     self.DynamicTable = XDynamicTableNormal.New(self.PanelDynamicTable)
-    self.DynamicTable:SetProxy(XUiPanelBagItem)
+    self.DynamicTable:SetProxy(XUiPanelBagItem, self)
     self.DynamicTable:SetDelegate(self)
 
     self.PanelBagItem.gameObject:SetActiveEx(false)
     self.GridBagItemRect = self.PanelBagItem.transform:Find("GridEquip"):GetComponent("RectTransform").rect
     self.GridSuitSimpleRect = self.PanelBagItem.transform:Find("GridSuitSimple"):GetComponent("RectTransform").rect
 
-    XRedPointManager.AddRedPointEvent(self.BtnTog2, self.OnCheckBtnItemRed, self, {
+    self:AddRedPointEvent(self.BtnTog2, self.OnCheckBtnItemRed, self, {
         XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE,
     })
 
-    XRedPointManager.AddRedPointEvent(self.BtnCollection, self.OnCheckBtnCollectRed, self, {
+    self:AddRedPointEvent(self.BtnCollection, self.OnCheckBtnCollectRed, self, {
         XRedPointConditions.Types.CONDITION_ITEM_COLLECTION_ENTRANCE,
     })
 
@@ -290,6 +290,7 @@ function XUiBag:OnDynamicTableEvent(event, index, grid)
         if self.PageRecord == XItemConfigs.PageType.Equip or self.PageRecord == XItemConfigs.PageType.Awareness then
             grid:SetupEquip(data, gridSize)
             grid:SetSelectedEquip(self.SelectList[data])
+            grid:ResetCanvasAlpha()
         elseif self.PageRecord == XItemConfigs.PageType.SuitCover then
             grid:SetupSuit(data, self.PageDatas, gridSize)
         elseif self.PageRecord == XItemConfigs.PageType.Partner then --zhang
@@ -324,6 +325,8 @@ function XUiBag:OnDynamicTableEvent(event, index, grid)
         XScheduleManager.ScheduleOnce(function()
             XLuaUiManager.SetMask(false)
         end, XScheduleManager.SECOND * 0.8)
+    elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_RECYCLE then
+        grid:Recycle()
     end
 end
 
@@ -531,7 +534,7 @@ function XUiBag:OpenDetailUi(data, grid)
             XLuaUiManager.Open("UiBagItemInfoPanel", data)
         end
     elseif self.PageRecord == XItemConfigs.PageType.Partner then
-        XLuaUiManager.Open("UiPartnerMain", XPartnerConfigs.MainUiState.Overview, data, false, true)
+        XDataCenter.PartnerManager.OpenUiPartnerMain(false, XPartnerConfigs.MainUiState.Overview, data, false, true)
     end
 end
 

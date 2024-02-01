@@ -21,7 +21,7 @@ function XUiGridStoryJump:Refresh(data)
     self.PressPanelTxt.gameObject:SetActiveEx(isPrequel)
     if isPrequel then
         local prequelChapter = XPrequelConfigs.GetPrequelChapterById(data.ChapterId)
-        self.BtnStoryJump:SetNameByGroup(0, XCharacterConfigs.GetCharacterTradeName(prequelChapter.CharacterId))
+        self.BtnStoryJump:SetNameByGroup(0, XMVCA.XCharacter:GetCharacterTradeName(prequelChapter.CharacterId))
     end
     self.BtnStoryJump:SetNameByGroup(1, data.SkipName)
     self.BtnStoryJump:SetRawImage(data.ImgPath)

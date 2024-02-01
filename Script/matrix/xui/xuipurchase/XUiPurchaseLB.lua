@@ -268,11 +268,13 @@ function XUiPurchaseLB:CheckBuy(count, disCountCouponIndex)
             return 2
         end
         local tips = XUiHelper.GetCountNotEnoughTips(self.CurData.ConsumeId)
+        local payCount = consumeCount - XDataCenter.ItemManager.GetCount(self.CurData.ConsumeId)
         XUiManager.TipMsg(tips,XUiManager.UiTipType.Wrong)
         if self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.PaidGem then
             self.CallBack(XPurchaseConfigs.TabsConfig.HK)
         elseif self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.HongKa then
-            self.CallBack(XPurchaseConfigs.TabsConfig.Pay)
+            self.CallBack(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
+            return 3
         end
         return 0
     end

@@ -3,19 +3,17 @@ local XUiTheatre3EquipmentCharacter = require("XUi/XUiTheatre3/Equip/XUiTheatre3
 
 local TodayDontShowKey = "Theatre3EquipmentChoose"
 local TipDescTxtKey = "UiTheatre3EquipmentChooseSwitch"
-local SelectScale = Vector3(0.94, 0.94, 0.94)
-local NoSelectScale = Vector3(0.86, 0.86, 0.86)
 
 ---@class XUiTheatre3EquipmentChoose : XLuaUi 选择装备界面
 ---@field _Control XTheatre3Control
 local XUiTheatre3EquipmentChoose = XLuaUiManager.Register(XLuaUi, "UiTheatre3EquipmentChoose")
 
 function XUiTheatre3EquipmentChoose:OnAwake()
-    XUiHelper.RegisterClickEvent(self, self.BtnYes, self.OnChooseEquip)
-    XUiHelper.RegisterClickEvent(self, self.BtnSetBag, self.OnShowEquip)
-    XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnBack)
-    XUiHelper.RegisterClickEvent(self, self.BtnEmpty, self.OnCloseAllBuffDetail)
-    XUiHelper.RegisterClickEvent(self, self.BtnSwitch, self.OnClickBtnSwitch)
+    self._Control:RegisterClickEvent(self, self.BtnYes, self.OnChooseEquip)
+    self._Control:RegisterClickEvent(self, self.BtnSetBag, self.OnShowEquip)
+    self._Control:RegisterClickEvent(self, self.BtnBack, self.OnBack)
+    self._Control:RegisterClickEvent(self, self.BtnEmpty, self.OnCloseAllBuffDetail)
+    self._Control:RegisterClickEvent(self, self.BtnSwitch, self.OnClickBtnSwitch)
 end
 
 function XUiTheatre3EquipmentChoose:OnStart(equipIds, inherit)
@@ -50,14 +48,26 @@ end
 function XUiTheatre3EquipmentChoose:InitComponent()
     ---@type XUiTheatre3EquipmentTip[]
     self._TipMap = {}
+    ---@type UnityEngine.Transform
+    local bubblePanel
+    ---@type UnityEngine.Transform
+    local bubbleQuantumPanel
     for i = 1, 3 do
         local equipId = self._Equips[i]
-        ---@type XUiTheatre3EquipmentTip
-        local tip = XUiTheatre3EquipmentTip.New(self["BubbleEquipment" .. i], self)
-        local funcShowDetail = function()
-            self:OnShowDetail(equipId)
+        if not XTool.IsNumberValid(equipId) then
+            break
         end
-        tip:ShowEquipTip(equipId, nil, nil, self.IsCheck)
+        local isQuantum = self._Control:CheckAdventureSuitIsQuantum(self._Control:GetEquipSuitIdById(equipId))
+        bubblePanel = self["BubbleEquipment" .. i]
+        bubbleQuantumPanel = self["BubbleQuantumEquipment" .. i]
+        bubblePanel.gameObject:SetActiveEx(not isQuantum)
+        bubbleQuantumPanel.gameObject:SetActiveEx(isQuantum)
+        ---@type XUiTheatre3EquipmentTip
+        local tip = XUiTheatre3EquipmentTip.New(isQuantum and bubbleQuantumPanel or bubblePanel, self)
+        local funcShowDetail = function()
+            self:OnShowDetail(equipId, isQuantum)
+        end
+        tip:ShowEquipTip(equipId, nil, nil, self.IsCheck, isQuantum)
         tip:SetBtnDetailCallBack(funcShowDetail)
         tip:SetSelectCallBack(function()
             self:OnSelectEquipment(i)
@@ -65,7 +75,6 @@ function XUiTheatre3EquipmentChoose:InitComponent()
         tip:ShowCanActiveTag(self._Control:CanSuitComplete(equipId))
         self._TipMap[i] = tip
         local btnEquipment = self["BtnEquipment" .. i]
-        btnEquipment.transform.localScale = NoSelectScale
         btnEquipment.CallBack = function()
             self:OnSelectEquipment(i)
         end
@@ -147,18 +156,8 @@ end
 
 function XUiTheatre3EquipmentChoose:OnChooseEquip()
     local equipId = self._Equips[self._CurSelectEquip]
-    self._Control:RequestSelectEquip(equipId, self._CurSelectSlot, function()
-        -- 套装激活弹框
-        local equipConfig = self._Control:GetEquipById(equipId)
-        local suitId = equipConfig.SuitId
-        if self._Control:IsSuitComplete(suitId) then
-            XLuaUiManager.Open("UiTheatre3SuitActiveTip", suitId, function()
-                self._Control:CheckAndOpenAdventureNextStep(true)
-            end)
-        else
-            self._Control:CheckAndOpenAdventureNextStep(true)
-        end
-    end)
+    local posId = self._CurSelectSlot
+    self._Control:RequestSelectEquip(equipId, posId, false)
 end
 
 function XUiTheatre3EquipmentChoose:OnShowEquip()
@@ -168,23 +167,41 @@ end
 function XUiTheatre3EquipmentChoose:OnSelectEquipment(index)
     self:ShowSlotChoose()
     local isInit = self._CurSelectEquip == nil
+    self._LastSelectEquip = self._CurSelectEquip
     self._CurSelectEquip = index
+    self.BubbleCharacter.gameObject:SetActiveEx(true)
+    self:PlayChooseAnim()
     for i = 1, 3 do
         local isCurSelect = i == index
-        if not isCurSelect then
+        if not isCurSelect and self._TipMap[i] then
             self._TipMap[i]:CloseEffectDetail()
         end
         if not self._CharacterCells[i] then
             self._CharacterCells[i] = XUiTheatre3EquipmentCharacter.New(self["CharacterGrid" .. i], self, i)
         end
         self._CharacterCells[i]:UpdateByEquip(self._Equips[index])
-        self["BtnEquipment" .. i].transform.localScale = isCurSelect and SelectScale or NoSelectScale
         self["ImgSelect" .. i].gameObject:SetActiveEx(isCurSelect)
     end
     if isInit then
         self:CheckInitCharacterSelect()
+        self:PlayAnimation("BubbleCharacterEnable")
     end
     self:CheckCharacterShow()
+end
+
+function XUiTheatre3EquipmentChoose:PlayChooseAnim()
+    if self._LastSelectEquip == self._CurSelectEquip then
+        return
+    end
+    local aniName
+    if self._LastSelectEquip then
+        aniName = string.format("BtnEquipment%s%s", self._LastSelectEquip, "Small")
+        self:PlayAnimation(aniName)
+    end
+    if self._CurSelectEquip then
+        aniName = string.format("BtnEquipment%s%s", self._CurSelectEquip, "Big")
+        self:PlayAnimation(aniName)
+    end
 end
 
 function XUiTheatre3EquipmentChoose:CheckCharacterShow()
@@ -210,11 +227,7 @@ function XUiTheatre3EquipmentChoose:CheckCharacterShow()
 end
 
 function XUiTheatre3EquipmentChoose:ShowSlotChoose()
-    self.BubbleCharacter.gameObject:SetActiveEx(true)
     self.BtnYes.gameObject:SetActiveEx(true)
-    self.PanelEquipment.spacing = 30
-    self.PanelZB.padding.left = -140
-    self.BtnSwitch.transform.anchoredPosition = Vector2(self.BtnSwitchPosX - self.BubbleCharacter.rect.width, self.BtnSwitchPosY)
 end
 
 function XUiTheatre3EquipmentChoose:HideSlotChoose()
@@ -234,13 +247,15 @@ function XUiTheatre3EquipmentChoose:OnBack()
     self._Control:OpenTextTip(handler(self, self.Close), XUiHelper.ReadTextWithNewLineWithNotNumber("TipTitle"), XUiHelper.ReadTextWithNewLineWithNotNumber("Theatre3EquipBackTip"))
 end
 
-function XUiTheatre3EquipmentChoose:OnShowDetail(equipId)
-    XLuaUiManager.Open("UiTheatre3SetDetail", equipId)
+function XUiTheatre3EquipmentChoose:OnShowDetail(equipId, isQuantum)
+    self._Control:OpenAdventureEquipDetail(equipId, nil, isQuantum)
 end
 
 function XUiTheatre3EquipmentChoose:OnCloseAllBuffDetail()
     for i = 1, 3 do
-        self._TipMap[i]:CloseEffectDetail()
+        if self._TipMap[i] then
+            self._TipMap[i]:CloseEffectDetail()
+        end
     end
 end
 
@@ -262,8 +277,8 @@ function XUiTheatre3EquipmentChoose:OnClickBtnSwitch()
 end
 
 function XUiTheatre3EquipmentChoose:ShowDetailOrSimpleView(isDetail)
-    for _, v in pairs(self._TipMap) do
-        v:ShowDetailOrSimpleTxt(isDetail)
+    for i, v in pairs(self._TipMap) do
+        v:ShowDetailOrSimpleTxt(isDetail, self._Control:CheckAdventureSuitIsQuantum(self._Control:GetEquipSuitIdById(self._Equips[i])))
     end
 end
 

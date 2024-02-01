@@ -315,7 +315,8 @@ function XUiPurchaseCoatingLB:CheckBuy(count, disCountCouponIndex)
         if self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.PaidGem then
             self.CallBack(XPurchaseConfigs.TabsConfig.HK)
         elseif self.CurData.ConsumeId == XDataCenter.ItemManager.ItemId.HongKa then
-            self.CallBack(XPurchaseConfigs.TabsConfig.Pay)
+            local payCount = consumeCount - XDataCenter.ItemManager.GetCount(self.CurData.ConsumeId)
+            self.CallBack(XPurchaseConfigs.TabsConfig.Pay, nil, payCount)
         end
         return 0
     end

@@ -128,7 +128,7 @@ function XUiRoleDetailPanel:Refresh(adventureRole, isRecruitRole, isShowRankUp, 
     self.TxtNameOther.text = adventureRole:GetCharacterTradeName()
     --职业类型
     local jobType = adventureRole:GetCareerType()
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(jobType))
     --当前羁绊星级
     local curRecruitRole = self.AdventureManager:GetRoleByCharacterId(adventureRole:GetBaseId())
     local curRoleLevel = curRecruitRole and curRecruitRole:GetLevel() or 0
@@ -191,7 +191,7 @@ function XUiRoleDetailPanel:OnBtnRecruitClick()
 end
 
 function XUiRoleDetailPanel:OnBtnCareerTipsClick()
-    XLuaUiManager.Open("UiCharacterCarerrTips", self.AdventureRole:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.AdventureRole:GetCharacterId())
 end
 
 return XUiRoleDetailPanel

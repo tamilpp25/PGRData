@@ -21,7 +21,7 @@ function XUiEpicFashionGachaShow:OnStart(gachaId, rewardList, resultCb, state, i
     self.IsSkip = isSkip
     self:InitUi()
     self:RegisterButton()
-    
+
     self.TxtTips = self.GameObject:FindTransform("TxtTips")
     self.TxtTips.gameObject:SetActiveEx(false)
     if #self.RewardList == 1 then
@@ -40,7 +40,7 @@ function XUiEpicFashionGachaShow:OnEnable()
 end
 
 function XUiEpicFashionGachaShow:OnDisable()
-   self:StopCv()
+    self:StopCv()
 end
 
 function XUiEpicFashionGachaShow:OnDestroy()
@@ -48,11 +48,16 @@ function XUiEpicFashionGachaShow:OnDestroy()
     for _, grid in pairs(self.GridRewardList) do
         grid:OnDestroy()
     end
+
+    -- 播放背景获得
+    self:ShowBackgroundObtain()
+
+    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.GACHA, false)
 end
 
 function XUiEpicFashionGachaShow:RegisterButton()
     self.BtnSkip.CallBack = function()
-       self:OnBtnSkipClick()
+        self:OnBtnSkipClick()
     end
     self:RegisterClickEvent(self.BtnClick, function()
         if self.CurrState == DrawState.Result then
@@ -87,18 +92,18 @@ function XUiEpicFashionGachaShow:InitUi()
     self.PanelTen = self.UiModelGo.transform:Find("UiRoot/GridExhibition/PanelTen")
     self.PanelNine = self.UiModelGo.transform:Find("UiRoot/GridExhibition/PanelNine")
     for i = 1, EVEN_MAX do
-        local obj = self.PanelTen:Find(string.format("Grid%02d",i))
+        local obj = self.PanelTen:Find(string.format("Grid%02d", i))
         self.GridPanelDic[EVEN_TYPE][i] = XUiGridDrawResult.New(obj, self)
         self.GridPanelDic[EVEN_TYPE][i]:SetActive(false)
     end
     for i = 1, ODD_MAX do
-        local obj = self.PanelNine:Find(string.format("Grid%02d",i))
+        local obj = self.PanelNine:Find(string.format("Grid%02d", i))
         self.GridPanelDic[ODD_TYPE][i] = XUiGridDrawResult.New(obj, self)
         self.GridPanelDic[ODD_TYPE][i]:SetActive(false)
     end
     self.PanelTen.gameObject:SetActiveEx(false)
     self.PanelNine.gameObject:SetActiveEx(false)
-    
+
     self.ResultNearCamera = self.UiModelGo.transform:Find("NearRoot/NearCamera11")
     self.ResultFarCamera = self.UiModelGo.transform:Find("FarRoot/FarCamera11")
     self.ResultUiCamera = self.UiModelGo.transform:Find("UiRoot/UiCamera11")
@@ -158,7 +163,7 @@ function XUiEpicFashionGachaShow:ShowResult()
     self.ResultUiCamera.gameObject:SetActiveEx(true)
     if #self.RewardList % 2 == 0 then
         self.PanelTen.gameObject:SetActiveEx(true)
-        local offset = (EVEN_MAX - #self.RewardList)/2
+        local offset = (EVEN_MAX - #self.RewardList) / 2
         for i = 1, #self.RewardList do
             local grid = self.GridPanelDic[EVEN_TYPE][offset + i]
             if grid then
@@ -168,7 +173,7 @@ function XUiEpicFashionGachaShow:ShowResult()
         end
     else
         self.PanelNine.gameObject:SetActiveEx(true)
-        local offset = (ODD_MAX - #self.RewardList)/2
+        local offset = (ODD_MAX - #self.RewardList) / 2
         for i = 1, #self.RewardList do
             local grid = self.GridPanelDic[ODD_TYPE][offset + i]
             if grid then
@@ -217,6 +222,21 @@ function XUiEpicFashionGachaShow:OnBtnSkipClick()
         end
         self:RefreshByState()
         self.BtnClick.gameObject:SetActiveEx(false) -- 不能跳过最终展示
+    end
+end
+
+function XUiEpicFashionGachaShow:ShowBackgroundObtain()
+    if self.RewardList then
+        for i = 1, #self.RewardList do
+            local reward = self.RewardList[i]
+            if reward.RewardType == XRewardManager.XRewardType.Background then
+                local data = {
+                    BackgroundId = reward.TemplateId,
+                }
+                XLuaUiManager.Open("UiSceneSettingObtain", data)
+                break
+            end
+        end
     end
 end
 

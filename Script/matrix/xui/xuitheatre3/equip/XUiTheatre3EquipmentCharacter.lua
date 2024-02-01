@@ -27,6 +27,9 @@ function XUiTheatre3EquipmentCharacter:Init()
         local icon = self._Control:GetClientConfig("Theatre3SlotIndexIcon", self._SlotId)
         self.ImgShuZi:SetSprite(icon)
     end
+    if not self.ImgTxBg then
+        self.ImgTxBg = XUiHelper.TryGetComponent(self.Transform, "ImgTxBg")
+    end
 end
 
 function XUiTheatre3EquipmentCharacter:UpdateByEquip(equipId)
@@ -54,6 +57,9 @@ function XUiTheatre3EquipmentCharacter:ShowHead()
         self.ImgBg2.gameObject:SetActiveEx(isNoEmpty) --该槽位没有角色
     elseif self.ImgRole then
         self.ImgRole.gameObject:SetActiveEx(isNoEmpty)
+    end
+    if self.ImgTxBg then
+        self.ImgTxBg.gameObject:SetActiveEx(self._Control:CheckIsLuckCharacter(characterId))
     end
 end
 
@@ -111,6 +117,17 @@ end
 function XUiTheatre3EquipmentCharacter:IsShowCapacity(isActive)
     if self.PanelLv then
         self.PanelLv.gameObject:SetActiveEx(isActive)
+    end
+end
+
+function XUiTheatre3EquipmentCharacter:RegisterClickEvent(handler)
+    self._ClickCb = handler
+    self._Control:RegisterClickEvent(self, self.Transform, self.OnClick)
+end
+
+function XUiTheatre3EquipmentCharacter:OnClick()
+    if self._ClickCb then
+        self._ClickCb(self._SlotId)
     end
 end
 

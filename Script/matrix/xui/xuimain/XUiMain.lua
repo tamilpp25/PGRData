@@ -10,7 +10,7 @@ local XUiMainRightBottom = require("XUi/XUiMain/XUiMainRightBottom")
 local XUiMainLeftBottom = require("XUi/XUiMain/XUiMainLeftBottom")
 local XUiMainOther = require("XUi/XUiMain/XUiMainOther")
 local XUiPanelSignBoard = require("XUi/XUiMain/XUiChildView/XUiPanelSignBoard")
-local XUiMainCalendar = require("XUi/XUiMain/XUiMainCalendar")
+local XUiMainLeftCalendar = require("XUi/XUiMain/XUiMainLeftCalendar")
 
 ---@class XUiMain : XLuaUi
 local XUiMain = XLuaUiManager.Register(XLuaUi, "UiMain")
@@ -20,11 +20,13 @@ local CameraIndex = {
     MainEnter = 2,
     MainChatEnter = 3,
     MainRightMidSecondEnter = 4,
+    MainLeftCalendarEnter = 5,
 }
 
 local MenuType = {
     Main = 1,
     Second = 2,
+    Calendar = 3,
 }
 
 XUiMain.LowPowerState = {
@@ -53,8 +55,8 @@ function XUiMain:InitPanel()
     self.Other =        XUiMainOther.New(self.PanelOther.transform, self, self)              --其他组件（角色触摸、截图……）
     --self.Down =    XUiMainDown.New(self.PanelDown, self, self)                 --底部组件（战斗通行证……）
     self.Terminal = require("XUi/XUiMain/XUiMainTerminal").New(self.PanelRightMidSecond.transform, self, self) --终端界面
-    ---@type XUiMainCalendar
-    self.Calendar = XUiMainCalendar.New(self.PanelLeftCalendar, self, self) --周历界面
+    ---@type XUiMainLeftCalendar
+    self.Calendar = XUiMainLeftCalendar.New(self.PanelLeftCalendar, self) --周历界面
     
     -- self.AreanOnline = XUiPanelArenaOnline.New(self, self.PanelArenaOnline)  --屏蔽合众战局
 end
@@ -62,6 +64,8 @@ end
 function XUiMain:OnAwake()
     --BDC
     CS.XHeroBdcAgent.BdcIntoGame(CS.UnityEngine.Time.time)
+    
+    self._IsClose = false
    
     self.PreEnterFightCallback = function() self:OnPreEnterFight() end
     XEventManager.AddEventListener(XEventId.EVENT_PRE_ENTER_FIGHT, self.PreEnterFightCallback)
@@ -134,7 +138,7 @@ function XUiMain:OnEnable()
 
     self:AreanOnlineInviteNotify()
     XEventManager.AddEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.OnBackGroupPreview, self)
-    XDataCenter.SignBoardManager.AddRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:AddRoleActionUiAnimListener(self)
     if not XLoginManager.IsFirstOpenMainUi() then
         self:PlayEquipGuide(false)
     end
@@ -156,12 +160,12 @@ function XUiMain:OnDisable()
     -- self.Other:OnDisable()
     -- self.RightBottom:OnDisable()
     -- self.RightTop:OnDisable()
-    self.Terminal:OnDisable()
+    -- self.Terminal:Close()
     -- self.Calendar:OnDisable()
     --self.Down:OnDisable()
     
     XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_UIMAIN_STATE_CHANGE, self.OnBackGroupPreview, self)
-    XDataCenter.SignBoardManager.RemoveRoleActionUiAnimListener(self)
+    XMVCA.XFavorability:RemoveRoleActionUiAnimListener(self)
     --界面重新打开
     self.NewOpen = false
     self:ClearSceneReference()
@@ -171,6 +175,8 @@ function XUiMain:OnDisable()
         XUiHelper.StopClockTimeTempFun(self, self.ClockTimer)
         self.ClockTimer = nil
     end
+
+    self.HasUpdataThemed = false
 end
 
 function XUiMain:OnDestroy()
@@ -181,6 +187,7 @@ function XUiMain:OnDestroy()
     self.RightBottom:OnDestroy()
     XEventManager.RemoveEventListener(XEventId.EVENT_PRE_ENTER_FIGHT, self.PreEnterFightCallback)
     XEventManager.RemoveEventListener(XEventId.EVENT_SCENE_UIMAIN_RIGHTMIDTYPE_CHANGE, self.ForceChangeUiMainRightMidType, self)
+    self._IsClose = true
 end
 
 function XUiMain:OnNotify(evt, ...)
@@ -239,12 +246,14 @@ function XUiMain:InitSceneRoot(particleGroupName)
         [CameraIndex.MainEnter] = self:FindVirtualCamera("CamFarMainEnter"),
         [CameraIndex.MainChatEnter] = self:FindVirtualCamera("CamFarMainChatEnter"),
         [CameraIndex.MainRightMidSecondEnter] = self:FindVirtualCamera("CamFarMainRightMidSecondEnter"),
+        [CameraIndex.MainLeftCalendarEnter] = self:FindVirtualCamera("CamFarTolist"),
     }
     self.CameraNear = {
         [CameraIndex.Main] = self:FindVirtualCamera("CamNearMain"),
         [CameraIndex.MainEnter] = self:FindVirtualCamera("CamNearMainEnter"),
         [CameraIndex.MainChatEnter] = self:FindVirtualCamera("CamNearMainChatEnter"),
         [CameraIndex.MainRightMidSecondEnter] = self:FindVirtualCamera("CamNearMainRightMidSecondEnter"),
+        [CameraIndex.MainLeftCalendarEnter] = self:FindVirtualCamera("CamNearTolist"),
     }
 
     --主页面电量特效相关
@@ -331,6 +340,8 @@ end
 function XUiMain:UpdateRightMenu()
     if self:IsShowTerminal() then
         self:OnShowTerminal()
+    elseif self:IsShowCalendar() then
+        self:OnShowCalendar()
     else
         self:OnShowMain()
     end
@@ -346,6 +357,9 @@ function XUiMain:PlayEnterAnim()
     end
     XLuaUiManager.SetMask(true)
     endCb = function()
+        if self._IsClose then
+            return
+        end
         if XLoginManager.IsFirstOpenMainUi() then
             anim = "AnimEnter2"
             self:PlayAnimation(anim, endCb)
@@ -354,11 +368,15 @@ function XUiMain:PlayEnterAnim()
             XLoginManager.SetFirstOpenMainUi(false)
             --第一次进入界面，拦截公告请求
             self.InterceptNotice = true
+            XEventManager.DispatchEvent(XEventId.EVENT_FIRST_ENTER_UI_MAIN)
         else
             XLoginManager.SetStartGuide(true)
             XEventManager.DispatchEvent(XEventId.EVENT_MAINUI_ENABLE)
             XEventManager.DispatchEvent(XEventId.EVENT_CARD_REFRESH_WELFARE_BTN)
             XLuaUiManager.SetMask(false)
+            -- if XDataCenter.UiPcManager.IsPc() then 
+            --     CS.XPCCheat.BeginCheatCheck()
+            -- end
             
             if XDataCenter.DlcRoomManager.IsCanReconnect() then
                 XDataCenter.DlcRoomManager.ReconnectToRoom()
@@ -404,30 +422,6 @@ function XUiMain:PlayEquipGuide(isFirst)
     end)
 end
 
--- 关闭周历
-function XUiMain:OnHideCalendar()
-    self:SetSignPanelEnable(true)
-    self:PlayAnimationWithMask("LeftCalendarDisable")
-    self:PlayAnimation("LeftUiEnable")
-end
-
--- 打开周历
-function XUiMain:OnShowCalendar()
-    self:SetSignPanelEnable(false)
-    self.Other:Stop()
-    self:PlayAnimationWithMask("LeftCalendarEnable")
-    self:PlayAnimation("LeftUiDisable")
-    self.Calendar:Show()
-end
-
--- 检查周历界面是否显示
-function XUiMain:CheckCalenderShow()
-    if not self.Calendar then
-        return false
-    end
-    return self.Calendar:CheckIsShow()
-end
-
 function XUiMain:SetCacheFight()
     if not self.IsFirstSetFight then
         self.IsFirstSetFight = true
@@ -455,16 +449,20 @@ function XUiMain:OnShowMain(playAnimation)
     self:SetSignPanelEnable(true)
     self:UpdateCamera(CameraIndex.Main)
     --终端界面由隐藏变为显示不需要播放动画。重新打开界面则需要播一次
-    playAnimation = playAnimation or (self.NewOpen and self:IsShowTerminal())
+    playAnimation = playAnimation or self.NewOpen
     if playAnimation then
-        self:PlayAnimationWithMask("RightMidSecondDisable")
-        self:PlayAnimation("RightEnable")
-        if self:CheckCalenderShow() then
-            self:PlayAnimation("LeftCalendarEnable")
-        else
-            self:PlayAnimation("LeftUiEnable")
+        if self:IsShowTerminal() then
+            self:PlayAnimationWithMask("RightMidSecondDisable")
+            self.Terminal:Close()
+        end
+        if self:IsShowCalendar() then
+            self:PlayAnimationWithMask("LeftCalendarDisable", function()
+                self.Calendar:Close()
+            end)
         end
     end
+    self:PlayAnimation("RightEnable")
+    self:PlayAnimation("LeftUiEnable")
     RightMidType = MenuType.Main
 end
 
@@ -478,15 +476,26 @@ function XUiMain:OnShowTerminal(playAnimation)
     if playAnimation then
         self:PlayAnimationWithMask("RightMidSecondEnable")
         self:PlayAnimation("RightDisable")
-        if self:CheckCalenderShow() then
-            self:PlayAnimation("LeftCalendarDisable")
-        else
-            self:PlayAnimation("LeftUiDisable")
-        end
+        self:PlayAnimation("LeftUiDisable")
     end
-    
     RightMidType = MenuType.Second
-    self.Terminal:Show()
+    self.Terminal:Open()
+end
+
+-- 打开周历（主界面二级菜单）
+function XUiMain:OnShowCalendar(playAnimation)
+    self:SetSignPanelEnable(false)
+    self.Other:Stop()
+    self:UpdateCamera(CameraIndex.MainLeftCalendarEnter)
+    --终端界面由隐藏变为显示不需要播放动画。重新打开界面则需要播一次
+    playAnimation = playAnimation or self.NewOpen
+    if playAnimation then
+        self:PlayAnimationWithMask("LeftCalendarEnable")
+        self:PlayAnimation("LeftUiDisable")
+        self:PlayAnimation("RightDisable")
+    end
+    self.Calendar:Open()
+    RightMidType = MenuType.Calendar
 end
 
 function XUiMain:OnUiSceneLoaded(particleGroupName)
@@ -498,13 +507,22 @@ function XUiMain:OnUiSceneLoaded(particleGroupName)
         self:SetBtnWelfareTagActive(false)
         self:UpdateCamera(CameraIndex.MainEnter)
     else
-        local camera = self:IsShowTerminal() and CameraIndex.MainRightMidSecondEnter or CameraIndex.Main
+        local camera = CameraIndex.Main
+        if self:IsShowTerminal() then
+            camera = CameraIndex.MainRightMidSecondEnter
+        elseif self:IsShowCalendar() then
+            camera = CameraIndex.MainLeftCalendarEnter
+        end
         self:UpdateCamera(camera)
     end
 end
 
 function XUiMain:IsShowTerminal()
-    return RightMidType == MenuType.Second
+    return RightMidType == MenuType.Second or (self.PanelRightMidSecond.gameObject and self.PanelRightMidSecond.gameObject.activeInHierarchy)
+end
+
+function XUiMain:IsShowCalendar()
+    return RightMidType == MenuType.Calendar
 end
 
 function XUiMain:PlayChangeModelEffect()
@@ -527,10 +545,13 @@ end
 -- ===================================================
 
 function XUiMain:PlayRoleActionUiDisableAnim(signBoardid, stopTime)
-    XDataCenter.SignBoardManager.StartBreakTimer(stopTime)
+    XMVCA.XFavorability:StartBreakTimer(stopTime)
     -- 关闭福利按钮特效
     self:SetBtnWelfareTagActive(false)
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiDisableLamiya")
+    end
+    if XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimation("UiDisable")
     end
 end
@@ -538,7 +559,9 @@ end
 function XUiMain:PlayRoleActionUiEnableAnim(signBoardid)
     -- 检查福利按钮特效
     self.LeftBottom:OnRefreshFirstRechargeId()
-    if XSignBoardConfigs.CheckIsUseNormalUiAnim(signBoardid, self.Name) then
+    if XMVCA.XFavorability:CheckCurSceneAnimIsGachaLamiya() then
+        self:PlayAnimation("UiEnableLamiya")
+    elseif XMVCA.XFavorability:CheckIsUseNormalUiAnim(signBoardid, self.Name) then
         self:PlayAnimationWithMask("UiEnable")
     end
 end
@@ -557,12 +580,17 @@ function XUiMain:SetSignPanelEnable(enable)
     self.Other:SetSignBoardEnable(enable)
 end
 
+---@return XUiPanelRoleModel
+function XUiMain:GetRoleModel()
+    return self.Other:GetRoleModel()
+end
+
 -- ===================================================
 
 --- 每次返回主界面检查是否需要弹出公告
 --------------------------
 function XUiMain:UpdateNotice()
-    if self:IsShowTerminal() or XLoginManager.IsFirstOpenMainUi() 
+    if self:IsShowTerminal() or self:IsShowCalendar() or XLoginManager.IsFirstOpenMainUi() 
             or self.InterceptNotice then
         return
     end
@@ -576,6 +604,10 @@ end
 
 --region   ------------------UI主题 start-------------------
 function XUiMain:UpdateTheme()
+    if self.HasUpdataThemed then
+        return
+    end
+
     if not XTool.IsNumberValid(self.CurSceneId) then
         return
     end
@@ -603,6 +635,8 @@ function XUiMain:UpdateTheme()
     self.RightTop:UpdateTheme(themeTemplate)
     self.Terminal:UpdateTheme(themeTemplate)
     self.Calendar:UpdateTheme(themeTemplate)
+
+    self.HasUpdataThemed = true
 end
 
 function XUiMain:InitTheme()

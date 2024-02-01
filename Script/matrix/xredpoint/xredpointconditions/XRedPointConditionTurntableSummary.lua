@@ -3,21 +3,21 @@ local SubCondition = nil
 
 function XRedPointConditionTurntableSummary.GetSubConditions()
     SubCondition = SubCondition or {
-        XRedPointConditions.Types.XRedPointConditionTurntableTask,
-        XRedPointConditions.Types.XRedPointConditionTurntableReward,
-        XRedPointConditions.Types.XRedPointConditionTurntableTimes,
+        XRedPointConditions.Types.CONDITION_TURNTABLE_TASK,
+        XRedPointConditions.Types.CONDITION_TURNTABLE_REWARD,
+        XRedPointConditions.Types.CONDITION_TURNTABLE_TIMES,
     }
     return SubCondition
 end
 
 function XRedPointConditionTurntableSummary.Check()
-    if XRedPointConditionTurntableTask.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TURNTABLE_TASK) then
         return true
     end
-    if XRedPointConditionTurntableReward.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TURNTABLE_REWARD) then
         return true
     end
-    if XRedPointConditionTurntableTimes.Check() then
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_TURNTABLE_TIMES) then
         return true
     end
     return false

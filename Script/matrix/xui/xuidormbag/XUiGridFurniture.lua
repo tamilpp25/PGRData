@@ -37,6 +37,9 @@ end
 
 function XUiGridFurniture:OnBtnClickClick()
     local furnitureConfigId = XDataCenter.FurnitureManager.GetFurnitureConfigId(self.FurnitureId)
+    if not XTool.IsNumberValid(furnitureConfigId) then
+        return
+    end
     if self.RootUi and self.RootUi.OnFurnitureGridClick then
         self.RootUi:OnFurnitureGridClick(self.FurnitureId, furnitureConfigId, self)
         return

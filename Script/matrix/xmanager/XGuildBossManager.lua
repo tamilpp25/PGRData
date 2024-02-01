@@ -57,13 +57,6 @@ XGuildBossManagerCreator = function()
     local SYNC_RANK_LIST_SECOND = 60        --获取排行榜List请求保护时间
 
     ---- local function begin -----
-    local function RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.GuildBoss,
-                require("XUi/XUiGuildBoss/XUiGuildBossNewRoomSingle"))
-    end
-
     local function Init()
         -- 初始化hp的持久化记录
         local hpStr = CS.UnityEngine.PlayerPrefs.GetString(XGuildBossManager.GetBossDeadTipKey(), "")
@@ -79,8 +72,6 @@ XGuildBossManagerCreator = function()
                 end
             end
         end
-
-        RegisterEditBattleProxy()
     end
     
     local function List2FlagTab(originList, targetList)

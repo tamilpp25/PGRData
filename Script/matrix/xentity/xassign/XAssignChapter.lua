@@ -30,11 +30,11 @@ function XAssignChapter:GetBuffKeys()
         self.BuffKeys = {}
         local buffConfigId = self:GetSkillPlusId()
         if buffConfigId and buffConfigId ~= 0 then
-            local plusConfig = XCharacterConfigs.GetSkillTypePlusTemplate(buffConfigId)
+            local plusConfig = XMVCA.XCharacter:GetSkillTypePlusTemplate(buffConfigId)
             if plusConfig then
                 local key
 
-                local isAllMember = (#plusConfig.CharacterType == #XCharacterConfigs.GetAllCharacterCareerIds())
+                local isAllMember = (#plusConfig.CharacterType == #XMVCA.XCharacter:GetAllCharacterCareerIds())
                 if isAllMember then
                     local characterType = CHARACTERTYPE_ALL
                     for _, skillType in ipairs(plusConfig.SkillType) do
@@ -78,7 +78,7 @@ function XAssignChapter:GetProgressStr()
 end
 
 function XAssignChapter:GetCharacterBodyIcon()
-    return XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId)
+    return XMVCA.XCharacter:GetCharHalfBodyImage(self.CharacterId)
 end
 
 function XAssignChapter:IsRewarded()
@@ -87,7 +87,7 @@ end
 
 function XAssignChapter:IsRed()
     if self:CanAssign() and not self:IsOccupy() then
-        for k, char in pairs(XDataCenter.CharacterManager.GetOwnCharacterList()) do
+        for k, char in pairs(XMVCA.XCharacter:GetOwnCharacterList()) do
             local isPassCond = self:IsCharConditionMatch(char.Id)
             local isOc = XDataCenter.FubenAssignManager.CheckCharacterInOccupy(char.Id)
             if isPassCond and not isOc then
@@ -167,16 +167,16 @@ function XAssignChapter:GetCharacterId()
 end
 
 function XAssignChapter:GetOccupyCharacterIcon()
-    return XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(self:GetCharacterId())
 end
 
 function XAssignChapter:GetOccupyCharSmallHeadIcon()
-    return  XDataCenter.CharacterManager.GetCharSmallHeadIcon(self:GetCharacterId())
+    return  XMVCA.XCharacter:GetCharSmallHeadIcon(self:GetCharacterId())
 end
 
 
 function XAssignChapter:GetOccupyCharacterName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self:GetCharacterId())
 end
 
 return XAssignChapter

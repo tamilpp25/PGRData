@@ -1,26 +1,24 @@
 local TABLE_BFRT_CHAPTER_PATH = "Share/Fuben/Bfrt/BfrtChapter.tab"
 local TABLE_BFRT_GROUP_PATH = "Share/Fuben/Bfrt/BfrtGroup.tab"
 local TABLE_ECHELON_INFO_PATH = "Share/Fuben/Bfrt/EchelonInfo.tab"
+local TABLE_BFRT_COURSE_REWARD_PATH = "Share/Fuben/Bfrt/BfrtCourseReward.tab"
 
+---@type XTableBfrtChapter[]
 local BfrtChapterTemplates = {}
+---@type XTableBfrtGroup[]
 local BfrtGroupTemplates = {}
+---@type XTableEchelonInfo[]
 local EchelonInfoTemplates = {}
+---@type XTableBfrtCourseReward[]
+local CourseRewardTemplates = {}
 
 XBfrtConfigs = XBfrtConfigs or {}
-
-XBfrtConfigs.CAPTIAN_MEMBER_INDEX = 1
-XBfrtConfigs.FIRST_FIGHT_MEMBER_INDEX = 1
-
-XBfrtConfigs.MEMBER_POS_COLOR = {
-    "FF1111FF", -- red
-    "4F99FFFF", -- blue
-    "F9CB35FF", -- yellow
-}
 
 function XBfrtConfigs.Init()
     BfrtChapterTemplates = XTableManager.ReadAllByIntKey(TABLE_BFRT_CHAPTER_PATH, XTable.XTableBfrtChapter, "ChapterId")
     BfrtGroupTemplates = XTableManager.ReadAllByIntKey(TABLE_BFRT_GROUP_PATH, XTable.XTableBfrtGroup, "GroupId")
     EchelonInfoTemplates = XTableManager.ReadByIntKey(TABLE_ECHELON_INFO_PATH, XTable.XTableEchelonInfo, "Id")
+    CourseRewardTemplates = XTableManager.ReadByIntKey(TABLE_BFRT_COURSE_REWARD_PATH, XTable.XTableBfrtCourseReward, "Id")
 end
 
 function XBfrtConfigs.GetBfrtChapterTemplates()
@@ -31,6 +29,7 @@ function XBfrtConfigs.GetEchelonInfoTemplates()
     return EchelonInfoTemplates
 end
 
+---@return XTableBfrtGroup
 local function GetGroupCfg(groupId)
     local groupCfg = BfrtGroupTemplates[groupId]
     if not groupCfg then
@@ -48,3 +47,15 @@ function XBfrtConfigs.GetBfrtPreGroupId(groupId)
     local config = GetGroupCfg(groupId)
     return config.PreGroupId
 end
+
+--region CourseReward
+---@return XTableBfrtCourseReward[]
+function XBfrtConfigs.GetBfrtRewardTemplates()
+    return CourseRewardTemplates
+end
+
+---@return XTableBfrtCourseReward
+function XBfrtConfigs.GetBfrtRewardTemplateById(id)
+    return CourseRewardTemplates[id]
+end
+--endregion

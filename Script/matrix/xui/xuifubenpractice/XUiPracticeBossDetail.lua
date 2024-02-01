@@ -90,41 +90,38 @@ function XUiPracticeBossDetail:OnBtnEnterClick()
         }
         XDataCenter.PracticeManager.SaveKeyBossStageSetting(self.StageId, self.SelectHard, self.SelectStage,
             self.AtkNum, self.HpNum)
-        if XTool.USENEWBATTLEROOM then
-            local team = XDataCenter.PracticeManager.LoadBossTeamLocal()
-            for index, id in pairs(team.TeamData) do
-                --清库之后本地缓存角色失效
-                if not XDataCenter.CharacterManager.IsOwnCharacter(id) and not XRobotManager.CheckIsRobotId(id) then
-                    team.TeamData[index] = 0
-                end
+
+        local team = XDataCenter.PracticeManager.LoadBossTeamLocal()
+        for index, id in pairs(team.TeamData) do
+            --清库之后本地缓存角色失效
+            if not XMVCA.XCharacter:IsOwnCharacter(id) and not XRobotManager.CheckIsRobotId(id) then
+                team.TeamData[index] = 0
             end
-            local xTeam = XDataCenter.TeamManager.CreateTeam(team.TeamId)
-            xTeam:UpdateAutoSave(true)
-            xTeam:UpdateLocalSave(false)
-            xTeam:Clear()
-            xTeam:UpdateFromTeamData(team)
-            xTeam:UpdateSaveCallback(function(inTeam)
-                XDataCenter.PracticeManager.SaveBossTeamLocal(inTeam:SwithToOldTeamData())
-            end)
-            XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, xTeam, {
-                -- 处理自己进入战斗的逻辑
-                EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
-                    local teamData = team:SwithToOldTeamData()
-                    if teamData.TeamData[teamData.CaptainPos] == nil or teamData.TeamData[teamData.CaptainPos] <= 0 then
-                        XUiManager.TipText("TeamManagerCheckCaptainNil")
-                        return
-                    end
-                    if teamData.TeamData[teamData.FirstFightPos] == nil or teamData.TeamData[teamData.FirstFightPos] <= 0 then
-                        XUiManager.TipText("TeamManagerCheckFirstFightNil")
-                        return
-                    end
-                    local stage = XDataCenter.FubenManager.GetStageCfg(stageId)
-                    XDataCenter.FubenManager.EnterPracticeBoss(stage, teamData, data.SimulateTrainInfo)
-                end
-            })
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.StageId, data)
         end
+        local xTeam = XDataCenter.TeamManager.CreateTeam(team.TeamId)
+        xTeam:UpdateAutoSave(true)
+        xTeam:UpdateLocalSave(false)
+        xTeam:Clear()
+        xTeam:UpdateFromTeamData(team)
+        xTeam:UpdateSaveCallback(function(inTeam)
+            XDataCenter.PracticeManager.SaveBossTeamLocal(inTeam:SwithToOldTeamData())
+        end)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageId, xTeam, {
+            -- 处理自己进入战斗的逻辑
+            EnterFight = function(proxy, team, stageId, challengeCount, isAssist)
+                local teamData = team:SwithToOldTeamData()
+                if teamData.TeamData[teamData.CaptainPos] == nil or teamData.TeamData[teamData.CaptainPos] <= 0 then
+                    XUiManager.TipText("TeamManagerCheckCaptainNil")
+                    return
+                end
+                if teamData.TeamData[teamData.FirstFightPos] == nil or teamData.TeamData[teamData.FirstFightPos] <= 0 then
+                    XUiManager.TipText("TeamManagerCheckFirstFightNil")
+                    return
+                end
+                local stage = XDataCenter.FubenManager.GetStageCfg(stageId)
+                XDataCenter.FubenManager.EnterPracticeBoss(stage, teamData, data.SimulateTrainInfo)
+            end
+        })
         self:Close()
     end
 end

@@ -32,6 +32,10 @@ function XUiGridCollection:UpdateGrid(chapter, parent, inType)
         self.ImgMedalIconlock:SetRawImage(chapter.MedalImg)
     end
 
+    ---黑岩超难关藏品特殊处理
+    if chapter.Id == XEnumConst.SpecialHandling.DEADCollectiblesId then
+        self.TxtMedalName.fontSize = 25
+    end
     self.TxtMedalName.text = chapter.Name
 
     local IsLock = chapter.IsLock

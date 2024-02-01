@@ -62,7 +62,7 @@ function XAwarenessChapter:GetFightCount()
 end
 
 function XAwarenessChapter:GetCharacterBodyIcon()
-    return XDataCenter.CharacterManager.GetCharHalfBodyImage(self.CharacterId)
+    return XMVCA.XCharacter:GetCharHalfBodyImage(self.CharacterId)
 end
 
 function XAwarenessChapter:IsRewarded()
@@ -71,7 +71,7 @@ end
 
 function XAwarenessChapter:IsRed()
     if self:CanAssign() and not self:IsOccupy() then
-        for k, char in pairs(XDataCenter.CharacterManager.GetOwnCharacterList()) do
+        for k, char in pairs(XMVCA.XCharacter:GetOwnCharacterList()) do
             local isPassCond = self:IsCharConditionMatch(char.Id)
             local isOc = XDataCenter.FubenAwarenessManager.CheckCharacterInOccupy(char.Id)
             if isPassCond and not isOc then
@@ -129,15 +129,15 @@ function XAwarenessChapter:GetCharacterId()
 end
 
 function XAwarenessChapter:GetOccupyCharacterIcon()
-    return XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(self:GetCharacterId())
 end
 
 function XAwarenessChapter:GetOccupyCharSmallHeadIcon()
-    return  XDataCenter.CharacterManager.GetCharSmallHeadIcon(self:GetCharacterId())
+    return  XMVCA.XCharacter:GetCharSmallHeadIcon(self:GetCharacterId())
 end
 
 function XAwarenessChapter:GetOccupyCharacterName()
-    return XCharacterConfigs.GetCharacterFullNameStr(self:GetCharacterId())
+    return XMVCA.XCharacter:GetCharacterFullNameStr(self:GetCharacterId())
 end
 
 return XAwarenessChapter

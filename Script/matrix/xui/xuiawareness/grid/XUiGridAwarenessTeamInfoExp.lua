@@ -48,7 +48,7 @@ function XUiGridAwarenessTeamInfoExp:UpdateFightTeamCharacter()
     for _, memberData in ipairs(teamData:GetMemberList()) do
         local charId = memberData:GetCharacterId()
         if charId and charId ~= 0 then
-            local char = XDataCenter.CharacterManager.GetCharacter(charId)
+            local char = XMVCA.XCharacter:GetCharacter(charId)
             local ui = CS.UnityEngine.Object.Instantiate(self.GridCharacter)
             local grid = XUiGridCharacter.New(ui, self, char)
             grid.Transform:SetParent(self.PanelCharacters, false)

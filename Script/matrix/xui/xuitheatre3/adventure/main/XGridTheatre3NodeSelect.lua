@@ -63,7 +63,10 @@ function XGridTheatre3NodeSelect:_RefreshNode()
         end
         -- 节点特效
         if self.Effect and not string.IsNilOrEmpty(nodeCfg.NodeEffectUrl) then
-            self.Effect:LoadUiEffect(nodeCfg.NodeEffectUrl)
+            local effectUrl = self._Control:GetClientConfig(nodeCfg.NodeEffectUrl, 1)
+            if not string.IsNilOrEmpty(effectUrl) then
+                self.Effect:LoadUiEffect(effectUrl)
+            end
         end
     end
     local rewardList = self._NodeSlot:GetNodeRewards()
@@ -71,9 +74,10 @@ function XGridTheatre3NodeSelect:_RefreshNode()
         if self.Bg3 then
             self.Bg3.gameObject:SetActiveEx(false)
         end
-        self.Grid128.gameObject:SetActiveEx(false)
+        self._Reward:Close()
     else
         self._NodeReward = rewardList[1]
+        self._Reward:Open()
         self:_RefreshRewardGrid()
     end
 end
@@ -112,23 +116,27 @@ end
 
 function XGridTheatre3NodeSelect:_RefreshRewardGrid()
     local cfg = self._Control:GetRewardBoxConfig(self._NodeReward:GetType(), self._NodeReward:GetConfigId())
+    local count = cfg.Count and cfg.Count or 0
+    if self._NodeReward:GetType() == XEnumConst.THEATRE3.NodeRewardType.Gold then
+        count = XDataCenter.ItemManager.GetCount(XEnumConst.THEATRE3.Theatre3InnerCoin)
+    end
     self._Reward:SetNodeSlotData(cfg.Icon, cfg.Quality, function()
-        XLuaUiManager.Open("UiTheatre3Tips", nil, nil, {
+        self._Control:OpenAdventureTips(nil, nil, {
             Name = cfg.Name,
             Icon = cfg.Icon,
             Desc = cfg.Desc,
             WorldDesc = cfg.WorldDesc,
-            Count = cfg.Count and cfg.Count or 0,
+            Count = count,
         })
-    end)
+    end, self._Control:IsAdventureALine())
     self._Reward:ShowRed(false)
 end
 --endregion
 
 --region Ui - BtnListener
 function XGridTheatre3NodeSelect:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.GridStage, self.OnBtnCharacterClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnYes, self.OnBtnYesClick)
+    self._Control:RegisterClickEvent(self, self.GridStage, self.OnBtnCharacterClick)
+    self._Control:RegisterClickEvent(self, self.BtnYes, self.OnBtnYesClick)
 end
 
 function XGridTheatre3NodeSelect:OnBtnCharacterClick()
@@ -141,9 +149,7 @@ function XGridTheatre3NodeSelect:OnBtnYesClick()
         self._Control:CheckAndOpenAdventureNodeSlot(self._NodeSlot, not self._NodeSlot:CheckIsFight())
         return
     end
-    self._Control:RequestAdventureSelectNode(self._NodeData, self._NodeSlot, function()
-        self._Control:CheckAndOpenAdventureNodeSlot(self._NodeSlot, not self._NodeSlot:CheckIsFight())
-    end)
+    self._Control:RequestAdventureSelectNode(self._NodeData, self._NodeSlot)
 end
 --endregion
 

@@ -16,8 +16,8 @@ function XUiPanelMainSkillOption:InitPanel()
     local charName = CSTextManagerGetText("PartnerNoBadyCarry")
     if self.Partner:GetIsCarry() then
         local charId = self.Partner:GetCharacterId()
-        charName = XCharacterConfigs.GetCharacterLogName(charId)
-        local elementConfig = XCharacterConfigs.GetCharElement(self.Base.CharElement)
+        charName = XMVCA.XCharacter:GetCharacterLogName(charId)
+        local elementConfig = XMVCA.XCharacter:GetCharElement(self.Base.CharElement)
         self.ElementIcon:SetRawImage(elementConfig.Icon2)
         self.ElementIcon.gameObject:SetActiveEx(true)
     else
@@ -46,8 +46,9 @@ function XUiPanelMainSkillOption:SetupDynamicTable()
     local selectIndex = 1
     self.PageDatas = self.Partner:GetMainSkillGroupList()
 
+    local curSkillId = self.Base and self.Base.CurSkillGroup and self.Base.CurSkillGroup:GetId()
     for index,data in pairs(self.PageDatas) do
-        if data:GetId() == self.Base.CurSkillGroup:GetId() then
+        if data:GetId() == curSkillId then
             selectIndex = index
             break
         end

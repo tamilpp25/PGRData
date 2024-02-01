@@ -2,329 +2,632 @@
     {
         "Id": 1,
         "GroupId": 1,
-        "ChapterName": "<size=25>Ch.1</size> \u6447\u66f3\u4e4b\u68a6",
+        "ChapterName": "<size=22>Ch.1</size> <size=42>\u6447\u66f3\u4e4b\u68a6</size>",
         "TitleEffect": "EffectTitleName01",
         "NextChapterIds": [
             2.0
         ],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory801.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png"
+        "ChapterType": 1
     },
     {
         "Id": 2,
         "GroupId": 1,
-        "ChapterName": "<size=25>Ch.2</size> \u9759\u8c27\u6f5c\u5f71",
+        "ChapterName": "<size=22>Ch.2</size> <size=42>\u9759\u8c27\u6f5c\u5f71</size>",
         "TitleEffect": "EffectTitleName02",
         "NextChapterIds": [
             3.0
         ],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png"
+        "ChapterType": 1
     },
     {
         "Id": 3,
         "GroupId": 1,
-        "ChapterName": "<size=25>Ch.3</size> \u9646\u79bb\u8ff7\u5bab",
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
         "TitleEffect": "EffectTitleName03",
         "NextChapterIds": [],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory693.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png"
+        "ChapterType": 1
     },
     {
         "Id": 101,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.1</size> \u6447\u66f3\u4e4b\u68a6",
+        "ChapterName": "<size=22>Ch.1</size> <size=42>\u6447\u66f3\u4e4b\u68a6</size>",
         "TitleEffect": "EffectTitleName01",
         "NextChapterIds": [
             102.0
         ],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory801.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png"
+        "ChapterType": 1
     },
     {
         "Id": 102,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.2</size> \u9759\u8c27\u6f5c\u5f71",
+        "ChapterName": "<size=22>Ch.2</size> <size=42>\u9759\u8c27\u6f5c\u5f71</size>",
         "TitleEffect": "EffectTitleName02",
         "NextChapterIds": [
             103.0
         ],
         "ConditionId": null,
+        "ConnectChapter": 9102.0,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png"
+        "ChapterType": 1
     },
     {
         "Id": 103,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.3</size> \u9646\u79bb\u8ff7\u5bab",
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
         "TitleEffect": "EffectTitleName03",
         "NextChapterIds": [
             104.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9103.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory693.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png"
+        "ChapterType": 1
     },
     {
         "Id": 104,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.4</size> \u5e7d\u5bc6\u6df1\u6f6d",
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
         "TitleEffect": "EffectTitleName04",
         "NextChapterIds": [
             105.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9104.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png"
+        "ChapterType": 1
     },
     {
         "Id": 105,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.5</size> \u6b67\u8def\u5f02\u9014",
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
         "TitleEffect": "EffectTitleName05",
         "NextChapterIds": [
-            106.0
+            106.0,
+            107.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9105.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png"
+        "ChapterType": 1
     },
     {
         "Id": 106,
         "GroupId": 100,
-        "ChapterName": "<size=25>Ch.6</size> \u8ff7\u96fe\u9ad8\u5854",
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
         "TitleEffect": "EffectTitleName06",
         "NextChapterIds": [],
         "ConditionId": 1020111.0,
-        "OpenSuitCount": 17,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png"
+        "ChapterType": 1
     },
     {
         "Id": 201,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.1</size> \u6447\u66f3\u4e4b\u68a6",
+        "ChapterName": "<size=22>Ch.1</size> <size=42>\u6447\u66f3\u4e4b\u68a6</size>",
         "TitleEffect": "EffectTitleName01",
         "NextChapterIds": [
             202.0
         ],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory801.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png"
+        "ChapterType": 1
     },
     {
         "Id": 202,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.2</size> \u9759\u8c27\u6f5c\u5f71",
+        "ChapterName": "<size=22>Ch.2</size> <size=42>\u9759\u8c27\u6f5c\u5f71</size>",
         "TitleEffect": "EffectTitleName02",
         "NextChapterIds": [
             203.0
         ],
         "ConditionId": null,
+        "ConnectChapter": 9202.0,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png"
+        "ChapterType": 1
     },
     {
         "Id": 203,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.3</size> \u9646\u79bb\u8ff7\u5bab",
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
         "TitleEffect": "EffectTitleName03",
         "NextChapterIds": [
             204.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9203.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory693.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png"
+        "ChapterType": 1
     },
     {
         "Id": 204,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.4</size> \u5e7d\u5bc6\u6df1\u6f6d",
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
         "TitleEffect": "EffectTitleName04",
         "NextChapterIds": [
             205.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9204.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png"
+        "ChapterType": 1
     },
     {
         "Id": 205,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.5</size> \u6b67\u8def\u5f02\u9014",
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
         "TitleEffect": "EffectTitleName05",
         "NextChapterIds": [
-            206.0
+            206.0,
+            207.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9205.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png"
+        "ChapterType": 1
     },
     {
         "Id": 206,
         "GroupId": 200,
-        "ChapterName": "<size=25>Ch.6</size> \u8ff7\u96fe\u9ad8\u5854",
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
         "TitleEffect": "EffectTitleName06",
         "NextChapterIds": [],
         "ConditionId": 1020111.0,
-        "OpenSuitCount": 17,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png"
+        "ChapterType": 1
     },
     {
         "Id": 301,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.1</size> \u6447\u66f3\u4e4b\u68a6",
+        "ChapterName": "<size=22>Ch.1</size> <size=42>\u6447\u66f3\u4e4b\u68a6</size>",
         "TitleEffect": "EffectTitleName01",
         "NextChapterIds": [
             302.0
         ],
         "ConditionId": null,
+        "ConnectChapter": null,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory801.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo01.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh01.png"
+        "ChapterType": 1
     },
     {
         "Id": 302,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.2</size> \u9759\u8c27\u6f5c\u5f71",
+        "ChapterName": "<size=22>Ch.2</size> <size=42>\u9759\u8c27\u6f5c\u5f71</size>",
         "TitleEffect": "EffectTitleName02",
         "NextChapterIds": [
             303.0
         ],
         "ConditionId": null,
+        "ConnectChapter": 9302.0,
         "OpenSuitCount": 17,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo02.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh02.png"
+        "ChapterType": 1
     },
     {
         "Id": 303,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.3</size> \u9646\u79bb\u8ff7\u5bab",
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
         "TitleEffect": "EffectTitleName03",
         "NextChapterIds": [
             304.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9303.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/BgStory/BgStory693.jpg",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh03.png"
+        "ChapterType": 1
     },
     {
         "Id": 304,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.4</size> \u5e7d\u5bc6\u6df1\u6f6d",
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
         "TitleEffect": "EffectTitleName04",
         "NextChapterIds": [
             305.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9304.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh04.png"
+        "ChapterType": 1
     },
     {
         "Id": 305,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.5</size> \u6b67\u8def\u5f02\u9014",
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
         "TitleEffect": "EffectTitleName05",
         "NextChapterIds": [
-            306.0
+            306.0,
+            307.0
         ],
         "ConditionId": null,
-        "OpenSuitCount": 17,
+        "ConnectChapter": 9305.0,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
-        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh05.png"
+        "ChapterType": 1
     },
     {
         "Id": 306,
         "GroupId": 300,
-        "ChapterName": "<size=25>Ch.6</size> \u8ff7\u96fe\u9ad8\u5854",
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
         "TitleEffect": "EffectTitleName06",
         "NextChapterIds": [],
         "ConditionId": 1020111.0,
-        "OpenSuitCount": 17,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
         "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStory4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png",
         "BgmCueId": null,
         "LoadingBgUrl": null,
+        "ChapterType": 1
+    },
+    {
+        "Id": 107,
+        "GroupId": 100,
+        "ChapterName": "<size=22>Mega.2</size> <size=42>\u6447\u66f3\u665a\u949f</size>",
+        "TitleEffect": "EffectTitleName02",
+        "NextChapterIds": [],
+        "ConditionId": 1020226.0,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc5.png",
         "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
-        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh06.png"
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh11.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 1
+    },
+    {
+        "Id": 207,
+        "GroupId": 200,
+        "ChapterName": "<size=22>Mega.2</size> <size=42>\u6447\u66f3\u665a\u949f</size>",
+        "TitleEffect": "EffectTitleName02",
+        "NextChapterIds": [],
+        "ConditionId": 1020226.0,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc5.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh11.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 1
+    },
+    {
+        "Id": 307,
+        "GroupId": 300,
+        "ChapterName": "<size=22>Mega.2</size> <size=42>\u6447\u66f3\u665a\u949f</size>",
+        "TitleEffect": "EffectTitleName02",
+        "NextChapterIds": [],
+        "ConditionId": 1020226.0,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc5.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh11.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 1
+    },
+    {
+        "Id": 9102,
+        "GroupId": 100,
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
+        "TitleEffect": "EffectTitleName06",
+        "NextChapterIds": [
+            9103.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh07.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9103,
+        "GroupId": 100,
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
+        "TitleEffect": "EffectTitleName05",
+        "NextChapterIds": [
+            9104.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh08.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9104,
+        "GroupId": 100,
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
+        "TitleEffect": "EffectTitleName04",
+        "NextChapterIds": [
+            9105.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh09.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9105,
+        "GroupId": 100,
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
+        "TitleEffect": "EffectTitleName03",
+        "NextChapterIds": [],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh10.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9202,
+        "GroupId": 200,
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
+        "TitleEffect": "EffectTitleName06",
+        "NextChapterIds": [
+            9203.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh07.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9203,
+        "GroupId": 200,
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
+        "TitleEffect": "EffectTitleName05",
+        "NextChapterIds": [
+            9204.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh08.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9204,
+        "GroupId": 200,
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
+        "TitleEffect": "EffectTitleName04",
+        "NextChapterIds": [
+            9205.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh09.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9205,
+        "GroupId": 200,
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
+        "TitleEffect": "EffectTitleName03",
+        "NextChapterIds": [],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh10.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9302,
+        "GroupId": 300,
+        "ChapterName": "<size=22>Ch.6</size> <size=42>\u8ff7\u96fe\u9ad8\u5854</size>",
+        "TitleEffect": "EffectTitleName06",
+        "NextChapterIds": [
+            9303.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc1.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo06Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh07.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9303,
+        "GroupId": 300,
+        "ChapterName": "<size=22>Ch.5</size> <size=42>\u6b67\u8def\u5f02\u9014</size>",
+        "TitleEffect": "EffectTitleName05",
+        "NextChapterIds": [
+            9304.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 17,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc2.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo05Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh08.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9304,
+        "GroupId": 300,
+        "ChapterName": "<size=22>Ch.4</size> <size=42>\u5e7d\u5bc6\u6df1\u6f6d</size>",
+        "TitleEffect": "EffectTitleName04",
+        "NextChapterIds": [
+            9305.0
+        ],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc3.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo04Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh09.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
+    },
+    {
+        "Id": 9305,
+        "GroupId": 300,
+        "ChapterName": "<size=22>Ch.3</size> <size=42>\u9646\u79bb\u8ff7\u5bab</size>",
+        "TitleEffect": "EffectTitleName03",
+        "NextChapterIds": [],
+        "ConditionId": null,
+        "ConnectChapter": null,
+        "OpenSuitCount": 20,
+        "PlayMainBg": "Assets/Product/Texture/Image/UiTheatre3/Theatre3BgStoryDlc4.png",
+        "LoadingTitle": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingNo03Quantum.png",
+        "LoadingDesc": "Assets/Product/Texture/Image/UiTheatre3/UiTheatre3LoadingCh10.png",
+        "BgmCueId": null,
+        "LoadingBgUrl": null,
+        "ChapterType": 2
     }
 ]

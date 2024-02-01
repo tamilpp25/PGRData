@@ -27,11 +27,11 @@ function XUiSimulatedCombatListCharaInfo:UpdateView(robotId)
     self.CharacterId = XRobotManager.GetCharacterId(robotId)
     self.RobotCfg = XRobotManager.GetRobotTemplate(self.RobotId)
     
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
     local jobType = XRobotManager.GetRobotJobType(self.RobotId)
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(jobType))
+    self.RImgTypeIcon:SetRawImage(XMVCA.XCharacter:GetNpcTypeIcon(jobType))
     self.TxtLv.text = XRobotManager.GetRobotAbility(self.RobotId)
     self.WeaponGrid = self.WeaponGrid or XUiSimulatedCombatEquipGrid.New(self.GridWeapon, nil, self)
     local usingWeaponId = self.RobotCfg.WeaponId
@@ -54,13 +54,13 @@ function XUiSimulatedCombatListCharaInfo:UpdateView(robotId)
         end
     end
 
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(self.CharacterId)
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(self.CharacterId)
     local elementList = detailConfig.ObtainElementList
     for i = 1, 3 do
         local rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActive(true)
-            local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
             rImg:SetRawImage(elementConfig.Icon)
         else
             rImg.gameObject:SetActive(false)
@@ -124,5 +124,5 @@ function XUiSimulatedCombatListCharaInfo:OnBtnWeaponReplaceClick()
 end
 
 function XUiSimulatedCombatListCharaInfo:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self.CharacterId)
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self.CharacterId, XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end

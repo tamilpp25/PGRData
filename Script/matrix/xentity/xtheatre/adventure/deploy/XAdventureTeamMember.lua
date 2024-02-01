@@ -42,14 +42,14 @@ function XAdventureTeamMember:GetCaptainSkillDesc()
     if self:IsEmpty() then return "" end
 
     local charId = self:GetCharacterId()
-    return XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotCaptainSkillDesc(charId) or XDataCenter.CharacterManager.GetCaptainSkillDesc(charId)
+    return XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotCaptainSkillDesc(charId) or XMVCA.XCharacter:GetCaptainSkillDesc(charId)
 end
 
 function XAdventureTeamMember:GetAbility()
     if self:IsEmpty() then return 0 end
 
     local charId = self:GetCharacterId()
-    local ability = XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotAbility(charId) or XDataCenter.CharacterManager.GetCharacterAbilityById(charId)
+    local ability = XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotAbility(charId) or XMVCA.XCharacter:GetCharacterAbilityById(charId)
     return math.ceil(ability)
 end
 
@@ -57,14 +57,14 @@ function XAdventureTeamMember:GetSmallHeadIcon()
     if self:IsEmpty() then return "" end
 
     local charId = self:GetCharacterId()
-    return XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotSmallHeadIcon(charId) or XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId)
+    return XRobotManager.CheckIsRobotId(charId) and XRobotManager.GetRobotSmallHeadIcon(charId) or XMVCA.XCharacter:GetCharSmallHeadIcon(charId)
 end
 
 function XAdventureTeamMember:GetCharacterName()
     if self:IsEmpty() then return "" end
 
     local charId = self:GetCharacterId()
-    return XRobotManager.CheckIsRobotId(charId) and XCharacterConfigs.GetCharacterName(XRobotManager.GetCharacterId(charId)) or XCharacterConfigs.GetCharacterName(charId)
+    return XRobotManager.CheckIsRobotId(charId) and XMVCA.XCharacter:GetCharacterName(XRobotManager.GetCharacterId(charId)) or XMVCA.XCharacter:GetCharacterName(charId)
 end
 
 --是否为空

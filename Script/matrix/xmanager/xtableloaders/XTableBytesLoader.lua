@@ -23,6 +23,11 @@ local function ReadTable(path, identifier)
         return EmptyTable
     end
 
+    if bin.primarykey ~= identifier then
+        XLog.Error("表格 " .. path .. " 读取Id与主键不一致，已改为强制读取模式，请按主键索引, 强制读取会带来较大性能损失")
+        return ReadTableAll(path, identifier)
+    end
+
     local tab = {}
 
     AllTables[path] = bin

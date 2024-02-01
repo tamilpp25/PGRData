@@ -21,6 +21,7 @@ local XUiGuildWarCharacterSelect = XLuaUiManager.Register(XLuaUi, "UiGuildWarCha
 function XUiGuildWarCharacterSelect:Ctor()
     self._CurrentCharacterId = false
     self._TabIndex = TabBtnIndex.Normal
+    ---@type XGuildWarTeam
     self._Team = false
     self._Pos = false
     self._isDefaultSelect = true
@@ -32,7 +33,13 @@ function XUiGuildWarCharacterSelect:OnStart(team, pos)
     self:Init()
     self:InitSceneRoot()
     XDataCenter.GuildWarManager.RequestAssistCharacterList()
-    self:UpdateDataSource()
+
+    local member = self._Team:GetMember(self._Pos)
+    if member and not member:IsEmpty() then
+        self:UpdateDataSource(member:GetEntityId())
+    else
+        self:UpdateDataSource()
+    end
 end
 
 function XUiGuildWarCharacterSelect:Init()
@@ -101,6 +108,10 @@ function XUiGuildWarCharacterSelect:Init()
 end
 
 function XUiGuildWarCharacterSelect:OnEnable()
+    if self._TabIndex == TabBtnIndex.Normal then
+        self.SelfPanel:UpdateCharacter()
+        self._Filter:OnlyRefreshData()
+    end
     XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ASSISTANT_UPDATE_CHARACTER_LIST, self.UpdateAssistantCharacterList, self)
 end
 
@@ -164,9 +175,13 @@ function XUiGuildWarCharacterSelect:InitFilter()
     end)
 end
 
-function XUiGuildWarCharacterSelect:UpdateDataSource()
+function XUiGuildWarCharacterSelect:UpdateDataSource(characterId)
     local list = XMVCA.XCharacter:GetCharacterList()
     self._Filter:ImportList(list)
+    self._Filter:RefreshList()
+    if characterId then
+        self._Filter:DoSelectCharacter(characterId)
+    end
 end
 
 function XUiGuildWarCharacterSelect:IsIsomerLock()
@@ -302,7 +317,9 @@ end
 
 function XUiGuildWarCharacterSelect:UpdateAssistantCharacterList()
     self:ImportAssistantCharacterList()
-    self._Filter:RefreshList()
+    if self._TabIndex == TabBtnIndex.Assistant then
+        self._Filter:RefreshList()
+    end
 end
 
 function XUiGuildWarCharacterSelect:ImportAssistantCharacterList()

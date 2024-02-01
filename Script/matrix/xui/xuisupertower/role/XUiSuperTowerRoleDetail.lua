@@ -16,12 +16,12 @@ function XUiSuperTowerRoleDetail:OnAwake()
     self.CurrentListRoles = nil
     self.CurrentRoleId = nil
     self.CurrentPanelType = CHILD_PANEL_TYPE.Default
-    self.CurrentCharacterType = XCharacterConfigs.CharacterType.Normal
+    self.CurrentCharacterType = XEnumConst.CHARACTER.CharacterType.Normal
     self.CurrentIsAscendOrder = true
     self.CurrentSortTagType = XRoomCharFilterTipsConfigs.EnumSortTag.Default
     self.CurrentSelectTagGroup = {
-        [XCharacterConfigs.CharacterType.Normal] = {},
-        [XCharacterConfigs.CharacterType.Isomer] = {},
+        [XEnumConst.CHARACTER.CharacterType.Normal] = {},
+        [XEnumConst.CHARACTER.CharacterType.Isomer] = {},
     }
     -- XUiSuperTowerRoleLevelUpPanel
     self.UiRoleLevelUpPanel = nil
@@ -33,7 +33,7 @@ function XUiSuperTowerRoleDetail:OnAwake()
     -- 模型相关
     local root = self.UiModelGo.transform
     local panelRoleModel = root:FindTransform("PanelRoleModel")
-    -- XCharacterConfigs.XUiCharacter_Camera.MAIN
+    -- XEnumConst.CHARACTER.XUiCharacter_Camera.MAIN
     self.CameraFar = {
         root:FindTransform("CamFarMain"),
         root:FindTransform("UiCamFarLv"),
@@ -60,7 +60,7 @@ function XUiSuperTowerRoleDetail:OnAwake()
     self:RegisterUiEvents()
     self.BtnTabShougezhe:SetDisable(not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer))
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
         self.AssetActivityPanel:Refresh(itemIds)
     end, self.AssetActivityPanel)
@@ -73,7 +73,7 @@ end
 function XUiSuperTowerRoleDetail:OnStart(currentRoleId)
     self.CurrentRoleId = currentRoleId
     -- 刷新列表
-    self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+    self.BtnGroupCharacterType:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
     self.BtnUpSort.gameObject:SetActiveEx(not self.CurrentIsAscendOrder)
     self.BtnDownSort.gameObject:SetActiveEx(self.CurrentIsAscendOrder)
     self:SetCameraType(CHILD_PANEL_TYPE.Default)
@@ -106,8 +106,8 @@ function XUiSuperTowerRoleDetail:RegisterUiEvents()
     self.BtnElementDetail.CallBack = function() self:OnBtnElementDetailClicked() end
     -- 角色类型按钮组
     self.BtnGroupCharacterType:Init({
-        [XCharacterConfigs.CharacterType.Normal] = self.BtnTabGouzaoti,
-        [XCharacterConfigs.CharacterType.Isomer] = self.BtnTabShougezhe
+        [XEnumConst.CHARACTER.CharacterType.Normal] = self.BtnTabGouzaoti,
+        [XEnumConst.CHARACTER.CharacterType.Isomer] = self.BtnTabShougezhe
     }, function(tabIndex) self:OnBtnGroupCharacterTypeClicked(tabIndex) end)
     self:BindHelpBtn(self.BtnHelp, "SuperTowerCharaHelp")
     self.BtnPluginClick.CallBack = function() self:OnBtnPluginClicked() end
@@ -119,7 +119,7 @@ function XUiSuperTowerRoleDetail:OnBtnPluginClicked()
 end
 
 function XUiSuperTowerRoleDetail:OnBtnElementDetailClicked()
-    XLuaUiManager.Open("UiCharacterElementDetail", XEntityHelper.GetCharacterIdByEntityId(self.CurrentRoleId))
+    XLuaUiManager.Open("UiCharacterAttributeDetail", XEntityHelper.GetCharacterIdByEntityId(self.CurrentRoleId), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 function XUiSuperTowerRoleDetail:OnBtnBackClicked()
@@ -222,7 +222,7 @@ function XUiSuperTowerRoleDetail:OnBtnPluginUnlockClicked()
 end
 
 function XUiSuperTowerRoleDetail:OnBtnGroupCharacterTypeClicked(index)
-    if index == XCharacterConfigs.CharacterType.Isomer
+    if index == XEnumConst.CHARACTER.CharacterType.Isomer
     and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then
         return
     end
@@ -232,20 +232,20 @@ function XUiSuperTowerRoleDetail:OnBtnGroupCharacterTypeClicked(index)
     local roles = XDataCenter.SuperTowerManager.GetRoleManager():GetCanFightRoles(self.CurrentCharacterType)
     if #roles <= 0 then
         XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-        self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+        self.BtnGroupCharacterType:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
         return
     end
     self:Filter(selectTagGroupDic, sortTagId, function(roles)
         if #roles <= 0 then
             XUiManager.TipError(XUiHelper.GetText("IsomerLimitTip"))
-            self.BtnGroupCharacterType:SelectIndex(XCharacterConfigs.CharacterType.Normal)
+            self.BtnGroupCharacterType:SelectIndex(XEnumConst.CHARACTER.CharacterType.Normal)
             return false
         end
         return true
     end)
 end
 
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiSuperTowerRoleDetail:RefreshCharacterList(roles)
     local index = 1
     for i, value in ipairs(roles) do
@@ -286,8 +286,8 @@ function XUiSuperTowerRoleDetail:RefreshCharacterInfo(superTowerRole)
     local finishedCallback = function(model)
         self.PanelDrag.Target = model.transform
         self.PanelDrag2.Target = model.transform
-        self.ImgEffectHuanren.gameObject:SetActiveEx(self.CurrentCharacterType == XCharacterConfigs.CharacterType.Normal)
-        self.ImgEffectHuanren1.gameObject:SetActiveEx(self.CurrentCharacterType == XCharacterConfigs.CharacterType.Isomer)
+        self.ImgEffectHuanren.gameObject:SetActiveEx(self.CurrentCharacterType == XEnumConst.CHARACTER.CharacterType.Normal)
+        self.ImgEffectHuanren1.gameObject:SetActiveEx(self.CurrentCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer)
     end
     if XRobotManager.CheckIsRobotId(roleId) then
         local robotConfig = XRobotManager.GetRobotTemplate(roleId)

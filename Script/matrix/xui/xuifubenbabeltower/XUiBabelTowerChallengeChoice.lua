@@ -3,6 +3,7 @@ local CONDITION_COLOR = {
     [false] = CS.UnityEngine.Color.black,
 }
 
+---@class XUiBabelTowerChallengeChoice
 local XUiBabelTowerChallengeChoice = XClass(nil, "XUiBabelTowerChallengeChoice")
 local UiButtonState = CS.UiButtonState
 local CSXTextManagerGetText = CS.XTextManager.GetText
@@ -14,19 +15,21 @@ function XUiBabelTowerChallengeChoice:Ctor(ui)
     self.name = "XUiBabelTowerChallengeChoice"
 
     XTool.InitUiObject(self)
+    ---@type XUiGridBabelChallengeItem[]
     self.ChallengeItemList = {}
+    ---@type XUiComponent.XUiButton[]
     self.ChallengeBtnCompList = {}
 
     self.BtnGuideMask.CallBack = function() self:OnBtnGuideMaskClick() end
 end
 
----@param uiRoot UiBabelTowerChildChallenge
+---@param uiRoot XUiBabelTowerChildChallenge
 function XUiBabelTowerChallengeChoice:Init(uiRoot)
     self.UiRoot = uiRoot
 end
 
 function XUiBabelTowerChallengeChoice:SetItemData(itemData)
-    self.BuffGoupDatas = itemData
+    self.BuffGroupData = itemData
     self.BuffGroupId = itemData.BuffGroupId
     self.GuideId = itemData.GuideId
     self.StageId = itemData.StageId
@@ -35,6 +38,7 @@ function XUiBabelTowerChallengeChoice:SetItemData(itemData)
     self.BuffGroupTemplate = XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(self.BuffGroupId)
 
     self.TxtChallengeName.text = self.BuffGroupDetails.Name
+    self.IsDifficultBuffGroup = XFubenBabelTowerConfigs.CheckBuffGroupIdIsDifficultBuffGroup(self.StageId, self.BuffGroupId)
     self:InitChallengeList()
 end
 
@@ -73,15 +77,19 @@ function XUiBabelTowerChallengeChoice:InitChallengeList()
     if isAutoGuide then
         self.GridContent:Init(self.ChallengeBtnCompList, function(index) self:OnChallengeChoiceItemClick(index) end)
         self.GridContent.CanDisSelect = true
-        self.GridContent.CurSelectId = self.BuffGoupDatas.CurSelectId
+        self.GridContent.CurSelectId = self.BuffGroupData.CurSelectId
 
-        if self.BuffGoupDatas.IsFirstInit then
+        if self.BuffGroupData.IsFirstInit then
             local cache = XDataCenter.FubenBabelTowerManager.GetBuffListCacheByStageId(self.StageId, self.TeamId)
             local index = self:GetBuffIndexByGroupId(self.BuffGroupId, cache[self.BuffGroupId])
             if index ~= -1 then
                 self.GridContent:SelectIndex(index)
+            elseif self.IsDifficultBuffGroup then
+                -- 默认是难度1
+                XDataCenter.FubenBabelTowerManager.UpdateTeamSelectDifficult(self.StageId, self.TeamId, 1)
+                self.UiRoot:SetChallengeScore()
             end
-            self.BuffGoupDatas.IsFirstInit = false
+            self.BuffGroupData.IsFirstInit = false
         end
     else
         self:InitAutoStageGuide()
@@ -101,9 +109,9 @@ end
 function XUiBabelTowerChallengeChoice:GetBuffIndexByGroupId(groupId, buffId)
     local index = -1
     if not buffId then return index end
-    local groupDatas = XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(groupId)
-    for i = 1, #groupDatas.BuffId do
-        if buffId == groupDatas.BuffId[i] then
+    local groupConfig = XFubenBabelTowerConfigs.GetBabelTowerBuffGroupTemplate(groupId)
+    for i = 1, #groupConfig.BuffId do
+        if buffId == groupConfig.BuffId[i] then
             index = i
             break
         end
@@ -114,7 +122,7 @@ end
 function XUiBabelTowerChallengeChoice:InitAutoStageGuide()
     local stageGuideTemplate = XFubenBabelTowerConfigs.GetBabelTowerStageGuideTemplate(self.GuideId)
 
-    local selectBuffId = nil
+    local selectBuffId
     for index, buffGroupId in pairs(stageGuideTemplate.BuffGroup or {}) do
         if buffGroupId == self.BuffGroupId then
             selectBuffId = stageGuideTemplate.BuffId[index]
@@ -137,23 +145,21 @@ end
 function XUiBabelTowerChallengeChoice:OnChallengeChoiceItemClick(index)
     local currentSelectBuffId = self.BuffGroupTemplate.BuffId[index]
     local lockCallback = function()
-        local openLevel = XFubenBabelTowerConfigs.GetStageDifficultLockBuffIdOpenLevel(self.StageId, currentSelectBuffId)
-        openLevel = openLevel <= XFubenBabelTowerConfigs.Difficult.Count and openLevel + 1 or openLevel
-        local diffName = XFubenBabelTowerConfigs.GetStageDifficultName(self.StageId, openLevel)
-        local tip = CSXTextManagerGetText("BabelTowerStageLevelBuffLocked", diffName)
+        local buffTemplate = XFubenBabelTowerConfigs.GetBabelTowerBuffTemplate(currentSelectBuffId)
+        local tip = buffTemplate and buffTemplate.UnlockDesc or ""
         XUiManager.TipMsg(tip)
     end
     if self.UiRoot.UiRoot:IsBuffLock(currentSelectBuffId, lockCallback) then
         return
     end
 
-    if self.BuffGoupDatas.SelectedBuffId == currentSelectBuffId then
-        self.BuffGoupDatas.SelectedBuffId = nil
-        self.BuffGoupDatas.CurSelectId = -1
+    if self.BuffGroupData.SelectedBuffId == currentSelectBuffId then
+        self.BuffGroupData.SelectedBuffId = nil
+        self.BuffGroupData.CurSelectId = -1
     else
         -- 取消检查
         local currentCount = 0
-        for k, v in pairs(self.UiRoot.UiRoot.TeamList) do
+        for _, v in pairs(self.UiRoot.UiRoot.TeamList) do
             if v > 0 then
                 currentCount = currentCount + 1
             end
@@ -165,15 +171,22 @@ function XUiBabelTowerChallengeChoice:OnChallengeChoiceItemClick(index)
             XUiManager.TipError(XUiHelper.GetText("BabelTowerTeamSelectLimit"))
             return 
         end
-        self.BuffGoupDatas.SelectedBuffId = currentSelectBuffId
-        self.BuffGoupDatas.CurSelectId = index
+        self.BuffGroupData.SelectedBuffId = currentSelectBuffId
+        self.BuffGroupData.CurSelectId = index
     end
-    self.UiRoot:UpdateChoosedChallengeDatas(self.BuffGroupId, self.BuffGoupDatas.SelectedBuffId)
+    self.UiRoot:UpdateChooseChallengeData(self.BuffGroupId, self.BuffGroupData.SelectedBuffId)
+    -- 难度Buff组特殊处理
+    if self.IsDifficultBuffGroup then
+        local curSelectDifficult = XDataCenter.FubenBabelTowerManager.GetTeamSelectDifficult(self.StageId, self.TeamId)
+        local level = XFubenBabelTowerConfigs.GetStageDifficultLevelByBuffId(self.StageId, self.BuffGroupData.SelectedBuffId)
+        XDataCenter.FubenBabelTowerManager.UpdateTeamSelectDifficult(self.StageId, self.TeamId, level)
+        self.UiRoot:SetChallengeScore(not self.BuffGroupData.IsFirstInit and curSelectDifficult ~= level)
+    end
 end
 
 function XUiBabelTowerChallengeChoice:GetBuffSelectStatus(buffId)
-    if not self.BuffGoupDatas then return false end
-    return self.BuffGoupDatas.SelectedBuffId == buffId
+    if not self.BuffGroupData then return false end
+    return self.BuffGroupData.SelectedBuffId == buffId
 end
 
 function XUiBabelTowerChallengeChoice:IsBuffListOverCount()

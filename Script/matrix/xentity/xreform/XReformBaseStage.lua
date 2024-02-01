@@ -246,7 +246,7 @@ function XReformBaseStage:GetRecommendCharacterIcons()
     local result = {}
     for _, id in ipairs(self.Config.RecommendCharacterIds) do
         table.insert(result
-            , XDataCenter.CharacterManager.GetCharBigHeadIcon(id))
+            , XMVCA.XCharacter:GetCharBigHeadIcon(id))
     end
     return result
 end

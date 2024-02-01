@@ -56,7 +56,7 @@ function XUiMaverick2Shop:InitShopButton()
 end
 
 function XUiMaverick2Shop:InitActivityAsset()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelActivityAsset, self)
     XDataCenter.ItemManager.AddCountUpdateListener(
         {XDataCenter.ItemManager.ItemId.Maverick2Coin},
         handler(self, self.UpdateAssets),

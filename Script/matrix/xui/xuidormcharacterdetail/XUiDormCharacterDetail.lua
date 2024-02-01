@@ -4,17 +4,15 @@ local XUiDormCharacterDetail = XLuaUiManager.Register(XLuaUi, "UiDormCharacterDe
 function XUiDormCharacterDetail:OnAwake()
     self:AddListener()
 
+    --这里处理一下场景类型
     XUiHelper.SetSceneType(CS.XSceneType.Ui)
 
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_MOOD_CHANGED, self.UpdateMoodInfo, self)
     XEventManager.AddEventListener(XEventId.EVENT_CHARACTER_VITALITY_CHANGED, self.UpdateVitalityInfo, self)
-
-    --这里处理一下场景类型
 end
 
 function XUiDormCharacterDetail:OnDisable()
     XHomeDormManager.ShowOrHideBuilding(true)
-    XUiHelper.SetSceneType(CS.XSceneType.Dormitory)
 end
 
 
@@ -29,6 +27,7 @@ function XUiDormCharacterDetail:OnDestroy()
     if self.Model then
         CS.UnityEngine.Object.Destroy(self.Model)
     end
+    XUiHelper.SetSceneType(CS.XSceneType.Dormitory)
 end
 
 function XUiDormCharacterDetail:OnStart(characterId, fromDorm)

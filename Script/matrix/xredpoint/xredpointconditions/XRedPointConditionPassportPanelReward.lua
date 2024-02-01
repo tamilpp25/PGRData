@@ -16,7 +16,7 @@ function XRedPointConditionPassportPanelReward.GetSubEvents()
 end
 
 function XRedPointConditionPassportPanelReward.Check()
-    if XDataCenter.PassportManager.CheckPassportRewardRedPoint() then
+    if XMVCA.XPassport:CheckPassportRewardRedPoint() then
         return true
     end
     return false

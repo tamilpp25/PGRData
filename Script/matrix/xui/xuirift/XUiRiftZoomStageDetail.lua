@@ -10,10 +10,12 @@ end
 function XUiRiftZoomStageDetail:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnCloseMask, self.OnBtnCloseMaskClick)
     XUiHelper.RegisterClickEvent(self, self.BtnFight, self.OnBtnFightClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnReward, self.OnBtnRewardClick)
 end
 
-function XUiRiftZoomStageDetail:OnStart(xStageGroup, closeCb)
-    self.XStageGroup = xStageGroup
+function XUiRiftZoomStageDetail:OnStart(layerId, closeCb)
+    self.XFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(layerId)
+    self.XStageGroup = self.XFightLayer:GetStage()
     self.CloseCb = closeCb
 end
 
@@ -61,6 +63,10 @@ end
 
 function XUiRiftZoomStageDetail:OnDestroy()
     self.CloseCb()
+end
+
+function XUiRiftZoomStageDetail:OnBtnRewardClick()
+    XLuaUiManager.Open("UiRiftPreview", self.XFightLayer)
 end
 
 return XUiRiftZoomStageDetail

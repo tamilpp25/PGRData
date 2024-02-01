@@ -7,7 +7,7 @@ local XUiPanelDetail = require("XUi/XUiTheatre/FieldGuide/XUiPanelDetail")
 local XUiTheatreFieldGuide = XLuaUiManager.Register(XLuaUi, "UiTheatreFieldGuide")
 
 function XUiTheatreFieldGuide:OnAwake()
-    XUiHelper.NewPanelActivityAsset(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool)
+    XUiHelper.NewPanelActivityAssetSafe(XDataCenter.TheatreManager.GetAssetItemIds(), self.PanelSpecialTool, self)
     self:AddListener()
 end
 

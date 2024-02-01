@@ -76,7 +76,11 @@ function XUiGridQuickDeployTeam:Refresh(teamList, teamId, groupId)
     local captainPos = team:GetCaptainPos()
     self.PanelTabCaptain:SelectIndex(captainPos)
 
-    local isFinished = XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, teamId)
+    local isFinished = false
+    if XTool.IsNumberValid(groupId) then
+        local teamIndex = XDataCenter.StrongholdManager.GetTeamIndexByProp(groupId, teamId)
+        isFinished = XDataCenter.StrongholdManager.IsGroupStageFinished(groupId, teamIndex)
+    end
     self.TagDis.gameObject:SetActiveEx(isFinished)
 end
 

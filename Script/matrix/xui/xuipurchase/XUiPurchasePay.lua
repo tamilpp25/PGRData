@@ -19,12 +19,13 @@ function XUiPurchasePay:Ctor(ui, uiRoot, tab)
 end
 
 -- 更新数据
-function XUiPurchasePay:OnRefresh(uiType)
+function XUiPurchasePay:OnRefresh(uiType, selectIndex)
     if XDataCenter.UiPcManager.IsPc() then
         XUiManager.TipText("PcRechargeCloseTip")
         XLuaUiManager.RunMain();
     end
     self.CurState = false
+    self.CurrentIndex = selectIndex or self.CurrentIndex
     self.PanelPurchase.gameObject:SetActive(false)
     
     local data = XDataCenter.PurchaseManager.GetDatasByUiType(uiType) or {}

@@ -21,8 +21,6 @@ function XUiFubenChristmasMainLineChapter:OnAwake()
     self.LastOpenStage = nil
     self.StageGroup = {}
     XEventManager.AddEventListener(XEventId.EVENT_ON_FESTIVAL_CHANGED, self.RefreshFestivalNodes, self)
-    XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.Festival,
-        require("XUi/XUiFestivalActivity/XUiFestivalActivityNewRoomSingle"))
 end
 
 function XUiFubenChristmasMainLineChapter:OnEnable()
@@ -221,7 +219,7 @@ end
 -- 更新刷新
 function XUiFubenChristmasMainLineChapter:RefreshFestivalNodes()
     if not self.Chapter or not self.FestivalStageIds then return end
-    for i = 1, #self.FestivalStageIds do
+        for i = 1, #self.FestivalStageIds do
         self.FestivalStages[i]:UpdateNode(self.Chapter:GetChapterId(), self.FestivalStageIds[i])
     end
     self:UpdateNodeLines()
@@ -487,9 +485,22 @@ function XUiFubenChristmasMainLineChapter:InitSkipBtn()
                 self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnSkip, self.OnCheckBtnGameRedPoint, self, SkipBtnRedPointCondition[self.Chapter:GetChapterId()], nil, false)
             end
         end
+        local skipId2 = skipIds[2]
+        if self.BtnSkip2 and XTool.IsNumberValid(skipId2) then
+            self.BtnSkip2.CallBack = function()
+                XFunctionManager.SkipInterface(skipId2)
+            end
+            if SkipBtnRedPointCondition[self.Chapter:GetChapterId()] then
+                self.RedPointId = XRedPointManager.AddRedPointEvent(self.BtnSkip2, self.OnCheckBtnSkip2RedPoint, self, SkipBtnRedPointCondition[self.Chapter:GetChapterId()], nil, false)
+            end
+        end
     end
 end
 
 function XUiFubenChristmasMainLineChapter:OnCheckBtnGameRedPoint(count)
     self.BtnSkip:ShowReddot(count>=0)
+end
+
+function XUiFubenChristmasMainLineChapter:OnCheckBtnSkip2RedPoint(count)
+    self.BtnSkip2:ShowReddot(count>=0)
 end

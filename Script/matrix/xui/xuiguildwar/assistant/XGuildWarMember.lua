@@ -40,7 +40,7 @@ function XGuildWarMember:GetAbility()
 
     local ability = 0
     if self:IsMyCharacter() then
-        ability = XDataCenter.CharacterManager.GetCharacterAbilityById(self.EntityId, self.PlayerId)
+        ability = XMVCA.XCharacter:GetCharacterAbilityById(self.EntityId)
     else
         ability = XDataCenter.GuildWarManager.GetAssistantCharacterAbility(self.EntityId, self.PlayerId)
     end
@@ -75,7 +75,7 @@ function XGuildWarMember:GetCharacterViewModel()
         return false
     end
     if self:IsMyCharacter() then
-        local character = XDataCenter.CharacterManager.GetCharacter(self.EntityId)
+        local character = XMVCA.XCharacter:GetCharacter(self.EntityId)
         return character and character:GetCharacterViewModel()
     end
     return XDataCenter.GuildWarManager.GetAssistantCharacterViewModel(self.EntityId, self.PlayerId)
@@ -100,11 +100,11 @@ function XGuildWarMember:GetCaptainSkillDesc()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self.EntityId, true)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self.EntityId, true)
     elseif self:IsRobot() then --复制黏贴过来的 现在用不上
         return XRobotManager.GetRobotCaptainSkillDesc(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCaptainSkillDesc(self.EntityId)
+        return XMVCA.XCharacter:GetCaptainSkillDesc(self.EntityId)
     end
 end
 
@@ -115,11 +115,11 @@ function XGuildWarMember:GetSmallHeadIcon()
     end
 
     if self:IsAssitant() then
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.EntityId, true)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self.EntityId, true)
     elseif self:IsRobot() then --复制黏贴过来的 现在用不上
         return XRobotManager.GetRobotSmallHeadIcon(self._RobotId)
     else
-        return XDataCenter.CharacterManager.GetCharSmallHeadIcon(self.EntityId)
+        return XMVCA.XCharacter:GetCharSmallHeadIcon(self.EntityId)
     end
 end
 

@@ -26,12 +26,7 @@ function XUiTheatre3Prop:InitItemList()
         self.TxtTitle = XUiHelper.TryGetComponent(self.Transform, "SafeAreaContentPane/TxtTitle")
     end
     if XTool.IsTableEmpty(itemList) then
-        self.PanelEmpty.gameObject:SetActiveEx(true)
-        self.SViewlList.gameObject:SetActiveEx(false)
-        if self.TxtTitle then
-            self.TxtTitle.gameObject:SetActiveEx(false)
-        end
-        self._PanelItemDetail:Close()
+        self:_RefreshItemEmpty()
         return
     end
     self.PanelEmpty.gameObject:SetActiveEx(false)
@@ -40,7 +35,7 @@ function XUiTheatre3Prop:InitItemList()
 
     ---@type number[]
     self._ItemTypeList = {}
-    ---@type table<number, number[]> key = itemType, value = itemList
+    ---@type table<number, XTheatre3Item[]> key = itemType, value = itemList
     self._ItemIdListDir = {}
     ---@type table<number, XPanelTheatre3ItemProp>  key = itemType, value = itemUiGrid
     self._PanelItemDir = {}
@@ -48,24 +43,26 @@ function XUiTheatre3Prop:InitItemList()
     self:_InitItemPanelList()
 end
 
----@param itemList table<number, table> key = index, value = {Uid, ItemId}
+---@param itemList XTheatre3Item[]
 function XUiTheatre3Prop:_InitItemListData(itemList)
     for _, itemData in ipairs(itemList) do
-        local itemCfg = self._Control:GetItemConfigById(itemData.ItemId)
-        if not table.indexof(self._ItemTypeList, itemCfg.Type) then
-            self._ItemTypeList[#self._ItemTypeList + 1] = itemCfg.Type
-            self._ItemIdListDir[itemCfg.Type] = {}
+        if self._Control:IsAdventureItemLive(itemData) then
+            local itemCfg = self._Control:GetItemConfigById(itemData.ItemId)
+            if not table.indexof(self._ItemTypeList, itemCfg.Type) then
+                self._ItemTypeList[#self._ItemTypeList + 1] = itemCfg.Type
+                self._ItemIdListDir[itemCfg.Type] = {}
+            end
+            table.insert(self._ItemIdListDir[itemCfg.Type], itemData)
         end
-        table.insert(self._ItemIdListDir[itemCfg.Type], itemData.ItemId)
     end
-    for _, itemIdList in pairs(self._ItemIdListDir) do
-        table.sort(itemIdList,function(a, b) 
-            local itemCfgA = self._Control:GetItemConfigById(a)
-            local itemCfgB = self._Control:GetItemConfigById(b)
+    for _, itemData in pairs(self._ItemIdListDir) do
+        table.sort(itemData,function(a, b) 
+            local itemCfgA = self._Control:GetItemConfigById(a.ItemId)
+            local itemCfgB = self._Control:GetItemConfigById(b.ItemId)
             if itemCfgA.Quality ~= itemCfgB.Quality then
                 return itemCfgA.Quality > itemCfgB.Quality
             end
-            return a < b
+            return a.ItemId < b.ItemId
         end)
     end
     table.sort(self._ItemTypeList,function(a, b)
@@ -79,6 +76,7 @@ function XUiTheatre3Prop:_InitItemPanelList()
     ---@type table[]
     self._PanelTitleList = {}
     if XTool.IsTableEmpty(self._ItemTypeList) then
+        self:_RefreshItemEmpty()
         return
     end
     for i, _ in ipairs(self._ItemTypeList) do
@@ -110,6 +108,15 @@ function XUiTheatre3Prop:RefreshItemList()
         end
     end
 end
+
+function XUiTheatre3Prop:_RefreshItemEmpty()
+    self.PanelEmpty.gameObject:SetActiveEx(true)
+    self.SViewlList.gameObject:SetActiveEx(false)
+    if self.TxtTitle then
+        self.TxtTitle.gameObject:SetActiveEx(false)
+    end
+    self._PanelItemDetail:Close()
+end
 --endregion
 
 --region Ui - GridProp
@@ -134,6 +141,7 @@ function XUiTheatre3Prop:OnSelectItem(grid)
         panelGrid:RefreshSelect(self._CurSelectGrid)
     end
     self:RefreshItemDetail()
+    self:PlayAnimationWithMask("QieHuan")
 end
 
 function XUiTheatre3Prop:ClickPropGridByIndex(panelIndex, itemIndex)
@@ -154,7 +162,7 @@ function XUiTheatre3Prop:RefreshItemDetail()
         return
     end
     self._PanelItemDetail:Open()
-    self._PanelItemDetail:Refresh(self._CurSelectGrid:GetId())
+    self._PanelItemDetail:Refresh(self._CurSelectGrid:GetItemData())
 end
 --endregion
 
@@ -167,3 +175,5 @@ function XUiTheatre3Prop:OnBtnBackClick()
     self:Close()
 end
 --endregion
+
+return XUiTheatre3Prop

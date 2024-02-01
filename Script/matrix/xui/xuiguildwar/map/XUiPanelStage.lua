@@ -30,10 +30,11 @@ local NodeType2StageGrid = {
     [XGuildWarConfig.NodeType.Term3SecretRoot] = require("XUi/XUiGuildWar/Map/XUiGridStage/XUiGridStageSecret"),
     [XGuildWarConfig.NodeType.Blockade] = require("XUi/XUiGuildWar/Map/XUiGridStage/XUiGridStageBlock"),
     [XGuildWarConfig.NodeType.Term4BossRoot] = require("XUi/XUiGuildWar/Map/XUiGridStage/XUiGridStageTerm4"),
+    [XGuildWarConfig.NodeType.Resource] = require("XUi/XUiGuildWar/Map/XUiGridStage/XUiGridStageResource")
 }
 --类型节点对应的预制体路径
 local NodeType2StagePerfabPath = {
-    [XGuildWarConfig.NodeType.Home] = "GuildWarStageType1",
+    [XGuildWarConfig.NodeType.Resource] = "GuildWarStageType1",
     [XGuildWarConfig.NodeType.Normal] = "GuildWarStageType2",
     [XGuildWarConfig.NodeType.Buff] = "GuildWarStageType3",
     [XGuildWarConfig.NodeType.Sentinel] = "GuildWarStageType4",
@@ -165,12 +166,14 @@ function XUiPanelStage:StageInit()
     self.NodeIdToGridLineDic = {}
     for _, node in pairs(self.AllNodesList or {}) do
         local nodeType = node:GetNodeType()
-        local obj = CS.UnityEngine.Object.Instantiate(perfabList[nodeType], self.StagePosDic[node:GetStageIndexName()])
-        local GridScript = NodeType2StageGrid[nodeType]
-        local grid = (GridScript and GridScript.New(obj, self)) or XUiGridStage.New(obj, self)
-        self.GridStageDic[node:GetStageIndexName()] = grid
-        self.NodeId2GridStageDic[node:GetId()] = grid
-        self.AllNodeDic[node:GetStageIndexName()] = node
+        if perfabList[nodeType] then
+            local obj = CS.UnityEngine.Object.Instantiate(perfabList[nodeType], self.StagePosDic[node:GetStageIndexName()])
+            local GridScript = NodeType2StageGrid[nodeType]
+            local grid = (GridScript and GridScript.New(obj, self)) or XUiGridStage.New(obj, self)
+            self.GridStageDic[node:GetStageIndexName()] = grid
+            self.NodeId2GridStageDic[node:GetId()] = grid
+            self.AllNodeDic[node:GetStageIndexName()] = node
+        end
     end
 end
 --初始化精英怪
@@ -194,12 +197,14 @@ function XUiPanelStage:OnEnable()
     self:AddEventListener()
     self:ShowAction(true)
     self:StartActionCheck()
+    self:StartDefendLeftTimeTimer()
 end
 --跟随XUiGuildWarStageMain的OnDisable
 function XUiPanelStage:OnDisable()
     self:RemoveEventListener()
     self:StopActionPlay()
     self:StopActionCheck()
+    self:StopDefendLeftTimeTimer()
 end
 --添加监听
 function XUiPanelStage:AddEventListener()
@@ -229,6 +234,9 @@ function XUiPanelStage:AddEventListener()
     end
     CS.XGameEventManager.Instance:RegisterEvent(XEventId.EVENT_GUIDE_START, self._FocusBase)
     --endregion
+    
+    XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_DEFEND_UPDATE,self.RefreshResourcesNode,self)
+    --XEventManager.AddEventListener(XEventId.EVENT_GUILDWAR_ATTACKINFO_UPDATE,self.RefreshResourcesNodeState,self)
 end
 --移除监听
 function XUiPanelStage:RemoveEventListener()
@@ -259,6 +267,10 @@ function XUiPanelStage:RemoveEventListener()
 
     --endregion
     self:StopTimerBaseBeHit()
+
+    XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_DEFEND_UPDATE,self.RefreshResourcesNode,self)
+    --XEventManager.RemoveEventListener(XEventId.EVENT_GUILDWAR_ATTACKINFO_UPDATE,self.RefreshResourcesNodeState,self)
+
 end
 
 --更新MonsterGrid的数据 并获取对应Grid的引用
@@ -730,7 +742,7 @@ function XUiPanelStage:LookAllMap(IsLook, cb)
     local tagTra = self:GetMySelfNode() or self.GridStageDic[BASENODE_INDEX]
 
     for key, node in pairs(self.AllNodeDic or {}) do
-        if node:GetNodeType() == XGuildWarConfig.NodeType.Home then
+        if node:GetNodeType() == XGuildWarConfig.NodeType.Home or node:GetNodeType() == XGuildWarConfig.NodeType.Resource then
             firstGrid = self.GridStageDic[node:GetStageIndexName()]
         elseif node:GetIsLastNode() then
             lastGrid = self.GridStageDic[node:GetStageIndexName()]
@@ -915,6 +927,65 @@ function XUiPanelStage:FocusOnBase()
         local grid = self.GridStageDic[BASENODE_INDEX]
         self:PanelDragFocusTarget(grid)
     end
+end
+
+function XUiPanelStage:RefreshResourcesNode()
+    for i, v in pairs(self.AllNodeDic) do
+        if v:GetNodeType() == XGuildWarConfig.NodeType.Resource then
+            self.GridStageDic[i]:RefreshGarrison()
+            self.GridStageDic[i]:RefreshNormalIcon()
+        end
+    end
+end
+
+function XUiPanelStage:RefreshResourcesNodeState()
+    for i, v in pairs(self.AllNodeDic) do
+        if v:GetNodeType() == XGuildWarConfig.NodeType.Resource then
+            self.GridStageDic[i]:UpdateNodeData()
+            self.GridStageDic[i]:RefreshGarrison()
+            self.GridStageDic[i]:RefreshRebuildState()
+            self.GridStageDic[i]:RefreshNormalIcon()
+        end
+    end
+end 
+
+function XUiPanelStage:SetResourcesDisplayWithAttackAnimation(isAnimation)
+    for i, v in pairs(self.AllNodeDic) do
+        if v:GetNodeType() == XGuildWarConfig.NodeType.Resource then
+            self.GridStageDic[i]:SetDisplayWithAttackAnimation(isAnimation)
+        end
+    end
+end
+
+function XUiPanelStage:StartDefendLeftTimeTimer()
+    if XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+        self.TextDefendTime.transform.parent.gameObject:SetActiveEx(true)
+        self:StopDefendLeftTimeTimer()
+        self:UpdateDefendLeftTime()
+        self.DefendLeftTimeTimerId = XScheduleManager.ScheduleForever(handler(self,self.UpdateDefendLeftTime),XScheduleManager.SECOND,0)
+    else
+        self.TextDefendTime.transform.parent.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiPanelStage:StopDefendLeftTimeTimer()
+    if self.DefendLeftTimeTimerId then
+        XScheduleManager.UnSchedule(self.DefendLeftTimeTimerId)
+    end
+end
+
+function XUiPanelStage:UpdateDefendLeftTime()
+    if not XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+        self.TextDefendTime.transform.parent.gameObject:SetActiveEx(false)
+        self:StopDefendLeftTimeTimer()
+        return
+    end
+    local nextTime = XDataCenter.GuildWarManager.GetNextAttackedTime()
+    local leftTime = nextTime - XTime.GetServerNowTimestamp()
+
+    self.TextDefendTime.transform.parent.gameObject:SetActiveEx(leftTime >= 0)
+    
+    self.TextDefendTime.text = XUiHelper.FormatText(XGuildWarConfig.GetClientConfigValues('DefendTime')[1],XUiHelper.GetTime(leftTime,XUiHelper.TimeFormatType.DAY_HOUR_SIMPLY))
 end
 
 return XUiPanelStage

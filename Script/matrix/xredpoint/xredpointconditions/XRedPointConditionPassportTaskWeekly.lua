@@ -13,7 +13,7 @@ function XRedPointConditionPassportTaskWeekly.GetSubEvents()
 end
 
 function XRedPointConditionPassportTaskWeekly.Check()
-    if XDataCenter.PassportManager.CheckPassportAchievedTaskRedPoint(XPassportConfigs.TaskType.Weekly) then
+    if XMVCA.XPassport:CheckPassportAchievedTaskRedPoint(XEnumConst.PASSPORT.TASK_TYPE.WEEKLY) then
         return true
     end
     return false

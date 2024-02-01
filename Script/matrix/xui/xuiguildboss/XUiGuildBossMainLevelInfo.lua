@@ -121,13 +121,9 @@ function XUiGuildBossMainLevelInfo:OnBtnStartClick()
     end
 
     local continueCb = function ()
-        if XTool.USENEWBATTLEROOM then
-            XLuaUiManager.Open("UiBattleRoleRoom", self.Data.StageId
-                , XDataCenter.GuildBossManager.GetXTeamByStageId(self.Data.StageId)
-                , require("XUi/XUiGuildBoss/XUiGuildBossBattleRoleRoom"))
-        else
-            XLuaUiManager.Open("UiNewRoomSingle", self.Data.StageId)
-        end
+        XLuaUiManager.Open("UiBattleRoleRoom", self.Data.StageId
+            , XDataCenter.GuildBossManager.GetXTeamByStageId(self.Data.StageId)
+            , require("XUi/XUiGuildBoss/XUiGuildBossBattleRoleRoom"))
     end
 
     local textData = 

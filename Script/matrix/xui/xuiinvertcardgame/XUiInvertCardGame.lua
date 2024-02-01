@@ -22,7 +22,7 @@ function XUiInvertCardGame:OnStart()
     self.RedPointIds = {}
     self:AutoRegisterBtn()
     self.ItemId = XDataCenter.InvertCardGameManager.GetConsumeItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ self.ItemId }, self.PanelActivityAsset)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ self.ItemId }, self.PanelActivityAsset, self)
     self:InitBtnGroup()
     self:RefreshBtnTab()
     local defaultSelectIdx = XDataCenter.InvertCardGameManager.FindDefaultSelectTabIndex()

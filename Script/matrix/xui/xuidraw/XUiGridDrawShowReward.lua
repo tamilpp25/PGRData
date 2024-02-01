@@ -97,7 +97,7 @@ function XUiGridDrawShowModel:OnShow(rewardInfo)
     elseif Type == XArrangeConfigs.Types.Weapon then
         quality = templateIdData.Star
     elseif Type == XArrangeConfigs.Types.Character then
-        quality = XCharacterConfigs.GetCharMinQuality(id)
+        quality = XMVCA.XCharacter:GetCharMinQuality(id)
     elseif Type == XArrangeConfigs.Types.Partner then
         quality = templateIdData.Quality
     else
@@ -156,7 +156,7 @@ function XUiGridDrawShowModel:OnShow(rewardInfo)
     else
         local isSmall = false
         if Type == XArrangeConfigs.Types.Character then
-            icon = XDataCenter.CharacterManager.GetCharHalfBodyImage(id)
+            icon = XMVCA.XCharacter:GetCharHalfBodyImage(id)
             if quality < 3 then
                 soundType = XSoundManager.UiBasicsMusic.UiDrawCard_Type.FiveStar
             elseif quality > 2 then
@@ -231,6 +231,10 @@ local tempFilterWeaponId = {
     2236001,
 }
 
+local tempFilterWeaponFashionId = {
+    12230004,
+}
+
 function XUiGridDrawShowModel:CreateWeaponModel(templateId)
 
     local modelConfig = XDataCenter.EquipManager.GetWeaponModelCfg(templateId, self.RootUi.Name, 0)
@@ -250,7 +254,9 @@ function XUiGridDrawShowModel:CreateWeaponFashionModel(templateId)
     if modelConfig then
         XModelManager.LoadWeaponModel(modelConfig.ModelId, self.GridModel.gameObject, modelConfig.TransformConfig, self.RootUi.Name, function(model)
             model.gameObject:SetActiveEx(true)
-            self:Load3dLineEffect(model, LineEffectWeapon3d)
+            if not table.contains(tempFilterWeaponFashionId, fashionId) then
+                self:Load3dLineEffect(model, LineEffectWeapon3d)
+            end
         end, { gameObject = self.RootUi.GameObject })
     end
 end
@@ -265,7 +271,7 @@ function XUiGridDrawShowModel:CreateCharacterModel(templateId, fashionId)
     end
     local curCharacterId = templateId or XDataCenter.FashionManager.GetCharacterId(fashionId)
 
-    local curFashtionId = fashionId or XCharacterConfigs.GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
+    local curFashtionId = fashionId or XMVCA.XCharacter:GetCharacterTemplate(curCharacterId).DefaultNpcFashtionId
     XDataCenter.DisplayManager.UpdateRoleModel(self.RoleModelPanel, curCharacterId, nil, curFashtionId)
 
     self.RoleModelPanel:UpdateCharacterModel(curCharacterId, self.GridModel, self.RootUi.Name, function(model)

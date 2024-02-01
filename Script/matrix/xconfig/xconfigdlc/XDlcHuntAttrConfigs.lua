@@ -29,22 +29,40 @@ local _ConfigAttrDesc
 local _ConfigAttrType
 
 function XDlcHuntAttrConfigs.Init()
-    _ConfigAttrib = XConfig.New("Share/DlcHunt/Attrib/AttribBase", XTable.XTableAttribBase, "Id")
-    local xtable = XTable.XTableDlcHuntAttribDesc
-    xtable.Power.ValueType = "float"
-    _ConfigAttrDesc = XConfig.New("Share/DlcHunt/Attrib/DlcHuntAttribDesc.tab", xtable, "Name")
-    _ConfigAttrType = XConfig.New("Client/DlcHunt/Attrib/DlcHuntAttrType.tab", XTable.XTableDlcHuntAttrType, "AttrType")
+end
+
+local function __InitConfigAttrib()
+    if not _ConfigAttrib then
+        _ConfigAttrib = XConfig.New("Share/DlcHunt/Attrib/AttribBase", XTable.XTableAttribBase, "Id")
+    end
+end
+
+local function __InitConfigAttrDesc()
+    if not _ConfigAttrDesc then
+        local xtable = XTable.XTableDlcHuntAttribDesc
+        xtable.Power.ValueType = "float"
+        _ConfigAttrDesc = XConfig.New("Share/DlcHunt/Attrib/DlcHuntAttribDesc.tab", xtable, "Name")
+    end
+end
+
+local function __InitConfigAttrType()
+    if not _ConfigAttrType then
+        _ConfigAttrType = XConfig.New("Client/DlcHunt/Attrib/DlcHuntAttrType.tab", XTable.XTableDlcHuntAttrType, "AttrType")
+    end
 end
 
 function XDlcHuntAttrConfigs.GetAttrTable(attribId)
+    __InitConfigAttrib()
     return _ConfigAttrib:GetConfig(attribId)
 end
 
 function XDlcHuntAttrConfigs.GetAttrName(id)
+    __InitConfigAttrDesc()
     return _ConfigAttrDesc:GetProperty(id, "Des") or "???"
 end
 
 function XDlcHuntAttrConfigs.GetAttrNameEn(id)
+    __InitConfigAttrDesc()
     return _ConfigAttrDesc:GetProperty(id, "DescEn") or "???"
 end
 
@@ -59,27 +77,32 @@ function XDlcHuntAttrConfigs.GetAttrPriority(id)
     if id == XDlcHuntAttrConfigs.ATTR_TYPE_STR.Defense then
         return 1
     end
+    __InitConfigAttrDesc()
     local priority = _ConfigAttrDesc:GetProperty(id, "Id") or 0
     return -priority
 end
 
 -- 属性转战斗力的系数
 local function GetRatioFightingPower(attrId)
+    __InitConfigAttrDesc()
     return _ConfigAttrDesc:TryGetProperty(attrId, "Power")
 end
 
 -- 为什么要加这个判断，因为配置Id也被放在attrTable里了
 function XDlcHuntAttrConfigs.IsAttr(attrId)
+    __InitConfigAttrDesc()
     local config = _ConfigAttrDesc:TryGetConfig(attrId)
     return config ~= nil
 end
 
 function XDlcHuntAttrConfigs.IsFightingAttr(attrId)
+    __InitConfigAttrDesc()
     local config = _ConfigAttrDesc:TryGetConfig(attrId)
     return config and config.Type == XDlcHuntAttrConfigs.ATTR_TYPE.Fighting
 end
 
 function XDlcHuntAttrConfigs.IsSystemAttr(attrId)
+    __InitConfigAttrDesc()
     local config = _ConfigAttrDesc:TryGetConfig(attrId)
     return config and config.Type ~= XDlcHuntAttrConfigs.ATTR_TYPE.Fighting
 end
@@ -99,6 +122,7 @@ function XDlcHuntAttrConfigs.GetFightingPower(attrTable)
 end
 
 local function IsPercent(attrId)
+    __InitConfigAttrDesc()
     return _ConfigAttrDesc:GetProperty(attrId, "IsPercent")
 end
 
@@ -116,10 +140,12 @@ function XDlcHuntAttrConfigs.GetValueWithPercent(attrId, attrValue, keepDecimals
 end
 
 function XDlcHuntAttrConfigs.GetNameAttrType(attrType)
+    __InitConfigAttrType()
     return _ConfigAttrType:GetProperty(attrType, "Des")
 end
 
 function XDlcHuntAttrConfigs.GetAttrType(attrId)
+    __InitConfigAttrDesc()
     return _ConfigAttrDesc:GetProperty(attrId, "Type")
 end
 

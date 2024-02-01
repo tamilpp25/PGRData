@@ -8,6 +8,7 @@ local TABLE_PURCHASE_UITYPE = "Client/Purchase/PurchaseUiType.tab"
 local TABLE_PURCHASE_TAGTYPE = "Client/Purchase/PurchaseTagType.tab"
 local TABLE_ACCUMULATED_PAY = "Share/Pay/AccumulatedPay.tab"
 local TABLE_ACCUMULATED_PAY_REWARD = "Share/Pay/AccumulatedPayReward.tab"
+local TABLE_ACCUMULATED_PAY_EXTRA_REWARD = "Share/Pay/AccumulatedExtraPayReward.tab"
 local TABLE_LB_BY_PASS = "Client/Purchase/PurchaseLBByPass.tab"
 local TABLE_PACKAGE_YK_CLIENT_CONFIG = "Client/Purchase/PurchasePackageYKUiConfig.tab" -- 礼包月卡配置
 local TABLE_EXCHANGE_UI_CONFIG = "Client/Purchase/PurchaseExchangeUiConfig.tab" -- 兑换
@@ -22,6 +23,7 @@ local PurchaseTagTypeConfig = {}
 
 local AccumulatedPayConfig = {}
 local AccumulatedPayRewardConfig = {}
+local AccumulatedPayExtraRewardConfig = {}
 local PurchaseLBByPassConfig = {}
 
 local PurchaseUiTypeGroupConfig = nil
@@ -152,6 +154,7 @@ function XPurchaseConfigs.Init()
     PurchaseTagTypeConfig = XTableManager.ReadByIntKey(TABLE_PURCHASE_TAGTYPE, XTable.XTablePurchaseTagType, "Tag")
     AccumulatedPayConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY, XTable.XTableAccumulatedPay, "Id")
     AccumulatedPayRewardConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY_REWARD, XTable.XTableAccumulatedPayReward, "Id")
+    AccumulatedPayExtraRewardConfig = XTableManager.ReadByIntKey(TABLE_ACCUMULATED_PAY_EXTRA_REWARD, XTable.XTableAccumulatedExtraPayReward, "Id")
     -- PurchaseLBByPassConfig = XTableManager.ReadByIntKey(TABLE_LB_BY_PASS, XTable.XTablePurchaseLBByPass, "Id")
 
     XConfigCenter.CreateGetPropertyByFunc(XPurchaseConfigs, "PurchasePackageYKUiConfig", function()
@@ -382,12 +385,22 @@ function XPurchaseConfigs.GetAccumulatePayConfigById(id)
     return AccumulatedPayConfig[id]
 end
 
+---@return XTableAccumulatedPayReward
 function XPurchaseConfigs.GetAccumulateRewardConfigById(id)
     if not id or not AccumulatedPayRewardConfig[id] then
         return
     end
 
     return AccumulatedPayRewardConfig[id]
+end
+
+---@return XTableAccumulatedExtraPayReward
+function XPurchaseConfigs.GetAccumulateExtraRewardConfigById(id)
+    if not id or not AccumulatedPayExtraRewardConfig[id] then
+        return
+    end
+
+    return AccumulatedPayExtraRewardConfig[id]
 end
 
 function XPurchaseConfigs.GetUiTypesByUiPurchaseTopType(topType)

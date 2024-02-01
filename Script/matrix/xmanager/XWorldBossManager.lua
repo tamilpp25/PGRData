@@ -615,18 +615,18 @@ XWorldBossManagerCreator = function()
 end
 
 XRpc.NotifyWorldBossData = function(data)
-    XDataCenter.WorldBossManager.UpdateWorldBossMySelfData(data.SingleData)
-    XDataCenter.WorldBossManager.UpdateWorldBossGlobalData(data.GlobalData)
-    XDataCenter.WorldBossManager.UpdateWorldBossActivity()
-    XEventManager.DispatchEvent(XEventId.EVENT_WORLDBOSS_TASK_RESET)
+    --XDataCenter.WorldBossManager.UpdateWorldBossMySelfData(data.SingleData)
+    --XDataCenter.WorldBossManager.UpdateWorldBossGlobalData(data.GlobalData)
+    --XDataCenter.WorldBossManager.UpdateWorldBossActivity()
+    --XEventManager.DispatchEvent(XEventId.EVENT_WORLDBOSS_TASK_RESET)
 end
 
 XRpc.NotifyWorldBossAttributeAreaData = function(data)
-    XDataCenter.WorldBossManager.UpdateMySelfAttributeAreaData(data.AttributeAreaData)
-    XDataCenter.WorldBossManager.UpdateWorldBossActivity()
+    --XDataCenter.WorldBossManager.UpdateMySelfAttributeAreaData(data.AttributeAreaData)
+    --XDataCenter.WorldBossManager.UpdateWorldBossActivity()
 end
 
 XRpc.NotifyWorldBossBossAreaData = function(data)
-    XDataCenter.WorldBossManager.UpdateMySelfBossAreaData(data.BossAreaData)
-    XDataCenter.WorldBossManager.UpdateWorldBossActivity()
+    --XDataCenter.WorldBossManager.UpdateMySelfBossAreaData(data.BossAreaData)
+    --XDataCenter.WorldBossManager.UpdateWorldBossActivity()
 end

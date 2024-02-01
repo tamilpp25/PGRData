@@ -35,6 +35,13 @@ function XUiGuildWarCharacterSelectSelf:Init()
     XUiHelper.RegisterClickEvent(self, self.BtnWeapon, self.OnBtnWeaponClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnJoinTeam, self.OnBtnJoinTeamClicked)
     XUiHelper.RegisterClickEvent(self, self.BtnQuitTeam, self.OnBtnQuitTeamClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnType, self.OnBtnCareerTipsClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill1, function ()
+        self:OnBtnGeneralSkillClick(1)
+    end)
+    XUiHelper.RegisterClickEvent(self, self.BtnGeneralSkill2, function ()
+        self:OnBtnGeneralSkillClick(2)
+    end)
 end
 
 function XUiGuildWarCharacterSelectSelf:Show(characterType, selectedEntityId, filterKey)
@@ -90,7 +97,7 @@ function XUiGuildWarCharacterSelectSelf:SelectCharacter(index)
 end
 
 function XUiGuildWarCharacterSelectSelf:GetEntities(notFilter)
-    local list = XDataCenter.CharacterManager.GetOwnCharacterList(self._CharacterType)
+    local list = XMVCA.XCharacter:GetOwnCharacterList(self._CharacterType)
 
     if not notFilter then
         local filterData = XDataCenter.CommonCharacterFiltManager.GetSelectTagData(self._FilterKey)
@@ -155,6 +162,14 @@ end
 ---@param character XCharacter
 function XUiGuildWarCharacterSelectSelf:UpdateCharacterData(character)
     self._Character = character
+    self:UpdateCharacter()
+end
+
+function XUiGuildWarCharacterSelectSelf:UpdateCharacter()
+    local character = self._Character
+    if not character then
+        return
+    end
     local characterId = character:GetId()
     if not characterId then
         return
@@ -163,30 +178,50 @@ function XUiGuildWarCharacterSelectSelf:UpdateCharacterData(character)
         EntityId = characterId,
         PlayerId = XPlayer.Id
     }))
-
-    -- name
-    local charConfig = XCharacterConfigs.GetCharacterTemplate(characterId)
+        
+    -- 机体名
+    local charConfig = XMVCA.XCharacter:GetCharacterTemplate(characterId)
     self.TxtName.text = charConfig.Name
     self.TxtNameOther.text = charConfig.TradeName
 
-    -- icon
-    self.RImgTypeIcon:SetRawImage(XCharacterConfigs.GetNpcTypeIcon(character.Type))
+    -- 职业
+    local career = XMVCA.XCharacter:GetCharacterCareer(characterId)
+    local careerIcon = XMVCA.XCharacter:GetNpcTypeIcon(career)
+    self.BtnType:SetRawImage(careerIcon)
 
-    -- level
-    self.TxtLv.text = math.floor(character.Ability)
+    local showUniframe = XMVCA.XCharacter:GetIsIsomer(characterId)
+    self.BtnUniframeTip.gameObject:SetActiveEx(showUniframe)
 
-    -- element
-    local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+    -- 元素
+    local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
     local elementList = detailConfig.ObtainElementList
-    XUiHelper.RefreshCustomizedList(self.BtnElementDetail.transform, self.RImgCharElement1, #elementList, function(index, grid)
-        local elementConfig = XCharacterConfigs.GetCharElement(elementList[index])
-        local icon = elementConfig.Icon
-        grid:GetComponent("RawImage"):SetRawImage(icon)
-    end)
+    for i = 1, 3 do
+        local rImg = self["RImgCharElement" .. i]
+        if elementList[i] then
+            rImg.gameObject:SetActiveEx(true)
+            local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
+            rImg:SetRawImage(elementConfig.Icon)
+        else
+            rImg.gameObject:SetActiveEx(false)
+        end
+    end
+
+    -- 机制
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(characterId)
+    for i = 1, self.ListGeneralSkillDetail.childCount, 1 do
+        local id = generalSkillIds[i]
+        self["BtnGeneralSkill"..i].gameObject:SetActiveEx(id)
+        if id then
+            local generalSkillConfig = XMVCA.XCharacter:GetModelCharacterGeneralSkill()[id]
+            self["BtnGeneralSkill"..i]:SetRawImage(generalSkillConfig.Icon)
+        end
+    end
+
+    self.TxtFight.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(characterId)
 end
 
 function XUiGuildWarCharacterSelectSelf:OnBtnElementDetailClick()
-    XLuaUiManager.Open("UiCharacterElementDetail", self:GetCharacterId())
+    XLuaUiManager.Open("UiCharacterAttributeDetail", self:GetCharacterId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element)
 end
 
 ---@param grid XUiGuildWarCharacterSelectSelfGrid
@@ -232,6 +267,38 @@ end
 function XUiGuildWarCharacterSelectSelf:OnBtnQuitTeamClick()
     self._Team:KickOut(self:GetCharacterId())
     self.CloseUiFunc(true, false)
+end
+
+function XUiGuildWarCharacterSelectSelf:OnBtnCareerTipsClick()
+    local charId = self:GetCurCharacterId()
+    if not charId then
+        return
+    end
+    XLuaUiManager.Open("UiCharacterAttributeDetail", charId)
+end
+
+function XUiGuildWarCharacterSelectSelf:GetCurCharacterId()
+    local character = self._Character
+    if not character then
+        return
+    end
+    local characterId = character:GetId()
+    return characterId
+end
+
+function XUiGuildWarCharacterSelectSelf:OnBtnGeneralSkillClick(index)
+    local charId = self:GetCurCharacterId()
+    if not charId then
+        return
+    end
+
+    local generalSkillIds = XMVCA.XCharacter:GetCharacterGeneralSkillIds(charId)
+    local curId = generalSkillIds[index]
+    if not curId then
+        return
+    end
+
+    XLuaUiManager.Open("UiCharacterAttributeDetail", charId, XEnumConst.UiCharacterAttributeDetail.BtnTab.GeneralSkill, index)
 end
 
 function XUiGuildWarCharacterSelectSelf:SetJoinBtnIsActive(value)

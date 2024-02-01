@@ -1,13 +1,16 @@
+local XUiGridLikeRoleItem=require("XUi/XUiFavorability/XUiGridLikeRoleItem")
 ---@class XUiPanelFavorabilityExchangeRole
-XUiPanelFavorabilityExchangeRole = XClass(nil, "XUiPanelFavorabilityExchangeRole")
+local XUiPanelFavorabilityExchangeRole = XClass(XUiNode, "XUiPanelFavorabilityExchangeRole")
 
-function XUiPanelFavorabilityExchangeRole:Ctor(ui, uiRoot)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    self.UiRoot = uiRoot
-    XTool.InitUiObject(self)
-
+function XUiPanelFavorabilityExchangeRole:OnStart()
     self.BtnCancel.CallBack = function() self:OnBtnCancelClick() end
+
+end
+
+function XUiPanelFavorabilityExchangeRole:OnDisable()
+    if self.DynamicTabelCharacters then
+        self.DynamicTabelCharacters:RecycleAllTableGrid()
+    end
 end
 
 
@@ -17,20 +20,33 @@ function XUiPanelFavorabilityExchangeRole:RefreshDatas()
 end
 
 function XUiPanelFavorabilityExchangeRole:LoadDatas()
-    local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    local allCharDatas = XDataCenter.CharacterManager.GetCharacterList()
+    local characterId = self.Parent:GetCurrFavorabilityCharacter()
+    local allCharDatas = XMVCA.XCharacter:GetCharacterList()
     local characterList = {}
     for _, v in pairs(allCharDatas or {}) do
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(v.Id)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(v.Id)
+        local isin,index=table.contains(XPlayer.DisplayCharIdList, v.Id)
         if isOwn then
             table.insert(characterList, {
                 Id = v.Id,
                 TrustLv = v.TrustLv or 1,
-                Selected = (characterId == v.Id)
+                Selected = (characterId == v.Id),
+                IsAssistant=isin,
+                MainAssistant=isin and index==1
             })
         end
     end
     table.sort(characterList, function(characterA, characterB)
+        --首席优先
+        if characterA.MainAssistant~=characterB.MainAssistant then
+            return characterA.MainAssistant
+        end
+        
+        --助理优先
+        if characterA.IsAssistant~=characterB.IsAssistant then
+            return characterA.IsAssistant
+        end
+        
         if characterA.TrustLv == characterB.TrustLv then
             return characterA.Id < characterB.Id
         end
@@ -51,7 +67,7 @@ function XUiPanelFavorabilityExchangeRole:UpdateCharacterList(charList)
 
     if not self.DynamicTabelCharacters then
         self.DynamicTabelCharacters = XDynamicTableNormal.New(self.SViewSelectRole.gameObject)
-        self.DynamicTabelCharacters:SetProxy(XUiGridLikeRoleItem)
+        self.DynamicTabelCharacters:SetProxy(XUiGridLikeRoleItem,self.Parent)
         self.DynamicTabelCharacters:SetDelegate(self)
     end
 
@@ -62,9 +78,10 @@ end
 
 -- [监听动态列表事件]
 function XUiPanelFavorabilityExchangeRole:OnDynamicTableEvent(event, index, grid)
-    local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
+    if not self.Parent then return end
+    local characterId = self.Parent:GetCurrFavorabilityCharacter()
     if event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_INIT then
-        grid:Init(self.UiRoot)
+
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_ATINDEX then
         local data = self.CharList[index]
         if not data then return end
@@ -75,7 +92,7 @@ function XUiPanelFavorabilityExchangeRole:OnDynamicTableEvent(event, index, grid
         end
     elseif event == DYNAMIC_DELEGATE_EVENT.DYNAMIC_GRID_TOUCHED then
         self.CurCharacter = self.CharList[index]
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(self.CurCharacter.Id)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.CurCharacter.Id)
         if not isOwn then
             XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilityNotOwnChar"))
             return
@@ -101,24 +118,24 @@ function XUiPanelFavorabilityExchangeRole:OnChangeCharacter()
         return
     end
 
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(self.CurCharacter.Id)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(self.CurCharacter.Id)
     if not isOwn then
         XUiManager.TipError(CS.XTextManager.GetText("FavorabilityNotOwnChar"))
         return
     end
 
-    self.UiRoot:StopCvContent()
-    self.UiRoot:SetCurrFavorabilityCharacter(self.CurCharacter.Id)
-    self.UiRoot:UpdateCamera(false)
-    self.UiRoot:CloseChangeRoleView()
+    self.Parent:StopCvContent()
+    self.Parent:SetCurrFavorabilityCharacter(self.CurCharacter.Id)
+    self.Parent:UpdateCamera(false)
+    self.Parent:CloseChangeRoleView()
 end
 
 -- [取消按钮]
 function XUiPanelFavorabilityExchangeRole:OnBtnCancelClick()
-    local characterId = self.UiRoot:GetCurrFavorabilityCharacter()
-    self.UiRoot:ChangeCharacterModel(characterId)
-    self.UiRoot:UpdateCamera(false)
-    self.UiRoot:CloseChangeRoleView()
+    local characterId = self.Parent:GetCurrFavorabilityCharacter()
+    self.Parent:ChangeCharacterModel(characterId)
+    self.Parent:UpdateCamera(false)
+    self.Parent:CloseChangeRoleView()
 end
 
 return XUiPanelFavorabilityExchangeRole

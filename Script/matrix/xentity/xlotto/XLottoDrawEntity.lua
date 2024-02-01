@@ -61,6 +61,15 @@ function XLottoDrawEntity:GetRewardDataList()
     return self.RewardDataList
 end
 
+---@return XLottoRewardEntity
+function XLottoDrawEntity:GetRewardDataById(lottoRewardId)
+    for _,data in pairs(self.RewardDataList) do
+        if data:GetId() == lottoRewardId then
+            return data
+        end
+    end
+end
+
 function XLottoDrawEntity:GetCurRewardCount()
     return self.LottoRewards and #self.LottoRewards or 0
 end

@@ -26,8 +26,8 @@ function XUiSummerRank:OnStart(cb, winData)
     local playerList = self.BeginData.PlayerList
 
     local roleData = self.BeginData.RoleData
-    local record = XDataCenter.FubenManager.CurFightResult.StringToIntRecord
-    local customData = XDataCenter.FubenManager.CurFightResult.CustomData
+    local record = XMVCA.XFuben:GetCurFightResult().StringToIntRecord
+    local customData = XMVCA.XFuben:GetCurFightResult().CustomData
     self.PlayerList = {}
     if XFubenSpecialTrainConfig.CheckIsSpecialTrainBroadswordStage(self.StageId) then
         local totalTime = record.jianshengdadaogametime

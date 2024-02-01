@@ -139,6 +139,10 @@ XRegression3rdManagerCreator = function()
         if not XRegression3rdManager.IsOpen() then
             return
         end
+        --活动分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
+            return
+        end
         local storyId = XRegressionViewModel:GetStoryId()
         local storyKey = GetCookiesKey(StoryKey .. tostring(storyId))
         local invitationKey = GetCookiesKey(InvitationKey)

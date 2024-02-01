@@ -1,3 +1,4 @@
+---@class XSCRoleSkill
 local XSCRoleSkill = XClass(nil, "XSCRoleSkill")
 
 function XSCRoleSkill:Ctor(groupId)
@@ -17,6 +18,7 @@ function XSCRoleSkill:GetIsOn()
     return self.IsOn
 end
 
+---@return XTableSameColorGameSkillGroup
 function XSCRoleSkill:GetSkillGroupCfg()
     return XSameColorGameConfigs.GetSkillGroupConfig(self.GroupId)
 end
@@ -59,6 +61,10 @@ end
 
 function XSCRoleSkill:GetIcon(skillId)
     return self:GetSkillCfg(skillId).Icon
+end
+
+function XSCRoleSkill:GetSkillType(skillId)
+    return self:GetSkillCfg(skillId).Type
 end
 
 function XSCRoleSkill:GetName(skillId)
@@ -109,7 +115,7 @@ function XSCRoleSkill:IsForbidInTime(skillId)
     local buffIds = self:GetBuffIds(skillId)
     for _, buffId in pairs(buffIds) do
         local buffCfg = XSameColorGameConfigs.GetBuffConfig(buffId)
-        if buffCfg.Step ~= 0 then
+        if buffCfg.Step ~= 0 and buffCfg.Time == 0 then
             return true
         end
     end

@@ -410,6 +410,9 @@ XFubenShortStoryChapterManagerCreator = function()
                 XUiManager.TipMsg(checkDesription)
                 return
             end
+            if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.ShortStory, chapterId) then
+                return
+            end
             local chapterMainId = XFubenShortStoryChapterConfigs.GetChapterMainIdByChapterId(chapterId)
             local hideDiffTog = XFubenShortStoryChapterManager.IsHaveHardDifficult(chapterMainId)
             XLuaUiManager.Open("UiFubenMainLineChapterDP", chapterId, stageId, not hideDiffTog)

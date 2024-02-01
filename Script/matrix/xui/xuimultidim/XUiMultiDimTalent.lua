@@ -10,7 +10,7 @@ end
 
 function XUiMultiDimTalent:OnStart()
     local itemId = XDataCenter.MultiDimManager.GetActivityItemId()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ itemId }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ itemId }, self.PanelSpecialTool, self)
     
     self:InitLeftTabBtn()
     self.MultiDimCareer = XDataCenter.MultiDimManager.GetMultiDimCareerInfo()
@@ -89,7 +89,7 @@ end
 function XUiMultiDimTalent:RefreshModel()
     -- 模型根据预选角色去加载
     local entityIds = XDataCenter.MultiDimManager.GetPresetCharacters(self.CareerId)
-    local entity = XDataCenter.CharacterManager.GetCharacter(entityIds[1])
+    local entity = XMVCA.XCharacter:GetCharacter(entityIds[1])
     if not entity or not entity.GetCharacterViewModel then
         self.RoleModelPanel:HideRoleModel()
         return

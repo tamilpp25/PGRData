@@ -399,6 +399,46 @@ XDormQuestManagerCreator = function()
         end
         return count
     end
+
+    -- 获取可派遣的委托数量 (不考虑栏位和成员)
+    function XDormQuestManager.GetCanAcceptQuestCount()
+        local acceptQuestCount = 0
+        local totalQuest = _DormQuestData:GetTotalQuest()
+        for _, data in pairs(totalQuest) do
+            local isAccept = XDormQuestManager.CheckQuestAccept(data:GetQuestId(), data:GetIndex(), data:GetResetCount())
+            if not isAccept then
+                acceptQuestCount = acceptQuestCount + 1
+            end
+        end
+        return acceptQuestCount
+    end
+
+    -- 获取空闲栏位数量
+    function XDormQuestManager.GetFreeTeamPosCount()
+        if _DormTerminalTeamEntity then
+            return _DormTerminalTeamEntity:GetFreeTeamPosCount()
+        end
+        return 0
+    end
+
+    -- 获取可领取委托和派遣中的数量
+    function XDormQuestManager.GetQuestAcceptStateCount()
+        local dispatchedCount = 0
+        local dispatchingCount = 0
+        local questAccept = _DormQuestData:GetQuestAccept()
+        for _, questData in pairs(questAccept) do
+            if not questData:IsAward() then
+                local state = XDormQuestManager.GetQuestAcceptTeamState(questData)
+                if state == XDormQuestConfigs.TerminalTeamState.Dispatched then
+                    dispatchedCount = dispatchedCount + 1
+                end
+                if state == XDormQuestConfigs.TerminalTeamState.Dispatching then
+                    dispatchingCount = dispatchingCount + 1
+                end
+            end
+        end
+        return dispatchedCount, dispatchingCount
+    end
     
     --endregion
     
@@ -462,6 +502,9 @@ XDormQuestManagerCreator = function()
     -- isNotContainUpgrade 是否不包含可升级 默认是包含
     function XDormQuestManager.CheckDormEntrustRedPoint(isNotContainUpgrade)
         if not XDormQuestManager.CheckTerminalLevelIsValid() then
+            return false
+        end
+        if _DormQuestData:GetTerminalLv() <= 1 and XDormQuestManager.GetTerminalUpgradeExp() <= 0 then
             return false
         end
         -- 可升级

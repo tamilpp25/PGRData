@@ -286,13 +286,9 @@ function XUiFubenExploreLevel:OnLevelNodeClick(nodeInfo)
     --战斗节点
     if nodeInfo.tableData.Type == XFubenExploreConfigs.NodeTypeEnum.Stage then
         XLuaUiManager.Open("UiEnterFight", nodeInfo.tableData.Type, nodeInfo.tableData.Title, nodeInfo.tableData.Explain, nodeInfo.tableData.EnterIco, nodeInfo.tableData.RewardId, function()
-            if XTool.USENEWBATTLEROOM then
-                XLuaUiManager.Open("UiBattleRoleRoom", tonumber(nodeInfo.tableData.TypeValue)
-                    , XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdExplore"))
-                    , require("XUi/XUiFubenExplore/XUiExploreBattleRoleRoom"))
-            else
-                XLuaUiManager.Open("UiNewRoomSingle", tonumber(nodeInfo.tableData.TypeValue))
-            end
+            XLuaUiManager.Open("UiBattleRoleRoom", tonumber(nodeInfo.tableData.TypeValue)
+                , XDataCenter.TeamManager.GetXTeamByTypeId(CS.XGame.Config:GetInt("TypeIdExplore"))
+                , require("XUi/XUiFubenExplore/XUiExploreBattleRoleRoom"))
         end)
     end
 end

@@ -11,26 +11,36 @@ local XRiftAttributeTemplate = require("XEntity/XRift/XRiftAttributeTemplate")
 local ScreenAll = CS.XTextManager.GetText("ScreenAll")
 
 XRiftManagerCreator = function()
+    ---@class XRiftManager
     local XRiftManager = XExFubenActivityManager.New(XFubenConfigs.ChapterType.Rift, "RiftManager")
     -- 活动配置数据
+    ---@type XTableRiftActivity
     local CurrentConfig = nil -- 基本活动配置
     local StartTime = 0 -- 本轮开始时间
     local EndTime = 0 -- 本轮结束时间
     -- 实体数据
     local AllRoles = {}
+    ---@type XRiftPlugin[]
     local AllPluginDicById = {} -- XPlugin插件列表
+    ---@type XRiftChapter[]
     local ChapterDicById = {} -- 区域
+    ---@type XRiftFightLayer[]
     local FightLayerDicById = {} -- 作战层
+    ---@type XRiftRole[]
     local RoleDicById = {}
     local MonsterDicById = {}
     -- 自定义数据
     local TargetCanResetTimestamp = 0 -- 在这个时间戳之后才可以重置
     local MultiTeamData = {} -- 多队伍数据（存本地）
+    ---@type XRiftTeam
     local SingleTeamData = {}
+    ---@type XRiftStageGroup
     local CurrSelectRiftStageGroup = nil -- 全局数据，最后一次点击过的关卡节点，用来作为进入战斗时传入的参数
-    local LastFightXStage = nil -- 记录最后1次战斗过的stage，扫荡也算
+    ---@type XRiftStage
+    local LastFightXStage = nil -- 记录最后1次战斗过的stage，扫荡不算
     local PluginShopGoodList = nil -- 插件商店物品列表
     local NewLayerIdTrigger = nil -- 层结算后是否确认跳转到下一层
+    local OpenLayerSelectTrigger = nil -- 结算后打开关卡选择界面
     local IsFirstPassChapterTrigger = nil -- 区域首通后是否弹提示
     local IsLayerSettleTrigger = nil -- 层结算ui（必须在外面显示）
     local IsEnterNextFightTrigger = nil -- 触发了进入下一关战斗
@@ -47,6 +57,18 @@ XRiftManagerCreator = function()
     local AttrLevelMax = 0 -- 队伍加点：当前单个属性加点最大值
     local RankData = {} -- 排行榜数据
     local TeamDatas = {} -- 队伍对应的加点模板
+    ---@type XRiftLuckyNodeData
+    local LuckyNodeData = nil -- 幸运关节点信息
+    local PeriodId = 0 -- 赛季编号
+    local MaxChapterId = 0
+    local MaxLayerId = 0
+    local PluginFilterSetting = {} -- 插件筛选器设置
+    local OneKeyRecommend = {}  -- 一键推荐
+    local PluginsTypeMap = {}
+    local HandbookEffectMap = nil -- 图鉴加成
+    local RobotDic = {}
+    local IsCharacterRedPoint = false -- 掉落插件显示红点，进入插件选择界面后取消
+    local CurSelectLayerId = nil
 
     function XRiftManager.Init()
         XRiftManager.RegisterEvents()
@@ -113,13 +135,39 @@ XRiftManagerCreator = function()
     function XRiftManager.GetCurrSelectRiftStageGroup()
         return CurrSelectRiftStageGroup
     end
+
+    function XRiftManager.SetCurrSelectRiftLayerId(layerId)
+        CurSelectLayerId = layerId
+    end
+
+    function XRiftManager.GetCurrSelectRiftLayerId()
+        return CurSelectLayerId
+    end
     
     function XRiftManager.GetMaxUnLockFightLayerId()
         return MaxUnLockFightLayerOrder
     end
 
+    ---关卡是否未解锁
+    function XRiftManager.IsLayerLock(layerId)
+        return layerId > MaxUnLockFightLayerOrder
+    end
+
     function XRiftManager.GetMaxPassFightLayerId()
         return MaxPassFightLayerOrder
+    end
+
+    ---关卡是否已通关
+    function XRiftManager.IsLayerPass(layerId)
+        return layerId <= MaxPassFightLayerOrder
+    end
+
+    function XRiftManager.GetMaxChapterId()
+        return MaxChapterId
+    end
+
+    function XRiftManager.IsAllPass()
+        return MaxPassFightLayerOrder >= MaxLayerId
     end
 
     function XRiftManager.GetIsNewLayerIdTrigger() --(Trigger)触发后关闭
@@ -132,6 +180,18 @@ XRiftManagerCreator = function()
 
     function XRiftManager.SetNewLayerTrigger(newFightLayerId)
         NewLayerIdTrigger = newFightLayerId
+    end
+
+    function XRiftManager.GetIsOpenLayerSelectTrigger() --(Trigger)触发后关闭
+        if OpenLayerSelectTrigger then
+            local tempId = OpenLayerSelectTrigger
+            OpenLayerSelectTrigger = nil
+            return tempId
+        end
+    end
+
+    function XRiftManager.SetOpenLayerSelectTrigger(stageId)
+        OpenLayerSelectTrigger = stageId
     end
 
     function XRiftManager.GetIsFirstPassChapterTrigger() --(Trigger)触发后关闭
@@ -212,7 +272,7 @@ XRiftManagerCreator = function()
 
     -- 检测每日提示并继续
     function XRiftManager.CheckDayTipAndDoFun(xChapter, doFun)
-        if XRiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.LuckyStage) and xChapter:GetLuckValueProgress() >= 1 and GetIsNewDayUpdate() then
+        if XRiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.LuckyStage) and XRiftManager:GetLuckValueProgress() >= 1 and GetIsNewDayUpdate() then
             local titile = CS.XTextManager.GetText("TipTitle")
             local content = CS.XTextManager.GetText("RiftLuckValueTip")
             local hitInfo = 
@@ -246,10 +306,12 @@ XRiftManagerCreator = function()
         return MultiTeamData
     end
 
-    function XRiftManager.GetSingleTeamData()
+    ---@return XRiftTeam
+    function XRiftManager.GetSingleTeamData(isLuckStage)
         if XTool.IsTableEmpty(SingleTeamData) then
             SingleTeamData = XRiftTeam.New(-1)
         end
+        SingleTeamData:SetLuckyStage(isLuckStage)
         return SingleTeamData
     end
 
@@ -281,8 +343,11 @@ XRiftManagerCreator = function()
         end
 
         local index = xTeam:GetId()
-        local xStage = xStageGroup:GetAllEntityStages()[index]
-        return xStage:CheckHasPassed()
+        local stages = xStageGroup:GetAllEntityStages()
+        if stages[index] then
+            return stages[index]:CheckHasPassed()
+        end
+        return false
     end
 
     function XRiftManager.AddMultiTeamMember(teamIndex, pos, xRole)
@@ -314,6 +379,9 @@ XRiftManagerCreator = function()
         for k, config in pairs(allConfigs) do
             local XRiftChapter = XRiftChapter.New(config)
             ChapterDicById[config.Id] = XRiftChapter
+            if MaxChapterId < config.Id then
+                MaxChapterId = config.Id
+            end
         end
     end
 
@@ -322,6 +390,9 @@ XRiftManagerCreator = function()
         for k, config in pairs(allConfigs) do
             local XRiftFightLayer = XRiftFightLayer.New(config)
             FightLayerDicById[config.Id] = XRiftFightLayer
+            if MaxLayerId < config.Id then
+                MaxLayerId = config.Id
+            end
         end
     end
 
@@ -364,19 +435,29 @@ XRiftManagerCreator = function()
     end
 
     -- 重置按钮点击后清除随机数据。【作战层 - 关卡节点】【关卡 - 怪物(库)】【怪物 - 词缀】
-    function XRiftManager.ClearStageGroupRelationshipChain()
-        for k, xFightLayer in pairs(FightLayerDicById) do
-            xFightLayer:ClearRelationShipChainDown()
-        end
+    function XRiftManager.ClearStageGroupRelationshipChain(layerId)
+        if XTool.IsNumberValid(layerId) then
+            -- 重置某一层
+            local fightLayer = FightLayerDicById[layerId]
+            if fightLayer then
+                fightLayer:ClearRelationShipChainDown()
+            end
+        else
+            -- 放弃当前关卡 探索其他关卡时 需要全部重置
+            for _, xFightLayer in pairs(FightLayerDicById) do
+                xFightLayer:ClearRelationShipChainDown()
+            end
 
-        for k, xMonster in pairs(MonsterDicById) do
-            xMonster:ClearAffixs()
+            for _, xMonster in pairs(MonsterDicById) do
+                xMonster:ClearAffixs()
+            end
         end
     end
     
     -- 生成大秘境专用角色实例
     function XRiftManager.GenerateRoleData()
-        local characters = XDataCenter.CharacterManager.GetOwnCharacterList()
+        local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+        local characters = characterAgency:GetOwnCharacterList()
         -- 拥有角色
         for _, character in pairs(characters) do
             XRiftManager.AddNewRole(character)
@@ -446,6 +527,16 @@ XRiftManagerCreator = function()
         return result
     end
 
+    function XRiftManager.GetRobot()
+        if XTool.IsTableEmpty(RobotDic) then
+            local allConfigs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftCharacterAndRobot)
+            for _, v in pairs(allConfigs) do
+                table.insert(RobotDic, XRobotManager.GetRobotById(v.RobotId))
+            end
+        end
+        return RobotDic
+    end
+
     function XRiftManager.GenerateMonsterData()
         local allConfigs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftMonster)
         for k, config in pairs(allConfigs) do
@@ -507,6 +598,7 @@ XRiftManagerCreator = function()
 
     end
 
+    ---@return XRiftChapter,XRiftFightLayer
     function XRiftManager.GetCurrPlayingChapter()
         for k, xChapter in pairs(ChapterDicById) do
             local curPlayingLayer = xChapter:GetCurPlayingFightLayer()
@@ -514,6 +606,16 @@ XRiftManagerCreator = function()
                 return xChapter, curPlayingLayer
             end
         end
+    end
+
+    function XRiftManager.IsCurrPlayingLayer(layerId)
+        local _, curLayer = XRiftManager.GetCurrPlayingChapter()
+        return curLayer and curLayer:GetId() == layerId
+    end
+
+    function XRiftManager.IsOtherLayerPlaying(layerId)
+        local _, curLayer = XRiftManager.GetCurrPlayingChapter()
+        return curLayer and curLayer:GetId() ~= layerId
     end
 
     -- 获取上一次进入的作战层
@@ -571,6 +673,7 @@ XRiftManagerCreator = function()
             end
             
             XRiftManager.RefreshRandomDataByServer(res.LayerData)
+            CurrSelectRiftStageGroup = XRiftManager.GetEntityFightLayerById(layerId):GetStage()
             if cb then
                 cb()
             end
@@ -591,7 +694,7 @@ XRiftManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
-            XRiftManager.RefreshChapterData({[1] = res.ChapterData})
+            XRiftManager:RefreshLuckNode(res.LuckyNodeData)
             if cb then
                 cb()
             end
@@ -605,11 +708,6 @@ XRiftManagerCreator = function()
                 XUiManager.TipCode(res.Code)
                 return
             end
-            -- 弹出层结算
-            local currXFightLayer = LastFightXStage and LastFightXStage:GetParent():GetParent()
-            if currXFightLayer and currXFightLayer:CheckIsOwnFighting() then -- 放弃作战时，只有打过任意一关才能结算
-                XLuaUiManager.Open("UiRiftSettleWin", currXFightLayer:GetId(), nil, true)
-            end
 
             -- 清空数据
             XRiftManager.RefreshRandomDataByServer(res.LayerData)
@@ -620,8 +718,8 @@ XRiftManagerCreator = function()
     end
 
     -- 请求扫荡
-    function XRiftManager.RiftSweepLayerRequest(layerId, cb)
-        XNetwork.Call("RiftSweepLayerRequest", {LayerId = layerId}, function(res)
+    function XRiftManager.RiftSweepLayerRequest(cb)
+        XNetwork.Call("RiftSweepLayerRequest", nil, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
@@ -631,15 +729,12 @@ XRiftManagerCreator = function()
             -- 解锁插件
             XRiftManager.UnlockedPluginByDrop(res.PluginDropRecords)
             -- 记录当前层累计的插件掉落
-            local xFightLayer = FightLayerDicById[layerId]
+            local xFightLayer = FightLayerDicById[MaxPassFightLayerOrder]
             xFightLayer:AddRecordPluginDrop(res.PluginDropRecords)
             SweepTimes = SweepTimes + 1
-            -- 扫荡也算作作战层
-            local layer = XRiftManager.GetEntityFightLayerById(layerId)
-            local tempSg = layer and layer:GetAllStageGroups()[1]
-            LastFightXStage = tempSg and tempSg:GetAllEntityStages()[1] or LastFightXStage
+            XRiftManager:RefreshLuckNode(nil, res.LuckyValue)
             -- 弹层结算
-            XLuaUiManager.Open("UiRiftSettleWin", layerId, nil, true, true)
+            XLuaUiManager.Open("UiRiftSettleWin", MaxPassFightLayerOrder, nil, true, true, res)
         
             if cb then
                 cb()
@@ -696,7 +791,7 @@ XRiftManagerCreator = function()
     end
     
     function XRiftManager.OpenFightLoading(stageId)
-        if CurrSelectRiftStageGroup:GetType() == XRiftConfig.StageGroupType.Multi then
+        if CurrSelectRiftStageGroup:GetType() == XRiftConfig.StageGroupType.Multi and not XRiftManager:IsStageBelongLucky(stageId) then
             XLuaUiManager.Open("UiRiftLoading")
         else
             XDataCenter.FubenManager.OpenFightLoading(stageId)
@@ -711,8 +806,34 @@ XRiftManagerCreator = function()
         end
     end
 
+    ---幸运关战斗胜利 & 奖励界面
+    function XRiftManager.DoLuckyShowReward(winData)
+        local riftSettleResult = winData.SettleData.RiftSettleResult
+        local chapterData = {
+            [1] = riftSettleResult.ChapterData
+        }
+        XDataCenter.RiftManager.RefreshChapterData(chapterData)
+        XRiftManager:SetLuckPassTime(riftSettleResult.PassTime)
+        -- 记录插件掉落
+        LastFightXStage:GetParent():GetParent():AddRecordPluginDrop(riftSettleResult.PluginDropRecords)
+        -- 解锁插件
+        XRiftManager.UnlockedPluginByDrop(riftSettleResult.PluginDropRecords)
+        XRiftManager.UnlockedPluginByDrop(riftSettleResult.FirstPassPluginDropRecords)
+        -- 更新幸运值
+        XRiftManager:RefreshLuckNode(nil, riftSettleResult.LuckyValue)
+        -- 打开结算界面
+        local layerId = XRiftManager:GetLuckLayer():GetId()
+        XLuaUiManager.Open("UiRiftSettleWin", layerId, winData.SettleData.RiftSettleResult)
+    end
+
     -- 战斗胜利 & 奖励界面
     function XRiftManager.DoShowReward(winData)
+        local isLucky = winData.SettleData.RiftSettleResult.IsLuckyNode
+        if isLucky then
+            XRiftManager.DoLuckyShowReward(winData)
+            return
+        end
+
         local currFightStageGroup = LastFightXStage:GetParent()
         local currFightLayer = currFightStageGroup:GetParent()
         local xStageList = currFightStageGroup:GetAllEntityStages()
@@ -753,6 +874,9 @@ XRiftManagerCreator = function()
         fightLayer:AddRecordPluginDrop(riftSettleResult.PluginDropRecords)
         -- 解锁插件
         XRiftManager.UnlockedPluginByDrop(riftSettleResult.PluginDropRecords)
+        XRiftManager.UnlockedPluginByDrop(riftSettleResult.FirstPassPluginDropRecords)
+        -- 更新幸运值
+        XRiftManager:RefreshLuckNode(nil, riftSettleResult.LuckyValue)
         -- 如果多队伍完成全部压制，返回时不再出现多队伍编辑界面
         local isAllClear = true
         for k, xStage in pairs(xStageList) do
@@ -763,8 +887,14 @@ XRiftManagerCreator = function()
         if isAllClear or currFightLayer:CheckNoneData() then
             XLuaUiManager.Remove("UiRiftDeploy")
         end
-        -- 打开结算界面
-        XLuaUiManager.Open("UiRiftSettlePlugin", winData.SettleData, nextStageGroup, nextStageIndex)
+        if not nextStageGroup then
+            -- 打开结算界面
+            local layerId = xStageGroup:GetParent():GetId()
+            XLuaUiManager.Open("UiRiftSettleWin", layerId, winData.SettleData.RiftSettleResult)
+        else
+            -- 多关卡节点
+            XLuaUiManager.Open("UiRiftSettlePlugin", winData.SettleData, nextStageGroup, nextStageIndex)
+        end
     end
 
     function XRiftManager.ShowReward()
@@ -781,12 +911,25 @@ XRiftManagerCreator = function()
             end
         end
 
+        local currLayer = CurrSelectRiftStageGroup:GetParent()
+        if currLayer:CheckHasLock() then
+            if currLayer:IsSeasonLayer() then
+                XUiManager.TipError(XUiHelper.GetText("RiftFightError1"))
+            else
+                XUiManager.TipError(XUiHelper.GetText("RiftFightError2"))
+            end
+            return
+        end
+
         local index = math.abs(xTeam:GetId()) --由于单关卡的队伍id是-1，但是它仅有1个关卡，所以如果是-1也传1
         LastFightXStage = CurrSelectRiftStageGroup:GetAllEntityStages()[index]
         -- 进入战斗层，记录进入打个卡(为了避免通过下一层战斗直接进入战斗而没打开切层列表，这里也记录一遍)
-        local currLayer = CurrSelectRiftStageGroup:GetParent()
-        XDataCenter.RiftManager.SaveLastFightLayer(currLayer)
+        XRiftManager.SaveLastFightLayer(currLayer)
         currLayer:SaveFirstEnter()
+        -- 战斗后返回关卡选择界面
+        if LastFightXStage then
+            XRiftManager.SetOpenLayerSelectTrigger(LastFightXStage:GetParent():GetParent():GetId())
+        end
         XDataCenter.FubenManager.EnterRiftFight(xTeam, CurrSelectRiftStageGroup, index)
     end
 
@@ -794,6 +937,29 @@ XRiftManagerCreator = function()
     function XRiftManager.CheckAutoExitFight(stageId)
         return false
     end
+
+    function XRiftManager.SortDropPlugin(aDrop, bDrop)
+        if aDrop.IsExtraDrop ~= bDrop.IsExtraDrop then
+            return not aDrop.IsExtraDrop
+        end
+
+        return XRiftManager.SortDropPluginBase(aDrop, bDrop)
+    end
+
+    function XRiftManager.SortDropPluginBase(aDrop, bDrop)
+        local aPlugin = XRiftManager.GetPlugin(aDrop.PluginId)
+        local bPlugin = XRiftManager.GetPlugin(bDrop.PluginId)
+        if aPlugin:GetQuality() ~= bPlugin:GetQuality() then
+            return aPlugin:GetQuality() > bPlugin:GetQuality()
+        end
+
+        if aPlugin.Config.Sort ~= bPlugin.Config.Sort then
+            return aPlugin.Config.Sort < bPlugin.Config.Sort
+        end
+
+        return aPlugin:GetId() < bPlugin:GetId()
+    end
+
     -------------------------------------------------- 5加点 begin --------------------------------------------------
 
     function XRiftManager.GenerateAttrTemplate()
@@ -808,7 +974,7 @@ XRiftManagerCreator = function()
         XRiftManager.RefreshAttrLevelMax(riftData.AttrLevelMax)
 
         for _, attrSet in ipairs(riftData.AttrSets) do
-            local xAttrTemplate = XRiftAttributeTemplate.New(attrSet.Id, attrSet.AttrLevels)
+            local xAttrTemplate = XRiftAttributeTemplate.New(attrSet.Id, attrSet.AttrLevels, attrSet.Name)
             AttrTemplateDicById[attrSet.Id] = xAttrTemplate
         end
     end
@@ -825,7 +991,8 @@ XRiftManagerCreator = function()
         return TotalAttrLevel
     end
 
-    -- 获取队伍加点模板
+    ---获取队伍加点模板
+    ---@return XRiftAttributeTemplate
     function XRiftManager.GetAttrTemplate(id)
         if id == nil then id = XRiftConfig.DefaultAttrTemplateId end -- 不传参是使用默认加点
         return AttrTemplateDicById[id]
@@ -835,6 +1002,14 @@ XRiftManagerCreator = function()
     function XRiftManager.GetDefaultTemplateAttrLevel(attrId)
         local attrTemplate = XRiftManager.GetAttrTemplate()
         return attrTemplate:GetAttrLevel(attrId)
+    end
+
+    function XRiftManager.GetTotalTemplateAttrLevel()
+        local level = 0
+        for attrId = 1, 4 do
+            level = XRiftManager.GetDefaultTemplateAttrLevel(attrId) + level
+        end
+        return level
     end
 
     function XRiftManager.GetAttributeCost(attrLevel)
@@ -870,6 +1045,22 @@ XRiftManagerCreator = function()
         end
 
         return attrIndex
+    end
+
+    function XRiftManager.RiftSetAttrSetNameRequest(attrSetId, name, cb)
+        XNetwork.Call("RiftSetAttrSetNameRequest", { AttrSetId = attrSetId, Name = name }, function(res)
+            if res.Code ~= XCode.Success then
+                XUiManager.TipCode(res.Code)
+                return
+            end
+            local template = XDataCenter.RiftManager.GetAttrTemplate(attrSetId)
+            if template then
+                template:SetName(name)
+            end
+            if cb then
+                cb()
+            end
+        end)
     end
 
     -- 请求保存属性模板
@@ -935,13 +1126,40 @@ XRiftManagerCreator = function()
         XSaveTool.SaveData(XRiftManager.GetBuyAttrRedSaveKey(), ownCnt)
     end
 
+    -- 获取系统属性加成，id对应XEnumConst.Rift.SystemBuffType
+    ---@return number
+    function XRiftManager:GetSystemAttrValue(id, level)
+        local groupId = XRiftConfig.GetGroupIdBySystemAttr(id)
+        local config = XRiftConfig.GetAttributeEffectConfig(groupId, level)
+        return config.SystemEffectParam
+    end
+
+    function XRiftManager:GetCurLuckEffectValue()
+        local id = XEnumConst.Rift.SystemBuffType.Luck
+        local attrId = XRiftConfig.GetAttrIdBySystemAttr(id)
+        local level = XRiftManager.GetDefaultTemplateAttrLevel(attrId)
+        local value = XRiftManager:GetSystemAttrValue(XEnumConst.Rift.SystemBuffType.Luck, level)
+        return value or 0
+    end
+
+    function XRiftManager:GetSystemAttr(attrId)
+        local groupIds = XRiftConfig.GetAttrGroupId(attrId)
+        for _, group in pairs(groupIds) do
+            local results = XRiftConfig.GetSystemAttr(group)
+            if not XTool.IsTableEmpty(results) then
+                return results
+            end
+        end
+        return {}
+    end
+
     -------------------------------------------------- 5加点 end --------------------------------------------------
 
     -------------------------------------------------- 6插件背包 begin --------------------------------------------------
 
     function XRiftManager.GeneratePluginData()
         local pluginCfgs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftPlugin)
-        for _, config in ipairs(pluginCfgs) do
+        for _, config in pairs(pluginCfgs) do
             local xPlugin = XRiftPlugin.New(config)
             AllPluginDicById[config.Id] = xPlugin
         end
@@ -958,11 +1176,15 @@ XRiftManagerCreator = function()
 
     -- 战斗结算掉落插件 解锁
     function XRiftManager.UnlockedPluginByDrop(pluginDropRecords)
+        if XTool.IsTableEmpty(pluginDropRecords) then
+            return
+        end
         for _, dropPlugin in ipairs(pluginDropRecords) do
             local xPluginDrop = AllPluginDicById[dropPlugin.PluginId]
             -- 1 先检测生成蓝点
             local charId = xPluginDrop.Config.CharacterId
             if dropPlugin.DecomposeCount <= 0 and XTool.IsNumberValid(charId) then -- 通用插件不会显示蓝点,已获得的插件也不会显示蓝点
+                XRiftManager:SetCharacterRedPoint(true)
                 local setRed = true
                 for k, xPluginInBag in pairs(AllPluginDicById) do
                     if xPluginInBag:GetHave() and xPluginInBag.Config.Type == xPluginDrop.Config.Type and xPluginInBag:GetStar() >= xPluginDrop:GetStar() then
@@ -979,51 +1201,106 @@ XRiftManagerCreator = function()
         end
     end
 
-    function XRiftManager.GetOwnPluginList(starSelectList)
+    function XRiftManager:GetOwnPluginList(element, roleId)
+        local pluginList = {}
+        local filterSetting = self:GetFilterSertting(XEnumConst.Rift.FilterSetting.PluginChoose)
+        local propTagId = tonumber(self:GetClientConfig("PropStrengthTagId"))
+        local characterTagId = XRiftManager:GetCharacterExclusiveTagId()
+
+        local CheckStar = function(datas, plugin)
+            local star = plugin:GetStar()
+            return datas[star]
+        end
+
+        local CheckTag = function(datas, plugin)
+            local tags = plugin:GetFilterTags()
+            for tag, _ in pairs(datas) do
+                local isPluginHasTag = table.indexof(tags, tag)
+                if tag == characterTagId then
+                    -- 保留通用插件，去掉其他角色的插件
+                    if isPluginHasTag and (plugin.Config.CharacterId == 0 or plugin.Config.CharacterId == roleId) then
+                        return true
+                    end
+                elseif tag == propTagId then
+                    -- 根据所选角色类型进行筛选
+                    if isPluginHasTag and element == plugin.Config.Element then
+                        return true
+                    end
+                else
+                    if isPluginHasTag then
+                        return true
+                    end
+                end
+            end
+            return false
+        end
+
+        local starData = filterSetting[XEnumConst.Rift.Filter.Star] or {}
+        local tagDatas = filterSetting[XEnumConst.Rift.Filter.Tag] or {}
+        local isStarEmpty = XTool.IsTableEmpty(starData)
+        local isTagEmpty = XTool.IsTableEmpty(tagDatas)
+
+        for _, plugin in pairs(AllPluginDicById) do
+            if plugin:GetHave() and not plugin:GetIsDisplay() then
+                -- 同中筛选类型取交集，不同筛选类型取并集
+                local star = isStarEmpty and true or CheckStar(starData, plugin)
+                local tag = isTagEmpty and true or CheckTag(tagDatas, plugin)
+                if not star or not tag then
+                    goto CONTINUE
+                end
+
+                table.insert(pluginList, plugin)
+                :: CONTINUE ::
+            end
+        end
+
+        return pluginList
+    end
+
+    function XRiftManager.GetAllPluginList(pluginStar)
         local pluginList = {}
         for _, plugin in pairs(AllPluginDicById) do
             local star = plugin:GetStar()
-            if starSelectList[star] and plugin:GetHave() and not plugin:GetIsDisplay() then 
+            if pluginStar == star and not plugin:GetIsDisplay() then
                 table.insert(pluginList, plugin)
             end
         end
 
         table.sort(pluginList, function(a, b)
-            if a:GetStar() ==  b:GetStar() then 
-                return a:GetId() > b:GetId()
-            else
+            if a:GetStar() ~= b:GetStar() then
                 return a:GetStar() > b:GetStar()
             end
+
+            local isHaveA = a:GetHave()
+            local isHaveB = b:GetHave()
+            if isHaveA ~= isHaveB then
+                return isHaveA
+            end
+
+            local aSort = a.Config.Sort
+            local bSort = b.Config.Sort
+            if aSort ~= bSort then
+                return aSort < bSort
+            end
+
+            return a:GetId() < b:GetId()
         end)
 
         return pluginList
     end
 
-    function XRiftManager.GetAllPluginList(starSelectList)
-        local pluginList = {}
+    function XRiftManager.GetPluginCount(star)
+        local cur, all = 0, 0
         for _, plugin in pairs(AllPluginDicById) do
-            local star = plugin:GetStar()
-            if starSelectList[star] and not plugin:GetIsDisplay() then 
-                table.insert(pluginList, plugin)
+            local pluginStar = plugin:GetStar()
+            if not plugin:GetIsDisplay() and (not star or pluginStar == star) then
+                all = all + 1
+                if plugin:GetHave() then
+                    cur = cur + 1
+                end
             end
         end
-
-        table.sort(pluginList, function(a, b)
-            local isHaveA = a:GetHave()
-            local isHaveB = b:GetHave()
-
-            if isHaveA == isHaveB then
-                if a:GetStar() ==  b:GetStar() then 
-                    return a:GetId() > b:GetId()
-                else
-                    return a:GetStar() > b:GetStar()
-                end
-            else
-                return isHaveA
-            end
-        end)
-
-        return pluginList
+        return cur, all
     end
 
     function XRiftManager.GetPluginHaveAndAllCnt()
@@ -1102,6 +1379,11 @@ XRiftManagerCreator = function()
         return config.TaskGroupId
     end
 
+    function XRiftManager.GetSeasonTaskGroupId()
+        local config = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftActivity, ActivityId)
+        return config.SeasonTaskGroupId
+    end
+
     -- 检查所有任务是否有奖励可领取
     function XRiftManager.CheckTaskCanReward()
         local groupIdList = XRiftManager.GetTaskGroupIdList()
@@ -1109,6 +1391,10 @@ XRiftManagerCreator = function()
             if XDataCenter.TaskManager.CheckLimitTaskList(groupId) then
                 return true
             end
+        end
+        local groupId = XRiftManager.GetSeasonTaskGroupId()
+        if XDataCenter.TaskManager.CheckLimitTaskList(groupId) then
+            return true
         end
         return false
     end
@@ -1170,7 +1456,7 @@ XRiftManagerCreator = function()
 
         local goodList = XRiftManager.GetPluginShopGoodList()
         for _, good in pairs(goodList) do
-            local plugin = XRiftManager.GetPlugin(good.PluginId)
+            local plugin = XRiftManager.GetShopGoodsPlugin(good)
             local tag = plugin:GetTag()
             if tagDic[tag] == nil then
                 tagDic[tag] = true
@@ -1181,30 +1467,106 @@ XRiftManagerCreator = function()
         return tagList
     end
 
-    local PluginShopSortFunc = function(goodA, goodB)
-        local pluginA = XRiftManager.GetPlugin(goodA.PluginId)
-        local isSellOutA = pluginA:GetHave()
-        local pluginB = XRiftManager.GetPlugin(goodB.PluginId)
-        local isSellOutB = pluginB:GetHave()
-
-        if isSellOutA == isSellOutB then
-            return goodA.Id < goodB.Id
-        else
-            return isSellOutB
+    ---@param goodA XTableRiftPluginShopGoods
+    ---@param goodB XTableRiftPluginShopGoods
+    function XRiftManager.PluginShopSortFunc(goodA, goodB)
+        -- 随机>角色专属>通用插件
+        local aSort = XRiftManager.GetFirstShopSort(goodA)
+        local bSort = XRiftManager.GetFirstShopSort(goodB)
+        if aSort ~= bSort then
+            return aSort < bSort
         end
+        local aPlugin = XRiftManager.GetShopGoodsPlugin(goodA)
+        local bPlugin = XRiftManager.GetShopGoodsPlugin(goodB)
+        -- 高星>低星
+        local aStar = aPlugin:GetStar()
+        local bStar = bPlugin:GetStar()
+        if aStar ~= bStar then
+            return bStar < aStar
+        end
+        -- 优先级
+        local aPluginSort = aPlugin.Config.Sort
+        local bPluginSort = bPlugin.Config.Sort
+        if aPluginSort ~= bPluginSort then
+            return aPluginSort < bPluginSort
+        end
+        return goodA.Id < goodB.Id
+    end
+
+    ---@param good XTableRiftPluginShopGoods
+    function XRiftManager.GetFirstShopSort(good)
+        if good.GoodsType == XEnumConst.Rift.RandomShopGoodType then
+            return 1
+        else
+            local tagId = XRiftManager:GetCharacterExclusiveTagId()
+            local plugin = XRiftManager.GetPlugin(good.PluginId)
+            if plugin:IsContainTag(tagId) then
+                return 2
+            end
+            return 3
+        end
+    end
+
+    ---@param good XTableRiftPluginShopGoods
+    ---@return XRiftPlugin
+    function XRiftManager.GetShopGoodsPlugin(good)
+        local pluginId
+        if good.GoodsType == XEnumConst.Rift.RandomShopGoodType then
+            if XTool.IsNumberValid(good.ShowPluginId) then
+                pluginId = good.ShowPluginId
+            else
+                pluginId = good.PluginIds[1]
+            end
+        else
+            pluginId = good.PluginId
+        end
+        return XRiftManager.GetPlugin(pluginId)
     end
 
     function XRiftManager.FilterPluginShopGoodList(selectTag)
         local goodList = {}
+        local filterSetting = XRiftManager:GetFilterSertting(XEnumConst.Rift.FilterSetting.PluginShop)
         for _, good in pairs(PluginShopGoodList) do
-            local plugin = XRiftManager.GetPlugin(good.PluginId)
+            for _, v in pairs(good.ConditionId) do
+                local isOpen, _ = XConditionManager.CheckCondition(v)
+                if not isOpen then
+                    goto CONTINUE
+                end
+            end
+            local plugin = XRiftManager.GetShopGoodsPlugin(good)
+            local star = plugin:GetStar()
+            local data = filterSetting[XEnumConst.Rift.Filter.Star]
+            if not XTool.IsTableEmpty(data) and not data[star] then
+                goto CONTINUE
+            end
+            local tags = plugin:GetFilterTags()
+            local data = filterSetting[XEnumConst.Rift.Filter.Tag]
+            if not XTool.IsTableEmpty(data) then
+                if XTool.IsTableEmpty(tags) then
+                    goto CONTINUE
+                else
+                    local hasTag = false
+                    for _, tag in pairs(tags) do
+                        if data[tag] then
+                            hasTag = true
+                            break
+                        end
+                    end
+                    if not hasTag then
+                        goto CONTINUE
+                    end
+                end
+            end
+
             local tag = plugin:GetTag()
             if selectTag == ScreenAll or tag == selectTag then
                 table.insert(goodList, good)
             end
+
+            :: CONTINUE ::
         end
 
-        table.sort(goodList, PluginShopSortFunc)
+        table.sort(goodList, XRiftManager.PluginShopSortFunc)
         return goodList
     end
 
@@ -1217,7 +1579,7 @@ XRiftManagerCreator = function()
             end
 
             XRiftManager.SetPluginHave(res.AddedPluginId)
-            cb()
+            cb(res.AddedPluginId, res.DecomposeValue)
         end)
     end
 
@@ -1250,21 +1612,27 @@ XRiftManagerCreator = function()
 
     -------------------------------------------------- 9排行榜 begin --------------------------------------------------
 
-    function XRiftManager.OpenUiPluginRanking()
-        local request = { ActivityId = ActivityId }
+    function XRiftManager.RequireRanking(cb, id)
+        local request = { PeriodId = id or PeriodId }
         XNetwork.Call("RiftGetRankRequest", request, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
                 return
             end
             RankData = res
-            
-            XLuaUiManager.Open("UiRiftRanking")
+
+            if cb then
+                cb()
+            end
         end)
     end
 
     function XRiftManager.GetRankingList()
         return RankData.RankPlayerInfos
+    end
+
+    function XRiftManager.IsHasRank()
+        return XTool.IsNumberValid(RankData.Rank)
     end
 
     function XRiftManager.GetMyRankInfo()
@@ -1290,6 +1658,16 @@ XRiftManagerCreator = function()
         if type(rank) ~= "number" or rank < 1 or rank > 3 then return end
         local icon = CS.XGame.ClientConfig:GetString("BabelTowerRankIcon"..rank) 
         return icon
+    end
+
+    function XRiftManager:IsRankUnlock()
+        local layerId = CurrentConfig.RankLayerLimit
+        if XTool.IsNumberValid(layerId) then
+            if not XRiftManager.IsLayerPass(layerId) then
+                return false, XUiHelper.GetText("RiftLayerUnlockTip", layerId)
+            end
+        end
+        return true, ""
     end
     -------------------------------------------------- 9排行榜 end --------------------------------------------------
 
@@ -1359,7 +1737,7 @@ XRiftManagerCreator = function()
     -- 服务器刷新随机重置数据(在登录和手动请求时都要调用)
     function XRiftManager.RefreshRandomDataByServer(LayerData)
         -- 服务器下发一个Layer数据 包含所有的关系链信息，自上而下建立关系
-        XRiftManager.ClearStageGroupRelationshipChain()
+        XRiftManager.ClearStageGroupRelationshipChain(LayerData and LayerData.LayerId or 0)
         XRiftManager.ResetOrCreateStageGroupRelationshipChain(LayerData)
     end
 
@@ -1397,13 +1775,8 @@ XRiftManagerCreator = function()
         end
 
         for k, xFightLayer in pairs(FightLayerDicById) do
-            if xFightLayer:GetConfig().Order <= maxUnlockOrder then
-                xFightLayer:SetHasLock(false)
-            end
-
-            if xFightLayer:GetConfig().Order <= maxPassOrder then
-                xFightLayer:SetHasPassed(true)
-            end
+            xFightLayer:SetHasLock(xFightLayer:GetConfig().Order > maxUnlockOrder)
+            xFightLayer:SetHasPassed(xFightLayer:GetConfig().Order <= maxPassOrder)
         end
         if MaxUnLockFightLayerOrder and maxUnlockOrder - MaxUnLockFightLayerOrder > 1 then
             IsJumpOpenTrigger = maxUnlockOrder - MaxUnLockFightLayerOrder
@@ -1473,11 +1846,399 @@ XRiftManagerCreator = function()
         XRiftManager.RefreshAttrTemplate(data)
         -- 解锁插件
         XRiftManager.UnlockedPlugin(data.UnlockedPluginIds)
+        -- 幸运关（3.0的幸运关是独立的，和关卡没关联）
+        XRiftManager:RefreshLuckNode(data.LuckyNode, data.LuckyValue)
+        -- 赛季
+        XRiftManager:RefreshSeason(data.PeriodId)
     end
     ------------------副本入口扩展
     --region
     --endregion
     ------------------副本入口扩展结束
+
+    --region 赛季
+
+    function XRiftManager:RefreshSeason(seasonId)
+        local isSeasonUpdate = PeriodId ~= seasonId
+        PeriodId = seasonId
+        self:CheckShowSeasonStart()
+        if isSeasonUpdate then
+            CsXGameEventManager.Instance:Notify(XEventId.EVENT_RIFT_SEASON)
+        end
+    end
+
+    function XRiftManager:GetSeasonIndex()
+        -- 服务端索引从0开始
+        return PeriodId + 1
+    end
+
+    function XRiftManager:GetSeasonName()
+        local index = self:GetSeasonIndex()
+        return CurrentConfig.PeriodName[index] or ""
+    end
+
+    function XRiftManager:GetSeasonNameByIndex(index)
+        return CurrentConfig.PeriodName[index] or ""
+    end
+
+    function XRiftManager:SeasonSettlement(periodId)
+        XRiftManager.RequireRanking(function()
+            XLuaUiManager.Open("UiRiftSettleSeason", periodId + 1)
+        end, periodId)
+    end
+
+    function XRiftManager:GetSeasonDesc()
+        local index = self:GetSeasonIndex()
+        return self:IsSeasonOpen() and CurrentConfig.PeriodDesc[index] or ""
+    end
+
+    function XRiftManager:GetSeasonTimeId()
+        local index = self:GetSeasonIndex()
+        return self:IsSeasonOpen() and CurrentConfig.PeriodTimeIds[index] or 0
+    end
+
+    function XRiftManager:IsSeasonOpen()
+        -- -1表示赛季未开启
+        return PeriodId >= 0
+    end
+
+    function XRiftManager:CheckSeasonOpen(seasonId)
+        return seasonId <= self:GetSeasonIndex()
+    end
+
+    function XRiftManager:GetSeasonEndTime()
+        local timeId = self:GetSeasonTimeId()
+        if XTool.IsNumberValid(timeId) then
+            return XFunctionManager.GetEndTimeByTimeId(timeId) - XTime.GetServerNowTimestamp()
+        end
+        return 0
+    end
+
+    function XRiftManager:GetSeasonStartTimeByIndex(index)
+        local timeId = CurrentConfig.PeriodTimeIds[index]
+        if XTool.IsNumberValid(timeId) then
+            return XFunctionManager.GetStartTimeByTimeId(timeId) - XTime.GetServerNowTimestamp()
+        end
+        return 0
+    end
+
+    function XRiftManager:IsSeasonLayer(ChapterId)
+        -- 最后一关就是赛季关
+        return ChapterId >= MaxChapterId
+    end
+
+    function XRiftManager:CheckShowSeasonStart()
+        if XLuaUiManager.IsUiShow("UiRiftMain") then
+            local historySeasonIndex = XSaveTool.GetData("RiftLastSeasonIndex") or 1
+            local curSeasonIndex = self:GetSeasonIndex()
+            if historySeasonIndex ~= curSeasonIndex then
+                XSaveTool.SaveData("RiftLastSeasonIndex", curSeasonIndex)
+                -- 进入第一赛季不用弹，最后一个赛季结束时不用弹（服务端不会发协议过来）
+                if curSeasonIndex >= 2 then
+                    local callBack = function()
+                        local asynOpen = asynTask(XLuaUiManager.Open)
+                        RunAsyn(function()
+                            asynOpen("UiRiftSettleSeason", curSeasonIndex - 1)
+                            asynOpen("UiRiftSeasonStart")
+                        end)
+                    end
+                    XRiftManager.RequireRanking(callBack, PeriodId - 1)
+                end
+            end
+        end
+    end
+
+    function XRiftManager:GetTaskSeason(taskId)
+        local config = XDataCenter.TaskManager.GetTaskTemplate(taskId)
+        for _, conditionId in pairs(config.Condition) do
+            local params = XTaskConfig.GetTaskCondition(conditionId).Params
+            if XTool.IsNumberValid(params[1]) then
+                return params[1]    -- 和策划约定 第1个参数表示任务所属的赛季
+            end
+        end
+        return 1
+    end
+
+    --endregion
+
+    --region 幸运关
+
+    function XRiftManager:RefreshLuckNode(luckyNode, luckyValue)
+        if not LuckyNodeData then
+            LuckyNodeData = require("XModule/XRift/XEntity/XRiftLuckyNodeData").New()
+        end
+        if luckyNode then
+            LuckyNodeData:RefreshNode(luckyNode)
+        end
+        if luckyValue then
+            LuckyNodeData:RefreshLuckyValue(luckyValue)
+        end
+    end
+
+    function XRiftManager:GetLuckNode()
+        return LuckyNodeData
+    end
+
+    function XRiftManager:GetLuckValueProgress()
+        return LuckyNodeData and LuckyNodeData:GetLuckValueProgress() or 0
+    end
+
+    function XRiftManager:GetLuckPlugins()
+        return LuckyNodeData and LuckyNodeData:GetLuckPlugins() or {}
+    end
+
+    function XRiftManager:GetLuckPluginDrop(index)
+        return LuckyNodeData and LuckyNodeData:GetLuckPluginDrop(index) or 0
+    end
+
+    function XRiftManager:GetLuckLayer()
+        return LuckyNodeData and LuckyNodeData:GetLuckLayer() or nil
+    end
+
+    function XRiftManager:GetLuckStageId()
+        return LuckyNodeData and LuckyNodeData:GetLuckStageId() or 0
+    end
+
+    function XRiftManager:GetLuckMonster()
+        return LuckyNodeData and LuckyNodeData:GetLuckMonster() or {}
+    end
+
+    function XRiftManager:GetMaxLuckyValue()
+        local config = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftActivity, ActivityId)
+        return config.MaxLuckyValue
+    end
+
+    function XRiftManager:IsStageBelongLucky(stageId)
+        return stageId == self:GetLuckStageId()
+    end
+
+    function XRiftManager:GetMonsterByStageId(stageId)
+        local datas = {}
+        local stageConfig = XRiftConfig.GetStageConfigById(stageId)
+        for _, group in pairs(stageConfig.MonsterWaveRandomGroupIds) do
+            local monsterWave = XRiftConfig.GetMonsterWareRandomItemById(group)
+            for _, monster in pairs(monsterWave.MonsterIds) do
+                local data = self.GetEntitytMonsterById(monster)
+                table.insert(datas, data)
+            end
+        end
+        return datas
+    end
+
+    function XRiftManager:SetLuckPassTime(time)
+        if LuckyNodeData then
+            LuckyNodeData:SetPassTime(time)
+        end
+    end
+
+    function XRiftManager:GetLuckPassTime()
+        return LuckyNodeData and LuckyNodeData:GetPassTime() or 0
+    end
+
+    --endregion
+
+    --region 插件筛选器
+
+    function XRiftManager:SaveFilterSertting(setting, data)
+        PluginFilterSetting[setting] = data or {}
+    end
+
+    function XRiftManager:GetFilterSertting(setting)
+        return PluginFilterSetting[setting] or {}
+    end
+
+    --endregion
+
+    --region 客户端配置
+
+    ---获取Client路径下的Config配置信息
+    function XRiftManager:GetClientConfig(key, index)
+        index = index or 1
+        local config = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftClientConfig)[key]
+        if not config then
+            return ""
+        end
+        return config.Values and config.Values[index] or ""
+    end
+
+    function XRiftManager:GetPluginShowBg(quality)
+        return self:GetClientConfig("PluginQualityBg", quality)
+    end
+
+    ---获取角色专属标签Id
+    function XRiftManager:GetCharacterExclusiveTagId()
+        return tonumber(self:GetClientConfig("CharacterExclusiveTagId"))
+    end
+
+    function XRiftManager:GetHandbookBarWidth()
+        return tonumber(self:GetClientConfig("HandbookBarWidth"))
+    end
+
+    function XRiftManager:GetPluginPageCount()
+        return tonumber(self:GetClientConfig("PluginChoosePageCount"))
+    end
+
+    --endregion
+
+    --region 一键推荐
+
+    ---@param role XRiftRole
+    function XRiftManager:GetOneKeyRecommendList(role)
+        local plugins = {}
+        local tempPluginId
+        local datas = self:GetRecommendSetting(role.Id)
+        local residue = XRiftManager.GetMaxLoad()
+        local characterAgency = XMVCA:GetAgency(ModuleId.XCharacter)
+        local isNormalRole = characterAgency:GetCharacterQuality(role.Id) < 4
+        if isNormalRole then
+            -- 优先装备构界突破
+            local stageUpgradeType = tonumber(self:GetClientConfig("BreakType"))
+            tempPluginId, residue = self:_GetPluginByType(stageUpgradeType, residue)
+            if tempPluginId then
+                table.insert(plugins, tempPluginId)
+            end
+        end
+        -- 遍历推荐表
+        for _, v in pairs(datas) do
+            tempPluginId, residue = self:_GetPluginByType(v.PluginType, residue)
+            if tempPluginId then
+                table.insert(plugins, tempPluginId)
+            end
+        end
+        return plugins
+    end
+
+    ---通过类型获取已拥有的能穿戴的最高级插件
+    function XRiftManager:_GetPluginByType(pluginType, residue)
+        ---@type XRiftPlugin[]
+        local sameTypePlugins = PluginsTypeMap[pluginType]
+        if not sameTypePlugins then
+            sameTypePlugins = {}
+            for _, v in pairs(AllPluginDicById) do
+                if v.Config.Type == pluginType then
+                    table.insert(sameTypePlugins, v)
+                end
+            end
+            table.sort(sameTypePlugins, function(a, b)
+                return a.Config.Quality > b.Config.Quality
+            end)
+            PluginsTypeMap[pluginType] = sameTypePlugins
+        end
+        for _, v in pairs(sameTypePlugins) do
+            local num = residue - v.Config.Load
+            if num >= 0 and v:GetHave() then
+                return v.Config.Id, num
+            end
+        end
+        return nil, residue
+    end
+
+    function XRiftManager:GetRecommendSetting(characterId)
+        if not OneKeyRecommend[characterId] then
+            local data = {}
+            local configs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftOneKeyEquip)
+            for _, v in pairs(configs) do
+                if v.CharacterId == characterId then
+                    table.insert(data, v)
+                end
+            end
+            table.sort(data, function(a, b)
+                return a.Sort < b.Sort
+            end)
+            OneKeyRecommend[characterId] = data
+        end
+        return OneKeyRecommend[characterId]
+    end
+
+    --endregion
+
+    --region 图鉴加成
+
+    ---@return table<number, XTableRiftCollectAttributeEffect>
+    function XRiftManager:GetHandbookEffect(star)
+        if not HandbookEffectMap then
+            self:InitHandbookEffect()
+        end
+        return HandbookEffectMap[star] or {}
+    end
+
+    function XRiftManager:InitHandbookEffect()
+        HandbookEffectMap = {}
+        ---@type XTableRiftCollectAttributeEffect[]
+        local configs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftCollectAttributeEffect)
+        for _, v in pairs(configs) do
+            for _, condition in pairs(v.ConditionIds) do
+                local temp = XConditionManager.GetConditionTemplate(condition)
+                if temp.Type == XEnumConst.Rift.StarConditionType then
+                    local star = temp.Params[1]
+                    local count = temp.Params[2]
+                    if not HandbookEffectMap[star] then
+                        HandbookEffectMap[star] = {}
+                    end
+                    table.insert(HandbookEffectMap[star], { Count = count, Config = v })
+                end
+            end
+        end
+        for _, map in ipairs(HandbookEffectMap) do
+            table.sort(map, function(a, b)
+                return a.Count < b.Count
+            end)
+        end
+    end
+
+    ---@return XTableRiftCollectAttributeEffect[]
+    function XRiftManager:GetHandbookTakeEffectList()
+        local datas = {}
+        ---@type XTableRiftCollectAttributeEffect[]
+        local configs = XRiftConfig.GetAllConfigs(XRiftConfig.TableKey.RiftCollectAttributeEffect)
+        for _, v in pairs(configs) do
+            local isTakeEffect = true
+            for _, condition in pairs(v.ConditionIds) do
+                if not XConditionManager.CheckCondition(condition) then
+                    isTakeEffect = false
+                    break
+                end
+            end
+            if isTakeEffect then
+                if not datas[v.Attr] then
+                    datas[v.Attr] = v.Value
+                else
+                    datas[v.Attr] = v.Value + datas[v.Attr]
+                end
+            end
+        end
+
+        local results = {}
+        for attrId, value in pairs(datas) do
+            table.insert(results, { AttrId = attrId, Value = value })
+        end
+        table.sort(results, function(a, b)
+            local aAttr = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttributeEffectType, a.AttrId)
+            local bAttr = XRiftConfig.GetCfgByIdKey(XRiftConfig.TableKey.RiftTeamAttributeEffectType, b.AttrId)
+            return aAttr.Order < bAttr.Order
+        end)
+        return results
+    end
+
+    --endregion
+
+    --region 红点
+
+    ---成员界面加点按钮是否显示红点
+    function XRiftManager:IsMemberAddPointRed()
+        local template = XDataCenter.RiftManager.GetAttrTemplate(XRiftConfig.DefaultAttrTemplateId)
+        return template:CanAddPoint()
+    end
+
+    function XRiftManager:SetCharacterRedPoint(isRed)
+        IsCharacterRedPoint = isRed
+    end
+
+    function XRiftManager:GetCharacterRedPoint()
+        return IsCharacterRedPoint
+    end
+
+    --endregion
 
     XRiftManager.Init()
     return XRiftManager

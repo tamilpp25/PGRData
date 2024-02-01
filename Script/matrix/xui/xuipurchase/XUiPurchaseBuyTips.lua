@@ -72,8 +72,13 @@ function XUiPurchaseBuyTips:OnStart(data, checkBuyFun, updateCb, beforeBuyReqFun
 end
 
 function XUiPurchaseBuyTips:OnEnable()
+    XEventManager.AddEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
     -- SetList 放在Enable中跳出充值界面返回显示的时候重新刷新奖励列表
     self:SetList()
+end
+
+function XUiPurchaseBuyTips:OnDisable()
+    XEventManager.RemoveEventListener(XEventId.EVENT_PURCHASE_QUICK_BUY_SKIP, self.Close, self)
 end
 
 function XUiPurchaseBuyTips:Init()
@@ -661,7 +666,7 @@ function XUiPurchaseBuyTips:OnBtnBuyClick()
                 self:BuyPurchaseRequest()
             elseif result == 2 then
                 XUiHelper.BuyInOtherPlatformHongka()
-            else
+            elseif result ~= 3 then
                 self:CloseTips()
             end
         else

@@ -1,3 +1,4 @@
+---@class XUiGridRankItemInfo
 local XUiGridRankItemInfo = XClass(nil, "XUiGridRankItemInfo")
 
 local MAX_SPECIAL_NUM = 3
@@ -10,6 +11,7 @@ function XUiGridRankItemInfo:Ctor(ui)
     self.BtnDetail.CallBack = function() self:OnBtnDetailClick() end
 end
 
+---@param uiRoot XUiFubenBabelTowerRank
 function XUiGridRankItemInfo:Init(uiRoot)
     self.UiRoot = uiRoot
 end
@@ -21,7 +23,7 @@ function XUiGridRankItemInfo:Refresh(rankInfo)
     self.TxtPlayerName.text = XDataCenter.SocialManager.GetPlayerRemark(rankInfo.PlayerId, rankInfo.Name)
 
     XUiPLayerHead.InitPortrait(rankInfo.HeadPortraitId, rankInfo.HeadFrameId, self.Head)
-    
+
     self.TxtRankNormal.gameObject:SetActive(rankInfo.Rank > MAX_SPECIAL_NUM)
     self.ImgRankSpecial.gameObject:SetActive(rankInfo.Rank <= MAX_SPECIAL_NUM)
     if rankInfo.Rank <= MAX_SPECIAL_NUM then
@@ -30,10 +32,17 @@ function XUiGridRankItemInfo:Refresh(rankInfo)
     else
         self.TxtRankNormal.text = rankInfo.Rank
     end
+    -- 最短通关时间
+    if self.TxtRankTime then
+        local time = rankInfo.MinTime or 0
+        self.TxtRankTime.text = XTime.TimestampToGameDateTimeString(time, "mm:ss")
+    end
 end
 
 function XUiGridRankItemInfo:OnBtnDetailClick()
-    if not self.RankInfo then return end
+    if not self.RankInfo then
+        return
+    end
     XDataCenter.PersonalInfoManager.ReqShowInfoPanel(self.RankInfo.PlayerId)
 end
 

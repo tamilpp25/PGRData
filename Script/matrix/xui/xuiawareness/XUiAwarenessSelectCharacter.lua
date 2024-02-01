@@ -84,7 +84,7 @@ end
 
 -- 刷新左边角色列表
 function XUiAwarenessSelectCharacter:UpdateCharacters()
-    local roleList = XDataCenter.CharacterManager.GetOwnCharacterList()
+    local roleList = XMVCA.XCharacter:GetOwnCharacterList()
     roleList = self:RoleSortFun(roleList)
     local index = 1
     if self.TargetCharacter then

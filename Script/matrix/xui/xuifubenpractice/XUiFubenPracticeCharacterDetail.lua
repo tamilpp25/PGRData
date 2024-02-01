@@ -29,7 +29,7 @@ end
 
 function XUiFubenPracticeCharacterDetail:CloseStageDetailCb()
     self.BtnCloseDetail.gameObject:SetActiveEx(false)
-    self.PanelAsset.gameObject:SetActiveEx(true)
+    self.AssetPanel:Open()
     if XLuaUiManager.IsUiShow(ChildDetailUi) then
         self:FindChildUiObj(ChildDetailUi):CloseWithAnimation()
     end
@@ -37,7 +37,7 @@ end
 
 function XUiFubenPracticeCharacterDetail:ShowStageDetail(stageId)
     self.BtnCloseDetail.gameObject:SetActiveEx(true)
-    self.PanelAsset.gameObject:SetActiveEx(false)
+    self.AssetPanel:Close()
     self.StageId = stageId
     self:OpenOneChildUi(ChildDetailUi, self)
     self:FindChildUiObj(ChildDetailUi):Refresh(stageId)

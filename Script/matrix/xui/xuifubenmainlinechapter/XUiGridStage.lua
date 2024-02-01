@@ -332,7 +332,8 @@ function XUiGridStage:SetNormalStage(stageInfo, nextStageInfo, stageCfg, stageId
          chapter = XFubenShortStoryChapterConfigs.CheckChapterDetailsByChapterId(stageInfo.ChapterId)
     end
     if stageType == XFubenConfigs.STAGETYPE_STORY or stageType == XFubenConfigs.STAGETYPE_STORYEGG then
-        if stageInfo.Unlock then
+        local isUnlock = self:CheckCurrentStageUnlock(stageCfg, stageInfo)
+        if isUnlock then
             self:SetStoryStageActive()
             if (not (nextStageInfo and nextStageInfo.Unlock or stageInfo.Passed)) and not IsEgg then
                 if not self.IsMainLineExplore then
@@ -424,7 +425,7 @@ function XUiGridStage:UpdateFightControl()
     if stageInfo.Unlock and not stageInfo.Passed then
         if stageCfg.FightControlId > 0 then
             local data = XFubenConfigs.GetStageFightControl(stageCfg.FightControlId)
-            local charlist = XDataCenter.CharacterManager.GetCharacterList()
+            local charlist = XMVCA.XCharacter:GetCharacterList()
             local maxAbility = 0
             for _, v in pairs(charlist) do
                 if v.Ability and v.Ability > maxAbility then
@@ -571,8 +572,12 @@ function XUiGridStage:CheckCurrentStageUnlock(stageCfg, stageInfo)
 end
 
 function XUiGridStage:CheckCurrentStageEffect(stageCfg, stageInfo, nextStageInfo)
+    local isStagePass = stageInfo.Passed
+    if XDataCenter.BfrtManager.CheckStageTypeIsBfrt(stageCfg.StageId) then
+        isStagePass = XDataCenter.BfrtManager.IsGroupPassedByStageId(stageCfg.StageId)
+    end
     -- 是否显示特效
-    local isShowEffect = not (nextStageInfo and nextStageInfo.Unlock or stageInfo.Passed)
+    local isShowEffect = not (nextStageInfo and nextStageInfo.Unlock or isStagePass)
     -- 是否存在完成事件Id
     local isClearEventId = false
     local clearEventId = stageCfg.ClearEventId or {}

@@ -76,6 +76,7 @@ function XUiPanelReset:OnBtnConfirmClick()
         end
 
         local costA, costB, costC = self:GetABCPoint()
+        XUiHelper.LimitContinuousClick(self.BtnConfirm)
         XDataCenter.FurnitureManager.FurnitureRemake(self.FurnitureIds, costA, costB, costC, self.RoomId, self.OnRemakeRequestCb)
 
         --local realRequest = function()
@@ -119,6 +120,18 @@ function XUiPanelReset:SetPanelActive(value)
 end
 
 function XUiPanelReset:ResetData()
+    --切换页签时，如果家具被消耗了，移除对应的Id
+    local indexList = {}
+    for index, id in ipairs(self.FurnitureIds) do
+        if not XDataCenter.FurnitureManager.CheckFurnitureExist(id) then
+            table.insert(indexList, index)
+        end
+    end
+    --从后往前删除
+    for index = #indexList, 1, -1 do
+        local idx = indexList[index]
+        table.remove(self.FurnitureIds, idx)
+    end
     self.RewardKey = 0
     self.LastRewardKey = -1
     self.FilterKey = 0
@@ -263,13 +276,15 @@ function XUiPanelReset:GetRecycleCoinCount()
         return self.RecycleCount
     end
     local furnitureIds, _ = self:GetFilterFurnitureIds()
-    local rewards = XDataCenter.FurnitureManager.GetRecycleRewards(furnitureIds)
+    
     local count = 0
-    for _, reward in pairs(rewards) do
-        if reward.TemplateId == XDataCenter.ItemManager.ItemId.FurnitureCoin then
-            count = count + reward.Count
-        end
+    local coinId = XDataCenter.ItemManager.ItemId.FurnitureCoin
+    for _, furnitureId in pairs(furnitureIds) do
+        local rewards = XDataCenter.FurnitureManager.GetRemakeRewards(furnitureId)
+        local rewardCount = rewards[coinId] and rewards[coinId].Count or 0
+        count = count + rewardCount
     end
+
     self.RecycleCount = count
     
     return count

@@ -1,12 +1,9 @@
-XUiPanelLevelUpgrade = XClass(nil, "XUiPanelLevelUpgrade")
+local XUiPanelLevelUpgrade = XClass(XUiNode, "XUiPanelLevelUpgrade")
 
-function XUiPanelLevelUpgrade:Ctor(ui, parent)
+function XUiPanelLevelUpgrade:Ctor(ui, parent, rootUi)
     self.GameObject = ui.gameObject
     self.Transform = ui.transform
-    self.Parent = parent
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
+    self.RootUi = rootUi
 
     self:InitAutoScript()
 end
@@ -63,7 +60,7 @@ function XUiPanelLevelUpgrade:AutoAddListener()
 end
 -- auto
 function XUiPanelLevelUpgrade:OnBtnDarkBgClick()
-    self.Parent.LevelUpgradeDisable:PlayTimelineAnimation(function()
+    self.RootUi.LevelUpgradeDisable:PlayTimelineAnimation(function()
         self:HideLevelInfo()
     end)
 end
@@ -82,11 +79,11 @@ function XUiPanelLevelUpgrade:HideLevelInfo()
         self.GameObject:SetActive(false)
     end
 
-   -- XDataCenter.GuideManager.OpenSubPanel(self.Parent.Parent.Parent.Parent.Name, "PanelLevelUpgrade", false)
+   -- XDataCenter.GuideManager.OpenSubPanel(self.RootUi.Parent.Parent.Parent.Name, "PanelLevelUpgrade", false)
 end
 
 function XUiPanelLevelUpgrade:OldCharUpgradeInfo(character)
-    self.TxtOldBattlePower.text = self.CharacterAgency:GetCharacterHaveRobotAbilityById(character.Id)
+    self.TxtOldBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtOldAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtOldLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtOldDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
@@ -95,11 +92,13 @@ function XUiPanelLevelUpgrade:OldCharUpgradeInfo(character)
 end
 
 function XUiPanelLevelUpgrade:CurCharUpgradeInfo(character)
-    self.TxtCurBattlePower.text = self.CharacterAgency:GetCharacterHaveRobotAbilityById(character.Id)
+    self.TxtCurBattlePower.text = XMVCA.XCharacter:GetCharacterHaveRobotAbilityById(character.Id)
     self.TxtCurAttack.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.AttackNormal]) or 0)
     self.TxtCurLife.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Life]) or 0)
     self.TxtCurDefense.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.DefenseNormal]) or 0)
     self.TxtCurCrit.text = XMath.ToMinInt(FixToDouble(character.Attribs[XNpcAttribType.Crit]) or 0)
     self.TxtCurLevelA.text = "LV." .. character.Level
-    self.RImgRoleUpgradeMsg:SetRawImage(XDataCenter.CharacterManager.GetCharBigHeadIcon(character.Id))
+    self.RImgRoleUpgradeMsg:SetRawImage(XMVCA.XCharacter:GetCharBigHeadIcon(character.Id))
 end
+
+return XUiPanelLevelUpgrade

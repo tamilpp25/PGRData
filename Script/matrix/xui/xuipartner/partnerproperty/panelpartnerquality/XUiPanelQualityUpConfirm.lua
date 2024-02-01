@@ -26,7 +26,7 @@ function XUiPanelQualityUpConfirm:HidePanel()
 end
 
 function XUiPanelQualityUpConfirm:UpdatePartnerInfo(data)
-    self.IconQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(data:GetQuality()))
+    self.IconQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(data:GetQuality()))
 end
 
 function XUiPanelQualityUpConfirm:OnBtnCloseClick(data)

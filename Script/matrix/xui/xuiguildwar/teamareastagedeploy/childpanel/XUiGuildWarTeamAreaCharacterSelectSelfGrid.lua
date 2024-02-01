@@ -18,16 +18,16 @@ end
 
 function XUiGuildWarTeamAreaCharacterSelectSelfGrid:UpdateCharacter()
     local characterId = self.CharacterId
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
 
     if self.PanelCharElement then
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(characterId)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(characterId)
         local elementList = detailConfig.ObtainElementList
         for i = 1, 3 do
             local rImg = self["RImgCharElement" .. i]
             if elementList[i] then
                 rImg.gameObject:SetActiveEx(true)
-                local elementConfig = XCharacterConfigs.GetCharElement(elementList[i])
+                local elementConfig = XMVCA.XCharacter:GetCharElement(elementList[i])
                 rImg:SetRawImage(elementConfig.Icon)
             else
                 rImg.gameObject:SetActiveEx(false)
@@ -36,7 +36,7 @@ function XUiGuildWarTeamAreaCharacterSelectSelfGrid:UpdateCharacter()
     end
 
     if self.RImgHeadIcon then
-        self.RImgHeadIcon:SetRawImage(XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId))
+        self.RImgHeadIcon:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(characterId))
     end
 
     if self.TxtLevel then
@@ -45,12 +45,12 @@ function XUiGuildWarTeamAreaCharacterSelectSelfGrid:UpdateCharacter()
 
     if self.PanelFight then
         self.PanelFight.gameObject:SetActiveEx(true)
-        local ability = XDataCenter.CharacterManager.GetCharacterAbilityById(characterId)
+        local ability = XMVCA.XCharacter:GetCharacterAbilityById(characterId)
         self.TxtFight.text = math.floor(ability)
     end
 
     if self.RImgQuality then
-        self.RImgQuality:SetRawImage(XCharacterConfigs.GetCharacterQualityIcon(character.Quality))
+        self.RImgQuality:SetRawImage(XMVCA.XCharacter:GetCharacterQualityIcon(character.Quality))
     end
 
     -- 特攻角色

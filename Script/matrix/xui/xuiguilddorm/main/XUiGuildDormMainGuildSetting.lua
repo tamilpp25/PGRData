@@ -33,6 +33,11 @@ function XUiGuildDormMainGuildSetting:OnClickExitGuild()
         else
             local title = CS.XTextManager.GetText("GuildDialogTitle")
             local content = CS.XTextManager.GetText("GuildQuitLastMember")
+
+            if XDataCenter.GuildWarManager.CheckActivityIsInTime() and XDataCenter.GuildWarManager.CheckRoundIsInTime() then
+                content = XGuildWarConfig.GetClientConfigValues('GuildQuitLastMemberInWar')[1]
+            end
+            
             XUiManager.DialogTip(title, content, XUiManager.DialogType.Normal, function()
                 end, function()
                     XDataCenter.GuildManager.QuitGuild(function()

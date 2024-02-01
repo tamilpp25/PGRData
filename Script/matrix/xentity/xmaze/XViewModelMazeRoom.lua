@@ -19,7 +19,7 @@ end
 function XViewModelMazeRoom:GetPartnerName()
     local robotId = self:GetPartnerRobotId()
     local characterId = XRobotManager.GetCharacterId(robotId)
-    local name = XCharacterConfigs.GetCharacterName(characterId)
+    local name = XMVCA.XCharacter:GetCharacterName(characterId)
     return name
 end
 

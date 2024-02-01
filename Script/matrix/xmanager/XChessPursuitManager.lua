@@ -161,13 +161,6 @@ XChessPursuitManagerCreator = function()
         XEventManager.DispatchEvent(XEventId.EVENT_CHESSPURSUIT_MAP_UPDATE)
     end
 
-    function XChessPursuitManager.RegisterEditBattleProxy()
-        if IsRegisterEditBattleProxy then return end
-        IsRegisterEditBattleProxy = true
-        XUiNewRoomSingleProxy.RegisterProxy(XDataCenter.FubenManager.StageType.ChessPursuit,
-        require("XUi/XUiChessPursuit/XUi/XUiChessPursuitNewRoomSingle"))
-    end
-
     function XChessPursuitManager.GetChessPursuitMapBoss(bossId)
         return bossId and ChessPursuitMapBossList[bossId]
     end
@@ -478,7 +471,6 @@ XChessPursuitManagerCreator = function()
             ChessPursuitMapBossList[chessPursuitMapBoss:GetId()] = chessPursuitMapBoss
         end
 
-        XChessPursuitManager.RegisterEditBattleProxy()
         XEventManager.DispatchEvent(XEventId.EVENT_CHESSPURSUIT_MAP_UPDATE)
     end
 
@@ -666,7 +658,7 @@ XChessPursuitManagerCreator = function()
     end
 
     function XChessPursuitManager.PushAction()
-        local res = XDataCenter.FubenManager.FubenSettleResult
+        local res = XMVCA.XFuben:GetFubenSettleResult()
         if not res or not res.Settle then
             return
         end
@@ -1037,9 +1029,9 @@ XChessPursuitManagerCreator = function()
 end
 
 XRpc.NotifyChessPursuitBossAction = function(data)
-    XDataCenter.ChessPursuitManager.NotifyChessPursuitBossAction(data)
+    --XDataCenter.ChessPursuitManager.NotifyChessPursuitBossAction(data)
 end
 
 XRpc.NotifyChessPursuitGroupInfo = function(data)
-    XDataCenter.ChessPursuitManager.NotifyChessPursuitGroupInfo(data)
+    --XDataCenter.ChessPursuitManager.NotifyChessPursuitGroupInfo(data)
 end

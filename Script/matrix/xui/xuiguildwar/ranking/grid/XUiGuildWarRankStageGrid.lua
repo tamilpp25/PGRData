@@ -18,7 +18,7 @@ function XUiGuildWarRankStageGrid:RefreshData(data)
         local iconObject= self["Team" .. i]
         if memberData and not (memberData.PlayerId == 0) then
             --这个PlayerId其实是CharacterId 后端写的时候太随便了
-            local icon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(memberData.PlayerId)
+            local icon = XMVCA.XCharacter:GetCharSmallHeadIcon(memberData.PlayerId)
             iconObject.gameObject:SetActiveEx(true)
             self["ImgSupport" .. i].gameObject:SetActiveEx(data.IsAssist == 1)
             self["RImgTeam" .. i]:SetRawImage(icon)

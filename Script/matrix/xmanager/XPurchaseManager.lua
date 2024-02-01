@@ -56,6 +56,23 @@ XPurchaseManagerCreator = function()
         return PurchaseInfosData[uiType]
     end
 
+    function XPurchaseManager.IsHaveDataByUiType(uiType)
+        local datas = XPurchaseManager.GetDatasByUiType(uiType)
+        local nowTime = XTime.GetServerNowTimestamp()
+        local itemCount = 0
+
+        for _, data in pairs(datas)do
+            if data and not data.IsSelloutHide then
+                if not (data.TimeToUnShelve > 0 and data.TimeToUnShelve <= nowTime) then--下架了
+                    --不显示
+                    itemCount = itemCount + 1
+                end
+            end
+        end
+
+        return XTool.IsNumberValid(itemCount)
+    end
+
     function XPurchaseManager.GetPurchaseInfoDataById(id)
         for _, datas in pairs(PurchaseInfosData) do
             for _, data in pairs(datas) do
@@ -163,18 +180,23 @@ XPurchaseManagerCreator = function()
         if not uiTypeList then
             uiTypeList = {}
         end
+        XDataCenter.KickOutManager.Lock(XEnumConst.KICK_OUT.LOCK.RECHARGE)
         XNetwork.Call(PurchaseRequest.PurchaseReq, { Id = id, Count = count, DiscountId = discountId, UiTypeList = uiTypeList }, function(res)
             if res.Code ~= XCode.Success then
                 XUiManager.TipCode(res.Code)
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
                 return
             end
 
             XPurchaseManager.CurBuyIds[id] = id
 
             if res.RewardList and res.RewardList[1] and Next(res.RewardList[1]) then
-                XUiManager.OpenUiObtain(res.RewardList)
+                XUiManager.OpenUiObtain(res.RewardList, nil, function()
+                    XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
+                end)
             else
                 XUiManager.TipText("PurchaseLBBuySuccessTips")
+                XDataCenter.KickOutManager.Unlock(XEnumConst.KICK_OUT.LOCK.RECHARGE, true)
             end
 
             XPurchaseManager.PurchaseSuccess(id, res.PurchaseInfo, res.NewPurchaseInfoList)
@@ -541,9 +563,15 @@ XPurchaseManagerCreator = function()
         AccumulatedData.PayId = info.PayId or 0--累计充值id
         AccumulatedData.PayMoney = info.PayMoney or 0--累计充值数量
         AccumulatedData.PayRewardIds = {}--已领取的奖励Id
+        AccumulatedData.ExtraRewardIds = {}
         if info.PayRewardIds then
             for _, id in pairs(info.PayRewardIds) do
                 AccumulatedData.PayRewardIds[id] = id
+            end
+        end
+        if info.ExtraPayRewardIds then
+            for _, id in pairs(info.ExtraPayRewardIds) do
+                AccumulatedData.ExtraRewardIds[id] = id
             end
         end
     end
@@ -579,8 +607,11 @@ XPurchaseManagerCreator = function()
                 return
             end
 
-            AccumulatedData.PayRewardIds[rewardId] = rewardId
+            local extraRewardId = res.ExtraPayRewardId or 0
             local rewardGoodsList = res.RewardGoodsList
+
+            AccumulatedData.PayRewardIds[rewardId] = rewardId
+            AccumulatedData.ExtraRewardIds[extraRewardId] = extraRewardId
             if rewardGoodsList and Next(rewardGoodsList) then
                 XUiManager.OpenUiObtain(rewardGoodsList)
                 if cb then
@@ -599,6 +630,14 @@ XPurchaseManagerCreator = function()
         end
 
         return AccumulatedData.PayRewardIds[id] ~= nil
+    end
+
+    function XPurchaseManager.AccumulateExtraRewardGeted(id)
+        if not id then
+            return false
+        end
+
+        return AccumulatedData.ExtraRewardIds[id] ~= nil
     end
 
     -- 取当前累计充值id
@@ -633,6 +672,10 @@ XPurchaseManagerCreator = function()
 
     -- 累计充值奖励红点
     function XPurchaseManager.AccumulatePayRedPoint()
+        if XDataCenter.UiPcManager.IsPc() then
+            return false
+        end
+        
         local id = AccumulatedData.PayId
         if not id or id < 0 then
             return false
@@ -644,10 +687,12 @@ XPurchaseManagerCreator = function()
             if rewardsId or Next(rewardsId) then
                 for _, tmpId in pairs(rewardsId) do
                     local payRewardConfig = XPurchaseConfigs.GetAccumulateRewardConfigById(tmpId)
+                    local extraRewardId = payRewardConfig.ExtraPayRewardId
                     local count = AccumulatedData.PayMoney
                     if payRewardConfig and payRewardConfig.Money then
                         if payRewardConfig.Money <= count then
-                            if not XPurchaseManager.AccumulateRewardGeted(tmpId) then
+                            if not XPurchaseManager.AccumulateRewardGeted(tmpId) 
+                                or not XPurchaseManager.AccumulateExtraRewardGeted(extraRewardId) then
                                 return true
                             end
                         end
@@ -681,6 +726,40 @@ XPurchaseManagerCreator = function()
         else
             --退款
             if XPurchaseManager.AccumulateRewardGeted(id) then
+                --已经领
+                return XPurchaseConfigs.PurchaseRewardAddState.Geted
+            end
+            --不能领，钱不够。
+            return XPurchaseConfigs.PurchaseRewardAddState.CanotGet
+        end
+    end
+
+    function XPurchaseManager.PurchaseAddExtraRewardState(id)
+        if not id then
+            return
+        end
+
+        local itemData = XPurchaseConfigs.GetAccumulateRewardConfigById(id)
+        
+        if not itemData then
+            return
+        end
+        
+        local extraId = itemData.ExtraPayRewardId
+        local money = itemData.Money
+        local count = XPurchaseManager.GetAccumulatedPayCount()
+        
+        if count >= money then
+            if not XPurchaseManager.AccumulateExtraRewardGeted(extraId) then
+                --能领，没有领。
+                return XPurchaseConfigs.PurchaseRewardAddState.CanGet
+            else
+                --已经领
+                return XPurchaseConfigs.PurchaseRewardAddState.Geted
+            end
+        else
+            --退款
+            if XPurchaseManager.AccumulateExtraRewardGeted(extraId) then
                 --已经领
                 return XPurchaseConfigs.PurchaseRewardAddState.Geted
             end
@@ -824,6 +903,36 @@ XPurchaseManagerCreator = function()
         end
     end
     
+    function XPurchaseManager.GetPayConfigByDifferenceCount(payCount)
+        local configs = XPayConfigs.GetPayConfig()
+        local maxValue = math.huge
+        local result = nil
+        local index = 0
+
+        for i = 1, #configs do
+            local config = configs[i]
+            if payCount <= config.Amount and maxValue > config.Amount then
+                maxValue = config.Amount
+                result = config
+                index = i
+            end
+        end
+        
+        if not result then
+            result = configs[#configs]
+            for i = 1, #configs - 1 do
+                if result.Amount < configs[i].Amount then
+                    result = configs[i]
+                    index = i
+                end
+            end 
+
+            return result, index
+        end
+
+        return result, index
+    end
+
     function XPurchaseManager.GetPurchaseDataById(id)
         local payInfos = XPayConfigs.GetPayConfig()
         for _,v in pairs(payInfos or {}) do

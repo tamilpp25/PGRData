@@ -117,12 +117,29 @@ function XUiPanelInfo:OnBtnDorm()
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
         return
     end
-
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
+    if XMVCA.XDlcRoom:IsInRoom() then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
         return
     end
+
+    if XDataCenter.GuildDormManager.GetIsRunning() then
+        XDataCenter.GuildDormManager.RequestExitRoom(function()
+            local uiList = {"UiPlayerInfo", "UiGuildRongyu"}
+            for _, uiName in pairs(uiList) do
+                if XLuaUiManager.IsUiLoad(uiName)
+                        or XLuaUiManager.IsUiShow(uiName) then
+                    XLuaUiManager.Remove(uiName)
+                end
+            end
+            XLuaUiManager.Remove("UiGuildDormMain")
+        end)
+    end
+
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookDorm"))
+    --    return
+    --end
 
     local data = self.RootUi.Data
     if data and data.Id and data.DormDetail and data.DormDetail.DormitoryId then
@@ -141,11 +158,15 @@ function XUiPanelInfo:OnBtnExhibition()
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
-    local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
-    if unionFightData and unionFightData.Id then
+    if XMVCA.XDlcRoom:IsInRoom() then
         XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
         return
     end
+    --local unionFightData = XDataCenter.FubenUnionKillRoomManager.GetUnionRoomData()
+    --if unionFightData and unionFightData.Id then
+    --    XUiManager.TipError(TextManager.GetText("InTeamCantLookExhibition"))
+    --    return
+    --end
 
     if XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.CharacterExhibition) then
         XLuaUiManager.Open("UiExhibition", false)

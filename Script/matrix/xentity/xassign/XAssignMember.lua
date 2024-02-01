@@ -16,15 +16,15 @@ function XAssignMember:SetCharacterId(characterId)
 end
 
 function XAssignMember:GetCharacterAbility()
-    return self:HasCharacter() and XDataCenter.CharacterManager.GetCharacterAbilityById(self.CharacterId) or 0
+    return self:HasCharacter() and XMVCA.XCharacter:GetCharacterAbilityById(self.CharacterId) or 0
 end
 
 function XAssignMember:GetCharacterSkillInfo()
-    return self:HasCharacter() and XDataCenter.CharacterManager.GetCaptainSkillInfo(self.CharacterId) or nil
+    return self:HasCharacter() and XMVCA.XCharacter:GetCaptainSkillInfoByCharId(self.CharacterId) or nil
 end
 
 function XAssignMember:GetCharacterType()
-    return self:HasCharacter() and XCharacterConfigs.GetCharacterType(self.CharacterId)
+    return self:HasCharacter() and XMVCA.XCharacter:GetCharacterType(self.CharacterId)
 end
 
 return XAssignMember

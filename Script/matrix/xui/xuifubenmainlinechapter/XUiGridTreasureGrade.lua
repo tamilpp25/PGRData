@@ -1,3 +1,4 @@
+---@class XUiGridTreasureGrade
 XUiGridTreasureGrade = XClass(nil, "XUiGridTreasureGrade")
 
 function XUiGridTreasureGrade:Ctor(rootUi, ui, treasureType)

@@ -39,9 +39,9 @@ function XUiDlcHuntTaskGridItem:OnBtnClickClick()
         return
     end
     -- 匹配中
-    if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
-        return
-    end
+    --if XDataCenter.FubenUnionKillRoomManager.IsMatching() then
+    --    return
+    --end
 
     if self.ProxyClickFunc then
         self.ProxyClickFunc()

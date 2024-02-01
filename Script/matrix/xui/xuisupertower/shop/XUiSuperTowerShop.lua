@@ -11,7 +11,7 @@ local SortShopItem = function(itemA, itemB)
 end
 
 function XUiSuperTowerShop:OnStart()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemIds = {}
     for i = 1, 3 do
         local itemId = XSuperTowerConfigs.GetClientBaseConfigByKey("CurrencyItemOther" .. i, true)

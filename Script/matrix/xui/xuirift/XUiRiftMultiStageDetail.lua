@@ -10,6 +10,8 @@ end
 function XUiRiftMultiStageDetail:InitButton()
     XUiHelper.RegisterClickEvent(self, self.BtnCloseMask, self.OnBtnCloseMaskClick)
     XUiHelper.RegisterClickEvent(self, self.BtnFight, self.OnBtnFightClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnResetting, self.OnBtnResetClick)
+    XUiHelper.RegisterClickEvent(self, self.BtnReward, self.OnBtnRewardClick)
 end
 
 function XUiRiftMultiStageDetail:InitDynamicTable()
@@ -19,8 +21,8 @@ function XUiRiftMultiStageDetail:InitDynamicTable()
     self.DynamicTable:SetDelegate(self)
 end
 
-function XUiRiftMultiStageDetail:OnStart(xStageGroup, closeCb)
-    self.XStageGroup = xStageGroup
+function XUiRiftMultiStageDetail:OnStart(layerId, closeCb)
+    self.LayerId = layerId
     self.CloseCb = closeCb
 end
 
@@ -30,14 +32,44 @@ end
 
 function XUiRiftMultiStageDetail:RefreshUiShow()
     -- 关卡信息
+    self.XFightLayer = XDataCenter.RiftManager.GetEntityFightLayerById(self.LayerId)
+    self.XStageGroup = self.XFightLayer:GetStage()
     self.TxtStageName.text = self.XStageGroup:GetName()
-    self.TxtStageInfo.text = self.XStageGroup:GetDesc()
+    self.TxtStageInfo.text = self.XStageGroup:GetSeasonDesc()
     local cur , total = self.XStageGroup:GetProgress()
     self.TxtProgress.text = cur.."/"..total
     local allStageList = self.XStageGroup:GetAllEntityStages()
-    self.TxtTeamCount.text = #allStageList
+    -- 赛季信息
+    if self.XFightLayer:IsSeasonLayer() then
+        self.TxtMatchName2.text = XDataCenter.RiftManager:GetSeasonName()
+        self:CountDown()
+        self.Timer = XScheduleManager.ScheduleForever(function()
+            self:CountDown()
+        end, XScheduleManager.SECOND, 0)
+    else
+        self.TxtMatchName2.text = ""
+        self.TxtMatchTime.text = ""
+    end
     -- 敌人情报
     self:RefreshDynamicTable(allStageList)
+end
+
+function XUiRiftMultiStageDetail:CountDown()
+    local time = XDataCenter.RiftManager:GetSeasonEndTime()
+    if time > 0 then
+        local time = XDataCenter.RiftManager:GetSeasonEndTime()
+        local seasonIndex = XDataCenter.RiftManager:GetSeasonIndex()
+        local config = XDataCenter.RiftManager.GetCurrentConfig()
+        local txt
+        if seasonIndex == 1 then
+            txt = XUiHelper.GetText("RiftCountDownDesc1", XDataCenter.RiftManager:GetSeasonName())
+        elseif seasonIndex == #config.PeriodName then
+            txt = XUiHelper.GetText("RiftCountDownDesc2")
+        else
+            txt = XUiHelper.GetText("RiftCountDownDesc3")
+        end
+        self.TxtMatchTime.text = string.format("%s%s", txt, XUiHelper.GetTime(time, XUiHelper.TimeFormatType.CHATEMOJITIMER))
+    end
 end
 
 function XUiRiftMultiStageDetail:RefreshDynamicTable(list)
@@ -66,7 +98,31 @@ function XUiRiftMultiStageDetail:OnBtnCloseMaskClick()
 end
 
 function XUiRiftMultiStageDetail:OnDestroy()
+    if self.Timer then
+        XScheduleManager.UnSchedule(self.Timer)
+    end
+    self.Timer = nil
     self.CloseCb()
+end
+
+function XUiRiftMultiStageDetail:OnBtnResetClick()
+    local title = XUiHelper.GetText("TipTitle")
+    local content = XUiHelper.GetText("RiftRefreshRandomConfirm")
+    local sureCallback = function()
+        XDataCenter.RiftManager.RiftStartLayerRequestWithCD(self.XFightLayer:GetId(), function()
+            self:RefreshUiShow()
+        end)
+    end
+
+    if self.XFightLayer:CheckIsOwnFighting() then
+        XLuaUiManager.Open("UiDialog", title, content, XUiManager.DialogType.Normal, nil, sureCallback)
+    else
+        sureCallback()
+    end
+end
+
+function XUiRiftMultiStageDetail:OnBtnRewardClick()
+    XLuaUiManager.Open("UiRiftPreview", self.XFightLayer)
 end
 
 return XUiRiftMultiStageDetail

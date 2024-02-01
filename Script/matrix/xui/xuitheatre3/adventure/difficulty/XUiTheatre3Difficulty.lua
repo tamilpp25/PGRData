@@ -40,6 +40,17 @@ function XUiTheatre3Difficulty:InitDifficultyPanelList()
 end
 
 function XUiTheatre3Difficulty:SelectDifficulty(index)
+    if self._SelectDifficultyId == self._DifficultyIdList[index] then
+        return
+    end
+    local selectAnimName = "PanelDifficulty"..index.."Big"
+    for i = 1, 3 do
+        if self._SelectDifficultyId == self._DifficultyIdList[i] then
+            local animName = "PanelDifficulty"..i.."Small"
+            self:PlayAnimation(animName)
+        end
+    end
+    self:PlayAnimationWithMask(selectAnimName)
     self._SelectDifficultyId = self._DifficultyIdList[index]
     self:Refresh()
 end
@@ -47,8 +58,8 @@ end
 
 --region Ui - BtnListener
 function XUiTheatre3Difficulty:AddBtnListener()
-    XUiHelper.RegisterClickEvent(self, self.BtnBack, self.OnBtnBackClick)
-    XUiHelper.RegisterClickEvent(self, self.BtnTeamInstall, self.OnBtnTeamInstallClick)
+    self._Control:RegisterClickEvent(self, self.BtnBack, self.OnBtnBackClick)
+    self._Control:RegisterClickEvent(self, self.BtnTeamInstall, self.OnBtnTeamInstallClick)
 end
 
 function XUiTheatre3Difficulty:OnBtnBackClick()

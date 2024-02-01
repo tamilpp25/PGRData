@@ -30,9 +30,9 @@ function XUiGuildBossTeamList:Init(data, characterHeadInfoList, needBigHead)
                 local iconPath
                 local headInfo = characterHeadInfoList[i] or {}
                 if needBigHead then
-                    iconPath = XDataCenter.CharacterManager.GetCharBigHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+                    iconPath = XMVCA.XCharacter:GetCharBigHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
                 else
-                    iconPath = XDataCenter.CharacterManager.GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+                    iconPath = XMVCA.XCharacter:GetCharSmallHeadIcon(characterId, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
                 end
                 self["ImgHead" .. index]:SetRawImage(iconPath)
 

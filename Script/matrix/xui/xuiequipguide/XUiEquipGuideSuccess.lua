@@ -7,8 +7,8 @@ function XUiEquipGuideSuccess:OnAwake()
 end
 
 function XUiEquipGuideSuccess:OnStart(characterId)
-    self.RImgIcon:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(characterId))
-    self.TxtName.text = XCharacterConfigs.GetCharacterLogName(characterId)
+    self.RImgIcon:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyBigImage(characterId))
+    self.TxtName.text = XMVCA.XCharacter:GetCharacterLogName(characterId)
 end 
 
 function XUiEquipGuideSuccess:InitCb()

@@ -1,18 +1,15 @@
 --
 -- Author: wujie
 -- Note: 图鉴武器成就格子
-local XUiGridArchiveWeaponAchievement = XClass(nil, "XUiGridArchiveWeaponAchievement")
+local XUiGridArchiveWeaponAchievement = XClass(XUiNode, "XUiGridArchiveWeaponAchievement")
 
 local StoryUncollectedDescStr = CS.XTextManager.GetText("ArchiveWeaponAchievementStoryUncollectedDesc")
 local StoryCollectedDescStr = CS.XTextManager.GetText("ArchiveWeaponAchievementStoryCollectedDesc")
 
-function XUiGridArchiveWeaponAchievement:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiGridArchiveWeaponAchievement:OnStart()
     -- self.RootUi = rootUi
     -- self.ClickCb = clickCb
 
-    XTool.InitUiObject(self)
     self.BtnClick.CallBack = function() self:OnBtnClick() end
 end
 

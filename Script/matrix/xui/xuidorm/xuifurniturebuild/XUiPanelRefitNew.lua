@@ -119,6 +119,18 @@ function XUiPanelRefitNew:SetPanelActive(value)
 end
 
 function XUiPanelRefitNew:RefreshView()
+    --切换页签时，如果家具被消耗了，移除对应的Id
+    local indexList = {}
+    for index, id in ipairs(self.FurnitureIds) do
+        if not XDataCenter.FurnitureManager.CheckFurnitureExist(id) then
+            table.insert(indexList, index)
+        end
+    end
+    --从后往前删除
+    for index = #indexList, 1, -1 do
+        local idx = indexList[index]
+        table.remove(self.FurnitureIds, idx)
+    end
     --家具制作改版前放在制作队列没有收集的家具列表
     local checkList = XDataCenter.FurnitureManager.GetFurnitureCreateList()
     if not XTool.IsTableEmpty(checkList) then
@@ -389,6 +401,7 @@ function XUiPanelRefitNew:OnBtnConfirmClick()
             [template.PicId] = self.FurnitureIds
         }
         local tempPreviewId = self.PreviewFurnitureId
+        XUiHelper.LimitContinuousClick(self.BtnConfirm)
         XDataCenter.FurnitureManager.RemouldFurniture(map, self.OnRequestCb, function(ids)
             self.PreviewFurnitureId = tempPreviewId
             self.FurnitureIds = ids

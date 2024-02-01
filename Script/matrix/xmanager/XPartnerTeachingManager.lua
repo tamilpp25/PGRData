@@ -149,9 +149,14 @@ XPartnerTeachingManagerCreator = function()
     end
 
     function XPartnerTeachingManager:ExOpenMainUi()
-        if XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
-            XLuaUiManager.Open("UiPartnerTeachingBanner")
+        if not XFunctionManager.DetectionFunction(self:ExGetFunctionNameType()) then
+            return
         end
+        if not XMVCA.XSubPackage:CheckSubpackage(XEnumConst.FuBen.ChapterType.PartnerTeaching) then
+            return
+        end
+
+        XLuaUiManager.Open("UiPartnerTeachingBanner")
     end
     
     ------------------副本入口扩展 end-------------------------

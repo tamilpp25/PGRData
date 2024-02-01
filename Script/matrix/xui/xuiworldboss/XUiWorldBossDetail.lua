@@ -104,10 +104,10 @@ function XUiWorldBossDetail:OnBtnEnterClick()
     local data = { WorldBossTeamDatas = attributeArea:GetCharacterDatas() }
     if IsFinish then
         self:TipDialog(nil, function()
-            XLuaUiManager.Open("UiNewRoomSingle", self.Stage.StageId, data)
+            XLuaUiManager.Open("UiBattleRoleRoom", self.Stage.StageId, data)
         end)
     else
-        XLuaUiManager.Open("UiNewRoomSingle", self.Stage.StageId, data)
+        XLuaUiManager.Open("UiBattleRoleRoom", self.Stage.StageId, data)
     end
 
 

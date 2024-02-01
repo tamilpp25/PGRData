@@ -61,7 +61,7 @@ function XUiGuildWarCharacterSelectAssistantGrid:IsIsomerLock()
     local character = data.FightNpcData.Character
     local characterId = character.Id
     return not XFunctionManager.JudgeOpen(XFunctionManager.FunctionName.Isomer)
-            and XCharacterConfigs.IsIsomer(characterId)
+            and XMVCA.XCharacter:GetIsIsomer(characterId)
 end
 
 function XUiGuildWarCharacterSelectAssistantGrid:UpdateCdAndInTeam()

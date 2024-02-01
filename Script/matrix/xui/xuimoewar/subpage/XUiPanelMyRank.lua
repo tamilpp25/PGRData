@@ -45,7 +45,7 @@ function XUiPanelMyRank:Refresh(rankMyData, rankType)
                     num = 99
                 end
 
-                text = CS.XTextManager.GetText("BossSinglePrecentDesc", num)
+                text = CS.XTextManager.GetText("BossSinglePercentDesc", num)
             end
         else
             text = CS.XTextManager.GetText("None")

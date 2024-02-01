@@ -75,8 +75,8 @@ function XUiBattleRoleRoomCaptain:OnCloseClicked()
         if XRobotManager.CheckIsRobotId(id) then
             id = XRobotManager.GetCharacterId(id)
         end
-        
-        XDataCenter.FavorabilityManager.PlayCvByType(id, XFavorabilityConfigs.SoundEventType.CaptainJoinTeam)
+
+        XMVCA.XFavorability:PlayCvByType(id, XEnumConst.Favorability.SoundEventType.CaptainJoinTeam)
     end
     if self.Callback then self.Callback(self.CurrentCaptainPos) end
     self:Close()

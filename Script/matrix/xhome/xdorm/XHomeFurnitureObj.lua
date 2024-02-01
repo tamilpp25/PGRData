@@ -1049,7 +1049,6 @@ function XHomeFurnitureObj:RayCastNotOwn(showRedGlow)
     
 end
 
---TODO CodeMoon, 2.4分支特殊处理，后续使用回CSharp的方案
 function XHomeFurnitureObj:AddRoomRim(gameObj, mat)
     if XTool.UObjIsNil(gameObj) then
         return

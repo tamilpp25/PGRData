@@ -11,11 +11,13 @@ function XTheatre3NodeReward:Ctor()
     self.Received = false
     ---是否显示在节点界面
     self.IsShow = false
-    self.IsHard = false
+    ---@type number XEnumConst.THEATRE3.NodeRewardTag
+    self.Tag = XEnumConst.THEATRE3.NodeRewardTag.None
 end
 
-function XTheatre3NodeReward:SetIsHard(value)
-    self.IsHard = value
+---@param tag number XEnumConst.THEATRE3.NodeRewardTag
+function XTheatre3NodeReward:SetTag(tag)
+    self.Tag = tag
 end
 
 --region Getter
@@ -55,9 +57,17 @@ end
 function XTheatre3NodeReward:GetIsHard()
     return self.IsHard
 end
+
+function XTheatre3NodeReward:GetTag()
+    return self.Tag
+end
 --endregion
 
 --region Checker
+function XTheatre3NodeReward:CheckTag(tag)
+    return self.Tag == tag
+end
+
 function XTheatre3NodeReward:CheckIsReceived()
     return self.Received
 end
@@ -82,6 +92,7 @@ function XTheatre3NodeReward:NotifyData(data)
     self.Count = data.Count
     self.Received = XTool.IsNumberValid(data.Received)
     self.IsShow = XTool.IsNumberValid(data.IsShow)
+    self.Tag = data.Tag
 end
 
 return XTheatre3NodeReward

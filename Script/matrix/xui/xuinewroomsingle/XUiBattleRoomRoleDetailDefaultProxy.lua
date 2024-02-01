@@ -2,7 +2,7 @@
 local XUiBattleRoomRoleDetailDefaultProxy = XClass(nil, "XUiBattleRoomRoleDetailDefaultProxy")
 
 -- 获取实体数据
--- characterType : XCharacterConfigs.CharacterType 参数为空时要返回所有实体
+-- characterType : XEnumConst.CHARACTER.CharacterType 参数为空时要返回所有实体
 -- return : { ... }
 function XUiBattleRoomRoleDetailDefaultProxy:GetEntities(characterType)
     return XMVCA.XCharacter:GetOwnCharacterList(characterType)
@@ -78,13 +78,13 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterViewModelByEntityId(id)
 end
 
 -- 根据实体id获取角色类型
--- return : XCharacterConfigs.CharacterType
+-- return : XEnumConst.CHARACTER.CharacterType
 function XUiBattleRoomRoleDetailDefaultProxy:GetCharacterType(entityId)
     local viewModel = self:GetCharacterViewModelByEntityId(entityId)
     if viewModel then
         return viewModel:GetCharacterType()
     end
-    return XCharacterConfigs.CharacterType.Normal
+    return XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 --==============================
@@ -92,7 +92,7 @@ end
  ---@return number 机体类型
 --==============================
 function XUiBattleRoomRoleDetailDefaultProxy:GetDefaultCharacterType()
-    return XCharacterConfigs.CharacterType.Normal
+    return XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 -- 检查队伍里是否有相同的角色
@@ -247,9 +247,17 @@ function XUiBattleRoomRoleDetailDefaultProxy:GetFilterSortOverrideFunTable()
     return nil
 end
 
+function XUiBattleRoomRoleDetailDefaultProxy:GetFilterCharIdFun(entity)
+    return nil
+end
+
 -- 该界面是否启用q版模型 默认用愚人节检测
 function XUiBattleRoomRoleDetailDefaultProxy:CheckUseCuteModel()
     return XDataCenter.AprilFoolDayManager.IsInCuteModelTime()
+end
+
+function XUiBattleRoomRoleDetailDefaultProxy:CheckEntityIdIsIsomer(entityId)
+    return XMVCA.XCharacter:GetIsIsomer(entityId)
 end
 
 return XUiBattleRoomRoleDetailDefaultProxy

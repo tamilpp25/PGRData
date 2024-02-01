@@ -33,6 +33,7 @@ XGuideManagerCreator = function()
         UiPartnerPopupTip   = "UiPartnerPopupTip",
         UiRestaurantRadio   = "UiRestaurantRadio",
         UiLeftPopupTips     = "UiLeftPopupTips",
+        UiRogueSimComponent = "UiRogueSimComponent",
     }
     
     -- 该事件类型包括了引导的触发、完成类型
@@ -104,8 +105,11 @@ XGuideManagerCreator = function()
     -- 埋点类型
     XGuideManager.BuryingPointType = {
         Start   = 1, --引导开始
-        Skip    = 2, --引导跳过
+        Skip    = 2, --引导跳过(确认脱离卡死)
         End     = 3, --引导结束
+        FocusOn = 4, --聚焦Ui(交互开始)
+        Trigger = 5, --触发脱离卡死
+        Click   = 6, --点击脱离卡死
     }
 
     local GuideAgent = nil           --引导Agent
@@ -197,7 +201,8 @@ XGuideManagerCreator = function()
     --创建引导主体
     function XGuideManager:CreateGuideAgent()
         local guideAgent = CS.UnityEngine.GameObject("GuideAgent")
-
+        --进入战斗后会销毁NormalScene, 所以放到DonDestroyOnLoad场景中,由引导统一控制
+        CS.UnityEngine.Object.DontDestroyOnLoad(guideAgent)
         GuideAgent = guideAgent:AddComponent(typeof(CS.BehaviorTree.XAgent))
         GuideAgent.ProxyType = "Guide"
         GuideAgent:InitProxy()
@@ -331,7 +336,14 @@ XGuideManagerCreator = function()
                 return true
             end
             for _, node in ipairs(nodes or {}) do
-                local tmp = luaUi.Transform:FindTransform(node)
+                local findIndex = string.find(node, "/")
+                local tmp
+                --根据下标查找
+                if findIndex then
+                    tmp = luaUi.Transform:FindTransformWithSplit(node)
+                else --根据名称查找
+                    tmp = luaUi.Transform:FindTransform(node)
+                end
                 --存在且显示
                 if not XTool.UObjIsNil(tmp) 
                         and tmp.gameObject.activeInHierarchy then
@@ -513,13 +525,6 @@ XGuideManagerCreator = function()
     --是否正在引导
     --该接口在某些包强跳引导(ResetGuide)不会恢复IsGuiding
     function XGuideManager.CheckIsInGuide()
-        return IsGuiding
-    end
-
-    ---是否正在引导(升级版)该接口即使强跳也能判断
-    ---原强跳引导在外服环境IsGuiding是不会恢复的
-    ---对于某些业务可能出现卡流程现象
-    function XGuideManager.CheckIsInGuidePlus()
         return IsGuiding and ActiveGuide ~= nil
     end
 
@@ -642,14 +647,26 @@ XGuideManagerCreator = function()
     end
     
     -- 记录埋点
-    function XGuideManager.RecordBuryingPoint(buryingPointType)
+    function XGuideManager.RecordBuryingPoint(buryingPointType, nodeIds)
         if not ActiveGuide or not IsGuiding then
             return
+        end
+        -- 无节点Id
+        if not nodeIds then
+            nodeIds = {}
+        end
+        -- 确认脱离卡死时 获取正在执行的节点Ids
+        if buryingPointType == XGuideManager.BuryingPointType.Skip and GuideAgent and GuideAgent:Exist() then
+            local tempNodeIds = GuideAgent:GetRunningNodeIds()
+            if tempNodeIds then
+                nodeIds = XTool.CsList2LuaTable(tempNodeIds)
+            end
         end
         local dict = {}
         dict["role_id"] = XPlayer.Id
         dict["role_level"] = XPlayer.GetLevel()
         dict["guide_id"] = ActiveGuide.Id
+        dict["node_ids"] = table.concat(nodeIds, ",")
         dict["ui_name"] = XLuaUiManager.GetTopUiName()
         dict["type"] = buryingPointType
         CS.XRecord.Record(dict, "200014", "Guide")

@@ -6,12 +6,12 @@ local TabBtnIndex = {
     Isomer = 2,
 }
 local CharacterTypeConvert = {
-    [TabBtnIndex.Normal] = XCharacterConfigs.CharacterType.Normal,
-    [TabBtnIndex.Isomer] = XCharacterConfigs.CharacterType.Isomer,
+    [TabBtnIndex.Normal] = XEnumConst.CHARACTER.CharacterType.Normal,
+    [TabBtnIndex.Isomer] = XEnumConst.CHARACTER.CharacterType.Isomer,
 }
 local TabBtnIndexConvert = {
-    [XCharacterConfigs.CharacterType.Normal] = TabBtnIndex.Normal,
-    [XCharacterConfigs.CharacterType.Isomer] = TabBtnIndex.Isomer,
+    [XEnumConst.CHARACTER.CharacterType.Normal] = TabBtnIndex.Normal,
+    [XEnumConst.CHARACTER.CharacterType.Isomer] = TabBtnIndex.Isomer,
 }
 
 local XUiBabelTowerRoomCharacter = XLuaUiManager.Register(XLuaUi, "UiBabelTowerRoomCharacter")
@@ -135,8 +135,8 @@ function XUiBabelTowerRoomCharacter:InitCharacterTypeBtns()
     --检查选择角色类型是否和副本限制类型冲突
     local characterType = XDataCenter.FubenManager.GetDefaultCharacterTypeByCharacterLimitType(self.CharacterLimitType)
     local tempCharacterType = self:GetTeamCharacterType()
-    if tempCharacterType and not (tempCharacterType == XCharacterConfigs.CharacterType.Normal and lockGouzaoti
-    or tempCharacterType == XCharacterConfigs.CharacterType.Isomer and lockShougezhe) then
+    if tempCharacterType and not (tempCharacterType == XEnumConst.CHARACTER.CharacterType.Normal and lockGouzaoti
+    or tempCharacterType == XEnumConst.CHARACTER.CharacterType.Isomer and lockShougezhe) then
         characterType = tempCharacterType
     end
     self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[characterType])
@@ -144,41 +144,41 @@ end
 
 function XUiBabelTowerRoomCharacter:TrySelectCharacterType(index)
     local characterType = CharacterTypeConvert[index]
-    if characterType == XCharacterConfigs.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
+    if characterType == XEnumConst.CHARACTER.CharacterType.Isomer and not XFunctionManager.DetectionFunction(XFunctionManager.FunctionName.Isomer) then return end
 
     local characterLimitType = self.CharacterLimitType
     if characterLimitType == XFubenConfigs.CharacterLimitType.Normal then
-        if characterType == XCharacterConfigs.CharacterType.Isomer then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipNormal")
             return
         end
     elseif characterLimitType == XFubenConfigs.CharacterLimitType.Isomer then
-        if characterType == XCharacterConfigs.CharacterType.Normal then
+        if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
             XUiManager.TipText("TeamSelectCharacterTypeLimitTipIsomer")
             return
         end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.IsomerDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Isomer then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Isomer then
         --         local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
         --         local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipIsomerDebuff", buffDes)
         --         local sureCallBack = function()
         --             self:OnSelectCharacterType(index)
         --         end
         --         local closeCallback = function()
-        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Normal])
+        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Normal])
         --         end
         --         XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
         --         return
         --     end
         -- elseif characterLimitType == XFubenConfigs.CharacterLimitType.NormalDebuff then
-        --     if characterType == XCharacterConfigs.CharacterType.Normal then
+        --     if characterType == XEnumConst.CHARACTER.CharacterType.Normal then
         --         local buffDes = XFubenConfigs.GetBuffDes(self.LimitBuffId)
         --         local content = CSXTextManagerGetText("TeamSelectCharacterTypeLimitTipNormalDebuff", buffDes)
         --         local sureCallBack = function()
         --             self:OnSelectCharacterType(index)
         --         end
         --         local closeCallback = function()
-        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XCharacterConfigs.CharacterType.Isomer])
+        --             self.PanelCharacterTypeBtns:SelectIndex(TabBtnIndexConvert[XEnumConst.CHARACTER.CharacterType.Isomer])
         --         end
         --         XUiManager.DialogTip(nil, content, XUiManager.DialogType.Normal, closeCallback, sureCallBack)
         --         return
@@ -194,7 +194,7 @@ function XUiBabelTowerRoomCharacter:OnSelectCharacterType(index)
     XDataCenter.RoomCharFilterTipsManager.Reset()
 
     local characterType = CharacterTypeConvert[index]
-    local charlist = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+    local charlist = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     table.sort(charlist, self.SortFunction[XRoomCharFilterTipsConfigs.EnumSortTag.Default])
 
     self:RefreshCharacterTypeTips()
@@ -270,7 +270,7 @@ function XUiBabelTowerRoomCharacter:UpdateCharacterList(charlist)
 
     if not selectId or selectId == 0
     or not self.CharacterGrids[selectId]
-    or characterType ~= XCharacterConfigs.GetCharacterType(selectId)
+    or characterType ~= XMVCA.XCharacter:GetCharacterType(selectId)
     or not charDic[selectId]
     then
         selectId = charlist[1].Id
@@ -455,7 +455,7 @@ function XUiBabelTowerRoomCharacter:OnBtnJoinTeamClick()
     -- 角色类型不一致拦截
     local inTeamCharacterType = self:GetTeamCharacterType()
     if inTeamCharacterType then
-        local characterType = XCharacterConfigs.GetCharacterType(selectId)
+        local characterType = XMVCA.XCharacter:GetCharacterType(selectId)
         if characterType and characterType ~= inTeamCharacterType then
             local content = CSXTextManagerGetText("TeamCharacterTypeNotSame")
             local sureCallBack = function()
@@ -508,14 +508,14 @@ end
 function XUiBabelTowerRoomCharacter:GetTeamCharacterType()
     for k, v in pairs(self.TeamCharIdMap) do
         if v ~= 0 then
-            return XCharacterConfigs.GetCharacterType(v)
+            return XMVCA.XCharacter:GetCharacterType(v)
         end
     end
 end
 
 function XUiBabelTowerRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThereFilterDataCb)
     local judgeCb = function(groupId, tagValue, character)
-        local detailConfig = XCharacterConfigs.GetCharDetailTemplate(character.Id)
+        local detailConfig = XMVCA.XCharacter:GetCharDetailTemplate(character.Id)
 
         local compareValue
         if groupId == XRoomCharFilterTipsConfigs.EnumFilterTagGroup.Career then
@@ -538,7 +538,7 @@ function XUiBabelTowerRoomCharacter:Filter(selectTagGroupDic, sortTagId, isThere
         end
     end
 
-    local allChar = XDataCenter.CharacterManager.GetOwnCharacterList(CharacterTypeConvert[self.SelectTabBtnIndex])
+    local allChar = XMVCA.XCharacter:GetOwnCharacterList(CharacterTypeConvert[self.SelectTabBtnIndex])
     XDataCenter.RoomCharFilterTipsManager.Filter(self.TagCacheDic, selectTagGroupDic, allChar, judgeCb,
     function(filteredData)
         self:FilterRefresh(filteredData, sortTagId)

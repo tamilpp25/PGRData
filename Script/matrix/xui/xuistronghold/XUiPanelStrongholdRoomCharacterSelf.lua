@@ -40,6 +40,7 @@ function XUiPanelStrongholdRoomCharacterSelf:Hide()
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:Show(teamList, teamId, memberIndex, groupId, isSelectIsomer, pos)
+    ---@type XStrongholdTeam[]
     self.TeamList = teamList
     self.TeamId = teamId
     self.MemberIndex = memberIndex
@@ -127,7 +128,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetTeamDynamicCharacterTypes()
     if not isInCurTeam then
         local type = self:GetSelectCharacterType()
         if self.CharacterId then
-            local template = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+            local template = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
             type = template.Type
         end
         table.insert(result, type)
@@ -279,7 +280,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnFashion()
         --XUiManager.TipText("StrongholdRobotRefuseFashion")
         --return
         local characterId = XRobotManager.GetCharacterId(self.CharacterId)
-        local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(characterId)
+        local isOwn = XMVCA.XCharacter:IsOwnCharacter(characterId)
         if not isOwn then
             XUiManager.TipText("CharacterLock")
             return
@@ -363,7 +364,7 @@ function XUiPanelStrongholdRoomCharacterSelf:OnClickBtnJoinTeam(btnSelfObj, pref
             local inTeamId = XDataCenter.StrongholdManager.GetCharacterInTeamId(characterId, teamList)
             local title = CsXTextManagerGetText("StrongholdDeployTipTitle")
             local showCharacterId = XRobotManager.GetCharacterId(characterId)
-            local characterName = XCharacterConfigs.GetCharacterName(showCharacterId)
+            local characterName = XMVCA.XCharacter:GetCharacterName(showCharacterId)
             local content = CsXTextManagerGetText("StrongholdDeployTipContent", characterName, inTeamId, teamId)
             self:AddDialogTipCount()
 
@@ -461,7 +462,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetMember(prefabMemberIndex)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:GetSelectCharacterType()
-    return self.IsSelectIsomer and XCharacterConfigs.CharacterType.Isomer or XCharacterConfigs.CharacterType.Normal
+    return self.IsSelectIsomer and XEnumConst.CHARACTER.CharacterType.Isomer or XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:GetCharacterType(characterId)
@@ -471,7 +472,7 @@ function XUiPanelStrongholdRoomCharacterSelf:GetCharacterType(characterId)
     end
 
     local showCharacterId = XRobotManager.GetCharacterId(characterId)
-    return XCharacterConfigs.GetCharacterType(showCharacterId)
+    return XMVCA.XCharacter:GetCharacterType(showCharacterId)
 end
 
 function XUiPanelStrongholdRoomCharacterSelf:IsPrefab()

@@ -188,6 +188,16 @@ function table.unique(t, bArray)
     return n
 end
 
+-- 反转数组不产生新数组
+function table.reverse(t)
+    local len = #t
+    local mid = math.floor(len / 2)
+    for i = 1, mid do
+        t[i], t[len - i + 1] = t[len - i + 1], t[i]
+    end
+    return t
+end
+
 --程序暂停
 function ApplicationPause(pause)
     if XEventManager then

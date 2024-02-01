@@ -8,19 +8,29 @@ local DLC_MODEL_TABLE_PATH = "Client/StatusSyncFight/ResourceLut/Model/Model.tab
 local SPECIAL_UIMODEL_PATH = "Client/ResourceLut/Model/SpecialUiModel.tab"
 local Ui_MODEL_CAMERA_PATH = "Client/Ui/UiModelCamera.tab"
 local UI_MODEL_NODE_ACTIVE_PATH = "Client/Ui/UiModelBoneActive.tab"
+local UI_MODEL_OFF_WEAPON_BONE_BIND = "Client/Ui/UiModelOffWeaponBoneBind.tab"
+local UI_SPECIAL_MODEL_CAMERA_PATH = "Client/Ui/UiSpecialModelCamera.tab"
 local XEquipModel = require("XEntity/XEquip/XEquipModel")
 local Vector3 = CS.UnityEngine.Vector3
+
+
+local function _SetActive(model, nodes, active)
+    nodes = nodes or {}
+    for _, name in ipairs(nodes) do
+        local go = model:FindTransform(name)
+        if not XTool.UObjIsNil(go) then
+            go.gameObject:SetActiveEx(active)
+        end
+    end
+end
 
 XModelManager.MODEL_ROTATION_VALUE = 10
 
 XModelManager.MODEL_UINAME = {
     XUiMain = "UiMain",
     XUiCharacter = "UiCharacter",
-    XUiPanelCharLevel = "UiPanelCharLevel",
-    XUiPanelCharQuality = "UiPanelCharQuality",
-    XUiPanelCharSkill = "UiPanelCharSkill",
-    XUiPanelCharGrade = "UiPanelCharGrade",
-    XUiPanelCharEnhanceSkill = "UiPanelCharEnhanceSkill",
+    XUiCharacterV2P6 = "UiCharacterV2P6",
+    XUiCharacterSystemV2P6 = "UiCharacterSystemV2P6",
     XUiPanelSelectLevelItems = "UiPanelSelectLevelItems",
     XUiPreFight = "UiPreFight",
     XUiDisplay = "UiDisplay",
@@ -67,6 +77,7 @@ XModelManager.MODEL_UINAME = {
 --local RoleModelPool = {} --保存模型
 local UiModelTransformTemplates = {} -- Ui模型位置配置表
 local UiModelCameraTemplates = {} -- Ui模型相机配置表
+local UiSpecialModelCameraTemplates = {} -- Ui特殊模型相机配置表
 local UiSceneTransformTemplates = {} -- Ui模型位置配置表
 local ModelTemplates = {} -- 模型相关配置
 local UIModelTemplates = {} -- UI模型相关配置
@@ -75,6 +86,7 @@ local SpecialUiModel = {}
 local LuaBehaviourDict = {} -- 武器生命周期对象
 local CameraDefaultDic = {} -- 相机默认参数字典
 local UiModelNodeActiveMap = {} --uiName + modelId -> Id
+local UiModelWeaponBindTemplates = nil --特定模型关闭武器绑定角色骨骼
 
 --角色Model配置表
 function XModelManager.Init()
@@ -123,13 +135,43 @@ function XModelManager.Init()
         table.insert(UiModelCameraTemplates[config.UiName][config.ModelName], config)
     end
 
+    local specialCameraTab = XTableManager.ReadAllByIntKey(UI_SPECIAL_MODEL_CAMERA_PATH, XTable.XTableUiSpecialModelCamera, "Id")
+    for _, config in pairs(specialCameraTab) do
+        if not UiSpecialModelCameraTemplates[config.UiName] then
+            UiSpecialModelCameraTemplates[config.UiName] = {}
+        end
+        if not UiSpecialModelCameraTemplates[config.UiName][config.CharacterId] then
+            UiSpecialModelCameraTemplates[config.UiName][config.CharacterId] = {}
+        end
+        table.insert(UiSpecialModelCameraTemplates[config.UiName][config.CharacterId], config)
+    end
+
     UiModelNodeActiveMap = {}
     local uiModelNodeActive = XTableManager.ReadByIntKey(UI_MODEL_NODE_ACTIVE_PATH, XTable.XTableUiModelBoneActive, "Id")
     for _, template in pairs(uiModelNodeActive) do
-        local uiName, modelId = template.UiName, template.ModelName
-        UiModelNodeActiveMap[uiName] = UiModelNodeActiveMap[uiName] or {}
-        UiModelNodeActiveMap[uiName][modelId] = template
+        local actionId, modelId = template.ActionId, template.ModelName
+        UiModelNodeActiveMap[actionId] = UiModelNodeActiveMap[actionId] or {}
+        UiModelNodeActiveMap[actionId][modelId] = template
     end
+end
+
+local function GetUiModelOffWeaponBoneBindConfigs()
+    if not UiModelWeaponBindTemplates then
+        UiModelWeaponBindTemplates = XTableManager.ReadByStringKey(UI_MODEL_OFF_WEAPON_BONE_BIND, XTable.XTableUiModelOffWeaponBoneBind, "ModelId")
+    end
+
+    return UiModelWeaponBindTemplates
+end
+
+---@return XTableUiModelOffWeaponBoneBind
+local function GetUiModelOffWeaponBoneBindConfig(modelId)
+    local configs = GetUiModelOffWeaponBoneBindConfigs()
+    
+    if not configs then
+        return {}
+    end
+
+    return configs[modelId]
 end
 
 local function GetUiModelConfig(modelId)
@@ -211,35 +253,47 @@ function XModelManager.GetMinorModelId(modelId, uiName)
 end
 
 --- 处理Ui模型上节点的显隐
----@param uiName string
+---@param actionName string
+---@param modelId string
+---@param model UnityEngine.GameObject
+---@param isActive boolean
+--------------------------
+function XModelManager.HandleUiModelNodeActive(actionName, modelId, model, isActive)
+    local isHide, hideNodes, showNodes = XModelManager.CheckUiModelNodeActive(actionName, modelId, model)
+    
+    if isHide then
+        isActive = isActive or false
+        _SetActive(model, hideNodes, isActive)
+        _SetActive(model, showNodes, not isActive)
+    end
+    
+    return isHide
+end
+
+--- 检查Ui模型上节点的显隐
+---@param actionName string
 ---@param modelId string
 ---@param model UnityEngine.GameObject
 --------------------------
-function XModelManager.HandleUiModelNodeActive(uiName, modelId, model)
-    if XTool.UObjIsNil(model) then
-        return
+function XModelManager.CheckUiModelNodeActive(actionName, modelId, model)
+    if XTool.UObjIsNil(model) or string.IsNilOrEmpty(actionName) or string.IsNilOrEmpty(modelId) then
+        return false
     end
-    local map = UiModelNodeActiveMap[uiName]
+    local map = UiModelNodeActiveMap[actionName]
     if XTool.IsTableEmpty(map) then
-        return
+        return false
     end
     local template = map[modelId]
     if not template then
-        return
+        return false
     end
     local hideNodes, showNodes = template.HideNodes, template.ShowNodes
-    
-    local function setActive(nodes, active) 
-        nodes = nodes or {}
-        for _, name in ipairs(nodes) do
-            local go = model:FindTransform(name)
-            if not XTool.UObjIsNil(go) then
-                go.gameObject:SetActiveEx(active)
-            end
-        end
+
+    if not XTool.IsTableEmpty(hideNodes) or not XTool.IsTableEmpty(showNodes) then
+        return true, hideNodes, showNodes
+    else
+        return false
     end
-    setActive(hideNodes, false)
-    setActive(showNodes, true)
 end
 
 ------UI调用 begin --------
@@ -303,15 +357,49 @@ function XModelManager.GetRoleModelConfig(uiName, modelName)
     end
 end
 
-function XModelManager.GetRoleCameraConfigList(uiName, modelName)
+-- 获取相机配置信息
+---@param uiName string UI名
+---@param modelName string 模型名
+---@param characterId number 角色Id
+function XModelManager.GetRoleCameraConfigList(uiName, modelName, characterId)
+    local templates = XModelManager.GetModelCameraTemplates(uiName, modelName)
+    if XTool.IsTableEmpty(templates) then
+        -- 没有找到对应的模型相机配置，使用特殊模型相机配置
+        templates = XModelManager.GetSpecialModelCameraTemplates(uiName, characterId)
+    end
+    return templates
+end
+
+-- 获取模型相机配置
+---@param uiName string UI名
+---@param modelName string 模型名
+function XModelManager.GetModelCameraTemplates(uiName, modelName)
     if not uiName or not modelName then
-        XLog.Error("XModelManager.GetRoleCameraConfigList 函数错误: 参数uiName和modelName都不能为空")
+        XLog.Error("XModelManager.GetModelCameraTemplates 函数错误: 参数uiName和modelName都不能为空")
         return
     end
-
     if UiModelCameraTemplates[uiName] then
         return UiModelCameraTemplates[uiName][modelName]
     end
+    return nil
+end
+
+-- 获取特殊模型相机配置
+---@param uiName string UI名
+---@param characterId number 角色Id
+function XModelManager.GetSpecialModelCameraTemplates(uiName, characterId)
+    if not uiName then
+        XLog.Error("XModelManager.GetSpecialModelCameraTemplates 函数错误: 参数uiName不能为空")
+        return
+    end
+    if UiSpecialModelCameraTemplates[uiName] then
+        if not XTool.IsNumberValid(characterId) then
+            XLog.Error("XModelManager.GetSpecialModelCameraTemplates 函数错误: 参数characterId不能为空")
+            return
+        end
+        return UiSpecialModelCameraTemplates[uiName][characterId]
+    end
+    return nil
 end
 
 function XModelManager.GetSceneModelConfig(uiName, sceneUrl)
@@ -468,13 +556,13 @@ end
 
 ---@type table<string, UnityEngine.Transform>
 local curCamRoot = { }
-function XModelManager.SetRoleCamera(name, cameraRoot, uiName)
+function XModelManager.SetRoleCamera(name, cameraRoot, uiName, characterId)
     if not uiName or XTool.UObjIsNil(cameraRoot) then
         return
     end
 
     -- 标记场景有没有重载，如果镜头节点重载了重置默认镜头参数
-    if XTool.UObjIsNil(curCamRoot[uiName]) then
+    if XTool.UObjIsNil(curCamRoot[uiName]) or curCamRoot[uiName] ~= cameraRoot and cameraRoot.name ~= "UiNearRoot" then
         curCamRoot[uiName] = cameraRoot
         CameraDefaultDic[uiName] = nil
     end
@@ -487,7 +575,7 @@ function XModelManager.SetRoleCamera(name, cameraRoot, uiName)
     end
     CameraDefaultDic[uiName] = nil
 
-    local configList = XModelManager.GetRoleCameraConfigList(uiName, name)
+    local configList = XModelManager.GetRoleCameraConfigList(uiName, name, characterId)
     if not configList or not next(configList) then
         return
     end
@@ -561,7 +649,7 @@ end
 --      usage      武器用途(XEquipConfig.WeaponUsage)
 --      noSound    不需要声音
 function XModelManager.LoadWeaponModel(modelId, target, transformConfig, uiName, cb, param, panelDrag)
-    if not modelId or XTool.UObjIsNil(target) then
+    if not modelId or modelId == 0 or XTool.UObjIsNil(target) then
         return
     end
 
@@ -754,13 +842,21 @@ function XModelManager.LoadRoleWeaponModel(roleModel, equipModelIdList, refName,
     if equipUsage and equipUsage > 0 then
         usage = equipUsage
     end
-    
+
+    local specialCaseName = XUiHelper.GetClientConfig("UiSpecialWeaponCase", XUiHelper.ClientConfigType.String)
+    local specialCase = roleModel.transform:FindTransform(specialCaseName)
+    local caseNode = nil
+    if not XTool.UObjIsNil(specialCase) then
+        caseNode = XUiHelper.GetClientConfig("UiWeaponCaseNode", XUiHelper.ClientConfigType.String)
+    else
+        caseNode = XUiHelper.GetClientConfig("WeaponCaseNode", XUiHelper.ClientConfigType.String)
+    end
     for i = 1, #equipModelIdList do
         local modelId = equipModelIdList[i]
-        if modelId then
-            local weaponCase = roleModel.transform.FindTransform(roleModel.transform, "WeaponCase" .. i)  
+        if modelId and modelId ~= 0 then
+            local weaponCase = roleModel.transform.FindTransform(roleModel.transform, caseNode .. i)  
             if not weaponCase then
-                XLog.Warning("XModelManager.LoadRoleWeaponModel warning, " .. "WeaponCase" .. i .. " not found")
+                XLog.Warning("XModelManager.LoadRoleWeaponModel warning, " .. caseNode .. i .. " not found")
             else
                 XModelManager.LoadWeaponModel(modelId, weaponCase, nil, refName, newCb, {
                     showEffect = not hideEffect, noShowing = not isShowing, noRotation = true,
@@ -777,7 +873,7 @@ function XModelManager.LoadRoleWeaponModel(roleModel, equipModelIdList, refName,
 end
 
 -- 根据FightNpcData创建武器模型及其特效
-function XModelManager.LoadRoleWeaponModelByFight(roleModel, fightNpcData, refName, go, roleModelId)
+function XModelManager.LoadRoleWeaponModelByFight(roleModel, fightNpcData, refName, go, roleModelId, cb)
     if not roleModel then
         return
     end
@@ -790,17 +886,31 @@ function XModelManager.LoadRoleWeaponModelByFight(roleModel, fightNpcData, refNa
         if component then
             component:SetTarget(roleModel.transform)
         end
+        if cb then cb(model) end
     end
 
     local usage = XEquipConfig.WeaponUsage.Role
     local idList = XDataCenter.EquipManager.GetEquipModelIdListByFight(fightNpcData)
+    local specialCaseName = XUiHelper.GetClientConfig("UiSpecialWeaponCase", XUiHelper.ClientConfigType.String)
+    local specialCase = roleModel.transform:FindTransform(specialCaseName)
+    local caseNode = nil
+    if not XTool.UObjIsNil(specialCase) then
+        caseNode = XUiHelper.GetClientConfig("UiWeaponCaseNode", XUiHelper.ClientConfigType.String)
+    else
+        caseNode = XUiHelper.GetClientConfig("WeaponCaseNode", XUiHelper.ClientConfigType.String)
+    end
     for i, modelId in ipairs(idList) do
-        local weaponCase = roleModel.transform.FindTransform(roleModel.transform, "WeaponCase" .. i)
+        local weaponCase = roleModel.transform.FindTransform(roleModel.transform, caseNode .. i)
         if not weaponCase then
-            XLog.Warning("XModelManager.LoadRoleWeaponModel warning, " .. "WeaponCase" .. i .. " not found")
+            XLog.Warning("XModelManager.LoadRoleWeaponModel warning, " .. caseNode .. i .. " not found")
         else
             XModelManager.LoadWeaponModel(modelId, weaponCase, nil, refName, newCb, { noShowing = not isShowing, noRotation = true, usage = usage, gameObject = go, noSound = true, roleModelId = roleModelId })
         end
+    end
+
+    -- 如果不加载武器，则直接执行CallBack
+    if #idList <= 0 and cb then
+        cb()
     end
 end
 
@@ -829,3 +939,71 @@ end
 function XModelManager.RemoveLuaBehaviour(go)
     LuaBehaviourDict[go] = nil
 end
+
+--region 部分模型需要根据动作屏蔽武器绑定骨骼XBoneTransformSync脚本
+function XModelManager.CheckWeaponNeedBindBone(modelId)
+    if not modelId then
+        return
+    end 
+    
+    local config = GetUiModelOffWeaponBoneBindConfig(modelId)
+
+    if not config then
+        return true
+    end
+
+    return config.IsOffBindBone ~= 1
+end
+
+function XModelManager.GetWeaponUnBindBoneActionIsList(modelId)
+    local config = GetUiModelOffWeaponBoneBindConfig(modelId)
+
+    if not config then
+        return {}
+    end
+
+    return config.ActionId or {}
+end
+
+function XModelManager.GetWeaponUnBindModelCaseList(modelId)
+    local config = GetUiModelOffWeaponBoneBindConfig(modelId)
+
+    if not config then
+        return {}
+    end
+
+    return config.WeaponCaseName or {}
+end 
+
+function XModelManager.WaeponUnBindModelBone(modelId, model, actionId)
+    if XModelManager.CheckWeaponNeedBindBone(modelId) then
+        return
+    end
+
+    local actionIds = XModelManager.GetWeaponUnBindBoneActionIsList(modelId)
+    local weaponCaseList = XModelManager.GetWeaponUnBindModelCaseList(modelId)
+    local isActive = true
+
+    for i = 1, #actionIds do
+        if actionId == actionIds[i] then
+            isActive = false
+        end
+    end
+
+    for _, weaponCase in ipairs(weaponCaseList) do
+        local case = model.transform:FindTransform(weaponCase)
+
+        if not case then
+            XLog.Warning("XModelManager.WaeponUnBindModelBone warning, " .. weaponCase .. " not found")
+        else
+            local component = case.gameObject:GetComponentsInChildren(typeof(CS.XBoneTransformSync))
+
+            if component then
+                for i = 0, component.Length - 1 do
+                    component[i].enabled = isActive
+                end
+            end
+        end
+    end
+end
+--endregion

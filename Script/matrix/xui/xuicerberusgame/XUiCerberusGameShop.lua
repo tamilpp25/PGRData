@@ -3,13 +3,13 @@ local XUiCerberusGameShop = XLuaUiManager.Register(XLuaUi, "UiCerberusGameShop")
 function XUiCerberusGameShop:OnAwake()
     self:InitButton()
     self:InitTimes()
-    self.CurShopIdList = XDataCenter.CerberusGameManager.GetActivityConfig().ShopId
+    self.CurShopIdList = XMVCA.XCerberusGame:GetActivityConfig().ShopId
     self.UiParams = {
         CanBuyColor = "FFFFFFFF",
         CanNotBuyColor = "E53E3EFF",
     }
     self.ItemList = XUiPanelItemList.New(self.PanelItemList, self, nil, self.UiParams, handler(self, self.OnRefreshGrid))
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.CerberusGameCoin1, XDataCenter.ItemManager.ItemId.CerberusGameCoin2 }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.CerberusGameCoin1, XDataCenter.ItemManager.ItemId.CerberusGameCoin2 }, self.PanelSpecialTool, self)
 
     self.CurSelectIndex = 1
 end
@@ -23,7 +23,7 @@ function XUiCerberusGameShop:InitButton()
 end
 
 function XUiCerberusGameShop:InitTimes()
-    local timeId = XDataCenter.CerberusGameManager.GetActivityConfig().TimeId
+    local timeId = XMVCA.XCerberusGame:GetActivityConfig().TimeId
     if not timeId then
         return
     end
@@ -51,7 +51,7 @@ end
 
 function XUiCerberusGameShop:RefreshUiShow()
     -- 时间
-    local timeId = XDataCenter.CerberusGameManager.GetActivityConfig().TimeId
+    local timeId = XMVCA.XCerberusGame:GetActivityConfig().TimeId
     if not XTool.IsNumberValid(timeId) then
         self.TxtLeftTime.gameObject:SetActiveEx(false)
         return

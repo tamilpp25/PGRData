@@ -6,7 +6,7 @@ local XUiKillZoneStageDetail = XLuaUiManager.Register(XLuaUi, "UiKillZoneStageDe
 function XUiKillZoneStageDetail:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener({ XKillZoneConfigs.ItemIdCoinB }, handler(self, self.UpdateAssets), self.AssetActivityPanel)
 
     self.GridCommon.gameObject:SetActiveEx(false)

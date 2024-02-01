@@ -15,7 +15,7 @@ function XUiGridExhibitionName:Refresh(exhibitionCfg)
     if self.CharacterId == nil or self.CharacterId == 0 then
         name = "???"
     else
-        name = XCharacterConfigs.GetCharacterFullNameStr(self.CharacterId)
+        name = XMVCA.XCharacter:GetCharacterFullNameStr(self.CharacterId)
     end
     self.TxtName.text = name
 end

@@ -65,7 +65,7 @@ end
 local XUiBattleRoomRoleDetailDefaultProxy = require("XUi/XUiNewRoomSingle/XUiBattleRoomRoleDetailDefaultProxy")
 local XUiSuperTowerBattleRoomRoleDetail = XClass(XUiBattleRoomRoleDetailDefaultProxy, "XUiSuperTowerBattleRoomRoleDetail")
 
--- characterType : XCharacterConfigs.CharacterType
+-- characterType : XEnumConst.CHARACTER.CharacterType
 function XUiSuperTowerBattleRoomRoleDetail:GetEntities(characterType)
     return XDataCenter.SuperTowerManager.GetRoleManager():GetCanFightRoles(characterType)
 end

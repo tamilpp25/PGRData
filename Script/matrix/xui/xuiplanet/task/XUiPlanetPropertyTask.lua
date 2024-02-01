@@ -3,7 +3,7 @@ local XUiPlanetPropertyTask = XLuaUiManager.Register(XLuaUi, "UiPlanetPropertyTa
 function XUiPlanetPropertyTask:OnAwake()
     self:AddBtnClickListener()
     self:InitDynamicTable()
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XDataCenter.ItemManager.ItemId.PlanetRunningShopActivity }, self.PanelSpecialTool)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XDataCenter.ItemManager.ItemId.PlanetRunningShopActivity }, self.PanelSpecialTool, self)
     self.CurrentTaskGroupId = XDataCenter.PlanetManager.GetViewModel():GetActivityTimeLimitTaskId()
     XDataCenter.PlanetManager.SetSceneActive(false)
 end

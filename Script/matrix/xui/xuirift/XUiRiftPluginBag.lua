@@ -4,31 +4,20 @@ local XUiRiftPluginBag = XLuaUiManager.Register(XLuaUi, "UiRiftPluginBag")
 
 function XUiRiftPluginBag:OnAwake()
     self.SelectIndex = 1 -- 当前选中的插件下标
-    self.TipsPluginGrid = nil -- 提示面板的插件
 
+    self:InitDynamicTable()
     self:InitToggleList()
     self:SetButtonCallBack()
-    self:InitDynamicTable()
     self:InitTimes()
 
     self.AssetPanel = XUiPanelAsset.New(self, self.PanelAsset, XDataCenter.ItemManager.ItemId.RiftGold, XDataCenter.ItemManager.ItemId.RiftCoin)
     self.AssetPanel:HideBtnBuy()
-
-    self.TipsPluginGrid = XUiRiftPluginGrid.New(self.GridRiftPlugin)
-    self.TipsPluginGrid:Init(nil, true)
 end
 
 function XUiRiftPluginBag:OnEnable()
     self.Super.OnEnable(self)
-    local haveCnt, allCnt = XDataCenter.RiftManager.GetPluginHaveAndAllCnt()
-    local collectPercent = string.format("%.1f", (haveCnt / allCnt) * 100)
-    local t1, t2 = math.modf(collectPercent)
-    if t2 == 0 then collectPercent = t1 end
-    self.TxtCollectNum.text = collectPercent .. "%"
-
     local isUnlock = XDataCenter.RiftManager.IsFuncUnlock(XRiftConfig.FuncUnlockId.PluginShop)
     self.BtnPluginShop:SetDisable(not isUnlock)
-    self:RefreshDynamicTable()
 end
 
 function XUiRiftPluginBag:OnDisable()
@@ -48,11 +37,11 @@ function XUiRiftPluginBag:SetButtonCallBack()
     self.BtnPluginShop.CallBack = function()
         self:OnBtnPluginShopClick()
     end
+    self:RegisterClickEvent(self.BtnHandbookBuff, self.OnClickHandbookBuff)
+end
 
-    self:RegisterClickEvent(self.TogStar3, self.OnTogStar3Click)
-    self:RegisterClickEvent(self.TogStar4, self.OnTogStar4Click)
-    self:RegisterClickEvent(self.TogStar5, self.OnTogStar5Click)
-    self:RegisterClickEvent(self.TogStar6, self.OnTogStar6Click)
+function XUiRiftPluginBag:OnClickHandbookBuff()
+    XLuaUiManager.Open("UiRiftHandbookBuff")
 end
 
 function XUiRiftPluginBag:OnBtnPluginShopClick()
@@ -65,41 +54,25 @@ function XUiRiftPluginBag:OnBtnPluginShopClick()
     end
 end
 
-function XUiRiftPluginBag:OnTogStar3Click()
-    local isOn = self.TogStar3:GetToggleState()
-    self.StarSelectList[1] = isOn
-    self.StarSelectList[2] = isOn
-    self.StarSelectList[3] = isOn
-    self:RefreshDynamicTable()
-end
-
-function XUiRiftPluginBag:OnTogStar4Click()
-    local isOn = self.TogStar4:GetToggleState()
-    self.StarSelectList[4] = isOn
-    self:RefreshDynamicTable()
-end
-
-function XUiRiftPluginBag:OnTogStar5Click()
-    local isOn = self.TogStar5:GetToggleState()
-    self.StarSelectList[5] = isOn
-    self:RefreshDynamicTable()
-end
-
-function XUiRiftPluginBag:OnTogStar6Click()
-    local isOn = self.TogStar6:GetToggleState()
-    self.StarSelectList[6] = isOn
-    self:RefreshDynamicTable()
-end
-
 function XUiRiftPluginBag:InitToggleList()
-    self.StarSelectList = {true, true, true, true, true, true}
-    for index, isSelect in ipairs(self.StarSelectList) do
-        local tog = self["TogStar" .. index]
-        if tog then
-            local state = isSelect and CS.UiButtonState.Select or CS.UiButtonState.Normal
-            tog:SetButtonState(state)
-        end
+    local btns = {}
+    self.TabStarMap = {}
+    for i = 3, 6 do
+        local btn = self["Btn" .. i .. "Star"]
+        local cur, all = XDataCenter.RiftManager.GetPluginCount(i)
+        btn:SetNameByGroup(0, XUiHelper.GetText("RiftPluginFilterTagName", i))
+        btn:SetNameByGroup(1, string.format("%s/%s", cur, all))
+        table.insert(btns, btn)
+        table.insert(self.TabStarMap, i)
     end
+    self.PanelTabBtn:Init(btns, function(index)
+        self:OnTabSelected(index)
+    end)
+    self.PanelTabBtn:SelectIndex(#btns)
+end
+
+function XUiRiftPluginBag:OnTabSelected(index)
+    self:RefreshDynamicTable(self.TabStarMap[index])
 end
 
 function XUiRiftPluginBag:InitDynamicTable()
@@ -108,9 +81,9 @@ function XUiRiftPluginBag:InitDynamicTable()
     self.DynamicTable:SetDelegate(self)
 end
 
-function XUiRiftPluginBag:RefreshDynamicTable()
+function XUiRiftPluginBag:RefreshDynamicTable(star)
     self.SelectIndex = 1
-    self.DataList = XDataCenter.RiftManager.GetAllPluginList(self.StarSelectList)
+    self.DataList = XDataCenter.RiftManager.GetAllPluginList(star)
     self.DynamicTable:SetDataSource(self.DataList)
     self.DynamicTable:ReloadDataSync(1)
     self:RefreshPluginDetail()
@@ -146,42 +119,19 @@ function XUiRiftPluginBag:OnPluginClick(selectGrid)
 end
 
 function XUiRiftPluginBag:RefreshPluginDetail()
-    local plugin = self.DataList[self.SelectIndex]
-    self.PanelRiftPluginTips.gameObject:SetActiveEx(plugin ~= nil)
-    if plugin == nil then
-        return
+    if not self.PluginDetail then
+        ---@type XUiGridRiftPluginDrop
+        self.PluginDetail = require("XUi/XUiRift/Grid/XUiGridRiftPluginDrop").New(self.GridRiftPluginTips, self)
     end
 
-    self.TipsPluginGrid:Refresh(plugin)
-    local isHave = plugin:GetHave()
-    self.TxtPluginName.text = isHave and plugin:GetName() or XUiHelper.GetText("RiftUnlockPluginName") 
-    self.PanelAdditionList.gameObject:SetActiveEx(isHave)
-    self.TxtCoreExplain.gameObject:SetActiveEx(isHave)
-    self.PanelEmpty.gameObject:SetActiveEx(not isHave)
-    if isHave then
-        self.TxtCoreExplain.text = plugin:GetDesc()
-
-        -- 补正类型
-        local fixTypeList = plugin:GetAttrFixTypeList()
-        for i = 1, XRiftConfig.PluginMaxFixCnt do
-            local isShow = #fixTypeList >= i
-            self["PanelAddition" .. i].gameObject:SetActiveEx(isShow)
-            if isShow then
-                self["TxtAddition" .. i].text = fixTypeList[i]
-            end
-        end
-
-        -- 补正效果
-        local attrFixList = plugin:GetEffectStringList()
-        for i = 1, XRiftConfig.PluginMaxFixCnt do
-            local isShow = #attrFixList >= i
-            self["PanelEntry" .. i].gameObject:SetActiveEx(isShow)
-            if isShow then
-                local attrFix = attrFixList[i]
-                self["TxtEntry" .. i].text = attrFix.Name
-                self["TxtEntryNum" .. i].text = attrFix.ValueString
-            end
-        end
+    local plugin = self.DataList[self.SelectIndex]
+    if plugin == nil then
+        self.PluginDetail:Close()
+        self.PanelEmpty.gameObject:SetActiveEx(true)
+    else
+        self.PluginDetail:Open()
+        self.PluginDetail:RefreshByPlugin(plugin)
+        self.PanelEmpty.gameObject:SetActiveEx(false)
     end
 end
 

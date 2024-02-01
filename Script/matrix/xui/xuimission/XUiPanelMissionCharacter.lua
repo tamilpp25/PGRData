@@ -34,11 +34,11 @@ function XUiPanelMissionCharacter:SetCharacter(id)
     self.PanelEmpty.gameObject:SetActive(false)
     self.PanelLock.gameObject:SetActive(false)
     self.PanelCha.gameObject:SetActive(true)
-    local character = XDataCenter.CharacterManager.GetCharacter(id)
+    local character = XMVCA.XCharacter:GetCharacter(id)
     self.TxtLevel.text = tostring(character.Level)
-    self.Parent:SetUiSprite(self.ImgType, XCharacterConfigs.GetNpcTypeIcon(character.Type))
-    --self.Parent:SetUiSprite(self.RImgCharacter, XDataCenter.CharacterManager.GetCharHalfBodyBigImage(id))
-    self.RImgCharacter:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(id))
+    self.Parent:SetUiSprite(self.ImgType, XMVCA.XCharacter:GetNpcTypeIcon(character.Type))
+    --self.Parent:SetUiSprite(self.RImgCharacter, XMVCA.XCharacter:GetCharHalfBodyBigImage(id))
+    self.RImgCharacter:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyBigImage(id))
     self.Status = Status.Normal
 end
 

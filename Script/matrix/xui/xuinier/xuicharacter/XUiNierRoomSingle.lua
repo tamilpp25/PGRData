@@ -64,7 +64,7 @@ function XUiNierRoomSingle:InitPanelNierCharacter()
                 self["PanelAbility" .. index].gameObject:SetActiveEx(true)
                 self["PanelFirstRole" .. index].gameObject:SetActiveEx(false)
                 self["TxtAbility" .. index].text = "LV" .. nieRCharacter:GetNieRCharacterLevel()
-                local careerIcon = XCharacterConfigs.GetNpcTypeIcon(nieRCharacter:GetRobotCharacterCareerType())
+                local careerIcon = XMVCA.XCharacter:GetNpcTypeIcon(nieRCharacter:GetRobotCharacterCareerType())
                 local rImgArms = self["RImgArms" .. index]
                 if careerIcon then
                     rImgArms:SetRawImage(careerIcon)

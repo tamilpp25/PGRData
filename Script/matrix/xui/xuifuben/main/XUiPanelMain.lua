@@ -1,7 +1,6 @@
 
 local XUiGridWeeklyManager = require("XUi/XUiFuben/Main/XUiGridWeeklyManager")
 local XUiPanelActivity = require("XUi/XUiFuben/Main/XUiPanelActivity")
-local XUiBtnDownload = require("XUi/XUiDlcDownload/XUiBtnDownload")
 local XUiPanelMain = XClass(XSignalData, "XUiPanelMain")
 
 --######################## 静态方法 BEGIN ########################
@@ -34,10 +33,9 @@ function XUiPanelMain:Ctor(ui, rootUi)
     self.RefreshTimeId = XFubenConfigs.GetMainPanelTimeId()
     self.VersionName = XFubenConfigs.GetMainPanelName()
     self.VersionItemId = XFubenConfigs.GetMainPanelItemId()
-    ---@type XUiBtnDownload
-    self.GirdBtnDownload = XUiBtnDownload.New(self.BtnDownload)
     self.ImgLock = self.PanelLock.transform:Find("ImgLock")
     self:RegisterUiEvents()
+    self.BtnShopRedPointId=XRedPointManager.AddRedPointEvent(self.BtnShop,self.BtnShopReddot,self,{XRedPointConditions.Types.CONDITION_REPEAT_CHALLENGE_COIN},nil,false)
 end
 
 function XUiPanelMain:SetData(firstIndex, activityManagerIndex)
@@ -57,6 +55,11 @@ function XUiPanelMain:OnEnable()
     if self.UiPanelActivity then
         self.UiPanelActivity:OnEnable()
     end
+    XRedPointManager.Check(self.BtnShopRedPointId)
+end
+
+function XUiPanelMain:OnDestroy()
+    XRedPointManager.RemoveRedPointEvent(self.BtnShopRedPointId)
 end
 
 function XUiPanelMain:TimeUpdate()
@@ -96,11 +99,14 @@ function XUiPanelMain:OnBtnActivityClicked()
 end
 
 function XUiPanelMain:OnBtnChapterClicked()
-    if self.GirdBtnDownload:CheckNeedDownload() then
-        self.GirdBtnDownload:OnBtnClick()
+    if self.CurrentChapter == nil then
         return
     end
-    if self.CurrentChapter == nil then
+    if self.CurrentChapter.OnOpenChapterUi then
+        self.CurrentChapter:OnOpenChapterUi()
+        return
+    end
+    if not XMVCA.XSubPackage:CheckSubpackage(self.EntryType, self.CurrentChapter:GetId()) then
         return
     end
     self.CurrentChapterManager:ExOpenChapterUi(self.CurrentChapter, self.CurrentChapter:GetDifficulty())
@@ -181,6 +187,7 @@ end
 
 function XUiPanelMain:RefreshCurrentChapter()
     local currentChapter, currentChapterManager = self.FubenManagerEx.GetCurrentRecordChapterAndManager()
+    self.EntryType = (currentChapterManager and currentChapterManager.ExGetChapterType) and currentChapterManager:ExGetChapterType() or nil
     self.CurrentChapter = currentChapter
     self.CurrentChapterManager = currentChapterManager
     self.PanelChapterHave.gameObject:SetActiveEx(currentChapter ~= nil)
@@ -189,24 +196,16 @@ function XUiPanelMain:RefreshCurrentChapter()
         self.PanelChapterNewEffect.gameObject:SetActiveEx(false)
         self.PanelChapterActivityTag.gameObject:SetActiveEx(false)
         self.PanelChapterMultipleWeeksTag.gameObject:SetActiveEx(false)
-        self.BtnDownload.gameObject:SetActiveEx(false)
         return
     end
     
     self.RImgChapterIcon:SetRawImage(currentChapter:GetIcon())
     if currentChapterManager == self.FubenManagerEx.GetMainLineManager() then   -- 主线
         self.RImgChapterIcon.gameObject:GetComponent("RectTransform").sizeDelta = Vector2(460, 228) --ui规定的主线、支线尺寸
-        self.EntryType = XDlcConfig.EntryType.MainChapter
-        self.EntryParam = currentChapter:GetId()
     else    -- 支线
         self.RImgChapterIcon.gameObject:GetComponent("RectTransform").sizeDelta = Vector2(511, 224)
-        local chapterType = currentChapterManager:ExGetChapterType()
-        self.EntryType = XDlcConfig.GetEntryTypeByChapterType(chapterType)
-        self.EntryParam = currentChapter:GetId()
     end
-    self.GirdBtnDownload:Init(self.EntryType, self.EntryParam, nil, handler(self, self.OnDownloadComplete))
-    self.GirdBtnDownload:RefreshView()
-    self:RefreshLock(currentChapter:GetIsLocked(), self.GirdBtnDownload:CheckNeedDownload())
+    self:RefreshLock(currentChapter:GetIsLocked())
     self.TxtChapterName.text = currentChapter:GetName()
     self.PanelChapterNewEffect.gameObject:SetActiveEx(currentChapter:CheckHasNewTag())
     self.PanelChapterActivityTag.gameObject:SetActiveEx(currentChapter:CheckHasTimeLimitTag())
@@ -216,11 +215,17 @@ function XUiPanelMain:RefreshCurrentChapter()
 end
 
 function XUiPanelMain:OpenActivityUi()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XLuaUiManager.Open("UiActivityChapter", self.ActivityManagerIndex)
 end
 
 -- v1.31 战斗面板材料关货币显示优化
 function XUiPanelMain:OpenActivityShop()
+    if not XMVCA.XSubPackage:CheckSubpackage() then
+        return
+    end
     XDataCenter.FubenRepeatChallengeManager.OpenShopByCB(function ()
         self.RootUi:PlayAnimationWithMask("AnimStart")
     end, nil)
@@ -232,18 +237,15 @@ function XUiPanelMain:CloseActivityUi()
     self.RootUi:SetOperationActive(true)
 end
 
-function XUiPanelMain:OnDownloadComplete()
-    if XTool.UObjIsNil(self.PanelLock) or not self.CurrentChapter then
-        return
-    end
-    self:RefreshLock(self.CurrentChapter:GetIsLocked(), self.GirdBtnDownload:CheckNeedDownload())
-end
-
-function XUiPanelMain:RefreshLock(isLock, isNeedDownload)
-    self.PanelLock.gameObject:SetActiveEx(isLock or isNeedDownload)
+function XUiPanelMain:RefreshLock(isLock)
+    self.PanelLock.gameObject:SetActiveEx(isLock)
     if not XTool.UObjIsNil(self.ImgLock) then
         self.ImgLock.gameObject:SetActiveEx(isLock)
     end
+end
+
+function XUiPanelMain:BtnShopReddot(count)
+    self.BtnShop:ShowReddot(count>=0)
 end
 
 return XUiPanelMain

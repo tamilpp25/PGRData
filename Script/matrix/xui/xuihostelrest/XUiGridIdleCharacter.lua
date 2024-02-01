@@ -94,7 +94,7 @@ function XUiGridIdleCharacter:SetData(index, charId, showFloor)
     self.PanelCondition.gameObject:SetActive(false)
     self.Index = index
     self.CharId = charId
-    local character = XDataCenter.CharacterManager.GetCharacter(self.CharId)
+    local character = XMVCA.XCharacter:GetCharacter(self.CharId)
     if not character then return end
     if character.Vitality >= XDataCenter.HostelManager.GetMaxCharacterVitality() or not character.InitVittality then
         self.TxtVitality.text = CS.XTextManager.GetText("HostelFullVitality")
@@ -102,7 +102,7 @@ function XUiGridIdleCharacter:SetData(index, charId, showFloor)
         self.TxtVitality.text = character.Vitality .."/"..XDataCenter.HostelManager.GetMaxCharacterVitality()
     end
 
-    self.RootUi:SetUiSprite(self.ImgIcon, XDataCenter.CharacterManager.GetCharSmallHeadIcon(character.Id))
+    self.RootUi:SetUiSprite(self.ImgIcon, XMVCA.XCharacter:GetCharSmallHeadIcon(character.Id))
     local isRest, floor = XDataCenter.HostelManager.IsCharacterInRest(self.CharId)
     if isRest and showFloor then
         local config  = XDataCenter.HostelManager.GetHostelRestTemplate(floor)

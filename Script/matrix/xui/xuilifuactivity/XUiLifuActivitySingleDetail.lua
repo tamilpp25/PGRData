@@ -60,7 +60,7 @@ function XUiLifuActivitySingleDetail:Refresh()
 end
 
 function XUiLifuActivitySingleDetail:OnClickBtnEnterFight()
-    XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiLifuActivitySingleDetail:OnClickBtnSkipDraw()

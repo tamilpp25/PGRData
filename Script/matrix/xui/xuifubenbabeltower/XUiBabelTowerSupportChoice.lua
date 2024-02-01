@@ -1,3 +1,4 @@
+---@class XUiBabelTowerSupportChoice
 local XUiBabelTowerSupportChoice = XClass(nil, "XUiBabelTowerSupportChoice")
 local UiButtonState = CS.UiButtonState
 local XUiGridBabelChallengeItem = require("XUi/XUiFubenBabelTower/XUiGridBabelChallengeItem")
@@ -8,6 +9,7 @@ function XUiBabelTowerSupportChoice:Ctor(ui)
     self.name = "XUiBabelTowerSupportChoice"
 
     XTool.InitUiObject(self)
+    ---@type XUiGridBabelChallengeItem[]
     self.SupportItemList = {}
     self.SupportBtnCompList = {}
 end

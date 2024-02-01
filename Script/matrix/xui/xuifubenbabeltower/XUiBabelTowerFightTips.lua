@@ -88,7 +88,7 @@ function XUiBabelTowerWinPanel:SetData(stageId, teamId, challengeBuffs, supportB
     self.TxtNumber02.text = XUiHelper.GetText("BabelTowerSettleLevelTips", babelTowerSettleResult.TimeoutSubScore)
     -- 角色立绘
     local captainPos = XDataCenter.FubenBabelTowerManager.GetTeamCaptainPos(stageId, teamId)
-    self.RImgRole:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyBigImage(characterIds[captainPos]))
+    self.RImgRole:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyBigImage(characterIds[captainPos]))
     -- 检查战斗计时器，回到活动主界面
     local currentActivityNo = XDataCenter.FubenBabelTowerManager.GetCurrentActivityNo()
     local endTime = XDataCenter.FubenBabelTowerManager.GetFightEndTime(currentActivityNo)

@@ -447,7 +447,7 @@ XMovieManagerCreator = function()
     function XMovieManager.PushInReviewDialogList(roleName, dialogContent,cueId)
         roleName = roleName and roleName ~= "" and roleName .. ":  " or ""
         if not string.IsNilOrEmpty(roleName) then
-            dialogContent = dialogContent and dialogContent ~= "" and '"' .. dialogContent .. '"' or ""
+            dialogContent = dialogContent and dialogContent ~= "" and dialogContent or ""
         end
         
         local data = {

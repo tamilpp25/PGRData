@@ -73,10 +73,6 @@ function XUiArenaWarZone:Refresh()
             local areaId = tonumber(areaIdStr)
             local areaData = XDataCenter.ArenaManager.GetArenaAreaDataByAreaId(areaId)
             local areaStageCfg = XArenaConfigs.GetArenaAreaStageCfgByAreaId(areaId)
-            if areaStageCfg.Region == 6 then
-                --策划要求临时把独域区屏蔽
-                return
-            end
             self.GridList[areaStageCfg.Region]:SetMetaData(areaId)
             if areaData then
                 break

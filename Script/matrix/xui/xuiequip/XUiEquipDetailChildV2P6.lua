@@ -41,6 +41,7 @@ function XUiEquipDetailChildV2P6:OnStart(equipId, isPreview, characterId, forceS
     self.ForceShowBindCharacter = forceShowBindCharacter
     self.TemplateId = isPreview and self.EquipId or XDataCenter.EquipManager.GetEquipTemplateId(equipId)
     self.OpenUiType = openUiType
+    self.IsShowExtend = isShowExtendPanel == true
     self.IsWeapon = XDataCenter.EquipManager.IsWeaponByTemplateId(self.TemplateId)
     self.IsAwareness = XDataCenter.EquipManager.IsAwarenessByTemplateId(self.TemplateId)
     if self.IsAwareness then
@@ -48,20 +49,19 @@ function XUiEquipDetailChildV2P6:OnStart(equipId, isPreview, characterId, forceS
     end
     self:RegisterHelpBtn()
 
-    -- 播放扩展面板动画，动画切到最后一帧
-    self.IsShowExtend = isShowExtendPanel == true
-    local anim = self.IsShowExtend and self.AnimFold or self.AnimUnFold
-    anim:Play()
-    anim.time = anim.duration
-    anim:Evaluate()
-    anim:Stop()
-
     if not XDataCenter.VoteManager.IsInit() then
         XDataCenter.VoteManager.GetVoteGroupListRequest()
     end
 end
 
 function XUiEquipDetailChildV2P6:OnEnable()
+    -- 播放扩展面板动画，动画切到最后一帧
+    local anim = self.IsShowExtend and self.AnimFold or self.AnimUnFold
+    anim:Play()
+    anim.time = anim.duration
+    anim:Evaluate()
+    anim:Stop()
+
     self.PanelAddEffect.gameObject:SetActiveEx(false)
     self.PanelAdd2Effect.gameObject:SetActiveEx(false)
     self:UpdateView()
@@ -78,12 +78,28 @@ function XUiEquipDetailChildV2P6:OnGetEvents()
         XEventId.EVENT_EQUIP_LOCK_STATUS_CHANGE_NOTYFY, 
         XEventId.EVENT_EQUIP_RECYCLE_STATUS_CHANGE_NOTYFY,
         XEventId.EVENT_EQUIP_RESONANCE_NOTYFY,
+        XEventId.EVENT_EQUIP_SELECT_EQUIP,
     }
 end
 
 function XUiEquipDetailChildV2P6:OnNotify(evt, ...)
     local args = { ... }
     local equipId = args[1]
+    
+    -- 切换当前选择的装备
+    if evt == XEventId.EVENT_EQUIP_SELECT_EQUIP then
+        if equipId ~= self.EquipId then
+            local equips = self._Control:GetCharacterWearingAwarenesss(self.CharacterId)
+            for _, equip in ipairs(equips) do
+                if equip.Id == equipId then
+                    local site = equip:GetEquipSite()
+                    self:OnClickSwitchAwareness(site)
+                end
+            end
+        end
+        return
+    end
+
     if self.IsPreview or equipId ~= self.EquipId then 
         return 
     end
@@ -402,7 +418,7 @@ function XUiEquipDetailChildV2P6:UpdateCharacterInfo()
     local isWearing = equip:IsWearing()
     self.PanelCharacterInfo.gameObject:SetActiveEx(isWearing)
     if isWearing then
-        local icon = XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(equip.CharacterId)
+        local icon = XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(equip.CharacterId)
         self.RImgCharHead:SetRawImage(icon)
     end
 end
@@ -418,7 +434,7 @@ function XUiEquipDetailChildV2P6:UpdateEquipInfo()
     self.TxtWeaponType.gameObject:SetActiveEx(self.IsWeapon)
     if self.IsWeapon then 
         local equipType = XMVCA:GetAgency(ModuleId.XEquip):GetEquipType(self.TemplateId)
-        local weaponGroupCfg = XArchiveConfigs.GetWeaponGroupByType(equipType)
+        local weaponGroupCfg = XMVCA.XArchive:GetWeaponGroupByType(equipType)
         self.TxtWeaponType.text = weaponGroupCfg and weaponGroupCfg.GroupName or ""
     end
 end

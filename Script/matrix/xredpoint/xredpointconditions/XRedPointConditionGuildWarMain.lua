@@ -13,9 +13,10 @@ function XRedPointConditionGuildWarMain.GetSubEvents()
 end
 
 function XRedPointConditionGuildWarMain.Check()
-    if XRedPointConditionGuildWarTaskRed.Check() then return true end
-    if XRedPointConditionGuildWarSupply.Check() then return true end
-    if XRedPointConditionGuildWarAssistant.Check() then return true end
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDWAR_TASK) then return true end
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDWAR_SUPPLY) then return true end
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDWAR_ASSISTANT) then return true end
+    if XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_GUILDWAR_MONEY) then return true end
     if XDataCenter.GuildWarManager.IsShowRedPointBossReward() then return true end
     return false
 end

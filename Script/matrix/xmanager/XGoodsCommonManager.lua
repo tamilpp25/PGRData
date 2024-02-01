@@ -17,7 +17,7 @@ local GoodsName = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterName(templateId)
+        return XMVCA.XCharacter:GetCharacterName(templateId)
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
@@ -133,7 +133,7 @@ local GoodsIcon = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(templateId)
+        return XMVCA.XCharacter:GetCharRoundnessHeadIcon(templateId)
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
@@ -194,7 +194,7 @@ local GoodsDescription = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XCharacterConfigs.GetCharacterIntro(templateId)
+        return XMVCA.XCharacter:GetCharacterIntro(templateId)
     end,
 
     [XArrangeConfigs.Types.Fashion] = function(templateId)
@@ -330,7 +330,7 @@ local GoodsCurrentCount = {
     end,
 
     [XArrangeConfigs.Types.Character] = function(templateId)
-        return XDataCenter.CharacterManager.IsOwnCharacter(templateId) and 1 or 0
+        return XMVCA.XCharacter:IsOwnCharacter(templateId) and 1 or 0
     end,
 
     [XArrangeConfigs.Types.Weapon] = function(templateId)
@@ -509,8 +509,8 @@ function XGoodsCommonManager.GetGoodsCurrentCount(templateId)
     --战区贡献道具不在背包，需要特殊处理
     if templateId == XArenaConfigs.CONTRIBUTESCORE_ID then
         return XDataCenter.ArenaManager.GetContributeScore()
-    elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
-        return XDataCenter.ChessPursuitManager.GetSumCoinCount()
+    --elseif templateId == XChessPursuitConfig.SHOP_COIN_ITEM_ID then
+    --    return XDataCenter.ChessPursuitManager.GetSumCoinCount()
     elseif templateId == XDataCenter.StrongholdManager.GetBatteryItemId() then
         return XDataCenter.StrongholdManager.GetTotalElectricEnergy()
     --elseif templateId == XDataCenter.ReformActivityManager.GetScoreItemId() then
@@ -535,17 +535,17 @@ GoodsShowParams[XArrangeConfigs.Types.Item] = function(templateId)
 end
 
 GoodsShowParams[XArrangeConfigs.Types.Character] = function(templateId)
-    local quality = XCharacterConfigs.GetCharMinQuality(templateId)
+    local quality = XMVCA.XCharacter:GetCharMinQuality(templateId)
 
     return {
         RewardType = XRewardManager.XRewardType.Character,
         TemplateId = templateId,
-        Name = XCharacterConfigs.GetCharacterName(templateId),
-        TradeName = XCharacterConfigs.GetCharacterTradeName(templateId),
+        Name = XMVCA.XCharacter:GetCharacterName(templateId),
+        TradeName = XMVCA.XCharacter:GetCharacterTradeName(templateId),
         Quality = quality,
-        QualityIcon = XCharacterConfigs.GetCharQualityIconGoods(quality),
-        Icon = XDataCenter.CharacterManager.GetCharRoundnessHeadIcon(templateId),
-        BigIcon = XDataCenter.CharacterManager.GetCharBigRoundnessHeadIcon(templateId),
+        QualityIcon = XMVCA.XCharacter:GetCharQualityIconGoods(quality),
+        Icon = XMVCA.XCharacter:GetCharRoundnessHeadIcon(templateId),
+        BigIcon = XMVCA.XCharacter:GetCharBigRoundnessHeadIcon(templateId),
 
     }
 end
@@ -692,7 +692,7 @@ GoodsShowParams[XArrangeConfigs.Types.Partner] = function(templateId)
         Name = XPartnerConfigs.GetPartnerTemplateName(templateId),
         Icon = XPartnerConfigs.GetPartnerTemplateIcon(templateId),
         Quality = quality,
-        QualityIcon = XCharacterConfigs.GetCharQualityIconGoods(quality),
+        QualityIcon = XMVCA.XCharacter:GetCharQualityIconGoods(quality),
     }
 end
 

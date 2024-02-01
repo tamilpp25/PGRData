@@ -13,7 +13,7 @@ function XUiRoleGrid:SetData(roleId)
     if not hasRole then
         return
     end
-    self.RImgRoleIcon:SetRawImage(XDataCenter.CharacterManager.GetCharHalfBodyImage(roleId))
+    self.RImgRoleIcon:SetRawImage(XMVCA.XCharacter:GetCharHalfBodyImage(roleId))
     local buffData = self.GuildWarManager.GetSpecialRoleBuff(roleId)
     if buffData == nil then return end
     self.RImgSkillIcon:SetRawImage(buffData.Icon)

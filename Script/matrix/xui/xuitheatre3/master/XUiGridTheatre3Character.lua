@@ -6,7 +6,7 @@ local XUiGridTheatre3Character = XClass(XUiNode, "XUiGridTheatre3Character")
 function XUiGridTheatre3Character:OnStart(callBack)
     self.CallBack = callBack
     self.TxtLoad.gameObject:SetActiveEx(false)
-    XUiHelper.RegisterClickEvent(self, self.CharacterGrid, self.OnBtnCharacterClick)
+    self._Control:RegisterClickEvent(self, self.CharacterGrid, self.OnBtnCharacterClick)
 end
 
 function XUiGridTheatre3Character:Refresh(characterId)

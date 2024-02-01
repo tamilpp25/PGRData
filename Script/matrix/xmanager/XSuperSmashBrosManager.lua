@@ -553,5 +553,5 @@ end
 --XSuperSmashBrosDb ActivityDb
 --================
 XRpc.NotifySuperSmashBrosChange = function(data)
-    XDataCenter.SuperSmashBrosManager.OnNotifySuperSmashBrosChange(data.ActivityDb)
+    --XDataCenter.SuperSmashBrosManager.OnNotifySuperSmashBrosChange(data.ActivityDb)
 end

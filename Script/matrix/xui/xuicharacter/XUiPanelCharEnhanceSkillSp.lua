@@ -21,7 +21,7 @@ function XUiPanelCharEnhanceSkillSp:InitPanel()
             function()
                 self:DoSelectPos(self.SelectPos + 1)
                 self:ShowPanel()
-            end,XCharacterConfigs.SkillUnLockType.Sp)
+            end,XEnumConst.CHARACTER.SkillUnLockType.Sp)
     self.ItemsPanel = XUiPanelEnhanceSkillItems.New(self.PanelSkillItems, self.Anime, self.IsSelf, function(skill)
         self:DoSelectPos(skill)
         self:ShowPanel()
@@ -33,7 +33,7 @@ function XUiPanelCharEnhanceSkillSp:ShowPanel(character, isReset)
         ---@type XCharacter
         self.CharEntity = character
         if type(character) == "number" then
-            self.CharEntity = XDataCenter.CharacterManager.GetCharacter(character)
+            self.CharEntity = XMVCA.XCharacter:GetCharacter(character)
         end
     end
 

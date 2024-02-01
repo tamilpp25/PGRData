@@ -21,19 +21,25 @@ function XTransfiniteStageGroup:Ctor(id)
 
     self._IsBegin = false
     self._IsClear = false
+    self._IsIsland = nil
 
     ---@type XTeam
     self._Team = false
 
     self._BestClearTime = 0
 
+    self._StageSaveIndex = 0
     self._StageProgressIndex = 1
+    self._StartStageProgress = 0 -- 关卡开始进度
 
     -- 上一次关卡记录
     self._Result = false
 
     -- 未confirm的记录
     self._LastResult = false
+
+    -- 历史关卡记录
+    self._HistoryResults = false
 end
 
 function XTransfiniteStageGroup:SetDataFromServer(data)
@@ -59,6 +65,10 @@ function XTransfiniteStageGroup:SetDataFromServer(data)
         self._IsBegin = false
     end
 
+    local stageList = self:GetStageList()
+    for _, stage in pairs(stageList) do
+        stage:Reset()
+    end
     local stageInfoList = data.StageInfo
     for i = 1, #stageInfoList do
         local info = stageInfoList[i]
@@ -74,7 +84,9 @@ function XTransfiniteStageGroup:SetDataFromServer(data)
         end
     end
 
+    self._StageSaveIndex = data.StageProgressIndex
     self._StageProgressIndex = data.StageProgressIndex + 1
+    self._StartStageProgress = data.StartStageProgress or 0
     local stageAmount = self:GetStageAmount()
     if self._StageProgressIndex > stageAmount then
         self._StageProgressIndex = stageAmount
@@ -82,9 +94,13 @@ function XTransfiniteStageGroup:SetDataFromServer(data)
     else
         self._IsClear = false
     end
+    if self._StageSaveIndex >= stageAmount then
+        self._StageSaveIndex = stageAmount - 1
+    end
 
     self._Result = data.Result
     self._LastResult = data.LastResult
+    self._HistoryResults = data.HistoryResults
 end
 
 function XTransfiniteStageGroup:GetId()
@@ -106,6 +122,8 @@ function XTransfiniteStageGroup:Reset()
     --self._Team = false
     self._Score = 0
     self._StageProgressIndex = 1
+    self._StageSaveIndex = 0
+    self._StartStageProgress = 0
     return true
 end
 
@@ -114,7 +132,19 @@ function XTransfiniteStageGroup:GetStageGroupType()
 end
 
 function XTransfiniteStageGroup:IsIsland()
-    return self:GetStageGroupType() == XTransfiniteConfigs.StageGroupType.Island
+    if self._IsIsland == nil then
+        local region = XDataCenter.TransfiniteManager.GetRegion()
+        local stageGroupIdList = region:GetIslandStageGroupIdArray()
+
+        self._IsIsland = false
+        for i = 1, #stageGroupIdList do
+            if self._Id == stageGroupIdList[i] then
+                self._IsIsland = true
+            end
+        end
+    end
+
+    return self._IsIsland
 end
 
 function XTransfiniteStageGroup:GetName()
@@ -242,6 +272,9 @@ end
 function XTransfiniteStageGroup:IsAchievementAchieved()
     local achievementIdList = XTransfiniteConfigs.GetAchievementListByStageGroupId(self._Id)
 
+    if not achievementIdList then
+        return false
+    end
     for id, config in Pairs(achievementIdList) do
         local taskIds = XTransfiniteConfigs.GetTaskTaskIds(id)
         for _, taskId in Pairs(taskIds) do
@@ -306,6 +339,11 @@ end
 
 function XTransfiniteStageGroup:GetBestClearTime()
     return self._BestClearTime
+end
+
+--- 检测关卡组是否通关
+function XTransfiniteStageGroup:CheckStageGroupIsPass()
+    return self._BestClearTime > 0
 end
 
 function XTransfiniteStageGroup:GetCurrentIndex()
@@ -423,6 +461,76 @@ end
 
 function XTransfiniteStageGroup:ClearLastResult()
     self._LastResult = nil
+end
+
+function XTransfiniteStageGroup:GetSaveStageIndex()
+    return self._StageSaveIndex
+end
+
+function XTransfiniteStageGroup:GetHistoryCharacterByIndex(index)
+    local historyIndex = 0
+    local stageProgress = self:GetStartStageProgress()
+    if stageProgress > 1 then
+        historyIndex = self._StageSaveIndex - stageProgress
+    else
+        historyIndex = self._StageSaveIndex - 1
+    end
+
+    if self._HistoryResults and historyIndex > 0 then
+        local historyResults = self._HistoryResults[historyIndex]
+        if historyResults and historyResults.CharacterResultList then
+            return historyResults.CharacterResultList[index]
+        end
+    end
+end
+
+--- 获取关卡开始进度
+function XTransfiniteStageGroup:GetStartStageProgress()
+    if not XTool.IsNumberValid(self._StartStageProgress) then
+        return 1
+    end
+    return self._StartStageProgress
+end
+
+--- 获取下期关卡开始进度通过通关关卡数
+function XTransfiniteStageGroup:GetNextStartProgress()
+    local maxRotateStageProgressIndex = XDataCenter.TransfiniteManager.GetMaxRotateStageProgressIndex()
+    local winAmount = self:GetStageAmountClear()
+    local lastMaxProgress = math.max(maxRotateStageProgressIndex, winAmount)
+    -- 没有挑战时显示默认值
+    if lastMaxProgress > 0 and self:GetStartStageProgress() > lastMaxProgress then
+        return 0
+    end
+    local startProgress = 0
+    local configs = XTransfiniteConfigs.GetAllStartStageProgress()
+    for _, config in ipairs(configs) do
+        if config.LastProgress <= lastMaxProgress and config.StartProgress > startProgress then
+            startProgress = config.StartProgress
+        end
+    end
+    return startProgress
+end
+
+--- 获取关卡开始进度配置的Id
+function XTransfiniteStageGroup:GetStartStageProgressId()
+    local id = 1 -- 默认第一个
+    -- 溢出关卡
+    if self:IsIsland() then
+        return id
+    end
+    -- 锚点为1
+    local progress = self:GetStartStageProgress()
+    if progress > 0 and progress == 1 then
+        return id
+    end
+    local configs = XTransfiniteConfigs.GetAllStartStageProgress()
+    for _, config in ipairs(configs) do
+        if config.StartProgress == progress then
+            id = config.Id
+            break
+        end
+    end
+    return id
 end
 
 return XTransfiniteStageGroup

@@ -102,7 +102,9 @@ function XPanelCharacterGradeV2P6:OnStart()
     self:InitButton()
 
     self.ConditionGrids = {}
-    self.CharGradeUpgradePanel = XUiPanelGradeUpgrade.New(self.PanelGradeUpgrade, self.Parent, self)
+
+	local XUiPanelGradeUpgrade = require("XUi/XUiCharacter/XUiPanelGradeUpgrade") --XUiPanelGradeUpgrade,
+    self.CharGradeUpgradePanel = XUiPanelGradeUpgrade.New(self.PanelGradeUpgrade, self, self.Parent)
     self.CharGradeUpgradePanel.GameObject:SetActive(false)
     self.CanvasGroup = self.PanelGrades:GetComponent("CanvasGroup")
     self:InitTable()
@@ -171,7 +173,7 @@ function XPanelCharacterGradeV2P6:UpdateGradeInfo()
     local characterId = self.CharacterId
     local character = self.CharacterAgency:GetCharacter(characterId)
 
-    local charGradeTemplates = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
+    local charGradeTemplates = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
     self.RImgIconTitle:SetRawImage(charGradeTemplates.GradeBigIcon)
     self:UpdateStarSprite(charGradeTemplates.NoStar, charGradeTemplates.Star)
 
@@ -241,8 +243,8 @@ function XPanelCharacterGradeV2P6:UpdateAttribs()
     local characterId = self.CharacterId
     local character = self.CharacterAgency:GetCharacter(characterId)
 
-    local curGradeConfig = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
-    local nextGradeConfig = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade + 1)
+    local curGradeConfig = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
+    local nextGradeConfig = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade + 1)
     local nextAttrib = XAttribManager.GetBaseAttribs(nextGradeConfig.AttrId)
     local curAttrib = XAttribManager.GetBaseAttribs(curGradeConfig.AttrId)
 
@@ -268,7 +270,7 @@ function XPanelCharacterGradeV2P6:UpdateAttribMax()
     self.PanelCosumeOn.gameObject:SetActive(false)
     self.PanelCosume.gameObject:SetActive(false)
 
-    local curGradeConfig = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
+    local curGradeConfig = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
     local curAttrib = XAttribManager.GetBaseAttribs(curGradeConfig.AttrId)
     for i = 1, 4 do
         local name = XAttribManager.GetAttribNameByIndex(Show_Part[i])
@@ -284,7 +286,7 @@ function XPanelCharacterGradeV2P6:UpdateConditions()
     local characterId = self.CharacterId
     local character = self.CharacterAgency:GetCharacter(characterId)
 
-    local gradeTemplate = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
+    local gradeTemplate = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
     local conditions = gradeTemplate.ConditionId
 
     if not conditions then
@@ -319,7 +321,7 @@ function XPanelCharacterGradeV2P6:UpdateUseItemView()
     if not characterId then return end
     local character = self.CharacterAgency:GetCharacter(characterId)
 
-    local gradeConfig = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
+    local gradeConfig = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
     local itemCode = gradeConfig.UseItemKey
     if not XTool.IsNumberValid(itemCode) then return end
 
@@ -349,7 +351,7 @@ function XPanelCharacterGradeV2P6:UpgradePart()
         return
     end
 
-    local gradeConfig = XCharacterConfigs.GetGradeTemplates(characterId, character.Grade)
+    local gradeConfig = XMVCA.XCharacter:GetGradeTemplates(characterId, character.Grade)
     local conditions = gradeConfig.ConditionId
 
     for i = 1, MAX_CONDITION_NUM do
@@ -395,7 +397,7 @@ function XPanelCharacterGradeV2P6:AddEventListener()
     self:RemoveEventListener()
 
     local character = self.CharacterAgency:GetCharacter(self.CharacterId)
-    local gradeConfig = XCharacterConfigs.GetGradeTemplates(self.CharacterId, character.Grade)
+    local gradeConfig = XMVCA.XCharacter:GetGradeTemplates(self.CharacterId, character.Grade)
     local itemCode = gradeConfig.UseItemKey
     if not XTool.IsNumberValid(itemCode) then
         return
@@ -409,7 +411,7 @@ function XPanelCharacterGradeV2P6:RemoveEventListener()
     XDataCenter.ItemManager.RemoveCountUpdateListener(self.TxtCosumeOn)
 end
 
-function XPanelCharacterGradeV2P6:OnRelease()
+function XPanelCharacterGradeV2P6:OnDestroy()
     self:RemoveEventListener()
 end
 

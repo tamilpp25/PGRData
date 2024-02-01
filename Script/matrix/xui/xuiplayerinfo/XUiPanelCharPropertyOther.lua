@@ -103,11 +103,11 @@ function XUiPanelCharPropertyOther:InitChildUiInfos()
             UiParent = self.PanelCharSkillOther,
             AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.Skill - 1),
         },
-        [PANEL_INDEX.EnhanceSkill] = {
-            ChildClass = XUiPanelCharEnhanceSkill,
-            UiParent = self.PanelCharEnhanceSkillOther,
-            AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.EnhanceSkill - 1),
-        },
+        -- [PANEL_INDEX.EnhanceSkill] = {
+        --     ChildClass = XUiPanelCharEnhanceSkill,
+        --     UiParent = self.PanelCharEnhanceSkillOther,
+        --     AssetPath = XUiConfigs.GetComponentUrl("UiPanelCharProperty" .. PANEL_INDEX.EnhanceSkill - 1),
+        -- },
         [PANEL_INDEX.EnhanceSkillSp] = {
             ChildClass = XUiPanelCharEnhanceSkillSp,
             UiParent = self.PanelCharEnhanceSpSkillOther,
@@ -121,9 +121,9 @@ function XUiPanelCharPropertyOther:InitBtnTabGroup()
     self.BtnTabQuality.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterQuality))
     self.BtnTabSkill.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterSkill))
     self.BtnTabLevel.gameObject:SetActiveEx(not XFunctionManager.CheckFunctionFitter(XFunctionManager.FunctionName.CharacterLevelUp))
-    if self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Normal then
+    if self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Normal then
         self.BtnTabEnhanceSkill:SetNameByGroup(0,CS.XTextManager.GetText("EnhanceSkillTab"))
-    elseif self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Sp then
+    elseif self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Sp then
         self.BtnTabEnhanceSkill:SetNameByGroup(0,CS.XTextManager.GetText("SpEnhanceSkillTab"))
     end
     local tabGroup = {
@@ -144,7 +144,7 @@ end
 
 function XUiPanelCharPropertyOther:UpdateShowPanel()
     local index = self.SelectedIndex
-    if self.Character:GetCharacterType() == XCharacterConfigs.CharacterType.Sp and index == PANEL_INDEX.EnhanceSkill then
+    if self.Character:GetCharacterType() == XEnumConst.CHARACTER.CharacterType.Sp and index == PANEL_INDEX.EnhanceSkill then
         index = PANEL_INDEX.EnhanceSkillSp
     end
     for k, panel in pairs(self.PanelsMap) do
@@ -191,7 +191,7 @@ end
 
 function XUiPanelCharPropertyOther:GetSceneUrl()
     local fashionId = self.Character.FashionId or
-    XCharacterConfigs.GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
+    XMVCA.XCharacter:GetCharacterTemplate(self.Character.Id).DefaultNpcFashtionId
     local sceneUrl = XDataCenter.FashionManager.GetFashionSceneUrl(fashionId)
     return sceneUrl or self:GetDefaultSceneUrl()
 end

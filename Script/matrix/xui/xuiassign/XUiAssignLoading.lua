@@ -28,7 +28,7 @@ function XUiAssignLoading:OnEnable()
     for index = 1, 3 do
         local characterId = teamCharList[index]
         if XTool.IsNumberValid(characterId) and characterId > 0 then
-            self["RImgCharIcon" .. index]:SetRawImage(XDataCenter.CharacterManager.GetCharBigRoundnessNotItemHeadIcon(characterId))
+            self["RImgCharIcon" .. index]:SetRawImage(XMVCA.XCharacter:GetCharBigRoundnessNotItemHeadIcon(characterId))
             self["PanelCharIcon" .. index].gameObject:SetActiveEx(true)
         else
             self["PanelCharIcon" .. index].gameObject:SetActiveEx(false)

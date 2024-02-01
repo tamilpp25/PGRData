@@ -4,6 +4,11 @@ local XExFubenBaseManager = require("XEntity/XFuben/XExFubenBaseManager")
 local XExFubenShortStoryManager = XClass(XExFubenBaseManager, "XExFubenShortStoryManager")
 
 function XExFubenShortStoryManager:ExOpenChapterUi(viewModel)
+    if viewModel.OnOpenChapterUi then
+        viewModel:OnOpenChapterUi()
+        return
+    end
+
     local chapterId = viewModel:GetId()
     local isUnlock = XDataCenter.ShortStoryChapterManager.IsUnlock(chapterId)
     local isActivity = XDataCenter.ShortStoryChapterManager.IsActivity(chapterId)
@@ -69,9 +74,23 @@ function XExFubenShortStoryManager:ExGetChapterViewModels(difficulty)
     self.__ChapterViewModelDic[difficulty] = {}
     local chapterIds = self:ExGetChapterIds(difficulty)
     for _, id in ipairs(chapterIds) do
-        local chapterMainId = XFubenShortStoryChapterConfigs.GetChapterMainIdByChapterId(id)
-        table.insert(self.__ChapterViewModelDic[difficulty], self:ExGetChapterViewModelById(id, difficulty))
+        local viewModel = self:ExGetChapterViewModelById(id, difficulty)
+        table.insert(self.__ChapterViewModelDic[difficulty], viewModel)
     end
+
+    -- 2.11新浮点纪实章节
+    local storyType = XEnumConst.MAINLINE2.STORY_TYPE.SHORT_STORY
+    local groupId = XEnumConst.MAINLINE2.SHORT_STORY_GROUP_ID
+    local mainLine2Agency = XMVCA:GetAgency(ModuleId.XMainLine2)
+    local mainCfgs = mainLine2Agency:GetMainCfgsByStoryTypeGroupId(storyType, groupId)
+    if mainCfgs and #mainCfgs > 0 then
+        table.sort(mainCfgs, function(a, b) return a.OrderId < b.OrderId end)
+        for _, config in ipairs(mainCfgs) do
+            local viewModel = mainLine2Agency:GetMain(config.Id)
+            table.insert(self.__ChapterViewModelDic[difficulty], viewModel)
+        end
+    end
+
     return self.__ChapterViewModelDic[difficulty]
 end
 
@@ -79,7 +98,8 @@ function XExFubenShortStoryManager:ExCheckHasOtherDifficulty()
     return true
 end
 
-function XExFubenShortStoryManager:ExGetChapterViewModelById(id, difficulty)
+-- 注意：这是旧的接口，2.11后新做的不适用，请使用ExGetChapterViewModelById
+function XExFubenShortStoryManager:GetChapterViewModel(id, difficulty)
     local chapterMainId = XFubenShortStoryChapterConfigs.GetChapterMainIdByChapterId(id)
     local subChapterId = XFubenShortStoryChapterConfigs.GetChapterIdByIdAndDifficult(chapterMainId, difficulty)
     if self.__ChapterViewModelIdDic == nil then self.__ChapterViewModelIdDic = {} end
@@ -106,7 +126,7 @@ function XExFubenShortStoryManager:ExGetChapterViewModelById(id, difficulty)
                 return normalCurStars, normalTotalStars
             end,
             CheckHasRedPoint = function(proxy)
-                return XRedPointConditionShortStoryChapterReward.Check(proxy:GetId())
+                return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_SHORT_STORY_CHAPTER_REWARD, proxy:GetId())
             end,
             CheckHasNewTag = function(proxy)
                 return XDataCenter.ShortStoryChapterManager.CheckChapterNew(proxy:GetId())
@@ -146,7 +166,12 @@ function XExFubenShortStoryManager:ExGetChapterViewModelById(id, difficulty)
             end,
             GetDifficulty = function(proxy)
                 return difficulty
-            end
+            end,
+            GetNormalChapterNextStageOrderId = function(proxy)
+                local chapterInfo = XDataCenter.ExtraChapterManager.GetChapterInfo(proxy:GetId())
+                local stageCfg = XMVCA:GetAgency(ModuleId.XFuben):GetStageCfg(chapterInfo.ActiveStage)
+                return stageCfg.OrderId
+            end,
         }, XChapterViewModel
         , {
             Id = subChapterId,
@@ -176,6 +201,17 @@ function XExFubenShortStoryManager:ExGetChapterIds(difficulty)
         table.insert(result, config.ChapterId)
     end
     return result
+end
+
+-- 获取章节的ViewModel
+function XExFubenShortStoryManager:ExGetChapterViewModelById(chapterId, difficulty)
+    -- v2.11新主线
+    if XMVCA:GetAgency(ModuleId.XMainLine2):IsMainExit(chapterId) then
+        return
+    end
+
+    local chapterMainId = XFubenShortStoryChapterConfigs.GetChapterMainIdByChapterId(chapterId)
+    return self:GetChapterViewModel(chapterId, difficulty)
 end
 
 return XExFubenShortStoryManager

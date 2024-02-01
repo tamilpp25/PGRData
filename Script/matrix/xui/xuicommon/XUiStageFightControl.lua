@@ -17,7 +17,7 @@ function XUiStageFightControl:UpdateInfo(stageFightControlId)
     if not data or data.RecommendFight <= 0 then
         return
     end
-    local charlist = XDataCenter.CharacterManager.GetCharacterList()
+    local charlist = XMVCA.XCharacter:GetCharacterList()
     local maxAbility = 0
     for _, v in pairs(charlist) do
         if v.Ability and v.Ability > maxAbility then

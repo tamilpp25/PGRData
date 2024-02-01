@@ -17,6 +17,11 @@ function XActivityBrieButton:Ctor(ui, uiRoot, activityGroupId)
     self:InitUnlockAnim()
 end
 
+function XActivityBrieButton:OnDisable()
+    self:_ReleaseRedPoint()
+    self:_ReleaseTagRedPoint()
+end
+
 function XActivityBrieButton:Refresh(args)
     local isOpen, str, timeStr = XActivityBrieIsOpen.Get(self.activityGroupId, args)
     self.args = args
@@ -32,6 +37,7 @@ function XActivityBrieButton:Refresh(args)
     self.BtnCom:SetDisable(not isOpen or isOpen and isWaitLockAnim)
 end
 
+--region Ui - Anim
 ---初始化解锁动画状态
 function XActivityBrieButton:InitUnlockAnim()
     self.PanelEffectLock = XUiHelper.TryGetComponent(self.Transform, "PanelEffectLock")
@@ -57,16 +63,19 @@ function XActivityBrieButton:PlayUnlockAnim(cb)
         if cb then cb() end
     end
 end
+--endregion
 
+--region Ui - Tag
 ---可挑战Tag,第一次点击后消失
 ---@param conditionGroup table<number, string>XRedPointConditions.Conditions
 ---@param args any XRedPointConditions.Conditions用的参数
 ---@param isAlwaysCheck boolean 为true时未点击前恒显示tag
 ---@param offset number|nil 时间戳数据,不填时默认服务器下次刷新时间刷新tag,不为0时服务器下次刷新时间+offset时刷新tag
 function XActivityBrieButton:AddNewTagEvent(conditionGroup, args, isAlwaysCheck,offset)
+    self:_ReleaseTagRedPoint()
     self.IsAlwaysCheck = isAlwaysCheck
     if self:CheckFirstClicked(offset) or isAlwaysCheck then
-        XRedPointManager.AddRedPointEvent(self.BtnCom, self.OnNewTagEvent, self, conditionGroup, args, true)
+        self._TagRedPointEventId = XRedPointManager.AddRedPointEvent(self.BtnCom, self.OnNewTagEvent, self, conditionGroup, args, true)
     else
         self.BtnCom:ShowTag(false)
     end
@@ -88,6 +97,14 @@ function XActivityBrieButton:ShowTag(isShow,offset)
     end
 end
 
+function XActivityBrieButton:_ReleaseTagRedPoint()
+    if XTool.IsNumberValid(self._TagRedPointEventId) then
+        XRedPointManager.RemoveRedPointEvent(self._TagRedPointEventId)
+    end
+end
+--endregion
+
+--region Ui - RedPoint
 function XActivityBrieButton:CheckFirstClicked(offset)
     self.Offset = offset or 0
     return not XSaveTool.GetData(self:GetPlayerPrefsKey())
@@ -97,7 +114,8 @@ end
 ---@param conditionGroup table<number, string>XRedPointConditions.Conditions
 ---@param args any XRedPointConditions.Conditions用的参数
 function XActivityBrieButton:AddRedPointEvent(conditionGroup, args)
-    XRedPointManager.AddRedPointEvent(self.BtnCom, self.OnRedPointEvent, self, conditionGroup, args, true)
+    self:_ReleaseRedPoint()
+    self._RedPointEventId = XRedPointManager.AddRedPointEvent(self.BtnCom, self.OnRedPointEvent, self, conditionGroup, args, true)
 end
 
 function XActivityBrieButton:OnRedPointEvent(count)
@@ -113,10 +131,6 @@ function XActivityBrieButton:ShowReddot(value)
     end
 
     self.BtnCom:ShowReddot(value)
-end
-
-function XActivityBrieButton:GetButtonCom()
-    return self.BtnCom
 end
 
 function XActivityBrieButton:SetOnClick(func)
@@ -147,6 +161,17 @@ function XActivityBrieButton:GetPlayerPrefsKey()
         timeOffset = dayRefreshTime + self.Offset
     end
     return string.format("%s_%s_%s_%s", XPlayer.Id, ACTIVITYBRIEBUTTONISFIRSTTIMECLICK, timeOffset, self.activityGroupId)
+end
+
+function XActivityBrieButton:_ReleaseRedPoint()
+    if XTool.IsNumberValid(self._RedPointEventId) then
+        XRedPointManager.RemoveRedPointEvent(self._RedPointEventId)
+    end
+end
+--endregion
+
+function XActivityBrieButton:GetButtonCom()
+    return self.BtnCom
 end
 
 return XActivityBrieButton

@@ -39,8 +39,8 @@ function XUiPivotCombatBattleRoomRoleDetail:GetGridProxy()
 end
 
 function XUiPivotCombatBattleRoomRoleDetail:GetDefaultCharacterType()
-    local roles = self:GetEntities(XCharacterConfigs.CharacterType.Isomer)
-    return #roles > 0 and XCharacterConfigs.CharacterType.Isomer or XCharacterConfigs.CharacterType.Normal
+    local roles = self:GetEntities(XEnumConst.CHARACTER.CharacterType.Isomer)
+    return #roles > 0 and XEnumConst.CHARACTER.CharacterType.Isomer or XEnumConst.CHARACTER.CharacterType.Normal
 end
 
 --获取角色
@@ -87,7 +87,7 @@ end
 function XUiPivotCombatBattleRoomRoleDetail:AOPOnBtnJoinTeamClickedBefore(rootUi)
     local entity = self.Super.GetCharacterViewModelByEntityId(self, rootUi.CurrentEntityId)
     local id = entity and entity:GetId() or 0
-    local isOwn = XDataCenter.CharacterManager.IsOwnCharacter(id)
+    local isOwn = XMVCA.XCharacter:IsOwnCharacter(id)
     if not isOwn then return end
     local isRobot = XRobotManager.CheckIsRobotId(rootUi.CurrentEntityId)
     if isRobot then return false end

@@ -237,7 +237,7 @@ function XUiRestaurantCook:RefreshDetails()
     local level = character:GetProperty("_Level")
     self.TxtName.text = character:GetName()
     self.RImgHead:SetRawImage(character:GetIcon())
-    self.TxtCode.text = XCharacterConfigs.GetCharacterCodeStr(self.SelectRoleId)
+    self.TxtCode.text = XMVCA.XCharacter:GetCharacterCodeStr(self.SelectRoleId)
     local levelList = {}
     local btnIndex = 1
     self:HideAllGrids(self.LevelButton)

@@ -2,13 +2,14 @@ local XRedPointConditionFashionStoryEntrance={}
 
 function XRedPointConditionFashionStoryEntrance.GetSubConditions()
     return {
-        XRedPointConditions.Conditions.CONDITION_FASHION_STORY_NEWCHAPTER_UNLOCK,
-        XRedPointConditions.Conditions.CONDITION_FASHION_STORY_TASK
+        XRedPointConditions.Types.CONDITION_FASHION_STORY_NEWCHAPTER_UNLOCK,
+        XRedPointConditions.Types.CONDITION_FASHION_STORY_TASK
     }
 end
 
 function XRedPointConditionFashionStoryEntrance.Check()
-    return XRedPointConditionFashionStoryTask.Check() or XRedPointConditionFashionStoryNewChapterUnLock.Check()
+    return XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FASHION_STORY_TASK) 
+            or XRedPointConditions.Check(XRedPointConditions.Types.CONDITION_FASHION_STORY_NEWCHAPTER_UNLOCK)
 end
 
 return XRedPointConditionFashionStoryEntrance

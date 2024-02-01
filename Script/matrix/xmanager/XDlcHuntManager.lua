@@ -40,6 +40,9 @@ XDlcHuntManagerCreator = function()
         --if data.WorldInfo then
         --    XDataCenter.DlcRoomManager.SetReJoinWorldInfo(data.WorldInfo)
         --end
+        if data.WorldInfo then
+            XMVCA.XDlcRoom:SetReJoinWorldInfo(data.WorldInfo)
+        end
     end
 
     function XDlcHuntManager.SetWorldPassed(worldId)
@@ -68,6 +71,10 @@ XDlcHuntManagerCreator = function()
     function XDlcHuntManager.OpenMain()
         if not XDlcHuntManager.IsOpen() then
             XUiManager.TipText("CommonActivityNotStart")
+            return
+        end
+        --活动分包资源检测
+        if not XMVCA.XSubPackage:CheckSubpackage() then
             return
         end
         XLuaUiManager.Open("UiDlcHuntMain")
@@ -308,9 +315,9 @@ XDlcHuntManagerCreator = function()
     return XDlcHuntManager
 end
 
-XRpc.DlcBossSettleResponse = function(res)
-    XDataCenter.DlcHuntManager.OnNotifyFightSettle(res.SettleData)
-end
+-- XRpc.DlcBossSettleResponse = function(res)
+--     XDataCenter.DlcHuntManager.OnNotifyFightSettle(res.SettleData)
+-- end
 
 XRpc.NotifyDlcPlayerDataDb = function(res)
     XDataCenter.DlcHuntManager.SetDlcPlayerData(res.DlcPlayerData)

@@ -12,6 +12,9 @@ function XUiTheatre3RoleRoomCharacterListGrid:OnStart()
     if not self.ImgInitQuality then
         self.ImgInitQuality = XUiHelper.TryGetComponent(self.Transform, "CharHeadCurrentPerfab/PanelInitQuality/ImgInitQuality", "Image")
     end
+    if not self.PanelEnergy then
+        self.PanelEnergy = XUiHelper.TryGetComponent(self.Transform, "PanelEnergy")
+    end
     self.UiObject = XUiHelper.TryGetComponent(self.CharacterGrid, "", "UiObject")
 end
 
@@ -67,6 +70,13 @@ function XUiTheatre3RoleRoomCharacterListGrid:SetData(character)
     if self.PanelSameRole then
         local isRepeat = self._Control:IsCharacterRepeat(self._Id)
         self.PanelSameRole.gameObject:SetActiveEx(isRepeat)
+    end
+    -- 天选角色
+    if self.PanelTxTag and self.PanelEnergy then
+        local isLucy = self._Control:CheckIsLuckCharacter(characterId)
+        self.ImgTxBg.gameObject:SetActiveEx(isLucy)
+        self.PanelTxTag.gameObject:SetActiveEx(isLucy)
+        self.PanelEnergy.gameObject:SetActiveEx(not isLucy)
     end
 end
 

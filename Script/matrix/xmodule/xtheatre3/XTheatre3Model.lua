@@ -4,12 +4,12 @@ local XTheatre3Activity = require("XModule/XTheatre3/XEntity/XTheatre3Activity")
 --ReadFunc : 读取表格的方法，默认为XConfigUtil.ReadType.Int
 --DirPath : 读取的文件夹类型XConfigUtil.DirectoryType，默认是Share
 --Identifier : 读取表格的主键名，默认为Id
---TableDefindName : 表定于名，默认同表名
+--TableDefinedName : 表定于名，默认同表名
 --CacheType : 配置表缓存方式，默认XConfigUtil.CacheType.Private
 --=============
 local TableKey = {
     Theatre3Activity = { CacheType = XConfigUtil.CacheType.Normal },
-    Theatre3Chapter = {},
+    Theatre3Chapter = { CacheType = XConfigUtil.CacheType.Normal },
     Theatre3ChapterGroup = {},
     Theatre3CharacterGroup = {},
     Theatre3CharacterLevel = {},
@@ -21,6 +21,7 @@ local TableKey = {
     Theatre3Config = { ReadFunc = XConfigUtil.ReadType.String, Identifier = "Key" },
     Theatre3Task = { CacheType = XConfigUtil.CacheType.Normal, DirPath = XConfigUtil.DirectoryType.Client },
     Theatre3EquipSuit = {},
+    Theatre3EquipSuitEffectGroup = {CacheType = XConfigUtil.CacheType.Temp},
     Theatre3Equip = {},
     Theatre3Item = {},
     Theatre3Ending = { CacheType = XConfigUtil.CacheType.Normal },
@@ -39,6 +40,13 @@ local TableKey = {
     Theatre3EquipBox = {},
     Theatre3Gold = {},
     Theatre3EnergyUnused = {},
+    Theatre3Achievement = {},
+    Theatre3QubitEffect = {},
+    Theatre3QubitLevel = { Identifier = "Level", CacheType = XConfigUtil.CacheType.Normal },
+    Theatre3QubitShowLevel = { DirPath = XConfigUtil.DirectoryType.Client },
+    Theatre3QubitUpTxt = { DirPath = XConfigUtil.DirectoryType.Client },
+    Theatre3EffectGroupDesc = { DirPath = XConfigUtil.DirectoryType.Client, Identifier = "EffectGroupId" },
+    Theatre3EquipDamageSource = { DirPath = XConfigUtil.DirectoryType.Client, Identifier = "EquipId", CacheType = XConfigUtil.CacheType.Normal },
 }
 
 ---@class XTheatre3Model : XModel
@@ -118,7 +126,16 @@ function XTheatre3Model:NotifyTheatre3AdventureSettle(data)
     if not data or not self.ActivityData then
         return
     end
+    if data.SettleData.EndId then
+        if self:CheckEndingIsSuccess(data.SettleData.EndId) then
+            self.ActivityData:AddTotalAllPassCount()
+        end
+    end
     self.ActivityData:UpdateSettle(data.SettleData)
+end
+
+function XTheatre3Model:NotifyTheatre3AddChapter(data)
+    self.ActivityData:NotifyTheatre3AddChapter(data)
 end
 
 function XTheatre3Model:NotifyTheatre3AddStep(data)
@@ -144,7 +161,7 @@ end
 --endregion
 
 --region 活动表相关
-
+---@return XTableTheatre3Activity
 function XTheatre3Model:GetActivityConfig()
     if not self.ActivityData then
         return {}
@@ -333,6 +350,7 @@ function XTheatre3Model:GetEquipConfig()
     return self._ConfigUtil:GetByTableKey(TableKey.Theatre3Equip)
 end
 
+---@return XTableTheatre3Equip
 function XTheatre3Model:GetEquipById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Equip, id)
 end
@@ -342,8 +360,14 @@ function XTheatre3Model:GetEquipSuitConfigs()
     return self._ConfigUtil:GetByTableKey(TableKey.Theatre3EquipSuit)
 end
 
+---@return XTableTheatre3EquipSuit
 function XTheatre3Model:GetSuitById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EquipSuit, id)
+end
+
+---@return XTableTheatre3EquipSuitEffectGroup
+function XTheatre3Model:GetSuitEffectGroupById(id)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EquipSuitEffectGroup, id)
 end
 
 ---@return XTableTheatre3Equip[]
@@ -503,17 +527,24 @@ function XTheatre3Model:InitStrengthenTreeConfig()
     end
 
     local configs = self:GetStrengthenTreeConfig()
-    for id, _ in pairs(configs or {}) do
-        table.insert(self.StrengthenTreeIdList, id)
+    for id, cfg in pairs(configs or {}) do
+        if not self.StrengthenTreeIdList[cfg.Page] then
+            self.StrengthenTreeIdList[cfg.Page] = {}
+        end
+        table.insert(self.StrengthenTreeIdList[cfg.Page], id)
     end
-
-    XTool.SortIdTable(self.StrengthenTreeIdList)
+    for i, list in pairs(self.StrengthenTreeIdList) do
+        XTool.SortIdTable(list)
+    end
     self.IsInitStrengthenTreeConfig = true
 end
 
-function XTheatre3Model:GetStrengthenTreeIdList()
+function XTheatre3Model:GetStrengthenTreeIdList(page)
     self:InitStrengthenTreeConfig()
-    return self.StrengthenTreeIdList
+    if not page then
+        return self.StrengthenTreeIdList
+    end
+    return self.StrengthenTreeIdList[page]
 end
 
 ---@return XTableTheatre3StrengthenTree[]
@@ -633,6 +664,14 @@ function XTheatre3Model:GetEndingById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Ending, id)
 end
 
+function XTheatre3Model:CheckEndingIsSuccess(id)
+    if XTool.IsNumberValid(id) then
+        local cfg = self:GetEndingById(id)
+        return cfg and cfg.PassType == XEnumConst.THEATRE3.EndingPassType.Success
+    end
+    return false
+end
+
 function XTheatre3Model:GetSettleFactor()
     local config = self._ConfigUtil:GetByTableKey(TableKey.Theatre3SettleFactor)
     return config or {}
@@ -652,6 +691,28 @@ function XTheatre3Model:GetGoldBoxById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Gold, id)
 end
 
+--endregion
+
+--region Cache
+function XTheatre3Model:GetLocalCacheKey(key)
+    return string.format("Theatre3_%s_%s_%s", XPlayer.Id, self.ActivityData:GetCurActivityId(), key)
+end
+
+function XTheatre3Model:GetAddEnergyLimitRedPoint()
+    local value = XSaveTool.GetData(self:GetLocalCacheKey("EnergyLimitRedPoint"))
+    if value == nil then
+        return false
+    else
+        return value
+    end
+end
+
+function XTheatre3Model:SetAddEnergyLimitRedPoint(value)
+    if self:GetAddEnergyLimitRedPoint() == value then
+        return
+    end
+    XSaveTool.SaveData(self:GetLocalCacheKey("EnergyLimitRedPoint"), value)
+end
 --endregion
 
 --region Difficulty
@@ -675,6 +736,12 @@ end
 ---@return XTableTheatre3Chapter
 function XTheatre3Model:GetChapterCfgById(id)
     return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Chapter, id)
+end
+
+---@return XTableTheatre3Chapter
+function XTheatre3Model:CheckChapterIsALine(id)
+    local cfg = self:GetChapterCfgById(id)
+    return cfg and cfg.ChapterType == XEnumConst.THEATRE3.ChapterType.A
 end
 --endregion
 
@@ -748,6 +815,139 @@ end
 function XTheatre3Model:GetFubenClashCost(rebootId)
     local cfg = self:GetRebootCfg(rebootId)
     return cfg and cfg.FubenClashCost or 0
+end
+--endregion
+
+--region EffectGroup
+---@return XTableTheatre3EffectGroupDesc
+function XTheatre3Model:_GetEffectGroupDescCfg(effectGroupId)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EffectGroupDesc, effectGroupId, true)
+end
+
+---@param paramList number[]
+---@return string
+function XTheatre3Model:GetEffectGroupDescByIndex(effectGroupId, paramList, index)
+    local cfg = self:_GetEffectGroupDescCfg(effectGroupId)
+    if not cfg then
+        return ""
+    end
+    local value = 0
+    index = index and index or 1
+    local baseValueList = string.Split(cfg.BaseValueList[index], "|")
+    for i = 1, #baseValueList do
+        if baseValueList[i] ~= "" then
+            value = value + tonumber(baseValueList[i]) * (paramList[i] and paramList[i] or 1)
+        end
+    end
+    return XUiHelper.FormatText(cfg.DescList[index], value)
+end
+
+---@return number 
+function XTheatre3Model:GetEffectGroupDescCfgType(effectGroupId)
+    local cfg = self:_GetEffectGroupDescCfg(effectGroupId)
+    if not cfg then
+        return
+    end
+    return cfg.Type
+end
+--endregion
+
+--region Achievement
+---@return XTableTheatre3Achievement[]
+function XTheatre3Model:GetAchievementConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3Achievement)
+end
+
+---@return XTableTheatre3Achievement
+function XTheatre3Model:GetAchievementCfg(id)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3Achievement, id)
+end
+--endregion
+
+--region EquipDamageSource
+---@return XTableTheatre3EquipDamageSource[]
+function XTheatre3Model:GetEquipDamageSourceConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3EquipDamageSource)
+end
+
+---@return XTableTheatre3EquipDamageSource
+function XTheatre3Model:GetEquipDamageSourceCfg(suitId)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3EquipDamageSource, suitId, true)
+end
+--endregion
+
+--region Quantum
+---@return XTableTheatre3QubitEffect[]
+function XTheatre3Model:GetQuantumEffectConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3QubitEffect)
+end
+
+---@return XTableTheatre3QubitEffect
+function XTheatre3Model:GetQuantumEffectCfg(quantumEffectId)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3QubitEffect, quantumEffectId, true)
+end
+
+---@return XTableTheatre3QubitLevel[]
+function XTheatre3Model:_GetQuantumLevelConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3QubitLevel)
+end
+
+---@return XTableTheatre3QubitLevel
+function XTheatre3Model:GetQuantumLevelCfgByValue(value)
+    local result
+    for _, cfg in ipairs(self:_GetQuantumLevelConfigs()) do
+        if value >= cfg.Exp then
+            result = cfg
+        else
+            break
+        end
+    end
+    return result
+end
+
+function XTheatre3Model:GetQuantumLevelByValue(value)
+    local cfg = self:GetQuantumLevelCfgByValue(value)
+    return cfg and cfg.Level or 0
+end
+
+function XTheatre3Model:GetQuantumLevelUpTxtByValue(value)
+    local cfg = self:GetQuantumLevelCfgByValue(value)
+    return cfg and XUiHelper.ConvertLineBreakSymbol(cfg.LevelUpTxt) or ""
+end
+
+---@return XTableTheatre3QubitShowLevel[]
+function XTheatre3Model:_GetQuantumShowLevelConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3QubitShowLevel)
+end
+
+---@return XTableTheatre3QubitShowLevel
+function XTheatre3Model:GetQuantumShowLevelCfgById(id)
+    return self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3QubitShowLevel, id, true)
+end
+
+---@return number[]
+function XTheatre3Model:GetQuantumShowPuzzleListCfgByValue(value, quantumType)
+    local result = {}
+    for _, cfg in ipairs(self:_GetQuantumShowLevelConfigs()) do
+        if quantumType == cfg.QubitType then
+            result[#result + 1] = cfg.Id
+        end
+    end
+    return result
+end
+
+---@return XTableTheatre3QubitUpTxt[]
+function XTheatre3Model:GetQuantumUpTxtConfigs()
+    return self._ConfigUtil:GetByTableKey(TableKey.Theatre3QubitUpTxt)
+end
+
+---@return string
+function XTheatre3Model:GetRandomQuantumUpTxtById(id)
+    ---@type XTableTheatre3QubitUpTxt
+    local config = self._ConfigUtil:GetCfgByTableKeyAndIdKey(TableKey.Theatre3QubitUpTxt, id, true)
+    if config and not XTool.IsTableEmpty(config.ShowTxtList) then
+        return XUiHelper.ConvertLineBreakSymbol(config.ShowTxtList[math.random(1, #config.ShowTxtList)])
+    end
 end
 --endregion
 

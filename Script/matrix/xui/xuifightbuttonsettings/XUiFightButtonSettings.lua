@@ -49,6 +49,14 @@ function XUiFightButtonSettings:AddListener()
     self.BtnTongBlue.CallBack = function() self:OnBtnClose() end
 end
 
+function XUiFightButtonSettings:OnEnable()
+    CS.XJoystickLSHelper.ForceResponse = true;
+end
+
+function XUiFightButtonSettings:OnDisable()
+    CS.XJoystickLSHelper.ForceResponse = false;
+end
+
 function XUiFightButtonSettings:RefreshBtnPoint()
     if not self.BtnProject1PC or not self.BtnProject2PC then
         self.CurrentBtnProj1 = self.BtnProject1

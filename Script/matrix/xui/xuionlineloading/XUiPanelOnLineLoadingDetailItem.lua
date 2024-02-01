@@ -57,7 +57,7 @@ function XUiPanelOnLineLoadingDetailItem:SetIsShow(active)
 end
 
 function XUiPanelOnLineLoadingDetailItem:GetHalfBodyImage(character)
-    return XDataCenter.CharacterManager.GetCharHalfBodyImage(character.Id)
+    return XMVCA.XCharacter:GetCharHalfBodyImage(character.Id)
 end
 
 function XUiPanelOnLineLoadingDetailItem:Refresh(data)
@@ -86,9 +86,9 @@ function XUiPanelOnLineLoadingDetailItem:Refresh(data)
     if icon then
         self.RootUi:SetUiSprite(self.ImgIcon, icon)
     end
-    local npcId = XCharacterConfigs.GetCharNpcId(character.Id, character.Quality)
+    local npcId = XMVCA.XCharacter:GetCharNpcId(character.Id, character.Quality)
     local npcTemplate = CS.XNpcManager.GetNpcTemplate(npcId)
-    local logo = XCharacterConfigs.GetNpcTypeIcon(npcTemplate.Type)
+    local logo = XMVCA.XCharacter:GetNpcTypeIcon(npcTemplate.Type)
     if logo then
         self.RootUi:SetUiSprite(self.ImgLogo, logo)
     end

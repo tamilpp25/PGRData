@@ -125,7 +125,7 @@ function XUiReformCharacterInfo:SetData(source)
         rImg = self["RImgCharElement" .. i]
         if elementList[i] then
             rImg.gameObject:SetActiveEx(true)
-            rImg:SetRawImage(XCharacterConfigs.GetCharElement(elementList[i]).Icon)
+            rImg:SetRawImage(XMVCA.XCharacter:GetCharElement(elementList[i]).Icon)
         else
             rImg.gameObject:SetActiveEx(false)
         end
@@ -186,7 +186,7 @@ function XUiReformCharacterInfo:OnBtnCareerTipsClicked()
 end
 
 function XUiReformCharacterInfo:OnBtnElementDetailClicked()
-    XLuaUiManager.Open("UiCharacterElementDetail", XRobotManager.GetCharacterId(self.Source:GetRobotId()))
+    XLuaUiManager.Open("UiCharacterAttributeDetail", XRobotManager.GetCharacterId(self.Source:GetRobotId(), XEnumConst.UiCharacterAttributeDetail.BtnTab.Element))
 end
 
 function XUiReformCharacterInfo:OnBtnWeaponReplaceClicked()

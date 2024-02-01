@@ -1,18 +1,13 @@
-local XUiGridSwitchSkill = XClass(nil, "XUiGridSwitchSkill")
+---@class XUiGridSwitchSkill XUiGridSwitchSkill
+---@field _Control XCharacterControl
+local XUiGridSwitchSkill = XClass(XUiNode, "XUiGridSwitchSkill")
 local DescribeType = {
     Title = 1,
     Specific = 2,
 }
 
-function XUiGridSwitchSkill:Ctor(ui, switchCb)
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
+function XUiGridSwitchSkill:Ctor(ui, parent, switchCb)
     self.SwitchCb = switchCb
-    XTool.InitUiObject(self)
     self.BtnSelect.CallBack = function()
         self:OnClickBtnSelect()
     end
@@ -28,9 +23,9 @@ function XUiGridSwitchSkill:Refresh(skillId, skillLevel, isCurrent)
     self.SelectIcon.gameObject:SetActiveEx(isCurrent)
     self.BtnSelect.gameObject:SetActiveEx(not isCurrent)
 
-    local gradeConfig = self.CharacterAgency:GetCharacterSkillExchangeDesBySkillIdAndLevel(skillId, skillLevel)
+    local gradeConfig = self._Control:GetCharacterSkillExchangeDesBySkillIdAndLevel(skillId, skillLevel)
     if XTool.IsTableEmpty(gradeConfig) then
-        gradeConfig = XCharacterConfigs.GetSkillGradeDesConfig(skillId, skillLevel)
+        gradeConfig = XMVCA.XCharacter:GetSkillGradeDesWithDetailConfig(skillId, skillLevel)
     end
    
     -- 技能名
@@ -73,7 +68,7 @@ function XUiGridSwitchSkill:SetTextInfo(txtType, index, info)
 end
 
 function XUiGridSwitchSkill:OnClickBtnSelect()
-    XDataCenter.CharacterManager.ReqSwitchSkill(self.SkillId, self.SwitchCb)
+    XMVCA.XCharacter:ReqSwitchSkill(self.SkillId, self.SwitchCb)
 end
 
 return XUiGridSwitchSkill

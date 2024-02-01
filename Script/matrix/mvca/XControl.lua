@@ -2,13 +2,13 @@
 --- Created by Jaylin.
 --- DateTime: 2023-03-06-006 11:41
 ---
+local IsWindowsEditor = XMain.IsWindowsEditor
 
 ---@class XControl : XMVCAEvent
----@field private _Model XModel
+---@field protected _Model XModel
 XControl = XClass(XMVCAEvent, "XControl")
 local LockRefKey = "__LockRefKey__"
 function XControl:Ctor(id, mainControl)
-    XControl.Super.Ctor(self)
     self._Id = id
     self._Model = XMVCA:_GetOrRegisterModel(self._Id)
     self._Agency = nil
@@ -17,7 +17,12 @@ function XControl:Ctor(id, mainControl)
     ---@type table<string, XControl>
     self._SubControls = {} --子control, 支持多个control
     self._Class2NameMap = {}
+    self._DelayReleaseTime = 0 --延迟释放时间, 默认不延迟
+    self._LastUseTime = 0 --最后使用时间
     self._IsRelease = false
+end
+
+function XControl:CallInit()
     self:OnInit()
     self:AddAgencyEvent()
 end
@@ -28,6 +33,26 @@ end
 
 function XControl:GetIsRelease()
     return self._IsRelease
+end
+
+---设置延迟释放时间, 单位秒(s)
+---@param time number
+function XControl:SetDelayReleaseTime(time)
+    self._DelayReleaseTime = time
+end
+
+function XControl:_GetDelayReleaseTime()
+    return self._DelayReleaseTime
+end
+
+---更新最后使用时间
+function XControl:_UpdateLastUseTime()
+    self._LastUseTime = CS.UnityEngine.Time.realtimeSinceStartup
+end
+
+---获取最后使用时间
+function XControl:_GetLastUseTime()
+    return self._LastUseTime
 end
 
 ---初始化函数,提供给子类重写
@@ -58,6 +83,7 @@ function XControl:AddSubControl(cls)
     if not self._SubControls[cls2Name] then
         local control = cls.New(self._Id, self) --使用本control的id,这样才能保证获取的model一样
         self._SubControls[cls2Name] = control
+        control:CallInit()
         return control
     else
         XLog.Error("请勿重复添加子control!")
@@ -129,9 +155,11 @@ function XControl:Release()
     self._RefUi = nil
     self._Class2NameMap = nil
     if self._Model then
-        self._Model:ClearPrivate()
-        self._Model:ClearPrivateConfig()
-        self._Model = nil
+        if self._MainControl == nil then
+            self._Model:ClearPrivate()
+            self._Model:ClearPrivateConfig()
+        end
+            self._Model = nil
     end
     self._Agency = nil
     self:Clear() --这里清理界面注册的事件
@@ -141,6 +169,9 @@ function XControl:Release()
     self._SubControls = nil
     self._MainControl = nil
     self:OnRelease()
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Control, self)
+    end
 end
 
 ---热重载的释放得特殊处理
@@ -157,6 +188,9 @@ function XControl:_HotReloadRelease()
     self._SubControls = nil
     self._MainControl = nil
     self:OnRelease()
+    if IsWindowsEditor then
+        WeakRefCollector.AddRef(WeakRefCollector.Type.Control, self)
+    end
 end
 
 function XControl:_HotReloadControl(oldCls, newCls)

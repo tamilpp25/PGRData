@@ -1,4 +1,5 @@
-XUiPanelGraphicsSet = XClass(nil, "XUiPanelGraphicsSet")
+---@class XUiPanelGraphicsSet : XUiNode
+local XUiPanelGraphicsSet = XClass(XUiNode, "XUiPanelGraphicsSet")
 
 local XQualityManager = CS.XQualityManager.Instance
 
@@ -48,11 +49,7 @@ local function SetToggleEnable(tog, flag)
 end
 
 
-function XUiPanelGraphicsSet:Ctor(ui,parent)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-
-    self.Parent = parent
+function XUiPanelGraphicsSet:OnStart()
     self:InitAutoScript()
 
     self.QualitySettings = {
@@ -78,9 +75,16 @@ function XUiPanelGraphicsSet:Ctor(ui,parent)
         self.TogQuality_0, self.TogQuality_1, self.TogQuality_2, self.TogQuality_3, self.TogQuality_4, self.TogQuality_5,
     }
 
-    self.TogGraphicsGroup = {
-        self.TogGraphics_0, self.TogGraphics_1, self.TogGraphics_2, self.TogGraphics_3, self.TogGraphics_4,
-    }
+    if XDataCenter.UiPcManager.IsPc() then
+        self.TogGraphicsGroup = {
+            self.TogGraphics_0, self.TogGraphics_1, self.TogGraphics_2, self.TogGraphics_3, self.TogGraphics_4
+        }
+    else
+        self.TogGraphicsGroup = {
+            -- self.TogGraphics_0, 
+            self.TogGraphics_1, self.TogGraphics_2, self.TogGraphics_3, self.TogGraphics_4,
+        }
+    end
 
     self.TogEffectGroup = {
         self.TogEffect_0, self.TogEffect_1, self.TogEffect_2, self.TogEffect_3
@@ -309,8 +313,13 @@ function XUiPanelGraphicsSet:Ctor(ui,parent)
     end
 
     for index, tog in ipairs(self.TogGraphicsGroup) do
-
-        local graphicId = index - 1
+        local graphicId = 0
+        if XDataCenter.UiPcManager.IsPc() then
+            graphicId = index - 1 
+        else
+            -- TogGraphics_0 被移除了
+            graphicId = index
+        end
         XUiHelper.RegisterClickEvent(self, tog, function(open)
 
             -- if self.lock then return end
@@ -360,7 +369,31 @@ function XUiPanelGraphicsSet:Ctor(ui,parent)
         end
     end
 
+    if not XDataCenter.UiPcManager.IsPc() then
+        XUiHelper.RegisterClickEvent(self, self.FrameRateLevel, function(open)
+            if open then
+                self.Dirty = true
+                if self.FrameRateLevel.isOn then
+                    self:OnClickFrameRateSettings(2)
+                else
+                    self:OnClickFrameRateSettings(0)
+                end
+            end
+            if self.CurQualityLevel ~= 0 then
+                self.CurQualityLevel = 0
+                self:OnClickQualitySettings(self.CurQualityLevel)
+                self:UpdatePanel()
+            end
+        end)
+    end
+end
 
+function XUiPanelGraphicsSet:OnEnable()
+    self:ShowPanel()
+end
+
+function XUiPanelGraphicsSet:OnDisable()
+    self:HidePanel()
 end
 
 function XUiPanelGraphicsSet:OnClickFrameRateSettings(id)
@@ -445,8 +478,6 @@ end
 function XUiPanelGraphicsSet:ShowPanel()
     self.Dirty = false
 
-    self.GameObject:SetActive(true)
-
     self.CurQualityLevel = XQualityManager:GetCurQualitySettings()
     self:UpdatePanel()
 end
@@ -466,7 +497,6 @@ end
 --on close
 function XUiPanelGraphicsSet:HidePanel()
     XDataCenter.SetManager.SetUiResolutionEventFlag(false)
-    self.GameObject:SetActive(false)
 end
 
 function XUiPanelGraphicsSet:SetAllInteractable(flag)
@@ -513,6 +543,7 @@ function XUiPanelGraphicsSet:SetAllInteractable(flag)
 
 end
 
+
 function XUiPanelGraphicsSet:UpdateByCurrentLevel()
 
     local cQuality = XQualityManager:GetQualitySettings(self.CurQualityLevel)
@@ -549,8 +580,13 @@ function XUiPanelGraphicsSet:UpdateContents()
     self.TogFxaa.isOn = info.UseFxaa
     -- self.TogDistortion.isOn = info.UseDistortion
     -- self.TogHighFrameRate.isOn = info.HighFrameRate
-    for i, tog in pairs(self.TogFrameRateGroup) do
-        tog.isOn = info.FrameRateLevel == (i - 1)
+
+    if XDataCenter.UiPcManager.IsPc() then
+        for i, tog in pairs(self.TogFrameRateGroup) do
+            tog.isOn = info.FrameRateLevel == (i - 1)
+        end
+    else
+        self.FrameRateLevel.isOn = info.FrameRateLevel >= 2
     end
 
     for i, tog in pairs(self.TogEffectGroup) do
@@ -561,8 +597,14 @@ function XUiPanelGraphicsSet:UpdateContents()
         tog.isOn = info.OtherEffectLevel == (i - 1)
     end
 
-    for i, tog in pairs(self.TogGraphicsGroup) do
-        tog.isOn = info.GraphicsLevel == (i - 1)
+    if XDataCenter.UiPcManager.IsPc() then
+        for i, tog in pairs(self.TogGraphicsGroup) do
+            tog.isOn = info.GraphicsLevel == (i - 1)
+        end
+    else
+        for i, tog in pairs(self.TogGraphicsGroup) do
+            tog.isOn = info.GraphicsLevel == i
+        end
     end
 
     for i, tog in pairs(self.TogShadowGroup) do
@@ -710,9 +752,6 @@ function XUiPanelGraphicsSet:AutoInitUi()
     self.TogGraphics_1 = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_1"):GetComponent("Toggle")
     self.ImgResStandA = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_1/ImgResStand"):GetComponent("Image")
     self.TxtResStandA = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_1/TxtResStand"):GetComponent("Text")
-    self.TogGraphics_0 = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0"):GetComponent("Toggle")
-    self.ImgResStand = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0/ImgResStand"):GetComponent("Image")
-    self.TxtResStand = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/Array/TGroupResolution/TogGraphics_0/TxtResStand"):GetComponent("Text")
     self.TxtRes = self.Transform:Find("SView /Viewport/PanelContent/GraphicsLevel/TxtRes"):GetComponent("Text")
     self.PanelLiangge = self.Transform:Find("SView /Viewport/PanelContent/PanelLiangge")
     self.TxtFxaa = self.Transform:Find("SView /Viewport/PanelContent/PanelLiangge/FXAA/TxtFxaa"):GetComponent("Text")
@@ -739,15 +778,6 @@ function XUiPanelGraphicsSet:AutoInitUi()
     self.ImgResStandT = self.Transform:Find("SView /Viewport/PanelContent/MirrorLevel/Array/TGroupResolution/TogMirror_3/ImgResStand"):GetComponent("Image")
     self.TxtResStandT = self.Transform:Find("SView /Viewport/PanelContent/MirrorLevel/Array/TGroupResolution/TogMirror_3/TxtResStand"):GetComponent("Text")
     self.TxtResE = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/TxtRes"):GetComponent("Text")
-    self.TogFrameRate_0 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0"):GetComponent("Toggle")
-    self.ImgResStandU = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0/ImgResStand"):GetComponent("Image")
-    self.TxtResStandU = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_0/TxtResStand"):GetComponent("Text")
-    self.TogFrameRate_1 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1"):GetComponent("Toggle")
-    self.ImgResStandV = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1/ImgResStand"):GetComponent("Image")
-    self.TxtResStandV = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_1/TxtResStand"):GetComponent("Text")
-    self.TogFrameRate_2 = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2"):GetComponent("Toggle")
-    self.ImgResStandW = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2/ImgResStand"):GetComponent("Image")
-    self.TxtResStandW = self.Transform:Find("SView /Viewport/PanelContent/FrameRateLevel/Array/TGroupResolution/TogFrameRate_2/TxtResStand"):GetComponent("Text")
     self.TogQuality_5 = self.Transform:Find("MainQuality/TGroupAuto/TogQuality_5"):GetComponent("Toggle")
     self.TogQuality_4 = self.Transform:Find("MainQuality/TGroupAuto/TogQuality_4"):GetComponent("Toggle")
     self.TogQuality_3 = self.Transform:Find("MainQuality/TGroupAuto/TogQuality_3"):GetComponent("Toggle")
@@ -755,10 +785,14 @@ function XUiPanelGraphicsSet:AutoInitUi()
     self.TogQuality_2 = self.Transform:Find("MainQuality/TGroupAuto/TogQuality_2"):GetComponent("Toggle")
     self.TogQuality_1 = self.Transform:Find("MainQuality/TGroupAuto/TogQuality_1"):GetComponent("Toggle")
 
-
+    if not XDataCenter.UiPcManager.IsPc() then
+        self.FrameRateLevel = self.Transform:Find("SView /Viewport/PanelContent/PanelLiangge/FrameRateLevel/TogFxaa"):GetComponent("Toggle")
+    end
 end
 
 -- auto
 function XUiPanelGraphicsSet:OnTogHighFrameRateClick()
 
 end
+
+return XUiPanelGraphicsSet

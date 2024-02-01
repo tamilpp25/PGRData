@@ -13,17 +13,10 @@ function XBackgroundScene:Ctor(parent)
 end
 
 ---切换预览场景
-function XBackgroundScene:ChangeScenePreview(sceneModeId,firstload)
+function XBackgroundScene:ChangeScenePreview(sceneModeId,firstload,curSceneId)
+    self.CurSceneId=curSceneId
     local scenePath,modelPath = XSceneModelConfigs.GetSceneAndModelPathById(sceneModeId)
-    local _this=self
-    if not firstload then
-        self.Parent:PlayAnimation('Loading',function()
-            _this.Parent:LoadUiScene(scenePath, modelPath, function() _this:OnUiSceneLoaded(firstload) end, false)
-        end)
-    else
-        --第一次加载已经是从黑屏过度了，就不用在淡入淡出一次
-        self.Parent:LoadUiScene(scenePath,modelPath,function() _this:OnUiSceneLoaded(firstload) end, false)
-    end
+    self.Parent:LoadUiScene(scenePath,modelPath,function() self:OnUiSceneLoaded(firstload) end, false)
 end
 
 function XBackgroundScene:OnUiSceneLoaded(firstload)
@@ -89,8 +82,7 @@ function XBackgroundScene:UpdateBatteryMode()
     self.fullTimeLine.gameObject:SetActiveEx(false)
     self.chargeTimeLine.gameObject:SetActiveEx(false)
     
-    local curSelectSceneId = self.Parent.SceneList:GetCurDisplaySceneId()
-    local particleGroupName = XDataCenter.PhotographManager.GetSceneTemplateById(curSelectSceneId).ParticleGroupName
+    local particleGroupName = XDataCenter.PhotographManager.GetSceneTemplateById(self.CurSceneId).ParticleGroupName
     local chargeAnimator = nil
     if particleGroupName and particleGroupName ~= "" then
         local chargeAnimatorTrans = self.Parent.UiSceneInfo.Transform:FindTransform(particleGroupName)
@@ -101,7 +93,7 @@ function XBackgroundScene:UpdateBatteryMode()
         end
     end
 
-    local type = XPhotographConfigs.GetBackgroundTypeById(curSelectSceneId)
+    local type = XPhotographConfigs.GetBackgroundTypeById(self.CurSceneId)
     if type == XPhotographConfigs.BackGroundType.PowerSaved then
         if BatteryComponent.IsCharging then --充电状态
             self:PlayBatteryModeAnimation(false,chargeAnimator)

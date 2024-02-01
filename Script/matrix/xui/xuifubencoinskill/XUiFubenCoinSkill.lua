@@ -187,7 +187,7 @@ function XUiFubenCoinSkill:OnFubenSelected(typeId)
     self:SetActive(false)
 
     local fightCb = function(stage)
-        XDataCenter.FubenManager.OpenRoomSingle(stage)
+        XDataCenter.FubenManager.OpenBattleRoom(stage)
         XDataCenter.FubenResourceManager.UpdateRewardFromTemp()
         self:SetActive(true)
     end

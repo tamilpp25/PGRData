@@ -94,7 +94,7 @@ XSummerSignInManagerCreator = function()
     function XSummerSignInManager.CheckIsNeedAutoWindow()
         -- 有未打开的便签
         if not XSummerSignInManager.CheckCanFinishAllSignIn() then
-            return true
+            return true 
         end
         return false
     end

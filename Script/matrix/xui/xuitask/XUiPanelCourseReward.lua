@@ -1,3 +1,4 @@
+---@class XUiPanelCourseReward
 XUiPanelCourseReward = XClass(nil, "XUiPanelCourseReward")
 
 function XUiPanelCourseReward:Ctor(rootUi, ui)
@@ -5,6 +6,7 @@ function XUiPanelCourseReward:Ctor(rootUi, ui)
     self.Transform = ui.transform
     self.RootUi = rootUi
     XTool.InitUiObject(self)
+    ---@type XUiGridCommon[]
     self.GridRewardList = {}
     self.BtnComfirm.CallBack = function() self:OnBtnComfirmClick() end
     self.GridReward.gameObject:SetActive(false)

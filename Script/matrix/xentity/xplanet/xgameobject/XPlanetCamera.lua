@@ -138,7 +138,7 @@ end
 ---自由模式拖拽转动
 function XPlanetCamera:FreeModeBeginDrag()
     if not self:CheckIsInFreeMode()
-            or XDataCenter.GuideManager.CheckIsInGuidePlus()    -- 引导时屏蔽旋转
+            or XDataCenter.GuideManager.CheckIsInGuide()    -- 引导时屏蔽旋转
             or Input.touchCount == 2 then                   -- 二指缩放屏蔽旋转
         return
     end
@@ -155,7 +155,7 @@ end
 function XPlanetCamera:FreeModeOnDrag()
     if not self:CheckIsInFreeMode()
             or Input.touchCount == 2                        -- 二指缩放屏蔽旋转
-            or XDataCenter.GuideManager.CheckIsInGuidePlus()    -- 引导时屏蔽旋转
+            or XDataCenter.GuideManager.CheckIsInGuide()    -- 引导时屏蔽旋转
             or not self._FreeModeIsDrag   then
         self._FreeModeStartDragRotation = nil
         self._FreeModeStartDragMousePosition = nil
@@ -187,7 +187,7 @@ end
 ---自由模式拖拽转动
 function XPlanetCamera:FreeModeEndDrag()
     if not self:CheckIsInFreeMode()
-            or XDataCenter.GuideManager.CheckIsInGuidePlus()    -- 引导时屏蔽旋转
+            or XDataCenter.GuideManager.CheckIsInGuide()    -- 引导时屏蔽旋转
             or Input.touchCount == 2 then                   -- 二指缩放屏蔽旋转
         return
     end

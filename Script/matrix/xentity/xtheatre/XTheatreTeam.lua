@@ -14,10 +14,10 @@ function XTheatreTeam:GetCharacterType()
         end
     end
     if entityId == nil then
-        return XCharacterConfigs.CharacterType.Normal
+        return XEnumConst.CHARACTER.CharacterType.Normal
     end
     local role = XDataCenter.TheatreManager.GetCurrentAdventureManager():GetRole(entityId)
-    if role == nil then return XCharacterConfigs.CharacterType.Normal end
+    if role == nil then return XEnumConst.CHARACTER.CharacterType.Normal end
     return role:GetCharacterViewModel():GetCharacterType()
 end
 
@@ -35,7 +35,7 @@ function XTheatreTeam:GetCaptainSkillDesc()
     end
 
     local rawId = role:GetRawDataId()
-    return role:GetIsLocalRole() and XDataCenter.CharacterManager.GetCaptainSkillDesc(rawId) or XRobotManager.GetRobotCaptainSkillDesc(rawId)
+    return role:GetIsLocalRole() and XMVCA.XCharacter:GetCaptainSkillDesc(rawId) or XRobotManager.GetRobotCaptainSkillDesc(rawId)
 end
 
 function XTheatreTeam:GetCharacterAndRobotIds()
@@ -59,6 +59,35 @@ end
 
 function XTheatreTeam:GetTeamIndex()
     return self.TeamIndex
+end
+
+function XTheatreTeam:UpdateEntityTeamPos(entityId, teamPos, isJoin)
+    if isJoin then
+        self.EntitiyIds[teamPos] = entityId or 0
+    else
+        for pos, id in ipairs(self.EntitiyIds) do
+            if id == entityId then
+                self.EntitiyIds[pos] = 0
+                break
+            end
+        end
+    end
+    self:Save()
+end
+
+function XTheatreTeam:UpdateFromTeamData(teamData)
+    self.FirstFightPos = teamData.FirstFightPos
+    self.CaptainPos = teamData.CaptainPos
+    for pos, characterId in ipairs(teamData.TeamData) do
+        self.EntitiyIds[pos] = characterId
+    end
+    self.TeamName = teamData.TeamName
+    self:Save()
+end
+
+function XTheatreTeam:UpdateEntityIds(value)
+    self.EntitiyIds = value
+    self:Save()
 end
 
 return XTheatreTeam

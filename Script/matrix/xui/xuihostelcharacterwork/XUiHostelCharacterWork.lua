@@ -193,7 +193,7 @@ end
 
 
 function XUiHostelCharacterWork:UpdateIdleList()
-    local charList = XDataCenter.CharacterManager.GetOwnCharacterList() or {}
+    local charList = XMVCA.XCharacter:GetOwnCharacterList() or {}
     local idleCharList = {}
     for _,v in ipairs(charList) do
         if XDataCenter.HostelManager.IsCharacterInRest(v.Id) and not XDataCenter.HostelManager.IsCharacterInWork(v.Id) then

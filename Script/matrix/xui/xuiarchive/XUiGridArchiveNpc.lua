@@ -1,4 +1,4 @@
-XUiGridArchiveNpc = XClass(nil, "XUiGridArchiveNpc")
+XUiGridArchiveNpc = XClass(XUiNode, "XUiGridArchiveNpc")
 
 local ShortSettingMax = 5
 local LongSettingMax = 5
@@ -11,10 +11,7 @@ local TweenSpeed = {
     Low = 0.5,
 }
 
-function XUiGridArchiveNpc:Ctor(ui)
-    self.GameObject = ui.gameObject
-    self.Transform = ui.transform
-    XTool.InitUiObject(self)
+function XUiGridArchiveNpc:OnStart()
     self:SetButtonCallBack()
     self:SetGridAnimeData()
     self.ShortSettingItem = {}
@@ -92,7 +89,7 @@ function XUiGridArchiveNpc:SetNpcDetailData(chapter)
 end
 
 function XUiGridArchiveNpc:SetNpcShortSetting()
-    local shortSettingList = XDataCenter.ArchiveManager.GetArchiveStoryNpcSettingList(self.Chapter:GetId(),XArchiveConfigs.SettingType.Setting)
+    local shortSettingList = self._Control:GetArchiveStoryNpcSettingList(self.Chapter:GetId(),XEnumConst.Archive.SettingType.Setting)
     for index = 1,ShortSettingMax do
         local setting = shortSettingList[index]
         if setting then
@@ -117,7 +114,7 @@ function XUiGridArchiveNpc:SetNpcShortSetting()
 end
 
 function XUiGridArchiveNpc:SetNpcLongSetting()
-    local longSettingList = XDataCenter.ArchiveManager.GetArchiveStoryNpcSettingList(self.Chapter:GetId(),XArchiveConfigs.SettingType.Story)
+    local longSettingList = self._Control:GetArchiveStoryNpcSettingList(self.Chapter:GetId(),XEnumConst.Archive.SettingType.Story)
     for index = 1, LongSettingMax do
         local setting = longSettingList[index]
         if setting then

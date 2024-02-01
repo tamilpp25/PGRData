@@ -38,7 +38,7 @@ function XUiGuildDormSetGuildHead:InitDynamicTable()
     self.DynamicTable:SetDelegate(self)
     self.GameObject:SetActiveEx(false)
     
-    self.AssetPanel = XUiHelper.NewPanelActivityAsset({ XGuildConfig.GoodsCoinId }, self.PanelAsset)
+    self.AssetPanel = XUiHelper.NewPanelActivityAssetSafe({ XGuildConfig.GoodsCoinId }, self.PanelAsset, self)
 end
 
 function XUiGuildDormSetGuildHead:OnDynamicTableEvent(event, index, grid)

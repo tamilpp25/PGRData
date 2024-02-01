@@ -483,8 +483,8 @@ function XUiDormSecond:OnEnable()
     XDataCenter.DormManager.StartDormRedTimer()
 
     local types = XRedPointConditions.Types
-    XRedPointManager.AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { types.CONDITION_DORM_MAIN_TASK_RED })
-    XRedPointManager.AddRedPointEvent(self.BtnMenu.ReddotObj, self.OnCheckBuildFurniture, self, { types.CONDITION_FURNITURE_CREATE })
+    self:AddRedPointEvent(self.BtnTask.ReddotObj, self.RefreshTaskTabRedDot, self, { types.CONDITION_DORM_MAIN_TASK_RED })
+    self:AddRedPointEvent(self.BtnMenu.ReddotObj, self.OnCheckBuildFurniture, self, { types.CONDITION_FURNITURE_CREATE })
 
     self:RefreshTaskInfo()
     self.SkipFun = self.SkipDormUpdateData
@@ -496,6 +496,8 @@ function XUiDormSecond:OnEnable()
     self.DormBgm:ResetBgmList(self.CurDormId, DisplaySetType.MySelf == self.CurDisplayState)
     self:SetTemplateInfo()
     self:PlayAnimation("MusicPlayerQieHuan")
+
+    XHomeDormManager.SetIllumination()
 end
 
 function XUiDormSecond:OnCaressHide()
@@ -921,6 +923,11 @@ function XUiDormSecond:PcClose()
 end
 
 function XUiDormSecond:OnBtnReturnClick()
+    local room = XHomeDormManager.GetRoom(self.CurDormId)
+    --等待家具加载完毕后才给返回
+    if room and not room.IsFurnitureLoadComplete then
+        return
+    end
     if not XLuaUiManager.IsUiLoad("UiDormMain") then
         XHomeSceneManager.LeaveScene()
         XEventManager.DispatchEvent(XEventId.EVENT_DORM_CLOSE_COMPONET)

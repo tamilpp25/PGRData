@@ -372,7 +372,6 @@ function XRestaurant:UpdateBuff(areaTypeBuffInfo, unlockBuffs, defaultBuffs)
     for _, info in ipairs(areaTypeBuffInfo) do
         map[info.SectionType] = info.BuffId
     end
-    --TODO CodeMoon, 不知道这里需不需要
     for _, id in ipairs(defaultBuffs) do
         local sectionType = XRestaurantConfigs.GetBuffAreaType(id)
         if not map[sectionType] then

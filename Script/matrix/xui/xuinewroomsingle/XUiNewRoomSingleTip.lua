@@ -102,20 +102,20 @@ function XUiNewRoomSingleTip:Refresh()
             local head
             local skillDesc
             local isAssitant
-            local charConfig = XCharacterConfigs.GetCharacterTemplate(charId)
+            local charConfig = XMVCA.XCharacter:GetCharacterTemplate(charId)
             if charConfig == nil then
                 return
             end
 
             if not XRobotManager.CheckIsRobotId(charId) then
                 -- 玩家角色
-                captianSkillInfo = XDataCenter.CharacterManager.GetCaptainSkillInfo(charId)
+                captianSkillInfo = XMVCA.XCharacter:GetCaptainSkillInfoByCharId(charId)
                 if captianSkillInfo == nil then
                     return
                 end
 
                 -- 如果机器人使用了CharacterId，会误判断成玩家角色，并使用玩家角色的数据
-                head = XDataCenter.CharacterManager.GetCharSmallHeadIcon(charId)
+                head = XMVCA.XCharacter:GetCharSmallHeadIcon(charId)
                 isAssitant = self.CharacterIdToIsIsAssitantDic and self.CharacterIdToIsIsAssitantDic[charId] or false
                 skillDesc = (captianSkillInfo.Level > 0 or isAssitant) and captianSkillInfo.Intro
                     or string.format("%s%s", captianSkillInfo.Intro, CS.XTextManager.GetText("CaptainSkillLock"))

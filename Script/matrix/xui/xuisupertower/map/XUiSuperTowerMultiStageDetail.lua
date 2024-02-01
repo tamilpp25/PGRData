@@ -106,7 +106,7 @@ end
 function XUiSuperTowerMultiStageDetail:UpdateAssetsPanel()
     if not self.PanelSpecialTool then return end
     local itemIds = XSuperTowerConfigs.GetMainAssetsPanelItemIds()
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     XDataCenter.ItemManager.AddCountUpdateListener(itemIds, function()
             self.AssetActivityPanel:Refresh(itemIds)
         end, self.AssetActivityPanel)

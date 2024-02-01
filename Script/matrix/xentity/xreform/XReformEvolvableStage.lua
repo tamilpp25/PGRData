@@ -80,7 +80,7 @@ end
 function XReformEvolvableStage:GetTeam()
     if self.Team == nil then
         self.Team = XTeam.New(self.SaveTeamDataKey .. "2.0")
-        self.Team:SetCustomCharacterType(XCharacterConfigs.CharacterType.Normal)
+        self.Team:SetCustomCharacterType(XEnumConst.CHARACTER.CharacterType.Normal)
     end
     return self.Team
 end
@@ -256,7 +256,7 @@ function XReformEvolvableStage:UpdateMemberReplaceIds(replaceIdDbs, isUpdateChal
     for i, sourceId in ipairs(team:GetEntityIds()) do
         if sourceId > 0 then
             -- 如果是属于本地角色，要检查有没有同源角色
-            if XDataCenter.CharacterManager.GetCharacter(sourceId) then
+            if XMVCA.XCharacter:GetCharacter(sourceId) then
                 if not memberGroup:CheckSourcesWithSameCharacterId(sourceId) then
                     team:UpdateEntityTeamPos(0, i, true)
                 end

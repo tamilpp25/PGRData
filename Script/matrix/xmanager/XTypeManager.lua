@@ -5,7 +5,7 @@ local GetQualityFuncs = {}
 
 ----Initialize----
 function XTypeManager.Init()
-    GetNameFuncs[XArrangeConfigs.Types.Character] = XCharacterConfigs.GetCharacterLogName
+    GetNameFuncs[XArrangeConfigs.Types.Character] = function(id) return XMVCA.XCharacter:GetCharacterLogName(id) end
     GetNameFuncs[XArrangeConfigs.Types.Weapon] = XDataCenter.EquipManager.GetEquipName
     GetNameFuncs[XArrangeConfigs.Types.Wafer] = XDataCenter.EquipManager.GetEquipName
     GetNameFuncs[XArrangeConfigs.Types.Item] = XDataCenter.ItemManager.GetItemName
@@ -18,7 +18,7 @@ function XTypeManager.Init()
     GetNameFuncs[XArrangeConfigs.Types.Partner] = XPartnerConfigs.GetPartnerTemplateName
     GetNameFuncs[XArrangeConfigs.Types.Background] = XPhotographConfigs.GetBackgroundNameById
 
-    GetQualityFuncs[XArrangeConfigs.Types.Character] = XCharacterConfigs.GetCharMinQuality
+    GetQualityFuncs[XArrangeConfigs.Types.Character] = function(id) return XMVCA.XCharacter:GetCharMinQuality(id) end
     GetQualityFuncs[XArrangeConfigs.Types.Weapon] = XDataCenter.EquipManager.GetEquipQuality
     GetQualityFuncs[XArrangeConfigs.Types.Wafer] = XDataCenter.EquipManager.GetEquipQuality
     GetQualityFuncs[XArrangeConfigs.Types.Item] = XDataCenter.ItemManager.GetItemQuality

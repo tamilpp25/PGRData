@@ -30,13 +30,13 @@ function XUiEpicFashionGachaQuickWear:OnEnable()
         end
     end
     self.CharacterId = charId
-    if not XTool.IsNumberValid(charId) or not XDataCenter.CharacterManager.IsOwnCharacter(charId) then
+    if not XTool.IsNumberValid(charId) or not XMVCA.XCharacter:IsOwnCharacter(charId) then
         self.BtnWear:SetDisable(true)
         self.LockUse = true
     end
 
     -- 首席按钮
-    if XPlayer.DisplayCharIdList[1] == charId or not XDataCenter.CharacterManager.IsOwnCharacter(charId) then
+    if XPlayer.DisplayCharIdList[1] == charId or not XMVCA.XCharacter:IsOwnCharacter(charId) then
         self.BtnSetAssistant.gameObject:SetActiveEx(false)
     end
 end
@@ -48,17 +48,15 @@ function XUiEpicFashionGachaQuickWear:OnBtnWearClick()
 
     self.BtnWear:SetDisable(true)
     if self.LockUse then
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
         local text = CS.XTextManager.GetText("LottoKareninaNotOwnTip", charConfig.Name, charConfig.TradeName)
         XUiManager.TipError(text)
         return 
     end
 
-    XDataCenter.FashionManager.UnlockFashion(self.FashionId, function ()
-        XDataCenter.FashionManager.UseFashion(self.FashionId, function()
-            XUiManager.TipText("UseSuccess")
-            self.IsWore = true
-        end)
+    XDataCenter.FashionManager.UseFashion(self.FashionId, function()
+        XUiManager.TipText("UseSuccess")
+        self.IsWore = true
     end)
 end
 
@@ -66,7 +64,7 @@ function XUiEpicFashionGachaQuickWear:OnBtnSetAssistantClick()
     self.BtnSetAssistant.gameObject:SetActiveEx(false)
 
     local showTipFun = function ()
-        local charConfig = XCharacterConfigs.GetCharacterTemplate(self.CharacterId)
+        local charConfig = XMVCA.XCharacter:GetCharacterTemplate(self.CharacterId)
         local name = charConfig.Name.. "·"..charConfig.TradeName
         XUiManager.TipMsg(CS.XTextManager.GetText("FavorabilitySetChiefAssistSucc", name))
     end

@@ -130,12 +130,12 @@ function XUiUnionKillEnterFight:OnBtnEnterFightClick()
     end
 
     self:Close()
-    XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
 end
 
 function XUiUnionKillEnterFight:OnBtnBossEnterFightClick()
     if not self.StageId then return end
     -- 根据类型处理
     self:Close()
-    XLuaUiManager.Open("UiNewRoomSingle", self.StageId)
+    XLuaUiManager.Open("UiBattleRoleRoom", self.StageId)
 end

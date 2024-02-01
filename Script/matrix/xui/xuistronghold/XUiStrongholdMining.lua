@@ -6,7 +6,7 @@ local XUiStrongholdMining = XLuaUiManager.Register(XLuaUi, "UiStrongholdMining")
 function XUiStrongholdMining:OnAwake()
     self:AutoAddListener()
 
-    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool)
+    self.AssetActivityPanel = XUiPanelActivityAsset.New(self.PanelSpecialTool, self)
     local itemId = XDataCenter.StrongholdManager.GetMineralItemId()
     XDataCenter.ItemManager.AddCountUpdateListener(itemId, function()
         self.AssetActivityPanel:Refresh({ itemId })

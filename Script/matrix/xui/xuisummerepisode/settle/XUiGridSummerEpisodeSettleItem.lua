@@ -44,7 +44,7 @@ function XUiGridSummerEpisodeSettleItem:Init(playerData, playerCount, stageId)
     self.PlayerData = playerData
     local character = playerData.Character
     local headInfo = character.CharacterHeadInfo or {}
-    local headIcon = XDataCenter.CharacterManager.GetCharSmallHeadIcon(character.Id, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
+    local headIcon = XMVCA.XCharacter:GetCharSmallHeadIcon(character.Id, true, headInfo.HeadFashionId, headInfo.HeadFashionType)
     self.RImgIcon:SetRawImage(headIcon)
     self.TxtName.text = XDataCenter.SocialManager.GetPlayerRemark(playerData.Id, playerData.Name)
     local isArenaOnline = playerData.StageType and playerData.StageType == XDataCenter.FubenManager.StageType.ArenaOnline

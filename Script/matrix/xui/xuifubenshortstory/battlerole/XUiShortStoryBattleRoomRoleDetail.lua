@@ -16,7 +16,7 @@ function XUiShortStoryBattleRoomRoleDetail:GetEntities(characterType)
     if haveHideAction then
         roles = self:GetShortStoryRoles(characterType)
     else
-        roles = XDataCenter.CharacterManager.GetOwnCharacterList(characterType)
+        roles = XMVCA.XCharacter:GetOwnCharacterList(characterType)
     end
     return roles
 end
@@ -39,7 +39,7 @@ function XUiShortStoryBattleRoomRoleDetail:GetEntityByEntityId(id)
         if XEntityHelper.GetIsRobot(id) then
             entity = XRobotManager.GetRobotById(id)
         else
-            entity = XDataCenter.CharacterManager.GetCharacter(id)
+            entity = XMVCA.XCharacter:GetCharacter(id)
         end
         if entity == nil then
             XLog.Error(string.format("找不到id%s的角色", id))

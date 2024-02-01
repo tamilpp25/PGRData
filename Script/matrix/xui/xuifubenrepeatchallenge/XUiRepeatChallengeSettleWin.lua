@@ -212,8 +212,6 @@ function XUiRepeatChallengeSettleWin:SetBtnByType(btnType)
         self:OnBtnBackClick(false)
     elseif btnType == XRoomSingleManager.BtnType.Again then
         -- 多重挑战需要传递上次挑战的次数
-        local data = { ChallengeCount = XDataCenter.FubenManager.GetFightChallengeCount() }
-        -- XLuaUiManager.PopThenOpen("UiNewRoomSingle", self.StageCfg.StageId, data)
         XLuaUiManager.PopThenOpen("UiBattleRoleRoom", self.StageCfg.StageId, nil, nil, nil, true)
     elseif btnType == XRoomSingleManager.BtnType.Next then
         self:OnBtnEnterNextClick()
@@ -226,7 +224,7 @@ function XUiRepeatChallengeSettleWin:OnBtnEnterNextClick()
     if self.StageInfos.Type == XDataCenter.FubenManager.StageType.Tower then
         local stageId = XDataCenter.TowerManager.GetTowerData().CurrentStageId
         if XDataCenter.TowerManager.CheckStageCanEnter(stageId) then
-            XLuaUiManager.PopThenOpen("UiNewRoomSingle", stageId)
+            XLuaUiManager.PopThenOpen("UiBattleRoleRoom", stageId)
         else
             local text = CS.XTextManager.GetText("TowerCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)
@@ -235,7 +233,7 @@ function XUiRepeatChallengeSettleWin:OnBtnEnterNextClick()
         if self.StageInfos.NextStageId then
             local nextStageCfg = XDataCenter.FubenManager.GetStageCfg(self.StageInfos.NextStageId)
             self:HidePanel()
-            XDataCenter.FubenManager.OpenRoomSingle(nextStageCfg)
+            XDataCenter.FubenManager.OpenBattleRoom(nextStageCfg)
         else
             local text = CS.XTextManager.GetText("BattleWinMainCannotEnter")
             XUiManager.TipMsg(text, XUiManager.UiTipType.Tip)

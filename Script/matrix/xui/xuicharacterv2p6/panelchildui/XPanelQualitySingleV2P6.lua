@@ -1,14 +1,14 @@
+---@class XPanelQualitySingleV2P6 XPanelQualitySingleV2P6
+---@field _Control XCharacterControl
 local XPanelQualitySingleV2P6 = XClass(XUiNode, "XPanelQualitySingleV2P6")
 
 function XPanelQualitySingleV2P6:OnStart(onCharEvolutionCb)
     self.OnCharEvolutionCb = onCharEvolutionCb
     self.PanelModel = self.Parent.ParentUi.PanelModel -- 镜头
-
-    ---@type XCharacterAgency
-    local ag = XMVCA:GetAgency(ModuleId.XCharacter)
-    self.CharacterAgency = ag
-    
     self:InitButton()
+
+    local xUiPanelEvoSkillTips = require("XUi/XUiCharacterV2P6/Grid/XUiPanelEvoSkillTips")
+    self.PanelEvoSkillTips = xUiPanelEvoSkillTips.New(self.PanelEvoSkillTips, self)
 end
 
 function XPanelQualitySingleV2P6:InitButton()
@@ -37,7 +37,7 @@ function XPanelQualitySingleV2P6:RefreshRightDownBtn()
     end
 
     -- 最大品质或当前品质最大星
-    local isMaxQuality = self.CharacterAgency:GetCharMaxQuality(character.Id) == character.Quality
+    local isMaxQuality = XMVCA.XCharacter:GetCharMaxQuality(character.Id) == character.Quality
     local isMaxStars = character.Star == XEnumConst.CHARACTER.MAX_QUALITY_STAR
     self.BtnActive.gameObject:SetActiveEx(not isMaxStars and not isMaxQuality)
     self.BtnEvolution.gameObject:SetActiveEx(isMaxStars and not isMaxQuality)
@@ -51,9 +51,9 @@ end
 
 function XPanelQualitySingleV2P6:RefreshUseItem()
     local character = self.Character
-    local isMaxQuality = self.CharacterAgency:GetCharMaxQuality(character.Id) == character.Quality
+    local isMaxQuality = XMVCA.XCharacter:GetCharMaxQuality(character.Id) == character.Quality
     local isMaxStars = character.Star == XEnumConst.CHARACTER.MAX_QUALITY_STAR
-    local characterType = XCharacterConfigs.GetCharacterType(self.CharacterId)
+    local characterType = XMVCA.XCharacter:GetCharacterType(self.CharacterId)
 
     if isMaxQuality then
         self.PanelConsume.gameObject:SetActiveEx(false)
@@ -68,19 +68,19 @@ function XPanelQualitySingleV2P6:RefreshUseItem()
 
     local itemId = nil
     if isMaxStars then
-        itemId = XCharacterConfigs.GetPromoteItemId(characterType, character.Quality)
-        local useCoin = XCharacterConfigs.GetPromoteUseCoin(characterType, character.Quality)
+        itemId = XMVCA.XCharacter:GetPromoteItemId(characterType, character.Quality)
+        local useCoin = XMVCA.XCharacter:GetPromoteUseCoin(characterType, character.Quality)
         local curCount = XDataCenter.ItemManager.GetCount(itemId)
         local data = {CostCount = useCoin, Count = curCount, Id = itemId}
         grid:Refresh(data)
     else
-        itemId = XCharacterConfigs.GetCharacterItemId(self.CharacterId)
+        itemId = XMVCA.XCharacter:GetCharacterItemId(self.CharacterId)
         local curItem = XDataCenter.ItemManager.GetItem(itemId)
         local itemCount = 0
         if curItem ~= nil then
             itemCount = curItem.Count
         end
-        local useCount = XCharacterConfigs.GetStarUseCount(characterType, character.Quality, character.Star + 1)
+        local useCount = XMVCA.XCharacter:GetStarUseCount(characterType, character.Quality, character.Star + 1)
         local curCount = XDataCenter.ItemManager.GetCount(itemId)
         local data = {CostCount = useCount, Count = curCount, Id = itemId}
         grid:Refresh(data)
@@ -104,13 +104,16 @@ function XPanelQualitySingleV2P6:RefreshUiShow(isActiveNode)
     self:RefreshSingleBigBall(isActiveNode)
     self:RefreshRightDownBtn()
     self:RefreshUseItem()
+
+    -- 进化技能提示
+    self.PanelEvoSkillTips:CheckShow(self.Parent.ParentUi.CurCharacter.Id)
 end
 
 -- 刷新包括数据更新 (该函数类似Start外部传参)
 function XPanelQualitySingleV2P6:Refresh(seleQuality)
     self.SeleQuality = seleQuality
     self.CharacterId = self.Parent.ParentUi.CurCharacter.Id
-    self.Character = self.CharacterAgency:GetCharacter(self.CharacterId)
+    self.Character = XMVCA.XCharacter:GetCharacter(self.CharacterId)
 
     self:RefreshUiShow()
 end
@@ -135,19 +138,19 @@ end
 -- 品质内升阶级
 function XPanelQualitySingleV2P6:OnBtnActiveClick()
     local character = self.Character
-    local beforeArea = self.CharacterAgency:GetCharQualityPerformArea(character.Id, character.Quality)
-    self.CharacterAgency:ActivateStar(character, function()
+    local beforeArea = self._Control:GetCharQualityPerformArea(character.Id, character.Quality)
+    XMVCA.XCharacter:ActivateStar(character, function()
         self:RefreshUiShow(true)
         -- cv
         CS.XAudioManager.PlaySound(XSoundManager.UiBasicsMusic.UiCharacter_QualityFragments)
 
         -- 音效 .进化到了特定阶段才播放
-        local areaAfter = self.CharacterAgency:GetCharQualityPerformArea(character.Id, character.Quality)
+        local areaAfter = self._Control:GetCharQualityPerformArea(character.Id, character.Quality)
         if areaAfter <= beforeArea then
             return
         end
 
-        local config = self.CharacterAgency:GetModelCharacterSkillQualityBigEffectBall()[character.Quality]
+        local config = self._Control:GetModelCharacterSkillQualityBigEffectBall()[character.Quality]
         local cueId = config.CueIds[areaAfter]
         if not XTool.IsNumberValid(cueId) then
             return
@@ -158,13 +161,13 @@ end
 
 function XPanelQualitySingleV2P6:OnBtnEvolutionClick()
     local characterId = self.CharacterId
-    local character = XDataCenter.CharacterManager.GetCharacter(characterId)
+    local character = XMVCA.XCharacter:GetCharacter(characterId)
     if character.Star ~= XEnumConst.CHARACTER.MAX_QUALITY_STAR then
         return
     end
 
     local nextQuality = character.Quality + 1
-    self.CharacterAgency:PromoteQuality(character, function()
+    XMVCA.XCharacter:PromoteQuality(character, function()
         self:RefreshUiShow()
         if self.OnCharEvolutionCb then
             self.OnCharEvolutionCb(nextQuality)
@@ -188,7 +191,7 @@ function XPanelQualitySingleV2P6:RemoveEventListener()
     XDataCenter.ItemManager.RemoveCountUpdateListener(self.GridItemHaveCount)
 end
 
-function XPanelQualitySingleV2P6:OnRelease()
+function XPanelQualitySingleV2P6:OnDestroy()
     self:RemoveEventListener()
 end
 
