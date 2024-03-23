@@ -1,0 +1,155 @@
+[
+    {
+        "Id": 1,
+        "PetId": 1001,
+        "State": "IDLE",
+        "BehaviorId": "D100101",
+        "CanClick": 0,
+        "StateMachine": "IDLE",
+        "Desc": "IDLE  ==  \u57fa\u672c\u884c\u4e3a\uff08\u5f85\u673a\u5bfb\u8def\uff09"
+    },
+    {
+        "Id": 2,
+        "PetId": 1001,
+        "State": "BENCH",
+        "BehaviorId": "D100102",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "BENCH == \u548c\u677f\u51f3\u4ea4\u4e92\u4e2d"
+    },
+    {
+        "Id": 3,
+        "PetId": 1001,
+        "State": "GOBENCH",
+        "BehaviorId": "D100103",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GOBENCH == \u8d70\u5411\u677f\u51f3"
+    },
+    {
+        "Id": 4,
+        "PetId": 1001,
+        "State": "SLEEP",
+        "BehaviorId": "D100104",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "SLEEP == \u548c\u5e8a\u4ea4\u4e92\u4e2d"
+    },
+    {
+        "Id": 5,
+        "PetId": 1001,
+        "State": "ATTRACT",
+        "BehaviorId": "D100105",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "ATTRACT == \u8d70\u5411\u5e8a"
+    },
+    {
+        "Id": 6,
+        "PetId": 1001,
+        "State": "CHAIR",
+        "BehaviorId": "D100106",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "CHAIR == \u548c\u6905\u5b50\u4ea4\u4e92\u4e2d"
+    },
+    {
+        "Id": 7,
+        "PetId": 1001,
+        "State": "GOCHAIR",
+        "BehaviorId": "D100107",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GOCHAIR == \u8d70\u5411\u6905\u5b50"
+    },
+    {
+        "Id": 8,
+        "PetId": 1001,
+        "State": "PALY_WITH_FURNITURE_01",
+        "BehaviorId": "D100108",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "PALY_WITH_FURNITURE_01    ==  \u548c\u732b\u722c\u67b6\u4ea4\u4e92\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 9,
+        "PetId": 1001,
+        "State": "GO_PALY_WITH_FURNITURE_01",
+        "BehaviorId": "D100109",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GO_PALY_WITH_FURNITURE_01  ==  \u8d70\u5411\u732b\u722c\u67b6\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 10,
+        "PetId": 1001,
+        "State": "PALY_WITH_FURNITURE_02",
+        "BehaviorId": "D100110",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "PALY_WITH_FURNITURE_02  ==  \u548c\u732b\u6293\u677f1\u4ea4\u4e92\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 11,
+        "PetId": 1001,
+        "State": "GO_PALY_WITH_FURNITURE_02",
+        "BehaviorId": "D100111",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GO_PALY_WITH_FURNITURE_02  ==  \u8d70\u5411\u732b\u6293\u677f1\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 12,
+        "PetId": 1001,
+        "State": "PALY_WITH_FURNITURE_03",
+        "BehaviorId": "D100112",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "PALY_WITH_FURNITURE_03  ==  \u548c\u732b\u6293\u677f2\u4ea4\u4e92\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 13,
+        "PetId": 1001,
+        "State": "GO_PALY_WITH_FURNITURE_03",
+        "BehaviorId": "D100113",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GO_PALY_WITH_FURNITURE_03  ==  \u8d70\u5411\u732b\u6293\u677f2\uff08\u5c0f\u8c46\u6ce5\u4e13\u5c5e\uff09"
+    },
+    {
+        "Id": 14,
+        "PetId": 1001,
+        "State": "PLAY_WITH_CHAR",
+        "BehaviorId": "D100114",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "PLAY_WITH_CHAR == \u5ba0\u7269\u4e0e\u89d2\u8272\u4ea4\u4e92\uff08\u5ba0\u7269\uff09"
+    },
+    {
+        "Id": 15,
+        "PetId": 1001,
+        "State": "BORN",
+        "BehaviorId": "D100115",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "BORN  ==  \u4ece\u6307\u5b9a\u5bb6\u5177\u51fa\u751f"
+    },
+    {
+        "Id": 16,
+        "PetId": 1001,
+        "State": "SIT",
+        "BehaviorId": "D100116",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "SIT == \u548c\u6c99\u53d1\u4ea4\u4e92\u4e2d"
+    },
+    {
+        "Id": 17,
+        "PetId": 1001,
+        "State": "GOSOFA",
+        "BehaviorId": "D100117",
+        "CanClick": 0,
+        "StateMachine": "INTERACT",
+        "Desc": "GOSOFA == \u8d70\u5411\u6c99\u53d1"
+    }
+]

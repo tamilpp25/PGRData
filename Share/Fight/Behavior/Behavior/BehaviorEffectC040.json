@@ -126,29 +126,11 @@
         "RemoveRoot": null
     },
     {
-        "Id": 732057,
-        "Type": "OnAfterDamage",
-        "Priority": 3,
-        "PrefixRoot": 640400378,
-        "Root": 640400384,
-        "PreLoadRoot": null,
-        "RemoveRoot": null
-    },
-    {
         "Id": 732058,
-        "Type": "OnSkill",
+        "Type": "OnBeforeDamage",
         "Priority": 3,
         "PrefixRoot": 640400399,
         "Root": 640400405,
-        "PreLoadRoot": null,
-        "RemoveRoot": null
-    },
-    {
-        "Id": 732060,
-        "Type": "OnSkillFinish",
-        "Priority": 3,
-        "PrefixRoot": 640400420,
-        "Root": 640400426,
         "PreLoadRoot": null,
         "RemoveRoot": null
     },
@@ -181,19 +163,10 @@
     },
     {
         "Id": 732070,
-        "Type": "OnSkill",
+        "Type": "OnBeforeDamage",
         "Priority": 3,
-        "PrefixRoot": 640400606,
-        "Root": 640400612,
-        "PreLoadRoot": null,
-        "RemoveRoot": null
-    },
-    {
-        "Id": 732071,
-        "Type": "OnSkillFinish",
-        "Priority": 3,
-        "PrefixRoot": 640400654,
-        "Root": 640400657,
+        "PrefixRoot": 640400443,
+        "Root": 640400447,
         "PreLoadRoot": null,
         "RemoveRoot": null
     },
@@ -207,20 +180,137 @@
         "RemoveRoot": null
     },
     {
-        "Id": 732076,
-        "Type": "OnBeforeDamage",
-        "Priority": 3,
-        "PrefixRoot": 640400467,
-        "Root": 640400470,
-        "PreLoadRoot": null,
-        "RemoveRoot": null
-    },
-    {
         "Id": 732079,
         "Type": "OnFrame",
         "Priority": 3,
         "PrefixRoot": 640400480,
         "Root": 640400483,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732080,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400489,
+        "Root": 640400491,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732082,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400578,
+        "Root": 640400585,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732083,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400600,
+        "Root": 640400621,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732092,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400467,
+        "Root": 640400468,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732093,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400477,
+        "Root": 640400669,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732094,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400788,
+        "Root": 640400791,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732095,
+        "Type": "OnAfterDamage",
+        "Priority": 3,
+        "PrefixRoot": 640400683,
+        "Root": 640400685,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732097,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400698,
+        "Root": 640400701,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732098,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400725,
+        "Root": 640400728,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732099,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400752,
+        "Root": 640400755,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732103,
+        "Type": "OnFrame",
+        "Priority": 3,
+        "PrefixRoot": 640400930,
+        "Root": 640400941,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732104,
+        "Type": "OnAfterDamage",
+        "Priority": 3,
+        "PrefixRoot": 640400388,
+        "Root": 640400397,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732105,
+        "Type": "OnSkillFinish",
+        "Priority": 3,
+        "PrefixRoot": 640400442,
+        "Root": 640400455,
+        "PreLoadRoot": null,
+        "RemoveRoot": null
+    },
+    {
+        "Id": 732106,
+        "Type": "OnSkill",
+        "Priority": 3,
+        "PrefixRoot": 640400609,
+        "Root": 640400612,
         "PreLoadRoot": null,
         "RemoveRoot": null
     }

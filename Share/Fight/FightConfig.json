@@ -208,5 +208,30 @@
         "Key": "AntiHackChangePExcludeKinds",
         "Type": "string",
         "Value": "0"
+    },
+    {
+        "Key": "SupportDamageBuffKind",
+        "Type": "string",
+        "Value": "125|131|128|134|144"
+    },
+    {
+        "Key": "SupportChangePBuffKind",
+        "Type": "string",
+        "Value": "138|140|139|141|142"
+    },
+    {
+        "Key": "AntiDamageBuffKind",
+        "Type": "string",
+        "Value": "216|222|219|225|231"
+    },
+    {
+        "Key": "ConsciousAntiBuffKind",
+        "Type": "string",
+        "Value": "320"
+    },
+    {
+        "Key": "WeaponAntiBuffKind",
+        "Type": "string",
+        "Value": "321"
     }
 ]

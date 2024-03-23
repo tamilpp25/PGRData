@@ -1,0 +1,56 @@
+[
+    {
+        "Id": 1001,
+        "Notes": "\u8fd9\u4e00\u5217\u662f\u5907\u6ce8\uff0c\u968f\u4fbf\u5199\uff0c\u6d4b\u8bd5\u711a\u70e7",
+        "Desc": "\u711a\u70e7",
+        "Type": 1,
+        "AffectType": 1,
+        "ValueUpperLimit": 100,
+        "LevelUpperLimit": 5,
+        "BindingBuff": [
+            104495
+        ],
+        "DecayRate": 1,
+        "DecayTime": 5,
+        "FilledRule": 2,
+        "ActiveBuff": [
+            104496
+        ],
+        "ActiveTime": 10,
+        "ActiveFilledRule": 0,
+        "InactiveTime": 5,
+        "UiType": 0,
+        "AssetUrl": "Assets/Product/Ui/UiFightPrefab/UIAccumulator/AccumulatorBurn.prefab",
+        "DefaultName": "\u6613\u71c3",
+        "ActiveName": "\u711a\u70e7",
+        "InactiveName": "\u711a\u70e7"
+    },
+    {
+        "Id": 100001,
+        "Notes": "\u711a\u70e7\u5b9e\u9645\u4f7f\u7528",
+        "Desc": "\u711a\u70e7",
+        "Type": 1,
+        "AffectType": 0,
+        "ValueUpperLimit": 250,
+        "LevelUpperLimit": 20,
+        "BindingBuff": [
+            200211,
+            200219.0,
+            200224.0
+        ],
+        "DecayRate": 999,
+        "DecayTime": 999,
+        "FilledRule": 2,
+        "ActiveBuff": [
+            200212
+        ],
+        "ActiveTime": 10,
+        "ActiveFilledRule": 0,
+        "InactiveTime": 0,
+        "UiType": 1,
+        "AssetUrl": "Assets/Product/Ui/UiFightPrefab/UIAccumulator/AccumulatorBurn.prefab",
+        "DefaultName": "\u6613\u71c3",
+        "ActiveName": "\u711a\u70e7",
+        "InactiveName": "\u711a\u70e7"
+    }
+]

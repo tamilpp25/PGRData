@@ -2302,7 +2302,7 @@
     {
         "Id": 20021039,
         "Key": "EquipResonanceCanNotUseThisItem",
-        "Text": "\u65e0\u6cd5\u4f7f\u7528\u6539\u9053\u5177\u8fdb\u884c\u5171\u9e23"
+        "Text": "\u65e0\u6cd5\u4f7f\u7528\u8be5\u9053\u5177\u8fdb\u884c\u5171\u9e23"
     },
     {
         "Id": 20021040,
@@ -2675,6 +2675,16 @@
         "Text": "\u6b66\u5668\u8c10\u632f\u6fc0\u6d3b\u7c7b\u578b\u4e0d\u5339\u914d"
     },
     {
+        "Id": 20021114,
+        "Key": "EquipQuickResonanceChipsParamError",
+        "Text": "20021114\u610f\u8bc6\u5feb\u901f\u5171\u9e23\u53c2\u6570\u9519\u8bef"
+    },
+    {
+        "Id": 20021115,
+        "Key": "EquipQuickResonanceChipsEquipIsNotChip",
+        "Text": "20021115\u610f\u8bc6\u5feb\u901f\u5171\u9e23\u88c5\u5907\u4e0d\u662f\u610f\u8bc6"
+    },
+    {
         "Id": 20026001,
         "Key": "TaskManagerInitFail",
         "Text": "\u4efb\u52a1\u7cfb\u7edf\u521d\u59cb\u5316\u5931\u8d25"
@@ -2897,12 +2907,12 @@
     {
         "Id": 20027015,
         "Key": "MailManagerMailExpired",
-        "Text": "20027015\u90ae\u4ef6\u5df2\u8fc7\u671f"
+        "Text": "\u90ae\u4ef6\u5df2\u8fc7\u671f"
     },
     {
         "Id": 20027016,
         "Key": "MailManagerMailWithdraw",
-        "Text": "20027016\u90ae\u4ef6\u5df2\u64a4\u56de"
+        "Text": "\u90ae\u4ef6\u5df2\u64a4\u56de"
     },
     {
         "Id": 20029001,
@@ -5097,57 +5107,57 @@
     {
         "Id": 20059034,
         "Key": "BabelTowerCanNotFindStageExtraId",
-        "Text": "\u627e\u4e0d\u5230\u5173\u5361\u6269\u5c55id"
+        "Text": "20059034\u627e\u4e0d\u5230\u5173\u5361\u6269\u5c55id"
     },
     {
         "Id": 20059035,
         "Key": "BabelTowerWrongActivityId",
-        "Text": "\u9519\u8bef\u7684\u6d3b\u52a8id"
+        "Text": "20059035\u9519\u8bef\u7684\u6d3b\u52a8id"
     },
     {
         "Id": 20059036,
         "Key": "BabelTowerCanNotFindActivityTemplate",
-        "Text": "\u627e\u4e0d\u5230\u6d3b\u52a8\u914d\u7f6e"
+        "Text": "20059036\u627e\u4e0d\u5230\u6d3b\u52a8\u914d\u7f6e"
     },
     {
         "Id": 20059037,
         "Key": "BabelTowerTeamLimitCount",
-        "Text": "\u4e0a\u9635\u4eba\u6570\u8d85\u8fc7\u4e0a\u9650"
+        "Text": "20059037\u4e0a\u9635\u4eba\u6570\u8d85\u8fc7\u4e0a\u9650"
     },
     {
         "Id": 20059038,
         "Key": "BabelTowerStageLevelNotUnlock",
-        "Text": "\u5df4\u522b\u5854\u96be\u5ea6\u672a\u89e3\u9501"
+        "Text": "20059038\u5df4\u522b\u5854\u96be\u5ea6\u672a\u89e3\u9501"
     },
     {
         "Id": 20059039,
         "Key": "BabelTowerGlobalUnlockNotFound",
-        "Text": "\u5df4\u522b\u5854\u65e0\u5bf9\u5e94\u5168\u5c40\u89e3\u9501\u914d\u7f6e"
+        "Text": "20059039\u5df4\u522b\u5854\u65e0\u5bf9\u5e94\u5168\u5c40\u89e3\u9501\u914d\u7f6e"
     },
     {
         "Id": 20059040,
         "Key": "BabelTowerStageInvalidRobotId",
-        "Text": "\u5df4\u522b\u5854\u4e0d\u53ef\u7528\u7684\u673a\u5668\u4eba"
+        "Text": "20059040\u5df4\u522b\u5854\u4e0d\u53ef\u7528\u7684\u673a\u5668\u4eba"
     },
     {
         "Id": 20059041,
         "Key": "BabelTowerCheckTeamTeamEmpty",
-        "Text": "\u5df4\u522b\u5854\u7f16\u961f\u65e0\u6709\u6548\u6210\u5458"
+        "Text": "20059041\u5df4\u522b\u5854\u7f16\u961f\u65e0\u6709\u6548\u6210\u5458"
     },
     {
         "Id": 20059042,
         "Key": "BabelTowerCheckTeamInvalidRobotId",
-        "Text": "\u5df4\u522b\u5854\u65e0\u6548\u7684\u673a\u5668\u4eba"
+        "Text": "20059042\u5df4\u522b\u5854\u65e0\u6548\u7684\u673a\u5668\u4eba"
     },
     {
         "Id": 20059043,
         "Key": "BabelTowerCheckTeamMemberConflicted",
-        "Text": "\u5df4\u522b\u5854\u89d2\u8272\u6216\u673a\u5668\u4eba\u51b2\u7a81"
+        "Text": "20059043\u5df4\u522b\u5854\u89d2\u8272\u6216\u673a\u5668\u4eba\u51b2\u7a81"
     },
     {
         "Id": 20059044,
         "Key": "BabelTowerBuffGroupProtect",
-        "Text": "\u5df4\u522b\u5854BuffGroup\u53d7\u673a\u5668\u4eba\u6570\u91cf\u9650\u5236"
+        "Text": "20059044\u5df4\u522b\u5854BuffGroup\u53d7\u673a\u5668\u4eba\u6570\u91cf\u9650\u5236"
     },
     {
         "Id": 20059045,
@@ -5567,22 +5577,32 @@
     {
         "Id": 20060079,
         "Key": "DormRemakeFurnitureFailedToGetExtraAttr",
-        "Text": "20060079\u91cd\u5236\u672a\u627e\u5230\u5bf9\u5e94\u5c5e\u6027\u6a21\u677f"
+        "Text": "\u91cd\u5236\u672a\u627e\u5230\u5bf9\u5e94\u5c5e\u6027\u6a21\u677f"
     },
     {
         "Id": 20060080,
         "Key": "DormRemakeCountTooMuch",
-        "Text": "20060080\u91cd\u5236\u5bb6\u5177\u6570\u91cf\u8fc7\u591a"
+        "Text": "\u91cd\u5236\u5bb6\u5177\u6570\u91cf\u8fc7\u591a"
     },
     {
         "Id": 20060081,
         "Key": "DormRemoduleCountTooMuch",
-        "Text": "20060081\u6539\u88c5\u5bb6\u5177\u6570\u91cf\u8fc7\u591a"
+        "Text": "\u6539\u88c5\u5bb6\u5177\u6570\u91cf\u8fc7\u591a"
     },
     {
         "Id": 20060082,
         "Key": "DormFurnitureIsInDorm",
-        "Text": "20060082\u5bb6\u5177\u5df2\u7ecf\u88ab\u6446\u653e"
+        "Text": "\u6b64\u5bb6\u5177\u5df2\u7ecf\u88ab\u6446\u653e"
+    },
+    {
+        "Id": 20060083,
+        "Key": "DormFurnitureCannotDecompose",
+        "Text": "\u6b64\u5bb6\u5177\u4e0d\u53ef\u56de\u6536"
+    },
+    {
+        "Id": 20060084,
+        "Key": "DormFurnitureCannotRemould",
+        "Text": "\u6b64\u5bb6\u5177\u4e0d\u53ef\u6539\u88c5"
     },
     {
         "Id": 20061001,
@@ -12445,6 +12465,11 @@
         "Text": "20123047\u6539\u9020\u526f\u672c\u602a\u7269\u6570\u91cf\u4e3a\u7a7a"
     },
     {
+        "Id": 20123048,
+        "Key": "FubenReformTeamCountError",
+        "Text": "20123048\u961f\u4f0d\u6210\u5458\u6570\u91cf\u8d85\u51fa\u4e0a\u9650"
+    },
+    {
         "Id": 20124001,
         "Key": "ChristmasTreeActivityNotOpen",
         "Text": "\u6d3b\u52a8\u5c1a\u672a\u5f00\u542f"
@@ -14178,6 +14203,11 @@
         "Id": 20143033,
         "Key": "SameColorGameSkillMakeError",
         "Text": "\u6280\u80fd\u751f\u6548\u9519\u8bef"
+    },
+    {
+        "Id": 20143034,
+        "Key": "SameColorGameMapWeakCannotSwap",
+        "Text": "20143034\u7834\u7efd\u4e0d\u53ef\u4ea4\u6362"
     },
     {
         "Id": 20144001,
@@ -18362,112 +18392,112 @@
     {
         "Id": 20183001,
         "Key": "Regression3NotInRegression",
-        "Text": "20183001\u7279\u6b8a\u56de\u5f52\u5f53\u524d\u73a9\u5bb6\u4e0d\u5728\u56de\u5f52\u72b6\u6001"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u5f53\u524d\u73a9\u5bb6\u4e0d\u5728\u56de\u5f52\u72b6\u6001"
     },
     {
         "Id": 20183002,
         "Key": "Regression3ActivityInvalidId",
-        "Text": "20183002\u7279\u6b8a\u56de\u5f52\u65e0\u6548\u7684\u6d3b\u52a8ID"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u65e0\u6548\u7684\u6d3b\u52a8ID"
     },
     {
         "Id": 20183003,
         "Key": "Regression3ActivityNotCurrentId",
-        "Text": "20183003\u7279\u6b8a\u56de\u5f52\u6d3b\u52a8ID\u975e\u5f53\u524d\u6d3b\u52a8ID"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u6d3b\u52a8ID\u975e\u5f53\u524d\u6d3b\u52a8ID"
     },
     {
         "Id": 20183004,
         "Key": "Regression3SignInInvalidId",
-        "Text": "20183004\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u65e0\u6548\u7684\u7b7e\u5230ID"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u65e0\u6548\u7684\u7b7e\u5230ID"
     },
     {
         "Id": 20183005,
         "Key": "Regression3SignInIdNotInActivity",
-        "Text": "20183005\u7279\u6b8a\u56de\u5f52\u7b7e\u5230ID\u4e0d\u5c5e\u4e8e\u5f53\u524d\u6d3b\u52a8"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7b7e\u5230ID\u4e0d\u5c5e\u4e8e\u5f53\u524d\u6d3b\u52a8"
     },
     {
         "Id": 20183006,
         "Key": "Regression3SignInRewardAlreadyGot",
-        "Text": "20183006\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u5956\u52b1\u5df2\u9886\u53d6"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
         "Id": 20183007,
         "Key": "Regression3SignInUnsatisfied",
-        "Text": "20183007\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u9886\u5956\u6761\u4ef6\u4e0d\u6ee1\u8db3"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7b7e\u5230\u9886\u5956\u6761\u4ef6\u4e0d\u6ee1\u8db3"
     },
     {
         "Id": 20183008,
         "Key": "Regression3PassportAidNotFoundForRid",
-        "Text": "20183008\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u6d3b\u52a8\u4e0d\u5b58\u5728"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u6d3b\u52a8\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20183009,
         "Key": "Regression3PassportInfoNotExist",
-        "Text": "20183009\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u4fe1\u606f\u4e0d\u5b58\u5728"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u4fe1\u606f\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20183010,
         "Key": "Regression3PassportNotUnlock",
-        "Text": "20183010\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u672a\u89e3\u9501"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u672a\u89e3\u9501"
     },
     {
         "Id": 20183011,
         "Key": "Regression3PassportAlreadyUnlocked",
-        "Text": "20183011\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u5df2\u89e3\u9501"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u901a\u884c\u8bc1\u5df2\u89e3\u9501"
     },
     {
         "Id": 20183012,
         "Key": "Regression3PassportInfoActivityIdNotMatch",
-        "Text": "20183012\u7279\u6b8a\u56de\u5f52\u672c\u671f\u6d3b\u52a8\u4e0d\u5b58\u5728\u8be5\u901a\u884c\u8bc1"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u672c\u671f\u6d3b\u52a8\u4e0d\u5b58\u5728\u8be5\u901a\u884c\u8bc1"
     },
     {
         "Id": 20183013,
         "Key": "Regression3PassportLevelNotEnough",
-        "Text": "20183013\u7279\u6b8a\u56de\u5f52\u9886\u5956\u6240\u9700\u7b49\u7ea7\u4e0d\u8db3"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u9886\u5956\u6240\u9700\u7b49\u7ea7\u4e0d\u8db3"
     },
     {
         "Id": 20183014,
         "Key": "Regression3PassportNoRewardCanGet",
-        "Text": "20183014\u7279\u6b8a\u56de\u5f52\u65e0\u53ef\u9886\u53d6\u5956\u52b1"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u65e0\u53ef\u9886\u53d6\u5956\u52b1"
     },
     {
         "Id": 20183015,
         "Key": "Regression3PassportAlreadyMaxLevel",
-        "Text": "20183015\u7279\u6b8a\u56de\u5f52\u5df2\u8fbe\u5230\u6700\u5927\u7b49\u7ea7"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u5df2\u8fbe\u5230\u6700\u5927\u7b49\u7ea7"
     },
     {
         "Id": 20183016,
         "Key": "Regression3PassportLevelCfgNotExist",
-        "Text": "20183016\u7279\u6b8a\u56de\u5f52\u7b49\u7ea7\u4fe1\u606f\u4e0d\u5b58\u5728"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7b49\u7ea7\u4fe1\u606f\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20183017,
         "Key": "Regression3PassportRewardTemplateNotExist",
-        "Text": "20183017\u7279\u6b8a\u56de\u5f52\u5956\u52b1\u4e0d\u5b58\u5728"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u5956\u52b1\u4e0d\u5b58\u5728"
     },
     {
         "Id": 20183018,
         "Key": "Regression3PassportBuyLevelMustBiggerThanNow",
-        "Text": "20183018\u7279\u6b8a\u56de\u5f52\u8d2d\u4e70\u7b49\u7ea7\u4e0d\u80fd\u5c0f\u4e8e\u73b0\u6709\u7b49\u7ea7"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u8d2d\u4e70\u7b49\u7ea7\u4e0d\u80fd\u5c0f\u4e8e\u73b0\u6709\u7b49\u7ea7"
     },
     {
         "Id": 20183019,
         "Key": "Regression3PassportExpConfigError",
-        "Text": "20183019\u7279\u6b8a\u56de\u5f52\u7ecf\u9a8c\u503c\u914d\u7f6e\u9519\u8bef"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u7ecf\u9a8c\u503c\u914d\u7f6e\u9519\u8bef"
     },
     {
         "Id": 20183020,
         "Key": "Regression3PassportRewardAlreadyGot",
-        "Text": "20183020\u7279\u6b8a\u56de\u5f52\u5956\u52b1\u5df2\u9886\u53d6"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u5956\u52b1\u5df2\u9886\u53d6"
     },
     {
         "Id": 20183021,
         "Key": "Regression3PassportBuyTimeAlreadyEnd",
-        "Text": "20183021\u7279\u6b8a\u56de\u5f52\u672c\u671f\u6d3b\u52a8\u8d2d\u4e70\u65f6\u95f4\u5df2\u7ed3\u675f"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u672c\u671f\u6d3b\u52a8\u8d2d\u4e70\u65f6\u95f4\u5df2\u7ed3\u675f"
     },
     {
         "Id": 20183022,
         "Key": "Regression3PassportBuyExpTranscend",
-        "Text": "20183022\u7279\u6b8a\u56de\u5f52\u65e0\u6cd5\u8d2d\u4e70\u65e0\u9650\u533a\u7684\u7b49\u7ea7"
+        "Text": "\u7279\u6b8a\u56de\u5f52\u65e0\u6cd5\u8d2d\u4e70\u65e0\u9650\u533a\u7684\u7b49\u7ea7"
     },
     {
         "Id": 20184001,
@@ -21080,6 +21110,86 @@
         "Text": "\u65b0\u5c81\u6e38\u56ed-\u7ed3\u7b97\u6570\u636e\u9519\u8bef"
     },
     {
+        "Id": 20212001,
+        "Key": "LinkCraftActivityNotOpen",
+        "Text": "\u6d3b\u52a8\u6682\u672a\u5f00\u542f"
+    },
+    {
+        "Id": 20212002,
+        "Key": "LinkCraftActivityCfgNotExist",
+        "Text": "\u672a\u627e\u5230\u6d3b\u52a8\u914d\u7f6e"
+    },
+    {
+        "Id": 20212003,
+        "Key": "LinkCraftChapterCfgNotExist",
+        "Text": "\u672a\u627e\u5230\u7ae0\u8282\u914d\u7f6e"
+    },
+    {
+        "Id": 20212004,
+        "Key": "LinkCraftStageCfgNotExist",
+        "Text": "\u672a\u627e\u5230\u5173\u5361\u914d\u7f6e"
+    },
+    {
+        "Id": 20212005,
+        "Key": "LinkCraftLinkCfgNotExist",
+        "Text": "\u672a\u627e\u5230\u94fe\u63a5\u914d\u7f6e"
+    },
+    {
+        "Id": 20212006,
+        "Key": "LinkCraftChapterIsLock",
+        "Text": "\u7ae0\u8282\u672a\u89e3\u9501\uff0c\u8bf7\u901a\u5173\u524d\u7f6e\u5173\u5361"
+    },
+    {
+        "Id": 20212007,
+        "Key": "LinkCraftRobotNotExist",
+        "Text": "\u8bd5\u7528\u89d2\u8272\u4e0d\u5b58\u5728"
+    },
+    {
+        "Id": 20212008,
+        "Key": "LinkCraftLinkIsLock",
+        "Text": "\u94fe\u63a5\u672a\u89e3\u9501"
+    },
+    {
+        "Id": 20212009,
+        "Key": "LinkCraftSkillIsLock",
+        "Text": "\u6280\u80fd\u672a\u89e3\u9501\uff0c\u65e0\u6cd5\u88c5\u914d"
+    },
+    {
+        "Id": 20212010,
+        "Key": "LinkCraftSkillNotMatchLink",
+        "Text": "\u6280\u80fd\u4e0e\u94fe\u6761\u4e0d\u5339\u914d"
+    },
+    {
+        "Id": 20212011,
+        "Key": "LinkCraftPreStageNotPass",
+        "Text": "\u6682\u672a\u901a\u8fc7\u524d\u7f6e\u5173\u5361"
+    },
+    {
+        "Id": 20212012,
+        "Key": "LinkCraftStageNotMatchActivity",
+        "Text": "\u5f53\u524d\u6d3b\u52a8\u4e0d\u5b58\u5728\u8be5\u5173\u5361"
+    },
+    {
+        "Id": 20212013,
+        "Key": "LinkCraftSkillPosInvaild",
+        "Text": "\u6280\u80fd\u4f4d\u7f6e\u65e0\u6548\uff0c\u8bf7\u91cd\u65b0\u7f16\u8f91"
+    },
+    {
+        "Id": 20213001,
+        "Key": "ChatBoardInvalidId",
+        "Text": "20213001\u804a\u5929\u6846-\u65e0\u6548\u7684Id"
+    },
+    {
+        "Id": 20213002,
+        "Key": "ChatBoardNotFound",
+        "Text": "20213003\u804a\u5929\u6846-\u5c1a\u672a\u83b7\u5f97"
+    },
+    {
+        "Id": 20213003,
+        "Key": "ChatBoardAlreadyExist",
+        "Text": "20213004\u804a\u5929\u6846-\u5df2\u7ecf\u5b58\u5728"
+    },
+    {
         "Id": 25000001,
         "Key": "DlcWorldInfoTemplateNotFound",
         "Text": "25000001Dlc\u4e16\u754c\u4fe1\u606f\u914d\u7f6e\u4e0d\u5b58\u5728"
@@ -21458,6 +21568,11 @@
         "Id": 25004013,
         "Key": "MatchWorldDontHaveCharacterId",
         "Text": "25004013\u5173\u5361\u672a\u914d\u7f6e\u89d2\u8272ID"
+    },
+    {
+        "Id": 25004014,
+        "Key": "DlcFightContReconnected",
+        "Text": "25004014\u6218\u6597\u65e0\u6cd5\u91cd\u8fde"
     },
     {
         "Id": 30002001,

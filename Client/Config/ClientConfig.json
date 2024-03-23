@@ -57,12 +57,12 @@
     {
         "Key": "ActivityShopItemTextCanBuyColor",
         "Type": "string",
-        "Value": "001390ff"
+        "Value": "9CDCFF"
     },
     {
         "Key": "ActivityShopItemTextCanNotBuyColor",
         "Type": "string",
-        "Value": "d23131ff"
+        "Value": "610202"
     },
     {
         "Key": "AnniversaryDrawId",
@@ -92,32 +92,32 @@
     {
         "Key": "AprilFoolsDayCuteModelEndTime",
         "Type": "string",
-        "Value": "2023-4-2 0:00"
+        "Value": "2023/4/2 0:00"
     },
     {
         "Key": "AprilFoolsDayCuteModeltartTime",
         "Type": "string",
-        "Value": "2023-4-1 0:00"
+        "Value": "2023/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayEndTime",
         "Type": "string",
-        "Value": "2022-4-2 0:00"
+        "Value": "2024/4/2 0:00"
     },
     {
         "Key": "AprilFoolsDayStartTime",
         "Type": "string",
-        "Value": "2022-4-1 0:00"
+        "Value": "2024/4/1 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleEndTime",
         "Type": "string",
-        "Value": "2023-4-2 0:00"
+        "Value": "2024/4/2 0:00"
     },
     {
         "Key": "AprilFoolsDayTitleStartTime",
         "Type": "string",
-        "Value": "2023-4-1 0:00"
+        "Value": "2024/4/1 0:00"
     },
     {
         "Key": "ArchiveAwarenessShowDelayTime",
@@ -960,6 +960,11 @@
         "Value": "180"
     },
     {
+        "Key": "DormPetInteractCD",
+        "Type": "int",
+        "Value": "60"
+    },
+    {
         "Key": "DormFurnitureInteractDistance",
         "Type": "int",
         "Value": "10"
@@ -1333,6 +1338,11 @@
         "Key": "EquipStrengthenProgressStar6",
         "Type": "string",
         "Value": "Assets/Product/Texture/Atlas/UIEquipNew/EquipProgress03.png"
+    },
+    {
+        "Key": "EquipResonanceTokenIds",
+        "Type": "string",
+        "Value": "28|29|47"
     },
     {
         "Key": "ExhibitionDetailFadeTime",
@@ -3780,6 +3790,16 @@
         "Value": "Assets/Product/Ui/Prefab/UiDebuggerNpcBuffInfo.prefab"
     },
     {
+        "Key": "UiDebuggerAccumulator",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerAccumulator.prefab"
+    },
+    {
+        "Key": "UiDebuggerAccumulatorContext",
+        "Type": "string",
+        "Value": "Assets/Product/Ui/Prefab/UiDebuggerAccumulatorContext.prefab"
+    },
+    {
         "Key": "UiDebuggerNpcCustom",
         "Type": "string",
         "Value": "Assets/Product/Ui/Prefab/UiDebuggerNpcCustom.prefab"
@@ -3917,12 +3937,12 @@
     {
         "Key": "UiLoginMovieTimeEnd",
         "Type": "string",
-        "Value": "2022-5-10 0:00"
+        "Value": "2022/5/10 0:00"
     },
     {
         "Key": "UiLoginMovieTimeStr",
         "Type": "string",
-        "Value": "2022-4-29 0:00"
+        "Value": "2022/4/29 0:00"
     },
     {
         "Key": "UiLoginScreenOffect_H_1.33",
@@ -4243,5 +4263,60 @@
         "Key": "GridStageMainLineCG",
         "Type": "string",
         "Value": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageMainLineCG.prefab"
+    },
+    {
+        "Key": "AprilFoolsDayLoginPicPath",
+        "Type": "string",
+        "Value": "Assets/Product/Texture/Image/BgUi/BgLoginSp01.png"
+    },
+    {
+        "Key": "AprilFoolsDayMainCharacter",
+        "Type": "int",
+        "Value": "1551003"
+    },
+    {
+        "Key": "AprilFoolsDayMainCharacterMiss",
+        "Type": "int",
+        "Value": "80"
+    },
+    {
+        "Key": "AprilFoolsDaySubCharacter",
+        "Type": "string",
+        "Value": "1011002|1021001|1031001|1061002|1031002|1021002|1031003|1061003|1011003|1121002|1021004|1131002|1161002|1521003|1211002|1121003|1221002|1131003|1031004|1011004|1241002|1221003|1251002|1521004"
+    },
+    {
+        "Key": "AprilFoolsDayMainShowChangeCharacter",
+        "Type": "int",
+        "Value": "1551003"
+    },
+    {
+        "Key": "AprilFoolsDaySubShowChangeCharacter",
+        "Type": "string",
+        "Value": "1521003|1521004|1241002|1161002"
+    },
+    {
+        "Key": "AprilFoolsDayMainShowLv",
+        "Type": "int",
+        "Value": "999"
+    },
+    {
+        "Key": "AprilFoolsDayMainShowScore",
+        "Type": "int",
+        "Value": "999999"
+    },
+    {
+        "Key": "AprilFoolsDaySubShowLv",
+        "Type": "int",
+        "Value": "99"
+    },
+    {
+        "Key": "AprilFoolsDaySubShowScore",
+        "Type": "int",
+        "Value": "99999"
+    },
+    {
+        "Key": "DefaultChatBoardId",
+        "Type": "int",
+        "Value": "25000001"
     }
 ]

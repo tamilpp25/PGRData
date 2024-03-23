@@ -900,7 +900,7 @@
         "Name": "AddNpcState",
         "MagicKind": 0.0,
         "Level": [
-            "1"
+            "26"
         ]
     },
     {
@@ -952,8 +952,24 @@
         ]
     },
     {
+        "Id": 937217000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "937217"
+        ]
+    },
+    {
         "Id": 937218,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937218"
+        ]
+    },
+    {
+        "Id": 937218000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937218"
@@ -968,6 +984,14 @@
         ]
     },
     {
+        "Id": 937219000,
+        "Name": "AddTimeScaleBuff",
+        "MagicKind": 0.0,
+        "Level": [
+            "0.05"
+        ]
+    },
+    {
         "Id": 937220,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -976,8 +1000,24 @@
         ]
     },
     {
+        "Id": 937220000,
+        "Name": "AddNpcState",
+        "MagicKind": 0.0,
+        "Level": [
+            "32"
+        ]
+    },
+    {
         "Id": 937221,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937221"
+        ]
+    },
+    {
+        "Id": 937221000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937221"
@@ -1032,8 +1072,24 @@
         ]
     },
     {
+        "Id": 937227000,
+        "Name": "AddNewProtectorHp",
+        "MagicKind": 0.0,
+        "Level": [
+            "0|0|1|1500|1"
+        ]
+    },
+    {
         "Id": 937228,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937228"
+        ]
+    },
+    {
+        "Id": 937228000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937228"
@@ -1045,6 +1101,14 @@
         "MagicKind": null,
         "Level": [
             "937229"
+        ]
+    },
+    {
+        "Id": 937229000,
+        "Name": "HideJoint",
+        "MagicKind": 0.0,
+        "Level": [
+            "Root"
         ]
     },
     {
@@ -1072,6 +1136,14 @@
         ]
     },
     {
+        "Id": 937232000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "937232"
+        ]
+    },
+    {
         "Id": 937233,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -1089,10 +1161,10 @@
     },
     {
         "Id": 937235,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "DragNpc",
+        "MagicKind": 9372350.0,
         "Level": [
-            "937235"
+            "1|1|50|0"
         ]
     },
     {
@@ -1104,11 +1176,19 @@
         ]
     },
     {
-        "Id": 937237,
-        "Name": "AddBuff",
+        "Id": 937236000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
-            "937237"
+            "937236"
+        ]
+    },
+    {
+        "Id": 937237,
+        "Name": "MulDamage",
+        "MagicKind": 9372370.0,
+        "Level": [
+            "30000"
         ]
     },
     {
@@ -1120,11 +1200,19 @@
         ]
     },
     {
-        "Id": 937239,
-        "Name": "AddBuff",
+        "Id": 937238000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
-            "937239"
+            "937238"
+        ]
+    },
+    {
+        "Id": 937239,
+        "Name": "DragNpc",
+        "MagicKind": 9372390.0,
+        "Level": [
+            "1|1|15|0"
         ]
     },
     {
@@ -1160,6 +1248,14 @@
         ]
     },
     {
+        "Id": 937243000,
+        "Name": "AddNpcState",
+        "MagicKind": 0.0,
+        "Level": [
+            "26"
+        ]
+    },
+    {
         "Id": 937244,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -1170,6 +1266,14 @@
     {
         "Id": 937245,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937245"
+        ]
+    },
+    {
+        "Id": 937245000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937245"
@@ -1192,6 +1296,14 @@
         ]
     },
     {
+        "Id": 937247000,
+        "Name": "ChangeTimeScale",
+        "MagicKind": 0.0,
+        "Level": [
+            "0.2|6|3|2"
+        ]
+    },
+    {
         "Id": 937248,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -1201,10 +1313,10 @@
     },
     {
         "Id": 937249,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "MulDamage",
+        "MagicKind": 9372490.0,
         "Level": [
-            "937249"
+            "100000"
         ]
     },
     {
@@ -1217,138 +1329,138 @@
     },
     {
         "Id": 937251,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372510.0,
         "Level": [
-            "937251"
+            "1|0.1|-1|400|0.1|1"
         ]
     },
     {
         "Id": 937252,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372520.0,
         "Level": [
-            "937252"
+            "1|0.2|-2|400|0.1|1"
         ]
     },
     {
         "Id": 937253,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372530.0,
         "Level": [
-            "937253"
+            "1|0.3|-3|400|0.1|1"
         ]
     },
     {
         "Id": 937254,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372540.0,
         "Level": [
-            "937254"
+            "1|0.4|-4|400|0.1|1"
         ]
     },
     {
         "Id": 937255,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372550.0,
         "Level": [
-            "937255"
+            "1|0.1|-0.5|400|0.2|1"
         ]
     },
     {
         "Id": 937256,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372560.0,
         "Level": [
-            "937256"
+            "1|0.2|-1|400|0.2|1"
         ]
     },
     {
         "Id": 937257,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372570.0,
         "Level": [
-            "937257"
+            "1|0.3|-1.5|400|0.2|1"
         ]
     },
     {
         "Id": 937258,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372580.0,
         "Level": [
-            "937258"
+            "1|0.4|-2|400|0.2|1"
         ]
     },
     {
         "Id": 937259,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372590.0,
         "Level": [
-            "937259"
+            "1|0.1|-0.33|400|0.3|1"
         ]
     },
     {
         "Id": 937260,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372600.0,
         "Level": [
-            "937260"
+            "1|0.2|-0.66|400|0.3|1"
         ]
     },
     {
         "Id": 937261,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372610.0,
         "Level": [
-            "937261"
+            "1|0.3|-1|400|0.3|1"
         ]
     },
     {
         "Id": 937262,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372620.0,
         "Level": [
-            "937262"
+            "1|0.4|-1.33|400|0.3|1"
         ]
     },
     {
         "Id": 937263,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372630.0,
         "Level": [
-            "937263"
+            "3|0.1|-0.33|400|0.3|3"
         ]
     },
     {
         "Id": 937264,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeCamera",
+        "MagicKind": 9372640.0,
         "Level": [
-            "937264"
+            "3|0.5|-3.33|10|0.15|2"
         ]
     },
     {
         "Id": 937265,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeAllCamera",
+        "MagicKind": 9372650.0,
         "Level": [
-            "937265"
+            "3|0.05|-0.33|400|0.15|9"
         ]
     },
     {
         "Id": 937266,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeAllCamera",
+        "MagicKind": 9372660.0,
         "Level": [
-            "937266"
+            "3|0.5|-3.33|10|0.15|8"
         ]
     },
     {
         "Id": 937267,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ShakeAllCamera",
+        "MagicKind": 9372670.0,
         "Level": [
-            "937267"
+            "1|0|0.05|400|1|9"
         ]
     },
     {
@@ -1368,6 +1480,14 @@
         ]
     },
     {
+        "Id": 937269000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "937269"
+        ]
+    },
+    {
         "Id": 937270,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -1377,18 +1497,18 @@
     },
     {
         "Id": 937271,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ChangeTimeScale",
+        "MagicKind": 9372710.0,
         "Level": [
-            "937271"
+            "0.05|24|0|6"
         ]
     },
     {
         "Id": 937272,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "DragNpc",
+        "MagicKind": 9372720.0,
         "Level": [
-            "937272"
+            "1|1|5|0"
         ]
     },
     {
@@ -1400,8 +1520,24 @@
         ]
     },
     {
+        "Id": 937273000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "937273"
+        ]
+    },
+    {
         "Id": 937274,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937274"
+        ]
+    },
+    {
+        "Id": 937274000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937274"
@@ -1424,8 +1560,24 @@
         ]
     },
     {
+        "Id": 937276000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "937276"
+        ]
+    },
+    {
         "Id": 937277,
         "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "937277"
+        ]
+    },
+    {
+        "Id": 937277000,
+        "Name": "AddBehavior",
         "MagicKind": null,
         "Level": [
             "937277"
@@ -1445,6 +1597,14 @@
         "MagicKind": null,
         "Level": [
             "937279"
+        ]
+    },
+    {
+        "Id": 937279000,
+        "Name": "ChangeAttribAdditive",
+        "MagicKind": 0.0,
+        "Level": [
+            "94|30000|"
         ]
     },
     {
@@ -1560,651 +1720,51 @@
         ]
     },
     {
-        "Id": 936419,
+        "Id": 937294,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936419"
+            "937294"
         ]
     },
     {
-        "Id": 936420,
+        "Id": 937295,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936420"
+            "937295"
         ]
     },
     {
-        "Id": 936421,
+        "Id": 937296,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936421"
+            "937296"
         ]
     },
     {
-        "Id": 936422,
+        "Id": 937297,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936422"
+            "937297"
         ]
     },
     {
-        "Id": 936423,
+        "Id": 937298,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936423"
+            "937298"
         ]
     },
     {
-        "Id": 936424,
+        "Id": 937299,
         "Name": "AddBuff",
         "MagicKind": null,
         "Level": [
-            "936424"
-        ]
-    },
-    {
-        "Id": 936425,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936425"
-        ]
-    },
-    {
-        "Id": 936426,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936426"
-        ]
-    },
-    {
-        "Id": 936427,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936427"
-        ]
-    },
-    {
-        "Id": 936428,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936428"
-        ]
-    },
-    {
-        "Id": 936429,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936429"
-        ]
-    },
-    {
-        "Id": 936430,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936430"
-        ]
-    },
-    {
-        "Id": 936431,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936431"
-        ]
-    },
-    {
-        "Id": 936432,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936432"
-        ]
-    },
-    {
-        "Id": 936433,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936433"
-        ]
-    },
-    {
-        "Id": 936434,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936434"
-        ]
-    },
-    {
-        "Id": 936435,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936435"
-        ]
-    },
-    {
-        "Id": 936436,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936436"
-        ]
-    },
-    {
-        "Id": 936437,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936437"
-        ]
-    },
-    {
-        "Id": 936438,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936438"
-        ]
-    },
-    {
-        "Id": 936439,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936439"
-        ]
-    },
-    {
-        "Id": 936440,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936440"
-        ]
-    },
-    {
-        "Id": 936441,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936441"
-        ]
-    },
-    {
-        "Id": 936442,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936442"
-        ]
-    },
-    {
-        "Id": 936443,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936443"
-        ]
-    },
-    {
-        "Id": 936444,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936444"
-        ]
-    },
-    {
-        "Id": 936445,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936445"
-        ]
-    },
-    {
-        "Id": 936446,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936446"
-        ]
-    },
-    {
-        "Id": 936447,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936447"
-        ]
-    },
-    {
-        "Id": 936448,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936448"
-        ]
-    },
-    {
-        "Id": 936449,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936449"
-        ]
-    },
-    {
-        "Id": 936450,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936450"
-        ]
-    },
-    {
-        "Id": 936451,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936451"
-        ]
-    },
-    {
-        "Id": 936452,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936452"
-        ]
-    },
-    {
-        "Id": 936453,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936453"
-        ]
-    },
-    {
-        "Id": 936454,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936454"
-        ]
-    },
-    {
-        "Id": 936455,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936455"
-        ]
-    },
-    {
-        "Id": 936456,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936456"
-        ]
-    },
-    {
-        "Id": 936457,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936457"
-        ]
-    },
-    {
-        "Id": 936458,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936458"
-        ]
-    },
-    {
-        "Id": 936459,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936459"
-        ]
-    },
-    {
-        "Id": 936460,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936460"
-        ]
-    },
-    {
-        "Id": 936461,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936461"
-        ]
-    },
-    {
-        "Id": 936462,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936462"
-        ]
-    },
-    {
-        "Id": 936463,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936463"
-        ]
-    },
-    {
-        "Id": 936464,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936464"
-        ]
-    },
-    {
-        "Id": 936465,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936465"
-        ]
-    },
-    {
-        "Id": 936466,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936466"
-        ]
-    },
-    {
-        "Id": 936467,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936467"
-        ]
-    },
-    {
-        "Id": 936468,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936468"
-        ]
-    },
-    {
-        "Id": 936469,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936469"
-        ]
-    },
-    {
-        "Id": 936470,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936470"
-        ]
-    },
-    {
-        "Id": 936471,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936471"
-        ]
-    },
-    {
-        "Id": 936472,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936472"
-        ]
-    },
-    {
-        "Id": 936473,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936473"
-        ]
-    },
-    {
-        "Id": 936474,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936474"
-        ]
-    },
-    {
-        "Id": 936475,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936475"
-        ]
-    },
-    {
-        "Id": 936476,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936476"
-        ]
-    },
-    {
-        "Id": 936477,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936477"
-        ]
-    },
-    {
-        "Id": 936478,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936478"
-        ]
-    },
-    {
-        "Id": 936479,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936479"
-        ]
-    },
-    {
-        "Id": 936480,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936480"
-        ]
-    },
-    {
-        "Id": 936481,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936481"
-        ]
-    },
-    {
-        "Id": 936482,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936482"
-        ]
-    },
-    {
-        "Id": 936483,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936483"
-        ]
-    },
-    {
-        "Id": 936484,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936484"
-        ]
-    },
-    {
-        "Id": 936485,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936485"
-        ]
-    },
-    {
-        "Id": 936486,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936486"
-        ]
-    },
-    {
-        "Id": 936487,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936487"
-        ]
-    },
-    {
-        "Id": 936488,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936488"
-        ]
-    },
-    {
-        "Id": 936489,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936489"
-        ]
-    },
-    {
-        "Id": 936490,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936490"
-        ]
-    },
-    {
-        "Id": 936491,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936491"
-        ]
-    },
-    {
-        "Id": 936492,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936492"
-        ]
-    },
-    {
-        "Id": 936493,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936493"
-        ]
-    },
-    {
-        "Id": 936494,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936494"
-        ]
-    },
-    {
-        "Id": 936495,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936495"
-        ]
-    },
-    {
-        "Id": 936496,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936496"
-        ]
-    },
-    {
-        "Id": 936497,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936497"
-        ]
-    },
-    {
-        "Id": 936498,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936498"
-        ]
-    },
-    {
-        "Id": 936499,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "936499"
+            "937299"
         ]
     }
 ]

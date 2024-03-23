@@ -630,6 +630,30 @@
         ]
     },
     {
+        "Id": 171843,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "171843"
+        ]
+    },
+    {
+        "Id": 171843000,
+        "Name": "ShakeCamera",
+        "MagicKind": 0.0,
+        "Level": [
+            "5|0.3|-1|8|0.15|2"
+        ]
+    },
+    {
+        "Id": 171844,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "171844"
+        ]
+    },
+    {
         "Id": 161800,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -34588,10 +34612,10 @@
     },
     {
         "Id": 191878000,
-        "Name": "SetCameraPositionOffset",
+        "Name": "SetCameraFov",
         "MagicKind": 0.0,
         "Level": [
-            "0|-0.2|1|0.4|0.35|1"
+            "40|2|0.3"
         ]
     },
     {
@@ -34604,10 +34628,10 @@
     },
     {
         "Id": 191879000,
-        "Name": "SetCameraRotationModify",
+        "Name": "SetCameraPositionOffset",
         "MagicKind": 0.0,
         "Level": [
-            "-6|0|0|0.4|0.35"
+            "0|0|2.2|1.8|0.3|1"
         ]
     },
     {

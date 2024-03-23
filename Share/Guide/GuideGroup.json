@@ -4165,7 +4165,7 @@
     {
         "Id": 61120,
         "Priority": 61120,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "\u5f15\u5bfc\u754c\u9650\u6784\u89e34\u671f\u4e3b\u754c\u9762",
         "GuideType": 1,
         "ConditionId": [
@@ -4181,7 +4181,7 @@
     {
         "Id": 61121,
         "Priority": 61121,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "\u5f15\u5bfc\u754c\u9650\u6784\u89e34\u671f\u6539\u9020",
         "GuideType": 1,
         "ConditionId": [
@@ -4197,7 +4197,7 @@
     {
         "Id": 61122,
         "Priority": 61122,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "\u5f15\u5bfc\u754c\u9650\u6784\u89e34\u671f\u56f0\u96be\u96be\u5ea6",
         "GuideType": 1,
         "ConditionId": [
@@ -5155,7 +5155,7 @@
     {
         "Id": 61510,
         "Priority": 61510,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "v2.8 \u5f15\u5bfc\u94fe\u5408\u56de\u8def5.0\u73a9\u6cd5\u4e3b\u754c\u9762",
         "GuideType": 1,
         "ConditionId": [
@@ -5172,7 +5172,7 @@
     {
         "Id": 61511,
         "Priority": 61511,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "v2.8 \u5f15\u5bfc\u94fe\u5408\u56de\u8def5.0\u6218\u6597",
         "GuideType": 1,
         "ConditionId": [
@@ -5189,7 +5189,7 @@
     {
         "Id": 61512,
         "Priority": 61512,
-        "Ignore": 0,
+        "Ignore": 1,
         "Desc": "v2.8 \u5f15\u5bfc\u94fe\u5408\u56de\u8def5.0\u9650\u65f6\u6311\u6218",
         "GuideType": 1,
         "ConditionId": [
@@ -6302,5 +6302,193 @@
         "CheckNodeActive": "UiBabelTowerChildChallenge",
         "RewardId": 0,
         "GroupId": 61751
+    },
+    {
+        "Id": 61801,
+        "Priority": 61801,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u6218\u53cc\u5de5\u827a\u9996\u6b21\u9009\u5173",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0
+        ],
+        "CompleteId": 61801,
+        "ActiveUi": "UiLinkCraftActivityChapter",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61801
+    },
+    {
+        "Id": 61802,
+        "Priority": 61802,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u6218\u53cc\u5de5\u827a\u7b2c\u4e8c\u6b21\u9009\u5173",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            862513.0
+        ],
+        "CompleteId": 61802,
+        "ActiveUi": "UiLinkCraftActivityChapter",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61802
+    },
+    {
+        "Id": 61803,
+        "Priority": 61803,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u6218\u53cc\u5de5\u827a\u8bcd\u7f00\u9009\u62e9",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            862514.0
+        ],
+        "CompleteId": 61803,
+        "ActiveUi": "UiLinkCraftActivityChapter",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61803
+    },
+    {
+        "Id": 61811,
+        "Priority": 61811,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u94fe\u5408\u56de\u8def6.0 \u9996\u6b21\u8fdb\u5165",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            771000.0
+        ],
+        "CompleteId": 61811,
+        "ActiveUi": "UiSameColorGameBossMain",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61811
+    },
+    {
+        "Id": 61812,
+        "Priority": 61812,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u94fe\u5408\u56de\u8def6.0 \u8fdb\u5165\u68cb\u76d8",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            771000.0
+        ],
+        "CompleteId": 61812,
+        "ActiveUi": "UiSameColorGameBattle",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61812
+    },
+    {
+        "Id": 61813,
+        "Priority": 61813,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u94fe\u5408\u56de\u8def6.0 \u9053\u5177\u6559\u5b66",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            771000.0,
+            862520.0
+        ],
+        "CompleteId": 61813,
+        "ActiveUi": "UiSameColorGameBattle",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61813
+    },
+    {
+        "Id": 61814,
+        "Priority": 61814,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u94fe\u5408\u56de\u8def6.0 \u53ec\u5524\u7269\u6559\u5b66",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            774800.0,
+            771000.0,
+            862521.0
+        ],
+        "CompleteId": 61814,
+        "ActiveUi": "UiSameColorGameBattle",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61814
+    },
+    {
+        "Id": 61821,
+        "Priority": 61821,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u754c\u9650\u6784\u89e35.0 \u9996\u6b21\u8fdb\u5173",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            775600.0
+        ],
+        "CompleteId": 61821,
+        "ActiveUi": "UiReform2",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61821
+    },
+    {
+        "Id": 61822,
+        "Priority": 61822,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u754c\u9650\u6784\u89e35.0 \u754c\u9762\u6559\u5b66",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            775600.0,
+            862534.0
+        ],
+        "CompleteId": 61822,
+        "ActiveUi": "UiTransfiniteEnvironmentDetail",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61822
+    },
+    {
+        "Id": 61823,
+        "Priority": 61823,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u754c\u9650\u6784\u89e35.0 \u4e92\u65a5\u8bcd\u7f00\u8bf4\u660e",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            775600.0,
+            862532.0,
+            862533.0
+        ],
+        "CompleteId": 61823,
+        "ActiveUi": "UiReformList",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61823
+    },
+    {
+        "Id": 61824,
+        "Priority": 61824,
+        "Ignore": 0,
+        "Desc": "v2.12 \u5f15\u5bfc\u754c\u9650\u6784\u89e35.0 \u56f0\u96be\u6a21\u5f0f",
+        "GuideType": 1,
+        "ConditionId": [
+            862112.0,
+            775600.0,
+            862531.0
+        ],
+        "CompleteId": 61824,
+        "ActiveUi": "UiReform2",
+        "CheckNodeActive": null,
+        "RewardId": 0,
+        "GroupId": 61824
     }
 ]

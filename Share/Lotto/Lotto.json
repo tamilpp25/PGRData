@@ -361,7 +361,7 @@
     },
     {
         "Id": 11,
-        "TimeId": 24101.0,
+        "TimeId": null,
         "LottoGroupId": 11,
         "LottoStageActivity": 34.0,
         "Priority": 11,
@@ -393,6 +393,42 @@
             108,
             109,
             110
+        ]
+    },
+    {
+        "Id": 12,
+        "TimeId": 26910.0,
+        "LottoGroupId": 12,
+        "LottoStageActivity": null,
+        "Priority": 12,
+        "Banner": "Assets/Product/Ui/ComponentPrefab/DrawCollaboration/DrawExtra03.prefab",
+        "OpenUiName": null,
+        "ReachRewardTimes": 8,
+        "ExtraRewardId": 1250,
+        "ConsumeId": 50121,
+        "ConsumeCountList": [
+            50,
+            200,
+            400,
+            600,
+            800,
+            1200,
+            1600,
+            2000,
+            2500,
+            3150
+        ],
+        "BuyTicketRuleIdList": [
+            111,
+            112,
+            113,
+            114,
+            115,
+            116,
+            117,
+            118,
+            119,
+            120
         ]
     }
 ]

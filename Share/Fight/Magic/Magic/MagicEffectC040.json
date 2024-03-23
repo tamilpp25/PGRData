@@ -356,7 +356,7 @@
         "Name": "AddAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "2||-5000"
+            "2||-1500"
         ]
     },
     {
@@ -372,7 +372,7 @@
         "Name": "AddAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "2||-2000"
+            "2||-1000"
         ]
     },
     {
@@ -513,10 +513,10 @@
     },
     {
         "Id": 732054000,
-        "Name": "AddAttribValue",
+        "Name": "ChangeAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "25||1000"
+            "32|-5000|"
         ]
     },
     {
@@ -536,38 +536,6 @@
         ]
     },
     {
-        "Id": 732056,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "732056"
-        ]
-    },
-    {
-        "Id": 732056000,
-        "Name": "AddAttribValue",
-        "MagicKind": 0.0,
-        "Level": [
-            "25||-6000"
-        ]
-    },
-    {
-        "Id": 732057,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "732057"
-        ]
-    },
-    {
-        "Id": 732057000,
-        "Name": "AddBehavior",
-        "MagicKind": null,
-        "Level": [
-            "732057"
-        ]
-    },
-    {
         "Id": 732058,
         "Name": "AddBuff",
         "MagicKind": null,
@@ -584,67 +552,19 @@
         ]
     },
     {
-        "Id": 732059,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "732059"
-        ]
-    },
-    {
-        "Id": 732059000,
-        "Name": "AddAttribValue",
-        "MagicKind": 0.0,
-        "Level": [
-            "25||-9000"
-        ]
-    },
-    {
-        "Id": 732060,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "732060"
-        ]
-    },
-    {
-        "Id": 732060000,
-        "Name": "AddBehavior",
-        "MagicKind": null,
-        "Level": [
-            "732060"
-        ]
-    },
-    {
         "Id": 732061,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ChangeDamageAdditive",
+        "MagicKind": 7320610.0,
         "Level": [
-            "732061"
-        ]
-    },
-    {
-        "Id": 732061000,
-        "Name": "AddAttribValue",
-        "MagicKind": 0.0,
-        "Level": [
-            "25||6000"
+            "25|-2500|0"
         ]
     },
     {
         "Id": 732062,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ChangeDamageAdditive",
+        "MagicKind": 7320620.0,
         "Level": [
-            "732062"
-        ]
-    },
-    {
-        "Id": 732062000,
-        "Name": "AddAttribValue",
-        "MagicKind": 0.0,
-        "Level": [
-            "25||9000"
+            "25|-4000|0"
         ]
     },
     {
@@ -689,10 +609,10 @@
     },
     {
         "Id": 732065000,
-        "Name": "AddAttribValue",
+        "Name": "ChangeAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "25||2000"
+            "25|2000|"
         ]
     },
     {
@@ -705,10 +625,10 @@
     },
     {
         "Id": 732066000,
-        "Name": "AddAttribValue",
+        "Name": "ChangeAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "25||5000"
+            "25|5000|"
         ]
     },
     {
@@ -737,26 +657,18 @@
     },
     {
         "Id": 732068000,
-        "Name": "AddAttribValue",
+        "Name": "ChangeAttribValue",
         "MagicKind": 0.0,
         "Level": [
-            "25||30000"
+            "25|5000|"
         ]
     },
     {
         "Id": 732069,
-        "Name": "AddBuff",
-        "MagicKind": null,
+        "Name": "ChangeDamageAdditive",
+        "MagicKind": 7320690.0,
         "Level": [
-            "732069"
-        ]
-    },
-    {
-        "Id": 732069000,
-        "Name": "AddAttribValue",
-        "MagicKind": 0.0,
-        "Level": [
-            "25||-30000"
+            "25|-5000|"
         ]
     },
     {
@@ -773,22 +685,6 @@
         "MagicKind": null,
         "Level": [
             "732070"
-        ]
-    },
-    {
-        "Id": 732071,
-        "Name": "AddBuff",
-        "MagicKind": null,
-        "Level": [
-            "732071"
-        ]
-    },
-    {
-        "Id": 732071000,
-        "Name": "AddBehavior",
-        "MagicKind": null,
-        "Level": [
-            "732071"
         ]
     },
     {
@@ -820,7 +716,23 @@
         "Name": "AddProtector",
         "MagicKind": 0.0,
         "Level": [
-            "31|0|1|1000|"
+            "0|0|1|500|"
+        ]
+    },
+    {
+        "Id": 732076,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732076"
+        ]
+    },
+    {
+        "Id": 732076000,
+        "Name": "ChangeAttribGroupAdditive",
+        "MagicKind": 0.0,
+        "Level": [
+            "1|1800|"
         ]
     },
     {
@@ -836,7 +748,7 @@
         "Name": "AddProtector",
         "MagicKind": 0.0,
         "Level": [
-            "31|0|1|2000|"
+            "0|0|1|1000|"
         ]
     },
     {
@@ -1149,6 +1061,262 @@
         "MagicKind": 0.0,
         "Level": [
             "63|0|1|3000|1"
+        ]
+    },
+    {
+        "Id": 732104,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732104"
+        ]
+    },
+    {
+        "Id": 732104000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "732104"
+        ]
+    },
+    {
+        "Id": 732105,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732105"
+        ]
+    },
+    {
+        "Id": 732105000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "732105"
+        ]
+    },
+    {
+        "Id": 732106,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732106"
+        ]
+    },
+    {
+        "Id": 732106000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "732106"
+        ]
+    },
+    {
+        "Id": 732107,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732107"
+        ]
+    },
+    {
+        "Id": 732107000,
+        "Name": "AddNpcState",
+        "MagicKind": 0.0,
+        "Level": [
+            "26"
+        ]
+    },
+    {
+        "Id": 732103,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732103"
+        ]
+    },
+    {
+        "Id": 732103000,
+        "Name": "AddBehavior",
+        "MagicKind": null,
+        "Level": [
+            "732103"
+        ]
+    },
+    {
+        "Id": 732110,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732110"
+        ]
+    },
+    {
+        "Id": 732111,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732111"
+        ]
+    },
+    {
+        "Id": 732112,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732112"
+        ]
+    },
+    {
+        "Id": 732112000,
+        "Name": "PlayScreenEffect",
+        "MagicKind": 0.0,
+        "Level": [
+            "855523"
+        ]
+    },
+    {
+        "Id": 732113,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732113"
+        ]
+    },
+    {
+        "Id": 732114,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732114"
+        ]
+    },
+    {
+        "Id": 732115,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732115"
+        ]
+    },
+    {
+        "Id": 732115000,
+        "Name": "ShakeAllCamera",
+        "MagicKind": 0.0,
+        "Level": [
+            "1|0.1|0.5|1|0.3|"
+        ]
+    },
+    {
+        "Id": 732116,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732116"
+        ]
+    },
+    {
+        "Id": 732117,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732117"
+        ]
+    },
+    {
+        "Id": 732118,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732118"
+        ]
+    },
+    {
+        "Id": 732119,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732119"
+        ]
+    },
+    {
+        "Id": 732120,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732120"
+        ]
+    },
+    {
+        "Id": 732121,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732121"
+        ]
+    },
+    {
+        "Id": 732122,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732122"
+        ]
+    },
+    {
+        "Id": 732123,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732123"
+        ]
+    },
+    {
+        "Id": 732124,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732124"
+        ]
+    },
+    {
+        "Id": 732125,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732125"
+        ]
+    },
+    {
+        "Id": 732126,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732126"
+        ]
+    },
+    {
+        "Id": 732126000,
+        "Name": "PlayScreenEffect",
+        "MagicKind": 0.0,
+        "Level": [
+            "855524"
+        ]
+    },
+    {
+        "Id": 732127,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732127"
+        ]
+    },
+    {
+        "Id": 732128,
+        "Name": "AddBuff",
+        "MagicKind": null,
+        "Level": [
+            "732128"
         ]
     }
 ]

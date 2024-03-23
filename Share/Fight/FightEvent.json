@@ -43,7 +43,9 @@
         "Id": 101,
         "Description": "\u6218\u65971\u5206\u949f\u540e\uff0c\u961f\u4f0d\u989d\u5916\u4f24\u5bb3\u52a0\u6210\u968f\u7740\u65f6\u95f4\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
     },
@@ -51,7 +53,19 @@
         "Id": 102,
         "Description": "\u6218\u659740\u79d2\u540e\uff0c\u961f\u4f0d\u989d\u5916\u4f24\u5bb3\u52a0\u6210\u968f\u7740\u65f6\u95f4\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
+        "EnemyBornMagic": [],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 103,
+        "Description": null,
+        "ConditionId": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
     },
@@ -429,7 +443,9 @@
         "Id": 4001,
         "Description": "\u7269\u7406\u4f24\u5bb3\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             764300.0
         ],
@@ -439,7 +455,9 @@
         "Id": 4002,
         "Description": "\u51b0\u5c5e\u6027\u4f24\u5bb3\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             764303.0
         ],
@@ -449,7 +467,9 @@
         "Id": 4003,
         "Description": "\u706b\u5c5e\u6027\u4f24\u5bb3\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             764301.0
         ],
@@ -459,7 +479,9 @@
         "Id": 4004,
         "Description": "\u96f7\u5c5e\u6027\u4f24\u5bb3\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             764302.0
         ],
@@ -469,7 +491,9 @@
         "Id": 4005,
         "Description": "\u6697\u5c5e\u6027\u4f24\u5bb3\u63d0\u5347",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             764304.0
         ],
@@ -1029,7 +1053,8 @@
         "Description": "\u5f3a\u53161",
         "ConditionId": [],
         "BornMagic": [
-            764361.0
+            764361.0,
+            199974.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -1039,7 +1064,8 @@
         "Description": "\u5f3a\u53162",
         "ConditionId": [],
         "BornMagic": [
-            764329.0
+            764329.0,
+            199974.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -1049,7 +1075,8 @@
         "Description": "\u5f3a\u53163",
         "ConditionId": [],
         "BornMagic": [
-            764365.0
+            764365.0,
+            199974.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -1155,7 +1182,8 @@
         "ConditionId": [],
         "BornMagic": [
             774913.0,
-            764325.0
+            764325.0,
+            199974.0
         ],
         "EnemyBornMagic": [
             764492.0
@@ -1290,7 +1318,8 @@
         "ConditionId": [],
         "BornMagic": [
             764396.0,
-            764325.0
+            764325.0,
+            199974.0
         ],
         "EnemyBornMagic": [],
         "PartnerBornMagic": []
@@ -1391,7 +1420,8 @@
         "ConditionId": [],
         "BornMagic": [
             764325.0,
-            774950.0
+            774950.0,
+            199974.0
         ],
         "EnemyBornMagic": [
             764367.0
@@ -1412,7 +1442,9 @@
         "Id": 4088,
         "Description": "\u5f31\u6df7\u6c8c",
         "ConditionId": [],
-        "BornMagic": [],
+        "BornMagic": [
+            199974.0
+        ],
         "EnemyBornMagic": [
             774964.0
         ],
@@ -54023,10 +54055,10 @@
         "Id": 2260102,
         "Description": "\u591c\u5203\u7684\u80cc\u523a\u989d\u5916\u9020\u621050%\u4f24\u5bb3(\u6e90\u671b\u5951\u7ea63\u7ea7\u89e3\u9501)",
         "ConditionId": [],
-        "BornMagic": [
+        "BornMagic": [],
+        "EnemyBornMagic": [
             763752.0
         ],
-        "EnemyBornMagic": [],
         "PartnerBornMagic": []
     },
     {
@@ -57715,6 +57747,44 @@
         "BornMagic": [],
         "EnemyBornMagic": [
             745582.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2310004,
+        "Description": "\u602a\u7269\u4e3b\u5bb0+\u514d\u75ab\u53d7\u51fb\uff0c\u89d2\u8272\u514d\u6293\u53d6",
+        "ConditionId": [],
+        "BornMagic": [
+            779924.0
+        ],
+        "EnemyBornMagic": [
+            715713.0,
+            779926.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2310005,
+        "Description": "\u602a\u7269\u514d\u75ab\u53d7\u51fb",
+        "ConditionId": [],
+        "BornMagic": [],
+        "EnemyBornMagic": [
+            779926.0
+        ],
+        "PartnerBornMagic": []
+    },
+    {
+        "Id": 2310006,
+        "Description": "\u6218\u53cc\u5de5\u827a-\u89d2\u8272\u5207\u6362cd-3-\u602a\u7269\u5747\u4e0d\u80fd\u7a7f\u8fc7\u683c\u5b50-\u4f24\u5bb3\u8bb0\u5f55",
+        "ConditionId": [],
+        "BornMagic": [
+            777832.0,
+            781842.0,
+            779953.0
+        ],
+        "EnemyBornMagic": [
+            710194.0,
+            710198.0
         ],
         "PartnerBornMagic": []
     }
