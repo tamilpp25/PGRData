@@ -11,7 +11,15 @@
             "45",
             "3",
             "51.2",
-            "25.89|-16.5|-1"
+            "29.54|-16.57|-1.04"
+        ]
+    },
+    {
+        "Key": "CameraPhotoProperty",
+        "Notes": "1. \u79fb\u52a8\u901f\u5ea6\uff1b 2. \u7f29\u653e\u901f\u5ea6",
+        "Values": [
+            "4",
+            "8"
         ]
     },
     {
@@ -28,43 +36,44 @@
         "Key": "OrderNpcBornPoint",
         "Notes": "\u8ba2\u5355NPC\u51fa\u751f\u70b9 1.\u70b9\u4f4d\uff0c2.\u65cb\u8f6c",
         "Values": [
-            "36.346|0|9.312",
+            "36.523|0|10.167",
             "0|221|0"
         ]
     },
     {
         "Key": "Ui3DOffset",
-        "Notes": "3DUI\u8f74\u504f\u79fb 1. \u6536\u94f6\u53f0\u504f\u79fb\uff1b2.\u8ba2\u5355NPC\u5934\u9876\u504f\u79fb\uff1b3.\u56fe\u9274\u6309\u94ae\u504f\u79fb",
+        "Notes": "3DUI\u8f74\u504f\u79fb 1. \u6536\u94f6\u53f0\u504f\u79fb\uff1b2.\u8ba2\u5355NPC\u5934\u9876\u504f\u79fb\uff1b3.\u56fe\u9274\u6309\u94ae\u504f\u79fb\uff1b4.\u6f14\u51fa\u4e8b\u4ef6\u6309\u94ae",
         "Values": [
-            "-0.9|1.2|0",
+            "-1|1.2|0",
             "0|1.5|0",
-            "0|0.5|0"
+            "-0.2|0.8|0",
+            "0|2.1|0"
         ]
     },
     {
         "Key": "WorkRImgTitle",
-        "Notes": "\u5de5\u4f5c\u754c\u9762\uff0c\u6807\u9898\u8d44\u6e90. 1.\u70f9\u996a\uff1b2.\u98df\u6750\uff1b3.\u89d2\u8272\uff1b4.\u552e\u5356",
+        "Notes": "\u5de5\u4f5c\u754c\u9762\uff0c\u6807\u9898\u8d44\u6e90. 1.\u5236\u4f5c\uff1b2.\u6750\u6599\uff1b3.\u89d2\u8272\uff1b4.\u552e\u5356",
         "Values": [
-            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantTitleChook.png",
-            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantTitleFood.png",
-            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantTitleRole.png",
-            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantTitleSell.png"
+            "Assets/Product/Texture/Atlas/UiRestaurant/UiRestaurantMenuTxt02.png",
+            "Assets/Product/Texture/Atlas/UiRestaurant/UiRestaurantMenuTxt04.png",
+            "Assets/Product/Texture/Atlas/UiRestaurant/UiRestaurantMenuTxt02.png",
+            "Assets/Product/Texture/Atlas/UiRestaurant/UiRestaurantMenuTxt05.png"
         ]
     },
     {
         "Key": "StorageCountDesc",
         "Notes": "\u5e93\u5b58\u63cf\u8ff0",
         "Values": [
-            "\u5e93\u5b58%s\u4efd",
-            "<size=32><color=#9b0000>%s</color></size>/%s"
+            "\u5e93\u5b58%s\u4ef6",
+            "<size=32><color=#70A998>%s</color></size>/%s"
         ]
     },
     {
         "Key": "ProduceSpeedDesc",
         "Notes": "\u751f\u4ea7\u901f\u5ea6\u63cf\u8ff0",
         "Values": [
-            "\u751f\u4ea7\u901f\u5ea6\uff1a%s/\u4efd",
-            "\u552e\u5356\u901f\u5ea6\uff1a%s/\u4efd"
+            "\u751f\u4ea7\u901f\u5ea6\uff1a%s/\u4ef6",
+            "\u552e\u5356\u901f\u5ea6\uff1a%s/\u4ef6"
         ]
     },
     {
@@ -81,8 +90,8 @@
         "Notes": null,
         "Values": [
             "\u5168\u90e8",
-            "\u5907\u83dc",
-            "\u70f9\u996a",
+            "\u5907\u6750",
+            "\u5236\u4f5c",
             "\u9500\u552e"
         ]
     },
@@ -108,12 +117,12 @@
         "Key": "ProduceDesc",
         "Notes": "\u751f\u4ea7\u63cf\u8ff0",
         "Values": [
-            "[%s]\u5f00\u59cb\u5904\u7406[%s]\u5566\uff01",
-            "[%s]\u5f00\u59cb\u70f9\u996a[%s]\u5566\uff01",
+            "[%s]\u5f00\u59cb\u751f\u4ea7[%s]\u5566\uff01",
+            "[%s]\u5f00\u59cb\u5236\u4f5c[%s]\u5566\uff01",
             "[%s]\u5f00\u59cb\u552e\u5356[%s]\u5566\uff01",
             "\u8bf7\u5148\u9009\u62e9\u5de5\u4f5c\u5458\u5de5",
-            "\u70f9\u996a\u4e00\u4efd%s\u9700\u8981:",
-            "\u98df\u6750\u4e0d\u8db3"
+            "\u5236\u4f5c\u4e00\u4ef6%s\u9700\u8981:",
+            "\u6750\u6599\u4e0d\u8db3"
         ]
     },
     {
@@ -132,8 +141,8 @@
         "Key": "ProduceTimeUnit",
         "Notes": "\u751f\u4ea7\u65f6\u95f4\u5355\u4f4d",
         "Values": [
-            "\u4efd/\u5c0f\u65f6",
-            "/\u4efd"
+            "\u4ef6/\u5c0f\u65f6",
+            "/\u4ef6"
         ]
     },
     {
@@ -143,17 +152,17 @@
             "\u6536\u94f6\u53f0\u5e93\u5b58\u5df2\u6ee1",
             "\u6536\u94f6\u53f0\u5b58\u50a8\u8d27\u5e01\u8fbe\u5230\u4e0a\u9650\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u552e\u5356\u5de5\u4f5c\uff0c\u662f\u5426\u7ee7\u7eed\u552e\u5356\u3010%s\u3011\uff1f\\n\uff08\u6536\u94f6\u53f0\u5b58\u50a8\u8d27\u5e01\u5c0f\u4e8e\u4e0a\u9650\u540e\uff0c\u5458\u5de5\u5c06\u7ee7\u7eed\u552e\u5356\u5de5\u4f5c\uff09",
             "\u5e93\u5b58\u5df2\u6ee1",
-            "\u3010%s\u3011\u5e93\u5b58\u5df2\u8fbe\u5230\u4e0a\u9650\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u5de5\u4f5c\uff0c\u662f\u5426\u7ee7\u7eed\u9009\u62e9\u5904\u7406\u3010%s\u3011?\\n\uff08\u98df\u6750\u6570\u91cf\u5c0f\u4e8e\u5e93\u5b58\u4e0a\u9650\u540e\uff0c\u5458\u5de5\u5c06\u5f00\u59cb\u5904\u7406\u98df\u6750\uff09"
+            "\u3010%s\u3011\u5e93\u5b58\u5df2\u8fbe\u5230\u4e0a\u9650\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u5de5\u4f5c\uff0c\u662f\u5426\u7ee7\u7eed\u9009\u62e9\u751f\u4ea7\u3010%s\u3011?\\n\uff08\u6750\u6599\u6570\u91cf\u5c0f\u4e8e\u5e93\u5b58\u4e0a\u9650\u540e\uff0c\u5458\u5de5\u5c06\u5f00\u59cb\u751f\u4ea7\u6750\u6599\uff09"
         ]
     },
     {
         "Key": "ProductNotEnough",
         "Notes": "\u4ea7\u54c1\u4e0d\u8db3\u65f6\u751f\u4ea7\u63d0\u793a",
         "Values": [
-            "\u98df\u6750\u4e0d\u8db3",
-            "\u3010%s\u3011\u6240\u9700\u98df\u6750\u4e0d\u8db3\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u5de5\u4f5c\uff01\u662f\u5426\u7ee7\u7eed\u70f9\u996a\u3010%s\u3011\uff1f\\n\uff08\u98df\u6750\u8db3\u591f\u540e\uff0c\u5458\u5de5\u5c06\u7ee7\u7eed\u70f9\u996a\u3010%s\u3011\uff09",
-            "\u83dc\u80b4\u4e0d\u8db3",
-            "\u3010%s\u3011\u552e\u5356\u83dc\u80b4\u4e0d\u8db3\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u552e\u5356\uff0c\u662f\u5426\u7ee7\u7eed\u9009\u62e9\u552e\u5356\u3010%s\u3011?\\n\uff08\u83dc\u80b4\u6570\u91cf\u5927\u4e8e0\u540e\uff0c\u5458\u5de5\u5c06\u5f00\u59cb\u552e\u5356\u83dc\u80b4\uff09"
+            "\u6750\u6599\u4e0d\u8db3",
+            "\u3010%s\u3011\u6240\u9700\u6750\u6599\u4e0d\u8db3\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u5de5\u4f5c\uff01\u662f\u5426\u7ee7\u7eed\u5236\u4f5c\u3010%s\u3011\uff1f\\n\uff08\u6750\u6599\u8db3\u591f\u540e\uff0c\u5458\u5de5\u5c06\u7ee7\u7eed\u5236\u4f5c\u3010%s\u3011\uff09",
+            "\u624b\u4f5c\u4e0d\u8db3",
+            "\u3010%s\u3011\u552e\u5356\u624b\u4f5c\u4e0d\u8db3\uff0c\u5458\u5de5\u65e0\u6cd5\u76f4\u63a5\u5f00\u59cb\u552e\u5356\uff0c\u662f\u5426\u7ee7\u7eed\u9009\u62e9\u552e\u5356\u3010%s\u3011?\\n\uff08\u624b\u4f5c\u6570\u91cf\u5927\u4e8e0\u540e\uff0c\u5458\u5de5\u5c06\u5f00\u59cb\u552e\u5356\u624b\u4f5c\uff09"
         ]
     },
     {
@@ -161,10 +170,10 @@
         "Notes": "\u505c\u6b62\u751f\u4ea7\u63d0\u793a",
         "Values": [
             "\u7ec8\u6b62\u751f\u4ea7\u3010%s\u3011",
-            "\u7ec8\u6b62\u5904\u7406\u3010%s\u3011\u98df\u6750",
-            "\u7ec8\u6b62\u70f9\u996a\u3010%s\u3011",
-            "\u7ec8\u6b62\u70f9\u996a\u3010%s\u3011\uff0c\u7cfb\u7edf\u5c06\u8fd4\u8fd8\u98df\u6750\uff08%s\uff09",
-            "\u7ec8\u6b62\u70f9\u996a\u3010%s\u3011",
+            "\u7ec8\u6b62\u751f\u4ea7\u3010%s\u3011\u6750\u6599",
+            "\u7ec8\u6b62\u5236\u4f5c\u3010%s\u3011",
+            "\u7ec8\u6b62\u5236\u4f5c\u3010%s\u3011\uff0c\u7cfb\u7edf\u5c06\u8fd4\u8fd8\u6750\u6599\uff08%s\uff09",
+            "\u7ec8\u6b62\u5236\u4f5c\u3010%s\u3011",
             "\u7ec8\u6b62\u552e\u5356\u3010%s\u3011",
             "\u7ec8\u6b62\u552e\u5356\u3010%s\u3011\uff0c\u7cfb\u7edf\u5c06\u8fd4\u8fd8\uff08%s\uff09",
             "\u7ec8\u6b62\u552e\u5356\u3010%s\u3011"
@@ -174,16 +183,16 @@
         "Key": "StopAllProductText",
         "Notes": "\u7ec8\u6b62\u5168\u90e8\u751f\u4ea7",
         "Values": [
-            "\u5168\u4f53\u4f11\u61a9",
-            "\u7ec8\u6b62\u3010\u5907\u83dc\u533a\u3011\u3010\u70f9\u996a\u533a\u3011\u3010\u552e\u5356\u533a\u3011\u6240\u6709\u5de5\u4f5c\uff1f"
+            "\u8be5\u5de5\u4f5c\u533a\u5168\u5458\u4f11\u61a9",
+            "\u7ec8\u6b62\u3010%s\u3011\u6240\u6709\u5458\u5de5\u5de5\u4f5c\uff1f"
         ]
     },
     {
         "Key": "IngredientStatisticsTip",
-        "Notes": "\u98df\u6750\u7edf\u8ba1\u63cf\u8ff0",
+        "Notes": "\u6750\u6599\u7edf\u8ba1\u63cf\u8ff0",
         "Values": [
-            "\u5907\u83dc\u4ea7\u51fa",
-            "\u70f9\u996a\u6d88\u8017",
+            "\u6750\u6599\u4ea7\u51fa",
+            "\u5236\u4f5c\u6d88\u8017",
             "\u6570\u91cf\u53d8\u5316"
         ]
     },
@@ -191,7 +200,7 @@
         "Key": "FoodStatisticsTip",
         "Notes": "\u98df\u7269\u7edf\u8ba1\u63cf\u8ff0",
         "Values": [
-            "\u70f9\u996a\u4ea7\u51fa",
+            "\u5236\u4f5c\u4ea7\u51fa",
             "\u552e\u5356\u6d88\u8017",
             "\u6570\u91cf\u53d8\u5316"
         ]
@@ -200,7 +209,7 @@
         "Key": "StatisticsUnit",
         "Notes": "\u7edf\u8ba1\u5355\u4f4d",
         "Values": [
-            "\u4efd"
+            "\u4ef6"
         ]
     },
     {
@@ -214,11 +223,11 @@
     },
     {
         "Key": "StoragePreviewTip2",
-        "Notes": "\u70f9\u996a\u533a\u5e93\u5b58\u9884\u89c8\u63d0\u793a",
+        "Notes": "\u5236\u4f5c\u533a\u5e93\u5b58\u9884\u89c8\u63d0\u793a",
         "Values": [
             "\u9884\u8ba1%s\u5c0f\u65f6\u540e\u8fbe\u5230\u5e93\u5b58\u4e0a\u9650",
             "\u9884\u8ba1%s\u5c0f\u65f6\u540e\u552e\u5356\u5b8c\u6bd5",
-            "\u9884\u8ba1%s\u5c0f\u65f6\u540e\u98df\u6750\u6d88\u8017\u5b8c\u6bd5",
+            "\u9884\u8ba1%s\u5c0f\u65f6\u540e\u6750\u6599\u6d88\u8017\u5b8c\u6bd5",
             "\u6301\u7eed\u4ea7\u51fa"
         ]
     },
@@ -251,17 +260,17 @@
         "Key": "BoardCastTips",
         "Notes": "\u64ad\u62a5\u63d0\u793a\u6587\u672c",
         "Values": [
-            "\u606d\u559c<color=#fae94c>%s</color>\u52a0\u5165\u9910\u5385",
+            "\u606d\u559c<color=#fae94c>%s</color>\u52a0\u5165\u5e97\u94fa",
             "<color=#fae94c>%s</color>\u5347\u7ea7\u81f3<color=#fae94c>%s</color>",
-            "\u606d\u559c<color=#fae94c>\u9910\u5385</color>\u5347\u7ea7\u81f3<color=#fae94c>%s</color>"
+            "\u606d\u559c<color=#fae94c>\u5e97\u94fa</color>\u5347\u7ea7\u81f3<color=#fae94c>%s</color>"
         ]
     },
     {
         "Key": "RestaurantLvUpEffectText",
         "Notes": "\u9910\u5385\u5347\u7ea7\u63cf\u8ff0",
         "Values": [
-            "\u5907\u83dc\u53f0\u6570\u91cf\u4e0a\u9650:",
-            "\u70f9\u996a\u53f0\u6570\u91cf\u4e0a\u9650:",
+            "\u5907\u6750\u53f0\u6570\u91cf\u4e0a\u9650:",
+            "\u5236\u4f5c\u53f0\u6570\u91cf\u4e0a\u9650:",
             "\u552e\u5356\u53f0\u6570\u91cf\u4e0a\u9650:",
             "\u5458\u5de5\u96c7\u4f63\u4e0a\u9650:",
             "\u6536\u94f6\u53f0\u5b58\u50a8\u4e0a\u9650:",
@@ -275,16 +284,17 @@
             "\u96c7\u4f63%s\u540d\u5458\u5de5",
             "%s\u540d\u5458\u5de5\u7b49\u7ea7\u8fbe\u5230<color=#ff8346>%s</color>",
             "\u8be5\u7b49\u7ea7\u6548\u679c\u5df2\u89e3\u9501",
-            "\u8be5\u7b49\u7ea7\u6548\u679c\u5df2\u89e3\u9501\uff0c\u9910\u5385\u7b49\u7ea7\u5df2\u8fbeMAX",
-            "\u672a\u6ee1\u8db3\u5347\u7ea7\u6761\u4ef6"
+            "\u8be5\u7b49\u7ea7\u6548\u679c\u5df2\u89e3\u9501\uff0c\u5e97\u94fa\u7b49\u7ea7\u5df2\u8fbeMAX",
+            "\u672a\u6ee1\u8db3\u5347\u7ea7\u6761\u4ef6",
+            "---\u6682\u65e0---"
         ]
     },
     {
         "Key": "RestaurantLvUpPopupTip",
         "Notes": "\u9910\u5385\u5347\u7ea7\u4e8c\u6b21\u786e\u8ba4\u6846",
         "Values": [
-            "\u9910\u5385\u5347\u7ea7",
-            "\u6307\u6325\u5b98\uff0c\u8bf7\u786e\u8ba4\u662f\u5426\u5c06\u9732\u8bb0\u51b0\u57ce\\n\u7531\u3010<color=#be5b56>LV%s</color>\u3011\u5347\u7ea7\u81f3\u3010<color=#be5b56>LV%s</color>\u3011\uff1f"
+            "\u5e97\u94fa\u5347\u7ea7",
+            "\u6307\u6325\u5b98\uff0c\u8bf7\u786e\u8ba4\u662f\u5426\u5c06\u9732\u8bb0\u5de5\u623f\\n\u7531\u3010<color=#70A998>LV%s</color>\u3011\u5347\u7ea7\u81f3\u3010<color=#70A998>LV%s</color>\u3011\uff1f"
         ]
     },
     {
@@ -298,7 +308,8 @@
         "Key": "StaffWorkTip",
         "Notes": "\u5458\u5de5\u5de5\u4f5c\u63d0\u793a",
         "Values": [
-            "\u3010%s\u3011\u6b63\u5728\u5176\u4ed6\u5730\u65b9\u5de5\u4f5c"
+            "\u3010%s\u3011\u6b63\u5728\u5176\u4ed6\u5730\u65b9\u5de5\u4f5c",
+            "\u5f53\u524d\u5de5\u4f5c\u53f0\u4fe1\u606f\u672a\u53d8\u66f4 "
         ]
     },
     {
@@ -335,7 +346,14 @@
         "Key": "ShopTimeTxt",
         "Notes": "\u5546\u5e97\u5269\u4f59\u65f6\u95f4",
         "Values": [
-            "\u5269\u4f59\u65f6\u95f4\uff1a<color=#0d70bc>%s</color>"
+            "\u5269\u4f59\u65f6\u95f4\uff1a<color=#c9d9ca>%s</color>"
+        ]
+    },
+    {
+        "Key": "ShopRewardId",
+        "Notes": "\u5546\u5e97\u5956\u52b1",
+        "Values": [
+            "63682"
         ]
     },
     {
@@ -400,8 +418,10 @@
         "Notes": "\u52a0\u901f\u63d0\u793a",
         "Values": [
             "\u52a0\u901f\u63d0\u793a",
-            "\u662f\u5426\u6d88\u80171\u4e2a\u3010\u795e\u79d8\u8ba1\u65f6\u5668\u3011\uff0c\u5bf9\u6b64\u8bbe\u65bd\u8fdb\u884c\u52a0\u901f%s\u79d2\\n\u4f60\u5c06\u83b7\u5f97",
-            "\u662f\u5426\u6d88\u80171\u4e2a\u3010\u795e\u79d8\u8ba1\u65f6\u5668\u3011\uff0c\u5bf9\u6b64\u8bbe\u65bd\u8fdb\u884c\u52a0\u901f%s\u79d2\\n\u56e0\u98df\u6750/\u83dc\u80b4\u4e0d\u8db3\uff0c\u4f60\u5c06\u83b7\u5f97"
+            "\u662f\u5426\u6d88\u80171\u4e2a\u3010\u7279\u5236\u65e5\u6677\u3011\uff0c\u5bf9\u6b64\u8bbe\u65bd\u8fdb\u884c\u52a0\u901f%s\u79d2\\n\u4f60\u5c06\u83b7\u5f97",
+            "\u662f\u5426\u6d88\u80171\u4e2a\u3010\u7279\u5236\u65e5\u6677\u3011\uff0c\u5bf9\u6b64\u8bbe\u65bd\u8fdb\u884c\u52a0\u901f%s\u79d2\\n\u56e0\u6750\u6599/\u624b\u4f5c\u4e0d\u8db3\uff0c\u4f60\u5c06\u83b7\u5f97",
+            "\u4ed3\u5e93\u589e\u52a0%s\u4ef6%s",
+            "\u6536\u94f6\u53f0\u589e\u52a0%s\u4e2a\u9732\u8bb0\u9f99\u5e01"
         ]
     },
     {
@@ -453,17 +473,10 @@
         "Key": "WorkPauseReason",
         "Notes": "\u5de5\u4f5c\u6682\u505c\u539f\u56e0",
         "Values": [
-            "\u2014\u2014   \u56e0\u98df\u6750\u4e0d\u8db3\u6682\u505c\u5de5\u4f5c   \u2014\u2014",
-            "\u2014\u2014   \u56e0\u552e\u5356\u83dc\u80b4\u6570\u91cf\u4e0d\u8db3\u6682\u505c\u5de5\u4f5c   \u2014\u2014",
+            "\u2014\u2014   \u56e0\u6750\u6599\u4e0d\u8db3\u6682\u505c\u5de5\u4f5c   \u2014\u2014",
+            "\u2014\u2014   \u56e0\u552e\u5356\u624b\u4f5c\u6570\u91cf\u4e0d\u8db3\u6682\u505c\u5de5\u4f5c   \u2014\u2014",
             "\u2014\u2014   \u56e0\u6536\u94f6\u53f0\u5b58\u50a8\u8fbe\u5230\u4e0a\u9650\u6682\u505c\u5de5\u4f5c   \u2014\u2014",
             "\u2014\u2014   \u56e0\u5e93\u5b58\u5df2\u6ee1\u6682\u505c\u5de5\u4f5c   \u2014\u2014"
-        ]
-    },
-    {
-        "Key": "RestaurantActivityProgressText",
-        "Notes": "\u9910\u5385\u6d3b\u52a8\u8fdb\u5ea6\u63cf\u8ff0",
-        "Values": [
-            "\u9910\u5385\u7b49\u7ea7: %s"
         ]
     },
     {
@@ -495,7 +508,7 @@
         "Key": "RecipeTaskTriggerTip",
         "Notes": "\u98df\u8c31\u4efb\u52a1\u89e6\u53d1\u63d0\u793a",
         "Values": [
-            "\u606d\u559c\u4f60\u89e6\u53d1\u4e86\u3010%s\u3011\uff0c\u6301\u4e4b\u4ee5\u6052\u5730\u7ec3\u4e60\u53ef\u4ee5\u89e3\u9501\u65b0\u98df\u8c31!"
+            "\u606d\u559c\u4f60\u89e6\u53d1\u4e86\u3010%s\u3011\uff0c\u6301\u4e4b\u4ee5\u6052\u5730\u7ec3\u4e60\u53ef\u4ee5\u89e3\u9501\u65b0\u624b\u4f5c!"
         ]
     },
     {
@@ -503,16 +516,16 @@
         "Notes": "\u901a\u7528\u89e3\u9501\u63d0\u793a",
         "Values": [
             "\u5c06\u5728%s\u89e3\u9501",
-            "\u9910\u5385\u7b49\u7ea7\u8fbe\u5230%s\u7ea7\u540e\u89e3\u9501",
-            "\u8fd8\u672a\u89e3\u9501\u8be5\u83dc\u8c31",
-            "\u9910\u5385LV%s"
+            "\u5e97\u94fa\u7b49\u7ea7\u8fbe\u5230%s\u7ea7\u540e\u89e3\u9501",
+            "\u8fd8\u672a\u89e3\u9501\u8be5\u624b\u4f5c",
+            "\u5e97\u94faLV%s"
         ]
     },
     {
         "Key": "RestaurantNotInBusiness",
         "Notes": "\u6d3b\u52a8\u73a9\u6cd5\u5173\u95ed\u63d0\u793a",
         "Values": [
-            "\u9910\u5385\u5df2\u7ecf\u6253\u70ca\u4e86"
+            "\u5e97\u94fa\u5df2\u7ecf\u6253\u70ca\u4e86"
         ]
     },
     {
@@ -527,16 +540,16 @@
         "Key": "BuffAdditionText",
         "Notes": "buff\u589e\u76ca\u63cf\u8ff0",
         "Values": [
-            "\u751f\u6548\u98df\u6750&\u4ea7\u51fa\u901f\u5ea6\u7684\u63d0\u5347\u767e\u5206\u6bd4",
-            "\u751f\u6548\u83dc\u80b4&\u4ea7\u51fa\u901f\u5ea6\u7684\u63d0\u5347\u767e\u5206\u6bd4",
-            "\u751f\u6548\u83dc\u80b4&\u9500\u552e\u4ef7\u683c\u7684\u63d0\u5347\u767e\u5206\u6bd4"
+            "\u751f\u6548\u6750\u6599&\u4ea7\u51fa\u901f\u5ea6\u7684\u63d0\u5347\u767e\u5206\u6bd4",
+            "\u751f\u6548\u624b\u4f5c&\u4ea7\u51fa\u901f\u5ea6\u7684\u63d0\u5347\u767e\u5206\u6bd4",
+            "\u751f\u6548\u624b\u4f5c&\u9500\u552e\u4ef7\u683c\u7684\u63d0\u5347\u767e\u5206\u6bd4"
         ]
     },
     {
         "Key": "TaskDescText",
         "Notes": "\u4efb\u52a1\u63cf\u8ff0",
         "Values": [
-            "<size=40><color=#0d70bc>%s</color></size>/%s"
+            "<size=40><color=#567a70>%s</color></size>/%s"
         ]
     },
     {
@@ -569,11 +582,81 @@
         ]
     },
     {
-        "Key": "RunningTimeStr",
+        "Key": "PhotoScrollTip",
         "Notes": null,
         "Values": [
-            "\u8425\u4e1a\u65f6\u95f4\u5269\u4f59\uff1a%s ",
-            "\u5151\u6362\u65f6\u95f4\u5269\u4f59\uff1a%s"
+            "\u53ef\u4f7f\u7528\u6eda\u8f6e\u5bf9\u89c6\u89d2\u8fdb\u884c\u7f29\u653e",
+            "\u53ef\u4f7f\u7528\u53cc\u6307\u5bf9\u89c6\u89d2\u8fdb\u884c\u7f29\u653e"
+        ]
+    },
+    {
+        "Key": "PhotoTaskContainTip",
+        "Notes": null,
+        "Values": [
+            "\u00b7",
+            "\u00b7"
+        ]
+    },
+    {
+        "Key": "RestaurantInfo",
+        "Notes": "\u5e97\u94fa\u4fe1\u606f\u63cf\u8ff0",
+        "Values": [
+            "Lv",
+            "\u8ddd\u5347\u7ea7\u8fd8\u9700<color=#577b70>%s</color>"
+        ]
+    },
+    {
+        "Key": "PerformUnlockText",
+        "Notes": null,
+        "Values": [
+            "<color=#70A998>%s</color>\u89e3\u9501",
+            "<color=#70A998>%s</color>\u89e3\u9501"
+        ]
+    },
+    {
+        "Key": "PhotoTaskFinishTip",
+        "Notes": null,
+        "Values": [
+            "\u5b8c\u6210%s\u4efb\u52a1"
+        ]
+    },
+    {
+        "Key": "PerformTypeIcon",
+        "Notes": "1: \u4e8b\u4ef6\uff1b2: \u8ba2\u5355",
+        "Values": [
+            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantStory.png",
+            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantIndent.png"
+        ]
+    },
+    {
+        "Key": "PerformTypeTitle",
+        "Notes": "1: \u4e8b\u4ef6\uff1b2: \u8ba2\u5355",
+        "Values": [
+            "\u4e8b\u4ef6",
+            "\u8ba2\u5355"
+        ]
+    },
+    {
+        "Key": "PerformTypeTitleIocn",
+        "Notes": "1: \u4e8b\u4ef6\uff1b2: \u8ba2\u5355",
+        "Values": [
+            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantPopupStoryTxt.png",
+            "Assets/Product/Texture/Image/UiRestaurant/UiRestaurantPopupStoryTxt.png"
+        ]
+    },
+    {
+        "Key": "SwitchStaffContent",
+        "Notes": "\u66f4\u6362\u5458\u5de5\u63d0\u793a",
+        "Values": [
+            "\u66f4\u6362\u5458\u5de5",
+            "\u3010%s\u3011\u6b63\u5728\u3010%s\u3011\u5de5\u4f5c\uff0c\u8bf7\u786e\u8ba4\u662f\u5426\u4e3a\u5176\u66f4\u6362\u5de5\u4f5c\uff1f"
+        ]
+    },
+    {
+        "Key": "PerformNotStartText",
+        "Notes": null,
+        "Values": [
+            "\u8bf7\u5148\u9886\u53d6%s"
         ]
     }
 ]

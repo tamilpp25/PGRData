@@ -5,8 +5,8 @@
         "GroupId": 1,
         "SortId": 1,
         "TimeId": 200001,
-        "ShowBeginTime": "2023/11/30 18:00",
-        "ShowEndTime": "2023/12/14 18:00",
+        "ShowBeginTime": "2024/3/28 18:00",
+        "ShowEndTime": "2024/4/10 18:00",
         "ShowAllTime": null,
         "ActivityType": 1,
         "ActivityBgType": 1,
@@ -15,7 +15,27 @@
         "ActivityDes": "\u4f53\u9a8c\u5148\u950b\u670d\u6d3b\u52a8\uff0c\u5b8c\u6210\u7cfb\u5217\u4efb\u52a1",
         "ActivityPrefabPath": null,
         "Params": [
-            310
+            338
+        ],
+        "ConditionId": null
+    },
+    {
+        "Id": 2,
+        "Name": "\u5148\u950b\u670d\u4f53\u9a8c\u4efb\u52a1",
+        "GroupId": 1,
+        "SortId": 1,
+        "TimeId": 200002,
+        "ShowBeginTime": "2024/4/4 12:00",
+        "ShowEndTime": "2024/4/10 18:00",
+        "ShowAllTime": null,
+        "ActivityType": 1,
+        "ActivityBgType": 1,
+        "ActivityBg": "Assets/Product/Texture/Image/UiActivityBase/UiAssestBaseMainLine.png",
+        "ActivityTitle": "\u5148\u950b\u670d\u4f53\u9a8c\u4efb\u52a1",
+        "ActivityDes": "\u4f53\u9a8c\u5148\u950b\u670d\u6d3b\u52a8\uff0c\u5b8c\u6210\u7cfb\u5217\u4efb\u52a1",
+        "ActivityPrefabPath": null,
+        "Params": [
+            339
         ],
         "ConditionId": null
     }

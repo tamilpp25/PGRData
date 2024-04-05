@@ -36,6 +36,18 @@
         "Text": "\u8bf7\u524d\u5f80\u8bbe\u5907\u7684\u8bbe\u7f6e\u754c\u9762\u6253\u5f00\u8bfb\u5b58\u50a8\u6743\u9650"
     },
     {
+        "Key": "PermissionTitle",
+        "Text": "\u6743\u9650\u7533\u8bf7"
+    },
+    {
+        "Key": "PermissionContent",
+        "Text": "\u4e3a\u4e86\u6b63\u5e38\u4f7f\u7528\u62cd\u7167\u622a\u56fe\u4fdd\u5b58\u672c\u5730\u529f\u80fd\uff0c\u6211\u4eec\u9700\u8981\u83b7\u53d6\u4f60\u8bbe\u5907\u76f8\u518c\u7684\u6743\u9650"
+    },
+    {
+        "Key": "PermissionOkText",
+        "Text": "\u8fdb\u884c\u6388\u6743"
+    },
+    {
         "Key": "LoginLimitTip",
         "Text": "\u7cfb\u7edf\u68c0\u6d4b\u5230\u60a8\u7684\u8d26\u53f7\u5b58\u5728\u5f02\u5e38\u884c\u4e3a\uff0c\u9700\u8981\u6b63\u786e\u56de\u7b54\u6240\u6709\u95ee\u9898\u624d\u80fd\u7ee7\u7eed\u6e38\u620f\u3002\u56de\u7b54\u9519\u8bef\u5c06\u4f1a\u88ab\u5f3a\u5236\u767b\u51fa\u3002"
     },
@@ -468,6 +480,10 @@
         "Text": "\u786e\u5b9a\u53d6\u6d88\u5339\u914d\uff1f"
     },
     {
+        "Key": "OnlineInstanceCancelMatchAndQuit",
+        "Text": "\u786e\u5b9a\u53d6\u6d88\u5339\u914d\u5e76\u9000\u51fa\u8054\u673a\u7ec4\u961f\u623f\u95f4\uff1f"
+    },
+    {
         "Key": "OnlineInstanceLeastPlayer",
         "Text": "\u6700\u5c11\u9700\u8981{0}\u540d\u961f\u5458"
     },
@@ -482,6 +498,10 @@
     {
         "Key": "OnlineInstanceMatching",
         "Text": "\u6b63\u5728\u5339\u914d\u4e2d"
+    },
+    {
+        "Key": "OnlineInstanceReconnect",
+        "Text": "\u662f\u5426\u65ad\u7ebf\u91cd\u8fde\uff1f"
     },
     {
         "Key": "SingleModeCanNotSelectDifficulty",
@@ -1616,7 +1636,7 @@
         "Text": "\u9ad8\u7ea7\u533a\u5f00\u653e\u7b2c\u4e09\u4e2aBoss"
     },
     {
-        "Key": "BossSinglePrecentDesc",
+        "Key": "BossSinglePercentDesc",
         "Text": "{0}<size=42>%</size>"
     },
     {
@@ -1668,8 +1688,12 @@
         "Text": "Boss\u5c1a\u672a\u5f00\u542f"
     },
     {
-        "Key": "BossSingleBossRankSocre",
+        "Key": "BossSingleBossRankScore",
         "Text": "<size=22>\u8ba8\u4f10\u503c </size>{0}"
+    },
+    {
+        "Key": "BossSingleAllRankScore",
+        "Text": "<size=22>\u8ba8\u4f10\u603b\u503c </size>{0}"
     },
     {
         "Key": "BossSingleLeftTimeIcon",
@@ -1692,8 +1716,52 @@
         "Text": "\u8fdb\u5ea6\uff1a{0}/{1}"
     },
     {
+        "Key": "BossSingleModeTips",
+        "Text": "\u8ba8\u4f10\u603b\u503c\u8fbe\u5230180w\u540e\u5f00\u542f\u93d6\u6218\u70b9"
+    },
+    {
+        "Key": "BossSingleModeExit",
+        "Text": "\u9000\u51fa"
+    },
+    {
+        "Key": "BossSingleModeClash",
+        "Text": "{0}\u5df2\u5728<color=#0E70BDFF>{1}</color>\u4e2d\u51fa\u6218\uff0c\u4fdd\u5b58\u5c06\u6e05\u9664<color=#0E70BDFF>{1}</color>\u8bb0\u5f55\u3002 \u64cd\u4f5c\u540e<color=#ff3838>20\u5206\u949f\u5185\u6240\u6709\u8bb0\u5f55\u4e2d\u6210\u5458</color>\u65e0\u6cd5\u51fa\u6218\u5176\u5b83\u5173\u5361\uff0c\u662f\u5426\u7ee7\u7eed\u4fdd\u5b58\uff1f"
+    },
+    {
+        "Key": "BossSingleModeMoreCharacterClash",
+        "Text": "\u90e8\u5206\u6210\u5458"
+    },
+    {
+        "Key": "BossSingleModeMoreStageClash",
+        "Text": "\u5176\u4ed6\u5173\u5361"
+    },
+    {
+        "Key": "BossSingleModeSaveAndExit",
+        "Text": "\u4fdd\u5b58\u5e76\u9000\u51fa"
+    },
+    {
         "Key": "BossSignleBufenTip",
         "Text": "\u8fbe\u5230\u6307\u5b9a\u5206\u6570\uff0c\u6240\u6709\u524d\u7f6e\u96be\u5ea6\u8ba8\u4f10\u503c\u81ea\u52a8\u53d8\u66f4\u4e3a\u6ee1\u5206"
+    },
+    {
+        "Key": "BossSingleModeSaveTip",
+        "Text": "\u8bb0\u5f55\u4fdd\u5b58\u6210\u529f"
+    },
+    {
+        "Key": "BossSingleModeEnterFightTip",
+        "Text": "{0}\u5df2\u5728{1}\u4e2d\u8bb0\u5f55\uff0c\u662f\u5426\u7ee7\u7eed\u4f7f\u7528\u8be5\u6210\u5458\u51fa\u6218"
+    },
+    {
+        "Key": "BossSingleChallengeRecordCD",
+        "Text": "\uff08\u8bb0\u5f55\u961f\u4f0d\u6210\u5458\u9501\u5b9a\u4e2d\uff09"
+    },
+    {
+        "Key": "BossSingleCharacterClash",
+        "Text": "{0}\u3001{1}"
+    },
+    {
+        "Key": "BossSingleCharacterClashDesc",
+        "Text": "{0}\u5728\u5176\u5b83\u5173\u5361\u4e2d\u5df2\u9501\u5b9a\uff0c\u6682\u65f6\u65e0\u6cd5\u51fa\u6218"
     },
     {
         "Key": "NotSelEquiping",
@@ -3792,6 +3860,10 @@
         "Text": "\u4e0d\u80fd\u653e\u7f6e\u5bb6\u5177\uff0c\u8be5\u7c7b\u578b\u7684\u5bb6\u5177\u5df2\u7ecf\u8fbe\u5230\u4e0a\u9650"
     },
     {
+        "Key": "FurniturePetOutOfLimit",
+        "Text": "\u4e0d\u80fd\u6446\u653e\u5bb6\u5177\uff0c\u643a\u5e26\u5ba0\u7269\u5bb6\u5177\u5df2\u7ecf\u8fbe\u5230\u4e0a\u9650"
+    },
+    {
         "Key": "FurnitureChooseAType",
         "Text": "\u8bf7\u9009\u62e9\u4e00\u4e2a\u5bb6\u5177\u7c7b\u578b"
     },
@@ -4005,7 +4077,7 @@
     },
     {
         "Key": "ActivityBranchFightLeftTime",
-        "Text": "\u5269\u4f59\uff1a"
+        "Text": "\u6d3b\u52a8\u5269\u4f59\u65f6\u95f4\uff1a"
     },
     {
         "Key": "ActivityBranchShopLeftTime",
@@ -4161,7 +4233,7 @@
     },
     {
         "Key": "ActivityRepeatChallengeDesc",
-        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#32adff>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
+        "Text": "\u5f53\u961f\u4f0d\u5185\u5b58\u5728<color=#56fff2>{0}</color>\u65f6\uff0c\u8fdb\u5165\u5173\u5361\u540e\u53ef\u63d0\u524d\u83b7\u5f97\u6743\u9650\u524d{1}\u7ea7\u7684\u6743\u9650\u6548\u679c"
     },
     {
         "Key": "ActivityRepeatChallengeLevelTitle",
@@ -4977,7 +5049,7 @@
     },
     {
         "Key": "MedalOverdue",
-        "Text": "\u5fbd\u7ae0\u5df2\u8fc7\u671f"
+        "Text": "\u5df2\u8fc7\u671f"
     },
     {
         "Key": "AccumulateMonyDes",
@@ -6112,6 +6184,10 @@
         "Text": "<size=22><color=#000000FF>  </color></size>%d"
     },
     {
+        "Key": "BabelTowerRankRefresh",
+        "Text": "<size=32><color=#000000FF>\u8ddd\u79bb\u5237\u65b0:</color></size>%s"
+    },
+    {
         "Key": "Guild",
         "Text": "\u6307\u6325\u5c40"
     },
@@ -6256,10 +6332,6 @@
         "Text": "\u5e8f\u5217\u516c\u7ea6\u627c\u5b88\uff1a{0}/{1}"
     },
     {
-        "Key": "PicCompositionHintText",
-        "Text": "<color=#878787FF>\u8bf7\u8f93\u5165\u5bf9\u8bdd\u5185\u5bb9</color>"
-    },
-    {
         "Key": "RegressionTabTextTask",
         "Text": "\u6b22\u8fce\u56de\u6765"
     },
@@ -6328,14 +6400,6 @@
         "Text": "{0}\u540e\u5f00\u542f\u4e3b\u7ebf\u6d3b\u52a8\u5f02\u53d8\u6a21\u5f0f"
     },
     {
-        "Key": "PicCompositionSave",
-        "Text": "\u8349\u7a3f\u4fdd\u5b58\u6210\u529f\uff08{0}/{1}\uff09"
-    },
-    {
-        "Key": "PicCompositionUpLoad",
-        "Text": "\u4e0a\u4f20\u6210\u529f\uff0c30S\u540e\u5237\u65b0\u4e0a\u4f20\u72b6\u6001"
-    },
-    {
         "Key": "RogueLikeCostAction",
         "Text": "\u5173\u5361\u6263\u9664\u884c\u52a8\u6b21\u6570\uff1a{0}"
     },
@@ -6388,20 +6452,8 @@
         "Text": "\u6d3b\u52a8\u5df2\u91cd\u7f6e\uff0c\u8bf7\u91cd\u65b0\u8bbe\u7f6e\u961f\u4f0d"
     },
     {
-        "Key": "PicCompositionPraise",
-        "Text": "\u70b9\u8d5e\u6210\u529f"
-    },
-    {
-        "Key": "PicCompositionAllEmpty",
-        "Text": "\u81f3\u5c11\u9700\u8981\u4e00\u6761\u5bf9\u8bdd"
-    },
-    {
         "Key": "RebootCostText",
         "Text": "\u6d88\u8017{0}"
-    },
-    {
-        "Key": "PicCompositionErrorText",
-        "Text": "\u63d0\u4ea4\u5931\u8d25\uff0c\u7b2c{0}\u6bb5\u6587\u672c\u542b\u6709\u654f\u611f\u5b57"
     },
     {
         "Key": "FubenMainLineNoneOpen",
@@ -6414,34 +6466,6 @@
     {
         "Key": "RogueLikeSetTeamContent",
         "Text": "\u4fdd\u5b58\u51fa\u6218\u961f\u4f0d\u540e\uff0c\u961f\u4f0d\u5c06\u4f1a\u88ab\u9501\u5b9a\uff0c\u786e\u5b9a\u4fdd\u5b58\uff1f"
-    },
-    {
-        "Key": "PicCompositionMemoMax",
-        "Text": "\u8349\u7a3f\u7bb1\u5df2\u6ee1\uff08{0}/{1}\uff09"
-    },
-    {
-        "Key": "PicCompositionUpLoadTimeBefor",
-        "Text": "\u4e0a\u4f20\u529f\u80fd\u672a\u5f00\u542f"
-    },
-    {
-        "Key": "PicCompositionTimeOut",
-        "Text": "\u975e\u6d3b\u52a8\u5f00\u653e\u671f\u95f4"
-    },
-    {
-        "Key": "WindowsInlayTimeOut",
-        "Text": "\u529f\u80fd\u672a\u5f00\u653e"
-    },
-    {
-        "Key": "PicCompositionNetError",
-        "Text": "\u8fde\u63a5\u9519\u8bef"
-    },
-    {
-        "Key": "PicCompositionHaveEmpty",
-        "Text": "\u4e0d\u80fd\u542b\u6709\u7a7a\u5bf9\u8bdd"
-    },
-    {
-        "Key": "PicCompositionEdit",
-        "Text": "\u7f16\u8f91\u6210\u529f"
     },
     {
         "Key": "NotHaveOtherComposition",
@@ -6464,42 +6488,6 @@
         "Text": "\u5173\u95ed\u961f\u53cb\u7279\u6548\u53ef\u83b7\u5f97\u66f4\u6d41\u7545\u7684\u4f53\u9a8c\uff0c\u662f\u5426\u5173\u95ed"
     },
     {
-        "Key": "PicCompositionDayUpLoad",
-        "Text": "\u672c\u65e5\u53ef\u4e0a\u4f20\u6b21\u6570\u5df2\u8017\u5c3d"
-    },
-    {
-        "Key": "PicCompositionMaxUpLoad",
-        "Text": "\u672c\u6b21\u6d3b\u52a8\u53ef\u4e0a\u4f20\u6b21\u6570\u5df2\u8017\u5c3d"
-    },
-    {
-        "Key": "PicCompositionUpLoadCount",
-        "Text": "\u5269\u4f59\u4e0a\u4f20\u6b21\u6570\uff1a<color=#139BFEFF>{0}</color>"
-    },
-    {
-        "Key": "PicCompositionUpLoadRead",
-        "Text": "\u4e0a\u4f20\u4ee5\u540e\u5c31\u4e0d\u80fd\u4fee\u6539\u4e86\uff0c\u662f\u5426\u4e0a\u4f20\uff1f"
-    },
-    {
-        "Key": "PicCompositionUpLoadTimeText",
-        "Text": "\u5f00\u653e\u4e0a\u4f20\u65f6\u95f4"
-    },
-    {
-        "Key": "PicCompositionUpLoadTimeAfter",
-        "Text": "\u4e0a\u4f20\u529f\u80fd\u5df2\u5173\u95ed"
-    },
-    {
-        "Key": "PicCompositionLikeHint",
-        "Text": "\u6bcf\u5929\u53ea\u80fd\u5bf9\u540c\u4e00\u4f5c\u54c1\u70b9\u8d5e\u4e00\u6b21"
-    },
-    {
-        "Key": "PicCompositionPlayerName",
-        "Text": "\u6765\u81ea\uff1a{0}"
-    },
-    {
-        "Key": "PicCompositionRankReward",
-        "Text": "No{0}~No{1}"
-    },
-    {
         "Key": "RogueLikeSupportStationCost",
         "Text": "\u884c\u52a8\u6b21\u6570\u4e0d\u8db3\uff0c\u6bcf\u65e5\u51cc\u66685\u70b9\u6062\u590d16\u6b21\u884c\u52a8\u6b21\u6570\u3002"
     },
@@ -6508,15 +6496,7 @@
         "Text": "\u8d2d\u4e70\u6240\u9700\u7684{0}\u4e0d\u8db3"
     },
     {
-        "Key": "PicCompositionLikeSelf",
-        "Text": "\u4e0d\u80fd\u70b9\u8d5e\u81ea\u5df1\u7684\u4f5c\u54c1"
-    },
-    {
-        "Key": "PicCompositionNotEnough",
-        "Text": "\u4e8c\u578b\u6295\u7968\u5238\u4e0d\u8db3"
-    },
-    {
-        "Key": "PicCompositionRankTop",
+        "Key": "PivotCombatRankTop",
         "Text": "TOP{0}"
     },
     {
@@ -6524,44 +6504,12 @@
         "Text": "\u8d44\u6599\u4e0d\u8db3\uff0c\u51fb\u6740\u602a\u7269\u540e\u5f00\u542f"
     },
     {
-        "Key": "PicCompositionUpLoadOpenTimeCount",
-        "Text": "<size=24>\u8ddd\u79bb\u4e0a\u4f20\u5f00\u653e\u8fd8\u6709</size> <size=30> <color=#0089ff>{0}</color>  </size>"
-    },
-    {
-        "Key": "PicCompositionUpLoadOverTimeCount",
-        "Text": "<size=24>\u8ddd\u79bb\u4e0a\u4f20\u5173\u95ed\u8fd8\u6709 </size> <size=30><color=#0089ff>{0}</color>  </size>"
-    },
-    {
-        "Key": "PicCompositionOverTimeCount",
-        "Text": "<size=24>\u8ddd\u79bb\u6d3b\u52a8\u7ed3\u675f\u8fd8\u6709</size> <size=30> <color=#0089ff>{0}</color>  </size>"
-    },
-    {
-        "Key": "PicCompositionTotalTime",
-        "Text": "{0}-{1}"
-    },
-    {
-        "Key": "PicCompositionNotSave",
-        "Text": "\u8fd8\u6709\u7559\u8a00\u672a\u4fdd\u5b58\uff0c\u662f\u5426\u4fdd\u5b58\u8349\u7a3f\u540e\u9000\u51fa\uff1f"
-    },
-    {
-        "Key": "PicCompositionTimeQver",
-        "Text": "\u6d3b\u52a8\u5df2\u7ed3\u675f"
-    },
-    {
         "Key": "ActivityRogueLikeNotOpenTime",
         "Text": "09/24-10/8"
     },
     {
-        "Key": "PicCompositionServerRankName",
-        "Text": "\uff08{0}\u699c\u5355\uff09"
-    },
-    {
         "Key": "PurchaseBuyHongKaCountTips",
         "Text": "\u8679\u5361\u6570\u91cf\u4e0d\u8db3\u3002"
-    },
-    {
-        "Key": "PicCompositionfrequencyHint",
-        "Text": "\u64cd\u4f5c\u592a\u8fc7\u9891\u7e41\uff0c\u8bf7\u95f4\u9694{0}\u79d2\u518d\u5c1d\u8bd5"
     },
     {
         "Key": "GuildDialogTitle",
@@ -7140,34 +7088,6 @@
         "Text": "#323232"
     },
     {
-        "Key": "PicCompositionRuleText",
-        "Text": "\u6307\u6325\u5b98\u8bf7\u9075\u5b88\u7f51\u7edc\u4fe1\u606f\u53d1\u5e03\u6cd5\u5f8b\u6cd5\u89c4\u3002\u4e0d\u5f97\u5b9e\u65bd\u4ee5\u4e0b\u884c\u4e3a\uff1a\\n\\n\uff081\uff09\u5371\u5bb3\u56fd\u5bb6\u5b89\u5168\uff0c\u6cc4\u9732\u56fd\u5bb6\u79d8\u5bc6\uff0c\u98a0\u8986\u56fd\u5bb6\u653f\u6743\uff0c\u7834\u574f\u56fd\u5bb6\u7edf\u4e00\u7684\uff1b\\n\uff082\uff09\u635f\u5bb3\u56fd\u5bb6\u8363\u8a89\u548c\u5229\u76ca\u7684\uff0c\u635f\u5bb3\u516c\u5171\u5229\u76ca\u7684\uff1b\\n\uff083\uff09\u717d\u52a8\u6c11\u65cf\u4ec7\u6068\u3001\u6c11\u65cf\u6b67\u89c6\uff0c\u7834\u574f\u6c11\u65cf\u56e2\u7ed3\u7684\uff1b\\n\uff084\uff09\u5ba3\u626c\u6050\u6016\u4e3b\u4e49\u548c\u6781\u7aef\u4e3b\u4e49\u7684\uff1b\\n\uff085\uff09\u7834\u574f\u56fd\u5bb6\u5b97\u6559\u653f\u7b56\uff0c\u5ba3\u626c\u90aa\u6559\u548c\u5c01\u5efa\u8ff7\u4fe1\u7684\uff1b\\n\uff086\uff09\u8fdd\u53cd\u5baa\u6cd5\u3001\u6cd5\u5f8b\u3001\u6cd5\u89c4\u7b49\u89c4\u5b9a\u7684\uff1b\\n\uff087\uff09\u6563\u5e03\u8c23\u8a00\uff0c\u6270\u4e71\u793e\u4f1a\u79e9\u5e8f\uff0c\u7834\u574f\u793e\u4f1a\u7a33\u5b9a\u7684\uff1b\\n\uff088\uff09\u6563\u5e03\u6deb\u79fd\u3001\u8272\u60c5\u3001\u8d4c\u535a\u3001\u66b4\u529b\u3001\u51f6\u6740\u3001\u6050\u6016\u6216\u8005\u6559\u5506\u72af\u7f6a\u7684\uff1b\\n\uff089\uff09\u5371\u5bb3\u7f51\u7edc\u5b89\u5168\u7684\uff1b\\n\uff0810\uff09\u4fae\u8fb1\u6216\u8005\u8bfd\u8c24\u4ed6\u4eba\uff0c\u4fb5\u5bb3\u4ed6\u4eba\u5408\u6cd5\u6743\u76ca\u7684\uff1b\\n\uff0811\uff09\u4fb5\u5bb3\u4ed6\u4eba\u77e5\u8bc6\u4ea7\u6743\u548c\u5176\u4ed6\u5408\u6cd5\u6743\u76ca\u7684\uff1b\\n\uff0812\uff09\u542b\u6709\u6cd5\u5f8b\u3001\u884c\u653f\u6cd5\u89c4\u7981\u6b62\u7684\u5176\u4ed6\u5185\u5bb9\u7684\uff1b\\n\uff0813\uff09\u8fdd\u80cc\u793e\u4f1a\u516c\u5fb7\u7684\uff1b\\n\uff0814\uff09\u53d1\u5e03\u4efb\u4f55\u5e93\u6d1b\u516c\u53f8\u5408\u7406\u5224\u65ad\u4e3a\u4e0d\u59a5\u5f53\u6216\u8005\u5e93\u6d1b\u516c\u53f8\u672a\u8ba4\u53ef\u7684\u5185\u5bb9\u3002\\n\\n\u5982\u6307\u6325\u5b98\u5b9e\u65bd\u4e0a\u8ff0\u884c\u4e3a\uff0c\u5e93\u6d1b\u516c\u53f8\u6709\u6743\u505c\u6b62\u63d0\u4f9b\u670d\u52a1\uff1b\u6307\u6325\u5b98\u81ea\u884c\u627f\u62c5\u7531\u6b64\u4ea7\u751f\u7684\u6cd5\u5f8b\u8d23\u4efb\u3002"
-    },
-    {
-        "Key": "PicCompositionRuleTitle",
-        "Text": "\u7f16\u8f91\u987b\u77e5"
-    },
-    {
-        "Key": "PicCompositionPass",
-        "Text": "\u5ba1\u6838\u901a\u8fc7"
-    },
-    {
-        "Key": "PicCompositionFailedPass",
-        "Text": "\u5ba1\u6838\u672a\u901a\u8fc7"
-    },
-    {
-        "Key": "PicCompositionExamine",
-        "Text": "\u5ba1\u6838\u4e2d"
-    },
-    {
-        "Key": "PicCompositionNotUpLoad",
-        "Text": "\u672a\u4e0a\u4f20\uff08\u672a\u5ba1\u6838\uff09"
-    },
-    {
-        "Key": "PicCompositionWaitWord",
-        "Text": "\u901a\u8baf\u4e2d\u2026"
-    },
-    {
         "Key": "ShopItemSellOut",
         "Text": "\u8be5\u5546\u54c1\u5df2\u552e\u7f44"
     },
@@ -7321,7 +7241,7 @@
     },
     {
         "Key": "ActivityBossSingleSchedule",
-        "Text": "{0}<size=62>/{1}</size>"
+        "Text": "{0}<size=32>/{1}</size>"
     },
     {
         "Key": "GuildSettingLevelLessThanZero",
@@ -7940,14 +7860,6 @@
         "Text": "\u5378\u4e0b"
     },
     {
-        "Key": "HeadFrameSelect",
-        "Text": "\u8bf7\u9009\u62e9\u5934\u50cf\u6846"
-    },
-    {
-        "Key": "HeadPortraitSelect",
-        "Text": "\u8bf7\u9009\u62e9\u5934\u50cf"
-    },
-    {
         "Key": "HeadFrameNoSelectTitle",
         "Text": "\u672a\u9009\u62e9"
     },
@@ -7960,6 +7872,18 @@
         "Text": "\u8bf7\u9009\u62e9\u5de6\u4fa7\u5934\u50cf\u67e5\u770b\u8be6\u60c5"
     },
     {
+        "Key": "HeadMedalNoSelectHint",
+        "Text": "\u8bf7\u9009\u62e9\u5de6\u4fa7\u52cb\u7ae0\u67e5\u770b\u8be6\u60c5"
+    },
+    {
+        "Key": "HeadNameplateNoSelectHint",
+        "Text": "\u8bf7\u9009\u62e9\u5de6\u4fa7\u94ed\u724c\u67e5\u770b\u8be6\u60c5"
+    },
+    {
+        "Key": "ChatBoardNoSelectHint",
+        "Text": "\u8bf7\u9009\u62e9\u5de6\u4fa7\u804a\u5929\u6846\u67e5\u770b\u8be6\u60c5"
+    },
+    {
         "Key": "GuildBossDeathDis",
         "Text": "\u56f4\u527f\u76ee\u6807\u8840\u91cf\u964d\u4e3a0\u540e\uff0c\u6307\u6325\u5c40\u4e2d\u6240\u6709\u6210\u5458\u589e\u52a0%d\u4f5c\u6218\u79ef\u5206"
     },
@@ -7969,6 +7893,10 @@
     },
     {
         "Key": "HeadPortraitUsecomplete",
+        "Text": "\u66f4\u6362\u6210\u529f"
+    },
+    {
+        "Key": "ChatBoardUsecomplete",
         "Text": "\u66f4\u6362\u6210\u529f"
     },
     {
@@ -8049,7 +7977,7 @@
     },
     {
         "Key": "GuildBossEnterWarningStyleStr",
-        "Text": "\u5c1a\u672a<color=#2a5caa>\u672a\u9009\u6ee1\u6d41\u6d3e\u6280\u80fd</color>\uff0c\u9009\u62e9\u540e\u53ef\u5927\u5e45\u63d0\u5347\u4f5c\u6218\u80fd\u529b\uff0c\u5efa\u8bae\u524d\u5f80\u9009\u62e9"
+        "Text": "<color=#2a5caa>\u672a\u9009\u6ee1\u6d41\u6d3e\u6280\u80fd</color>\uff0c\u9009\u62e9\u540e\u53ef\u5927\u5e45\u63d0\u5347\u4f5c\u6218\u80fd\u529b\uff0c\u5efa\u8bae\u524d\u5f80\u9009\u62e9"
     },
     {
         "Key": "GuildBossStyleWarningCountinue",
@@ -12620,6 +12548,18 @@
         "Text": "<color=#828282>\u91cd\u590d\u70b9\u51fb\u53ef\u53d6\u6d88\u9009\u62e9  </color>"
     },
     {
+        "Key": "ReformAffixMutex1",
+        "Text": "\u8bf7\u81f3\u5c11\u9009\u62e9\u4e00\u4e2a\u4e92\u65a5\u8bcd\u7f00"
+    },
+    {
+        "Key": "ReformAffixMutex2",
+        "Text": "\u53ea\u80fd\u9009\u62e9\u4e00\u4e2a\u4e92\u65a5\u8bcd\u7f00"
+    },
+    {
+        "Key": "ReformLockDifficulty",
+        "Text": "\u901a\u5173\u6240\u6709\u666e\u901a\u5173\u5361\uff0c\u6216\u5728\u7b2c\u4e00\u5173\u4ee5\u5916\u7684\u5173\u5361\u7684\u901a\u5173\u65f6\u95f4\u4f4e\u4e8e\u4e00\u5b9a\u7a0b\u5ea6\u540e\u89e3\u9501\u56f0\u96be\u6a21\u5f0f"
+    },
+    {
         "Key": "MentorDoMentorShipDisconnectFailPassHint",
         "Text": "\u5bf9\u65b9\u8d85\u8fc73\u5929\u4e0d\u4e0a\u7ebf\uff0c\u53ef\u4ee5\u76f4\u63a5\u7ec8\u6b62\u534f\u4f5c\uff0c\u786e\u5b9a\u8981\u7ec8\u6b62\u5417\uff1f"
     },
@@ -13297,11 +13237,11 @@
     },
     {
         "Key": "PassportActivityTime",
-        "Text": "{0} - {1} \u5171{2}\u5468"
+        "Text": "{0} - {1} \u5171{2}\u8f6e"
     },
     {
         "Key": "PassportActivityCurrWeekly",
-        "Text": "\u5f53\u524d\u7b2c {0} \u5468"
+        "Text": "\u5f53\u524d\u7b2c {0} \u8f6e"
     },
     {
         "Key": "PassportSpendBuyDesc",
@@ -13793,7 +13733,7 @@
     },
     {
         "Key": "LivWarmActivityReminderLoseText",
-        "Text": "\u7d2f\u8ba1\u79fb\u52a8\u4f4d\u7f6e{0}\u6b21\u540e\uff0c\u672c\u5173\u4e0d\u518d\u6d88\u8017\u4ee3\u5e01 <color=#cc84d5>\uff08{1}/{2}\uff09</color> "
+        "Text": "\u7d2f\u8ba1\u79fb\u52a8\u4f4d\u7f6e{0}\u6b21\u540e\uff0c\u672c\u5173\u4e0d\u518d\u6d88\u8017\u4ee3\u5e01 <color=#7EE4D7>\uff08{1}/{2}\uff09</color> "
     },
     {
         "Key": "LivWarmActivityStageLockTips",
@@ -15320,6 +15260,18 @@
         "Text": "\u5f53\u524d\u5173\u5361\u4e0d\u53ef\u4f7f\u7528\u589e\u52a0\u6b65\u6570"
     },
     {
+        "Key": "SameColorGameWeakSwap",
+        "Text": "\u65e0\u6cd5\u548c\u654c\u4eba\u7684\u53ec\u5524\u7269\u4ea4\u6362"
+    },
+    {
+        "Key": "SameColorGameWeakRule",
+        "Text": "\u51fb\u4e2d\u53ec\u5524\u7269\u6216\u5728\u5176\u76f8\u90bb4\u683c\u6d88\u9664\uff0c\u5373\u53ef\u9020\u6210\u4f24\u5bb3"
+    },
+    {
+        "Key": "SameColorGameWeakHp",
+        "Text": "HP\uff1a{0}"
+    },
+    {
         "Key": "SCBossOpenTimeTips",
         "Text": "{0}\u540e\u5f00\u542f"
     },
@@ -16045,7 +15997,7 @@
     },
     {
         "Key": "GoldenMinerMainTimeTitle",
-        "Text": "\u5269\u4f59\u65f6\u95f4  <size=34>{0}</size>"
+        "Text": "\u5269\u4f59\u65f6\u95f4\uff1a<size=30>{0}</size>"
     },
     {
         "Key": "EscapeFightingNotUpdateTeam",
@@ -18861,7 +18813,7 @@
     },
     {
         "Key": "ReformTaskStarNumber",
-        "Text": "<size=50><color=#E67032>{0}</color></size>/{1}"
+        "Text": "<size=50><color=#168bd2>{0}</color></size>/{1}"
     },
     {
         "Key": "ReformPressureMax",
@@ -18894,6 +18846,10 @@
     {
         "Key": "ReformChapter5",
         "Text": "\u672c\u7ae0\u6bcf\u4e2a\u6ce2\u6b21\u81f3\u5c11\u9009\u4e24\u4e2a\u654c\u4eba"
+    },
+    {
+        "Key": "ReformMutex",
+        "Text": "\u5b58\u5728\u4e92\u65a5\u8bcd\u7f00"
     },
     {
         "Key": "SceneSettingUsing",
@@ -18986,6 +18942,10 @@
     {
         "Key": "TransfiniteSave2",
         "Text": "\u5f53\u524d\u961f\u4f0d\u4e2d\u6709\u89d2\u8272<color=#0E70BD>\u6b7b\u4ea1</color>\uff0c\u4fdd\u5b58\u6210\u7ee9\u540e<color=#0E70BD>\u65e0\u6cd5</color>\u5728\u63a5\u4e0b\u6765\u7684\u6218\u6597\u4e2d\u51fa\u573a"
+    },
+    {
+        "Key": "TransfiniteStageNotStartAnchorTips",
+        "Text": "\u5173\u5361\u4e0d\u662f\u8d77\u59cb\u951a\u70b9"
     },
     {
         "Key": "CerbrusGameTeamLimit2",
@@ -19178,6 +19138,10 @@
     {
         "Key": "ItemOwn",
         "Text": "\u62e5\u6709"
+    },
+    {
+        "Key": "ItemCost",
+        "Text": "\u6d88\u8017"
     },
     {
         "Key": "EquipWeaponBtnName",
@@ -19404,6 +19368,10 @@
         "Text": "<color=#356a91>{0}</color><size=55>/{1}</size>"
     },
     {
+        "Key": "Theatre3EnergyQuantumNum",
+        "Text": "<color=#ffffff>{0}</color><size=55>/{1}</size>"
+    },
+    {
         "Key": "Theatre3EquipSuitNumNewLine",
         "Text": "{0}"
     },
@@ -19433,7 +19401,39 @@
     },
     {
         "Key": "Theatre3AchievementProcess",
-        "Text": "\u5df2\u5b8c\u6210\u6570\u91cf\uff1a<color=#d7c979>{0}</color>/{1}"
+        "Text": "\u5df2\u5b8c\u6210\u6570\u91cf\uff1a<color=#66b2ec>{0}</color>/{1}"
+    },
+    {
+        "Key": "Theatre3CantSwitchChapter",
+        "Text": "\u5f53\u524d\u7ebf\u8def\u4e0d\u53ef\u5207\u6362"
+    },
+    {
+        "Key": "Theatre3EquipQuantumSelectTitle",
+        "Text": "\u9009\u62e9\u5957\u88c5\u71b5\u53d8"
+    },
+    {
+        "Key": "Theatre3EquipQuantumTimes",
+        "Text": "\u5269\u4f59\u6b21\u6570\uff1a"
+    },
+    {
+        "Key": "Theatre3EquipQuantumTipContent",
+        "Text": "\u662f\u5426\u786e\u5b9a\u5c06[{0}]\u71b5\u53d8\uff1f"
+    },
+    {
+        "Key": "Theatre3EquipQuantumTitle",
+        "Text": "\u71b5\u53d8"
+    },
+    {
+        "Key": "Theatre3AlreadyQuantum",
+        "Text": "\u8be5\u88c5\u5907\u5df2\u71b5\u53d8\uff01"
+    },
+    {
+        "Key": "Theatre3RefreshTimes",
+        "Text": "\u5269\u4f59\u6b21\u6570 {0}/{1}"
+    },
+    {
+        "Key": "Theatre3RefreshBoxTip",
+        "Text": "\u7b97\u529b\u5355\u5143\u4e0d\u8db3"
     },
     {
         "Key": "UnWearAwareness",
@@ -19733,7 +19733,7 @@
     },
     {
         "Key": "ConnectingLineMoney",
-        "Text": "\u3010\u5929\u5b98\u94ed\u6587\u74e6\u3011\u4e0d\u8db3\uff0c\u65e0\u6cd5\u5f00\u542f\u5173\u5361"
+        "Text": "\u3010\u5171\u8026\u96c6\u6210\u7ec4\u3011\u4e0d\u8db3\uff0c\u65e0\u6cd5\u5f00\u542f\u5173\u5361"
     },
     {
         "Key": "ConnectingLineStage",
@@ -19742,6 +19742,14 @@
     {
         "Key": "ConnectingLineTextReward",
         "Text": "\u901a\u5173\u5956\u52b1"
+    },
+    {
+        "Key": "ConnectingLineHole",
+        "Text": "\u6b64\u5730\u5757\u65e0\u6cd5\u901a\u884c\uff0c\u6362\u6761\u8def\u5427\u3002"
+    },
+    {
+        "Key": "ConnectingLineCompleteStage",
+        "Text": "\u5df2\u5b8c\u6210\u8be5\u5173\u5361"
     },
     {
         "Key": "LessThan",
@@ -20260,58 +20268,6 @@
         "Text": "\u9996\u6b21\u5206\u4eab\u53ef\u83b7{0}"
     },
     {
-        "Key": "KotodamaLeftTime",
-        "Text": "\u5269\u4f59\u65f6\u95f4:{0}"
-    },
-    {
-        "Key": "KotodamaProcess",
-        "Text": "\u8fdb\u5ea6:{0}/{1}"
-    },
-    {
-        "Key": "KotodamaCollectable",
-        "Text": "{0}/{1}"
-    },
-    {
-        "Key": "KotodamaStageNotInTime",
-        "Text": "{0}\u540e\u5f00\u542f\u5173\u5361"
-    },
-    {
-        "Key": "KotodamaPreStageNotPassed",
-        "Text": "\u524d\u7f6e\u5173\u5361\u672a\u901a\u5173"
-    },
-    {
-        "Key": "KotodamaSpellNotComplete",
-        "Text": "\u672a\u586b\u5b8c\u8bcd\u7f00"
-    },
-    {
-        "Key": "KotodamaSelfTargetWord",
-        "Text": "<color=#0075FF>{0}</color>"
-    },
-    {
-        "Key": "KotodamaEnemyTargetWord",
-        "Text": "<color=#E22A80>{0}</color>"
-    },
-    {
-        "Key": "KotodamaChapterDetailSpeech",
-        "Text": "<b>{0}</b>  {1}"
-    },
-    {
-        "Key": "KotodamaStageTitleContent",
-        "Text": "{0}  {1}"
-    },
-    {
-        "Key": "KotodamaSpellErrorContent",
-        "Text": "\u9009\u8bcd\u672a\u7ec4\u6210\u53e5\u5b50"
-    },
-    {
-        "Key": "KotodamaBlockPlaceholder",
-        "Text": "<color=#00000000>_</color>"
-    },
-    {
-        "Key": "KotodamaEmptySpeech",
-        "Text": "\u65e0"
-    },
-    {
         "Key": "ToolMoreThenThreeMonth",
         "Text": ">3\u4e2a\u6708\u524d"
     },
@@ -20334,5 +20290,309 @@
     {
         "Key": "MailCanReceive",
         "Text": "\u9886\u53d6"
+    },
+    {
+        "Key": "AccumulateExpendMaxProgress",
+        "Text": "{0}(MAX)"
+    },
+    {
+        "Key": "TempleScore",
+        "Text": "\u83b7\u5f97<color=#C84C00>{0}</color>\u5206"
+    },
+    {
+        "Key": "TempleRow",
+        "Text": "\u884c"
+    },
+    {
+        "Key": "TempleColumn",
+        "Text": "\u5217"
+    },
+    {
+        "Key": "TempleStageLockPreStage",
+        "Text": "\u8bf7\u5148\u5b8c\u6210\u4e0a\u4e00\u5173\u5361\uff0c\u624d\u53ef\u89e3\u9501\u672c\u5173\u5361"
+    },
+    {
+        "Key": "TempleStageLockTime",
+        "Text": "\u672a\u5230\u5f00\u653e\u65f6\u95f4"
+    },
+    {
+        "Key": "TempleTimeUnlock",
+        "Text": "{0}\u540e\u89e3\u9501"
+    },
+    {
+        "Key": "TempleAbandon",
+        "Text": "\u662f\u5426\u653e\u5f03\u5f53\u524d\u5173\u5361"
+    },
+    {
+        "Key": "TempleAbandonBtn",
+        "Text": "\u653e\u5f03"
+    },
+    {
+        "Key": "TempleRestart",
+        "Text": "\u662f\u5426\u91cd\u65b0\u5f00\u59cb?"
+    },
+    {
+        "Key": "TempleStageContinue",
+        "Text": "\u6709\u5176\u4ed6\u5173\u5361\u6b63\u5728\u8fdb\u884c\u4e2d"
+    },
+    {
+        "Key": "TempleRechallengeStage",
+        "Text": "\u662f\u5426\u786e\u8ba4\u6311\u6218\u6b64\u5173\u5361?\\n\u518d\u6b21\u6311\u6218\uff0c\u73b0\u6709\u62fc\u56fe\u5c06\u4f1a\u88ab\u65b0\u7684\u62fc\u56fe\u8986\u76d6\u6389"
+    },
+    {
+        "Key": "TempleTask1001",
+        "Text": "\u65b0\u79a7\u4efb\u52a1"
+    },
+    {
+        "Key": "TempleTask1002",
+        "Text": "\u503e\u8bfa\u4efb\u52a1"
+    },
+    {
+        "Key": "TempleTask1003",
+        "Text": "\u5bb5\u6656\u4efb\u52a1"
+    },
+    {
+        "Key": "TempleFailInsert",
+        "Text": "\u6446\u653e\u5931\u8d25"
+    },
+    {
+        "Key": "TempleMessage1",
+        "Text": "\u65b0\u6625\u8d3a\u8a00"
+    },
+    {
+        "Key": "TempleMessage3",
+        "Text": "\u5143\u5915\u795d\u8bcd"
+    },
+    {
+        "Key": "MailHyperLink",
+        "Text": "<color=#34AFF8><a href=|{0}|>\u3010{1}\u3011</a></color>"
+    },
+    {
+        "Key": "GachaLamiyaFashionBtn",
+        "Text": "\u66ff\u6362\u6d82\u88c5"
+    },
+    {
+        "Key": "GachaLamiyaBgBtn",
+        "Text": "\u7acb\u5373\u4f7f\u7528"
+    },
+    {
+        "Key": "GachaLamiyaRewardTitle1",
+        "Text": "\u5df2\u83b7\u5f97\u5386\u7a0b\u5956\u52b1\u2014\u2014{0}"
+    },
+    {
+        "Key": "GachaLamiyaRewardTitle2",
+        "Text": "\u5386\u7a0b\u5956\u52b1\u2014\u2014{0}"
+    },
+    {
+        "Key": "GachaLamiyaSettingSuccess",
+        "Text": "\u8bbe\u7f6e\u6210\u529f"
+    },
+    {
+        "Key": "GachaLamiyaTime",
+        "Text": "\u5269\u4f59\uff1a{0}"
+    },
+    {
+        "Key": "GachaLamiyaFashionDesc",
+        "Text": "* <color=#0E70BD>\u6b66\u5668\u6d82\u88c5</color>  \u53ef\u4ece\u3010\u5386\u7a0b\u5956\u52b1\u3011\u4e2d\u83b7\u53d6"
+    },
+    {
+        "Key": "GachaLamiyaItemNoEnough",
+        "Text": "\u9053\u5177\u4e0d\u8db310\u4e2a"
+    },
+    {
+        "Key": "HeroSdkNotInit",
+        "Text": "SDK\u521d\u59cb\u5316\u4e2d\uff0c\u8bf7\u7a0d\u540e\u91cd\u8bd5(3)"
+    },
+    {
+        "Key": "TeamEntityNoEnoughTip",
+        "Text": "\u672c\u5173\u5361\u9700\u8981\u4e0a\u96353\u540d\u961f\u5458"
+    },
+    {
+        "Key": "BattleRoleRoomNoGeneralSkillTips",
+        "Text": "\u5f53\u524d\u961f\u4f0d\u65e0\u53ef\u6fc0\u6d3b\u6548\u5e94"
+    },
+    {
+        "Key": "QuickResonanceCost",
+        "Text": "<color=#0F70BCFF>{0}</color>/{1}"
+    },
+    {
+        "Key": "QuickResonanceCostNoEnough",
+        "Text": "<color=#EE2323FF>{0}</color>/{1}"
+    },
+    {
+        "Key": "QuickResonanceNotSixStarEquipTips",
+        "Text": "\u9700\u8981\u88c5\u59076\u661f\u610f\u8bc6\u624d\u53ef\u4ee5\u4f7f\u7528\u6b64\u529f\u80fd\uff01"
+    },
+    {
+        "Key": "QuickResonanceNotEnoughItemTips",
+        "Text": "6\u661f\u610f\u8bc6\u81ea\u9009\u5171\u9e23\u6750\u6599\u4e0d\u591f\uff01"
+    },
+    {
+        "Key": "ResonanceSuccess",
+        "Text": "\u5171\u9e23\u6210\u529f"
+    },
+    {
+        "Key": "AwarenessResonancePos1",
+        "Text": "\u4e0a\u4f4d\u5171\u9e23"
+    },
+    {
+        "Key": "AwarenessResonancePos2",
+        "Text": "\u4e0b\u4f4d\u5171\u9e23"
+    },
+    {
+        "Key": "AwarenessAwakePos1",
+        "Text": "\u4e0a\u4f4d\u8d85\u9891"
+    },
+    {
+        "Key": "AwarenessAwakePos2",
+        "Text": "\u4e0b\u4f4d\u8d85\u9891"
+    },
+    {
+        "Key": "ResonanceTokenCost",
+        "Text": "<color=#0E70BD>{0}</color>/{1}"
+    },
+    {
+        "Key": "ResonanceTokenCostNoEnough",
+        "Text": "<color=#EE2323>{0}</color>/{1}"
+    },
+    {
+        "Key": "ResonanceSelectTitleItem",
+        "Text": "\u9009\u62e91\u4e2a\u6d88\u8017"
+    },
+    {
+        "Key": "ResonanceSelectTitleToken",
+        "Text": "\u9009\u62e91\u79cd\u6d88\u8017"
+    },
+    {
+        "Key": "ResonanceSameSkillTips",
+        "Text": "\u4e0e\u76ee\u6807\u5171\u9e23\u6280\u80fd\u76f8\u540c\uff0c\u65e0\u9700\u5171\u9e23"
+    },
+    {
+        "Key": "ResonanceBackTips",
+        "Text": "\u8fd4\u56de\u5c06\u4fdd\u5b58\u4e0a\u6b21\u5171\u9e23\u7ed3\u679c\uff0c\u662f\u5426\u786e\u8ba4\uff1f"
+    },
+    {
+        "Key": "RemainingBusinessTime",
+        "Text": "\u8425\u4e1a\u65f6\u95f4\u5269\u4f59\uff1a{0}"
+    },
+    {
+        "Key": "RemainingRedemptionTime",
+        "Text": "\u5151\u6362\u65f6\u95f4\u5269\u4f59\uff1a{0}"
+    },
+    {
+        "Key": "RestaurantLevelText",
+        "Text": "\u5e97\u94fa\u7b49\u7ea7: {0}"
+    },
+    {
+        "Key": "QuickResonanceConfirmTips",
+        "Text": "\u6d88\u8017{0}\u4e2a6\u661f\u610f\u8bc6\u81ea\u9009\u5171\u9e23\u6750\u6599\u5bf9{1}\u4e2a\u90e8\u4f4d\u8fdb\u884c\u5feb\u901f\u5171\u9e23\uff0c\u662f\u5426\u7ee7\u7eed\uff1f"
+    },
+    {
+        "Key": "DlcMultiplayerInvitedTime",
+        "Text": "\u5df2\u9080\u8bf7({0}s)"
+    },
+    {
+        "Key": "DlcMultiplayerNotInvited",
+        "Text": "\u9080\u8bf7"
+    },
+    {
+        "Key": "DlcMultiplayerInvitedLockedTips",
+        "Text": "\u6307\u6325\u5b98{0}\u7ea7\u89e3\u9501"
+    },
+    {
+        "Key": "DlcMultiplayerInvitedInRoomTips",
+        "Text": "\u5df2\u5728\u623f\u95f4\u5185"
+    },
+    {
+        "Key": "DlcMultiplayerCurrencyReward",
+        "Text": "<color=#60ffeb>{0}</color>/{1} (+{2})"
+    },
+    {
+        "Key": "DlcMultiplayerCantInvitedTip",
+        "Text": "\u5339\u914d\u4e2d\uff0c\u65e0\u6cd5\u9080\u8bf7\u597d\u53cb"
+    },
+    {
+        "Key": "DlcMultiplayerFullInvitedTip",
+        "Text": "\u623f\u95f4\u5df2\u6ee1\uff0c\u65e0\u6cd5\u53d1\u9001\u9080\u8bf7"
+    },
+    {
+        "Key": "DlcMultiplayerInMatching",
+        "Text": "\u5339\u914d\u72b6\u6001\u4e0b\uff0c\u65e0\u6cd5\u67e5\u770b\u597d\u53cb\u8be6\u60c5"
+    },
+    {
+        "Key": "DlcMultiplayerInReady",
+        "Text": "\u51c6\u5907\u72b6\u6001\u4e0b\uff0c\u65e0\u6cd5\u67e5\u770b\u597d\u53cb\u8be6\u60c5"
+    },
+    {
+        "Key": "NameplateDescFormat",
+        "Text": "{0}\\n\\n{1}"
+    },
+    {
+        "Key": "HeadFrameOutTime",
+        "Text": "\u5df2\u8fc7\u671f"
+    },
+    {
+        "Key": "DunhuangUnlock",
+        "Text": "\u56fe\u7247\u89e3\u9501\u6210\u529f"
+    },
+    {
+        "Key": "DunhuangSavePainting",
+        "Text": "\u5c1a\u672a\u4fdd\u5b58\uff0c \u662f\u5426\u4fdd\u5b58"
+    },
+    {
+        "Key": "DunhuangSaveSuccess",
+        "Text": "\u4fdd\u5b58\u6210\u529f "
+    },
+    {
+        "Key": "DunhuangPaintingEmpty",
+        "Text": "\u8bf7\u653e\u7f6e\u81f3\u5c11\u4e00\u5f20\u7d20\u6750"
+    },
+    {
+        "Key": "DunhuangClear",
+        "Text": "\u786e\u5b9a\u6e05\u7a7a\uff1f"
+    },
+    {
+        "Key": "BossInshotBossProgress",
+        "Text": "\u8fdb\u5ea6\uff1a{0}/{1}"
+    },
+    {
+        "Key": "BossInshotTeamCharLimitTips",
+        "Text": "\u5173\u5361\u6700\u5927\u4e0a\u9635\u4eba\u6570\uff1a{0}"
+    },
+    {
+        "Key": "BossInshotNextScoreLevelTips",
+        "Text": "{0}\u5206\u53ef\u8fbe\u5230{1}\u7b49\u7ea7"
+    },
+    {
+        "Key": "DlcRoomKickOutTip",
+        "Text": "\u662f\u5426\u5c06\u8be5\u73a9\u5bb6\u8e22\u51fa\u623f\u95f4\uff1f"
+    },
+    {
+        "Key": "LottoKareninaRewardTitle1",
+        "Text": "\u83b7\u5f97\u6b66\u5668\u6d82\u88c5\u2014\u2014{0}"
+    },
+    {
+        "Key": "LottoKareninaRewardTitle2",
+        "Text": "\u83b7\u5f97\u5934\u50cf\u2014\u2014{0}"
+    },
+    {
+        "Key": "LottoKareninaSettingSuccess",
+        "Text": "\u8bbe\u7f6e\u6210\u529f"
+    },
+    {
+        "Key": "LottoKareninaBgBtn",
+        "Text": "\u7acb\u5373\u4f7f\u7528"
+    },
+    {
+        "Key": "LottoKareninaFashionBtn",
+        "Text": "\u66ff\u6362\u6d82\u88c5"
+    },
+    {
+        "Key": "LottoKareninaFashionDesc",
+        "Text": "* <color=#0E70BD>\u6b66\u5668\u6d82\u88c5</color>  \u53ef\u4ece\u3010\u70b8\u88c2\u9713\u8679\u3011\u6d3b\u52a8\u4e2d\u83b7\u53d6"
+    },
+    {
+        "Key": "TutorialActivityLeftTime",
+        "Text": "<size=28>{0}</size>\\n\\n{1}"
     }
 ]

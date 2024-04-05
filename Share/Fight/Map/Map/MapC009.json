@@ -42,18 +42,18 @@
         ]
     },
     {
-        "Id": 10280107,
-        "Behavior": 10280107,
-        "Name": "\u30102.9\u3011\u5149\u58c1\u5e03\u7f6e",
+        "Id": 96992302,
+        "Behavior": 96992302,
+        "Name": "LevelAttack\u6d4b\u8bd5",
         "Environment": null,
         "TerrainRoot": null,
-        "CloseLoadingDelay": 0.5,
+        "CloseLoadingDelay": 1.0,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 87,
+        "SceneCamera": 11,
         "CameraId": 9,
         "Terrains": [
-            102801070
+            969923020
         ],
         "Position": [
             "0|0|0"
@@ -65,13 +65,13 @@
     {
         "Id": 96992303,
         "Behavior": 96992303,
-        "Name": "\u30102.9-467\u3011\u5404\u79cdmagic\u5feb\u901f\u6d4b\u8bd5\u4f46\u5e76\u5feb\u4e0d\u4e86\u591a\u5c11",
+        "Name": "\u573a\u666f\u663e\u9690/\u52a8\u753b\u6d4b\u8bd5",
         "Environment": null,
         "TerrainRoot": null,
-        "CloseLoadingDelay": 0.15,
+        "CloseLoadingDelay": 0.5,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 11,
+        "SceneCamera": 166,
         "CameraId": 9,
         "Terrains": [
             969923030
@@ -126,18 +126,18 @@
         ]
     },
     {
-        "Id": 10280120,
-        "Behavior": 10280120,
-        "Name": "\u30102.9\u3011\u4e07\u4e16\u94ed\u63a2\u7d22",
+        "Id": 96992305,
+        "Behavior": 96992305,
+        "Name": "\u30102.13\u3011\u969c\u788d\u7269\u62c6NPC\u6d4b\u8bd5",
         "Environment": null,
         "TerrainRoot": null,
-        "CloseLoadingDelay": 0.5,
+        "CloseLoadingDelay": 1.0,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
         "SceneCamera": 11,
-        "CameraId": 10250106,
+        "CameraId": 9,
         "Terrains": [
-            102801200
+            969923050
         ],
         "Position": [
             "0|0|0"
@@ -147,18 +147,123 @@
         ]
     },
     {
-        "Id": 10280121,
-        "Behavior": 10280121,
-        "Name": "\u30102.9\u3011\u4e07\u4e16\u94ed\u9632\u5fa1",
+        "Id": 96992310,
+        "Behavior": 96992310,
+        "Name": "\u30102.13\u3011\u68ee\u606f\u68ee\u6797-\u56fe1\u5c0f\u5730\u56fe",
         "Environment": null,
         "TerrainRoot": null,
-        "CloseLoadingDelay": 1.0,
+        "CloseLoadingDelay": 0.5,
         "IsAsyncLoadNpc": null,
         "SwitchNpcCd": 15,
-        "SceneCamera": 11,
+        "SceneCamera": 177,
         "CameraId": 9,
         "Terrains": [
-            102801210
+            969923100
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 96992311,
+        "Behavior": 96992311,
+        "Name": "\u30102.13\u3011\u68ee\u606f\u68ee\u6797-\u56fe2\u5c0f\u5730\u56fe",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.5,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 166,
+        "CameraId": 9,
+        "Terrains": [
+            969923110
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 96992314,
+        "Behavior": 96992314,
+        "Name": "\u30102.13\u3011BOSS\u6d4b\u8bd501-Boss\u70b9",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.5,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 189,
+        "CameraId": 9,
+        "Terrains": [
+            969923140
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 96992315,
+        "Behavior": 96992315,
+        "Name": "\u30102.13\u3011BOSS\u6d4b\u8bd502-Center\u70b9",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.5,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 189,
+        "CameraId": 9,
+        "Terrains": [
+            969923150
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 96992316,
+        "Behavior": 96992316,
+        "Name": "\u30102.13\u3011BOSS\u6d4b\u8bd503-Center\u70b9",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.5,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 189,
+        "CameraId": 9,
+        "Terrains": [
+            969923160
+        ],
+        "Position": [
+            "0|0|0"
+        ],
+        "Rotation": [
+            "0|0|0"
+        ]
+    },
+    {
+        "Id": 96992317,
+        "Behavior": 96992317,
+        "Name": "\u30102.13\u3011\u68ee\u606f\u68ee\u6797-UI\u5f39\u7a97\u6d4b\u8bd5",
+        "Environment": null,
+        "TerrainRoot": null,
+        "CloseLoadingDelay": 0.5,
+        "IsAsyncLoadNpc": null,
+        "SwitchNpcCd": 15,
+        "SceneCamera": 177,
+        "CameraId": 9,
+        "Terrains": [
+            969923170
         ],
         "Position": [
             "0|0|0"

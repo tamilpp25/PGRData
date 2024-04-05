@@ -71,6 +71,16 @@
     },
     {
         "Id": 8,
+        "Type": 3,
+        "Name": "\u6548\u5e94\u6559\u5b66",
+        "Description": "\u53ef\u5b66\u4e60\u5404\u4e2a\u89d2\u8272\u7684\u57fa\u672c\u64cd\u4f5c\u6280\u5de7\uff1b\u72ec\u57df\u673a\u4f53\u89d2\u8272\u9700\u8981\u7b49\u7ea7\u8fbe\u523052\u7ea7\u624d\u80fd\u5f00\u542f\u3002",
+        "BgPath": "Assets/Product/Texture/Image/UiFubenMainMapTab/ChapterBg03B.png",
+        "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/FubenPracticeStagesCharacter.prefab",
+        "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePracticeRectangle2.prefab",
+        "SubTag": 3.0
+    },
+    {
+        "Id": 9,
         "Type": 4,
         "Name": "\u6570\u636e\u6f14\u4e60",
         "Description": null,
@@ -80,43 +90,43 @@
         "SubTag": null
     },
     {
-        "Id": 9,
+        "Id": 10,
         "Type": 4,
         "Name": "\u9996\u9886\u7ea7",
         "Description": "1.\u6bcf\u4e2a\u5173\u5361\u53ef\u65e0\u9650\u5236\u6311\u6218\uff0c\u5e76\u4e14\u652f\u6301\u81ea\u5b9a\u4e49\u8bad\u7ec3\u96be\u5ea6\\n2.\u4ec5\u53ef\u6311\u6218\u602a\u7269\u56fe\u9274\u5185\u5df2\u89e3\u9501\u7684\u602a\u7269\uff0c\u8bf7\u6ce8\u610f\u67e5\u770b\u602a\u7269\u56fe\u9274",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingBoss.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 10,
+        "Id": 11,
         "Type": 4,
         "Name": "\u7cbe\u82f1\u7ea7",
         "Description": "1.\u6bcf\u4e2a\u5173\u5361\u53ef\u65e0\u9650\u5236\u6311\u6218\uff0c\u5e76\u4e14\u652f\u6301\u81ea\u5b9a\u4e49\u8bad\u7ec3\u96be\u5ea6\\n2.\u4ec5\u53ef\u6311\u6218\u602a\u7269\u56fe\u9274\u5185\u5df2\u89e3\u9501\u7684\u602a\u7269\uff0c\u8bf7\u6ce8\u610f\u67e5\u770b\u602a\u7269\u56fe\u9274",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingInfernalMobs.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 11,
+        "Id": 12,
         "Type": 4,
         "Name": "\u9996\u9886(\u72ec\u57df)",
         "Description": "1.\u6bcf\u4e2a\u5173\u5361\u53ef\u65e0\u9650\u5236\u6311\u6218\uff0c\u5e76\u4e14\u652f\u6301\u81ea\u5b9a\u4e49\u8bad\u7ec3\u96be\u5ea6\\n2.\u4ec5\u53ef\u6311\u6218\u602a\u7269\u56fe\u9274\u5185\u5df2\u89e3\u9501\u7684\u602a\u7269\uff0c\u8bf7\u6ce8\u610f\u67e5\u770b\u602a\u7269\u56fe\u9274",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingBoss.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     },
     {
-        "Id": 12,
+        "Id": 13,
         "Type": 4,
         "Name": "\u7cbe\u82f1(\u72ec\u57df)",
         "Description": "1.\u6bcf\u4e2a\u5173\u5361\u53ef\u65e0\u9650\u5236\u6311\u6218\uff0c\u5e76\u4e14\u652f\u6301\u81ea\u5b9a\u4e49\u8bad\u7ec3\u96be\u5ea6\\n2.\u4ec5\u53ef\u6311\u6218\u602a\u7269\u56fe\u9274\u5185\u5df2\u89e3\u9501\u7684\u602a\u7269\uff0c\u8bf7\u6ce8\u610f\u67e5\u770b\u602a\u7269\u56fe\u9274",
         "BgPath": "Assets/Product/Texture/Image/UiLivRealisticTraining/UiLivRealisticTrainingBg.png",
         "PracticeContentPrefab": "Assets/Product/Ui/ComponentPrefab/FubenPracticeStages/UiLivRealisticTrainingStagesCharacter.prefab",
         "PracticeGridPrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStageRealisticTrainingInfernalMobs.prefab",
-        "SubTag": 8.0
+        "SubTag": 9.0
     }
 ]

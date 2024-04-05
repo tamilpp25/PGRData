@@ -528,5 +528,55 @@
         "EffectPath": [
             "Assets/Product/Effect/Prefab/FxPet3PeacockonPrefab/Common/FxUiPet3PeacockonEfChange02.prefab"
         ]
+    },
+    {
+        "Id": 54,
+        "PartnerId": 16210000,
+        "ModelType": "StandbyModel",
+        "EffectType": "Disappear",
+        "EffectRootName": "dragonBone",
+        "EffectPath": [
+            "Assets/Product/Effect/Prefab/FxPet3Dragon/Common/FxPet3DragonSmallLeave.prefab"
+        ]
+    },
+    {
+        "Id": 55,
+        "PartnerId": 16210000,
+        "ModelType": "CombatModel",
+        "EffectType": "Disappear",
+        "EffectRootName": null,
+        "EffectPath": [
+            "Assets/Product/Effect/Prefab/FxPet3Dragon/Common/FxPet3DragonBigLeave.prefab"
+        ]
+    },
+    {
+        "Id": 56,
+        "PartnerId": 16210000,
+        "ModelType": "StandbyModel",
+        "EffectType": "Appear",
+        "EffectRootName": "dragonBone",
+        "EffectPath": [
+            "Assets/Product/Effect/Prefab/FxPet3Dragon/Common/FxPet3DragonSmallBack.prefab"
+        ]
+    },
+    {
+        "Id": 57,
+        "PartnerId": 16210000,
+        "ModelType": "CombatModel",
+        "EffectType": "Appear",
+        "EffectRootName": "Bip001",
+        "EffectPath": [
+            "Assets/Product/Effect/Prefab/FxPet3Dragon/Common/FxPet3DragonBigBack1.prefab"
+        ]
+    },
+    {
+        "Id": 58,
+        "PartnerId": 16210000,
+        "ModelType": "CombatModel",
+        "EffectType": "Appear",
+        "EffectRootName": null,
+        "EffectPath": [
+            "Assets/Product/Effect/Prefab/FxPet3Dragon/Common/FxPet3DragonBigBack2.prefab"
+        ]
     }
 ]

@@ -718,5 +718,520 @@
             -30.0,
             90.0
         ]
+    },
+    {
+        "Id": 32,
+        "Names": [
+            "MaxDistance",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            16.0,
+            5.0,
+            16.0,
+            0.3,
+            8.0,
+            30.0,
+            6.0
+        ]
+    },
+    {
+        "Id": 33,
+        "Names": [
+            "FocusMovementCoefficient"
+        ],
+        "Values": [
+            0.1
+        ]
+    },
+    {
+        "Id": 34,
+        "Names": [
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            0.0
+        ]
+    },
+    {
+        "Id": 35,
+        "Names": [
+            "FocusMaxAngle",
+            "DefaultDistance",
+            "DefaultMinDistance",
+            "DefaultMaxDistance",
+            "MaxDistance"
+        ],
+        "Values": [
+            0.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 857501,
+        "Names": [
+            "FocusMovementCoefficient",
+            "RotationSpeed",
+            "HorizontalDragSensitivity"
+        ],
+        "Values": [
+            3.5,
+            2.5,
+            0.2
+        ]
+    },
+    {
+        "Id": 749906,
+        "Names": [
+            "DefaultOffset",
+            "DefaultDistance",
+            "DefaultMinDistance",
+            "DefaultMaxDistance",
+            "MaxDistance",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "DefaultHeight",
+            "FocusHeight",
+            "MinHeight",
+            "DefaultFOV",
+            "DefaultToFocusDuration",
+            "FocusToDefaultDuration"
+        ],
+        "Values": [
+            3.2,
+            4.1,
+            4.1,
+            4.5,
+            5.9,
+            4.1,
+            7.5,
+            2.0,
+            1.3,
+            0.8,
+            1.4,
+            0.7,
+            75.0,
+            0.4,
+            1.2
+        ]
+    },
+    {
+        "Id": 875940,
+        "Names": [
+            "DefaultHeight",
+            "MinHeight",
+            "MaxHeight",
+            "FocusHeight",
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            0.4,
+            0.4,
+            3.0,
+            0.5,
+            90.0
+        ]
+    },
+    {
+        "Id": 875910,
+        "Names": [
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            10.0
+        ]
+    },
+    {
+        "Id": 875963,
+        "Names": [
+            "DefaultHeight",
+            "MinHeight",
+            "MaxHeight",
+            "FocusHeight",
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            0.4,
+            0.4,
+            3.0,
+            0.5,
+            360.0
+        ]
+    },
+    {
+        "Id": 36,
+        "Names": [
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHeight",
+            "MinHeight",
+            "MaxHeight",
+            "DefaultHeight",
+            "MaxDistance",
+            "DeadZoneRadius"
+        ],
+        "Values": [
+            8.0,
+            99.0,
+            3.45,
+            0.6,
+            12.0,
+            2.0,
+            15.0,
+            2.5
+        ]
+    },
+    {
+        "Id": 37,
+        "Names": [
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHeight",
+            "MinHeight",
+            "MaxHeight",
+            "DefaultHeight",
+            "MaxDistance"
+        ],
+        "Values": [
+            4.0,
+            99.0,
+            3.45,
+            0.6,
+            12.0,
+            2.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 38,
+        "Names": [
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHeight",
+            "MinHeight",
+            "MaxHeight",
+            "DefaultHeight",
+            "MaxDistance"
+        ],
+        "Values": [
+            6.0,
+            99.0,
+            4.0,
+            0.6,
+            12.0,
+            2.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 39,
+        "Names": [
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHeight",
+            "MinHeight",
+            "MaxHeight",
+            "DefaultHeight",
+            "MaxDistance"
+        ],
+        "Values": [
+            6.0,
+            99.0,
+            4.25,
+            0.6,
+            12.0,
+            2.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 40,
+        "Names": [
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "MaxDistance",
+            "DeadZoneRadius",
+            "DefaultMaxDistance"
+        ],
+        "Values": [
+            3.0,
+            8.0,
+            6.0,
+            3.0,
+            6.0
+        ]
+    },
+    {
+        "Id": 41,
+        "Names": [
+            "FocusMovementCoefficient",
+            "DeadZoneRadius",
+            "HardZoneRadius",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            0.1,
+            10.0,
+            4.0,
+            4.0,
+            2.0,
+            1.2,
+            20.0,
+            1.5,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 42,
+        "Names": [
+            "FocusMovementCoefficient",
+            "DeadZoneRadius",
+            "HardZoneRadius",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            0.1,
+            10.0,
+            2.0,
+            2.0,
+            2.0,
+            1.2,
+            20.0,
+            1.0,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 43,
+        "Names": [
+            "FocusMovementCoefficient",
+            "DeadZoneRadius",
+            "HardZoneRadius",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            0.1,
+            10.0,
+            1.0,
+            1.0,
+            2.0,
+            1.2,
+            20.0,
+            0.5,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 44,
+        "Names": [
+            "MinHeight",
+            "MaxHeight",
+            "MinVerticalAngle",
+            "MaxVerticalAngle",
+            "MaxDistance"
+        ],
+        "Values": [
+            0.6,
+            12.0,
+            -30.0,
+            90.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 877701,
+        "Names": [
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            10.0
+        ]
+    },
+    {
+        "Id": 877707,
+        "Names": [
+            "FocusMaxAngle"
+        ],
+        "Values": [
+            10.0
+        ]
+    },
+    {
+        "Id": 194215,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            3.0,
+            2.5,
+            2.0,
+            1.2,
+            180.0,
+            1.5,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 194216,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            2.5,
+            2.0,
+            2.0,
+            1.2,
+            120.0,
+            1.25,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 194217,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            1.75,
+            1.75,
+            2.0,
+            1.2,
+            20.0,
+            1.0,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 194218,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            1.25,
+            1.25,
+            2.0,
+            1.2,
+            10.0,
+            0.75,
+            150.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 194219,
+        "Names": [
+            "FocusMovementCoefficient",
+            "FocusMinDistance",
+            "FocusMaxDistance",
+            "FocusHorizontalCoefficient",
+            "FocusVerticalCoefficient",
+            "FocusMaxAngle",
+            "FocusHeight",
+            "MaxHeight",
+            "HeightUpCoefficient",
+            "HeightDownCoefficient"
+        ],
+        "Values": [
+            10.0,
+            1.0,
+            1.0,
+            2.0,
+            1.2,
+            10.0,
+            0.5,
+            150.0,
+            2.0,
+            2.0
+        ]
     }
 ]

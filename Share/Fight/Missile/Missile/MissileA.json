@@ -1,5 +1,99 @@
 [
     {
+        "Id": 20201201,
+        "Name": "\u96f7\u6548\u5e94\u8fd0\u884c\u671f\u95f4\u843d\u96f7\u7279\u6548",
+        "Shape": 2,
+        "SizeX": 0.3,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 3.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": "FxTongyongLightlingShield03",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 1,
+        "BeHitCenter": 3,
+        "HitShakeDirection": 0.0,
+        "HitShakeDuration": 0.15,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202012011.0,
+        "Magic": [
+            200121.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
         "Id": 20502101,
         "Name": "502101-\u6982\u7387\u843d\u96f7-\u5047\u7d2b\u592a\u5200",
         "Shape": 2,
@@ -88,7 +182,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20502102,
@@ -183,7 +278,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20502330,
@@ -278,7 +374,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20502331,
@@ -369,7 +466,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20503311,
@@ -462,7 +560,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20504310,
@@ -555,7 +654,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20504311,
@@ -646,7 +746,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20504312,
@@ -739,7 +840,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20506101,
@@ -832,7 +934,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20506210,
@@ -929,7 +1032,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20506211,
@@ -1024,7 +1128,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20507207,
@@ -1117,7 +1222,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20507208,
@@ -1208,7 +1314,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20508210,
@@ -1303,7 +1410,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20508211,
@@ -1394,7 +1502,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509042,
@@ -1490,7 +1599,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509043,
@@ -1581,7 +1691,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509201,
@@ -1674,7 +1785,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509701,
@@ -1767,7 +1879,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509904,
@@ -1860,7 +1973,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20509905,
@@ -1951,7 +2065,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510003,
@@ -2044,7 +2159,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510004,
@@ -2135,7 +2251,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510201,
@@ -2228,7 +2345,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510301,
@@ -2321,7 +2439,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510302,
@@ -2414,7 +2533,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510303,
@@ -2505,7 +2625,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510401,
@@ -2598,7 +2719,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510402,
@@ -2689,7 +2811,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20510410,
@@ -2780,7 +2903,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20600504,
@@ -2871,7 +2995,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20600505,
@@ -2966,7 +3091,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20600506,
@@ -3059,7 +3185,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620103,
@@ -3152,7 +3279,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620207,
@@ -3210,7 +3338,8 @@
             620208.0,
             620209.0,
             620210.0,
-            620211.0
+            620211.0,
+            620220.0
         ],
         "MagicLauncherNpc": [],
         "EffectHeight": 0.0,
@@ -3248,7 +3377,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620208,
@@ -3345,7 +3475,194 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20620209,
+        "Name": "620208-\u5c5e\u6027\u5149\u73af-\u6297\u6027\u4e0e\u91cd\u7f6e-5\u661f\u5143\u7d20\u8f85\u52a9",
+        "Shape": 2,
+        "SizeX": 5.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 3,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.2,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 2,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 2,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.0,
+        "HitShakeIntensity": 0.0,
+        "BeHitState": null,
+        "Magic": [
+            620221.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20620210,
+        "Name": "620207-\u5c5e\u6027\u5149\u73af-\u7279\u6548\u4e0e\u4f24\u5bb3-5\u661f\u5143\u7d20\u8f85\u52a9",
+        "Shape": 2,
+        "SizeX": 5.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 3,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 5.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": 1.0,
+        "HitEffect": [],
+        "DamageInterval": 0.5,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": 0.5,
+        "ChildCountLimit": 999.0,
+        "ChildId": "20620209",
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 4,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.0,
+        "HitShakeIntensity": 0.0,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620411,
@@ -3442,7 +3759,103 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20620412,
+        "Name": "620411-\u534a\u5f845\u5c5e\u6027\u6548\u679c-5\u661f\u5766\u514b\u5143\u7d20",
+        "Shape": 2,
+        "SizeX": 5.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 0.1,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 4,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.0,
+        "HitShakeIntensity": 0.0,
+        "BeHitState": null,
+        "Magic": [
+            620416.0,
+            620412.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620904,
@@ -3537,7 +3950,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620905,
@@ -3628,7 +4042,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620906,
@@ -3724,7 +4139,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620907,
@@ -3819,7 +4235,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620908,
@@ -3910,7 +4327,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620909,
@@ -4006,7 +4424,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620910,
@@ -4101,7 +4520,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620911,
@@ -4192,7 +4612,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620912,
@@ -4288,7 +4709,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620920,
@@ -4383,7 +4805,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620921,
@@ -4478,7 +4901,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620922,
@@ -4573,7 +4997,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620923,
@@ -4667,7 +5092,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620924,
@@ -4762,7 +5188,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620925,
@@ -4857,7 +5284,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620926,
@@ -4952,7 +5380,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620927,
@@ -5046,7 +5475,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621006,
@@ -5145,7 +5575,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621007,
@@ -5244,7 +5675,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621008,
@@ -5343,7 +5775,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621009,
@@ -5442,7 +5875,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621101,
@@ -5539,7 +5973,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20621102,
@@ -5634,7 +6069,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20630123,
@@ -5731,7 +6167,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20630124,
@@ -5824,7 +6261,102 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20630125,
+        "Name": "630123-\u5143\u7d20\u6cbb\u7597-6\u661f\u5143\u7d20\u8f85\u52a9",
+        "Shape": 2,
+        "SizeX": 5.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 300,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 3,
+        "NpcSearcherId": null,
+        "TrackTarget": 1.0,
+        "LiveTime": 1.1,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 3,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 4,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.0,
+        "HitShakeIntensity": 0.0,
+        "BeHitState": null,
+        "Magic": [
+            630134.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 0.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20630214,
@@ -5919,7 +6451,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20630804,
@@ -6012,7 +6545,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20630907,
@@ -6106,7 +6640,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631007,
@@ -6204,7 +6739,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631008,
@@ -6295,7 +6831,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631107,
@@ -6391,7 +6928,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631108,
@@ -6482,7 +7020,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631110,
@@ -6573,7 +7112,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631207,
@@ -6668,7 +7208,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631208,
@@ -6759,7 +7300,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20631301,
@@ -6852,7 +7394,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20632101,
@@ -6945,7 +7488,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20632111,
@@ -7038,7 +7582,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20632121,
@@ -7131,7 +7676,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20632131,
@@ -7222,7 +7768,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20632141,
@@ -7315,7 +7862,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620970,
@@ -7410,7 +7958,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 20620971,
@@ -7505,7 +8054,582 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200230,
+        "Name": "\u7269\u7406-\u5251\u6c14\u7279\u6548",
+        "Shape": 2,
+        "SizeX": 0.3,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 1.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": "FxWuliDaoguang",
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": null,
+        "Magic": [],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": "HitCase",
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200231,
+        "Name": "\u7269\u7406-\u5251\u6c14\u4f24\u5bb31",
+        "Shape": 2,
+        "SizeX": 2.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxWuliDaoguangHit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": 0.05,
+        "ChildInterval": null,
+        "ChildCountLimit": 1.0,
+        "ChildId": "20200232",
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202002311.0,
+        "Magic": [
+            200232.0,
+            200103.0,
+            200235.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": 202002312.0,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200232,
+        "Name": "\u7269\u7406-\u5251\u6c14\u4f24\u5bb32",
+        "Shape": 2,
+        "SizeX": 2.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxWuliDaoguangHit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": 0.05,
+        "ChildInterval": null,
+        "ChildCountLimit": 1.0,
+        "ChildId": "20200233",
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202002321.0,
+        "Magic": [
+            200232.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200233,
+        "Name": "\u7269\u7406-\u5251\u6c14\u4f24\u5bb33",
+        "Shape": 2,
+        "SizeX": 2.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxWuliDaoguangHit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": 0.05,
+        "ChildInterval": null,
+        "ChildCountLimit": 1.0,
+        "ChildId": "20200234",
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202002331.0,
+        "Magic": [
+            200232.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": 202002332.0,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200234,
+        "Name": "\u7269\u7406-\u5251\u6c14\u4f24\u5bb34",
+        "Shape": 2,
+        "SizeX": 2.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxWuliDaoguangHit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": 0.05,
+        "ChildInterval": null,
+        "ChildCountLimit": 1.0,
+        "ChildId": "20200235",
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202002341.0,
+        "Magic": [
+            200232.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": null,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
+    },
+    {
+        "Id": 20200235,
+        "Name": "\u7269\u7406-\u5251\u6c14\u4f24\u5bb35",
+        "Shape": 2,
+        "SizeX": 2.0,
+        "SizeY": null,
+        "OffsetX": null,
+        "OffsetY": null,
+        "Speed": 0,
+        "HitSpeed": null,
+        "Direction": null,
+        "TargetType": 4,
+        "NpcSearcherId": null,
+        "TrackTarget": null,
+        "LiveTime": 2.0,
+        "FillTime": null,
+        "DeadExplosion": null,
+        "MoveExcludeObstacle": null,
+        "ActsExcludeObstacle": null,
+        "ExplosionOnCollideObstacle": null,
+        "HitCount": -1,
+        "RepeatDamage": null,
+        "HitEffect": [
+            "FxWuliDaoguangHit"
+        ],
+        "DamageInterval": null,
+        "StartJoint": null,
+        "Effect": null,
+        "WaitTime": null,
+        "DamageCount": -1,
+        "DamageRange": null,
+        "ExplosionEffect": null,
+        "LineType": 1,
+        "LineParams": [
+            0.0,
+            0,
+            0
+        ],
+        "ScaleFunction": null,
+        "ScaleParams": [],
+        "ScaleType": null,
+        "BornPosition": 1,
+        "ChildDelay": null,
+        "ChildInterval": null,
+        "ChildCountLimit": null,
+        "ChildId": null,
+        "BornChildWhileDead": null,
+        "SwitchTargetOnHit": null,
+        "BornDirectionType": 0,
+        "BeHitCenter": 3,
+        "HitShakeDirection": null,
+        "HitShakeDuration": 0.2,
+        "HitShakeIntensity": 0.1,
+        "BeHitState": 202002351.0,
+        "Magic": [
+            200232.0
+        ],
+        "MagicLauncherNpc": [],
+        "EffectHeight": 1.0,
+        "HitOnJoint": null,
+        "ResizeEffect": null,
+        "BindLauncher": 0,
+        "LockLauncherFightTarget": null,
+        "BindSkill": null,
+        "DeathWithNpc": null,
+        "ActiveDelayTime": null,
+        "ExplodeOnFloor": null,
+        "DodgeLimitMark": 0,
+        "HitEffectUseMissileDirection": 1,
+        "IgnoreNpcTimeScale": null,
+        "ScaleTimeOnHit": null,
+        "BindBornNpc": null,
+        "SingleClientEffect": null,
+        "TimeScale": null,
+        "TimeScaleDuration": null,
+        "ReboundTimes": null,
+        "ReboundType": null,
+        "CollideFilterType": null,
+        "BuffFilter": null,
+        "NpcHitCount": null,
+        "ShakeMagic": 202002352.0,
+        "CollideMissileType": null,
+        "FollowHeightJoint": null,
+        "BindLauncherFrame": null,
+        "BindSkillFrame": null,
+        "SlopeTargetJoint": null,
+        "IgnoreCollideType": null,
+        "ShapeComponentParams": [],
+        "BornPositionParams": [],
+        "RLCrashEffect": null,
+        "RLCrashObject": null,
+        "RLTransOffset": null,
+        "BornHeightType": null,
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020101,
@@ -7600,7 +8724,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020103,
@@ -7693,7 +8818,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020201,
@@ -7788,7 +8914,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020203,
@@ -7881,7 +9008,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020301,
@@ -7976,7 +9104,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020303,
@@ -8069,7 +9198,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020401,
@@ -8167,7 +9297,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020501,
@@ -8265,7 +9396,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020601,
@@ -8363,7 +9495,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020707,
@@ -8458,7 +9591,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020708,
@@ -8556,7 +9690,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020719,
@@ -8649,7 +9784,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020801,
@@ -8744,7 +9880,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020901,
@@ -8839,7 +9976,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10020902,
@@ -8934,7 +10072,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021001,
@@ -9032,7 +10171,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021101,
@@ -9127,7 +10267,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021201,
@@ -9222,7 +10363,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021202,
@@ -9317,7 +10459,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021301,
@@ -9415,7 +10558,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021401,
@@ -9508,7 +10652,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021402,
@@ -9601,7 +10746,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021403,
@@ -9696,7 +10842,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021404,
@@ -9791,7 +10938,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021498,
@@ -9882,7 +11030,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021497,
@@ -9973,7 +11122,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021496,
@@ -10064,7 +11214,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021495,
@@ -10155,7 +11306,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021494,
@@ -10246,7 +11398,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021493,
@@ -10337,7 +11490,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021492,
@@ -10428,7 +11582,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021491,
@@ -10519,7 +11674,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021489,
@@ -10614,7 +11770,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021488,
@@ -10709,7 +11866,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021501,
@@ -10804,7 +11962,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021502,
@@ -10899,7 +12058,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021503,
@@ -10994,7 +12154,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021504,
@@ -11089,7 +12250,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021601,
@@ -11184,7 +12346,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021602,
@@ -11279,7 +12442,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021603,
@@ -11374,7 +12538,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021604,
@@ -11469,7 +12634,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021605,
@@ -11564,7 +12730,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021606,
@@ -11662,7 +12829,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021701,
@@ -11757,7 +12925,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10021702,
@@ -11855,7 +13024,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022004,
@@ -11950,7 +13120,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022104,
@@ -12045,7 +13216,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022204,
@@ -12140,7 +13312,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022401,
@@ -12235,7 +13408,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022403,
@@ -12328,7 +13502,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022501,
@@ -12423,7 +13598,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022502,
@@ -12518,7 +13694,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022506,
@@ -12613,7 +13790,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022507,
@@ -12708,7 +13886,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022511,
@@ -12803,7 +13982,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022512,
@@ -12898,7 +14078,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022513,
@@ -12993,7 +14174,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022517,
@@ -13088,7 +14270,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022801,
@@ -13185,7 +14368,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022802,
@@ -13276,7 +14460,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022803,
@@ -13372,7 +14557,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022804,
@@ -13467,7 +14653,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022805,
@@ -13561,7 +14748,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022806,
@@ -13657,7 +14845,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022807,
@@ -13748,7 +14937,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022808,
@@ -13844,7 +15034,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022810,
@@ -13935,7 +15126,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022811,
@@ -14026,7 +15218,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10022812,
@@ -14117,7 +15310,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023003,
@@ -14210,7 +15404,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023004,
@@ -14303,7 +15498,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023101,
@@ -14398,7 +15594,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023201,
@@ -14493,7 +15690,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023202,
@@ -14588,7 +15786,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023203,
@@ -14683,7 +15882,8 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     },
     {
         "Id": 10023204,
@@ -14778,6 +15978,7 @@
         "RLCrashObject": null,
         "RLTransOffset": null,
         "BornHeightType": null,
-        "BornHeightJoint": null
+        "BornHeightJoint": null,
+        "Undodgeable": null
     }
 ]
