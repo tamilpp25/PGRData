@@ -1,0 +1,902 @@
+[
+    {
+        "Id": 1,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 2,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240321.0
+        ]
+    },
+    {
+        "Id": 3,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>23s</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240322.0
+        ]
+    },
+    {
+        "Id": 4,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>18s</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240323.0
+        ]
+    },
+    {
+        "Id": 5,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>14s</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240324.0
+        ]
+    },
+    {
+        "Id": 6,
+        "ClassId": 1,
+        "TalentType": 1,
+        "Name": "Active Matrix",
+        "Desc": "An active skill. Once the skill is cast, all members will enter the <color=#34aff8>Matrix</color> and restore <color=#34aff8>8% HP</color>. Cooldown: <color=#34aff8>11s</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240325.0
+        ]
+    },
+    {
+        "Id": 7,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>5s</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 8,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>5s</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240326.0
+        ]
+    },
+    {
+        "Id": 9,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>6s</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240327.0
+        ]
+    },
+    {
+        "Id": 10,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>7s</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240328.0
+        ]
+    },
+    {
+        "Id": 11,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>8s</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240329.0
+        ]
+    },
+    {
+        "Id": 12,
+        "ClassId": 1,
+        "TalentType": 2,
+        "Name": "Damage Boost",
+        "Desc": "When the mechanism judgment is triggered, all members will also deal <color=#34aff8>damage equal to 20% ATK</color> for every attack. The effect lasts <color=#34aff8>9s</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240330.0
+        ]
+    },
+    {
+        "Id": 13,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>5% ATK</color> upon entering the field.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 14,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>5% ATK</color> upon entering the field.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240331.0
+        ]
+    },
+    {
+        "Id": 15,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>7% ATK</color> upon entering the field.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240332.0
+        ]
+    },
+    {
+        "Id": 16,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>9% ATK</color> upon entering the field.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240333.0
+        ]
+    },
+    {
+        "Id": 17,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>12% ATK</color> upon entering the field.",
+        "Level": 4,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240334.0
+        ]
+    },
+    {
+        "Id": 18,
+        "ClassId": 1,
+        "TalentType": 3,
+        "Name": "Powerful Matrix",
+        "Desc": "Deals <color=#34aff8>25%</color> more damage when in the Matrix. Gains <color=#34aff8>15% ATK</color> upon entering the field.",
+        "Level": 5,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240335.0
+        ]
+    },
+    {
+        "Id": 19,
+        "ClassId": 1,
+        "TalentType": 4,
+        "Name": "Core Attack",
+        "Desc": "In the FEVER status, the character enters the <color=#34aff8>Matrix</color> every 10s, and Matrix cooldown decreases by <color=#34aff8>10%</color>.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": []
+    },
+    {
+        "Id": 20,
+        "ClassId": 1,
+        "TalentType": 4,
+        "Name": "Core Attack",
+        "Desc": "In the FEVER status, the character enters the <color=#34aff8>Matrix</color> every 10s, and Matrix cooldown decreases by <color=#34aff8>10%</color>.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240336.0
+        ]
+    },
+    {
+        "Id": 21,
+        "ClassId": 1,
+        "TalentType": 4,
+        "Name": "Core Attack",
+        "Desc": "In the FEVER status, the character enters the <color=#34aff8>Matrix</color> every 10s, and Matrix cooldown decreases by <color=#34aff8>12%</color>.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240337.0
+        ]
+    },
+    {
+        "Id": 22,
+        "ClassId": 1,
+        "TalentType": 4,
+        "Name": "Core Attack",
+        "Desc": "In the FEVER status, the character enters the <color=#34aff8>Matrix</color> every 10s, and Matrix cooldown decreases by <color=#34aff8>18%</color>.\\nPassive: All classes' DMG +10%.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240338.0
+        ]
+    },
+    {
+        "Id": 23,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 24,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240339.0
+        ]
+    },
+    {
+        "Id": 25,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>23s</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240340.0
+        ]
+    },
+    {
+        "Id": 26,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>18s</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240341.0
+        ]
+    },
+    {
+        "Id": 27,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>14s</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240342.0
+        ]
+    },
+    {
+        "Id": 28,
+        "ClassId": 2,
+        "TalentType": 1,
+        "Name": "Active Suppression",
+        "Desc": "An active skill. Once the skill is cast, all members will reduce the Extra DMG Reduction of enemies on the field by <color=#34aff8>40% less</color> for 8s. Cooldown: <color=#34aff8>11s</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240343.0
+        ]
+    },
+    {
+        "Id": 29,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>30% Dodge Gauge</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 30,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>30% Dodge Gauge</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240344.0
+        ]
+    },
+    {
+        "Id": 31,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>40% Dodge Gauge</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240345.0
+        ]
+    },
+    {
+        "Id": 32,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>50% Dodge Gauge</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240346.0
+        ]
+    },
+    {
+        "Id": 33,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>60% Dodge Gauge</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240347.0
+        ]
+    },
+    {
+        "Id": 34,
+        "ClassId": 2,
+        "TalentType": 2,
+        "Name": "Dodge Recovery",
+        "Desc": "When the mechanism judgment is triggered, all members will restore <color=#34aff8>70% Dodge Gauge</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240348.0
+        ]
+    },
+    {
+        "Id": 35,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>15%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 36,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>15%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240349.0
+        ]
+    },
+    {
+        "Id": 37,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>8%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240350.0
+        ]
+    },
+    {
+        "Id": 38,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>11%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240351.0
+        ]
+    },
+    {
+        "Id": 39,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>14%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 4,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240352.0
+        ]
+    },
+    {
+        "Id": 40,
+        "ClassId": 2,
+        "TalentType": 3,
+        "Name": "Imaginary Shield",
+        "Desc": "When with a Shield, the character receives <color=#34aff8>17%</color> less damage. Gains Super Armor at the highest level.",
+        "Level": 5,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240353.0
+        ]
+    },
+    {
+        "Id": 41,
+        "ClassId": 2,
+        "TalentType": 4,
+        "Name": "Core Tank",
+        "Desc": "In the FEVER status, the character will gain a <color=#34aff8>Shield</color> of 20% HP every 10s and <color=#34aff8>restore 60 Dodge Gauge every second</color>.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": []
+    },
+    {
+        "Id": 42,
+        "ClassId": 2,
+        "TalentType": 4,
+        "Name": "Core Tank",
+        "Desc": "In the FEVER status, the character will gain a <color=#34aff8>Shield</color> of 20% HP every 10s and <color=#34aff8>restore 60 Dodge Gauge every second</color>.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240354.0
+        ]
+    },
+    {
+        "Id": 43,
+        "ClassId": 2,
+        "TalentType": 4,
+        "Name": "Core Tank",
+        "Desc": "In the FEVER status, the character will gain a <color=#34aff8>Shield</color> of 20% HP every 9s and <color=#34aff8>restore 60 Dodge Gauge every second</color>.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240355.0
+        ]
+    },
+    {
+        "Id": 44,
+        "ClassId": 2,
+        "TalentType": 4,
+        "Name": "Core Tank",
+        "Desc": "In the FEVER status, the character will gain a <color=#34aff8>Shield</color> of 20% HP every 8s and <color=#34aff8>restore 60 Dodge Gauge every second</color>.\\nPassive: All classes' damage taken -10%.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240356.0
+        ]
+    },
+    {
+        "Id": 45,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 46,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>28s</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240357.0
+        ]
+    },
+    {
+        "Id": 47,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>23s</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240358.0
+        ]
+    },
+    {
+        "Id": 48,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>18s</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240359.0
+        ]
+    },
+    {
+        "Id": 49,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>14s</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240360.0
+        ]
+    },
+    {
+        "Id": 50,
+        "ClassId": 3,
+        "TalentType": 1,
+        "Name": "Active Recharge",
+        "Desc": "An active skill. Once the skill is cast, all members will restore <color=#34aff8>20% HP</color> and a group of Signal Orbs of the same color. Cooldown: <color=#34aff8>11s</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240361.0
+        ]
+    },
+    {
+        "Id": 51,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>5s</color>.",
+        "Level": 0,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 52,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>5s</color>.",
+        "Level": 1,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240362.0
+        ]
+    },
+    {
+        "Id": 53,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>6s</color>.",
+        "Level": 2,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240363.0
+        ]
+    },
+    {
+        "Id": 54,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>7s</color>.",
+        "Level": 3,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240364.0
+        ]
+    },
+    {
+        "Id": 55,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>8s</color>.",
+        "Level": 4,
+        "UseOwn": 1,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240365.0
+        ]
+    },
+    {
+        "Id": 56,
+        "ClassId": 3,
+        "TalentType": 2,
+        "Name": "Speed Enhancement",
+        "Desc": "When the mechanism judgment is triggered, all members will gain <color=#34aff8>25% movement speed</color> for <color=#34aff8>10s</color>.",
+        "Level": 5,
+        "UseOwn": 1,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240366.0
+        ]
+    },
+    {
+        "Id": 57,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>5 FEVER</color>.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 58,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>5 FEVER</color>.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240367.0
+        ]
+    },
+    {
+        "Id": 59,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>6 FEVER</color>.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240368.0
+        ]
+    },
+    {
+        "Id": 60,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>7 FEVER</color>.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240369.0
+        ]
+    },
+    {
+        "Id": 61,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>8 FEVER</color>.",
+        "Level": 4,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240370.0
+        ]
+    },
+    {
+        "Id": 62,
+        "ClassId": 3,
+        "TalentType": 3,
+        "Name": "Energy Recharge",
+        "Desc": "During mechanism result calculation, all members will gain <color=#34aff8>10 FEVER</color>.",
+        "Level": 5,
+        "UseOwn": 0,
+        "CostItemId": null,
+        "CostItemCount": null,
+        "FightEventId": [
+            2240371.0
+        ]
+    },
+    {
+        "Id": 63,
+        "ClassId": 3,
+        "TalentType": 4,
+        "Name": "Core Support",
+        "Desc": "In the FEVER status, revives all teammates, makes all members invincible with 1 HP, restores <color=#34aff8>10% HP</color> every second, and gains 2 groups of Signal Orbs of the same color every 12s.",
+        "Level": 0,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": []
+    },
+    {
+        "Id": 64,
+        "ClassId": 3,
+        "TalentType": 4,
+        "Name": "Core Support",
+        "Desc": "In the FEVER status, revives all teammates, makes all members invincible with 1 HP, restores <color=#34aff8>10% HP</color> every second, and gains 2 groups of Signal Orbs of the same color every 12s.",
+        "Level": 1,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240372.0
+        ]
+    },
+    {
+        "Id": 65,
+        "ClassId": 3,
+        "TalentType": 4,
+        "Name": "Core Support",
+        "Desc": "In the FEVER status, revives all teammates, makes all members invincible with 1 HP, restores <color=#34aff8>11% HP</color> every second, and gains 2 groups of Signal Orbs of the same color every 12s.",
+        "Level": 2,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240373.0
+        ]
+    },
+    {
+        "Id": 66,
+        "ClassId": 3,
+        "TalentType": 4,
+        "Name": "Core Support",
+        "Desc": "In the FEVER status, revives all teammates, makes all members invincible with 1 HP, restores <color=#34aff8>12% HP</color> every second, and gains 2 groups of Signal Orbs of the same color every 12s.\\nPassive: All classes' Signal Orb recovery interval -20%.",
+        "Level": 3,
+        "UseOwn": 0,
+        "CostItemId": 96116.0,
+        "CostItemCount": 90.0,
+        "FightEventId": [
+            2240374.0
+        ]
+    }
+]

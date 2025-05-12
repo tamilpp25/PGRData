@@ -1,0 +1,111 @@
+[
+    {
+        "Id": 1,
+        "TimeId": null,
+        "Name": "Simulacrum Submersion",
+        "ResetNoCdTimes": 0,
+        "ResetCdIncrease": 1,
+        "ResetCdMax": 1,
+        "DailySweepTimes": 3,
+        "PluginPeakloadInit": 7,
+        "PluginPeakloadMax": 30,
+        "AttrLevelSetCount": 5,
+        "AttrSetNameLength": 12,
+        "MaxWeight": 1000000,
+        "MaxLuckyValue": 50,
+        "RankLayerLimit": null,
+        "ShopId": [
+            1236,
+            1235
+        ],
+        "TaskGroupId": [
+            171,
+            172
+        ],
+        "SeasonTaskGroupId": 172.0,
+        "PeriodName": [],
+        "PeriodDesc": [],
+        "PeriodTimeIds": [],
+        "BackLayers": [],
+        "MopupCd": null,
+        "AffixWeightVersion": null
+    },
+    {
+        "Id": 2,
+        "TimeId": null,
+        "Name": "Simulacrum Submersion",
+        "ResetNoCdTimes": 0,
+        "ResetCdIncrease": 1,
+        "ResetCdMax": 1,
+        "DailySweepTimes": 3,
+        "PluginPeakloadInit": 7,
+        "PluginPeakloadMax": 30,
+        "AttrLevelSetCount": 5,
+        "AttrSetNameLength": 12,
+        "MaxWeight": 1000000,
+        "MaxLuckyValue": 50,
+        "RankLayerLimit": 1.0,
+        "ShopId": [
+            1296,
+            1295,
+            1290.0
+        ],
+        "TaskGroupId": [
+            277,
+            278
+        ],
+        "SeasonTaskGroupId": 282.0,
+        "PeriodName": [
+            "Primo Sequence",
+            "Evolving Sequence",
+            "End Sequence",
+            "Loop Sequence"
+        ],
+        "PeriodDesc": [
+            "Primo Sequence: Enemies come with radiation effects and deal damage to all characters. A character can deal 15% more Extra DMG for every 10s they stay on the battlefield, up to 225%, which will be cleared after they leave the battlefield.",
+            "Evolving Sequence: The enemy will generate a Shield after surviving for 15s.",
+            "End Sequence: When the enemy has no allies within 5m around them, they deal more damage and have higher DMG Reduction.",
+            "Loop Sequence: Killing enemies will make the character deal more damage for 5s. Triggering the effect again will refresh the duration and add stacks."
+        ],
+        "PeriodTimeIds": [],
+        "BackLayers": [
+            90.0,
+            90.0,
+            90.0,
+            90.0
+        ],
+        "MopupCd": 86400.0,
+        "AffixWeightVersion": null
+    },
+    {
+        "Id": 3,
+        "TimeId": 32001.0,
+        "Name": "Stellar Witching Hour",
+        "ResetNoCdTimes": 0,
+        "ResetCdIncrease": 1,
+        "ResetCdMax": 1,
+        "DailySweepTimes": 3,
+        "PluginPeakloadInit": 18,
+        "PluginPeakloadMax": 30,
+        "AttrLevelSetCount": 5,
+        "AttrSetNameLength": 12,
+        "MaxWeight": 1000000,
+        "MaxLuckyValue": 200,
+        "RankLayerLimit": 1.0,
+        "ShopId": [
+            1432,
+            1433
+        ],
+        "TaskGroupId": [
+            391,
+            392
+        ],
+        "SeasonTaskGroupId": null,
+        "PeriodName": [],
+        "PeriodDesc": [],
+        "PeriodTimeIds": [],
+        "BackLayers": [],
+        "MopupCd": 86400.0,
+        "AffixWeightVersion": null
+    }
+]

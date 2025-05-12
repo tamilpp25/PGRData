@@ -1,0 +1,477 @@
+[
+    {
+        "Id": 1001,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Tutorial - Eve",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": 3.0,
+        "StarNumberScore": [
+            30,
+            50,
+            70
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": null,
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi08.png"
+    },
+    {
+        "Id": 1002,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Tutorial - Dawn",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1001.0,
+        "StageNpc": 3.0,
+        "StarNumberScore": [
+            30,
+            50,
+            70
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": null,
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi02.png"
+    },
+    {
+        "Id": 1003,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Luck",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1002.0,
+        "StageNpc": 1.0,
+        "StarNumberScore": [
+            30,
+            60,
+            90
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Phew... I have finally finished all the preparations. Back in Akdilek, I had helped Jamilah host balls. I thought the Kowloong temple fair would be less stressful. Turns out it is just as exhausting.\\nBy the way, I did not have the time to prepare a New Year gift for you, but since you have helped me so much, how about I perform a blessing dance for you instead?\\nIn Kowloong terms, this is called a \"return of courtesy.\" I hope this dance can bring you good luck. May you be healthy and (crossed out) rich (crossed out) in the next year. (Why is it inappropriate to be straight forward? That is my favorite Kowloong blessing!)",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi03.png"
+    },
+    {
+        "Id": 1004,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Prosperity",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1003.0,
+        "StageNpc": 2.0,
+        "StarNumberScore": [
+            60,
+            100,
+            150
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Commandant, I hope this letter finds you well. May the new year bring you peace and success, and all your wishes come true.\\nSister said since this is a Kowloong festival, it is best to greet you in the Kowloong way. I looked up many books before writing this letter. I hope I have done it properly. According to the tradition, we should send good wishes to the people we hold dear. To me, Sister and Commandant are both my most important ones. I wrote this letter with her, and we will follow the Kowloong tradition and hang it to the highest place in the temple so the spirits can receive our wish.\\nNext year will be even better. Right, Commandant?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi05.png"
+    },
+    {
+        "Id": 1005,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Life",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1004.0,
+        "StageNpc": 3.0,
+        "StarNumberScore": [
+            50,
+            100,
+            140
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "The lantern we lit at the temple fair has reached its maximum height. I wonder where it will fly next... Um, shall we try to give it another touch?\\nWe can catch up with it using the short-range jet booster behind me. Commandant, please hold onto me tightly, just like during an emergency drill. There is no emergency tonight, but the moon is dazzlingly bright.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi07.png"
+    },
+    {
+        "Id": 1006,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Joy",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1005.0,
+        "StageNpc": 4.0,
+        "StarNumberScore": [
+            60,
+            100,
+            210
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Thank you for planning this temple fair with me and leaving me with these precious experiences and memories.\\nI never had high expectations for a festival like this. But when all was done, I suddenly understood the purpose of this festival when I stood by your side, gazing at the glowing lanterns and tranquil sky.\\nWe have fought through countless battles and witnessed more breathtaking sights. Yet, I still believe that moments like this are the very reason we fight and strive so hard.\\nCommandant, I will continue to stand by you in the future.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi09.png"
+    },
+    {
+        "Id": 1007,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Wealth",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1006.0,
+        "StageNpc": 5.0,
+        "StarNumberScore": [
+            70,
+            150,
+            250
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Now that all the temple fair preparations are done, I can take care of the stalls myself. You should get some rest, Commandant. Don't worry about the additional fireworks and food supplies needed; I will sort them out. Speaking of which, I'm almost done knitting a pair of gloves. Would you like to... Um, why are you looking at me like that? But...\\nAlright then, let's put the works aside for now. Shall we... take a stroll around the decorated temple fair together?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi01.png"
+    },
+    {
+        "Id": 1008,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Fortune",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1007.0,
+        "StageNpc": 6.0,
+        "StarNumberScore": [
+            80,
+            160,
+            250
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Well done. You could have done it perfectly fine without me; why did you ask me to join you in the first place?\\n...Forget about it. I don't mind what you have done. Having you by my side, I sometimes find myself thinking about the future in different ways.\\nBut remember this: the bond between us will never break no matter what kind of future lies ahead. Don't you dare stop moving forward in the new year\u2014I won't wait too long at the finish line.\\nDon't let me down.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi04.png"
+    },
+    {
+        "Id": 1009,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Auspice",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1008.0,
+        "StageNpc": 7.0,
+        "StarNumberScore": [
+            80,
+            160,
+            280
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Every New Year, Kowloong hosts a grand celebration. Still, setting up the temple fair with you is a brand-new experience I never had.\\nAs a leader, I am used to giving orders and managing from above. I never imagined working with you would bring such joy. Despite the many challenges along the way, I still feel peace of mind when I finally see the lights glowing.\\nLet's enjoy the lanterns on the streets together now. Consider my company a reward for all your hard work. What do you think?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi10.png"
+    },
+    {
+        "Id": 1010,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - New Year",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1009.0,
+        "StageNpc": 8.0,
+        "StarNumberScore": [
+            80,
+            160,
+            280
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "You've done a great job preparing the temple fair, Commandant. It was a lot of work.\\nThe event is well received. Everyone is having a lot of fun at the temple fair. Kamui and Camu are challenging the high-difficulty games you set up, and Wanshi has found his own entertainment. It feels like we have successfully accomplished another mission together.\\nOh, it's time for fireworks. In Kowloong temple fairs, fireworks symbolize the cleansing of bad luck and evil, and can make people's wishes come true. Let us set off the largest one together.\\nIn the new year, I hope to continue standing by your side.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi06.png"
+    },
+    {
+        "Id": 1011,
+        "ActivityId": 1,
+        "ChapterId": 1,
+        "StageName": "Start Anew - Star",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 1010.0,
+        "StageNpc": 9.0,
+        "StarNumberScore": [
+            100,
+            220,
+            350
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Not bad, Gray Raven Commandant. We have worked well together.\\nAccomplishing something like this at a special festival wasn't so bad after all. In fact, I might call it enjoyable. And if I consider it a date with you... that makes it even more interesting.\\nAlright, we're done with the temple fair preparations. Now is truly our own time.\\nAccording to Kowloong traditions, people can make wishes for the New Year. So if there is something you want, just say it out loud. Perhaps I may make your wish come true. Who knows?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleSpringFestivalZi11.png"
+    },
+    {
+        "Id": 2001,
+        "ActivityId": 1,
+        "ChapterId": 2,
+        "StageName": "Lanterns Lit - Wind",
+        "StageKind": 2,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": null,
+        "StarNumberScore": [
+            0,
+            0,
+            0
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleVDBg4.png",
+        "Message": "Message",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleQrj01.png"
+    },
+    {
+        "Id": 2002,
+        "ActivityId": 1,
+        "ChapterId": 2,
+        "StageName": "Lanterns Lit - Flower",
+        "StageKind": 2,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": null,
+        "StarNumberScore": [
+            0,
+            0,
+            0
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleVDBg2.png",
+        "Message": "Message",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleQrj02.png"
+    },
+    {
+        "Id": 2003,
+        "ActivityId": 1,
+        "ChapterId": 2,
+        "StageName": "Lanterns Lit - Snow",
+        "StageKind": 2,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": null,
+        "StarNumberScore": [
+            0,
+            0,
+            0
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleVDBg3.png",
+        "Message": "Message",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleQrj03.png"
+    },
+    {
+        "Id": 2004,
+        "ActivityId": 1,
+        "ChapterId": 2,
+        "StageName": "Lanterns Lit - Moon",
+        "StageKind": 2,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": null,
+        "StarNumberScore": [
+            0,
+            0,
+            0
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleVDBg1.png",
+        "Message": "Message",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleQrj04.png"
+    },
+    {
+        "Id": 2005,
+        "ActivityId": 1,
+        "ChapterId": 2,
+        "StageName": "Lanterns Lit - Eve",
+        "StageKind": 2,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": null,
+        "StarNumberScore": [
+            0,
+            0,
+            0
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleVDBg5.png",
+        "Message": "Message",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleQrj05.png"
+    },
+    {
+        "Id": 3001,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Peace",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": null,
+        "StageNpc": 10.0,
+        "StarNumberScore": [
+            20,
+            40,
+            70
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Ahem! Great work. Not bad at all.\\nWe have great synergy, but don't expect me to praise you over something like this! If I look happy, it's only because the Engineering Force has been... Ugh, I must stop talking about work. What else can I even write about...?\\nUm, since the temple fair is all set up now, why don't we take a stroll together? I'm only inviting you because they recommended an ice cream shop to me! If you say no, I'm never going to... You are coming, right?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx01.png"
+    },
+    {
+        "Id": 3002,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Brilliance",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3001.0,
+        "StageNpc": 11.0,
+        "StarNumberScore": [
+            20,
+            40,
+            70
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "As expected of you, Commandant, all preparations for the temple fair are done. The event is up and running smoothly. Still, I...\\nSorry, I just feel a little uneasy. As the captain of the Purifying Force, it's been a while since the last time I was part of such a lively crowd.\\nWhile people's impressions of us have changed, I have grown used to solitude. So... could you accompany me for a walk near the lantern-lit woods over there?\\nHaving you by my side at this festival is more than enough for me.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx02.png"
+    },
+    {
+        "Id": 3003,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Joy",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3002.0,
+        "StageNpc": 12.0,
+        "StarNumberScore": [
+            100,
+            160,
+            240
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "What a satisfying work! Seeing this temple fair we set up together fills me with a sense of accomplishment. One of the reasons I love being a curator is that I enjoy designing intricate displays. Seeing people's surprised expressions always makes me delighted!\\nFor some reason, I felt even more excited when I was working with you, Commandant. Just now, I finally realized why I loved these exhibitions so much\u2014because I wanted to share this thrill and excitement with my most important ones.\\nI have shared with you my vision of the New Year celebration. Can you feel it, Commandant?",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx03.png"
+    },
+    {
+        "Id": 3004,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - New",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3003.0,
+        "StageNpc": 13.0,
+        "StarNumberScore": [
+            30,
+            60,
+            120
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "I bought some tea at the temple fair. Hold it in your hands to warm them up. This winter feels colder than usual, but I believe that when the snow melts, you will still be... Never mind. I'll tell you when that day comes. Happy New Year, Commandant.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx04.png"
+    },
+    {
+        "Id": 3005,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Lantern",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3004.0,
+        "StageNpc": 14.0,
+        "StarNumberScore": [
+            50,
+            100,
+            150
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Is it all done now? Bambinata doesn't seem to have contributed much... Commandant, could you go to the temple fair with Bambinata? Bambinata would like to pick a gift to make up for it. According to Mistress, people give their best wishes to their important ones on this special festival, so Bambinata wishes you happiness too, Commandant.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx05.png"
+    },
+    {
+        "Id": 3006,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Fire",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3005.0,
+        "StageNpc": 15.0,
+        "StarNumberScore": [
+            80,
+            160,
+            230
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Thanks for inviting me to prepare this celebration. It has been a long time since I last participated in such a lively event.\\nNo matter where we are, people share the same anticipation for festivals and holidays. We all look forward to reuniting with our important ones on those special days, which is why... I showed up immediately when I received your invitation.\\nThank you for giving me such an unforgettable Spring Festival. With such blessings, I am confident that in the coming year, you and I\u2014Babylonia and the Forsaken will achieve great things together, and all our wishes will come true.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx06.png"
+    },
+    {
+        "Id": 3007,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Tree",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3006.0,
+        "StageNpc": 16.0,
+        "StarNumberScore": [
+            50,
+            100,
+            190
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "What an unforgettable experience... The Kowloong temple fair is truly unique.\\nThis place is bustling like the busiest market along the Arctic Route and warm like the bonfire lit up by the Forest Guard. I once patrolled the depths of the forest, and even the starlight I saw there was not as brilliant as these lanterns, not to mention that we designed them all. This day will forever remain in my memory.\\nEven the most extravagant wishes seem within reach in such brilliance.\\nI hope that luck will stay with me in the new year. Happy New Year, Commandant. To me, you are the incarnation of good luck.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx07.png"
+    },
+    {
+        "Id": 3008,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Snow",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3007.0,
+        "StageNpc": 17.0,
+        "StarNumberScore": [
+            80,
+            160,
+            200
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "Phew, finally done! Nanami loves events like this, where lots of people gather together to celebrate! Look at all those lanterns we hung up together. They are like twinkling little stars\u2606! I love Kowloong Spring Festival! Make sure you celebrate this day with Nanami again next year, Commandant!\\nAnd one last thing! Nanami heard that sending blessings during this festival would make them work like wonders. So Nanami is going to wish Commandant a super-duper smooth and healthy... Ugh, I have so much more that I want to write, but there's no space!\\nNanami will just wish all of your dreams come true, Commandant!",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx08.png"
+    },
+    {
+        "Id": 3009,
+        "ActivityId": 1,
+        "ChapterId": 3,
+        "StageName": "Full Moon - Light",
+        "StageKind": 1,
+        "TimeId": 25601,
+        "LastStage": 3008.0,
+        "StageNpc": 18.0,
+        "StarNumberScore": [
+            80,
+            160,
+            200
+        ],
+        "Bg": "Assets/Product/Texture/Image/UiTemple/UiTempleBattleNyBg1.png",
+        "Message": "You have come at the right time, Commandant. Today is the Lantern Festival, and we are preparing the sweet dumplings. Liv and I are making the fillings and sticky rice wrappers. Would you like to join us? Regarding the allocation of tasks, Liv is making most of the fillings, while I am only working on one type. I have put it in... Oops, it is already mixed with other bowls.",
+        "DetailBg": "Assets/Product/Texture/Image/UiTemple/UiTempleChapterDetail01.png",
+        "ImageNumber": "Assets/Product/Texture/Atlas/UiTemple/UiTempleYx09.png"
+    }
+]

@@ -1,0 +1,766 @@
+[
+    {
+        "Id": 1,
+        "Name": "Ruins",
+        "Type": 1.0,
+        "Desc": "Small ruins. Grant Wood x300 and Iron x300 after being cleaned up. The area will then be restored to a vacant area.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 3.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 2,
+        "Name": "Ruins",
+        "Type": 1.0,
+        "Desc": "Medium ruins. Grant Wood x600 and Iron x600 after being cleaned up. The area will then be restored to a vacant area.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 5.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            3.0,
+            4.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 3,
+        "Name": "Ruins",
+        "Type": 1.0,
+        "Desc": "Big ruins. Grant Wood x1000 and Iron x1000 after being cleaned up. The area will then be restored to a vacant area.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 10.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            5.0,
+            6.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 4,
+        "Name": "Residence",
+        "Type": 2.0,
+        "Desc": "It provides a place to stay for a certain number of people. This way they will be less prone to disease and starvation. At least, it's better than letting them sleep on the ground.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild05.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            355.0,
+            360.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": 10.0,
+        "WorkingEffectId": [],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 5,
+        "Name": "Medical Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Medical Depot will produce a fixed amount of Medicine every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild03.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": 10529.0,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            110.0,
+            160.0
+        ],
+        "LockPeopleOnWorking": 2.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            7.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            3.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            5.0
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Supply Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Supply Depot will produce a fixed amount of Food every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild07.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": 10529.0,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            150.0,
+            115.0
+        ],
+        "LockPeopleOnWorking": 2.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            8.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            4.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            5.0
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Outpost",
+        "Type": 2.0,
+        "Desc": "Constructing outpost(s) unlocks the [Explore] feature. There are supplies and survivors beyond the camp. Form a team to explore the world outside. (Cannot be demolished)",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild06.png",
+        "MaxNum": 2.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 5.0,
+        "UnlockCondition": 10529.0,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            305.0,
+            280.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            9.0,
+            10.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 8,
+        "Name": "Comms Device",
+        "Type": 2.0,
+        "Desc": "There must be more survivors on this land. Let's keep broadcasting. Someone will be able to hear us... right?",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild04.png",
+        "MaxNum": 1.0,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 3,
+        "LockPeopleOnBuilding": 10.0,
+        "UnlockCondition": 10529.0,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            940.0,
+            965.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 201,
+        "Name": "Old Medical Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Big Medical Depot will produce a fixed amount of Medicine every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild03.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            150.0,
+            200.0
+        ],
+        "LockPeopleOnWorking": 3.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            201.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            3.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            10.0
+        ]
+    },
+    {
+        "Id": 202,
+        "Name": "Old Supply Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Big Supply Depot will produce a fixed amount of Food every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild07.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            200.0,
+            150.0
+        ],
+        "LockPeopleOnWorking": 3.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            202.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            4.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            10.0
+        ]
+    },
+    {
+        "Id": 203,
+        "Name": "Small Ruins",
+        "Type": 1.0,
+        "Desc": "Small ruins. After clearing them, you will get <color=#0F70BC>Wood x100</color> and <color=#0F70BC>Iron x100</color> and the area will be <color=#0F70BC>restored to a vacant area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 3.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            203.0,
+            204.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 204,
+        "Name": "Medium Ruins",
+        "Type": 1.0,
+        "Desc": "Medium ruins. After clearing them, you will get <color=#0F70BC>Wood x200</color> and <color=#0F70BC>Iron x200</color> and the area will be <color=#0F70BC>restored to a vacant area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 3.0,
+        "WorkDayCount": 2.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            205.0,
+            206.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 205,
+        "Name": "Big Ruins",
+        "Type": 1.0,
+        "Desc": "Big ruins. After clearing them, you will get <color=#0F70BC>Wood x500</color> and <color=#0F70BC>Iron x500</color> and the area will be <color=#0F70BC>restored to a vacant area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 5.0,
+        "WorkDayCount": 3.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            207.0,
+            208.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            170.0,
+            170.0
+        ]
+    },
+    {
+        "Id": 206,
+        "Name": "Residence",
+        "Type": 2.0,
+        "Desc": "It provides a place to live for some people <color=#0F70BC>(10 people)</color>. At least, it's more comfortable than passing the night on the ground. Those in it are less likely to get tired. <color=#0F70BC>(They lose less Spirit.)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild05.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 5.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            500.0,
+            500.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": 10.0,
+        "WorkingEffectId": [],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 207,
+        "Name": "Medical Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Medical Depot will produce a fixed amount of Medicine every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild03.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            120.0,
+            160.0
+        ],
+        "LockPeopleOnWorking": 2.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            209.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            3.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            15.0
+        ]
+    },
+    {
+        "Id": 208,
+        "Name": "Supply Depot",
+        "Type": null,
+        "Desc": "With enough residents working in it, the Supply Depot will produce a fixed amount of Food every day.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild07.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            160.0,
+            120.0
+        ],
+        "LockPeopleOnWorking": 2.0,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            210.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            4.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            15.0
+        ]
+    },
+    {
+        "Id": 209,
+        "Name": "Outpost",
+        "Type": 2.0,
+        "Desc": "Constructing outpost(s) unlocks the <color=#0F70BC>Explore</color> feature. There are supplies and survivors beyond the camp. Form a team to explore the world outside. <color=#FF0033>(Cannot be demolished)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild06.png",
+        "MaxNum": 2.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            300.0,
+            300.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            211.0,
+            212.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20201,
+        "Name": "Comms Device",
+        "Type": 2.0,
+        "Desc": "A communication device with the radar feature. It can scan nearby terrain and establish communication with the outside world. <color=#FF0033>(Cannot be demolished)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild04.png",
+        "MaxNum": 1.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 2,
+        "LockPeopleOnBuilding": 6.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            1000.0,
+            1000.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            20209.0,
+            20210.0,
+            20211.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20202,
+        "Name": "Outpost",
+        "Type": 2.0,
+        "Desc": "After constructing an outpost, you will be able to form a team to explore the world. <color=#FF0033>(Cannot be demolished)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild06.png",
+        "MaxNum": 1.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": 20202.0,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            300.0,
+            300.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            211.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20301,
+        "Name": "Outpost",
+        "Type": 2.0,
+        "Desc": "Constructing outpost(s) unlocks the <color=#0F70BC>Explore</color> feature. There are supplies and survivors beyond the camp. Form a team to explore the world outside. <color=#FF0033>(Cannot be demolished)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild06.png",
+        "MaxNum": 2.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            300.0,
+            300.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            211.0,
+            212.0,
+            20310.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20401,
+        "Name": "Outpost",
+        "Type": 2.0,
+        "Desc": "Constructing outpost(s) unlocks the [Explore] feature. There are supplies and survivors beyond the camp. Form a team to explore the world outside. (Cannot be demolished)",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild06.png",
+        "MaxNum": 1.0,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 3.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            350.0,
+            350.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            211.0,
+            212.0,
+            20419.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20402,
+        "Name": "Comms Device",
+        "Type": 2.0,
+        "Desc": "A communication device with the recording feature. Can be used for recording or communicating with distant locations.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild04.png",
+        "MaxNum": 1.0,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 2,
+        "LockPeopleOnBuilding": 4.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            900.0,
+            900.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            20420.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    },
+    {
+        "Id": 20403,
+        "Name": "Not-So-Small Ruins",
+        "Type": 1.0,
+        "Desc": "Relatively small ruins. After clearing them, you will get <color=#0F70BC>Wood x200</color> and <color=#0F70BC>Iron x200</color> and the area will be <color=#0F70BC>restored to a vacant area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 4.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            20410.0,
+            20411.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            200.0,
+            200.0
+        ]
+    },
+    {
+        "Id": 20404,
+        "Name": "Not-So-Big Ruins",
+        "Type": 1.0,
+        "Desc": "Relatively big ruins. After clearing them, you will get <color=#0F70BC>Wood x350</color> and <color=#0F70BC>Iron x350</color> and the area will be <color=#0F70BC>restored to a vacant area</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild02.png",
+        "MaxNum": null,
+        "CanManualRemove": null,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": null,
+        "UnlockCondition": null,
+        "SpendResourceType": [],
+        "SpendResourceCount": [],
+        "LockPeopleOnWorking": 6.0,
+        "WorkDayCount": 1.0,
+        "ExtendPeopleNumber": null,
+        "WorkingEffectId": [
+            20412.0,
+            20413.0
+        ],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [
+            1.0,
+            2.0
+        ],
+        "WorkingDailyGainResourceCount": [
+            350.0,
+            350.0
+        ]
+    },
+    {
+        "Id": 20405,
+        "Name": "Shelter",
+        "Type": 2.0,
+        "Desc": "It provides a place to live for some people <color=#0F70BC>(5 people)</color>. At least, it's more comfortable than passing the night on the ground. Those in it are less likely to get tired. <color=#0F70BC>(They lose less Spirit.)</color>",
+        "Icon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayMainBuild05.png",
+        "MaxNum": null,
+        "CanManualRemove": 1.0,
+        "FinishDayCount": 1,
+        "LockPeopleOnBuilding": 2.0,
+        "UnlockCondition": null,
+        "SpendResourceType": [
+            1.0,
+            2.0
+        ],
+        "SpendResourceCount": [
+            100.0,
+            100.0
+        ],
+        "LockPeopleOnWorking": null,
+        "WorkDayCount": null,
+        "ExtendPeopleNumber": 5.0,
+        "WorkingEffectId": [],
+        "WorkingDailyConsumeResourceId": [],
+        "WorkingDailyConsumeResourceCount": [],
+        "WorkingDailyGainResourceId": [],
+        "WorkingDailyGainResourceCount": []
+    }
+]

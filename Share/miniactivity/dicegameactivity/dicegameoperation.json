@@ -1,0 +1,44 @@
+[
+    {
+        "Id": 1,
+        "ActivityId": 2,
+        "Type": 1,
+        "FormulaText": "DiceGameOperationTitleA",
+        "DescText": "DiceGameOperationDescA",
+        "ResultText": "DiceGameOperationResultAB",
+        "CountText": null,
+        "ScoreRate": 4,
+        "SelectionRate": null,
+        "FlagObtain": null,
+        "FlagRequired": null,
+        "FlagToScore": null
+    },
+    {
+        "Id": 2,
+        "ActivityId": 2,
+        "Type": 2,
+        "FormulaText": "DiceGameOperationTitleB",
+        "DescText": "DiceGameOperationDescB",
+        "ResultText": "DiceGameOperationResultAB",
+        "CountText": "DiceGameOperationCountB",
+        "ScoreRate": 2,
+        "SelectionRate": 1.0,
+        "FlagObtain": null,
+        "FlagRequired": null,
+        "FlagToScore": null
+    },
+    {
+        "Id": 3,
+        "ActivityId": 2,
+        "Type": 3,
+        "FormulaText": "DiceGameOperationTitleC",
+        "DescText": "DiceGameOperationDescC",
+        "ResultText": "DiceGameOperationResultC",
+        "CountText": "DiceGameOperationCountC",
+        "ScoreRate": 1,
+        "SelectionRate": null,
+        "FlagObtain": 1.0,
+        "FlagRequired": 10.0,
+        "FlagToScore": 100.0
+    }
+]

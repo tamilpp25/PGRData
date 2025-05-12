@@ -1,0 +1,2603 @@
+[
+    {
+        "Id": 1,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sleep",
+        "Desc": "Restore 50% team HP when passing the Starting Point",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1001.0
+        ],
+        "UseDesc": "Base Recovery"
+    },
+    {
+        "Id": 2,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Collect",
+        "Desc": "Star Ore +55 when passing for the 1st time in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1002.0
+        ],
+        "UseDesc": "Mine Recovery"
+    },
+    {
+        "Id": 3,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Space Pirate",
+        "Desc": "When adjacent to [Star Training Field], generate 2 Space Pirates every cycle. Star Ore +30 after defeating the pirates",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32032.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1003.0
+        ],
+        "UseDesc": "Mine & Training Field Synergy"
+    },
+    {
+        "Id": 4,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Training",
+        "Desc": "Team ATK +3, HP +5 when passing for the 1st time in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon6.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1004.0,
+            1005.0
+        ],
+        "UseDesc": "Training Field's ATK/HP Bonus"
+    },
+    {
+        "Id": 5,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Wanderer",
+        "Desc": "Generate 4 Space Wanderers on random roads in each cycle",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1006.0
+        ],
+        "UseDesc": "Mine Summon"
+    },
+    {
+        "Id": 6,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Precision",
+        "Desc": "Team CRIT Rate +20%, CRIT DMG +25%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png",
+        "Conditions": [],
+        "Effects": [
+            1007.0,
+            1032.0
+        ],
+        "UseDesc": "Shooting Range's fixed CRIT Rate"
+    },
+    {
+        "Id": 7,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Reinforced Training",
+        "Desc": "Team gets 30% CRIT DMG when adjacent to [Star Training Field]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBodong2.png",
+        "Conditions": [],
+        "Effects": [
+            1008.0
+        ],
+        "UseDesc": "Shooting Range & Training Field Synergy"
+    },
+    {
+        "Id": 8,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Supply",
+        "Desc": "Restore 8% of team max HP when passing for the 1st time in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1009.0
+        ],
+        "UseDesc": "Bar Healing"
+    },
+    {
+        "Id": 9,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Energy Drink",
+        "Desc": "Restore an extra 8% of max HP when adjacent to [Star Training Field]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1010.0
+        ],
+        "UseDesc": "Bar & Training Field Synergy"
+    },
+    {
+        "Id": 10,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Divination",
+        "Desc": "Get 1 random item when passing for the 1st time in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1011.0
+        ],
+        "UseDesc": "Divination House Item Draw"
+    },
+    {
+        "Id": 11,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "VVIP Divination",
+        "Desc": "Draw 1 extra item when passing by in each cycle if this building is adjacent to [Norman Star Mine]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaS1.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            1011.0
+        ],
+        "UseDesc": "Divination House & Mine Synergy"
+    },
+    {
+        "Id": 12,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Good Spirit!",
+        "Desc": "Team Speed Bonus +28%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11013.png",
+        "Conditions": [],
+        "Effects": [
+            1013.0
+        ],
+        "UseDesc": "Ion Tower"
+    },
+    {
+        "Id": 13,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Energetic",
+        "Desc": "Get 20% ATK SPD bonus but consume 50 Star Ore when this building is adjacent to [Norman Star Mine]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            1001.0,
+            1005.0
+        ],
+        "Effects": [
+            1013.0,
+            1014.0
+        ],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 14,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Drop",
+        "Desc": "Team Star Ore +15 when defeated",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            1031.0
+        ],
+        "UseDesc": "Mine Synergy Enemy Star Ore Event"
+    },
+    {
+        "Id": 101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Attack Synergy",
+        "Desc": "Team ATK +3 when adjacent to [Star Training Field]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Conditions": [],
+        "Effects": [
+            1015.0
+        ],
+        "UseDesc": "Mutated Rock & Training Field Synergy"
+    },
+    {
+        "Id": 102,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Continuously",
+        "Desc": "Restore an extra 1 team HP every cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1017.0
+        ],
+        "UseDesc": "Mutated Grass"
+    },
+    {
+        "Id": 103,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Now",
+        "Desc": "Team HP 1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [],
+        "Effects": [
+            1018.0
+        ],
+        "UseDesc": "Mutated Grass"
+    },
+    {
+        "Id": 104,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Continuously",
+        "Desc": "Restore an extra 1 team HP every cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1019.0
+        ],
+        "UseDesc": "Icy Star Rock"
+    },
+    {
+        "Id": 105,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Now",
+        "Desc": "Team HP 1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [],
+        "Effects": [
+            1020.0
+        ],
+        "UseDesc": "Icy Star Rock"
+    },
+    {
+        "Id": 106,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "ATK SPD Synergy",
+        "Desc": "Team ATK SPD +1% when adjacent to [Leap Star Tower]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Conditions": [],
+        "Effects": [
+            1021.0
+        ],
+        "UseDesc": "Icy Star Surface & Training Field Synergy"
+    },
+    {
+        "Id": 107,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Continuously",
+        "Desc": "Restore an extra 1 team HP every cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1022.0
+        ],
+        "UseDesc": "Sand Star Oasis"
+    },
+    {
+        "Id": 108,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Now",
+        "Desc": "Team HP 1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [],
+        "Effects": [
+            1023.0
+        ],
+        "UseDesc": "Sand Star Oasis"
+    },
+    {
+        "Id": 109,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Attack Synergy",
+        "Desc": "Team ATK +3 when adjacent to [Brilliance Observatory]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Conditions": [],
+        "Effects": [
+            1024.0
+        ],
+        "UseDesc": "Sand Star Rock & Training Field Synergy"
+    },
+    {
+        "Id": 110,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Continuously",
+        "Desc": "Restore an extra 1 team HP every cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            1025.0
+        ],
+        "UseDesc": "Fire Star Lava"
+    },
+    {
+        "Id": 111,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Relax Now",
+        "Desc": "Team HP 1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [],
+        "Effects": [
+            1026.0
+        ],
+        "UseDesc": "Fire Star Lava"
+    },
+    {
+        "Id": 112,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "CRIT Synergy",
+        "Desc": "CRIT Rate +1%, CRIT DMG +1% when adjacent to [Virtual Range]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Conditions": [],
+        "Effects": [
+            1027.0,
+            1028.0
+        ],
+        "UseDesc": "Fire Star Crystal & Training Field Synergy"
+    },
+    {
+        "Id": 113,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Ability Boost",
+        "Desc": "ATK +5, HP +10",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon6.png",
+        "Conditions": [],
+        "Effects": [
+            1033.0,
+            1034.0
+        ],
+        "UseDesc": "Sweet Star Red Velvet"
+    },
+    {
+        "Id": 114,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Star Ore Synergy",
+        "Desc": "Star Ore +50 when adjacent to [Norman Star Mine]",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon6.png",
+        "Conditions": [],
+        "Effects": [
+            1035.0
+        ],
+        "UseDesc": "Sweet Star Almond"
+    },
+    {
+        "Id": 501,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "1-2 Theme",
+        "Desc": "- ATK +1, current HP -2 for every <color=#b89cfe>enemy defeated</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            2001.0,
+            2002.0
+        ],
+        "UseDesc": "1-2 Theme"
+    },
+    {
+        "Id": 502,
+        "TriggerType": 2,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Neural Latency",
+        "Desc": "- Reduce the Starting Point's <color=#b89cfe>healing</color> to 25%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12001.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "1-4 Theme Display Only. Achieved through swapping Base"
+    },
+    {
+        "Id": 503,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Neural Latency",
+        "Desc": "Reduce the Starting Point's healing to 25% (Mounted)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12001.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 504,
+        "TriggerType": 6,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-2 Theme",
+        "Desc": "Scrapped",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            2005.0
+        ],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 505,
+        "TriggerType": 6,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-4 Theme",
+        "Desc": "Scrapped",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            2006.0,
+            2007.0
+        ],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 506,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-1 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2011.0
+        ],
+        "Effects": [
+            2008.0
+        ],
+        "UseDesc": "2-1 Construction Mission 1 Mine x3"
+    },
+    {
+        "Id": 507,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-2 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2021.0
+        ],
+        "Effects": [
+            2008.0
+        ],
+        "UseDesc": "2-2 Construction Mission 1 Mine x3"
+    },
+    {
+        "Id": 508,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-3 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2031.0
+        ],
+        "Effects": [
+            2008.0
+        ],
+        "UseDesc": "2-3 Construction Mission 1 Mine x6"
+    },
+    {
+        "Id": 509,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-4 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2041.0
+        ],
+        "Effects": [
+            2008.0
+        ],
+        "UseDesc": "2-4 Construction Mission 1 Mine x6"
+    },
+    {
+        "Id": 510,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-5 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2051.0
+        ],
+        "Effects": [
+            2008.0
+        ],
+        "UseDesc": "2-5 Construction Mission 1 Mine x2"
+    },
+    {
+        "Id": 511,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-3 Stats Construction Mission",
+        "Desc": "- After <color=#b89cfe>completing all</color> Construction Missions, get <color=#b89cfe>stats bonus</color> in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2031.0,
+            2032.0,
+            2033.0
+        ],
+        "Effects": [
+            2009.0
+        ],
+        "UseDesc": "2-3 Construction Mission 1"
+    },
+    {
+        "Id": 512,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Special Enhancement",
+        "Desc": "- Team ATK +5, HP +10 in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R1luxiyadazhao1.png",
+        "Conditions": [],
+        "Effects": [
+            2010.0,
+            2011.0
+        ],
+        "UseDesc": "Get bonus stats in each cycle after completing Construction Missions"
+    },
+    {
+        "Id": 513,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Inefficient Construction",
+        "Desc": "- <color=#b89cfe>Arctic Weather</color>: Construction will <color=#b89cfe>cost an extra</color> 999 Star Ore upon completion (except Landscape construction)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Arctic Star Ore Deduction Display Only Message"
+    },
+    {
+        "Id": 514,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Alternation",
+        "Desc": "- Arctic & Sunny will alternate more frequently",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "2-5 Theme Display Only"
+    },
+    {
+        "Id": 515,
+        "TriggerType": 6,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sand Star Theme 1",
+        "Desc": "- <color=#b89cfe>Upon getting an item</color>, ATK +5, HP +10",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            2020.0,
+            2021.0
+        ],
+        "UseDesc": "Sand Star Theme 1"
+    },
+    {
+        "Id": 516,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sandstorm",
+        "Desc": "- <color=#b89cfe>Sandstorm</color> becomes even more dangerous. Unable to build <color=#b89cfe>Star Training Field</color>",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sand Planet's Sandstorm Environment Change Tip - Tip Only"
+    },
+    {
+        "Id": 517,
+        "TriggerType": 6,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sand Star Theme 2",
+        "Desc": "- Star Ore +10 upon <color=#b89cfe>getting an item</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            2022.0
+        ],
+        "UseDesc": "Sand Star Theme 2"
+    },
+    {
+        "Id": 518,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 1",
+        "Desc": "- Star Ore +200 when <color=#b89cfe>passing the Starting Point</color> in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            2030.0
+        ],
+        "UseDesc": "Fire Star Theme 1"
+    },
+    {
+        "Id": 519,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2-1",
+        "Desc": "- Only <color=#b89cfe>3</color> <color=#b89cfe>Norman Star Mines</color> can be built",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Fire Star Theme 2 Display Only, Construction Limit Through Building Table"
+    },
+    {
+        "Id": 520,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2-2",
+        "Desc": "- Only <color=#b89cfe>2</color> <color=#b89cfe>Norman Star Mines</color> can be built",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Fire Star Theme 2 4-2 Display Only, Construction Limit Through Building Table"
+    },
+    {
+        "Id": 521,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2-3",
+        "Desc": "- Only <color=#b89cfe>1</color> <color=#b89cfe>Norman Star Mine</color> can be built",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Fire Star Theme 2 4-3 Display Only, Construction Limit Through Building Table"
+    },
+    {
+        "Id": 522,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2-4",
+        "Desc": "- <color=#b89cfe>Norman Star Mine</color> cannot be built",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Fire Star Theme 2 4-4 Display Only, Construction Limit Through Building Table"
+    },
+    {
+        "Id": 523,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2-4",
+        "Desc": "- <color=#b89cfe>Thunderstorm</color> warning: more powerful enemies will appear",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Fire Star Theme 2 4-4 Display Only"
+    },
+    {
+        "Id": 524,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Fire Star Environment 2",
+        "Desc": "- Star Ore +500 when <color=#b89cfe>passing the Starting Point</color> in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": null,
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            2031.0
+        ],
+        "UseDesc": "Fire Star Theme 4, 5"
+    },
+    {
+        "Id": 560,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-1 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2012.0
+        ],
+        "Effects": [
+            2100.0
+        ],
+        "UseDesc": "2-1 Construction Mission 2"
+    },
+    {
+        "Id": 561,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-2 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2022.0
+        ],
+        "Effects": [
+            2100.0
+        ],
+        "UseDesc": "2-2 Construction Mission 2"
+    },
+    {
+        "Id": 562,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-3 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2032.0
+        ],
+        "Effects": [
+            2100.0
+        ],
+        "UseDesc": "2-3 Construction Mission 2"
+    },
+    {
+        "Id": 563,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-4 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2042.0
+        ],
+        "Effects": [
+            2100.0
+        ],
+        "UseDesc": "2-4 Construction Mission 2"
+    },
+    {
+        "Id": 564,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-5 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2052.0
+        ],
+        "Effects": [
+            2100.0
+        ],
+        "UseDesc": "2-5 Construction Mission 2"
+    },
+    {
+        "Id": 565,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-1 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2013.0
+        ],
+        "Effects": [
+            2101.0
+        ],
+        "UseDesc": "2-1 Construction Mission 3"
+    },
+    {
+        "Id": 566,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-2 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2023.0
+        ],
+        "Effects": [
+            2101.0
+        ],
+        "UseDesc": "2-2 Construction Mission 3"
+    },
+    {
+        "Id": 567,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-3 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2033.0
+        ],
+        "Effects": [
+            2101.0
+        ],
+        "UseDesc": "2-3 Construction Mission 3"
+    },
+    {
+        "Id": 568,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-4 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2043.0
+        ],
+        "Effects": [
+            2101.0
+        ],
+        "UseDesc": "2-4 Construction Mission 3"
+    },
+    {
+        "Id": 569,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "2-5 Construction Mission",
+        "Desc": "- Star Ore + 100 for <color=#b89cfe>every 1</color> Construction Mission completed",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [
+            2053.0
+        ],
+        "Effects": [
+            2101.0
+        ],
+        "UseDesc": "2-5 Construction Mission 3"
+    },
+    {
+        "Id": 580,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 1",
+        "Desc": "- <color=#b89cfe>Landscape</color> cost increased to 50 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 1"
+    },
+    {
+        "Id": 581,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 2",
+        "Desc": "- <color=#b89cfe>Star Training Field</color> provides special effects in <color=#b89cfe>Phantom</color> weather",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 2"
+    },
+    {
+        "Id": 582,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 2",
+        "Desc": "- <color=#b89cfe>Norman Star Mine</color> provides special effects in <color=#b89cfe>Phantom</color> weather",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 2"
+    },
+    {
+        "Id": 583,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 3",
+        "Desc": "- Sovereign will arrive after <color=#b89cfe>Cycle 1</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 3"
+    },
+    {
+        "Id": 584,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 4",
+        "Desc": "- <color=#b89cfe>Mine cannot be built</color>, initial Star Ore +9800",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 4"
+    },
+    {
+        "Id": 585,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 5",
+        "Desc": "- Almond Mousse <color=#b89cfe>sold out</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 5"
+    },
+    {
+        "Id": 586,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 6",
+        "Desc": "- <color=#b89cfe>Star Training Field</color> has no construction limit",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 6"
+    },
+    {
+        "Id": 587,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 7",
+        "Desc": "- <color=#b89cfe>Unable to build any landscape</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 7"
+    },
+    {
+        "Id": 588,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 8",
+        "Desc": "- <color=#b89cfe>Starting Point</color> does not provide healing",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 7"
+    },
+    {
+        "Id": 589,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 9",
+        "Desc": "- Almond Mousse <color=#b89cfe>sold out</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only"
+    },
+    {
+        "Id": 590,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 10",
+        "Desc": "- Almond Mousse <color=#b89cfe>available again</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only"
+    },
+    {
+        "Id": 591,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sweet Star Environment 1",
+        "Desc": "- Cost of <color=#b89cfe>Mont Red Velvet</color> increased to 140 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Sweet Star Display Only 5-4"
+    },
+    {
+        "Id": 1001,
+        "TriggerType": 4,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Sunny",
+        "Desc": "+20 Star Ore after defeating an enemy",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            3024.0
+        ],
+        "UseDesc": "Icy Star Sunny"
+    },
+    {
+        "Id": 1002,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Ore Eruption",
+        "Desc": "Star Ore +20 when defeated",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            3025.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1003,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Arctic",
+        "Desc": "Enemies will become stronger",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21111.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Arctic Display Only"
+    },
+    {
+        "Id": 1004,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Inefficient Construction",
+        "Desc": "Arctic Weather: Construction will cost an extra 999 Star Ore upon completion (except Landscape construction)",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon2.png",
+        "Conditions": [],
+        "Effects": [
+            3026.0,
+            3027.0,
+            3028.0,
+            3029.0,
+            3030.0
+        ],
+        "UseDesc": "In Arctic, each construction grants the building (excluding tiles) with an event that reduces Star Ore by 999"
+    },
+    {
+        "Id": 1005,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Inefficient Construction",
+        "Desc": "Arctic Weather: Construction will cost an extra 999 Star Ore upon completion (except Landscape construction)",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon2.png",
+        "Conditions": [],
+        "Effects": [
+            3031.0
+        ],
+        "UseDesc": "Arctic Star Ore Deduction Event"
+    },
+    {
+        "Id": 1010,
+        "TriggerType": 2,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Scrapped",
+        "Desc": "Brilliance Observatory produces 1 extra random item in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [],
+        "Effects": [
+            3040.0
+        ],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 1011,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Scrapped",
+        "Desc": "Produce 1 extra random item when passing for the 1st time in every cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [],
+        "Effects": [
+            3041.0
+        ],
+        "UseDesc": "Scrapped"
+    },
+    {
+        "Id": 1012,
+        "TriggerType": 4,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Sandstorm CRIT",
+        "Desc": "Non-Sovereign enemy units get +100% CRIT Rate",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13021.png",
+        "Conditions": [],
+        "Effects": [
+            3045.0,
+            3046.0
+        ],
+        "UseDesc": "Sand Star 3-2 Sandstorm"
+    },
+    {
+        "Id": 1013,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "CRIT Up",
+        "Desc": "CRIT Rate +100% in Sandstorm",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13021.png",
+        "Conditions": [],
+        "Effects": [
+            3047.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1014,
+        "TriggerType": 2,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Sandstorm Trial",
+        "Desc": "When Sandstorm is active, get 1 bonus item when passing Norman Star Mine in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [],
+        "Effects": [
+            3048.0
+        ],
+        "UseDesc": "Sand Star 3-2 Sandstorm"
+    },
+    {
+        "Id": 1015,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sandstorm Trial",
+        "Desc": "Get 1 bonus item when passing Norman Star Mine in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [
+            1001.0
+        ],
+        "Effects": [
+            3049.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1030,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Hot Sunny",
+        "Desc": "Star Ore +200 when passing the Starting Point in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            3042.0
+        ],
+        "UseDesc": "Desert Sunny grants Star Ore"
+    },
+    {
+        "Id": 1031,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Bonus Production",
+        "Desc": "Star Ore +200 when passing the Starting Point in each cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            3043.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1050,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Wanderer +",
+        "Desc": "Generate 3 Wanderers on random roads in each cycle",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            3100.0
+        ],
+        "UseDesc": "Fire Star Rainy - Randomly summon on roads"
+    },
+    {
+        "Id": 1051,
+        "TriggerType": 2,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Unowned Machine",
+        "Desc": "Virtual Range generates 3 Unowned Machines on random roads in each cycle. Defeating them grants CRIT DMG +21% and Star Ore +240",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Conditions": [],
+        "Effects": [
+            3101.0
+        ],
+        "UseDesc": "Fire Star Embers: Shooting Range summons an Elite Enemy in this weather (Mounted event)"
+    },
+    {
+        "Id": 1052,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Unowned Machine",
+        "Desc": "Generates 3 Unowned Machines on random roads in each cycle. Defeating them grants CRIT DMG +21% and Star Ore +240",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            3102.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1053,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Reinforced Training",
+        "Desc": "Team CRIT DMG +20% after Elite Pirate is defeated",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Conditions": [],
+        "Effects": [
+            3103.0
+        ],
+        "UseDesc": "Fire Star Embers apply bonus CRIT DMG event on enemy"
+    },
+    {
+        "Id": 1054,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Phantom Weather",
+        "Desc": "For each Norman Star Mine present, Star Ore +10 (up to 50) when building Landscape",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2080.0
+        ],
+        "Effects": [
+            3150.0,
+            3155.0
+        ],
+        "UseDesc": "Sweet Star Weather, Red Velvet + Almond"
+    },
+    {
+        "Id": 1055,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 2",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2081.0
+        ],
+        "Effects": [
+            3151.0,
+            3156.0
+        ],
+        "UseDesc": "2nd Level"
+    },
+    {
+        "Id": 1056,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 3",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2082.0
+        ],
+        "Effects": [
+            3152.0,
+            3157.0
+        ],
+        "UseDesc": "3rd Level"
+    },
+    {
+        "Id": 1057,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 4",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2083.0
+        ],
+        "Effects": [
+            3153.0,
+            3158.0
+        ],
+        "UseDesc": "4th Level"
+    },
+    {
+        "Id": 1058,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 5",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2084.0
+        ],
+        "Effects": [
+            3154.0,
+            3159.0
+        ],
+        "UseDesc": "5th Level"
+    },
+    {
+        "Id": 1059,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Phantom Weather",
+        "Desc": "For each Norman Star Mine present, Star Ore +10 (up to 50) when building Landscape",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2085.0
+        ],
+        "Effects": [
+            3150.0,
+            3155.0
+        ],
+        "UseDesc": "Sweet Star Weather, Red Velvet + Almond"
+    },
+    {
+        "Id": 1060,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 2",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2086.0
+        ],
+        "Effects": [
+            3151.0,
+            3156.0
+        ],
+        "UseDesc": "2nd Level"
+    },
+    {
+        "Id": 1061,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 3",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2087.0
+        ],
+        "Effects": [
+            3152.0,
+            3157.0
+        ],
+        "UseDesc": "3rd Level"
+    },
+    {
+        "Id": 1062,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 4",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2088.0
+        ],
+        "Effects": [
+            3153.0,
+            3158.0
+        ],
+        "UseDesc": "4th Level"
+    },
+    {
+        "Id": 1063,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "Level 5",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [
+            2089.0
+        ],
+        "Effects": [
+            3154.0,
+            3159.0
+        ],
+        "UseDesc": "5th Level"
+    },
+    {
+        "Id": 1080,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "1 Building - 10 Star Ore",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            3180.0
+        ],
+        "UseDesc": "Phantom Refund Level 1"
+    },
+    {
+        "Id": 1081,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "2 Buildings - 20 Star Ore",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            3180.0
+        ],
+        "UseDesc": "Phantom Refund Level 2"
+    },
+    {
+        "Id": 1082,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "3 Buildings - 30 Star Ore",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            3180.0
+        ],
+        "UseDesc": "Phantom Refund Level 3"
+    },
+    {
+        "Id": 1083,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "4 Buildings - 40 Star Ore",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            3180.0
+        ],
+        "UseDesc": "Phantom Refund Level 4"
+    },
+    {
+        "Id": 1084,
+        "TriggerType": 2,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Secondary Phantom",
+        "Desc": "5 Buildings - 50 Star Ore",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            3180.0
+        ],
+        "UseDesc": "Phantom Refund Level 5"
+    },
+    {
+        "Id": 1100,
+        "TriggerType": 4,
+        "IsDirectTrigger": 1,
+        "ActivateCount": 0,
+        "Name": "Phantom",
+        "Desc": "+10 Star Ore after defeating an enemy",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            3190.0
+        ],
+        "UseDesc": "5-5 Phantom"
+    },
+    {
+        "Id": 1101,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Phantom Ore Eruption",
+        "Desc": "Star Ore +10 when defeated",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            3191.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 1102,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Mist",
+        "Desc": "- ATK +1, current HP -2 for every <color=#b89cfe>enemy defeated</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2lifuA1.png",
+        "Conditions": [],
+        "Effects": [
+            3192.0,
+            3193.0
+        ],
+        "UseDesc": "5-5 Mist"
+    },
+    {
+        "Id": 1103,
+        "TriggerType": 1,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Space Pirate +",
+        "Desc": "Generate 3 Space Pirates on random roads in each cycle",
+        "Show": 1,
+        "IsIncrease": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32032.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            3200.0
+        ],
+        "UseDesc": "Fire Star Thunderstorm - Randomly summon on roads"
+    },
+    {
+        "Id": 2001,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sunny",
+        "Desc": "Use to change the current weather to Sunny for 1 cycle",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSSS1.png",
+        "Conditions": [],
+        "Effects": [
+            4001.0
+        ],
+        "UseDesc": "Desert, Sunny Item"
+    },
+    {
+        "Id": 2002,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Emergency Training",
+        "Desc": "Use to increase team's ATK by 3 and HP by 5",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling2.png",
+        "Conditions": [],
+        "Effects": [
+            4002.0,
+            4003.0
+        ],
+        "UseDesc": "Desert, Enhance Item"
+    },
+    {
+        "Id": 2003,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Cooling",
+        "Desc": "Use to reduce all enemy units' CRIT Rate by 100%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXuruo2.png",
+        "Conditions": [],
+        "Effects": [
+            4004.0
+        ],
+        "UseDesc": "Desert - Item to reduce enemy CRIT"
+    },
+    {
+        "Id": 2004,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Resource Crate",
+        "Desc": "Use to get 50 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            4005.0
+        ],
+        "UseDesc": "Desert - Item to grant Star Ore"
+    },
+    {
+        "Id": 2005,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Magnetic Storm",
+        "Desc": "Use to reduce the max HP of non-Sovereign enemies by 99%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12003.png",
+        "Conditions": [],
+        "Effects": [
+            4006.0,
+            4007.0
+        ],
+        "UseDesc": "Desert Reduce Enemy HP"
+    },
+    {
+        "Id": 2006,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Magnetic Storm",
+        "Desc": "Unit HP -99%",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12003.png",
+        "Conditions": [],
+        "Effects": [
+            4008.0
+        ],
+        "UseDesc": "Child Event"
+    },
+    {
+        "Id": 2007,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Shark-Smoothie",
+        "Desc": "Use to restore 10% of team HP",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11002.png",
+        "Conditions": [],
+        "Effects": [
+            4009.0
+        ],
+        "UseDesc": "Desert - Item to heal HP"
+    },
+    {
+        "Id": 2008,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Only One",
+        "Desc": "Use to get 1 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            4010.0
+        ],
+        "UseDesc": "Desert - Item to grant Star Ore (Interference)"
+    },
+    {
+        "Id": 2009,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "One More Time!",
+        "Desc": "Use to get 420 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            4011.0
+        ],
+        "UseDesc": "Sweet Star - Grant Star Ore"
+    },
+    {
+        "Id": 2010,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Two More!",
+        "Desc": "Use to get 840 Star Ore",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            4012.0
+        ],
+        "UseDesc": "Sweet Star - Grant Star Ore 2"
+    },
+    {
+        "Id": 2011,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Attack Up!",
+        "Desc": "Use to increase ATK by 7",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/kamupugong1.png",
+        "Conditions": [],
+        "Effects": [
+            4013.0
+        ],
+        "UseDesc": "Trinity Item"
+    },
+    {
+        "Id": 2012,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "HP Up!",
+        "Desc": "Use to increase HP by 77",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataA1.png",
+        "Conditions": [],
+        "Effects": [
+            4014.0
+        ],
+        "UseDesc": "Trinity Item"
+    },
+    {
+        "Id": 2013,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "CRIT Rate Up!",
+        "Desc": "Use to increase CRIT Rate by 7.7%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png",
+        "Conditions": [],
+        "Effects": [
+            4015.0
+        ],
+        "UseDesc": "Trinity Item"
+    },
+    {
+        "Id": 2014,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "CRIT DMG Up!",
+        "Desc": "Use to increase CRIT DMG by 7.7%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R32BS1.png",
+        "Conditions": [],
+        "Effects": [
+            4016.0
+        ],
+        "UseDesc": "Trinity Item"
+    },
+    {
+        "Id": 2015,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Speed Up!",
+        "Desc": "Use to increase Speed by 7.7%",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11011.png",
+        "Conditions": [],
+        "Effects": [
+            4017.0
+        ],
+        "UseDesc": "Trinity Item"
+    },
+    {
+        "Id": 5001,
+        "TriggerType": 4,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Gone Case",
+        "Desc": null,
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Conditions": [],
+        "Effects": [
+            5001.0,
+            5002.0
+        ],
+        "UseDesc": "Boss Guaranteed Event"
+    },
+    {
+        "Id": 10001,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Battle Instinct",
+        "Desc": "Exploration Team ATK +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/kamupugong1.png",
+        "Conditions": [],
+        "Effects": [
+            10001.0
+        ],
+        "UseDesc": "No. 21"
+    },
+    {
+        "Id": 10101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Mini Vault",
+        "Desc": "Exploration Team initial Star Ore +5 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            10101.0
+        ],
+        "UseDesc": "Vera"
+    },
+    {
+        "Id": 10201,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Endurance Boost",
+        "Desc": "Exploration Team HP +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataA1.png",
+        "Conditions": [],
+        "Effects": [
+            10201.0
+        ],
+        "UseDesc": "Noctis"
+    },
+    {
+        "Id": 10301,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Precise Attack",
+        "Desc": "Exploration Team CRIT Rate +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png",
+        "Conditions": [],
+        "Effects": [
+            10301.0
+        ],
+        "UseDesc": "Luna"
+    },
+    {
+        "Id": 20101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Mini Vault",
+        "Desc": "Exploration Team initial Star Ore +5 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            20101.0
+        ],
+        "UseDesc": "Wanshi"
+    },
+    {
+        "Id": 20201,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Frequency Update",
+        "Desc": "Exploration Team ATK SPD +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11011.png",
+        "Conditions": [],
+        "Effects": [
+            20201.0
+        ],
+        "UseDesc": "Lucia"
+    },
+    {
+        "Id": 20301,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Weapon Upgrade",
+        "Desc": "Exploration Team CRIT DMG +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R32BS1.png",
+        "Conditions": [],
+        "Effects": [
+            20301.0
+        ],
+        "UseDesc": "Rosetta"
+    },
+    {
+        "Id": 30101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Battle Instinct",
+        "Desc": "Exploration Team ATK +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/kamupugong1.png",
+        "Conditions": [],
+        "Effects": [
+            30101.0
+        ],
+        "UseDesc": "Sophia"
+    },
+    {
+        "Id": 30201,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Endurance Boost",
+        "Desc": "Exploration Team HP +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataA1.png",
+        "Conditions": [],
+        "Effects": [
+            30201.0
+        ],
+        "UseDesc": "Watanabe"
+    },
+    {
+        "Id": 30301,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Precise Attack",
+        "Desc": "Exploration Team CRIT Rate +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png",
+        "Conditions": [],
+        "Effects": [
+            30301.0
+        ],
+        "UseDesc": "Pokey"
+    },
+    {
+        "Id": 40101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Mini Vault",
+        "Desc": "Exploration Team initial Star Ore +5 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            40101.0
+        ],
+        "UseDesc": "Karenina"
+    },
+    {
+        "Id": 40201,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Weapon Upgrade",
+        "Desc": "Exploration Team CRIT DMG +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R32BS1.png",
+        "Conditions": [],
+        "Effects": [
+            40201.0
+        ],
+        "UseDesc": "Lee"
+    },
+    {
+        "Id": 40301,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Battle Instinct",
+        "Desc": "Exploration Team ATK +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/kamupugong1.png",
+        "Conditions": [],
+        "Effects": [
+            40301.0
+        ],
+        "UseDesc": "Roland"
+    },
+    {
+        "Id": 50101,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Frequency Update",
+        "Desc": "Exploration Team ATK SPD +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11011.png",
+        "Conditions": [],
+        "Effects": [
+            50101.0
+        ],
+        "UseDesc": "Nozzle"
+    },
+    {
+        "Id": 50201,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Precise Attack",
+        "Desc": "Exploration Team CRIT Rate +1% (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJingzhungongji.png",
+        "Conditions": [],
+        "Effects": [
+            50201.0
+        ],
+        "UseDesc": "Nanami"
+    },
+    {
+        "Id": 50301,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Battle Instinct",
+        "Desc": "Exploration Team ATK +1 (effective even when not in the team)",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconSkill/kamupugong1.png",
+        "Conditions": [],
+        "Effects": [
+            50301.0
+        ],
+        "UseDesc": "Shark-speare"
+    },
+    {
+        "Id": 80001,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Star Ore +",
+        "Desc": "Exploration Team Initial Star Ore +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            80001.0
+        ],
+        "UseDesc": "Icy Star Mountain Talent"
+    },
+    {
+        "Id": 80002,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Star Ore +",
+        "Desc": "Exploration Team Initial Star Ore +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            80002.0
+        ],
+        "UseDesc": "Icy Star Glacier Talent"
+    },
+    {
+        "Id": 80003,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Training +",
+        "Desc": "Exploration Team HP +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22031.png",
+        "Conditions": [],
+        "Effects": [
+            80003.0
+        ],
+        "UseDesc": "Training Field Talent"
+    },
+    {
+        "Id": 80004,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Training ++",
+        "Desc": "Exploration Team HP +2",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22031.png",
+        "Conditions": [],
+        "Effects": [
+            80004.0
+        ],
+        "UseDesc": "Bar Talent"
+    },
+    {
+        "Id": 80005,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Training +",
+        "Desc": "Exploration Team HP +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22031.png",
+        "Conditions": [],
+        "Effects": [
+            80005.0
+        ],
+        "UseDesc": "Mine Talent"
+    },
+    {
+        "Id": 80006,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Armament +",
+        "Desc": "Exploration Team ATK +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21251.png",
+        "Conditions": [],
+        "Effects": [
+            80006.0
+        ],
+        "UseDesc": "Shooting Range Talent"
+    },
+    {
+        "Id": 80007,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Armament +",
+        "Desc": "Exploration Team ATK +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21251.png",
+        "Conditions": [],
+        "Effects": [
+            80007.0
+        ],
+        "UseDesc": "Ion Tower Talent"
+    },
+    {
+        "Id": 80008,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Armament +",
+        "Desc": "Exploration Team ATK +1",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21251.png",
+        "Conditions": [],
+        "Effects": [
+            80008.0
+        ],
+        "UseDesc": "Divination House Talent"
+    },
+    {
+        "Id": 90001,
+        "TriggerType": 3,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Nap",
+        "Desc": "Restore 25% of team max HP when passing the Starting Point",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            90001.0
+        ],
+        "UseDesc": "1-4 Exclusive Base Recovery"
+    },
+    {
+        "Id": 90010,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Arctic Warning",
+        "Desc": "- <color=#b89cfe>Arctic</color> Weather Warning",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Chapter 2 Weather Environment Tip"
+    },
+    {
+        "Id": 90011,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Sandstorm Warning",
+        "Desc": "- <color=#b89cfe>Sandstorm</color> Weather Warning",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Chapter 3 Weather Environment Tip"
+    },
+    {
+        "Id": 90012,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Heat Wave Wawrning",
+        "Desc": "- <color=#b89cfe>Heat Wave</color> Weather Warning",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Chapter 4 Weather Environment Tip"
+    },
+    {
+        "Id": 90013,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Phantom Tip",
+        "Desc": "- In <color=#b89cfe>Phantom</color> Weather, refund the Star Ore consumed for <color=#b89cfe>Landscape Construction</color> based on number of <color=#b89cfe>Mines</color>",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "Chapter 5 Weather Environment Tip"
+    },
+    {
+        "Id": 90015,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "No Environment Tip",
+        "Desc": "- No effect",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11003.png",
+        "Conditions": [],
+        "Effects": [],
+        "UseDesc": "No Environment Tip"
+    },
+    {
+        "Id": 90016,
+        "TriggerType": 0,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Guide Item",
+        "Desc": "Guide Item",
+        "Show": 0,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png",
+        "Conditions": [
+            1003.0
+        ],
+        "Effects": [
+            90002.0
+        ],
+        "UseDesc": "Guide Item"
+    },
+    {
+        "Id": 90050,
+        "TriggerType": 5,
+        "IsDirectTrigger": 0,
+        "ActivateCount": 0,
+        "Name": "Unowned Vault",
+        "Desc": "Star Ore +80 when defeated",
+        "Show": 1,
+        "IsIncrease": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33091.png",
+        "Conditions": [],
+        "Effects": [
+            90050.0
+        ],
+        "UseDesc": "Chapter 4 Embers bonus Star Ore when defeating an enemy"
+    }
+]

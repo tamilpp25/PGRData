@@ -1,0 +1,2059 @@
+[
+    {
+        "Id": 1,
+        "TimeId": 24.0,
+        "Name": "Daily Log-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignDaily.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgDailyLoginNew.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelDailyLoginNew.png",
+        "Type": 1,
+        "RoundDays": [
+            28
+        ],
+        "SubRoundId": [
+            101
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": 2.0,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 1.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 2,
+        "TimeId": 24.0,
+        "Name": "New Player Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNewhand.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseSignInNewPlayer.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelSignInNewPlayer.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1001,
+            1002.0
+        ],
+        "OpenLevel": null,
+        "OpenStage": 10010203.0,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 5,
+        "TimeId": null,
+        "Name": "Christmas Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignChristmas.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg2.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1003
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 6,
+        "TimeId": null,
+        "Name": "Lantern Festival Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLanternFestival.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg38.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1004
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 7,
+        "TimeId": null,
+        "Name": "Spring Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSpringFestival.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg11.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1005
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 8,
+        "TimeId": null,
+        "Name": "Eternal Engine Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLieche.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg21.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1006
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 9,
+        "TimeId": null,
+        "Name": "[Nona] Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignZhongguochuan.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg20.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1007
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 10,
+        "TimeId": null,
+        "Name": "[K.M.] Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignDaduhui.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg29.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1008
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 11,
+        "TimeId": null,
+        "Name": "Grand Blue Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignShuishangleyuanNew.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg45.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1009,
+            1010.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 12,
+        "TimeId": null,
+        "Name": "Firn Night Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignFirnNight.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg44.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1011
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 13,
+        "TimeId": null,
+        "Name": "Autumn Pilgrimage",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignZhongqiu.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg33.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1012
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 14,
+        "TimeId": null,
+        "Name": "Lost Chapter Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignQu.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg48.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1013
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 15,
+        "TimeId": null,
+        "Name": "Fake Ascension",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign1Year.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg2.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1014
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 16,
+        "TimeId": null,
+        "Name": "Anniversary Gift",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign1Year2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg47.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1015
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 17,
+        "TimeId": null,
+        "Name": "Untold Naraka Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNier.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg55.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1016,
+            1017.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 18,
+        "TimeId": null,
+        "Name": "Fortune January",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSpringFestival2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg9.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1018
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 19,
+        "TimeId": null,
+        "Name": "Spring Tribute Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignGiftPack.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg48.png",
+        "Type": 3,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1019,
+            1020.0
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 20,
+        "TimeId": null,
+        "Name": "New Year Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignGiftPack2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg49.png",
+        "Type": 3,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1021
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 21,
+        "TimeId": null,
+        "Name": "Echo Aria Sign-In",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignWanshi.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg46.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1022
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 22,
+        "TimeId": null,
+        "Name": "Imprisoned Sight",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignChrome.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1023
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 23,
+        "TimeId": null,
+        "Name": "Inscription of Labyrinth",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignInNo21.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseTableBgKrLantern.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1024
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 24,
+        "TimeId": null,
+        "Name": "Eden Festival",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMengWar.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableMainLineV128.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1025,
+            1026.0
+        ],
+        "OpenLevel": 52.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 25,
+        "TimeId": null,
+        "Name": "The Last Spark Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignInXiahuo.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryKaLieV128.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1027
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 26,
+        "TimeId": null,
+        "Name": "Merry Christmas",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSummer.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg53.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1028
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 27,
+        "TimeId": null,
+        "Name": "Evernight Beat",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLuolan.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableZhongZhiV129.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1029
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 28,
+        "TimeId": null,
+        "Name": "Miles of Moonlight",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignZhongqiu2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableMainLineV129.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1030
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 29,
+        "TimeId": null,
+        "Name": "The Surviving Lucem",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLiv.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryNuoAnV129.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1031
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 30,
+        "TimeId": null,
+        "Name": "Recitativo di Fantasia",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign2Year.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryIdolV129.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1032
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 31,
+        "TimeId": null,
+        "Name": "Anniversary Gift",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSelena.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseTableBgJpWeiLaSummer.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1033
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 32,
+        "TimeId": null,
+        "Name": "Reveries with a Whale",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignPulao.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableMainLineV130.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1034
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 33,
+        "TimeId": null,
+        "Name": "New Year's Day Celebration",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignPulaoYuandna.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryBiankaV130.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1035
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 36,
+        "TimeId": null,
+        "Name": "Her Last Bow",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign70jiqiren.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryPetV130.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1036
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 35,
+        "TimeId": null,
+        "Name": "Spring Blossom",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign70chunjie.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLivV130.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1037
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 37,
+        "TimeId": null,
+        "Name": "The Ark Beyond",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignHaicma.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryVelaV130.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1038
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 38,
+        "TimeId": null,
+        "Name": "A New Divide",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignKarenina.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryBansV130.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1039
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 39,
+        "TimeId": null,
+        "Name": "Labor Day Logs",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMayDayV128.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableMainLineV131.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1040
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 40,
+        "TimeId": null,
+        "Name": "Cinder Burns",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNuoanV129.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryBBNTV131.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1041
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 41,
+        "TimeId": null,
+        "Name": "Bunny Dance",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignDuanWuV129.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLuoziNikkiV131.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1042
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 42,
+        "TimeId": 24.0,
+        "Name": "Cogsgiving Gifts - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNewhand2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseSignInCelica.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelSignInCelica.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1043
+        ],
+        "OpenLevel": null,
+        "OpenStage": 10010203.0,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": 30.0
+    },
+    {
+        "Id": 43,
+        "TimeId": null,
+        "Name": "Across the Ruined Sea",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignBiancaV130.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLuoziNikkiV131.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1044
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 44,
+        "TimeId": null,
+        "Name": "Left Unsaid",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignBBNTV131.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLuoziNikkiV131.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1045
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 45,
+        "TimeId": null,
+        "Name": "Autumn Moon Brightens",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMoonV131.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLuoziNikkiV131.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1046
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 46,
+        "TimeId": null,
+        "Name": "Spiral of Chronos",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLeeV132.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLableTryLuoziNikkiV131.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1047
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 47,
+        "TimeId": null,
+        "Name": "Renaissance du Fantastique - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSAilaV200.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSAilaV200.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelFirstSAilaV200.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1048
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 48,
+        "TimeId": null,
+        "Name": "Thousand-Day Colors - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainAnniversaryV200.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgAnniversaryV200.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelFirstAnniversaryV200.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1049
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 49,
+        "TimeId": null,
+        "Name": "Wintry Shackles - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperAlphaV201.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperAlphaV201.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperAlphaV201.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1050
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 50,
+        "TimeId": null,
+        "Name": "New Beginnings - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignYuanDanV201.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgYuanDanV201.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelYuanDanV201.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1051
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 51,
+        "TimeId": null,
+        "Name": "Happy New Year - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSpringFestivalV201.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSignSpringFestivalV201.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSignSpringFestivalV201.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1052
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 52,
+        "TimeId": null,
+        "Name": "The Floating Reverie - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainHanYingV202.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgHanYingV202.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelHanYingV202.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1053
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 53,
+        "TimeId": 900.0,
+        "Name": "S-Rank Choice Pack",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignSCharacterWelfare.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSCharacterWelfare.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSCharacterWelfare.png",
+        "Type": 2,
+        "RoundDays": [
+            1
+        ],
+        "SubRoundId": [
+            1054
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": 900.0
+    },
+    {
+        "Id": 54,
+        "TimeId": null,
+        "Name": "Chaos Unsnarled - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMain21HaoV203.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBg21HaoV203.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabel21HaoV203.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1055
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 55,
+        "TimeId": null,
+        "Name": "Teamwork Memo - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMain2023LaodongjieV204.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBg2023LaodongjieV204.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabel2023LaodongjieV204.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1056
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 56,
+        "TimeId": null,
+        "Name": "Sands of Wrath - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainNuoketiV204.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgNuoketiV204.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelNuoketiV204.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1057
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 57,
+        "TimeId": null,
+        "Name": "Heliacal Annals - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMain2023DuanwujieV205.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBg2023DuanwujieV205.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabel2023DuanwujieV205.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1058
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 58,
+        "TimeId": null,
+        "Name": "Everglowing Justice - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainHuiyinV205.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgHuiyinV205.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelHuiyinV205.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1059
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 59,
+        "TimeId": null,
+        "Name": "Cradle Parade - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainLamiaV206.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgLamiaV206.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelLamiaV206.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1060
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 60,
+        "TimeId": null,
+        "Name": "Blazing Simulacrum - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainBlackRockV207.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgBlackRockV207.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelBlackRockV207.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1061
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 61,
+        "TimeId": null,
+        "Name": "Happy Thanksgiving - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMidAutumnFestivalV208.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSignMidAutumnFestivalV208.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSignMidAutumnFestivalV208.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1062
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 62,
+        "TimeId": null,
+        "Name": "Aeon Reforged - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperDubianV208.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperDubianV208.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperDubianV208.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1063
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 63,
+        "TimeId": null,
+        "Name": "Golden Hour - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign4YearV209.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBg4YearV209.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabel4YearV209.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1064
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 64,
+        "TimeId": null,
+        "Name": "Polaris Bond - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperQuV209.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperQuV209.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperQuV209.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1065
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 65,
+        "TimeId": null,
+        "Name": "New Year's Firework - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNewyearV210.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgNewyearV210.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelNewyearV210.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1066
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 66,
+        "TimeId": null,
+        "Name": "Source Beacon Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainBuouxiongV210.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgBuouxiongV210.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelBuouxiongV210.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1067
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 67,
+        "TimeId": null,
+        "Name": "Odes to Spring - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignNewyearV211.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSpringFestivalV211.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSpringFestivalV211.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1068
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 68,
+        "TimeId": null,
+        "Name": "Stars Ensnared - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainLunaV211.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgLunaV211.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelLunaV211.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1069
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 69,
+        "TimeId": null,
+        "Name": "When Day Breaks - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainBulijiteV212.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgBulijiteV212.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelBulijiteV212.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1070
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 70,
+        "TimeId": null,
+        "Name": "Soaring Beyond - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperHanyingV213.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperHanyingV213.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperHanyingV213.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1071
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 71,
+        "TimeId": null,
+        "Name": "Sower's Rewards - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainMayDayV213.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgMayDayV213.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelMayDayV213.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1072
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 72,
+        "TimeId": null,
+        "Name": "The Long Goodbye - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperWanshiV214.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperWanshiV214.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperWanshiV214.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1073
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 73,
+        "TimeId": null,
+        "Name": "Draconic Radiance - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainDuanwuV214.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgDuanwuV214.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelDuanwuV214.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1074
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 74,
+        "TimeId": null,
+        "Name": "Shaper's Ripples - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperLuxiyaV215.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperLuxiyaV215.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperLuxiyaV215.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1075
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 76,
+        "TimeId": 24.0,
+        "Name": "7-Day Boon - Gift Pack",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignWeekCard.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseWeekCard.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelWeekCardV215.png",
+        "Type": 4,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            201
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 1.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 77,
+        "TimeId": null,
+        "Name": "Crescent Sun - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainBazhiV216.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgBazhiV216.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelBazhiV216.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1076
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 78,
+        "TimeId": null,
+        "Name": "Moonlit Autumn - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainZhongqiuV216.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgZhongqiuV216.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelZhongqiuV216.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1077
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 79,
+        "TimeId": 32902.0,
+        "Name": "To the Galaxies - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainYongyechaoV217.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgYongyechaoV217.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelYongyechaoV217.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1078
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1000002,
+        "TimeId": null,
+        "Name": "Fallen Star Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignHeixing.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg49.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1000002
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1100003,
+        "TimeId": null,
+        "Name": "Valentine's Day",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignValentine.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating01.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg46.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1100003
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1200001,
+        "TimeId": null,
+        "Name": "Xmas\uff06\u65b0\u5e74\u30ed\u30b0\u30a4\u30f3",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignJpXmas.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            3.0
+        ],
+        "SubRoundId": [
+            1200001,
+            1200002.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300001,
+        "TimeId": null,
+        "Name": "[Frozen] Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignEnjidi.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1300001
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": null,
+        "IsShowWhenSignOver": null,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300020,
+        "TimeId": null,
+        "Name": "[100-day] Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignEnHundred.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1300020
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300030,
+        "TimeId": null,
+        "Name": "[Half Anniv.] Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignEnHalfAnniv.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            5
+        ],
+        "SubRoundId": [
+            1300030
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300040,
+        "TimeId": null,
+        "Name": "Lantern Fest. Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLanternFestival.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            5
+        ],
+        "SubRoundId": [
+            1300040
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300050,
+        "TimeId": null,
+        "Name": "White Day Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/UiSignBannerEnKrWhiteDay.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1300050
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300060,
+        "TimeId": 2150000.0,
+        "Name": "Kowloong \u00b7 Bygone",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/UiSignBannerEnKaizhai.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            5
+        ],
+        "SubRoundId": [
+            1300060
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300100,
+        "TimeId": 2160017.0,
+        "Name": "Anniversary Gift",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignEnAnniv.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1300100
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300150,
+        "TimeId": null,
+        "Name": "Luxury 14-Day Pass",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignGiftPack.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 3,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1300150,
+            1300151.0
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300160,
+        "TimeId": null,
+        "Name": "S-Rank 7-Day Pass",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignGiftPack2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 3,
+        "RoundDays": [
+            7
+        ],
+        "SubRoundId": [
+            1300160
+        ],
+        "OpenLevel": null,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300170,
+        "TimeId": 2160030.0,
+        "Name": "Mid-Autumn Festival",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/UiSignBannerEnMidAutumn.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300170
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300210,
+        "TimeId": 2160082.0,
+        "Name": "Happy New Year",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/UiSignBannerEnYuandan22.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300210
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300230,
+        "TimeId": 2160094.0,
+        "Name": "Lantern Fest. Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignLanternFestival2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            5
+        ],
+        "SubRoundId": [
+            1300230
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300240,
+        "TimeId": 2160161.0,
+        "Name": "2nd Anniversary Gift",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignEN2Year.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300240
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300250,
+        "TimeId": 2160202.0,
+        "Name": "New Beginnings",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignKrYuanDan2.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300250
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300260,
+        "TimeId": 2160203.0,
+        "Name": "Merry Christmas",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignKrChristmas.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg50.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300260
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300270,
+        "TimeId": 2160226.0,
+        "Name": "Spring Blossom",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/Sign70chunjie.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseYuanDan.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg15.png",
+        "Type": 2,
+        "RoundDays": [
+            3
+        ],
+        "SubRoundId": [
+            1300270
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300560,
+        "TimeId": 2160400.0,
+        "Name": "Stars Ensnared - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainLunaV211EN.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgLunaV211.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelLunaV211.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1300280,
+            1300281.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300570,
+        "TimeId": 2160422.0,
+        "Name": "Soaring Beyond - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperHanyingV213EN.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperHanyingV213.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperHanyingV213.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1300290,
+            1300291.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    },
+    {
+        "Id": 1300580,
+        "TimeId": 2160459.0,
+        "Name": "Shaper's Ripples - Sign-in",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignMainSuperLuxiyaV215KR.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/SignBgSuperLuxiyaV215.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/SignLabelSuperLuxiyaV215.png",
+        "Type": 2,
+        "RoundDays": [
+            7,
+            7.0
+        ],
+        "SubRoundId": [
+            1300300,
+            1300301.0
+        ],
+        "OpenLevel": 20.0,
+        "OpenStage": null,
+        "PreSignId": null,
+        "IsShowWhenDayOver": 0.0,
+        "IsShowWhenSignOver": 0.0,
+        "CreateTimeId": null
+    }
+]

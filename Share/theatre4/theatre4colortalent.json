@@ -1,0 +1,3159 @@
+[
+    {
+        "Id": 1,
+        "Name": "Test",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBihuan2.png",
+        "Desc": "Test",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1001,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 10,
+        "Name": "<color=#A42623>Continued DMG Increase</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBihuan2.png",
+        "Desc": "DMG Bonus +15% every 5s, up to 75%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 10.0,
+        "EffectGroupId": 1001,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Periodic",
+            "DMG Increase"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 11,
+        "Name": "<color=#A42623>Signature Boost</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconQianghua2.png",
+        "Desc": "Increase the next Signature DMG by 60% every 5s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 11.0,
+        "EffectGroupId": 1002,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Signature",
+            "DMG Increase"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 12,
+        "Name": "<color=#A42623>3-Ping DMG Increase</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconKangyuansu2.png",
+        "Desc": "After 3-Ping increase extra DMG bonus by 15%, up to 75% for 8s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 12.0,
+        "EffectGroupId": 1003,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "3-Ping",
+            "DMG Increase"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 13,
+        "Name": "<color=#A42623>Periodic Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTime.png",
+        "Desc": "Obtain 6 random Signal Orbs of the same color every 5s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 13.0,
+        "EffectGroupId": 1004,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 14,
+        "Name": "<color=#A42623>Type DMG Increase</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuA1.png",
+        "Desc": "Deal Type DMG equal to ATK x1200% to surrounding enemies every second.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 14.0,
+        "EffectGroupId": 1005,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 15,
+        "Name": "<color=#A42623>Switch Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4SailinnaSSS1.png",
+        "Desc": "Gain 12 Signal Orbs after each deployment.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 15.0,
+        "EffectGroupId": 1006,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 16,
+        "Name": "<color=#A42623>Switch Boost</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Sailinnahexin1.png",
+        "Desc": "After switching increase extra DMG bonus by 15%, up to 75% for 10s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 16.0,
+        "EffectGroupId": 1007,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Switch",
+            "DMG Increase"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 17,
+        "Name": "<color=#A42623>Deployment DMG Increase</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Yongyechaohexin1.png",
+        "Desc": "Additional DMG Bonus +50% upon deployment. This effect -10% every 5s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 17.0,
+        "EffectGroupId": 1008,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Entrance",
+            "DMG Increase"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 18,
+        "Name": "<color=#A42623>Cooldown Reduction</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4Lianghexin1.png",
+        "Desc": "3-Ping shortens character switch cooldown by 5s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 18.0,
+        "EffectGroupId": 1009,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "3-Ping",
+            "Switch Cooldown"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 19,
+        "Name": "<color=#A42623>Deployment DMG</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3yongyechaodazhao1.png",
+        "Desc": "Deal True DMG equal to [Switch Count] x ATK x 5000% to all enemies on field upon deployment.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 19.0,
+        "EffectGroupId": 1010,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Switch",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 20,
+        "Name": "<color=#A42623>Attack: Annihilation Enhancement</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R32BS1.png",
+        "Desc": "Team ATK +50% for every Attacker or Annihilator in the team.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1011,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Class",
+            "Attack Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 21,
+        "Name": "<color=#A42623>Lone Wolf Boost</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconYinshen2.png",
+        "Desc": "ATK +200% when the team consists of only 1 character.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1012,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Solo Character",
+            "Attack Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 22,
+        "Name": "<color=#A42623>ATK Boost I</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon6.png",
+        "Desc": "ATK +20%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1013,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 23,
+        "Name": "<color=#A42623>ATK Boost II</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon6.png",
+        "Desc": "ATK +35%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1014,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 24,
+        "Name": "<color=#A42623>Elemental Boost I</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon5.png",
+        "Desc": "All Elemental DMG +20%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1015,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 25,
+        "Name": "<color=#A42623>Elemental Boost II</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon5.png",
+        "Desc": "All Elemental DMG +35%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1016,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 26,
+        "Name": "<color=#A42623>An Eye For An Eye</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32141.png",
+        "Desc": "Upon dealing DMG, inflicts extra Elemental DMG equal to 1000% of HP lost. Cooldown: 2s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 26.0,
+        "EffectGroupId": 1017,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "HP",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 27,
+        "Name": "<color=#A42623>Last Stand</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32131.png",
+        "Desc": "Upon dealing DMG, lose 10% of Max HP and inflict extra Elemental DMG equal to the HP lost x120. Cooldown: 2s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 27.0,
+        "EffectGroupId": 1018,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Life Drain",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 28,
+        "Name": "<color=#A42623>HP Bonus I</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon006.png",
+        "Desc": "HP +20%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 28.0,
+        "EffectGroupId": 1019,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 29,
+        "Name": "<color=#A42623>HP Bonus II</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon006.png",
+        "Desc": "HP +30%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 29.0,
+        "EffectGroupId": 1020,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 30,
+        "Name": "<color=#A42623>Damage Reversal</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon2.png",
+        "Desc": "Upon taking DMG, Max HP +800 up to 5000 HP. Cooldown: 0.5s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 30.0,
+        "EffectGroupId": 1021,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Take DMG",
+            "HP Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 31,
+        "Name": "<color=#A42623>Elemental Retaliation</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13021.png",
+        "Desc": "Deal Elemental DMG equal to 1800% of Max HP upon dealing DMG. Cooldown: 1s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 31.0,
+        "EffectGroupId": 1022,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "HP",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 32,
+        "Name": "<color=#A42623>Bloodrage Massacre</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13041.png",
+        "Desc": "Upon triggering QTE, consume 90% of the QTE character's Max HP to deal Elemental DMG equal to consumed HP x10000% to all enemies on field.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 32.0,
+        "EffectGroupId": 1023,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 33,
+        "Name": "<color=#A42623>Energy Conversion</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon3.png",
+        "Desc": "Upon casting Signature, consume all Energy and increase Max HP by [consumed Energy x20], up to 5000 HP.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 33.0,
+        "EffectGroupId": 1024,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Energy",
+            "HP Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 34,
+        "Name": "<color=#A42623>Quick Shield Break</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJinghua2.png",
+        "Desc": "All Elemental Resistance of all enemies on field decrease by 30% for 10s upon triggering QTE.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1025,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "Resistance Reduction"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 35,
+        "Name": "<color=#A42623>Quick Defense</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerSupportIcon1.png",
+        "Desc": "All on-field characters take 50% less DMG for 5s upon triggering QTE.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1026,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "DMG Reduction"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 36,
+        "Name": "<color=#A42623>Elemental Resistance Reduction I</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon024.png",
+        "Desc": "All Elemental Resistance of all enemies on field decrease by 20%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1027,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Resistance Reduction"
+        ],
+        "TagBgColors": [
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 37,
+        "Name": "<color=#A42623>Elemental Resistance Reduction II</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon024.png",
+        "Desc": "All Elemental Resistance of all enemies on field decrease by 35%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1028,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Resistance Reduction"
+        ],
+        "TagBgColors": [
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 38,
+        "Name": "<color=#A42623>Impact Shield</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon027.png",
+        "Desc": "Fixed at 30% when you take more DMG than 30% of your Max HP. Cooldown: 10s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1029,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "DMG Reduction"
+        ],
+        "TagBgColors": [
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 39,
+        "Name": "<color=#A42623>DMG Reduction I</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon019.png",
+        "Desc": "DMG taken -5%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1030,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 40,
+        "Name": "<color=#A42623>DMG Reduction II</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon019.png",
+        "Desc": "DMG taken -10%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1031,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 41,
+        "Name": "<color=#A42623>Super Shield</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool14.png",
+        "Desc": "Gain a Super Armor when protected by a shield.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1032,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Immunity to DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 42,
+        "Name": "<color=#A42623>Armor Boost</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHudun2.png",
+        "Desc": "Team HP +30% for every Tank in the team.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1033,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Class",
+            "HP Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 43,
+        "Name": "<color=#A42623>Lone Wolf Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon006.png",
+        "Desc": "HP +200% when the team consists of only 1 character.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1034,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Solo Character",
+            "HP Bonus"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 44,
+        "Name": "<color=#A42623>Emergency Defense</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipShuxingJiegoujiagu.png",
+        "Desc": "Gain a shield equal to 50% of HP lost when your HP goes below 50%.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1035,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "HP",
+            "Shield"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 45,
+        "Name": "<color=#A42623>Effective Healing</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu2.png",
+        "Desc": "Healing Efficiency +50%",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 45.0,
+        "EffectGroupId": 1036,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 46,
+        "Name": "<color=#A42623>Impact Recovery</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon003.png",
+        "Desc": "Upon taking DMG, recover 12% of your Max HP over 5s. Cooldown: 6s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 46.0,
+        "EffectGroupId": 1037,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "HP Recovery"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 47,
+        "Name": "<color=#A42623>Quick Healing</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon009.png",
+        "Desc": "Recover 20% of the team's Max HP upon triggering QTE. Cooldown: 8s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 47.0,
+        "EffectGroupId": 1038,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "Mass Healing"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 48,
+        "Name": "<color=#A42623>Health Bomb</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22090.png",
+        "Desc": "Deal True DMG equal to 9000% of healing received to all enemies on field upon receiving healing.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 48.0,
+        "EffectGroupId": 1039,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Healing",
+            "Additional DMG"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 49,
+        "Name": "<color=#A42623>Health Sustain</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool4.png",
+        "Desc": "Recover 3% of Max HP every 2s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 49.0,
+        "EffectGroupId": 1040,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Auto-Recover",
+            "HP"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 50,
+        "Name": "<color=#A42623>Strike Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon008.png",
+        "Desc": "Receive 3 sets of 3-Ping Orbs at the beginning of the battle.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1041,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Signal Orb"
+        ],
+        "TagBgColors": [
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 51,
+        "Name": "<color=#A42623>Signal Reconstruction</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerNewBookIcon7.png",
+        "Desc": "After 3-Ping, rearrange Signal Orbs. Cooldown: 4s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1042,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Signal Orb",
+            "Order"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 52,
+        "Name": "<color=#A42623>Quick Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22120.png",
+        "Desc": "The on-field character gains 6 Signal Orbs of the same color upon triggering QTE.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1043,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "Signal Orb"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 53,
+        "Name": "<color=#A42623>Quick Recharge</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon013.png",
+        "Desc": "Recover on-field character Signature Energy by 30% upon triggering QTE.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1044,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "QTE",
+            "Energy"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 54,
+        "Name": "<color=#A42623>Auto Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon016.png",
+        "Desc": "Gain 4 sets of 3 Orbs when you have less than 3 Signal Orbs. Cooldown: 8s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1045,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Signal Orb"
+        ],
+        "TagBgColors": [
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 55,
+        "Name": "<color=#A42623>Support: Boost Enhancement</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BangbinataSSS1.png",
+        "Desc": "QTE and Switch Cooldown -2s for every Support or Amplifier in the team.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1046,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Class",
+            "Cooldown Reduction"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 56,
+        "Name": "<color=#A42623>Lone Wolf DMG Reduction</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconGangti2.png",
+        "Desc": "DMG Reduction +20% when the team consists of only 1 character.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1047,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Solo Character",
+            "DMG Reduction"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 57,
+        "Name": "<color=#A42623>Switch Reset</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconChange.png",
+        "Desc": "Reset all off-field character switch cooldowns upon switching characters. Cooldown: 8s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1048,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Switch",
+            "Cooldown Reset"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 58,
+        "Name": "<color=#A42623>Dodge Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShanxian2.png",
+        "Desc": "Receive 1 Signal Orb when you dodge.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1049,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Dodge",
+            "Signal Orb"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 59,
+        "Name": "<color=#A42623>Dodge Recharge</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhuanyi2.png",
+        "Desc": "Recover 30% Signature Energy every time you dodge.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1050,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Dodge",
+            "Energy"
+        ],
+        "TagBgColors": [
+            "A42623",
+            "A42623"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 60,
+        "Name": "<color=#A42623>Auto Matrix</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTime.png",
+        "Desc": "Enter Matrix every 12s.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1051,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 101,
+        "Name": "<color=#4682B4>Building Construction: Energy Supply Station</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre4/UiTheatre4GridEventIcon08.png",
+        "Desc": "Energy Supply Station: Reveals the contents within 2 tiles in a cross shape and permanently gives 1 Construction Permit daily.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": null,
+        "EffectGroupId": 1101,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Vision",
+            "Construction Permit"
+        ],
+        "TagBgColors": [
+            "4682B4",
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 102,
+        "Name": "<color=#4682B4>Energy Conservation</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXuruo2.png",
+        "Desc": "<color=#4682B4>Lower Construction Permit cost by 1</color> when you build an <color=#4682B4>Energy Supply Station</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1102,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            101.0
+        ]
+    },
+    {
+        "Id": 103,
+        "Name": "<color=#4682B4>Scouting the Wasteland</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet2YangSkillzhudong06.png",
+        "Desc": "<color=#4682B4>Automatically explore</color> the<color=#4682B4> closest area</color> to the Energy Supply Station when you create an <color=#4682B4>Energy Supply Station</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1103,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Auto Exploration"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            101.0
+        ]
+    },
+    {
+        "Id": 104,
+        "Name": "<color=#4682B4>Pioneering Project</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet3BatSkillzhudong06.png",
+        "Desc": "<color=#4682B4>Automatically explore</color> <color=#4682B4>1 area </color>withing the range of Energy Supply Station at the start of each day.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1104,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Auto Exploration"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            101.0
+        ]
+    },
+    {
+        "Id": 105,
+        "Name": "<color=#4682B4>Building Construction: Sentry Tower</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre4/UiTheatre4GridEventIcon09.png",
+        "Desc": "Sentry Tower: Randomly eradicate 1 Danger Zone within its range.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": null,
+        "EffectGroupId": 1105,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Eliminate Enemies"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 106,
+        "Name": "<color=#4682B4>Periodic Removal</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon014.png",
+        "Desc": "<color=#4682B4>Remove automatically</color> when <color=#4682B4>Sentry Tower</color> becomes active and <color=#4682B4>receive 2 Construction Permits</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1106,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Self-Destruction",
+            "Return Cost"
+        ],
+        "TagBgColors": [
+            "4682B4",
+            "4682B4"
+        ],
+        "ParentNode": [
+            105.0
+        ]
+    },
+    {
+        "Id": 107,
+        "Name": "<color=#4682B4>Extermination Operation</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon007.png",
+        "Desc": "The <color=#4682B4>Sentry Tower</color> will clear <color=#4682B4>all Danger Zones</color> within its range.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1107,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Extensive Area",
+            "Eliminate Enemies"
+        ],
+        "TagBgColors": [
+            "4682B4",
+            "4682B4"
+        ],
+        "ParentNode": [
+            105.0
+        ]
+    },
+    {
+        "Id": 108,
+        "Name": "<color=#4682B4>Specialized Construction</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHamlet2.png",
+        "Desc": "<color=#4682B4>Sentry Tower will become effective against bosses</color>, but it will only reduce 30% of the boss's current HP.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1108,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Leader",
+            "HP Reduction"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            105.0
+        ]
+    },
+    {
+        "Id": 109,
+        "Name": "<color=#4682B4>Building Construction: Supply Depot</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre4/UiTheatre4GridEventIcon10.png",
+        "Desc": "Supply Depot: Impact Range will receive Colored Resource +150.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 109.0,
+        "EffectGroupId": 1109,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Extra Resource"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 110,
+        "Name": "<color=#4682B4>Simple Warehouse</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXuruo2.png",
+        "Desc": "<color=#4682B4>Lower Construction Permit cost by 1</color> when you build a <color=#4682B4>Supply Depot</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1110,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            109.0
+        ]
+    },
+    {
+        "Id": 111,
+        "Name": "<color=#4682B4>Victory Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe2.png",
+        "Desc": "<color=#4682B4>Tri-Colored Multiplier +2</color> for clearing <color=#4682B4>Danger Zones</color> within the <color=#4682B4>range of Supply Depot</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1111,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Tri-Colored Multiplier"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            109.0,
+            105.0
+        ]
+    },
+    {
+        "Id": 112,
+        "Name": "<color=#4682B4>Storage Returns</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconRuodian2.png",
+        "Desc": "<color=#4682B4>Tri-Colored Multiplier +2</color> after <color=#4682B4>exploring areas within the range of Supply Depot</color> <color=#4682B4>3 times</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1112,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Tri-Colored Multiplier"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            109.0
+        ]
+    },
+    {
+        "Id": 113,
+        "Name": "<color=#4682B4>Construction Buff</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet3XiaoSkillbeidong03.png",
+        "Desc": "Receive <color=#4682B4>1 Construction Permit</color> at the <color=#4682B4>start of each day</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1113,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Construction Permit"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 114,
+        "Name": "<color=#4682B4>Output Refund</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXuruo3.png",
+        "Desc": "Modifying an area <color=#4682B4>within the building's range</color> will <color=#4682B4>refund 1 Construction Permit</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1114,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Construction Permit"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            101.0,
+            105.0,
+            109.0,
+            120.0,
+            122.0,
+            123.0,
+            124.0
+        ]
+    },
+    {
+        "Id": 115,
+        "Name": "<color=#4682B4>High Output</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaS1.png",
+        "Desc": "<color=#4682B4>Buildings in the current area</color> will <color=#4682B4>produce 30 Silver Coins</color> every round.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1115,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Silver Coin",
+            "Building Count"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 116,
+        "Name": "<color=#4682B4>Solar Power (Scrapped)</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool19.png",
+        "Desc": "<color=#4682B4>Buildings in the current area</color> will <color=#4682B4>produce 1 Construction Permit</color> every round.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1116,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Construction Permit",
+            "Building Count"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 117,
+        "Name": "<color=#4682B4>Weaken</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - Fighting within the building's range will lower Low-Danger Zone DMG by 10/20/30% and increase DMG taken by Danger Zone by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1117,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            101.0,
+            105.0,
+            109.0,
+            120.0
+        ]
+    },
+    {
+        "Id": 118,
+        "Name": "<color=#4682B4>Weaken 2</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - Fighting within the building's range will lower Low-Danger Zone DMG by 10/20/30% and increase DMG taken by Danger Zone by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1118,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            101.0,
+            105.0,
+            109.0,
+            120.0
+        ]
+    },
+    {
+        "Id": 119,
+        "Name": "<color=#4682B4>Weaken 3</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - Fighting within the building's range will lower Low-Danger Zone DMG by 10/20/30% and increase DMG taken by Danger Zone by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1119,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            101.0,
+            105.0,
+            109.0,
+            120.0
+        ]
+    },
+    {
+        "Id": 120,
+        "Name": "<color=#4682B4>Building Construction: Residential Area</color>",
+        "Icon": "Assets/Product/Texture/Image/UiTheatre4/UiTheatre4GridEventIcon11.png",
+        "Desc": "Residential Area: (The area's only one) Increase the current area's <color=#4682B4>Action Point by 2 each round</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": null,
+        "EffectGroupId": 1120,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Action Point"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 121,
+        "Name": "<color=#4682B4>Victory Recycle</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon001.png",
+        "Desc": "Recover <color=#4682B4>1 Construction Permit</color> after <color=#4682B4>clearing Danger Zone</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1121,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Construction Permit",
+            "Eliminate Enemies"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            105.0
+        ]
+    },
+    {
+        "Id": 122,
+        "Name": "<color=#4682B4>Area Modification: Infrastructure</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeilan2.png",
+        "Desc": "Change an area that is <color=#4682B4>not Blue</color> into <color=#4682B4>Blue</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 122.0,
+        "EffectGroupId": 1122,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Color Correction"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 123,
+        "Name": "<color=#4682B4>Area Modification: Military</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeihong2.png",
+        "Desc": "Change an area that is <color=#4682B4>not Red</color> into <color=#4682B4>Red</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 123.0,
+        "EffectGroupId": 1123,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Color Correction"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 124,
+        "Name": "<color=#4682B4>Area Modification: Economy</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeihuang2.png",
+        "Desc": "Change an area that is <color=#4682B4>not Yellow</color> into <color=#4682B4>Yellow</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 124.0,
+        "EffectGroupId": 1124,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Color Correction"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 125,
+        "Name": "<color=#4682B4>Joint Modification</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon011.png",
+        "Desc": "When modifying the area, <color=#4682B4>1 area within a cross-shape</color> that were mismatched in color will be <color=#4682B4>changed into matching color</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1125,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Color Correction"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            122.0,
+            123.0,
+            124.0
+        ]
+    },
+    {
+        "Id": 126,
+        "Name": "<color=#4682B4>Military Efficiency</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeilan2.png",
+        "Desc": "Lower <color=#4682B4>Area Modification: Military</color> <color=#4682B4>cost by 1</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1126,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            123.0
+        ]
+    },
+    {
+        "Id": 127,
+        "Name": "<color=#4682B4>Infrastructure Effectiveness</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeihong2.png",
+        "Desc": "Lower <color=#4682B4>Area Modification: Infrastructure</color> <color=#4682B4>cost by 1</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1127,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            122.0
+        ]
+    },
+    {
+        "Id": 128,
+        "Name": "<color=#4682B4>Economic Efficiency</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconWeihuang2.png",
+        "Desc": "Lower <color=#4682B4>Area Modification: Economy</color> <color=#4682B4>cost by 1</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1128,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            124.0
+        ]
+    },
+    {
+        "Id": 129,
+        "Name": "<color=#4682B4>Remodelling: Clear the Ruins</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4KalieninaExqiu1.png",
+        "Desc": "Clear 1 Ruin",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 129.0,
+        "EffectGroupId": 1129,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Clear Map"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 130,
+        "Name": "<color=#4682B4>Recycle Building Materials</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet2BeiSkillbeidong04.png",
+        "Desc": "Receive <color=#4682B4>50 Silver Coins</color> for each <color=#4682B4>Ruin you clear</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1130,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            129.0
+        ]
+    },
+    {
+        "Id": 131,
+        "Name": "<color=#4682B4>Simultaneous Demolition</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon011.png",
+        "Desc": "Demolish 1 random <color=#4682B4>Ruin</color> within a <color=#4682B4>cross-shaped area</color> at the same time.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1131,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Additional Removal"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            129.0
+        ]
+    },
+    {
+        "Id": 132,
+        "Name": "<color=#4682B4>Fair Treatment</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipTongyongZhongliyindao.png",
+        "Desc": "Treat both <color=#4682B4>Low-Risk Zone</color> and <color=#4682B4>High-Risk Zone</color> <color=#4682B4>as Ruins</color>, but cost +2.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1132,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Eliminate Enemies"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            129.0
+        ]
+    },
+    {
+        "Id": 133,
+        "Name": "<color=#4682B4>Modification Debuff</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - After modification, decrease Area & Neighboring Danger Zone DMG by 10/20/30% and DMG taken by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1133,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            122.0,
+            123.0,
+            124.0,
+            129.0
+        ]
+    },
+    {
+        "Id": 134,
+        "Name": "<color=#4682B4>Modification Debuff</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - After modification, decrease Area & Neighboring Danger Zone DMG by 10/20/30% and DMG taken by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1134,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            122.0,
+            123.0,
+            124.0,
+            129.0
+        ]
+    },
+    {
+        "Id": 135,
+        "Name": "<color=#4682B4>Modification Debuff</color>",
+        "Icon": null,
+        "Desc": "fightevent unofficial - After modification, decrease Area & Neighboring Danger Zone DMG by 10/20/30% and DMG taken by 10/20/30%.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1135,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": [
+            122.0,
+            123.0,
+            124.0,
+            129.0
+        ]
+    },
+    {
+        "Id": 136,
+        "Name": "<color=#4682B4>Building Material Refund</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2shenweihexin1.png",
+        "Desc": "After <color=#4682B4>modifying the area</color>, <color=#4682B4>get 1 Construction Permit</color> back the next time you build.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1136,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Return Cost"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 137,
+        "Name": "<color=#4682B4>Enhancement 2 (Scrapped)</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/IconSkillEquipPool6.png",
+        "Desc": "Increase Colored Talent produced by each area by 5.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1137,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Resource Upgrade"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 138,
+        "Name": "<color=#4682B4>Production Buff</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/lanse003.png",
+        "Desc": "When <color=#4682B4>modifying the area</color>, <color=#4682B4>receive</color> additional <color=#4682B4>Colored Resource</color> for 1 affected area.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1138,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 3,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Colored Resource"
+        ],
+        "TagBgColors": [
+            "4682B4"
+        ],
+        "ParentNode": [
+            122.0,
+            123.0,
+            124.0,
+            129.0
+        ]
+    },
+    {
+        "Id": 201,
+        "Name": "<color=#9A6A16>Support: Military Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3YalishaA1.png",
+        "Desc": "<color=#9A6A16>Summon the Military Supply Depot</color>. Summoning cost increases (daily reset). Gain <color=#9A6A16>+400 Silver Coins</color> with this talent.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 126.0,
+        "EffectGroupId": 1201,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Military Shop",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 202,
+        "Name": "<color=#9A6A16>Aid: Infrastructure Supply</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3YalishaA1.png",
+        "Desc": "<color=#9A6A16>Summon the Foundation Supply Depot</color>. Summoning cost increases (daily reset). Gain <color=#9A6A16>+400 Silver Coins</color> with this talent.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": 1.0,
+        "RelationGroup": 127.0,
+        "EffectGroupId": 1202,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Infrastructure Shop",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 203,
+        "Name": "<color=#9A6A16>Newcomer's Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon028.png",
+        "Desc": "Discovered a new supply merchant. <color=#9A6A16>The first item you purchase is free</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1203,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Free Items"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 204,
+        "Name": "<color=#9A6A16>Permanent Discount</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill05.png",
+        "Desc": "All <color=#9A6A16>items are 30% off</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1204,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Shop Discount"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 205,
+        "Name": "<color=#9A6A16>VIP Privileges</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconChange.png",
+        "Desc": "<color=#9A6A16>Unlock Shop Refresh</color>. Your first refresh will not cost Silver Coins.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1205,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Item Refresh"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 206,
+        "Name": "<color=#9A6A16>Action: Proxy Battle</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BuouxiongS1.png",
+        "Desc": "Now you can use Silver Coins to <color=#9A6A16>conduct Proxy Battle</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1206,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Hire an Enemy",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 207,
+        "Name": "<color=#9A6A16>Swift Action</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXuruo2.png",
+        "Desc": "The Silver Coin cost of <color=#9A6A16>Proxy Battle</color> <color=#9A6A16>-20%</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1207,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Lower Cost"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 208,
+        "Name": "<color=#9A6A16>Huge Payoff</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhufu2.png",
+        "Desc": "<color=#9A6A16>Interest +25</color> per round after conducting <color=#9A6A16>Proxy Battle</color> (can be stacked 1 time)",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1208,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Hire",
+            "Interest"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 209,
+        "Name": "<color=#9A6A16>Interest Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyaSS1.png",
+        "Desc": "Interest <color=#9A6A16>limit +10</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1209,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Interest Limit"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 210,
+        "Name": "<color=#9A6A16>Balance Correction</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet2YangSkillbeidong04.png",
+        "Desc": "<color=#9A6A16>Silver Coin +5</color> when you perform incomplete<color=#9A6A16> interest</color> settlement.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1211,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Interest",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 211,
+        "Name": "<color=#9A6A16>Full Interest Reward</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill01.png",
+        "Desc": "<color=#9A6A16>Interest limit +2</color> with a max of 20 when you perform <color=#9A6A16>full interest</color> settlement.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 128.0,
+        "EffectGroupId": 1212,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Interest Limit"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 212,
+        "Name": "<color=#9A6A16>Construction Funds</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon018.png",
+        "Desc": "<color=#9A6A16>Silver Coins +50</color> for every <color=#9A6A16>Construction Permit</color> <color=#9A6A16>used</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1213,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Construction Permit",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 213,
+        "Name": "<color=#9A6A16>Construction Subsidy</color>",
+        "Icon": "Assets/Product/Texture/Image/IconPetSkill/Pet3XiaoSkillbeidong04.png",
+        "Desc": "<color=#9A6A16>Silver Coins +50</color> for every <color=#9A6A16>Build or Modification performed</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1214,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Build Modification",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 214,
+        "Name": "<color=#9A6A16>Expertise Reward</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3Pod4.png",
+        "Desc": "<color=#9A6A16>Silver Coins +30</color> when you <color=#9A6A16>explore a Yellow Tile</color> and get 20<color=#9A6A16> more coins last time</color> when you explore another Yellow Tile. The stacks reset when you flip over a non-yellow tile.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1215,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Continuous Exploration",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 215,
+        "Name": "<color=#9A6A16>Top Bounty Target</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BlackrockA1.png",
+        "Desc": "The Map will <color=#9A6A16>generate </color>1 <color=#9A6A16>Little Kuroro </color>(Defeat to receive Silver Coin x99, Special Registration Form x1, and Standard File Box x1)",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1216,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Special Enemy"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 216,
+        "Name": "<color=#9A6A16>Interdimensional Invasion</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2hexin1.png",
+        "Desc": "All <color=#9A6A16>Low-Risk Zone enemies</color> will be replaced by: <color=#9A6A16>Mysterious Kuroro</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1217,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Special Enemy"
+        ],
+        "TagBgColors": [
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 217,
+        "Name": "<color=#9A6A16>Shopping Funds</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuS1.png",
+        "Desc": "<color=#9A6A16>Silver Coins +80</color> when you enter a <color=#9A6A16>new shop</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1218,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Shop",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 218,
+        "Name": "<color=#9A6A16>Trading Reward</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4LiangSSS1.png",
+        "Desc": "Receive <color=#9A6A16>Silver Coins equal to the number of purchases made today x10</color> during <color=#9A6A16>daily tally</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1219,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Purchase Attempts",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 219,
+        "Name": "<color=#9A6A16>Big Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaSS1.png",
+        "Desc": "Receive <color=#9A6A16>200 Silver Coins</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1220,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 220,
+        "Name": "<color=#9A6A16>Bounty Hunter</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBaozou2.png",
+        "Desc": "<color=#9A6A16>Silver Coins +30</color> for every <color=#9A6A16>Danger Zone</color> <color=#9A6A16>eliminated</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1221,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Eliminate Enemies",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 221,
+        "Name": "<color=#9A6A16>Small Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaS1.png",
+        "Desc": "Receive <color=#9A6A16>100 Silver Coins</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1222,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 222,
+        "Name": "<color=#9A6A16>Seasoned Bounty Hunter</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22090.png",
+        "Desc": "<color=#9A6A16>Silver Coins +100</color> for every <color=#9A6A16>Danger Zone</color> <color=#9A6A16>cleared</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1224,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Eliminate Enemies",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 223,
+        "Name": "<color=#9A6A16>Huge Expertise Reward</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyaSS1.png",
+        "Desc": "Interest <color=#9A6A16>limit +15</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1225,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 224,
+        "Name": "<color=#9A6A16>Credit Increase</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill01.png",
+        "Desc": "<color=#9A6A16>Silver Coin +8</color> when you perform <color=#9A6A16>incomplete interest</color> settlement.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1226,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Interest",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 225,
+        "Name": "<color=#9A6A16>Major Balance Correction</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill01.png",
+        "Desc": "<color=#9A6A16>Interest limit +4</color> with a max of 20 when you perform <color=#9A6A16>full interest</color> settlement.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1227,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 226,
+        "Name": "<color=#9A6A16>Major Full-Interest Reward</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/lanse06.png",
+        "Desc": "<color=#9A6A16>Silver Coins +45</color> when you <color=#9A6A16>explore a Yellow Area</color> and get 30<color=#9A6A16> more coins last time</color> when you explore another Yellow Tile. The stacks reset when you explore a non-yellow area.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1228,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Continuous Exploration",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 227,
+        "Name": "<color=#9A6A16>Huge Shopping Funds</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R1lifuS1.png",
+        "Desc": "<color=#9A6A16>Silver Coins +120</color> when you enter a <color=#9A6A16>new shop</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1229,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Shop",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 228,
+        "Name": "<color=#9A6A16>Average Bounty Hunter</color>",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon007.png",
+        "Desc": "<color=#9A6A16>Silver Coins +45</color> for every <color=#9A6A16>Danger Zone</color> <color=#9A6A16>cleared</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1230,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Eliminate Enemies",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 229,
+        "Name": "<color=#9A6A16>Gold Mining</color>",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill04.png",
+        "Desc": "Receive <color=#9A6A16>233 Silver Coins</color> <color=#9A6A16>daily</color>.",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1231,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 230,
+        "Name": "<color=#9A6A16>Action: Proxy Battle</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BuouxiongS1.png",
+        "Desc": "Now you can use Silver Coins to <color=#9A6A16>conduct Proxy Battle</color>.",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 1232,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [
+            "Hire an Enemy",
+            "Silver Coin"
+        ],
+        "TagBgColors": [
+            "9A6A16",
+            "9A6A16"
+        ],
+        "ParentNode": []
+    },
+    {
+        "Id": 231,
+        "Name": "<color=#9A6A16>Huge Bonus</color>",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaSS1.png",
+        "Desc": "Receive <color=#9A6A16>600 Silver Coins</color>",
+        "Type": 2,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": 125.0,
+        "EffectGroupId": 1233,
+        "JoinSettle": null,
+        "JoinAdventureSettle": 1.0,
+        "ColorType": 2,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1001,
+        "Name": "Attack - 1",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +8%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21001,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1002,
+        "Name": "Attack - 2",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +11%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21002,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1003,
+        "Name": "Attack - 3",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +14%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21003,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1004,
+        "Name": "Attack - 4",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +19%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21004,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1005,
+        "Name": "Attack - 5",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +23%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21005,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1006,
+        "Name": "Attack - 6",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +26%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21006,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1007,
+        "Name": "Attack - 7",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +29%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21007,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1008,
+        "Name": "Attack - 8",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +31%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21008,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1009,
+        "Name": "Attack - 9",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +34%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21009,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1010,
+        "Name": "HP",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon006.png",
+        "Desc": "HP +300",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21010,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1011,
+        "Name": "DEF",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3TwentyoneS1.png",
+        "Desc": "DEF +100",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21011,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1012,
+        "Name": "RES Reduction - 1",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2SS1.png",
+        "Desc": "All Elemental Resistance of enemies -12% (support effects of the same name do not stack)",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21012,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1013,
+        "Name": "RES Reduction - 2",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2SS1.png",
+        "Desc": "All Elemental Resistance of enemies -18% (support effects of the same name do not stack)",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21013,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1014,
+        "Name": "RES Reduction - 3",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R3A2SS1.png",
+        "Desc": "All Elemental Resistance of enemies -20% (support effects of the same name do not stack)",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21014,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    },
+    {
+        "Id": 1015,
+        "Name": "Attack - 10",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2Bulijitehexin1.png",
+        "Desc": "ATK +38%",
+        "Type": 1,
+        "ShowLevel": null,
+        "IsSkill": null,
+        "RelationGroup": null,
+        "EffectGroupId": 21015,
+        "JoinSettle": null,
+        "JoinAdventureSettle": null,
+        "ColorType": 1,
+        "Condition": null,
+        "Param": [],
+        "Tags": [],
+        "TagBgColors": [],
+        "ParentNode": []
+    }
+]

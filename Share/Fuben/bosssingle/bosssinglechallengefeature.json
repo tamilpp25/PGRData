@@ -1,0 +1,462 @@
+[
+    {
+        "Id": 1,
+        "Name": "Invasion I",
+        "Desc": "Taking Physical DMG accumulates the Wound Gauge. Becomes Wounded at maximum stacks, significantly increasing the CRIT DMG taken, stacking up to 4 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1001.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300001
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 2,
+        "Name": "Sharpness I",
+        "Desc": "Taking Physical DMG accumulates the Wound Gauge. Becomes Wounded at maximum stacks, significantly increasing the Physical DMG taken, stacking up to 4 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1002.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300002
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 3,
+        "Name": "Thunderstorm I",
+        "Desc": "Upon dealing Lightning DMG, gains a Lightning Shield that deals Lightning DMG to nearby enemies over time and increases the character's Lightning DMG significantly.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1003.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300003
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 4,
+        "Name": "Lightning Surge I",
+        "Desc": "Upon dealing Lightning DMG, gains a Lightning Shield that significantly increases the Lightning DMG taken by units within its range.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300004
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 5,
+        "Name": "Dark Condensation I",
+        "Desc": "Taking Dark DMG drops a Dark Orb, which increases the character's Dark DMG when picked up. After picking up the maximum number of Dark Orbs, the next attack will unleash all Dark Orbs to trigger an explosion, significantly increasing the Dark DMG dealt by the character.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1005.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300006
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 6,
+        "Name": "Dark Corruption I",
+        "Desc": "Taking Dark DMG drops a Dark Orb, which increases Dark DMG when picked up. After picking up the maximum number of Dark Orbs, the next attack will unleash all Dark Orbs to trigger an explosion, significantly increasing the Dark DMG taken by the units hit.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1006.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300005
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 7,
+        "Name": "Assault I",
+        "Desc": "Converts 50% of the Boss's max HP into Equilibrium Field. Breaking the Equilibrium Field significantly increases all Elemental DMG of the character.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1007.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300008
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Discontinuance I",
+        "Desc": "Converts 50% of the Boss's max HP into Equilibrium Field. When the Equilibrium Field is broken, the unit takes significantly more DMG from all Elemental types.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1008.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300007
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Combustible I",
+        "Desc": "Easily ignited by high temperatures and causes huge explosions. Fire DMG received is increased significantly.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300009
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 10,
+        "Name": "Frost I",
+        "Desc": "The phenomenon of freezing expansion will occur at low temperatures. Ice DMG received is increased significantly.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerbing.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300010
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 11,
+        "Name": "Invasion II",
+        "Desc": "Taking Physical DMG accumulates the Wound Gauge. Becomes Wounded at maximum stacks, significantly increasing the CRIT DMG taken, stacking up to 4 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1001.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300011
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 12,
+        "Name": "Sharpness II",
+        "Desc": "Taking Physical DMG accumulates the Wound Gauge. Becomes Wounded at maximum stacks, significantly increasing the Physical DMG taken, stacking up to 4 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1002.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300012
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 13,
+        "Name": "Thunderstorm II",
+        "Desc": "Upon dealing Lightning DMG, gains a Lightning Shield that deals Lightning DMG to nearby enemies over time and increases the character's Lightning DMG significantly. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1003.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300013
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 14,
+        "Name": "Lightning Surge II",
+        "Desc": "Upon dealing Lightning DMG, gains a Lightning Shield that significantly increases the Lightning DMG taken by units within its range. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300014
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 15,
+        "Name": "Dark Condensation II",
+        "Desc": "Taking Dark DMG drops a Dark Orb, which increases the character's Dark DMG when picked up. After picking up the maximum number of Dark Orbs, the next attack will unleash all Dark Orbs to trigger an explosion, significantly increasing the Dark DMG dealt by the character. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1005.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300016
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 16,
+        "Name": "Dark Corruption II",
+        "Desc": "Taking Dark DMG drops a Dark Orb, which increases Dark DMG when picked up. After picking up the maximum number of Dark Orbs, the next attack will unleash all Dark Orbs to trigger an explosion, significantly increasing the Dark DMG taken by the units hit. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1006.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300015
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 17,
+        "Name": "Assault II",
+        "Desc": "Converts 50% of the Boss's max HP into Equilibrium Field. Breaking the Equilibrium Field significantly increases all Elemental DMG of the character. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1007.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300018
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 18,
+        "Name": "Discontinuance II",
+        "Desc": "Converts 50% of the Boss's max HP into Equilibrium Field. When the Equilibrium Field is broken, the unit takes significantly more DMG from all Elemental types. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1008.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300017
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 19,
+        "Name": "Combustible II",
+        "Desc": "Easily ignited by high temperatures and causes huge explosions. Fire DMG received is increased significantly. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300019
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 20,
+        "Name": "Frost II",
+        "Desc": "The phenomenon of freezing expansion will occur at low temperatures. Ice DMG received is increased significantly. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerbing.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300020
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 21,
+        "Name": "Wailing Scars I",
+        "Desc": "Ping accumulates the Wound Gauge. Becomes Wounded when full, significantly increasing the Physical DMG taken, stacking up to 2 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1002.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300021
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 22,
+        "Name": "Twilight Haze I",
+        "Desc": "Receive Dark Orbs when you deal Dark DMG. After picking up a Dark Orb, the next attack will launch Dark Orb and deal Dark DMG, while significantly increasing your Dark DMG. Stacks up to 6 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1005.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300022
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 23,
+        "Name": "The Calming Destruction I",
+        "Desc": "Upon casting Ultima Slash, significantly increase your Physical DMG and Ultima Slash DMG delt to the boss. Stacks up to 5 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1011.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300023
+        ],
+        "ShowRecommendIds": [
+            3.0
+        ]
+    },
+    {
+        "Id": 24,
+        "Name": "Murky Woodlands I",
+        "Desc": "Converts 40% of the Boss's max HP into Equilibrium Field. Breaking the Equilibrium Field significantly increases Signature DMG of the character.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1007.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300024
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 25,
+        "Name": "The Echo of Dawn I",
+        "Desc": "Boss will take significantly higher DMG from Plasma Beam during the character's Electric Storm Flash.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1010.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300025
+        ],
+        "ShowRecommendIds": [
+            4.0
+        ]
+    },
+    {
+        "Id": 26,
+        "Name": "Radiant Inferno I",
+        "Desc": "Enter the Frenzied state upon casting Signature Move. Every 2 Fire DMG instances in this state significantly increases Fire DMG, stacking up to 5 times.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300026
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 27,
+        "Name": "Roaring Tempest I",
+        "Desc": "Dealing Lightning DMG grants a Lightning Shield. When the shield stacks to its maximum, it will automatically detonate, significantly increasing Lightning DMG dealt to the boss. The shield can stack up to 4 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300027
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 28,
+        "Name": "Frostbound Chasm I",
+        "Desc": "Dealing Ice DMG accumulates Frost, which significantly increases Ice DMG delt to the boss. Stacks up to 3 times.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerbing.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300028
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 29,
+        "Name": "Wailing Scars II",
+        "Desc": "Ping accumulates the Wound Gauge. Becomes Wounded when full, significantly increasing the Physical DMG taken, stacking up to 2 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1002.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300029
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 30,
+        "Name": "Twilight Haze II",
+        "Desc": "Receive Dark Orbs when you deal Dark DMG. After picking up a Dark Orb, the next attack will launch Dark Orb and deal Dark DMG, while significantly increasing your Dark DMG. Stacks up to 6 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1005.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300030
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 31,
+        "Name": "The Calming Destruction II",
+        "Desc": "Upon casting Ultima Slash, significantly increase your Physical DMG and Ultima Slash DMG delt to the boss. Stacks up to 5 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1011.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300031
+        ],
+        "ShowRecommendIds": [
+            3.0
+        ]
+    },
+    {
+        "Id": 32,
+        "Name": "Murky Woodlands II",
+        "Desc": "Converts 40% of the Boss's max HP into Equilibrium Field. Breaking the Equilibrium Field significantly increases the Signature DMG of the character. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1007.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg01.png",
+        "FightEventIds": [
+            2300032
+        ],
+        "ShowRecommendIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 33,
+        "Name": "The Echo of Dawn II",
+        "Desc": "Boss will take significantly higher DMG from Plasma Beam during the character's Electric Storm Flash. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1010.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300033
+        ],
+        "ShowRecommendIds": [
+            4.0
+        ]
+    },
+    {
+        "Id": 34,
+        "Name": "Radiant Inferno II",
+        "Desc": "Enter the Frenzied state upon casting Signature Move. Every 2 Fire DMG instances in this state significantly increases Fire DMG, stacking up to 5 times. When all members enter, damage increases for 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300034
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 35,
+        "Name": "Roaring Tempest II",
+        "Desc": "Dealing Lightning DMG grants a Lightning Shield. When the shield stacks to its maximum, it will automatically detonate, significantly increasing Lightning DMG dealt to the boss. The shield can stack up to 4 times. When all members enter, damage increases for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300035
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 36,
+        "Name": "Frostbound Chasm II",
+        "Desc": "Dealing Ice DMG accumulates Frost, which significantly increases Ice DMG delt to the boss. Stacks up to 3 times. Increases the DMG dealt by any character switched into battle for 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerbing.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300036
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 37,
+        "Name": "Candleflame Inferno I",
+        "Desc": "Enter the Frenzied state upon casting Signature Move. Every 2 Fire DMG instances in this state significantly increases Fire DMG, stacking up to 5 times.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300037
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 38,
+        "Name": "Thunderstrike Tempest I",
+        "Desc": "Dealing Lightning DMG grants a Lightning Shield. When the shield stacks to its maximum, it will automatically detonate, significantly increasing Lightning DMG dealt to the boss. The shield can stack up to 4 times.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300038
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 39,
+        "Name": "Candleflame Inferno II",
+        "Desc": "Enter the Frenzied state upon casting Signature Move. Every 2 Fire DMG instances in this state significantly increases Fire DMG, stacking up to 5 times. When all members enter, damage increases for 10s.",
+        "Icon": "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerhuo.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300039
+        ],
+        "ShowRecommendIds": []
+    },
+    {
+        "Id": 40,
+        "Name": "Thunderstrike Tempest II",
+        "Desc": "Dealing Lightning DMG grants a Lightning Shield. When the shield stacks to its maximum, it will automatically detonate, significantly increasing Lightning DMG dealt to the boss. The shield can stack up to 4 times. When all members enter, damage increases for 10s.",
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod1004.png",
+        "TriangleBg": "Assets/Product/Texture/Atlas/UiFubenChallengeMapBoss/IconBg02.png",
+        "FightEventIds": [
+            2300040
+        ],
+        "ShowRecommendIds": []
+    }
+]

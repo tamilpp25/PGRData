@@ -1,0 +1,191 @@
+[
+    {
+        "Id": 1,
+        "Type": 1,
+        "Cost": 50,
+        "EffectGroupId": 10001,
+        "Condition": null,
+        "PreIds": [],
+        "Name": "Refine and Polish",
+        "Desc": "ATK +50",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon001.png"
+    },
+    {
+        "Id": 2,
+        "Type": 1,
+        "Cost": 50,
+        "EffectGroupId": 10002,
+        "Condition": null,
+        "PreIds": [
+            1.0
+        ],
+        "Name": "Boost Fitness",
+        "Desc": "HP +500",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon006.png"
+    },
+    {
+        "Id": 3,
+        "Type": 1,
+        "Cost": 50,
+        "EffectGroupId": 10003,
+        "Condition": null,
+        "PreIds": [
+            2.0
+        ],
+        "Name": "Work Smarter, Not Harder",
+        "Desc": "ATK +10%.",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon002.png"
+    },
+    {
+        "Id": 4,
+        "Type": 1,
+        "Cost": 50,
+        "EffectGroupId": 10004,
+        "Condition": null,
+        "PreIds": [
+            3.0
+        ],
+        "Name": "Master of Many",
+        "Desc": "All Elemental DMG +15%",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon008.png"
+    },
+    {
+        "Id": 5,
+        "Type": 1,
+        "Cost": 100,
+        "EffectGroupId": 10005,
+        "Condition": null,
+        "PreIds": [
+            4.0
+        ],
+        "Name": "Unstoppable Force",
+        "Desc": "Extra DMG Bonus +15%.",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon031.png"
+    },
+    {
+        "Id": 6,
+        "Type": 2,
+        "Cost": 50,
+        "EffectGroupId": 10011,
+        "Condition": null,
+        "PreIds": [],
+        "Name": "Activate Funds",
+        "Desc": "Initial New Sophiasburgh Coin +20",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2BuouxiongSSS1.png"
+    },
+    {
+        "Id": 7,
+        "Type": 2,
+        "Cost": 50,
+        "EffectGroupId": 10012,
+        "Condition": null,
+        "PreIds": [
+            6.0
+        ],
+        "Name": "Trade Subsidy",
+        "Desc": "New Sophiasburgh Coin +50 when you enter a shop.",
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon021.png"
+    },
+    {
+        "Id": 8,
+        "Type": 2,
+        "Cost": 50,
+        "EffectGroupId": 10013,
+        "Condition": null,
+        "PreIds": [
+            7.0
+        ],
+        "Name": "A Wealth of Assets",
+        "Desc": "Initial New Sophiasburgh Coin +40",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2SufeiyaS1.png"
+    },
+    {
+        "Id": 9,
+        "Type": 2,
+        "Cost": 50,
+        "EffectGroupId": 10014,
+        "Condition": null,
+        "PreIds": [
+            8.0
+        ],
+        "Name": "Negotiation Skills",
+        "Desc": "10% off all items in the shop.",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/BiancaTheatreIconSkill05.png"
+    },
+    {
+        "Id": 10,
+        "Type": 2,
+        "Cost": 100,
+        "EffectGroupId": 10015,
+        "Condition": null,
+        "PreIds": [
+            9.0
+        ],
+        "Name": "Big player",
+        "Desc": "Interest Limit +10",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4luxiyaSS1.png"
+    },
+    {
+        "Id": 11,
+        "Type": 3,
+        "Cost": 50,
+        "EffectGroupId": 10021,
+        "Condition": null,
+        "PreIds": [],
+        "Name": "Start from Scratch",
+        "Desc": "Receive 1 Construction Permit at the start.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4KalieninaExqiu1.png"
+    },
+    {
+        "Id": 12,
+        "Type": 3,
+        "Cost": 50,
+        "EffectGroupId": 10022,
+        "Condition": null,
+        "PreIds": [
+            11.0
+        ],
+        "Name": "Diverse Tactics",
+        "Desc": "Each Camp Support refresh cost -10.",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33031.png"
+    },
+    {
+        "Id": 13,
+        "Type": 3,
+        "Cost": 50,
+        "EffectGroupId": 10023,
+        "Condition": null,
+        "PreIds": [
+            12.0
+        ],
+        "Name": "Everything You Need",
+        "Desc": "Receive 2 Construction Permits at the start.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R4KalieninaExhexin2.png"
+    },
+    {
+        "Id": 14,
+        "Type": 3,
+        "Cost": 50,
+        "EffectGroupId": 10024,
+        "Condition": null,
+        "PreIds": [
+            13.0
+        ],
+        "Name": "Frugal",
+        "Desc": "Each Camp Support refresh cost -15.",
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33032.png"
+    },
+    {
+        "Id": 15,
+        "Type": 3,
+        "Cost": 100,
+        "EffectGroupId": 10025,
+        "Condition": null,
+        "PreIds": [
+            14.0
+        ],
+        "Name": "Long-Term Planning",
+        "Desc": "Refresh Camp Support once for free.",
+        "Icon": "Assets/Product/Texture/Image/IconSkill/R2KamuZhongjieji1.png"
+    }
+]

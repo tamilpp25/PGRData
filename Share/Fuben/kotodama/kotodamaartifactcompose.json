@@ -1,0 +1,35 @@
+[
+    {
+        "Id": 1,
+        "ArtifactId": 1,
+        "Quality": 1,
+        "ArtifactAffixIds": []
+    },
+    {
+        "Id": 2,
+        "ArtifactId": 1,
+        "Quality": 2,
+        "ArtifactAffixIds": [
+            1.0
+        ]
+    },
+    {
+        "Id": 3,
+        "ArtifactId": 1,
+        "Quality": 3,
+        "ArtifactAffixIds": [
+            1.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 4,
+        "ArtifactId": 1,
+        "Quality": 4,
+        "ArtifactAffixIds": [
+            1.0,
+            2.0,
+            3.0
+        ]
+    }
+]

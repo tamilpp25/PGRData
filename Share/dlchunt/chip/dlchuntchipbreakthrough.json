@@ -1,0 +1,495 @@
+[
+    {
+        "Id": 1,
+        "ChipId": 23014002,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 400101,
+        "AttribPromotedId": 410101,
+        "MagicEventIds": [
+            4001000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 401,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 100,
+        "ResolveItem": 96126,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 2,
+        "ChipId": 23014002,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 400102,
+        "AttribPromotedId": 410102,
+        "MagicEventIds": [
+            4001000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 402,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 300,
+        "ResolveItem": 96126,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 3,
+        "ChipId": 23014001,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 400101,
+        "AttribPromotedId": 410101,
+        "MagicEventIds": [
+            4002000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 401,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 100,
+        "ResolveItem": 96126,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 4,
+        "ChipId": 23014001,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 400102,
+        "AttribPromotedId": 410102,
+        "MagicEventIds": [
+            4002000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 402,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 300,
+        "ResolveItem": 96126,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 5,
+        "ChipId": 23024001,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 400201,
+        "AttribPromotedId": 410201,
+        "MagicEventIds": [
+            4003000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 401,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 100,
+        "ResolveItem": 96129,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 6,
+        "ChipId": 23024001,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 400202,
+        "AttribPromotedId": 410202,
+        "MagicEventIds": [
+            4003000
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 402,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 4,
+        "CostCount": 1,
+        "OfferExp": 300,
+        "ResolveItem": 96129,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 7,
+        "ChipId": 23015002,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 500101,
+        "AttribPromotedId": 510101,
+        "MagicEventIds": [
+            5001001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 501,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 200,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 8,
+        "ChipId": 23015002,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 500102,
+        "AttribPromotedId": 510102,
+        "MagicEventIds": [
+            5001001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 502,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 500,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 9,
+        "ChipId": 23015002,
+        "BreakTimes": 2,
+        "LevelLimit": 15,
+        "AttribId": 500103,
+        "AttribPromotedId": 510103,
+        "MagicEventIds": [
+            5001001,
+            5001002.0
+        ],
+        "MagicLevel": [
+            1,
+            1.0
+        ],
+        "LevelUpTemplateId": 503,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 1000,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 10,
+        "ChipId": 23015001,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 500101,
+        "AttribPromotedId": 510101,
+        "MagicEventIds": [
+            5002001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 501,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 200,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 11,
+        "ChipId": 23015001,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 500102,
+        "AttribPromotedId": 510102,
+        "MagicEventIds": [
+            5002001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 502,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 500,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 12,
+        "ChipId": 23015001,
+        "BreakTimes": 2,
+        "LevelLimit": 15,
+        "AttribId": 500103,
+        "AttribPromotedId": 510103,
+        "MagicEventIds": [
+            5002001,
+            5002002.0
+        ],
+        "MagicLevel": [
+            1,
+            1.0
+        ],
+        "LevelUpTemplateId": 503,
+        "CostType": 1,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 1000,
+        "ResolveItem": 96125,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Main chips of the same quality"
+    },
+    {
+        "Id": 13,
+        "ChipId": 23025001,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 500201,
+        "AttribPromotedId": 510201,
+        "MagicEventIds": [
+            5003001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 501,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 200,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 14,
+        "ChipId": 23025001,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 500202,
+        "AttribPromotedId": 510202,
+        "MagicEventIds": [
+            5003001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 502,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 500,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 15,
+        "ChipId": 23025001,
+        "BreakTimes": 2,
+        "LevelLimit": 15,
+        "AttribId": 500203,
+        "AttribPromotedId": 510203,
+        "MagicEventIds": [
+            5003001,
+            5003002.0
+        ],
+        "MagicLevel": [
+            1,
+            1.0
+        ],
+        "LevelUpTemplateId": 503,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 1000,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 16,
+        "ChipId": 23025002,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 500201,
+        "AttribPromotedId": 510201,
+        "MagicEventIds": [
+            5004001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 501,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 200,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 17,
+        "ChipId": 23025002,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 500202,
+        "AttribPromotedId": 510202,
+        "MagicEventIds": [
+            5004001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 502,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 500,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 18,
+        "ChipId": 23025002,
+        "BreakTimes": 2,
+        "LevelLimit": 15,
+        "AttribId": 500203,
+        "AttribPromotedId": 510203,
+        "MagicEventIds": [
+            5004001,
+            5004002.0
+        ],
+        "MagicLevel": [
+            1,
+            1.0
+        ],
+        "LevelUpTemplateId": 503,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 1000,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 19,
+        "ChipId": 23025003,
+        "BreakTimes": 0,
+        "LevelLimit": 5,
+        "AttribId": 500201,
+        "AttribPromotedId": 510201,
+        "MagicEventIds": [
+            5005001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 501,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 200,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 20,
+        "ChipId": 23025003,
+        "BreakTimes": 1,
+        "LevelLimit": 10,
+        "AttribId": 500202,
+        "AttribPromotedId": 510202,
+        "MagicEventIds": [
+            5005001
+        ],
+        "MagicLevel": [
+            1
+        ],
+        "LevelUpTemplateId": 502,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 500,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    },
+    {
+        "Id": 21,
+        "ChipId": 23025003,
+        "BreakTimes": 2,
+        "LevelLimit": 15,
+        "AttribId": 500203,
+        "AttribPromotedId": 510203,
+        "MagicEventIds": [
+            5005001,
+            5005002.0
+        ],
+        "MagicLevel": [
+            1,
+            1.0
+        ],
+        "LevelUpTemplateId": 503,
+        "CostType": 2,
+        "CostChipBreakTime": 0,
+        "CostChipQuality": 5,
+        "CostCount": 1,
+        "OfferExp": 1000,
+        "ResolveItem": 96128,
+        "ResolveItemCount": 10,
+        "ConsumeDes": "Secondary chips of the same quality"
+    }
+]

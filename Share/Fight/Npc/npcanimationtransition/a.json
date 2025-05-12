@@ -1,0 +1,314 @@
+[
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Stand1",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Standchange",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Run",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Walk",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Death",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Hit1",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Hit2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Behitfly",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Hover",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Hoverhit",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Falldown",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Hitdown",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Lieonfloor",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Standup",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Straight",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Stun",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "TurnLeft",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "TurnRight",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "StraightBefore",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "StraightAfter",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack01",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack02",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack03",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack11",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack12",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack21",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack31",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack32",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Attack33",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Move1",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": null,
+        "Target": "Move2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Stand1",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Stand2",
+        "Target": "StandChange",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Stand2",
+        "Target": "Run",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Stand2",
+        "Target": "Walk",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Standchange",
+        "Target": "Stand1",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Run",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Walk",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hit1",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hit2",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Behitfly",
+        "Target": "Hover",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hover",
+        "Target": "HoverHit",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hover",
+        "Target": "Falldown",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hoverhit",
+        "Target": "Hover",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hoverhit",
+        "Target": "HoverHit",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Falldown",
+        "Target": "Lieonfloor",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Hitdown",
+        "Target": "Lieonfloor",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Lieonfloor",
+        "Target": "Standup",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Standup",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Straight",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    },
+    {
+        "Role": "A",
+        "State": "Stun",
+        "Target": "Stand2",
+        "TransitionDuration": 0
+    }
+]

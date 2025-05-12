@@ -1,0 +1,140 @@
+local XUiGridAwarenessDeployMember = XClass(nil, "XUiGridAwarenessDeployMember") -- XUiGridEchelonMember
+
+local CONDITION_COLOR = {
+    [true] = CS.UnityEngine.Color.white,
+    [false] = CS.UnityEngine.Color.red,
+}
+
+--位置对应的颜色框
+local MEMBER_POS_COLOR = {
+    [1] = "ImgRed",
+    [2] = "ImgBlue",
+    [3] = "ImgYellow",
+}
+
+function XUiGridAwarenessDeployMember:Ctor(rootUi, ui)
+    self.GameObject = ui.gameObject
+    self.Transform = ui.transform
+    self.RootUi = rootUi
+    XTool.InitUiObject(self)
+    self:InitComponent()
+    self:ResetMemberInfo()
+end
+
+function XUiGridAwarenessDeployMember:InitComponent()
+    CsXUiHelper.RegisterClickEvent(self.BtnClick, function() self:OnMemberClick() end)
+end
+
+function XUiGridAwarenessDeployMember:ResetMemberInfo()
+    self.ImgLeaderTag.gameObject:SetActiveEx(false)
+    self.ImgFirstRole.gameObject:SetActiveEx(false)
+    self.PanelEmpty.gameObject:SetActiveEx(false)
+    self.PanelMember.gameObject:SetActiveEx(false)
+    self.ImgBlue.gameObject:SetActiveEx(false)
+    self.ImgRed.gameObject:SetActiveEx(false)
+    self.ImgYellow.gameObject:SetActiveEx(false)
+end
+
+function XUiGridAwarenessDeployMember:Refresh(chapterId, teamOrder, teamData, memberOrder, obsCarrer, obsPos)
+    self.ChapterId = chapterId
+    self.TeamOrder = teamOrder
+    self.TeamData = teamData
+    self.MemberOrder = memberOrder
+
+    self.TeamId = self.TeamData:GetId()
+
+    local memberData = teamData:GetMemberList()[memberOrder]
+    self.MemberData = memberData
+    self.CurCharacterId = memberData:GetCharacterId() or 0
+
+    local index = memberData:GetIndex()
+    local leaderIndex = teamData:GetLeaderIndex()
+    local firstFightIndex = teamData:GetFirstFightIndex()
+
+    self.ImgLeaderTag.gameObject:SetActiveEx(index == leaderIndex)
+    self.ImgFirstRole.gameObject:SetActiveEx(index == firstFightIndex)
+    self[MEMBER_POS_COLOR[index]].gameObject:SetActiveEx(true)
+
+    self.CharacterId = memberData:GetCharacterId()
+    if self.CharacterId and self.CharacterId ~= 0 then
+        self.PanelNotPassCondition.gameObject:SetActiveEx(true)
+        local ability = memberData:GetCharacterAbility()
+        self.TxtNowAbility.color = CONDITION_COLOR[ability >= teamData:GetRequireAbility()]
+        self.TxtNowAbility.text = ability
+
+        self.RImgRoleHead:SetRawImage(XMVCA.XCharacter:GetCharSmallHeadIcon(self.CharacterId))
+        self.PanelMember.gameObject:SetActiveEx(true)
+        self.PanelEmpty.gameObject:SetActiveEx(false)
+
+        -- 职业图标
+        local carrerIconPath = nil
+        self.TankEffect.gameObject:SetActiveEx(false)
+        self.AmplifierEffect.gameObject:SetActiveEx(false)
+        if obsCarrer ~= XEnumConst.CHARACTER.Career.None and XTool.IsNumberValid(obsPos) and obsPos == memberOrder then
+            carrerIconPath = XMVCA.XCharacter:GetNpcTypeIconObs(obsCarrer)
+            if obsCarrer == XEnumConst.CHARACTER.Career.Tank then
+                self.TankEffect.gameObject:SetActiveEx(true)
+            elseif obsCarrer == XEnumConst.CHARACTER.Career.Amplifier then
+                self.AmplifierEffect.gameObject:SetActiveEx(true)
+            end
+        else
+            local carrer = XMVCA.XCharacter:GetCharacterCareer(self.CurCharacterId)
+            carrerIconPath = XMVCA.XCharacter:GetNpcTypeIcon(carrer)
+        end
+
+        if not string.IsNilOrEmpty(carrerIconPath) then
+            self.IconCareer.gameObject:SetActiveEx(true)
+            self.IconCareer:SetRawImage(carrerIconPath)
+        end
+    else
+        self.PanelNotPassCondition.gameObject:SetActiveEx(false)
+        self.PanelMember.gameObject:SetActiveEx(false)
+        self.IconCareer.gameObject:SetActiveEx(false)
+        self.PanelEmpty.gameObject:SetActiveEx(true)
+    end
+end
+
+function XUiGridAwarenessDeployMember:OnMemberClick()
+    local teamIdMap, teamOrderMap = XDataCenter.FubenAwarenessManager.GetCharacterTeamOderMapByGroup(self.ChapterId)
+    self.TeamIdMap = teamIdMap
+    self.TeamOrderMap = teamOrderMap
+
+    local teamCharIdMap = {} -- 所有已编队角色
+    for i, member in ipairs(self.TeamData:GetMemberList()) do
+        teamCharIdMap[i] = member:GetCharacterId() or 0
+    end
+    -- 其他队角色
+    self.OtherCharacterMap = {}
+    local memberCount = #teamCharIdMap
+    local otherCharacters = XDataCenter.FubenAwarenessManager.GetOtherTeamCharacters(self.ChapterId, self.TeamId)
+    for i, v in ipairs(otherCharacters) do  -- v = {teamId, i, characterId}
+        teamCharIdMap[memberCount + i] = v[3]
+        self.OtherCharacterMap[memberCount + i] = v
+    end
+
+    local teamSelectPos = self.MemberOrder
+    local ablityRequire = self.TeamData:GetRequireAbility()
+    local curTeamOrder = self.TeamOrder
+    XLuaUiManager.Open("UiAwarenessRoomCharacter", self.CharacterId, self.TeamId, teamSelectPos, curTeamOrder, self.ChapterId, ablityRequire)
+end
+
+function XUiGridAwarenessDeployMember:OnCharacterSelected(teamCharIdMap)
+    -- 修改本队
+    local memberList = self.TeamData:GetMemberList()
+    for i, _ in ipairs(memberList) do
+        XDataCenter.FubenAwarenessManager.SetTeamMember(self.TeamId, i, teamCharIdMap[i])
+    end
+
+    -- 修改其他队
+    local memberCount = #memberList
+    local info
+    for i = memberCount + 1, #teamCharIdMap do
+        if teamCharIdMap[i] and self.OtherCharacterMap[i] then
+            info = self.OtherCharacterMap[i]
+            XDataCenter.FubenAwarenessManager.SetTeamMember(info[1], info[2], teamCharIdMap[i])
+        end
+    end
+
+    CsXGameEventManager.Instance:Notify(XEventId.EVENT_ON_ASSIGN_TEAM_CHANGED)  -- TODO 细分刷新所有 还是刷新本类
+end
+return XUiGridAwarenessDeployMember

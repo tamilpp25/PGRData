@@ -1,0 +1,643 @@
+[
+    {
+        "Id": 3001,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            1,
+            2.0
+        ],
+        "Name": "Reduced Output",
+        "Desc": "Combat Calculation ability reduced by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon07.png"
+    },
+    {
+        "Id": 3002,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            1,
+            4.0
+        ],
+        "Name": "Metal Corrosion",
+        "Desc": "Combat Calculation ability reduced by 4 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon10.png"
+    },
+    {
+        "Id": 3003,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            2,
+            2.0
+        ],
+        "Name": "Channel Noise",
+        "Desc": "Perception Calculation ability reduced by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon09.png"
+    },
+    {
+        "Id": 3004,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            2,
+            4.0
+        ],
+        "Name": "Electro-magnetic Shield",
+        "Desc": "Perception Calculation ability reduced by 4 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon12.png"
+    },
+    {
+        "Id": 3005,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            3,
+            2.0
+        ],
+        "Name": "Computing Interference",
+        "Desc": "Arithmetic Calculation ability reduced by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon08.png"
+    },
+    {
+        "Id": 3006,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            3,
+            4.0
+        ],
+        "Name": "Logic Deadlock",
+        "Desc": "Arithmetic Calculation ability reduced by 4 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon11.png"
+    },
+    {
+        "Id": 3007,
+        "EffectType": 3,
+        "Type": 11,
+        "Params": [
+            1,
+            3.0,
+            2.0,
+            3.0,
+            3.0,
+            3.0
+        ],
+        "Name": "Collapsed Link",
+        "Desc": "All Calculation abilities reduced by 3 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon13.png"
+    },
+    {
+        "Id": 10001,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Powered Suit",
+        "Desc": "Combat Calculation ability increased by 1 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon01.png"
+    },
+    {
+        "Id": 10002,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            1,
+            2.0
+        ],
+        "Name": "Powered Suit EX",
+        "Desc": "Combat Calculation ability increased by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon04.png"
+    },
+    {
+        "Id": 10003,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Recon Wingman",
+        "Desc": "Perception Calculation ability increased by 1 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon03.png"
+    },
+    {
+        "Id": 10004,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            2,
+            2.0
+        ],
+        "Name": "Wide-area Recon Wingman",
+        "Desc": "Perception Calculation ability increased by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon06.png"
+    },
+    {
+        "Id": 10005,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Processing Unit",
+        "Desc": "Arithmetic Calculation ability increased by 1 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon02.png"
+    },
+    {
+        "Id": 10006,
+        "EffectType": 2,
+        "Type": 2,
+        "Params": [
+            3,
+            2.0
+        ],
+        "Name": "Overclock Processing Unit",
+        "Desc": "Arithmetic Calculation ability increased by 2 for 1 day",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon05.png"
+    },
+    {
+        "Id": 20101,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png"
+    },
+    {
+        "Id": 20102,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png"
+    },
+    {
+        "Id": 20103,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            1,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Combat",
+        "Desc": "Boosts the Connector's Combat ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20104,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png"
+    },
+    {
+        "Id": 20105,
+        "EffectType": 1,
+        "Type": 1,
+        "Params": [
+            190233
+        ],
+        "Name": "Enhanced Matrix",
+        "Desc": "Dodge Gauge recovers 50% faster during actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon09.png"
+    },
+    {
+        "Id": 20106,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            3,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Arithmetic",
+        "Desc": "Boosts the Connector's Arithmetic ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20107,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png"
+    },
+    {
+        "Id": 20108,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png"
+    },
+    {
+        "Id": 20109,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            2,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Perception",
+        "Desc": "Boosts the Connector's Perception ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20110,
+        "EffectType": 1,
+        "Type": 1,
+        "Params": [
+            81005
+        ],
+        "Name": "Overload",
+        "Desc": "Signature Move deals 40% more damage during actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon09.png"
+    },
+    {
+        "Id": 20201,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png"
+    },
+    {
+        "Id": 20202,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png"
+    },
+    {
+        "Id": 20203,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            3,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Arithmetic",
+        "Desc": "Boosts the Connector's Arithmetic ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20204,
+        "EffectType": 1,
+        "Type": 7,
+        "Params": [
+            9,
+            400500.0
+        ],
+        "Name": "Resource Recycling",
+        "Desc": "Complete Skirmish Event to get bonus Battle Support Points",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon07.png"
+    },
+    {
+        "Id": 20205,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png"
+    },
+    {
+        "Id": 20206,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            2,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Perception",
+        "Desc": "Boosts the Connector's Perception ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20207,
+        "EffectType": 1,
+        "Type": 7,
+        "Params": [
+            9,
+            400501.0
+        ],
+        "Name": "Tactical Optimization",
+        "Desc": "Complete Skirmish Event to get bonus Exploration EXP",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon14.png"
+    },
+    {
+        "Id": 20208,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png"
+    },
+    {
+        "Id": 20209,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            1,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Combat",
+        "Desc": "Boosts the Connector's Combat ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20210,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png"
+    },
+    {
+        "Id": 20301,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png"
+    },
+    {
+        "Id": 20302,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            1.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png"
+    },
+    {
+        "Id": 20303,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            3,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Arithmetic",
+        "Desc": "Boosts the Connector's Arithmetic ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20304,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            1,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Combat",
+        "Desc": "Boosts the Connector's Combat ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20305,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png"
+    },
+    {
+        "Id": 20306,
+        "EffectType": 1,
+        "Type": 1,
+        "Params": [
+            91002
+        ],
+        "Name": "Find Weakness",
+        "Desc": "Deals 15% more damage to enemies in actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon08.png"
+    },
+    {
+        "Id": 20307,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            1.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png"
+    },
+    {
+        "Id": 20308,
+        "EffectType": 1,
+        "Type": 4,
+        "Params": [
+            2,
+            3.0,
+            100.0
+        ],
+        "Name": "Precise Calculation - Perception",
+        "Desc": "Boosts the Connector's Perception ability.\\nHigher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png"
+    },
+    {
+        "Id": 20309,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            1.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png"
+    },
+    {
+        "Id": 20310,
+        "EffectType": 1,
+        "Type": 1,
+        "Params": [
+            90905
+        ],
+        "Name": "Synergy Boost",
+        "Desc": "QTE cooldown decreases by 3s in actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon12.png"
+    },
+    {
+        "Id": 20401,
+        "EffectType": 1,
+        "Type": 5,
+        "Params": [
+            20
+        ],
+        "Name": "Emergency Plan",
+        "Desc": "Lower chance to encounter negative event after failing a Calculation event",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon06.png"
+    },
+    {
+        "Id": 20402,
+        "EffectType": 1,
+        "Type": 3,
+        "Params": [
+            400500
+        ],
+        "Name": "Research",
+        "Desc": "Complete [Check Event] to get bonus Battle Support Points",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon15.png"
+    },
+    {
+        "Id": 20403,
+        "EffectType": 1,
+        "Type": 10,
+        "Params": [
+            1
+        ],
+        "Name": "Logistics Maintenance",
+        "Desc": "Carry limit of functional items increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon18.png"
+    },
+    {
+        "Id": 20404,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            1,
+            2.0
+        ],
+        "Name": "Mobility Boost",
+        "Desc": "Connector's Combat ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon04.png"
+    },
+    {
+        "Id": 20405,
+        "EffectType": 1,
+        "Type": 6,
+        "Params": [
+            6,
+            20.0
+        ],
+        "Name": "Lucky Dog",
+        "Desc": "Higher chance to get rewards from random events",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon13.png"
+    },
+    {
+        "Id": 20406,
+        "EffectType": 1,
+        "Type": 8,
+        "Params": [
+            0,
+            90.0
+        ],
+        "Name": "Expert Negotiator",
+        "Desc": "Get 10% off while purchasing items from the shop",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon16.png"
+    },
+    {
+        "Id": 20407,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            2,
+            2.0
+        ],
+        "Name": "Perception Theory",
+        "Desc": "Connector's Perception ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon06.png"
+    },
+    {
+        "Id": 20408,
+        "EffectType": 1,
+        "Type": 9,
+        "Params": [
+            0,
+            1.0
+        ],
+        "Name": "Logistics Support",
+        "Desc": "Increases the shop's daily item limit by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon17.png"
+    },
+    {
+        "Id": 20409,
+        "EffectType": 1,
+        "Type": 2,
+        "Params": [
+            3,
+            2.0
+        ],
+        "Name": "Computing Power Adjustment",
+        "Desc": "Connector's Arithmetic ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon05.png"
+    },
+    {
+        "Id": 20410,
+        "EffectType": 1,
+        "Type": 1,
+        "Params": [
+            81070
+        ],
+        "Name": "Bandwidth Boost",
+        "Desc": "Gain 1 bonus Signal Orb for every enemy defeated during actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon11.png"
+    }
+]

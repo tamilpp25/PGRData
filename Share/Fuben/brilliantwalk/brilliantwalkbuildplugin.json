@@ -1,0 +1,576 @@
+[
+    {
+        "Id": 1011,
+        "Name": "Focus Logic",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon1.png",
+        "Desc": "Consists of passive skills that enhance DMG and increase durability. Suits those who prefer a single type of weapon.",
+        "Type": 1,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270160
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96141
+    },
+    {
+        "Id": 1012,
+        "Name": "Parallel Logic",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon2.png",
+        "Desc": "Parallel Logic allows Trailblazer to equip two weapon modules at the same time. Suits those who prefer a flexible combat style.",
+        "Type": 1,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270161
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96142
+    },
+    {
+        "Id": 1021,
+        "Name": "Starfall",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon3.png",
+        "Desc": "Each skill cast accumulates 1 stack of energy. Once there are 6 stacks, Starfall can be cast to pull in enemy units in a large area, dealing 3500% Physical DMG in total. Dodging and the 3rd/6th hit of Basic Attack can also accumulate energy stacks.",
+        "Type": 1,
+        "TrenchType": 2,
+        "FightEventIds": [
+            2270150
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96143
+    },
+    {
+        "Id": 1022,
+        "Name": "Fist Barrage",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon4.png",
+        "Desc": "Tap the Signature button to consume 100 Signature Energy, charge for a brief moment, then unleash multiple rapid strikes against the target in front, dealing 3500% Physical DMG in total.",
+        "Type": 1,
+        "TrenchType": 2,
+        "FightEventIds": [
+            2270149
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96144
+    },
+    {
+        "Id": 1023,
+        "Name": "Wide-Area Strike",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon5.png",
+        "Desc": "With this module equipped, Energy Weapon Mode deals 50% more Base DMG while Basic Attacks become 25% slower. When actively cast, consumes 30 Signature Energy to activate Charge Mode for 5s, during which casting Signature again deals 2000% Physical DMG in a wide area. Every Signal Orb pinged during Charge Mode increases DMG by 5%.",
+        "Type": 1,
+        "TrenchType": 2,
+        "FightEventIds": [
+            2270151
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96145
+    },
+    {
+        "Id": 1024,
+        "Name": "Star Slasher",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon6.png",
+        "Desc": "After equipping this module, Basic Attacks generate 4 more Signature Energy. Every 5m of Lightblade length will increase DMG by 20%. Casting this skill actively will consume 100 Energy to deal 2700% Physical DMG to the enemies in front within the length of the Lightblade.",
+        "Type": 1,
+        "TrenchType": 2,
+        "FightEventIds": [
+            2270152
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96146
+    },
+    {
+        "Id": 1031,
+        "Name": "Fistblade Weapon",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon7.png",
+        "Desc": "A weapon module that prioritizes melee attacks. In Fistblade Mode, Trailblazer will use 3 skills with cooldowns.",
+        "Type": 1,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270111
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96147
+    },
+    {
+        "Id": 1032,
+        "Name": "Energy Weapon",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon8.png",
+        "Desc": "A weapon module that utilizes an energy cannon and lightblade. In Energy Weapon Mode, Trailblazer will use 3 different Signal Orb skills.",
+        "Type": 1,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270112
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": null,
+        "ItemId": 96148
+    },
+    {
+        "Id": 2011,
+        "Name": "Energy Search",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon9.png",
+        "Desc": "Every 30s, the aerial support will scan the coordinates of Trailblazer and drop a maintenance crate. Picking up the crate will replace the damaged parts, restore 25 Module Stability and temporarily heal 25% of max HP.",
+        "Type": 2,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270116
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1011.0,
+        "ItemId": 96150
+    },
+    {
+        "Id": 2012,
+        "Name": "Exergonic Weapon",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon10.png",
+        "Desc": "When Focus Energy is full, the next skill's DMG multiplier increases by 100% and will drain all Focus Energy once cast.",
+        "Type": 2,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270113
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1011.0,
+        "ItemId": 96149
+    },
+    {
+        "Id": 2021,
+        "Name": "Weapon Restructuring",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon11.png",
+        "Desc": "Allows Trailblazer to equip two weapon modules and switch between them at any time. Each switch will drain all Focus Energy. Upon switching from Fistblade to Energy Weapon, every 10 Focus Energy will generate a random Signal Orb; upon switching from Energy to Fistblade Weapon, every 20 Focus Energy will reduce the cooldown of all skills by 1s.",
+        "Type": 2,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270119
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1012.0,
+        "ItemId": 96151
+    },
+    {
+        "Id": 2022,
+        "Name": "Energy Search",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon9.png",
+        "Desc": "Every 30s, the aerial support will scan the coordinates of Trailblazer and drop a maintenance crate. Picking up the crate will replace the damaged parts, restore 25 Module Stability and temporarily heal 25% of max HP.",
+        "Type": 2,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270122
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1012.0,
+        "ItemId": 96152
+    },
+    {
+        "Id": 2031,
+        "Name": "Block",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon13.png",
+        "Desc": "When this skill is ready, tap a Red Orb to channel a beam that strikes the target for 700% Physical DMG and Blocks incoming attacks for a brief moment. 6s cooldown. Successful Blocks will interrupt the enemy's attack and knocks it back.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270125
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1031.0,
+        "ItemId": 96153
+    },
+    {
+        "Id": 2032,
+        "Name": "Bullet Punch",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon14.png",
+        "Desc": "When this skill is ready, tap a Blue Orb to charge for a short duration and dash toward the target, dealing 900% Physical DMG. 8s cooldown.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270129
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1031.0,
+        "ItemId": 96154
+    },
+    {
+        "Id": 2033,
+        "Name": "Rising Punch",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon15.png",
+        "Desc": "When this skill is ready, tap a Yellow Orb to leap into the air using Anti-gravity Energy, knocking the target in front up with the Fistblade and dealing 1200% Physical DMG. 10s cooldown.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270133
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1031.0,
+        "ItemId": 96155
+    },
+    {
+        "Id": 2041,
+        "Name": "Spinning Lightblade",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon16.png",
+        "Desc": "Charges toward the enemy and attacks with the Lightblade, dealing 390%/780%/1170% Physical DMG based on the number of orbs pinged.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270137
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1032.0,
+        "ItemId": 96156
+    },
+    {
+        "Id": 2042,
+        "Name": "Lightblade Sprint",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon17.png",
+        "Desc": "Slashes the enemy with the Lightblade, dealing 680%/1360%/2040% Physical DMG based on the number of orbs pinged.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270141
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1032.0,
+        "ItemId": 96157
+    },
+    {
+        "Id": 2043,
+        "Name": "Cluster Missiles",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon18.png",
+        "Desc": "Opens the chest missile pod to launch 12 seeking missiles that strike the enemy, dealing 510%/1020%/1530% Physical DMG based on the number of orbs pinged.",
+        "Type": 2,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270145
+        ],
+        "NeedEnergy": 1.0,
+        "PrePluginId": 1032.0,
+        "ItemId": 96158
+    },
+    {
+        "Id": 3011,
+        "Name": "Heated Plunder",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon21.png",
+        "Desc": "After eliminating an enemy, Energy Modules will drop randomly. Looting these modules will restore a small amount of Module Stability, but due to their poor compatibility, each module has a 30% chance to break upon entering the battle.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270117
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2011.0,
+        "ItemId": 96161
+    },
+    {
+        "Id": 3012,
+        "Name": "Rotating Combustion",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon22.png",
+        "Desc": "When any module is damaged, tap this button to change into a backup frame and detonate the original frame for 3000% AOE Physical DMG. 200s cooldown. Airdrops no longer restore Module Stability and HP, but provide spare parts instead. Each airdrop picked up will reduce the cooldown of this skill by 20s.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270118
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2011.0,
+        "ItemId": 96162
+    },
+    {
+        "Id": 3021,
+        "Name": "Focus Level",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon19.png",
+        "Desc": "Focus Energy's limit increases by 100% and its DMG Bonus limit increases by 100%. Each combo landed will increase Extra DMG Bonus by 1%, up to 100%. Every skill or Basic Attack cast will restore 1 additional Signature Energy.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270114
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2012.0,
+        "ItemId": 96159
+    },
+    {
+        "Id": 3022,
+        "Name": "Efficient Focus",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon20.png",
+        "Desc": "Focus Energy charges 50% faster. Each time a skill or Basic Attack hits a target, there is a 30% chance to reduce its cooldown by 1s or gain 1 Signal Orb.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270115
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2012.0,
+        "ItemId": 96160
+    },
+    {
+        "Id": 3031,
+        "Name": "Weapon Engine",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon25.png",
+        "Desc": "3-Pings also make Trailblazer invincible for 1s. Casting this skill will also cast Blue Orb 1-Ping and benefit from the connected circuit effect.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270120
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2021.0,
+        "ItemId": 96163
+    },
+    {
+        "Id": 3032,
+        "Name": "Aerial Execution",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon26.png",
+        "Desc": "When both Signature Energy and Focus Energy are full, activating Trailblazer's Energy Weapon Mode will consume all Signature Energy and Focus Energy to make him airborne. While airborne, Trailblazer can shoot bullets that deal 250% DMG each. When Trailblazer lands again, he will cast Star Slasher.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270121
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2021.0,
+        "ItemId": 96164
+    },
+    {
+        "Id": 3041,
+        "Name": "Overheat",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon23.png",
+        "Desc": "Enters the Overload Mode. In this mode, Module Stability decreases faster, skill cooldown decreases by 30%, orbs recover 50% faster, and every module damaged increases Trailblazer's DMG by 20%. When there is only one module functioning, skills have no cooldown and 8 Signal Orbs are generated every second.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270123
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2022.0,
+        "ItemId": 96165
+    },
+    {
+        "Id": 3042,
+        "Name": "Evocation",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon22.png",
+        "Desc": "When any module is damaged, tap this button to change into a backup frame and detonate the original frame for 3000% AOE Physical DMG. 200s cooldown. Airdrops no longer restore Module Stability and HP, but provide spare parts instead. Each airdrop picked up will reduce the cooldown of this skill by 20s.",
+        "Type": 3,
+        "TrenchType": 1,
+        "FightEventIds": [
+            2270124
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2022.0,
+        "ItemId": 96166
+    },
+    {
+        "Id": 3051,
+        "Name": "Blast Reaction",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon27.png",
+        "Desc": "After a successful Block, Trailblazer will return some incoming DMG back to the attacker, then leaps into the air and slams down, dealing 500% Physical DMG in a small area. The next skill has a 30% chance to immediately execute the enemy unit. (Invalid against Boss enemies.)",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270126
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2031.0,
+        "ItemId": 96167
+    },
+    {
+        "Id": 3052,
+        "Name": "Veteran",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon28.png",
+        "Desc": "A successful Block will fully restore Dodge Gauge and make Dodging no longer consume Dodge Gauge within 8s. The next skill's DMG increases by 100%.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270127
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2031.0,
+        "ItemId": 96168
+    },
+    {
+        "Id": 3053,
+        "Name": "Hand of Annihilation",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon29.png",
+        "Desc": "Block is replaced with Snap Shockwave that annihilates all projectile attacks in a large area, knocks back all enemy units and recovers 40 Signature Energy (with a bonus 2 Signature Energy from each projectile annihilated). Cooldown increases by 6s.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270128
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2031.0,
+        "ItemId": 96169
+    },
+    {
+        "Id": 3061,
+        "Name": "Penetrating Punch",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon30.png",
+        "Desc": "After charging for a brief moment, dashes toward the target and deals 1200% Physical DMG to all the enemies in a straight line with the Laser Cannon on the arm. Casting this skill has a 30% chance to reset its cooldown.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270130
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2032.0,
+        "ItemId": 96170
+    },
+    {
+        "Id": 3062,
+        "Name": "Evading Stance",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon31.png",
+        "Desc": "Tapping a Blue Orb after Dodging will remove the charge time and reduce the skill cooldown by 2s.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270131
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2032.0,
+        "ItemId": 96171
+    },
+    {
+        "Id": 3063,
+        "Name": "Suction Punch",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon32.png",
+        "Desc": "Press and hold the Blue Orb to charge for 3s, then pull in enemy units within 6m. Cooldown increases by 8s. Recovers 20 Signature Energy.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270132
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2032.0,
+        "ItemId": 96172
+    },
+    {
+        "Id": 3071,
+        "Name": "Rising Power",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon33.png",
+        "Desc": "Hitting a target with less than 30% HP will knock it away and eliminate it directly. (Invalid against Boss enemies.)",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270134
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2033.0,
+        "ItemId": 96173
+    },
+    {
+        "Id": 3072,
+        "Name": "Rising Slam",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon34.png",
+        "Desc": "Hitting a Rising Punch has a 30% chance to trigger a slamming attack, dealing 750% Physical DMG. After casting this skill, restores 2 Signature Energy per second for 5s.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270135
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2033.0,
+        "ItemId": 96174
+    },
+    {
+        "Id": 3073,
+        "Name": "Consecutive Punches",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon35.png",
+        "Desc": "Hitting a Rising Punch has a 30% chance to trigger an aerial combo, dealing 750% Physical DMG in total. Cooldown increases by 6s. Restores 40 Signature Energy.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270136
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2033.0,
+        "ItemId": 96175
+    },
+    {
+        "Id": 3082,
+        "Name": "Quick Charge",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon36.png",
+        "Desc": "Casting Red Orb 3-Pings repeatedly within 5s will increase the DMG of Red Orb 3-Pings by 50% and allow it to be cast faster. This effect stacks up to 3 times.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270139
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2041.0,
+        "ItemId": 96177
+    },
+    {
+        "Id": 3083,
+        "Name": "Helium Flash",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon37.png",
+        "Desc": "When a Red Orb 3-Ping is glowing, press and hold Basic Attack at the right time to trigger a Helium Flash, consuming all Red Orbs to increase Extra DMG by 60% for every additional Red Orb consumed.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270140
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2041.0,
+        "ItemId": 96178
+    },
+    {
+        "Id": 3092,
+        "Name": "Energy Recycling",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon38.png",
+        "Desc": "Pinging a Yellow Orb will consume all available Yellow Orbs instead. Each Yellow Orb pinged deals 680% Physical DMG and increases Extra DMG Bonus by 20% for 3s. This duration is reset each time a Yellow Orb is pinged.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270143
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2042.0,
+        "ItemId": 96180
+    },
+    {
+        "Id": 3093,
+        "Name": "Extended Lightblade",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon39.png",
+        "Desc": "Each Yellow Orb 3-Ping increases the length of Lightblade by 5m, up to 15m.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270144
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2042.0,
+        "ItemId": 96181
+    },
+    {
+        "Id": 3102,
+        "Name": "Guided Missile",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon40.png",
+        "Desc": "Pinging a Blue Orb will consume all available Blue Orbs to deal 510% Physical DMG for each orb pinged and summon missile support for 3s (stackable), launching guided missiles at the enemy every 1.5s.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270147
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2043.0,
+        "ItemId": 96183
+    },
+    {
+        "Id": 3103,
+        "Name": "Heat Unleashed",
+        "Icon": "Assets/Product/Texture/Image/UiBrilliantwalk/UiBrilliantwalkIcon41.png",
+        "Desc": "Blue 3-Pings will consume all Focus Energy. Every 100 Focus Energy will increase the Lightblade by 10m, up to 15m. Also launches missiles to the enemy unit.",
+        "Type": 3,
+        "TrenchType": 3,
+        "FightEventIds": [
+            2270148
+        ],
+        "NeedEnergy": null,
+        "PrePluginId": 2043.0,
+        "ItemId": 96184
+    }
+]

@@ -1,0 +1,216 @@
+[
+    {
+        "Key": "HelpDataKey",
+        "Desc": "Help Key",
+        "Params": [
+            "TwoSideTower"
+        ]
+    },
+    {
+        "Key": "ScoreLevelIcons",
+        "Desc": "Points Level Icon",
+        "Params": [
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerSameColorA.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerSameColorS.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerSameColorSS.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerSameColorSSS.png"
+        ]
+    },
+    {
+        "Key": "OverviewTabName",
+        "Desc": "The name of the first overview page.",
+        "Params": [
+            "Guide Notice"
+        ]
+    },
+    {
+        "Key": "ActivityLockDesc",
+        "Desc": "Activity Locked Description",
+        "Params": [
+            "Remaining {0} Unlocking",
+            "Ended"
+        ]
+    },
+    {
+        "Key": "ChapterLockDesc",
+        "Desc": "Locked Chapter Description",
+        "Params": [
+            "Unlocks after {0}.",
+            "Clear {0} to unlock.",
+            "Locked"
+        ]
+    },
+    {
+        "Key": "ChapterBgIcon",
+        "Desc": "Chapter Background Icon",
+        "Params": [
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBg.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBg2.png"
+        ]
+    },
+    {
+        "Key": "ChapterTitleIcon",
+        "Desc": "Chapter Tag Icon",
+        "Params": [
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBt.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBt2.png"
+        ]
+    },
+    {
+        "Key": "ChapterBtnSkipName",
+        "Desc": "Chapter Jump Button Name",
+        "Params": [
+            "Imprisoned Self",
+            "Transdimensional Fissure"
+        ]
+    },
+    {
+        "Key": "ChapterBtnSkipIcon",
+        "Desc": "Chapter Jump Button Picture",
+        "Params": [
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineGk7.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineGk8.png"
+        ]
+    },
+    {
+        "Key": "ChapterFeatureClickTip",
+        "Desc": "Chapter Interface Trait Picture Tapping Notice",
+        "Params": [
+            "Please clear Node {0}."
+        ]
+    },
+    {
+        "Key": "NormalPointNotPassTip",
+        "Desc": "All Normal Nodes Not Cleared Notice",
+        "Params": [
+            "Node(s) not cleared."
+        ]
+    },
+    {
+        "Key": "PointDetailNotSelectTip",
+        "Desc": "Details Interface Not Selected Tips",
+        "Params": [
+            "Select Trait"
+        ]
+    },
+    {
+        "Key": "FeatureDefaultIcon",
+        "Desc": "Default Trait Icon (? Icon)",
+        "Params": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png"
+        ]
+    },
+    {
+        "Key": "StageDetailBg",
+        "Desc": "Stage Details Background",
+        "Params": [
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineTc2.png",
+            "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineTc1.png"
+        ]
+    },
+    {
+        "Key": "StageDetailNotSelectPointTip",
+        "Desc": "Stage Details Node Not Selected Notice",
+        "Params": [
+            "Select the node stage to challenge"
+        ]
+    },
+    {
+        "Key": "ActivityBannerProcess",
+        "Desc": "Event Entrance Progress Description",
+        "Params": [
+            "Complete Mission: {0}/{1}"
+        ]
+    },
+    {
+        "Key": "OutSideLimitTaskName",
+        "Desc": "Mission Interface Left Button Name",
+        "Params": [
+            "Transdimensional Fissure"
+        ]
+    },
+    {
+        "Key": "InSideLimitTaskName",
+        "Desc": "Mission Interface Left Button Name",
+        "Params": [
+            "Imprisoned Self"
+        ]
+    },
+    {
+        "Key": "SettleWinTitle",
+        "Desc": "Clear Title",
+        "Params": [
+            "{0} cleared!"
+        ]
+    },
+    {
+        "Key": "SettleShieldDetail",
+        "Desc": "Stage Clear Detailed Description",
+        "Params": [
+            "In the Ending Stage battle, you have broke through {0} Mirage Traits\\nand blocked {1} Mirage Traits."
+        ]
+    },
+    {
+        "Key": "ResetChapterTitle",
+        "Desc": "Chapter Reset Window Title",
+        "Params": [
+            "Tips"
+        ]
+    },
+    {
+        "Key": "ResetChapterContent",
+        "Desc": "Chapter Reset Window Description",
+        "Params": [
+            "Resetting the chapter will <color=#e41f0a>reset chapter progress</color> but will keep the history high score of the chapter.\\nChallenge again?"
+        ]
+    },
+    {
+        "Key": "ResetPointTitle",
+        "Desc": "Reset Node Title",
+        "Params": [
+            "Tips"
+        ]
+    },
+    {
+        "Key": "ResetPointContent",
+        "Desc": "Reset Node Description",
+        "Params": [
+            "Resetting the node will clear the node's progress.\\nChallenge again?"
+        ]
+    },
+    {
+        "Key": "AutoFightTitle",
+        "Desc": "Auto Clear Title",
+        "Params": [
+            "Tips"
+        ]
+    },
+    {
+        "Key": "AutoFightContent",
+        "Desc": "Auto Clear Description",
+        "Params": [
+            "After the chapter is reset, you can <color=#e41f0a>directly clear</color> the chapters cleared by using the Auto Clear feature.\\nAuto Clear?"
+        ]
+    },
+    {
+        "Key": "BattleDialogHintTitle",
+        "Desc": "Battle Tips Title",
+        "Params": [
+            "Enter"
+        ]
+    },
+    {
+        "Key": "BattleDialogHintContent",
+        "Desc": "Battle Tips Description",
+        "Params": [
+            "After you select a stage to challenge, all the effects in the stage will be inherited by the Ending Stage. Challenge the stage?"
+        ]
+    },
+    {
+        "Key": "UnknowFeatureIcon",
+        "Desc": "Unidentified Trait Icon",
+        "Params": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconQuestion.png"
+        ]
+    }
+]

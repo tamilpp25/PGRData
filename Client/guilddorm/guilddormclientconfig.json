@@ -1,0 +1,177 @@
+[
+    {
+        "Key": "RoleMoveSpeed",
+        "Desc": "Character Movement Speed",
+        "Values": [
+            "2.5"
+        ]
+    },
+    {
+        "Key": "RoleAngleSpeed",
+        "Desc": "Character Spin Speed",
+        "Values": [
+            "8"
+        ]
+    },
+    {
+        "Key": "SyncServerTime",
+        "Desc": "Server Sync Time for Location (s)",
+        "Values": [
+            "0.1"
+        ]
+    },
+    {
+        "Key": "TalkHideTime",
+        "Desc": "Conversation Hide Time (ms)",
+        "Values": [
+            "3000"
+        ]
+    },
+    {
+        "Key": "MaxPredictionTime",
+        "Desc": "Max estimated time moving in the same direction and max allowable delay time",
+        "Values": [
+            "0.2"
+        ]
+    },
+    {
+        "Key": "ClosePredictionDistance",
+        "Desc": "Disable estimated distance and disable estimation when moving within a small range",
+        "Values": [
+            "0.1"
+        ]
+    },
+    {
+        "Key": "TalkSpiltLenght",
+        "Desc": "Chat Character Segmentation Length",
+        "Values": [
+            "37"
+        ]
+    },
+    {
+        "Key": "IsOpenPrediction",
+        "Desc": "Turn on estimation? (1 on, 0 off)",
+        "Values": [
+            "1"
+        ]
+    },
+    {
+        "Key": "AutoGCMemroy",
+        "Desc": "Auto GC Memory Increase (m)",
+        "Values": [
+            "200"
+        ]
+    },
+    {
+        "Key": "SwitchRoleEffect",
+        "Desc": "Character Switch Effect",
+        "Values": [
+            "Assets/Product/Effect/Prefab/FxSushe/FxQHuanRen.prefab"
+        ]
+    },
+    {
+        "Key": "SLEEP_BEHAVIORID",
+        "Desc": "Corresponding SLEEP Default Decision Tree ID",
+        "Values": [
+            "guilddorm_sleep"
+        ]
+    },
+    {
+        "Key": "CABINET_BEHAVIORID",
+        "Desc": "Corresponding CABINET Default Decision Tree ID",
+        "Values": [
+            "guilddorm_cabinet"
+        ]
+    },
+    {
+        "Key": "BENCH_BEHAVIORID",
+        "Desc": "Corresponding BENCH Default Decision Tree ID",
+        "Values": [
+            "guilddorm_bench"
+        ]
+    },
+    {
+        "Key": "CHAIR_BEHAVIORID",
+        "Desc": "Corresponding CHAIR Default Decision Tree ID",
+        "Values": [
+            "guilddorm_chair"
+        ]
+    },
+    {
+        "Key": "FIREWORK_BEHAVIORID",
+        "Desc": "Corresponding FIREWORK Default Decision Tree ID",
+        "Values": [
+            "guilddorm_firework"
+        ]
+    },
+    {
+        "Key": "IdleAnimationName",
+        "Desc": "Default Auto Play Animation While Standing",
+        "Values": [
+            "Stand02"
+        ]
+    },
+    {
+        "Key": "WalkAnimationName",
+        "Desc": "Default Auto Play Animation While Moving",
+        "Values": [
+            "Walk01"
+        ]
+    },
+    {
+        "Key": "RoleInteracAngleSpeed",
+        "Desc": "Character Decor Interaction Spin Speed",
+        "Values": [
+            "30"
+        ]
+    },
+    {
+        "Key": "ChannelMemberCountIcon",
+        "Desc": "Channel Size Icon Configuration",
+        "Values": [
+            "5",
+            "Assets/Product/Texture/Atlas/UiGuild/UiGuildDormMainChannel01.png",
+            10.0,
+            "Assets/Product/Texture/Atlas/UiGuild/UiGuildDormMainChannel02.png",
+            15.0,
+            "Assets/Product/Texture/Atlas/UiGuild/UiGuildDormMainChannel03.png",
+            20.0,
+            "Assets/Product/Texture/Atlas/UiGuild/UiGuildDormMainChannel04.png"
+        ]
+    },
+    {
+        "Key": "RoleAlpha",
+        "Desc": "Character Transparency",
+        "Values": [
+            "0.05"
+        ]
+    },
+    {
+        "Key": "RoleAlphaSpeed",
+        "Desc": "Character transparency change speed",
+        "Values": [
+            "30"
+        ]
+    },
+    {
+        "Key": "RoleAlphaDistance",
+        "Desc": "Character transparency change distance",
+        "Values": [
+            "1.2"
+        ]
+    },
+    {
+        "Key": "NEWFIREWORK_BEHAVIORID",
+        "Desc": "Corresponding FIREWORK Default Decision Tree ID",
+        "Values": [
+            "guilddorm_newfirework"
+        ]
+    },
+    {
+        "Key": "RandomBoxRandomLeftTime",
+        "Desc": "Drink Machine Remaining Random Pick Attempts",
+        "Values": [
+            "{0} (Remaining: {1})"
+        ]
+    }
+]

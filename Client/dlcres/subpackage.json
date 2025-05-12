@@ -1,0 +1,112 @@
+[
+    {
+        "Id": 201,
+        "Name": "[Infection] Main Story Pack",
+        "Index": 1,
+        "Type": 1,
+        "ResIds": [
+            201
+        ],
+        "Desc": "A resource pack required to play [Infection] main story and the subsequent main story",
+        "Banner": null,
+        "PreIds": []
+    },
+    {
+        "Id": 202,
+        "Name": "[Vortex] Main Story Pack",
+        "Index": 2,
+        "Type": 1,
+        "ResIds": [
+            202
+        ],
+        "Desc": "A resource pack required to play [Vortex] main story and the subsequent main story",
+        "Banner": null,
+        "PreIds": [
+            201.0
+        ]
+    },
+    {
+        "Id": 203,
+        "Name": "[Disaster] Main Story Pack",
+        "Index": 3,
+        "Type": 1,
+        "ResIds": [
+            203
+        ],
+        "Desc": "A resource pack required to play [Disaster] main story and the subsequent main story",
+        "Banner": null,
+        "PreIds": [
+            201.0,
+            202.0
+        ]
+    },
+    {
+        "Id": 204,
+        "Name": "[Fate] Main Story Pack",
+        "Index": 4,
+        "Type": 1,
+        "ResIds": [
+            204
+        ],
+        "Desc": "A resource pack required to play [Fate] main story and the subsequent main story",
+        "Banner": null,
+        "PreIds": [
+            201.0,
+            202.0,
+            203.0
+        ]
+    },
+    {
+        "Id": 901,
+        "Name": "Cantonese Voiceover",
+        "Index": 1,
+        "Type": 2,
+        "ResIds": [
+            901
+        ],
+        "Desc": "Can use Cantonese voiceover once it's downloaded.",
+        "Banner": null,
+        "PreIds": []
+    },
+    {
+        "Id": 902,
+        "Name": "Japanese Voiceover",
+        "Index": 2,
+        "Type": 2,
+        "ResIds": [
+            902
+        ],
+        "Desc": "Can use Japanese voiceover once it's downloaded.",
+        "Banner": null,
+        "PreIds": []
+    },
+    {
+        "Id": 903,
+        "Name": "English Voiceover",
+        "Index": 3,
+        "Type": 2,
+        "ResIds": [
+            903
+        ],
+        "Desc": "Can use English voiceover once it's downloaded.",
+        "Banner": null,
+        "PreIds": []
+    },
+    {
+        "Id": 9999,
+        "Name": "Mode Expansion Pack",
+        "Index": 5,
+        "Type": 1,
+        "ResIds": [
+            9999
+        ],
+        "Desc": "A resource pack required to play the new main story and the subsequent mode main story",
+        "Banner": null,
+        "PreIds": [
+            201.0,
+            202.0,
+            203.0,
+            204.0
+        ]
+    }
+]

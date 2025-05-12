@@ -1,0 +1,343 @@
+[
+    {
+        "Id": 10101,
+        "GroupId": 1,
+        "Name": "Death 1 Story 1",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            10102.0
+        ],
+        "Desc": "Perhaps there is nothing in the end, but does that mean it is pointless?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 10102,
+        "GroupId": 1,
+        "Name": "Death 1 Story 2",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            10201.0,
+            10301.0
+        ],
+        "Desc": "Even if you win, this may not change anything. Is this really what you want to do?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 10201,
+        "GroupId": 1,
+        "Name": "Death 1 Disagree 1",
+        "BtnStr": [
+            "Select quit",
+            "Continue fighting"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            10202.0,
+            10301.0
+        ],
+        "Desc": "If you decide to stick to your choice...",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 10202,
+        "GroupId": 1,
+        "Name": "Leave Dungeon",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 1.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 10301,
+        "GroupId": 1,
+        "Name": "Continue",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 2.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20101,
+        "GroupId": 2,
+        "Name": "Death 2 Story 1",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            20102.0
+        ],
+        "Desc": "It may not be possible... to fight against fate in the end.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20102,
+        "GroupId": 2,
+        "Name": "Death 2 Story 2",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            20103.0
+        ],
+        "Desc": "Even if unwilling, even if angry, perhaps this will result in nothing.",
+        "Type": null,
+        "ShowBullet": 1.0
+    },
+    {
+        "Id": 20103,
+        "GroupId": 2,
+        "Name": "Death 2 Story 3",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            20201.0,
+            20301.0
+        ],
+        "Desc": "Is this really worth your persistence?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20201,
+        "GroupId": 2,
+        "Name": "Death 2 Disagree 1",
+        "BtnStr": [
+            "Accept",
+            "Decline"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            20202.0,
+            20301.0
+        ],
+        "Desc": "If that is what you want, so be it.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20202,
+        "GroupId": 2,
+        "Name": "Leave Dungeon",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 1.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20301,
+        "GroupId": 2,
+        "Name": "Death 2 Agree 1",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            20201.0,
+            20302.0
+        ],
+        "Desc": "If you decide to stick to your choice...",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 20302,
+        "GroupId": 2,
+        "Name": "Continue",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            20201.0
+        ],
+        "Desc": null,
+        "Type": 2.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30101,
+        "GroupId": 3,
+        "Name": "Victory Story 1",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            30102.0
+        ],
+        "Desc": "To make the impossible possible by relying on others...",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30102,
+        "GroupId": 3,
+        "Name": "Victory Story 2",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            30103.0
+        ],
+        "Desc": "If it was the commandant... Perhaps it's not that hard to understand.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30103,
+        "GroupId": 3,
+        "Name": "Victory Story 3",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [
+            30104.0
+        ],
+        "Desc": "Somewhere on the network, perhaps there are other commandants caught in a struggle.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30104,
+        "GroupId": 3,
+        "Name": "Victory Story 4",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            30201.0,
+            30301.0
+        ],
+        "Desc": "Similar to just now, you can make the same \"sacrifice\" to help them.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30201,
+        "GroupId": 3,
+        "Name": "Victory Disagree 1",
+        "BtnStr": [
+            "Leave",
+            "Make a Sacrifice"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            30202.0,
+            30301.0
+        ],
+        "Desc": "Well, cowardice and weakness may happen if that's what you wish.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30202,
+        "GroupId": 3,
+        "Name": "Victory Disagree 2",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 1.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30301,
+        "GroupId": 3,
+        "Name": "Victory Agree 1",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            30201.0,
+            30302.0
+        ],
+        "Desc": "Making such a \"sacrifice\" means changing something forever. Do you accept it?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30302,
+        "GroupId": 3,
+        "Name": "Victory Agree 2",
+        "BtnStr": [
+            "Decline",
+            "Accept"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            30201.0,
+            30303.0
+        ],
+        "Desc": "And you have no right to decide what kind of people will benefit from this \"sacrifice.\" Do you accept it?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30303,
+        "GroupId": 3,
+        "Name": "Victory Agree 3",
+        "BtnStr": [
+            "Edit Message"
+        ],
+        "BtnExStr": null,
+        "BtnTag": [
+            30304.0
+        ],
+        "Desc": "Well, is there anything else you want to say?",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 30304,
+        "GroupId": 3,
+        "Name": "Victory Agree 4",
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 2.0,
+        "ShowBullet": null
+    },
+    {
+        "Id": 40101,
+        "GroupId": 4,
+        "Name": "Complete",
+        "BtnStr": [],
+        "BtnExStr": "Press anywhere to leave",
+        "BtnTag": [
+            40102.0
+        ],
+        "Desc": "Your sacrifice and will have been recognized.",
+        "Type": null,
+        "ShowBullet": null
+    },
+    {
+        "Id": 40102,
+        "GroupId": 4,
+        "Name": null,
+        "BtnStr": [],
+        "BtnExStr": null,
+        "BtnTag": [],
+        "Desc": null,
+        "Type": 2.0,
+        "ShowBullet": null
+    }
+]

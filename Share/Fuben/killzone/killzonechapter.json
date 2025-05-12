@@ -1,0 +1,62 @@
+[
+    {
+        "Id": 5,
+        "OpenTimeId": null,
+        "Name": "Backlight Route",
+        "Diff": 1,
+        "StageId": [
+            30161522,
+            30161523,
+            30161524,
+            30161525
+        ],
+        "PreStageId": null,
+        "DailyStageId": 30161534.0,
+        "Bg": "Assets/Product/Texture/Image/UiKillZone/UiKillZoneBg03.png"
+    },
+    {
+        "Id": 6,
+        "OpenTimeId": null,
+        "Name": "Out of Focus",
+        "Diff": 1,
+        "StageId": [
+            30161526,
+            30161527,
+            30161528,
+            30161529
+        ],
+        "PreStageId": 30161525.0,
+        "DailyStageId": 30161535.0,
+        "Bg": "Assets/Product/Texture/Image/UiKillZone/UiKillZoneBg03.png"
+    },
+    {
+        "Id": 7,
+        "OpenTimeId": null,
+        "Name": "Tidal Whisper",
+        "Diff": 1,
+        "StageId": [
+            30161530,
+            30161531,
+            30161532,
+            30161533
+        ],
+        "PreStageId": 30161529.0,
+        "DailyStageId": 30161536.0,
+        "Bg": "Assets/Product/Texture/Image/UiKillZone/UiKillZoneBg03.png"
+    },
+    {
+        "Id": 8,
+        "OpenTimeId": null,
+        "Name": "Abyss Border",
+        "Diff": 2,
+        "StageId": [
+            30161537,
+            30161538,
+            30161539,
+            30161540
+        ],
+        "PreStageId": 30161533.0,
+        "DailyStageId": null,
+        "Bg": "Assets/Product/Texture/Image/UiKillZone/UiKillZoneBg04.png"
+    }
+]

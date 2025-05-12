@@ -1,0 +1,254 @@
+[
+    {
+        "Key": "GradeRankIcon",
+        "Comment": "Icon Rating",
+        "Values": [
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankB.png",
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankA.png",
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankS.png",
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankSS.png",
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankSSS.png",
+            "Assets/Product/Texture/Image/UiFangKuai/UiFangKuaiRankSSSPlus.png"
+        ]
+    },
+    {
+        "Key": "RewardTipsTime",
+        "Comment": "Bubble Duration (ms)",
+        "Values": [
+            "5000"
+        ]
+    },
+    {
+        "Key": "Rewards",
+        "Comment": "Bubble Reward (Item ID_Amount)",
+        "Values": [
+            "50005_500",
+            "102_1500",
+            "11000208_1"
+        ]
+    },
+    {
+        "Key": "BlockWidth",
+        "Comment": "Square Width",
+        "Values": [
+            "105"
+        ]
+    },
+    {
+        "Key": "BlockHeight",
+        "Comment": "Square Height",
+        "Values": [
+            "98"
+        ]
+    },
+    {
+        "Key": "BlockMoveXSpeed",
+        "Comment": "Square Horizontal Movement Speed (s)",
+        "Values": [
+            "0.1"
+        ]
+    },
+    {
+        "Key": "BlockMoveYSpeed",
+        "Comment": "Square Vertical Movement Speed (s)",
+        "Values": [
+            "0.2"
+        ]
+    },
+    {
+        "Key": "FavorLevelIcon",
+        "Comment": "Affection Icon",
+        "Values": [
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin4.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin4.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin2.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin2.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin1.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin1.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin3.png",
+            "Assets/Product/Texture/Atlas/IconTrustLevel/FbMainSwitchAixin3.png"
+        ]
+    },
+    {
+        "Key": "FavorLevelColor",
+        "Comment": "Affection Name Color",
+        "Values": [
+            "#888888",
+            "#888888",
+            "#b48200",
+            "#b48200",
+            "#f13c51",
+            "#f13c51",
+            "#dd107d",
+            "#dd107d"
+        ]
+    },
+    {
+        "Key": "ItemFlyTime",
+        "Comment": "Item to Item Slot Time (s)",
+        "Values": [
+            "1"
+        ]
+    },
+    {
+        "Key": "DefaultNpcId",
+        "Comment": "Default NpcId on Display",
+        "Values": [
+            "1"
+        ]
+    },
+    {
+        "Key": "ShowWarnDistance",
+        "Comment": "Effect on Display When Square is a Certain Distance From the Top",
+        "Values": [
+            "1"
+        ]
+    },
+    {
+        "Key": "MinComboShow",
+        "Comment": "Combo effect on display when number of combos is greater than or equal to this number",
+        "Values": [
+            "1"
+        ]
+    },
+    {
+        "Key": "CannotUseAlpha",
+        "Comment": "Item in use. Cannot edit item transparency.",
+        "Values": [
+            "0.5"
+        ]
+    },
+    {
+        "Key": "OpenSettleDelay",
+        "Comment": "Delayed Opening Settlement Pop-up Window (ms)",
+        "Values": [
+            "500"
+        ]
+    },
+    {
+        "Key": "ComboCueId",
+        "Comment": "Combo Sound Effect",
+        "Values": [
+            "4746",
+            "4747",
+            "4748",
+            "4749",
+            "4750"
+        ]
+    },
+    {
+        "Key": "ClickCueId",
+        "Comment": "Grip Sound Effect",
+        "Values": [
+            "4744"
+        ]
+    },
+    {
+        "Key": "DropCueId",
+        "Comment": "Fall Sound Effect",
+        "Values": [
+            "4745"
+        ]
+    },
+    {
+        "Key": "UseItemCueId",
+        "Comment": "Item Use Success Sound Effect",
+        "Values": [
+            "4751"
+        ]
+    },
+    {
+        "Key": "RandomPropToBlock",
+        "Comment": "Die Item A Random Range (Item ID)",
+        "Values": [
+            "1",
+            "3",
+            "12",
+            "13"
+        ]
+    },
+    {
+        "Key": "RandomPropToLine",
+        "Comment": "Die Item B Random Range (Item ID)",
+        "Values": [
+            "2",
+            "5",
+            "8"
+        ]
+    },
+    {
+        "Key": "HorizontalTipCloseTime",
+        "Comment": "Random Item Tip Display Time (ms)",
+        "Values": [
+            "2000"
+        ]
+    },
+    {
+        "Key": "SimpleStageScoreColor",
+        "Comment": "Normal Stage Score Color",
+        "Values": [
+            "#0F70BC"
+        ]
+    },
+    {
+        "Key": "DiffcultStageScoreColor",
+        "Comment": "Hard Stage Score Color",
+        "Values": [
+            "#EE4545"
+        ]
+    },
+    {
+        "Key": "SettleRound",
+        "Comment": "Result Calculation in Advance",
+        "Values": [
+            "50"
+        ]
+    },
+    {
+        "Key": "FrozenEffectTime",
+        "Comment": "Freezing Effect Generation/Melting Time (ms)",
+        "Values": [
+            "400"
+        ]
+    },
+    {
+        "Key": "SingleLineRemoveEffect",
+        "Comment": "Row Removal Effect (8 Grids/9 Grids)",
+        "Values": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFight202.prefab",
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFight201.prefab"
+        ]
+    },
+    {
+        "Key": "FrozenCreateEffect",
+        "Comment": "Freezing Effect Generation Effect (8 Grids/9 Grids)",
+        "Values": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen04.prefab",
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen01.prefab"
+        ]
+    },
+    {
+        "Key": "FrozenKeepEffect",
+        "Comment": "Permanent Freezing Effect (8 Grids/9 Grids)",
+        "Values": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen05.prefab",
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen02.prefab"
+        ]
+    },
+    {
+        "Key": "FrozenRemoveEffect",
+        "Comment": "Frozen Target Melting Effect (8 Grids/9 Grids)",
+        "Values": [
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen06.prefab",
+            "Assets/Product/Effect/Prefab/FxUi/FxUiFangKuaiFight/FxUiFangKuaiFrozen03.prefab"
+        ]
+    },
+    {
+        "Key": "SettleCueId",
+        "Comment": "Result Calculation Sound Effect (Rating 6/Rating Lower Than 6)",
+        "Values": [
+            "4752",
+            "4753"
+        ]
+    }
+]

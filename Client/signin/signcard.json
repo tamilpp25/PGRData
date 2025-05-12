@@ -1,0 +1,41 @@
+[
+    {
+        "Id": 1,
+        "Name": "Monthly Pass A ",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignCard.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseMonthlyPass.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelMonthlyPass.png",
+        "CanBuyDay": 30,
+        "Description": "1. Purchase the Monthly Pass A to claim 100 Black Cards at 07:00 UTC every day for 30 days.\\n2. You may purchase up to 2 Monthly Pass A only. Cannot own Monthly Pass A & Monthly Pass C in a same period.\\n3. Once you have purchased a Monthly Pass A, you will receive 300 Black Cards immediately.",
+        "Param": [
+            2,
+            83028
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Season 2 Monthly Pass",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignCard.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/DrawCoating/DrawCoating02.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelBg2.png",
+        "CanBuyDay": 60,
+        "Description": "Test Discount Pack [Test Only]",
+        "Param": [
+            0,
+            0
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Monthly Pass C",
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/Sign/SignCard1.prefab",
+        "FullScreenBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseMonthlyPass.png",
+        "BtnBg": "Assets/Product/Texture/Image/UiActivityBase/UiActivityBaseLabelMonthlyPassC.png",
+        "CanBuyDay": 30,
+        "Description": "1. Purchase the Monthly Pass C to claim 90 Black Cards at 07:00 UTC every day for 30 days.\\n2. You may purchase up to 2 Monthly Pass C only. Cannot own Monthly Pass A and Monthly Pass C in a same period.\\n3. Once you have purchased a Monthly Pass C, you will receive 300 Black Cards immediately.",
+        "Param": [
+            2,
+            90032
+        ]
+    }
+]

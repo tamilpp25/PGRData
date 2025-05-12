@@ -1,0 +1,79 @@
+[
+    {
+        "Id": 1001,
+        "Name": "Blossom Seer I: Same",
+        "TimeId": 31010,
+        "PreStageId": null,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1002,
+        "Name": "Blossom Seer II: Same",
+        "TimeId": 31010,
+        "PreStageId": 1001.0,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1003,
+        "Name": "Blossom Seer III: Same",
+        "TimeId": 31010,
+        "PreStageId": 1002.0,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1004,
+        "Name": "Blossom Seer IV: Same",
+        "TimeId": 31010,
+        "PreStageId": 1003.0,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1005,
+        "Name": "Blossom Seer V: Different",
+        "TimeId": 31013,
+        "PreStageId": 1004.0,
+        "Desc": "Connecting two different-color tiles grants 2 points."
+    },
+    {
+        "Id": 1006,
+        "Name": "Blossom Seer VI: Different",
+        "TimeId": 31013,
+        "PreStageId": 1005.0,
+        "Desc": "Connecting two different-color tiles grants 2 points."
+    },
+    {
+        "Id": 1007,
+        "Name": "Blossom Seer VII: Different",
+        "TimeId": 31013,
+        "PreStageId": 1006.0,
+        "Desc": "Connecting two different-color tiles grants 2 points."
+    },
+    {
+        "Id": 1008,
+        "Name": "Blossom Seer VIII: Different",
+        "TimeId": 31013,
+        "PreStageId": 1007.0,
+        "Desc": "Connecting two different-color tiles grants 2 points."
+    },
+    {
+        "Id": 1009,
+        "Name": "Sunset Visit I: Same",
+        "TimeId": 31011,
+        "PreStageId": 1008.0,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1010,
+        "Name": "Sunset Visit II: Same",
+        "TimeId": 31011,
+        "PreStageId": 1009.0,
+        "Desc": "Connecting two same-color tiles grants 2 points per tile connected."
+    },
+    {
+        "Id": 1011,
+        "Name": "Sunset Visit III: Different",
+        "TimeId": 31011,
+        "PreStageId": 1010.0,
+        "Desc": "Connecting two different-color tiles grants 2 points."
+    }
+]

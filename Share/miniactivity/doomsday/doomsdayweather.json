@@ -1,0 +1,855 @@
+[
+    {
+        "Id": 101,
+        "Name": "Sunny",
+        "Desc": "Comfortable | Has smaller effect on Scavengers and consumes fewer resources.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            101,
+            102,
+            103
+        ],
+        "EventId": [
+            -1,
+            1100.0,
+            1102.0,
+            1104.0,
+            1106.0,
+            1108.0,
+            1110.0,
+            1112.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100.0,
+            100.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 102,
+        "Name": "Rainy",
+        "Desc": "Bad | Has a slight effect on Scavengers and consumes more supplies every day.",
+        "Temperature": "5~15",
+        "AttributeId": [
+            104,
+            105,
+            106
+        ],
+        "EventId": [
+            -1,
+            1200.0,
+            1202.0,
+            1204.0,
+            1206.0,
+            1208.0,
+            1210.0,
+            1212.0,
+            1214.0,
+            1217.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100.0,
+            100.0,
+            100000.0,
+            100000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 103,
+        "Name": "Snowy",
+        "Desc": "Harsh | Buildings could stop working.",
+        "Temperature": "-10~3",
+        "AttributeId": [
+            107,
+            108,
+            109
+        ],
+        "EventId": [
+            -1,
+            1300.0,
+            1302.0,
+            1304.0,
+            1306.0,
+            1308.0,
+            1310.0,
+            1312.0,
+            1314.0,
+            1316.0,
+            1318.0,
+            1320.0,
+            1323.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            100000.0,
+            100000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100000.0,
+            100000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherXuetian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSnow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSnow1301.prefab"
+    },
+    {
+        "Id": 201,
+        "Name": "Sunny",
+        "Desc": "Comfortable | Has smaller effect on Scavengers and consumes fewer resources.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            201,
+            202,
+            203
+        ],
+        "EventId": [
+            -1,
+            1100.0,
+            1102.0,
+            1104.0,
+            1106.0,
+            1108.0,
+            1110.0,
+            1112.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100.0,
+            100.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 202,
+        "Name": "Rainy",
+        "Desc": "Bad | Has a slight effect on Scavengers and consumes more supplies every day.",
+        "Temperature": "5~15",
+        "AttributeId": [
+            204,
+            205,
+            206
+        ],
+        "EventId": [
+            -1,
+            1200.0,
+            1202.0,
+            1204.0,
+            1206.0,
+            1208.0,
+            1210.0,
+            1212.0,
+            1214.0,
+            1217.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100.0,
+            100.0,
+            100000.0,
+            100000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 203,
+        "Name": "Snowy",
+        "Desc": "Harsh | Buildings could stop working.",
+        "Temperature": "-10~3",
+        "AttributeId": [
+            207,
+            208,
+            209
+        ],
+        "EventId": [
+            -1,
+            1300.0,
+            1302.0,
+            1304.0,
+            1306.0,
+            1308.0,
+            1310.0,
+            1312.0,
+            1314.0,
+            1316.0,
+            1318.0,
+            1320.0,
+            1323.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            100000.0,
+            100000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100000.0,
+            100000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherXuetian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSnow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSnow1301.prefab"
+    },
+    {
+        "Id": 204,
+        "Name": "Red Tide",
+        "Desc": "Dangerous | Has a chance to be attacked or lose resources.",
+        "Temperature": "-2~8",
+        "AttributeId": [
+            210,
+            211,
+            212
+        ],
+        "EventId": [
+            -1,
+            1400.0,
+            1402.0,
+            1404.0,
+            1406.0,
+            1408.0,
+            1410.0,
+            1412.0,
+            1414.0,
+            1416.0,
+            1418.0,
+            1420.0,
+            1423.0,
+            1426.0,
+            1429.0
+        ],
+        "EventWeight": [
+            1000,
+            1000000.0,
+            100000.0,
+            100000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            1000.0,
+            100000.0,
+            100000.0,
+            100000.0,
+            100000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0,
+            1.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherHongchao.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRed.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRed1301.prefab"
+    },
+    {
+        "Id": 301,
+        "Name": "Rainbow",
+        "Desc": "Perfect | The colorful rainbow is a sign of good things.",
+        "Temperature": "26-30",
+        "AttributeId": [
+            30101,
+            30102,
+            30103
+        ],
+        "EventId": [
+            20337
+        ],
+        "EventWeight": [
+            1000000
+        ],
+        "NoRepeat": [
+            1
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherCaihong.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRainbow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1302.prefab"
+    },
+    {
+        "Id": 302,
+        "Name": "Sunny",
+        "Desc": "Comfortable | The bright sunlight is the guarantee of a harvest.",
+        "Temperature": "28-32",
+        "AttributeId": [
+            30201,
+            30202,
+            30203
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 303,
+        "Name": "Thunderstorm",
+        "Desc": "Bad | The rain keeps pouring and the temperature is dropping.",
+        "Temperature": "18-25",
+        "AttributeId": [
+            30301,
+            30302,
+            30303
+        ],
+        "EventId": [
+            -1,
+            20333.0,
+            20335.0
+        ],
+        "EventWeight": [
+            800,
+            100.0,
+            100.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 304,
+        "Name": "Smoggy",
+        "Desc": "Harsh | The roads are covered in dust and the visibility is poor.",
+        "Temperature": "13-18",
+        "AttributeId": [
+            30401,
+            30402,
+            30403
+        ],
+        "EventId": [
+            -1,
+            20321.0,
+            20323.0,
+            20329.0
+        ],
+        "EventWeight": [
+            4050,
+            200.0,
+            200.0,
+            50.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherWumai.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoHaze.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreFog1301.prefab"
+    },
+    {
+        "Id": 305,
+        "Name": "Blizzard",
+        "Desc": "Harsh | The temperature plummets and the snow keeps falling down.",
+        "Temperature": "2000/10/1 0:00",
+        "AttributeId": [
+            30501,
+            30502,
+            30503
+        ],
+        "EventId": [
+            -1,
+            20325.0,
+            20327.0,
+            20331.0
+        ],
+        "EventWeight": [
+            2250,
+            100.0,
+            100.0,
+            50.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherXuetian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSnow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSnow1301.prefab"
+    },
+    {
+        "Id": 401,
+        "Name": "Rainbow",
+        "Desc": "Perfect | The colorful rainbow is a sign of good things.",
+        "Temperature": "26-30",
+        "AttributeId": [
+            40101,
+            40102,
+            40103
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherCaihong.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRainbow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1302.prefab"
+    },
+    {
+        "Id": 402,
+        "Name": "Sunny",
+        "Desc": "Comfortable | The bright sunlight is the guarantee of a harvest.",
+        "Temperature": "28-32",
+        "AttributeId": [
+            40201,
+            40202,
+            40203
+        ],
+        "EventId": [
+            -1,
+            20431.0
+        ],
+        "EventWeight": [
+            1000,
+            1000.0
+        ],
+        "NoRepeat": [
+            0,
+            1.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 403,
+        "Name": "Thunderstorm",
+        "Desc": "Bad | The rain keeps pouring and the temperature is dropping.",
+        "Temperature": "18-25",
+        "AttributeId": [
+            40301,
+            40302,
+            40303
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 404,
+        "Name": "Smoggy",
+        "Desc": "Harsh | The roads are covered in dust and the visibility is poor.",
+        "Temperature": "13-18",
+        "AttributeId": [
+            40401,
+            40402,
+            40403
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherWumai.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoHaze.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreFog1301.prefab"
+    },
+    {
+        "Id": 501,
+        "Name": "Sunny",
+        "Desc": "Comfortable | Has smaller effect on Scavengers and consumes fewer resources.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            601,
+            602,
+            603
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 502,
+        "Name": "Thunderstorm",
+        "Desc": "Bad | Has a slight effect on Scavengers and consumes more supplies every day.",
+        "Temperature": "5~15",
+        "AttributeId": [
+            604,
+            605,
+            606
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 503,
+        "Name": "Blizzard",
+        "Desc": "Harsh | The temperature plummets and the snow keeps falling down.",
+        "Temperature": "-10~3",
+        "AttributeId": [
+            607,
+            608,
+            609
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherXuetian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSnow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSnow1301.prefab"
+    },
+    {
+        "Id": 504,
+        "Name": "Red Tide",
+        "Desc": "Dangerous | Has a chance to be attacked, lose resources, or die.",
+        "Temperature": "-2~8",
+        "AttributeId": [
+            610,
+            611,
+            612
+        ],
+        "EventId": [
+            -1,
+            2052005.0,
+            2052007.0
+        ],
+        "EventWeight": [
+            650,
+            300.0,
+            50.0
+        ],
+        "NoRepeat": [
+            0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherHongchao.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRed.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRed1301.prefab"
+    },
+    {
+        "Id": 505,
+        "Name": "Rainbow",
+        "Desc": "Perfect | The colorful rainbow is a sign of good things.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            613,
+            614,
+            615
+        ],
+        "EventId": [
+            2052009
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherCaihong.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRainbow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1302.prefab"
+    },
+    {
+        "Id": 601,
+        "Name": "Sunny",
+        "Desc": "Comfortable | Has smaller effect on Scavengers and consumes fewer resources.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            601,
+            602,
+            603
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherQingtian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSun.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1301.prefab"
+    },
+    {
+        "Id": 602,
+        "Name": "Thunderstorm",
+        "Desc": "Bad | Has a slight effect on Scavengers and consumes more supplies every day.",
+        "Temperature": "5~15",
+        "AttributeId": [
+            604,
+            605,
+            606
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherYutian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRain.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRain1301.prefab"
+    },
+    {
+        "Id": 603,
+        "Name": "Blizzard",
+        "Desc": "Harsh | Buildings could stop working.",
+        "Temperature": "-10~3",
+        "AttributeId": [
+            607,
+            608,
+            609
+        ],
+        "EventId": [
+            -1,
+            1303.0,
+            1305.0
+        ],
+        "EventWeight": [
+            1980,
+            10.0,
+            10.0
+        ],
+        "NoRepeat": [
+            0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherXuetian.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoSnow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSnow1301.prefab"
+    },
+    {
+        "Id": 604,
+        "Name": "Red Tide",
+        "Desc": "Harsh | Has a chance to be attacked or lose resources.",
+        "Temperature": "-2~8",
+        "AttributeId": [
+            610,
+            611,
+            612
+        ],
+        "EventId": [
+            -1,
+            1414.0,
+            1416.0
+        ],
+        "EventWeight": [
+            985,
+            10.0,
+            5.0
+        ],
+        "NoRepeat": [
+            0,
+            0.0,
+            0.0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherHongchao.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRed.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreRed1301.prefab"
+    },
+    {
+        "Id": 605,
+        "Name": "Rainbow",
+        "Desc": "Perfect | Good things could happen.",
+        "Temperature": "20~25",
+        "AttributeId": [
+            613,
+            614,
+            615
+        ],
+        "EventId": [
+            -1
+        ],
+        "EventWeight": [
+            1000
+        ],
+        "NoRepeat": [
+            0
+        ],
+        "Icon": "Assets/Product/Texture/Atlas/UiDoomsday/UiDoomsdayWeatherCaihong.png",
+        "BigIcon": "Assets/Product/Texture/Image/UiDoomsday/UiDoomsdayPhotoRainbow.png",
+        "EffectPath": "Assets/Product/Effect/Prefab/FxUi/FxUiDoomsdayExplore/FxUiDoomsdayExploreSun1302.prefab"
+    }
+]

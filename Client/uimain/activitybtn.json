@@ -1,0 +1,273 @@
+[
+    {
+        "Id": 1,
+        "Priority": 100,
+        "Desc": "Happy Birthday",
+        "Name": "Happy Birthday",
+        "NameEN": "HAPPY BIRTHDAY",
+        "SkipId": 89053,
+        "TimeId": 513.0,
+        "LeftTimeFun": "GetBirthday",
+        "Conditions": [
+            32003.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainBrithday01.png",
+        "Effect1": "Assets/Product/Effect/Prefab/FxUi/FxUiMain/FxUiMainStar.prefab",
+        "Effect2": null,
+        "EventId": "EVENT_PLAYER_SET_BIRTHDAY",
+        "RedPointConditions": []
+    },
+    {
+        "Id": 2,
+        "Priority": 81,
+        "Desc": "Target",
+        "Name": "Target",
+        "NameEN": "NOVICE GOAL",
+        "SkipId": 89054,
+        "TimeId": 24.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            32001.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainSpImgA01.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_MAIN_NEWPLAYER_TASK"
+        ]
+    },
+    {
+        "Id": 3,
+        "Priority": 82,
+        "Desc": "Novice",
+        "Name": "Novice",
+        "NameEN": "NOVICE GUIDANCE",
+        "SkipId": 89055,
+        "TimeId": 24.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            32000.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainSpImgGuide01.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_MAIN_NEWBIE_TASK"
+        ]
+    },
+    {
+        "Id": 4,
+        "Priority": 83,
+        "Desc": "Return 3.0",
+        "Name": "Welcome Back",
+        "NameEN": "RETURN",
+        "SkipId": 89002,
+        "TimeId": 14101.0,
+        "LeftTimeFun": "GetRegression3rd",
+        "Conditions": [
+            32002.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainSpRegression0301.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": "EVENT_REGRESSION3_ACTIVITY_STATUS_CHANGE",
+        "RedPointConditions": [
+            "CONDITION_REGRESSION3_ALL"
+        ]
+    },
+    {
+        "Id": 5,
+        "Priority": 70,
+        "Desc": "Preload",
+        "Name": "Preload",
+        "NameEN": "PRE DOWNLOAD",
+        "SkipId": 89042,
+        "TimeId": 903.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            860748.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainDownload.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_PRELOAD_NEW_VERSION"
+        ]
+    },
+    {
+        "Id": 6,
+        "Priority": 0,
+        "Desc": "Whispers of Admiration",
+        "Name": "Whispers of Admiration",
+        "NameEN": "Dearest Whispers",
+        "SkipId": 189064,
+        "TimeId": null,
+        "LeftTimeFun": null,
+        "Conditions": [
+            30404.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/Mainlovergift2024520.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 7,
+        "Priority": 0,
+        "Desc": "Dragon Boat Festival H5",
+        "Name": "Pulao's Desserts",
+        "NameEN": "PULAO'S DESSERTS",
+        "SkipId": 189065,
+        "TimeId": null,
+        "LeftTimeFun": null,
+        "Conditions": [],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainPulaoDesserts.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_DAILY_RESET"
+        ]
+    },
+    {
+        "Id": 8,
+        "Priority": 92,
+        "Desc": "Wheel",
+        "Name": "Wandering Waves",
+        "NameEN": "Wandering Waves",
+        "SkipId": 89026,
+        "TimeId": 29301.0,
+        "LeftTimeFun": "GetByTimeIdCommon",
+        "Conditions": [
+            774800.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainTurntable02.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_TURNTABLE_SUMMARY"
+        ]
+    },
+    {
+        "Id": 9,
+        "Priority": 93,
+        "Desc": "Summer Total Spending",
+        "Name": "Dawn Rainbow",
+        "NameEN": "Dawn Rainbow",
+        "SkipId": 89056,
+        "TimeId": 29951.0,
+        "LeftTimeFun": "GetAccumulateDraw",
+        "Conditions": [
+            774800.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainAccumulateExpend.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": "EVENT_ACCUMULATE_DRWA_UPDATE",
+        "RedPointConditions": [
+            "CONDITION_ACCUMULATE_EXPEND_MAIN"
+        ]
+    },
+    {
+        "Id": 10,
+        "Priority": 94,
+        "Desc": "Coating Encore",
+        "Name": "Turquoise Shore",
+        "NameEN": "Turquoise Shore",
+        "SkipId": 20226,
+        "TimeId": 29752.0,
+        "LeftTimeFun": "GetByTimeIdCommon",
+        "Conditions": [
+            771000.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainActivityShop03.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 11,
+        "Priority": 91,
+        "Desc": "Mystery Box Device",
+        "Name": "Amber Sea",
+        "NameEN": "Amber Sea",
+        "SkipId": 89017,
+        "TimeId": 29903.0,
+        "LeftTimeFun": "GetByTimeIdCommon",
+        "Conditions": [
+            30406.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainSlotmachine.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_SLOT_MACHINE_RED"
+        ]
+    },
+    {
+        "Id": 12,
+        "Priority": 90,
+        "Desc": "Departure Card Pool 5.0",
+        "Name": "Stellar Glow Supply",
+        "NameEN": "SUPPLY",
+        "SkipId": 20230,
+        "TimeId": 32909.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            770402.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainSupply01.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": []
+    },
+    {
+        "Id": 13,
+        "Priority": 98,
+        "Desc": "Fresh Dawning",
+        "Name": "Fresh Dawning",
+        "NameEN": "FRESH DAWNING",
+        "SkipId": 1300569,
+        "TimeId": 2160460.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            774800.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainCombAccumulateDraw.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": "EVENT_ACCUMULATE_DRWA_UPDATE_COMB",
+        "RedPointConditions": [
+            "CONDITION_ACCUMULATE_EXPEND_MAIN_COMB"
+        ]
+    },
+    {
+        "Id": 14,
+        "Priority": 96,
+        "Desc": "Passage of the Past",
+        "Name": "Passage of the Past",
+        "NameEN": null,
+        "SkipId": 90017,
+        "TimeId": 2160461.0,
+        "LeftTimeFun": null,
+        "Conditions": [
+            870003.0
+        ],
+        "BtnIcon": "Assets/Product/Texture/Image/UiMain/MainVersionGift01.png",
+        "Effect1": null,
+        "Effect2": null,
+        "EventId": null,
+        "RedPointConditions": [
+            "CONDITION_VERSIONGIFT_TASK",
+            "CONDITION_VERSIONGIFT_REWARD"
+        ]
+    }
+]

@@ -1,0 +1,61 @@
+--- 背包玩法自己的事件Id （仅非跨系统类事件，跨系统类事件定义到XEventId中）
+local XBagOrganizeActivityEventId = {
+    --- 刷新总分显示
+    EVENT_TOTALSCORE_UPDATE = 'EVENT_TOTALSCORE_UPDATE',
+    
+    --- 当局游戏结束响应
+    EVENT_END_GAME = 'EVENT_END_GAME',
+    --- 进入下一关游戏响应
+    EVENT_NEXT_STAGE_GAME = 'EVENT_NEXT_STAGE_GAME',
+
+    --- 打开货物编辑面板
+    EVENT_OPEN_GOODSOPTION = 'EVENT_OPEN_GOODSOPTION',
+    --- 关闭物品编辑界面
+    EVENT_CLOSE_ITEMOPTION = 'EVENT_CLOSE_ITEMOPTION',
+    --- 放置物体操作状态改变（开始编辑或结束编辑）
+    EVENT_OPTIONSTATE_CHANGED = 'EVENT_OPTIONSTATE_CHANGED',
+    --- 取消货物放置
+    EVENT_CANCEL_ADD_GOODS = 'EVENT_CANCEL_ADD_GOODS',
+    --- 刷新编辑货物的显示
+    EVENT_REFRESH_OPTION_SHOW = 'EVENT_REFRESH_OPTION_SHOW',
+    
+    --- 限时玩法的定时器更新事件
+    EVENT_TIMELIMIT_RULE_UPDATE = 'EVENT_TIMELIMIT_RULE_UPDATE',
+
+    --- 刷新货物的被使用状态（未放置、已放置）
+    EVENT_REFRESH_GOODS_USING_STATE = 'EVENT_REFRESH_GOODS_USING_STATE',
+    --- 刷新地块上的货物显示
+    EVENT_REFRESH_GOODS_SHOW = 'EVENT_REFRESH_GOODS_SHOW',
+    --- 刷新地块显示
+    EVENT_REFRESH_MAP_SHOW = 'EVENT_REFRESH_MAP_SHOW',
+
+    --- 刷新货物列表
+    EVENT_REFRESH_GOODS_LIST = 'EVENT_REFRESH_GOODS_LIST',
+    
+    --- 有新的随机事件生成
+    EVENT_NEW_RANDOMEVENT_APPEAR = 'EVENT_NEW_RANDOMEVENT_APPEAR',
+    
+    --- 随机事件过期
+    EVENT_RANDOMEVENT_OUTTIME = 'EVENT_RANDOMEVENT_OUTTIME',
+    
+    --- 随机事件效果生效
+    EVENT_RANDOMEVENT_EFFECT_VALID = 'EVENT_RANDOMEVENT_EFFECT_VALID',
+    
+    --region 物品栏拖拽-关联-物品编辑UI拖拽
+    
+    --- 列表中物品拖拽起始，呼叫编辑面板初始化位置
+    EVENT_GOODSINLIST_CALL_OPTIONPOSITION_INIT = 'EVENT_GOODSINLIST_CALL_OPTIONPOSITION_INIT',
+    
+    --- 列表中物品拖拽起始，调用编辑界面的开始拖拽接口
+    EVENT_GOODSINLIST_CALL_OPTION_BEGINDRAG = 'EVENT_GOODSINLIST_CALL_OPTION_BEGINDRAG',
+    
+    --- 列表中物品拖拽过程，调用编辑界面的拖拽过程接口
+    EVENT_GOODSINLIST_CALL_OPTION_DRAGGING = 'EVENT_GOODSINLIST_CALL_OPTION_DRAGGING',
+    
+    --- 列表中道具拖拽结束，调用编辑界面的拖拽结束接口
+    EVENT_GOODSINLIST_CALL_OPTION_ENDDRAG = 'EVENT_GOODSINLIST_CALL_OPTION_ENDDRAG'
+    
+    --endregion
+}
+
+return XBagOrganizeActivityEventId

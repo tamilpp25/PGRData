@@ -1,0 +1,65 @@
+[
+    {
+        "Id": 1,
+        "Name": "Monthly Pass",
+        "Priority": 1,
+        "SkipId": 50007,
+        "Type": 1,
+        "FunctionName": "GetYkScrollTip",
+        "IgnoreOnTerminal": 0
+    },
+    {
+        "Id": 2,
+        "Name": "Pack",
+        "Priority": 2,
+        "SkipId": 50006,
+        "Type": 1,
+        "FunctionName": "GetPurchaseScrollTip",
+        "IgnoreOnTerminal": 0
+    },
+    {
+        "Id": 3,
+        "Name": "Dormitory",
+        "Priority": 6,
+        "SkipId": 10043,
+        "Type": 1,
+        "FunctionName": "GetDormQuestScrollTip",
+        "IgnoreOnTerminal": 0
+    },
+    {
+        "Id": 4,
+        "Name": "Rare Item",
+        "Priority": 3,
+        "SkipId": 10045,
+        "Type": 1,
+        "FunctionName": "GetExpensiveScrollTip",
+        "IgnoreOnTerminal": 0
+    },
+    {
+        "Id": 5,
+        "Name": "Concurrent data download",
+        "Priority": 4,
+        "SkipId": 89010,
+        "Type": 1,
+        "FunctionName": "GetSubpackageScrollTip",
+        "IgnoreOnTerminal": 1
+    },
+    {
+        "Id": 6,
+        "Name": "Preload",
+        "Priority": 5,
+        "SkipId": 89042,
+        "Type": 1,
+        "FunctionName": "GetPreloadScrollTip",
+        "IgnoreOnTerminal": 1
+    },
+    {
+        "Id": 7,
+        "Name": "Weekly Pass",
+        "Priority": 1,
+        "SkipId": 50083,
+        "Type": 1,
+        "FunctionName": "GetWeekCardScrollTip",
+        "IgnoreOnTerminal": 0
+    }
+]

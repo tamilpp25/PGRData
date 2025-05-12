@@ -1,0 +1,1153 @@
+[
+    {
+        "Id": 1,
+        "StoryPointType": 1,
+        "PrePointIds": [],
+        "StoryPointTypeParams": [
+            30110277
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 1 Story",
+        "Name": "Chapter 1 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 2,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            1.0
+        ],
+        "StoryPointTypeParams": [
+            30110200,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Character Tutorial Stage",
+        "Name": "Character Tutorial Stage",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Character Tutorial"
+        ],
+        "BuffDescs": [
+            "Familiarize yourself with the combat moves of Cerberus"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 3,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            2.0
+        ],
+        "StoryPointTypeParams": [
+            30110202,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 2 Story + Perfect Switch Tutorial",
+        "Name": "Chapter 2 Story + Perfect Switch Tutorial",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Synergy Tutorial"
+        ],
+        "BuffDescs": [
+            "Cerberus members can be summoned to the battle after casting Core Passive or Signature."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 4,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            3.0
+        ],
+        "StoryPointTypeParams": [
+            30110278
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 3 Story",
+        "Name": "Chapter 3 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 5,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            4.0
+        ],
+        "StoryPointTypeParams": [
+            30110203,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Standard Stage",
+        "Name": "Standard Stage",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_011.png"
+        ],
+        "BuffTitle": [
+            "Regular Battle"
+        ],
+        "BuffDescs": [
+            "Eliminate all enemies"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 6,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            5.0
+        ],
+        "StoryPointTypeParams": [
+            30110204,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 4 Story + Standard",
+        "Name": "Chapter 4 Story + Standard",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32062.png"
+        ],
+        "BuffTitle": [
+            "Rigid Body II"
+        ],
+        "BuffDescs": [
+            "Enemy gains increased Super Armor and takes 50% less DMG while Super Armor is active. Synergy Switch to Vera to quickly break the Super Armor."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 7,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            6.0
+        ],
+        "StoryPointTypeParams": [
+            30110279
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 5 Story",
+        "Name": "Chapter 5 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 8,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            7.0
+        ],
+        "StoryPointTypeParams": [
+            30110285,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 6 Story + Special",
+        "Name": "Chapter 6 Story + Special",
+        "GridShowType": 2,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_011.png",
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_024.png"
+        ],
+        "BuffTitle": [
+            "Hetero-Hive",
+            "Resurrection"
+        ],
+        "BuffDescs": [
+            "Destroy 3 Hetero-Hives",
+            "The Hetero-Hive will spawn minions continuously. Destroy it first."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 9,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            8.0
+        ],
+        "StoryPointTypeParams": [
+            30110205,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": 861055.0,
+        "Title": "Someone's mechanism",
+        "Name": "Someone's mechanism",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon10032.png",
+            "Assets/Product/Texture/Image/UiGuildWar/UiGuildWarBuff03.png"
+        ],
+        "BuffTitle": [
+            "Paper Shell",
+            "It Takes Two"
+        ],
+        "BuffDescs": [
+            "When an enemy is defeated for the first time, they recover 5% shield per second over 8s. Synergy Switch to Noctis to quickly break the shield.",
+            "Only Noctis and No. 21 can be used"
+        ],
+        "ExtraRobotId": 9183.0
+    },
+    {
+        "Id": 10,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            9.0
+        ],
+        "StoryPointTypeParams": [
+            30110206,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Another character's mechanism",
+        "Name": "Another character's mechanism",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11041.png",
+            "Assets/Product/Texture/Image/UiGuildWar/UiGuildWarBuff03.png"
+        ],
+        "BuffTitle": [
+            "Poison Mist",
+            "It Takes Two"
+        ],
+        "BuffDescs": [
+            "Inflict all characters with Poison every 5s. Each stack of Poison will cause the character to lose 1% max HP every second. Synergy Switch to No. 21 to remove the Poison.",
+            "Only Noctis and No. 21 can be used"
+        ],
+        "ExtraRobotId": 9183.0
+    },
+    {
+        "Id": 11,
+        "StoryPointType": 2,
+        "PrePointIds": [
+            10.0
+        ],
+        "StoryPointTypeParams": [
+            1001
+        ],
+        "OpenCondition": null,
+        "Title": "Duet Comms",
+        "Name": "Duet Comms",
+        "GridShowType": 5,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 12,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            8.0
+        ],
+        "StoryPointTypeParams": [
+            30110207,
+            1131003.0
+        ],
+        "OpenCondition": 861056.0,
+        "Title": "Familiarize yourself with the character",
+        "Name": "Familiarize yourself with the character",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png"
+        ],
+        "BuffTitle": [
+            "Solo Battle"
+        ],
+        "BuffDescs": [
+            "Only Vera can be used"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 13,
+        "StoryPointType": 2,
+        "PrePointIds": [
+            12.0
+        ],
+        "StoryPointTypeParams": [
+            1002
+        ],
+        "OpenCondition": null,
+        "Title": "Solo Comms",
+        "Name": "Solo Comms",
+        "GridShowType": 5,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 14,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            9.0,
+            12.0
+        ],
+        "StoryPointTypeParams": [
+            30110280
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 7 Story",
+        "Name": "Chapter 7 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 15,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            14.0
+        ],
+        "StoryPointTypeParams": [
+            30110208,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Activate Signature",
+        "Name": "Activate Signature",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Synergy Tutorial II"
+        ],
+        "BuffDescs": [
+            "Keep performing Synergy to accumulate Energy, then tap to cast the Synergy Signature!"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 16,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            15.0
+        ],
+        "StoryPointTypeParams": [
+            30110209,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 8 Story + Signature in Real Combat",
+        "Name": "Chapter 8 Story + Signature in Real Combat",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_011.png"
+        ],
+        "BuffTitle": [
+            "Regular Battle"
+        ],
+        "BuffDescs": [
+            "Eliminate all enemies"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 17,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            16.0
+        ],
+        "StoryPointTypeParams": [
+            30110281
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 9 Story",
+        "Name": "Chapter 9 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 18,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            17.0
+        ],
+        "StoryPointTypeParams": [
+            30110286,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 10 Story + Special",
+        "Name": "Chapter 10 Story + Special",
+        "GridShowType": 2,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_028.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Cognitive Grimace",
+            "Tide of Enemies"
+        ],
+        "BuffDescs": [
+            "The enemy has turned into a grimace. Focus fire and finish it off!",
+            "Numerous enemies swarm at you like tides."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 19,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            18.0
+        ],
+        "StoryPointTypeParams": [
+            30110252,
+            1131003.0,
+            1221003.0
+        ],
+        "OpenCondition": 861060.0,
+        "Title": "Someone's mechanism",
+        "Name": "Someone's mechanism",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12112.png",
+            "Assets/Product/Texture/Image/UiGuildWar/UiGuildWarBuff03.png"
+        ],
+        "BuffTitle": [
+            "Grave Wounds",
+            "It Takes Two"
+        ],
+        "BuffDescs": [
+            "Character loses 15% HP per second for 5s. Synergy Switch to No. 21 to heal the team.",
+            "Only Vera and No. 21 can be used"
+        ],
+        "ExtraRobotId": 9185.0
+    },
+    {
+        "Id": 20,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            19.0
+        ],
+        "StoryPointTypeParams": [
+            30110253,
+            1131003.0,
+            1221003.0
+        ],
+        "OpenCondition": null,
+        "Title": "Another character's mechanism",
+        "Name": "Another character's mechanism",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32062.png",
+            "Assets/Product/Texture/Image/UiGuildWar/UiGuildWarBuff03.png"
+        ],
+        "BuffTitle": [
+            "Rigid Body II",
+            "It Takes Two"
+        ],
+        "BuffDescs": [
+            "Enemy gains increased Super Armor and takes 50% less DMG while Super Armor is active. Synergy Switch to Vera to quickly break the Super Armor.",
+            "Only Vera and No. 21 can be used"
+        ],
+        "ExtraRobotId": 9185.0
+    },
+    {
+        "Id": 21,
+        "StoryPointType": 2,
+        "PrePointIds": [
+            20.0
+        ],
+        "StoryPointTypeParams": [
+            1003
+        ],
+        "OpenCondition": null,
+        "Title": "Duet Comms",
+        "Name": "Duet Comms",
+        "GridShowType": 5,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 22,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            18.0
+        ],
+        "StoryPointTypeParams": [
+            30110256,
+            1251002.0
+        ],
+        "OpenCondition": 861061.0,
+        "Title": "Familiarize yourself with the character",
+        "Name": "Familiarize yourself with the character",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png"
+        ],
+        "BuffTitle": [
+            "Solo Battle"
+        ],
+        "BuffDescs": [
+            "Only Noctis can be used"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 23,
+        "StoryPointType": 2,
+        "PrePointIds": [
+            22.0
+        ],
+        "StoryPointTypeParams": [
+            1004
+        ],
+        "OpenCondition": null,
+        "Title": "Solo Comms",
+        "Name": "Solo Comms",
+        "GridShowType": 5,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 24,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            19.0,
+            22.0
+        ],
+        "StoryPointTypeParams": [
+            30110282
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 11 Story",
+        "Name": "Chapter 11 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 25,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            24.0
+        ],
+        "StoryPointTypeParams": [
+            30110287,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Trio Special",
+        "Name": "Trio Special",
+        "GridShowType": 2,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Tide of Enemies II"
+        ],
+        "BuffDescs": [
+            "Numerous enemies swarm at you like tides."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 26,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            25.0
+        ],
+        "StoryPointTypeParams": [
+            30110255,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Trio Regular",
+        "Name": "Trio Regular",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11041.png",
+            "Assets/Product/Texture/Image/UiGuildWar/UiGuildWarBuff06.png"
+        ],
+        "BuffTitle": [
+            "Poison Mist",
+            "Channeling Damage"
+        ],
+        "BuffDescs": [
+            "Inflict all characters with Poison every 5s. Each stack of Poison will cause the character to lose 1% max HP every second. Synergy Switch to No. 21 to remove the Poison.",
+            "Restore all Super Armor and cast a skill to damage everyone within the screen. Synergy Switch to Vera to quickly break the Super Armor."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 27,
+        "StoryPointType": 2,
+        "PrePointIds": [
+            26.0
+        ],
+        "StoryPointTypeParams": [
+            1005
+        ],
+        "OpenCondition": null,
+        "Title": "Trio Comms",
+        "Name": "Trio Comms",
+        "GridShowType": 5,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 28,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            25.0
+        ],
+        "StoryPointTypeParams": [
+            30110288,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 13 Story + Boss",
+        "Name": "Chapter 13 Story + Boss",
+        "GridShowType": 3,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33283.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Unknown Abandoned Mechanoid",
+            "Group of Guards"
+        ],
+        "BuffDescs": [
+            "The Boss has arrived. Take great caution.",
+            "4 guards are protecting the Boss. Defeat them quickly."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 29,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            28.0
+        ],
+        "StoryPointTypeParams": [
+            30110283
+        ],
+        "OpenCondition": null,
+        "Title": "Chapter 14 Story",
+        "Name": "Chapter 14 Story",
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 30,
+        "StoryPointType": 3,
+        "PrePointIds": [],
+        "StoryPointTypeParams": [
+            30110289,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "HARD1",
+        "Name": "HARD1",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11047.png",
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_024.png"
+        ],
+        "BuffTitle": [
+            "Hard Stage",
+            "Resurrection"
+        ],
+        "BuffDescs": [
+            "Enemies are significantly enhanced. Be careful!",
+            "The Hetero-Hive will spawn minions continuously. Destroy it first."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 31,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            30.0
+        ],
+        "StoryPointTypeParams": [
+            30110290,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "HARD2",
+        "Name": "HARD2",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11047.png",
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_028.png"
+        ],
+        "BuffTitle": [
+            "Hard Stage",
+            "Cognitive Grimace"
+        ],
+        "BuffDescs": [
+            "Enemies are significantly enhanced. Be careful!",
+            "The enemy has turned into a grimace. Focus fire and finish it off!"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 32,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            31.0
+        ],
+        "StoryPointTypeParams": [
+            30110291,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "HARD3",
+        "Name": "HARD3",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11047.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Hard Stage",
+            "Tide of Enemies II"
+        ],
+        "BuffDescs": [
+            "Enemies are significantly enhanced. Be careful!",
+            "Numerous enemies swarm at you like tides."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 33,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            32.0
+        ],
+        "StoryPointTypeParams": [
+            30110292,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "HARD4",
+        "Name": "HARD4",
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11047.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33283.png"
+        ],
+        "BuffTitle": [
+            "Hard Stage",
+            "Unknown Abandoned Mechanoid"
+        ],
+        "BuffDescs": [
+            "Enemies are significantly enhanced. Be careful!",
+            "The Boss has arrived. Take great caution."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 40,
+        "StoryPointType": 1,
+        "PrePointIds": [],
+        "StoryPointTypeParams": [
+            30110221
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 1 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 41,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            40.0
+        ],
+        "StoryPointTypeParams": [
+            30110215,
+            1131003.0
+        ],
+        "OpenCondition": null,
+        "Title": "Complete Vera's Tutorial Stage.",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Character Tutorial"
+        ],
+        "BuffDescs": [
+            "Familiarize yourself with Vera's battle controls."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 42,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            40.0
+        ],
+        "StoryPointTypeParams": [
+            30110216,
+            1221003.0
+        ],
+        "OpenCondition": null,
+        "Title": "Complete No. 21's Tutorial Stage.",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Character Tutorial"
+        ],
+        "BuffDescs": [
+            "Familiarize yourself with No. 21's battle controls."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 43,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            40.0
+        ],
+        "StoryPointTypeParams": [
+            30110217,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Complete Noctis' Tutorial Stage.",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Character Tutorial"
+        ],
+        "BuffDescs": [
+            "Familiarize yourself with Noctis' battle controls."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 44,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            41.0,
+            42.0,
+            43.0
+        ],
+        "StoryPointTypeParams": [
+            30110218,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Complete Synergy Switch Tutorial (all trial characters in this tutorial are SS-Rank with their exclusive weapons equipped)",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32161.png"
+        ],
+        "BuffTitle": [
+            "Synergy Tutorial"
+        ],
+        "BuffDescs": [
+            "Cerberus members can be summoned into battle after casting Core Passive or Signature."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 45,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            44.0
+        ],
+        "StoryPointTypeParams": [
+            30110222
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 2 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 46,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            45.0
+        ],
+        "StoryPointTypeParams": [
+            30110293,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Defeat the Gangsters",
+        "Name": null,
+        "GridShowType": 3,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_028.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Story Stage 1",
+            "Affix Title"
+        ],
+        "BuffDescs": [
+            "Story Stage 1",
+            "Affix Description"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 47,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            46.0
+        ],
+        "StoryPointTypeParams": [
+            30110223
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 3 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 48,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            47.0
+        ],
+        "StoryPointTypeParams": [
+            30110219,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Defeat all enemies.",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 49,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            48.0
+        ],
+        "StoryPointTypeParams": [
+            30110224
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 4 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 50,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            49.0
+        ],
+        "StoryPointTypeParams": [
+            30110294,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Fight with Action Star",
+        "Name": null,
+        "GridShowType": 2,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiGuild/IconGuildTalent/UIGuildTalent_028.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Story Stage 2",
+            "Affix Title"
+        ],
+        "BuffDescs": [
+            "Story Stage 2",
+            "Affix Description"
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 51,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            50.0
+        ],
+        "StoryPointTypeParams": [
+            30110225
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 5 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 52,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            51.0
+        ],
+        "StoryPointTypeParams": [
+            30110220,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Defeat all enemies.",
+        "Name": null,
+        "GridShowType": 1,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 53,
+        "StoryPointType": 3,
+        "PrePointIds": [
+            52.0
+        ],
+        "StoryPointTypeParams": [
+            30110295,
+            1131003.0,
+            1221003.0,
+            1251002.0
+        ],
+        "OpenCondition": null,
+        "Title": "Fight with Action Star...?",
+        "Name": null,
+        "GridShowType": 3,
+        "BuffIcon": [
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33283.png",
+            "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png"
+        ],
+        "BuffTitle": [
+            "Action Star",
+            "Guards"
+        ],
+        "BuffDescs": [
+            "This is the final Boss",
+            "4 guards are protecting the Boss. You need to defeat them quickly."
+        ],
+        "ExtraRobotId": null
+    },
+    {
+        "Id": 54,
+        "StoryPointType": 1,
+        "PrePointIds": [
+            53.0
+        ],
+        "StoryPointTypeParams": [
+            30110226
+        ],
+        "OpenCondition": null,
+        "Title": "Cerberus - 6 - Story Only",
+        "Name": null,
+        "GridShowType": 4,
+        "BuffIcon": [],
+        "BuffTitle": [],
+        "BuffDescs": [],
+        "ExtraRobotId": null
+    }
+]

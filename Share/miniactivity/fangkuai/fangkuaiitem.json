@@ -1,0 +1,110 @@
+[
+    {
+        "Id": 1,
+        "Kind": 1,
+        "Params": [],
+        "Name": "Structural Adjustment",
+        "Desc": "Choose a color and reduce all cubes of that color by 1 unit",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai02.png"
+    },
+    {
+        "Id": 2,
+        "Kind": 2,
+        "Params": [],
+        "Name": "Code Extermination",
+        "Desc": "Choose any area and clear all cubes in that row once",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai01.png"
+    },
+    {
+        "Id": 3,
+        "Kind": 3,
+        "Params": [],
+        "Name": "Data Simplification",
+        "Desc": "Choose a color and change all cubes of that color into 1-unit groups",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai03.png"
+    },
+    {
+        "Id": 4,
+        "Kind": 4,
+        "Params": [
+            2.0
+        ],
+        "Name": "Deadline Rescue",
+        "Desc": "Gain 2 turns after use",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai05.png"
+    },
+    {
+        "Id": 5,
+        "Kind": 5,
+        "Params": [],
+        "Name": "Sequence Reset",
+        "Desc": "Choose any 2 areas and swap their locations",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai06.png"
+    },
+    {
+        "Id": 6,
+        "Kind": 6,
+        "Params": [],
+        "Name": "Domain Recovery",
+        "Desc": "Choose any 2 adjacent cubes and swap their locations",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai04.png"
+    },
+    {
+        "Id": 7,
+        "Kind": 7,
+        "Params": [],
+        "Name": "Freeze Convert",
+        "Desc": "Freeze the ascending bar once. No cubes will be ascended starting the next round (This effect can be stacked up to 3 times.)",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai07.png"
+    },
+    {
+        "Id": 8,
+        "Kind": 8,
+        "Params": [],
+        "Name": "Directed Movement",
+        "Desc": "Choose any area and snap all cubes in that row in the chosen direction.",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai08.png"
+    },
+    {
+        "Id": 9,
+        "Kind": 9,
+        "Params": [],
+        "Name": "Random Function \u03b1",
+        "Desc": "Randomly select a color and apply a random effect to it. (Random effects: Structural Adjustment, Data Simplification, Parameter Inflation, and Filter Inflation)",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai09.png"
+    },
+    {
+        "Id": 10,
+        "Kind": 10,
+        "Params": [],
+        "Name": "Random Function \u03b2",
+        "Desc": "Randomly select a column and apply a random effect to it. (Random effects: Code Extermination, Sequence Reset, and Directed Movement)",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai13.png"
+    },
+    {
+        "Id": 11,
+        "Kind": 11,
+        "Params": [],
+        "Name": "Restore Parameter",
+        "Desc": "Randomly purify 1 Special Cube (no effect if none exists).",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai10.png"
+    },
+    {
+        "Id": 12,
+        "Kind": 12,
+        "Params": [
+            8.0
+        ],
+        "Name": "Parameter Inflation",
+        "Desc": "Choose a color and add 8 units to all cubes of that color.",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai11.png"
+    },
+    {
+        "Id": 13,
+        "Kind": 13,
+        "Params": [],
+        "Name": "Filter Inflation",
+        "Desc": "Select a color. Generate multiple unit cubes of the same color in the empty spaces adjacent to all existing cubes of that color until they encounter other blocks.",
+        "Icon": "Assets/Product/Texture/Image/IconTools/IconFangKuai12.png"
+    }
+]

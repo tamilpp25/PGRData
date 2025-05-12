@@ -1,0 +1,704 @@
+[
+    {
+        "Id": 101,
+        "Name": "Anchor Point",
+        "Order": "Ep.01",
+        "Desc": "We came a long way to find this city. After discussion, we decide to use it as our anchor point and hope we can get through this together...",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridOnePath.prefab",
+        "DayCount": 12.0,
+        "FirstPlace": 10101,
+        "PlaceId": [
+            10101,
+            10102,
+            10103,
+            10104,
+            10105,
+            10106,
+            10107,
+            10108
+        ],
+        "MaxBuildingCount": 10,
+        "BuildingIds": [
+            4,
+            5,
+            6,
+            7
+        ],
+        "EffectIds": [
+            10101,
+            10102,
+            10103,
+            10104,
+            10105,
+            10106.0,
+            10107.0
+        ],
+        "MainTaskId": 10100,
+        "SubTaskId": [
+            10101.0,
+            10102.0,
+            10103.0
+        ],
+        "WeatherModeId": [
+            101
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [],
+        "EndingId": [
+            1,
+            2
+        ]
+    },
+    {
+        "Id": 102,
+        "Name": "Getting Worse",
+        "Order": "Ep.02",
+        "Desc": "We have settled down for the moment, but things are still not looking good. Hope the winter won't last too long.",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridTwoPath.prefab",
+        "DayCount": 16.0,
+        "FirstPlace": 10201,
+        "PlaceId": [
+            10201,
+            10202,
+            10203,
+            10204,
+            10205,
+            10206,
+            10207,
+            10208,
+            10209.0,
+            10210.0,
+            10211.0,
+            10212.0,
+            10213.0,
+            10214.0
+        ],
+        "MaxBuildingCount": 15,
+        "BuildingIds": [
+            4,
+            5,
+            6,
+            7
+        ],
+        "EffectIds": [
+            10201,
+            10202,
+            10203,
+            10204,
+            10205
+        ],
+        "MainTaskId": 10200,
+        "SubTaskId": [
+            10201.0,
+            10202.0,
+            10203.0
+        ],
+        "WeatherModeId": [
+            101
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [],
+        "EndingId": [
+            1,
+            2
+        ]
+    },
+    {
+        "Id": 103,
+        "Name": "Christmas",
+        "Order": "Ep.03",
+        "Desc": "Jack has been shouting \"Christmas! Christmas!\" in excitement lately. He said he would make sure the Comms Devices in the city are restored so everyone can listen to the Christmas song during Christmas. I accept his suggestion but wonder if there's anything else I can do to help.",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridThreePath.prefab",
+        "DayCount": 18.0,
+        "FirstPlace": 10301,
+        "PlaceId": [
+            10301,
+            10302,
+            10303,
+            10304,
+            10305,
+            10306,
+            10307,
+            10308,
+            10309.0,
+            10310.0,
+            10311.0,
+            10312.0,
+            10313.0,
+            10314.0,
+            10315.0,
+            10316.0
+        ],
+        "MaxBuildingCount": 12,
+        "BuildingIds": [
+            4,
+            5,
+            6,
+            7,
+            8.0
+        ],
+        "EffectIds": [
+            10301,
+            10302,
+            10303,
+            10304,
+            10305,
+            10306.0,
+            10307.0
+        ],
+        "MainTaskId": 10300,
+        "SubTaskId": [
+            10301.0,
+            10302.0,
+            10303.0
+        ],
+        "WeatherModeId": [
+            101
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [],
+        "EndingId": [
+            1,
+            2
+        ]
+    },
+    {
+        "Id": 104,
+        "Name": "Silver Lining",
+        "Order": "Ep.04",
+        "Desc": "Jack fixed the Comms Devices earlier than we expected. Everything seems to be going well.",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridFourPath.prefab",
+        "DayCount": 18.0,
+        "FirstPlace": 10401,
+        "PlaceId": [
+            10401,
+            10402,
+            10403,
+            10404,
+            10405,
+            10406,
+            10407,
+            10408,
+            10409.0,
+            10410.0,
+            10411.0,
+            10412.0
+        ],
+        "MaxBuildingCount": 20,
+        "BuildingIds": [
+            4,
+            5,
+            6,
+            7
+        ],
+        "EffectIds": [
+            10401,
+            10402,
+            10403,
+            10404,
+            10405,
+            10406.0,
+            10407.0
+        ],
+        "MainTaskId": 10400,
+        "SubTaskId": [
+            10401.0,
+            10402.0,
+            10403.0
+        ],
+        "WeatherModeId": [
+            101
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [],
+        "EndingId": [
+            1,
+            2
+        ]
+    },
+    {
+        "Id": 105,
+        "Name": "Spring",
+        "Order": "Ep.05",
+        "Desc": "We finally survived the winter along with the city. But I have a bad feeling, as the night before dawn is always the darkest. So I have a meeting with several other guys in charge to get prepared for terrible tragedies that could happen. How I wish I'm wrong this time...",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridFivePath.prefab",
+        "DayCount": 16.0,
+        "FirstPlace": 10501,
+        "PlaceId": [
+            10501,
+            10502,
+            10503,
+            10504,
+            10505,
+            10506,
+            10507,
+            10508,
+            10509.0,
+            10510.0,
+            10511.0,
+            10512.0
+        ],
+        "MaxBuildingCount": 9,
+        "BuildingIds": [
+            4,
+            5,
+            6,
+            7
+        ],
+        "EffectIds": [
+            10501,
+            10502,
+            10503,
+            10504,
+            10505,
+            10506.0,
+            10507.0
+        ],
+        "MainTaskId": 10500,
+        "SubTaskId": [
+            10501.0,
+            10502.0,
+            10503.0
+        ],
+        "WeatherModeId": [
+            101
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [],
+        "EndingId": [
+            1,
+            2
+        ]
+    },
+    {
+        "Id": 201,
+        "Name": "Survival Exercise",
+        "Order": "Ep.01 - Survival Exercise",
+        "Desc": "Start before the start, and end after the end.",
+        "PreStage": null,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridOnePath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20100,
+        "PlaceId": [
+            20100,
+            20101,
+            20102,
+            20103,
+            20104,
+            20105,
+            20106,
+            20107,
+            20108.0,
+            20109.0,
+            20110.0,
+            20111.0
+        ],
+        "MaxBuildingCount": 8,
+        "BuildingIds": [
+            207,
+            208,
+            206,
+            209
+        ],
+        "EffectIds": [
+            20101,
+            20102,
+            20103,
+            20104,
+            20105,
+            20106.0,
+            20107.0,
+            20108.0
+        ],
+        "MainTaskId": 20101,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            101,
+            102.0
+        ],
+        "WeatherModeWeight": [
+            100,
+            100.0
+        ],
+        "PossibleWeather": [
+            101.0,
+            102.0,
+            103.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            101.0
+        ]
+    },
+    {
+        "Id": 202,
+        "Name": "Evacuation Signal",
+        "Order": "Ep.02 - Evacuation Signal",
+        "Desc": "We are trapped on the edge of the city. We have to build a comms device to figure out an evacuation route and explore the potential locations for a safe location to evacuate the city.",
+        "PreStage": 201.0,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridTwoPath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20200,
+        "PlaceId": [
+            20200,
+            20201,
+            20202,
+            20203,
+            20204,
+            20205,
+            20206,
+            20207,
+            20208.0,
+            20209.0,
+            20210.0,
+            20211.0,
+            20212.0,
+            20213.0,
+            20214.0,
+            20215.0,
+            20216.0,
+            20217.0,
+            20218.0,
+            20219.0
+        ],
+        "MaxBuildingCount": 10,
+        "BuildingIds": [
+            207,
+            208,
+            206,
+            20201,
+            20202.0
+        ],
+        "EffectIds": [
+            20201,
+            20202,
+            20203,
+            20204,
+            20205,
+            20206.0,
+            20207.0,
+            20208.0
+        ],
+        "MainTaskId": 20201,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            201,
+            202.0
+        ],
+        "WeatherModeWeight": [
+            100,
+            100.0
+        ],
+        "PossibleWeather": [
+            201.0,
+            202.0,
+            203.0,
+            204.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            201.0,
+            202.0,
+            203.0
+        ]
+    },
+    {
+        "Id": 203,
+        "Name": "Father and Son",
+        "Order": "Ep.04 Father and Son",
+        "Desc": "The entire town is devastated by the sudden bad news. Can we still restore the peaceful life we had...?",
+        "PreStage": 204.0,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridThreePath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20300,
+        "PlaceId": [
+            20300,
+            20301,
+            20302,
+            20303,
+            20304,
+            20305,
+            20306,
+            20307,
+            20308.0,
+            20309.0
+        ],
+        "MaxBuildingCount": 10,
+        "BuildingIds": [
+            201,
+            202,
+            206,
+            20301
+        ],
+        "EffectIds": [
+            20301,
+            20302,
+            20303,
+            20304,
+            20305,
+            20306.0
+        ],
+        "MainTaskId": 20301,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            30001
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [
+            301.0,
+            302.0,
+            303.0,
+            304.0,
+            305.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            301.0,
+            302.0,
+            303.0,
+            304.0
+        ]
+    },
+    {
+        "Id": 204,
+        "Name": "Operation Diary",
+        "Order": "Ep.03 - Operation Diary",
+        "Desc": "My rescue operation has caused inevitable damage to the city. As a result, people have developed hate against us. The exaggeration of the media made things worse. There is no way the attack team could fight against the internet media, so we decide to pause the mission at hand and garrison borders in smaller groups.",
+        "PreStage": 202.0,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridFivePath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20400,
+        "PlaceId": [
+            20400,
+            20401,
+            20402,
+            20403,
+            20404,
+            20405,
+            20406,
+            20407,
+            20408.0
+        ],
+        "MaxBuildingCount": 10,
+        "BuildingIds": [
+            207,
+            208,
+            206,
+            20401,
+            20402.0
+        ],
+        "EffectIds": [
+            20401,
+            20402,
+            20403,
+            20404,
+            20405,
+            20406.0,
+            20407.0,
+            20408.0
+        ],
+        "MainTaskId": 20401,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            40001
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [
+            401.0,
+            402.0,
+            403.0,
+            404.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            401.0,
+            402.0,
+            403.0,
+            404.0
+        ]
+    },
+    {
+        "Id": 205,
+        "Name": "Super Soldier",
+        "Order": "Ep.05 - Super Soldier",
+        "Desc": "You are entrusted with a mission to help evacuate the islanders on an archipelago. The archipelago has lost contact with the outside world for a very long time and is expecting a large group of the Corrupted in the next few days. It's now your responsibility to protect the islanders.",
+        "PreStage": 203.0,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridFourPath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20500,
+        "PlaceId": [
+            20500,
+            20502,
+            20503,
+            20504,
+            20505,
+            20506,
+            20507,
+            20508,
+            20509.0,
+            20510.0,
+            20511.0,
+            20512.0,
+            20513.0,
+            20514.0,
+            20515.0,
+            20516.0,
+            20517.0,
+            20518.0
+        ],
+        "MaxBuildingCount": 12,
+        "BuildingIds": [
+            207,
+            208,
+            206,
+            209
+        ],
+        "EffectIds": [
+            20501,
+            20502,
+            20503,
+            20504,
+            20505
+        ],
+        "MainTaskId": 20501,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            50011,
+            50012.0,
+            50013.0
+        ],
+        "WeatherModeWeight": [
+            100,
+            100.0,
+            100.0
+        ],
+        "PossibleWeather": [
+            501.0,
+            502.0,
+            503.0,
+            504.0,
+            505.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            501.0,
+            502.0,
+            503.0
+        ]
+    },
+    {
+        "Id": 206,
+        "Name": "The Way Home",
+        "Order": "Ep.06 - The Way Home",
+        "Desc": "There are numerous homeless people on this land, but there is always someone who would seize every opportunity to return to their hometown and to you.",
+        "PreStage": 205.0,
+        "OpenTime": null,
+        "PrefabPath": "Assets/Product/Ui/ComponentPrefab/UiDoomsday/GridSixPath.prefab",
+        "DayCount": null,
+        "FirstPlace": 20600,
+        "PlaceId": [
+            20600,
+            20601,
+            20602,
+            20603,
+            20604,
+            20605,
+            20606,
+            20607,
+            20608.0,
+            20609.0,
+            20610.0,
+            20611.0,
+            20612.0,
+            20613.0,
+            20614.0,
+            20615.0,
+            20616.0,
+            20617.0,
+            20618.0,
+            20619.0,
+            20620.0,
+            20621.0,
+            20622.0,
+            20623.0,
+            20625.0,
+            20626.0,
+            20627.0,
+            20628.0,
+            20629.0,
+            20630.0
+        ],
+        "MaxBuildingCount": 12,
+        "BuildingIds": [
+            207,
+            208,
+            209,
+            206
+        ],
+        "EffectIds": [
+            20601,
+            20602,
+            20603,
+            20604,
+            20605,
+            20606.0,
+            20607.0,
+            20608.0
+        ],
+        "MainTaskId": 20601,
+        "SubTaskId": [],
+        "WeatherModeId": [
+            601
+        ],
+        "WeatherModeWeight": [
+            100
+        ],
+        "PossibleWeather": [
+            601.0,
+            602.0,
+            603.0,
+            604.0
+        ],
+        "EndingId": [
+            1,
+            2,
+            601.0,
+            602.0,
+            603.0
+        ]
+    }
+]

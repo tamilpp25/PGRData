@@ -1,0 +1,1994 @@
+[
+    {
+        "Id": 1001,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Recovers 50% of the team's max HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            1.0,
+            5000.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1002,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Get 50 Star Ore when passing a Mine",
+        "Params": [
+            2,
+            55.0
+        ],
+        "BubbleControllerId": 3.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1003,
+        "Type": 3,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Mine Synergy Summon Enemy",
+        "Params": [
+            2,
+            2.0,
+            0.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1004,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Permanent increases the team's ATK by 3",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1005,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Permanent increases the team's HP by 5",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1006,
+        "Type": 3,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Mine summons 1 enemy",
+        "Params": [
+            1,
+            3.0,
+            0.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1007,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Shooting Range temporarily increases the team's CRIT Rate by 35%",
+        "Params": [
+            2,
+            2.0,
+            4.0,
+            2.0,
+            2000.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1008,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Temporarily increases the team's CRIT DMG by 30% when Shooting Range is adjacent to Training Field",
+        "Params": [
+            2,
+            2.0,
+            5.0,
+            2.0,
+            3000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1009,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Recovers 8% of the team's max HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            1.0,
+            800.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1010,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Recovers 8% of the team's max HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            1.0,
+            800.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1011,
+        "Type": 8,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Draw 1 item",
+        "Params": [
+            1
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1012,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Bonus item deducts 50 Star Ore",
+        "Params": [
+            2,
+            -50.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1013,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Ion Tower grants bonus ATK SPD within range",
+        "Params": [
+            2,
+            2.0,
+            6.0,
+            2.0,
+            2800.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1014,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Ion Tower Synergy deducts 50 Star Ore",
+        "Params": [
+            2,
+            -50.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1015,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Bonus 3 ATK when Mutated Rock is adjacent to Training Field",
+        "Params": [
+            2,
+            2.0,
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1017,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Mutated Grass restores 1 HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1018,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Grass takes effect immediately. HP +1",
+        "Params": [
+            2,
+            2.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1019,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Rock restores 1 HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1020,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Rock takes effect immediately. HP +1",
+        "Params": [
+            2,
+            2.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1021,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Bonus ATK SPD when Icy Star Surface is adjacent to Training Field",
+        "Params": [
+            2,
+            2.0,
+            6.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1022,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sand Star Oasis restores 1 HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1023,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sand Star Oasis takes effect immediately. HP +1",
+        "Params": [
+            2,
+            2.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1024,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sand Star Rock & Divination House Synergy Bonus ATK",
+        "Params": [
+            2,
+            2.0,
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1025,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Lava restores 1 HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1026,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Lava takes effect immediately. HP +1",
+        "Params": [
+            2,
+            2.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1027,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Crystal & Shooting Range Synergy - Bonus CRIT Rate",
+        "Params": [
+            2,
+            2.0,
+            4.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1028,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Crystal & Shooting Range Synergy - Bonus CRIT DMG",
+        "Params": [
+            2,
+            2.0,
+            5.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1031,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Synergy: Get 10 Star Ore from killing an enemy",
+        "Params": [
+            2,
+            15.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 1032,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Shooting Range temporarily increases the team's CRIT DMG by 25%",
+        "Params": [
+            2,
+            2.0,
+            5.0,
+            2.0,
+            2500.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 1033,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Red Velvet Cake: ATK +5 - Removed when dismantled",
+        "Params": [
+            2,
+            2.0,
+            2.0,
+            2.0,
+            5.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1034,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Red Velvet Cake: HP +10 - Removed when dismantled",
+        "Params": [
+            2,
+            2.0,
+            1.0,
+            2.0,
+            10.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 1035,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Almond Cake & Mine Synergy: Star Ore +50",
+        "Params": [
+            2,
+            50.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 2001,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Each enemy killed reduces the team's current HP by 2",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            -2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2002,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Each item defeated permanently increases the team's ATK by 1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2003,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Miasma Weather: Bonus base event. Base does not recover HP",
+        "Params": [
+            503,
+            0.0,
+            3.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2004,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Miasma Weather: Base cannot recover HP. The Miasma will nullify the HP recovered by Base",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            1.0,
+            -5000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2005,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Each item obtained increases the team's ATK by 20",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            20.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2006,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Each item obtained increases the team's CRIT DMG by 10%",
+        "Params": [
+            2,
+            1.0,
+            5.0,
+            1.0,
+            1000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2007,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Each item obtained increases the team's HP by 5%",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            1.0,
+            500.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2008,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 1,
+        "Desc": "Icy Star Theme: Get 100 Star Ore after completing Construction Mission 1",
+        "Params": [
+            2,
+            100.0
+        ],
+        "BubbleControllerId": 3.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2009,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 1,
+        "Desc": "Icy Star Theme: Completing Construction Mission grants a buff that adds stats every cycle",
+        "Params": [
+            512,
+            0.0,
+            1.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2010,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Permanent increases the team's ATK by 3",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 2011,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Permanent increases the team's HP by 10",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            10.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2020,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sand Star Theme: Each item obtained increases the team's ATK by 5",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            5.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 2021,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sand Star Theme: Each item obtained increases the team's HP by 10",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            10.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2022,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Theme 2: Get 50 Star Ore when getting an item",
+        "Params": [
+            2,
+            10.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2030,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Theme 1: Get 200 Star Ore every cycle",
+        "Params": [
+            2,
+            200.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2031,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Theme 4, 5: Get 500 Star Ore every cycle",
+        "Params": [
+            2,
+            500.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2100,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 1,
+        "Desc": "Icy Star Theme: Get 100 Star Ore after completing Construction Mission 2",
+        "Params": [
+            2,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 2101,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 1,
+        "Desc": "Icy Star Theme: Get 100 Star Ore after completing Construction Mission 3",
+        "Params": [
+            2,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3024,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Sunny: Bonus Star Ore from enemy event",
+        "Params": [
+            1002,
+            0.0,
+            4.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3025,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Sunny: Get Star Ore from killing an enemy",
+        "Params": [
+            2,
+            20.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3026,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Arctic Weather: Mine gets an event that deducts Star Ore",
+        "Params": [
+            1005,
+            0.0,
+            3.0,
+            2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3027,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Arctic Weather: Training Field gets an event that deducts Star Ore",
+        "Params": [
+            1005,
+            0.0,
+            3.0,
+            3.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3028,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Arctic Weather: Shooting Range gets an event that deducts Star Ore",
+        "Params": [
+            1005,
+            0.0,
+            3.0,
+            4.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3029,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Arctic Weather: Bar gets an event that deducts Star Ore",
+        "Params": [
+            1005,
+            0.0,
+            3.0,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3030,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Arctic Weather: Ion Tower gets an event that deducts Star Ore",
+        "Params": [
+            1005,
+            0.0,
+            3.0,
+            7.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3031,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Icy Star Arctic: Construction deducts 999 Star Ore",
+        "Params": [
+            2,
+            -999.0
+        ],
+        "BubbleControllerId": 6.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3040,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert Sunny: Divination House gets an event that gives item",
+        "Params": [
+            1011,
+            0.0,
+            3.0,
+            6.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3041,
+        "Type": 8,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "3040 Draw 1 item",
+        "Params": [
+            1
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3042,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert Sunny: Base gets an event that gives Star Ore",
+        "Params": [
+            1031,
+            0.0,
+            3.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3043,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert Sunny: Get Star Ore when passing Base",
+        "Params": [
+            2,
+            200.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3045,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "3-1 Sandstorm: Wanderer gets 100% bonus CRIT Rate",
+        "Params": [
+            1013,
+            0.0,
+            5.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3046,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "3-1 Sandstorm: Pirate gets 100% bonus CRIT Rate",
+        "Params": [
+            1013,
+            0.0,
+            5.0,
+            2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3047,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Sandstorm all units get +100% CRIT Rate",
+        "Params": [
+            4,
+            2.0,
+            4.0,
+            2.0,
+            10000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3048,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "3-1 Sandstorm: Mine gets 3049",
+        "Params": [
+            1015,
+            0.0,
+            3.0,
+            2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3049,
+        "Type": 8,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Get an item when passing Mine in Sandstorm",
+        "Params": [
+            1
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3100,
+        "Type": 3,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Sunny: Summon normal enemy on random road",
+        "Params": [
+            1,
+            3.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3101,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Embers Weather: Shooting Range gets an event that summons enemy",
+        "Params": [
+            1052,
+            0.0,
+            3.0,
+            4.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3102,
+        "Type": 3,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Embers: Summon Elite Enemy on random road",
+        "Params": [
+            3,
+            3.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3103,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "CRIT DMG +7% after killing enemy",
+        "Params": [
+            2,
+            1.0,
+            5.0,
+            2.0,
+            700.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3150,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Red Velvet gets 10 Star Ore refund. 1 stack",
+        "Params": [
+            1080,
+            0.0,
+            3.0,
+            109.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3151,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Red Velvet gets 10 Star Ore refund. 2 stacks",
+        "Params": [
+            1081,
+            0.0,
+            3.0,
+            109.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3152,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Red Velvet gets 10 Star Ore refund. 3 stacks",
+        "Params": [
+            1082,
+            0.0,
+            3.0,
+            109.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3153,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Red Velvet gets 10 Star Ore refund. 4 stacks",
+        "Params": [
+            1083,
+            0.0,
+            3.0,
+            109.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3154,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Red Velvet gets 10 Star Ore refund. 5 stacks",
+        "Params": [
+            1084,
+            0.0,
+            3.0,
+            109.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3155,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Almond gets 10 Star Ore refund. 1 stack",
+        "Params": [
+            1080,
+            0.0,
+            3.0,
+            110.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3156,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Almond gets 10 Star Ore refund. 2 stacks",
+        "Params": [
+            1081,
+            0.0,
+            3.0,
+            110.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3157,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Almond gets 10 Star Ore refund. 3 stacks",
+        "Params": [
+            1082,
+            0.0,
+            3.0,
+            110.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3158,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Almond gets 10 Star Ore refund. 4 stacks",
+        "Params": [
+            1083,
+            0.0,
+            3.0,
+            110.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3159,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom: Almond gets 10 Star Ore refund. 5 stacks",
+        "Params": [
+            1084,
+            0.0,
+            3.0,
+            110.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3180,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Phantom Refund",
+        "Params": [
+            2,
+            10.0
+        ],
+        "BubbleControllerId": 6.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3190,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "5-5 Phantom: Bonus Star Ore from enemy event",
+        "Params": [
+            1101,
+            0.0,
+            4.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3191,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "5-5 Phantom: Get Star Ore from killing an enemy",
+        "Params": [
+            2,
+            10.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3192,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "5-5 Mist: Each enemy defeated reduces the team's current HP by 2",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            2.0,
+            -2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3193,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "5-5 Mist: Each enemy defeated permanently increases the team's ATK by 1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 3200,
+        "Type": 3,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Fire Star Thunderstorm summons Pirate on random road",
+        "Params": [
+            2,
+            3.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4001,
+        "Type": 5,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert Sunny item (Weather ID to be updated)",
+        "Params": [
+            2,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4002,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert enhance item: Team ATK +3",
+        "Params": [
+            4,
+            1.0,
+            2.0,
+            2.0,
+            3.0
+        ],
+        "BubbleControllerId": 2.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    },
+    {
+        "Id": 4003,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert enhance item: Team HP +5",
+        "Params": [
+            4,
+            1.0,
+            1.0,
+            2.0,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4004,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert Cooling item: CRIT Rate -100%",
+        "Params": [
+            4,
+            1.0,
+            4.0,
+            2.0,
+            -10000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4005,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert item gives 50 Star Ore",
+        "Params": [
+            2,
+            50.0
+        ],
+        "BubbleControllerId": 3.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4006,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Worker gets HP deduct event",
+        "Params": [
+            2006,
+            0.0,
+            5.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4007,
+        "Type": 4,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Pointy gets HP deduct event",
+        "Params": [
+            2006,
+            0.0,
+            5.0,
+            2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4008,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "After using item, Worker and Pointy's HP -99%",
+        "Params": [
+            4,
+            1.0,
+            1.0,
+            1.0,
+            -9900.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4009,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Using the item restores 10% team HP",
+        "Params": [
+            4,
+            1.0,
+            0.0,
+            1.0,
+            1000.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 4010,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Desert item gives 1 Star Ore",
+        "Params": [
+            2,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4011,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star 1 More Chance Item",
+        "Params": [
+            2,
+            420.0
+        ],
+        "BubbleControllerId": 3.0,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4012,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star 2 More Chances Item",
+        "Params": [
+            2,
+            840.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4013,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star ATK",
+        "Params": [
+            4,
+            1.0,
+            2.0,
+            2.0,
+            7.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4014,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star HP",
+        "Params": [
+            4,
+            1.0,
+            1.0,
+            2.0,
+            77.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4015,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star CRIT Rate",
+        "Params": [
+            4,
+            1.0,
+            4.0,
+            2.0,
+            770.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4016,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star CRIT DMG",
+        "Params": [
+            4,
+            1.0,
+            5.0,
+            2.0,
+            770.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 4017,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Sweet Star Speed Bonus",
+        "Params": [
+            4,
+            1.0,
+            6.0,
+            2.0,
+            770.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 5001,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Boss ATK reduced by 70%",
+        "Params": [
+            4,
+            1.0,
+            2.0,
+            1.0,
+            -8500.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 5002,
+        "Type": 2,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Boss ATK SPD reduced by 10%",
+        "Params": [
+            4,
+            1.0,
+            6.0,
+            2.0,
+            -1000.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 10001,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 10101,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team Initial Star Ore +5",
+        "Params": [
+            2,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 10201,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team HP +1",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 10301,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team CRIT Rate +1%",
+        "Params": [
+            2,
+            1.0,
+            4.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 20101,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team Initial Star Ore +5",
+        "Params": [
+            2,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 20201,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK SPD Bonus +1%",
+        "Params": [
+            2,
+            1.0,
+            6.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 20301,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team CRIT DMG +1%",
+        "Params": [
+            2,
+            1.0,
+            5.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 30101,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 30201,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team HP +1",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 30301,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team CRIT Rate +1%",
+        "Params": [
+            2,
+            1.0,
+            4.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 40101,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team Initial Star Ore +5",
+        "Params": [
+            2,
+            5.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 40201,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team CRIT DMG +1%",
+        "Params": [
+            2,
+            1.0,
+            5.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 40301,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 50101,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK SPD Bonus +1%",
+        "Params": [
+            2,
+            1.0,
+            6.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 50201,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team CRIT Rate +1%",
+        "Params": [
+            2,
+            1.0,
+            4.0,
+            2.0,
+            100.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 50301,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80001,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team Initial Star Ore +1",
+        "Params": [
+            2,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80002,
+        "Type": 6,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team Initial Star Ore +1",
+        "Params": [
+            2,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80003,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team HP +1",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80004,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team HP +2",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            2.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80005,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team HP +1",
+        "Params": [
+            2,
+            1.0,
+            1.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80006,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80007,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 80008,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Exploration Team ATK +1",
+        "Params": [
+            2,
+            1.0,
+            2.0,
+            2.0,
+            1.0
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 90001,
+        "Type": 2,
+        "Overlying": 1,
+        "TriggerCountLimit": 0,
+        "Desc": "Recovers 25% of the team's max HP",
+        "Params": [
+            2,
+            1.0,
+            0.0,
+            1.0,
+            2500.0
+        ],
+        "BubbleControllerId": 1.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJhuifu.prefab"
+    },
+    {
+        "Id": 90002,
+        "Type": 8,
+        "Overlying": 0,
+        "TriggerCountLimit": 1,
+        "Desc": "Guide draw 1 item",
+        "Params": [
+            1
+        ],
+        "BubbleControllerId": null,
+        "PlayEffect": null
+    },
+    {
+        "Id": 90050,
+        "Type": 6,
+        "Overlying": 0,
+        "TriggerCountLimit": 0,
+        "Desc": "Embers bonus 80 Star Ore when defeating an enemy",
+        "Params": [
+            2,
+            80.0
+        ],
+        "BubbleControllerId": 3.0,
+        "PlayEffect": "Assets/Product/Effect/Prefab/FxWanfa/FxXXHYJbuff.prefab"
+    }
+]

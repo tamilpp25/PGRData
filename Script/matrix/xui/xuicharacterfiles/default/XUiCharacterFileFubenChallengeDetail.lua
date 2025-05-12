@@ -1,0 +1,120 @@
+local XUiGridStageStar = require("XUi/XUiFubenMainLineDetail/XUiGridStageStar")
+local XUiCharacterFileFubenChallengeDetail = XLuaUiManager.Register(XLuaUi, "UiCharacterFileFubenChallengeDetail")
+local XUiGridStageBuffIcon = require("XUi/XUiFubenSimulatedCombat/ChildItem/XUiGridStageBuffIcon")
+local DescCount = 3
+
+
+function XUiCharacterFileFubenChallengeDetail:OnAwake()
+    self.BtnEnter.CallBack = function()
+        self:OnBtnEnterClick()
+    end
+    self:InitStarPanels()
+end
+
+function XUiCharacterFileFubenChallengeDetail:OnStart(rootUi)
+    self.RootUi = rootUi
+end
+
+function XUiCharacterFileFubenChallengeDetail:InitStarPanels()
+    self.StarGridList = {}
+    for i = 1, DescCount do
+        self.StarGridList[i] = XUiGridStageStar.New(self[string.format("GridStageStar%d", i)])
+    end
+end
+
+function XUiCharacterFileFubenChallengeDetail:SetStageDetail(stageId, id)
+    self.Id = id
+    self.StageId = stageId
+    self.StageCfg = XDataCenter.FubenManager.GetStageCfg(stageId)
+    self.TxtTitle.text = self.StageCfg.Description
+    self.TxtDescDetail.text = XFubenNewCharConfig.GetNewCharDescDetail(self.StageId)
+    -- 重置位置
+    self.TxtDescDetail.transform.parent.anchoredPosition = Vector2.zero
+    local starsMap = XDataCenter.FubenNewCharActivityManager.GetStarMap(self.StageId)
+    for i = 1, DescCount do
+        self.StarGridList[i]:Refresh(self.StageCfg.StarDesc[i], starsMap[i])
+    end
+    self:SetBuffList()
+
+    local data = XFubenConfigs.GetStageFightControl(self.StageId)
+    if data then
+        self.TxtATNums.text = data.ShowFight
+    end
+    CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.TxtDescDetail.transform.parent)
+    CS.UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(self.TxtDescDetail.transform)
+    self:PlayAnimation("AnimBegin")
+end
+
+--设置词缀
+function XUiCharacterFileFubenChallengeDetail:SetBuffList()
+    if not self.BuffList then self.BuffList = {} end
+    local buffList = XFubenNewCharConfig.GetNewCharShowFightEventIds(self.StageId)
+    if buffList == nil or #buffList == 0 then
+        self.PanelBuffNone.gameObject:SetActiveEx(true)
+        self.BtnBuffTip.gameObject:SetActiveEx(false)
+        self.PanelBuffContent.gameObject:SetActiveEx(false)
+        return
+    end
+    self.PanelBuffNone.gameObject:SetActiveEx(false)
+    self.BtnBuffTip.gameObject:SetActiveEx(true)
+    self.PanelBuffContent.gameObject:SetActiveEx(true)
+    self.GridBuff.gameObject:SetActiveEx(false)
+    self.StageBuffCfgList = {}
+    for i = 1, #buffList do
+        if not self.BuffList[i] then
+            local prefab = CS.UnityEngine.GameObject.Instantiate(self.GridBuff.gameObject)
+            self.BuffList[i] = XUiGridStageBuffIcon.New(prefab, self.RootUi)
+        end
+    end
+    for i = 1, #self.BuffList do
+        self.BuffList[i].Transform:SetParent(self.PanelBuffContent, false)
+        if buffList[i] then
+            self.BuffList[i]:RefreshData(buffList[i])
+            self.BuffList[i]:Show()
+            table.insert(self.StageBuffCfgList, buffList[i])
+        else
+            self.BuffList[i]:Hide()
+        end
+    end
+
+    self.BtnBuffTip.CallBack = function()
+        self:OnBtnBuffTip()
+    end
+    self.PanelBuffNone.gameObject:SetActiveEx(#buffList == 0)
+end
+
+function XUiCharacterFileFubenChallengeDetail:OnBtnBuffTip()
+    local buffList = XFubenNewCharConfig.GetNewCharShowFightEventIds(self.StageId)
+    if buffList and next(buffList) then
+        XLuaUiManager.Open("UiSimulatedCombatBossBuffTips", buffList)
+    end
+end
+
+function XUiCharacterFileFubenChallengeDetail:OnBtnEnterClick()
+    --判断是否结束
+    local activityCfg = XFubenNewCharConfig.GetDataById(self.Id)
+    local endTime = XFunctionManager.GetEndTimeByTimeId(activityCfg.TimeId)
+    local nowTime = XTime.GetServerNowTimestamp()
+    if nowTime > endTime then
+        XUiManager.TipText("KoroCharacterActivityEnd")
+        XLuaUiManager.RunMain()
+        return
+    end
+
+    if XDataCenter.FubenManager.CheckPreFight(self.StageCfg) then
+        if self.RootUi then
+            self.RootUi:ClearNodesSelect()
+        end
+        self.RootUi:CloseStageDetails()
+        --self:Close()
+        XLuaUiManager.Open("UiBattleRoleRoom", self.StageCfg.StageId
+            , XDataCenter.FubenNewCharActivityManager.LoadTeamLocal(self.Id)
+            , require("XUi/XUiNewChar/XUiTutoriaBattleRoleRoom"))
+    end
+end
+
+function XUiCharacterFileFubenChallengeDetail:CloseDetailWithAnimation()
+    self:PlayAnimation("AnimEnd", function()
+            self:Close()
+        end)
+end

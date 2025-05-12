@@ -1,0 +1,262 @@
+[
+    {
+        "Id": 10100,
+        "Desc": "Unconditional clear after 12 days",
+        "MaxValue": 12,
+        "Type": 701,
+        "Args": []
+    },
+    {
+        "Id": 10101,
+        "Desc": "Have at least 15 Survivors",
+        "MaxValue": 15,
+        "Type": 203,
+        "Args": [
+            12.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 10102,
+        "Desc": "Keep Survivors' Health above 80",
+        "MaxValue": 80,
+        "Type": 201,
+        "Args": [
+            12.0,
+            1.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10103,
+        "Desc": "Keep Survivors' Satiety above 80",
+        "MaxValue": 80,
+        "Type": 201,
+        "Args": [
+            12.0,
+            2.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10200,
+        "Desc": "Have at least 15 Survivors",
+        "MaxValue": 15,
+        "Type": 203,
+        "Args": [
+            16.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 10201,
+        "Desc": "Keep Survivors' Health above 80",
+        "MaxValue": 80,
+        "Type": 201,
+        "Args": [
+            16.0,
+            1.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10202,
+        "Desc": "Keep Survivors' Satiety above 60",
+        "MaxValue": 60,
+        "Type": 201,
+        "Args": [
+            16.0,
+            2.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 10203,
+        "Desc": "Explore [Bloody Church]",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            10208.0
+        ]
+    },
+    {
+        "Id": 10300,
+        "Desc": "Have at least 35 Survivors",
+        "MaxValue": 30,
+        "Type": 203,
+        "Args": [
+            18.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 10301,
+        "Desc": "Keep Survivors' Health above 70",
+        "MaxValue": 70,
+        "Type": 201,
+        "Args": [
+            18.0,
+            1.0,
+            70.0
+        ]
+    },
+    {
+        "Id": 10302,
+        "Desc": "Keep Survivors' Satiety above 70",
+        "MaxValue": 70,
+        "Type": 201,
+        "Args": [
+            18.0,
+            2.0,
+            70.0
+        ]
+    },
+    {
+        "Id": 10303,
+        "Desc": "Build Comms Device x1",
+        "MaxValue": 1,
+        "Type": 301,
+        "Args": [
+            18.0,
+            8.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10400,
+        "Desc": "Have at least 40 Survivors",
+        "MaxValue": 40,
+        "Type": 203,
+        "Args": [
+            18.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 10401,
+        "Desc": "Keep Survivors' Health above 80",
+        "MaxValue": 80,
+        "Type": 201,
+        "Args": [
+            18.0,
+            1.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10402,
+        "Desc": "Keep Survivors' Satiety above 80",
+        "MaxValue": 80,
+        "Type": 201,
+        "Args": [
+            18.0,
+            2.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10403,
+        "Desc": "Build Residence x4",
+        "MaxValue": 4,
+        "Type": 301,
+        "Args": [
+            18.0,
+            4.0,
+            4.0
+        ]
+    },
+    {
+        "Id": 10500,
+        "Desc": "Have at least 20 Survivors",
+        "MaxValue": 20,
+        "Type": 203,
+        "Args": [
+            16.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 10501,
+        "Desc": "Have at least 25 Survivors",
+        "MaxValue": 25,
+        "Type": 203,
+        "Args": [
+            16.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 10502,
+        "Desc": "Explore [Supermarket in Mist]",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            10512.0
+        ]
+    },
+    {
+        "Id": 10503,
+        "Desc": "Explore [Hidden Room]",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            10510.0
+        ]
+    },
+    {
+        "Id": 20101,
+        "Desc": "Have at least 24 Survivors",
+        "MaxValue": 24,
+        "Type": 203,
+        "Args": [
+            -1.0,
+            24.0
+        ]
+    },
+    {
+        "Id": 20201,
+        "Desc": "Explore Location 8",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            20208.0
+        ]
+    },
+    {
+        "Id": 20301,
+        "Desc": "Have at least 30 Survivors",
+        "MaxValue": 30,
+        "Type": 203,
+        "Args": [
+            -1.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 20401,
+        "Desc": "Explore [City Center]",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            20405.0
+        ]
+    },
+    {
+        "Id": 20501,
+        "Desc": "Triggers [The Last Scene]",
+        "MaxValue": 1,
+        "Type": 602,
+        "Args": [
+            2052107.0
+        ]
+    },
+    {
+        "Id": 20601,
+        "Desc": "Explore Location 9",
+        "MaxValue": 1,
+        "Type": 401,
+        "Args": [
+            20609.0
+        ]
+    }
+]

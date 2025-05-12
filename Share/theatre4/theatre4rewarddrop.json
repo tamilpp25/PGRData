@@ -1,0 +1,496 @@
+[
+    {
+        "Id": 10001,
+        "Type": 1,
+        "Des": "Take all the rewards for testing",
+        "GroupIds": [
+            10001,
+            10002.0,
+            10003.0
+        ],
+        "Probabilitys": [
+            0.5,
+            0.5,
+            0.5
+        ]
+    },
+    {
+        "Id": 10002,
+        "Type": 2,
+        "Des": "Ger 1 reward out of 3 options for testing",
+        "GroupIds": [
+            10001,
+            10002.0,
+            10003.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10003,
+        "Type": 1,
+        "Des": "Tri-Colored reward bonus +2 for each Piggy Bank",
+        "GroupIds": [
+            10004,
+            10005.0,
+            10006.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10004,
+        "Type": 1,
+        "Des": "Use rewards on Piggy Bank 5 times",
+        "GroupIds": [
+            10004,
+            10005.0,
+            10006.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10005,
+        "Type": 1,
+        "Des": "Minions, 1\u2605 Recruitment Voucher, and Gold Coins",
+        "GroupIds": [
+            10007,
+            10009.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10006,
+        "Type": 1,
+        "Des": "Dropped by Elites: 2\u2605 Recruitment Voucher, and Gold Coins.",
+        "GroupIds": [
+            10008,
+            10009.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10007,
+        "Type": 1,
+        "Des": "Chapter 1 Chest: 45 Gold Coins",
+        "GroupIds": [
+            11001
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10008,
+        "Type": 1,
+        "Des": "Chapter 2 Chest: 45 Gold Coins",
+        "GroupIds": [
+            11002
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10009,
+        "Type": 1,
+        "Des": "Chapter 3 Chest: 60 Gold Coins",
+        "GroupIds": [
+            11009,
+            11003.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10010,
+        "Type": 1,
+        "Des": "Chapter 4 Chest: 45 Gold Coins and Artifact Box",
+        "GroupIds": [
+            11010
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10011,
+        "Type": 1,
+        "Des": "Chapter 5 Chest: 60 Gold Coins and Artifact Box",
+        "GroupIds": [
+            11011,
+            11005.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10012,
+        "Type": 1,
+        "Des": "Chapter 6 Chest: 60 Gold Coins and Artifact Box",
+        "GroupIds": [
+            11012,
+            11006.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10020,
+        "Type": 1,
+        "Des": "Golden Egg Reward",
+        "GroupIds": [
+            10020,
+            10023.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10021,
+        "Type": 1,
+        "Des": "Silver Egg Reward",
+        "GroupIds": [
+            10021
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10022,
+        "Type": 1,
+        "Des": "Bronze Egg Reward",
+        "GroupIds": [
+            10022
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10023,
+        "Type": 1,
+        "Des": "Tri-Colored Base Number given when you lose HP, 300 each.",
+        "GroupIds": [
+            14003,
+            14004.0,
+            14005.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11001,
+        "Type": 1,
+        "Des": "Dropped by Chapter 1 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11002,
+        "Type": 1,
+        "Des": "Dropped by Chapter 1 Elite",
+        "GroupIds": [
+            13032,
+            13011.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11003,
+        "Type": 1,
+        "Des": "Dropped by Chapter 1 Boss",
+        "GroupIds": [
+            13033,
+            13034.0,
+            13021.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11004,
+        "Type": 1,
+        "Des": "Dropped by Special Bosses: 2\u2605 Recruitment Voucher, Special Artifact Box, and Gold Coins.",
+        "GroupIds": [
+            13033,
+            13021.0,
+            13035.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11005,
+        "Type": 1,
+        "Des": "Treasure Thief takes all",
+        "GroupIds": [
+            12062,
+            12063.0,
+            12064.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11006,
+        "Type": 1,
+        "Des": "Dropped by Chapter 2 Boss",
+        "GroupIds": [
+            13033,
+            13034.0,
+            13022.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11007,
+        "Type": 1,
+        "Des": "Dropped by Chapter 3 Boss",
+        "GroupIds": [
+            13033,
+            13035.0,
+            13023.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11008,
+        "Type": 1,
+        "Des": "Dropped by Chapter 4 Boss",
+        "GroupIds": [
+            13033,
+            13034.0,
+            13024.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11009,
+        "Type": 1,
+        "Des": "Dropped by Chapter 5 Boss",
+        "GroupIds": [
+            13033,
+            13034.0,
+            13025.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11010,
+        "Type": 1,
+        "Des": "Dropped by Chapter 6 Boss",
+        "GroupIds": [
+            13033,
+            13034.0,
+            13026.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11011,
+        "Type": 1,
+        "Des": "Dropped by Chapter 2 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11012,
+        "Type": 1,
+        "Des": "Dropped by Chapter 3 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11013,
+        "Type": 1,
+        "Des": "Dropped by Chapter 4 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11014,
+        "Type": 1,
+        "Des": "Dropped by Chapter 5 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11015,
+        "Type": 1,
+        "Des": "Dropped by Chapter 6 Minion",
+        "GroupIds": [
+            13031
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 11016,
+        "Type": 1,
+        "Des": "Dropped by Chapter 2 Elite",
+        "GroupIds": [
+            13032,
+            13012.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11017,
+        "Type": 1,
+        "Des": "Dropped by Chapter 3 Elite",
+        "GroupIds": [
+            13032,
+            13013.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11018,
+        "Type": 1,
+        "Des": "Dropped by Chapter 4 Elite",
+        "GroupIds": [
+            13032,
+            13014.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11019,
+        "Type": 1,
+        "Des": "Dropped by Chapter 5 Elite",
+        "GroupIds": [
+            13032,
+            13015.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 11020,
+        "Type": 1,
+        "Des": "Dropped by Chapter 6 Elite",
+        "GroupIds": [
+            13032,
+            13016.0
+        ],
+        "Probabilitys": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 12001,
+        "Type": 1,
+        "Des": "Beginner Map 2 Recruitment Voucher",
+        "GroupIds": [
+            14001
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    },
+    {
+        "Id": 12002,
+        "Type": 1,
+        "Des": "Beginner Map 1 Boss drops 200 Gold Coins.",
+        "GroupIds": [
+            14027
+        ],
+        "Probabilitys": [
+            1.0
+        ]
+    }
+]

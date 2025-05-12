@@ -1,0 +1,332 @@
+[
+    {
+        "Id": 1,
+        "EffectType": 1001,
+        "Param": [
+            1
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 2,
+        "EffectType": 1001,
+        "Param": [
+            2
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 3,
+        "EffectType": 1001,
+        "Param": [
+            3
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 4,
+        "EffectType": 1001,
+        "Param": [
+            4
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 5,
+        "EffectType": 1001,
+        "Param": [
+            5
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 6,
+        "EffectType": 1001,
+        "Param": [
+            6
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 7,
+        "EffectType": 1002,
+        "Param": [
+            1
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 8,
+        "EffectType": 1002,
+        "Param": [
+            2
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 9,
+        "EffectType": 1002,
+        "Param": [
+            3
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 10,
+        "EffectType": 1002,
+        "Param": [
+            4
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 11,
+        "EffectType": 1002,
+        "Param": [
+            5
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 12,
+        "EffectType": 1002,
+        "Param": [
+            6
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 13,
+        "EffectType": 1005,
+        "Param": [
+            1
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 14,
+        "EffectType": 1004,
+        "Param": [
+            -1
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 6,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Disappears after taking effect {0} time(s)"
+    },
+    {
+        "Id": 15,
+        "EffectType": 1006,
+        "Param": [
+            200
+        ],
+        "EffctTrigger": 5,
+        "KeepType": 6,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Disappears after taking effect {0} time(s)"
+    },
+    {
+        "Id": 16,
+        "EffectType": 1007,
+        "Param": [
+            5
+        ],
+        "EffctTrigger": 5,
+        "KeepType": 6,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Disappears after taking effect {0} time(s)"
+    },
+    {
+        "Id": 17,
+        "EffectType": 1006,
+        "Param": [
+            200
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 1,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 18,
+        "EffectType": 1007,
+        "Param": [
+            5
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 1,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 101,
+        "EffectType": 1008,
+        "Param": [
+            120512
+        ],
+        "EffctTrigger": 3,
+        "KeepType": 0,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: Permanent"
+    },
+    {
+        "Id": 102,
+        "EffectType": 1008,
+        "Param": [
+            120513
+        ],
+        "EffctTrigger": 3,
+        "KeepType": 0,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: Permanent"
+    },
+    {
+        "Id": 103,
+        "EffectType": 1008,
+        "Param": [
+            120514
+        ],
+        "EffctTrigger": 3,
+        "KeepType": 0,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: Permanent"
+    },
+    {
+        "Id": 104,
+        "EffectType": 1008,
+        "Param": [
+            120515
+        ],
+        "EffctTrigger": 3,
+        "KeepType": 0,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: Permanent"
+    },
+    {
+        "Id": 201,
+        "EffectType": 1002,
+        "Param": [
+            2
+        ],
+        "EffctTrigger": 2,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 202,
+        "EffectType": 1003,
+        "Param": [
+            1
+        ],
+        "EffctTrigger": 2,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 203,
+        "EffectType": 1004,
+        "Param": [
+            4
+        ],
+        "EffctTrigger": 2,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 204,
+        "EffectType": 1005,
+        "Param": [
+            1
+        ],
+        "EffctTrigger": 2,
+        "KeepType": 2,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 205,
+        "EffectType": 1006,
+        "Param": [
+            200
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 1,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 206,
+        "EffectType": 1007,
+        "Param": [
+            5
+        ],
+        "EffctTrigger": 1,
+        "KeepType": 1,
+        "KeepCount": 1,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 207,
+        "EffectType": 1008,
+        "Param": [
+            51065
+        ],
+        "EffctTrigger": 4,
+        "KeepType": 5,
+        "KeepCount": 3,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    },
+    {
+        "Id": 208,
+        "EffectType": 1008,
+        "Param": [
+            51065
+        ],
+        "EffctTrigger": 4,
+        "KeepType": 4,
+        "KeepCount": 3,
+        "KeepTypeDesc": "Duration: {0} round(s)"
+    }
+]

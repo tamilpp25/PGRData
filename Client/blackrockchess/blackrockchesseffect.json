@@ -1,0 +1,533 @@
+[
+    {
+        "Id": 1,
+        "Note": "Shotgun Basic Attack Firing",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunShootA.prefab",
+        "Offset": "0.25|0.45|0.25",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 2,
+        "Note": "Shotgun Skill 1 Firing",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunShootB.prefab",
+        "Offset": "0.25|0.45|0.25",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 3,
+        "Note": "Shotgun Basic Attack Flying",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunBulletA.prefab",
+        "Offset": "0.08|0.45|0.6",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 4,
+        "Note": "Shotgun Skill 1 Flying",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunBulletB.prefab",
+        "Offset": "0.08|0.45|0.6",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 5,
+        "Note": "Basic Attack Enemy Take Hit Head-On",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunEXFrontA.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 6,
+        "Note": "Skill 1 Enemy Take Hit Head-On",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunEXFrontB.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 7,
+        "Note": "Basic Attack Enemy Take Hit Sideways",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunEXAngleA.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": 1.0,
+        "InitAngle": 180.0
+    },
+    {
+        "Id": 8,
+        "Note": "Skill 1 Enemy Take Hit Sideways",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSGunEXAngleB.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": 1.0,
+        "InitAngle": 180.0
+    },
+    {
+        "Id": 9,
+        "Note": "Single Blade Light Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSSwordSlash.prefab",
+        "Offset": "0|0.45|0",
+        "Rotate": "0|180|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 10,
+        "Note": "Horizontal Chop Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSSwordBigSlash.prefab",
+        "Offset": "0|0.45|0",
+        "Rotate": "0|180|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 11,
+        "Note": "Cannon Firing",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSBigGunShoot.prefab",
+        "Offset": "0.25|0.45|0.25",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 12,
+        "Note": "Cannon Flying",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSBigGunBullet.prefab",
+        "Offset": "0.08|0.45|0.6",
+        "Rotate": "180|0|0",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 13,
+        "Note": "Cannon Exploded",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSBigGunEX.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": 1.0,
+        "InitAngle": 180.0
+    },
+    {
+        "Id": 14,
+        "Note": "Weapon Change Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSBigGunChange.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 15,
+        "Note": "King About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningKing.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 16,
+        "Note": "Queen About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningQueen.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 17,
+        "Note": "Bishop About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningBishop.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 18,
+        "Note": "Knight About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningKnight.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 19,
+        "Note": "Rook About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningRook.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 20,
+        "Note": "Pawn About to Move (Red Flash)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessWarningPawn.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 21,
+        "Note": "King Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpKing.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 22,
+        "Note": "King Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpKing02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 23,
+        "Note": "Queen Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpQueen.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 24,
+        "Note": "Queen Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpQueen02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 25,
+        "Note": "Bishop Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpBishop.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 26,
+        "Note": "Bishop Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpBishop02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 27,
+        "Note": "Knight Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpKnight.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 28,
+        "Note": "Knight Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpKnight02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 29,
+        "Note": "Rook Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpRook.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 30,
+        "Note": "Rook Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpRook02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 31,
+        "Note": "Pawn Blue Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpPawn.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 32,
+        "Note": "Pawn Yellow Lux",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBackUpPawn02.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 33,
+        "Note": "Death of Chess Piece",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessFall.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 34,
+        "Note": "Chess Piece Stunned",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessGiddy.prefab",
+        "Offset": "0|0.66|0",
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 35,
+        "Note": "Bishop Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitBishop.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 36,
+        "Note": "King Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitKing.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 37,
+        "Note": "Knight Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitKnight.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 38,
+        "Note": "Pawn Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitPawn.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 39,
+        "Note": "Rook Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitRook.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 40,
+        "Note": "Queen Hit",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessHitQueen.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 41,
+        "Note": "Chess Piece Bonus at the Start",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBuff.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 42,
+        "Note": "BLACK\u2605ROCK SHOOTER Blade Skill 1 Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSBuff.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 43,
+        "Note": "Attack Area (Blue)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxAttackRangeNew.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 44,
+        "Note": "Movement Area (Green)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxMovePlaceNew.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 45,
+        "Note": "Danger Area (Red)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxWarningPlaceNew.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 46,
+        "Note": "Casting Area (Blue) and Damage Area (Yellow)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxAttackRangeMix.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 47,
+        "Note": "Danger Area (Red) and Damage Area (Yellow)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxWarningPlaceMix.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 48,
+        "Note": "Alpha Damage Area (Frame)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBaimaoAttackRange.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 49,
+        "Note": "Luna Damage Area (Frame)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessLunaAttackRange.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 50,
+        "Note": "Luna Attack Action Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessLunaAttack.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 51,
+        "Note": "Luna Grid Take Hit Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessLunaAttackGrid1.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 52,
+        "Note": "Luna Signature Grid Take Hit Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessLunaAttackGrid2.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 53,
+        "Note": "Alpha Teleport Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBaimaoMove.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 54,
+        "Note": "Alpha Blade Light Effect (Last Event Reuse)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxBRSSwordSlash.prefab",
+        "Offset": "0|0.45|0",
+        "Rotate": "0|180|180",
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 55,
+        "Note": "Alpha Grid Take Hit Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBaimaoAttackGrid.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 56,
+        "Note": "Alpha Rescue Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBaimaoHelpSkill.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 57,
+        "Note": "Black Grid Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxGridStandBlack.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 58,
+        "Note": "White Grid Effect",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxGridStandWhite.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    },
+    {
+        "Id": 59,
+        "Note": "Alpha Casting Range (Blue) and Damage Area (Frame)",
+        "EffectPrefab": "Assets/Product/Effect/Prefab/FxWanfa/FxChessBaimaoAttackRangeMix.prefab",
+        "Offset": null,
+        "Rotate": null,
+        "IsDirection": null,
+        "InitAngle": null
+    }
+]

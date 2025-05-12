@@ -1,0 +1,125 @@
+[
+    {
+        "Id": 1,
+        "Name": "Ore Vein Detector",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex3V2P17.png",
+        "Desc": "Summons a detection radar, discovering a high-value item every certain amount of time.",
+        "DropMapGroupId": 53,
+        "Anti": [],
+        "BuffId": [
+            802
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Full Combo",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex2.png",
+        "Desc": "After successfully grabbing three items, scan and grab two items. If the grabbed items are the same color, they count as universal cards.",
+        "DropMapGroupId": 527,
+        "Anti": [],
+        "BuffId": [
+            702
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Close Encounter",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex4.png",
+        "Desc": "Summons a UFO to grab the nearest item. If the grabbed items are the same color, they count as universal cards.",
+        "DropMapGroupId": 526,
+        "Anti": [],
+        "BuffId": [
+            701
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Powerful Grapple",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex2V2P17.png",
+        "Desc": "Can grab all items!",
+        "DropMapGroupId": 522,
+        "Anti": [],
+        "BuffId": [
+            803
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Magnetic Hook",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex7V2P17.png",
+        "Desc": "Press and hold to extend the grappling hook! It attracts all resources on its path.",
+        "DropMapGroupId": 525,
+        "Anti": [
+            8.0
+        ],
+        "BuffId": [
+            504
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "Non-oriented Chain",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex6.png",
+        "Desc": "All points gained in the stage get an extra bonus!",
+        "DropMapGroupId": 53,
+        "Anti": [],
+        "BuffId": [
+            214
+        ]
+    },
+    {
+        "Id": 7,
+        "Name": "Universal Converter",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex4V2P17.png",
+        "Desc": "All grabbed items count as universal cards in the same-color reward mechanism.",
+        "DropMapGroupId": 53,
+        "Anti": [],
+        "BuffId": [
+            806
+        ]
+    },
+    {
+        "Id": 8,
+        "Name": "Hyper Gear",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex1V2P17.png",
+        "Desc": "When grabbing items, the ship moves towards the item instead, and can grab some items by touching them.",
+        "DropMapGroupId": 521,
+        "Anti": [
+            5.0
+        ],
+        "BuffId": [
+            503,
+            807.0,
+            808.0,
+            809.0,
+            812.0,
+            813.0
+        ]
+    },
+    {
+        "Id": 9,
+        "Name": "Speed Turbine",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex6V2P17.png",
+        "Desc": "Increases grapple speed by one level for each successful grab within the current map, up to 12 times.",
+        "DropMapGroupId": 523,
+        "Anti": [],
+        "BuffId": [
+            705
+        ]
+    },
+    {
+        "Id": 10,
+        "Name": "Ejection Grapple",
+        "Icon": "Assets/Product/Texture/Image/UiGoldenMiner/UiGoldenMinerIconHex5V2P17.png",
+        "Desc": "A grapple that can be fired once, greatly increasing grapple speed.",
+        "DropMapGroupId": 524,
+        "Anti": [],
+        "BuffId": [
+            805,
+            341.0,
+            810.0,
+            811.0,
+            814.0
+        ]
+    }
+]

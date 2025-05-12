@@ -1,0 +1,388 @@
+[
+    {
+        "Id": 1001,
+        "FunctionName": "DoNieRoleDeath",
+        "Params": []
+    },
+    {
+        "Id": 1002,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightRollingNum"
+        ]
+    },
+    {
+        "Id": 1003,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightRollingNum"
+        ]
+    },
+    {
+        "Id": 1004,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightRollingNum",
+            "SetActive"
+        ]
+    },
+    {
+        "Id": 1005,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightRollingNum",
+            "AddTotalCount"
+        ]
+    },
+    {
+        "Id": 1006,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightNewspaper"
+        ]
+    },
+    {
+        "Id": 2001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightMovieBagua"
+        ]
+    },
+    {
+        "Id": 2002,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightMovieBagua",
+            "Init"
+        ]
+    },
+    {
+        "Id": 2003,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightMovieBagua"
+        ]
+    },
+    {
+        "Id": 3001,
+        "FunctionName": "HideClientScene",
+        "Params": []
+    },
+    {
+        "Id": 3002,
+        "FunctionName": "HideClientFightUi",
+        "Params": []
+    },
+    {
+        "Id": 3005,
+        "FunctionName": "HideClientSceneEx",
+        "Params": []
+    },
+    {
+        "Id": 4001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightCerberus"
+        ]
+    },
+    {
+        "Id": 4002,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightCerberus"
+        ]
+    },
+    {
+        "Id": 4003,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightCerberus",
+            "SetBarValue"
+        ]
+    },
+    {
+        "Id": 4004,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightCerberus",
+            "SetBarMaxValue"
+        ]
+    },
+    {
+        "Id": 4005,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightCerberus",
+            "SetCount"
+        ]
+    },
+    {
+        "Id": 5001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightPivotCombat"
+        ]
+    },
+    {
+        "Id": 5002,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightPivotCombat"
+        ]
+    },
+    {
+        "Id": 5003,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightPivotCombat",
+            "AddScore"
+        ]
+    },
+    {
+        "Id": 5004,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightPivotCombat",
+            "SetFillAmount"
+        ]
+    },
+    {
+        "Id": 5005,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightPivotCombat",
+            "SetTimeBarLength"
+        ]
+    },
+    {
+        "Id": 5006,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightPivotCombat",
+            "SetMultiSlashTimes"
+        ]
+    },
+    {
+        "Id": 5007,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightPivotCombat",
+            "SetMultiSlashDotsActive"
+        ]
+    },
+    {
+        "Id": 6001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightNuoketiMap"
+        ]
+    },
+    {
+        "Id": 6002,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightNuoketiMap"
+        ]
+    },
+    {
+        "Id": 8001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightBangbiSkill"
+        ]
+    },
+    {
+        "Id": 8002,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightBangbiSkill"
+        ]
+    },
+    {
+        "Id": 8003,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightBangbiSkill",
+            "SetCanActive"
+        ]
+    },
+    {
+        "Id": 8004,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightBangbiSkill",
+            "SetActived"
+        ]
+    },
+    {
+        "Id": 8005,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightBangbiPaper"
+        ]
+    },
+    {
+        "Id": 9001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightBrilliantwalk"
+        ]
+    },
+    {
+        "Id": 9002,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightBrilliantwalk",
+            "DestroyTips"
+        ]
+    },
+    {
+        "Id": 9003,
+        "FunctionName": "DoChildUiFunctionEx",
+        "Params": [
+            "UiFightBrilliantwalk",
+            "SetModPercent"
+        ]
+    },
+    {
+        "Id": 9004,
+        "FunctionName": "DoChildUiFunctionEx",
+        "Params": [
+            "UiFightBrilliantwalk",
+            "SetModIsUnlock"
+        ]
+    },
+    {
+        "Id": 9005,
+        "FunctionName": "DoChildUiFunctionEx",
+        "Params": [
+            "UiFightBrilliantwalk",
+            "SetIcon"
+        ]
+    },
+    {
+        "Id": 9006,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightBrilliantwalk"
+        ]
+    },
+    {
+        "Id": 10001,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightMaze"
+        ]
+    },
+    {
+        "Id": 10002,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightMaze"
+        ]
+    },
+    {
+        "Id": 10003,
+        "FunctionName": "DoChildUiFunction",
+        "Params": [
+            "UiFightMaze",
+            "SetProcess"
+        ]
+    },
+    {
+        "Id": 10011,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightMap"
+        ]
+    },
+    {
+        "Id": 10012,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightMap"
+        ]
+    },
+    {
+        "Id": 10021,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightCommonImage"
+        ]
+    },
+    {
+        "Id": 10022,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightCommonImage"
+        ]
+    },
+    {
+        "Id": 10031,
+        "FunctionName": "DoChildUiFunctionAutoOpen",
+        "Params": [
+            "UiFightCommonInterBtnList",
+            "RemoveCommonInterBtn"
+        ]
+    },
+    {
+        "Id": 11001,
+        "FunctionName": "DoChildUiFunctionAutoOpen",
+        "Params": [
+            "UiFightAchievementTip",
+            "Show"
+        ]
+    },
+    {
+        "Id": 11002,
+        "FunctionName": "DoChildUiFunctionAutoOpenEx",
+        "Params": [
+            "UiFightAchievementNotice",
+            "Show"
+        ]
+    },
+    {
+        "Id": 30041,
+        "FunctionName": "DoChildUiFunctionAutoOpen",
+        "Params": [
+            "UiFightCerberusDialogBox",
+            "Show"
+        ]
+    },
+    {
+        "Id": 30100,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightPuzzle"
+        ]
+    },
+    {
+        "Id": 40100,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightTutorial"
+        ]
+    },
+    {
+        "Id": 40101,
+        "FunctionName": "DoCloseChildUi",
+        "Params": [
+            "UiFightTutorial"
+        ]
+    },
+    {
+        "Id": 209101,
+        "FunctionName": "DoOpenChildUi",
+        "Params": [
+            "UiFightLevelMusicGame",
+            "1"
+        ]
+    },
+    {
+        "Id": 50001,
+        "FunctionName": "DoOpenLuaUi",
+        "Params": [
+            "UiPacMan"
+        ]
+    }
+]

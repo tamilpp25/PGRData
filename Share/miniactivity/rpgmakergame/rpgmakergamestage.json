@@ -1,0 +1,3642 @@
+[
+    {
+        "Id": 1101,
+        "ChapterId": 101,
+        "PreStage": null,
+        "MapId": 1101,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-1",
+        "Name": "Step by Step",
+        "StageHint": "If there is only one way in front of you, don't hesitate to go ahead",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1102,
+        "ChapterId": 101,
+        "PreStage": 1101.0,
+        "MapId": 1102,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-2",
+        "Name": "Walk by",
+        "StageHint": "Bump in road? Go around!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1103,
+        "ChapterId": 101,
+        "PreStage": 1102.0,
+        "MapId": 1103,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-3",
+        "Name": "Like Shadow",
+        "StageHint": "I am Kuroro's nightmare!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1104,
+        "ChapterId": 101,
+        "PreStage": 1103.0,
+        "MapId": 1104,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-4",
+        "Name": "Strike",
+        "StageHint": "Push the target to the correct position, then strike!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1105,
+        "ChapterId": 101,
+        "PreStage": 1104.0,
+        "MapId": 1105,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-5",
+        "Name": "Cover Tracks",
+        "StageHint": "Don't take on an enemy that looks vicious directly",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1106,
+        "ChapterId": 101,
+        "PreStage": 1105.0,
+        "MapId": 1106,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-6",
+        "Name": "Enemy or Tool",
+        "StageHint": "Even your enemies can be your tools",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1107,
+        "ChapterId": 101,
+        "PreStage": 1106.0,
+        "MapId": 1107,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-7",
+        "Name": "Genius in Maths",
+        "StageHint": "Calculations and strategies. They are what schemes are all about.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1108,
+        "ChapterId": 101,
+        "PreStage": 1107.0,
+        "MapId": 1108,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-8",
+        "Name": "Transport Worker",
+        "StageHint": "Sometimes you have to take several steps to move Kuroro to the right place.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1109,
+        "ChapterId": 101,
+        "PreStage": 1108.0,
+        "MapId": 1109,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-9",
+        "Name": "Multiple Scares",
+        "StageHint": "Scared me once! And scared me twice!\u2014\u2014Kuroro",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1110,
+        "ChapterId": 101,
+        "PreStage": 1109.0,
+        "MapId": 1110,
+        "UseRoleId": 1.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-10",
+        "Name": "Blind Spot Detour",
+        "StageHint": "The more regular the enemy acts, the easier you can spot their flaws.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1201,
+        "ChapterId": 102,
+        "PreStage": null,
+        "MapId": 1201,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-1",
+        "Name": "Water to Ice",
+        "StageHint": "Water to ice, dead end to path.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1202,
+        "ChapterId": 102,
+        "PreStage": 1201.0,
+        "MapId": 1202,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-2",
+        "Name": "You Scared Me",
+        "StageHint": "What just fell down there?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1203,
+        "ChapterId": 102,
+        "PreStage": 1202.0,
+        "MapId": 1203,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-3",
+        "Name": "Kill Two Birds With One Stone",
+        "StageHint": "I swear I didn't do anything!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1204,
+        "ChapterId": 102,
+        "PreStage": 1203.0,
+        "MapId": 1204,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-4",
+        "Name": "Freeze in Advance",
+        "StageHint": "A way to reach a goal is a way itself.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1205,
+        "ChapterId": 102,
+        "PreStage": 1204.0,
+        "MapId": 1205,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-5",
+        "Name": "Lethal Message",
+        "StageHint": "Some Kuroro seems alive, but it is already dead.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1206,
+        "ChapterId": 102,
+        "PreStage": 1205.0,
+        "MapId": 1206,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-6",
+        "Name": "Ring of Roses",
+        "StageHint": "Big Brother is watching you... Big Brother died.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1207,
+        "ChapterId": 102,
+        "PreStage": 1206.0,
+        "MapId": 1207,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-7",
+        "Name": "The Bait Strategy",
+        "StageHint": "Targeting only on the ghost is very dangerous.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1208,
+        "ChapterId": 102,
+        "PreStage": 1207.0,
+        "MapId": 1208,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 30,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-8",
+        "Name": "Travel on Water",
+        "StageHint": "There it is! A tip in broad daylight!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1209,
+        "ChapterId": 102,
+        "PreStage": 1208.0,
+        "MapId": 1209,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-9",
+        "Name": "Water Accident",
+        "StageHint": "Hey! Watch your step!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1210,
+        "ChapterId": 102,
+        "PreStage": 1209.0,
+        "MapId": 1210,
+        "UseRoleId": 2.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-10",
+        "Name": "Come Get Me",
+        "StageHint": "Excellent hunters often act like prey.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1301,
+        "ChapterId": 103,
+        "PreStage": null,
+        "MapId": 1301,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-1",
+        "Name": "Fire Hazard",
+        "StageHint": "Burn in the fire! Bahahaha!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1302,
+        "ChapterId": 103,
+        "PreStage": 1301.0,
+        "MapId": 1302,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-2",
+        "Name": "Here's Johnny",
+        "StageHint": "It's not necessarily safe to hide behind the grass.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1303,
+        "ChapterId": 103,
+        "PreStage": 1302.0,
+        "MapId": 1303,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-3",
+        "Name": "Open Sesame",
+        "StageHint": "Close Sesame",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1304,
+        "ChapterId": 103,
+        "PreStage": 1303.0,
+        "MapId": 1304,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-4",
+        "Name": "Secret in Grass",
+        "StageHint": "You just turned green, stone gate.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1305,
+        "ChapterId": 103,
+        "PreStage": 1304.0,
+        "MapId": 1305,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-5",
+        "Name": "Wish Comes True",
+        "StageHint": "Set your heart on fire!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1306,
+        "ChapterId": 103,
+        "PreStage": 1305.0,
+        "MapId": 1306,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-6",
+        "Name": "One Kuroro After Another",
+        "StageHint": "Kuroro and Kuroro play in water!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1307,
+        "ChapterId": 103,
+        "PreStage": 1306.0,
+        "MapId": 1307,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-7",
+        "Name": "Ice Skating With Me",
+        "StageHint": "Make me some ice for ice skating, Kuroro!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1308,
+        "ChapterId": 103,
+        "PreStage": 1307.0,
+        "MapId": 1308,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-8",
+        "Name": "Happy to Help",
+        "StageHint": "Go to the other side and let Kuroro clear the path for you!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1309,
+        "ChapterId": 103,
+        "PreStage": 1308.0,
+        "MapId": 1309,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-9",
+        "Name": "Knife Out",
+        "StageHint": "On target, ready, attack!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1310,
+        "ChapterId": 103,
+        "PreStage": 1309.0,
+        "MapId": 1310,
+        "UseRoleId": 3.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-10",
+        "Name": "Hitting the Ball",
+        "StageHint": "Hmm... Perfect angle.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1401,
+        "ChapterId": 104,
+        "PreStage": null,
+        "MapId": 1401,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-1",
+        "Name": "Magnetic Force",
+        "StageHint": "Watch your step.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1402,
+        "ChapterId": 104,
+        "PreStage": 1401.0,
+        "MapId": 1402,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-2",
+        "Name": "Stopping Trap",
+        "StageHint": "Well, you stopped at the right time.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1403,
+        "ChapterId": 104,
+        "PreStage": 1402.0,
+        "MapId": 1403,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-3",
+        "Name": "Battle of Fear",
+        "StageHint": "Sometimes, we need others' help to move the target to the ideal location.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1404,
+        "ChapterId": 104,
+        "PreStage": 1403.0,
+        "MapId": 1404,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-4",
+        "Name": "Stop Here",
+        "StageHint": "Where are you going, my friend?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1405,
+        "ChapterId": 104,
+        "PreStage": 1404.0,
+        "MapId": 1405,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-5",
+        "Name": "Stop Right There",
+        "StageHint": "There was no way near the Lightning Circle until Kuroro walked by.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1406,
+        "ChapterId": 104,
+        "PreStage": 1405.0,
+        "MapId": 1406,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-6",
+        "Name": "Wild Growth",
+        "StageHint": "Growth after the thunderstorm.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1407,
+        "ChapterId": 104,
+        "PreStage": 1406.0,
+        "MapId": 1407,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-7",
+        "Name": "Road Closed",
+        "StageHint": "Don't you look down on the plants, patrolman.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1408,
+        "ChapterId": 104,
+        "PreStage": 1407.0,
+        "MapId": 1408,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-8",
+        "Name": "Preparation in Advance",
+        "StageHint": "The plants are not your barriers but my friends, Kuroro.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1409,
+        "ChapterId": 104,
+        "PreStage": 1408.0,
+        "MapId": 1409,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-9",
+        "Name": "No Way Back",
+        "StageHint": "You come, you stay.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1410,
+        "ChapterId": 104,
+        "PreStage": 1409.0,
+        "MapId": 1410,
+        "UseRoleId": 4.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-10",
+        "Name": "Sacrifice of Kuroro",
+        "StageHint": "Kuro... Kuronemy, enemy, enemy.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1501,
+        "ChapterId": 105,
+        "PreStage": null,
+        "MapId": 1501,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-1",
+        "Name": "Gate of Leap",
+        "StageHint": "This is... a wormhole!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1502,
+        "ChapterId": 105,
+        "PreStage": 1501.0,
+        "MapId": 1502,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-2",
+        "Name": "Give Him a Ride",
+        "StageHint": "Don't look back, Kuroro!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1503,
+        "ChapterId": 105,
+        "PreStage": 1502.0,
+        "MapId": 1503,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-3",
+        "Name": "Give Him Another Ride",
+        "StageHint": "Repeat. Don't look back, Kuroro!!!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1504,
+        "ChapterId": 105,
+        "PreStage": 1503.0,
+        "MapId": 1504,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-4",
+        "Name": "Reverse Vortex",
+        "StageHint": "Around and around and around...",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1505,
+        "ChapterId": 105,
+        "PreStage": 1504.0,
+        "MapId": 1505,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-5",
+        "Name": "Surprise, Surprise",
+        "StageHint": "Let's surprise Kuroro!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1506,
+        "ChapterId": 105,
+        "PreStage": 1505.0,
+        "MapId": 1506,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-6",
+        "Name": "Shadow Resonance",
+        "StageHint": "Shatter, Lightning Circle! Wait, why is there a hole?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1507,
+        "ChapterId": 105,
+        "PreStage": 1506.0,
+        "MapId": 1507,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-7",
+        "Name": "Kill Kuroro With Kuroro",
+        "StageHint": "That's not true. I didn't even touch Kuroro this time.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1508,
+        "ChapterId": 105,
+        "PreStage": 1507.0,
+        "MapId": 1508,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-8",
+        "Name": "Secondary Teleportation",
+        "StageHint": "Different directions to reach the same goal.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1509,
+        "ChapterId": 105,
+        "PreStage": 1508.0,
+        "MapId": 1509,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-9",
+        "Name": "Encircling the Spring",
+        "StageHint": "Circle around, home bound.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0303.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0203.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 1510,
+        "ChapterId": 105,
+        "PreStage": 1509.0,
+        "MapId": 1510,
+        "UseRoleId": 5.0,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-10",
+        "Name": "Travel Like a Shadow",
+        "StageHint": "There's no place that I can't reach.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0301.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0103.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2101,
+        "ChapterId": 201,
+        "PreStage": null,
+        "MapId": 2101,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-1",
+        "Name": "Step by Step",
+        "StageHint": "If there is only one way in front of you, don't hesitate to go ahead",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2102,
+        "ChapterId": 201,
+        "PreStage": 2101.0,
+        "MapId": 2102,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-2",
+        "Name": "One-Way Pass",
+        "StageHint": "There is no need to go the other way.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2103,
+        "ChapterId": 201,
+        "PreStage": 2102.0,
+        "MapId": 2103,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-3",
+        "Name": "Use Thy Enemy",
+        "StageHint": "Let Kuroro run so he can create new path",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2104,
+        "ChapterId": 201,
+        "PreStage": 2103.0,
+        "MapId": 2104,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-4",
+        "Name": "You Scared Me",
+        "StageHint": "I'm here\u2014and I'm here again!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2105,
+        "ChapterId": 201,
+        "PreStage": 2104.0,
+        "MapId": 2105,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-5",
+        "Name": "Chain Reaction",
+        "StageHint": "Kuroro hit me first, I swear!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2106,
+        "ChapterId": 201,
+        "PreStage": 2105.0,
+        "MapId": 2106,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-6",
+        "Name": "Hidden Drive",
+        "StageHint": "It's easy once you have planned it all",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2107,
+        "ChapterId": 201,
+        "PreStage": 2106.0,
+        "MapId": 2107,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-7",
+        "Name": "Cover Tracks",
+        "StageHint": "Don't take on an enemy that looks vicious",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 2108,
+        "ChapterId": 201,
+        "PreStage": 2107.0,
+        "MapId": 2108,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-8",
+        "Name": "Plan Ahead",
+        "StageHint": "Watch out for the landscape. Sometimes you'll need to set up the battlefield right in the beginning.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 2109,
+        "ChapterId": 201,
+        "PreStage": 2108.0,
+        "MapId": 2109,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-9",
+        "Name": "Detour",
+        "StageHint": "Detour isn't necessarily bad. Sometimes it's faster to go the long way.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 2110,
+        "ChapterId": 201,
+        "PreStage": 2109.0,
+        "MapId": 2110,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-10",
+        "Name": "Enemy or Tool",
+        "StageHint": "Even your enemies can be your tools",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 2201,
+        "ChapterId": 202,
+        "PreStage": null,
+        "MapId": 2201,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-1",
+        "Name": "It Takes Two",
+        "StageHint": "You aren't alone if you can create a decoy of yourself.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The shadow will do the same action as the character.",
+            "The shadow cannot ping enemies or Kuroro.",
+            "Use the shadow's special feature to reach the new area."
+        ]
+    },
+    {
+        "Id": 2202,
+        "ChapterId": 202,
+        "PreStage": 2201.0,
+        "MapId": 2202,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-2",
+        "Name": "Bypass",
+        "StageHint": "Make yourself a tool of yourself.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The shadow will do the same action as the character.",
+            "The shadow cannot ping enemies or Kuroro.",
+            "Use the shadow's special feature to reach the new area."
+        ]
+    },
+    {
+        "Id": 2203,
+        "ChapterId": 202,
+        "PreStage": 2202.0,
+        "MapId": 2203,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-3",
+        "Name": "Changing Order",
+        "StageHint": "Swap yourself to a better position.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "The shadow will do the same action as the character.",
+            "The shadow cannot ping enemies or Kuroro.",
+            "Use the shadow's special feature to reach the new area."
+        ]
+    },
+    {
+        "Id": 2204,
+        "ChapterId": 202,
+        "PreStage": 2203.0,
+        "MapId": 2204,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-4",
+        "Name": "Trap Hole",
+        "StageHint": "It's\u2014so\u2014deep\u2014",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail once you fall into a hole.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2205,
+        "ChapterId": 202,
+        "PreStage": 2204.0,
+        "MapId": 2205,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-5",
+        "Name": "Post Traumatic Stress Disorder",
+        "StageHint": "You scared me! \u2014Kuroro",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail once you fall into a hole.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2206,
+        "ChapterId": 202,
+        "PreStage": 2205.0,
+        "MapId": 2206,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-6",
+        "Name": "Necessary Sacrifice",
+        "StageHint": "Your contribution will be remembered.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail once you fall into a hole.",
+            "Use the shadow's special feature to reach the new area.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2207,
+        "ChapterId": 202,
+        "PreStage": 2206.0,
+        "MapId": 2207,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-7",
+        "Name": "Swap Order",
+        "StageHint": "The time has changed, Kuroro!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "The game will fail once you fall into a hole.",
+            "Use the shadow's special feature to reach the new area.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2208,
+        "ChapterId": 202,
+        "PreStage": 2207.0,
+        "MapId": 2208,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-8",
+        "Name": "Hitting the Ball",
+        "StageHint": "Push Kuroro to the correct position, then strike!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2209,
+        "ChapterId": 202,
+        "PreStage": 2208.0,
+        "MapId": 2209,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-9",
+        "Name": "One-Way",
+        "StageHint": "Finally! A road that doesn't twist and turn!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2210,
+        "ChapterId": 202,
+        "PreStage": 2209.0,
+        "MapId": 2210,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-10",
+        "Name": "Silent Drive",
+        "StageHint": "Make good use of every single Kuroro",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2301,
+        "ChapterId": 203,
+        "PreStage": null,
+        "MapId": 2301,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-1",
+        "Name": "Deadly Electro-Wall",
+        "StageHint": "Oh... I smell barbeque.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2302,
+        "ChapterId": 203,
+        "PreStage": 2301.0,
+        "MapId": 2302,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-2",
+        "Name": "Two Birds with One Stone",
+        "StageHint": "The Electro-Wall attacked me first. Trust me!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2303,
+        "ChapterId": 203,
+        "PreStage": 2302.0,
+        "MapId": 2303,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-3",
+        "Name": "Turn Off the Light",
+        "StageHint": "It's just an Electro-Wall. Let me turn it off.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2304,
+        "ChapterId": 203,
+        "PreStage": 2303.0,
+        "MapId": 2304,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-4",
+        "Name": "Interference Button",
+        "StageHint": "It's all under control.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2305,
+        "ChapterId": 203,
+        "PreStage": 2304.0,
+        "MapId": 2305,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-5",
+        "Name": "Multiple Turning Back",
+        "StageHint": "Make the more appropriate decision at the two-way intersection.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2306,
+        "ChapterId": 203,
+        "PreStage": 2305.0,
+        "MapId": 2306,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-6",
+        "Name": "Besieged",
+        "StageHint": "Once turned off, the Electro-Wall is no different from a normal fence.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2307,
+        "ChapterId": 203,
+        "PreStage": 2306.0,
+        "MapId": 2307,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-7",
+        "Name": "Vertical Slide",
+        "StageHint": "Just pushing Kuroro for fun.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2308,
+        "ChapterId": 203,
+        "PreStage": 2307.0,
+        "MapId": 2308,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-8",
+        "Name": "Bluffing",
+        "StageHint": "Don't be scared of the Electro-Wall. Just take a detour.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "A powered Electro-Wall will remove you.",
+            "You will fail once you hit an Electro-Wall. Try to go around it or turn off its power.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2309,
+        "ChapterId": 203,
+        "PreStage": 2308.0,
+        "MapId": 2309,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-9",
+        "Name": "Route Planning",
+        "StageHint": "Somehow this feels very familiar...",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2310,
+        "ChapterId": 203,
+        "PreStage": 2309.0,
+        "MapId": 2310,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-10",
+        "Name": "Double Move",
+        "StageHint": "Sometimes you need to move multiple times to send a tool to its correct position.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2401,
+        "ChapterId": 204,
+        "PreStage": null,
+        "MapId": 2401,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-1",
+        "Name": "Reinforcement Arrived",
+        "StageHint": "Here I come!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail if Celica takes any damage.",
+            "Try to go around Celica, or guide her to a safe location.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2402,
+        "ChapterId": 204,
+        "PreStage": 2401.0,
+        "MapId": 2402,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-2",
+        "Name": "Protect the Ally",
+        "StageHint": "Don't let her take any damage!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail if Celica takes any damage.",
+            "Try to go around Celica, or guide her to a safe location.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2403,
+        "ChapterId": 204,
+        "PreStage": 2402.0,
+        "MapId": 2403,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-3",
+        "Name": "Not Even a Scratch",
+        "StageHint": "Don't worry, it's all good\u2014",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail if Celica takes any damage.",
+            "Try to go around Celica, or guide her to a safe location.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2404,
+        "ChapterId": 204,
+        "PreStage": 2403.0,
+        "MapId": 2404,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-4",
+        "Name": "Reaching Inside",
+        "StageHint": "What's the point of hiding so deep?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2405,
+        "ChapterId": 204,
+        "PreStage": 2404.0,
+        "MapId": 2405,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-5",
+        "Name": "Going Backward",
+        "StageHint": "A detour can be a good option.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Don't focus too much on chasing Kuroro, getting to the finish line is the goal",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2406,
+        "ChapterId": 204,
+        "PreStage": 2405.0,
+        "MapId": 2406,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-6",
+        "Name": "Emergency Evacuation",
+        "StageHint": "Out of the way!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "The game will fail if Celica takes any damage.",
+            "Try to go around Celica, or guide her to a safe location.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2407,
+        "ChapterId": 204,
+        "PreStage": 2406.0,
+        "MapId": 2407,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-7",
+        "Name": "Stealth Operation",
+        "StageHint": "Repeat, even your enemies can be your tools.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2408,
+        "ChapterId": 204,
+        "PreStage": 2407.0,
+        "MapId": 2408,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-8",
+        "Name": "Single Path",
+        "StageHint": "Don't forget to keep going, even if you get stuck for a while.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2409,
+        "ChapterId": 204,
+        "PreStage": 2408.0,
+        "MapId": 2409,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-9",
+        "Name": "Key Reinforcement",
+        "StageHint": "The innocent bunny finally learns to protect itself.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "The game will fail if Celica takes any damage.",
+            "Sometimes you need to rely on Celica to help you clear the stage.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2410,
+        "ChapterId": 204,
+        "PreStage": 2409.0,
+        "MapId": 2410,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-10",
+        "Name": "Global Deployment",
+        "StageHint": "One after another.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2501,
+        "ChapterId": 205,
+        "PreStage": null,
+        "MapId": 2501,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-1",
+        "Name": "Surveillance",
+        "StageHint": "Big Brother is watching you.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2502,
+        "ChapterId": 205,
+        "PreStage": 2501.0,
+        "MapId": 2502,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-2",
+        "Name": "Distraction",
+        "StageHint": "Distract and run forward. Never turn back.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2503,
+        "ChapterId": 205,
+        "PreStage": 2502.0,
+        "MapId": 2503,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-3",
+        "Name": "Lending a Hand",
+        "StageHint": "Help me, Celica!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2504,
+        "ChapterId": 205,
+        "PreStage": 2503.0,
+        "MapId": 2504,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-4",
+        "Name": "Movable Foot Pedal",
+        "StageHint": "Nothing but a tool.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2505,
+        "ChapterId": 205,
+        "PreStage": 2504.0,
+        "MapId": 2505,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-5",
+        "Name": "The Right Road",
+        "StageHint": "Direction is crucial. Once you have chosen the right road, you can get them all easily.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2506,
+        "ChapterId": 205,
+        "PreStage": 2505.0,
+        "MapId": 2506,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-6",
+        "Name": "Give it to Me",
+        "StageHint": "There's no point hiding in the corner. Just give it to me.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2507,
+        "ChapterId": 205,
+        "PreStage": 2506.0,
+        "MapId": 2507,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-7",
+        "Name": "Diversion",
+        "StageHint": "Didn't see me coming, did you?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2508,
+        "ChapterId": 205,
+        "PreStage": 2507.0,
+        "MapId": 2508,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-8",
+        "Name": "Feint Combat",
+        "StageHint": "Don't rush. Take one at a time.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2509,
+        "ChapterId": 205,
+        "PreStage": 2508.0,
+        "MapId": 2509,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-9",
+        "Name": "Best Way",
+        "StageHint": "Going round in a circle? That may actually be the right way.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage03.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame02.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 2510,
+        "ChapterId": 205,
+        "PreStage": 2509.0,
+        "MapId": 2510,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-10",
+        "Name": "Final Hunt",
+        "StageHint": "It's a method, but also your goal.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage01.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame01.prefab",
+        "LoseHint": [
+            "Roseblade will go after abnormal signals in his vision.",
+            "After a certain amount of time, Roseblade will return to his initial position.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3101,
+        "ChapterId": 301,
+        "PreStage": null,
+        "MapId": 3101,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-1",
+        "Name": "Step by Step",
+        "StageHint": "If there is only one way in front of you, don't hesitate to go ahead",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3102,
+        "ChapterId": 301,
+        "PreStage": 3101.0,
+        "MapId": 3102,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-2",
+        "Name": "Use Thy Enemy",
+        "StageHint": "Don't forget to keep going, even if you get stuck for a while",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3103,
+        "ChapterId": 301,
+        "PreStage": 3102.0,
+        "MapId": 3103,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-3",
+        "Name": "Don't Look Back",
+        "StageHint": "Look straight ahead, not back",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3104,
+        "ChapterId": 301,
+        "PreStage": 3103.0,
+        "MapId": 3104,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-4",
+        "Name": "Detour",
+        "StageHint": "Mine is mine, even if it is far away",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3105,
+        "ChapterId": 301,
+        "PreStage": 3104.0,
+        "MapId": 3105,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-5",
+        "Name": "Storm the Enemy's Den",
+        "StageHint": "Take a step back and share more chance",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3106,
+        "ChapterId": 301,
+        "PreStage": 3105.0,
+        "MapId": 3106,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-6",
+        "Name": "Following Closely",
+        "StageHint": "Do not pursue a desperate foe\u2014at least not right away",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3107,
+        "ChapterId": 301,
+        "PreStage": 3106.0,
+        "MapId": 3107,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-7",
+        "Name": "Feint Combat",
+        "StageHint": "Even your enemies can be your tools",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3108,
+        "ChapterId": 301,
+        "PreStage": 3107.0,
+        "MapId": 3108,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-8",
+        "Name": "Enemy or Tool",
+        "StageHint": "Repeat, even your enemies can be your tools.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3201,
+        "ChapterId": 302,
+        "PreStage": null,
+        "MapId": 3201,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-1",
+        "Name": "Cover Tracks",
+        "StageHint": "Don't take on an enemy that looks vicious",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Staying within the warning area marked by the red circle will result in failure.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3202,
+        "ChapterId": 302,
+        "PreStage": 3201.0,
+        "MapId": 3202,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-2",
+        "Name": "Eliminate Sentries",
+        "StageHint": "Avoid unnecessary battles\u2014unless you can handle it",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "Staying within the warning area marked by the red circle will result in failure.",
+            "Charge an enemy's blind spot to eliminate it.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3203,
+        "ChapterId": 302,
+        "PreStage": 3202.0,
+        "MapId": 3203,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-3",
+        "Name": "No or Yes",
+        "StageHint": "Don't say no to the rose, and don't say no to the chance to attack from the back of the enemy",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "Staying within the warning area marked by the red circle will result in failure.",
+            "Charge an enemy's blind spot to eliminate it.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3204,
+        "ChapterId": 302,
+        "PreStage": 3203.0,
+        "MapId": 3204,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-4",
+        "Name": "Patrol Dead Space",
+        "StageHint": "Becomes the shadow of the battlefield",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Staying within the warning area marked by the red circle will result in failure."
+        ]
+    },
+    {
+        "Id": 3205,
+        "ChapterId": 302,
+        "PreStage": 3204.0,
+        "MapId": 3205,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-5",
+        "Name": "Double Alert",
+        "StageHint": "Don't Resist a Detour",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 3206,
+        "ChapterId": 302,
+        "PreStage": 3205.0,
+        "MapId": 3206,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-6",
+        "Name": "Break Through the Siege",
+        "StageHint": "No matter how many enemies, stay awake",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 3207,
+        "ChapterId": 302,
+        "PreStage": 3206.0,
+        "MapId": 3207,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-7",
+        "Name": "Treading On Thin Ice",
+        "StageHint": "Nothing Ventured, Nothing Gained",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "The patrolman moves along a designated path each turn.",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 3208,
+        "ChapterId": 302,
+        "PreStage": 3207.0,
+        "MapId": 3208,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-8",
+        "Name": "Follow Procedure",
+        "StageHint": "Pick the victims carefully\u2014I mean, pick your opponents carefully",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "Kuroro is always blocked by other enemies when it escapes",
+            "Passing the patrol path and warning area briefly will not result in failure.",
+            "Charge an enemy's blind spot to eliminate it."
+        ]
+    },
+    {
+        "Id": 3301,
+        "ChapterId": 303,
+        "PreStage": null,
+        "MapId": 3301,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-1",
+        "Name": "Open Sesame",
+        "StageHint": "Watch your step.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "Step on any stone slab to lower all stone gates",
+            "Step on a stone slab, wait for the stone gates to lower, then seize the opportunity to pass",
+            "Corrupted can also trigger traps. Use this to your advantage"
+        ]
+    },
+    {
+        "Id": 3302,
+        "ChapterId": 303,
+        "PreStage": 3301.0,
+        "MapId": 3302,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-2",
+        "Name": "Drive Battle",
+        "StageHint": "Don't give your enemies a room to breath\u2014unless they're useful for something else",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "Step on any stone slab to lower all stone gates",
+            "Step on a stone slab, wait for the stone gates to lower, then seize the opportunity to pass",
+            "Corrupted can also trigger traps. Use this to your advantage"
+        ]
+    },
+    {
+        "Id": 3303,
+        "ChapterId": 303,
+        "PreStage": 3302.0,
+        "MapId": 3303,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-3",
+        "Name": "Either-Or",
+        "StageHint": "Don't be too greedy, a \"choice\" has to be made",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "Step on any stone slab to lower all stone gates",
+            "Step on a stone slab, wait for the stone gates to lower, then seize the opportunity to pass",
+            "Corrupted can also trigger traps. Use this to your advantage"
+        ]
+    },
+    {
+        "Id": 3304,
+        "ChapterId": 303,
+        "PreStage": 3303.0,
+        "MapId": 3304,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-4",
+        "Name": "Route Planning",
+        "StageHint": "After eliminating all the wrong options\u2014I can't think of any other reason to fail",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "If it doesn't work to go forward, why not turn back to have a try",
+            "Staying within the warning area marked by the red circle will result in failure.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3305,
+        "ChapterId": 303,
+        "PreStage": 3304.0,
+        "MapId": 3305,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-5",
+        "Name": "Global Deployment",
+        "StageHint": "Pick the right direction and catch them all\u2014so easy!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to pick the right direction upon the starting",
+            "The patrolman moves along a designated path each turn. Try to find the pattern",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3306,
+        "ChapterId": 303,
+        "PreStage": 3305.0,
+        "MapId": 3306,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-6",
+        "Name": "Second Time Travel",
+        "StageHint": "Let the orderly enemies trap themselves",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "The blocking effect of the Stone Gate mechanism will also apply to enemies",
+            "The patrolman moves along a designated path each turn. Try to find the pattern",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3307,
+        "ChapterId": 303,
+        "PreStage": 3306.0,
+        "MapId": 3307,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-7",
+        "Name": "From Inside to Outside",
+        "StageHint": "The best way to defeat the enemy is to face it\u2014But don't really break in",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "Beware of intentionally misleading content on the map",
+            "Eliminating the enemy is not the goal, but using the enemy's characteristics to reach the end.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3308,
+        "ChapterId": 303,
+        "PreStage": 3307.0,
+        "MapId": 3308,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-8",
+        "Name": "Expelling Bandits",
+        "StageHint": "Take advantage of the gap\u2014there you go!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3401,
+        "ChapterId": 304,
+        "PreStage": null,
+        "MapId": 3401,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-1",
+        "Name": "The Wall Is the Way",
+        "StageHint": "Don't worry. They're just harmless spikes",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3402,
+        "ChapterId": 304,
+        "PreStage": 3401.0,
+        "MapId": 3402,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-2",
+        "Name": "Last Resort",
+        "StageHint": "The more changeable the battlefield, the more unexpected opportunities",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3403,
+        "ChapterId": 304,
+        "PreStage": 3402.0,
+        "MapId": 3403,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-3",
+        "Name": "Fish in a Barrel",
+        "StageHint": "Let your enemies pave the way for you. Is it not good to sit back and enjoy it?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3404,
+        "ChapterId": 304,
+        "PreStage": 3403.0,
+        "MapId": 3404,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-4",
+        "Name": "Hard Pursuing",
+        "StageHint": "Don't let an enemy escape from your sight, no matter how winding the path",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3405,
+        "ChapterId": 304,
+        "PreStage": 3404.0,
+        "MapId": 3405,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-5",
+        "Name": "Double Exile",
+        "StageHint": "Killing is not an end, it's a means",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Don't focus too much on chasing Kuroro, getting to the finish line is the goal",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3406,
+        "ChapterId": 304,
+        "PreStage": 3405.0,
+        "MapId": 3406,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-6",
+        "Name": "Movable Foot Pedal",
+        "StageHint": "Walls don't rise from the ground\u2014if they do, it's all in the calculation",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage030101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0201.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "The patrolman moves along a designated path each turn. Try to find the pattern",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3407,
+        "ChapterId": 304,
+        "PreStage": 3406.0,
+        "MapId": 3407,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-7",
+        "Name": "Flexible Shift",
+        "StageHint": "Don't let the enemy escape to where they're hard to track",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 3408,
+        "ChapterId": 304,
+        "PreStage": 3407.0,
+        "MapId": 3408,
+        "UseRoleId": null,
+        "ShadowId": null,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-8",
+        "Name": "Against the Grain",
+        "StageHint": "There is more than one enemy, prioritize which enemy to defeat first",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage0101.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGame0101.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Watch the path of the patrolmen, sometimes they do not pose a threat.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4101,
+        "ChapterId": 401,
+        "PreStage": null,
+        "MapId": 4101,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-1",
+        "Name": "Pair with Shadows",
+        "StageHint": "They are your clones, opponents, as well as companions.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4102,
+        "ChapterId": 401,
+        "PreStage": 4101.0,
+        "MapId": 4102,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-2",
+        "Name": "Don't Look Back",
+        "StageHint": "Keep walking forward, shadow!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4103,
+        "ChapterId": 401,
+        "PreStage": 4102.0,
+        "MapId": 4103,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-3",
+        "Name": "Step by Step",
+        "StageHint": "If there is only one way in front of you, don't hesitate to go ahead.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4104,
+        "ChapterId": 401,
+        "PreStage": 4103.0,
+        "MapId": 4104,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-4",
+        "Name": "Strike",
+        "StageHint": "Ever heard of billiards? Push the target to the correct position, then strike!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4105,
+        "ChapterId": 401,
+        "PreStage": 4104.0,
+        "MapId": 4105,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-5",
+        "Name": "Swapping Circle",
+        "StageHint": "Listen to me! S\u2014w\u2014i\u2014t\u2014c\u2014h!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4106,
+        "ChapterId": 401,
+        "PreStage": 4105.0,
+        "MapId": 4106,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-6",
+        "Name": "Squeeze Into the Circle",
+        "StageHint": "A small stepping stone is all you need\u2014",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4107,
+        "ChapterId": 401,
+        "PreStage": 4106.0,
+        "MapId": 4107,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-7",
+        "Name": "Bilateral Operation",
+        "StageHint": "Two battlefields, same objective.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4108,
+        "ChapterId": 401,
+        "PreStage": 4107.0,
+        "MapId": 4108,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-8",
+        "Name": "Shark-speare",
+        "StageHint": "Don't take on an enemy that looks vicious\u2014unless you can launch an ambush.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4109,
+        "ChapterId": 401,
+        "PreStage": 4108.0,
+        "MapId": 4109,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-9",
+        "Name": "Deadly Electro-Wall",
+        "StageHint": "Oh... I smell barbeque.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4110,
+        "ChapterId": 401,
+        "PreStage": 4109.0,
+        "MapId": 4110,
+        "UseRoleId": 401.0,
+        "ShadowId": 406.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.1-10",
+        "Name": "Let None Survive",
+        "StageHint": "Charge\u2014! Let none survive\u2014!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4201,
+        "ChapterId": 402,
+        "PreStage": null,
+        "MapId": 4201,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-1",
+        "Name": "Hindrance",
+        "StageHint": "Stop causing me trouble! \"You wish!\"",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4202,
+        "ChapterId": 402,
+        "PreStage": 4201.0,
+        "MapId": 4202,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-2",
+        "Name": "Alert the Enemy",
+        "StageHint": "If you beat around the bush, you may alert the enemy! So don't!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4203,
+        "ChapterId": 402,
+        "PreStage": 4202.0,
+        "MapId": 4203,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-3",
+        "Name": "Grass in Abundance",
+        "StageHint": "There is too much grass here! Can you think of something to do?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4204,
+        "ChapterId": 402,
+        "PreStage": 4203.0,
+        "MapId": 4204,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-4",
+        "Name": "Grass Galore",
+        "StageHint": "Help! The shadow is surrounded by weeds!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4205,
+        "ChapterId": 402,
+        "PreStage": 4204.0,
+        "MapId": 4205,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-5",
+        "Name": "Giving Help",
+        "StageHint": "Hello? Shadow? Open the door and let me out!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4206,
+        "ChapterId": 402,
+        "PreStage": 4205.0,
+        "MapId": 4206,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-6",
+        "Name": "Same Ending",
+        "StageHint": "See that end point? I will wait there for you!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4207,
+        "ChapterId": 402,
+        "PreStage": 4206.0,
+        "MapId": 4207,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-7",
+        "Name": "Split in Two",
+        "StageHint": "Listen to me! You come over first! \"Why me? You should come over!\"",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4208,
+        "ChapterId": 402,
+        "PreStage": 4207.0,
+        "MapId": 4208,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-8",
+        "Name": "Split the Work",
+        "StageHint": "There are too many enemies! We need to split the work!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4209,
+        "ChapterId": 402,
+        "PreStage": 4208.0,
+        "MapId": 4209,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-9",
+        "Name": "Electricity Danger",
+        "StageHint": "Where's my electro-wall switch? Where is it hiding?!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4210,
+        "ChapterId": 402,
+        "PreStage": 4209.0,
+        "MapId": 4210,
+        "UseRoleId": 402.0,
+        "ShadowId": 407.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.2-10",
+        "Name": "Stay Alert",
+        "StageHint": "Hey shadow! You better watch how I move!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4301,
+        "ChapterId": 403,
+        "PreStage": null,
+        "MapId": 4301,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-1",
+        "Name": "Surreal Illusions",
+        "StageHint": "Wow! Bubbles!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4302,
+        "ChapterId": 403,
+        "PreStage": 4301.0,
+        "MapId": 4302,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-2",
+        "Name": "Take a Step Back",
+        "StageHint": "Sometimes you need to take a step back to move forward.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4303,
+        "ChapterId": 403,
+        "PreStage": 4302.0,
+        "MapId": 4303,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-3",
+        "Name": "Diversion",
+        "StageHint": "There is a bubble... It is an illusion, right?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4304,
+        "ChapterId": 403,
+        "PreStage": 4303.0,
+        "MapId": 4304,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-4",
+        "Name": "Fatal Trap",
+        "StageHint": "Don't fall down\u2014!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4305,
+        "ChapterId": 403,
+        "PreStage": 4304.0,
+        "MapId": 4305,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-5",
+        "Name": "Necessary Sacrifice",
+        "StageHint": "Your sacrifice will be remembered! Rest in peace\u2014!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4306,
+        "ChapterId": 403,
+        "PreStage": 4305.0,
+        "MapId": 4306,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-6",
+        "Name": "Steal and Swap",
+        "StageHint": "I swapped! I swapped again! I have reached the end!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4307,
+        "ChapterId": 403,
+        "PreStage": 4306.0,
+        "MapId": 4307,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-7",
+        "Name": "Mirror Mission",
+        "StageHint": "All things contrived are like dream, illusion, bubble, shadow; and as dewdrop or lighting. They should be regarded as such.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4308,
+        "ChapterId": 403,
+        "PreStage": 4307.0,
+        "MapId": 4308,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-8",
+        "Name": "Double Detour",
+        "StageHint": "Sometimes a detour can be a shortcut instead.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4309,
+        "ChapterId": 403,
+        "PreStage": 4308.0,
+        "MapId": 4309,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-9",
+        "Name": "Enemy or Tool",
+        "StageHint": "Even your opponents can be your tools.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4310,
+        "ChapterId": 403,
+        "PreStage": 4309.0,
+        "MapId": 4310,
+        "UseRoleId": 403.0,
+        "ShadowId": 408.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.3-10",
+        "Name": "Preparation in Advance",
+        "StageHint": "Repeat, even your opponents can be your tools.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4401,
+        "ChapterId": 404,
+        "PreStage": null,
+        "MapId": 4401,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-1",
+        "Name": "Freeze & Burn",
+        "StageHint": "Let's move together this time, my shadow. Show me what you've got.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4402,
+        "ChapterId": 404,
+        "PreStage": 4401.0,
+        "MapId": 4402,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-2",
+        "Name": "You Raise Me Up",
+        "StageHint": "I can't reach the end point. Shadow, lift me up.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4403,
+        "ChapterId": 404,
+        "PreStage": 4402.0,
+        "MapId": 4403,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-3",
+        "Name": "Follow the Ice",
+        "StageHint": "Shadow, please help me open the door and eliminate the enemies.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4404,
+        "ChapterId": 404,
+        "PreStage": 4403.0,
+        "MapId": 4404,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-4",
+        "Name": "Crossing the Red Line",
+        "StageHint": "Let's split up and cross the alert line.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4405,
+        "ChapterId": 404,
+        "PreStage": 4404.0,
+        "MapId": 4405,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-5",
+        "Name": "Watching From Afar",
+        "StageHint": "Into the water, my friend!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4406,
+        "ChapterId": 404,
+        "PreStage": 4405.0,
+        "MapId": 4406,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-6",
+        "Name": "Divide and Conquer",
+        "StageHint": "They have sent us an additional friend. You two do the same while I'm on the run!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4407,
+        "ChapterId": 404,
+        "PreStage": 4406.0,
+        "MapId": 4407,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-7",
+        "Name": "Each to Their Duty",
+        "StageHint": "I will defeat Tai'E, while you swap the positions.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4408,
+        "ChapterId": 404,
+        "PreStage": 4407.0,
+        "MapId": 4408,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-8",
+        "Name": "Swap and Kill",
+        "StageHint": "My friend, swap your position with me to defeat the enemies.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4409,
+        "ChapterId": 404,
+        "PreStage": 4408.0,
+        "MapId": 4409,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-9",
+        "Name": "Perfect Synergy",
+        "StageHint": "My friend, I am counting on you to defeat the enemy. I will wait you at the finishing line.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4410,
+        "ChapterId": 404,
+        "PreStage": 4409.0,
+        "MapId": 4410,
+        "UseRoleId": 404.0,
+        "ShadowId": 409.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.4-10",
+        "Name": "Eternal Winter",
+        "StageHint": "Take care, my friend. The floor will be really slippery.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4501,
+        "ChapterId": 405,
+        "PreStage": null,
+        "MapId": 4501,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-1",
+        "Name": "Last Minute",
+        "StageHint": "Shadow, can you teach me how to use the steel plate?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4502,
+        "ChapterId": 405,
+        "PreStage": 4501.0,
+        "MapId": 4502,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-2",
+        "Name": "Give Way Please",
+        "StageHint": "Hey! You are blocking me from reaching the end point!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4503,
+        "ChapterId": 405,
+        "PreStage": 4502.0,
+        "MapId": 4503,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-3",
+        "Name": "A Portal Too Far",
+        "StageHint": "That portal is too far away! Is there any other way?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4504,
+        "ChapterId": 405,
+        "PreStage": 4503.0,
+        "MapId": 4504,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-4",
+        "Name": "Look to the Front",
+        "StageHint": "It is so empty here. We just need to look to the front.",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4505,
+        "ChapterId": 405,
+        "PreStage": 4504.0,
+        "MapId": 4505,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-5",
+        "Name": "Left or Right",
+        "StageHint": "Pay attention to the surroundings! You should be very familiar with the terrain here!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4506,
+        "ChapterId": 405,
+        "PreStage": 4505.0,
+        "MapId": 4506,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-6",
+        "Name": "Necessary Sacrifice",
+        "StageHint": "I cannot walk on these things! Help me!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4507,
+        "ChapterId": 405,
+        "PreStage": 4506.0,
+        "MapId": 4507,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-7",
+        "Name": "Full House",
+        "StageHint": "Hey, is this an Easter egg? There are way too many people here!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4508,
+        "ChapterId": 405,
+        "PreStage": 4507.0,
+        "MapId": 4508,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-8",
+        "Name": "Watch Your Step",
+        "StageHint": "Always remember which blocks you can touch, and which ones you cannot!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Red.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGamePink.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4509,
+        "ChapterId": 405,
+        "PreStage": 4508.0,
+        "MapId": 4509,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-9",
+        "Name": "Opposite Directions",
+        "StageHint": "Listen, shadow. This time, you will be the center of the show! You can do it!",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    },
+    {
+        "Id": 4510,
+        "ChapterId": 405,
+        "PreStage": 4509.0,
+        "MapId": 4510,
+        "UseRoleId": 405.0,
+        "ShadowId": 410.0,
+        "HintCost": 25,
+        "AnswerCost": 100,
+        "NumberName": "Ep.5-10",
+        "Name": "Follow the Heart",
+        "StageHint": "Who should we send to get the key...?",
+        "BG": "Assets/Product/Texture/Image/UiFubenRpgMakerGame/UiFubenRpgMakerGameStage04Blue.png",
+        "Prefab": "Assets/Product/Ui/ComponentPrefab/FubenRpgMakerGameStar/GridStageRpgMakerGameViolet.prefab",
+        "LoseHint": [
+            "It's critical to select the right route.",
+            "Sometimes it's more efficient to take the long way.",
+            "Running out of turns does not result in failure. Try going back or resetting."
+        ]
+    }
+]

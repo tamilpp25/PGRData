@@ -1,0 +1,44 @@
+[
+    {
+        "Id": 1,
+        "Name": "Rising Tide",
+        "ConditionId": null,
+        "ExpFactor": 1.0,
+        "OutItemFactor": 1,
+        "EffectGroupId": 60001,
+        "Title": "Rising Tide - Normal",
+        "Desc": "All the obstacles might not be special after the sound of the tide fades away.  In the stage, <color=#e1972f>Consciousness will stay stable for 300s</color>. (After 300s, <color=#e1972f>your enemy will be enhanced</color>.)",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaIconDifficulty01.png",
+        "ShowItemIds": [
+            96117
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Surging Waves",
+        "ConditionId": 1004045.0,
+        "ExpFactor": 2.0,
+        "OutItemFactor": 1,
+        "EffectGroupId": 60002,
+        "Title": "Surging Waves - Hard",
+        "Desc": "The surging waves will eventually turn into your experience, and this is doomed to be a challenging journey.  In the stage, <color=#e1972f>Consciousness will stay stable for 120s</color>. (After 120s, <color=#e1972f>your enemy will be enhanced</color>.) The enemy's <color=#e1972f>stats are slightly enhanced</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaIconDifficulty02.png",
+        "ShowItemIds": [
+            96117
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Abyssal Torrent",
+        "ConditionId": 1004038.0,
+        "ExpFactor": 2.5,
+        "OutItemFactor": 1,
+        "EffectGroupId": 60003,
+        "Title": "Abyssal Torrent - Nightmare",
+        "Desc": "Your most challenging adventure will start here amid the whispers of the abyss.  In the stage, <color=#E04E4E>Consciousness will stay stable for 90s</color>. (After 90s, <color=#E04E4E>your enemy will be enhanced</color>.) The enemy's <color=#E04E4E>stats are greatly enhanced</color>, and the stage <color=#E04E4E>difficulty is also significantly increased</color>.   You are suggested to start the challenge with <color=#E04E4E>characters with more than 7,500 BP</color>.",
+        "Icon": "Assets/Product/Texture/Image/UiBiancaTheatre/UiBiancaIconDifficulty03.png",
+        "ShowItemIds": [
+            96117
+        ]
+    }
+]

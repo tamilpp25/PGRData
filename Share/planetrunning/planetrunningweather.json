@@ -1,0 +1,212 @@
+[
+    {
+        "Id": 1,
+        "Order": 1,
+        "Name": "Mist",
+        "UnlockStageId": 103.0,
+        "Events": [],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain07.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherMiasma.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather3.png"
+    },
+    {
+        "Id": 2,
+        "Order": 2,
+        "Name": "Sunny",
+        "UnlockStageId": null,
+        "Events": [
+            1030.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain01.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherClearDay.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonBg06.png"
+    },
+    {
+        "Id": 3,
+        "Order": 3,
+        "Name": "Sandstorm",
+        "UnlockStageId": 303.0,
+        "Events": [
+            1012.0,
+            1014.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain05.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherSand.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather4.png"
+    },
+    {
+        "Id": 4,
+        "Order": 4,
+        "Name": "Sandstorm +",
+        "UnlockStageId": null,
+        "Events": [],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain05.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherSand.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather4.png"
+    },
+    {
+        "Id": 5,
+        "Order": 5,
+        "Name": "Sandstorm ++",
+        "UnlockStageId": null,
+        "Events": [],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain05.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherSand.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather4.png"
+    },
+    {
+        "Id": 6,
+        "Order": 6,
+        "Name": "Sunny",
+        "UnlockStageId": null,
+        "Events": [
+            1001.0
+        ],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain01.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherClearDay.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonBg06.png"
+    },
+    {
+        "Id": 7,
+        "Order": 7,
+        "Name": "Arctic",
+        "UnlockStageId": 203.0,
+        "Events": [
+            1003.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain04.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherSnow.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather5.png"
+    },
+    {
+        "Id": 8,
+        "Order": 8,
+        "Name": "Arctic ++",
+        "UnlockStageId": null,
+        "Events": [
+            1003.0,
+            1004.0
+        ],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain04.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherSnow.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather5.png"
+    },
+    {
+        "Id": 9,
+        "Order": 9,
+        "Name": "Sudden Rain",
+        "UnlockStageId": null,
+        "Events": [
+            1050.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain02.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherCloudy.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather1.png"
+    },
+    {
+        "Id": 10,
+        "Order": 10,
+        "Name": "Heat Wave",
+        "UnlockStageId": 403.0,
+        "Events": [
+            1051.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain06.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherFire.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather6.png"
+    },
+    {
+        "Id": 11,
+        "Order": 11,
+        "Name": "Thunderstorm",
+        "UnlockStageId": 404.0,
+        "Events": [
+            1103.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain03.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherStorm.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather2.png"
+    },
+    {
+        "Id": 12,
+        "Order": 12,
+        "Name": "Phantom",
+        "UnlockStageId": 503.0,
+        "Events": [
+            1054.0,
+            1055.0,
+            1056.0,
+            1057.0,
+            1058.0
+        ],
+        "IsTalentShow": 1.0,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain08.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherPao.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather7.png"
+    },
+    {
+        "Id": 13,
+        "Order": 13,
+        "Name": "Phantom",
+        "UnlockStageId": null,
+        "Events": [
+            1059.0,
+            1060.0,
+            1061.0,
+            1062.0,
+            1063.0
+        ],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain08.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherPao.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather7.png"
+    },
+    {
+        "Id": 14,
+        "Order": 14,
+        "Name": "Phantom",
+        "UnlockStageId": null,
+        "Events": [
+            1100.0
+        ],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain08.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherPao.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather7.png"
+    },
+    {
+        "Id": 15,
+        "Order": 15,
+        "Name": "Mist",
+        "UnlockStageId": null,
+        "Events": [
+            1102.0
+        ],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain07.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherMiasma.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather3.png"
+    },
+    {
+        "Id": 16,
+        "Order": 16,
+        "Name": "Phantom",
+        "UnlockStageId": null,
+        "Events": [],
+        "IsTalentShow": null,
+        "EffectUrl": "Assets/Product/Effect/Prefab/FxUi/FxUiPlanetBattleMain/FxUiPlanetBattleMain08.prefab",
+        "IconUrl": "Assets/Product/Texture/Atlas/UiPlanet/UiPlanetWeatherPao.png",
+        "BgUrl": "Assets/Product/Texture/Image/UiPlanet/UiPlanetCommonWeather7.png"
+    }
+]

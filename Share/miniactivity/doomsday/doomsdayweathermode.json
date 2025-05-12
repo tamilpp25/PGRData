@@ -1,0 +1,442 @@
+[
+    {
+        "Id": 101,
+        "Name": "Stage 1 Mode 1",
+        "DayCount": 15,
+        "WeatherId": [
+            101,
+            101,
+            101,
+            101,
+            102,
+            102.0,
+            102.0,
+            101.0,
+            102.0,
+            102.0,
+            103.0,
+            103.0,
+            103.0,
+            103.0,
+            102.0
+        ]
+    },
+    {
+        "Id": 102,
+        "Name": "Stage 1 Mode 2",
+        "DayCount": 15,
+        "WeatherId": [
+            101,
+            101,
+            101,
+            102,
+            102,
+            101.0,
+            101.0,
+            102.0,
+            102.0,
+            103.0,
+            103.0,
+            103.0,
+            102.0,
+            102.0,
+            101.0
+        ]
+    },
+    {
+        "Id": 201,
+        "Name": "Stage 2 Mode 1",
+        "DayCount": 7,
+        "WeatherId": [
+            201,
+            201,
+            201,
+            202,
+            202,
+            202.0,
+            201.0
+        ]
+    },
+    {
+        "Id": 202,
+        "Name": "Stage 2 Mode 2",
+        "DayCount": 7,
+        "WeatherId": [
+            201,
+            201,
+            202,
+            202,
+            201,
+            202.0,
+            202.0
+        ]
+    },
+    {
+        "Id": 203,
+        "Name": "Stage 2 Mode 3",
+        "DayCount": 7,
+        "WeatherId": [
+            202,
+            202,
+            202,
+            203,
+            203,
+            203.0,
+            202.0
+        ]
+    },
+    {
+        "Id": 204,
+        "Name": "Stage 2 Mode 4",
+        "DayCount": 7,
+        "WeatherId": [
+            202,
+            202,
+            202,
+            203,
+            203,
+            202.0,
+            203.0
+        ]
+    },
+    {
+        "Id": 205,
+        "Name": "Stage 2 Mode 5",
+        "DayCount": 9,
+        "WeatherId": [
+            202,
+            204,
+            203,
+            203,
+            202,
+            202.0,
+            204.0,
+            202.0,
+            202.0
+        ]
+    },
+    {
+        "Id": 206,
+        "Name": "Stage 2 Mode 6",
+        "DayCount": 9,
+        "WeatherId": [
+            203,
+            204,
+            203,
+            202,
+            202,
+            204.0,
+            202.0,
+            202.0,
+            202.0
+        ]
+    },
+    {
+        "Id": 30001,
+        "Name": "Stage 3 Initial Weather Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            303,
+            304,
+            303,
+            305,
+            304
+        ]
+    },
+    {
+        "Id": 30002,
+        "Name": "Stage 3 Ending 1 Weather Trigger Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            301,
+            301,
+            302,
+            302,
+            302
+        ]
+    },
+    {
+        "Id": 30003,
+        "Name": "Stage 3 Mid Phase Weather Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            305,
+            305,
+            305,
+            305,
+            305
+        ]
+    },
+    {
+        "Id": 40001,
+        "Name": "Stage 4 Initial Weather Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            402,
+            402,
+            403,
+            404,
+            403
+        ]
+    },
+    {
+        "Id": 40002,
+        "Name": "Stage 4 Phase 2 Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            403,
+            404,
+            403,
+            403,
+            404
+        ]
+    },
+    {
+        "Id": 40003,
+        "Name": "Stage 4 Ending Mode",
+        "DayCount": 5,
+        "WeatherId": [
+            401,
+            401,
+            402,
+            401,
+            402
+        ]
+    },
+    {
+        "Id": 50011,
+        "Name": "Stage 5 Phase 1 Weather Mode 1",
+        "DayCount": 5,
+        "WeatherId": [
+            502,
+            502,
+            502,
+            502,
+            502
+        ]
+    },
+    {
+        "Id": 50012,
+        "Name": "Stage 5 Phase 1 Weather Mode 2",
+        "DayCount": 5,
+        "WeatherId": [
+            502,
+            502,
+            502,
+            503,
+            503
+        ]
+    },
+    {
+        "Id": 50013,
+        "Name": "Stage 5 Phase 1 Weather Mode 3",
+        "DayCount": 5,
+        "WeatherId": [
+            502,
+            502,
+            503,
+            502,
+            502
+        ]
+    },
+    {
+        "Id": 50021,
+        "Name": "Stage 5 Phase 2 Weather Mode 1",
+        "DayCount": 5,
+        "WeatherId": [
+            503,
+            503,
+            503,
+            503,
+            503
+        ]
+    },
+    {
+        "Id": 50031,
+        "Name": "Stage 5 Phase 3 Weather Mode 1",
+        "DayCount": 5,
+        "WeatherId": [
+            503,
+            503,
+            504,
+            503,
+            503
+        ]
+    },
+    {
+        "Id": 50032,
+        "Name": "Stage 5 Phase 3 Weather Mode 2",
+        "DayCount": 5,
+        "WeatherId": [
+            503,
+            504,
+            503,
+            504,
+            503
+        ]
+    },
+    {
+        "Id": 50033,
+        "Name": "Stage 5 Phase 3 Weather Mode 3",
+        "DayCount": 5,
+        "WeatherId": [
+            504,
+            503,
+            503,
+            504,
+            503
+        ]
+    },
+    {
+        "Id": 50034,
+        "Name": "Stage 5 Phase 3 Weather Mode 4",
+        "DayCount": 5,
+        "WeatherId": [
+            503,
+            504,
+            503,
+            503,
+            504
+        ]
+    },
+    {
+        "Id": 50041,
+        "Name": "Stage 5 Phase 4 Weather Mode 1",
+        "DayCount": 5,
+        "WeatherId": [
+            501,
+            501,
+            505,
+            501,
+            505
+        ]
+    },
+    {
+        "Id": 50042,
+        "Name": "Stage 5 Phase 4 Weather Mode 2",
+        "DayCount": 5,
+        "WeatherId": [
+            505,
+            501,
+            501,
+            505,
+            505
+        ]
+    },
+    {
+        "Id": 50043,
+        "Name": "Stage 5 Phase 4 Weather Mode 3",
+        "DayCount": 5,
+        "WeatherId": [
+            501,
+            505,
+            505,
+            505,
+            501
+        ]
+    },
+    {
+        "Id": 50051,
+        "Name": "Stage 5 Phase 5 Weather Mode 1",
+        "DayCount": 5,
+        "WeatherId": [
+            501,
+            501,
+            501,
+            501,
+            501
+        ]
+    },
+    {
+        "Id": 601,
+        "Name": "Stage 6 Day 1 - 5 Weather",
+        "DayCount": 10,
+        "WeatherId": [
+            601,
+            601,
+            601,
+            602,
+            602,
+            602.0,
+            602.0,
+            602.0,
+            602.0,
+            603.0
+        ]
+    },
+    {
+        "Id": 602,
+        "Name": "Stage 6 Day 6 - 10 Weather",
+        "DayCount": 10,
+        "WeatherId": [
+            602,
+            602,
+            602,
+            602,
+            603,
+            602.0,
+            603.0,
+            602.0,
+            603.0,
+            603.0
+        ]
+    },
+    {
+        "Id": 603,
+        "Name": "Stage 6 Day 11 - 15 Weather",
+        "DayCount": 10,
+        "WeatherId": [
+            602,
+            603,
+            602,
+            603,
+            603,
+            603.0,
+            603.0,
+            603.0,
+            603.0,
+            603.0
+        ]
+    },
+    {
+        "Id": 604,
+        "Name": "Stage 6 Over 15 Days Weather",
+        "DayCount": 10,
+        "WeatherId": [
+            603,
+            603,
+            603,
+            603,
+            603,
+            603.0,
+            603.0,
+            603.0,
+            603.0,
+            603.0
+        ]
+    },
+    {
+        "Id": 607,
+        "Name": "Stage 6 Event Weather",
+        "DayCount": 5,
+        "WeatherId": [
+            604,
+            604,
+            602,
+            602,
+            603
+        ]
+    },
+    {
+        "Id": 608,
+        "Name": "Stage 6 Event Weather",
+        "DayCount": 5,
+        "WeatherId": [
+            605,
+            605,
+            605,
+            605,
+            605
+        ]
+    }
+]

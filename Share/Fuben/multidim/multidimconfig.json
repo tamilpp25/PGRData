@@ -1,0 +1,87 @@
+[
+    {
+        "Key": "SingleRankNum",
+        "Comment": "Solo Ranking Players",
+        "Value": "10"
+    },
+    {
+        "Key": "SingleRankFloor",
+        "Comment": "Solo Ranking Reward Guaranteed Players",
+        "Value": "10000"
+    },
+    {
+        "Key": "MultiRankNum",
+        "Comment": "Multiplayer Ranking Players",
+        "Value": "100"
+    },
+    {
+        "Key": "MultiRankMax",
+        "Comment": "Multiplayer Ranking Cached Players",
+        "Value": "1000"
+    },
+    {
+        "Key": "MultiFubenCloseStartHour",
+        "Comment": "Multiplayer missions are off between 01:00 and 09:00",
+        "Value": "1"
+    },
+    {
+        "Key": "MultiFubenCloseEndHour",
+        "Comment": "Multiplayer missions are off between 01:00 and 09:00",
+        "Value": "9"
+    },
+    {
+        "Key": "TalentResetCD",
+        "Comment": "Reset cooldown (in seconds)",
+        "Value": "86400"
+    },
+    {
+        "Key": "RankIconNo1",
+        "Comment": "1st Place Icon",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo1.png"
+    },
+    {
+        "Key": "RankIconNo2",
+        "Comment": "2nd Place Icon",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo2.png"
+    },
+    {
+        "Key": "RankIconNo3",
+        "Comment": "3rd Place Icon",
+        "Value": "Assets/Product/Texture/Image/UiFubenChallengeMapBoss/BossSingleNo3.png"
+    },
+    {
+        "Key": "TalentConditionId",
+        "Comment": "Talent Unlock Requirement ID",
+        "Value": "1002201"
+    },
+    {
+        "Key": "SingleRankPercent",
+        "Comment": "The top 1% players on the solo ranking list are displayed in rankings, other players are displayed in percentages.",
+        "Value": "0.01"
+    },
+    {
+        "Key": "NetworkDelay",
+        "Comment": "Network delay (in milliseconds)",
+        "Value": "100"
+    },
+    {
+        "Key": "CharacterLimitBuff1",
+        "Comment": "Uniframe Buff 1",
+        "Value": "2240375"
+    },
+    {
+        "Key": "CharacterLimitBuff2",
+        "Comment": "Uniframe Buff 2",
+        "Value": "2240376"
+    },
+    {
+        "Key": "SingleRankTopNun",
+        "Comment": "Solo Ranking Top Display Number",
+        "Value": "Top10"
+    },
+    {
+        "Key": "MultiRankTopNun",
+        "Comment": "Multiplayer Ranking Top Display Number",
+        "Value": "Top100"
+    }
+]

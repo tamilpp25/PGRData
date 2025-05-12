@@ -1,0 +1,1136 @@
+[
+    {
+        "Id": 1,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 1,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            101
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70001,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 2,
+        "OpenCondition": [
+            860001
+        ],
+        "GroupId": 1,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            101
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70002,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 3,
+        "OpenCondition": [
+            860002
+        ],
+        "GroupId": 1,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            101,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70003,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 4,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 2,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            1,
+            2,
+            3,
+            0,
+            101
+        ],
+        "BossId": 7,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 5,
+        "OpenCondition": [
+            860003
+        ],
+        "GroupId": 2,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            1,
+            2,
+            3,
+            0,
+            101
+        ],
+        "BossId": 102,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    },
+    {
+        "Id": 6,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 3,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            102
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70004,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 7,
+        "OpenCondition": [
+            860004
+        ],
+        "GroupId": 3,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            102
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70005,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 8,
+        "OpenCondition": [
+            860005
+        ],
+        "GroupId": 3,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            102,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70006,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 9,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 4,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            4,
+            5,
+            6,
+            0,
+            102
+        ],
+        "BossId": 9,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 10,
+        "OpenCondition": [
+            860006
+        ],
+        "GroupId": 4,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            4,
+            5,
+            6,
+            0,
+            102
+        ],
+        "BossId": 104,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    },
+    {
+        "Id": 11,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 5,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            103
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70007,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 12,
+        "OpenCondition": [
+            860007
+        ],
+        "GroupId": 5,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            103
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70008,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 13,
+        "OpenCondition": [
+            860008
+        ],
+        "GroupId": 5,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            103,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70009,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 14,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 6,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            7,
+            8,
+            9,
+            0,
+            103
+        ],
+        "BossId": 11,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 15,
+        "OpenCondition": [
+            860009
+        ],
+        "GroupId": 6,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            7,
+            8,
+            9,
+            0,
+            103
+        ],
+        "BossId": 106,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    },
+    {
+        "Id": 16,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 7,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            104
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70010,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 17,
+        "OpenCondition": [
+            860010
+        ],
+        "GroupId": 7,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            104
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70011,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 18,
+        "OpenCondition": [
+            860011
+        ],
+        "GroupId": 7,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            104,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70012,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 19,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 8,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            10,
+            11,
+            12,
+            0,
+            104
+        ],
+        "BossId": 6,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 20,
+        "OpenCondition": [
+            860012
+        ],
+        "GroupId": 8,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            10,
+            11,
+            12,
+            0,
+            104
+        ],
+        "BossId": 101,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    },
+    {
+        "Id": 21,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 9,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            102
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70013,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 22,
+        "OpenCondition": [
+            860013
+        ],
+        "GroupId": 9,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            102
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70014,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 23,
+        "OpenCondition": [
+            860014
+        ],
+        "GroupId": 9,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            102,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70015,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 24,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 10,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            13,
+            14,
+            15,
+            0,
+            102
+        ],
+        "BossId": 7,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 25,
+        "OpenCondition": [
+            860015
+        ],
+        "GroupId": 10,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            13,
+            14,
+            15,
+            0,
+            102
+        ],
+        "BossId": 102,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    },
+    {
+        "Id": 26,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 11,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            101
+        ],
+        "BossId": 2,
+        "GridCount": 10,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 1,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70004,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit04.prefab",
+        "StageName": "DP-1",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 27,
+        "OpenCondition": [
+            860017
+        ],
+        "GroupId": 11,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            0,
+            101
+        ],
+        "BossId": 3,
+        "GridCount": 12,
+        "TeamGrid": [
+            5
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 2,
+        "TestRoleGroup": [
+            1
+        ],
+        "TaskId": 70005,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit05.prefab",
+        "StageName": "DP-2",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 28,
+        "OpenCondition": [
+            860018
+        ],
+        "GroupId": 11,
+        "Stage": 1,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 10,
+        "InitFunc": [
+            0,
+            0,
+            0,
+            101,
+            110
+        ],
+        "BossId": 5,
+        "GridCount": 12,
+        "TeamGrid": [
+            3,
+            7.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 3,
+        "TestRoleGroup": [
+            1,
+            1.0
+        ],
+        "TaskId": 70006,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit06.prefab",
+        "StageName": "DP-3",
+        "RewardShow": 404006.0,
+        "RewardId": 404006.0,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 29,
+        "OpenCondition": [
+            0
+        ],
+        "GroupId": 12,
+        "Stage": 2,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            4,
+            5,
+            6,
+            0,
+            101
+        ],
+        "BossId": 7,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            2,
+            2.0,
+            2.0,
+            2.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit01.prefab",
+        "StageName": "Generic Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 1
+    },
+    {
+        "Id": 30,
+        "OpenCondition": [
+            860019
+        ],
+        "GroupId": 12,
+        "Stage": 3,
+        "InitCoin": 20,
+        "CoinId": 55,
+        "FinishAddCoin": 0,
+        "InitFunc": [
+            4,
+            5,
+            6,
+            0,
+            101
+        ],
+        "BossId": 102,
+        "GridCount": 42,
+        "TeamGrid": [
+            4,
+            19.0,
+            25.0,
+            38.0
+        ],
+        "CardMaxCount": 3,
+        "AddCoin": 10,
+        "ShopCardId": 101,
+        "TestRoleGroup": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ],
+        "TaskId": 0,
+        "Perfab": "Assets/Product/Scene/ScenePrefab/ScenePursuit03.prefab",
+        "StageName": "Elite Operation",
+        "RewardShow": null,
+        "RewardId": null,
+        "IsCanAutoClear": 0
+    }
+]

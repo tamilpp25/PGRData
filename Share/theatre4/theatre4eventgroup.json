@@ -1,0 +1,2451 @@
+[
+    {
+        "Id": 1,
+        "Des": "Event Series for Option Jump",
+        "GroupId": 10010,
+        "EventId": 10010,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 2,
+        "Des": "Event Series for Option Jump",
+        "GroupId": 10011,
+        "EventId": 10011,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 3,
+        "Des": "Event Series for Option Jump",
+        "GroupId": 10012,
+        "EventId": 10012,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 4,
+        "Des": "Event Series for Option Jump",
+        "GroupId": 10013,
+        "EventId": 10013,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 5,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10002,
+        "EventId": 10002,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 6,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10003,
+        "EventId": 10003,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 7,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10004,
+        "EventId": 10004,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 8,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10006,
+        "EventId": 10006,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 9,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10007,
+        "EventId": 10007,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 10,
+        "Des": "Temporary, will be deleted",
+        "GroupId": 10008,
+        "EventId": 10008,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 11,
+        "Des": "Ger 1 random item out of 3 options for testing",
+        "GroupId": 10009,
+        "EventId": 10001,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 12,
+        "Des": "Ger 1 random item out of 3 options for testing",
+        "GroupId": 10009,
+        "EventId": 10005,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 13,
+        "Des": "Ger 1 random item out of 3 options for testing",
+        "GroupId": 10009,
+        "EventId": 10009,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 14,
+        "Des": "Blue Map True or False Door Ending",
+        "GroupId": 30001,
+        "EventId": 30001,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 15,
+        "Des": "Costs 1 Gold Coin for filling in",
+        "GroupId": 21001,
+        "EventId": 11001,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": 1020603.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 16,
+        "Des": "Costs 2 Gold Coins for filling in",
+        "GroupId": 21001,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": 1020603.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 17,
+        "Des": "Costs 3 Gold Coins for filling in",
+        "GroupId": 21001,
+        "EventId": 11017,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": 1020603.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 18,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11001,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 19,
+        "Des": "Common Event - No refresh for the first two chapters",
+        "GroupId": 20001,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 20,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11017,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 21,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11025,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 22,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11033,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 23,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11041,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 24,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11075,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 25,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11133,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 26,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11146,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 27,
+        "Des": "Common Event Series",
+        "GroupId": 20001,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            100.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 28,
+        "Des": "Hide-and-Seek Teleport Event",
+        "GroupId": 30180,
+        "EventId": 30180,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 29,
+        "Des": "Hide-and-Seek Teleported Event",
+        "GroupId": 30200,
+        "EventId": 30200,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 30,
+        "Des": "Ring of Supremacy Start",
+        "GroupId": 31001,
+        "EventId": 31001,
+        "Weight": 100,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 31,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 31006,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020619.0
+        ]
+    },
+    {
+        "Id": 32,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 31013,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020620.0
+        ]
+    },
+    {
+        "Id": 33,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 34,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 35,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 36,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 37,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 38,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 39,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 40,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 41,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 42,
+        "Des": "Ring of Supremacy Map 3",
+        "GroupId": 31002,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 43,
+        "Des": "Ring of Supremacy Map 4 Event",
+        "GroupId": 31003,
+        "EventId": 31017,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 44,
+        "Des": "Frieren Event",
+        "GroupId": 31004,
+        "EventId": 31019,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 45,
+        "Des": "Scientific Research Station, Yellow Map 3 Opening Event",
+        "GroupId": 31005,
+        "EventId": 31028,
+        "Weight": 100,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 46,
+        "Des": "Yellow Ending Opening Event. Don't lower weighting. Guaranteed Ending Map.",
+        "GroupId": 31006,
+        "EventId": 31035,
+        "Weight": 9999,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 47,
+        "Des": "Yellow Mystery Shop",
+        "GroupId": 31007,
+        "EventId": 31038,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 48,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 30060,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020631.0
+        ]
+    },
+    {
+        "Id": 49,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 50,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 51,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 52,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 53,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 54,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 55,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 56,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 57,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 58,
+        "Des": "Winter Shadows Blue Map 2",
+        "GroupId": 31008,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 59,
+        "Des": "Deep-cleaning Blue Map 3",
+        "GroupId": 31009,
+        "EventId": 30410,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 60,
+        "Des": "Winter Shadows Blue Map 1",
+        "GroupId": 31010,
+        "EventId": 30050,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 61,
+        "Des": "Friends Blue Map 4",
+        "GroupId": 31011,
+        "EventId": 30420,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 62,
+        "Des": "Save the Evening Bell Blue Map 4",
+        "GroupId": 31012,
+        "EventId": 30434,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 63,
+        "Des": "Robo Worm Blue Map 5",
+        "GroupId": 31013,
+        "EventId": 30445,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 64,
+        "Des": "Blue Ending Select True or False Door",
+        "GroupId": 31014,
+        "EventId": 31080,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 65,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 30030,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 66,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 67,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 68,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 69,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 70,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 71,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 72,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 73,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 74,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 75,
+        "Des": "Ryne the Warhorse Red Map 1",
+        "GroupId": 31015,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 76,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 30036,
+        "Weight": 0,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020615.0
+        ]
+    },
+    {
+        "Id": 77,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 30040,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            99999.0
+        ],
+        "AddWeightCondition": [
+            1020616.0
+        ]
+    },
+    {
+        "Id": 78,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 79,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 80,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 81,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 82,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 83,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 84,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 85,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 86,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 87,
+        "Des": "Ryne the Warhorse Red Map 2",
+        "GroupId": 31016,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 88,
+        "Des": "Red Ending Event - Guaranteed Ending",
+        "GroupId": 31017,
+        "EventId": 31110,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 89,
+        "Des": "Chapter 1 Main, add weighting the first two times and appear at a 50% rate after that",
+        "GroupId": 31018,
+        "EventId": 31130,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0,
+            -19998.0
+        ],
+        "AddWeightCondition": [
+            1020649.0,
+            1020650.0,
+            1020691.0
+        ]
+    },
+    {
+        "Id": 90,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 91,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 92,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 93,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 94,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 95,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 96,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 97,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 98,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 99,
+        "Des": null,
+        "GroupId": 31018,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 100,
+        "Des": "Chapter 2 Main, add weighting the first two times and appear at a 50% rate after that",
+        "GroupId": 31019,
+        "EventId": 31140,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0,
+            -19998.0
+        ],
+        "AddWeightCondition": [
+            1020651.0,
+            1020652.0,
+            1020692.0
+        ]
+    },
+    {
+        "Id": 101,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 102,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 103,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 104,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 105,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 106,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 107,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 108,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 109,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 110,
+        "Des": null,
+        "GroupId": 31019,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 111,
+        "Des": "Chapter 4 Main, add weighting the first two times and appear at a 50% rate after that",
+        "GroupId": 31020,
+        "EventId": 31170,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0,
+            -19998.0
+        ],
+        "AddWeightCondition": [
+            1020653.0,
+            1020654.0,
+            1020693.0
+        ]
+    },
+    {
+        "Id": 112,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 113,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 114,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 115,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 116,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 117,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 118,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 119,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 120,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 121,
+        "Des": null,
+        "GroupId": 31020,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 122,
+        "Des": "Chapter 3 Main, add weighting the first two times and appear at a 50% rate after that",
+        "GroupId": 31021,
+        "EventId": 31185,
+        "Weight": 10,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [
+            9999.0,
+            9999.0,
+            -19998.0
+        ],
+        "AddWeightCondition": [
+            1020655.0,
+            1020656.0,
+            1020694.0
+        ]
+    },
+    {
+        "Id": 123,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 124,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 125,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 126,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 127,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 128,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 129,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 130,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 131,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 132,
+        "Des": null,
+        "GroupId": 31021,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 133,
+        "Des": "Red Ending Event - Guaranteed",
+        "GroupId": 31022,
+        "EventId": 31110,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 134,
+        "Des": "For random areas in Trap Ahead Event",
+        "GroupId": 31030,
+        "EventId": 30098,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": 1020670.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 135,
+        "Des": null,
+        "GroupId": 31030,
+        "EventId": 30099,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": 1020670.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 136,
+        "Des": null,
+        "GroupId": 31030,
+        "EventId": 30100,
+        "Weight": 1,
+        "GameRepeatable": 0,
+        "ConditionId": 1020671.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 138,
+        "Des": "Red Route 1, Trap Ahead Event",
+        "GroupId": 31031,
+        "EventId": 30090,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 139,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 140,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 141,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 142,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 143,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 144,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 145,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 146,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 147,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 148,
+        "Des": null,
+        "GroupId": 31031,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 149,
+        "Des": "Beginner Map 1 Event 1",
+        "GroupId": 1001,
+        "EventId": 1001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 150,
+        "Des": "Beginner Map 2 Event 1",
+        "GroupId": 1002,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 151,
+        "Des": "Beginner Map 2 Event 1",
+        "GroupId": 1003,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 152,
+        "Des": "Red Route1, Our Hometown - Prerequisite - Chapter 3",
+        "GroupId": 31032,
+        "EventId": 30501,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 153,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 154,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 155,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 156,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 157,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 158,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 159,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 160,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 161,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 162,
+        "Des": null,
+        "GroupId": 31032,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 163,
+        "Des": "Red Route1, Our Hometown - Ending - Chapter 4",
+        "GroupId": 31033,
+        "EventId": 30520,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 164,
+        "Des": "Multi-colored Route 1, To the Battlefield 1 - Chapter 2",
+        "GroupId": 31040,
+        "EventId": 30300,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 165,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 166,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 167,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 168,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 169,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 170,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 171,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 172,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 173,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 174,
+        "Des": null,
+        "GroupId": 31040,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 175,
+        "Des": "Multi-colored Route 1, To the Battlefield 2 - Chapter 3",
+        "GroupId": 31041,
+        "EventId": 30320,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": 1020695.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 176,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 177,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 178,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 179,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 180,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 181,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 182,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 183,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 184,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 185,
+        "Des": null,
+        "GroupId": 31041,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 186,
+        "Des": "Multi-colored Route 1, To the Battlefield 3 - Chapter 4",
+        "GroupId": 31042,
+        "EventId": 30370,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": 1020696.0,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 187,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 188,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 189,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 190,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 191,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 192,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 193,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 194,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 195,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 196,
+        "Des": null,
+        "GroupId": 31042,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 197,
+        "Des": "Multi-colored Route 1, Loyal Guard 1 - Chapter 4",
+        "GroupId": 31043,
+        "EventId": 30221,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 198,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11001,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 199,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11009,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 200,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11017,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 201,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11025,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 202,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11033,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 203,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11041,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 204,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11075,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 205,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11133,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 206,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11146,
+        "Weight": 1,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    },
+    {
+        "Id": 207,
+        "Des": null,
+        "GroupId": 31043,
+        "EventId": 11159,
+        "Weight": 0,
+        "GameRepeatable": 1,
+        "ConditionId": null,
+        "AddWeight": [
+            1.0
+        ],
+        "AddWeightCondition": [
+            1020614.0
+        ]
+    },
+    {
+        "Id": 208,
+        "Des": "Multi-colored Route 1, Loyal Guard 2 - Chapter 4",
+        "GroupId": 31044,
+        "EventId": 30250,
+        "Weight": 1000,
+        "GameRepeatable": 0,
+        "ConditionId": null,
+        "AddWeight": [],
+        "AddWeightCondition": []
+    }
+]

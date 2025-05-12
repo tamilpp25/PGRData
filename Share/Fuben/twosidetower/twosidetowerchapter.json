@@ -1,0 +1,264 @@
+[
+    {
+        "Id": 1,
+        "TimeId": null,
+        "Name": "Powder and Sleet",
+        "SecondName": "Chapter 1",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower05.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss1.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss1.png",
+        "UnlockChapterIds": [],
+        "PointIds": [
+            1,
+            2,
+            3
+        ],
+        "EndPointId": 4,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg13.png",
+        "OverviewDesc": "Greatly reduces the character's <color=#037a75>Movement Speed</color> upon taking a hit. The effect clears upon <color=#037a75>swapping characters</color>."
+    },
+    {
+        "Id": 2,
+        "TimeId": null,
+        "Name": "Mountain Cleaver",
+        "SecondName": "Chapter 2",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower05.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss2.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss2.png",
+        "UnlockChapterIds": [
+            1.0
+        ],
+        "PointIds": [
+            11,
+            12,
+            13
+        ],
+        "EndPointId": 14,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg14.png",
+        "OverviewDesc": "Enemies gain the <color=#037a75>Barrier</color> effect, receiving Shield periodically. Destroying their Shield will remove the Barrier effect and reduce the enemies' <color=#037a75>Resistance by 30%</color>."
+    },
+    {
+        "Id": 3,
+        "TimeId": null,
+        "Name": "Featherless Fugitive",
+        "SecondName": "Chapter 3",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss3.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss3.png",
+        "UnlockChapterIds": [
+            2.0
+        ],
+        "PointIds": [
+            21,
+            22,
+            23,
+            24.0
+        ],
+        "EndPointId": 25,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg15.png",
+        "OverviewDesc": "Enemies gain <color=#037a75>Berserk</color>, becoming more aggressive and approaching the character with Flash periodically. <color=#037a75>The Berserk status is removed for 10s</color> when the character enters Matrix."
+    },
+    {
+        "Id": 4,
+        "TimeId": null,
+        "Name": "Free as a Reaper",
+        "SecondName": "Chapter 4",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss4.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss4.png",
+        "UnlockChapterIds": [
+            3.0
+        ],
+        "PointIds": [
+            31,
+            32,
+            33,
+            34.0
+        ],
+        "EndPointId": 35,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg16.png",
+        "OverviewDesc": "A <color=#037a75>mother-type enemy</color> on the field will summon 1 <color=#037a75>minion-type enemy</color> every <color=#037a75>6s</color>, up to 3 minions. Each minion on the field grans the mother-type enemy 1 stack of <color=#037a75>Recovery</color>."
+    },
+    {
+        "Id": 5,
+        "TimeId": null,
+        "Name": "Surmountable",
+        "SecondName": "Chapter 5",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss5.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss5.png",
+        "UnlockChapterIds": [
+            4.0
+        ],
+        "PointIds": [
+            41,
+            42,
+            43,
+            44.0
+        ],
+        "EndPointId": 45,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg17.png",
+        "OverviewDesc": "Overclocking Energy Core now only requires 2 stacks of charges, each stack <color=#037a75>increasing the character's ATK by 10%</color> instead. Entering the Matrix in Enhanced Mode will trigger a Dark Explosion centered around the player, dealing <color=#037a75>200000 True DMG</color> to targets within range."
+    },
+    {
+        "Id": 6,
+        "TimeId": null,
+        "Name": "Twisted Thunder",
+        "SecondName": "Chapter 1",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower05.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss6.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss6.png",
+        "UnlockChapterIds": [],
+        "PointIds": [
+            101,
+            102,
+            103
+        ],
+        "EndPointId": 104,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg18.png",
+        "OverviewDesc": "<color=#037a75>Summons lightning at the player character</color> <color=#037a75>every 10s</color>, dealing DMG to the player character."
+    },
+    {
+        "Id": 7,
+        "TimeId": null,
+        "Name": "Falling Gems",
+        "SecondName": "Chapter 2",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower05.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss7.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss7.png",
+        "UnlockChapterIds": [
+            6.0
+        ],
+        "PointIds": [
+            111,
+            112,
+            113
+        ],
+        "EndPointId": 114,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg19.png",
+        "OverviewDesc": "<color=#037a75>Summons meteors at the player character</color> <color=#037a75>every 7s</color>, dealing DMG to the player character."
+    },
+    {
+        "Id": 8,
+        "TimeId": null,
+        "Name": "Flooded Flame",
+        "SecondName": "Chapter 3",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss8.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss8.png",
+        "UnlockChapterIds": [
+            7.0
+        ],
+        "PointIds": [
+            121,
+            122,
+            123,
+            124.0
+        ],
+        "EndPointId": 125,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg20.png",
+        "OverviewDesc": "If there are more Constructs than Corrupted on the field when the battle begins, all enemies gain the Commander effect. If there are more Corrupted than Constructs on the field when the battle begins, all enemies gain the Berserk effect."
+    },
+    {
+        "Id": 9,
+        "TimeId": null,
+        "Name": "Frenzied Hunt",
+        "SecondName": "Chapter 4",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss9.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss9.png",
+        "UnlockChapterIds": [
+            8.0
+        ],
+        "PointIds": [
+            131,
+            132,
+            133,
+            134.0
+        ],
+        "EndPointId": 135,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg21.png",
+        "OverviewDesc": "One enemy on the field will be parasitized, producing a Corrupted after 25s. Another enemy on the field will be parasitized afterward."
+    },
+    {
+        "Id": 10,
+        "TimeId": null,
+        "Name": "Milk and Honey",
+        "SecondName": "Chapter 5",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/FuBenTwoSideTower/FuBenTwoSideTower04.prefab",
+        "Icon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBgBoss10.png",
+        "MonsterBg": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerMainLineBoss10.png",
+        "UnlockChapterIds": [
+            9.0
+        ],
+        "PointIds": [
+            141,
+            142,
+            143,
+            144.0
+        ],
+        "EndPointId": 145,
+        "ScoreLevel": [
+            3500,
+            4000,
+            4500,
+            5000
+        ],
+        "OverviewIcon": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg22.png",
+        "OverviewDesc": "Different Spires will provide different Buffs."
+    }
+]

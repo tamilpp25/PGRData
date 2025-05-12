@@ -1,0 +1,103 @@
+[
+    {
+        "Key": "ChapterNumberParameter",
+        "Desc": "Chapter Count Coefficient",
+        "Values": [
+            100000.0
+        ]
+    },
+    {
+        "Key": "ProsperityIndexParameter",
+        "Desc": "Prosperity Coefficient",
+        "Values": [
+            1.0
+        ]
+    },
+    {
+        "Key": "CellsOpenedParameter",
+        "Desc": "Overturned Tile Count Coefficient",
+        "Values": [
+            150000.0
+        ]
+    },
+    {
+        "Key": "InterestNeedCount",
+        "Desc": "Gold Coins required for one-time Interest [Danger]",
+        "Values": [
+            10.0
+        ]
+    },
+    {
+        "Key": "InterestAwardCount",
+        "Desc": "One-time Interest Gold Coin reward",
+        "Values": [
+            1.0
+        ]
+    },
+    {
+        "Key": "InterestAwardLimit",
+        "Desc": "Gold Coin reward interest limit per round [Danger]",
+        "Values": [
+            30.0
+        ]
+    },
+    {
+        "Key": "OpenCloseCheck",
+        "Desc": "Enable Force Exit Detection",
+        "Values": [
+            1.0
+        ]
+    },
+    {
+        "Key": "CloseCheckCount",
+        "Desc": "Fault-Tolerant Guaranteed Attempts",
+        "Values": [
+            1.0
+        ]
+    },
+    {
+        "Key": "ItemCountLimit",
+        "Desc": "Artifact Limit",
+        "Values": [
+            5.0
+        ]
+    },
+    {
+        "Key": "InheritItemNum",
+        "Desc": "Number of Artifacts inherited",
+        "Values": [
+            2.0
+        ]
+    },
+    {
+        "Key": "InheritItemThreshold",
+        "Desc": "Artifact inherit Threshold (overturned tile count requirement)",
+        "Values": [
+            9999.0
+        ]
+    },
+    {
+        "Key": "PassChapterOperable",
+        "Desc": "Archived Stages operation permission",
+        "Values": [
+            0.0
+        ]
+    },
+    {
+        "Key": "MaxTotalTechPoint",
+        "Desc": "Max total obtainable Tech Points",
+        "Values": [
+            900.0
+        ]
+    },
+    {
+        "Key": "MaxColorPoint",
+        "Desc": "\u53ef\u83b7\u5f97\u5929\u8d4b\u70b9\u4e0a\u9650",
+        "Values": []
+    },
+    {
+        "Key": "MaxProsperity",
+        "Desc": "\u53ef\u83b7\u5f97\u7e41\u8363\u5ea6\u4e0a\u9650",
+        "Values": []
+    }
+]

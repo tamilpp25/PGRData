@@ -1,0 +1,743 @@
+[
+    {
+        "Id": 101,
+        "Name": "Tutorial - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar03.png",
+        "ChapterId": 1,
+        "Order": 1,
+        "PreStageId": null,
+        "PlanetId": 101,
+        "WeatherGroupId": 101,
+        "BossGroupId": 101,
+        "ItemGroupId": null,
+        "InitCoin": 200,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59780,
+        "EnvironmentEvents": [
+            90015
+        ],
+        "DisableBuilding": [
+            4.0,
+            5.0,
+            6.0,
+            7.0
+        ],
+        "CompelUsedBuilding": [
+            2.0,
+            3.0
+        ],
+        "BuildingRecommend": 101,
+        "TargetGroupId": 101
+    },
+    {
+        "Id": 102,
+        "Name": "Tutorial - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar03.png",
+        "ChapterId": 1,
+        "Order": 2,
+        "PreStageId": 101.0,
+        "PlanetId": 102,
+        "WeatherGroupId": 101,
+        "BossGroupId": 102,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59781,
+        "EnvironmentEvents": [
+            501
+        ],
+        "DisableBuilding": [
+            4.0,
+            6.0,
+            7.0
+        ],
+        "CompelUsedBuilding": [
+            2.0,
+            3.0,
+            5.0,
+            101.0,
+            102.0
+        ],
+        "BuildingRecommend": 102,
+        "TargetGroupId": 102
+    },
+    {
+        "Id": 103,
+        "Name": "Normal - 3",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar03.png",
+        "ChapterId": 1,
+        "Order": 3,
+        "PreStageId": 102.0,
+        "PlanetId": 103,
+        "WeatherGroupId": 101,
+        "BossGroupId": 103,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59782,
+        "EnvironmentEvents": [
+            501
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            101.0,
+            102.0
+        ],
+        "BuildingRecommend": 102,
+        "TargetGroupId": 103
+    },
+    {
+        "Id": 104,
+        "Name": "Challenge - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar03.png",
+        "ChapterId": 1,
+        "Order": 4,
+        "PreStageId": 103.0,
+        "PlanetId": 104,
+        "WeatherGroupId": 101,
+        "BossGroupId": 104,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59783,
+        "EnvironmentEvents": [
+            501,
+            502.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            101.0,
+            102.0
+        ],
+        "BuildingRecommend": 102,
+        "TargetGroupId": 104
+    },
+    {
+        "Id": 201,
+        "Name": "Normal - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar01.png",
+        "ChapterId": 2,
+        "Order": 5,
+        "PreStageId": null,
+        "PlanetId": 201,
+        "WeatherGroupId": 201,
+        "BossGroupId": 201,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59784,
+        "EnvironmentEvents": [
+            506,
+            560.0,
+            565.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            105.0,
+            106.0
+        ],
+        "BuildingRecommend": 201,
+        "TargetGroupId": 201
+    },
+    {
+        "Id": 202,
+        "Name": "Normal - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar01.png",
+        "ChapterId": 2,
+        "Order": 6,
+        "PreStageId": 201.0,
+        "PlanetId": 202,
+        "WeatherGroupId": 202,
+        "BossGroupId": 202,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59785,
+        "EnvironmentEvents": [
+            507,
+            90010.0,
+            561.0,
+            566.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            105.0,
+            106.0
+        ],
+        "BuildingRecommend": 201,
+        "TargetGroupId": 202
+    },
+    {
+        "Id": 203,
+        "Name": "Normal - 3",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar01.png",
+        "ChapterId": 2,
+        "Order": 7,
+        "PreStageId": 202.0,
+        "PlanetId": 203,
+        "WeatherGroupId": 203,
+        "BossGroupId": 203,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59786,
+        "EnvironmentEvents": [
+            508,
+            511.0,
+            562.0,
+            567.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            105.0,
+            106.0
+        ],
+        "BuildingRecommend": 203,
+        "TargetGroupId": 203
+    },
+    {
+        "Id": 204,
+        "Name": "Challenge - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar01.png",
+        "ChapterId": 2,
+        "Order": 8,
+        "PreStageId": 203.0,
+        "PlanetId": 204,
+        "WeatherGroupId": 204,
+        "BossGroupId": 204,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59787,
+        "EnvironmentEvents": [
+            509,
+            513.0,
+            563.0,
+            568.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            105.0,
+            106.0
+        ],
+        "BuildingRecommend": 203,
+        "TargetGroupId": 204
+    },
+    {
+        "Id": 205,
+        "Name": "Challenge - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar01.png",
+        "ChapterId": 2,
+        "Order": 9,
+        "PreStageId": 204.0,
+        "PlanetId": 205,
+        "WeatherGroupId": 205,
+        "BossGroupId": 205,
+        "ItemGroupId": null,
+        "InitCoin": 300,
+        "CarryItemCount": 0,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59788,
+        "EnvironmentEvents": [
+            510,
+            513.0,
+            514.0,
+            564.0,
+            569.0
+        ],
+        "DisableBuilding": [
+            6.0
+        ],
+        "CompelUsedBuilding": [
+            105.0,
+            106.0
+        ],
+        "BuildingRecommend": 203,
+        "TargetGroupId": 205
+    },
+    {
+        "Id": 301,
+        "Name": "Normal - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar02.png",
+        "ChapterId": 3,
+        "Order": 10,
+        "PreStageId": null,
+        "PlanetId": 301,
+        "WeatherGroupId": 301,
+        "BossGroupId": 301,
+        "ItemGroupId": 301.0,
+        "InitCoin": 500,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59789,
+        "EnvironmentEvents": [
+            515,
+            90016.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            103.0,
+            104.0
+        ],
+        "BuildingRecommend": 301,
+        "TargetGroupId": 301
+    },
+    {
+        "Id": 302,
+        "Name": "Normal - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar02.png",
+        "ChapterId": 3,
+        "Order": 11,
+        "PreStageId": 301.0,
+        "PlanetId": 302,
+        "WeatherGroupId": 302,
+        "BossGroupId": 302,
+        "ItemGroupId": 302.0,
+        "InitCoin": 500,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59790,
+        "EnvironmentEvents": [
+            515,
+            90011.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            103.0,
+            104.0
+        ],
+        "BuildingRecommend": 302,
+        "TargetGroupId": 302
+    },
+    {
+        "Id": 303,
+        "Name": "Normal - 3",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar02.png",
+        "ChapterId": 3,
+        "Order": 12,
+        "PreStageId": 302.0,
+        "PlanetId": 303,
+        "WeatherGroupId": 303,
+        "BossGroupId": 303,
+        "ItemGroupId": 303.0,
+        "InitCoin": 500,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59791,
+        "EnvironmentEvents": [
+            515,
+            517.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            103.0,
+            104.0
+        ],
+        "BuildingRecommend": 302,
+        "TargetGroupId": 303
+    },
+    {
+        "Id": 304,
+        "Name": "Challenge - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar02.png",
+        "ChapterId": 3,
+        "Order": 13,
+        "PreStageId": 303.0,
+        "PlanetId": 304,
+        "WeatherGroupId": 304,
+        "BossGroupId": 304,
+        "ItemGroupId": 304.0,
+        "InitCoin": 500,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59792,
+        "EnvironmentEvents": [
+            515,
+            516.0
+        ],
+        "DisableBuilding": [
+            3.0
+        ],
+        "CompelUsedBuilding": [
+            103.0,
+            104.0
+        ],
+        "BuildingRecommend": 304,
+        "TargetGroupId": 304
+    },
+    {
+        "Id": 305,
+        "Name": "Challenge - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar02.png",
+        "ChapterId": 3,
+        "Order": 14,
+        "PreStageId": 304.0,
+        "PlanetId": 305,
+        "WeatherGroupId": 305,
+        "BossGroupId": 305,
+        "ItemGroupId": 305.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59793,
+        "EnvironmentEvents": [
+            515,
+            516.0
+        ],
+        "DisableBuilding": [
+            3.0
+        ],
+        "CompelUsedBuilding": [
+            103.0,
+            104.0
+        ],
+        "BuildingRecommend": 304,
+        "TargetGroupId": 305
+    },
+    {
+        "Id": 401,
+        "Name": "Normal - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar05.png",
+        "ChapterId": 4,
+        "Order": 15,
+        "PreStageId": null,
+        "PlanetId": 401,
+        "WeatherGroupId": 401,
+        "BossGroupId": 401,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59794,
+        "EnvironmentEvents": [
+            518,
+            519.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            107.0,
+            108.0
+        ],
+        "BuildingRecommend": 401,
+        "TargetGroupId": 401
+    },
+    {
+        "Id": 402,
+        "Name": "Normal - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar05.png",
+        "ChapterId": 4,
+        "Order": 16,
+        "PreStageId": 401.0,
+        "PlanetId": 402,
+        "WeatherGroupId": 402,
+        "BossGroupId": 402,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59795,
+        "EnvironmentEvents": [
+            518,
+            520.0,
+            90012.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            107.0,
+            108.0
+        ],
+        "BuildingRecommend": 401,
+        "TargetGroupId": 402
+    },
+    {
+        "Id": 403,
+        "Name": "Normal - 3",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar05.png",
+        "ChapterId": 4,
+        "Order": 17,
+        "PreStageId": 402.0,
+        "PlanetId": 403,
+        "WeatherGroupId": 403,
+        "BossGroupId": 403,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59796,
+        "EnvironmentEvents": [
+            518,
+            521.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            107.0,
+            108.0
+        ],
+        "BuildingRecommend": 401,
+        "TargetGroupId": 403
+    },
+    {
+        "Id": 404,
+        "Name": "Challenge - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar05.png",
+        "ChapterId": 4,
+        "Order": 18,
+        "PreStageId": 403.0,
+        "PlanetId": 404,
+        "WeatherGroupId": 404,
+        "BossGroupId": 404,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59797,
+        "EnvironmentEvents": [
+            524,
+            522.0,
+            523.0
+        ],
+        "DisableBuilding": [
+            2.0
+        ],
+        "CompelUsedBuilding": [
+            107.0,
+            108.0
+        ],
+        "BuildingRecommend": 404,
+        "TargetGroupId": 404
+    },
+    {
+        "Id": 405,
+        "Name": "Challenge - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar05.png",
+        "ChapterId": 4,
+        "Order": 19,
+        "PreStageId": 404.0,
+        "PlanetId": 405,
+        "WeatherGroupId": 405,
+        "BossGroupId": 405,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59798,
+        "EnvironmentEvents": [
+            524,
+            522.0,
+            523.0
+        ],
+        "DisableBuilding": [
+            2.0
+        ],
+        "CompelUsedBuilding": [
+            107.0,
+            108.0
+        ],
+        "BuildingRecommend": 404,
+        "TargetGroupId": 405
+    },
+    {
+        "Id": 501,
+        "Name": "Normal - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar04.png",
+        "ChapterId": 5,
+        "Order": 20,
+        "PreStageId": null,
+        "PlanetId": 501,
+        "WeatherGroupId": 501,
+        "BossGroupId": 501,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59799,
+        "EnvironmentEvents": [
+            580,
+            589.0,
+            90013.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            109.0
+        ],
+        "BuildingRecommend": 501,
+        "TargetGroupId": 501
+    },
+    {
+        "Id": 502,
+        "Name": "Normal - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar04.png",
+        "ChapterId": 5,
+        "Order": 21,
+        "PreStageId": 501.0,
+        "PlanetId": 502,
+        "WeatherGroupId": 502,
+        "BossGroupId": 502,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59800,
+        "EnvironmentEvents": [
+            580,
+            590.0,
+            90013.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            109.0,
+            110.0
+        ],
+        "BuildingRecommend": 501,
+        "TargetGroupId": 502
+    },
+    {
+        "Id": 503,
+        "Name": "Normal - 3",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar04.png",
+        "ChapterId": 5,
+        "Order": 22,
+        "PreStageId": 502.0,
+        "PlanetId": 503,
+        "WeatherGroupId": 503,
+        "BossGroupId": 503,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59801,
+        "EnvironmentEvents": [
+            580,
+            583.0,
+            90013.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [
+            109.0,
+            110.0
+        ],
+        "BuildingRecommend": 503,
+        "TargetGroupId": 503
+    },
+    {
+        "Id": 504,
+        "Name": "Challenge - 1",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar04.png",
+        "ChapterId": 5,
+        "Order": 23,
+        "PreStageId": 503.0,
+        "PlanetId": 504,
+        "WeatherGroupId": 504,
+        "BossGroupId": 504,
+        "ItemGroupId": 401.0,
+        "InitCoin": 9800,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59802,
+        "EnvironmentEvents": [
+            591,
+            584.0,
+            585.0
+        ],
+        "DisableBuilding": [
+            2.0
+        ],
+        "CompelUsedBuilding": [
+            111.0
+        ],
+        "BuildingRecommend": 504,
+        "TargetGroupId": 504
+    },
+    {
+        "Id": 505,
+        "Name": "Challenge - 2",
+        "Icon": "Assets/Product/Texture/Image/UiPlanet/UiPlanetImgStar04.png",
+        "ChapterId": 5,
+        "Order": 24,
+        "PreStageId": 504.0,
+        "PlanetId": 505,
+        "WeatherGroupId": 505,
+        "BossGroupId": 505,
+        "ItemGroupId": 401.0,
+        "InitCoin": 300,
+        "CarryItemCount": 100,
+        "CarryBuildingCount": 5,
+        "LevelUpProgress": 1,
+        "FightLoseCoinProportion": 1,
+        "RewardId": 59803,
+        "EnvironmentEvents": [
+            586,
+            587.0
+        ],
+        "DisableBuilding": [],
+        "CompelUsedBuilding": [],
+        "BuildingRecommend": 505,
+        "TargetGroupId": 505
+    }
+]

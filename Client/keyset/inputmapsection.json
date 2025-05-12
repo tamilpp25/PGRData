@@ -1,0 +1,46 @@
+[
+    {
+        "Id": 1,
+        "MutualExclusionIds": []
+    },
+    {
+        "Id": 2,
+        "MutualExclusionIds": [
+            3.0
+        ]
+    },
+    {
+        "Id": 3,
+        "MutualExclusionIds": [
+            2.0
+        ]
+    },
+    {
+        "Id": 101,
+        "MutualExclusionIds": []
+    },
+    {
+        "Id": 102,
+        "MutualExclusionIds": [
+            103.0
+        ]
+    },
+    {
+        "Id": 103,
+        "MutualExclusionIds": [
+            102.0
+        ]
+    },
+    {
+        "Id": 111,
+        "MutualExclusionIds": [
+            112.0
+        ]
+    },
+    {
+        "Id": 112,
+        "MutualExclusionIds": [
+            111.0
+        ]
+    }
+]

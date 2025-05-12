@@ -1,0 +1,380 @@
+[
+    {
+        "Id": 1,
+        "Name": "Battle Adjustment",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 34001,
+        "UpgradeSpend": null,
+        "Desc": "Frame DMG Amplification. Gains and refreshes the Shield every 30s. (The lower the frame's Battle Power, the higher the DMG Amplification/Shield.)"
+    },
+    {
+        "Id": 2,
+        "Name": "Shieldbearer",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 34002,
+        "UpgradeSpend": null,
+        "Desc": "Hunter deals more damage/gains Resistance, has more ATK Rate and restores 3% max HP per second"
+    },
+    {
+        "Id": 3,
+        "Name": "Trap Master",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 34003,
+        "UpgradeSpend": null,
+        "Desc": "Preparation Phase Tactical Resource +1"
+    },
+    {
+        "Id": 4,
+        "Name": "Defense",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 772490,
+        "UpgradeSpend": null,
+        "Desc": "Gun after modification with significant improvement in Armor"
+    },
+    {
+        "Id": 5,
+        "Name": "Overclock",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 772491,
+        "UpgradeSpend": null,
+        "Desc": "Salamander after modification with significant improvement in firing performance but poor mobility"
+    },
+    {
+        "Id": 6,
+        "Name": "Assistance",
+        "PluginId": null,
+        "Level": null,
+        "FightEventId": 772492,
+        "UpgradeSpend": null,
+        "Desc": "Pointy after modification with balanced performance"
+    },
+    {
+        "Id": 7,
+        "Name": "Scorch Device",
+        "PluginId": 1.0,
+        "Level": 1.0,
+        "FightEventId": 34007,
+        "UpgradeSpend": null,
+        "Desc": "Ignites enemies within range for 2/3/5s (upgrade during the preparation phase), dealing 400% Fire DMG per second."
+    },
+    {
+        "Id": 8,
+        "Name": "Scorch Device",
+        "PluginId": 1.0,
+        "Level": 2.0,
+        "FightEventId": 34008,
+        "UpgradeSpend": 1250.0,
+        "Desc": "Constructs within range deals 30% more damage and gains 30% Resistance"
+    },
+    {
+        "Id": 9,
+        "Name": "Scorch Device",
+        "PluginId": 1.0,
+        "Level": 3.0,
+        "FightEventId": 34009,
+        "UpgradeSpend": 1750.0,
+        "Desc": "Allies within range deal 20% more damage, gain 20% Resistance, and move 20% faster for 5s"
+    },
+    {
+        "Id": 10,
+        "Name": "Supply Device",
+        "PluginId": 2.0,
+        "Level": 1.0,
+        "FightEventId": 34010,
+        "UpgradeSpend": 750.0,
+        "Desc": "Allies within range restore 150/200/250 HP per second (upgrade during the preparation phase)"
+    },
+    {
+        "Id": 11,
+        "Name": "Supply Device",
+        "PluginId": 2.0,
+        "Level": 2.0,
+        "FightEventId": 34011,
+        "UpgradeSpend": 1250.0,
+        "Desc": "Units that receive healing restore 25% more HP for every 20% HP lost"
+    },
+    {
+        "Id": 12,
+        "Name": "Supply Device",
+        "PluginId": 2.0,
+        "Level": 3.0,
+        "FightEventId": 34012,
+        "UpgradeSpend": 1750.0,
+        "Desc": "Converts 3000% of the excess healing to Physical DMG"
+    },
+    {
+        "Id": 13,
+        "Name": "Dark Device",
+        "PluginId": 3.0,
+        "Level": 1.0,
+        "FightEventId": 34013,
+        "UpgradeSpend": 750.0,
+        "Desc": "Deals 900% Dark DMG to 1 enemy within range every 4/3/2s (upgrade during the preparation phase)"
+    },
+    {
+        "Id": 14,
+        "Name": "Dark Device",
+        "PluginId": 3.0,
+        "Level": 2.0,
+        "FightEventId": 34014,
+        "UpgradeSpend": 1250.0,
+        "Desc": "For every identical device within double the range of the device, the device deals 12 more damage. And for every different device within that range, the character deals 12% more damage."
+    },
+    {
+        "Id": 15,
+        "Name": "Dark Device",
+        "PluginId": 3.0,
+        "Level": 3.0,
+        "FightEventId": 34015,
+        "UpgradeSpend": 1750.0,
+        "Desc": "Dark Device gains target +1 for every 2 allies within range (up to +3)"
+    },
+    {
+        "Id": 16,
+        "Name": "Bolt Device",
+        "PluginId": 4.0,
+        "Level": 1.0,
+        "FightEventId": 34016,
+        "UpgradeSpend": 750.0,
+        "Desc": "Casts lightning at a random spot within range every 2/1.5/1s (upgrade during the preparation phase), dealing 1200% Lightning DMG to enemies within 2m."
+    },
+    {
+        "Id": 17,
+        "Name": "Bolt Device",
+        "PluginId": 4.0,
+        "Level": 2.0,
+        "FightEventId": 34017,
+        "UpgradeSpend": 1250.0,
+        "Desc": "Upon receiving Lightning DMG, enemies have -5% All Resistances for 3.5s. (Can be stacked.)"
+    },
+    {
+        "Id": 18,
+        "Name": "Bolt Device",
+        "PluginId": 4.0,
+        "Level": 3.0,
+        "FightEventId": 34018,
+        "UpgradeSpend": 1750.0,
+        "Desc": "Enemies within range take 10% more damage. Units closer to the center receive more damage. The device also casts one extra lightning."
+    },
+    {
+        "Id": 19,
+        "Name": "Frost Device",
+        "PluginId": 5.0,
+        "Level": 1.0,
+        "FightEventId": 34019,
+        "UpgradeSpend": 750.0,
+        "Desc": "Slows down the enemies within range by 30/40/50% (upgrade during the preparation phase)"
+    },
+    {
+        "Id": 20,
+        "Name": "Frost Device",
+        "PluginId": 5.0,
+        "Level": 2.0,
+        "FightEventId": 34020,
+        "UpgradeSpend": 1250.0,
+        "Desc": "Enemies within range receives Ice DMG equal to 10% max HP every 2s"
+    },
+    {
+        "Id": 21,
+        "Name": "Frost Device",
+        "PluginId": 5.0,
+        "Level": 3.0,
+        "FightEventId": 34021,
+        "UpgradeSpend": 1750.0,
+        "Desc": "Upon dealing damage, the device has a 10% chance to freeze the enemy for 2s"
+    },
+    {
+        "Id": 22,
+        "Name": "Amplification Core",
+        "PluginId": 6.0,
+        "Level": 1.0,
+        "FightEventId": 772421,
+        "UpgradeSpend": 600.0,
+        "Desc": "Hunter DMG +25%"
+    },
+    {
+        "Id": 23,
+        "Name": "Amplification Core",
+        "PluginId": 6.0,
+        "Level": 2.0,
+        "FightEventId": 772422,
+        "UpgradeSpend": 800.0,
+        "Desc": "Hunter DMG +35%"
+    },
+    {
+        "Id": 24,
+        "Name": "Amplification Core",
+        "PluginId": 6.0,
+        "Level": 3.0,
+        "FightEventId": 772423,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Hunter DMG +50%"
+    },
+    {
+        "Id": 25,
+        "Name": "Energy Core",
+        "PluginId": 7.0,
+        "Level": 1.0,
+        "FightEventId": 772425,
+        "UpgradeSpend": 600.0,
+        "Desc": "Hunter HP +25%"
+    },
+    {
+        "Id": 26,
+        "Name": "Energy Core",
+        "PluginId": 7.0,
+        "Level": 2.0,
+        "FightEventId": 772426,
+        "UpgradeSpend": 800.0,
+        "Desc": "Hunter HP +35%"
+    },
+    {
+        "Id": 27,
+        "Name": "Energy Core",
+        "PluginId": 7.0,
+        "Level": 3.0,
+        "FightEventId": 772427,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Hunter HP +50%"
+    },
+    {
+        "Id": 28,
+        "Name": "Amplification Field",
+        "PluginId": 8.0,
+        "Level": 1.0,
+        "FightEventId": 772462,
+        "UpgradeSpend": 600.0,
+        "Desc": "Allies within 6m around the hunter gain +5% DMG"
+    },
+    {
+        "Id": 29,
+        "Name": "Amplification Field",
+        "PluginId": 8.0,
+        "Level": 2.0,
+        "FightEventId": 772463,
+        "UpgradeSpend": 800.0,
+        "Desc": "Allies within 6m around the hunter gain +8% DMG"
+    },
+    {
+        "Id": 30,
+        "Name": "Amplification Field",
+        "PluginId": 8.0,
+        "Level": 3.0,
+        "FightEventId": 772464,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Allies within 6m around the hunter gain +12% DMG"
+    },
+    {
+        "Id": 31,
+        "Name": "Protection Field",
+        "PluginId": 9.0,
+        "Level": 1.0,
+        "FightEventId": 772472,
+        "UpgradeSpend": 600.0,
+        "Desc": "Allies within 6m around the hunter gain +5% Resistance"
+    },
+    {
+        "Id": 32,
+        "Name": "Protection Field",
+        "PluginId": 9.0,
+        "Level": 2.0,
+        "FightEventId": 772473,
+        "UpgradeSpend": 800.0,
+        "Desc": "Allies within 6m around the hunter gain +8% Resistance"
+    },
+    {
+        "Id": 33,
+        "Name": "Protection Field",
+        "PluginId": 9.0,
+        "Level": 3.0,
+        "FightEventId": 772474,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Allies within 6m around the hunter gain +12% Resistance"
+    },
+    {
+        "Id": 34,
+        "Name": "Maintenance Device",
+        "PluginId": 10.0,
+        "Level": 1.0,
+        "FightEventId": 772429,
+        "UpgradeSpend": 600.0,
+        "Desc": "After dealing damage, hunter restores slight HP based on the damage"
+    },
+    {
+        "Id": 35,
+        "Name": "Maintenance Device",
+        "PluginId": 10.0,
+        "Level": 2.0,
+        "FightEventId": 772430,
+        "UpgradeSpend": 800.0,
+        "Desc": "After dealing damage, hunter restores medium HP based on the damage"
+    },
+    {
+        "Id": 36,
+        "Name": "Maintenance Device",
+        "PluginId": 10.0,
+        "Level": 3.0,
+        "FightEventId": 772431,
+        "UpgradeSpend": 1100.0,
+        "Desc": "After dealing damage, hunter restores massive HP based on the damage"
+    },
+    {
+        "Id": 37,
+        "Name": "Molten Core",
+        "PluginId": 11.0,
+        "Level": 1.0,
+        "FightEventId": 772436,
+        "UpgradeSpend": 600.0,
+        "Desc": "Hunter's attacks have a 25% chance to ignite the enemy for 2s, dealing Fire DMG equal to 6% of the enemy's max HP"
+    },
+    {
+        "Id": 38,
+        "Name": "Molten Core",
+        "PluginId": 11.0,
+        "Level": 2.0,
+        "FightEventId": 772437,
+        "UpgradeSpend": 800.0,
+        "Desc": "Hunter's attacks have a 35% chance to ignite the enemy for 3s, dealing Fire DMG equal to 6% of the enemy's max HP"
+    },
+    {
+        "Id": 39,
+        "Name": "Molten Core",
+        "PluginId": 11.0,
+        "Level": 3.0,
+        "FightEventId": 772438,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Hunter's attacks have a 50% chance to ignite the enemy for 4s, dealing Fire DMG equal to 6% of the enemy's max HP"
+    },
+    {
+        "Id": 40,
+        "Name": "Freezing Core",
+        "PluginId": 12.0,
+        "Level": 1.0,
+        "FightEventId": 772450,
+        "UpgradeSpend": 600.0,
+        "Desc": "Hunter's attacks have a 10% chance to freeze the enemy 1s"
+    },
+    {
+        "Id": 41,
+        "Name": "Freezing Core",
+        "PluginId": 12.0,
+        "Level": 2.0,
+        "FightEventId": 772451,
+        "UpgradeSpend": 800.0,
+        "Desc": "Hunter's attacks have a 15% chance to freeze the enemy 1.5s"
+    },
+    {
+        "Id": 42,
+        "Name": "Freezing Core",
+        "PluginId": 12.0,
+        "Level": 3.0,
+        "FightEventId": 772452,
+        "UpgradeSpend": 1100.0,
+        "Desc": "Hunter's attacks have a 20% chance to freeze the enemy 2s"
+    }
+]

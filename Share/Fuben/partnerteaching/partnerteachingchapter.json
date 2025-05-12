@@ -1,0 +1,488 @@
+[
+    {
+        "Id": 1,
+        "Name": "Adaptation Fitting - Toniris",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "CRA-",
+        "OpenCondition": [
+            1002003
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter01.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg01.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/HeTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgHe01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgHe02.png",
+        "StageIds": [
+            30101111,
+            30101112.0,
+            30101009.0
+        ],
+        "Order": 1
+    },
+    {
+        "Id": 2,
+        "Name": "Adaptation Fitting - Frost Oath",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "FV-",
+        "OpenCondition": [
+            1002004
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter02.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg02.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/MaTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101121,
+            30101012.0,
+            30101123.0,
+            30101124.0,
+            30101125.0
+        ],
+        "Order": 2
+    },
+    {
+        "Id": 3,
+        "Name": "Adaptation Fitting - Nitor",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "CR-",
+        "OpenCondition": [
+            1002006
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter03.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg03.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/MaoTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101019
+        ],
+        "Order": 3
+    },
+    {
+        "Id": 4,
+        "Name": "Adaptation Fitting - Boreas",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "INF-",
+        "OpenCondition": [
+            1002017
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter04.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg04.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/MaoTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterEagleStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101021
+        ],
+        "Order": 4
+    },
+    {
+        "Id": 5,
+        "Name": "Adaptation Fitting - Jet Jaeger",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "BR-",
+        "OpenCondition": [
+            1002119
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter05.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg05.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/HuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterHuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101024
+        ],
+        "Order": 5
+    },
+    {
+        "Id": 6,
+        "Name": "Adaptation Fitting - Moonhopper",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "LN-",
+        "OpenCondition": [
+            1002120
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter06.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg06.png",
+        "ChapterIcon": null,
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterTuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101028
+        ],
+        "Order": 6
+    },
+    {
+        "Id": 7,
+        "Name": "Adaptation Fitting: Shimmer",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "FN-",
+        "OpenCondition": [
+            1002121
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter07.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg07.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner01.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterYuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101031
+        ],
+        "Order": 7
+    },
+    {
+        "Id": 8,
+        "Name": "Adaptation Fitting: Punchy",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "CJ-",
+        "OpenCondition": [
+            1002122
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter08.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg08.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner02.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterQuanStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101038
+        ],
+        "Order": 8
+    },
+    {
+        "Id": 9,
+        "Name": "Adaptation Fitting: Rainbow",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "HJ-",
+        "OpenCondition": [
+            1002123
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter09.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg09.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner03.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterWuzeiStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101041
+        ],
+        "Order": 9
+    },
+    {
+        "Id": 10,
+        "Name": "Adaptation Fitting: Motorbolt",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "CT-",
+        "OpenCondition": [
+            1002124
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter10.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg10.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner04.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterMotorStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101044
+        ],
+        "Order": 10
+    },
+    {
+        "Id": 11,
+        "Name": "Adaptation Fitting: Hades Fangs",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "MY-",
+        "OpenCondition": [
+            1002125
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter11.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg11.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner05.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterMotorStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101047
+        ],
+        "Order": 11
+    },
+    {
+        "Id": 12,
+        "Name": "Adaptation Fitting: Dawn Chorus",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "ZY-",
+        "OpenCondition": [
+            1002126
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter12.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg12.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner06.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterGriffonStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101050
+        ],
+        "Order": 12
+    },
+    {
+        "Id": 13,
+        "Name": "Adaptation Fitting: Cetus",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "QZ-",
+        "OpenCondition": [
+            1002127
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter13.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg13.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner07.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterQianZeStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101054
+        ],
+        "Order": 13
+    },
+    {
+        "Id": 14,
+        "Name": "Adaptation Fitting: Shadow Wing",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "YF-",
+        "OpenCondition": [
+            1002128
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter14.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg14.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner08.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBianfuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101057
+        ],
+        "Order": 14
+    },
+    {
+        "Id": 15,
+        "Name": "Adaptation Fitting: Huiyu",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "HY-",
+        "OpenCondition": [
+            1002129
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter15.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg15.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner09.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterHuiYuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101060
+        ],
+        "Order": 15
+    },
+    {
+        "Id": 16,
+        "Name": "Adaptation Fitting: Guardrake",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "SE-",
+        "OpenCondition": [
+            1002130
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter16.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg16.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner10.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterSuEStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101063
+        ],
+        "Order": 16
+    },
+    {
+        "Id": 17,
+        "Name": "Adaptation Fitting: Dreamwing",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "MW-",
+        "OpenCondition": [
+            1002131
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter17.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg17.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner11.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterMeiWuStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101065
+        ],
+        "Order": 17
+    },
+    {
+        "Id": 18,
+        "Name": "Adaptation Fitting: Snowveil",
+        "ActivityTimeId": null,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "RX-",
+        "OpenCondition": [
+            1002132
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter18.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg18.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner12.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterRuiXueStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101070
+        ],
+        "Order": 18
+    },
+    {
+        "Id": 19,
+        "Name": "Adaptation Fitting: Corvus",
+        "ActivityTimeId": 29602.0,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "YK-",
+        "OpenCondition": [
+            1002133
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter19.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg19.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner13.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterYiKongStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101074
+        ],
+        "Order": 19
+    },
+    {
+        "Id": 20,
+        "Name": "Adaptation Fitting: Bramble Angler",
+        "ActivityTimeId": 32702.0,
+        "ActivityCondition": [
+            8006
+        ],
+        "StagePrefix": "AJ-",
+        "OpenCondition": [
+            1002134
+        ],
+        "BannerIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBannerChapter20.png",
+        "Background": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterBg20.png",
+        "ChapterIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Banner/UiPartnerTeachingBigBanner14.png",
+        "FubenPrefab": "Assets/Product/Ui/ComponentPrefab/PartnerTeaching/TuTeachingChapter.prefab",
+        "FightStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingFight.prefab",
+        "StoryStagePrefab": "Assets/Product/Ui/ComponentPrefab/GridStage/GridStagePartnerTeachingStory.prefab",
+        "StoryStageDetailBg": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingChapterAnJiStage01.png",
+        "StoryStageDetailIcon": "Assets/Product/Texture/Image/UiPartnerTeaching/Chapter/UiPartnerTeachingImgBgMa02.png",
+        "StageIds": [
+            30101078
+        ],
+        "Order": 20
+    }
+]

@@ -1,0 +1,7760 @@
+[
+    {
+        "Id": 1,
+        "Desc": "Building: Small Ruins: Produce Wood x300 and Iron x300 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            300.0,
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2,
+        "Desc": "Building: Small Ruins: Convert the building into a vacant area after 1 turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 3,
+        "Desc": "Building: Medium Ruins: Produce Wood x600 and Iron x600 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            600.0,
+            600.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 4,
+        "Desc": "Building: Medium Ruins: The building will be converted to a vacant area after 1 turn",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 5,
+        "Desc": "Building: Big Ruins: Produce Wood x1000 and Iron x1000 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            1000.0,
+            1000.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 6,
+        "Desc": "Building: Big Ruins: Convert the building into a vacant area after 1 turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 7,
+        "Desc": "Building: Medical Depot: Produces Serum x5 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 8,
+        "Desc": "Building: Supply Depot: Produces Food x5 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 9,
+        "Desc": "Building: Outpost: Unlock Exploration Team",
+        "Trigger": 13.0,
+        "EffectType": 2003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 10,
+        "Desc": "Building: Outpost: Unlock the Exploration feature",
+        "Trigger": 13.0,
+        "EffectType": 2006,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 10101,
+        "Desc": "Stage 1 Initialization: Wood x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10102,
+        "Desc": "Stage 1 Initialization: Iron x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10103,
+        "Desc": "Stage 1 Initialization: Serum x10",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10104,
+        "Desc": "Stage 1 Initialization: Food x10",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10105,
+        "Desc": "Stage 1 Initialization: 10 Members, 60 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10.0,
+            60.0,
+            60.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10106,
+        "Desc": "Stage 1 Initialization: Own Small Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10107,
+        "Desc": "Stage 1 Initialization: Own [Outpost] x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10109,
+        "Desc": "Stage 1 Fixed Event 1: Grant Medicine x20 and Food x20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            20.0,
+            20.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10110,
+        "Desc": "Stage 1 Fixed Event 1: Summon Strong Man x5",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10111,
+        "Desc": "Stage 1 Fixed Event 2: Reduce 8 Health and 8 Satiety",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -8.0,
+            -8.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10151,
+        "Desc": "Stage 1 Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            215.0,
+            2.0,
+            135.0
+        ]
+    },
+    {
+        "Id": 10152,
+        "Desc": "Stage 1 Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            260.0,
+            2.0,
+            325.0
+        ]
+    },
+    {
+        "Id": 10153,
+        "Desc": "Stage 1 Location 3",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 10154,
+        "Desc": "Stage 1 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            25.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 10155,
+        "Desc": "Stage 1 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            4.0,
+            60.0,
+            60.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10156,
+        "Desc": "Stage 1 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            120.0,
+            2.0,
+            140.0
+        ]
+    },
+    {
+        "Id": 10157,
+        "Desc": "Stage 1 Location 6",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            210.0,
+            2.0,
+            225.0
+        ]
+    },
+    {
+        "Id": 10158,
+        "Desc": "Stage 1 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            15.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 10159,
+        "Desc": "Stage 1 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            60.0,
+            60.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10201,
+        "Desc": "Stage 2 Initialization: Wood x300, Iron x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            300.0,
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10202,
+        "Desc": "Stage 2 Initialization: Medicine x30, Food x30",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            30.0,
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10203,
+        "Desc": "Stage 2 Initialization: 25 Members, 60 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            25.0,
+            60.0,
+            60.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10204,
+        "Desc": "Stage 2 Initialization: Own Small Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10205,
+        "Desc": "Stage 2 Initialization: Own Medium Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10207,
+        "Desc": "Stage 2 Fixed Event 1: Grant Medicine x25 and Food x25",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            25.0,
+            25.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10208,
+        "Desc": "Stage 2 Fixed Event 2: Reduce Serum x5 and Food x5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0,
+            4.0
+        ],
+        "SourceCount": [
+            5.0,
+            5.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 10209,
+        "Desc": "Stage 2 Fixed Event 3: Reduce Serum x10 and Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0,
+            4.0
+        ],
+        "SourceCount": [
+            10.0,
+            10.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 10210,
+        "Desc": "Stage 2 Fixed Event 4: Reduce Serum x15 and Food x15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0,
+            4.0
+        ],
+        "SourceCount": [
+            15.0,
+            15.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 10212,
+        "Desc": "Stage 2 Branch Storyline [The Way Home: Agree] Choice Outcome: Unlock [Rocky Riverbank]",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10213.0
+        ]
+    },
+    {
+        "Id": 10218,
+        "Desc": "Stage 2 Branch Storyline [The Way Home - 2: Positive Answer] Choice Outcome: Receive Wood x50 and Iron x50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10220,
+        "Desc": "Stage 2 Branch Storyline [The Way Home - 2: Negative Answer] Choice Outcome: Receive Wood x50 and Iron x50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10222,
+        "Desc": "Stage 2 Branch Storyline [The Way Home - 3: Siegfried Dies]: Receive Wood x50 and Iron x50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10224,
+        "Desc": "Stage 2 Branch Storyline [The Way Home - 3: Siegfried Lives]: Gain 1 new member",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            80.0,
+            80.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10251,
+        "Desc": "Stage 2 Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            165.0,
+            2.0,
+            180.0
+        ]
+    },
+    {
+        "Id": 10252,
+        "Desc": "Stage 2 Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            135.0,
+            2.0,
+            120.0
+        ]
+    },
+    {
+        "Id": 10253,
+        "Desc": "Stage 2 Location 3",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            240.0,
+            2.0,
+            200.0,
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 10254,
+        "Desc": "Stage 2 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            95.0,
+            2.0,
+            110.0
+        ]
+    },
+    {
+        "Id": 10255,
+        "Desc": "Stage 2 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            260.0,
+            2.0,
+            260.0
+        ]
+    },
+    {
+        "Id": 10256,
+        "Desc": "Stage 2 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            50.0,
+            50.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10257,
+        "Desc": "Stage 2 Location 6",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            75.0,
+            2.0,
+            85.0
+        ]
+    },
+    {
+        "Id": 10258,
+        "Desc": "Stage 2 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            35.0
+        ]
+    },
+    {
+        "Id": 10259,
+        "Desc": "Stage 2 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            11.0,
+            60.0,
+            60.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10260,
+        "Desc": "Stage 2 Location 8",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            55.0,
+            2.0,
+            90.0
+        ]
+    },
+    {
+        "Id": 10261,
+        "Desc": "Stage 2 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            260.0,
+            2.0,
+            245.0
+        ]
+    },
+    {
+        "Id": 10262,
+        "Desc": "Stage 2 Location 10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            425.0,
+            2.0,
+            455.0
+        ]
+    },
+    {
+        "Id": 10263,
+        "Desc": "Stage 2 Location 11",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            25.0,
+            4.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 10264,
+        "Desc": "Stage 2 Location 11",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10.0,
+            60.0,
+            60.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10265,
+        "Desc": "Stage 2 Branch Storyline Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            170.0,
+            2.0,
+            150.0
+        ]
+    },
+    {
+        "Id": 10266,
+        "Desc": "Stage 2 Branch Storyline Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            60.0,
+            2.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10301,
+        "Desc": "Stage 3 Initialization: Wood x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10302,
+        "Desc": "Stage 3 Initialization: Iron x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10303,
+        "Desc": "Stage 3 Initialization: Serum x10",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10304,
+        "Desc": "Stage 3 Initialization: Food x10",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10305,
+        "Desc": "Stage 3 Initialization: 28 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            28.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10306,
+        "Desc": "Stage 3 Initialization: Own Small Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10307,
+        "Desc": "Stage 3 Initialization: Own Big Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10309,
+        "Desc": "Stage 3 Fixed Event: Reduce 25 Health and 25 Satiety",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -25.0,
+            -25.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10310,
+        "Desc": "Stage 3 Fixed Event: Reduce 30 Health and 30 Satiety",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -30.0,
+            -30.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10311,
+        "Desc": "Stage 3 Fixed Event: Reduce 35 Health and 35 Satiety",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -35.0,
+            -35.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10312,
+        "Desc": "Stage 3 Branch Storyline [Father: I'll Do My Best] Choice Outcome: Unlock [Riverside Camp]",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10314.0
+        ]
+    },
+    {
+        "Id": 10322,
+        "Desc": "Stage 3 Branch Storyline [Father: Two Bullets] Choice Outcome: Unlock [\"Orchard\"]",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10315.0
+        ]
+    },
+    {
+        "Id": 10326,
+        "Desc": "Stage 3 Branch Storyline [Father: Thread] Choice Outcome: Unlock [\"Orchard\" 2]",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10316.0
+        ]
+    },
+    {
+        "Id": 10328,
+        "Desc": "Stage 3 Branch Storyline [Father: Reunion] Event Outcome: Obtain Wood x75 and Iron x75",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            75.0,
+            75.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10351,
+        "Desc": "Stage 3 Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            21.0,
+            4.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 10352,
+        "Desc": "Stage 3 Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 10353,
+        "Desc": "Stage 3 Location 3",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            45.0,
+            4.0,
+            35.0
+        ]
+    },
+    {
+        "Id": 10354,
+        "Desc": "Stage 3 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            15.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 10355,
+        "Desc": "Stage 3 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            70.0,
+            2.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10356,
+        "Desc": "Stage 3 Location 6",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            250.0,
+            2.0,
+            260.0
+        ]
+    },
+    {
+        "Id": 10357,
+        "Desc": "Stage 3 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            355.0,
+            2.0,
+            360.0
+        ]
+    },
+    {
+        "Id": 10358,
+        "Desc": "Stage 3 Location 8",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 10359,
+        "Desc": "Stage 3 Location 8",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10360,
+        "Desc": "Stage 3 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            22.0,
+            4.0,
+            26.0
+        ]
+    },
+    {
+        "Id": 10361,
+        "Desc": "Stage 3 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            8.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 10362,
+        "Desc": "Stage 3 Location 10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            425.0,
+            2.0,
+            400.0
+        ]
+    },
+    {
+        "Id": 10363,
+        "Desc": "Stage 3 Location 11",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            285.0,
+            2.0,
+            350.0
+        ]
+    },
+    {
+        "Id": 10364,
+        "Desc": "Stage 3 Location 12",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            25.0,
+            2.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 10365,
+        "Desc": "Stage 3 Branch Storyline Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            12.0,
+            4.0,
+            9.0
+        ]
+    },
+    {
+        "Id": 10366,
+        "Desc": "Stage 3 Branch Storyline Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            16.0,
+            4.0,
+            18.0
+        ]
+    },
+    {
+        "Id": 10401,
+        "Desc": "Stage 4 Initialization: Wood x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10402,
+        "Desc": "Stage 4 Initialization: Iron x300",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10403,
+        "Desc": "Stage 4 Initialization: Serum x30",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10404,
+        "Desc": "Stage 4 Initialization: Food x30",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10405,
+        "Desc": "Stage 4 Initialization: 30 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            30.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10406,
+        "Desc": "Stage 4 Initialization: Own Medium Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10407,
+        "Desc": "Stage 4 Initialization: Own Big Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10410,
+        "Desc": "Stage 4 Fixed Event: Population +5",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            50.0,
+            50.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10417,
+        "Desc": "Stage 4 Branch Storyline [Mother: Agree] Choice Outcome: Obtain Food x8",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            8.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10422,
+        "Desc": "Stage 4 Branch Storyline [Mother - 2: Agree] Choice Outcome: Obtain Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10427,
+        "Desc": "Stage 4 Branch Storyline [Mother - 3: Agree] Choice Outcome: Obtain Food x5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10431,
+        "Desc": "Stage 4 Branch Storyline [Mother - 4: Acceptance] Outcome: Recycle Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10451,
+        "Desc": "Stage 4 Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            60.0,
+            2.0,
+            65.0
+        ]
+    },
+    {
+        "Id": 10452,
+        "Desc": "Stage 4 Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            80.0,
+            2.0,
+            95.0
+        ]
+    },
+    {
+        "Id": 10453,
+        "Desc": "Stage 4 Location 3",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            485.0,
+            2.0,
+            380.0
+        ]
+    },
+    {
+        "Id": 10454,
+        "Desc": "Stage 4 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            25.0,
+            4.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 10455,
+        "Desc": "Stage 4 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            505.0,
+            2.0,
+            555.0
+        ]
+    },
+    {
+        "Id": 10456,
+        "Desc": "Stage 4 Location 6",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            18.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 10457,
+        "Desc": "Stage 4 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            37.0,
+            4.0,
+            28.0
+        ]
+    },
+    {
+        "Id": 10458,
+        "Desc": "Stage 4 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            6.0,
+            50.0,
+            50.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10459,
+        "Desc": "Stage 4 Location 8",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "Id": 10460,
+        "Desc": "Stage 4 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            12.0
+        ]
+    },
+    {
+        "Id": 10461,
+        "Desc": "Stage 4 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            50.0,
+            50.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10462,
+        "Desc": "Stage 4 Location 10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            310.0,
+            2.0,
+            360.0,
+            3.0,
+            26.0,
+            4.0,
+            31.0
+        ]
+    },
+    {
+        "Id": 10463,
+        "Desc": "Stage 4 Location 10",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            6.0,
+            50.0,
+            50.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10464,
+        "Desc": "Stage 4 Location 11",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            15.0,
+            4.0,
+            16.0
+        ]
+    },
+    {
+        "Id": 10501,
+        "Desc": "Stage 5 Initialization: Wood x200, Iron x200",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            200.0,
+            200.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10502,
+        "Desc": "Stage 5 Initialization: Serum x31",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            31.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10503,
+        "Desc": "Stage 5 Initialization: Food x31",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            31.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10504,
+        "Desc": "Stage 5 Initialization: 30 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            30.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 10505,
+        "Desc": "Stage 5 Initialization: Own Medium Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10506,
+        "Desc": "Stage 5 Initialization: Own Big Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10507,
+        "Desc": "Stage 5 Initialization: Own Outpost x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 10508,
+        "Desc": "Stage 5 Fixed Event 1",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            -25.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10509,
+        "Desc": "Stage 5 Fixed Event 2",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            -30.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10510,
+        "Desc": "Stage 5 Fixed Event 3",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            -35.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10511,
+        "Desc": "Stage 5 Fixed Event 4",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -10.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10512,
+        "Desc": "Stage 5 Fixed Event 5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -10.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10513,
+        "Desc": "Stage 5 Fixed Event 6",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -10.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 10514,
+        "Desc": "Disaster Relief 1",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            20.0,
+            20.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10515,
+        "Desc": "Disaster Relief 2",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            30.0,
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 10551,
+        "Desc": "Stage 5 Location 1",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10552,
+        "Desc": "Stage 5 Location 2",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10553,
+        "Desc": "Stage 5 Location 3",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10554,
+        "Desc": "Stage 5 Location 4",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10555,
+        "Desc": "Stage 5 Location 5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10556,
+        "Desc": "Stage 5 Location 6",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10557,
+        "Desc": "Stage 5 Location 7",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10558,
+        "Desc": "Stage 5 Location 8",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10559,
+        "Desc": "Stage 5 Location 9",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10560,
+        "Desc": "Stage 5 Location 10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 10561,
+        "Desc": "Stage 5 Location 11",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            500.0,
+            2.0,
+            500.0
+        ]
+    },
+    {
+        "Id": 11001,
+        "Desc": "Stage Event Result: Spirit -10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 11002,
+        "Desc": "Stage Event Result: Spirit +10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 11004,
+        "Desc": "Stage Event Result: Spirit -10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 11005,
+        "Desc": "Stage Event Result: Spirit +10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 11007,
+        "Desc": "Stage Event Result: Spirit -10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 11008,
+        "Desc": "Stage Event Result: Spirit +10",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 11011,
+        "Desc": "Stage Event Result: Food -20",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 11015,
+        "Desc": "Stage Event Result: Food -100",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            100.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 11017,
+        "Desc": "Stage Event Result: Food +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 11019,
+        "Desc": "Stage Event Result: Food +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 11021,
+        "Desc": "Stage Event Result: Food -100",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            100.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 11023,
+        "Desc": "Stage Event Result: Food +50, Iron +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0,
+            4.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 11025,
+        "Desc": "Stage Event Result: Health and Spirit -30",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -30.0,
+            0.0,
+            -30.0
+        ]
+    },
+    {
+        "Id": 11027,
+        "Desc": "Stage Event Result: Food +50, Iron +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0,
+            4.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 11029,
+        "Desc": "Stage Event Result: Health and Spirit -30",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -30.0,
+            0.0,
+            -30.0
+        ]
+    },
+    {
+        "Id": 11031,
+        "Desc": "Stage Event Result: Food +50, Iron +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0,
+            4.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 11033,
+        "Desc": "Stage Event Result: Health and Spirit -30",
+        "Trigger": null,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -30.0,
+            0.0,
+            -30.0
+        ]
+    },
+    {
+        "Id": 11035,
+        "Desc": "Stage Event Result: Food -100",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            100.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 11037,
+        "Desc": "Stage Event Result: Wood +50, Iron +50",
+        "Trigger": null,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 201,
+        "Desc": "Big Medical Depot: Produces Serum x10 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 202,
+        "Desc": "Big Supply Depot: Produces Food x10 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 203,
+        "Desc": "Small Ruins: Produce Wood x100 and Iron x100 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            100.0,
+            100.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 204,
+        "Desc": "Small Ruins: Convert the building into a vacant area after 1 turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 205,
+        "Desc": "Medium Ruins: Produce Wood x100 and Iron x100 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            100.0,
+            100.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 206,
+        "Desc": "Medium Ruins: Convert the building into a vacant area after 2 turns when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0
+        ]
+    },
+    {
+        "Id": 207,
+        "Desc": "Big Ruins: Produce Wood x170 and Iron x170 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            170.0,
+            170.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 208,
+        "Desc": "Big Ruins: Convert the building into a vacant area after 3 turns when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0
+        ]
+    },
+    {
+        "Id": 209,
+        "Desc": "Medical Depot: Produces Serum x15 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 210,
+        "Desc": "Supply Depot: Produces Food x15 per day",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 211,
+        "Desc": "Outpost: Unlock Exploration Team",
+        "Trigger": 13.0,
+        "EffectType": 2003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 212,
+        "Desc": "Outpost: Unlock the Exploration feature",
+        "Trigger": 13.0,
+        "EffectType": 2006,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 20101,
+        "Desc": "Stage 1 Initialization: Wood x180",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            180.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20102,
+        "Desc": "Stage 1 Initialization: Iron x180",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            180.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20103,
+        "Desc": "Stage 1 Initialization: Serum x30",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20104,
+        "Desc": "Stage 1 Initialization: Food x30",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20105,
+        "Desc": "Stage 1 Initialization: 15 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            15.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 20106,
+        "Desc": "Stage 1 Initialization: Own Small Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            203.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20107,
+        "Desc": "Stage 1 Initialization: Own Medium Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            204.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20108,
+        "Desc": "Stage 1 Initialization: Own [Outpost] x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            209.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 201030,
+        "Desc": "Stage 1 Event: Obtained: Resident x7",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 201050,
+        "Desc": "Stage 1 Event: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 201070,
+        "Desc": "Stage 1 Event: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 201090,
+        "Desc": "Stage 1 Event: Obtained: Wood x300, Iron x300",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            300.0,
+            300.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 1103,
+        "Desc": "Sunny Day Event: Obtained: Medicine x15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 1105,
+        "Desc": "Sunny Day Event: Obtained: Medicine x20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            20.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 1107,
+        "Desc": "Sunny Day Event: Obtained: Food x15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            15.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 1109,
+        "Desc": "Sunny Day Event: Obtained: Food x20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            20.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 1111,
+        "Desc": "Sunny Day Event: Spirit +5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            5.0
+        ]
+    },
+    {
+        "Id": 1113,
+        "Desc": "Sunny Day Event: Spirit +10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 1203,
+        "Desc": "Rainy Day Event: Medicine -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1205,
+        "Desc": "Rainy Day Event: Medicine -30",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            30.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1207,
+        "Desc": "Rainy Day Event: Food -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1209,
+        "Desc": "Rainy Day Event: Food -30",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            30.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1211,
+        "Desc": "Rainy Day Event: Spirit -5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -5.0
+        ]
+    },
+    {
+        "Id": 1213,
+        "Desc": "Rainy Day Event: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 1215,
+        "Desc": "Rainy Day Event: Medicine -15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            15.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1216,
+        "Desc": "Rainy Day Event: Spirit +15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 1218,
+        "Desc": "Rainy Day Event: Medicine -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1219,
+        "Desc": "Rainy Day Event: Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 1303,
+        "Desc": "Snowy Day Event: Medical Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            207.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 1305,
+        "Desc": "Snowy Day Event: Supply Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            208.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 1307,
+        "Desc": "Snowy Day Event: Medicine -40",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            40.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1309,
+        "Desc": "Snowy Day Event: Medicine -50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            50.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1311,
+        "Desc": "Snowy Day Event: Food -40",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            40.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1313,
+        "Desc": "Snowy Day Event: Food -50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            50.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1315,
+        "Desc": "Snowy Day Event: Spirit -5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -5.0
+        ]
+    },
+    {
+        "Id": 1317,
+        "Desc": "Snowy Day Event: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 1319,
+        "Desc": "Snowy Day Event: Spirit -15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -15.0
+        ]
+    },
+    {
+        "Id": 1321,
+        "Desc": "Snowy Day Event: Food -15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            15.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1322,
+        "Desc": "Snowy Day Event: Spirit +15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 1324,
+        "Desc": "Snowy Day Event: Food -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1325,
+        "Desc": "Snowy Day Event: Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 1403,
+        "Desc": "Red Tide Event: Medical Depot stops working for 2 days",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            207.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 1405,
+        "Desc": "Red Tide Event: Supply Depot stops working for 2 days",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            208.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 1407,
+        "Desc": "Red Tide Event: Medicine -40",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            40.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1409,
+        "Desc": "Red Tide Event: Medicine -50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            50.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1411,
+        "Desc": "Red Tide Event: Food -40",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            40.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1413,
+        "Desc": "Red Tide Event: Food -50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            50.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1415,
+        "Desc": "Red Tide Event: Spirit -5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -5.0
+        ]
+    },
+    {
+        "Id": 1417,
+        "Desc": "Red Tide Event: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 1419,
+        "Desc": "Red Tide Event: Spirit -15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -15.0
+        ]
+    },
+    {
+        "Id": 1421,
+        "Desc": "Red Tide Event: Medicine -15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            15.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1422,
+        "Desc": "Red Tide Event: Spirit +15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 1424,
+        "Desc": "Red Tide Event: Medicine -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1425,
+        "Desc": "Red Tide Event: Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 1427,
+        "Desc": "Red Tide Event: Food -15",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            15.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1428,
+        "Desc": "Red Tide Event: Spirit +15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 1430,
+        "Desc": "Red Tide Event: Food -20",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            4.0
+        ],
+        "SourceCount": [
+            20.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 1431,
+        "Desc": "Red Tide Event: Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2010101,
+        "Desc": "Stage 1 Location 1: Wood x200, Iron x200",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0
+        ]
+    },
+    {
+        "Id": 2010201,
+        "Desc": "Stage 1 Location 2 Main Event Option 1: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010204.0
+        ]
+    },
+    {
+        "Id": 2010202,
+        "Desc": "Stage 1 Location 2 Main Event Option 2: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010208.0
+        ]
+    },
+    {
+        "Id": 2010203,
+        "Desc": "Stage 1 Location 2 Main Event Option 3: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010212.0
+        ]
+    },
+    {
+        "Id": 2010205,
+        "Desc": "Stage 1 Location 2 Sub-Event - 1 Option: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010206.0
+        ]
+    },
+    {
+        "Id": 2010209,
+        "Desc": "Stage 1 Location 2 Sub-Event - 2 Option: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010210.0
+        ]
+    },
+    {
+        "Id": 2010213,
+        "Desc": "Stage 1 Location 2 Sub-Event - 3 Option: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010214.0
+        ]
+    },
+    {
+        "Id": 2010215,
+        "Desc": "Stage 1 Location 2 Overall Effect: Wood x200, Iron x200",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0
+        ]
+    },
+    {
+        "Id": 2010216,
+        "Desc": "Stage 1 Location 2 Overall Effect: Survivor x1",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2010217,
+        "Desc": "Stage 1 Location 2 Overall Effect: Unlocks Location 10",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20109.0
+        ]
+    },
+    {
+        "Id": 2010301,
+        "Desc": "Obtained: Medicine x15, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            15.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2010401,
+        "Desc": "Stage 1 Location 3: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010403.0
+        ]
+    },
+    {
+        "Id": 2010402,
+        "Desc": "Obtained: Wood x120, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            120.0,
+            2.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 2010405,
+        "Desc": "Survivor x4",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            4.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2010501,
+        "Desc": "Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2010502,
+        "Desc": "Survivor x6",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            6.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2010601,
+        "Desc": "Obtained: Wood x70, Iron x125",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            70.0,
+            2.0,
+            125.0
+        ]
+    },
+    {
+        "Id": 2010701,
+        "Desc": "Obtained: Wood x30, Iron x45, Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            30.0,
+            2.0,
+            45.0,
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2010801,
+        "Desc": "Obtained: Wood x300, Iron x300",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0
+        ]
+    },
+    {
+        "Id": 2010901,
+        "Desc": "Stage 1 Location 10 Option Outcome",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010903.0
+        ]
+    },
+    {
+        "Id": 2010902,
+        "Desc": "Stage 1 Location 10 Option Outcome",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010905.0
+        ]
+    },
+    {
+        "Id": 2010904,
+        "Desc": "Stage 1 Location 10 Option Outcome",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2010905.0
+        ]
+    },
+    {
+        "Id": 2010906,
+        "Desc": "Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2010907,
+        "Desc": "Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2011001,
+        "Desc": "Wood x400, Iron x400",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            400.0,
+            2.0,
+            400.0
+        ]
+    },
+    {
+        "Id": 2011002,
+        "Desc": "Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2011101,
+        "Desc": "Obtained: Survivor x7",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20201,
+        "Desc": "Stage 2 Initialization: Wood x200",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            200.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20202,
+        "Desc": "Stage 2 Initialization: Iron x200",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            200.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20203,
+        "Desc": "Stage 2 Initialization: Serum x50",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20204,
+        "Desc": "Stage 2 Initialization: Food x50",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20205,
+        "Desc": "Stage 2 Initialization: 15 Members, 50 Health, 50 Satiety, 100 Spirit",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            15.0,
+            50.0,
+            50.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20206,
+        "Desc": "Stage 2 Initialization: Own Small Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            203.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20207,
+        "Desc": "Stage 2 Initialization: Own Medium Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            204.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20208,
+        "Desc": "Stage 2 Initialization: Own [Outpost] x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            209.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20209,
+        "Desc": "Stage 2 [Comms Device] Special Effect: Triggers [Comms Device]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202004.0
+        ]
+    },
+    {
+        "Id": 20210,
+        "Desc": "Stage 2 [Comms Device] Special Effect: Triggers [Comms From Afar]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202100.0
+        ]
+    },
+    {
+        "Id": 202005,
+        "Desc": "Stage 2 [Comms Device] Event Effect: Unlocks Location 4",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20203.0
+        ]
+    },
+    {
+        "Id": 202006,
+        "Desc": "Stage 2 [Comms Device] Event Effect: Unlocks Location 12",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20212.0
+        ]
+    },
+    {
+        "Id": 202007,
+        "Desc": "Stage 2 [Comms Device] Event Effect: Triggers [The Sea in the South]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202016.0
+        ]
+    },
+    {
+        "Id": 202009,
+        "Desc": "Stage 2 [Weather Change] Event Effect: Change of the weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            203.0,
+            204.0
+        ]
+    },
+    {
+        "Id": 202013,
+        "Desc": "Stage 2 [Weather Change] Event Effect: Change of the weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            205.0,
+            206.0
+        ]
+    },
+    {
+        "Id": 202101,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202103.0
+        ]
+    },
+    {
+        "Id": 202102,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 2 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202116.0
+        ]
+    },
+    {
+        "Id": 202104,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202106.0
+        ]
+    },
+    {
+        "Id": 202105,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202108.0
+        ]
+    },
+    {
+        "Id": 202107,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202108.0
+        ]
+    },
+    {
+        "Id": 202109,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202110.0
+        ]
+    },
+    {
+        "Id": 202111,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202112.0
+        ]
+    },
+    {
+        "Id": 202113,
+        "Desc": "Stage 2 [Comms From Afar - 1] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202114.0
+        ]
+    },
+    {
+        "Id": 202211,
+        "Desc": "Stage 2 [Comms From Afar - 2 - A] Option Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202213.0
+        ]
+    },
+    {
+        "Id": 202212,
+        "Desc": "Stage 2 [Comms From Afar - 2 - A] Option Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202215.0
+        ]
+    },
+    {
+        "Id": 202214,
+        "Desc": "Stage 2 [Comms From Afar - 2 - A] Option Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202215.0
+        ]
+    },
+    {
+        "Id": 202216,
+        "Desc": "Stage 2 [Comms From Afar - 2 - A] Option Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202217.0
+        ]
+    },
+    {
+        "Id": 202221,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202223.0
+        ]
+    },
+    {
+        "Id": 202222,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 2 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202234.0
+        ]
+    },
+    {
+        "Id": 202224,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202226.0
+        ]
+    },
+    {
+        "Id": 202225,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202228.0
+        ]
+    },
+    {
+        "Id": 202227,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202228.0
+        ]
+    },
+    {
+        "Id": 202229,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202230.0
+        ]
+    },
+    {
+        "Id": 202231,
+        "Desc": "Stage 2 [Comms From Afar - 2 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202232.0
+        ]
+    },
+    {
+        "Id": 202311,
+        "Desc": "Stage 2 [Comms From Afar - 3 - A] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202313.0
+        ]
+    },
+    {
+        "Id": 202312,
+        "Desc": "Stage 2 [Comms From Afar - 3 - A] Option 2 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202315.0
+        ]
+    },
+    {
+        "Id": 202321,
+        "Desc": "Stage 2 [Comms From Afar - 3 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202323.0
+        ]
+    },
+    {
+        "Id": 202322,
+        "Desc": "Stage 2 [Comms From Afar - 3 - B] Option 2 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202331.0
+        ]
+    },
+    {
+        "Id": 202324,
+        "Desc": "Stage 2 [Comms From Afar - 3 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202325.0
+        ]
+    },
+    {
+        "Id": 202326,
+        "Desc": "Stage 2 [Comms From Afar - 3 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202327.0
+        ]
+    },
+    {
+        "Id": 202328,
+        "Desc": "Stage 2 [Comms From Afar - 3 - B] Option 1 Effect: Triggers the next page",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202329.0
+        ]
+    },
+    {
+        "Id": 2020101,
+        "Desc": "Stage 2 Location 1 [Abandoned Postal Station] Event Outcome: Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0
+        ]
+    },
+    {
+        "Id": 2020201,
+        "Desc": "Stage 2 Location 2 [Mountain Village] Event Outcome: Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            120.0,
+            2.0,
+            120.0
+        ]
+    },
+    {
+        "Id": 2020202,
+        "Desc": "Stage 2 Location 2 [Mountain Village] Event Outcome: Triggers [White Birch Courtyard]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202014.0
+        ]
+    },
+    {
+        "Id": 2020301,
+        "Desc": "Stage 2 Location 3 [Cableway] Event Outcome: Wood x150, Iron x150",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0
+        ]
+    },
+    {
+        "Id": 2020302,
+        "Desc": "Stage 2 Location 3 [Cableway] Event Outcome: Survivor x1",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2020401,
+        "Desc": "Stage 2 Location 4 [Relatively Flat Mountain Road] Event Outcome: Wood x150, Iron x150, Medicine x60, Food x60",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0,
+            3.0,
+            60.0,
+            4.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 2020501,
+        "Desc": "Stage 2 Location 5 [Mountaintop Viewpoint] Event Outcome: Wood x100, Iron x100, Medicine x70, Food x70",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            70.0,
+            4.0,
+            70.0
+        ]
+    },
+    {
+        "Id": 2020502,
+        "Desc": "Stage 2 Location 5 [Mountaintop Viewpoint] Event Outcome: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2020901,
+        "Desc": "Stage 2 Location 9 [Resource Transfer Depot] Event Outcome: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2021001,
+        "Desc": "Stage 2 Location 10 [Eastern Resource Depot] Event Outcome: Medicine x60, Food x60",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0,
+            3.0,
+            60.0,
+            4.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 2021002,
+        "Desc": "Stage 2 Location 10 [Eastern Resource Depot] Event Outcome: Survivor x3",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2021101,
+        "Desc": "Stage 2 Location 11 [Path of Fallen Leaves] Event Outcome: Wood x10, Iron x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            10.0,
+            2.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2021102,
+        "Desc": "Stage 2 Location 11 [Path of Fallen Leaves] Event Outcome: Triggers [Joy]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202010.0
+        ]
+    },
+    {
+        "Id": 2021211,
+        "Desc": "Stage 2 Location 12 [Forest Edge - A] Event Outcome: Wood x150, Iron x150, Medicine x15, Food x15",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0,
+            3.0,
+            15.0,
+            4.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 2021212,
+        "Desc": "Stage 2 Location 12 [Forest Edge - A] Event Outcome: Triggers [Comms From Afar - 2 - A]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202210.0
+        ]
+    },
+    {
+        "Id": 2021221,
+        "Desc": "Stage 2 Location 12 [Forest Edge - B] Event Outcome: Wood x150, Iron x150, Medicine x15, Food x15",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0,
+            3.0,
+            15.0,
+            4.0,
+            15.0
+        ]
+    },
+    {
+        "Id": 2021222,
+        "Desc": "Stage 2 Location 12 [Forest Edge - B] Event Outcome: Triggers [Comms From Afar - 2 - B]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202220.0
+        ]
+    },
+    {
+        "Id": 2021311,
+        "Desc": "Stage 2 Location 13 [Burnt Forest - A] Event Outcome: Wood x300, Iron x300, Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0,
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2021312,
+        "Desc": "Stage 2 Location 13 [Burnt Forest - A] Event Outcome: Triggers [Comms From Afar - 3 - A]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202310.0
+        ]
+    },
+    {
+        "Id": 2021321,
+        "Desc": "Stage 2 Location 13 [Burnt Forest - B] Event Outcome: Wood x300, Iron x300, Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0,
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2021322,
+        "Desc": "Stage 2 Location 13 [Burnt Forest - B] Event Outcome: Triggers [Comms From Afar - 3 - B]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202320.0
+        ]
+    },
+    {
+        "Id": 2021411,
+        "Desc": "Stage 2 Location 14 [Dark Path - A] Event Outcome: Triggers [Comms From Afar - 4 - A]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202410.0
+        ]
+    },
+    {
+        "Id": 2021421,
+        "Desc": "Stage 2 Location 14 [Dark Path - B] Event Outcome: Triggers [Comms From Afar - 4 - B]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202420.0
+        ]
+    },
+    {
+        "Id": 2021431,
+        "Desc": "Stage 2 Location 14 [Dark Path - C] Event Outcome: Triggers [Comms From Afar - 4 - C]",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202430.0
+        ]
+    },
+    {
+        "Id": 2021511,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - A] Event Outcome: Obtained: Medicine x50, Food x40",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2021512,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - A] Event Outcome: Survivor x5",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2021513,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - A] Event Effect: Sub-Event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2021512.0
+        ]
+    },
+    {
+        "Id": 2021521,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - B] Event Outcome: Obtained: Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2021522,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - B] Event Outcome: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            50.0,
+            50.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2021523,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - B] Event Effect: Sub-Event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2021522.0
+        ]
+    },
+    {
+        "Id": 2021531,
+        "Desc": "Stage 2 Location 15 [Hunting Trap - C] Event Outcome: Obtained: Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2021601,
+        "Desc": "Stage 2 Location 16 [Hunter's Cabin] Event Outcome: Wood x300, Iron x300, Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0,
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2021602,
+        "Desc": "Stage 2 Location 16 [Hunter's Cabin] Event Outcome: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2021701,
+        "Desc": "Stage 2 Location 17 [Rocky Riverbank] Event Outcome: Wood x240, Iron x240",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            240.0,
+            2.0,
+            240.0
+        ]
+    },
+    {
+        "Id": 2021702,
+        "Desc": "Stage 2 Location 17 [Rocky Riverbank] Event Outcome: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2021801,
+        "Desc": "Stage 2 Location 18 [Lumberjack's Cabin] Event Outcome: Wood x350, Iron x350",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            350.0,
+            2.0,
+            350.0
+        ]
+    },
+    {
+        "Id": 2021802,
+        "Desc": "Stage 2 Location 18 [Lumberjack's Cabin] Event Outcome: Survivor x3",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2021901,
+        "Desc": "Stage 2 Location 19 [Old Logging Site] Event Outcome: Wood x480, Iron x480",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            480.0,
+            2.0,
+            480.0
+        ]
+    },
+    {
+        "Id": 2021902,
+        "Desc": "Stage 2 Location 19 [Old Logging Site] Event Outcome: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20301,
+        "Desc": "Stage 3 Initialization: Serum x40",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            40.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20302,
+        "Desc": "Stage 3 Initialization: Food x40",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            40.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20303,
+        "Desc": "Stage 3 Initialization: 20 Members, 80 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20.0,
+            80.0,
+            80.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 20304,
+        "Desc": "Stage 3 Initialization: Own Residence x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            206.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20305,
+        "Desc": "Stage 3 Initialization: Own Big Medical Depot x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20306,
+        "Desc": "Stage 3 Initialization: Own Big Supply Depot x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20307,
+        "Desc": "Stage 3: Unlock the Abandoned Farm",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20307.0
+        ]
+    },
+    {
+        "Id": 203011,
+        "Desc": "Medicine x80, Food x80",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            80.0,
+            4.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 203012,
+        "Desc": "Survivor x3",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            60.0,
+            60.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 203031,
+        "Desc": "Medicine x100, Food x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            100.0,
+            4.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 203041,
+        "Desc": "Food x50, Medicine x50, Wood x300, Iron x300",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            300.0,
+            2.0,
+            300.0,
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 203051,
+        "Desc": "Food x50, Medicine x50, Iron x200, Wood x200",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0,
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 203080,
+        "Desc": "Weather ending phase changes",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            30002.0
+        ]
+    },
+    {
+        "Id": 203081,
+        "Desc": "Iron x180, Wood x180",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            180.0,
+            2.0,
+            180.0
+        ]
+    },
+    {
+        "Id": 203082,
+        "Desc": "Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 203085,
+        "Desc": "Survivor x5",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            60.0,
+            60.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 203091,
+        "Desc": "Weather phase 2 changes",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            30003.0
+        ]
+    },
+    {
+        "Id": 203092,
+        "Desc": "Survivor x5",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            60.0,
+            60.0,
+            90.0
+        ]
+    },
+    {
+        "Id": 203093,
+        "Desc": "Stage 4 Abandoned School Option 1: Triggers the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1012,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20350.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20310,
+        "Desc": "Outpost: Unlock the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20313.0
+        ]
+    },
+    {
+        "Id": 20311,
+        "Desc": "The Drug Store stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20312,
+        "Desc": "The Supply Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20313,
+        "Desc": "A random Drug Store stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20314,
+        "Desc": "A random Supply Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20315,
+        "Desc": "Outpost Event: Medicine x5, Food x5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            5.0,
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20322,
+        "Desc": "The Drug Store stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20324,
+        "Desc": "The Supply Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20326,
+        "Desc": "The Drug Store stops working for 2 days",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 20328,
+        "Desc": "The Supply Depot stops working for 2 days",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            2.0,
+            2.0
+        ]
+    },
+    {
+        "Id": 20330,
+        "Desc": "Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 20332,
+        "Desc": "Spirit -15",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -15.0
+        ]
+    },
+    {
+        "Id": 20334,
+        "Desc": "A random Drug Store stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            201.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20336,
+        "Desc": "A random Supply Depot stops working for 1 day",
+        "Trigger": 0.0,
+        "EffectType": 3003,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            202.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20338,
+        "Desc": "Obtained: Survivor x10",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20351,
+        "Desc": "Survivor x7",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            7.0,
+            50.0,
+            50.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 20401,
+        "Desc": "Stage 4 Initialization: Serum x35",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            25.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20402,
+        "Desc": "Stage 4 Initialization: Food x35",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            25.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20403,
+        "Desc": "Stage 4 Initialization: 2 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            90.0,
+            90.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 20404,
+        "Desc": "Stage 4 Initialization: Own Shelter x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20405.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20405,
+        "Desc": "Stage 4 Initialization: Own Not-So-Small Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20403.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20406,
+        "Desc": "Stage 4 Initialization: Wood x80",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            80.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20407,
+        "Desc": "Stage 4 Initialization: Iron x80",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            80.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20408,
+        "Desc": "Stage 4 Initialization: Own Not-So-Big Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20404.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20410,
+        "Desc": "Not-So-Small Ruins: Produce Wood x200 and Iron x200 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            200.0,
+            200.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20411,
+        "Desc": "Not-So-Small Ruins: Convert the building into a vacant area after 1 turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 20412,
+        "Desc": "Not-So-Big Ruins: Produce Wood x350 and Iron x350 per turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            350.0,
+            350.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20413,
+        "Desc": "Not-So-Big Ruins: Convert the building into a vacant area after 1 turn when working properly",
+        "Trigger": 2.0,
+        "EffectType": 2004,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0
+        ]
+    },
+    {
+        "Id": 20414,
+        "Desc": "Survivor x3",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            60.0,
+            60.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 20415,
+        "Desc": "Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            10.0,
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20416,
+        "Desc": "Survivor x5",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            60.0,
+            60.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 20417,
+        "Desc": "Weather phase 2 changes",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            40002.0
+        ]
+    },
+    {
+        "Id": 20418,
+        "Desc": "Weather ending phase changes",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            40003.0
+        ]
+    },
+    {
+        "Id": 20419,
+        "Desc": "Outpost: Unlock the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20419.0
+        ]
+    },
+    {
+        "Id": 20420,
+        "Desc": "Comms Device: Unlock the subsequent event",
+        "Trigger": 0.0,
+        "EffectType": 1009,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20421.0
+        ]
+    },
+    {
+        "Id": 20432,
+        "Desc": "Sunny Day Event: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            10.0,
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20434,
+        "Desc": "Smoggy Day Event: Health -8, Satiety -8",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -8.0,
+            -8.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 204031,
+        "Desc": "Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 204081,
+        "Desc": "Wood x1000, Iron x1000",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            1000.0,
+            2.0,
+            1000.0
+        ]
+    },
+    {
+        "Id": 20501,
+        "Desc": "Stage 5 Initialization 1: Residence x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            206.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20502,
+        "Desc": "Stage 5 Initialization 2: Medicine x50, Food x50",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20503,
+        "Desc": "Stage 5 Initialization 3: 12 Members, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            12.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 20504,
+        "Desc": "Stage 5 Initialization 4: Small Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            203.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20505,
+        "Desc": "Stage 5 Initialization 5: Medium Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            204.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2050114,
+        "Desc": "Stage 5 Main City: Obtained: Food x5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2050118,
+        "Desc": "Stage 5 Main City: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            10.0,
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2050203,
+        "Desc": "Stage 5 Exploration: Obtained: Islander x3, 80 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2050204,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x50, Food x50, Wood x180, Iron x180",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            180.0,
+            2.0,
+            180.0,
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2050207,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x60, Food x60",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            60.0,
+            4.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 2050305,
+        "Desc": "Stage 5 Exploration: Obtained: Wood x100, Iron x100, Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2050307,
+        "Desc": "Stage 5 Exploration: Obtained: Wood x100, Iron x100, Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2050309,
+        "Desc": "Stage 5 Exploration: Obtained: Wood x100, Iron x100, Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2050405,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2050411,
+        "Desc": "Stage 5 Main City: Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            30.0,
+            30.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2050413,
+        "Desc": "Stage 5 Main City: Medicine -5, Food -5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0,
+            4.0
+        ],
+        "SourceCount": [
+            5.0,
+            5.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 2050415,
+        "Desc": "Stage 5 Main City: Health -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -10.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 2050501,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x25, Food x25",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            25.0,
+            4.0,
+            25.0
+        ]
+    },
+    {
+        "Id": 2050601,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x85, Food x85",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            85.0,
+            4.0,
+            85.0
+        ]
+    },
+    {
+        "Id": 2050602,
+        "Desc": "Stage 5 Exploration: Obtained: Islander x5, 80 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2050705,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2050711,
+        "Desc": "Stage 5 Main City: Obtained: Medicine x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2050903,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2051005,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2051105,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2051111,
+        "Desc": "Stage 5 Exploration: Obtained: Food x5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            5.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2051113,
+        "Desc": "Stage 5 Main City: Spirit -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -10.0
+        ]
+    },
+    {
+        "Id": 2051115,
+        "Desc": "Stage 5 Main City: Health -10",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -10.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 2051204,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2051206,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x5, Food x5",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            5.0,
+            4.0,
+            5.0
+        ]
+    },
+    {
+        "Id": 2051303,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2051404,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2051406,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2051504,
+        "Desc": "Stage 5 Exploration: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2051617,
+        "Desc": "Stage 5 Main City: Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            10.0,
+            10.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2051619,
+        "Desc": "Stage 5 Main City: Spirit -5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            -5.0
+        ]
+    },
+    {
+        "Id": 2051621,
+        "Desc": "Stage 5 Main City: Health -5",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            -5.0,
+            0.0,
+            0.0
+        ]
+    },
+    {
+        "Id": 2051912,
+        "Desc": "Stage 5 Ending Event C: Main City Obtained: Survivor x1, 100 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            100.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 2052005,
+        "Desc": "Stage 5 Red Tide Event 1: Main City: Medicine -5",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [
+            3.0,
+            4.0
+        ],
+        "SourceCount": [
+            5.0,
+            5.0
+        ],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": []
+    },
+    {
+        "Id": 2052008,
+        "Desc": "Stage 5 Red Tide Event 2: Main City: Residents -1",
+        "Trigger": 0.0,
+        "EffectType": 1013,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2052010,
+        "Desc": "Stage 5 Rainbow Event 1: Main City: Spirit +20",
+        "Trigger": 0.0,
+        "EffectType": 1002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            0.0,
+            0.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2050600,
+        "Desc": "Stage 5 Weather Phase 2: To Blizzard [Event 6]",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            50021.0
+        ]
+    },
+    {
+        "Id": 2051000,
+        "Desc": "Stage 5 Weather Phase 3: Blizzard + Red Tide [Event 10]",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            50031.0,
+            50032.0,
+            50033.0,
+            50034.0
+        ]
+    },
+    {
+        "Id": 2051700,
+        "Desc": "Stage 5 Weather Phase 4: Rainbow [Event 17]",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            50041.0,
+            50042.0,
+            50043.0
+        ]
+    },
+    {
+        "Id": 2052012,
+        "Desc": "Stage 5 Weather Phase 5: Triggers Sunny weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            50051.0
+        ]
+    },
+    {
+        "Id": 2051701,
+        "Desc": "Triggers a Sunny Day Event on day 5 after Stage 5 [Event 17] takes place",
+        "Trigger": 0.0,
+        "EffectType": 1012,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2052011.0,
+            1.0,
+            5.0
+        ]
+    },
+    {
+        "Id": 205041,
+        "Desc": "Unlock Location 4: Complete the exploration event of Location 6",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20504.0
+        ]
+    },
+    {
+        "Id": 205071,
+        "Desc": "Unlock Location 7: Complete the exploration event of Location 10",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20507.0
+        ]
+    },
+    {
+        "Id": 205111,
+        "Desc": "Unlock Location 11: Complete the exploration event of Location 15",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20511.0
+        ]
+    },
+    {
+        "Id": 205161,
+        "Desc": "Unlock Location 16: Complete the exploration event of Location 17",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20516.0
+        ]
+    },
+    {
+        "Id": 20601,
+        "Desc": "Stage 6 Initialization: Wood x500",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            1.0
+        ],
+        "TargetCount": [
+            280.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20602,
+        "Desc": "Stage 6 Initialization: Iron x500",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            2.0
+        ],
+        "TargetCount": [
+            280.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20603,
+        "Desc": "Stage 6 Initialization: Serum x60",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20604,
+        "Desc": "Stage 6 Initialization: Food x60",
+        "Trigger": 1.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            4.0
+        ],
+        "TargetCount": [
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20605,
+        "Desc": "Stage 6 Initialization: 15 Members, 80, 80, 100 Stat Points",
+        "Trigger": 1.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            15.0,
+            80.0,
+            80.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 20606,
+        "Desc": "Stage 6 Initialization: Own Small Ruins x1",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            203.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20607,
+        "Desc": "Stage 6 Initialization: Own Medium Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            204.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 20608,
+        "Desc": "Stage 6 Initialization: Own Big Ruins x2",
+        "Trigger": 1.0,
+        "EffectType": 1007,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            205.0,
+            2.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 206030,
+        "Desc": "Stage 6 Day 6 - 10 Weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            602.0
+        ]
+    },
+    {
+        "Id": 206050,
+        "Desc": "Stage 6 Day 11 - 15 Weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            603.0
+        ]
+    },
+    {
+        "Id": 206070,
+        "Desc": "Stage 6 Day 15 - 20 Weather",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            604.0
+        ]
+    },
+    {
+        "Id": 206090,
+        "Desc": "Stage 6 [Map Update] Event Outcome: Unlocks [Abandoned Industrial Park]",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20627.0
+        ]
+    },
+    {
+        "Id": 20615,
+        "Desc": "Obtained: 5 Refugees with 90 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            10.0,
+            90.0,
+            90.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20616,
+        "Desc": "Obtained: Medicine x25, Food x25, Wood x120, Iron x120",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0,
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0,
+            120.0,
+            120.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20617,
+        "Desc": "Obtained: 5 Refugees with 80 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20618,
+        "Desc": "Obtained: Medicine x40, Food x40, Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0,
+            1.0,
+            2.0
+        ],
+        "TargetCount": [
+            40.0,
+            40.0,
+            100.0,
+            100.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20619,
+        "Desc": "Obtained: 5 Refugees with 60 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            60.0,
+            60.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20620,
+        "Desc": "Obtained: Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            50.0,
+            50.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 20621,
+        "Desc": "Obtained: 4 Refugees with 80 Stat Points",
+        "Trigger": 0.0,
+        "EffectType": 1005,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            4.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 20622,
+        "Desc": "Obtained: Medicine x120, Food x120",
+        "Trigger": 0.0,
+        "EffectType": 1001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [
+            3.0,
+            4.0
+        ],
+        "TargetCount": [
+            120.0,
+            120.0
+        ],
+        "Args": []
+    },
+    {
+        "Id": 2060101,
+        "Desc": "Obtained: Iron x120, Wood x120, Food x10, Medicine x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            120.0,
+            2.0,
+            120.0,
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2060102,
+        "Desc": "Obtained: Survivor x3",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2060201,
+        "Desc": "Obtained: Iron x100, Wood x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0
+        ]
+    },
+    {
+        "Id": 2060301,
+        "Desc": "Obtained: Iron x200, Wood x200",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0
+        ]
+    },
+    {
+        "Id": 2060302,
+        "Desc": "Obtained: Survivor x4",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            4.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2060401,
+        "Desc": "Unlocked: Location 11",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20611.0
+        ]
+    },
+    {
+        "Id": 2060612,
+        "Desc": "Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2060813,
+        "Desc": "Unlocked: Signal Station",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20609.0
+        ]
+    },
+    {
+        "Id": 2061311,
+        "Desc": "Unlocked: Location 5",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20605.0
+        ]
+    },
+    {
+        "Id": 2061312,
+        "Desc": "Weather Change: Red Tide",
+        "Trigger": 0.0,
+        "EffectType": 5001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            607.0
+        ]
+    },
+    {
+        "Id": 2061401,
+        "Desc": "Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2061501,
+        "Desc": "Obtained: Wood x100, Iron x100, Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2061502,
+        "Desc": "Obtained: Medicine x10, Food x10, Wood x50, Iron x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            50.0,
+            2.0,
+            50.0,
+            3.0,
+            10.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2061601,
+        "Desc": "Obtained: Medicine x20, Food x20",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            20.0,
+            4.0,
+            20.0
+        ]
+    },
+    {
+        "Id": 2061602,
+        "Desc": "Unlocked: Location 3",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20603.0
+        ]
+    },
+    {
+        "Id": 2061701,
+        "Desc": "Obtained: Medicine x25",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2061801,
+        "Desc": "Wood x200, Iron x200, Medicine x40, Food x40",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0,
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 2061901,
+        "Desc": "Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2062001,
+        "Desc": "Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2062101,
+        "Desc": "Obtained: Iron x200, Wood x200, Medicine x60, Food x60",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            200.0,
+            2.0,
+            200.0,
+            3.0,
+            60.0,
+            4.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 2062201,
+        "Desc": "Obtained: Medicine x40, Food x40",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 2062202,
+        "Desc": "Unlocked: Location 19",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20619.0
+        ]
+    },
+    {
+        "Id": 2062301,
+        "Desc": "Obtained: Medicine x30, Food x30",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2062401,
+        "Desc": "Obtained: Medicine x15, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            15.0,
+            4.0,
+            10.0
+        ]
+    },
+    {
+        "Id": 2062501,
+        "Desc": "Obtained: Medicine x10, Food x10",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            30.0,
+            4.0,
+            30.0
+        ]
+    },
+    {
+        "Id": 2062601,
+        "Desc": "Obtained: Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    },
+    {
+        "Id": 2062701,
+        "Desc": "Obtained: Iron x220, Wood x220",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            220.0,
+            2.0,
+            200.0
+        ]
+    },
+    {
+        "Id": 2062702,
+        "Desc": "Obtained: Survivor x5",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            5.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2062801,
+        "Desc": "Obtained: Medicine x40, Food x40, Wood x150, Iron x150",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            150.0,
+            2.0,
+            150.0,
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 2062802,
+        "Desc": "Unlocked: Location 29",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20629.0
+        ]
+    },
+    {
+        "Id": 2062901,
+        "Desc": "Obtained: Food x40, Medicine x40, Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 2062902,
+        "Desc": "Obtained: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2063001,
+        "Desc": "Obtained: Food x40, Medicine x40, Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            40.0,
+            4.0,
+            40.0
+        ]
+    },
+    {
+        "Id": 2063002,
+        "Desc": "Unlocked: Location 17",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20617.0
+        ]
+    },
+    {
+        "Id": 2063003,
+        "Desc": "Unlocked: Location 18",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20618.0
+        ]
+    },
+    {
+        "Id": 2063004,
+        "Desc": "Unlocked: Location 21",
+        "Trigger": 0.0,
+        "EffectType": 1008,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20621.0
+        ]
+    },
+    {
+        "Id": 2063005,
+        "Desc": "Obtained: Food x60, Medicine x60, Wood x100, Iron x100",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            1.0,
+            100.0,
+            2.0,
+            100.0,
+            3.0,
+            60.0,
+            4.0,
+            60.0
+        ]
+    },
+    {
+        "Id": 2063006,
+        "Desc": "Obtained: Survivor x2",
+        "Trigger": 0.0,
+        "EffectType": 4002,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            2.0,
+            80.0,
+            80.0,
+            80.0
+        ]
+    },
+    {
+        "Id": 2061101,
+        "Desc": "Trigger [Children in the Health Center] on day 2",
+        "Trigger": 0.0,
+        "EffectType": 1012,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            20620.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2061102,
+        "Desc": "Obtained: Medicine x50, Food x50",
+        "Trigger": 0.0,
+        "EffectType": 4001,
+        "SourceType": [],
+        "SourceCount": [],
+        "TargetType": [],
+        "TargetCount": [],
+        "Args": [
+            3.0,
+            50.0,
+            4.0,
+            50.0
+        ]
+    }
+]

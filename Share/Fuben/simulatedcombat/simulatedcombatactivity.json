@@ -1,0 +1,26 @@
+[
+    {
+        "Id": 1,
+        "Name": "Restrain Simulation",
+        "TimeId": null,
+        "ConsumeIds": [
+            62401,
+            62402
+        ],
+        "ConsumeInitCounts": [
+            300
+        ],
+        "ConsumeCountLimit": [
+            1,
+            -1
+        ],
+        "PointId": 62403,
+        "HardConditionId": 930001,
+        "ChapterPrefab": [
+            "Assets/Product/Ui/ComponentPrefab/FuBenSimulatedCombat/FuBenSimulatedCombatNor.prefab",
+            "Assets/Product/Ui/ComponentPrefab/FuBenSimulatedCombat/FuBenSimulatedCombatHard.prefab"
+        ],
+        "MaxDailyStageStarRewardCount": 3,
+        "BannerBg": "Assets/Product/Texture/Image/UiFubenActivityBanner/FubenActivityBanner31.png"
+    }
+]

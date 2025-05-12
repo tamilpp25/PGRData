@@ -1,0 +1,145 @@
+local XUiGridEquipOtherV2P7 = XClass(XUiNode, "XUiGridEquipOtherV2P7")
+
+function XUiGridEquipOtherV2P7:OnStart(rootUi, clickCb)
+    self.RootUi = rootUi
+    self.ClickCb = clickCb
+    self:InitAutoScript()
+end
+
+function XUiGridEquipOtherV2P7:Refresh(equip, awarenessSetPositions, characterId)
+    local templateId = equip.TemplateId
+
+    if self.RImgIcon and self.RImgIcon:Exist() then
+        self.RImgIcon:SetRawImage(XMVCA.XEquip:GetEquipIconPath(templateId, equip.Breakthrough), nil, true)
+    end
+
+    --通用的横条品质色
+    if self.ImgQuality then
+        self.RootUi.Parent:SetUiSprite(self.ImgQuality, equip:GetEquipQualityPath())
+
+        if self.ImgQualityEffect then
+            local effectPath = equip:GetEquipQualityEffectPath()
+            self.ImgQualityEffect.gameObject:SetActiveEx(effectPath ~= nil)
+            if effectPath then
+                self.ImgQualityEffect.gameObject:LoadUiEffect(effectPath)
+            end
+        end
+    end
+
+    --装备专用的竖条品质色
+    if self.ImgEquipQuality then
+        self.RootUi.Parent:SetUiSprite(self.ImgEquipQuality, equip:GetEquipBgPath())
+
+        if self.ImgEquipQualityEffect then
+            local effectPath = equip:GetEquipBgEffectPath()
+            self.ImgEquipQualityEffect.gameObject:SetActiveEx(effectPath ~= nil)
+            if effectPath then
+                self.ImgEquipQualityEffect.gameObject:LoadUiEffect(effectPath)
+            end
+        end
+    end
+
+    if self.TxtName then
+        self.TxtName.text = XMVCA.XEquip:GetEquipName(templateId)
+    end
+
+    if self.TxtLevel then
+        self.TxtLevel.text = equip.Level
+    end
+
+    -- 公约驻守激活橙色边框
+    local equipSite = XMVCA.XEquip:GetEquipSiteByEquip(equip)
+    local chapterId = XDataCenter.FubenAwarenessManager.GetChapterIdList()[equipSite]
+    local isChapterIdInOccupyList = nil
+    if awarenessSetPositions then
+        isChapterIdInOccupyList = table.contains(awarenessSetPositions, chapterId)
+    end
+    local isActiveAwarenessOcuupy = isChapterIdInOccupyList
+    if self.ImgFrame then
+        self.ImgFrame.gameObject:SetActiveEx(isActiveAwarenessOcuupy)
+    end
+
+    if self.PanelSite and self.TxtSite then
+        local equipSite = XMVCA.XEquip:GetEquipSiteByEquip(equip)
+        if equipSite and equipSite ~= XEnumConst.EQUIP.EQUIP_SITE.WEAPON then
+            self.TxtSite.text = "0" .. equipSite
+            self.PanelSite.gameObject:SetActiveEx(true)
+        else
+            self.PanelSite.gameObject:SetActiveEx(false)
+        end
+    end
+
+    for i = 1, XEnumConst.EQUIP.MAX_STAR_COUNT do
+        if self["ImgGirdStar" .. i] then
+            if i <= XMVCA.XEquip:GetEquipStar(templateId) then
+                self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(true)
+            else
+                self["ImgGirdStar" .. i].transform.parent.gameObject:SetActiveEx(false)
+            end
+        end
+    end
+
+    for i = 1, XEnumConst.EQUIP.MAX_RESONANCE_SKILL_COUNT do
+        local obj = self["ImgResonance" .. i]
+        if obj then
+            local resonanceInfo = equip.ResonanceInfo
+            if resonanceInfo and resonanceInfo[i] then
+                local icon = XMVCA.XEquip:GetResoanceIconPath(equip:IsEquipPosAwaken(i))
+
+                local awaken = equip.AwakeSlotList and equip.AwakeSlotList[i] and true or false
+                local bindCharId = resonanceInfo[i].CharacterId
+
+                if isActiveAwarenessOcuupy and awaken and XTool.IsNumberValid(characterId) and bindCharId == characterId then
+                    icon = CS.XGame.ClientConfig:GetString("AwarenessOcuupyActiveResonanced")
+                end
+
+                self.RootUi.Parent:SetUiSprite(obj, icon)
+                obj.gameObject:SetActiveEx(true)
+            else
+                obj.gameObject:SetActiveEx(false)
+            end
+        end
+    end
+
+    self:UpdateBreakthrough(equip)
+
+end
+
+function XUiGridEquipOtherV2P7:UpdateBreakthrough(equip)
+    if XTool.UObjIsNil(self.ImgBreakthrough) then
+        return
+    end
+
+    local icon
+    if equip.Breakthrough ~= 0 then
+        icon = XMVCA.XEquip:GetEquipBreakThroughSmallIcon(equip.Breakthrough)
+    end
+
+    if icon then
+        self.RootUi.Parent:SetUiSprite(self.ImgBreakthrough, icon)
+        self.ImgBreakthrough.gameObject:SetActiveEx(true)
+    else
+        self.ImgBreakthrough.gameObject:SetActiveEx(false)
+    end
+end
+
+function XUiGridEquipOtherV2P7:InitAutoScript()
+    XTool.InitUiObject(self)
+    CsXUiHelper.RegisterClickEvent(self.BtnClick,function() self:OnBtnClickClick() end)
+
+    --v2.5 品质特效
+    if self.ImgQuality then
+        self.ImgQualityEffect = XUiHelper.TryGetComponent(self.ImgQuality.transform, "ImgQualityEffect")
+    end
+    if self.ImgEquipQuality then
+        self.ImgEquipQualityEffect = XUiHelper.TryGetComponent(self.ImgEquipQuality.transform, "ImgEquipQualityEffect")
+    end
+end
+
+function XUiGridEquipOtherV2P7:OnBtnClickClick()
+    if self.ClickCb then
+        self.ClickCb()
+    end
+end
+
+return XUiGridEquipOtherV2P7

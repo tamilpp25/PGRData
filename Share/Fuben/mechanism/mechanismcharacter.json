@@ -1,0 +1,202 @@
+[
+    {
+        "Id": 1,
+        "Name": "Bianca: Stigmata",
+        "CharacterId": 1041004,
+        "RobotId": 171002,
+        "FightEventIds": [
+            2265101,
+            2265102
+        ],
+        "BuffConditions": [
+            774800,
+            1046903
+        ],
+        "CharacterTitles": [
+            "Burst",
+            "Sharp Reserve"
+        ],
+        "CharacterDesc": [
+            "Deliver burst DMG based on the accumulated Truewill.",
+            "Basic Attack and 3-Ping fill up the Sharp Reserve."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconNewMod2001.png",
+            "Assets/Product/Texture/Image/IconAffix/AffixIconBodong.png"
+        ],
+        "BuffNames": [
+            "Oathlight Refraction",
+            "Radiant Resonance"
+        ],
+        "BuffDesc": [
+            "When casting Sword Dance, each time the swordwaves damage enemies, it triggers Ultima Slash if the Sharp Reserve allows.",
+            "Consume all remaining Ultima (up to 30) to deal an additional Ultima Slash DMG equal to Ultima x200% when you cast the Phase 2 Signature [Illuminated Abyss]."
+        ]
+    },
+    {
+        "Id": 2,
+        "Name": "Hanying: Solacetune",
+        "CharacterId": 1241003,
+        "RobotId": 171001,
+        "FightEventIds": [
+            2265103,
+            2265104
+        ],
+        "BuffConditions": [
+            1046901,
+            1046904
+        ],
+        "CharacterTitles": [
+            "Looping Circle"
+        ],
+        "CharacterDesc": [
+            "Ultima Slash can be released quickly and repeatedly to accumulate Truewill."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconTongling.png",
+            "Assets/Product/Texture/Image/IconAffix/IconAffixDuyuUp.png"
+        ],
+        "BuffNames": [
+            "Butterfly's Waltz",
+            "Harmonic Legato"
+        ],
+        "BuffDesc": [
+            "The Sharp Reserve fills up 100% faster.",
+            "Each time Ultima Slash is cast, the number of slashes triggered by each charge of Ultima Slash is doubled."
+        ]
+    },
+    {
+        "Id": 3,
+        "Name": "Alisa: Echo",
+        "CharacterId": 1261003,
+        "RobotId": 171003,
+        "FightEventIds": [
+            2265105,
+            2265106
+        ],
+        "BuffConditions": [
+            774800,
+            1046902
+        ],
+        "CharacterTitles": [
+            "Buff",
+            "Sharp Reserve"
+        ],
+        "CharacterDesc": [
+            "Provides a buff for Ultima Slash and CRIT DMG.",
+            "3-Ping and Cipher Orb fill up the Sharp Reserve."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconDudou.png",
+            "Assets/Product/Texture/Image/IconAffix/AffixIconBudong.png"
+        ],
+        "BuffNames": [
+            "Aegis of Arrows",
+            "Verdict to Sever Sins"
+        ],
+        "BuffDesc": [
+            "QTE fills the Sharp Reserve by 100 points every second for 5s. Each trigger refreshes the duration.",
+            "Each time Echo activates Core Passive - Judgment Co-Strike, it increases Ultima Slash CRIT DMG by 50%, stacking up to 100%."
+        ]
+    },
+    {
+        "Id": 4,
+        "Name": "Qu: Shukra",
+        "CharacterId": 1521004,
+        "RobotId": 171005,
+        "FightEventIds": [
+            2265201,
+            2265202
+        ],
+        "BuffConditions": [
+            774800,
+            1046907
+        ],
+        "CharacterTitles": [
+            "Burst",
+            "Glaciation"
+        ],
+        "CharacterDesc": [
+            "Deals massive extra Glaciation DMG while Ice Spikes are active.",
+            "Basic Attack and 3-Ping grant Glaciation."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconKangbing.png",
+            "Assets/Product/Texture/Image/IconAffix/AffixIconBingjing.png"
+        ],
+        "BuffNames": [
+            "Stormy Frost",
+            "Frigid Elegy"
+        ],
+        "BuffDesc": [
+            "While Ice Spikes are active, 3-Ping will trigger Ice Accumulation and deal extra Glaciation DMG.",
+            "Casting Phase 2 Signature, Sovereign's Presence, while Ice Spikes are active will deal extra Glaciation DMG based on the current Congelation."
+        ]
+    },
+    {
+        "Id": 5,
+        "Name": "Wanshi: Lucid Dreamer",
+        "CharacterId": 1211003,
+        "RobotId": 171004,
+        "FightEventIds": [
+            2265203,
+            2265204
+        ],
+        "BuffConditions": [
+            1046905,
+            1046908
+        ],
+        "CharacterTitles": [
+            "Looping Circle"
+        ],
+        "CharacterDesc": [
+            "Quickly accumulates Arctic Ice Layer and activates Ice Spikes."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/IconAffix/AffixIconYubing.png",
+            "Assets/Product/Texture/Image/IconAffix/IconAffixBingshuangUp.png"
+        ],
+        "BuffNames": [
+            "Snow Owl's Hunt",
+            "Submerged in Gloom"
+        ],
+        "BuffDesc": [
+            "The duration of Ice Spikes increases by 12s.",
+            "Every time you trigger Ice Accumulation, increase the Glaciation DMG you deal by an extra 20% for 5s. This effect can be stacked up to 100%."
+        ]
+    },
+    {
+        "Id": 6,
+        "Name": "No. 21: Feral",
+        "CharacterId": 1221003,
+        "RobotId": 171006,
+        "FightEventIds": [
+            2265205,
+            2265206
+        ],
+        "BuffConditions": [
+            774800,
+            1046906
+        ],
+        "CharacterTitles": [
+            "Buff",
+            "Glaciation"
+        ],
+        "CharacterDesc": [
+            "Provides Signal Orb recovery and DMG buffs.",
+            "Basic Attack and 3-Ping grant Glaciation."
+        ],
+        "BuffIcons": [
+            "Assets/Product/Texture/Image/UiFubenBossSingle/BossSingleIconPowerbing.png",
+            "Assets/Product/Texture/Image/IconAffix/AffixIconDongjie.png"
+        ],
+        "BuffNames": [
+            "Shadowed Tracker",
+            "Poised to Act"
+        ],
+        "BuffDesc": [
+            "Receive an additional 100 Glaciation Value and +100% Glaciation DMG upon triggering QTE or healing. Cooldown: 5s.",
+            "QTE or healing grants 2 sets of Signal Orbs to all characters on the field. 5s cooldown."
+        ]
+    }
+]

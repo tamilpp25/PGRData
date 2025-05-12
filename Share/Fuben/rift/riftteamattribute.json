@@ -1,0 +1,44 @@
+[
+    {
+        "Id": 1,
+        "Name": "Might",
+        "LimitInit": 20,
+        "LimitMax": 99,
+        "EffectGroupIds": [
+            1
+        ],
+        "Desc": "Increases the number of ATK Add-on drops."
+    },
+    {
+        "Id": 2,
+        "Name": "Constitution",
+        "LimitInit": 20,
+        "LimitMax": 99,
+        "EffectGroupIds": [
+            2,
+            3.0
+        ],
+        "Desc": "Increases the conversion rate of HP, DEF, and duplicate Add-ons."
+    },
+    {
+        "Id": 3,
+        "Name": "Perception",
+        "LimitInit": 20,
+        "LimitMax": 99,
+        "EffectGroupIds": [
+            4
+        ],
+        "Desc": "Reduces enemy resistance and increases the drop rate of Simulation Crystal Flux"
+    },
+    {
+        "Id": 4,
+        "Name": "Knowledge",
+        "LimitInit": 20,
+        "LimitMax": 99,
+        "EffectGroupIds": [
+            11,
+            12.0
+        ],
+        "Desc": "Increases Elemental DMG, CRIT DMG, and the amount of Hyper gained."
+    }
+]

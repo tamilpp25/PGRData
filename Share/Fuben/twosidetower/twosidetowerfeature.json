@@ -1,0 +1,1652 @@
+[
+    {
+        "Id": 1,
+        "FightEventId": 50600,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMoai2.png",
+        "Name": "Petrification",
+        "Image": null,
+        "Desc": "The device will petrify <color=#34aff9>all units</color> within <color=#34aff9>10m</color> every <color=#34aff9>5</color>s.",
+        "DescZonglan": "The device will petrify <color=#34aff9>all units</color> <color=#34aff9>within 10m</color> every <color=#34aff9>5</color>s."
+    },
+    {
+        "Id": 2,
+        "FightEventId": 50601,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHeidong2.png",
+        "Name": "Black Hole",
+        "Image": null,
+        "Desc": "The device will pull <color=#34aff9>all units</color> nearby every <color=#34aff9>15</color>s.",
+        "DescZonglan": "The device will pull <color=#34aff9>all units</color> nearby every <color=#34aff9>15</color>s."
+    },
+    {
+        "Id": 3,
+        "FightEventId": 50602,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12251.png",
+        "Name": "Sweeping Laser",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg02.png",
+        "Desc": "The device will shoot a laser beam at the character, dealing DMG equal to 10% of max HP to <color=#34aff9>all units</color> on the path.",
+        "DescZonglan": "The device will shoot a laser beam at the character, dealing DMG equal to 10% of max HP to <color=#34aff9>all units</color> on the path."
+    },
+    {
+        "Id": 4,
+        "FightEventId": 50603,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13001.png",
+        "Name": "Full-On Bombardment",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg01.png",
+        "Desc": "The device will shoot at the character, dealing damage equal to 30% of max HP to <color=#34aff9>all units</color> within range.",
+        "DescZonglan": "The device will shoot at the character, dealing damage equal to 30% of max HP to <color=#34aff9>all units</color> within range."
+    },
+    {
+        "Id": 5,
+        "FightEventId": 50604,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22080.png",
+        "Name": "Fast Recovery",
+        "Image": null,
+        "Desc": "All units <color=#34aff9>within 10m</color> from the device will restore 1% of max HP every second.",
+        "DescZonglan": "All units <color=#34aff9>within 10m</color> from the device will restore 1% of max HP every second."
+    },
+    {
+        "Id": 6,
+        "FightEventId": 50605,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22001.png",
+        "Name": "Healing",
+        "Image": null,
+        "Desc": "All units that are more than <color=#34aff9>10m away</color> from the device will restore 1% of max HP every second.",
+        "DescZonglan": "All units that are more than <color=#34aff9>10m away</color> from the device will restore 1% of max HP every second."
+    },
+    {
+        "Id": 7,
+        "FightEventId": 50606,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe2.png",
+        "Name": "Radiation",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg03.png",
+        "Desc": "All units <color=#34aff9>within 10m</color> from the device will receive damage equal to 7% of max HP every second.",
+        "DescZonglan": "All units <color=#34aff9>within 10m</color> from the device will receive damage equal to 7% of max HP every second."
+    },
+    {
+        "Id": 8,
+        "FightEventId": 50607,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBodong2.png",
+        "Name": "Wave",
+        "Image": null,
+        "Desc": "All units that are <color=#34aff9>10m away</color> from the device will receive DMG equal to 7% of max HP every second.",
+        "DescZonglan": "All units that are <color=#34aff9>10m away</color> from the device will receive DMG equal to 7% of max HP every second."
+    },
+    {
+        "Id": 9,
+        "FightEventId": 50608,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconMoai2.png",
+        "Name": "Stagnancy",
+        "Image": null,
+        "Desc": "Character's attacks will petrify enemies. Petrified enemies will be <color=#34aff9>immune</color> to damage by the character for <color=#34aff9>5</color>s. Cooldown: <color=#34aff9>10</color>s.",
+        "DescZonglan": "Character's attacks will petrify enemies. Petrified enemies will be <color=#34aff9>immune</color> to damage by the character for <color=#34aff9>5</color>s. Cooldown: <color=#34aff9>10</color>s."
+    },
+    {
+        "Id": 10,
+        "FightEventId": 50609,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHeidong2.png",
+        "Name": "Turmoil",
+        "Image": null,
+        "Desc": "Enemies will generate a black hole to pull your allies. And every time they <color=#34aff9>receive damage</color>, they will unleash a shockwave and deal damage to <color=#34aff9>all nearby units</color>.",
+        "DescZonglan": "Enemies will generate a black hole to pull your allies. And every time they <color=#34aff9>receive damage</color>, they will unleash a shockwave and deal damage to <color=#34aff9>all nearby units</color>."
+    },
+    {
+        "Id": 11,
+        "FightEventId": 50610,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconXunjie2.png",
+        "Name": "Follow-Up",
+        "Image": null,
+        "Desc": "Enemies move faster but <color=#34aff9>receive more damage</color>.",
+        "DescZonglan": "Enemies move faster but <color=#34aff9>receive more damage</color>."
+    },
+    {
+        "Id": 12,
+        "FightEventId": 50611,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe2.png",
+        "Name": "Self-Hatred",
+        "Image": null,
+        "Desc": "Enemies deal damage to nearby units over time. The <color=#34aff9>closer the units, the more damage they will receive</color>.",
+        "DescZonglan": "Enemies deal damage to nearby units over time. The <color=#34aff9>closer the units, the more damage they will receive</color>."
+    },
+    {
+        "Id": 13,
+        "FightEventId": 50612,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21161.png",
+        "Name": "Implosion",
+        "Image": null,
+        "Desc": "Enemies will be <color=#34aff9>immune</color> to damage from the character but will lose HP over time.",
+        "DescZonglan": "Enemies will be <color=#34aff9>immune</color> to damage from the character but will lose HP over time."
+    },
+    {
+        "Id": 14,
+        "FightEventId": 50613,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png",
+        "Name": "Cost of Freedom",
+        "Image": null,
+        "Desc": "Enemies will not be affected by control effects but will receive <color=#34aff9>more damage</color>.",
+        "DescZonglan": "Enemies will not be affected by control effects but will receive <color=#34aff9>more damage</color>."
+    },
+    {
+        "Id": 15,
+        "FightEventId": 50614,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Hesitation",
+        "Image": null,
+        "Desc": "Every time when an enemy <color=#34aff9>receives damage</color>, the attacker will lose Dodge Gauge value and movement speed.",
+        "DescZonglan": "Every time when an enemy <color=#34aff9>receives damage</color>, the attacker will lose Dodge Gauge value and movement speed."
+    },
+    {
+        "Id": 16,
+        "FightEventId": 50615,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShanxian2.png",
+        "Name": "Wave Teleport",
+        "Image": null,
+        "Desc": "Enemies gain Flash. Each time after an enemy flashes, they will <color=#34aff9>receive more damage</color>.",
+        "DescZonglan": "Enemies gain Flash. Each time after an enemy flashes, they will <color=#34aff9>receive more damage</color>."
+    },
+    {
+        "Id": 17,
+        "FightEventId": 50616,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13011.png",
+        "Name": "Matrix Exchange",
+        "Image": null,
+        "Desc": "Character <color=#34aff9>will not enter Matrix when dodges</color>, but all pings will be regarded as 3-Pings.",
+        "DescZonglan": "Character <color=#34aff9>will not enter Matrix when dodges</color>, but all pings will be regarded as 3-Pings."
+    },
+    {
+        "Id": 18,
+        "FightEventId": 50617,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12121.png",
+        "Name": "Matrix Weakness",
+        "Image": null,
+        "Desc": "Character has a shorter cooldown, but enemies have a greatly higher DMG Reduction <color=#34aff9>outside the Matrix</color>.",
+        "DescZonglan": "Character has a shorter cooldown, but enemies have a greatly higher DMG Reduction <color=#34aff9>outside the Matrix</color>."
+    },
+    {
+        "Id": 19,
+        "FightEventId": 50618,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png",
+        "Name": "Wild Gambler",
+        "Image": null,
+        "Desc": "Character deals <color=#34aff9>1000%</color> more Signature DMG and <color=#34aff9>dies 10s after the Signature Move hits the target</color>.",
+        "DescZonglan": "Character deals <color=#34aff9>1000%</color> more Signature DMG and <color=#34aff9>dies 10s after the Signature Move hits the target</color>."
+    },
+    {
+        "Id": 20,
+        "FightEventId": 50619,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21011.png",
+        "Name": "Perpetual Motion",
+        "Image": null,
+        "Desc": "Character deals more damage but <color=#34aff9>cannot cast the Signature Move</color>.",
+        "DescZonglan": "Character deals more damage but <color=#34aff9>cannot cast the Signature Move</color>."
+    },
+    {
+        "Id": 21,
+        "FightEventId": 50620,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22060.png",
+        "Name": "Collaborative Plan",
+        "Image": null,
+        "Desc": "Character swap cooldown and <color=#34aff9>QTE</color> cooldown will be shorter, but the character will <color=#34aff9>lose ATK</color> over time when on the battlefield. The effect will be reset upon character swap.",
+        "DescZonglan": "Character swap cooldown and <color=#34aff9>QTE</color> cooldown will be shorter, but the character will <color=#34aff9>lose ATK</color> over time when on the battlefield. The effect will be reset upon character swap."
+    },
+    {
+        "Id": 22,
+        "FightEventId": 50621,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21121.png",
+        "Name": "Iron Shield",
+        "Image": null,
+        "Desc": "<color=#34aff9>Unable to switch characters</color> or use Signal Orbs to activate QTE, but the characters on the battlefield will have more ATK over time and one free QTE at the beginning of the battle.",
+        "DescZonglan": "<color=#34aff9>Unable to switch characters</color> or use Signal Orbs to activate QTE, but the characters on the battlefield will have more ATK over time and one free QTE at the beginning of the battle."
+    },
+    {
+        "Id": 23,
+        "FightEventId": 50622,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21081.png",
+        "Name": "Signal Absorption",
+        "Image": null,
+        "Desc": "The Basic Attack <color=#34aff9>will not grant Signal Orbs</color>, but Energy will be restored at a higher rate.",
+        "DescZonglan": "The Basic Attack <color=#34aff9>will not grant Signal Orbs</color>, but Energy will be restored at a higher rate."
+    },
+    {
+        "Id": 24,
+        "FightEventId": 50623,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21151.png",
+        "Name": "Signal Concentration",
+        "Image": null,
+        "Desc": "<color=#34aff9>Unable to gain Energy</color>. Every time when the Basic Attack grants Signal Orb(s), 1 bonus random Signal Orb will be granted.",
+        "DescZonglan": "<color=#34aff9>Unable to gain Energy</color>. Every time when the Basic Attack grants Signal Orb(s), 1 bonus random Signal Orb will be granted."
+    },
+    {
+        "Id": 25,
+        "FightEventId": 50624,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11051.png",
+        "Name": "Fairy",
+        "Image": null,
+        "Desc": "Character restores Dodge Gauge value at a higher rate but will receive more damage for <color=#34aff9>6</color>s after each dodge.",
+        "DescZonglan": "Character restores Dodge Gauge value at a higher rate but will receive more damage for <color=#34aff9>6</color>s after each dodge."
+    },
+    {
+        "Id": 26,
+        "FightEventId": 50625,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21161.png",
+        "Name": "Heavy as Stone",
+        "Image": null,
+        "Desc": "Character <color=#34aff9>gains DMG Reduction</color> but will lose <color=#34aff9>all Dodge Gauge value</color> when dodges.",
+        "DescZonglan": "Character <color=#34aff9>gains DMG Reduction</color> but will lose <color=#34aff9>all Dodge Gauge value</color> when dodges."
+    },
+    {
+        "Id": 27,
+        "FightEventId": 50626,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21111.png",
+        "Name": "Splitting",
+        "Image": null,
+        "Desc": "Enemies will summon a clone for every <color=#34aff9>30</color>s they survive. Clones will <color=#34aff9>lose HP over time</color>.",
+        "DescZonglan": "Enemies will summon a clone for every <color=#34aff9>30</color>s they survive. Clones will <color=#34aff9>lose HP over time<color=#34aff9>."
+    },
+    {
+        "Id": 28,
+        "FightEventId": 50627,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22060.png",
+        "Name": "Phantom",
+        "Image": null,
+        "Desc": "Enemies will summon 2 clones <color=#34aff9>upon death</color>. Clones will <color=#34aff9>lose HP over time</color>.",
+        "DescZonglan": "Enemies will summon 2 clones <color=#34aff9>upon death</color>. Clones will <color=#34aff9>lose HP over time</color>."
+    },
+    {
+        "Id": 29,
+        "FightEventId": 50628,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFushe2.png",
+        "Name": "Infiltration",
+        "Image": null,
+        "Desc": "<color=#34aff9>All characters'</color> max HP will decrease over time until 10 HP.",
+        "DescZonglan": "<color=#34aff9>All characters'</color> max HP will decrease over time until 10 HP."
+    },
+    {
+        "Id": 30,
+        "FightEventId": 50629,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShexian2.png",
+        "Name": "Dominator",
+        "Image": null,
+        "Desc": "Enemies will be immune to Matrix effects.",
+        "DescZonglan": "Enemies will be immune to Matrix effects."
+    },
+    {
+        "Id": 31,
+        "FightEventId": 50630,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12001.png",
+        "Name": "Attack Upon Death",
+        "Image": null,
+        "Desc": "Upon the death of an enemy, the characters on the battlefield will lose <color=#34aff9>10% HP</color>.",
+        "DescZonglan": "Upon the death of an enemy, the characters on the battlefield will lose <color=#34aff9>10% HP</color>."
+    },
+    {
+        "Id": 32,
+        "FightEventId": 50631,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11121.png",
+        "Name": "Twins",
+        "Image": null,
+        "Desc": "At the beginning of the battle, summons a clone of the enemy <color=#34aff9>with the highest HP</color> on the battlefield.",
+        "DescZonglan": "At the beginning of the battle, summons a clone of the enemy <color=#34aff9>with the highest HP</color> on the battlefield."
+    },
+    {
+        "Id": 33,
+        "FightEventId": 50632,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33021.png",
+        "Name": "Signal Disruption",
+        "Image": null,
+        "Desc": "Upon the <color=#34aff9>death</color> of an enemy, all characters will lose 1 Signal Orb.",
+        "DescZonglan": "Upon the <color=#34aff9>death</color> of an enemy, all characters will lose 1 Signal Orb."
+    },
+    {
+        "Id": 34,
+        "FightEventId": 50633,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu2.png",
+        "Name": "Dynamic Calibration",
+        "Image": null,
+        "Desc": "Enemies will restore HP over time but will restore HP at a lower speed after taking damage.",
+        "DescZonglan": "Enemies will restore HP over time but will restore HP at a lower speed after taking damage."
+    },
+    {
+        "Id": 35,
+        "FightEventId": 50634,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21161.png",
+        "Name": "Final Struggle",
+        "Image": null,
+        "Desc": "<color=#34aff9>Upon death</color>, enemies will grant massive DMG Reduction to other characters for <color=#34aff9>6</color>s.",
+        "DescZonglan": "<color=#34aff9>Upon death</color>, enemies will grant massive DMG Reduction to other characters for <color=#34aff9>6</color>s."
+    },
+    {
+        "Id": 36,
+        "FightEventId": 50635,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconGangti2.png",
+        "Name": "Rigid Body",
+        "Image": null,
+        "Desc": "Enemies takes 1 DMG only from incoming attacks. This effect is removed after taking DMG 12 times, and is resumed 8s later.",
+        "DescZonglan": "Enemies takes 1 DMG only from incoming attacks. This effect is removed after taking DMG 12 times, and is resumed 8s later."
+    },
+    {
+        "Id": 37,
+        "FightEventId": 50636,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShanxian2.png",
+        "Name": "Flash",
+        "Image": null,
+        "Desc": "Enemies will teleport to the character at intervals.",
+        "DescZonglan": "Enemies will teleport to the character at intervals."
+    },
+    {
+        "Id": 38,
+        "FightEventId": 50637,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhuanyi2.png",
+        "Name": "Teleport",
+        "Image": null,
+        "Desc": "Enemies will pull away from the character at intervals.",
+        "DescZonglan": "Enemies will pull away from the character at intervals."
+    },
+    {
+        "Id": 39,
+        "FightEventId": 50638,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Name": "Solo Fight",
+        "Image": null,
+        "Desc": "The fewer enemies left on the battlefield, the higher their ATK.",
+        "DescZonglan": "The fewer enemies left on the battlefield, the higher their ATK."
+    },
+    {
+        "Id": 40,
+        "FightEventId": 50639,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling2.png",
+        "Name": "Commander",
+        "Image": null,
+        "Desc": "The more enemies left on the battlefield, the higher their ATK.",
+        "DescZonglan": "The more enemies left on the battlefield, the higher their ATK."
+    },
+    {
+        "Id": 41,
+        "FightEventId": 50640,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12131.png",
+        "Name": "Precise Planning",
+        "Image": null,
+        "Desc": "Character's Dodge Gauge recovery speed decreases.",
+        "DescZonglan": "Character's Dodge Gauge recovery speed decreases."
+    },
+    {
+        "Id": 42,
+        "FightEventId": 50641,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Gravity Adaptation",
+        "Image": null,
+        "Desc": "Character movement speed decreases.",
+        "DescZonglan": "Character movement speed decreases."
+    },
+    {
+        "Id": 43,
+        "FightEventId": 50642,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhuanyi2.png",
+        "Name": "Physical Resistance -25%",
+        "Image": null,
+        "Desc": "Enemies will pull away from the character at intervals.",
+        "DescZonglan": "Enemies will pull away from the character at intervals."
+    },
+    {
+        "Id": 44,
+        "FightEventId": 50643,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Name": "Fire Resistance -25%",
+        "Image": null,
+        "Desc": "The fewer enemies left on the battlefield, the higher their ATK.",
+        "DescZonglan": "The fewer enemies left on the battlefield, the higher their ATK."
+    },
+    {
+        "Id": 45,
+        "FightEventId": 50644,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconTongling2.png",
+        "Name": "Lightning Resistance -25%",
+        "Image": null,
+        "Desc": "The more enemies left on the battlefield, the higher their ATK.",
+        "DescZonglan": "The more enemies left on the battlefield, the higher their ATK."
+    },
+    {
+        "Id": 46,
+        "FightEventId": 50645,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12131.png",
+        "Name": "Ice Resistance -25%",
+        "Image": null,
+        "Desc": "Character's Dodge Gauge recovery speed decreases.",
+        "DescZonglan": "Character's Dodge Gauge recovery speed decreases."
+    },
+    {
+        "Id": 47,
+        "FightEventId": 50646,
+        "Type": 2,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Dark Resistance -25%",
+        "Image": null,
+        "Desc": "Character movement speed decreases.",
+        "DescZonglan": "Character movement speed decreases."
+    },
+    {
+        "Id": 48,
+        "FightEventId": 50647,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Skywalker",
+        "Image": null,
+        "Desc": "Repairer's weapon becomes a small light sword with increased Attack Speed.",
+        "DescZonglan": "Repairer's weapon becomes a small light sword with increased Attack Speed."
+    },
+    {
+        "Id": 49,
+        "FightEventId": 50648,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Name": "Master",
+        "Image": null,
+        "Desc": "Repairer's weapon becomes a large light sword with increased attack range. You will still lose a small amount of HP over time even after successfully dodging it.",
+        "DescZonglan": "Repairer's weapon becomes a large light sword with increased attack range. You will still lose a small amount of HP over time even after successfully dodging it."
+    },
+    {
+        "Id": 50,
+        "FightEventId": 50649,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21093.png",
+        "Name": "Metamorphosis",
+        "Image": null,
+        "Desc": "Enemy's size increases. Their HP and ATK increase significantly.",
+        "DescZonglan": "Enemy's size increases. Their HP and ATK increase significantly."
+    },
+    {
+        "Id": 51,
+        "FightEventId": 50650,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21063.png",
+        "Name": "Taichi",
+        "Image": null,
+        "Desc": "Enemy multiplies itself.",
+        "DescZonglan": "Enemy multiplies itself."
+    },
+    {
+        "Id": 52,
+        "FightEventId": 50651,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32001.png",
+        "Name": "Hidden Master",
+        "Image": null,
+        "Desc": "Enemy is immune to control effects and Matrix.",
+        "DescZonglan": "Enemy is immune to control effects and Matrix."
+    },
+    {
+        "Id": 53,
+        "FightEventId": 50652,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Name": "Obsessed",
+        "Image": null,
+        "Desc": "Enemy gains Flash, attacks more frequently, and has a chance to deal Extra DMG upon dealing DMG.",
+        "DescZonglan": "Enemy gains Flash, attacks more frequently, and has a chance to deal Extra DMG upon dealing DMG."
+    },
+    {
+        "Id": 54,
+        "FightEventId": 50653,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33111.png",
+        "Name": "Twin Reapers",
+        "Image": null,
+        "Desc": "Upon attacking, enemy also summons a Repairer to attack together.",
+        "DescZonglan": "Upon attacking, enemy also summons a Repairer to attack together."
+    },
+    {
+        "Id": 55,
+        "FightEventId": 50654,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32011.png",
+        "Name": "Immortal",
+        "Image": null,
+        "Desc": "Enemy gains an effect that recovers their HP over time.",
+        "DescZonglan": "Enemy gains an effect that recovers their HP over time."
+    },
+    {
+        "Id": 56,
+        "FightEventId": 50655,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33141.png",
+        "Name": "Illusion",
+        "Image": null,
+        "Desc": "Enemies become invisible while attacking.",
+        "DescZonglan": "Enemies become invisible while attacking."
+    },
+    {
+        "Id": 57,
+        "FightEventId": 50656,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Inquisitor",
+        "Image": null,
+        "Desc": "After an enemy damages a character, they also reduce the healing received by the character.",
+        "DescZonglan": "After an enemy damages a character, they also reduce the healing received by the character."
+    },
+    {
+        "Id": 58,
+        "FightEventId": 50657,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDiandun2.png",
+        "Name": "Exhaustion",
+        "Image": null,
+        "Desc": "Characters no longer gain Signal Orbs but deal significantly higher damage with their Basic Attacks.",
+        "DescZonglan": "Characters no longer gain Signal Orbs but deal significantly higher damage with their Basic Attacks."
+    },
+    {
+        "Id": 59,
+        "FightEventId": 50658,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHeidong2.png",
+        "Name": "Concentration",
+        "Image": null,
+        "Desc": "The sound effect is turned off. Signal Orbs are generated faster.",
+        "DescZonglan": "The sound effect is turned off. Signal Orbs are generated faster."
+    },
+    {
+        "Id": 60,
+        "FightEventId": 50659,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconShanxian2.png",
+        "Name": "Misty",
+        "Image": null,
+        "Desc": "No longer gain Signature Energy. Dodge no longer consumes Dodge Gauge.",
+        "DescZonglan": "No longer gain Signature Energy. Dodge no longer consumes Dodge Gauge."
+    },
+    {
+        "Id": 61,
+        "FightEventId": 50660,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconZhufu2.png",
+        "Name": "Penetration",
+        "Image": null,
+        "Desc": "Characters have reduced vision but deal significantly more damage.",
+        "DescZonglan": "Characters have reduced vision but deal significantly more damage."
+    },
+    {
+        "Id": 62,
+        "FightEventId": 50661,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJinliao2.png",
+        "Name": "Sword Dance",
+        "Image": null,
+        "Desc": "Unable to recover HP. The cooldown of Matrix is significantly reduced. Triggering Matrix will grant a shield equal to 30% of max HP, stacking up to 4 times.",
+        "DescZonglan": "Unable to recover HP. The cooldown of Matrix is significantly reduced. Triggering Matrix will grant a shield equal to 30% of max HP, stacking up to 4 times."
+    },
+    {
+        "Id": 63,
+        "FightEventId": 50662,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33121.png",
+        "Name": "Mountain",
+        "Image": null,
+        "Desc": "HP and damage are no longer displayed. Character's DMG Reduction increases significantly.",
+        "DescZonglan": "HP and damage are no longer displayed. Character's DMG Reduction increases significantly."
+    },
+    {
+        "Id": 64,
+        "FightEventId": 50663,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconJiban2.png",
+        "Name": "Mutual Assistance",
+        "Image": null,
+        "Desc": "The cooldown of switching characters increases significantly. All attacks will deal bonus damage equal to 100% of the ATK of the characters not in battle.",
+        "DescZonglan": "The cooldown of switching characters increases significantly. All attacks will deal bonus damage equal to 100% of the ATK of the characters not in battle."
+    },
+    {
+        "Id": 65,
+        "FightEventId": 50664,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33171.png",
+        "Name": "Reflection",
+        "Image": null,
+        "Desc": "The character switch button is shadowed out. When switching character or casting QTE, random stand-by characters will enter the battle. The cooldowns of character switch and QTE are significantly reduced.",
+        "DescZonglan": "The character switch button is shadowed out. When switching character or casting QTE, random stand-by characters will enter the battle. The cooldowns of character switch and QTE are significantly reduced."
+    },
+    {
+        "Id": 66,
+        "FightEventId": 50665,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDudou2.png",
+        "Name": "Trick",
+        "Image": null,
+        "Desc": "After defeating the Core Target, all characters' ATK increases by 2500.",
+        "DescZonglan": "After defeating the Core Target, all characters' ATK increases by 2500."
+    },
+    {
+        "Id": 67,
+        "FightEventId": 50666,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21011.png",
+        "Name": "Tiangou",
+        "Image": null,
+        "Desc": "After defeating the Core Target, each time any character has done damage 10 times, the ATK of all characters in the team increases by 100. This effect stacks up to 50 times.",
+        "DescZonglan": "After defeating the Core Target, each time any character has done damage 10 times, the ATK of all characters in the team increases by 100. This effect stacks up to 50 times."
+    },
+    {
+        "Id": 68,
+        "FightEventId": 50667,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconGangti2.png",
+        "Name": "Handsome",
+        "Image": null,
+        "Desc": "After defeating the Core Target, all enemies have their All Resistance reduced by 100%.",
+        "DescZonglan": "After defeating the Core Target, all enemies have their All Resistance reduced by 100%."
+    },
+    {
+        "Id": 69,
+        "FightEventId": 50668,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32121.png",
+        "Name": "Glamour",
+        "Image": null,
+        "Desc": "After defeating the Core Target, all enemies have their All Resistance reduced by 40%. Each character switch also reduces the enemies' All Resistance by 40%, stacking up to 5 times.",
+        "DescZonglan": "After defeating the Core Target, all enemies have their All Resistance reduced by 40%. Each character switch also reduces the enemies' All Resistance by 40%, stacking up to 5 times."
+    },
+    {
+        "Id": 70,
+        "FightEventId": 50669,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22070.png",
+        "Name": "Foremost",
+        "Image": null,
+        "Desc": "After defeating the Core Target, all characters' DMG increases by 100%.",
+        "DescZonglan": "After defeating the Core Target, all characters' DMG increases by 100%."
+    },
+    {
+        "Id": 71,
+        "FightEventId": 50670,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32081.png",
+        "Name": "First Encounter",
+        "Image": null,
+        "Desc": "After defeating the Core Target, each successful dodge will increase the DMG of all characters by 10%. This effect stacks up to 20 times.",
+        "DescZonglan": "After defeating the Core Target, each successful dodge will increase the DMG of all characters by 10%. This effect stacks up to 20 times."
+    },
+    {
+        "Id": 72,
+        "FightEventId": 50671,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "Name": "Scattering Petals",
+        "Image": null,
+        "Desc": "Triggering Color Burst will also leave a dyed area behind, damaging the enemies within for 1.5% of max HP per second over 5s.",
+        "DescZonglan": "Triggering Color Burst will also leave a dyed area behind, damaging the enemies within for 1.5% of max HP per second over 5s."
+    },
+    {
+        "Id": 73,
+        "FightEventId": 50672,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22011.png",
+        "Name": "Multi-Dimension",
+        "Image": null,
+        "Desc": "The cooldown before enemies are dyed again is reduced to 3s, and their color will be changed to the color of 3-Ping Orbs.",
+        "DescZonglan": "The cooldown before enemies are dyed again is reduced to 3s, and their color will be changed to the color of 3-Ping Orbs."
+    },
+    {
+        "Id": 74,
+        "FightEventId": 50673,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32121.png",
+        "Name": "Saturation",
+        "Image": null,
+        "Desc": "The effect of Color Burst increases by 60%.",
+        "DescZonglan": "The effect of Color Burst increases by 60%."
+    },
+    {
+        "Id": 75,
+        "FightEventId": 50674,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12051.png",
+        "Name": "Mixture",
+        "Image": null,
+        "Desc": "Enemy damaged by Color Burst will lose 25% All Resistances. This effect stacks up to 4 times.",
+        "DescZonglan": "Enemy damaged by Color Burst will lose 25% All Resistances. This effect stacks up to 4 times."
+    },
+    {
+        "Id": 76,
+        "FightEventId": 50675,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22130.png",
+        "Name": "Light & Shadow",
+        "Image": null,
+        "Desc": "Color Burst will also trigger Color Spread that dyes and damages all the enemies within range once.",
+        "DescZonglan": "Color Burst will also trigger Color Spread that dyes and damages all the enemies within range once."
+    },
+    {
+        "Id": 77,
+        "FightEventId": 50676,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22120.png",
+        "Name": "Inspiration",
+        "Image": null,
+        "Desc": "Triggering Color Burst will randomly generate Signal Orbs of different colors. Picking them up will grant a set of 3-Ping Orbs of the corresponding color.",
+        "DescZonglan": "Triggering Color Burst will randomly generate Signal Orbs of different colors. Picking them up will grant a set of 3-Ping Orbs of the corresponding color."
+    },
+    {
+        "Id": 78,
+        "FightEventId": 50677,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21081.png",
+        "Name": "Preparation",
+        "Image": null,
+        "Desc": "Pinging orbs will restore bonus Signature Energy.",
+        "DescZonglan": "Pinging orbs will restore bonus Signature Energy."
+    },
+    {
+        "Id": 79,
+        "FightEventId": 50678,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21011.png",
+        "Name": "Focus",
+        "Image": null,
+        "Desc": "When a character deals damage, they will also inflict bonus damage equal to 100% of their current HP.",
+        "DescZonglan": "When a character deals damage, they will also inflict bonus damage equal to 100% of their current HP."
+    },
+    {
+        "Id": 80,
+        "FightEventId": 50679,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13011.png",
+        "Name": "Final Wish",
+        "Image": null,
+        "Desc": "When there are less than 3 characters surviving, each Signal Orb of the surviving character will be regarded as a 3-Ping.",
+        "DescZonglan": "When there are less than 3 characters surviving, each Signal Orb of the surviving character will be regarded as a 3-Ping."
+    },
+    {
+        "Id": 81,
+        "FightEventId": 50680,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21131.png",
+        "Name": "Elixir",
+        "Image": null,
+        "Desc": "Characters recover 3% max HP every second.",
+        "DescZonglan": "Characters recover 3% max HP every second."
+    },
+    {
+        "Id": 82,
+        "FightEventId": 50681,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12241.png",
+        "Name": "Sacrifice",
+        "Image": null,
+        "Desc": "Signature DMG increases by 3500%, but the character will die in 15s.",
+        "DescZonglan": "Signature DMG increases by 3500%, but the character will die in 15s."
+    },
+    {
+        "Id": 83,
+        "FightEventId": 50682,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Name": "Banner",
+        "Image": null,
+        "Desc": "Character HP increases by 100% but Dodge Gauge recovers 25% slower.",
+        "DescZonglan": "Character HP increases by 100% but Dodge Gauge recovers 25% slower."
+    },
+    {
+        "Id": 201,
+        "FightEventId": 2281001,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13061.png",
+        "Name": "Storm",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg18.png",
+        "Desc": "<color=#37f9ee>Summons lightning at the player character</color> <color=#37f9ee>every 10s</color>, dealing DMG to the player character.",
+        "DescZonglan": "<color=#037a75>Summons lightning at the player character</color> <color=#037a75>every 10s</color>, dealing DMG to the player character."
+    },
+    {
+        "Id": 202,
+        "FightEventId": 2281002,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon025.png",
+        "Name": "1 Million Volts",
+        "Image": null,
+        "Desc": "Summons lightning <color=#37f9ee>every 6s instead</color>.",
+        "DescZonglan": "Summons lightning <color=#37f9ee>every 6s instead</color>."
+    },
+    {
+        "Id": 203,
+        "FightEventId": 2281003,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconDiandun2.png",
+        "Name": "Lightning Cage",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Randomly produces 4 extra lightning bolts</color> around the player character each time lightning is summoned.",
+        "DescZonglan": "<color=#037a75>Randomly produces 4 extra lightning bolts</color> around the player character each time lightning is summoned."
+    },
+    {
+        "Id": 204,
+        "FightEventId": 2281004,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon023.png",
+        "Name": "Difficult Terrain",
+        "Image": null,
+        "Desc": "<color=#37f9ee>The player character's Movement Speed is reduced by 50%</color> for 5s when hit by a lightning bolt.",
+        "DescZonglan": "<color=#037a75>The player character's Movement Speed is reduced by 50%</color> for 5s when hit by a lightning bolt."
+    },
+    {
+        "Id": 205,
+        "FightEventId": 2281005,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12131.png",
+        "Name": "Agility Training",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Dodge Gauge is reduced by 200</color> when a player character is hit by a lightning bolt. This effect can only trigger once every second.",
+        "DescZonglan": "<color=#37f9ee>Dodge Gauge is reduced by 200</color> when a player character is hit by a lightning bolt. This effect can only trigger once every second."
+    },
+    {
+        "Id": 206,
+        "FightEventId": 2281006,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconLuehua2.png",
+        "Name": "Uncured Pain",
+        "Image": null,
+        "Desc": "<color=#37f9ee>The player character gains Deterioration</color> for 5s <color=#37f9ee>when hit</color> by a lightning bolt.",
+        "DescZonglan": "<color=#037a75>The player character gains Deterioration</color> for 5s <color=#037a75>when hit</color> by a lightning bolt."
+    },
+    {
+        "Id": 207,
+        "FightEventId": 2281007,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon012.png",
+        "Name": "Power Infusion",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Increases an enemy's DMG by 30%</color> for 15s when <color=#37f9ee>the enemy is hit</color> by a lightning bolt.",
+        "DescZonglan": "<color=#37f9ee>Increases an enemy's DMG by 30%</color> for 15s when <color=#37f9ee>the enemy is hit</color> by a lightning bolt."
+    },
+    {
+        "Id": 208,
+        "FightEventId": 2281008,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13001.png",
+        "Name": "Falling Meteors",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg19.png",
+        "Desc": "<color=#37f9ee>Summons meteors at the player character</color> <color=#37f9ee>every 7s</color>, dealing DMG to the player character.",
+        "DescZonglan": "<color=#037a75>Summons meteors at the player character</color> <color=#037a75>every 7s</color>, dealing DMG to the player character."
+    },
+    {
+        "Id": 209,
+        "FightEventId": 2281009,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBodong2.png",
+        "Name": "Blazing Earth Fire",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Randomly summons 3 Earth Fire every 7s</color>, dealing DMG to the player character.",
+        "DescZonglan": "<color=#37f9ee>Randomly summons 3 Earth Fire every 7s</color>, dealing DMG to the player character."
+    },
+    {
+        "Id": 210,
+        "FightEventId": 2281010,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon007.png",
+        "Name": "Burning Attachment",
+        "Image": null,
+        "Desc": "<color=#37f9ee>The enemies are enchanted with flame</color>, their attacks <color=#37f9ee>dealing Extra Fire DMG equal to 30% of their ATK</color>.",
+        "DescZonglan": "<color=#37f9ee>The enemies are enchanted with flame</color>, their attacks <color=#37f9ee>dealing Extra Fire DMG equal to 30% of their ATK</color>."
+    },
+    {
+        "Id": 211,
+        "FightEventId": 2281011,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22130.png",
+        "Name": "Molten Ground",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Produces lava on the ground</color> where meteors land, <color=#37f9ee>dealing DMG over time</color> to player characters standing in the lava. The lava <color=#37f9ee>lasts for 10s</color>.",
+        "DescZonglan": "<color=#37f9ee>Produces lava on the ground</color> where meteors land, <color=#37f9ee>dealing DMG over time</color> to player characters standing in the lava. The lava <color=#37f9ee>lasts for 10s</color>."
+    },
+    {
+        "Id": 212,
+        "FightEventId": 2281012,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBilei2.png",
+        "Name": "Sturdy Fortress",
+        "Image": null,
+        "Desc": "Enemies<color=#37f9ee>gain Barrier</color>, receiving <color=#37f9ee>a permanent Shield equal to 15% of their current HP</color>. They become <color=#37f9ee>immune to attacks</color> while Shield is active. Shield will reactivate in 15s after it is removed.",
+        "DescZonglan": "Enemies<color=#37f9ee>gain Barrier</color>, receiving <color=#37f9ee>a permanent Shield equal to 15% of their current HP</color>. They become <color=#37f9ee>immune to attacks</color> while Shield is active. Shield will reactivate in 15s after it is removed."
+    },
+    {
+        "Id": 213,
+        "FightEventId": 2281013,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconHuoyan2.png",
+        "Name": "Flame Burn",
+        "Image": null,
+        "Desc": "Player characters <color=#37f9ee>gain Burn when they take damage from the environment</color>, <color=#37f9ee>taking Extra Fire DMG</color> every second.",
+        "DescZonglan": "Player characters <color=#37f9ee>gain Burn when they take damage from the environment</color>, <color=#37f9ee>taking Extra Fire DMG</color> every second."
+    },
+    {
+        "Id": 214,
+        "FightEventId": 2281014,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconFusu2.png",
+        "Name": "Fiery Prayer",
+        "Image": null,
+        "Desc": "Enemies gain Fire Blessings, <color=#37f9ee>healing HP equal to 0.3% of their max HP</color> every second.",
+        "DescZonglan": "Enemies gain Fire Blessings, <color=#37f9ee>healing HP equal to 0.3% of their max HP</color> every second."
+    },
+    {
+        "Id": 215,
+        "FightEventId": 2281015,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconBingdu2.png",
+        "Name": "Flooded Flame",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg20.png",
+        "Desc": "<color=#37f9ee>If there are more Constructs than Corrupted on the field</color> when the battle begins, all enemies gain the <color=#37f9ee>Commander</color> effect. <color=#37f9ee>If there are more Corrupted than Constructs on the field</color> when the battle begins, all enemies gain the <color=#37f9ee>Berserk</color> effect.",
+        "DescZonglan": "<color=#37f9ee>If there are more Constructs than Corrupted on the field</color> when the battle begins, all enemies gain the <color=#37f9ee>Commander</color> effect. <color=#37f9ee>If there are more Corrupted than Constructs on the field</color> when the battle begins, all enemies gain the <color=#37f9ee>Berserk</color> effect."
+    },
+    {
+        "Id": 216,
+        "FightEventId": 2281016,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32131.png",
+        "Name": "Ephemeral Life",
+        "Image": null,
+        "Desc": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. A Corrupted dying will <color=#37f9ee>trigger a Dark Explosion</color> and <color=#37f9ee>heal enemy HP equal to 10% times the number of Corrupted</color>.",
+        "DescZonglan": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. A Corrupted dying will <color=#37f9ee>trigger a Dark Explosion</color> and <color=#37f9ee>heal enemy HP equal to 10% times the number of Corrupted</color>."
+    },
+    {
+        "Id": 217,
+        "FightEventId": 2281017,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11021.png",
+        "Name": "Unbreakable Shield",
+        "Image": null,
+        "Desc": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain Holy Shield, <color=#37f9ee>increasing Shield by 10% times the number of Constructs</color>.",
+        "DescZonglan": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain Holy Shield, <color=#37f9ee>increasing Shield by 10% times the number of Constructs</color>."
+    },
+    {
+        "Id": 218,
+        "FightEventId": 2281018,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33001.png",
+        "Name": "Haunted Trail",
+        "Image": null,
+        "Desc": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. All Corrupted gain <color=#37f9ee>Flash</color>, appearing next to the player when they are a certain distance away.",
+        "DescZonglan": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. All Corrupted gain <color=#37f9ee>Flash</color>, appearing next to the player when they are a certain distance away."
+    },
+    {
+        "Id": 219,
+        "FightEventId": 2281019,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33101.png",
+        "Name": "Blood Transfusion",
+        "Image": null,
+        "Desc": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain <color=#37f9ee>Deterioration</color>. Player characters cannot be healed for 10s after being hit.",
+        "DescZonglan": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain <color=#37f9ee>Deterioration</color>. Player characters cannot be healed for 10s after being hit."
+    },
+    {
+        "Id": 220,
+        "FightEventId": 2281020,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22001.png",
+        "Name": "Endless Life",
+        "Image": null,
+        "Desc": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. All Corrupted gain <color=#37f9ee>Recovery</color>, <color=#37f9ee>increasing max HP by 200%</color> and <color=#37f9ee>Vulnerability by 300%</color>.",
+        "DescZonglan": "1 Construct is <color=#37f9ee>converted into a Corrupted</color>. All Corrupted gain <color=#37f9ee>Recovery</color>, <color=#37f9ee>increasing max HP by 200%</color> and <color=#37f9ee>Vulnerability by 300%</color>."
+    },
+    {
+        "Id": 221,
+        "FightEventId": 2281021,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32091.png",
+        "Name": "Body of Gold",
+        "Image": null,
+        "Desc": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain <color=#37f9ee>Perseverance</color>, being <color=#37f9ee>immune to dying</color> the first time they are near death and recovering <color=#37f9ee>HP equal to 10% times the number of Constructs</color>.",
+        "DescZonglan": "1 Corrupted is <color=#37f9ee>converted into a Construct</color>. All Constructs gain <color=#37f9ee>Perseverance</color>, being <color=#37f9ee>immune to dying</color> the first time they are near death and recovering <color=#37f9ee>HP equal to 10% times the number of Constructs</color>."
+    },
+    {
+        "Id": 222,
+        "FightEventId": 2281022,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33151.png",
+        "Name": "Rotting Corruption",
+        "Image": null,
+        "Desc": "All Corrupted gain <color=#37f9ee>Corrosion</color>, increasing DMG and Movement Speed of all Corrupted by 30% for 10s after dealing DMG.",
+        "DescZonglan": "All Corrupted gain <color=#37f9ee>Corrosion</color>, increasing DMG and Movement Speed of all Corrupted by 30% for 10s after dealing DMG."
+    },
+    {
+        "Id": 223,
+        "FightEventId": 2281023,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13031.png",
+        "Name": "Light's Vigor",
+        "Image": null,
+        "Desc": "All Constructs gain <color=#37f9ee>Holy Light</color>, recovering HP equal to 5% of their max HP after dealing DMG. 5s cooldown.",
+        "DescZonglan": "All Constructs gain <color=#037a75>Holy Light</color>, recovering HP equal to 5% of their max HP after dealing DMG. 5s cooldown."
+    },
+    {
+        "Id": 224,
+        "FightEventId": 2281025,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffix/AffixIconLiejie.png",
+        "Name": "Frenzied Hunt",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg21.png",
+        "Desc": "<color=#37f9ee>One enemy on the field will be parasitized</color>, <color=#37f9ee>producing a Corrupted after 15s</color>. <color=#37f9ee>Another random enemy on the field will be parasitized</color> afterward.",
+        "DescZonglan": "<color=#37f9ee>One enemy on the field will be parasitized</color>, <color=#37f9ee>producing a Corrupted after 15s</color>. <color=#37f9ee>Another random enemy on the field will be parasitized</color> afterward."
+    },
+    {
+        "Id": 225,
+        "FightEventId": 2281026,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12121.png",
+        "Name": "Speedy Parasite",
+        "Image": null,
+        "Desc": "Parasitized enemies produce a Corrupted in <color=#37f9ee>10s instead</color>.",
+        "DescZonglan": "Parasitized enemies produce a Corrupted in <color=#037a75>10s instead</color>."
+    },
+    {
+        "Id": 226,
+        "FightEventId": 2281027,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png",
+        "Name": "Efficient Lineage",
+        "Image": null,
+        "Desc": "Parasitized host <color=#37f9ee>loses up to 30% of their max HP</color> after producing a Corrupted. The Corrupted <color=#37f9ee>gains HP Bonus of the same amount and 30% Extra DMG Bonus</color>.",
+        "DescZonglan": "Parasitized host <color=#37f9ee>loses up to 30% of their max HP</color> after producing a Corrupted. The Corrupted <color=#37f9ee>gains HP Bonus of the same amount and 30% Extra DMG Bonus</color>."
+    },
+    {
+        "Id": 227,
+        "FightEventId": 2281028,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33001.png",
+        "Name": "Way of Life",
+        "Image": null,
+        "Desc": "Parasitized enemies gain <color=#37f9ee>Teleport</color> and <color=#37f9ee>Lightning Shield</color>.",
+        "DescZonglan": "Parasitized enemies gain <color=#037a75>Teleport</color> and <color=#037a75>Lightning Shield</color>."
+    },
+    {
+        "Id": 228,
+        "FightEventId": 2281029,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22001.png",
+        "Name": "Nurturing Transference",
+        "Image": null,
+        "Desc": "When there are Corrupted on the field, <color=#37f9ee>parasitized enemies heal HP equal to 1% of their max HP every second</color>.",
+        "DescZonglan": "When there are Corrupted on the field, <color=#37f9ee>parasitized enemies heal HP equal to 1% of their max HP every second</color>."
+    },
+    {
+        "Id": 229,
+        "FightEventId": 2281030,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21251.png",
+        "Name": "Expansive Madness",
+        "Image": null,
+        "Desc": "Parasitized enemies gain <color=#37f9ee>Berserk</color> and <color=#37f9ee>Assault</color>.",
+        "DescZonglan": "Parasitized enemies gain <color=#037a75>Berserk</color> and <color=#037a75>Assault</color>."
+    },
+    {
+        "Id": 230,
+        "FightEventId": 2281031,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Name": "Impulsive Instincts",
+        "Image": null,
+        "Desc": "Corrupted gain <color=#37f9ee>Flash</color> and <color=#37f9ee>Berserk</color>.",
+        "DescZonglan": "Corrupted gain <color=#037a75>Flash</color> and <color=#037a75>Berserk</color>."
+    },
+    {
+        "Id": 231,
+        "FightEventId": 2281032,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32121.png",
+        "Name": "Veil Piercer",
+        "Image": null,
+        "Desc": "Parasitized enemies gain <color=#37f9ee>Deterioration</color> and <color=#37f9ee>Penetration</color>.",
+        "DescZonglan": "Parasitized enemies gain <color=#37f9ee>Deterioration</color> and <color=#37f9ee>Penetration</color>."
+    },
+    {
+        "Id": 232,
+        "FightEventId": 2281033,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22100.png",
+        "Name": "Spread of Corruption",
+        "Image": null,
+        "Desc": "Parasitized Corrupted gain <color=#37f9ee>Radiation</color>.",
+        "DescZonglan": "Parasitized Corrupted gain <color=#037a75>Radiation</color>."
+    },
+    {
+        "Id": 233,
+        "FightEventId": 2281034,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon004.png",
+        "Name": "Milk and Honey",
+        "Image": "Assets/Product/Texture/Image/UiTwoSideTower/UiTwoSideTowerImg22.png",
+        "Desc": "<color=#37f9ee>Summons a Torch</color>. Different Torches will <color=#37f9ee>provide different Buffs</color>.",
+        "DescZonglan": "<color=#037a75>Summons a Torch</color>. Different Torches will <color=#037a75>provide different Buffs</color>."
+    },
+    {
+        "Id": 234,
+        "FightEventId": 2281035,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Name": "Raging Slaughter",
+        "Image": null,
+        "Desc": "The Torch will grant the enemies <color=#37f9ee>Berserk</color> and <color=#37f9ee>Assault</color>.",
+        "DescZonglan": "The Torch will grant the enemies <color=#037a75>Berserk</color> and <color=#037a75>Assault</color>."
+    },
+    {
+        "Id": 235,
+        "FightEventId": 2281036,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32061.png",
+        "Name": "Unyielding Ward",
+        "Image": null,
+        "Desc": "The Torch will grant the enemies a stack of <color=#37f9ee>Barrier</color>.",
+        "DescZonglan": "The Torch will grant the enemies a stack of <color=#037a75>Barrier</color>."
+    },
+    {
+        "Id": 236,
+        "FightEventId": 2281037,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33101.png",
+        "Name": "Severed Path",
+        "Image": null,
+        "Desc": "The Torch will summon 2 lancer ghosts. <color=#37f9ee>A saw will appear every 15s</color> and attack the player. <color=#37f9ee>Healing received</color> by players who are hit is <color=#37f9ee>reduced by 75%</color> for 15s.",
+        "DescZonglan": "The Torch will summon 2 lancer ghosts. <color=#037a75>A saw will appear every 15s</color> and attack the player. <color=#037a75>Healing received</color> by players who are hit is <color=#037a75>reduced by 75%</color> for 15s."
+    },
+    {
+        "Id": 237,
+        "FightEventId": 2281038,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12101.png",
+        "Name": "Fragile Vessel",
+        "Image": null,
+        "Desc": "The Torch will summon 2 ghost saws. <color=#37f9ee>A saw will appear every 15s</color> and ram the player. Players who are hit gain <color=#37f9ee>35% Vulnerability</color> for 15s.",
+        "DescZonglan": "The Torch will summon 2 ghost saws. <color=#37f9ee>A saw will appear every 15s</color> and ram the player. Players who are hit gain <color=#37f9ee>35% Vulnerability</color> for 15s."
+    },
+    {
+        "Id": 238,
+        "FightEventId": 2281039,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon026.png",
+        "Name": "Towering Fire",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Summons a fire column</color> from underneath the player character every 10s when the Torch exists. The fire column bursts after a short delay and deals DMG.",
+        "DescZonglan": "<color=#37f9ee>Summons a fire column</color> from underneath the player character every 10s when the Torch exists. The fire column bursts after a short delay and deals DMG."
+    },
+    {
+        "Id": 239,
+        "FightEventId": 2281040,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon10042.png",
+        "Name": "Ceaseless Blaze",
+        "Image": null,
+        "Desc": "Enemies gain the <color=#37f9ee>Burn</color> effect when the Torch exists, dealing damage over time for 5s upon hitting a player character.",
+        "DescZonglan": "Enemies gain the <color=#037a75>Burn</color> effect when the Torch exists, dealing damage over time for 5s upon hitting a player character."
+    },
+    {
+        "Id": 240,
+        "FightEventId": 2281041,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon018.png",
+        "Name": "Snaring Cage",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Summons thorns</color> to attack the player character every 15s when the Torch exists. The thorns will be destroyed after taking a certain amount of damage.",
+        "DescZonglan": "<color=#37f9ee>Summons thorns</color> to attack the player character every 15s when the Torch exists. The thorns will be destroyed after taking a certain amount of damage."
+    },
+    {
+        "Id": 241,
+        "FightEventId": 2281042,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/IconAffixUnionKill/UiUnionKillBUFFIcon023.png",
+        "Name": "Peaceful Soul",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Applies the Soul Brand</color> to the player character every 30s when the Torch exists. A player with the Brand <color=#37f9ee>recovers their Dodge Gauge faster</color>, but the next hit they take will <color=#37f9ee>deal DMG equal to 50% of their max HP</color>. This effect lasts 15s.",
+        "DescZonglan": "<color=#37f9ee>Applies the Soul Brand</color> to the player character every 30s when the Torch exists. A player with the Brand <color=#37f9ee>recovers their Dodge Gauge faster</color>, but the next hit they take will <color=#37f9ee>deal DMG equal to 50% of their max HP</color>. This effect lasts 15s."
+    },
+    {
+        "Id": 301,
+        "FightEventId": 2280001,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22041.png",
+        "Name": "Charged Switch",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Switching characters</color> will completely restore <color=#37f9ee>Signature Energy</color>.",
+        "DescZonglan": "<color=#037a75>Switching characters</color> will completely restore <color=#037a75>Signature Energy</color>."
+    },
+    {
+        "Id": 302,
+        "FightEventId": 2280002,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21151.png",
+        "Name": "Ambushing Switch",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Switching characters</color> will recover <color=#37f9ee>3 sets of Signal Orbs</color> in 3s.",
+        "DescZonglan": "<color=#37f9ee>Switching characters</color> will recover <color=#37f9ee>3 sets of Signal Orbs</color> in 3s."
+    },
+    {
+        "Id": 303,
+        "FightEventId": 2280003,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22090.png",
+        "Name": "Superior Amplification",
+        "Image": null,
+        "Desc": "Casting a <color=#37f9ee>Signature Move</color> will refresh the cooldown of switching characters. <color=#37f9ee>Increases the ATK</color> of the next character who enters the field <color=#37f9ee>by 25%</color> after casting a <color=#37f9ee>Signature Move</color>. This effect can stack.",
+        "DescZonglan": "Casting a <color=#037a75>Signature Move</color> will refresh the cooldown of switching characters. <color=#037a75>Increases the ATK</color> of the next character who enters the field <color=#037a75>by 25%</color> after casting a <color=#037a75>Signature Move</color>. This effect can stack."
+    },
+    {
+        "Id": 304,
+        "FightEventId": 2280004,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33021.png",
+        "Name": "Siege Relay",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Pinging 6 Orbs</color> in total will refresh the cooldown of switching characters. <color=#37f9ee>Increases the Extra DMG</color> of the next character who enters the field <color=#37f9ee>by 25%</color> after <color=#37f9ee>pinging 6 Orbs</color> in total. This effect can stack.",
+        "DescZonglan": "<color=#037a75>Pinging 6 Orbs</color> in total will refresh the cooldown of switching characters. <color=#037a75>Increases the Extra DMG</color> of the next character who enters the field <color=#037a75>by 25%</color> after <color=#037a75>pinging 6 Orbs</color> in total. This effect can stack."
+    },
+    {
+        "Id": 305,
+        "FightEventId": 2280005,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22130.png",
+        "Name": "Heavenly Justice",
+        "Image": null,
+        "Desc": "Switching into battle will release a <color=#37f9ee>Shockwave</color> and deal <color=#37f9ee>80000 True DMG</color> to enemies within range. Reduces <color=#37f9ee>the cooldown of switching characters</color> by 3s.",
+        "DescZonglan": "Switching into battle will release a <color=#037a75>Shockwave</color> and deal <color=#037a75>80000 True DMG</color> to enemies within range. Reduces <color=#037a75>the cooldown of switching characters</color> by 3s."
+    },
+    {
+        "Id": 306,
+        "FightEventId": 2280006,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12121.png",
+        "Name": "Superego Realm",
+        "Image": null,
+        "Desc": "Switching into battle will enter the <color=#37f9ee>Matrix</color> automatically. Reduces <color=#37f9ee>the cooldown of switching characters</color> by 3s.",
+        "DescZonglan": "Switching into battle will enter the <color=#37f9ee>Matrix</color> automatically. Reduces <color=#37f9ee>the cooldown of switching characters</color> by 3s."
+    },
+    {
+        "Id": 307,
+        "FightEventId": 2281024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Name": "Powder and Sleet",
+        "Image": null,
+        "Desc": "Greatly reduces the character's <color=#37f9ee>Movement Speed</color> upon taking a hit. The effect clears upon <color=#37f9ee>swapping characters</color>.",
+        "DescZonglan": "Greatly reduces the character's <color=#037a75>Movement Speed</color> upon taking a hit. The effect clears upon <color=#037a75>swapping characters</color>."
+    },
+    {
+        "Id": 311,
+        "FightEventId": 2280007,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32141.png",
+        "Name": "Core Break",
+        "Image": null,
+        "Desc": "<color=#37f9ee>3-Ping</color> attacks deal an extra <color=#37f9ee>100% DMG</color> to Shield. Shields explode when destroyed, dealing <color=#37f9ee>50000 AOE DMG</color>.",
+        "DescZonglan": "<color=#037a75>3-Ping</color> attacks deal an extra <color=#037a75>100% DMG</color> to Shield. Shields explode when destroyed, dealing <color=#037a75>50000 AOE DMG</color>."
+    },
+    {
+        "Id": 312,
+        "FightEventId": 2280008,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21101.png",
+        "Name": "Hot Iron",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Signature</color> attacks deal an extra <color=#37f9ee>25% DMG</color> to Shield. Destroying a Shield will <color=#37f9ee>increase</color> the main character's <color=#37f9ee>ATK by 30%</color> for <color=#37f9ee>8s</color>.",
+        "DescZonglan": "<color=#037a75>Signature</color> attacks deal an extra <color=#037a75>25% DMG</color> to Shield. Destroying a Shield will <color=#037a75>increase</color> the main character's <color=#037a75>ATK by 30%</color> for <color=#037a75>8s</color>."
+    },
+    {
+        "Id": 313,
+        "FightEventId": 2280009,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12101.png",
+        "Name": "Gradual Progress",
+        "Image": null,
+        "Desc": "Each attack will make the enemy drop <color=#37f9ee>1 Signal Orb</color> after destroying a Shield. This effect lasts <color=#37f9ee>10s</color>.",
+        "DescZonglan": "Each attack will make the enemy drop <color=#037a75>1 Signal Orb</color> after destroying a Shield. This effect lasts <color=#037a75>10s</color>."
+    },
+    {
+        "Id": 314,
+        "FightEventId": 2280010,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21111.png",
+        "Name": "Soldier On",
+        "Image": null,
+        "Desc": "Destroying a Shield will make the enemy drop <color=#37f9ee>3 sets of Signal Orbs</color> immediately.",
+        "DescZonglan": "Destroying a Shield will make the enemy drop <color=#37f9ee>3 sets of Signal Orbs</color> immediately."
+    },
+    {
+        "Id": 315,
+        "FightEventId": 2280011,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "Name": "Supreme Accuracy",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Any Ping</color> is considered a 3-Ping for <color=#37f9ee>10s</color> after destroying a Shield.",
+        "DescZonglan": "<color=#37f9ee>Any Ping</color> is considered a 3-Ping for <color=#37f9ee>10s</color> after destroying a Shield."
+    },
+    {
+        "Id": 316,
+        "FightEventId": 2280012,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21071.png",
+        "Name": "Perpetuating War",
+        "Image": null,
+        "Desc": "Attacking Shield will restore extra <color=#37f9ee>Signature Energy</color>.",
+        "DescZonglan": "Attacking Shield will restore extra <color=#37f9ee>Signature Energy</color>."
+    },
+    {
+        "Id": 317,
+        "FightEventId": 2281024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon11001.png",
+        "Name": "Mountain Cleaver",
+        "Image": null,
+        "Desc": "Enemies gain the <color=#37f9ee>Barrier</color> effect, receiving Shield periodically. Destroying their Shield will remove the Barrier effect and reduce the enemies' <color=#37f9ee>Resistance by 30%</color>.",
+        "DescZonglan": "Enemies gain the <color=#037a75>Barrier</color> effect, receiving Shield periodically. Destroying their Shield will remove the Barrier effect and reduce the enemies' <color=#037a75>Resistance by 30%</color>."
+    },
+    {
+        "Id": 318,
+        "FightEventId": 2280013,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13031.png",
+        "Name": "Flashpoint",
+        "Image": null,
+        "Desc": "Enters Matrix upon a <color=#37f9ee>3-Ping</color> regardless of whether its cooldown is complete. Reduces the <color=#37f9ee>remaining cooldown</color> of Matrix by <color=#37f9ee>10%</color> after a 3-Ping.",
+        "DescZonglan": "Enters Matrix upon a <color=#037a75>3-Ping</color> regardless of whether its cooldown is complete. Reduces the <color=#037a75>remaining cooldown</color> of Matrix by <color=#037a75>10%</color> after a 3-Ping."
+    },
+    {
+        "Id": 319,
+        "FightEventId": 2280014,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22011.png",
+        "Name": "One-Hit Kill",
+        "Image": null,
+        "Desc": "Enters Matrix after <color=#37f9ee>casting a Signature Move</color> regardless of whether its cooldown is complete. Reduces the <color=#37f9ee>remaining cooldown</color> of Matrix by <color=#37f9ee>35%</color> after casting a Signature Move.",
+        "DescZonglan": "Enters Matrix after <color=#037a75>casting a Signature Move</color> regardless of whether its cooldown is complete. Reduces the <color=#037a75>remaining cooldown</color> of Matrix by <color=#037a75>35%</color> after casting a Signature Move."
+    },
+    {
+        "Id": 320,
+        "FightEventId": 2280015,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "Name": "Lightning Flash",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Any Ping</color> is considered a 3-Ping. <color=#37f9ee>Dodge Gauge</color> recovery speed increases.",
+        "DescZonglan": "<color=#37f9ee>Any Ping</color> is considered a 3-Ping. <color=#37f9ee>Dodge Gauge</color> recovery speed increases."
+    },
+    {
+        "Id": 321,
+        "FightEventId": 2280016,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21071.png",
+        "Name": "Hasty Pursuit",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Signature Energy</color> restores faster. <color=#37f9ee>Dodge Gauge</color> recovery speed increases.",
+        "DescZonglan": "<color=#37f9ee>Signature Energy</color> restores faster. <color=#37f9ee>Dodge Gauge</color> recovery speed increases."
+    },
+    {
+        "Id": 322,
+        "FightEventId": 2280017,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32101.png",
+        "Name": "Quickened Recharge",
+        "Image": null,
+        "Desc": "Each Signal Orb pinged in the Matrix <color=#37f9ee>increases the character's ATK by 5%</color>. This effect can stack.",
+        "DescZonglan": "Each Signal Orb pinged in the Matrix <color=#37f9ee>increases the character's ATK by 5%</color>. This effect can stack."
+    },
+    {
+        "Id": 323,
+        "FightEventId": 2280018,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32111.png",
+        "Name": "Expedited Armor",
+        "Image": null,
+        "Desc": "Casting Signature Move in the Matrix <color=#37f9ee>increases the character's ATK by 15%</color>. This effect can stack. Gains <color=#37f9ee>Super Armor for 5s</color> after the Matrix ends.",
+        "DescZonglan": "Casting Signature Move in the Matrix <color=#37f9ee>increases the character's ATK by 15%</color>. This effect can stack. Gains <color=#37f9ee>Super Armor for 5s</color> after the Matrix ends."
+    },
+    {
+        "Id": 324,
+        "FightEventId": 2280019,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21111.png",
+        "Name": "Trickling Boon",
+        "Image": null,
+        "Desc": "Enters the Matrix and <color=#37f9ee>recovers 3 sets of Signal Orbs</color> after defeating an enemy. <color=#37f9ee>5s</color> cooldown.",
+        "DescZonglan": "Enters the Matrix and <color=#37f9ee>recovers 3 sets of Signal Orbs</color> after defeating an enemy. <color=#37f9ee>5s</color> cooldown."
+    },
+    {
+        "Id": 325,
+        "FightEventId": 2280020,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32131.png",
+        "Name": "Mountainous Accomplishment",
+        "Image": null,
+        "Desc": "Enters the Matrix and <color=#37f9ee>restores Signature Energy</color> after defeating an enemy. <color=#37f9ee>5s</color> cooldown.",
+        "DescZonglan": "Enters the Matrix and <color=#037a75>restores Signature Energy</color> after defeating an enemy. <color=#037a75>5s</color> cooldown."
+    },
+    {
+        "Id": 326,
+        "FightEventId": 2281024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32031.png",
+        "Name": "Featherless Fugitive",
+        "Image": null,
+        "Desc": "Enemies gain <color=#37f9ee>Berserk</color>, becoming more aggressive and approaching the character with Flash periodically. <color=#37f9ee>The Berserk status is removed for 10s</color> when the character enters Matrix.",
+        "DescZonglan": "Enemies gain <color=#037a75>Berserk</color>, becoming more aggressive and approaching the character with Flash periodically. <color=#037a75>The Berserk status is removed for 10s</color> when the character enters Matrix."
+    },
+    {
+        "Id": 327,
+        "FightEventId": 2280021,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon12101.png",
+        "Name": "Stonebreaking Dews",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Defeating a minion-type enemy</color> will deal the mother-type enemy <color=#37f9ee>True DMG equal to 20%</color> of the mother-type enemy's max HP.",
+        "DescZonglan": "<color=#37f9ee>Defeating a minion-type enemy</color> will deal the mother-type enemy <color=#37f9ee>True DMG equal to 20%</color> of the mother-type enemy's max HP."
+    },
+    {
+        "Id": 328,
+        "FightEventId": 2280022,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22011.png",
+        "Name": "Utter Clarity",
+        "Image": null,
+        "Desc": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, enters Matrix after <color=#37f9ee>casting a Signature Move</color> and <color=#37f9ee>increases Extra DMG by 20%</color>.",
+        "DescZonglan": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, enters Matrix after <color=#37f9ee>casting a Signature Move</color> and <color=#37f9ee>increases Extra DMG by 20%</color>."
+    },
+    {
+        "Id": 329,
+        "FightEventId": 2280023,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13001.png",
+        "Name": "Frightening Blast",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Minion-type enemies</color> explode <color=#37f9ee>when they die</color>, dealing <color=#37f9ee>50000 True AOE DMG</color>.",
+        "DescZonglan": "<color=#037a75>Minion-type enemies</color> explode <color=#037a75>when they die</color>, dealing <color=#037a75>50000 True AOE DMG</color>."
+    },
+    {
+        "Id": 330,
+        "FightEventId": 2280024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21071.png",
+        "Name": "Daring Boost",
+        "Image": null,
+        "Desc": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, <color=#37f9ee>continues to recover Signature Energy</color> and <color=#37f9ee>increases Extra DMG by 20%</color>.",
+        "DescZonglan": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, <color=#37f9ee>continues to recover Signature Energy</color> and <color=#37f9ee>increases Extra DMG by 20%</color>."
+    },
+    {
+        "Id": 331,
+        "FightEventId": 2280025,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22050.png",
+        "Name": "Momentum Strike",
+        "Image": null,
+        "Desc": "DMG dealt to a mother-type enemy will splash onto minion-type enemies, dealing minion-type enemies <color=#37f9ee>30% True DMG</color>.",
+        "DescZonglan": "DMG dealt to a mother-type enemy will splash onto minion-type enemies, dealing minion-type enemies <color=#37f9ee>30% True DMG</color>."
+    },
+    {
+        "Id": 332,
+        "FightEventId": 2280026,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "Name": "Total Annihilation",
+        "Image": null,
+        "Desc": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, treats <color=#37f9ee>any Ping</color> as a 3-Ping and <color=#37f9ee>increases Extra DMG by 20%</color>.",
+        "DescZonglan": "Enters <color=#37f9ee>Enhanced Form for 10s</color> after defeating an enemy. In Enhanced Form, treats <color=#37f9ee>any Ping</color> as a 3-Ping and <color=#37f9ee>increases Extra DMG by 20%</color>."
+    },
+    {
+        "Id": 333,
+        "FightEventId": 2280027,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon10021.png",
+        "Name": "Negated Resistance",
+        "Image": null,
+        "Desc": "<color=#37f9ee>Reduces the Recovery effect</color> each minion-type enemy applies to the mother-type enemy <color=#37f9ee>by 50%</color>. <color=#37f9ee>DMG taken</color> by minion-type enemies <color=#37f9ee>increases by 50%</color>.",
+        "DescZonglan": "<color=#037a75>Reduces the Recovery effect</color> each minion-type enemy applies to the mother-type enemy <color=#037a75>by 50%</color>. <color=#037a75>DMG taken</color> by minion-type enemies <color=#037a75>increases by 50%</color>."
+    },
+    {
+        "Id": 334,
+        "FightEventId": 2280028,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22130.png",
+        "Name": "Changing Tide",
+        "Image": null,
+        "Desc": "Enters Enhanced Form for <color=#37f9ee>10s</color> after defeating an enemy. In Enhanced Form, triggers a <color=#37f9ee>Shockwave</color> when switching characters and greatly reduces the <color=#37f9ee>cooldown of switching characters</color>.",
+        "DescZonglan": "Enters Enhanced Form for <color=#37f9ee>10s</color> after defeating an enemy. In Enhanced Form, triggers a <color=#37f9ee>Shockwave</color> when switching characters and greatly reduces the <color=#37f9ee>cooldown of switching characters</color>."
+    },
+    {
+        "Id": 335,
+        "FightEventId": 2281024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21131.png",
+        "Name": "Free as a Reaper",
+        "Image": null,
+        "Desc": "A <color=#37f9ee>mother-type enemy</color> on the field will summon 1 <color=#37f9ee>minion-type enemy</color> every <color=#37f9ee>6s</color>, up to 3 minions. Each minion on the field grans the mother-type enemy 1 stack of <color=#37f9ee>Recovery</color>.",
+        "DescZonglan": "A <color=#037a75>mother-type enemy</color> on the field will summon 1 <color=#037a75>minion-type enemy</color> every <color=#037a75>6s</color>, up to 3 minions. Each minion on the field grans the mother-type enemy 1 stack of <color=#037a75>Recovery</color>."
+    },
+    {
+        "Id": 336,
+        "FightEventId": 2280029,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon32151.png",
+        "Name": "Explosive Darkness",
+        "Image": null,
+        "Desc": "Overclocking Energy Core now only requires 2 stacks of charges, each stack <color=#37f9ee>increasing the character's ATK by 10%</color> instead. Entering the Matrix in Enhanced Mode will trigger a Dark Explosion centered around the player, dealing <color=#37f9ee>200000 True DMG</color> to targets within range.",
+        "DescZonglan": "Overclocking Energy Core now only requires 2 stacks of charges, each stack <color=#037a75>increasing the character's ATK by 10%</color> instead. Entering the Matrix in Enhanced Mode will trigger a Dark Explosion centered around the player, dealing <color=#037a75>200000 True DMG</color> to targets within range."
+    },
+    {
+        "Id": 337,
+        "FightEventId": 2280030,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22021.png",
+        "Name": "Implemented Promise",
+        "Image": null,
+        "Desc": "In Enhanced Form, treats <color=#37f9ee>any Ping</color> as a 3-Ping and <color=#37f9ee>increases 3-Ping DMG by 100%</color>.",
+        "DescZonglan": "In Enhanced Form, treats <color=#37f9ee>any Ping</color> as a 3-Ping and <color=#37f9ee>increases 3-Ping DMG by 100%</color>."
+    },
+    {
+        "Id": 338,
+        "FightEventId": 2280031,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon21071.png",
+        "Name": "Assisted Recovery",
+        "Image": null,
+        "Desc": "The main character <color=#37f9ee>fully restores Signature Energy</color> every time the Energy Core is charged. In Enhanced Form, <color=#37f9ee>restores Signature Energy continuously</color> and <color=#37f9ee>increases</color> Signature DMG by <color=#37f9ee>50%</color>.",
+        "DescZonglan": "The main character <color=#037a75>fully restores Signature Energy</color> every time the Energy Core is charged. In Enhanced Form, <color=#037a75>restores Signature Energy continuously</color> and <color=#037a75>increases</color> Signature DMG by <color=#037a75>50%</color>."
+    },
+    {
+        "Id": 339,
+        "FightEventId": 2280032,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33281.png",
+        "Name": "Unerring Blade",
+        "Image": null,
+        "Desc": "In Enhanced Form, <color=#37f9ee>increases</color> Signature DMG <color=#37f9ee>by 50%</color> and restores <color=#37f9ee>50% Signature Energy</color> after casting a Signature Skill.",
+        "DescZonglan": "In Enhanced Form, <color=#037a75>increases</color> Signature DMG <color=#037a75>by 50%</color> and restores <color=#037a75>50% Signature Energy</color> after casting a Signature Skill."
+    },
+    {
+        "Id": 340,
+        "FightEventId": 2280033,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13021.png",
+        "Name": "Infinity Gravity",
+        "Image": null,
+        "Desc": "In Enhanced Form, creates a <color=#37f9ee>Black Hole</color> centers around the character for <color=#37f9ee>5s</color>, pulling in enemies and lowering their <color=#37f9ee>Resistance by 15%</color>. <color=#37f9ee>8s</color> cooldown.",
+        "DescZonglan": "In Enhanced Form, creates a <color=#37f9ee>Black Hole</color> centers around the character for <color=#37f9ee>5s</color>, pulling in enemies and lowering their <color=#37f9ee>Resistance by 15%</color>. <color=#37f9ee>8s</color> cooldown."
+    },
+    {
+        "Id": 341,
+        "FightEventId": 2280034,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon10001.png",
+        "Name": "Twofold Lightning",
+        "Image": null,
+        "Desc": "In Enhanced Form, all characters gain <color=#37f9ee>30% Extra DMG Bonus</color>, and dodging <color=#37f9ee>does not consume the Dodge Gauge</color>.",
+        "DescZonglan": "In Enhanced Form, all characters gain <color=#37f9ee>30% Extra DMG Bonus</color>, and dodging <color=#37f9ee>does not consume the Dodge Gauge</color>."
+    },
+    {
+        "Id": 342,
+        "FightEventId": 2280035,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon13031.png",
+        "Name": "Unbeatable Dissolution",
+        "Image": null,
+        "Desc": "In Enhanced Form, enters Matrix after <color=#37f9ee>a 3-Ping</color>. Reduces cooldown of Matrix <color=#37f9ee>by 5s</color>.",
+        "DescZonglan": "In Enhanced Form, enters Matrix after <color=#37f9ee>a 3-Ping</color>. Reduces cooldown of Matrix <color=#37f9ee>by 5s</color>."
+    },
+    {
+        "Id": 343,
+        "FightEventId": 2280036,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon22011.png",
+        "Name": "Unbreakable Hit",
+        "Image": null,
+        "Desc": "In Enhanced Form, enters Matrix after <color=#37f9ee>casting a Signature Move</color>. <color=#37f9ee>Reduces</color> cooldown of Matrix <color=#37f9ee>by 5s</color>.",
+        "DescZonglan": "In Enhanced Form, enters Matrix after <color=#037a75>casting a Signature Move</color>. <color=#037a75>Reduces</color> cooldown of Matrix <color=#037a75>by 5s</color>."
+    },
+    {
+        "Id": 344,
+        "FightEventId": 2281024,
+        "Type": 1,
+        "Icon": "Assets/Product/Texture/Image/UiBabelTower/UiBabelTowerChallengeIcon33111.png",
+        "Name": "Surmountable",
+        "Image": null,
+        "Desc": "This stage contains the <color=#37f9ee>Energy Core</color>. <color=#37f9ee>Defeating an enemy</color> will charge the Energy Core, each stack of charge <color=#37f9ee>increasing the character's ATK by 6%</color>. The Energy Core will <color=#37f9ee>overclock</color> with 4 stacks of charges, <color=#37f9ee>granting</color> all characters <color=#37f9ee>Enhanced Form</color>.",
+        "DescZonglan": "This stage contains the <color=#037a75>Energy Core</color>. <color=#037a75>Defeating an enemy</color> will charge the Energy Core, each stack of charge <color=#037a75>increasing the character's ATK by 6%</color>. The Energy Core will <color=#037a75>overclock</color> with 4 stacks of charges, <color=#037a75>granting</color> all characters <color=#037a75>Enhanced Form</color>."
+    }
+]

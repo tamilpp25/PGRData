@@ -1,0 +1,1832 @@
+[
+    {
+        "Id": 1,
+        "StageId": 1011,
+        "MinLine": 2,
+        "MaxLine": 2,
+        "ItemIds": [
+            2
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 2,
+        "StageId": 1011,
+        "MinLine": 7,
+        "MaxLine": 7,
+        "ItemIds": [
+            2
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 3,
+        "StageId": 1011,
+        "MinLine": 9,
+        "MaxLine": 9,
+        "ItemIds": [
+            6
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 4,
+        "StageId": 1011,
+        "MinLine": 10,
+        "MaxLine": 20,
+        "ItemIds": [
+            2,
+            6.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 5,
+        "StageId": 1011,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            2,
+            6.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 6,
+        "StageId": 1012,
+        "MinLine": 4,
+        "MaxLine": 6,
+        "ItemIds": [
+            4
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 7,
+        "StageId": 1012,
+        "MinLine": 7,
+        "MaxLine": 9,
+        "ItemIds": [
+            5
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 8,
+        "StageId": 1012,
+        "MinLine": 10,
+        "MaxLine": 19,
+        "ItemIds": [
+            4,
+            5.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 9,
+        "StageId": 1012,
+        "MinLine": 20,
+        "MaxLine": 9999,
+        "ItemIds": [
+            4,
+            5.0
+        ],
+        "ItemIdWeights": [
+            50,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 10,
+        "StageId": 1013,
+        "MinLine": 5,
+        "MaxLine": 5,
+        "ItemIds": [
+            1
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 11,
+        "StageId": 1013,
+        "MinLine": 6,
+        "MaxLine": 20,
+        "ItemIds": [
+            1,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 12,
+        "StageId": 1013,
+        "MinLine": 21,
+        "MaxLine": 50,
+        "ItemIds": [
+            1,
+            4.0,
+            5.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 13,
+        "StageId": 1013,
+        "MinLine": 51,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            5.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 14,
+        "StageId": 1014,
+        "MinLine": 2,
+        "MaxLine": 2,
+        "ItemIds": [
+            3
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 15,
+        "StageId": 1014,
+        "MinLine": 8,
+        "MaxLine": 10,
+        "ItemIds": [
+            3,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 16,
+        "StageId": 1014,
+        "MinLine": 11,
+        "MaxLine": 9999,
+        "ItemIds": [
+            3,
+            1.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            250,
+            200.0,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 17,
+        "StageId": 1021,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            5,
+            6.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 18,
+        "StageId": 1021,
+        "MinLine": 11,
+        "MaxLine": 20,
+        "ItemIds": [
+            2,
+            5.0
+        ],
+        "ItemIdWeights": [
+            50,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 19,
+        "StageId": 1021,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            5,
+            6.0,
+            2.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0,
+            20.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 20,
+        "StageId": 1022,
+        "MinLine": 3,
+        "MaxLine": 4,
+        "ItemIds": [
+            2,
+            6.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 1
+    },
+    {
+        "Id": 21,
+        "StageId": 1022,
+        "MinLine": 8,
+        "MaxLine": 15,
+        "ItemIds": [
+            2,
+            5.0,
+            6.0
+        ],
+        "ItemIdWeights": [
+            50,
+            50.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 22,
+        "StageId": 1022,
+        "MinLine": 16,
+        "MaxLine": 25,
+        "ItemIds": [
+            1,
+            6.0,
+            2.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0,
+            50.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 23,
+        "StageId": 1022,
+        "MinLine": 26,
+        "MaxLine": 40,
+        "ItemIds": [
+            1,
+            6.0,
+            2.0,
+            5.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            50.0,
+            50.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 24,
+        "StageId": 1022,
+        "MinLine": 41,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            6.0,
+            2.0,
+            5.0
+        ],
+        "ItemIdWeights": [
+            150,
+            150.0,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 25,
+        "StageId": 1023,
+        "MinLine": 6,
+        "MaxLine": 10,
+        "ItemIds": [
+            3,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 26,
+        "StageId": 1023,
+        "MinLine": 11,
+        "MaxLine": 15,
+        "ItemIds": [
+            5,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0,
+            20.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 27,
+        "StageId": 1023,
+        "MinLine": 16,
+        "MaxLine": 25,
+        "ItemIds": [
+            5,
+            2.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            50.0,
+            20.0,
+            20.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 28,
+        "StageId": 1023,
+        "MinLine": 26,
+        "MaxLine": 40,
+        "ItemIds": [
+            2,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            30.0,
+            20.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 29,
+        "StageId": 1023,
+        "MinLine": 41,
+        "MaxLine": 55,
+        "ItemIds": [
+            5,
+            2.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            50,
+            50.0,
+            100.0,
+            200.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 30,
+        "StageId": 1023,
+        "MinLine": 56,
+        "MaxLine": 9999,
+        "ItemIds": [
+            5,
+            2.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            50.0,
+            50.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 31,
+        "StageId": 1024,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            5,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 32,
+        "StageId": 1024,
+        "MinLine": 11,
+        "MaxLine": 20,
+        "ItemIds": [
+            6,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 33,
+        "StageId": 1024,
+        "MinLine": 21,
+        "MaxLine": 30,
+        "ItemIds": [
+            2,
+            1.0,
+            6.0,
+            5.0
+        ],
+        "ItemIdWeights": [
+            150,
+            100.0,
+            50.0,
+            50.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 34,
+        "StageId": 1024,
+        "MinLine": 31,
+        "MaxLine": 40,
+        "ItemIds": [
+            1,
+            3.0,
+            6.0
+        ],
+        "ItemIdWeights": [
+            300,
+            300.0,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 35,
+        "StageId": 1024,
+        "MinLine": 41,
+        "MaxLine": 50,
+        "ItemIds": [
+            1,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            200.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 36,
+        "StageId": 1024,
+        "MinLine": 51,
+        "MaxLine": 60,
+        "ItemIds": [
+            1,
+            3.0,
+            2.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0,
+            200.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 37,
+        "StageId": 1024,
+        "MinLine": 61,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            2.0,
+            3.0,
+            6.0,
+            5.0
+        ],
+        "ItemIdWeights": [
+            250,
+            300.0,
+            250.0,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 38,
+        "StageId": 10111,
+        "MinLine": 6,
+        "MaxLine": 6,
+        "ItemIds": [
+            2
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 39,
+        "StageId": 10111,
+        "MinLine": 9,
+        "MaxLine": 15,
+        "ItemIds": [
+            1,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 40,
+        "StageId": 10111,
+        "MinLine": 16,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            2.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 41,
+        "StageId": 10112,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            2,
+            1.0
+        ],
+        "ItemIdWeights": [
+            150,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 42,
+        "StageId": 10112,
+        "MinLine": 11,
+        "MaxLine": 15,
+        "ItemIds": [
+            3,
+            2.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 43,
+        "StageId": 10112,
+        "MinLine": 16,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 44,
+        "StageId": 10121,
+        "MinLine": 5,
+        "MaxLine": 5,
+        "ItemIds": [
+            13
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 0
+    },
+    {
+        "Id": 45,
+        "StageId": 10121,
+        "MinLine": 6,
+        "MaxLine": 20,
+        "ItemIds": [
+            2,
+            13.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 46,
+        "StageId": 10121,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            13,
+            2.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 47,
+        "StageId": 10122,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            13,
+            2.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            150,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 48,
+        "StageId": 10122,
+        "MinLine": 11,
+        "MaxLine": 15,
+        "ItemIds": [
+            1,
+            13.0
+        ],
+        "ItemIdWeights": [
+            150,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 49,
+        "StageId": 10122,
+        "MinLine": 16,
+        "MaxLine": 9999,
+        "ItemIds": [
+            1,
+            2.0,
+            13.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            200.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 50,
+        "StageId": 10131,
+        "MinLine": 5,
+        "MaxLine": 6,
+        "ItemIds": [
+            8
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 1
+    },
+    {
+        "Id": 51,
+        "StageId": 10131,
+        "MinLine": 7,
+        "MaxLine": 20,
+        "ItemIds": [
+            3,
+            4.0,
+            8.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0,
+            150.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 52,
+        "StageId": 10131,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            8,
+            3.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 53,
+        "StageId": 10132,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            8,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            150,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 54,
+        "StageId": 10132,
+        "MinLine": 11,
+        "MaxLine": 20,
+        "ItemIds": [
+            2,
+            3.0,
+            8.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 55,
+        "StageId": 10132,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            8,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 56,
+        "StageId": 10141,
+        "MinLine": 1,
+        "MaxLine": 3,
+        "ItemIds": [
+            11
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 57,
+        "StageId": 10141,
+        "MinLine": 6,
+        "MaxLine": 20,
+        "ItemIds": [
+            8,
+            13.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 58,
+        "StageId": 10141,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            11,
+            8.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            200.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 59,
+        "StageId": 10142,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            11,
+            8.0,
+            13.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            50.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 60,
+        "StageId": 10142,
+        "MinLine": 11,
+        "MaxLine": 20,
+        "ItemIds": [
+            11,
+            8.0,
+            13.0
+        ],
+        "ItemIdWeights": [
+            50,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 61,
+        "StageId": 10142,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            11,
+            8.0,
+            13.0
+        ],
+        "ItemIdWeights": [
+            50,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 62,
+        "StageId": 20111,
+        "MinLine": 6,
+        "MaxLine": 7,
+        "ItemIds": [
+            12
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 1
+    },
+    {
+        "Id": 63,
+        "StageId": 20111,
+        "MinLine": 8,
+        "MaxLine": 15,
+        "ItemIds": [
+            2,
+            4.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 64,
+        "StageId": 20111,
+        "MinLine": 16,
+        "MaxLine": 9999,
+        "ItemIds": [
+            12,
+            2.0,
+            4.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 65,
+        "StageId": 20112,
+        "MinLine": 6,
+        "MaxLine": 8,
+        "ItemIds": [
+            12,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 66,
+        "StageId": 20112,
+        "MinLine": 9,
+        "MaxLine": 20,
+        "ItemIds": [
+            2,
+            3.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 67,
+        "StageId": 20112,
+        "MinLine": 21,
+        "MaxLine": 50,
+        "ItemIds": [
+            12,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 68,
+        "StageId": 20112,
+        "MinLine": 51,
+        "MaxLine": 9999,
+        "ItemIds": [
+            12,
+            2.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            300.0,
+            200.0
+        ],
+        "MinRefreshInterval": 6,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 69,
+        "StageId": 20121,
+        "MinLine": 3,
+        "MaxLine": 5,
+        "ItemIds": [
+            7
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 70,
+        "StageId": 20121,
+        "MinLine": 7,
+        "MaxLine": 15,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            100.0,
+            50.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 71,
+        "StageId": 20121,
+        "MinLine": 16,
+        "MaxLine": 9999,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            50.0,
+            50.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 72,
+        "StageId": 20122,
+        "MinLine": 1,
+        "MaxLine": 50,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            300.0,
+            50.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 73,
+        "StageId": 20122,
+        "MinLine": 51,
+        "MaxLine": 100,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            200.0,
+            50.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 74,
+        "StageId": 20122,
+        "MinLine": 101,
+        "MaxLine": 9999,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 6,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 75,
+        "StageId": 20131,
+        "MinLine": 5,
+        "MaxLine": 10,
+        "ItemIds": [
+            7,
+            8.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 76,
+        "StageId": 20131,
+        "MinLine": 11,
+        "MaxLine": 15,
+        "ItemIds": [
+            5,
+            3.0
+        ],
+        "ItemIdWeights": [
+            500,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 77,
+        "StageId": 20131,
+        "MinLine": 16,
+        "MaxLine": 20,
+        "ItemIds": [
+            3,
+            5.0
+        ],
+        "ItemIdWeights": [
+            500,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 78,
+        "StageId": 20131,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 79,
+        "StageId": 20132,
+        "MinLine": 1,
+        "MaxLine": 50,
+        "ItemIds": [
+            7,
+            8.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            300.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 80,
+        "StageId": 20132,
+        "MinLine": 51,
+        "MaxLine": 100,
+        "ItemIds": [
+            7,
+            8.0,
+            5.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            150,
+            100.0,
+            50.0,
+            200.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 81,
+        "StageId": 20132,
+        "MinLine": 101,
+        "MaxLine": 9999,
+        "ItemIds": [
+            7,
+            8.0,
+            5.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            100.0,
+            150.0
+        ],
+        "MinRefreshInterval": 6,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 82,
+        "StageId": 20141,
+        "MinLine": 2,
+        "MaxLine": 3,
+        "ItemIds": [
+            9
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 0,
+        "MaxRefreshInterval": 1
+    },
+    {
+        "Id": 83,
+        "StageId": 20141,
+        "MinLine": 6,
+        "MaxLine": 10,
+        "ItemIds": [
+            10
+        ],
+        "ItemIdWeights": [
+            100
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 84,
+        "StageId": 20141,
+        "MinLine": 11,
+        "MaxLine": 20,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            150,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 85,
+        "StageId": 20141,
+        "MinLine": 21,
+        "MaxLine": 9999,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 86,
+        "StageId": 20142,
+        "MinLine": 1,
+        "MaxLine": 50,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 87,
+        "StageId": 20142,
+        "MinLine": 51,
+        "MaxLine": 100,
+        "ItemIds": [
+            10,
+            9.0
+        ],
+        "ItemIdWeights": [
+            120,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 88,
+        "StageId": 20142,
+        "MinLine": 101,
+        "MaxLine": 9999,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            120.0
+        ],
+        "MinRefreshInterval": 6,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 89,
+        "StageId": 30112,
+        "MinLine": 1,
+        "MaxLine": 10,
+        "ItemIds": [
+            1,
+            13.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 90,
+        "StageId": 30112,
+        "MinLine": 11,
+        "MaxLine": 25,
+        "ItemIds": [
+            7,
+            13.0,
+            1.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 91,
+        "StageId": 30112,
+        "MinLine": 26,
+        "MaxLine": 50,
+        "ItemIds": [
+            7,
+            13.0,
+            1.0,
+            2.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 4
+    },
+    {
+        "Id": 92,
+        "StageId": 30112,
+        "MinLine": 51,
+        "MaxLine": 100,
+        "ItemIds": [
+            7,
+            13.0,
+            2.0,
+            8.0
+        ],
+        "ItemIdWeights": [
+            200,
+            150.0,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 93,
+        "StageId": 30112,
+        "MinLine": 101,
+        "MaxLine": 9999,
+        "ItemIds": [
+            7,
+            13.0,
+            1.0,
+            2.0,
+            8.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0,
+            100.0,
+            100.0,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 94,
+        "StageId": 30122,
+        "MinLine": 1,
+        "MaxLine": 19,
+        "ItemIds": [
+            12,
+            13.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            100,
+            300.0,
+            400.0
+        ],
+        "MinRefreshInterval": 1,
+        "MaxRefreshInterval": 2
+    },
+    {
+        "Id": 95,
+        "StageId": 30122,
+        "MinLine": 20,
+        "MaxLine": 38,
+        "ItemIds": [
+            8,
+            2.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 96,
+        "StageId": 30122,
+        "MinLine": 39,
+        "MaxLine": 100,
+        "ItemIds": [
+            12,
+            8.0,
+            13.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            50,
+            100.0,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 6
+    },
+    {
+        "Id": 97,
+        "StageId": 30122,
+        "MinLine": 101,
+        "MaxLine": 9999,
+        "ItemIds": [
+            12,
+            13.0,
+            8.0,
+            3.0,
+            2.0
+        ],
+        "ItemIdWeights": [
+            50,
+            150.0,
+            100.0,
+            200.0,
+            200.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 98,
+        "StageId": 30132,
+        "MinLine": 1,
+        "MaxLine": 29,
+        "ItemIds": [
+            12,
+            13.0,
+            3.0
+        ],
+        "ItemIdWeights": [
+            50,
+            150.0,
+            300.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 99,
+        "StageId": 30132,
+        "MinLine": 30,
+        "MaxLine": 45,
+        "ItemIds": [
+            8,
+            2.0,
+            7.0
+        ],
+        "ItemIdWeights": [
+            200,
+            100.0,
+            200.0
+        ],
+        "MinRefreshInterval": 4,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 100,
+        "StageId": 30132,
+        "MinLine": 46,
+        "MaxLine": 55,
+        "ItemIds": [
+            12,
+            8.0,
+            13.0,
+            7.0
+        ],
+        "ItemIdWeights": [
+            50,
+            100.0,
+            200.0,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 101,
+        "StageId": 30132,
+        "MinLine": 56,
+        "MaxLine": 9999,
+        "ItemIds": [
+            12,
+            13.0,
+            8.0,
+            3.0,
+            7.0
+        ],
+        "ItemIdWeights": [
+            100,
+            150.0,
+            100.0,
+            150.0,
+            100.0
+        ],
+        "MinRefreshInterval": 8,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 102,
+        "StageId": 30142,
+        "MinLine": 1,
+        "MaxLine": 10,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 2,
+        "MaxRefreshInterval": 3
+    },
+    {
+        "Id": 103,
+        "StageId": 30142,
+        "MinLine": 11,
+        "MaxLine": 46,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 3,
+        "MaxRefreshInterval": 5
+    },
+    {
+        "Id": 104,
+        "StageId": 30142,
+        "MinLine": 47,
+        "MaxLine": 100,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 5,
+        "MaxRefreshInterval": 8
+    },
+    {
+        "Id": 105,
+        "StageId": 30142,
+        "MinLine": 101,
+        "MaxLine": 300,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 8,
+        "MaxRefreshInterval": 10
+    },
+    {
+        "Id": 106,
+        "StageId": 30142,
+        "MinLine": 301,
+        "MaxLine": 9999,
+        "ItemIds": [
+            9,
+            10.0
+        ],
+        "ItemIdWeights": [
+            100,
+            100.0
+        ],
+        "MinRefreshInterval": 10,
+        "MaxRefreshInterval": 15
+    }
+]

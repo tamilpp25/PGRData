@@ -1,0 +1,78 @@
+[
+    {
+        "Id": 1,
+        "TeamTitle": "Noctis",
+        "TeamInfo": "Belongs to: Cerberus",
+        "CharacterInfo": null,
+        "Desc": "<color=#fff45b>Noctis' stats are modified in this mode.</color>\\nWith full Synergy Energy, Noctis will trigger a Synergy Switch by performing one of the following actions:\\nCast <color=#fff45b>Magnetic Blast</color> to enter the Thunder Burst Form.\\nCast <color=#fff45b>Skull Crush</color>.",
+        "SkillIcon": [
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P904.png",
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P904.png"
+        ],
+        "SkillTitle": [
+            "Lightning Bomb",
+            "Synergy Entrance"
+        ],
+        "SkillDesc": [
+            "Can be cast at full Synergy Energy, dealing massive Lightning DMG, <color=#fff45b>triggering Time Lag Calculation</color>, and directly entering the Burst Form.",
+            "Pulls enemies for 5s and inflicts Sticky Mine on all enemies on the battlefield. Upon 20 stacks or at the end of the duration, deals Lightning DMG based on the number of the stacks."
+        ]
+    },
+    {
+        "Id": 2,
+        "TeamTitle": "Vera",
+        "TeamInfo": "Belongs to: Cerberus",
+        "CharacterInfo": null,
+        "Desc": "<color=#fff45b>Vera's stats are modified in this mode.</color>\\nWith full Synergy Energy, Vera will trigger a Synergy Switch by performing the following action:\\nPress and hold Basic Attack to <color=#fff45b>cast Lightning Fall</color>.",
+        "SkillIcon": [
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P902.png",
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P902.png"
+        ],
+        "SkillTitle": [
+            "Dazzling Banner",
+            "Synergy Entrance"
+        ],
+        "SkillDesc": [
+            "Can be cast at full Synergy Energy, dealing massive Lightning DMG, <color=#fff45b>triggering Time Lag Calculation</color>, and restoring 3 stacks of Electric Charge. Press and hold Attack to follow up with Lightning Fall.",
+            "Increases all members' DMG Reduction by 30% and Super Armor reduction speed by 100% for 5s."
+        ]
+    },
+    {
+        "Id": 3,
+        "TeamTitle": "No. 21",
+        "TeamInfo": "Belongs to: Cerberus",
+        "CharacterInfo": null,
+        "Desc": "<color=#fff45b>No. 21's stats are modified in this mode.</color>\\nWith full Synergy Energy, No. 21 will trigger a Synergy Switch by performing the following action:\\n<color=#fff45b>Cast Signature</color> - Sky-ripping Arcflash.",
+        "SkillIcon": [
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P903.png",
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P903.png"
+        ],
+        "SkillTitle": [
+            "Fierce Predator",
+            "Synergy Entrance"
+        ],
+        "SkillDesc": [
+            "Can be cast at full Synergy Energy, dealing massive Lightning DMG and <color=#fff45b>triggering Time Lag Calculation</color>. Then, enters the Predator Stance. Tap Basic Attack to trigger Forceful Pounce.",
+            "Removes all members' debuffs. And for the next 5s, every time when dealing damage, restores HP equal to 2% of the DMG to all members."
+        ]
+    },
+    {
+        "Id": 4,
+        "TeamTitle": "Cerberus",
+        "TeamInfo": "Belongs to: Task Force",
+        "CharacterInfo": null,
+        "Desc": "<color=#fff45b>Casts specific skills</color> to perform a <color=#fff45b>Synergy Switch</color> <color=#fff45b>with 100 Synergy Energy</color>.\\nEach Synergy Switch grants 20 Synergy Signature Points.\\nWith full Synergy Signature Points, tap the button to send the enemy to hell.",
+        "SkillIcon": [
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P901.png",
+            "Assets/Product/Texture/Image/UiCerberus/UiCerberusSkillV2P901.png"
+        ],
+        "SkillTitle": [
+            "Welcome to Hell!",
+            "Song of Hell"
+        ],
+        "SkillDesc": [
+            "Casts with 99 Synergy Signature Energy to deal massive Lightning DMG across the screen and <color=#fff45b>trigger Time Lag Calculation</color>.",
+            "Grants the team 25% ATK after casting the Synergy Signature. Can be stacked up to 5 times."
+        ]
+    }
+]

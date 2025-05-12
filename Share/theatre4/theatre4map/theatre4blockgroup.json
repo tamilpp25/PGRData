@@ -1,0 +1,1795 @@
+[
+    {
+        "Id": 10001,
+        "Desc": "Divide the initial tiles",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            2,
+            4.0,
+            8.0
+        ]
+    },
+    {
+        "Id": 10002,
+        "Desc": "Starting Point Area",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            6
+        ]
+    },
+    {
+        "Id": 10003,
+        "Desc": "Boss Area",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            7
+        ]
+    },
+    {
+        "Id": 10004,
+        "Desc": "Boss with only 1 tile",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10
+        ]
+    },
+    {
+        "Id": 10005,
+        "Desc": "Map 1 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20006
+        ]
+    },
+    {
+        "Id": 10006,
+        "Desc": "Map 2 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20007
+        ]
+    },
+    {
+        "Id": 10007,
+        "Desc": "Map 3 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20008
+        ]
+    },
+    {
+        "Id": 10008,
+        "Desc": "Map 4 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20009
+        ]
+    },
+    {
+        "Id": 10009,
+        "Desc": "Map 5 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20010
+        ]
+    },
+    {
+        "Id": 10010,
+        "Desc": "Map 6 Guaranteed Set",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20011
+        ]
+    },
+    {
+        "Id": 10011,
+        "Desc": "No single tile",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20055
+        ]
+    },
+    {
+        "Id": 11001,
+        "Desc": "Beginner Map 1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20107
+        ]
+    },
+    {
+        "Id": 11002,
+        "Desc": "Beginner Map 2",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20108
+        ]
+    },
+    {
+        "Id": 11003,
+        "Desc": "Beginner Map 3",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20109
+        ]
+    },
+    {
+        "Id": 21001,
+        "Desc": "Red 1 Map 1 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10000
+        ]
+    },
+    {
+        "Id": 21002,
+        "Desc": "Red 1 Map 1 - Chest 1 (with box)",
+        "RelationGroup": 21002.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10001
+        ]
+    },
+    {
+        "Id": 21003,
+        "Desc": "Red 1 Map 1 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10002
+        ]
+    },
+    {
+        "Id": 21004,
+        "Desc": "Red 1 Map 1 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10003
+        ]
+    },
+    {
+        "Id": 21005,
+        "Desc": "Red 1 Map 1 - Chest 2 (with box)",
+        "RelationGroup": 21005.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10005
+        ]
+    },
+    {
+        "Id": 21006,
+        "Desc": "Red 1 Map 1 - Chest 2 (without box)",
+        "RelationGroup": 21006.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10004
+        ]
+    },
+    {
+        "Id": 21007,
+        "Desc": "Red 1 Map 1 - Chest 1 (without box)",
+        "RelationGroup": 21007.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10021
+        ]
+    },
+    {
+        "Id": 21101,
+        "Desc": "Red 1 Map 2 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10006
+        ]
+    },
+    {
+        "Id": 21103,
+        "Desc": "Red 1 Map 2 - Chest 2 (with box)",
+        "RelationGroup": 21103.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10009
+        ]
+    },
+    {
+        "Id": 21104,
+        "Desc": "Red 1 Map 2 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10010
+        ]
+    },
+    {
+        "Id": 21105,
+        "Desc": "Red 1 Map 2 - Shop 2",
+        "RelationGroup": 21105.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10013
+        ]
+    },
+    {
+        "Id": 21106,
+        "Desc": "Red 1 Map 2 - Area 6",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10014
+        ]
+    },
+    {
+        "Id": 21107,
+        "Desc": "Red 1 Map 2 - Shop 1",
+        "RelationGroup": 21107.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10015
+        ]
+    },
+    {
+        "Id": 21108,
+        "Desc": "Red 1 Map 2 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10017
+        ]
+    },
+    {
+        "Id": 21109,
+        "Desc": "Red 1 Map 2 - Chest 1 (with box)",
+        "RelationGroup": 21109.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10018
+        ]
+    },
+    {
+        "Id": 21110,
+        "Desc": "Red 1 Map 2 - Chest 1 (without box)",
+        "RelationGroup": 21110.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10008
+        ]
+    },
+    {
+        "Id": 21111,
+        "Desc": "Red 1 Map 2 - Chest 2 (without box)",
+        "RelationGroup": 21111.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10019
+        ]
+    },
+    {
+        "Id": 21112,
+        "Desc": "Red 1 Map 2 - No Shop 1",
+        "RelationGroup": 21112.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10012
+        ]
+    },
+    {
+        "Id": 21113,
+        "Desc": "Red 1 Map 2 - No Shop 2",
+        "RelationGroup": 21113.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10022
+        ]
+    },
+    {
+        "Id": 21201,
+        "Desc": "Red 1 Map 3 - None 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10016
+        ]
+    },
+    {
+        "Id": 21202,
+        "Desc": "Red 1 Map 3 - Hidden Treasure",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10023
+        ]
+    },
+    {
+        "Id": 21203,
+        "Desc": "Red 1 Map 3 - Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10024
+        ]
+    },
+    {
+        "Id": 21204,
+        "Desc": "Red 1 Map 3 - Hidden Elite",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10026
+        ]
+    },
+    {
+        "Id": 21205,
+        "Desc": "Red 1 Map 3 - Central Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10027
+        ]
+    },
+    {
+        "Id": 21206,
+        "Desc": "Red 1 Map 3 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10028,
+            10029.0
+        ]
+    },
+    {
+        "Id": 21207,
+        "Desc": "Red 1 Map 3 - None 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10030
+        ]
+    },
+    {
+        "Id": 21208,
+        "Desc": "Red 1 Map 3 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10031
+        ]
+    },
+    {
+        "Id": 21209,
+        "Desc": "Red 1 Map 3 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10033,
+            10011.0
+        ]
+    },
+    {
+        "Id": 21210,
+        "Desc": "Red 1 Map 3 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10034
+        ]
+    },
+    {
+        "Id": 21301,
+        "Desc": "Red 1 Map 4 - Hidden Elite",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10035
+        ]
+    },
+    {
+        "Id": 21302,
+        "Desc": "Red 1 Map 4 - None",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10036
+        ]
+    },
+    {
+        "Id": 21303,
+        "Desc": "Red 1 Map 4 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10037
+        ]
+    },
+    {
+        "Id": 21304,
+        "Desc": "Red 1 Map 4 - Starting Point",
+        "RelationGroup": 21304.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10038,
+            10039.0
+        ]
+    },
+    {
+        "Id": 21305,
+        "Desc": "Red 1 Map 4 - Event 1",
+        "RelationGroup": 21305.0,
+        "BaseWeight": 0,
+        "ConditionId": [
+            1020680.0
+        ],
+        "ConditionWeight": [
+            99999.0
+        ],
+        "BlockId": [
+            10007
+        ]
+    },
+    {
+        "Id": 21306,
+        "Desc": "Red 1 Map 4 - Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10041
+        ]
+    },
+    {
+        "Id": 21307,
+        "Desc": "Red 1 Map 4 - Shop 2",
+        "RelationGroup": 21307.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10042
+        ]
+    },
+    {
+        "Id": 21308,
+        "Desc": "Red 1 Map 4 - Event 2",
+        "RelationGroup": 21308.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10073
+        ]
+    },
+    {
+        "Id": 21309,
+        "Desc": "Red 1 Map 4 - Shop 1",
+        "RelationGroup": 21309.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10044
+        ]
+    },
+    {
+        "Id": 21310,
+        "Desc": "Red 1 Map 4 - Starting Point 2",
+        "RelationGroup": 21310.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10045
+        ]
+    },
+    {
+        "Id": 21311,
+        "Desc": "Red 1 Map 4 - None 2 (Block Hidden Area)",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10046
+        ]
+    },
+    {
+        "Id": 21312,
+        "Desc": "Red 1 Map 4 - Hidden Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10047
+        ]
+    },
+    {
+        "Id": 21313,
+        "Desc": "Red 1 Map 4 - No Secret Shop Guarantee",
+        "RelationGroup": null,
+        "BaseWeight": 50,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10048
+        ]
+    },
+    {
+        "Id": 21314,
+        "Desc": "Red 1 Map 4 - Starting Point 1 (not the starting point guarantee)",
+        "RelationGroup": 21314.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10049
+        ]
+    },
+    {
+        "Id": 21315,
+        "Desc": "Red 1 Map 4 - Starting Point 2 (not the starting point guarantee)",
+        "RelationGroup": 21315.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10050
+        ]
+    },
+    {
+        "Id": 21316,
+        "Desc": "Red 1 Map 4 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10051
+        ]
+    },
+    {
+        "Id": 21317,
+        "Desc": "Red 1 Map 4 - Shop 1 (no shop)",
+        "RelationGroup": null,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10064
+        ]
+    },
+    {
+        "Id": 21318,
+        "Desc": "Red 1 Map 4 - Shop 2 (no shop)",
+        "RelationGroup": null,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10065
+        ]
+    },
+    {
+        "Id": 21319,
+        "Desc": "Red 1 Map 4 - Hidden Chest",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10072
+        ]
+    },
+    {
+        "Id": 21320,
+        "Desc": "Red 1 Map 4 - Event 1 (no special guarantee)",
+        "RelationGroup": 21320.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10032
+        ]
+    },
+    {
+        "Id": 21321,
+        "Desc": "Red 1 Map 4 - Event 2 (no special guarantee)",
+        "RelationGroup": 21321.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10040
+        ]
+    },
+    {
+        "Id": 21401,
+        "Desc": "Red 1 Map 5 - None 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10052
+        ]
+    },
+    {
+        "Id": 21402,
+        "Desc": "Red 1 Map 5 - Hidden Chest",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10053,
+            10087.0
+        ]
+    },
+    {
+        "Id": 21403,
+        "Desc": "Red 1 Map 5 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10054
+        ]
+    },
+    {
+        "Id": 21404,
+        "Desc": "Red 1 Map 5 - Standard Area 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10055
+        ]
+    },
+    {
+        "Id": 21405,
+        "Desc": "Red 1 Map 5 - None 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10056
+        ]
+    },
+    {
+        "Id": 21406,
+        "Desc": "Red 1 Map 5 - Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10057
+        ]
+    },
+    {
+        "Id": 21407,
+        "Desc": "Red 1 Map 5 - Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10058
+        ]
+    },
+    {
+        "Id": 21408,
+        "Desc": "Red 1 Map 5 - Standard Area 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10059
+        ]
+    },
+    {
+        "Id": 21409,
+        "Desc": "Red 1 Map 5 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10060,
+            10086.0
+        ]
+    },
+    {
+        "Id": 21410,
+        "Desc": "Red 1 Map 5 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10061
+        ]
+    },
+    {
+        "Id": 21411,
+        "Desc": "Red 1 Map 5 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10062
+        ]
+    },
+    {
+        "Id": 21412,
+        "Desc": "Red 1 Map 5 - None 3",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10063
+        ]
+    },
+    {
+        "Id": 21501,
+        "Desc": "Red 1 Map 6 - None 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10066
+        ]
+    },
+    {
+        "Id": 21502,
+        "Desc": "Red 1 Map 6 - None 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10067
+        ]
+    },
+    {
+        "Id": 21503,
+        "Desc": "Red 1 Map 6 - None 3",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10068
+        ]
+    },
+    {
+        "Id": 21504,
+        "Desc": "Red 1 Map 6 - Core Area",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10069
+        ]
+    },
+    {
+        "Id": 21505,
+        "Desc": "Red 1 Map 6 - Shieldbearer B",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10070
+        ]
+    },
+    {
+        "Id": 21506,
+        "Desc": "Red 1 Map 6 - Shieldbearer A",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10071
+        ]
+    },
+    {
+        "Id": 31001,
+        "Desc": "Neutral 1 Map 1 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10025
+        ]
+    },
+    {
+        "Id": 31002,
+        "Desc": "Neutral 1 Map 1 - Chest 1",
+        "RelationGroup": 31002.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10074
+        ]
+    },
+    {
+        "Id": 31003,
+        "Desc": "Neutral 1 Map 1 - No Chest 1",
+        "RelationGroup": 31003.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10075
+        ]
+    },
+    {
+        "Id": 31004,
+        "Desc": "Neutral 1 Map 1 - Chest 2",
+        "RelationGroup": 31004.0,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10076
+        ]
+    },
+    {
+        "Id": 31005,
+        "Desc": "Neutral 1 Map 1 - No Chest 2",
+        "RelationGroup": 31005.0,
+        "BaseWeight": 1,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10077
+        ]
+    },
+    {
+        "Id": 31006,
+        "Desc": "Neutral 1 Map 1 - Standard",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10078
+        ]
+    },
+    {
+        "Id": 31007,
+        "Desc": "Neutral 1 Map 1 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10079
+        ]
+    },
+    {
+        "Id": 31101,
+        "Desc": "Neutral 1 Map 2 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10043
+        ]
+    },
+    {
+        "Id": 31102,
+        "Desc": "Neutral 1 Map 2 - Standard 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10080
+        ]
+    },
+    {
+        "Id": 31103,
+        "Desc": "Neutral 1 Map 2 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10081
+        ]
+    },
+    {
+        "Id": 31104,
+        "Desc": "Neutral 1 Map 2 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10082
+        ]
+    },
+    {
+        "Id": 31105,
+        "Desc": "Neutral 1 Map 2 - Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10083
+        ]
+    },
+    {
+        "Id": 31106,
+        "Desc": "Neutral 1 Map 2 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10084
+        ]
+    },
+    {
+        "Id": 31107,
+        "Desc": "Neutral 1 Map 2 - Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10085
+        ]
+    },
+    {
+        "Id": 31201,
+        "Desc": "Neutral 1 Map 3 - None",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10088
+        ]
+    },
+    {
+        "Id": 31202,
+        "Desc": "Neutral 1 Map 3 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10089
+        ]
+    },
+    {
+        "Id": 31203,
+        "Desc": "Neutral 1 Map 3 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10090
+        ]
+    },
+    {
+        "Id": 31204,
+        "Desc": "Neutral 1 Map 3 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10091
+        ]
+    },
+    {
+        "Id": 31205,
+        "Desc": "Neutral 1 Map 3 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10092
+        ]
+    },
+    {
+        "Id": 31206,
+        "Desc": "Neutral 1 Map 3 - Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10093
+        ]
+    },
+    {
+        "Id": 31207,
+        "Desc": "Neutral 1 Map 3 - Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10094
+        ]
+    },
+    {
+        "Id": 31208,
+        "Desc": "Neutral 1 Map 3 - Hidden Chest",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10095
+        ]
+    },
+    {
+        "Id": 31301,
+        "Desc": "Neutral 1 Map 4 - Hidden Chest",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10096
+        ]
+    },
+    {
+        "Id": 31302,
+        "Desc": "Neutral 1 Map 4 - Gold Coin Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10097
+        ]
+    },
+    {
+        "Id": 31303,
+        "Desc": "Neutral 1 Map 4 - Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10098
+        ]
+    },
+    {
+        "Id": 31304,
+        "Desc": "Neutral 1 Map 4 - Event",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10099
+        ]
+    },
+    {
+        "Id": 31305,
+        "Desc": "Neutral 1 Map 4 - Shop",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10100
+        ]
+    },
+    {
+        "Id": 31306,
+        "Desc": "Neutral 1 Map 4 - Boss",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10101
+        ]
+    },
+    {
+        "Id": 31307,
+        "Desc": "Neutral 1 Map 4 - Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10102
+        ]
+    },
+    {
+        "Id": 31308,
+        "Desc": "Neutral 1 Map 4 - Gold Coin Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10103
+        ]
+    },
+    {
+        "Id": 31309,
+        "Desc": "Neutral 1 Map 4 - Chest 3",
+        "RelationGroup": null,
+        "BaseWeight": 100,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            10104
+        ]
+    },
+    {
+        "Id": 41001,
+        "Desc": "Blue 1 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20000,
+            20001.0,
+            20002.0
+        ]
+    },
+    {
+        "Id": 41002,
+        "Desc": "Blue 1 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20003,
+            20004.0,
+            20005.0
+        ]
+    },
+    {
+        "Id": 42001,
+        "Desc": "Blue 2 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20012,
+            20013.0,
+            20014.0
+        ]
+    },
+    {
+        "Id": 42002,
+        "Desc": "Blue 2 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20015,
+            20016.0,
+            20017.0
+        ]
+    },
+    {
+        "Id": 43001,
+        "Desc": "Blue 3 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20018,
+            20019.0,
+            20020.0
+        ]
+    },
+    {
+        "Id": 43002,
+        "Desc": "Blue 3 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20023,
+            20024.0
+        ]
+    },
+    {
+        "Id": 43003,
+        "Desc": "Blue 3 Map 3-1 Follow-up",
+        "RelationGroup": 43003.0,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20025
+        ]
+    },
+    {
+        "Id": 43004,
+        "Desc": "Blue 3 Map 2-1 Prerequisite",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20026
+        ]
+    },
+    {
+        "Id": 43005,
+        "Desc": "Blue 3 Map 3-1 Follow-up 1",
+        "RelationGroup": 43005.0,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20027,
+            20028.0
+        ]
+    },
+    {
+        "Id": 44001,
+        "Desc": "Blue 4 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20036,
+            20037.0,
+            20038.0
+        ]
+    },
+    {
+        "Id": 44002,
+        "Desc": "Blue 4 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20039,
+            20040.0
+        ]
+    },
+    {
+        "Id": 44003,
+        "Desc": "Blue 4 Map 4-1 Obstacle",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20041,
+            20042.0
+        ]
+    },
+    {
+        "Id": 44004,
+        "Desc": "Blue 4 Map 3-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20045,
+            20046.0
+        ]
+    },
+    {
+        "Id": 44005,
+        "Desc": "Blue 4 Map 4-2 Obstacle",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20043,
+            20044.0
+        ]
+    },
+    {
+        "Id": 45001,
+        "Desc": "Blue 5 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20047,
+            20048.0
+        ]
+    },
+    {
+        "Id": 45002,
+        "Desc": "Blue 5 Map Boss",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20049,
+            20050.0
+        ]
+    },
+    {
+        "Id": 45003,
+        "Desc": "Blue 5 Map Top Left",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20051,
+            20052.0
+        ]
+    },
+    {
+        "Id": 45004,
+        "Desc": "Blue 5 Map Bottom Right",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20053,
+            20054.0
+        ]
+    },
+    {
+        "Id": 46001,
+        "Desc": "Blue 6 Map 1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20029,
+            20030.0
+        ]
+    },
+    {
+        "Id": 46002,
+        "Desc": "Blue 6 Map 2",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20031,
+            20032.0
+        ]
+    },
+    {
+        "Id": 46003,
+        "Desc": "Blue 6 Map 3",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20033,
+            20034.0
+        ]
+    },
+    {
+        "Id": 46004,
+        "Desc": "Blue 6 Map 4",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20035
+        ]
+    },
+    {
+        "Id": 46005,
+        "Desc": "Blue 6 Map New Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20100
+        ]
+    },
+    {
+        "Id": 46006,
+        "Desc": "Blue 6 Map False Door",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20103
+        ]
+    },
+    {
+        "Id": 46007,
+        "Desc": "Blue 6 Map True Door",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20104
+        ]
+    },
+    {
+        "Id": 51001,
+        "Desc": "Yellow 1 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20056,
+            20058.0,
+            20059.0
+        ]
+    },
+    {
+        "Id": 51002,
+        "Desc": "Yellow 1 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20060,
+            20061.0,
+            20062.0
+        ]
+    },
+    {
+        "Id": 52001,
+        "Desc": "Yellow 2 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20063,
+            20064.0,
+            20065.0
+        ]
+    },
+    {
+        "Id": 52002,
+        "Desc": "Yellow 2 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20066,
+            20067.0,
+            20068.0
+        ]
+    },
+    {
+        "Id": 53001,
+        "Desc": "Yellow 3 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20069,
+            20070.0,
+            20071.0
+        ]
+    },
+    {
+        "Id": 53002,
+        "Desc": "Yello 3 Map 2-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20072,
+            20073.0,
+            20074.0
+        ]
+    },
+    {
+        "Id": 53003,
+        "Desc": "Yellow 3 Map 3-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20075,
+            20076.0,
+            20077.0
+        ]
+    },
+    {
+        "Id": 54001,
+        "Desc": "Yellow 4 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20078,
+            20079.0,
+            20080.0,
+            20105.0,
+            20106.0
+        ]
+    },
+    {
+        "Id": 54002,
+        "Desc": "Yellow 4 Map Boss",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20081,
+            20082.0
+        ]
+    },
+    {
+        "Id": 54003,
+        "Desc": "Yellow 4 Map 3-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20083,
+            20084.0
+        ]
+    },
+    {
+        "Id": 54004,
+        "Desc": "Yellow 4 Map Fixed",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20085
+        ]
+    },
+    {
+        "Id": 55001,
+        "Desc": "Yellow 5 Map 1-1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20086,
+            20087.0
+        ]
+    },
+    {
+        "Id": 55002,
+        "Desc": "Yellow 5 Map Boss",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20088,
+            20089.0,
+            20110.0,
+            20111.0
+        ]
+    },
+    {
+        "Id": 55003,
+        "Desc": "Yellow 5 Map Teleport",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20090,
+            20091.0
+        ]
+    },
+    {
+        "Id": 55004,
+        "Desc": "Yellow 5 Map Chest 1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20092,
+            20093.0
+        ]
+    },
+    {
+        "Id": 55005,
+        "Desc": "Yellow 5 Map Chest 2",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20094,
+            20095.0
+        ]
+    },
+    {
+        "Id": 56001,
+        "Desc": "Yellow 6 Map Starting Point",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20096,
+            20097.0
+        ]
+    },
+    {
+        "Id": 56002,
+        "Desc": "Yellow 6 Map Boss 1",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20099,
+            20098.0
+        ]
+    },
+    {
+        "Id": 56004,
+        "Desc": "Yello 6 Map Boss 1 Follow-up",
+        "RelationGroup": null,
+        "BaseWeight": 1000,
+        "ConditionId": [],
+        "ConditionWeight": [],
+        "BlockId": [
+            20101,
+            20102.0
+        ]
+    }
+]

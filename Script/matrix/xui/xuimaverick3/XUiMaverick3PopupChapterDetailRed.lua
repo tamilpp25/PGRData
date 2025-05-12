@@ -1,0 +1,6 @@
+local XUiMaverick3PopupChapterDetail = require("XUi/XUiMaverick3/XUiMaverick3PopupChapterDetail")
+
+---@class UiMaverick3PopupChapterDetailRed : XUiMaverick3PopupChapterDetail 和UiMaverick3PopupChapterDetail功能一样 只是UI颜色不一样
+local XUiMaverick3PopupChapterDetailRed = XLuaUiManager.Register(XUiMaverick3PopupChapterDetail, "UiMaverick3PopupChapterDetailRed")
+
+return XUiMaverick3PopupChapterDetailRed

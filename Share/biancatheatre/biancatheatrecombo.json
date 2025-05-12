@@ -1,0 +1,2143 @@
+[
+    {
+        "Id": 1011,
+        "Name": "Matrix - War Blade - Phase 1",
+        "ChildComboId": 101,
+        "EffectDescription": "Upon dealing Physical DMG, reduces the enemy's DEF by <color=#dbb536>100%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.",
+        "ConditionDesc": "Total Stars of War Blade members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            10011
+        ],
+        "EffectValid": [
+            1011
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 1012,
+        "Name": "Matrix - War Blade - Phase 2",
+        "ChildComboId": 101,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Extra DMG Reduction by <color=#dbb536>50%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of War Blade members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            10011,
+            10012.0
+        ],
+        "EffectValid": [
+            1011,
+            1011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 1013,
+        "Name": "Matrix - War Blade - Phase 3",
+        "ChildComboId": 101,
+        "EffectDescription": "Upon entering battle, CRIT Rate and CRIT DMG permanently increase by <color=#dbb536>40%</color> and <color=#dbb536>100%</color> respectively.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of War Blade members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            10011,
+            10012.0,
+            10013.0
+        ],
+        "EffectValid": [
+            1011,
+            1011.0,
+            1011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1014,
+        "Name": "Matrix - War Blade - Phase 4",
+        "ChildComboId": 101,
+        "EffectDescription": "Upon entering battle, inflicts the <color=#dbb536>Frail</color> effect on all enemies, which will make them receive <color=#dbb536>30%</color> more Physical DMG.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of War Blade members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            10011,
+            10012.0,
+            10013.0,
+            10014.0
+        ],
+        "EffectValid": [
+            1011,
+            1011.0,
+            1011.0,
+            1011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1015,
+        "Name": "Crimson - War Blade - Phase 5",
+        "ChildComboId": 101,
+        "EffectDescription": "Upon dealing DMG, summons floating blades to attack the enemy, dealing a total of <color=#dbb536>1,500%</color> Physical DMG with a <color=#dbb536>30%</color> Blood Draining effect; cooldown: <color=#dbb536>10</color>s.\\nWhen dealing <color=#dbb536>Physical DMG</color>, the final DMG increases by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 4</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of War Blade members reach <color=#dbb536>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 1,
+        "IsDecay": 1.0,
+        "Quality": 6,
+        "EffectId": [
+            10011,
+            10012.0,
+            10013.0,
+            10014.0,
+            10015.0
+        ],
+        "EffectValid": [
+            1011,
+            1011.0,
+            1011.0,
+            1011.0,
+            1011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1021,
+        "Name": "Matrix - Fire - Phase 1",
+        "ChildComboId": 102,
+        "EffectDescription": "Fire Extra DMG Bonus increases by <color=#dbb536>50%</color>. Does not stack with other Bonds.",
+        "ConditionDesc": "Total Stars of Matrix - Fire members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            10021
+        ],
+        "EffectValid": [
+            1021
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 1022,
+        "Name": "Matrix - Fire - Phase 2",
+        "ChildComboId": 102,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Extra DMG Reduction by <color=#dbb536>50%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Fire members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            10021,
+            10022.0
+        ],
+        "EffectValid": [
+            1021,
+            1021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 1023,
+        "Name": "Matrix - Fire - Phase 3",
+        "ChildComboId": 102,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Fire Resistance by <color=#dbb536>70%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Fire members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            10021,
+            10022.0,
+            10023.0
+        ],
+        "EffectValid": [
+            1021,
+            1021.0,
+            1021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1024,
+        "Name": "Matrix - Fire - Phase 4",
+        "ChildComboId": 102,
+        "EffectDescription": "Upon entering battle, inflicts the <color=#dbb536>Combustible</color> effect on all enemies, which will make them receive <color=#dbb536>30%</color> more Fire DMG.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Fire members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            10021,
+            10022.0,
+            10023.0,
+            10024.0
+        ],
+        "EffectValid": [
+            1021,
+            1021.0,
+            1021.0,
+            1021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1025,
+        "Name": "Crimson - Fire - Phase 5",
+        "ChildComboId": 102,
+        "EffectDescription": "Upon dealing DMG, summons a meteor to strike a wide area, dealing <color=#dbb536>3,000%</color> Fire DMG to all enemies within range. Afflicted enemies have their Extra DMG Bonus reduced by <color=#dbb536>50%</color> for <color=#dbb536>5s</color>; cooldown: <color=#dbb536>10</color>s.\\nWhen dealing <color=#dbb536>Fire DMG</color>, the final DMG increases by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 4</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Fire members reach <color=#dbb536>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 1,
+        "IsDecay": 1.0,
+        "Quality": 6,
+        "EffectId": [
+            10021,
+            10022.0,
+            10023.0,
+            10024.0,
+            10025.0
+        ],
+        "EffectValid": [
+            1021,
+            1021.0,
+            1021.0,
+            1021.0,
+            1021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1031,
+        "Name": "Matrix - Lightning - Phase 1",
+        "ChildComboId": 103,
+        "EffectDescription": "Lightning Extra DMG Bonus increases by <color=#dbb536>50%</color>. Does not stack with other Bonds.",
+        "ConditionDesc": "Total Stars of Matrix - Lightning members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            10031
+        ],
+        "EffectValid": [
+            1031
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 1032,
+        "Name": "Matrix - Lightning - Phase 2",
+        "ChildComboId": 103,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Extra DMG Reduction by <color=#dbb536>50%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Lightning members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            10031,
+            10032.0
+        ],
+        "EffectValid": [
+            1031,
+            1031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 1033,
+        "Name": "Matrix - Lightning - Phase 3",
+        "ChildComboId": 103,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Lightning Resistance by <color=#dbb536>70%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Lightning members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            10031,
+            10032.0,
+            10033.0
+        ],
+        "EffectValid": [
+            1031,
+            1031.0,
+            1031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1034,
+        "Name": "Matrix - Lightning - Phase 4",
+        "ChildComboId": 103,
+        "EffectDescription": "Upon entering battle, inflicts the <color=#dbb536>Electrode</color> effect on all enemies, which will make them receive <color=#dbb536>30%</color> more Lightning DMG.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Lightning members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            10031,
+            10032.0,
+            10033.0,
+            10034.0
+        ],
+        "EffectValid": [
+            1031,
+            1031.0,
+            1031.0,
+            1031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1035,
+        "Name": "Crimson - Lightning - Phase 5",
+        "ChildComboId": 103,
+        "EffectDescription": "Dealing DMG creates a lightning formation around yourself, striking random enemies <color=#dbb536>5</color> times, each dealing <color=#dbb536>1,000%</color> Lightning DMG, with a <color=#dbb536>30%</color> chance to stun enemies; cooldown: <color=#dbb536>10</color>s.\\nWhen dealing <color=#dbb536>Lightning DMG</color>, the final DMG increases by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 4</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Lightning members reach <color=#dbb536>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 1,
+        "IsDecay": 1.0,
+        "Quality": 6,
+        "EffectId": [
+            10031,
+            10032.0,
+            10033.0,
+            10034.0,
+            10035.0
+        ],
+        "EffectValid": [
+            1031,
+            1031.0,
+            1031.0,
+            1031.0,
+            1031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1041,
+        "Name": "Matrix - Dark - Phase 1",
+        "ChildComboId": 104,
+        "EffectDescription": "Dark Extra DMG Bonus increases by <color=#dbb536>50%</color>. Does not stack with other Bonds.",
+        "ConditionDesc": "Total Stars of Matrix - Dark members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            10041
+        ],
+        "EffectValid": [
+            1041
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 1042,
+        "Name": "Matrix - Dark - Phase 2",
+        "ChildComboId": 104,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Extra DMG Reduction by <color=#dbb536>50%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Dark members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            10041,
+            10042.0
+        ],
+        "EffectValid": [
+            1041,
+            1041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 1043,
+        "Name": "Matrix - Dark - Phase 3",
+        "ChildComboId": 104,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Dark Resistance by <color=#dbb536>70%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Dark members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            10041,
+            10042.0,
+            10043.0
+        ],
+        "EffectValid": [
+            1041,
+            1041.0,
+            1041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1044,
+        "Name": "Matrix - Dark - Phase 4",
+        "ChildComboId": 104,
+        "EffectDescription": "Upon entering battle, inflicts the <color=#dbb536>Corrosion</color> effect on all enemies, which will make them receive <color=#dbb536>30%</color> more Dark DMG.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Dark members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            10041,
+            10042.0,
+            10043.0,
+            10044.0
+        ],
+        "EffectValid": [
+            1041,
+            1041.0,
+            1041.0,
+            1041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1045,
+        "Name": "Crimson - Dark - Phase 5",
+        "ChildComboId": 104,
+        "EffectDescription": "Upon dealing DMG, creates a black hole that deals <color=#dbb536>3,000%</color> Dark DMG to all enemies within a wide area, pulling them in after a brief delay; cooldown: <color=#dbb536>10</color>s.\\nWhen dealing <color=#dbb536>Dark DMG</color>, the final DMG increases by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 4</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Dark members reach <color=#dbb536>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 1,
+        "IsDecay": 1.0,
+        "Quality": 6,
+        "EffectId": [
+            10041,
+            10042.0,
+            10043.0,
+            10044.0,
+            10045.0
+        ],
+        "EffectValid": [
+            1041,
+            1041.0,
+            1041.0,
+            1041.0,
+            1041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1051,
+        "Name": "Matrix - Ice - Phase 1",
+        "ChildComboId": 105,
+        "EffectDescription": "Ice Extra DMG Bonus increases by <color=#dbb536>50%</color>. Does not stack with other Bonds.",
+        "ConditionDesc": "Total Stars of Matrix - Ice members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            10051
+        ],
+        "EffectValid": [
+            1051
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 1052,
+        "Name": "Matrix - Ice - Phase 2",
+        "ChildComboId": 105,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Extra DMG Reduction by <color=#dbb536>50%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Ice members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            10051,
+            10052.0
+        ],
+        "EffectValid": [
+            1051,
+            1051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 1053,
+        "Name": "Matrix - Ice - Phase 3",
+        "ChildComboId": 105,
+        "EffectDescription": "Upon dealing DMG, reduces the enemy's Ice Resistance by <color=#dbb536>70%</color> for <color=#dbb536>15</color>s. Triggering this effect again will renew its duration. It does not stack with other Bonds.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Ice members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            10051,
+            10052.0,
+            10053.0
+        ],
+        "EffectValid": [
+            1051,
+            1051.0,
+            1051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1054,
+        "Name": "Matrix - Ice - Phase 4",
+        "ChildComboId": 105,
+        "EffectDescription": "Upon entering battle, inflicts the <color=#dbb536>Frost</color> effect on all enemies, which will make them receive <color=#dbb536>30%</color> more Ice DMG.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Ice members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            10051,
+            10052.0,
+            10053.0,
+            10054.0
+        ],
+        "EffectValid": [
+            1051,
+            1051.0,
+            1051.0,
+            1051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 1055,
+        "Name": "Matrix - Ice - Phase 5",
+        "ChildComboId": 105,
+        "EffectDescription": "When taking DMG from enemies, <color=#dbb536>gains immunity to that DMG</color> and deals <color=#dbb536>3,000%</color> Ice DMG to the attacker, briefly <color=#dbb536>freezing</color> them; cooldown: <color=#dbb536>10</color>s per enemy.\\nWhen dealing <color=#dbb536>Ice DMG</color>, the final DMG increases by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 4</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Matrix - Ice members reach <color=#dbb536>10\u2605</color>",
+        "ConditionLevel": 10,
+        "ConditionNum": 1,
+        "IsDecay": 1.0,
+        "Quality": 6,
+        "EffectId": [
+            10051,
+            10052.0,
+            10053.0,
+            10054.0,
+            10055.0
+        ],
+        "EffectValid": [
+            1051,
+            1051.0,
+            1051.0,
+            1051.0,
+            1051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2011,
+        "Name": "Gaze Realm - Phase 1",
+        "ChildComboId": 201,
+        "EffectDescription": "In Matrix, all characters have <color=#dbb536>50%</color> more Extra DMG Bonus for <color=#dbb536>3s</color>.",
+        "ConditionDesc": "Total Stars of Gaze Realm members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20011
+        ],
+        "EffectValid": [
+            2011
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2012,
+        "Name": "Gaze Realm - Phase 2",
+        "ChildComboId": 201,
+        "EffectDescription": "Reduces Matrix cooldown by <color=#dbb536>50%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Gaze Realm members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20011,
+            20012.0
+        ],
+        "EffectValid": [
+            2011,
+            2011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2021,
+        "Name": "Pure Mercy - Phase 1",
+        "ChildComboId": 202,
+        "EffectDescription": "Excess healing for all characters is converted into True DMG equal to <color=#dbb536>2,000%</color> of the healing amount in a radius of <color=#dbb536>12 meters</color>.",
+        "ConditionDesc": "Total Stars of Pure Mercy members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20021
+        ],
+        "EffectValid": [
+            2021
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2022,
+        "Name": "Pure Mercy - Phase 2",
+        "ChildComboId": 202,
+        "EffectDescription": "All healing and HP recovery effects increase by <color=#dbb536>100%</color> and will not be affected by the healing decrease.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Pure Mercy members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20021,
+            20022.0
+        ],
+        "EffectValid": [
+            2021,
+            2021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2023,
+        "Name": "Pure Mercy - Phase 3",
+        "ChildComboId": 202,
+        "EffectDescription": "All characters (<color=#dbb536>including standby characters</color>) restore <color=#dbb536>10%</color> max HP every second and standby characters' overflow healing will be applied to the character in use.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Pure Mercy members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20021,
+            20022.0,
+            20023.0
+        ],
+        "EffectValid": [
+            2021,
+            2021.0,
+            2021.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2031,
+        "Name": "Extreme Calculation - Phase 1",
+        "ChildComboId": 203,
+        "EffectDescription": "Every time a character deals DMG, deals an additional <color=#dbb536>5,000</color> True DMG. This will not be triggered repeatedly.",
+        "ConditionDesc": "Total Stars of Extreme Calculation members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20031
+        ],
+        "EffectValid": [
+            2031
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2032,
+        "Name": "Extreme Calculation - Phase 2",
+        "ChildComboId": 203,
+        "EffectDescription": "Every time a character deals DMG, deals an additional <color=#dbb536>combo count x250</color> True DMG. This will not be triggered repeatedly.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Extreme Calculation members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20031,
+            20032.0
+        ],
+        "EffectValid": [
+            2031,
+            2031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2041,
+        "Name": "Fighter's Wings - Phase 1",
+        "ChildComboId": 204,
+        "EffectDescription": "All characters have <color=#dbb536>50%</color> more max HP. Upon dealing DMG to the <color=#dbb536>shield</color>, deal the same amount of True DMG.",
+        "ConditionDesc": "Total Stars of Fighter's Wings members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20041
+        ],
+        "EffectValid": [
+            2041
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2042,
+        "Name": "Fighter's Wings - Phase 2",
+        "ChildComboId": 204,
+        "EffectDescription": "All characters gain <color=#dbb536>Super Armor</color> and will not receive DMG beyond <color=#dbb536>20%</color> of their max HP from a single attack.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Fighter's Wings members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20041,
+            20042.0
+        ],
+        "EffectValid": [
+            2041,
+            2041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2043,
+        "Name": "Fighter's Wings - Phase 3",
+        "ChildComboId": 204,
+        "EffectDescription": "Every time a character takes DMG, inflicts True DMG equal to <color=#dbb536>15x</color> of their max HP to all enemies within <color=#dbb536>12 meters</color>.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Fighter's Wings members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20041,
+            20042.0,
+            20043.0
+        ],
+        "EffectValid": [
+            2041,
+            2041.0,
+            2041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2051,
+        "Name": "Little League - Phase 1",
+        "ChildComboId": 205,
+        "EffectDescription": "Upon entering battle, summons Polar Bear <color=#dbb536>Martin</color> with a random one of the following effects:\\n<color=#dbb536>Martin</color> deals DMG equal to <color=#dbb536>5%</color> max HP every <color=#dbb536>10s</color> to all enemies.\\n<color=#dbb536>Martin</color> summons a black hole to pull all enemies and reduce all their Elemental Resistance by <color=#dbb536>20%</color> every <color=#dbb536>10s</color> for <color=#dbb536>5s</color>.",
+        "ConditionDesc": "Total Stars of Little League members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20052
+        ],
+        "EffectValid": [
+            2051
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2052,
+        "Name": "Little League - Phase 2",
+        "ChildComboId": 205,
+        "EffectDescription": "Upon entering battle, a random one of the following effects will be granted:\\nRestores <color=#dbb536>1 Signature Energy</color> every second for each <color=#dbb536>5 Tinbread Cookies</color>.\\nAll members have <color=#dbb536>5%</color> Extra DMG Bonus for each <color=#dbb536>5 Tinbread Cookies</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Little League members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20052,
+            20051.0
+        ],
+        "EffectValid": [
+            2051,
+            2051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2053,
+        "Name": "Little League - Phase 3",
+        "ChildComboId": 205,
+        "EffectDescription": "Upon entering battle, guaranteed to gain all Phase 1 and Phase 2 Bond effects.\\nMeanwhile, all Tinbread Cookies' bonus effect increases by <color=#dbb536>100%</color>.",
+        "ConditionDesc": "Total Stars of Little League members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20052,
+            20051.0,
+            20053.0
+        ],
+        "EffectValid": [
+            2051,
+            2051.0,
+            2051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2061,
+        "Name": "Hell Guards - Phase 1",
+        "ChildComboId": 206,
+        "EffectDescription": "Every <color=#dbb536>5s</color>, consumes <color=#dbb536>250 Dodge Gauge</color> to gain a <color=#dbb536>30%</color> Extra DMG Bonus for <color=#dbb536>5s</color>.",
+        "ConditionDesc": "Total Stars of Hell Guards members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20061
+        ],
+        "EffectValid": [
+            2061
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2062,
+        "Name": "Hell Guards - Phase 2",
+        "ChildComboId": 206,
+        "EffectDescription": "Takes DMG equal to <color=#dbb536>1%</color> max HP every second and deal DMG equal to <color=#dbb536>1%</color> of current HP to all enemies within <color=#dbb536>12m</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Hell Guards members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20061,
+            20062.0
+        ],
+        "EffectValid": [
+            2061,
+            2061.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2063,
+        "Name": "Hell Guards - Phase 3",
+        "ChildComboId": 206,
+        "EffectDescription": "<color=#dbb536>For every 1% of max HP lost</color>, the character permanently gains <color=#dbb536>2% Extra DMG Bonus</color>. This effect stacks up to 50 times for every character.",
+        "ConditionDesc": "Total Stars of Hell Guards members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20061,
+            20062.0,
+            20063.0
+        ],
+        "EffectValid": [
+            2061,
+            2061.0,
+            2061.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2071,
+        "Name": "Sin Reverb - Phase 1",
+        "ChildComboId": 207,
+        "EffectDescription": "Press and hold Basic Attack for <color=#dbb536>1s</color> to gain a <color=#dbb536>100%</color> Extra DMG Bonus for <color=#dbb536>3s</color>. Cooldown: <color=#dbb536>7s</color>.",
+        "ConditionDesc": "Total Stars of Sin Reverb members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20071
+        ],
+        "EffectValid": [
+            2071
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2072,
+        "Name": "Sin Reverb - Phase 2",
+        "ChildComboId": 207,
+        "EffectDescription": "Within <color=#dbb536>1s</color>, dodging <color=#dbb536>twice</color> in a row or holding Dodge for over <color=#dbb536>0.5</color>s triggers <color=#dbb536>Matrix</color> (independent from the one triggered by successful dodges); cooldown: <color=#dbb536>15s</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Sin Reverb members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20071,
+            20072.0
+        ],
+        "EffectValid": [
+            2071,
+            2071.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2081,
+        "Name": "Final Judgement - Phase 1",
+        "ChildComboId": 208,
+        "EffectDescription": "Upon attacking an enemy with HP above <color=#dbb536>40%</color>, gains a <color=#dbb536>10%</color> Extra DMG Bonus for every 10% more HP the enemy has, up to <color=#dbb536>60%</color>.",
+        "ConditionDesc": "Total Stars of Final Judgement members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20081
+        ],
+        "EffectValid": [
+            2081
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2082,
+        "Name": "Final Judgement - Phase 2",
+        "ChildComboId": 208,
+        "EffectDescription": "Upon dealing DMG, has a <color=#dbb536>40%</color> chance to deal <color=#dbb536>200%</color> more DMG at the same time.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Final Judgement members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20081,
+            20082.0
+        ],
+        "EffectValid": [
+            2081,
+            2081.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2083,
+        "Name": "Final Judgement - Phase 3",
+        "ChildComboId": 208,
+        "EffectDescription": "Upon dealing DMG, <color=#dbb536>instantly kills</color> the enemy if their HP is below <color=#dbb536>30%</color>.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Final Judgement members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20081,
+            20082.0,
+            20083.0
+        ],
+        "EffectValid": [
+            2081,
+            2081.0,
+            2081.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2091,
+        "Name": "Phantom Capriccio - Phase 1",
+        "ChildComboId": 209,
+        "EffectDescription": "For each different <color=#dbb536>class</color> in the team recruited, all deployed characters gain a <color=#dbb536>15%</color> Extra DMG Bonus.",
+        "ConditionDesc": "Total Stars of Phantom Capriccio members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20091,
+            20092.0,
+            20093.0,
+            20094.0,
+            20095.0
+        ],
+        "EffectValid": [
+            2091,
+            2092.0,
+            2093.0,
+            2094.0,
+            2095.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2092,
+        "Name": "Phantom Capriccio - Phase 2",
+        "ChildComboId": 209,
+        "EffectDescription": "For each different <color=#dbb536>energy type</color> in the team recruited, all deployed characters' HP and ATK increase by <color=#dbb536>10%</color>.\\nAll Bond effects <color=#dbb536>activated previously</color> will be inherited.",
+        "ConditionDesc": "Total Stars of Phantom Capriccio members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20091,
+            20092.0,
+            20093.0,
+            20094.0,
+            20095.0,
+            20096.0,
+            20097.0,
+            20098.0,
+            20099.0,
+            20100.0
+        ],
+        "EffectValid": [
+            2091,
+            2092.0,
+            2093.0,
+            2094.0,
+            2095.0,
+            2096.0,
+            2097.0,
+            2098.0,
+            2099.0,
+            2100.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2093,
+        "Name": "Phantom Capriccio - Rank 3",
+        "ChildComboId": 209,
+        "EffectDescription": "For each different <color=#dbb536>weapon type</color> in the team recruited, all deployed characters gain a <color=#dbb536>25%</color> Extra DMG Bonus. All Bond effects <color=#dbb536>activated previously</color> will be inherited.",
+        "ConditionDesc": "Total Stars of Phantom Capriccio members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20091,
+            20092.0,
+            20093.0,
+            20094.0,
+            20095.0,
+            20096.0,
+            20097.0,
+            20098.0,
+            20099.0,
+            20100.0,
+            20104.0
+        ],
+        "EffectValid": [
+            2091,
+            2092.0,
+            2093.0,
+            2094.0,
+            2095.0,
+            2096.0,
+            2097.0,
+            2098.0,
+            2099.0,
+            2100.0,
+            2101.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            2131.0
+        ]
+    },
+    {
+        "Id": 2101,
+        "Name": "Creator-Destroyer - Phase 1",
+        "ChildComboId": 210,
+        "EffectDescription": "Upon entering battle, fires a cannon shot every 3s that deals <color=#dbb536>100k</color> True DMG:\\n<color=#dbb536>80%</color> chance to successfully fire <color=#dbb536>1</color> shot;\\n<color=#dbb536>20%</color> chance to successfully fire <color=#dbb536>5</color> shots.",
+        "ConditionDesc": "Total Stars of Creator-Destroyers members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20101
+        ],
+        "EffectValid": [
+            2101
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2102,
+        "Name": "Creator-Destroyer - Phase 2",
+        "ChildComboId": 210,
+        "EffectDescription": "Upon entering battle, summons laser beams to attack enemies. The laser beams automatically lock onto nearby enemies and deal <color=#dbb536>50k</color> True DMG every second:\\n<color=#dbb536>80%</color> chance to successfully summon <color=#dbb536>1</color> beam with medium speed;\\n<color=#dbb536>20%</color> chance to successfully summon <color=#dbb536>2</color> beams with increased speed.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Creator-Destroyers members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20101,
+            20102.0
+        ],
+        "EffectValid": [
+            2101,
+            2101.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2103,
+        "Name": "Creator-Destroyer - Phase 3",
+        "ChildComboId": 210,
+        "EffectDescription": "Upon entering battle, unleashes an explosion every 5s:\\n<color=#dbb536>95%</color> chance to successfully deploy a <color=#dbb536>Gravity Bomb</color> that deals <color=#dbb536>400k</color> True DMG in a wide area;\\n<color=#dbb536>5%</color> chance to successfully launch a <color=#dbb536>Tactical Strike</color> that deals <color=#dbb536>1M</color> True DMG in a wide area.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Creator-Destroyers members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            20101,
+            20102.0,
+            20103.0
+        ],
+        "EffectValid": [
+            2101,
+            2101.0,
+            2101.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3011,
+        "Name": "Overclock - Phase 1",
+        "ChildComboId": 301,
+        "EffectDescription": "After casting Signature Move, casting it again within <color=#dbb536>15s</color> will grant a <color=#dbb536>100%</color> Extra DMG Bonus, stacking up to <color=#dbb536>3</color> times. Upon reaching <color=#dbb536>3</color> stacks, Signature Move cannot be cast for <color=#dbb536>15s</color>.",
+        "ConditionDesc": "Total Stars of Overclock members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30011
+        ],
+        "EffectValid": [
+            3011
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3012,
+        "Name": "Overclock - Phase 2",
+        "ChildComboId": 301,
+        "EffectDescription": "After casting a Signature Move, reduces the target enemy's Extra DMG Reduction by <color=#dbb536>20%</color> permanently, stacking up to <color=#dbb536>120%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Overclock members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30011,
+            30012.0
+        ],
+        "EffectValid": [
+            3011,
+            3011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3013,
+        "Name": "Overclock - Phase 3",
+        "ChildComboId": 301,
+        "EffectDescription": "Energy cost <color=#dbb536>-50%</color>; the stacking limit of Phase 1 Bond effects is increased to <color=#dbb536>5</color> stacks.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Overclock members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30011,
+            30012.0,
+            30013.0
+        ],
+        "EffectValid": [
+            3011,
+            3011.0,
+            3011.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3021,
+        "Name": "Escalation - Phase 1",
+        "ChildComboId": 302,
+        "EffectDescription": "When <color=#dbb536>2 or more</color> members from the same Bond are deployed at the same time, activates an extra skill:\\nEvery Signal Orb pinged grants 5 Charge Points, capped at 100. Upon reaching 100, the skill will be activated.\\nAfter activating the skill, summons a random stand-by character from the Bond to assist in battle. This assisting character is invincible, and during their time on the field, the deployed characters cannot be switched out.\\nOnce the assisting character casts their Signature Move, they leave the field and trigger Matrix.\\nAfter they leave, the skill becomes rechargeable again.\\nEach Active Skill use grants all team members a <color=#dbb536>50%</color> Extra DMG Bonus, capped at <color=#dbb536>150%</color>.",
+        "ConditionDesc": "Total Stars of Escalation members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30021
+        ],
+        "EffectValid": [
+            3021
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3022,
+        "Name": "Escalation - Phase 2",
+        "ChildComboId": 302,
+        "EffectDescription": "Each time <color=#dbb536>Signal Orbs</color> are pinged, if their color matches the <color=#dbb536>previous ones</color>, grants a <color=#dbb536>20%</color> Orb Skill Extra DMG Bonus for each orb pinged for <color=#dbb536>6s</color>, stacking up to <color=#dbb536>200%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Escalation members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30021,
+            30022.0
+        ],
+        "EffectValid": [
+            3021,
+            3022.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3023,
+        "Name": "Escalation - Phase 3",
+        "ChildComboId": 302,
+        "EffectDescription": "Phase 1 Bond: Charge Points granted by pinging orbs increase to <color=#dbb536>10</color>;\\nPhase 2 Bond: Each stack of Orb Skill Extra DMG Bonus increases to <color=#dbb536>40%</color>, capped at <color=#dbb536>600%</color>;\\nPinging Signal Orbs has a <color=#dbb536>80%</color> chance to generate an orb of the same color (including Special Orbs).\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Escalation members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30021,
+            30022.0,
+            30023.0
+        ],
+        "EffectValid": [
+            3021,
+            3022.0,
+            3022.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3031,
+        "Name": "Oblivion - Phase 1",
+        "ChildComboId": 303,
+        "EffectDescription": "After <color=#dbb536>dodging continuously</color>, rearranges the Signal Orbs by color.",
+        "ConditionDesc": "Total Stars of Oblivion members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30031
+        ],
+        "EffectValid": [
+            3031
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3032,
+        "Name": "Oblivion - Phase 2",
+        "ChildComboId": 303,
+        "EffectDescription": "In the ongoing battle, each time a Signature is cast, the next Signature will increase Extra DMG Bonus by <color=#dbb536>50%</color>, up to <color=#dbb536>150%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Oblivion members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30031,
+            30032.0
+        ],
+        "EffectValid": [
+            3031,
+            3031.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3033,
+        "Name": "Oblivion - Phase 3",
+        "ChildComboId": 303,
+        "EffectDescription": "When deployed at the same time, activates the extra skill:\\nEvery <color=#dbb536>Signature cast</color> will <color=#dbb536>charge</color> the Special Skill button. Activating the button will <color=#dbb536>cast a Signature</color> again. (This time the Signature cast <color=#dbb536>will not</color> <color=#dbb536>charge</color> the special skill.)\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Oblivion members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 2,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30031,
+            30032.0,
+            30033.0
+        ],
+        "EffectValid": [
+            3031,
+            3031.0,
+            3032.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3041,
+        "Name": "Elimination - Phase 1",
+        "ChildComboId": 304,
+        "EffectDescription": "After <color=#dbb536>3</color> 3-Pings in total, triggers Matrix and rearranges the Signal Orbs by color. (Cooldown: <color=#dbb536>8s</color>)",
+        "ConditionDesc": "Total Stars of Elimination members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30041
+        ],
+        "EffectValid": [
+            3041
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3042,
+        "Name": "Elimination - Phase 2",
+        "ChildComboId": 304,
+        "EffectDescription": "For every <color=#dbb536>5</color> Signature Energy, Extra DMG Bonus of Orb skills increases by <color=#dbb536>10%</color>.\\nAll <color=#dbb536>Phase 1</color> Bonds will be inherited.",
+        "ConditionDesc": "Total Stars of Elimination members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30041,
+            30042.0
+        ],
+        "EffectValid": [
+            3041,
+            3041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3043,
+        "Name": "Elimination - Phase 3",
+        "ChildComboId": 304,
+        "EffectDescription": "Each ping grants random Signal Orb(s) of the same number of orb(s) pinged.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Elimination members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30041,
+            30042.0,
+            30043.0
+        ],
+        "EffectValid": [
+            3041,
+            3041.0,
+            3041.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3051,
+        "Name": "Divine Judgment - Phase 1",
+        "ChildComboId": 305,
+        "EffectDescription": "Upon dealing CRIT DMG, deals <color=#dbb536>10%</color> more CRIT DMG for <color=#dbb536>5s</color>, up to <color=#dbb536>300%</color>.",
+        "ConditionDesc": "Total Stars of Divine Judgment members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30051
+        ],
+        "EffectValid": [
+            3051
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3052,
+        "Name": "Divine Judgment - Phase 2",
+        "ChildComboId": 305,
+        "EffectDescription": "Upon dealing CRIT DMG, deals additional DMG equal to <color=#dbb536>1%</color> of the enemy's current HP. Cooldown: <color=#dbb536>0.5s</color>\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Divine Judgment members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30051,
+            30052.0
+        ],
+        "EffectValid": [
+            3051,
+            3051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3053,
+        "Name": "Divine Judgment - Phase 3",
+        "ChildComboId": 305,
+        "EffectDescription": "Upon dealing CRIT DMG, reduces the enemy's Physical Resistance by <color=#dbb536>80%</color> for <color=#dbb536>5s</color>. Triggering this effect again will renew its duration.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Divine Judgment members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30051,
+            30052.0,
+            30053.0
+        ],
+        "EffectValid": [
+            3051,
+            3051.0,
+            3051.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3061,
+        "Name": "Fortress - Phase 1",
+        "ChildComboId": 306,
+        "EffectDescription": "Upon dealing Basic Attack DMG, gains Shield equal to <color=#dbb536>10%</color> max HP. Cooldown: <color=#dbb536>1s</color>. Max Shield equals to <color=#dbb536>100%</color> max HP.",
+        "ConditionDesc": "Total Stars of Fortress members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30061
+        ],
+        "EffectValid": [
+            3061
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3062,
+        "Name": "Fortress - Phase 2",
+        "ChildComboId": 306,
+        "EffectDescription": "Basic Attack deals additional True DMG equal to the current Shield value <color=#dbb536>x20</color>. Cooldown: <color=#dbb536>1</color>s.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Fortress members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30061,
+            30062.0
+        ],
+        "EffectValid": [
+            3061,
+            3061.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3063,
+        "Name": "Fortress - Phase 3",
+        "ChildComboId": 306,
+        "EffectDescription": "Every upon taking DMG, becomes invincible for <color=#dbb536>2s</color>. Cooldown: <color=#dbb536>5s</color>\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Fortress members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30061,
+            30062.0,
+            30063.0
+        ],
+        "EffectValid": [
+            3061,
+            3061.0,
+            3061.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3071,
+        "Name": "Sudden Rain - Phase 1",
+        "ChildComboId": 307,
+        "EffectDescription": "Upon dealing Basic Attack DMG, gains 1 random Signal Orb. Cooldown: <color=#dbb536>1s</color>.",
+        "ConditionDesc": "Total Stars of Sudden Rain members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30071
+        ],
+        "EffectValid": [
+            3071
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3072,
+        "Name": "Sudden Rain - Phase 2",
+        "ChildComboId": 307,
+        "EffectDescription": "Upon dealing Basic Attack DMG, can consume Signature Energy to boost up Basic Attack Extra DMG Bonus for <color=#dbb536>5s</color>. A maximum of <color=#dbb536>40</color> Signature Energy can be consumed, which will increase Basic Attack Extra DMG Bonus by <color=#dbb536>200%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Sudden Rain members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30071,
+            30072.0
+        ],
+        "EffectValid": [
+            3071,
+            3071.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3073,
+        "Name": "Sudden Rain - Phase 3",
+        "ChildComboId": 307,
+        "EffectDescription": "Upon dealing Basic Attack DMG, increases Basic Attack Extra DMG Bonus by <color=#dbb536>20%</color> for <color=#dbb536>10s</color>, up to <color=#dbb536>200%</color>. Cooldown: <color=#dbb536>1s</color>.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Sudden Rain members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30071,
+            30072.0,
+            30073.0
+        ],
+        "EffectValid": [
+            3071,
+            3071.0,
+            3071.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3081,
+        "Name": "Cyclone - Phase 1",
+        "ChildComboId": 308,
+        "EffectDescription": "Upon casting a Signature Move, immediately gains <color=#dbb536>2</color> sets of same-colored Signal Orbs",
+        "ConditionDesc": "Total Stars of Cyclone members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30081
+        ],
+        "EffectValid": [
+            3081
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3082,
+        "Name": "Cyclone - Phase 2",
+        "ChildComboId": 308,
+        "EffectDescription": "Each 3-Ping increases Extra DMG Bonus by <color=#dbb536>30%</color> for <color=#dbb536>3s</color>, up to <color=#dbb536>150%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects.",
+        "ConditionDesc": "Total Stars of Cyclone members reach <color=#dbb536>3\u2605</color>",
+        "ConditionLevel": 3,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30081,
+            30082.0
+        ],
+        "EffectValid": [
+            3081,
+            3081.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3083,
+        "Name": "Cyclone - Phase 3",
+        "ChildComboId": 308,
+        "EffectDescription": "1-Pings and 2-Pings will be regarded as 3-Pings.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Cyclone members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30081,
+            30082.0,
+            30083.0
+        ],
+        "EffectValid": [
+            3081,
+            3081.0,
+            3081.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3091,
+        "Name": "Outlier - Phase 1",
+        "ChildComboId": 309,
+        "EffectDescription": "Upon casting a Signature Move, increases Extra DMG Bonus by <color=#dbb536>100%</color> for <color=#dbb536>10s</color>.",
+        "ConditionDesc": "Total Stars of Outlier members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            30091
+        ],
+        "EffectValid": [
+            3091
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 3092,
+        "Name": "Outlier - Phase 2",
+        "ChildComboId": 309,
+        "EffectDescription": "Character switch cooldown decreases by <color=#dbb536>50%</color>. Gains Shield equal to <color=#dbb536>30%</color> max HP upon character switch.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Outlier members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            30091,
+            30092.0
+        ],
+        "EffectValid": [
+            3091,
+            3091.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 3093,
+        "Name": "Outlier - Phase 3",
+        "ChildComboId": 309,
+        "EffectDescription": "Each character switch permanently increases Extra DMG Bonus by <color=#dbb536>40%</color>, up to <color=#dbb536>200%</color>.\\nAll <color=#dbb536>Phase 2</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Outlier members reach <color=#dbb536>6\u2605</color>",
+        "ConditionLevel": 6,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 5,
+        "EffectId": [
+            30091,
+            30092.0,
+            30093.0
+        ],
+        "EffectValid": [
+            3091,
+            3091.0,
+            3091.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 3094,
+        "Name": "Outlier - Phase 4",
+        "ChildComboId": 309,
+        "EffectDescription": "Upon character switch, <color=#dbb536>enters Matrix</color>, gaining <color=#dbb536>100</color> Signature Energy and 3 sets of same-colored Signal Orbs.\\nAll <color=#dbb536>Lv.3</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Outlier members reach <color=#dbb536>8\u2605</color>",
+        "ConditionLevel": 8,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 6,
+        "EffectId": [
+            30091,
+            30092.0,
+            30093.0,
+            30094.0
+        ],
+        "EffectValid": [
+            3091,
+            3091.0,
+            3091.0,
+            3091.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0,
+            1.0,
+            1.0
+        ]
+    },
+    {
+        "Id": 2111,
+        "Name": "Yesterday's Egrets - Rank 1",
+        "ChildComboId": 211,
+        "EffectDescription": "Dodge Gauge Limit increases by <color=#dbb536>200</color>. When <color=#dbb536>dodging</color>, <color=#dbb536>Healing Pulse</color> will be released to heal all allies within <color=#dbb536>6m</color> for <color=#dbb536>25%</color> ATK of the current character and grant them <color=#dbb536>20%</color> DMG Immunity for <color=#dbb536>4s</color>. <color=#dbb536>6s cooldown</color>. (It cannot be stacked, and its cooldown resets every time it is triggered.)",
+        "ConditionDesc": "Total Stars of Yesterday's Egrets members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20111
+        ],
+        "EffectValid": [
+            2111
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2112,
+        "Name": "Yesterday's Egrets - Rank 2",
+        "ChildComboId": 211,
+        "EffectDescription": "Dodge Gauge Limit increases by <color=#dbb536>400</color>. The <color=#dbb536>effect and duration</color> of Phase 1 Healing Pulse are <color=#dbb536>doubled</color> with an additional <color=#dbb536>50%</color> Extra DMG Bonus granted. <color=#dbb536>It does not have cooldown periods anymore.</color> (It cannot be stacked, and triggering this effect again refreshes its duration.)",
+        "ConditionDesc": "Total Stars of Yesterday's Egrets members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20111,
+            20112.0
+        ],
+        "EffectValid": [
+            2111,
+            2111.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2121,
+        "Name": "Aliasing Resonance - Rank 1",
+        "ChildComboId": 212,
+        "EffectDescription": "After activating Matrix, Lee will launch <color=#dbb536>1 Supporting Strike</color> from other timelines, each strike dealing damage equal to <color=#dbb536>500% of current character's multiplier</color> and permanently increasing the damage taken by the target hit <color=#dbb536>by 30%</color>, stacking up to <color=#dbb536>2 times</color>. This effect has a 3s triggering cooldown.",
+        "ConditionDesc": "Total Stars of Aliasing Resonance members reach <color=#dbb536>1\u2605</color>",
+        "ConditionLevel": 1,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20121
+        ],
+        "EffectValid": [
+            2121
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2122,
+        "Name": "Aliasing Resonance - Rank 2",
+        "ChildComboId": 212,
+        "EffectDescription": "After activating Matrix, Lee will launch <color=#dbb536>3 Supporting Strikes</color> from other timelines, each strike dealing damage equal to <color=#dbb536>500% of current character's multiplier</color> and permanently increasing the damage taken by the target hit <color=#dbb536>by 30%</color>, stacking up to <color=#dbb536>6 times</color>. This effect has a 3s triggering cooldown.",
+        "ConditionDesc": "Total Stars of Aliasing Resonance members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20122
+        ],
+        "EffectValid": [
+            2121
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2131,
+        "Name": "Thunderclap Blade - Phase 1",
+        "ChildComboId": 213,
+        "EffectDescription": "After dodging, Crimson Weave launches a <color=#dbb536>swordwave support attack</color> that deals True DMG equal to <color=#dbb536>2000% of the current character's multiplier</color>, and grants a <color=#dbb536>50%</color> Extra Basic Attack DMG Bonus for <color=#dbb536>6s</color>. Cooldown: <color=#dbb536>12</color>s.",
+        "ConditionDesc": "Total Stars of Thunderclap Blade members reach <color=#dbb536>1\u2605</color>",
+        "ConditionLevel": 1,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20131
+        ],
+        "EffectValid": [
+            2132
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2132,
+        "Name": "Thunderclap Blade - Phase 2",
+        "ChildComboId": 213,
+        "EffectDescription": "Cooldown of Phase 1 Bond Swordwave is reduced to <color=#dbb536>8</color>s.\\nEach <color=#dbb536>swordwave support attack</color> grants a permanent <color=#dbb536>20%</color> Extra DMG Bonus , stacking up to <color=#dbb536>100%</color>.\\nAll <color=#dbb536>Phase 1</color> Bond effects will be inherited.",
+        "ConditionDesc": "Total Stars of Thunderclap Blade members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20131,
+            20132.0
+        ],
+        "EffectValid": [
+            2132,
+            2132.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    },
+    {
+        "Id": 2141,
+        "Name": "KCC - Rank 1",
+        "ChildComboId": 214,
+        "EffectDescription": "Each time the character on the field performs a <color=#dbb536>3-Ping</color>, their <color=#dbb536>max HP will increase by 3%</color>. This effect <color=#dbb536>stacks up to 50 times</color>.",
+        "ConditionDesc": "Total Stars of KCC members reach <color=#dbb536>2\u2605</color>",
+        "ConditionLevel": 2,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 3,
+        "EffectId": [
+            20141
+        ],
+        "EffectValid": [
+            2141
+        ],
+        "EffectTarget": [
+            1
+        ]
+    },
+    {
+        "Id": 2142,
+        "Name": "KCC - Rank 2",
+        "ChildComboId": 214,
+        "EffectDescription": "Every <color=#dbb536>1,000 max HP of the character in battle</color> will increase <color=#dbb536>the DMG dealt by 7.5%</color>. This effect <color=#dbb536>stacks up to 20 times</color>.",
+        "ConditionDesc": "Total Stars of KCC members reach <color=#dbb536>4\u2605</color>",
+        "ConditionLevel": 4,
+        "ConditionNum": 1,
+        "IsDecay": null,
+        "Quality": 4,
+        "EffectId": [
+            20141,
+            20142.0
+        ],
+        "EffectValid": [
+            2141,
+            2141.0
+        ],
+        "EffectTarget": [
+            1,
+            1.0
+        ]
+    }
+]

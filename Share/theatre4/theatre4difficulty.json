@@ -1,0 +1,299 @@
+[
+    {
+        "Id": 1,
+        "Name": "Room Temperature",
+        "Temperature": "0\u00b0C",
+        "Desc": [],
+        "StoryDesc": null,
+        "ConditionId": null,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 1.0,
+        "TechPointRate": 0.1,
+        "BPExpMax": 1260,
+        "TechPointMax": 100,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 7,
+        "HpActionPoint": 0,
+        "ActionGroup": 1,
+        "Energy": 4,
+        "ReEnergy": 1,
+        "HpFactor": [
+            8000,
+            9828,
+            6340,
+            1540,
+            1438
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            25666,
+            30000
+        ],
+        "EffectGroup": [
+            10031
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgSnow.prefab"
+    },
+    {
+        "Id": 2,
+        "Name": "First Chill",
+        "Temperature": "-3\u00b0C",
+        "Desc": [
+            "<size=32><color=#C02331>Improve Map Indicator</color></size>",
+            "<size=32><color=#C02331>Increase Enemy Stat slightly</color></size>",
+            "<size=32><color=#C02331>Attack Anomaly in advance</color></size>"
+        ],
+        "StoryDesc": null,
+        "ConditionId": 1020677.0,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 1.5,
+        "TechPointRate": 0.1,
+        "BPExpMax": 1890,
+        "TechPointMax": 100,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 7,
+        "HpActionPoint": 0,
+        "ActionGroup": 2,
+        "Energy": 4,
+        "ReEnergy": 1,
+        "HpFactor": [
+            19041,
+            12285,
+            12679,
+            3080,
+            2516
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            30000,
+            40000
+        ],
+        "EffectGroup": [
+            10032
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgSnow.prefab"
+    },
+    {
+        "Id": 3,
+        "Name": "Nippy Shivers",
+        "Temperature": "-5\u00b0C",
+        "Desc": [
+            "<size=32><color=#C02331>Improve Map Indicator</color></size>",
+            "<size=32><color=#C02331>Increase Enemy Stat</color></size>",
+            "<size=32><color=#C02331>Increase Proxy Battle expenditure</color></size>"
+        ],
+        "StoryDesc": null,
+        "ConditionId": 1020677.0,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 2.0,
+        "TechPointRate": 0.1,
+        "BPExpMax": 2520,
+        "TechPointMax": 100,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 5,
+        "HpActionPoint": 0,
+        "ActionGroup": 3,
+        "Energy": 4,
+        "ReEnergy": 1,
+        "HpFactor": [
+            21421,
+            18428,
+            15849,
+            3850,
+            3773
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            30000,
+            40000
+        ],
+        "EffectGroup": [
+            10033
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgSnow.prefab"
+    },
+    {
+        "Id": 4,
+        "Name": "Icy Cold",
+        "Temperature": "-10\u00b0C",
+        "Desc": [
+            "<size=32><color=#C02331>Improve Map Indicator</color></size>",
+            "<size=32><color=#C02331>Increase Enemy Stat</color></size>",
+            "<size=32><color=#C02331>Initial Resources reduced to half</color></size>"
+        ],
+        "StoryDesc": null,
+        "ConditionId": 1020678.0,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 2.3,
+        "TechPointRate": 0.1,
+        "BPExpMax": 2900,
+        "TechPointMax": 150,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 5,
+        "HpActionPoint": 0,
+        "ActionGroup": 4,
+        "Energy": 2,
+        "ReEnergy": 1,
+        "HpFactor": [
+            28562,
+            24570,
+            21132,
+            5134,
+            5031
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            30000,
+            40000
+        ],
+        "EffectGroup": [
+            10034
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgSnow.prefab"
+    },
+    {
+        "Id": 5,
+        "Name": "Bitter Freeze",
+        "Temperature": "-18\u00b0C",
+        "Desc": [
+            "<size=32><color=#C02331>Improve Map Indicator</color></size>",
+            "<size=32><color=#C02331>Increase Enemy Stat</color></size>",
+            "<size=32><color=#C02331>Increase Proxy Battle expenditure</color></size>"
+        ],
+        "StoryDesc": "Low temperature\u2014decision-making difficulty increased.",
+        "ConditionId": 1020678.0,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 2.5,
+        "TechPointRate": 0.1,
+        "BPExpMax": 3025,
+        "TechPointMax": 150,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 5,
+        "HpActionPoint": 0,
+        "ActionGroup": 5,
+        "Energy": 2,
+        "ReEnergy": 1,
+        "HpFactor": [
+            35702,
+            30713,
+            21132,
+            5134,
+            5390
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            30000,
+            40000
+        ],
+        "EffectGroup": [
+            10035
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgBlizzard.prefab"
+    },
+    {
+        "Id": 6,
+        "Name": "Arctic",
+        "Temperature": "-25\u00b0C",
+        "Desc": [
+            "<size=32><color=#C02331>Improve Map Indicator</color></size>",
+            "<size=32><color=#C02331>Increase Enemy Stat significantly</color></size>",
+            "<size=32><color=#C02331>Attack Anomaly in advance</color></size>",
+            "<size=32><color=#C02331>Begin with no Initial Resources</color></size>"
+        ],
+        "StoryDesc": "Severe cold\u2014exercise caution in your decisions.",
+        "ConditionId": 1020679.0,
+        "DistanceGroup": null,
+        "DifficultRate": 1,
+        "BPExpRate": 2.5,
+        "TechPointRate": 0.1,
+        "BPExpMax": 3150,
+        "TechPointMax": 150,
+        "RebootId": 1,
+        "ActionPoint": 3,
+        "Hp": 3,
+        "HpActionPoint": 0,
+        "ActionGroup": 6,
+        "Energy": 0,
+        "ReEnergy": 1,
+        "HpFactor": [
+            42842,
+            36855,
+            25358,
+            6160,
+            6468
+        ],
+        "AtkFactor": [
+            10000,
+            12500,
+            16667,
+            30000,
+            40000
+        ],
+        "EffectGroup": [
+            10036
+        ],
+        "RewardDrop": [
+            10023,
+            10023,
+            10023,
+            10023,
+            10023
+        ],
+        "SnowEffect": "Assets/Product/Ui/Prefab/UiEffect/UiTheatre4/FxTheatreBgBlizzard.prefab"
+    }
+]

@@ -1,0 +1,112 @@
+[
+    {
+        "Id": 1,
+        "PreId": null,
+        "IsCommonForShow": null,
+        "CostPoint": 1,
+        "EventId": 20401,
+        "Description": "Lower chance to encounter negative event after failing a Calculation event",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon06.png",
+        "Intro": "Here's your backup route!",
+        "Title": "Emergency Plan"
+    },
+    {
+        "Id": 2,
+        "PreId": 1.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 2,
+        "EventId": 20402,
+        "Description": "Complete [Check Event] to get 50 bonus [Battle Support Points]",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon13.png",
+        "Intro": "Babylonia's logistics department will always provide maximum support to soldiers fighting on the frontline.",
+        "Title": "Research"
+    },
+    {
+        "Id": 3,
+        "PreId": 2.0,
+        "IsCommonForShow": null,
+        "CostPoint": 3,
+        "EventId": 20403,
+        "Description": "Increases the carry limit of functional item by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon18.png",
+        "Intro": "Equipment maintenance must never be omitted.",
+        "Title": "Logistics Maintenance"
+    },
+    {
+        "Id": 4,
+        "PreId": 3.0,
+        "IsCommonForShow": null,
+        "CostPoint": 4,
+        "EventId": 20404,
+        "Description": "Connector's Combat ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon04.png",
+        "Intro": "The functional preference of the Construct may impact the Combat Calculation ability of Connectors. This module is specifically designed for those who would like to boost their mobility.",
+        "Title": "Mobility Boost"
+    },
+    {
+        "Id": 5,
+        "PreId": 4.0,
+        "IsCommonForShow": null,
+        "CostPoint": 5,
+        "EventId": 20405,
+        "Description": "Higher chance to get [rewards] from [random events]",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon13.png",
+        "Intro": "Sometimes we just need a bit of luck.",
+        "Title": "Lucky Dog"
+    },
+    {
+        "Id": 6,
+        "PreId": 2.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 3,
+        "EventId": 20406,
+        "Description": "Get 10% off while purchasing items from the shop",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon16.png",
+        "Intro": "Wars do not take place on the battlefield only. A friendly negotiation may get you more benefits.",
+        "Title": "Expert Negotiator"
+    },
+    {
+        "Id": 7,
+        "PreId": 6.0,
+        "IsCommonForShow": null,
+        "CostPoint": 4,
+        "EventId": 20407,
+        "Description": "Connector's Perception ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon06.png",
+        "Intro": "The functional preference of the Construct may impact the Perception Calculation ability of Connectors. This module is specifically designed for those who would like to boost their perception.",
+        "Title": "Perception Theory"
+    },
+    {
+        "Id": 8,
+        "PreId": 2.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 3,
+        "EventId": 20408,
+        "Description": "Increases the shop's daily item limit by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon17.png",
+        "Intro": "The Support Force are working really hard. They deserve more awards. \"...Would this be too obvious?\"",
+        "Title": "Logistics Support"
+    },
+    {
+        "Id": 9,
+        "PreId": 8.0,
+        "IsCommonForShow": null,
+        "CostPoint": 4,
+        "EventId": 20409,
+        "Description": "Connector's Arithmetic ability permanently increased by 2",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgbufficon05.png",
+        "Intro": "The functional preference of the Construct may impact the Arithmetic Calculation ability of Connectors. This module is specifically designed for those who would like to boost their processing power.",
+        "Title": "Computing Power Adjustment"
+    },
+    {
+        "Id": 10,
+        "PreId": 9.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 5,
+        "EventId": 20410,
+        "Description": "Gain 1 bonus Signal Orb for every enemy defeated during actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon11.png",
+        "Intro": "Optimizing the channel to increase data transfer speed. Remember to adjust your tactics if you notice any signal interference.",
+        "Title": "Bandwidth Boost"
+    }
+]

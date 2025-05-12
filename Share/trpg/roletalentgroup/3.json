@@ -1,0 +1,112 @@
+[
+    {
+        "Id": 1,
+        "PreId": null,
+        "IsCommonForShow": null,
+        "CostPoint": 1,
+        "EventId": 20301,
+        "Description": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png",
+        "Intro": "The functional preference of the Construct may impact the Combat Calculation ability of Connectors. This module is specifically designed for those who would like to boost their mobility.",
+        "Title": "Mobility Boost"
+    },
+    {
+        "Id": 2,
+        "PreId": 1.0,
+        "IsCommonForShow": null,
+        "CostPoint": 2,
+        "EventId": 20302,
+        "Description": "Connector's Arithmetic ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon03.png",
+        "Intro": "The functional preference of the Construct may impact the Arithmetic Calculation ability of Connectors. This module is specifically designed for those who would like to boost their processing power.",
+        "Title": "Computing Power Adjustment"
+    },
+    {
+        "Id": 3,
+        "PreId": 2.0,
+        "IsCommonForShow": null,
+        "CostPoint": 3,
+        "EventId": 20303,
+        "Description": "Boosts the Connector's Arithmetic ability. Higher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png",
+        "Intro": "Precise Calculation Order.",
+        "Title": "Precise Calculation - Arithmetic"
+    },
+    {
+        "Id": 4,
+        "PreId": 2.0,
+        "IsCommonForShow": null,
+        "CostPoint": 3,
+        "EventId": 20304,
+        "Description": "Boosts the Connector's Combat ability. Higher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png",
+        "Intro": "Precise Calculation Order.",
+        "Title": "Precise Calculation - Combat"
+    },
+    {
+        "Id": 5,
+        "PreId": 4.0,
+        "IsCommonForShow": null,
+        "CostPoint": 4,
+        "EventId": 20305,
+        "Description": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png",
+        "Intro": "The functional preference of the Construct may impact the Combat Calculation ability of Connectors. This module is specifically designed for those who would like to boost their mobility.",
+        "Title": "Mobility Boost"
+    },
+    {
+        "Id": 6,
+        "PreId": 5.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 5,
+        "EventId": 20306,
+        "Description": "Deals 15% more damage to enemies in actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon08.png",
+        "Intro": "Using specifically designed method against the target's weak point can yield twice the result for just half the effort.",
+        "Title": "Find Weakness"
+    },
+    {
+        "Id": 7,
+        "PreId": 1.0,
+        "IsCommonForShow": null,
+        "CostPoint": 2,
+        "EventId": 20307,
+        "Description": "Connector's Perception ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon02.png",
+        "Intro": "The functional preference of the Construct may impact the Perception Calculation ability of Connectors. This module is specifically designed for those who would like to boost their perception.",
+        "Title": "Perception Theory"
+    },
+    {
+        "Id": 8,
+        "PreId": 7.0,
+        "IsCommonForShow": null,
+        "CostPoint": 3,
+        "EventId": 20308,
+        "Description": "Boosts the Connector's Perception ability. Higher chance to get the max roll.",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon05.png",
+        "Intro": "Precise Calculation Order.",
+        "Title": "Precise Calculation - Perception"
+    },
+    {
+        "Id": 9,
+        "PreId": 7.0,
+        "IsCommonForShow": null,
+        "CostPoint": 3,
+        "EventId": 20309,
+        "Description": "Connector's Combat ability permanently increased by 1",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon01.png",
+        "Intro": "The functional preference of the Construct may impact the Combat Calculation ability of Connectors. This module is specifically designed for those who would like to boost their mobility.",
+        "Title": "Mobility Boost"
+    },
+    {
+        "Id": 10,
+        "PreId": 9.0,
+        "IsCommonForShow": 1.0,
+        "CostPoint": 4,
+        "EventId": 20310,
+        "Description": "QTE cooldown decreases by 3s in actual combat",
+        "Icon": "Assets/Product/Texture/Image/UiTRPG/Trpgtaleticon12.png",
+        "Intro": "Trust your allies. They are always ready to give you full support.",
+        "Title": "Synergy Boost"
+    }
+]
